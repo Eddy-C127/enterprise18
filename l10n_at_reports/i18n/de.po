@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.5alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-22 14:50+0000\n"
-"PO-Revision-Date: 2023-09-22 14:50+0000\n"
+"POT-Creation-Date: 2023-11-20 12:50+0000\n"
+"PO-Revision-Date: 2023-11-20 12:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -61,11 +61,6 @@ msgid "1. Trade receivables"
 msgstr "1. Forderungen aus Lieferungen und Leistungen"
 
 #. module: l10n_at_reports
-#: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_381
-msgid "1. of which from taxes"
-msgstr "1. davon aus Steuern"
-
-#. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_231_ugb_line_pl10
 msgid "10. Income from participations"
 msgstr "10. Erträge aus Beteiligungen"
@@ -105,9 +100,8 @@ msgstr "16. Finanzergebnis (Zwischensumme aus Z 10 bis 15)"
 
 #. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_231_ugb_line_pl17
-msgid ""
-"17. Result from ordinary business activities (subtotal from items 9 and 16)"
-msgstr "17. Ergebnis der gewöhnlichen Geschäftstätigkeit (Zwischensumme aus Z 9 und Z 16)"
+msgid "17. Result before taxes (subtotal from items 9 and 16)"
+msgstr "17. Ergebnis vor Steuern (Zwischensumme aus Z 9 und Z 16)"
 
 #. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_231_ugb_line_pl18
@@ -165,11 +159,6 @@ msgstr "2. unfertige Erzeugnisse"
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_122
 msgid "2. Untied investments"
 msgstr "2. nicht gebundene Kapitalanlagen"
-
-#. module: l10n_at_reports
-#: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_382
-msgid "2. of which in the context of social security"
-msgstr "2. davon im Rahmen der sozialen Sicherheit"
 
 #. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_231_ugb_line_pl20
@@ -312,6 +301,11 @@ msgid "A. Fixed assets"
 msgstr "A. Anlagevermögen"
 
 #. module: l10n_at_reports
+#: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_1n
+msgid "A. Negative equity capital"
+msgstr "A. Negatives Eigenkapital"
+
+#. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_activa
 msgid "Assets"
 msgstr "Aktiva"
@@ -374,6 +368,11 @@ msgid "I. Bonds, of which convertible"
 msgstr "I. Anleihen, davon konvertibel"
 
 #. module: l10n_at_reports
+#: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_11
+msgid "I. Called-up nominal capital"
+msgstr "I. eingefordertes Stammkapital"
+
+#. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_activa_11
 msgid "I. Intangible assets"
 msgstr "I. Immaterielle Vermögensgegenstände"
@@ -382,11 +381,6 @@ msgstr "I. Immaterielle Vermögensgegenstände"
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_activa_21
 msgid "I. Inventories"
 msgstr "I. Vorräte"
-
-#. module: l10n_at_reports
-#: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_11
-msgid "I. Nominal Capital (share capital)"
-msgstr "I. Nennkapital (Stammkapital)"
 
 #. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_21
@@ -538,3 +532,23 @@ msgstr "b. soziale Aufwendungen"
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_231_ugb_line_pl43
 msgid "c. Other income"
 msgstr "c. übrige Erträge"
+
+#. module: l10n_at_reports
+#: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_381
+msgid "of which from taxes"
+msgstr "davon aus Steuern"
+
+#. module: l10n_at_reports
+#: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_382
+msgid "of which in the context of social security"
+msgstr "davon im Rahmen der sozialen Sicherheit"
+
+#. module: l10n_at_reports
+#: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_384
+msgid "of which with a remaining term of more than one year"
+msgstr "davon mit einer Restlaufzeit von mehr als einem Jahr"
+
+#. module: l10n_at_reports
+#: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_383
+msgid "of which with a remaining term of up to one year"
+msgstr "davon mit einer Restlaufzeit von bis zu einem Jahr"
