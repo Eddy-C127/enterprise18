@@ -14,7 +14,7 @@ from collections import OrderedDict
 
 class MrpProductionSchedule(models.Model):
     _name = 'mrp.production.schedule'
-    _order = 'warehouse_id, sequence'
+    _order = 'warehouse_id, product_id'
     _description = 'Schedule the production of Product in a warehouse'
 
     @api.model
@@ -30,6 +30,7 @@ class MrpProductionSchedule(models.Model):
     product_category_id = fields.Many2one('product.category', related="product_id.product_tmpl_id.categ_id", readonly=True)
     product_uom_id = fields.Many2one('uom.uom', string='Product UoM',
         related='product_id.uom_id')
+    # TODO remove master: the `sequence` field was used for _order but not anymore.
     sequence = fields.Integer(related='product_id.sequence', store=True)
     warehouse_id = fields.Many2one('stock.warehouse', 'Production Warehouse',
         required=True, default=lambda self: self._default_warehouse_id())
