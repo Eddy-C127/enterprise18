@@ -465,7 +465,7 @@ class MrpProductionSchedule(models.Model):
                 # depends from another.
                 has_indirect_demand = any(forecast['indirect_demand_qty'] != 0 for forecast in production_schedule_state['forecast_ids'])
                 production_schedule_state['has_indirect_demand'] = has_indirect_demand
-        return [p for p in production_schedule_states if p['id'] in self.ids]
+        return [production_schedule_states_by_id[_id] for _id in self.ids if _id in production_schedule_states_by_id]
 
     def get_impacted_schedule(self, domain=False):
         """ When the user modify the demand forecast on a schedule. The new
