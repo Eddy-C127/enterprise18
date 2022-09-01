@@ -96,15 +96,14 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
     @freeze_time('2022-01-31')
     def test_intrastat_report_transaction(self):
         invoice = self._create_invoices('transaction')
-        report = self.env.ref('account_intrastat.intrastat_report')
+        report = self.env['account.intrastat.report.handler']
         options = self._generate_options(
-            report,
+            self.env.ref('account_intrastat.intrastat_report'),
             date_from=fields.Date.from_string('2022-01-01'),
             date_to=fields.Date.from_string('2022-01-31'),
             default_options={'country_format': 'code'},
         )
-        warnings = {}
-        lines = report._get_lines(options, warnings=warnings)
+        lines = report._get_lines(options)
         self.assertLinesValues(
             # pylint: disable=C0326
             lines,
@@ -119,15 +118,15 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
         )
 
         self.assertEqual(
-            warnings['account_intrastat.intrastat_warning_missing_comm']['ids'],
+            options['intrastat_warnings']['missing_comm'],
             invoice.invoice_line_ids.product_id.ids,
         )
         self.assertEqual(
-            warnings['account_intrastat.intrastat_warning_expired_trans']['ids'],
+            options['intrastat_warnings']['expired_trans'],
             invoice.invoice_line_ids.filtered(lambda l: l.name == 'line_2').ids,
         )
         self.assertEqual(
-            warnings['account_intrastat.intrastat_warning_premature_trans']['ids'],
+            options['intrastat_warnings']['premature_trans'],
             invoice.invoice_line_ids.filtered(lambda l: l.name == 'line_3').ids,
         )
 
@@ -137,28 +136,27 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
         self.product_b.intrastat_code_id = self.intrastat_codes['commodity-expired']
         self.product_c.intrastat_code_id = self.intrastat_codes['commodity-premature']
         invoice = self._create_invoices()
-        report = self.env.ref('account_intrastat.intrastat_report')
+        report = self.env['account.intrastat.report.handler']
         options = self._generate_options(
-            report,
+            self.env.ref('account_intrastat.intrastat_report'),
             date_from=fields.Date.from_string('2022-01-01'),
             date_to=fields.Date.from_string('2022-01-31'),
             default_options={'country_format': 'code'},
         )
-        warnings = {}
-        lines = report._get_lines(options, warnings=warnings)
+        lines = report._get_lines(options)
         self.assertLinesValues(
             # pylint: disable=C0326
             lines,
             #    country code,  transaction code,  commodity code,  origin country
             [    2,             3,                 5,               6  ],
             [
-                ('DE',          '',                '100',           'QU'),
-                ('DE',          '',                '101',           'QU'),
-                ('DE',          '',                '102',           'QU'),
+                ('DE',          None,                '100',           'QU'),
+                ('DE',          None,                '101',           'QU'),
+                ('DE',          None,                '102',           'QU'),
             ],
             options,
         )
 
-        self.assertEqual(warnings['account_intrastat.intrastat_warning_missing_trans']['ids'], invoice.invoice_line_ids.ids)
-        self.assertEqual(warnings['account_intrastat.intrastat_warning_expired_comm']['ids'], self.product_b.ids)
-        self.assertEqual(warnings['account_intrastat.intrastat_warning_premature_comm']['ids'], self.product_c.ids)
+        self.assertEqual(options['intrastat_warnings']['missing_trans'], invoice.invoice_line_ids.ids)
+        self.assertEqual(options['intrastat_warnings']['expired_comm'], self.product_b.ids)
+        self.assertEqual(options['intrastat_warnings']['premature_comm'], self.product_c.ids)

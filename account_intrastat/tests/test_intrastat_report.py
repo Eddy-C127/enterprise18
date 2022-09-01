@@ -171,6 +171,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
     def test_intrastat_report_values(self):
         self._create_invoices(code_type='transaction')
         options = self._generate_options(self.report, '2022-01-01', '2022-01-31')
+
         lines = self.report._get_lines(options)
         self.assertLinesValues(
             # pylint: disable=C0326
@@ -180,10 +181,9 @@ class TestIntrastatReport(TestAccountReportsCommon):
             [       1,    2,     3,     4,     5,          6,    10,    12],
             [
                 # account.move (invoice) 1
-                ('19 (Dispatch)', 'Netherlands', '101', '102', '100', '', '0.3',  80.0),
-                ('19 (Dispatch)', 'Netherlands', '101', '102', '100', '', '1.2', 240.0),
+                ('19 (Dispatch)', 'Netherlands', '101', '102', '100', 'QV', '1.5',  320.0),
                 # account.move (bill) 2
-                ('29 (Arrival)', 'Netherlands', '101', '102', '100', '', '0.5', 950.0),
+                ('29 (Arrival)', 'Netherlands', '101', '102', '100', 'QV', '0.5', 950.0),
             ],
             options,
         )
@@ -198,9 +198,8 @@ class TestIntrastatReport(TestAccountReportsCommon):
             [ 0, 1 ,12],
             [
                 # account.move (invoice) 1
-                ('INV/2022/00001', '19 (Dispatch)',  80.0),
-                ('INV/2022/00001', '19 (Dispatch)', 240.0),
-                ('Total', '', 320),
+                ('Dispatch - 101 - 100 - QV - QV999999999999 - NL - 102', '19 (Dispatch)',  320.0),
+                ('Total',  '', 320),
             ],
             options,
         )
@@ -223,6 +222,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
             })]
         })
         no_supplementary_units_invoice.action_post()
+
         options = self._generate_options(self.report, date_from=fields.Date.from_string('2022-05-01'), date_to=fields.Date.from_string('2022-05-31'))
         lines = self.report._get_lines(options)
         self.assertLinesValues(
@@ -231,7 +231,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
             #
             [    0,                1,               2,             5,             11, ],
             [
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '97040000',    '')
+                ('Dispatch - None - 97040000 - QV - QV999999999999 - BE - 102', '19 (Dispatch)', 'Belgium',     '97040000',    '')
             ],
             options,
         )
@@ -283,19 +283,17 @@ class TestIntrastatReport(TestAccountReportsCommon):
             ]
         })
         unitary_supplementary_units_invoice.action_post()
+
         options = self._generate_options(self.report, date_from=fields.Date.from_string('2022-05-01'), date_to=fields.Date.from_string('2022-05-31'))
         lines = self.report._get_lines(options)
-        lines.sort(key=lambda l: l['id'])
         self.assertLinesValues(
             lines,
             #    Name              CommodityFlow    Country        CommodityCode  SupplementaryUnits
             #
             [    0,                1,               2,             5,             11,   ],
             [
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '93012000',    '123.00'),
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '93012000',    '240.00'),
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '90212110',    '1.23'  ),
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '90212110',    '2.40'  ),
+                ('Dispatch - None - 90212110 - QV - QV999999999999 - BE - 102', '19 (Dispatch)', 'Belgium',     '90212110',    '3.63'),
+                ('Dispatch - None - 93012000 - QV - QV999999999999 - BE - 102', '19 (Dispatch)', 'Belgium',     '93012000',    '363.00'),
             ],
             options,
         )
@@ -323,6 +321,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
             ]
         })
         metre_supplementary_units_invoice.action_post()
+
         options = self._generate_options(self.report, date_from=fields.Date.from_string('2022-05-01'), date_to=fields.Date.from_string('2022-05-31'))
         lines = self.report._get_lines(options)
         self.assertLinesValues(
@@ -331,7 +330,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
             #
             [    0,                1,               2,             5,             11, ],
             [
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '37061020',    '1230.00'),
+                ('Dispatch - None - 37061020 - QV - QV999999999999 - BE - 102', '19 (Dispatch)', 'Belgium',     '37061020',     '1230.00'),
             ],
             options,
         )
@@ -353,7 +352,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
             'date': '2022-05-15',
             'company_id': self.company_data['company'].id,
             'intrastat_country_id': self.env.ref('base.be').id,
-            'invoice_line_ids': [(0, 0, {
+            'invoice_line_ids': [Command.create({
                 'product_id': self.spanish_rioja.product_variant_ids.id,
                 'quantity': 1,
                 'price_unit': 20,
@@ -367,7 +366,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
             'date': '2022-05-15',
             'company_id': self.company_data['company'].id,
             'intrastat_country_id': self.env.ref('base.nl').id,
-            'invoice_line_ids': [(0, 0, {
+            'invoice_line_ids': [Command.create({
                 'product_id': self.spanish_rioja.product_variant_ids.id,
                 'quantity': 2,
                 'price_unit': 20,
@@ -377,15 +376,16 @@ class TestIntrastatReport(TestAccountReportsCommon):
         belgian_invoice.action_post()
         dutch_bill.action_post()
         options = self._generate_options(self.report, '2022-05-01', '2022-05-31', default_options={'country_format': 'code', 'commodity_flow': 'code'})
+
         lines = self.report._get_lines(options)
         self.assertLinesValues(
             lines,
             #    Name                 CommodityFlow  Country  CommodityCode  OriginCountry
             #
-            [    0,                   1,             2,       5,             6,  ],
+            [    0,                            1,   2,       5,             6],
             [
-                ('INV/2022/00001',    '19',          'BE',    '22042176',    'ES'),
-                ('BILL/2022/05/0001', '29',          'NL',    '22042176',    'ES'),
+                ('Dispatch - None - 22042176 - ES - QV999999999999 - BE - 102',    '19',          'BE',    '22042176',    'ES'),
+                ('Arrival - None - 22042176 - ES - QV999999999999 - NL - 102',    '29',          'NL',    '22042176',    'ES'),
             ],
             options,
         )
@@ -419,7 +419,119 @@ class TestIntrastatReport(TestAccountReportsCommon):
             #
             [    0,                  1,                 2,        6   ],
             [
-                ('INV/2024/00001',   '19 (Dispatch)',   'XI',     'XU'),
+                ('Dispatch - None - 97040000 - XU - QV999999999999 - XI - 102',   '19 (Dispatch)',   'XI',     'XU'),
+            ],
+            options
+        )
+
+    def test_dynamic_line_generator_aggregate(self):
+        """
+        Test the report to see if the lines are correctly aggregated (the top foldable lines).
+        Each lines is an aggregation based on the country, the currency and the commodity code which form the name of the line (in that order)
+        The lines should contain the name in the correct format, the country code and the commodity code.
+        Format of the name : 'Country Code - Currency - Commodity Code'
+        The  country code is a 2-digit ISO code and the currency a 3-digit ISO currency one.
+        """
+        belgian_invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': '2022-05-15',
+            'date': '2022-05-15',
+            'company_id': self.company_data['company'].id,
+            'intrastat_country_id': self.env.ref('base.be').id,
+            'invoice_line_ids': [Command.create({
+                'product_id': self.spanish_rioja.product_variant_ids.id,
+                'quantity': 1,
+                'price_unit': 20,
+                'tax_ids': [],
+            })]
+        })
+        dutch_bill = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': '2022-05-15',
+            'date': '2022-05-15',
+            'company_id': self.company_data['company'].id,
+            'intrastat_country_id': self.env.ref('base.nl').id,
+            'invoice_line_ids': [Command.create({
+                'product_id': self.spanish_rioja.product_variant_ids.id,
+                'quantity': 2,
+                'price_unit': 20,
+                'tax_ids': [],
+            })]
+        })
+        belgian_invoice.action_post()
+        dutch_bill.action_post()
+        options = self._generate_options(self.report, '2022-05-01', '2022-05-31', default_options={'country_format': 'code', 'commodity_flow': 'code'})
+
+        self.assertLinesValues(
+            self.report._get_lines(options),
+            #    Name                   Country  CommodityCode
+            #
+            [    0,                     2,       5        ],
+            [
+                ('Dispatch - None - 22042176 - ES - QV999999999999 - BE - 102', 'BE',    '22042176'),
+                ('Arrival - None - 22042176 - ES - QV999999999999 - NL - 102', 'NL',    '22042176'),
+            ],
+            options,
+        )
+
+    def test_dynamic_line_generator_aggregate_intrastat_type(self):
+        """
+        Test the report to see if the lines aggregated lines are correctly displayed when only one type of move is selected ('Arrival' or 'Dispatch')
+        When one of them is selected the system column as well as the value one should be populate.
+        The 'system' should contain the string of the selected type and 'value' should contain the sum of all aggregated move for the specific country, currency and commodity code.
+        """
+        belgian_invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': '2022-05-15',
+            'date': '2022-05-15',
+            'company_id': self.company_data['company'].id,
+            'intrastat_country_id': self.env.ref('base.be').id,
+            'invoice_line_ids': [Command.create({
+                'product_id': self.spanish_rioja.product_variant_ids.id,
+                'quantity': 1,
+                'price_unit': 20,
+                'tax_ids': [],
+            })]
+        })
+        dutch_bill = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': '2022-05-15',
+            'date': '2022-05-15',
+            'company_id': self.company_data['company'].id,
+            'intrastat_country_id': self.env.ref('base.nl').id,
+            'invoice_line_ids': [Command.create({
+                'product_id': self.spanish_rioja.product_variant_ids.id,
+                'quantity': 2,
+                'price_unit': 20,
+                'tax_ids': [],
+            })]
+        })
+        belgian_invoice.action_post()
+        dutch_bill.action_post()
+        # We only select 'Dispatch'
+        default_type = [
+            {'name': ('Arrival'), 'selected': False, 'id': 'arrival'},
+            {'name': ('Dispatch'), 'selected': True, 'id': 'dispatch'},
+        ]
+        default_options = {
+            'country_format': 'code',
+            'commodity_flow': 'code',
+            'intrastat_type': default_type,
+        }
+        options = self._generate_options(self.report, '2022-05-01', '2022-05-31', default_options=default_options)
+
+        self.assertLinesValues(
+            self.report._get_lines(options),
+            #    Name                   System      Country  CommodityCode  Value
+            #
+            [    0,                     1,          2,       5,             12],
+            [
+                ('Dispatch - None - 22042176 - ES - QV999999999999 - BE - 102', '19', 'BE',    '22042176',    20),
+                ('Total'              ,       '', '',          '',    20),
             ],
             options,
         )

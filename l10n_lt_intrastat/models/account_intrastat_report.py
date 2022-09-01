@@ -25,6 +25,13 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         }
         options['buttons'].append(xml_button)
 
+    def _show_region_code(self):
+        # The region code is irrelevant for the Lithuania and will always be an empty column, with
+        # this function we can conditionally exclude it from the report.
+        if self.env.company.account_fiscal_country_id.code == 'LT':
+            return False
+        return super()._show_region_code()
+
     @api.model
     def lt_intrastat_export_to_xml(self, options):
         # Generate XML content

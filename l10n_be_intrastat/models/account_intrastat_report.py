@@ -26,6 +26,11 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         }
         options['buttons'].append(xml_button)
 
+    def _show_region_code(self):
+        if self.env.company.account_fiscal_country_id.code == 'BE' and not self.env.company.intrastat_region_id:
+            return False
+        return super()._show_region_code()
+
     @api.model
     def be_intrastat_export_to_xml(self, options):
         # Generate XML content
@@ -51,7 +56,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             raise RedirectWarning(error_msg, action_error, _('Add company registry'))
 
         self.env.cr.flush()
-        query, params = self._prepare_query(options)
+        query, params = self._build_query_group(options)
         self._cr.execute(query, params)
         query_res = self._cr.dictfetchall()
         query_res = self._fill_missing_values(query_res)
