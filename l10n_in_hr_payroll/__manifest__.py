@@ -38,6 +38,7 @@ Indian Payroll Salary Rules.
         'data/hr_rule_parameters_data.xml',
         'data/resource_calendar_leaves_data.xml',
         'data/ir_sequence_data.xml',
+        'data/hr_payroll_dashboard_warning_data.xml',
         'views/hr_contract_views.xml',
         'views/res_users_views.xml',
         'views/hr_employee_views.xml',

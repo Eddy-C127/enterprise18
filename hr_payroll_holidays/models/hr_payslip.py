@@ -28,32 +28,3 @@ class HrPayslip(models.Model):
             leaves_to_green = leaves.filtered(lambda l: l.payslip_state != 'blocked' and l.date_to <= max_date)
             leaves_to_green.write({'payslip_state': 'done'})
         return super().compute_sheet()
-
-    @api.model
-    def _get_dashboard_warnings(self):
-        res = super()._get_dashboard_warnings()
-        leaves_to_defer = self.env['hr.leave'].search_count([
-            ('payslip_state', '=', 'blocked'),
-            ('state', '=', 'validate'),
-            ('employee_company_id', 'in', self.env.companies.ids),
-        ])
-        if leaves_to_defer:
-            res.append({
-                'string': _('Time Off To Defer'),
-                'count': leaves_to_defer,
-                'action': 'hr_payroll_holidays.hr_leave_action_open_to_defer',
-            })
-        leaves_no_document = self.env['hr.leave'].search([
-            ('state', 'not in', ['refuse', 'validate']),
-            ('leave_type_support_document', '=', True),
-            ('attachment_ids', '=', False),
-            ('employee_company_id', 'in', self.env.companies.ids),
-        ])
-        if leaves_no_document:
-            no_document_str = _('Time Off Without Joined Document')
-            res.append({
-                'string': no_document_str,
-                'count': len(leaves_no_document),
-                'action': self._dashboard_default_action(no_document_str, 'hr.leave', leaves_no_document.ids)
-            })
-        return res

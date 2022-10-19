@@ -7,5 +7,8 @@
     'summary': 'Integration between Payroll and Fleet.',
     'depends': ['hr_payroll', 'hr_fleet'],
     'auto_install': True,
+    'data': [
+        'data/hr_payroll_dashboard_warning_data.xml',
+    ],
     'license': 'OEEL-1',
 }

@@ -5,6 +5,7 @@ from . import hr_contract
 from . import hr_contract_history
 from . import hr_employee
 from . import res_config_settings
+from . import hr_payroll_dashboard_warning
 from . import hr_payroll_structure
 from . import hr_payroll_structure_type
 from . import hr_salary_rule

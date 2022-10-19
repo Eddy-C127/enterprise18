@@ -12,6 +12,7 @@
         'data/hr_salary_rule_category_data.xml',
         'data/hr_rule_parameter_data.xml',
         'data/cp200_employee_salary_data.xml',
+        'data/hr_payroll_dashboard_warning_data.xml',
         'views/fleet_views.xml',
         'views/res_config_settings_views.xml',
         'views/hr_contract_views.xml',

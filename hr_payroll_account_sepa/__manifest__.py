@@ -10,7 +10,8 @@
         'security/ir.model.access.csv',
         'views/hr_payroll_account_sepa_views.xml',
         'wizard/hr_payroll_account_sepa_wizard_views.xml',
-        'views/hr_employee_views.xml'
+        'views/hr_employee_views.xml',
+        'data/hr_payroll_dashboard_warning_data.xml',
     ],
     'license': 'OEEL-1',
     'assets': {

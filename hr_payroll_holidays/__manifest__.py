@@ -16,6 +16,7 @@
         'views/hr_payslip_views.xml',
         'data/mail_activity_data.xml',
         'data/ir_actions_server_data.xml',
+        'data/hr_payroll_dashboard_warning_data.xml',
     ],
     'demo': [
         'data/demo.xml',

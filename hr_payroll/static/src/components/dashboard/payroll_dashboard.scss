@@ -26,3 +26,10 @@
         }
     }
 }
+
+// Set all the colors but the first one, which is black
+@for $size from 2 through length($o-colors) {
+    .o_colorlist_warning_color_#{$size - 1} {
+        color: nth($o-colors, $size);
+    }
+}

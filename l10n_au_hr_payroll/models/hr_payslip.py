@@ -95,49 +95,6 @@ class HrPayslip(models.Model):
             return date + relativedelta(month=6, day=30)
         return date + relativedelta(years=1, month=6, day=30)
 
-    @api.model
-    def _get_dashboard_warnings(self):
-        res = super()._get_dashboard_warnings()
-
-        employees_default_title = _('Employees')
-        self.env.cr.execute("""
-            SELECT DISTINCT e.id
-            FROM hr_employee e
-            WHERE (
-                e.work_phone IS NULL
-                OR e.private_street IS NULL
-                OR e.private_city IS NULL
-                OR e.birthday IS NULL
-            )
-            AND e.company_id = any(%s)
-            AND e.active
-        """, [self.env.companies.ids])
-        if self.env.cr.rowcount:
-            employees_missing_info = [e[0] for e in self.env.cr.fetchall()]
-            res.append({
-                'string': _('Employees with missing required information'),
-                'count': len(employees_missing_info),
-                'action': self._dashboard_default_action(employees_default_title, 'hr.employee', employees_missing_info),
-            })
-
-        self.env.cr.execute("""
-            SELECT DISTINCT e.id
-              FROM hr_employee e
-             WHERE e.l10n_au_tfn_declaration = '111111111'
-               AND e.create_date < NOW() - INTERVAL '28 days'
-               AND e.company_id = any(%s)
-               AND e.active
-        """, [self.env.companies.ids])
-        if self.env.cr.rowcount:
-            employees_late_tfn = [e[0] for e in self.env.cr.fetchall()]
-            res.append({
-                'string': _('Employees who have not provided a TFN declaration after 28 days'),
-                'count': len(employees_late_tfn),
-                'action': self._dashboard_default_action(employees_default_title, 'hr.employee', employees_late_tfn),
-            })
-
-        return res
-
     def _l10n_au_get_year_to_date_slips(self, date_from):
         start_year = self._l10n_au_get_financial_year_start(date_from)
         year_slips = self.env["hr.payslip"].search([

@@ -50,6 +50,7 @@ Australian Payroll Rules.
         "data/salary_rules/hr_salary_rule_termination_data.xml",
         "data/salary_rules/hr_salary_rule_whm_data.xml",
         "data/hr_work_entry_type_data.xml",
+        "data/hr_payroll_dashboard_warning_data.xml",
     ],
     "assets": {
         "web.assets_backend": [
