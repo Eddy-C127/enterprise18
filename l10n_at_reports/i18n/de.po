@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-20 12:50+0000\n"
-"PO-Revision-Date: 2023-11-20 12:50+0000\n"
+"POT-Creation-Date: 2023-11-20 13:25+0000\n"
+"PO-Revision-Date: 2023-11-20 13:25+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -306,9 +306,19 @@ msgid "A. Negative equity capital"
 msgstr "A. Negatives Eigenkapital"
 
 #. module: l10n_at_reports
+#: model:account.report.column,name:l10n_at_reports.account_financial_report_ec_sales_amount
+msgid "Amount"
+msgstr "Betrag"
+
+#. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_activa
 msgid "Assets"
 msgstr "Aktiva"
+
+#. module: l10n_at_reports
+#: model:ir.model,name:l10n_at_reports.model_l10n_at_ec_sales_report_handler
+msgid "Austrian EC Sales Report Custom Handler"
+msgstr "Österreichischer EG-Verkaufsbericht Custom Handler"
 
 #. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_activa_2
@@ -348,6 +358,11 @@ msgid "C. Prepaid expenses"
 msgstr "C. Rechnungsabgrenzungsposten"
 
 #. module: l10n_at_reports
+#: model:account.report.column,name:l10n_at_reports.account_financial_report_ec_sales_country
+msgid "Country Code"
+msgstr "Ländercode"
+
+#. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_4
 msgid "D. Deferred Income"
 msgstr "D. Rechnungnsabgrenzungsposten"
@@ -356,6 +371,11 @@ msgstr "D. Rechnungnsabgrenzungsposten"
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_activa_4
 msgid "D. Deferred tax assets"
 msgstr "D. Aktive latente Steuern"
+
+#. module: l10n_at_reports
+#: model:account.report,name:l10n_at_reports.austrian_ec_sales_report
+msgid "EC sales Report"
+msgstr "EG-Verkaufsbericht"
 
 #. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva
@@ -463,11 +483,21 @@ msgid "Profit and Loss statement according to § 231 UGB (GKV)"
 msgstr "Gewinn- und Verlustrechnung nach § 231 UGB (GKV)"
 
 #. module: l10n_at_reports
+#: model:account.report.column,name:l10n_at_reports.account_financial_report_ec_sales_tax
+msgid "Tax Code"
+msgstr "Abgabenordnung"
+
+#. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_35
 msgid ""
 "V. Liabilities from the acceptance of bills of exchange drawn and the issue "
 "of own bills of exchange"
 msgstr "V. Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel"
+
+#. module: l10n_at_reports
+#: model:account.report.column,name:l10n_at_reports.account_financial_report_ec_sales_vat
+msgid "VAT Number"
+msgstr "Umsatzsteuer-Identifikationsnummer"
 
 #. module: l10n_at_reports
 #: model:account.report.line,name:l10n_at_reports.account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_36
