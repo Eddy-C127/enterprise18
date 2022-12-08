@@ -43,5 +43,62 @@
             <field name="planned_amount">500</field>
             <field name="analytic_account_id" ref="project.analytic_renovations"/>
         </record>
+        <!-- Accounts -->
+        <record id="expense_budget_account" model="account.account">
+            <field name="account_type">expense</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="code">123465</field>
+            <field name="name">Expense Budget</field>
+            <field name="reconcile" eval="False"/>
+        </record>
+
+        <record id="income_budget_account" model="account.account">
+            <field name="account_type">income</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="code">654312</field>
+            <field name="name">Income Budget</field>
+            <field name="reconcile" eval="False"/>
+        </record>
+
+        <!-- Budgetary Position -->
+        <record id="budgetary_positon_1" model="account.budget.post">
+            <field name="name">Expense Budgetary Position</field>
+            <field name="account_ids" model="account.account" eval="[Command.link(ref('expense_budget_account'))]"/>
+        </record>
+
+        <record id="budgetary_positon_2" model="account.budget.post">
+            <field name="name">Income Budgetary Position</field>
+            <field name="account_ids" model="account.account" eval="[Command.link(ref('income_budget_account'))]"/>
+        </record>
+
+        <!-- Add crossoverd budget -->
+        <record id="crossovered_budget_1" model="crossovered.budget">
+            <field eval="f'Budget {datetime.now().year + 1}: Airline'" name="name"/>
+            <field eval="'draft'" name="state"/>
+            <field eval="f'{datetime.now().year}-01-01'" name="date_from"/>
+            <field eval="f'{datetime.now().year + 1}-01-01'" name="date_to"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="budget_line_analytic_1" model="crossovered.budget.lines">
+            <field name="crossovered_budget_id" ref="crossovered_budget_1"/>
+            <field name="general_budget_id" ref="project_account_budget.budgetary_positon_1"/>
+            <field eval="f'{datetime.now().year}-01-01'" name="date_from"/>
+            <field eval="f'{datetime.now().year + 1}-01-01'" name="date_to"/>
+            <field name="planned_amount">-10000</field>
+            <field name="analytic_account_id" ref="project.analytic_construction"/>
+        </record>
+
+        <record id="budget_line_analytic_2" model="crossovered.budget.lines">
+            <field name="crossovered_budget_id" ref="crossovered_budget_1"/>
+            <field name="general_budget_id" ref="project_account_budget.budgetary_positon_2"/>
+            <field eval="f'{datetime.now().year}-01-01'" name="date_from"/>
+            <field eval="f'{datetime.now().year + 1}-01-01'" name="date_to"/>
+            <field name="planned_amount">9000</field>
+            <field name="analytic_account_id" ref="project.analytic_construction"/>
+        </record>
+
+        <!-- Confirm Budget -->
+        <function model="crossovered.budget" name="action_budget_confirm" eval="[ref('crossovered_budget_1')]"/>
     </data>
 </odoo>
