@@ -17,6 +17,7 @@ from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import (
 from odoo.exceptions import ValidationError, UserError
 from odoo.osv import expression
 from odoo.tools import frozendict
+from odoo.tools.sql import column_exists, create_column
 from odoo.addons.base.models.ir_qweb import keep_query
 
 _logger = logging.getLogger(__name__)
@@ -217,6 +218,15 @@ class AccountMove(models.Model):
         store=True,
         readonly=False,
     )
+
+    def _auto_init(self):
+        """
+        Create compute stored field l10n_mx_edi_cfdi_request
+        here to avoid MemoryError on large databases.
+        """
+        if not column_exists(self.env.cr, 'account_move', 'l10n_mx_edi_payment_method_id'):
+            create_column(self.env.cr, 'account_move', 'l10n_mx_edi_payment_method_id', 'integer')
+        return super()._auto_init()
 
     # -------------------------------------------------------------------------
     # HELPERS
