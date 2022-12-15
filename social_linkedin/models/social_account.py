@@ -247,7 +247,8 @@ class SocialAccountLinkedin(models.Model):
     ################
 
     def _linkedin_request(self, endpoint, params=None, linkedin_access_token=None,
-                          object_ids=None, fields=None, method=None, json=None, session=None):
+                          object_ids=None, complex_object_ids=None, fields=None, method=None,
+                          json=None, session=None):
         """Make a request to the LinkedIn API.
 
         :param endpoint: the endpoint to request
@@ -255,6 +256,8 @@ class SocialAccountLinkedin(models.Model):
         :param linkedin_access_token: the access token to use
             (if it's not yet saved on the social account)
         :param object_ids: the LinkedIn objects ids to pass as GET parameters
+        :param complex_object_ids: some LinkedIn objects are more complex (e.g. for likes, etc)
+             >>> "(a:xxxx, b:yyyy)"
         :param fields: the field to read on the LinkedIn model
         :param method: the HTTP verb
         :param json: the JSON to post
@@ -272,6 +275,12 @@ class SocialAccountLinkedin(models.Model):
         get_params = []
         if object_ids:
             get_params.append("ids=List(%s)" % ','.join(map(quote, object_ids)))
+        if complex_object_ids:
+            urns = ",".join(
+                "(" + ",".join(f"{name}:{quote(urn)}" for name, urn in obj.items()) + ")"
+                for obj in complex_object_ids
+            )
+            get_params.append(f"ids=List({urns})")
         if fields:
             get_params.append('fields=%s' % ','.join(fields))
         if get_params:

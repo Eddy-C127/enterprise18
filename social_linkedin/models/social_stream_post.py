@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import logging
 import re
 import requests
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 from datetime import datetime
 from werkzeug.urls import url_join
 
 from odoo import _, models, fields
 from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
 
 
 class SocialStreamPostLinkedIn(models.Model):
@@ -60,6 +63,26 @@ class SocialStreamPostLinkedIn(models.Model):
     # ========================================================
     # COMMENTS / LIKES
     # ========================================================
+
+    def _linkedin_like_comment(self, comment_urn, like):
+        """Like or remove the like on the given comment."""
+        self.ensure_one()
+        if like:
+            response = self.account_id._linkedin_request(
+                'reactions',
+                params={'actor': self.account_id.linkedin_account_urn},
+                json={
+                    "root": comment_urn,
+                    "reactionType": "LIKE",
+                },
+            )
+        else:
+            like_urn = f"(actor:{quote(self.account_id.linkedin_account_urn)},entity:{quote(comment_urn)})"
+            response = self.account_id._linkedin_request(f'reactions/{like_urn}', method='DELETE')
+
+        if not response.ok:
+            _logger.error('Error during comment like / dislike %r', response.text)
+            raise UserError(_('Could not like / dislike this comment.'))
 
     def _linkedin_comment_add(self, message, comment_urn=None, attachment=None):
         data = {
@@ -113,7 +136,8 @@ class SocialStreamPostLinkedIn(models.Model):
             params={'actor': self.account_id.linkedin_account_urn},
         )
 
-        if response.status_code != 204:
+        if not response.ok:
+            _logger.error('Error during comment deletion %r', response.text)
             self.sudo().account_id._action_disconnect_accounts(response.json())
 
     def _linkedin_comment_fetch(self, comment_urn=None, offset=0, count=20):
@@ -213,6 +237,12 @@ class SocialStreamPostLinkedIn(models.Model):
             # replies on comments should be sorted chronologically
             comments = comments[::-1]
 
+        liked_per_comment_urn = self._linkedin_comments_user_liked(comments)
+
+        for comment in comments:
+            comment_urn = comment["id"].replace('urn:li:activity', 'activity')
+            comment["user_likes"] = liked_per_comment_urn.get(comment_urn, False)
+
         return {
             'postAuthorImage': self.linkedin_author_image_url,
             'currentUserUrn': self.account_id.linkedin_account_urn,
@@ -220,6 +250,45 @@ class SocialStreamPostLinkedIn(models.Model):
             'comments': comments,
             'offset': offset + count,
             'summary': {'total_count': response.get('paging', {}).get('total', 0)},
+        }
+
+    def _linkedin_comments_user_liked(self, comments):
+        """Determine for each comment, if the current company page liked it or not.
+
+        The key "likedByCurrentUser" is already returned when we fetch all comments,
+        but it's true if the current user liked the comment, not if the
+        current *page* liked it, so we can not use this field.
+        """
+        self.ensure_one()
+        if not comments:
+            return {}
+
+        # comment URN passed in URL is in different format
+        # than the comment URN returned by the API...
+        comment_urns = [
+            comment["id"].replace('urn:li:activity', 'activity')
+            for comment in comments
+        ]
+
+        response = self.account_id._linkedin_request(
+            'reactions',
+            complex_object_ids=[
+                {"actor": self.account_id.linkedin_account_urn, "entity": comment_urn}
+                for comment_urn in comment_urns
+            ],
+        )
+
+        if not response.ok:
+            _logger.error('Error during likes fetch %r', response.text)
+            return {}
+
+        response = response.json()
+
+        return {
+            # (actor:urn:li:organization:123,entity:urn:li:comment:(activity:456,789))
+            # -> urn:li:comment:(activity:456,789)
+            unquote(like_urn).split('entity:')[-1][:-1]: True
+            for like_urn, values in response.get("results", {}).items()
         }
 
     # ========================================================
@@ -239,8 +308,6 @@ class SocialStreamPostLinkedIn(models.Model):
             'likes': {
                 'summary': {
                     'total_count': json_data.get('likesSummary', {}).get('totalLikes', 0),
-                    'can_like': False,
-                    'has_liked': json_data.get('likesSummary', {}).get('likedByCurrentUser', 0),
                 }
             },
             'comments': {

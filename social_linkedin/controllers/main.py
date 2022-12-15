@@ -86,6 +86,11 @@ class SocialLinkedinController(SocialController):
             count=comments_count
         )
 
+    @http.route('/social_linkedin/like_comment', type='json', auth='user')
+    def social_linkedin_like_comment(self, stream_post_id, comment_id, like):
+        stream_post = self._get_social_stream_post(stream_post_id, 'linkedin')
+        return stream_post._linkedin_like_comment(comment_id, like)
+
     # ========================================================
     # MISC / UTILITY
     # ========================================================
