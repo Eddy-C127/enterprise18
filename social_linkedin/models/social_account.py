@@ -2,14 +2,17 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import base64
+import logging
 import requests
 from datetime import datetime, timedelta
 from urllib.parse import quote
 from werkzeug.urls import url_join
 
 from odoo import _, models, fields, api
+from odoo.exceptions import UserError
 from odoo.addons.social.controllers.main import SocialValidationException
 
+_logger = logging.getLogger(__name__)
 
 class SocialAccountLinkedin(models.Model):
     _inherit = 'social.account'
@@ -291,3 +294,41 @@ class SocialAccountLinkedin(models.Model):
             image_urn.split(':')[-1]: image_values['downloadUrl']
             for image_urn, image_values in response.json().get('results', {}).items()
         } if response.ok else {}
+
+    def _linkedin_upload_image(self, image_data):
+        """Upload an image on LinkedIn.
+
+        :param image_data: Raw bytes of the image
+        """
+        self.ensure_one()
+        # 1 - Register your image to be uploaded
+        data = {
+            "initializeUploadRequest": {
+                "owner": self.linkedin_account_urn,
+            },
+        }
+        response = requests.post(
+                url_join(self.env['social.media']._LINKEDIN_ENDPOINT, 'images?action=initializeUpload'),
+                headers=self._linkedin_bearer_headers(),
+                json=data, timeout=10)
+
+        if not response.ok:
+            _logger.error('Could not upload the image: %r.', response.text)
+
+        response = response.json()
+        if 'value' not in response or 'uploadUrl' not in response['value']:
+            raise UserError(_("We could not upload your image, try reducing its size and posting it again (error: Failed during upload registering)."))
+
+        # 2 - Upload image binary file
+        upload_url = response['value']['uploadUrl']
+        image_urn = response['value']['image']
+
+        headers = self._linkedin_bearer_headers()
+        headers['Content-Type'] = 'application/octet-stream'
+
+        response = requests.request('POST', upload_url, data=image_data, headers=headers, timeout=15)
+
+        if not response.ok:
+            raise UserError(_("We could not upload your image, try reducing its size and posting it again."))
+
+        return image_urn
