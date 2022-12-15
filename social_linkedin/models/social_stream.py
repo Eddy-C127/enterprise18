@@ -90,8 +90,11 @@ class SocialStreamLinkedIn(models.Model):
         return bool(post_to_create)
 
     def _format_linkedin_name(self, json_data):
-        user_name = '%s %s' % (json_data.get('localizedLastName', ''), json_data.get('localizedFirstName', ''))
-        return json_data.get('localizedName', user_name)
+        if 'localizedName' in json_data:
+            return json_data['localizedName']
+        if 'localizedLastName' in json_data and 'localizedFirstName' in json_data:
+            return f'{json_data["localizedLastName"]} {json_data["localizedFirstName"]}'
+        return _('Unknown')
 
     def _prepare_linkedin_stream_post_images(self, posts_data):
         """Fetch the images URLs and insert their URL in posts_data."""

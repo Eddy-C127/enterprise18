@@ -8,6 +8,7 @@ import werkzeug
 from odoo import http, _
 from odoo.addons.social.controllers.main import SocialController
 from odoo.addons.social.controllers.main import SocialValidationException
+from odoo.exceptions import UserError
 from odoo.http import request
 from werkzeug.urls import url_encode
 
@@ -60,7 +61,16 @@ class SocialLinkedinController(SocialController):
     @http.route('/social_linkedin/comment', type='http', auth='user', methods=['POST'])
     def social_linkedin_add_comment(self, stream_post_id, message=None, comment_id=None, **kwargs):
         stream_post = self._get_social_stream_post(stream_post_id, 'linkedin')
-        return json.dumps(stream_post._linkedin_comment_add(message, comment_id))
+
+        attachment = None
+        files = request.httprequest.files.getlist('attachment')
+        if files and files[0]:
+            attachment = files[0].read()
+        try:
+            result = stream_post._linkedin_comment_add(message, comment_id, attachment)
+        except UserError as e:
+            result = {'error': str(e)}
+        return json.dumps(result)
 
     @http.route('/social_linkedin/delete_comment', type='json', auth='user')
     def social_linkedin_delete_comment(self, stream_post_id, comment_id, **kwargs):

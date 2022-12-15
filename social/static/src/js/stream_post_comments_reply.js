@@ -56,7 +56,10 @@ export class StreamPostCommentsReply extends Component {
         }
         event.preventDefault();
         const textarea = event.currentTarget;
-        if (textarea.value.trim() === "") {
+        if (
+            textarea.value.trim() === "" &&
+            (!this.state.attachmentSrc || !this.allowImageOnlyComment)
+        ) {
             return;
         }
         this.state.disabled = true;
@@ -208,5 +211,9 @@ export class StreamPostCommentsReply extends Component {
 
     get canAddImage() {
         return true;
+    }
+
+    get allowImageOnlyComment() {
+        return false;
     }
 }

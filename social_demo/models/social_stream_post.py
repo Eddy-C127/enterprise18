@@ -43,7 +43,7 @@ class DemoSocialStreamPost(models.Model):
 
     # LINKEDIN
 
-    def _linkedin_comment_add(self, message, comment_urn=None):
+    def _linkedin_comment_add(self, message, comment_urn=None, attachment=None):
         """ Returns a fake comment containing the passed 'message' """
         return {
             'id': 'urn:li:comment:(urn:li:activity:12547,452542)',

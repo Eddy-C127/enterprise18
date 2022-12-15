@@ -8,6 +8,7 @@ from datetime import datetime
 from werkzeug.urls import url_join
 
 from odoo import _, models, fields
+from odoo.exceptions import UserError
 
 
 class SocialStreamPostLinkedIn(models.Model):
@@ -60,7 +61,7 @@ class SocialStreamPostLinkedIn(models.Model):
     # COMMENTS / LIKES
     # ========================================================
 
-    def _linkedin_comment_add(self, message, comment_urn=None):
+    def _linkedin_comment_add(self, message, comment_urn=None, attachment=None):
         data = {
             'actor': self.account_id.linkedin_account_urn,
             'message': {
@@ -73,24 +74,35 @@ class SocialStreamPostLinkedIn(models.Model):
             # we reply yo an existing comment
             data['parentComment'] = comment_urn
 
+        if attachment:
+            # we upload an image with our comment
+            image_urn = self.account_id._linkedin_upload_image(attachment)
+            data['content'] = [{'entity': {'image': image_urn}}]
+
         response = self.account_id._linkedin_request(
-            'socialActions/%s/comments' % quote(self.linkedin_post_urn),
-            method="POST",
+            f'socialActions/{quote(self.linkedin_post_urn)}/comments',
             json=data,
-        ).json()
+        )
 
-        if 'created' not in response:
+        if not response.ok or 'created' not in response.json():
             self.sudo().account_id._action_disconnect_accounts(response)
-            return {}
+            raise UserError(_(
+                "Failed to post the comment: %(error_description)r",
+                error_description=response.text))
 
-        response['from'] = {  # fill with our own information to save an API call
+        result = response.json()
+        result['from'] = {  # fill with our own information to save an API call
             'id': self.account_id.linkedin_account_urn,
             'name': self.account_id.name,
             'authorUrn': self.account_id.linkedin_account_urn,
             'picture': f"/web/image?model=social.account&id={self.account_id.id}&field=image",
             'isOrganization': True,
         }
-        return self._linkedin_format_comment(response)
+        if attachment:
+            urls = self.account_id._linkedin_request_images([image_urn.split(':')[-1]])
+            result['content'][0]['url'] = next(iter(urls.values()), None)
+
+        return self._linkedin_format_comment(result)
 
     def _linkedin_comment_delete(self, comment_urn):
         comment_id = re.search(r'urn:li:comment:\(urn:li:activity:\w+,(\w+)\)', comment_urn).group(1)
@@ -129,7 +141,12 @@ class SocialStreamPostLinkedIn(models.Model):
         persons_ids = {comment.get('actor') for comment in comments if comment.get('actor')}
         organizations_ids = {author.split(":")[-1] for author in persons_ids if author.startswith("urn:li:organization:")}
         persons = {author.split(":")[-1] for author in persons_ids if author.startswith("urn:li:person:")}
-        images_ids = []
+        images_ids = [
+            content.get('entity', {}).get('image', '').split(':')[-1]
+            for comment in comments
+            for content in comment.get('content', [])
+            if content.get('type') == 'IMAGE'
+        ]
 
         formatted_authors = {}
 
@@ -180,6 +197,12 @@ class SocialStreamPostLinkedIn(models.Model):
             image_ids_to_url = self.account_id._linkedin_request_images(images_ids)
             for author in formatted_authors.values():
                 author['picture'] = image_ids_to_url.get(author['picture'])
+
+            for comment in comments:
+                # add the URL in the comment if the API didn't return it
+                for content in comment.get('content', []):
+                    if content.get('type') == 'IMAGE' and not content.get('url'):
+                        content['url'] = image_ids_to_url.get(content.get('entity', {}).get('image', '').split(':')[-1])
 
         default_author = {'id': '', 'authorUrn': '', 'name': _('Unknown')}
         for comment in comments:
