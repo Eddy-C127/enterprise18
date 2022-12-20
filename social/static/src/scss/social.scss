@@ -468,6 +468,11 @@ $o-social-font-family-reset: $o-font-family-sans-serif;
     a {
         text-decoration: none!important;
     }
+    .o_social_icon_dropdown {
+        .dropdown-toggle:after {
+            display: none;
+        }
+    }
 }
 
 .o_social_comments_modal,

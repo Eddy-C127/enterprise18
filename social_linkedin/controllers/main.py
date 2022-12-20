@@ -92,6 +92,20 @@ class SocialLinkedinController(SocialController):
         return stream_post._linkedin_like_comment(comment_id, like)
 
     # ========================================================
+    # POST EDITION
+    # ========================================================
+
+    @http.route('/social_linkedin/edit_post', type='json', auth='user')
+    def social_linkedin_edit_post(self, stream_post_id, new_message):
+        stream_post = self._get_social_stream_post(stream_post_id, 'linkedin')
+        return stream_post._linkedin_edit_post(new_message)
+
+    @http.route('/social_linkedin/delete_post', type='json', auth='user')
+    def social_linkedin_delete_post(self, stream_post_id):
+        stream_post = self._get_social_stream_post(stream_post_id, 'linkedin')
+        return stream_post._linkedin_delete_post()
+
+    # ========================================================
     # MISC / UTILITY
     # ========================================================
 

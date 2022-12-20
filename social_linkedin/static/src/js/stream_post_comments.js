@@ -3,8 +3,12 @@
 import { StreamPostComments } from '@social/js/stream_post_comments';
 import { StreamPostCommentListLinkedin } from './stream_post_comment_list';
 import { StreamPostCommentsReplyLinkedin } from './stream_post_comments_reply';
+import { LINKEDIN_HASHTAG_REGEX } from "./social_post_formatter_mixin";
 
+import { onWillStart, useState } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
+
 
 export class StreamPostCommentsLinkedin extends StreamPostComments {
 
@@ -21,6 +25,18 @@ export class StreamPostCommentsLinkedin extends StreamPostComments {
             accountName: '',
             postAuthorImage: this.props.postAuthorImage,
             currentUserUrn: this.props.currentUserUrn,
+        });
+
+        this.aclState = useState({
+            isDeletable: false,
+            isEditable: false,
+        });
+
+        onWillStart(async () => {
+            [this.aclState.isDeletable, this.aclState.isEditable] = await Promise.all([
+                user.checkAccessRight("social.stream.post", "unlink"),
+                user.checkAccessRight("social.stream.post", "write"),
+            ]);
         });
     }
 
@@ -39,6 +55,10 @@ export class StreamPostCommentsLinkedin extends StreamPostComments {
         this.offset = nextComments.offset;
     }
 
+    _formatStreamPostForEdition(message) {
+        return message.replace(LINKEDIN_HASHTAG_REGEX, "#$1");
+    }
+
     get commentListComponent() {
         return StreamPostCommentListLinkedin;
     }
@@ -47,4 +67,11 @@ export class StreamPostCommentsLinkedin extends StreamPostComments {
         return StreamPostCommentsReplyLinkedin;
     }
 
+    get isDeletable() {
+        return this.aclState.isDeletable;
+    }
+
+    get isEditable() {
+        return this.aclState.isEditable;
+    }
 }

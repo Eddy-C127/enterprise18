@@ -35,6 +35,32 @@
                 <span class="o_social_original_post_author_image o_social_author_image d-block position-relative rounded overflow-hidden"/>
             </div>
             <div class="o_social_comments_modal_original_post_content flex-grow-1">
+                <div t-if="isEditable || isDeletable"
+                    class="float-end o_social_icon_dropdown dropdown">
+                    <button t-attf-class="btn dropdown-toggle {{ bubble_design ? 'bg-200 px-3 rounded-pill border-0' : '' }}"
+                        type="button"
+                        id="stream_post_actions"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="fa fa-ellipsis-v"/>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end"
+                        aria-labelledby="stream_post_actions">
+                        <a t-if="isEditable"
+                            class="dropdown-item text-decoration-none"
+                            href="#"
+                            t-on-click.prevent=" () => this.state.isEditMode = true">
+                            Edit
+                        </a>
+                        <a t-if="isDeletable"
+                            class="dropdown-item text-decoration-none"
+                            href="#"
+                            t-on-click.prevent="onDeletePost">
+                            Delete
+                        </a>
+                    </div>
+                </div>
                 <div class="d-flex align-items-center h3 mb-1">
                     <a t-if="originalPost.author_link.value"
                         class="o_social_original_post_author d-flex align-items-center"
@@ -55,8 +81,20 @@
                     </a>
                 </div>
                 <div name="o_social_original_post_message_body" class="o_social_original_post_message_body">
-                    <div t-if="originalPost.message.value"
-                        t-out="_formatCommentStreamPost(originalPost.message.value)"
+                    <div t-if="state.isEditMode" class="pe-4 pb-2">
+                        <textarea
+                            class="o_social_add_comment form-control mx-2 my-1"
+                            t-att-class="{'bg-200 o_social_bubble_radius': props.bubble_design}"
+                            placeholder="Edit Your Post"
+                            t-on-keydown="onEditPost">
+                            <t t-esc="state.message"/>
+                        </textarea>
+                        <small class="o_social_textarea_message text-600">
+                            Press Enter to edit. Press Shift+Enter to insert a Line Break.
+                        </small>
+                    </div>
+                    <div t-elif="state.message"
+                        t-out="_formatCommentStreamPost(state.message)"
                         class="o_social_original_post_message_text overflow-auto mb-2"/>
                     <div t-if="originalPost.stream_post_image_ids.raw_value.length > 0"
                         class="o_social_stream_post_image o_social_stream_post_image_clickable mt-3 d-flex overflow-hidden">

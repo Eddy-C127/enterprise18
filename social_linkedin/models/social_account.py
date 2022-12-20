@@ -248,7 +248,7 @@ class SocialAccountLinkedin(models.Model):
 
     def _linkedin_request(self, endpoint, params=None, linkedin_access_token=None,
                           object_ids=None, complex_object_ids=None, fields=None, method=None,
-                          json=None, session=None):
+                          json=None, session=None, headers=None):
         """Make a request to the LinkedIn API.
 
         :param endpoint: the endpoint to request
@@ -262,6 +262,7 @@ class SocialAccountLinkedin(models.Model):
         :param method: the HTTP verb
         :param json: the JSON to post
         :param session: the requests session if any
+        :param headers: custom headers to add to the request
         """
         if not linkedin_access_token:
             self.ensure_one()
@@ -286,12 +287,15 @@ class SocialAccountLinkedin(models.Model):
         if get_params:
             url += "?" + "&".join(get_params)
 
+        headers = headers or {}
+        headers.update(self._linkedin_bearer_headers(linkedin_access_token))
+
         return (session or requests).request(
             method,
             url,
             params=params,
             json=json,
-            headers=self._linkedin_bearer_headers(linkedin_access_token),
+            headers=headers,
             timeout=5,
         )
 

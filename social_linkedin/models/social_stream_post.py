@@ -11,6 +11,7 @@ from werkzeug.urls import url_join
 from odoo import _, models, fields
 from odoo.exceptions import UserError
 
+
 _logger = logging.getLogger(__name__)
 
 
@@ -59,6 +60,40 @@ class SocialStreamPostLinkedIn(models.Model):
 
         for post in linkedin_posts:
             post.is_author = post.linkedin_author_urn == post.account_id.linkedin_account_urn
+
+    # ========================================================
+    # POST EDITION
+    # ========================================================
+
+    def _linkedin_edit_post(self, new_message):
+        """Make a API call to update the post message."""
+        self.ensure_one()
+        self.check_access_rights("write")
+        self.check_access_rule("write")
+
+        response = self.account_id._linkedin_request(
+            f"posts/{quote(self.linkedin_post_urn)}",
+            json={"patch": {"$set": {"commentary": new_message}}},
+            headers={"X-RestLi-Method": "PARTIAL_UPDATE"},
+        )
+        if not response.ok:
+            raise UserError(_("Couldn't update the post: %r.", response.text))
+
+        self.message = new_message
+
+    def _linkedin_delete_post(self):
+        """Make a API call to delete the post."""
+        self.ensure_one()
+        self.check_access_rights("unlink")
+        self.check_access_rule("unlink")
+
+        response = self.account_id._linkedin_request(
+            f"posts/{quote(self.linkedin_post_urn)}", method="DELETE")
+
+        if not response.ok:
+            raise UserError(_("Couldn't delete the post: %r.", response.text))
+
+        self.unlink()
 
     # ========================================================
     # COMMENTS / LIKES
