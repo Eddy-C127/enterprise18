@@ -11,7 +11,7 @@ class Project(models.Model):
 
     total_planned_amount = fields.Monetary(compute="_compute_total_planned_amount")
     total_practical_amount = fields.Monetary(related='analytic_account_id.total_practical_amount')
-    total_budget_progress = fields.Monetary(compute="_compute_total_budget_progress")
+    total_budget_progress = fields.Monetary("Budget Spent", compute="_compute_total_budget_progress")
     budget = fields.Integer('Total planned amount', compute='_compute_budget', default=0)
 
     @api.depends('analytic_account_id')
