@@ -66,11 +66,11 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
                 navLinks: true, // can click day/week names to navigate views
                 eventLimit: 3, // allow "more" link when too many events
                 titleFormat: titleFormat,
-                defaultDate: defaultStart,
+                initialDate: defaultStart,
                 timeFormat: 'LT',
                 displayEventEnd: true,
                 height: 'auto',
-                eventRender: this.eventRenderFunction,
+                eventDidMount: this.onEventDidMount,
                 eventTextColor: 'white',
                 eventOverlap: true,
                 eventTimeFormat: {
@@ -79,8 +79,8 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
                     meridiem: 'long',
                     omitZeroMinute: true,
                 },
-                minTime: minTime,
-                maxTime: maxTime,
+                slotMinTime: minTime,
+                slotMaxTime: maxTime,
                 header: calendarHeaders,
                 // Data
                 events: employeeSlotsFcData,
@@ -92,7 +92,7 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
                     timeGridWeek: _t("Week"),
                     listMonth: _t("List"),
                 },
-                noEventsMessage: '',
+                noEventsContent: '',
             });
             this.calendar.setOption('locale', locale);
             this.calendar.render();
@@ -101,9 +101,9 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
     willStart: async function () {
         await loadBundle("web.fullcalendar_lib");
     },
-    eventRenderFunction: function (calRender) {
+    onEventDidMount: function (calRender) {
         const eventContent = calRender.el.querySelectorAll('.fc-time, .fc-title');
-        if (calRender.view.type != 'listMonth') {
+        if (calRender.view.type !== 'listMonth') {
             calRender.el.classList.add('px-2', 'py-1');
         }
         if (calRender.view.type === 'dayGridMonth') {

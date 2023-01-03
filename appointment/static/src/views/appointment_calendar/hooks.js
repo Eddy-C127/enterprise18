@@ -19,27 +19,29 @@ export function useAppointmentRendererHook(getFcElements) {
         (fcEls, calendarMode) => {
             if (calendarMode === "slots-creation") {
                 for (const fcEl of fcEls) {
-                    const daysToDisable = fcEl.querySelectorAll(".fc-past, .fc-today");
+                    const daysToDisable = fcEl.querySelectorAll(".fc-day-past:not(.fc-col-header-cell), .fc-day-today:not(.fc-col-header-cell)");
                     for (const el of daysToDisable) {
                         el.classList.add("o_calendar_slot_selection");
                     }
-                    const todayColumn = fcEl.querySelectorAll(".fc-today")[2];
+                    const todayColumn = fcEl.querySelectorAll(".fc-day-today:not(.fc-col-header-cell)")[1];
+                    const bgColumn = todayColumn?.querySelector(".fc-timegrid-col-bg");
+                    const nowIndicator = todayColumn?.querySelector(".fc-timegrid-now-indicator-line");
                     // Create a block for today to have the overlay size based on the current hour
-                    if (todayColumn && todayColumn.childElementCount === 0 && ['timeGridWeek', 'timeGridDay'].includes(component.fc.api.state.viewType)) {
-                        const deltaTodayNow = component.fc.api.view.timeGrid.computeDateTop(component.fc.api.getInitialDate());
+                    if (bgColumn && nowIndicator && ['timeGridWeek', 'timeGridDay'].includes(component.fc.api.view.type)) {
+                        const height = nowIndicator.style.top.slice(0, -2);
                         const childEl = document.createElement("div");
                         childEl.classList.add("o_calendar_slot_selection_now");
-                        childEl.style.height = `${deltaTodayNow - 13}px`;
-                        todayColumn.appendChild(childEl);
+                        childEl.style.height = `${height}px`;
+                        bgColumn.appendChild(childEl);
                     }
                 }
                 return () => {
                     for (const fcEl of fcEls) {
-                        const daysToDisable = fcEl.querySelectorAll(".fc-past, .fc-today");
+                        const daysToDisable = fcEl.querySelectorAll(".fc-day-past:not(.fc-col-header-cell), .fc-day-today:not(.fc-col-header-cell)");
                         for (const el of daysToDisable) {
                             el.classList.remove("o_calendar_slot_selection");
                         }
-                        const todayColumn = fcEl.querySelectorAll(".fc-today")[2];
+                        const todayColumn = fcEl.querySelectorAll(".fc-day-today:not(.fc-col-header-cell)")[1];
                         if (todayColumn) {
                             const childEl = todayColumn.querySelector(".o_calendar_slot_selection_now");
                             childEl && childEl.remove();

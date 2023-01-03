@@ -67,8 +67,8 @@ patch(AttendeeCalendarYearRenderer.prototype, {
     /**
      * @override
      */
-    onEventRender(info) {
-        super.onEventRender(...arguments);
+    onEventDidMount(info) {
+        super.onEventDidMount(...arguments);
         const { el, event } = info;
         if (event.extendedProps.slotId) {
             el.classList.add("o_calendar_slot");

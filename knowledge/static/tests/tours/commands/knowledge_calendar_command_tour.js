@@ -8,8 +8,8 @@ function clickDate(el) {
     const rect = el.getBoundingClientRect();
     const eventParams = {
         bubbles: true,
-        clientX: rect.left + 1,
-        clientY: rect.top + 1,
+        clientX: rect.left + 3,
+        clientY: rect.top + 3,
     };
     el.dispatchEvent(new MouseEvent('mousedown', eventParams));
     el.dispatchEvent(new MouseEvent('mouseup', eventParams));
@@ -65,7 +65,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     //---------------------------------------------------
 
     // Click on a date
-    trigger: 'tr[data-time="08:00:00"] td.fc-widget-content:not(.fc-time)',
+    trigger: '.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="08:00:00"]',
     extra_trigger: '.o_knowledge_behavior_type_embedded_view .o_knowledge_article_view_calendar_embedded_view',
     run: function () {
         clickDate(this.$anchor[0]);
@@ -87,7 +87,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_knowledge_tree .o_article_name:contains("EditorCommandsArticle")',
     run: 'click',
 }, { // Check that the item is shown in the calendar
-    trigger: '.fc-time-grid-event .o_event_title:contains("Item Article")',
+    trigger: '.fc-timegrid-event .o_event_title:contains("Item Article")',
     run: () => {},
 }, {
     //--------------------------------------------------------------
@@ -132,7 +132,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     //---------------------------------------------------
 
     // Click on a date
-    trigger: 'tr[data-time="08:00:00"] td.fc-widget-content:not(.fc-time)',
+    trigger: '.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="08:00:00"]',
     extra_trigger: '.o_knowledge_behavior_type_embedded_view .o_knowledge_article_view_calendar_embedded_view',
     run: function () {
         clickDate(this.$anchor[0]);
@@ -208,7 +208,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_knowledge_tree .o_article_name:contains("EditorCommandsArticle")',
     run: 'click',
 }, { // Check that the item is shown in the calendar
-    trigger: '.fc-time-grid-event .o_event_title:contains("Item Article")',
+    trigger: '.fc-timegrid-event .o_event_title:contains("Item Article")',
     run: () => {},
 }, {
     //-------------------------------------------------------------------------
@@ -309,24 +309,24 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_knowledge_article_view_calendar_embedded_view .o_calendar_header .o_scale_button_week',
     run: 'click',
 }, { // Move the item in the calendar
-    trigger: '.fc-time-grid-event .o_event_title:contains("Item Article")',
+    trigger: '.fc-timegrid-event .o_event_title:contains("Item Article")',
     run: function () {
-        const target = document.querySelector('tr[data-time="09:00:00"] td.fc-widget-content:not(.fc-time)');
+        const target = document.querySelector('.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="09:00:00"]');
         dragDate(this.$anchor[0], target);
     },
 }, { // Make resizer visible
-    trigger: '.fc-time-grid-event',
+    trigger: '.fc-timegrid-event',
     run: function () {
-        const resizer = this.$anchor.find('.fc-end-resizer')[0];
+        const resizer = this.$anchor.find('.fc-event-resizer-end')[0];
         resizer.style.display = "block";
         resizer.style.width = "100%";
         resizer.style.height = "3px";
         resizer.style.bottom = "0";
         },
 }, {
-    trigger: '.fc-time-grid-event:contains("Item Article") .fc-end-resizer',
+    trigger: '.fc-timegrid-event:contains("Item Article") .fc-event-resizer-end',
     run: function () {
-        const target = document.querySelector('tr[data-time="11:00:00"] td.fc-widget-content:not(.fc-time)');
+        const target = document.querySelector('.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="11:00:00"]');
         dragDate(this.$anchor[0], target);
     },
 }, { 
@@ -337,7 +337,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     //----------------------------------------------------------------------
 
     // Open the item
-    trigger: '.fc-time-grid-event',
+    trigger: '.fc-timegrid-event',
     run: 'dblclick',
 }, { // Check that the properties have been updated
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Property")',
