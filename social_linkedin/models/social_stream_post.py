@@ -175,6 +175,21 @@ class SocialStreamPostLinkedIn(models.Model):
             _logger.error('Error during comment deletion %r', response.text)
             self.sudo().account_id._action_disconnect_accounts(response.json())
 
+    def _linkedin_comment_edit(self, message, comment_urn):
+        comment_id = re.search(r'urn:li:comment:\(urn:li:activity:\w+,(\w+)\)', comment_urn).group(1)
+
+        response = self.account_id._linkedin_request(
+            f'socialActions/{quote(self.linkedin_post_urn)}/comments/{quote(comment_id)}',
+            json={'patch': {'message': {'$set': {'text': message}}}},
+            params={'actor': self.account_id.linkedin_account_urn}
+        ).json()
+
+        if 'created' not in response:
+            self.sudo().account_id._action_disconnect_accounts(response)
+            return {}
+
+        return {'message': response.get('message', {}).get('text', '')}
+
     def _linkedin_comment_fetch(self, comment_urn=None, offset=0, count=20):
         """Retrieve comments on a LinkedIn element.
 
@@ -186,11 +201,8 @@ class SocialStreamPostLinkedIn(models.Model):
         element_urn = comment_urn or self.linkedin_post_urn
 
         response = self.account_id._linkedin_request(
-            'socialActions/%s/comments' % quote(element_urn),
-            params={
-                'start': offset,
-                'count': count,
-            },
+            f'socialActions/{quote(element_urn)}/comments',
+            params={'start': offset, 'count': count},
         ).json()
         if 'elements' not in response:
             self.sudo().account_id._action_disconnect_accounts(response)

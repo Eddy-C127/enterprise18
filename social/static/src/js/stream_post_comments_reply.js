@@ -14,7 +14,7 @@ export class StreamPostCommentsReply extends Component {
         account: {type: Object, optional: true},
         originalPost: {type: Object, optional: true},
         bubble_design: {type: Boolean, optional: true},
-        classes: String,
+        classes: {type: String, optional: true},
         initialValue: {type: String, optional: true},
         attachmentSrc: {type: String, optional: true},
         isCommentEdit: {type: Boolean, optional: true},
@@ -105,14 +105,18 @@ export class StreamPostCommentsReply extends Component {
         }
         xhr.send(formData);
         xhr.onload = () => {
-            const comment = JSON.parse(xhr.response);
-            if (!comment.error) {
-                this.props.onAddComment(comment);
-            } else {
+            let comment = JSON.parse(xhr.response);
+            if (this.isCommentEdit) {
+                // preserve other keys if they didn't change (e.g. like summary, etc)
+                comment = { ...this.comment, ...comment };
+            }
+            if (comment.error) {
                 this.notification.add(
                     _t("Something went wrong while posting the comment. \n%s", comment.error),
                     { type: "danger" }
                 );
+            } else {
+                this.props.onAddComment(comment);
             }
             this.state.attachmentSrc = false;
             this.inputRef.el.value = "";

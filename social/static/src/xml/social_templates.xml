@@ -188,8 +188,8 @@
                         Press Enter to post. Press Shift+Enter to insert a Line Break.
                     </small>
                     <div t-if="isCommentEdit" class="o_social_comment_commands ms-3">
-                        <a class="btn btn-sm btn-outline-secondary" href="#" t-on-click.prevent="props.toggleEditMode">
-                            Cancel
+                        <a class="btn btn-sm btn-link p-0" href="#" t-on-click.prevent="props.toggleEditMode">
+                            Discard
                         </a>
                     </div>
                 </div>
@@ -293,8 +293,8 @@
                                         <i class="fa fa-ellipsis-v"/>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end" t-attf-aria-labelledby="post_actions_{{ comment.id }}">
-                                        <a t-if="isEditable" class="dropdown-item text-decoration-none" href="#" t-on-click.prevent="_toggleEditMode">Edit Comment</a>
-                                        <a t-if="isDeletable" class="dropdown-item text-decoration-none" href="#" t-on-click.prevent="_deleteComment">Delete Comment</a>
+                                        <a t-if="isEditable" class="dropdown-item text-decoration-none" href="#" t-on-click.prevent="_toggleEditMode">Edit</a>
+                                        <a t-if="isDeletable" class="dropdown-item text-decoration-none" href="#" t-on-click.prevent="_deleteComment">Delete</a>
                                     </div>
                                 </div>
                             </div>

@@ -59,8 +59,10 @@ class SocialLinkedinController(SocialController):
     # ========================================================
 
     @http.route('/social_linkedin/comment', type='http', auth='user', methods=['POST'])
-    def social_linkedin_add_comment(self, stream_post_id, message=None, comment_id=None, **kwargs):
+    def social_linkedin_add_comment(self, stream_post_id, message=None, comment_id=None, is_edit=False, **kwargs):
         stream_post = self._get_social_stream_post(stream_post_id, 'linkedin')
+        if is_edit:
+            return json.dumps(stream_post._linkedin_comment_edit(message, comment_id))
 
         attachment = None
         files = request.httprequest.files.getlist('attachment')

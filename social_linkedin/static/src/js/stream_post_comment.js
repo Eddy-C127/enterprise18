@@ -63,7 +63,7 @@ export class StreamPostCommentLinkedin extends StreamPostComment {
     }
 
     get isEditable() {
-        return false;
+        return true;
     }
 
     /**
