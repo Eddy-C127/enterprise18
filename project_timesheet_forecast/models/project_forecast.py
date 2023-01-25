@@ -114,7 +114,7 @@ class Forecast(models.Model):
         if field == 'project_id':
             return dict(
                 self._gantt_progress_bar_project_id(res_ids, start, stop),
-                warning=_("This project isn't expected to have slots during this period. Planned hours:"),
+                warning=_("This project isn't expected to have slot during this period."),
             )
         return super()._gantt_progress_bar(field, res_ids, start, stop)
 

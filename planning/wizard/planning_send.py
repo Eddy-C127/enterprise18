@@ -21,7 +21,7 @@ class PlanningSend(models.TransientModel):
     end_datetime = fields.Datetime("Stop Date", required=True)
     include_unassigned = fields.Boolean("Include Open Shifts", default=True)
     note = fields.Text("Extra Message", help="Additional message displayed in the email sent to employees")
-    employee_ids = fields.Many2many('hr.employee', string="Resources",
+    employee_ids = fields.Many2many('hr.employee', string="Employees",
                                     compute='_compute_slots_data', inverse='_inverse_employee_ids', store=True)
     slot_ids = fields.Many2many('planning.slot', compute='_compute_slots_data', store=True)
     employees_no_email = fields.Many2many('hr.employee', string="Employees without email",

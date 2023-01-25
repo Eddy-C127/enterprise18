@@ -30,6 +30,7 @@ Plan shifts and keep an eye on the hours consumed on your plannable products.
     ],
     'assets': {
         'web.assets_backend': [
+            'sale_planning/static/src/components/**/*',
             'sale_planning/static/src/views/**/*',
         ],
         'web.assets_frontend': [

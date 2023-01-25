@@ -26,6 +26,7 @@ Schedule your teams across projects and estimate deadlines more accurately.
     'uninstall_hook': '_uninstall_hook',
     'assets': {
         'web.assets_backend': [
+            'project_forecast/static/src/components/**/*',
             'project_forecast/static/src/views/**/*',
         ],
         'web.assets_frontend': [

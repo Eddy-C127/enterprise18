@@ -24,6 +24,30 @@
                 <field name="name" optional="hide" />
                 <field name="state" decoration-success="state == 'published'" widget="badge" optional="hide" groups="planning.group_planning_manager" readonly="1"/>
                 <field name="recurrency_id" column_invisible="True"/>
+                <field name="is_assigned_to_me" column_invisible="1"/>
+                <field name="is_users_role" column_invisible="1"/>
+                <field name="allow_self_unassign" column_invisible="1"/>
+                <field name="is_past" column_invisible="1"/>
+                <field name="is_unassign_deadline_passed" column_invisible="1"/>
+                <field name="resource_id" column_invisible="1"/>
+                <field name="request_to_switch" column_invisible="1"/>
+                <field name="user_id" column_invisible="1"/>
+                <button name="action_self_unassign"
+                    type="object"
+                    title="I Am Unavailable"
+                    string="I Am Unavailable"
+                    class="btn btn-link float-end"
+                    invisible="not context.get('search_default_my_shifts') or not is_assigned_to_me or not allow_self_unassign or is_past or is_unassign_deadline_passed or resource_type == 'material'"
+                    groups="!planning.group_planning_manager"
+                />
+                <button name="action_self_assign"
+                    type="object"
+                    title="I Take It"
+                    string="I Take It"
+                    class="btn btn-link float-end"
+                    invisible="not context.get('search_default_my_shifts') or is_users_role or is_past or not start_datetime or not end_datetime or resource_id and not request_to_switch or user_id == uid and (allow_self_unassign or request_to_switch)"
+                    groups="!planning.group_planning_manager"
+                />
             </tree>
         </field>
     </record>
@@ -66,6 +90,7 @@
                 <field name="resource_type" invisible="1"/>
                 <field name="is_users_role" invisible="1"/>
                 <field name="request_to_switch" invisible="1"/>
+                <field name="overlap_slot_count" invisible="1"/>
                 <field name="repeat" invisible="1"/>
                 <field name="color" invisible="1" />
                 <div class="alert alert-info oe_edit_only d-lg-flex align-items-center" role="status" invisible="not id or not repeat">
@@ -76,11 +101,7 @@
                     <field name="recurrence_update" widget="radio" class="mb-0 d-lg-block d-none" options="{'horizontal': true}"/>
                 </div>
                 <div role="alert" class="alert alert-warning text-center" invisible="overlap_slot_count == 0 and (not request_to_switch or allow_self_unassign)">
-                    <span class="align-middle" invisible="overlap_slot_count == 0">Prepare for the ultimate multi-tasking challenge:</span>
-                    <button name="action_see_overlaping_slots" type="object" class="btn-link pe-1" invisible="overlap_slot_count == 0">
-                        <field name="overlap_slot_count"/> other shift(s)
-                    </button>
-                    <span class="align-middle" invisible="overlap_slot_count == 0">conflict.</span>
+                    <field name="conflicting_slot_ids" widget="conflicting_slot_ids"/>
                     <p class="align-middle"
                         invisible="not request_to_switch or allow_self_unassign"
                         style="margin-bottom: 5.5px; margin-top: 5px">

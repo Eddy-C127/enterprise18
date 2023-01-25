@@ -25,10 +25,9 @@
             <t t-elif="show and props.progressBar.warning">
                 <span
                     class="o_gantt_group_hours position-absolute top-0 end-0 h-100 d-flex align-items-center px-1 pe-auto"
-                    t-attf-title="{{ props.progressBar.warning }} {{
-                        props.progressBar.value_formatted
-                    }}."
+                    t-attf-title="{{ props.progressBar.warning }}"
                 >
+                    <t t-esc="props.progressBar.value_formatted"/>
                     <i class="fa fa-exclamation-triangle" />
                 </span>
             </t>

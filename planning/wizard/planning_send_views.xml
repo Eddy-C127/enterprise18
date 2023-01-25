@@ -18,7 +18,7 @@
                 </group>
                 <group col="2">
                     <field name="employee_ids" widget="many2many_avatar_employee" default_focus="1"/>
-                    <field name="note" nolabel="1" colspan="2" placeholder="Additional message"/>
+                    <field name="note" nolabel="1" colspan="2" placeholder="Additional message included in the email sent to your employees"/>
                 </group>
                 <footer>
                     <button name="action_check_emails" type="object" string="Publish &amp; Send" class='btn-primary' data-hotkey="q"/>
@@ -52,7 +52,7 @@
     </record>
 
     <record id="planning_send_action" model="ir.actions.act_window">
-        <field name="name">Send Planning By Email</field>
+        <field name="name">Publish &amp; Send the Schedule by Email</field>
         <field name="res_model">planning.send</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="planning_send_view_form"/>

@@ -8,7 +8,7 @@
             <xpath expr="//div[@role='alert']" position="attributes">
                 <attribute name="invisible">overlap_slot_count == 0 and not request_to_switch and (not leave_warning or not employee_id)</attribute>
             </xpath>
-            <xpath expr="//button[@name='action_see_overlaping_slots']" position="before">
+            <xpath expr="//field[@name='conflicting_slot_ids']" position="before">
                 <p class="align-middle mb-0" invisible="not leave_warning or not employee_id">
                     <field name="leave_warning" nolabel="1"/>
                 </p>

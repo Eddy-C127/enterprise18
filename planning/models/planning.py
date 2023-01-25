@@ -335,7 +335,7 @@ class Planning(models.Model):
 
     @api.depends('start_datetime', 'end_datetime', 'resource_id')
     def _compute_overlap_slot_count(self):
-        if self.ids:
+        if all(self._ids):
             self.flush_model(['start_datetime', 'end_datetime', 'resource_id'])
             query = """
                 SELECT S1.id,ARRAY_AGG(DISTINCT S2.id) as conflict_ids FROM
@@ -369,13 +369,18 @@ class Planning(models.Model):
                 self.env.cr.execute(query, (self.employee_id.id, self.end_datetime,
                                             self.start_datetime, self.allocated_percentage))
                 overlaps = self.env.cr.dictfetchall()
-                if overlaps[0]['conflict_ids']:
-                    self.overlap_slot_count = len(overlaps[0]['conflict_ids'])
-                    self.conflicting_slot_ids = [(6, 0, overlaps[0]['conflict_ids'])]
+                conflict_slot_ids = overlaps[0]['conflict_ids']
+                if conflict_slot_ids:
+                    if self._origin:
+                        conflict_slot_ids = [slot_id for slot_id in conflict_slot_ids if slot_id != self._origin.id]
+                    self.overlap_slot_count = len(conflict_slot_ids)
+                    self.conflicting_slot_ids = [(6, 0, conflict_slot_ids)]
                 else:
                     self.overlap_slot_count = False
+                    self.conflicting_slot_ids = False
             else:
                 self.overlap_slot_count = False
+                self.conflicting_slot_ids = False
 
     @api.model
     def _search_overlap_slot_count(self, operator, value):
@@ -929,7 +934,7 @@ class Planning(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'planning.slot',
             'name': _('Shifts in Conflict'),
-            'view_mode': 'gantt,list,form',
+            'views': [[False, "gantt"], [False, "list"], [False, "form"]],
             'context': {
                 'initialDate': min(self.mapped('start_datetime')),
                 'search_default_conflict_shifts': True,
@@ -2208,7 +2213,7 @@ class Planning(models.Model):
         if field == 'resource_id':
             return dict(
                 self._gantt_progress_bar_resource_id(res_ids, start, stop),
-                warning=_("As there is no running contract during this period, this resource is not expected to work a shift. Planned hours:")
+                warning=_("As there is no running contract during this period, this resource is not expected to work a shift.")
             )
         raise NotImplementedError(_("This Progress Bar is not implemented."))
 

@@ -113,6 +113,6 @@ class ProjectTask(models.Model):
         if field == 'sale_line_id':
             return dict(
                 self._gantt_progress_bar_sale_line_id(res_ids),
-                warning=_("This Sales Order Item doesn't have a target value of planned hours. Planned hours:")
+                warning=_("This Sale Order Item doesn't have a target value of planned hours.")
             )
         return super()._gantt_progress_bar(field, res_ids, start, stop)

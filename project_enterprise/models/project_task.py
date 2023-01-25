@@ -1334,7 +1334,7 @@ class Task(models.Model):
         if field == 'user_ids':
             return dict(
                 self._gantt_progress_bar_user_ids(res_ids, start, stop),
-                warning=_("This user isn't expected to have any tasks assigned during this period because they don't have any running contract. Planned hours:"),
+                warning=_("This user isn't expected to have any tasks assigned during this period because they don't have any running contract."),
             )
         raise NotImplementedError(_("This Progress Bar is not implemented."))
 

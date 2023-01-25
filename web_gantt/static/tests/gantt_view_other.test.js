@@ -450,7 +450,8 @@ test.tags("desktop")("Progress bar warning when max_value is zero", async () => 
     expect(SELECTORS.progressBarWarning).toHaveCount(0);
     await hoverGridCell(1, 1);
     expect(SELECTORS.progressBarWarning).toHaveCount(1);
-    expect(queryFirst(SELECTORS.progressBarWarning).parentElement.title).toBe("plop 50h.");
+    expect(queryFirst(SELECTORS.progressBarWarning).parentElement.textContent).toBe("50h");
+    expect(queryFirst(SELECTORS.progressBarWarning).parentElement.title).toBe("plop");
 });
 
 test("Progress bar when value less than hour", async () => {
