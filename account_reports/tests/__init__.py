@@ -22,6 +22,7 @@ from . import test_tour_account_reports
 from . import test_tour_analytic_filters
 from . import test_tax_report_carryover
 from . import test_balance_sheet_report
+from . import test_balance_sheet_balanced
 from . import test_journal_report
 from . import test_report_engines
 from . import test_all_reports_generation
