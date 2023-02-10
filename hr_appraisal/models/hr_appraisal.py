@@ -61,7 +61,7 @@ class HrAppraisal(models.Model):
     manager_ids = fields.Many2many(
         'hr.employee', 'appraisal_manager_rel', 'hr_appraisal_id',
         context={'active_test': False},
-        domain="[('id', '!=', employee_id), ('active', '=', 'True'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
+        domain="[('id', '!=', employee_id), ('active', '=', 'True'), '|', ('company_id', '=', False), ('company_id', 'in', allowed_company_ids)]")
     manager_user_ids = fields.Many2many('res.users', string="Manager Users", compute='_compute_user_manager_rights')
     meeting_ids = fields.Many2many('calendar.event', string='Meetings')
     meeting_count_display = fields.Char(string='Meeting Count', compute='_compute_meeting_count')
@@ -99,13 +99,13 @@ class HrAppraisal(models.Model):
             'can_see_employee_publish': False,
             'can_see_manager_publish': False,
         })
-        user_employee = self.env.user.employee_id
+        user_employees = self.env.user.employee_ids
         is_manager = self.env.user.user_has_groups('hr_appraisal.group_hr_appraisal_user')
         for appraisal in self:
             # Appraisal manager can edit feedback in draft state
-            appraisal.can_see_employee_publish = (user_employee == appraisal.employee_id) or \
-                (user_employee.id in appraisal.manager_ids.ids and appraisal.state == 'new')
-            appraisal.can_see_manager_publish = user_employee.id in appraisal.manager_ids.ids
+            appraisal.can_see_employee_publish = appraisal.employee_id in user_employees or \
+                (user_employees in appraisal.manager_ids and appraisal.state == 'new')
+            appraisal.can_see_manager_publish = user_employees in appraisal.manager_ids
         for appraisal in self - new_appraisals:
             if is_manager and not appraisal.can_see_employee_publish and not appraisal.can_see_manager_publish:
                 appraisal.can_see_employee_publish, appraisal.can_see_manager_publish = True, True
@@ -118,7 +118,7 @@ class HrAppraisal(models.Model):
             appraisal.manager_user_ids = appraisal.manager_ids.user_id
             appraisal.is_manager =\
                 self.user_has_groups('hr_appraisal.group_hr_appraisal_user')\
-                or self.env.user.employee_id in (appraisal.manager_ids | appraisal.employee_id.parent_id)
+                or self.env.user.employee_ids in (appraisal.manager_ids | appraisal.employee_id.parent_id)
 
     @api.depends_context('uid')
     @api.depends('employee_id', 'employee_feedback_published')
