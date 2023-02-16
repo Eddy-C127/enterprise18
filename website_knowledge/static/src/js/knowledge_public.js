@@ -1,6 +1,11 @@
 /** @odoo-module */
 
-import { decodeDataBehaviorProps, getVideoUrl } from "@knowledge/js/knowledge_utils";
+import {
+    checkURL,
+    decodeDataBehaviorProps,
+    excalidrawWebsiteDomainList,
+    getVideoUrl,
+} from "@knowledge/js/knowledge_utils";
 import { fetchValidHeadings } from '@knowledge/js/tools/knowledge_tools';
 import publicWidget from '@web/legacy/js/public/public_widget';
 import { renderToElement } from "@web/core/utils/render";
@@ -38,7 +43,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
             this._searchArticles = debounce(this._searchArticles, 500);
 
             this.renderEmbeddedViews();
-            this.renderVideoIframes();
+            this.renderIframes();
             this.renderFileDownloadButtons();
         });
     },
@@ -175,9 +180,9 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
     },
 
     /**
-     * Load the video iframes
+     * Load the article's iframes.
      */
-    renderVideoIframes: function () {
+    renderIframes: function () {
         for (const anchor of this.el.querySelectorAll(".o_knowledge_behavior_type_video")) {
             const props = decodeDataBehaviorProps(anchor.dataset.behaviorProps);
             const url = getVideoUrl(props.platform, props.videoId, props.params);
@@ -187,6 +192,27 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
             iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
             anchor.replaceChildren();
             anchor.append(iframe);
+        }
+        for (const anchor of this.el.querySelectorAll(".o_knowledge_behavior_type_draw")) {
+            const props = decodeDataBehaviorProps(anchor.dataset.behaviorProps);
+            const url = checkURL(props.source, excalidrawWebsiteDomainList);
+            if (!url) {
+                anchor.replaceChildren();
+                const errorElement = renderToElement("website_knowledge.draw_behavior_placeholder");
+                anchor.append(errorElement);
+                continue;
+            }
+            const container = document.createElement("div");
+            const iframe = document.createElement("iframe");
+            container.style.width = props.width ? `${props.width}px` : "100%";
+            container.style.height = props.height ? `${props.height}px` : "";
+            iframe.src = url;
+            iframe.allowFullscreen = true;
+            iframe.classList.add("flex-grow-1");
+            container.classList.add("d-flex", "ratio", "ratio-16x9");
+            container.append(iframe);
+            anchor.replaceChildren();
+            anchor.append(container);
         }
     },
 

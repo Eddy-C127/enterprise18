@@ -118,6 +118,34 @@
         min-height: auto;
     }
 }
+.o_knowledge_behavior_type_draw {
+    iframe {
+        min-height: unset !important;
+    }
+    &:not(:hover) .o_knowledge_draw_handle {
+        visibility: hidden;
+    }
+    .o_knowledge_draw_handle {
+        width: 16px;
+        height: 16px;
+        min-height: 16px;
+        min-width: 16px;
+        border-bottom: 2px solid $o-gray-900;
+        border-radius: 2px;
+        &.o_knowledge_draw_handle_left {
+            border-left: 2px solid $o-gray-900;
+            cursor: nesw-resize;
+        }
+        &.o_knowledge_draw_handle_right {
+            border-right: 2px solid $o-gray-900;
+            cursor: nwse-resize;
+        }
+    }
+    .o_view_nocontent_empty_folder:before {
+        @extend %o-nocontent-empty-document;
+    }
+
+}
 
 .o_knowledge_behavior_type_embedded_view {
     .o_knowledge_embedded_view_placeholder {

@@ -26,6 +26,7 @@ import {
 
 import { ArticleBehavior } from "@knowledge/components/behaviors/article_behavior/article_behavior";
 import { ArticlesStructureBehavior } from "@knowledge/components/behaviors/articles_structure_behavior/articles_structure_behavior";
+import { DrawBehavior } from "@knowledge/components/behaviors/excalidraw_behavior/draw_behavior";
 import { FileBehavior } from "@knowledge/components/behaviors/file_behavior/file_behavior";
 import { EmbeddedViewBehavior } from "@knowledge/components/behaviors/embedded_view_behavior/embedded_view_behavior";
 import { TemplateBehavior } from "@knowledge/components/behaviors/template_behavior/template_behavior";
@@ -64,6 +65,9 @@ const HtmlFieldPatch = {
             o_knowledge_behavior_type_video: {
                 Behavior: VideoBehavior,
             },
+            o_knowledge_behavior_type_draw: {
+                Behavior: DrawBehavior,
+            }
         };
         this.uiService = useService('ui');
         this.behaviorState = {

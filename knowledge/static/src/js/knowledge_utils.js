@@ -1,7 +1,9 @@
 /** @odoo-module **/
 
 import { loadEmoji } from "@web/core/emoji_picker/emoji_picker";
+import { useDebounced } from "@web/core/utils/timing";
 import {
+    onWillUnmount,
     useComponent,
     useEffect,
     useRef,
@@ -10,6 +12,12 @@ import {
 
 // List of icons that should be avoided when adding a random icon
 const iconsBlocklist = ["💩", "💀", "☠️", "🤮", "🖕", "🤢", "😒"];
+// List of excalidraw domains used to check the URL in the /draw behavior
+export const excalidrawWebsiteDomainList = [
+    "excalidraw.com",
+    "link.excalidraw.com",
+    "app.excalidraw.com",
+];
 
 /**
  * Get a random icon (that is not in the icons blocklist)
@@ -19,6 +27,23 @@ export async function getRandomIcon() {
     const { emojis } = await loadEmoji();
     const randomEmojis = emojis.filter((emoji) => !iconsBlocklist.includes(emoji.codepoints));
     return randomEmojis[Math.floor(Math.random() * randomEmojis.length)].codepoints;
+}
+
+/**
+ * Checks if the given URL contains the specified hostname and returns a reconstructed URL if it does.
+ *
+ * @param {string} url - The URL to be checked
+ * @param {Array} hostname - The hostname to be included in the modified URL
+ * @return {string|boolean} The modified URL with the specified hostname included, or false if the URL does not meet the conditions
+ */
+export function checkURL(url, hostnameList) {
+    if (url && URL.canParse(url)) {
+        const potentialURL = new URL(url);
+        if (hostnameList.includes(potentialURL.hostname)) {
+            return `https://${potentialURL.hostname}${potentialURL.pathname}`;
+        }
+    }
+    return false;
 }
 
 /**
@@ -200,6 +225,40 @@ export function setIntersectionObserver (element, callback) {
     }, options);
     observer.observe(element);
     return observer;
+}
+
+/**
+ * This hook can be used to setup mouse events for a resize feature. It will
+ * handle adding/removing `mousemove` and `mouseup` events after a
+ * `mousedown` event was fired on a template element.
+ *
+ * @param {Object} options
+ * @param {Function} [options.onMouseDown]
+ * @param {Function} [options.onMouseMove]
+ * @param {Function} [options.onMouseUp]
+ * @returns {Function} callback to apply on `pointerdown` on a template element
+ */
+export function useMouseResizeListeners(options) {
+    const component = useComponent();
+    options.onMouseUp = (options.onMouseUp || (() => {})).bind(component);
+    options.onMouseDown = (options.onMouseDown || (() => {})).bind(component);
+    const onMouseMove = useDebounced(options.onMouseMove || (() => {}), "animationFrame", {
+        immediate: true,
+    });
+    const onMouseUp = (event) => {
+        document.removeEventListener("mousemove", onMouseMove);
+        onMouseMove.cancel(true);
+        options.onMouseUp(event);
+    };
+    onWillUnmount(() => {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+    });
+    return (event) => {
+        options.onMouseDown(event);
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp, { once: true });
+    };
 }
 
 /**

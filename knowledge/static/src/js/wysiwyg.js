@@ -11,6 +11,7 @@ import {
 } from "@web_editor/js/editor/odoo-editor/src/utils/utils";
 import { VideoSelectorDialog } from '@knowledge/components/video_selector_dialog/video_selector_dialog';
 import { ArticleSelectionBehaviorDialog } from '@knowledge/components/behaviors/article_behavior_dialog/article_behavior_dialog';
+import { DrawBehaviorDialog } from '@knowledge/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog';
 import {
     encodeDataBehaviorProps,
 } from "@knowledge/js/knowledge_utils";
@@ -194,6 +195,15 @@ patch(Wysiwyg.prototype, {
                         this._insertVideo(media, restoreSelection);
                     });
                 }
+            }, {
+                category: _t('Knowledge'),
+                name: _t('Drawing Board'),
+                priority: 70,
+                description: _t('Insert an Excalidraw Board'),
+                fontawesome: 'fa-pencil-square-o',
+                callback: () => {
+                    this._insertDrawingBoard();
+                }
             });
         }
         return {...options, commands, categories};
@@ -246,6 +256,24 @@ patch(Wysiwyg.prototype, {
         const restoreSelection = preserveCursor(this.odooEditor.document);
         const articlesStructureBlock = renderToElement('knowledge.ArticlesStructureBehaviorBlueprint');
         this._notifyNewBehavior(articlesStructureBlock, restoreSelection);
+    },
+    /**
+     * Insert an Iframe containing an excalidraw whiteboard.
+     */
+    _insertDrawingBoard() {
+        const restoreSelection = preserveCursor(this.odooEditor.document);
+        this.env.services.dialog.add(
+            DrawBehaviorDialog,
+            {
+                saveLink: (href) => {
+                    const templateBlock = renderToElement("knowledge.DrawBehaviorBlueprint", {
+                        behaviorProps: encodeDataBehaviorProps({ source: href }),
+                    });
+                    this._notifyNewBehavior(templateBlock, restoreSelection);
+                },
+            },
+            { onClose: restoreSelection }
+        );
     },
     /**
      * Insert a /clipboard block
