@@ -117,7 +117,7 @@
                             <div class="o_row">
                                 <field name="allocated_hours" widget="float_time" class="oe_inline" required="resource_type == 'material'"/>
                                 <span invisible="resource_type == 'material'">
-                                    (<field name="allocated_percentage" class="oe_inline" decoration-danger="allocated_percentage &gt; 100"/> %)
+                                    (<field name="allocated_percentage" class="o_field_percentage oe_inline" decoration-danger="allocated_percentage &gt; 100"/> %)
                                 </span>
                             </div>
                         </group>
