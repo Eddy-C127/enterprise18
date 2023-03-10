@@ -1227,8 +1227,12 @@ class Planning(models.Model):
         default_start_datetime = (fields.Datetime.to_datetime(self._context.get('default_start_datetime')) or datetime.min).replace(tzinfo=pytz.utc)
         default_end_datetime = (fields.Datetime.to_datetime(self._context.get('default_end_datetime')) or datetime.max).replace(tzinfo=pytz.utc)
 
-        start_datetime = max(default_start_datetime, start_datetime.replace(tzinfo=pytz.utc))
-        end_datetime = min(default_end_datetime, end_datetime.replace(tzinfo=pytz.utc))
+        if self.env.context.get('current_scale') not in ['week', 'month']:
+            start_datetime = max(default_start_datetime, start_datetime.replace(tzinfo=pytz.utc))
+            end_datetime = min(default_end_datetime, end_datetime.replace(tzinfo=pytz.utc))
+        else:
+            start_datetime = default_start_datetime
+            end_datetime = default_end_datetime
 
         # Get slots' resources and current company work intervals.
         work_intervals_per_resource, dummy = resources._get_valid_work_intervals(start_datetime, end_datetime)
@@ -1243,10 +1247,14 @@ class Planning(models.Model):
                 work_interval_per_resource[resource_id].append(
                     (resource_work_interval[0].astimezone(pytz.UTC), resource_work_interval[1].astimezone(pytz.UTC))
                 )
-        # Add the flexible status per resource to the output
-        flexible_per_resource = {resource.id: not bool(resource.calendar_id) for resource in set(resources)}
-        flexible_per_resource[False] = True
-        return [work_interval_per_resource, flexible_per_resource]
+        # Add the flexible status per resource and the average daily work hours per resource calendar to the output
+        flexible_per_resource = {False: False}
+        avg_hours_per_resource = {False: 0}
+        for resource in set(resources):
+            flexible_per_resource[resource.id] = not resource.calendar_id
+            avg_hours_per_resource[resource.id] = (resource.calendar_id or company_calendar).hours_per_day
+
+        return [work_interval_per_resource, flexible_per_resource, avg_hours_per_resource]
 
     @api.model
     def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):

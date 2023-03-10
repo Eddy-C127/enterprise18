@@ -447,11 +447,22 @@ export class GanttRenderer extends Component {
     }
 
     /**
+     * Conditional function for aggregating pills when grouping the gantt view
+     * The first, unused parameter is added in case it's needed when overwriting the method.
+     * @param {Group} group
+     * @param {Row} row
+     */
+    shouldAggregate(row, group) {
+        return group.pills.length;
+    }
+
+    /**
      * Aggregates overlapping pills in group rows.
      *
      * @param {Pill[]} pills
+     * @param {Row} row
      */
-    aggregatePills(pills) {
+    aggregatePills(pills, row) {
         /** @type {Record<number, Group>} */
         const groups = {};
         for (let col = 1; col <= this.subColumns.length; col++) {
@@ -483,7 +494,7 @@ export class GanttRenderer extends Component {
             }
         }
 
-        const filteredGroups = Object.values(groups).filter((g) => g.pills.length);
+        const filteredGroups = Object.values(groups).filter((g) => this.shouldAggregate(row, g));
 
         if (this.shouldMergeGroups()) {
             return this.mergeGroups(filteredGroups);
@@ -1518,7 +1529,7 @@ export class GanttRenderer extends Component {
         if (rowPills.length) {
             if (isGroup) {
                 if (this.shouldComputeAggregateValues(row)) {
-                    const groups = this.aggregatePills(rowPills);
+                    const groups = this.aggregatePills(rowPills, row);
                     const maxAggregateValue = Math.max(
                         ...groups.map((group) => group.aggregateValue)
                     );

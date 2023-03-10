@@ -8,9 +8,59 @@ import {
     getFixture,
     patchDate,
     patchTimeZone,
+    nextTick,
 } from "@web/../tests/helpers/utils";
 import { contains } from "@web/../tests/utils";
+import { start } from "@mail/../tests/helpers/test_utils";
+import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
+import { addModelNamesToFetch } from '@bus/../tests/helpers/model_definitions_helpers';
+
+addModelNamesToFetch([
+    'resource.resource',
+    'hr.employee',
+    'planning.slot',
+]);
+
+function enrichRowsUnavailabilites(rows, parent_unavailabilities = false) {
+    const enrichedRows = [];
+    const row_unavailabilities = {
+        1: [
+            {
+                start: '2022-10-08 23:00:00',
+                stop: '2022-10-09 22:59:59',
+            },
+            {
+                start: '2022-10-10 10:00:00',
+                stop: '2022-10-11 06:00:00',
+            },
+        ],
+        false: [
+            {
+                start: '2022-10-08 23:00:00',
+                stop: '2022-10-09 22:59:59',
+            },
+            {
+                start: '2022-10-10 10:00:00',
+                stop: '2022-10-11 06:00:00',
+            },
+        ],
+    };
+
+    for (const row of rows) {
+        const unavailabilities = parent_unavailabilities || row_unavailabilities[row.resId];
+        const row_values = {
+            ...row,
+            unavailabilities,
+        };
+        if (row.rows) {
+            row_values.rows = enrichRowsUnavailabilites(row.rows, unavailabilities);
+        }
+        enrichedRows.push(row_values);
+    }
+
+    return enrichedRows;
+}
 
 import {
     clickCell,
@@ -48,8 +98,30 @@ async function ganttResourceWorkIntervalRPC(_, args) {
                     ["2022-10-14 11:00:00", "2022-10-14 15:00:00"],
                 ],
             },
-            {false: true},
+            {
+                1: false,
+                false: false,
+            },
+            {
+                1: 6,
+                false: 8,
+            },
         ];
+    } else if (args.method === "gantt_unavailability") {
+        const rows = args.args[4];
+        return enrichRowsUnavailabilites(rows);
+    } else if (args.method === "gantt_progress_bar") {
+        return {
+            resource_id: {
+                1: {
+                    value: 16.4,
+                    max_value: 40,
+                    employee_id: 1,
+                    is_material_resource: true,
+                    display_popover_material_resource: false
+                },
+            },
+        };
     }
 }
 
@@ -81,6 +153,11 @@ QUnit.module("Views", (hooks) => {
                             type: "many2one",
                             relation: "role",
                         },
+                        employee_id: {
+                            string: "Employee Assigned",
+                            type: "many2one",
+                            relation: "employee_id",
+                        },
                         active: { string: "active", type: "boolean", default: true },
                     },
                     records: [],
@@ -89,6 +166,7 @@ QUnit.module("Views", (hooks) => {
                     fields: {
                         id: { string: "ID", type: "integer" },
                         name: { string: "Name", type: "char" },
+                        employee_id: { string: "ID", type: "integer" },
                     },
                     records: [],
                 },
@@ -100,6 +178,13 @@ QUnit.module("Views", (hooks) => {
                     records: [],
                 },
                 role: {
+                    fields: {
+                        id: { string: "ID", type: "integer" },
+                        name: { string: "Name", type: "char" },
+                    },
+                    records: [],
+                },
+                employee_id: {
                     fields: {
                         id: { string: "ID", type: "integer" },
                         name: { string: "Name", type: "char" },
@@ -464,5 +549,72 @@ QUnit.module("Views", (hooks) => {
             target.querySelector(SELECTORS.rowTotal).textContent,
             "08:00"
         );
+    });
+
+    QUnit.test("the grouped gantt view is coloured correctly", async (assert) => {
+        patchDate(2022, 9, 10, 0, 0, 0);
+        const pyEnv = await startServer();
+        const employeeId = pyEnv['hr.employee'].create([
+            { name: "Employee 1" },
+        ])
+        const resourceId = pyEnv['resource.resource'].create([
+            { name: "Resource 1", employee_id: [employeeId], resource_type: 'user' },
+        ]);
+        pyEnv['planning.slot'].create([
+            {
+                name: "underplanned test slot",
+                start_datetime: "2022-10-11 08:00:00",
+                end_datetime: "2022-10-11 10:00:00",
+                resource_id: resourceId,
+                employee_id: employeeId,
+                allocated_percentage: 100,
+            },
+            {
+                name: "perfect test slot",
+                start_datetime: "2022-10-12 06:00:00",
+                end_datetime: "2022-10-12 13:00:00",
+                resource_id: resourceId,
+                employee_id: employeeId,
+                allocated_percentage: 100,
+            },
+            {
+                name: "overplanned test slot",
+                start_datetime: "2022-10-13 06:00:00",
+                end_datetime: "2022-10-13 16:00:00",
+                resource_id: resourceId,
+                employee_id: employeeId,
+                allocated_percentage: 120,
+            },
+        ])
+        const views = {
+            'planning.slot,false,gantt': `
+                <gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" total_row="1" default_scale="week"
+                precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}" display_unavailability="1" progress_bar="resource_id">
+                    <field name="allocated_percentage"/>
+                    <field name="resource_id"/>
+                    <field name="employee_id"/>
+                    <field name="name"/>
+                </gantt>`
+        }
+        const { openView } = await start({
+            mockRPC: ganttResourceWorkIntervalRPC,
+            serverData: { views },
+        });
+        await openView({
+            res_model: 'planning.slot',
+            views: [[false, 'gantt']],
+            context: {
+                group_by: ['resource_id', 'name'],
+            },
+        });
+
+        await nextTick();
+
+        assert.containsN(target, '.o_gantt_group_pill', 5, "The employee should have group pills only on the work calendar days");
+        assert.containsOnce(target, '.bg-success.border-success', "One of the grouped pills should be green because the resource is perfectly planned");
+
+        assert.containsN(target, '.bg-warning.border-warning', 3, "Three of the grouped pills should be orange because the resource is under planned");
+        assert.containsOnce(target, '.bg-danger.border-danger', "One of the grouped pills should be red because the resource is over planned");
+
     });
 });

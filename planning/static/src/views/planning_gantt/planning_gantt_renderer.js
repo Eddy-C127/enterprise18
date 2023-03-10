@@ -15,6 +15,7 @@ const { Duration, DateTime } = luxon;
 export class PlanningGanttRenderer extends GanttRenderer {
     static rowHeaderTemplate = "planning.PlanningGanttRenderer.RowHeader";
     static pillTemplate = "planning.PlanningGanttRenderer.Pill";
+    static rowContentTemplate = "planning.PlanningGanttRenderer.RowContent";
     static components = {
         ...GanttRenderer.components,
         Avatar: PlanningEmployeeAvatar,
@@ -64,7 +65,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
             pill.className += " opacity-25";
         }
         pill.allocatedHours = {};
-        const percentage = record.allocated_percentage ? record.allocated_percentage / 100 : 0;
+        let percentage = record.allocated_percentage ? record.allocated_percentage / 100 : 0;
         if (percentage === 0) {
             return pill;
         }
@@ -86,9 +87,14 @@ export class PlanningGanttRenderer extends GanttRenderer {
             }
             return pill;
         }
-        const recordIntervals = this.getRecordIntervals(record);
+        // The code below (the if statement) is used to cover the case of an employee working on days/hours on which
+        // they have no work intervals (no work hours - work outside of schedule).
+        // Here we could change the computation entirely but just changing the recordIntervals and the percentage
+        // calculation is enough.
+        let recordIntervals = this.getRecordIntervals(record);
         if (!recordIntervals.length) {
-            return pill;
+            recordIntervals = [[record.start_datetime, record.end_datetime]];
+            percentage = (record.allocated_hours * 3.6e6) / record.end_datetime.diff(record.start_datetime);
         }
         for (let col = this.getFirstcol(pill) - 1; col <= this.getLastCol(pill) + 1; col++) {
             const subColumn = this.subColumns[col - 1];
@@ -183,11 +189,11 @@ export class PlanningGanttRenderer extends GanttRenderer {
     }
 
     /**
-     * @param {RelationalRecord} record
+     * @param {number} resource_id
      * @returns {boolean}
      */
-    isFlexibleHours(record) {
-        return !!this.model.data.isFlexibleHours?.[record.resource_id && record.resource_id[0]];
+    isFlexibleHours(resource_id) {
+        return !!this.model.data.isFlexibleHours?.[resource_id];
     }
 
     /**
@@ -196,6 +202,111 @@ export class PlanningGanttRenderer extends GanttRenderer {
      */
     isOpenShift(record) {
         return !record.resource_id;
+    }
+
+    /**
+     * @override
+     */
+    getSelectCreateDialogProps() {
+        return {
+            ...super.getSelectCreateDialogProps(...arguments),
+            noCreate: true,
+        };
+    }
+
+    /**
+     * By default in the gantt view we show aggregation info in the columns that have pills inside.
+     * In the planning gantt view we colour the group rows based on whether the resource is under/over planned for a day.
+     * This requires the aggregation info to remain visible even in the absence of pills.
+     *
+     * The checks below are done in this order because of their priority importance:
+     * (no working intervals > flex-hours / pill present > non-working days > time-off)
+     * @override
+     */
+    shouldAggregate(row, g) {
+        // These checks only make sense if the gantt view is grouped by the resource
+        if (row.groupedBy && row.groupedBy[0] !== 'resource_id') {
+            return super.shouldAggregate(...arguments);
+        }
+
+        // A row not having work intervals could mean that a resource doesn't have a contract or the row is the "Total" row
+        const workIntervals = this.model.data.workIntervals[row.resId];
+        if (!workIntervals) {
+            if (row.groupedByField === "resource_id") {  // If there is no contract, don't show aggregate info
+                return false;
+            } else if (!row.groupedByField) {  // If it's not grouped by anything, its the total row, follow default behaviour
+                return super.shouldAggregate(...arguments);
+            }
+        }
+
+        // We show aggregation info in all columns for flexible-hour employees and when there are pills in that day
+        if ((row.resId && !row.unavailabilities) || super.shouldAggregate(...arguments)) {
+            return true;
+        }
+
+        // We do not show aggregate info on non-working days
+        const group = this.subColumns[g.grid.column[0] - 1];
+        const groupWorkOverlap = getUnionOfIntersections([group.start, group.stop], workIntervals);
+        if (!groupWorkOverlap.length) {
+            return false;
+        }
+
+        // We do not show aggregate info on days with time-off
+        const unavailabilities = Object.entries(row.unavailabilities).map(([key, {start, stop}]) => ([start, stop]));
+        const dayOff = []
+        for (const interval of groupWorkOverlap) {
+            const dayOffInterval = getUnionOfIntersections(interval, unavailabilities);
+            if (dayOffInterval.length) {
+                dayOff.push(dayOffInterval);
+            }
+        }
+        if (dayOff.length === groupWorkOverlap.length) {
+            for (const [i, interval] of dayOff.entries()) {
+                if (interval[0] <= groupWorkOverlap[i][0] && interval[1] >= groupWorkOverlap[i][1]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @override
+     */
+    getPillFromGroup(group, maxAggregateValue, consolidate) {
+        const newPill = super.getPillFromGroup(...arguments);
+        if (group.pills.length) {
+            newPill.resourceId = group.pills[0].record.resource_id;
+        }
+        const { start, stop } = this.columns[newPill.grid.column[0] - 1]
+        newPill.date_start = start;
+        newPill.date_end = stop;
+        return newPill;
+    }
+
+    _computeResourceOvertimeColors(pill) {
+        const progressBar = this.row.progressBar;
+        if (!progressBar?.employee_id || ["day", "year"].includes(this.model.metaData.scale.id)) {
+            return "bg-primary border-primary";
+        }
+
+        let workHours = 0;
+        const resource_id = this.row.resId;
+        // If flexible hour contract, colour the gantt view group based on whether the aggregate value > the "average work hours" per day.
+        if (this.isFlexibleHours(resource_id)) {
+            workHours = this.model.data.avgWorkHours[resource_id];
+        } else {
+            workHours = this.model.data.workIntervals[resource_id].reduce(
+                (sum, [ intervalStart, intervalEnd ]) => {
+                    // Check whether the work interval is of the same date as the grouping pill
+                    if (intervalStart >= pill.date_start && intervalEnd <= pill.date_end) {
+                        sum += (intervalEnd - intervalStart) / 3.6e6;
+                    }
+                    return sum;
+                }, 0
+            )
+        }
+        return workHours == pill.aggregateValue ? 'bg-success border-success' : workHours > pill.aggregateValue ? 'bg-warning border-warning' : 'bg-danger border-danger';
     }
 
     hasAvatar(row) {

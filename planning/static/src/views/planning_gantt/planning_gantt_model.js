@@ -190,7 +190,7 @@ export class PlanningGanttModel extends GanttModel {
      * @param {Data} data
      */
     async _fetchResourceWorkInterval(metaData, data) {
-        const [workIntervals, isFlexibleHours] = await this.orm.call(
+        const [workIntervals, isFlexibleHours, avgWorkHours] = await this.orm.call(
             metaData.resModel,
             "gantt_resource_work_interval",
             [data.records.map((r) => r.id)],
@@ -198,7 +198,8 @@ export class PlanningGanttModel extends GanttModel {
                 context: {
                     ...this.searchParams.context,
                     default_start_datetime: serializeDateTime(metaData.startDate),
-                    default_end_datetime: serializeDateTime(metaData.stopDate)
+                    default_end_datetime: serializeDateTime(metaData.stopDate),
+                    current_scale: metaData.scale.id,
                 }
             }
         );
@@ -212,10 +213,8 @@ export class PlanningGanttModel extends GanttModel {
                 data.workIntervals[resourceId] = resourceIntervals;
             }
         }
-        data.isFlexibleHours = {};
-        for (const resourceId in isFlexibleHours) {
-            data.isFlexibleHours[resourceId] = isFlexibleHours[resourceId];
-        }
+        data.isFlexibleHours = isFlexibleHours;
+        data.avgWorkHours = avgWorkHours;
     }
 
     /**

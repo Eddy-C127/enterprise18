@@ -26,4 +26,10 @@
         </xpath>
     </t>
 
+    <t t-name="planning.PlanningGanttRenderer.RowContent" t-inherit="web_gantt.GanttRenderer.RowContent" owl="1">
+        <xpath expr="//div[contains(@class, 'o_gantt_group_pill')]/div" position="attributes">
+            <attribute name="t-attf-class" add="{{ _computeResourceOvertimeColors(pill) }}"/>
+        </xpath>
+    </t>
+
 </templates>
