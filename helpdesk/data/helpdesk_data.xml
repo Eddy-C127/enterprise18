@@ -38,11 +38,4 @@
         <field name="team_ids" eval="[(4, ref('helpdesk_team1'))]"/>
     </record>
 
-    <record id="type_question" model="helpdesk.ticket.type">
-        <field name="name">Question</field>
-    </record>
-    <record id="type_incident" model="helpdesk.ticket.type">
-        <field name="name">Issue</field>
-    </record>
-
 </odoo>

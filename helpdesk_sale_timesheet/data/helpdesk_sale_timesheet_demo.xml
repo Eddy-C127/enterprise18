@@ -74,7 +74,6 @@
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
         <field name="stage_id" ref="helpdesk.stage_solved"/>
         <field name="time">4</field>
-        <field name="ticket_type_ids" eval="[Command.link(ref('helpdesk.type_question'))]"/>
         <field name="sale_line_ids" eval="[Command.link(ref('sale_order_line_helpdesk_sale_timesheet_1')), Command.link(ref('sale_timesheet.sale_line_11'))]"/>
         <field name="exclude_stage_ids" eval="[Command.link(ref('helpdesk.stage_in_progress'))]"/>
     </record>
@@ -83,13 +82,11 @@
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
         <field name="priority">1</field>
         <field name="partner_id" ref="base.res_partner_4"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="sale_line_id" ref="sale_order_line_helpdesk_sale_timesheet_1"/>
     </record>
     <record id="helpdesk_ticket_28" model="helpdesk.ticket">
         <field name="name">Bed legs are broken</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_demo"/>
         <field name="partner_id" ref="helpdesk_sale_timesheet.res_partner_19"/>
         <field name="stage_id" ref="helpdesk.stage_in_progress"/>
@@ -107,7 +104,6 @@
     <record id="helpdesk_ticket_29" model="helpdesk.ticket">
         <field name="name">LED Light is blinking</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_demo"/>
         <field name="partner_id" ref="helpdesk_sale_timesheet.res_partner_19"/>
         <field name="stage_id" ref="helpdesk.stage_solved"/>

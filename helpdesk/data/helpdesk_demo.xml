@@ -76,7 +76,6 @@
         <field name="stage_id" ref="stage_solved"/>
         <field name="time">8</field>
         <field name="partner_ids" eval="[Command.link(ref('base.res_partner_10')), Command.link(ref('base.res_partner_2'))]"/>
-        <field name="ticket_type_ids" eval="[Command.link(ref('helpdesk.type_incident'))]"/>
     </record>
 
     <!-- Tickets -->
@@ -92,13 +91,11 @@
         <field name="team_id" ref="helpdesk.helpdesk_team1"/>
         <field name="priority">0</field>
         <field name="partner_id" ref="base.res_partner_4"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
     </record>
     <record id="helpdesk_ticket_3" model="helpdesk.ticket">
         <field name="name">Warranty</field>
         <field name="team_id" ref="helpdesk.helpdesk_team1"/>
         <field name="user_id" ref="base.user_admin"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="priority">2</field>
         <field name="partner_id" ref="base.res_partner_main1" />
         <field name="stage_id" ref="helpdesk.stage_new"/>
@@ -122,7 +119,6 @@ Chester Reed</p>
         <field name="name">Wood Treatment</field>
         <field name="team_id" ref="helpdesk.helpdesk_team1"/>
         <field name="user_id" ref="base.user_demo"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="partner_id" ref="base.res_partner_4" />
         <field name="stage_id" ref="helpdesk.stage_solved"/>
         <field name="close_date" eval="DateTime.now()"/>
@@ -138,7 +134,6 @@ Azure Interior</p>
         <field name="name">Chair dimensions</field>
         <field name="team_id" ref="helpdesk.helpdesk_team1"/>
         <field name="user_id" ref="base.user_admin"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="partner_id" ref="base.res_partner_12"/>
         <field name="stage_id" ref="helpdesk.stage_solved"/>
         <field name="create_date" eval="DateTime.now()- relativedelta(days=1)"/>
@@ -153,7 +148,6 @@ Thank you!</p>
         <field name="name">Lost key</field>
         <field name="team_id" ref="helpdesk.helpdesk_team1"/>
         <field name="user_id" ref="base.user_admin"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="partner_id" ref="base.res_partner_3"/>
         <field name="stage_id" ref="helpdesk.stage_in_progress"/>
         <field name="kanban_state">done</field>
@@ -169,7 +163,6 @@ Gemini Furniture</p>
         <field name="name">Furniture delivery</field>
         <field name="team_id" ref="helpdesk.helpdesk_team1"/>
         <field name="user_id" ref="base.user_admin"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="partner_id" ref="base.res_partner_2"/>
         <field name="stage_id" ref="helpdesk.stage_in_progress"/>
         <field name="create_date" eval="DateTime.now()- relativedelta(days=9)"/>
@@ -190,7 +183,6 @@ Deco Addict</p>
     <record id="helpdesk_ticket_8" model="helpdesk.ticket">
         <field name="name">Cabinets in kit</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="partner_id" ref="base.res_partner_10"/>
         <field name="stage_id" ref="helpdesk.stage_new"/>
         <field name="description" type="html">
@@ -204,7 +196,6 @@ Jackson Group</p>
     <record id="helpdesk_ticket_9" model="helpdesk.ticket">
         <field name="name">Missing user manual</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="partner_id" ref="base.res_partner_12"/>
         <field name="stage_id" ref="helpdesk.stage_new"/>
         <field name="kanban_state">blocked</field>
@@ -218,7 +209,6 @@ Kind regards,</p>
     <record id="helpdesk_ticket_10" model="helpdesk.ticket">
         <field name="name">Ugly Chair</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="partner_id" ref="base.res_partner_2"/>
         <field name="stage_id" ref="helpdesk.stage_solved"/>
@@ -234,7 +224,6 @@ Deco Addict</p>
     <record id="helpdesk_ticket_11" model="helpdesk.ticket">
         <field name="name">Couch</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_demo"/>
         <field name="partner_id" ref="base.res_partner_1"/>
         <field name="stage_id" ref="helpdesk.stage_in_progress"/>
@@ -248,7 +237,6 @@ Best regards,</p>
     <record id="helpdesk_ticket_12" model="helpdesk.ticket">
         <field name="name">Chair wheels aren’t working</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="partner_id" ref="base.res_partner_main1"/>
         <field name="stage_id" ref="helpdesk.stage_new"/>
         <field name="priority">3</field>
@@ -270,7 +258,6 @@ Chester Reed</p>
     <record id="helpdesk_ticket_13" model="helpdesk.ticket">
         <field name="name">Cabinet Colour and Lock aren't proper</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="partner_id" ref="base.res_partner_10"/>
         <field name="stage_id" ref="helpdesk.stage_new"/>
@@ -287,7 +274,6 @@ The Jackson Group</p>
     <record id="helpdesk_ticket_14" model="helpdesk.ticket">
         <field name="name">Lamp Stand is bent</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_demo"/>
         <field name="partner_id" ref="base.res_partner_4"/>
         <field name="stage_id" ref="helpdesk.stage_new"/>
@@ -303,7 +289,6 @@ Ready Mat</p>
     <record id="helpdesk_ticket_15" model="helpdesk.ticket">
         <field name="name">Table legs are unbalanced</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="partner_id" ref="base.res_partner_12"/>
         <field name="stage_id" ref="helpdesk.stage_in_progress"/>
@@ -321,7 +306,6 @@ Azure Interior</p>
     <record id="helpdesk_ticket_16" model="helpdesk.ticket">
         <field name="name">Drawer’s slides and handle have a defect</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="priority">3</field>
         <field name="partner_id" ref="base.res_partner_2"/>
@@ -338,7 +322,6 @@ Deco</p>
     <record id="helpdesk_ticket_17" model="helpdesk.ticket">
         <field name="name">Want to change the place of the dining area</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="user_id" ref="base.user_demo"/>
         <field name="partner_id" ref="base.res_partner_3"/>
         <field name="stage_id" ref="helpdesk.stage_in_progress"/>
@@ -353,7 +336,6 @@ Gemini Furniture</p>
     <record id="helpdesk_ticket_18" model="helpdesk.ticket">
         <field name="name">Received Product is damaged</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_demo"/>
         <field name="partner_id" ref="base.res_partner_12"/>
         <field name="stage_id" ref="helpdesk.stage_solved"/>
@@ -368,7 +350,6 @@ Regards,</p>
     <record id="helpdesk_ticket_19" model="helpdesk.ticket">
         <field name="name">Delivered wood panel is not what I ordered</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="priority">2</field>
         <field name="partner_id" ref="base.res_partner_1"/>
@@ -387,7 +368,6 @@ Wood Corner</p>
     <record id="helpdesk_ticket_20" model="helpdesk.ticket">
         <field name="name">Table not delivered on time</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="partner_id" ref="base.res_partner_12"/>
         <field name="stage_id" ref="helpdesk.stage_in_progress"/>
@@ -407,7 +387,6 @@ Azure Interior</p>
         <field name="team_id" ref="helpdesk.helpdesk_team1"/>
         <field name="priority">0</field>
         <field name="partner_id" ref="base.res_partner_4"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="active" eval="False"/>
     </record>
     <record id="helpdesk_ticket_22" model="helpdesk.ticket">
@@ -416,7 +395,6 @@ Azure Interior</p>
         <field name="priority">1</field>
         <field name="user_id" ref="base.user_admin"/>
         <field name="partner_id" ref="base.res_partner_main1"/>
-        <field name="ticket_type_id" ref="helpdesk.type_question"/>
         <field name="description" type="html">
 <p>Hello,<br/><br/>
 I would like to know What's the best kitchen cabinet varnish for your home?<br/><br/>

@@ -26,8 +26,6 @@ class HelpdeskSLA(models.Model):
     description = fields.Html('SLA Policy Description', translate=True)
     active = fields.Boolean('Active', default=True)
     team_id = fields.Many2one('helpdesk.team', 'Helpdesk Team', required=True)
-    ticket_type_ids = fields.Many2many(
-        'helpdesk.ticket.type', string='Types')
     tag_ids = fields.Many2many(
         'helpdesk.tag', string='Tags')
     stage_id = fields.Many2one(

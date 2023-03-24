@@ -105,53 +105,53 @@
                 },
                 "A32": {
                     "style": 1,
-                    "content": "[Top Ticket Types](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[[\"ticket_type_id\",\"!=\",false]],\"context\":{\"group_by\":[\"ticket_type_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"ticket_type_id\"]},\"modelName\":\"helpdesk.ticket.report.analysis\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"cohort\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Ticket Types\"})",
+                    "content": "[Tickets By Stage](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[[\"stage_id\",\"!=\",false]],\"context\":{\"group_by\":[\"stage_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"stage_id\"]},\"modelName\":\"helpdesk.ticket.report.analysis\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"cohort\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Tickets By Stage\"})",
                     "border": 1
                 },
                 "A33": {
                     "style": 2,
-                    "content": "=_t(\"Ticket Type\")",
+                    "content": "=_t(\"Ticket Stage\")",
                     "border": 2
                 },
                 "A34": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",1)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",1)"
                 },
                 "A35": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",2)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",2)"
                 },
                 "A36": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",3)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",3)"
                 },
                 "A37": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",4)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",4)"
                 },
                 "A38": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",5)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",5)"
                 },
                 "A39": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",6)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",6)"
                 },
                 "A40": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",7)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",7)"
                 },
                 "A41": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",8)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",8)"
                 },
                 "A42": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",9)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",9)"
                 },
                 "A43": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#ticket_type_id\",10)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",10)"
                 },
                 "B7": {
                     "style": 5,
@@ -263,52 +263,47 @@
                 "C34": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",1)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",1)"
                 },
                 "C35": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",2)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",2)"
                 },
                 "C36": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",3)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",3)"
                 },
                 "C37": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",4)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",4)"
                 },
                 "C38": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",5)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",5)"
                 },
                 "C39": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",6)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",6)"
                 },
                 "C40": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",7)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",7)"
                 },
                 "C41": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",8)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",8)"
                 },
                 "C42": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",9)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",9)"
                 },
                 "C43": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#ticket_type_id\",10)"
-                },
-                "E7": {
-                    "style": 1,
-                    "content": "[Tickets by Type](odoo://view/{\"viewType\":\"graph\",\"action\":{\"domain\":[],\"context\":{\"group_by\":[\"ticket_type_id\"],\"graph_measure\":\"__count\",\"graph_mode\":\"pie\",\"graph_groupbys\":[\"ticket_type_id\"]},\"modelName\":\"helpdesk.ticket.report.analysis\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"cohort\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Tickets by Type\"})",
-                    "border": 1
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",10)"
                 },
                 "E19": {
                     "style": 1,
@@ -641,7 +636,7 @@
                         "legendPosition": "top",
                         "metaData": {
                             "groupBy": [
-                                "ticket_type_id"
+                                "stage_id"
                             ],
                             "measure": "__count",
                             "order": null,
@@ -652,7 +647,7 @@
                             "context": {},
                             "domain": [],
                             "groupBy": [
-                                "ticket_type_id"
+                                "stage_id"
                             ],
                             "orderBy": []
                         },
@@ -1042,7 +1037,7 @@
             "context": {},
             "domain": [
                 [
-                    "ticket_type_id",
+                    "stage_id",
                     "!=",
                     false
                 ]
@@ -1055,9 +1050,9 @@
             ],
             "model": "helpdesk.ticket.report.analysis",
             "rowGroupBys": [
-                "ticket_type_id"
+                "stage_id"
             ],
-            "name": "Ticket Analysis by Ticket Type",
+            "name": "Ticket Analysis by Ticket Stage",
             "sortedColumn": {
                 "groupId": [
                     [],
@@ -1320,46 +1315,46 @@
         {
             "id": "6cfea52a-55aa-4c5e-8068-a087b0432cc4",
             "type": "relation",
-            "label": "Ticket Type",
-            "modelName": "helpdesk.ticket.type",
+            "label": "Ticket Stage",
+            "modelName": "helpdesk.stage",
             "defaultValue": [],
             "defaultValueDisplayNames": [],
             "rangeType": "year",
             "defaultsToCurrentPeriod": false,
             "pivotFields": {
                 "1": {
-                    "field": "ticket_type_id",
+                    "field": "stage_id",
                     "type": "many2one"
                 },
                 "2": {
-                    "field": "ticket_type_id",
+                    "field": "stage_id",
                     "type": "many2one"
                 },
                 "3": {
-                    "field": "ticket_type_id",
+                    "field": "stage_id",
                     "type": "many2one"
                 },
                 "4": {
-                    "field": "ticket_type_id",
+                    "field": "stage_id",
                     "type": "many2one"
                 },
                 "5": {
-                    "field": "ticket_type_id",
+                    "field": "stage_id",
                     "type": "many2one"
                 },
                 "6": {
-                    "field": "ticket_type_id",
+                    "field": "stage_id",
                     "type": "many2one"
                 }
             },
             "listFields": {},
             "graphFields": {
                 "f16a9ed2-bf56-4fcd-9fa7-262c3be1e441": {
-                    "field": "ticket_type_id",
+                    "field": "stage_id",
                     "type": "many2one"
                 },
                 "7c83311f-28a2-47b3-b27c-4ff69ad74d38": {
-                    "field": "ticket_type_id",
+                    "field": "stage_id",
                     "type": "many2one"
                 }
             }

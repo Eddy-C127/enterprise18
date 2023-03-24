@@ -26,7 +26,6 @@ class HelpdeskSLAReport(models.Model):
     partner_name = fields.Char(string='Customer Name', readonly=True)
     partner_email = fields.Char(string='Customer Email', readonly=True)
     partner_phone = fields.Char(string='Customer Phone', readonly=True)
-    ticket_type_id = fields.Many2one('helpdesk.ticket.type', string="Type", readonly=True)
     stage_id = fields.Many2one('helpdesk.stage', string="Stage", readonly=True)
     ticket_open_hours = fields.Float("Hours Open", group_operator="avg", readonly=True)
     ticket_closed = fields.Boolean("Ticket Closed", readonly=True)
@@ -67,7 +66,6 @@ class HelpdeskSLAReport(models.Model):
                             T.team_id,
                             T.active AS active,
                             T.stage_id AS stage_id,
-                            T.ticket_type_id,
                             T.user_id,
                             T.partner_id,
                             T.partner_name AS partner_name,

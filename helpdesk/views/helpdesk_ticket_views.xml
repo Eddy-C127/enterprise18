@@ -76,7 +76,6 @@
                 <field name="user_id"/>
                 <field name="partner_id" filter_domain="['|', '|', '|', ('partner_id', 'ilike', self), ('partner_email', 'ilike', self), ('partner_phone', 'ilike', self), ('partner_name', 'ilike', self)]"/>
                 <field name="team_id" invisible="context.get('default_team_id', False)"/>
-                <field name="ticket_type_id"/>
                 <field name="stage_id"/>
                 <field name="sla_ids" groups="helpdesk.group_use_sla"/>
                 <field name="priority" invisible="1"/>
@@ -114,7 +113,6 @@
                     <filter string="Stage" name="stage" context="{'group_by':'stage_id'}"/>
                     <filter string="Status" name="state" context="{'group_by': 'kanban_state'}"/>
                     <filter string="SLA" name="sla_ids" context="{'group_by': 'sla_ids'}" groups="helpdesk.group_use_sla"/>
-                    <filter string="Type" name="ticket_type_id" context="{'group_by':'ticket_type_id'}"/>
                     <filter string="Tags" name="tag" context="{'group_by': 'tag_ids'}"/>
                     <filter string="Priority" name="priority" context="{'group_by': 'priority'}"/>
                     <filter string="Customer" name="partner" context="{'group_by': 'partner_id'}"/>
@@ -163,7 +161,6 @@
         <field name="arch" type="xml">
             <search string="Tickets Search">
                 <field name="name"/>
-                <field name="ticket_type_id"/>
                 <field name="team_id"/>
                 <field name="user_id"/>
                 <filter string="My Tickets" domain="[('user_id','=',uid)]" name="my_ticket"/>
@@ -210,7 +207,6 @@
                 <field name="sla_deadline" invisible="not use_sla or fold" optional="show" widget="remaining_days"/>
                 <field name="create_date" optional="hide" readonly="1" string="Creation Date"/>
                 <field name="write_date" optional="hide" readonly="1"/>
-                <field name="ticket_type_id" options="{'no_create_edit': True}" optional="hide"/>
                 <field name="tag_ids" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="properties"/>
                 <field name="rating_last_text" string="Rating" decoration-danger="rating_last_text == 'ko'"
@@ -310,9 +306,6 @@
                                 </div>
                                 <div class="o_kanban_record_body">
                                     <field name="commercial_partner_id"/>
-                                    <div>
-                                        <field name="ticket_type_id"/>
-                                    </div>
                                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" invisible="not tag_ids"/>
                                     <field name="use_sla" invisible="1"/>
                                     <div t-if="record.sla_deadline.raw_value &amp;&amp; record.use_sla.raw_value &amp;&amp; !record.fold.raw_value">
@@ -412,7 +405,6 @@
                             <field name="user_id" class="field_user_id" domain="['&amp;', ('id', 'in', domain_user_ids), ('share', '=', False)]" widget="many2one_avatar_user"/>
                             <field name="domain_user_ids" invisible="1"/>
                             <field name="priority" widget="priority"/>
-                            <field name="ticket_type_id" options="{'no_open': True}"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                         </group>
                         <group>
@@ -906,7 +898,6 @@
         <field name="arch" type="xml">
             <search string="Tickets Search">
                 <field name="name"/>
-                <field name="ticket_type_id"/>
                 <field name="priority" invisible="1"/>
                 <field name="team_id"/>
                 <field name="user_id"/>
@@ -928,7 +919,6 @@
                 <group expand="0" string="Group By">
                   <filter string="Assignee" name="assignee" context="{'group_by':'user_id'}"/>
                   <filter string="Helpdesk Team" name="team" context="{'group_by':'team_id'}"/>
-                  <filter string="Ticket Type" name="ticket_type_id" context="{'group_by':'ticket_type_id'}"/>
                   <filter string="Creation Date" context="{'group_by':'create_date:week'}" name="group_by_create_date"/>
                   <filter string="First Assignment Date" context="{'group_by': 'assign_date:month'}" name="group_by_assign_date"/>
                 </group>

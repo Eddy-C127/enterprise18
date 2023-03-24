@@ -78,14 +78,6 @@ class HelpdeskCommon(TransactionCase, MockEmail):
             'fold': True,
         })
 
-        # He also creates a ticket types for Question and Issue
-        cls.type_question = cls.env['helpdesk.ticket.type'].with_user(cls.helpdesk_manager).create({
-            'name': 'Question_test',
-        }).sudo()
-        cls.type_issue = cls.env['helpdesk.ticket.type'].with_user(cls.helpdesk_manager).create({
-            'name': 'Issue_test',
-        }).sudo()
-
     @contextmanager
     def _ticket_patch_now(self, datetime):
         with freeze_time(datetime), patch.object(self.env.cr, 'now', lambda: datetime):

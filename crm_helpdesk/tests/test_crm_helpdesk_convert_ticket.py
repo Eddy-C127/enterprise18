@@ -21,9 +21,6 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
                 'template_id': cls.env.ref('helpdesk.new_ticket_request_email_template').id
             })],
         })
-        cls.test_ticket_type = cls.env['helpdesk.ticket.type'].create({
-            'name': 'Test Type'
-        })
 
         # UTM fields
         cls.test_campaign = cls.env["utm.campaign"].create({
@@ -44,7 +41,7 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
             'source_id': cls.test_source.id
         })
 
-    def assertTicketLeadConvertData(self, ticket, lead, team, ticket_type, partner):
+    def assertTicketLeadConvertData(self, ticket, lead, team, partner):
         # lead update: archived
         self.assertFalse(lead.active)
 
@@ -56,7 +53,6 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
         self.assertEqual(ticket.partner_email, lead.email_from if lead.email_from else partner.email)
         self.assertEqual(ticket.partner_phone, lead.phone if lead.phone else partner.phone or lead.mobile or partner.mobile)
         self.assertEqual(ticket.partner_name, partner.name)
-        self.assertEqual(ticket.ticket_type_id, ticket_type)
         self.assertFalse(ticket.user_id)
         self.assertEqual(ticket.campaign_id, lead.campaign_id)
         self.assertEqual(ticket.medium_id, lead.medium_id)
@@ -74,7 +70,6 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
             'active_id': lead.id
         }).create({
             'team_id': self.test_team.id,
-            'ticket_type_id': self.test_ticket_type.id
         })
         action = convert.action_lead_to_helpdesk_ticket()
 
@@ -93,7 +88,6 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
                 'active_id': self.lead_1.id
             }).create({
                 'team_id': self.test_team.id,
-                'ticket_type_id': self.test_ticket_type.id
             })
 
     @users('user_sales_salesman')
@@ -106,9 +100,8 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
         msg = lead.message_post(body='Youplaboum', subtype_xmlid='mail.mt_comment', message_type='comment')
         lead_message_ids = lead.message_ids
 
-        # ensure basic rights on team and ticket type
+        # ensure basic rights on team
         test_team = self.env['helpdesk.team'].search([('id', '=', self.test_team.id)])
-        test_ticket_type = self.env['helpdesk.ticket.type'].search([('id', '=', self.test_ticket_type.id)])
 
         # invoke wizard and apply it
         convert = self.env['crm.lead.convert2ticket'].with_context({
@@ -116,7 +109,6 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
             'active_id': self.lead_1.id
         }).create({
             'team_id': test_team.id,
-            'ticket_type_id': test_ticket_type.id
         })
         action = convert.action_lead_to_helpdesk_ticket()
 
@@ -127,7 +119,7 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
         ticket = self.env['helpdesk.ticket'].sudo().search([('name', '=', lead.name)])
         new_partner = self.env['res.partner'].search([('email_normalized', '=', 'amy.wong@test.example.com')])
         self.assertTrue(len(new_partner), 1)
-        self.assertTicketLeadConvertData(ticket, lead, test_team, test_ticket_type, new_partner)
+        self.assertTicketLeadConvertData(ticket, lead, test_team, new_partner)
 
         # check discussion thread transfer
         self.assertTrue(all(message in ticket.message_ids for message in lead_message_ids))
@@ -149,13 +141,12 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
             'active_id': self.lead_1.id
         }).create({
             'team_id': self.test_team.id,
-            'ticket_type_id': self.test_ticket_type.id
         })
         convert.action_lead_to_helpdesk_ticket()
 
         # check created ticket coherency
         ticket = self.env['helpdesk.ticket'].sudo().search([('name', '=', lead.name)])
-        self.assertTicketLeadConvertData(ticket, lead, self.test_team, self.test_ticket_type, self.contact_company_1)
+        self.assertTicketLeadConvertData(ticket, lead, self.test_team, self.contact_company_1)
 
     @users('user_sales_salesman')
     def test_lead_convert_to_ticket_w_partner(self):
@@ -177,13 +168,12 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
             'active_id': self.lead_1.id
         }).create({
             'team_id': self.test_team.id,
-            'ticket_type_id': self.test_ticket_type.id
         })
         convert.action_lead_to_helpdesk_ticket()
 
         # check created ticket coherency
         ticket = self.env['helpdesk.ticket'].sudo().search([('name', '=', lead.name)])
-        self.assertTicketLeadConvertData(ticket, lead, self.test_team, self.test_ticket_type, self.contact_1)
+        self.assertTicketLeadConvertData(ticket, lead, self.test_team, self.contact_1)
 
     @users('user_sales_salesman')
     def test_lead_convert_to_ticket_w_partner_name(self):
@@ -200,13 +190,12 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
             'active_id': self.lead_1.id
         }).create({
             'team_id': self.test_team.id,
-            'ticket_type_id': self.test_ticket_type.id
         })
         convert.action_lead_to_helpdesk_ticket()
 
         # check created ticket coherency
         ticket = self.env['helpdesk.ticket'].sudo().search([('name', '=', lead.name)])
-        self.assertTicketLeadConvertData(ticket, lead, self.test_team, self.test_ticket_type, self.contact_1)
+        self.assertTicketLeadConvertData(ticket, lead, self.test_team, self.contact_1)
 
     @users('user_sales_salesman')
     def test_lead_convert_to_ticket_w_contact_name(self):
@@ -223,10 +212,9 @@ class TestLeadConvertToTicket(crm_common.TestCrmCommon):
             'active_id': self.lead_1.id
         }).create({
             'team_id': self.test_team.id,
-            'ticket_type_id': self.test_ticket_type.id
         })
         convert.action_lead_to_helpdesk_ticket()
 
         # check created ticket coherency
         ticket = self.env['helpdesk.ticket'].sudo().search([('name', '=', lead.name)])
-        self.assertTicketLeadConvertData(ticket, lead, self.test_team, self.test_ticket_type, self.contact_2)
+        self.assertTicketLeadConvertData(ticket, lead, self.test_team, self.contact_2)

@@ -112,14 +112,6 @@ class HelpdeskSLA(TransactionCase):
             'priority': '1',
         })
 
-        # He also creates a ticket types for Question and Issue
-        cls.type_question = cls.env['helpdesk.ticket.type'].with_user(cls.helpdesk_manager).create({
-            'name': 'Question_test',
-        }).sudo()
-        cls.type_issue = cls.env['helpdesk.ticket.type'].with_user(cls.helpdesk_manager).create({
-            'name': 'Issue_test',
-        }).sudo()
-
     @contextmanager
     def _ticket_patch_now(self, datetime):
         with freeze_time(datetime), patch.object(self.env.cr, 'now', lambda: datetime):
@@ -158,12 +150,9 @@ class HelpdeskSLA(TransactionCase):
         ticket.tag_ids = [(4, self.tag_vip.id)]
         self.assertEqual(ticket.sla_status_ids.sla_id, self.sla, "SLA should have been applied")
 
-    def test_sla_tag_and_ticket_type(self):
+    def test_sla_tag(self):
         self.sla.tag_ids = [(6, False, self.tag_urgent.ids)]
-        self.sla.ticket_type_ids = [Command.link(self.type_question.id)]
         ticket = self.create_ticket(tag_ids=self.tag_urgent, team=self.test_team_reached)
-        self.assertFalse(ticket.sla_status_ids, "SLA should not have been applied yet")
-        ticket.ticket_type_id = self.type_question
         self.assertEqual(ticket.sla_status_ids.sla_id, self.sla, "SLA should have been applied")
 
     def test_sla_remove_tag(self):

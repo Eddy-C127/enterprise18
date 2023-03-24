@@ -65,7 +65,6 @@ class HelpdeskTicket(models.Model):
     team_privacy_visibility = fields.Selection(related='team_id.privacy_visibility', string="Team Visibility")
     description = fields.Html(sanitize_attributes=False)
     active = fields.Boolean(default=True)
-    ticket_type_id = fields.Many2one('helpdesk.ticket.type', string="Type", tracking=True)
     tag_ids = fields.Many2many('helpdesk.tag', string='Tags')
     company_id = fields.Many2one(related='team_id.company_id', string='Company', store=True, readonly=True)
     color = fields.Integer(string='Color Index')
@@ -592,7 +591,7 @@ class HelpdeskTicket(models.Model):
     @api.model
     def _sla_reset_trigger(self):
         """ Get the list of field for which we have to reset the SLAs (regenerate) """
-        return ['team_id', 'priority', 'ticket_type_id', 'tag_ids', 'partner_id']
+        return ['team_id', 'priority', 'tag_ids', 'partner_id']
 
     def _sla_apply(self, keep_reached=False):
         """ Apply SLA to current tickets: erase the current SLAs, then find and link the new SLAs to each ticket.
@@ -652,7 +651,7 @@ class HelpdeskTicket(models.Model):
                     sla_domain_map[key] = expression.AND([[
                         ('team_id', '=', ticket.team_id.id), ('priority', '=', ticket.priority),
                         ('stage_id.sequence', '>=', ticket.stage_id.sequence),
-                        '|', ('ticket_type_ids', 'in', ticket.ticket_type_id.ids), ('ticket_type_ids', '=', False)], ticket._sla_find_extra_domain()])
+                    ], ticket._sla_find_extra_domain()])
 
         result = {}
         for key, tickets in tickets_map.items():  # only one search per ticket group

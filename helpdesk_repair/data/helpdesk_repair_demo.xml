@@ -8,7 +8,6 @@
     <record id="helpdesk_repair_ticket_1" model="helpdesk.ticket">
         <field name="name">Drawer lock isn't working</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
-        <field name="ticket_type_id" ref="helpdesk.type_incident"/>
         <field name="partner_id" ref="base.res_partner_12"/>
         <field name="sale_order_id" ref="helpdesk_sale.sale_order_helpdesk_1"/>
         <field name="stage_id" ref="helpdesk.stage_in_progress"/>

@@ -28,7 +28,6 @@ class CrmLeadConvert2Ticket(models.TransientModel):
     )
     partner_id = fields.Many2one('res.partner', 'Customer')
     team_id = fields.Many2one('helpdesk.team', string='Team', required=True)
-    ticket_type_id = fields.Many2one('helpdesk.ticket.type', "Ticket Type")
 
     def action_lead_to_helpdesk_ticket(self):
         self.ensure_one()
@@ -44,7 +43,6 @@ class CrmLeadConvert2Ticket(models.TransientModel):
             "name": lead.name,
             "description": lead.description,
             "team_id": self.team_id.id,
-            "ticket_type_id": self.ticket_type_id.id,
             "partner_id": partner.id,
             "user_id": None,
             "campaign_id": lead.campaign_id.id,

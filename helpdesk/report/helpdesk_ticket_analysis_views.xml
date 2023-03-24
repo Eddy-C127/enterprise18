@@ -93,7 +93,6 @@
                 <field name="team_id" optional="hide" readonly="1" column_invisible="not context.get('default_team_id', False)"/>
                 <field name="user_id" optional="show" widget="many2one_avatar_user"/>
                 <field name="partner_id" optional="show"/>
-                <field name="ticket_type_id" optional="hide"/>
                 <field name="priority" optional="show" widget="priority"/>
                 <field name="stage_id" optional="show" readonly="1"/>
                 <field name="sla_deadline" optional="show" widget="remaining_days"/>
@@ -168,7 +167,6 @@
             <tree string="Tickets Analysis">
                 <field name="ticket_id"/>
                 <field name="priority" optional="show" widget="priority"/>
-                <field name="ticket_type_id" optional="hide"/>
                 <field name="team_id" optional="show"/>
                 <field name="partner_id" widget="res_partner_many2one" optional="show"/>
                 <field name="stage_id" optional="show"/>

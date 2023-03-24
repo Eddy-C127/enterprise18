@@ -30,7 +30,6 @@ class HelpdeskTicketReport(models.Model):
     partner_name = fields.Char(string='Customer Name', readonly=True)
     partner_email = fields.Char(string='Customer Email', readonly=True)
     partner_phone = fields.Char(string='Customer Phone', readonly=True)
-    ticket_type_id = fields.Many2one('helpdesk.ticket.type', string="Type", readonly=True)
     stage_id = fields.Many2one('helpdesk.stage', string="Stage", readonly=True)
     sla_deadline = fields.Datetime("Ticket Deadline", readonly=True)
     ticket_deadline_hours = fields.Float("Working Hours until SLA Deadline", group_operator="avg", readonly=True)
@@ -66,7 +65,6 @@ class HelpdeskTicketReport(models.Model):
                    T.partner_name AS partner_name,
                    T.partner_email AS partner_email,
                    T.partner_phone AS partner_phone,
-                   T.ticket_type_id AS ticket_type_id,
                    T.stage_id AS stage_id,
                    T.sla_deadline AS sla_deadline,
                    NULLIF(T.sla_deadline_hours, 0) AS ticket_deadline_hours,

@@ -57,7 +57,7 @@ Content-Transfer-Encoding: quoted-printable
 
     def test_access_rights(self):
         # helpdesk user should only be able to:
-        #   read: teams, stages, SLAs, ticket types
+        #   read: teams, stages, SLAs,
         #   read, create, write, unlink: tickets, tags
         # helpdesk manager:
         #   read, create, write, unlink: everything (from helpdesk)
@@ -116,18 +116,6 @@ Content-Transfer-Encoding: quoted-printable
                 'stage_id': self.stage_done.id,
             })
         test_write_and_unlink(sla)
-
-        # helpdesk.ticket.type access rights
-        ticket_type = self.env['helpdesk.ticket.type'].with_user(self.helpdesk_manager).create({
-            'name': 'test with unique name please',
-        })
-        ticket_type.with_user(self.helpdesk_user).read()
-        test_not_write_and_unlink(self, ticket_type.with_user(self.helpdesk_user))
-        with self.assertRaises(AccessError):
-            ticket_type.with_user(self.helpdesk_user).create({
-                'name': 'test create with unique name please',
-            })
-        test_write_and_unlink(ticket_type)
 
         # helpdesk.tag access rights
         tag = self.env['helpdesk.tag'].with_user(self.helpdesk_user).create({'name': 'test with unique name please'})
