@@ -11,35 +11,19 @@ _logger = logging.getLogger(__name__)
 class EventMailScheduler(models.Model):
     _inherit = 'event.mail'
 
-    @api.model
-    def _selection_template_model(self):
-        return super()._selection_template_model() + [('whatsapp.template', 'WhatsApp')]
+    notification_type = fields.Selection(selection_add=[('whatsapp', 'WhatsApp')])
+    template_ref = fields.Reference(ondelete={'whatsapp.template': 'cascade'}, selection_add=[('whatsapp.template', 'WhatsApp')])
 
-    def _selection_template_model_get_mapping(self):
-        return {**super(EventMailScheduler, self)._selection_template_model_get_mapping(), 'whatsapp': 'whatsapp.template'}
-
-    @api.constrains('notification_type', 'template_ref')
+    @api.constrains('template_ref')
     def _check_whatsapp_template_phone_field(self):
         for record in self:
-            if record.template_ref and record.notification_type == 'whatsapp' and not record.template_ref.phone_field:
+            if record.notification_type == 'whatsapp' and not record.template_ref.phone_field:
                 raise ValidationError(_('Whatsapp Templates in Events must have a phone field set.'))
 
-    notification_type = fields.Selection(selection_add=[('whatsapp', 'WhatsApp')], ondelete={'whatsapp': 'set default'})
-
-    @api.depends('notification_type')
-    def _compute_template_model_id(self):
-        whatsapp_model = self.env['ir.model']._get('whatsapp.template')
-        whatsapp_mails = self.filtered(lambda mail: mail.notification_type == 'whatsapp')
-        whatsapp_mails.template_model_id = whatsapp_model
-        super(EventMailScheduler, self - whatsapp_mails)._compute_template_model_id()
-
-    @api.onchange('notification_type')
-    def set_template_ref_model(self):
-        super().set_template_ref_model()
-        mail_model = self.env['whatsapp.template']
-        if self.notification_type == 'whatsapp':
-            record = mail_model.search([('model_id', '=', 'event.registration'), ('status', '=', 'approved')], limit=1)
-            self.template_ref = "{},{}".format('whatsapp.template', record.id) if record.id else False
+    def _compute_notification_type(self):
+        super()._compute_notification_type()
+        social_schedulers = self.filtered(lambda scheduler: scheduler.template_ref and scheduler.template_ref._name == 'whatsapp.template')
+        social_schedulers.notification_type = 'whatsapp'
 
     def execute(self):
         def send_whatsapp(scheduler, registrations):
