@@ -3,229 +3,96 @@
 
     <data>
 
-        <record id="planning.planning_slot_111" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
+        <function model="planning.slot" name="write">
+            <value model="planning.slot"
+                eval="[
+                        ref('planning.planning_slot_111'),
+                        ref('planning.planning_slot_115'),
+                        ref('planning.planning_slot_132'),
+                        ref('planning.planning_slot_141'),
+                        ref('planning.planning_slot_148'),
+                        ref('planning.planning_slot_121'),
+                        ref('planning.planning_slot_153'),
+                        ref('planning.planning_slot_155'),
+                        ref('planning.planning_slot_214'),
+                        ref('planning.planning_slot_218'),
+                        ref('planning.planning_slot_233'),
+                        ref('planning.planning_slot_234'),
+                        ref('planning.planning_slot_236'),
+                        ref('planning.planning_slot_246'),
+                        ref('planning.planning_slot_256'),
+                        ref('planning.planning_slot_263'),
+                        ref('planning.planning_slot_270'),
+                        ref('planning.planning_slot_275'),
+                        ref('planning.planning_slot_276'),
+                        ref('planning.planning_slot_285'),
+                        ref('planning.planning_slot_294'),
+                        ref('planning.planning_slot_306'),
+                        ref('planning.planning_slot_309'),
+                        ref('planning.planning_slot_312'),
+                        ref('planning.planning_slot_327'),
+                        ref('planning.planning_slot_334'),
+                    ]"
+            />
+            <value eval="{'project_id': ref('project.project_project_1')}"/>
+        </function>
 
-        <record id="planning.planning_slot_112" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
+        <function model="planning.slot" name="write">
+            <value model="planning.slot"
+                eval="[
+                        ref('planning.planning_slot_113'),
+                        ref('planning.planning_slot_116'),
+                        ref('planning.planning_slot_122'),
+                        ref('planning.planning_slot_124'),
+                        ref('planning.planning_slot_134'),
+                        ref('planning.planning_slot_142'),
+                        ref('planning.planning_slot_145'),
+                        ref('planning.planning_slot_211'),
+                        ref('planning.planning_slot_213'),
+                        ref('planning.planning_slot_223'),
+                        ref('planning.planning_slot_224'),
+                        ref('planning.planning_slot_232'),
+                        ref('planning.planning_slot_238'),
+                        ref('planning.planning_slot_243'),
+                        ref('planning.planning_slot_251'),
+                        ref('planning.planning_slot_258'),
+                        ref('planning.planning_slot_265'),
+                        ref('planning.planning_slot_272'),
+                        ref('planning.planning_slot_283'),
+                    ]"
+            />
+            <value eval="{'project_id': ref('project.project_project_2')}"/>
+        </function>
 
-        <record id="planning.planning_slot_113" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_114" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_115" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_116" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_121" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_122" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_123" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_124" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_129" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_132" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_134" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_138" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_141" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_142" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_144" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_145" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_148" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_151" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_153" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_155" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_156" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_159" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_211" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_213" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_214" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_216" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_218" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_223" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_224" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_226" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_228" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_232" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_233" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_234" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_236" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_238" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_243" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_244" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_246" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_251" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_252" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_256" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_258" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_259" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_260" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_263" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_265" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_270" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_272" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_275" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_276" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
-
-        <record id="planning.planning_slot_279" model="planning.slot">
-            <field name="project_id" ref="project.project_project_3"/>
-        </record>
-
-        <record id="planning.planning_slot_283" model="planning.slot">
-            <field name="project_id" ref="project.project_project_2"/>
-        </record>
-
-        <record id="planning.planning_slot_285" model="planning.slot">
-            <field name="project_id" ref="project.project_project_1"/>
-        </record>
+        <function model="planning.slot" name="write">
+            <value model="planning.slot"
+                eval="[
+                        ref('planning.planning_slot_112'),
+                        ref('planning.planning_slot_114'),
+                        ref('planning.planning_slot_123'),
+                        ref('planning.planning_slot_129'),
+                        ref('planning.planning_slot_138'),
+                        ref('planning.planning_slot_144'),
+                        ref('planning.planning_slot_151'),
+                        ref('planning.planning_slot_156'),
+                        ref('planning.planning_slot_159'),
+                        ref('planning.planning_slot_216'),
+                        ref('planning.planning_slot_226'),
+                        ref('planning.planning_slot_228'),
+                        ref('planning.planning_slot_244'),
+                        ref('planning.planning_slot_252'),
+                        ref('planning.planning_slot_259'),
+                        ref('planning.planning_slot_260'),
+                        ref('planning.planning_slot_279'),
+                        ref('planning.planning_slot_328'),
+                        ref('planning.planning_slot_330'),
+                        ref('planning.planning_slot_336'),
+                        ref('planning.planning_slot_338'),
+                        ref('planning.planning_slot_346'),
+                    ]"
+            />
+            <value eval="{'project_id': ref('project.project_project_3')}"/>
+        </function>
 
     </data>
 
