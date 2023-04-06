@@ -52,9 +52,9 @@ class SaleOrder(models.Model):
         compute='_compute_subscription_state', store=True, index='btree_not_null', tracking=True, group_expand='_group_expand_states',
     )
 
-    subscription_id = fields.Many2one('sale.order', string='Parent Contract', ondelete='restrict', copy=False)
+    subscription_id = fields.Many2one('sale.order', string='Parent Contract', ondelete='restrict', copy=False, index='btree_not_null')
     origin_order_id = fields.Many2one('sale.order', string='First contract', ondelete='restrict', store=True, copy=False,
-                                      compute='_compute_origin_order_id')
+                                      compute='_compute_origin_order_id', index='btree_not_null')
     subscription_child_ids = fields.One2many('sale.order', 'subscription_id')
 
     start_date = fields.Date(string='Start Date',
