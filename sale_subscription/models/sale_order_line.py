@@ -21,7 +21,7 @@ class SaleOrderLine(models.Model):
 
     recurring_invoice = fields.Boolean(related="product_template_id.recurring_invoice")
     recurring_monthly = fields.Monetary(compute='_compute_recurring_monthly', string="Monthly Recurring Revenue")
-    parent_line_id = fields.Many2one('sale.order.line', compute='_compute_parent_line_id', store=True, precompute=True)
+    parent_line_id = fields.Many2one('sale.order.line', compute='_compute_parent_line_id', store=True, precompute=True, index='btree_not_null')
 
     @property
     def upsell_total(self):
