@@ -3,6 +3,7 @@
 import { serializeDate } from "@web/core/l10n/dates";
 import { GridRow } from "@web_grid/views/grid_model";
 import { TimesheetGridDataPoint, TimesheetGridModel } from "../timesheet_grid/timesheet_grid_model";
+import { session } from "@web/session";
 
 export class TimerGridRow extends GridRow {
     constructor(domain, valuePerFieldName, model, section, isAdditionalRow = false) {
@@ -61,10 +62,15 @@ export class TimerTimesheetGridDataPoint extends TimesheetGridDataPoint {
     }
 
     async fetchDailyWorkingHours() {
-        const dailyWorkingHours = await this.orm.call("hr.employee", "get_daily_working_hours", [
-            serializeDate(this.navigationInfo.periodStart),
-            serializeDate(this.navigationInfo.periodEnd),
-        ]);
+        const dailyWorkingHours = await this.orm.call(
+            "res.users",
+            "get_daily_working_hours",
+            [
+                session.user_id,
+                serializeDate(this.navigationInfo.periodStart),
+                serializeDate(this.navigationInfo.periodEnd),
+            ],
+        );
         this.data.workingHours.daily = dailyWorkingHours;
     }
 

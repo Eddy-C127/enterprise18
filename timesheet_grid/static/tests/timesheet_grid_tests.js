@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
-import { click, getFixture, patchDate } from "@web/../tests/helpers/utils";
+import { click, getFixture, patchDate, getNodesTextContent } from "@web/../tests/helpers/utils";
+
 import { setupViewRegistries } from "@web/../tests/views/helpers";
 
 import { start } from "@mail/../tests/helpers/test_utils";
@@ -12,6 +13,27 @@ import { TimesheetGridSetupHelper } from "./helpers";
 let serverData, target, timesheetGridSetup;
 
 addModelNamesToFetch(["project.project", "project.task"]);
+
+
+function assertSectionsColsOverAndDownTime(target, assert) {
+    assert.deepEqual(
+        getNodesTextContent(target.querySelectorAll(".o_grid_section.text-warning")),
+        ["25:00", "10:00"],
+        "Mario has overtime 25h > 8h and 10h > 8h"
+    );
+    assert.deepEqual(
+        getNodesTextContent(target.querySelectorAll(".o_grid_section.text-danger")),
+        ["2:30", "0:00"],
+        "Luigi has downtime 2:30h < 6h and 0h < 6h"
+    );
+}
+
+function assertOutOfRangeCells(target, assert, exceptedResult) {
+    assert.deepEqual(
+        getNodesTextContent(target.querySelectorAll(".o_grid_row.text-danger")),
+        exceptedResult,
+    );
+}
 
 QUnit.module("Views", (hooks) => {
     hooks.beforeEach(async () => {
@@ -56,6 +78,7 @@ QUnit.module("Views", (hooks) => {
             6,
             "should have 6 rows displayed in the grid"
         );
+        assertOutOfRangeCells(target, assert, ["25:00", "-3:30"]);
     });
 
     QUnit.test("basic timesheet - groupby employees", async function (assert) {
@@ -84,6 +107,7 @@ QUnit.module("Views", (hooks) => {
             4,
             "should have 4 rows displayed in the grid"
         );
+        assertOutOfRangeCells(target, assert, ["-3:30", "25:00"]);
     });
 
     QUnit.test("basic timesheet - groupby employees>task", async function (assert) {
@@ -119,6 +143,7 @@ QUnit.module("Views", (hooks) => {
             "should have 5 many2one widgets in total"
         );
         assert.containsN(target, ".o_grid_component", 11, "should have 11 widgets in total");
+        assertOutOfRangeCells(target, assert, ["25:00", "-3:30"]);
     });
 
     QUnit.test("basic timesheet - groupby task>employees", async function (assert) {
@@ -164,6 +189,7 @@ QUnit.module("Views", (hooks) => {
             ".o_grid_component_timesheet_many2one .o_grid_no_data",
             "should have 1 widget with no data"
         );
+        assertOutOfRangeCells(target, assert, ["-3:30"]);
     });
 
     QUnit.test("timesheet with employee section - no groupby", async function (assert) {
@@ -226,6 +252,8 @@ QUnit.module("Views", (hooks) => {
             2,
             "should have 2 Add a line button"
         );
+        assertSectionsColsOverAndDownTime(target, assert);
+        assertOutOfRangeCells(target, assert, ["-3:30", "25:00"]);
     });
 
     QUnit.test("timesheet with employee section - groupby employees", async function (assert) {
@@ -269,6 +297,7 @@ QUnit.module("Views", (hooks) => {
             4,
             "4 rows should be rendered in the grid view"
         );
+        assertOutOfRangeCells(target, assert, ["-3:30", "25:00"]);
     });
 
     QUnit.test("timesheet with employee section - groupby employee>task", async function (assert) {
@@ -335,6 +364,8 @@ QUnit.module("Views", (hooks) => {
             6,
             "should have 6 rows displayed in the grid"
         );
+        assertSectionsColsOverAndDownTime(target, assert);
+        assertOutOfRangeCells(target, assert, ["-3:30", "25:00"]);
     });
 
     QUnit.test("timesheet with employee section - groupby task>employees", async function (assert) {
@@ -384,6 +415,7 @@ QUnit.module("Views", (hooks) => {
             6,
             "6 rows should be rendered in the grid view"
         );
+        assertOutOfRangeCells(target, assert, ["-3:30"]);
     });
 
     QUnit.test(

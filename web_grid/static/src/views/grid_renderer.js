@@ -229,6 +229,47 @@ export class GridRenderer extends Component {
         return this.props.createInline && this.row.id === this.row.section.lastRow.id;
     }
 
+    getCellColorClass(column) {
+        return "text-900";
+    }
+
+    getSectionColumnsClasses(column, row) {
+        const isToday = column.isToday;
+        return {
+            'border-top bg-info bg-opacity-50': isToday,
+            'bg-200 border-top': !isToday,
+            'bg-opacity-75': this.getUnavailableClass(column) === 'o_grid_unavailable' && row.cells[column.id].value === 0,
+        }
+    }
+
+    getSectionCellsClasses(column, row) {
+        return {
+            'text-opacity-25' : row.cells[column.id].value === 0 || this.getUnavailableClass(column) === 'o_grid_unavailable',
+        };
+    }
+
+    isTextDanger() {
+        return false;
+    }
+
+    getTextColorClasses(column, row, isEven) {
+        const value = row.cells[column.id].value;
+        const isTextDanger = this.isTextDanger(row, column);
+        return {
+            'text-bg-view': isEven && value >= 0 && !isTextDanger,
+            'text-900': !isEven && value >= 0 && !isTextDanger,
+            'text-danger': value < 0 || isTextDanger,
+        }
+    }
+
+    getCellsClasses(column, row, section, isEven) {
+        return {
+            ...this.getTextColorClasses(column, row, isEven),
+            'o_grid_cell_today': column.isToday,
+            'fst-italic': row.isAdditionalRow,
+        };
+    }
+
     getColumnBarChartHeightStyle(column) {
         let heightPercentage = 0;
         if (this.props.model.maxColumnsTotal !== 0) {

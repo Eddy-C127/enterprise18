@@ -22,3 +22,6 @@ class User(models.Model):
             raise UserError(_('You are not allowed to see timesheets.'))
 
         return self.sudo().employee_id.last_validated_timesheet_date
+
+    def get_daily_working_hours(self, date_start, date_stop):
+        return self.employee_id._count_daily_working_hours(date_start, date_stop)[self.employee_id.id]

@@ -88,12 +88,8 @@
             <div t-foreach="props.columns"
                 t-as="column"
                 t-key="column.id"
-                class="o_grid_section o_grid_highlightable position-relative d-flex align-items-center justify-content-center fw-bold"
-                t-att-class="{
-                    'border-top bg-info bg-opacity-50' : column.isToday,
-                    'bg-200 border-top' : !column.isToday,
-                    'bg-opacity-75' : getUnavailableClass(column) === 'o_grid_unavailable'
-                }"
+                t-attf-class="o_grid_section o_grid_highlightable position-relative d-flex align-items-center justify-content-center fw-bold {{ getCellColorClass(column) }}"
+                t-att-class="getSectionColumnsClasses(column, section)"
                 t-att-data-row="section.id"
                 t-att-data-column="column.id"
                 t-att-data-grid-row="rowPosition"
@@ -108,9 +104,7 @@
                     t-attf-class="{{getUnavailableClass(column)}}"
                 />
                 <div class="o_grid_cell_readonly position-relative d-flex justify-content-center align-items-center w-100 h-100">
-                    <span class="z-index-1 text-900" t-att-class="{
-                            'text-opacity-25' : section.cells[column.id].value === 0 or getUnavailableClass(column) === 'o_grid_unavailable',
-                          }"
+                    <span class="z-index-1" t-att-class="getSectionCellsClasses(column, section)"
                           t-out="formatValue(section.cells[column.id].value)"
                     />
                 </div>
@@ -171,13 +165,7 @@
              t-as="column"
              t-key="column.id"
              class="o_grid_row o_grid_highlightable position-relative d-flex align-items-center justify-content-center"
-             t-att-class="{
-                 'o_grid_cell_today': column.isToday,
-                 'text-bg-view': isEven and row.cells[column.id].value &gt;= 0,
-                 'text-900': !isEven and row.cells[column.id].value &gt;= 0,
-                 'fst-italic': row.isAdditionalRow,
-                 'text-danger': row.cells[column.id].value lt 0,
-             }"
+             t-att-class="getCellsClasses(column, row, section, isEven)"
              t-att-data-row="row.id"
              t-att-data-column="column.id"
              t-att-data-grid-row="rowPosition"

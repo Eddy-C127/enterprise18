@@ -14,11 +14,36 @@ export class TimesheetGridDataPoint extends GridDataPoint {
     }
 
     get timesheetWorkingHoursPromises() {
-        return [
+        const result = [
             this._fetchWorkingHoursData("task_id"),
             this._fetchWorkingHoursData("project_id"),
             this._fetchAllTimesheetM2OAvatarData(),
         ];
+
+        if (this.sectionField?.name === this.fieldsInfo.employee_id.name) {
+            result.push(this._fetchDailyWorkingHours());
+        }
+
+        return result;
+    }
+
+    async _fetchDailyWorkingHours() {
+        const field = this.fieldsInfo.employee_id;
+        const employeeIds = this._getFieldValuesInSectionAndRows(field);
+
+        if (!employeeIds.length) {
+            return;
+        }
+
+        this.data.workingHours.dailyPerEmployee = await this.orm.call(
+            field.relation,
+            "get_daily_working_hours",
+            [
+                employeeIds,
+                serializeDate(this.navigationInfo.periodStart),
+                serializeDate(this.navigationInfo.periodEnd),
+            ],
+        );
     }
 
     async _initialiseData() {

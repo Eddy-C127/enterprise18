@@ -77,7 +77,7 @@ QUnit.module("Views", (hooks) => {
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     return false;
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_server_time") {
                     assert.strictEqual(args.model, "timer.timer");
@@ -116,7 +116,7 @@ QUnit.module("Views", (hooks) => {
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     return false;
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_server_time") {
                     assert.strictEqual(args.model, "timer.timer");
@@ -235,7 +235,7 @@ QUnit.module("Views", (hooks) => {
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     return false;
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_server_time") {
                     assert.strictEqual(args.model, "timer.timer");
@@ -287,7 +287,7 @@ QUnit.module("Views", (hooks) => {
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     return false;
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_server_time") {
                     assert.strictEqual(args.model, "timer.timer");
@@ -367,7 +367,7 @@ QUnit.module("Views", (hooks) => {
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     return false;
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_server_time") {
                     assert.strictEqual(args.model, "timer.timer", "get_server_time");
@@ -467,7 +467,7 @@ QUnit.module("Views", (hooks) => {
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     return false;
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_server_time") {
                     assert.strictEqual(
@@ -545,7 +545,7 @@ QUnit.module("Views", (hooks) => {
                         step_timer: 30,
                     };
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return false;
@@ -626,7 +626,7 @@ QUnit.module("Views", (hooks) => {
                         step_timer: 30,
                     };
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     return false;
@@ -742,7 +742,7 @@ QUnit.module("Views", (hooks) => {
                         step_timer: 30,
                     };
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     const { project_id, task_id } = args.args[0];
@@ -943,7 +943,7 @@ QUnit.module("Views", (hooks) => {
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     return false;
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_server_time") {
                     assert.strictEqual(args.model, "timer.timer");
@@ -985,8 +985,8 @@ QUnit.module("Views", (hooks) => {
                     } else if (args.method === "action_start_new_timesheet_timer") {
                         return false;
                     } else if (args.method === "get_daily_working_hours") {
-                        assert.strictEqual(args.model, "hr.employee");
-                        const [serializedDateStart, serializedDateEnd] = args.args;
+                        assert.strictEqual(args.model, "res.users");
+                        const [, serializedDateStart, serializedDateEnd] = args.args;
                         const dailyWorkingHours = {
                             [serializedDateStart]: 0,
                             [serializedDateEnd]: 0,
@@ -1097,8 +1097,8 @@ QUnit.module("Views", (hooks) => {
 
             assert.containsOnce(
                 target,
-                ".o_grid_highlightable.position-md-sticky.end-0.d-flex.align-items-center.justify-content-center.fw-bold.text-bg-danger",
-                "Total overtime should be displayed in red because employees have not done all work of the week"
+                ".o_grid_highlightable.position-md-sticky.end-0.d-flex.align-items-center.justify-content-center.fw-bold.text-bg-warning",
+                "Total overtime should be displayed in orange because employees have done more work than the normal hours"
             );
         }
     );
@@ -1119,7 +1119,7 @@ QUnit.module("Views", (hooks) => {
                         description: "",
                     };
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_server_time") {
                     assert.strictEqual(args.model, "timer.timer");
@@ -1224,7 +1224,7 @@ QUnit.module("Views", (hooks) => {
                             step_timer: 30,
                         };
                     } else if (args.method === "get_daily_working_hours") {
-                        assert.strictEqual(args.model, "hr.employee");
+                        assert.strictEqual(args.model, "res.users");
                         return {};
                     } else if (args.method === "action_start_new_timesheet_timer") {
                         const { project_id, task_id } = args.args[0];
@@ -1307,7 +1307,7 @@ QUnit.module("Views", (hooks) => {
                             step_timer: 30,
                         };
                     } else if (args.method === "get_daily_working_hours") {
-                        assert.strictEqual(args.model, "hr.employee");
+                        assert.strictEqual(args.model, "res.users");
                         return {};
                     } else if (args.method === "action_start_new_timesheet_timer") {
                         const { project_id, task_id } = args.args[0];
@@ -1400,7 +1400,7 @@ QUnit.module("Views", (hooks) => {
                             description: "",
                         };
                     } else if (args.method === "get_daily_working_hours") {
-                        assert.strictEqual(args.model, "hr.employee");
+                        assert.strictEqual(args.model, "res.users");
                         return {};
                     } else if (args.method === "get_server_time") {
                         assert.strictEqual(args.model, "timer.timer");

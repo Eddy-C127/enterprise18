@@ -80,7 +80,7 @@ QUnit.module("Views", (hooks) => {
                 } else if (args.method === "action_start_new_timesheet_timer") {
                     return false;
                 } else if (args.method === "get_daily_working_hours") {
-                    assert.strictEqual(args.model, "hr.employee");
+                    assert.strictEqual(args.model, "res.users");
                     return {};
                 } else if (args.method === "get_server_time") {
                     assert.strictEqual(args.model, "timer.timer");

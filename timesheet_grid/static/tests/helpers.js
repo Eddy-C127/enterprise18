@@ -53,6 +53,19 @@ function get_timesheet_and_working_hours_for_employees(employeeIds, dateStart, d
     return result;
 }
 
+function get_daily_working_hours() {
+    return {
+        1: {
+            "2017-01-25": 6,
+            "2017-01-27": 6,
+        },
+        2: {
+            "2017-01-24": 8,
+            "2017-01-25": 8,
+        },
+    };
+}
+
 export class TimesheetGridSetupHelper {
     constructor(withTimer = false) {
         this.withTimer = withTimer;
@@ -86,6 +99,8 @@ export class TimesheetGridSetupHelper {
                 groups: [],
                 length: 0,
             };
+        } else if (args.method === "get_daily_working_hours") {
+            return get_daily_working_hours();
         }
     }
 
@@ -176,7 +191,7 @@ export class TimesheetGridSetupHelper {
                     task_id: taskId1,
                     employee_id: employeeId11,
                     date: "2017-01-25",
-                    unit_amount: 2,
+                    unit_amount: 25,
                 },
                 {
                     id: 3,

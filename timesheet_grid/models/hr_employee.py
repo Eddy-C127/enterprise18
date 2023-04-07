@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from collections import defaultdict
 from datetime import datetime, time, timedelta
 from pytz import UTC
 
@@ -78,9 +79,8 @@ class Employee(models.Model):
             result[employee.id]['working_hours'] = float_round(working_hours, 2)
         return result
 
-    @api.model
-    def get_daily_working_hours(self, date_start, date_stop):
-        result = {}
+    def _count_daily_working_hours(self, date_start, date_stop):
+        result = defaultdict(dict)
         # Change the type of the date from string to Date
         date_start_date = fields.Date.from_string(date_start)
         date_stop_date = min(fields.Date.from_string(date_stop), fields.Date.today())
@@ -88,36 +88,30 @@ class Employee(models.Model):
         # Compute the difference between the starting and ending date
         delta = date_stop_date - date_start_date
 
-        # Get the current user
-        current_employee = self.env.user.employee_id
-
-        if not current_employee:
-            return result
         # Change the type of the date from date to datetime and add UTC as the timezone time standard
         datetime_min = datetime.combine(date_start_date, time.min).replace(tzinfo=UTC)
         datetime_max = datetime.combine(date_stop_date, time.max).replace(tzinfo=UTC)
-        # Collect the number of hours that an employee should work according to their schedule
-        calendar = current_employee.resource_calendar_id or current_employee.company_id.resource_calendar_id
-        employee_work_days_data = calendar._work_intervals_batch(
-            datetime_min, datetime_max,
-            resources=current_employee.resource_id, compute_leaves=False
-        )
-        working_hours = employee_work_days_data[current_employee.resource_id.id]
+        # Collect the number of hours that an employee should work according to their schedule without counting timeoff
+        resource_work_intervals, dummy = self.resource_id._get_valid_work_intervals(datetime_min, datetime_max, compute_leaves=False)
 
-        for day_count in range(delta.days + 1):
-            date = date_start_date + timedelta(days=day_count)
-            if current_employee.resource_calendar_id:
-                value = sum(
-                    (stop - start).total_seconds() / 3600
-                    for start, stop, meta in working_hours
-                    if start.date() == date
-                )
-            else:
-                value = current_employee.company_id.resource_calendar_id.hours_per_day or HOURS_PER_DAY
-
-            result[fields.Date.to_string(date)] = value
+        for employee in self:
+            working_hours = resource_work_intervals[employee.resource_id.id]
+            for day_count in range(delta.days + 1):
+                date = date_start_date + timedelta(days=day_count)
+                if employee.resource_calendar_id:
+                    value = sum(
+                        (stop - start).total_seconds() / 3600
+                        for start, stop, meta in working_hours
+                        if start.date() == date
+                    )
+                else:
+                    value = employee.company_id.resource_calendar_id.hours_per_day or HOURS_PER_DAY
+                result[employee.id][fields.Date.to_string(date)] = value
 
         return result
+
+    def get_daily_working_hours(self, date_start, date_stop):
+        return self._count_daily_working_hours(date_start, date_stop)
 
     def _get_timesheets_and_working_hours_query(self):
         return """

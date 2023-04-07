@@ -72,7 +72,31 @@ export class TimesheetGridRenderer extends GridRenderer {
         if (employeeId in this.lastValidationDatePerEmployee) {
             return res && (!this.lastValidationDatePerEmployee[employeeId] || this.lastValidationDatePerEmployee[employeeId].startOf("day") < this.props.model.navigationInfo.periodEnd.startOf("day"));
         }
+    }
+
+    getCellColorClass(column) {
+        const res = super.getCellColorClass(...arguments);
+        const workingHours = this.props.model.data.workingHours.dailyPerEmployee?.[this.section.valuePerFieldName.employee_id[0]];
+        if (!workingHours) {
+            return res;
+        }
+
+        const value = workingHours[column.value];
+        const cellValue = this.section.cells[column.id].value;
+        if (cellValue > value) {
+            return "text-warning";
+        } else if (cellValue < value) {
+            return "text-danger";
+        }
 
         return res;
+    }
+
+    isTextDanger(row, column) {
+        const params = this.props.model.searchParams;
+        return (
+            !params.groupBy.length ||
+            params.groupBy[0] === "employee_id"
+        ) && (row.cells[column.id].value > 24);
     }
 }
