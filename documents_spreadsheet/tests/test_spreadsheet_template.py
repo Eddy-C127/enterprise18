@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import json
+
 from .common import SpreadsheetTestCommon, TEST_CONTENT
 from odoo.exceptions import AccessError
 from odoo.tests.common import new_test_user
@@ -146,6 +148,40 @@ class SpreadsheetTemplate(SpreadsheetTestCommon):
         spreadsheet_id = action["params"]["spreadsheet_id"]
         document = self.env["documents.document"].browse(spreadsheet_id)
         self.assertEqual(document.folder_id, self.folder)
+
+    def test_action_create_spreadsheet_purges_comments(self):
+        base_data = {
+            "sheets": [{
+                "comments": [
+                    {"A1": {"threadId": 1, "isResolved": False}}
+                ]
+            }]
+        }
+        template = self.env["spreadsheet.template"].create({
+            "spreadsheet_data": json.dumps(base_data),
+            "name": "Template name",
+        })
+        template._dispatch_command(
+            {
+                "type": "ADD_COMMENT_THREAD",
+                "sheetId": "sh1",
+                "col": 0,
+                "row": 1,
+                "threadId": 2,
+            }
+        )
+
+        action = template.action_create_spreadsheet()
+        spreadsheet_id = action["params"]["spreadsheet_id"]
+        document = self.env["documents.document"].browse(spreadsheet_id)
+        self.assertEqual(document.spreadsheet_data, '{"sheets": [{"comments": {}}]}')
+        self.assertEqual(
+            len(document.spreadsheet_revision_ids),
+            2,
+            "it should have copied the revision and added the user locale revision"
+        )
+        comment_revision = json.loads(document.spreadsheet_revision_ids[0].commands)
+        self.assertEqual(comment_revision["commands"], [])
 
     def test_join_template_session(self):
         template = self.env["spreadsheet.template"].create({

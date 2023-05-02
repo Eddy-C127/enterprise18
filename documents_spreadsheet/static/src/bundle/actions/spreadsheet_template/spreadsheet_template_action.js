@@ -14,6 +14,7 @@ export class SpreadsheetTemplateAction extends AbstractSpreadsheetAction {
         DocumentsSpreadsheetControlPanel,
     };
     resModel = "spreadsheet.template";
+    threadField = "template_id";
 
     setup() {
         super.setup();

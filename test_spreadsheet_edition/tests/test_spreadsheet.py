@@ -3,15 +3,24 @@
 from datetime import datetime
 from freezegun import freeze_time
 import psycopg2
-
+import json
+import copy as COPY
 from odoo.tools import mute_logger
 
 from odoo.tests.common import new_test_user
 from odoo.addons.spreadsheet_edition.tests.spreadsheet_test_case import SpreadsheetTestCase
 
 
-class SpreadsheetMixinTest(SpreadsheetTestCase):
+def add_thread_command(x):
+    return {
+        "type": "ADD_COMMENT_THREAD",
+        "sheetId": "sh1",
+        "col": 0,
+        "row": 1,
+        "threadId": x,
+    }
 
+class SpreadsheetMixinTest(SpreadsheetTestCase):
 
     def test_copy_revisions(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
@@ -45,6 +54,71 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
         copy = spreadsheet.copy({"spreadsheet_revision_ids": []})
         self.assertFalse(copy.spreadsheet_revision_ids)
+
+    def test_copy_filters_out_comments(self):
+        base_data = {
+            "sheets": [{
+                "comments": [
+                    {"A1": {"threadId": 1, "isResolved": False}}
+                ]
+            }],
+            "revisionId": "revision-id"
+        }
+        spreadsheet = self.env["spreadsheet.test"].create({"spreadsheet_data": json.dumps(base_data)})
+
+        spreadsheet._dispatch_command(add_thread_command(2))
+        snapshot_data = COPY.deepcopy(base_data)
+        snapshot_data["revisionId"] = "snapshot-revision-id"
+        snapshot_data["sheets"][0]["comments"][0]["A2"] = {"threadId": 1, "isResolved": False}
+
+        self.snapshot(spreadsheet, spreadsheet.current_revision_uuid, "snapshot-revision-id", snapshot_data)
+        spreadsheet._dispatch_command(add_thread_command(3))
+
+        copy = spreadsheet.copy().with_context(active_test=False)  # get all the archived revisions
+
+        copied_data = json.loads(copy.spreadsheet_data)
+        copied_snapshot = copy._get_spreadsheet_snapshot()  # snapshot
+        copied_revision_before = json.loads(copy.spreadsheet_revision_ids[0].commands)  # revision before snapshot
+        copied_revision_after = json.loads(copy.spreadsheet_revision_ids[2].commands)  # revision after snapshot
+
+        self.assertEqual(copied_data["sheets"][0]["comments"], {})
+        self.assertEqual(copied_snapshot["sheets"][0]["comments"], {})
+        self.assertEqual(copied_revision_before["commands"], [])
+        self.assertEqual(copied_revision_after["commands"], [])
+
+    def test_fork_history_filters_out_comments(self):
+        base_data = {
+            "sheets": [{
+                "comments": [
+                    {"A1": {"threadId": 1, "isResolved": False}}
+                ]
+            }],
+            "revisionId": "revision-id"
+        }
+        spreadsheet = self.env["spreadsheet.test"].create({"spreadsheet_data": json.dumps(base_data)})
+
+        spreadsheet._dispatch_command(add_thread_command(2))
+        snapshot_data = COPY.deepcopy(base_data)
+        snapshot_data["revisionId"] = "snapshot-revision-id"
+        snapshot_data["sheets"][0]["comments"][0]["A2"] = {"threadId": 1, "isResolved": False}
+
+        self.snapshot(spreadsheet, spreadsheet.current_revision_uuid, "snapshot-revision-id", snapshot_data)
+        spreadsheet._dispatch_command(add_thread_command(3))
+
+        action = spreadsheet.fork_history(spreadsheet.spreadsheet_revision_ids[-1].id, snapshot_data)
+        fork_id = action["params"]["next"]["params"]["spreadsheet_id"]
+        fork = self.env["spreadsheet.test"].browse(fork_id).with_context(active_test=False)  # get all the archived revisions
+
+        copied_data = json.loads(fork.spreadsheet_data)
+        copied_snapshot = fork._get_spreadsheet_snapshot()  # snapshot
+        copied_revision_before = json.loads(fork.spreadsheet_revision_ids[0].commands)  # revision before snapshot
+        copied_revision_after = json.loads(fork.spreadsheet_revision_ids[2].commands)  # revision after snapshot
+
+        self.assertEqual(copied_data["sheets"][0]["comments"], {})
+        self.assertEqual(copied_snapshot["sheets"][0]["comments"], {})
+        self.assertEqual(copied_revision_before["commands"], [])
+        self.assertEqual(copied_revision_after["commands"], [])
+
 
     def test_reset_spreadsheet_data(self):
         spreadsheet = self.env["spreadsheet.test"].create({})

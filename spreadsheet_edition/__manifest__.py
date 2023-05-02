@@ -10,6 +10,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/spreadsheet_views.xml',
+        'data/mail_template_layouts.xml',
     ],
     'installable': True,
     'auto_install': True,

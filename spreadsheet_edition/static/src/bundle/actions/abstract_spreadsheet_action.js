@@ -18,10 +18,13 @@ import { useSpreadsheetPrint } from "@spreadsheet/hooks";
 import { router } from "@web/core/browser/router";
 import { InputDialog } from "./input_dialog/input_dialog";
 import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
+import { CommentsStore } from "../comments/comments_store";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
 const { Model } = spreadsheet;
+const { useStoreProvider, ModelStore, SidePanelStore } = spreadsheet.stores;
+
 /**
  * @typedef SpreadsheetRecord
  * @property {number} id
@@ -68,6 +71,8 @@ export class AbstractSpreadsheetAction extends Component {
             this.shareId,
             this.accessToken
         );
+        const stores = useStoreProvider();
+        this.threadId = this.params?.thread_id;
         useSetupAction({
             beforeLeave: this._leaveSpreadsheet.bind(this),
             beforeUnload: this._leaveSpreadsheet.bind(this),
@@ -85,6 +90,7 @@ export class AbstractSpreadsheetAction extends Component {
             download: this.download.bind(this),
             downloadAsJson: this.downloadAsJson.bind(this),
             showHistory: this.showHistory.bind(this),
+            insertThreadInSheet: this.insertThreadInSheet.bind(this),
             print,
             getLinesNumber: this._getLinesNumber.bind(this),
         });
@@ -95,9 +101,11 @@ export class AbstractSpreadsheetAction extends Component {
         onWillStart(async () => {
             await this.fetchData();
             this.createModel();
+            stores.inject(ModelStore, this.model);
             await this.execInitCallbacks();
         });
         onMounted(() => {
+            const commentsStore = stores.get(CommentsStore);
             router.pushState({
                 spreadsheet_id: this.resId,
                 access_token: this.accessToken,
@@ -105,6 +113,12 @@ export class AbstractSpreadsheetAction extends Component {
             });
             this.env.config.setDisplayName(this.state.spreadsheetName);
             this.model.on("unexpected-revision-id", this, this.onUnexpectedRevisionId.bind(this));
+            if (this.threadId) {
+                // necessary atm - we need at least one frame to have the right viewport height/width
+                setTimeout(() => commentsStore.openCommentThread(this.threadId), 0);
+                const sidePanel = stores.get(SidePanelStore);
+                sidePanel.open("Comments");
+            }
         });
         onWillUnmount(() => {
             this.model.off("unexpected-revision-id", this);
@@ -379,5 +393,18 @@ export class AbstractSpreadsheetAction extends Component {
             inputValue: DEFAULT_LINES_NUMBER,
             inputType: "number",
         });
+    }
+
+    async insertThreadInSheet({ sheetId, col, row }) {
+        const [threadId] = await this.env.services.orm.create("spreadsheet.cell.thread", [
+            { [this.threadField]: this.resId },
+        ]);
+        this.model.dispatch("ADD_COMMENT_THREAD", {
+            sheetId,
+            col,
+            row,
+            threadId,
+        });
+        return threadId;
     }
 }

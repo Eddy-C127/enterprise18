@@ -58,6 +58,8 @@
 
         <!-- documents rules -->
 
+        <!-- duplicated for spreadsheetCellThreads in rule documents_spreadsheet.documents_document_thread_global_rule
+        Please update aforemetioned the rule accordingly -->
         <record id="documents_document_global_rule" model="ir.rule">
             <field name="name">Documents.document: global</field>
             <field name="model_id" ref="model_documents_document"/>
@@ -87,6 +89,12 @@
             <field name="perm_unlink" eval="False"/>
         </record>
 
+        <!--
+            This rule is copy-pasted for "model_spreadsheet_cell_thread",
+            xmd_id: documents_spreadsheet.spreadsheet_cell_thread_write_rule
+            If you update this rule, please don't forget to update the
+            rule in module "documents_spreadsheet" ;)
+         -->
         <record id="documents_document_write_rule" model="ir.rule">
             <field name="name">Documents.document: folder write groups</field>
             <field name="model_id" ref="model_documents_document"/>
@@ -108,6 +116,8 @@
             <field name="perm_unlink" eval="False"/>
         </record>
 
+        <!-- duplicated for spreadsheetCellThreads in rule documents_spreadsheet.spreadsheet_manager_document_threads
+        Please update aforemetioned the rule accordingly -->
         <record id="documents_document_manager_rule" model="ir.rule">
             <field name="name">Documents.document: manager rule</field>
             <field name="model_id" ref="model_documents_document"/>

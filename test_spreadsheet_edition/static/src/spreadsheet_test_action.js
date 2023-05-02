@@ -13,6 +13,7 @@ export class SpreadsheetTestAction extends AbstractSpreadsheetAction {
         SpreadsheetComponent,
     };
     resModel = "spreadsheet.test";
+    threadField = "dummy_id";
 
     setup() {
         super.setup();

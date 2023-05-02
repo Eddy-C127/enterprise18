@@ -18,6 +18,7 @@ export class DashboardEditAction extends AbstractSpreadsheetAction {
     };
 
     resModel = "spreadsheet.dashboard";
+    threadField = "dashboard_id";
     notificationMessage = _t("New dashboard created");
 
     setup() {

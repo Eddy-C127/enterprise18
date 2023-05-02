@@ -3,6 +3,7 @@
 
 import base64
 from datetime import datetime
+import json
 
 from freezegun import freeze_time
 from psycopg2 import IntegrityError
@@ -370,6 +371,31 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         self.assertEqual(template.name, "Spreadsheet test - Template")
         self.assertEqual(template.spreadsheet_data, TEST_CONTENT)
         self.assertEqual(template.thumbnail, GIF)
+
+    def test_save_template_purges_comments(self):
+        base_data = {
+            "sheets": [{
+                "comments": [
+                    {"A1": {"threadId": 1, "isResolved": False}}
+                ]
+            }],
+        }
+        context = {
+            "default_spreadshee_name": "Spreadsheet test",
+            "default_template_name": "Spreadsheet test - Template",
+            "default_spreadsheet_data": json.dumps(base_data),
+            "default_thumbnail": GIF,
+        }
+        wizard = Form(
+            self.env["save.spreadsheet.template"].with_context(context)
+        ).save()
+
+        wizard.save_template()
+        template = self.env["spreadsheet.template"].search(
+            [["name", "=", "Spreadsheet test - Template"]]
+        )
+        template_data = json.loads(template.spreadsheet_data)
+        self.assertEqual(template_data["sheets"][0]["comments"], {})
 
     def test_user_right_own_template(self):
         user = new_test_user(

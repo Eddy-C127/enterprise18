@@ -12,6 +12,7 @@
     'license': 'OEEL-1',
     'data': [
         "views/spreadsheet_dashboard_views.xml",
+        "security/security.xml",
     ],
     'assets': {
         'spreadsheet.o_spreadsheet': [

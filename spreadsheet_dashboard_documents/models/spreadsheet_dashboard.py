@@ -24,6 +24,7 @@ class SpreadsheetDashboard(models.Model):
             "spreadsheet_binary_data": document.datas,
         })
         document._copy_revisions_to(dashboard)
+        dashboard._delete_comments_from_data()
 
     @api.model
     def action_open_new_dashboard(self, dashboard_group_id):

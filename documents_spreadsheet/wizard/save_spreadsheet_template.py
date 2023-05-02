@@ -12,11 +12,12 @@ class SaveSpreadsheetTemplate(models.TransientModel):
 
     def save_template(self):
         self.ensure_one()
-        self.env['spreadsheet.template'].create({
+        template = self.env['spreadsheet.template'].create({
             'name': self.template_name,
             'spreadsheet_data': self.spreadsheet_data,
             'thumbnail': self.thumbnail,
         })
+        template._delete_comments_from_data()
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',

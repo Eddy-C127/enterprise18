@@ -45,6 +45,12 @@ class DocumentsToDashboardWizard(models.TransientModel):
                 "spreadsheet_data": self.document_id.spreadsheet_data,
             }
         )
+        # transfer the comments to the dashboard
+        self.env["spreadsheet.cell.thread"].sudo().search([("document_id", "=", self.document_id.id)])\
+            .write({"dashboard_id": dashboard.id, "document_id": False})
+        self.document_id._delete_comments_from_data()
+
+        # move the document to the archive
         self.document_id.action_archive()
         return {
             "type": "ir.actions.client",

@@ -23,6 +23,8 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
         SpreadsheetName,
     };
     resModel = "documents.document";
+    threadField = "document_id";
+
     setup() {
         super.setup();
         this.notificationMessage = _t("New spreadsheet created in Documents");
@@ -30,14 +32,13 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
             isFavorited: false,
             spreadsheetName: UNTITLED_SPREADSHEET_NAME,
         });
-
+        this.threadId = this.params?.thread_id;
         useSubEnv({
             newSpreadsheet: this.createNewSpreadsheet.bind(this),
             makeCopy: this.makeCopy.bind(this),
             saveAsTemplate: this.saveAsTemplate.bind(this),
         });
     }
-
     async _fetchData() {
         const record = await super._fetchData();
         if (this.params.convert_from_template) {

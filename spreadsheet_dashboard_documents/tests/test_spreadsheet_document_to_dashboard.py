@@ -1,4 +1,5 @@
 import base64
+import json
 
 from uuid import uuid4
 from odoo.tests.common import TransactionCase
@@ -98,11 +99,11 @@ class TestSpreadsheetDocumentToDashboard(TransactionCase):
                 "mimetype": "application/o-spreadsheet",
             }
         )
-        snapshot = base64.b64encode(b'{"sheets": [{ name: "a sheet"}]}')
+        snapshot = base64.b64encode(b'{"sheets": [{"name": "a sheet"}]}')
         document.spreadsheet_snapshot = snapshot
         revision = self.env["spreadsheet.revision"].create(
             {
-                "commands": [],
+                "commands": '{"type": "REMOTE_REVISION", "commands":[]}',
                 "res_id": document.id,
                 "res_model": "documents.document",
                 "revision_uuid": "a revision id",
@@ -147,3 +148,85 @@ class TestSpreadsheetDocumentToDashboard(TransactionCase):
         )
         self.env["spreadsheet.dashboard"].add_document_spreadsheet_to_dashboard(group.id, document.id)
         self.assertFalse(document.active, "The original document should be archived")
+
+    def test_create_dashboard_wizard_moves_comments(self):
+        group = self.env["spreadsheet.dashboard.group"].create(
+            {"name": "a group"}
+        )
+        data = {
+            "sheets": [{
+                "comments": [
+                    {"A1": {"threadId": 1, "isResolved": False}}
+                ]
+            }],
+        }
+        document = self.env["documents.document"].create(
+            {
+                "name": "a document",
+                "spreadsheet_data": json.dumps(data),
+                "handler": "spreadsheet",
+                "mimetype": "application/o-spreadsheet",
+            }
+        )
+        thread = self.env["spreadsheet.cell.thread"].create([{"document_id": document.id}])
+        wizard = self.env["spreadsheet.document.to.dashboard"].create(
+            {
+                "name": "a dashboard",
+                "document_id": document.id,
+                "dashboard_group_id": group.id,
+                "group_ids": self.env.ref("documents.group_documents_user")
+            }
+        )
+        next_action = wizard.create_dashboard()
+        dashboard_id = next_action["params"]["dashboard_id"]
+        dashboard = self.env["spreadsheet.dashboard"].browse(dashboard_id)
+
+        self.assertEqual(document.spreadsheet_data, '{"sheets": [{"comments": {}}]}')
+        self.assertEqual(thread.document_id.id, False)
+
+        self.assertDictEqual(json.loads(dashboard.spreadsheet_data), data)
+        self.assertEqual(thread.dashboard_id, dashboard)
+
+    def test_add_spreadsheet_to_dashboard_purges_comments(self):
+        """
+        create a document with comments
+        -> the dashboard contains the comments
+        -> the comments are removed from the document data
+        -> the comments are linked to the dashboard
+        """
+
+        group = self.env["spreadsheet.dashboard.group"].create(
+            {"name": "a group"}
+        )
+        data = {
+            "sheets": [{
+                "comments": [
+                    {"A1": {"threadId": 1, "isResolved": False}}
+                ]
+            }],
+        }
+        document = self.env["documents.document"].create(
+            {
+                "name": "a document",
+                "spreadsheet_data": json.dumps(data),
+                "handler": "spreadsheet",
+                "mimetype": "application/o-spreadsheet",
+            }
+        )
+        document._dispatch_command(
+            {
+                "type": "ADD_COMMENT_THREAD",
+                "sheetId": "sh1",
+                "col": 0,
+                "row": 1,
+                "threadId": 2,
+            }
+        )
+        document.spreadsheet_snapshot = base64.b64encode(json.dumps(data).encode())
+
+        self.env["spreadsheet.dashboard"].add_document_spreadsheet_to_dashboard(group.id, document.id)
+        self.assertEqual(len(group.dashboard_ids), 1)
+        dashboard = group.dashboard_ids[0]
+        self.assertEqual(dashboard.spreadsheet_data, '{"sheets": [{"comments": {}}]}')
+        comment_revision = json.loads(dashboard.spreadsheet_revision_ids[0].commands)
+        self.assertEqual(comment_revision["commands"], [])

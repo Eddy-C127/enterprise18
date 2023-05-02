@@ -31,6 +31,7 @@ export async function prepareWebClientForSpreadsheet() {
     serviceRegistry.add("bus_service", busService);
     serviceRegistry.add("bus.parameters", busParametersService);
     serviceRegistry.add("multi_tab", multiTabService);
+
     registry.category("favoriteMenu").add(
         "insert-list-spreadsheet-menu",
         {

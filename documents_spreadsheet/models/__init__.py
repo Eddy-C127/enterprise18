@@ -8,3 +8,4 @@ from . import documents_shared_spreadsheet
 from . import documents_share
 from . import spreadsheet_contributor
 from . import spreadsheet_template
+from . import spreadsheet_cell_thread

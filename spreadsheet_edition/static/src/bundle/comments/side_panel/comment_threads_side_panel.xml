@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+  <t t-name="documents_spreadsheet.CommentThreadsSidePanel">
+    <div 
+      class="o-threads-side-panel"
+      tabindex="0"
+      >
+      <div class="o_side_panel_section">
+        <div class="o_side_panel_title">Filter comments</div>
+        <select t-model="state.mode" class="o_input">
+          <option value="allSheets">All sheets</option>
+          <option value="activeSheet">This sheet</option>
+        </select>
+      </div>
+      <div class="o_side_panel_section d-flex gap-2 flex-column">
+        <div
+          t-foreach="spreadsheetThreads" 
+          t-as="thread"
+          t-key="thread.threadId"
+          class="o-thread-item border border-2 rounded-2 px-2 py-1 d-flex"
+          t-on-click="() => this.selectThread(thread.threadId)"
+          t-att-class="{
+            'border-primary shadow btn-primary': thread.threadId === selectedThreadId,
+            'border-secondary text-primary': thread.threadId !== selectedThreadId,
+          }"
+          >
+          <t t-esc="getThreadTitle(thread.threadId)"/>
+          <div class="d-flex align-self-center ms-auto">
+            <span
+              t-if="thread.isResolved"
+              class="fa fa-check d-flex ps-1 pe-1 resolved"
+              title="Resolved"
+              t-on-click="(ev) => this.openMenu(ev, thread.threadId)"
+            />
+            <span
+              class="cursor-pointer fa fa-ellipsis-v d-flex ps-1 pe-1 thread-menu"
+              t-on-click="(ev) => this.openMenu(ev, thread.threadId)"
+            />
+          </div>
+        </div>
+      </div>
+      <Menu
+        t-if="menuState.isOpen"
+        position="menuState.position"
+        menuItems="menuItems"
+        onClose.bind="closeMenu"
+      />
+    </div>
+  </t>
+</templates>

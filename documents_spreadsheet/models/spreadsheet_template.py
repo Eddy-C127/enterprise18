@@ -47,6 +47,7 @@ class SpreadsheetTemplate(models.Model):
         })
         spreadsheet.spreadsheet_snapshot = self.spreadsheet_snapshot
         self._copy_revisions_to(spreadsheet)
+        spreadsheet._delete_comments_from_data()
 
         update_locale_command = {
             "type": "UPDATE_LOCALE",

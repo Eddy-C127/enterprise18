@@ -56,6 +56,7 @@ class SpreadsheetMixin(models.AbstractModel):
         if not default or "spreadsheet_revision_ids" not in default:
             for old_spreadsheet, new_spreadsheet in zip(self, new_spreadsheets):
                 old_spreadsheet._copy_revisions_to(new_spreadsheet)
+        new_spreadsheets._delete_comments_from_data()
         return new_spreadsheets
 
     def join_spreadsheet_session(self, share_id=None, access_token=None):
@@ -147,14 +148,16 @@ class SpreadsheetMixin(models.AbstractModel):
                 lambda r: r.id <= up_to_revision_id
             )
         else:
-            revisions = self.sudo().spreadsheet_revision_ids
+            revisions = self.sudo().with_context(active_test=False).spreadsheet_revision_ids
         copied_revisions = self.env["spreadsheet.revision"]
         parent_revision = self.env["spreadsheet.revision"]
         for revision in revisions:
+            commands = self._delete_comments_from_commands(revision.commands)
             parent_revision = revision.copy({
                 "res_model": spreadsheet._name,
                 "res_id": spreadsheet.id,
                 "parent_revision_id": parent_revision.id,
+                "commands": commands,
             })
             copied_revisions |= parent_revision
         spreadsheet._check_collaborative_spreadsheet_access("write")
@@ -183,7 +186,7 @@ class SpreadsheetMixin(models.AbstractModel):
         )
         if is_accepted:
             self.spreadsheet_snapshot = base64.b64encode(
-                json.dumps(spreadsheet_snapshot).encode("utf-8")
+                json.dumps(spreadsheet_snapshot).encode()
             )
             self.spreadsheet_revision_ids.active = False
             self._broadcast_spreadsheet_message(
@@ -360,6 +363,7 @@ class SpreadsheetMixin(models.AbstractModel):
         self.with_context(active_test=False)._copy_revisions_to(new_spreadsheet, revision_id)
         new_spreadsheet.spreadsheet_snapshot = base64.b64encode(json.dumps(spreadsheet_snapshot).encode())
         new_spreadsheet.spreadsheet_revision_ids.active = False
+        new_spreadsheet._delete_comments_from_data()
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
@@ -440,3 +444,38 @@ class SpreadsheetMixin(models.AbstractModel):
     def _get_initial_revision_uuid(self):
         data = json.loads(self.spreadsheet_data)
         return data.get("revisionId", "START_REVISION")
+
+    def _delete_comments_from_data(self):
+        """ Deletes comments data from the spreadsheet data and its snapshot """
+        self = self.with_context(preserve_spreadsheet_revisions=True)
+        for spreadsheet in self:
+            if spreadsheet.spreadsheet_data:
+                spreadsheet_data = json.loads(spreadsheet.spreadsheet_data)
+                sheets = spreadsheet_data.get('sheets', [])
+                for sheet in sheets:
+                    sheet['comments'] = {}
+                spreadsheet.spreadsheet_data = json.dumps(spreadsheet_data)
+            if spreadsheet.spreadsheet_snapshot:
+                spreadsheet_snapshot = json.loads(base64.decodebytes(spreadsheet.spreadsheet_snapshot))
+                if 'sheets' in spreadsheet_snapshot:
+                    for sheet in spreadsheet_snapshot['sheets']:
+                        if "comments" in sheet:
+                            sheet['comments'] = {}
+                    spreadsheet.spreadsheet_snapshot = base64.b64encode(
+                        json.dumps(spreadsheet_snapshot).encode()
+                    )
+
+    def _delete_comments_from_commands(self, revision_commands_string):
+        """ Deletes comments related from the commands """
+        revision_commands = json.loads(revision_commands_string)
+        if not isinstance(revision_commands, dict):
+            return revision_commands_string
+
+        commands = revision_commands.get('commands', [])
+        if not len(commands) > 0:
+            return revision_commands_string
+        for index, command in enumerate(commands):
+            if command['type'] in ("ADD_COMMENT_THREAD", "DELETE_COMMENT_THREAD", "EDIT_COMMENT_THREAD"):
+                commands.pop(index)
+        revision_commands['commands'] = commands
+        return json.dumps(revision_commands)

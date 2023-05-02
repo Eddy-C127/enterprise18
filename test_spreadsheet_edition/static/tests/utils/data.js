@@ -16,6 +16,13 @@ export function getDummyBasicServerData() {
                 },
                 records: [],
             },
+            "spreadsheet.cell.thread": {
+                fields: {
+                    id: { string: "ID", type: "integer" },
+                    dummy_id: { string: "Dummy", type: "many2one", relation: "spreadsheet.test" },
+                },
+                records: [],
+            },
         },
     };
 }
