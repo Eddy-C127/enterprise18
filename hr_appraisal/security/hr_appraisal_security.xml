@@ -51,7 +51,7 @@
     <record model="ir.rule" id="hr_appraisal_comp_rule">
         <field name="name">Appraisal multi-company</field>
         <field name="model_id" ref="model_hr_appraisal"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
     </record>
 
     <record model="ir.rule" id="hr_appraisal_note_comp_rule">
@@ -63,7 +63,7 @@
     <record id="hr_appraisal_goal_company_rule" model="ir.rule">
         <field name="name">Appraisal Goal multi-company</field>
         <field name="model_id" ref="model_hr_appraisal_goal"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
     </record>
 
     <record id="hr_appraisal_goal_all" model="ir.rule">

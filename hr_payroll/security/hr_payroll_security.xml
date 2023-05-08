@@ -99,31 +99,31 @@
     <record id="ir_rule_hr_payslip_multi_company" model="ir.rule">
         <field name="name">HR Payslip: Multi Company</field>
         <field name="model_id" ref="model_hr_payslip"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
 
     <record id="ir_rule_hr_payslip_line_multi_company" model="ir.rule">
         <field name="name">HR Payslip Line: Multi Company</field>
         <field name="model_id" ref="model_hr_payslip_line"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
 
     <record id="ir_rule_hr_payslip_run_multi_company" model="ir.rule">
         <field name="name">HR Payslip Batch: Multi Company</field>
         <field name="model_id" ref="model_hr_payslip_run"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
 
     <record id="ir_rule_hr_salary_attachment_multi_company" model="ir.rule">
         <field name="name">HR Salary Attachment: Multi Company</field>
         <field name="model_id" ref="model_hr_salary_attachment"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
 
     <record id="ir_rule_hr_salary_attachment_report_multi_company" model="ir.rule">
         <field name="name">HR Salary Attachment Report: Multi Company</field>
         <field name="model_id" ref="model_hr_salary_attachment_report"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
 
     <record id="ir_rule_hr_payroll_salary_rule_multi_company" model="ir.rule">
@@ -147,7 +147,7 @@
     <record id="ir_rule_hr_payroll_report_multi_company" model="ir.rule">
         <field name="name">HR Payroll Report: Multi Company</field>
         <field name="model_id" ref="model_hr_payroll_report"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
     </record>
 
     <record id="ir_rule_hr_payroll_dashboard_warning_multi_company" model="ir.rule">

@@ -16,13 +16,13 @@
         <record model="ir.rule" id="sale_subscription_log_multicompany">
             <field name="name">Subscription log multi-company</field>
             <field name="model_id" ref="model_sale_order_log"/>
-            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>
 
         <record id="sale_subscription_plan_rule_company" model="ir.rule">
             <field name="name">Subscription Plan multi-company</field>
             <field name="model_id" ref="model_sale_subscription_plan"/>
-            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
 
         <record id="sale_subscription_pricing_rule_company" model="ir.rule">
@@ -35,7 +35,7 @@
         <record model="ir.rule" id="sale_subscription_report_comp_rule">
             <field name="name">Subscription Analysis multi-company</field>
             <field name="model_id" ref="model_sale_subscription_report"/>
-            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>
 
         <record id="sale_subscription_report_personal_rule" model="ir.rule">
@@ -71,7 +71,7 @@
     <record model="ir.rule" id="sale_subscription_log_report_multicompany">
         <field name="name">Subscription log report multi-company</field>
         <field name="model_id" ref="model_sale_order_log_report"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
 
     </data>

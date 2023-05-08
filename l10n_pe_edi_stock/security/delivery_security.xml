@@ -5,6 +5,6 @@
         <field name="name">Vehicles PE</field>
         <field name="model_id" ref="l10n_pe_edi_stock.model_l10n_pe_edi_vehicle"/>
         <field name="active">True</field>
-        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
     </record>
 </odoo>
