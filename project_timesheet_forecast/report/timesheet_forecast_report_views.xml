@@ -5,7 +5,7 @@
         <field name="name">Project timesheet forecast multi-company</field>
         <field name="model_id" ref="model_project_timesheet_forecast_report_analysis"/>
         <field eval="True" name="global"/>
-        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
     </record>
 
     <record id="project_timesheet_forecast_report_view_pivot" model="ir.ui.view">

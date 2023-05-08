@@ -5,7 +5,7 @@
             <field name="name">Data Cleaning Record multi company rule</field>
             <field name="model_id" ref="model_data_cleaning_record"/>
             <field eval="True" name="global"/>
-            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
     </data>
 </odoo>
