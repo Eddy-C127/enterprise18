@@ -604,6 +604,15 @@ resource_name          = delivery_shiprocket
 replace_edited_strings = false
 keep_translations      = false
 
+[o:odoo:p:odoo-17:r:delivery_starshipit]
+file_filter            = delivery_starshipit/i18n/<lang>.po
+source_file            = delivery_starshipit/i18n/delivery_starshipit.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = delivery_starshipit
+replace_edited_strings = false
+keep_translations      = false
+
 [o:odoo:p:odoo-17:r:delivery_ups]
 file_filter            = delivery_ups/i18n/<lang>.po
 source_file            = delivery_ups/i18n/delivery_ups.pot
