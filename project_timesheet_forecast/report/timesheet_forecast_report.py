@@ -18,9 +18,9 @@ class TimesheetForecastReport(models.Model):
     company_id = fields.Many2one('res.company', string="Company", readonly=True)
     project_id = fields.Many2one('project.project', string='Project', readonly=True)
     line_type = fields.Selection([('forecast', 'Planning'), ('timesheet', 'Timesheet')], string='Type', readonly=True)
-    effective_hours = fields.Float('Effective Hours', readonly=True)
-    planned_hours = fields.Float('Planned Hours', readonly=True)
-    difference = fields.Float('Remaining Hours', readonly=True)
+    effective_hours = fields.Float('Effective Time', readonly=True)
+    planned_hours = fields.Float('Planned Time', readonly=True)
+    difference = fields.Float('Time Remaining', readonly=True)
     user_id = fields.Many2one('res.users', string='Assigned to', readonly=True)
     is_published = fields.Boolean(readonly=True)
     effective_costs = fields.Float('Effective Costs', readonly=True)
@@ -140,20 +140,6 @@ class TimesheetForecastReport(models.Model):
                 sql.Identifier(self._table),
                 sql.SQL(query)
             ))
-
-    @api.model
-    def _get_view_cache_key(self, view_id=None, view_type='form', **options):
-        """The override of _get_view changing the time field labels according to the company timesheet encoding UOM
-        makes the view cache dependent on the company timesheet encoding uom"""
-        key = super()._get_view_cache_key(view_id, view_type, **options)
-        return key + (self.env.company.timesheet_encode_uom_id,)
-
-    @api.model
-    def _get_view(self, view_id=None, view_type='form', **options):
-        arch, view = super()._get_view(view_id, view_type, **options)
-        if view_type in ['pivot', 'graph'] and self.env.company.timesheet_encode_uom_id == self.env.ref('uom.product_uom_day'):
-            arch = self.env['account.analytic.line']._apply_time_label(arch, related_model=self._name)
-        return arch, view
 
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):

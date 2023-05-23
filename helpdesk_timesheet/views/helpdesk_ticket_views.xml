@@ -105,7 +105,7 @@
                     <group>
                         <group class="oe_subtotal_footer" name="ticket_hours">
                             <span>
-                                <label class="fw-bold" for="total_hours_spent" string="Hours Spent"
+                                <label class="fw-bold" for="total_hours_spent" string="Time Spent"
                                     invisible="encode_uom_in_days"/>
                                 <label class="fw-bold" for="total_hours_spent" string="Days Spent"
                                     invisible="not encode_uom_in_days"/>
@@ -138,7 +138,7 @@
         <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_pivot_main"/>
         <field name="arch" type="xml">
             <field name='assign_hours' position="after">
-                <field name="total_hours_spent" string="Hours Spent" widget="timesheet_uom"/>
+                <field name="total_hours_spent" string="Time Spent" widget="timesheet_uom"/>
             </field>
         </field>
     </record>
@@ -150,7 +150,7 @@
         <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_graph_main"/>
         <field name="arch" type="xml">
             <field name='assign_hours' position="after">
-                <field name="total_hours_spent" string="Hours Spent" widget="timesheet_uom"/>
+                <field name="total_hours_spent" string="Time Spent" widget="timesheet_uom"/>
             </field>
         </field>
     </record>
@@ -162,7 +162,7 @@
         <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_cohort"/>
         <field name="arch" type="xml">
             <field name='assign_hours' position="after">
-                <field name="total_hours_spent" string="Hours Spent"/>
+                <field name="total_hours_spent" string="Time Spent"/>
             </field>
         </field>
     </record>

@@ -389,20 +389,6 @@ class AnalyticLine(models.Model):
         ]).unlink()
         return res
 
-    @api.model
-    def _apply_timesheet_label(self, view_arch, view_type='form'):
-        doc = view_arch
-        encoding_uom = self.env.company.timesheet_encode_uom_id
-        # Here, we select only the unit_amount field having no string set to give priority to
-        # custom inheretied view stored in database. Even if normally, no xpath can be done on
-        # 'string' attribute.
-        for node in doc.xpath("//field[@name='unit_amount'][@widget='timesheet_uom' or @widget='timesheet_uom_timer'][not(@string)]"):
-            if view_type == 'grid':
-                node.set('string', encoding_uom.name)
-            else:
-                node.set('string', _('%s Spent', re.sub(r'[\(\)]', '', encoding_uom.name or '')))
-        return doc
-
     def _get_project_task_from_domain(self, domain):
         project_id = task_id = False
         for subdomain in domain:

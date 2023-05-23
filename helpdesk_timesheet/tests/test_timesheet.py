@@ -82,21 +82,6 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
 
         self.assertEqual(helpdesk_ticket.analytic_account_id, self.project.analytic_account_id)
 
-    def test_get_view_timesheet_encode_uom(self):
-        """ Test the label of timesheet time spent fields according to the company encoding timesheet uom """
-        self.assert_get_view_timesheet_encode_uom([
-            (
-                'helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet',
-                '//field[@name="unit_amount"]',
-                ['Hours Spent', 'Days Spent']
-            ),
-            (
-                'helpdesk_timesheet.helpdesk_ticket_view_tree_inherit_helpdesk_timesheet',
-                '//field[@name="total_hours_spent"]',
-                [None, 'Days Spent']
-            ),
-        ])
-
     def test_compute_project_id(self):
         """ Test compute project_id works as expected when helpdesk_ticket_id changes on a timesheet """
         helpdesk_ticket = self.env['helpdesk.ticket'].create({

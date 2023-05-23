@@ -10,10 +10,10 @@ class TimesheetForecastReport(models.Model):
     effective_revenues = fields.Float('Effective Revenues', readonly=True)
     planned_margin = fields.Float('Planned Margin', readonly=True)
     effective_margin = fields.Float('Effective Margin', readonly=True)
-    planned_billable_hours = fields.Float('Planned Billable Hours', readonly=True)
-    effective_billable_hours = fields.Float('Effective Billable Hours', readonly=True)
-    planned_non_billable_hours = fields.Float('Planned Non-Billable Hours', readonly=True)
-    effective_non_billable_hours = fields.Float('Effective Non-Billable Hours', readonly=True)
+    planned_billable_hours = fields.Float('Planned Billable Time', readonly=True)
+    effective_billable_hours = fields.Float('Effective Billable Time', readonly=True)
+    planned_non_billable_hours = fields.Float('Planned Non-Billable Time', readonly=True)
+    effective_non_billable_hours = fields.Float('Effective Non-Billable Time', readonly=True)
 
     @api.model
     def _select(self):

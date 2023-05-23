@@ -7,10 +7,10 @@ class PlanningAnalysisReport(models.Model):
     _inherit = "planning.analysis.report"
 
     percentage_hours = fields.Float("Progress (%)", readonly=True, aggregator="avg")
-    effective_hours = fields.Float("Effective Time", readonly=True, help="Number of hours on the employee's Timesheets for this task (and its sub-tasks) during the timeframe of the shift.")
-    remaining_hours = fields.Float("Remaining Time", readonly=True, help="Allocated time minus the effective time.")
-    allocated_hours_cost = fields.Float("Allocated Hours Cost", readonly=True)
-    effective_hours_cost = fields.Float("Effective Hours Cost", readonly=True)
+    effective_hours = fields.Float("Effective Time", readonly=True, help="Number of time recorded on the employee's Timesheets for this task (and its sub-tasks) during the timeframe of the shift.")
+    remaining_hours = fields.Float("Time Remaining", readonly=True, help="Allocated time minus the effective time.")
+    allocated_hours_cost = fields.Float("Allocated Time Cost", readonly=True)
+    effective_hours_cost = fields.Float("Effective Time Cost", readonly=True)
 
     @api.model
     def _select(self):

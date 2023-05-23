@@ -26,8 +26,7 @@
                             <th class="text-start">Employee</th>
                             <th class="text-start">Description</th>
                             <th t-if="display_sol" class="text-start">Sales Order Item</th>
-                            <th t-if="is_uom_day" class="text-end">Days Spent</th>
-                            <th t-else="" class="text-end">Hours Spent</th>
+                            <th class="text-end">Time Spent</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,18 +51,19 @@
                             <th colspan="3"></th>
                             <th class="text-end">
                                 <div>
-                                    Total
                                     <t t-set="total_timesheet_amount" t-value="sum(timesheets.mapped('unit_amount'))"/>
-                                    <t t-if="is_uom_day"> Days:
-                                        <span t-esc="convert_hours_to_days(total_timesheet_amount)" />
-                                    </t>
-                                    <t t-else=""> Hours:
-                                        <span t-esc="round(total_timesheet_amount, 2)" t-options='{"widget": "float_time"}'/>
-                                    </t>
+                                    <div>
+                                        Total Time Spent:
+                                        <span t-if="is_uom_day" t-esc="convert_hours_to_days(total_timesheet_amount)" />
+                                        <span t-else="" t-esc="round(total_timesheet_amount, 2)" t-options='{"widget": "float_time"}'/>
+                                    </div>
                                 </div>
                                 <div t-if="ticket.remaining_hours_available">
-                                    <div t-if="is_uom_day">Remaining Days on SO: <span t-esc="convert_hours_to_days(ticket.remaining_hours_so)" t-options='{"widget": "timesheet_uom"}'/></div>
-                                    <div t-else="">Remaining Hours on SO: <span t-esc="ticket.remaining_hours_so" t-options='{"widget": "float_time"}'/></div>
+                                    <div>
+                                        Time Remaining on SO:
+                                        <span t-if="is_uom_day" t-esc="convert_hours_to_days(ticket.remaining_hours_so)" t-options='{"widget": "timesheet_uom"}'/>
+                                        <span t-else="" t-esc="ticket.remaining_hours_so" t-options='{"widget": "float_time"}'/>
+                                    </div>
                                 </div>
                             </th>
                         </tr>
@@ -78,8 +78,7 @@
             <t t-set="show_spent_hours" t-value="[ticket.mapped('use_helpdesk_sale_timesheet') for ticket in grouped_tickets][0]"/>
             <th class="text-end" t-if="any(show_spent_hours)">
                 <t t-esc="display_tickets"/>
-                <t t-if="is_uom_day">Days</t>
-                <t t-else="">Hours</t> Spent
+                Time Spent
             </th>
         </xpath>
         <xpath expr="//td[@id='ticket_user_body']" position="after">

@@ -8,11 +8,11 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='child_ids']/tree/field[@name='effective_hours']" position="attributes">
                 <attribute name="name">portal_effective_hours</attribute>
-                <attribute name="string">Hours Spent</attribute>
+                <attribute name="string">Time Spent</attribute>
             </xpath>
             <xpath expr="//field[@name='child_ids']/tree/field[@name='remaining_hours']" position="attributes">
                 <attribute name="name">portal_remaining_hours</attribute>
-                <attribute name="string">Remaining Hours</attribute>
+                <attribute name="string">Time Remaining</attribute>
                 <attribute name="decoration-danger">portal_progress &gt;= 1</attribute>
                 <attribute name="decoration-warning">portal_progress &lt;= 1</attribute>
             </xpath>
@@ -24,9 +24,6 @@
                 <attribute name="name">portal_progress</attribute>
                 <attribute name="string">Progress</attribute>
                 <attribute name="decoration-danger">portal_progress &gt; 1.005</attribute>
-            </xpath>
-            <xpath expr="//label[@for='effective_hours']" position="attributes">
-                <attribute name="for">portal_effective_hours</attribute>
             </xpath>
             <xpath expr="//label[@for='effective_hours']" position="attributes">
                 <attribute name="for">portal_effective_hours</attribute>
@@ -106,21 +103,21 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='effective_hours']" position="attributes">
                 <attribute name="name">portal_effective_hours</attribute>
-                <attribute name="string">Hours Spent</attribute>
+                <attribute name="string">Time Spent</attribute>
             </xpath>
             <xpath expr="//field[@name='remaining_hours']" position="attributes">
                 <attribute name="name">portal_remaining_hours</attribute>
-                <attribute name="string">Remaining Hours</attribute>
+                <attribute name="string">Time Remaining</attribute>
                 <attribute name="decoration-danger">portal_progress &gt;= 1</attribute>
                 <attribute name="decoration-warning">portal_progress &gt;= 0.8 and portal_progress &lt;= 1</attribute>
             </xpath>
             <xpath expr="//field[@name='subtask_effective_hours']" position="attributes">
                 <attribute name="name">portal_subtask_effective_hours</attribute>
-                <attribute name="string">Hours Spent on Sub-tasks</attribute>
+                <attribute name="string">Time Spent on Sub-tasks</attribute>
             </xpath>
             <xpath expr="//field[@name='total_hours_spent']" position="attributes">
                 <attribute name="name">portal_total_hours_spent</attribute>
-                <attribute name="string">Total Hours</attribute>
+                <attribute name="string">Total Time Spent</attribute>
             </xpath>
             <xpath expr="//field[@name='progress']" position="attributes">
                 <attribute name="name">portal_progress</attribute>

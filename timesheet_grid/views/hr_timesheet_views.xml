@@ -386,8 +386,7 @@
                 </xpath>
                 <xpath expr="//div[@name='allocated_hours']" position="after">
                     <div t-if="allow_timesheets">
-                        <strong t-if="encode_uom_in_days">Days Spent — </strong>
-                        <strong t-else="">Hours Spent — </strong>
+                        <strong>Time Spent — </strong>
                         <t t-esc="total_hours_spent_formatted"/>
                         (<t t-esc="progressFormatted"/>%)
                     </div>
