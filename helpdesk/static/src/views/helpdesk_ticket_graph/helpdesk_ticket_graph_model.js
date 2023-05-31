@@ -10,8 +10,10 @@ export class HelpdeskTicketGraphModel extends GraphModel {
     _getDefaultFilterLabel(field) {
         if (field.fieldName === "sla_deadline") {
             return _t("Deadline reached");
-        } else {
-            return super._getDefaultFilterLabel(field);
         }
+        if (field.fieldName == "user_id") {
+            return _t("Unassigned");
+        }
+        return super._getEmptyGroupLabel(field);
     }
 }
