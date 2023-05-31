@@ -355,7 +355,7 @@ class SaleOrderLine(models.Model):
     # Business Methods #
     ####################
 
-    def _get_renew_discount_info(self):
+    def _get_upsell_discount_info(self):
         order = self.order_id
         if len(order) != 1:
             return [], ""
@@ -369,7 +369,7 @@ class SaleOrderLine(models.Model):
             format_end = format_date(self.env, end_date)
             line_name = _('(*) These recurring products are discounted according to the prorated period from %(start)s to %(end)s',
                 start=format_start, end=format_end)
-        return self.filtered_domain(self._need_renew_discount_domain()), line_name
+        return self.filtered_domain(self._need_upsell_discount_domain()), line_name
 
     def _need_renew_discount_domain(self):
         return [('recurring_invoice', '=', True), ('product_id.type', '=', 'service')]
