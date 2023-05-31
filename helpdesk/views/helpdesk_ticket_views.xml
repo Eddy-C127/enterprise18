@@ -439,6 +439,15 @@
         </field>
     </record>
 
+    <record id="portal_share_action" model="ir.actions.act_window">
+        <field name="name">Share Ticket</field>
+        <field name="res_model">portal.share</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_helpdesk_ticket"/>
+        <field name="binding_view_types">form</field>
+    </record>
+
     <record id="helpdesk_ticket_view_cohort" model="ir.ui.view">
         <field name="name">helpdesk.ticket.view.cohort</field>
         <field name="model">helpdesk.ticket</field>
