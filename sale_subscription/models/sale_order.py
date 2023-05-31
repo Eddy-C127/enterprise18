@@ -859,7 +859,11 @@ class SaleOrder(models.Model):
         }
         origin_order_id = self.origin_order_id.id or self.id
         action['name'] = _("History")
-        action['domain'] = [('state', 'not in', ['cancel', 'draft']), '|', ('id', '=', origin_order_id), ('origin_order_id', '=', origin_order_id)]
+        action['domain'] = [('state', 'not in', ['cancel', 'draft']),
+                            '|',
+                            ('id', '=', origin_order_id),
+                            ('origin_order_id', '=', origin_order_id)
+                            ]
         action['context'] = {
             **action.get('context', {}),
             'create': False,
@@ -1083,7 +1087,7 @@ class SaleOrder(models.Model):
         """
         self.ensure_one()
         today = fields.Date.today()
-        if subscription_state == '7_upsell' and self.next_invoice_date <= max(self.first_contract_date or today, today):
+        if subscription_state == '7_upsell' and self.next_invoice_date and self.next_invoice_date <= max(self.first_contract_date or today, today):
             raise UserError(_('You cannot create an upsell for this subscription because it :\n'
                               ' - Has not started yet.\n'
                               ' - Has no invoiced period in the future.'))
@@ -1171,13 +1175,7 @@ class SaleOrder(models.Model):
             if line.state != 'sale':
                 continue
 
-            if automatic_invoice:
-                # We don't invoice line before their SO's next_invoice_date
-                line_condition = line.order_id.next_invoice_date and line.order_id.next_invoice_date <= date_from and line.order_id.start_date and line.order_id.start_date <= date_from
-            else:
-                # We don't invoice line past their SO's end_date
-                line_condition = not line.order_id.end_date or (line.order_id.next_invoice_date and line.order_id.next_invoice_date < line.order_id.end_date)
-
+            line_condition = line._get_recurring_invoiceable_condition(automatic_invoice, date_from)
             line_to_invoice = False
             if line in res:
                 # Line was already marked as to be invoiced
@@ -1196,7 +1194,7 @@ class SaleOrder(models.Model):
                     # Invoice due lines
                     line_to_invoice = True
                 elif (
-                    line.product_id.invoice_policy == 'delivery'
+                    line._is_postpaid_line()
                     and not float_is_zero(
                         line.qty_delivered,
                         precision_rounding=line.product_id.uom_id.rounding,
@@ -1790,8 +1788,9 @@ class SaleOrder(models.Model):
         error_message = super()._nothing_to_invoice_error_message()
         if any(self.mapped('is_subscription')):
             error_message += _(
-                "\n- You are trying to invoice recurring orders that are past their end date. Please change their end date or renew them "
-                "before creating new invoices."
+                "\n- You are trying to invoice recurring orders. "
+                "Please verify the delivered quantity of product based on invoicing policy, "
+                "next invoice date and end date of the contract."
             )
         return error_message
 

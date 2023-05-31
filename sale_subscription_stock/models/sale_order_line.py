@@ -6,6 +6,9 @@ from odoo import  models, api, fields
 from odoo.tools import format_date, clean_context
 
 
+from odoo.addons.sale_subscription.models.sale_order import SUBSCRIPTION_PROGRESS_STATE
+
+
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
@@ -15,12 +18,7 @@ class SaleOrderLine(models.Model):
 
     @api.depends('order_id.next_invoice_date', 'order_id.start_date')
     def _compute_qty_delivered(self):
-        super(SaleOrderLine, self)._compute_qty_delivered()
-
-    def _compute_qty_to_deliver(self):
-        res = super(SaleOrderLine, self)._compute_qty_to_deliver()
-        self._get_stock_subscription_lines().display_qty_widget = True  # We don't want the widget to disappear on confirmation
-        return res
+        return super()._compute_qty_delivered()
 
     # =============================
     #           Utils
@@ -31,14 +29,13 @@ class SaleOrderLine(models.Model):
         """
         sub_stock = self._get_stock_subscription_lines()
         outgoing_moves, incoming_moves = super(SaleOrderLine, self - sub_stock)._get_outgoing_incoming_moves(strict)
-
         for line in sub_stock:
             period_start = line.order_id.last_invoice_date or line.order_id.start_date
             period_end = line.order_id.next_invoice_date
             sub_outgoing_moves, sub_incoming_moves = super(SaleOrderLine, line)._get_outgoing_incoming_moves(strict)
             is_period = lambda m: m.date and \
                                   (not period_start or period_start <= m.date.date()) and \
-                                  (not period_end or m.date.date() < period_end)
+                                  (not period_end or m.date.date() <= period_end)
             sub_outgoing_moves, sub_incoming_moves = sub_outgoing_moves.filtered(is_period), sub_incoming_moves.filtered(is_period)
             outgoing_moves += sub_outgoing_moves
             incoming_moves += sub_incoming_moves
@@ -49,6 +46,25 @@ class SaleOrderLine(models.Model):
         """ Return the sale.order.line of self which relate to a subscription of storable products
         """
         return self.filtered(lambda line: line.recurring_invoice and line.product_id.type == 'consu')
+
+    def _get_recurring_invoiceable_condition(self, automatic_invoice, date_from):
+        self.ensure_one()
+        line_condition = super()._get_recurring_invoiceable_condition(automatic_invoice, date_from)
+        if not line_condition and not automatic_invoice and self.product_id.invoice_policy == 'delivery' and self._is_postpaid_line():
+            line_condition = True
+        return line_condition
+
+    def _get_invoice_line_periods(self):
+        self.ensure_one()
+        res = super()._get_invoice_line_periods()
+        if self._is_postpaid_line() and self.order_id.subscription_state == '5_renewed':
+            aml = self.invoice_lines.filtered(
+                lambda l: l.move_id.state == 'posted' and
+                       l.deferred_start_date and l.deferred_end_date and
+                       l.deferred_end_date == self.last_invoiced_date)
+            if aml:
+                return aml[:1].deferred_start_date, aml[:1].deferred_end_date
+        return res
 
     # =============================
     #       Delivery logic
@@ -72,20 +88,21 @@ class SaleOrderLine(models.Model):
     def _action_launch_stock_rule(self, previous_product_uom_qty=False):
         """ Only launch stock rule if we know they won't be empty
         """
-        lines = self.filtered(lambda line: not line.recurring_invoice or
-                                           line.order_id.subscription_state == '7_upsell' or
-                                           (
-                                                line.qty_invoiced and
-                                                line.order_id.last_invoice_date and
-                                                line.order_id.last_invoice_date != line.order_id.start_date
-                                           ) or
-                                           (
-                                                len(line.order_id.order_line.invoice_lines.move_id) == 0 and
-                                                line.order_id.next_invoice_date == (line.order_id.start_date or fields.Date.today()) and
-                                                line.order_id.subscription_state == '3_progress'
-                                           )
-                             )
-        return super(SaleOrderLine, lines)._action_launch_stock_rule(previous_product_uom_qty)
+        stock_line_ids = []
+        for line in self:
+            if not line.recurring_invoice or line.order_id.subscription_state == '7_upsell':
+                # regular lines
+                stock_line_ids.append(line.id)
+            elif line.qty_invoiced and line.last_invoiced_date:
+                # invoiced line (move posted)
+                stock_line_ids.append(line.id)
+            elif line.order_id.subscription_state in SUBSCRIPTION_PROGRESS_STATE and not line.last_invoiced_date:
+                # prepaid and postpaid lines not already invoiced
+                stock_line_ids.append(line.id)
+            elif line._is_postpaid_line() and line.last_invoiced_date:
+                # postpaid already invoiced
+                stock_line_ids.append(line.id)
+        return super(SaleOrderLine, self.env['sale.order.line'].browse(stock_line_ids))._action_launch_stock_rule(previous_product_uom_qty)
 
     @api.model
     def _get_incoming_outgoing_moves_filter(self):
@@ -103,13 +120,13 @@ class SaleOrderLine(models.Model):
         return base_filter
 
     def _get_qty_procurement(self, previous_product_uom_qty=False):
-        """ Compute the quantity that was already deliver for the current period.
+        """ Compute the quantity that was already delivered for the current period.
         """
         self.ensure_one()
         # If we update the line, we don't want it to affect the current period for subscriptions
         if self.recurring_invoice and previous_product_uom_qty and previous_product_uom_qty.get(self.id, 0):
             return self.product_uom_qty
-        return super()._get_qty_procurement(previous_product_uom_qty)
+        return super()._get_qty_procurement(previous_product_uom_qty=previous_product_uom_qty)
 
     def _prepare_procurement_values(self, group_id=False):
         """ Update move.line values

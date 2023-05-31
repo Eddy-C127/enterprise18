@@ -23,7 +23,6 @@ Features:
     'website': 'https://www.odoo.com/app/subscriptions',
     'data': [
         'views/product_template_views.xml',
-        'views/sale_subscription_stock_portal_template.xml',
         'views/sale_order_views.xml',
     ],
     'demo': [

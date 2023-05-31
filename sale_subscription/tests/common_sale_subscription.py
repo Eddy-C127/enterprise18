@@ -349,3 +349,17 @@ class TestSubscriptionCommon(TestSaleCommon):
     def flush_tracking(self):
         self.env.flush_all()
         self.cr.flush()
+
+    def _get_quantities(self, order_line):
+        order_line = order_line.sorted('id')
+        order_line.invalidate_recordset(fnames=['qty_delivered', 'qty_invoiced', 'qty_to_invoice'])
+        order_line._compute_qty_invoiced()
+        order_line._compute_qty_delivered()
+        values = {
+            'ordered': order_line.mapped('product_uom_qty'),
+            'delivered': order_line.mapped('qty_delivered'),
+            'invoiced': order_line.mapped('qty_invoiced'),
+            'to_invoice': order_line.mapped('qty_to_invoice'),
+            'qty_delivered_method': order_line.mapped('qty_delivered_method'),
+        }
+        return values

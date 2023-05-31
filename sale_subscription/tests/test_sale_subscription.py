@@ -30,16 +30,6 @@ class TestSubscription(TestSubscriptionCommon):
         self.env.ref('base.group_user').write({"implied_ids": [(4, self.env.ref('sale_management.group_sale_order_template').id)]})
         self.flush_tracking()
 
-    def _get_quantities(self, order_line):
-        order_line = order_line.sorted('id')
-        values = {
-                  'delivered_qty': order_line.mapped('qty_delivered'),
-                  'qty_delivered_method': order_line.mapped('qty_delivered_method'),
-                  'to_invoice': order_line.mapped('qty_to_invoice'),
-                  'invoiced': order_line.mapped('qty_invoiced'),
-                  }
-        return values
-
     @mute_logger('odoo.addons.base.models.ir_model', 'odoo.models')
     def test_automatic(self):
         self.assertTrue(True)
@@ -933,21 +923,27 @@ class TestSubscription(TestSubscriptionCommon):
             val_confirm = self._get_quantities(self.subscription.order_line)
             self.assertEqual(val_confirm['to_invoice'], [3, 1], "To invoice should be equal to quantity")
             self.assertEqual(val_confirm['invoiced'], [0, 0], "To invoice should be equal to quantity")
-            self.assertEqual(val_confirm['delivered_qty'], [0, 0], "Delivered qty not should be set")
+            self.assertEqual(val_confirm['delivered'], [0, 0], "Delivered qty not should be set")
             self.env['sale.order']._cron_recurring_create_invoice()
             self.subscription.order_line[0].write({'qty_delivered': 3})
             self.subscription.order_line[1].write({'qty_delivered': 1})
             val_invoice = self._get_quantities(self.subscription.order_line)
-            self.assertEqual(val_invoice['to_invoice'], [0, 0], "To invoice should be 0")
             self.assertEqual(val_invoice['invoiced'], [3, 1], "To invoice should be equal to quantity")
-            self.assertEqual(val_invoice['delivered_qty'], [3, 1], "Delivered qty should be set")
+            self.assertEqual(val_invoice['to_invoice'], [0, 0], "To invoice should be 0")
+            self.assertEqual(val_invoice['delivered'], [3, 1], "Delivered qty should be set")
+
+        with freeze_time("2021-01-05"):
+            val_invoice = self._get_quantities(self.subscription.order_line)
+            self.assertEqual(val_invoice['invoiced'], [3, 1], "To invoice should be equal to quantity")
+            self.assertEqual(val_invoice['to_invoice'], [0, 0], "To invoice should be 0")
+            self.assertEqual(val_invoice['delivered'], [3, 1], "Delivered qty should be set")
 
         with freeze_time("2021-02-02"):
             self.env['sale.order']._cron_recurring_create_invoice()
             val_invoice = self._get_quantities(self.subscription.order_line)
             self.assertEqual(val_invoice['to_invoice'], [0, 0], "To invoice should be 0")
             self.assertEqual(val_invoice['invoiced'], [3, 1], "To invoice should be equal to quantity")
-            self.assertEqual(val_invoice['delivered_qty'], [3, 1], "Delivered qty should be equal to quantity")
+            self.assertEqual(val_invoice['delivered'], [3, 1], "Delivered qty should be equal to quantity")
 
         with freeze_time("2021-02-15"):
             self.subscription.order_line[1].write({'qty_delivered': 3, 'product_uom_qty': 3})
@@ -956,14 +952,14 @@ class TestSubscription(TestSubscriptionCommon):
             )
             self.assertEqual(val_invoice['to_invoice'], [0, 2], "To invoice should be equal to quantity")
             self.assertEqual(val_invoice['invoiced'], [3, 1], "invoiced should be correct")
-            self.assertEqual(val_invoice['delivered_qty'], [3, 3], "Delivered qty should be equal to quantity")
+            self.assertEqual(val_invoice['delivered'], [3, 3], "Delivered qty should be equal to quantity")
 
         with freeze_time("2021-03-01"):
             self.env['sale.order']._cron_recurring_create_invoice()
             self.env.invalidate_all()
             val_invoice = self._get_quantities(self.subscription.order_line)
             self.assertEqual(val_invoice['to_invoice'], [0, 0], "To invoice should be equal to quantity")
-            self.assertEqual(val_invoice['delivered_qty'], [3, 3], "Delivered qty should be equal to quantity")
+            self.assertEqual(val_invoice['delivered'], [3, 3], "Delivered qty should be equal to quantity")
             self.assertEqual(val_invoice['invoiced'], [3, 3], "To invoice should be equal to quantity delivered")
 
     def test_update_prices_template(self):
@@ -1042,16 +1038,16 @@ class TestSubscription(TestSubscriptionCommon):
             # Deliver some product
             sub.order_line.qty_delivered = 1
             self.assertEqual(sub.order_line.qty_to_invoice, 1)
-            sub._create_recurring_invoice()
-            sub.invoice_ids.filtered(lambda am: am.state == 'draft')._post()
+            inv = sub._create_recurring_invoice()
+            self.assertEqual(inv.invoice_line_ids.deferred_start_date, datetime.date(2021, 1, 3))
+            self.assertEqual(inv.invoice_line_ids.deferred_end_date, datetime.date(2021, 2, 2))
             self.assertTrue(sub.invoice_count, "We should have invoiced")
             self.assertEqual(sub.next_invoice_date, datetime.date(2021, 3, 3))
 
         with freeze_time("2021-03-03"):
-            sub._create_recurring_invoice()
+            inv = sub._create_recurring_invoice()
             # The quantity to invoice and delivered are reset after the creation of the invoice
             self.assertTrue(sub.order_line.qty_delivered)
-            inv = sub.invoice_ids.sorted('date')[-1]
             self.assertEqual(inv.invoice_line_ids.quantity, 1)
 
         with freeze_time("2021-04-03"):
@@ -1069,6 +1065,82 @@ class TestSubscription(TestSubscriptionCommon):
             inv = sub.invoice_ids.sorted('date')[-1]
             self.assertEqual(inv.invoice_line_ids.quantity, 2)
             self.assertEqual(sub.order_line.product_uom_qty, 1)
+
+        with freeze_time("2021-04-03"):
+            # February
+            sub.order_line.qty_delivered = 1
+            sub._create_recurring_invoice()
+            self.assertEqual(sub.order_line.qty_delivered, 1)
+            inv = sub.invoice_ids.sorted('date')[-1]
+            self.assertEqual(inv.invoice_line_ids.quantity, 2)
+
+        with freeze_time("2021-05-03"):
+            # March
+            sub.order_line.qty_delivered = 2
+            sub._create_recurring_invoice()
+            inv = sub.invoice_ids.sorted('date')[-1]
+            self.assertEqual(inv.invoice_line_ids.quantity, 2)
+            self.assertEqual(sub.order_line.product_uom_qty, 1)
+
+    def test_mixed_delivered_ordered_products(self):
+        self.product.name = "ordered Product"
+        self.assertEqual(self.product.invoice_policy, 'order')
+        self.assertEqual(self.product.type, 'service')
+        sub = self.subscription
+        sub.order_line = [Command.clear()]
+        context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True}
+        delivered_product_tmpl = self.env['product.template'].with_context(context_no_mail).create({
+            'name': 'Delivery product',
+            'type': 'service',
+            'recurring_invoice': True,
+            'uom_id': self.env.ref('uom.product_uom_unit').id,
+            'invoice_policy': 'delivery',
+        })
+        product = delivered_product_tmpl.product_variant_id
+        product.write({
+            'list_price': 50.0,
+            'taxes_id': [(6, 0, [self.tax_10.id])],
+            'property_account_income_id': self.account_income.id,
+        })
+        with freeze_time("2021-01-03"):
+            # January
+            sub.plan_id = self.plan_month.id
+            sub.start_date = False
+            sub.next_invoice_date = False
+            sub.order_line = [Command.create({
+                'product_id': product.id,
+                'name': "delivered product",
+                'price_unit': 10,
+                'product_uom_qty': 1,
+            }), Command.create({
+                'product_id': self.product.id,
+                'name': "ordered product",
+                'price_unit': 5,
+                'product_uom_qty': 1,
+            })]
+            sub.action_confirm()
+            inv = sub._create_recurring_invoice()
+            # We only invoice what we deliver
+            self.assertEqual(sub.order_line.mapped('qty_invoiced'), [0, 1])
+            self.assertEqual(sub.order_line.mapped('qty_to_invoice'), [0, 0])
+            self.assertEqual(sub.order_line.mapped('qty_delivered'), [0, 0])
+            self.assertEqual(sub.invoice_count, 1, "First invoice is created")
+            self.assertEqual(sub.next_invoice_date, datetime.date(2021, 2, 3))
+
+        with freeze_time("2021-02-03"):
+            # Deliver some product
+            sub.order_line[0].qty_delivered = 1
+            inv = sub._create_recurring_invoice()
+            self.assertEqual(inv.invoice_line_ids.mapped('deferred_start_date'), [datetime.date(2021, 1, 3), datetime.date(2021, 2, 3)])
+            self.assertEqual(inv.invoice_line_ids.mapped('deferred_end_date'), [datetime.date(2021, 2, 2), datetime.date(2021, 3, 2)])
+            self.assertTrue(sub.invoice_count, "We should have invoiced")
+            self.assertEqual(sub.next_invoice_date, datetime.date(2021, 3, 3))
+
+        with freeze_time("2021-02-15"):
+            action = sub.prepare_upsell_order()
+            upsell_so = self.env['sale.order'].browse(action['res_id'])
+            self.assertEqual(upsell_so.order_line.product_id, self.product,
+                         "deliver product should not be included in the upsell")
 
     def test_recurring_invoices_from_interface(self):
         # From the interface, all the subscription lines are invoiced
@@ -1705,6 +1777,7 @@ class TestSubscription(TestSubscriptionCommon):
         with freeze_time("2022-05-15"):
             self.product.invoice_policy = 'delivery'
             subscription_future = self.env['sale.order'].create({
+                'name': "subscription future",
                 'partner_id': self.partner.id,
                 'sale_order_template_id': self.subscription_tmpl.id,
                 'plan_id': self.plan_month.id,
@@ -1721,6 +1794,7 @@ class TestSubscription(TestSubscriptionCommon):
             })
 
             subscription_now = self.env['sale.order'].create({
+                'name': "subscription now",
                 'partner_id': self.partner.id,
                 'sale_order_template_id': self.subscription_tmpl.id,
                 'plan_id': self.plan_month.id,
@@ -1737,19 +1811,18 @@ class TestSubscription(TestSubscriptionCommon):
             })
 
             subscription_past = subscription_now.copy({
-                'start_date': '2022-04-15',
-                'next_invoice_date': '2022-04-15',
+                    'name': "subscription past",
+                    'start_date': '2022-04-15',
+                    'next_invoice_date': '2022-04-15',
             })
 
             subscriptions = subscription_future + subscription_now + subscription_past
             subscriptions.action_confirm()
-
             # Nothing delivered, nothing invoiced
-            for subscription in subscriptions:
-                self.assertEqual(
-                    subscription.order_line.invoice_status, 'no',
-                    "The line qty should be black.",
-                )
+            self.assertEqual(subscription_future.order_line.invoice_status, 'no', "The line qty should be black.")
+            self.assertEqual(subscription_now.order_line.invoice_status, 'no', "The line qty should be black.")
+            subscription_now.order_line.qty_delivered = 1
+            self.assertEqual(subscription_now.order_line.invoice_status, 'to invoice', "The line qty should be blue.")
 
             # Status after delivery
             subscriptions.order_line.qty_delivered = 1
@@ -1761,34 +1834,11 @@ class TestSubscription(TestSubscriptionCommon):
                 self.assertEqual(
                     subscription.order_line.invoice_status, 'to invoice',
                     "The line qty should be blue.",
-                )
-
-            # Status after invoice creation
+            )
             subscriptions._create_recurring_invoice()
-            self.assertEqual(
-                subscription_future.order_line.invoice_status, 'no',
-                "Nothing to invoice for future subscription yet.",
-            )
-            self.assertEqual(
-                subscription_now.order_line.invoice_status, 'invoiced',
-                "Current subscription has been invoiced.",
-            )
-            self.assertEqual(
-                subscription_past.order_line.invoice_status, 'to invoice',
-                "Past subscription should be ready to get invoiced again.",
-            )
-
-            # Status after closing
-            subscriptions.set_close()
-            self.assertEqual(
-                subscription_future.order_line.invoice_status, 'to invoice',
-                "Future subscription still needs to be invoiced after closing due to delivery.",
-            )
-            for subscription in (subscription_now, subscription_past):
-                self.assertEqual(
-                    subscription.order_line.invoice_status, 'invoiced',
-                    "Nothing new to invoice after closing.",
-                )
+            self.assertEqual(subscription_past.order_line.invoice_status, 'invoiced', "The line qty should be invoiced.")
+            self.assertEqual(subscription_now.order_line.invoice_status, 'invoiced', "The line qty should be invoiced.")
+            self.assertEqual(subscription_future.order_line.invoice_status, 'no', "The line qty should be black.")
 
     def test_product_pricing_respects_variants(self):
         # create a product with 2 variants
@@ -2148,7 +2198,8 @@ class TestSubscription(TestSubscriptionCommon):
             res = refund_wizard.refund_moves()
             refund_move = self.env['account.move'].browse(res['res_id'])
             self.assertEqual(inv.reversal_move_ids, refund_move, "The initial move should be reversed")
-            self.assertEqual(subscription.order_line.qty_invoiced, 0, "The products should be not be invoiced")
+            refund_move._post()
+        self.assertEqual(subscription.order_line.qty_invoiced, 0, "The products should not be invoiced")
 
     def test_discount_parent_line(self):
         with freeze_time("2022-01-01"):
@@ -2266,15 +2317,19 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(self.subscription.order_line.invoice_status, 'no', "Nothing to invoice here")
 
     def test_invoice_done_order(self):
-        # Prevent to invoice order in done state
+        # Prevent to invoice order in subscription_state != 3_progress
         with freeze_time("2021-01-03"):
             self.subscription.action_confirm()
             self.env['sale.order']._cron_recurring_create_invoice()
             self.assertEqual(self.subscription.invoice_count, 1, "one invoice is created normally")
 
         with freeze_time("2021-02-03"):
-            self.subscription.action_lock()
+            action = self.subscription.prepare_renewal_order()
+            renewal_so = self.env['sale.order'].browse(action['res_id'])
+            renewal_so.action_confirm()
+            self.assertTrue(self.subscription.locked)
             self.env['sale.order']._cron_recurring_create_invoice()
+            self.subscription._cron_recurring_create_invoice()
             self.assertEqual(self.subscription.invoice_count, 2, "locked state don't prevent invoices anymore")
 
     def test_create_alternative(self):
@@ -2574,16 +2629,15 @@ class TestSubscription(TestSubscriptionCommon):
             invoice = self.subscription.invoice_ids.sorted('id')[-1]
             self.assertAlmostEqual(invoice.amount_total, 10, 4, 'Downpayment price should be 10')
             invoice._post()
-
-            invoice = self.subscription._create_recurring_invoice()
+            self.assertEqual(self.subscription.next_invoice_date, datetime.date(2021, 1, 3))
+            invoice = self.subscription._create_invoices(final=True)  # manual
             self.assertAlmostEqual(invoice.amount_total, total - 10, 4, 'Downpayment should be deducted from the price')
+            invoice._post()
+            self.assertEqual(self.subscription.next_invoice_date, datetime.date(2021, 2, 3))
 
         with freeze_time('2021-02-03'):
-
-            self.subscription._create_recurring_invoice()
-            invoice = self.subscription.invoice_ids.sorted('id')[-1]
-
-            self.assertAlmostEqual(invoice.amount_total, total, 4, 'Downpayment should not be deducted from the price anymore')
+            inv = self.subscription._create_recurring_invoice()
+            self.assertAlmostEqual(inv.amount_total, total, 4, 'Downpayment should not be deducted from the price anymore')
 
     def test_downpayment_manual_invoice(self):
         """ Test invoice with a way of downpayment and check downpayment's SO line is created
@@ -2600,7 +2654,7 @@ class TestSubscription(TestSubscriptionCommon):
         with freeze_time('2021-01-03'):
             self.subscription.action_confirm()
             total = self.subscription.amount_total
-
+            self.assertEqual(total, 23.1)
             downpayment = self.env['sale.advance.payment.inv'].with_context(context).create({
                 'advance_payment_method': 'fixed',
                 'fixed_amount': 10,
@@ -2614,16 +2668,13 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertAlmostEqual(invoice.amount_total, 10, 4, 'Downpayment price should be 10')
             invoice._post()
 
-            self.subscription._create_invoices(final=True)
-            invoice = self.subscription.invoice_ids.sorted('id')[-1]
+            invoice = self.subscription._create_invoices(final=True)
             invoice._post()
 
             self.assertAlmostEqual(invoice.amount_total, total - 10, 4, 'Downpayment should be deducted from the price')
 
         with freeze_time('2021-02-03'):
-            self.subscription._create_invoices(final=True)
-            invoice = self.subscription.invoice_ids.sorted('id')[-1]
-
+            invoice = self.subscription._create_invoices(final=True)
             self.assertAlmostEqual(invoice.amount_total, total, 4,
                                    'Downpayment should not be deducted from the price anymore')
 

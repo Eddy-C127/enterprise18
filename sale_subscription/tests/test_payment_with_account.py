@@ -43,7 +43,9 @@ class TestSubscriptionPaymentsAccount(AccountPaymentCommon, TestSubscriptionComm
             })
             sub2 = self.subscription.copy({'payment_token_id':test_payment_token.id}) # tokens have copy=False property
             with freeze_time("2023-02-01"):
-                (sub2 | self.subscription).action_confirm()
+                # add a subscription intended to be removed from the recordset to make sure we don't invoice it.
+                sub3 = self.subscription.copy({'payment_token_id': test_payment_token.id, 'end_date': datetime.today().date()})
+                (sub2 | self.subscription | sub3).action_confirm()
                 self.env['sale.order'].with_context(test_provider=new_provider)._create_recurring_invoice()
                 self.assertEqual(self.subscription.invoice_ids, sub2.invoice_ids)
                 invoice = sub2.invoice_ids

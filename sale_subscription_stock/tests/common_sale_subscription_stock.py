@@ -23,6 +23,21 @@ class TestSubscriptionStockCommon(TestSubscriptionCommon, ValuationReconciliatio
 
         cls.plan_3_months = cls.env['sale.subscription.plan'].create({'billing_period_value': 3, 'billing_period_unit': 'month'})
 
+        # Test user dedicated to avoid sharing moves and batches
+        TestUsersEnv = cls.env['res.users'].with_context({'no_reset_password': True})
+        group_portal_id = cls.env.ref('base.group_portal').id
+        cls.country_belgium = cls.env.ref('base.be')
+        cls.user_portal2 = TestUsersEnv.create({
+            'name': 'Beatrice Portal 2',
+            'login': 'Beatrice2',
+            'country_id': cls.country_belgium.id,
+            'email': 'beatrice.employee2@example.com',
+            'groups_id': [(6, 0, [group_portal_id])],
+            'property_account_payable_id': cls.account_payable.id,
+            'property_account_receivable_id': cls.account_receivable.id,
+            'company_id': cls.company_data['company'].id,
+        })
+
         # Pricing
 
         pricing_commands = [
@@ -135,12 +150,18 @@ class TestSubscriptionStockCommon(TestSubscriptionCommon, ValuationReconciliatio
 
     def simulate_period(self, subscription, date, move_qty=False):
         with freeze_time(date):
+            today = fields.Date.today()
             invoice = subscription._create_recurring_invoice()
             if invoice and invoice.state == 'draft':
                 invoice.action_post()
-            picking = subscription.picking_ids and subscription.picking_ids.filtered(lambda picking: picking.date.date().isoformat() == date)
-            if picking:
-                for move in picking.move_ids:
-                    move.write({'quantity': move_qty or move.product_uom_qty, 'picked': True})
-                picking._action_done()
+            picking = subscription.picking_ids and subscription.picking_ids.filtered(lambda picking: picking.date.date() == today)
+            self.validate_picking_moves(picking, move_qty=move_qty)
+
         return invoice, picking
+
+    def validate_picking_moves(self, picking, move_qty=False):
+        if picking:
+            for move in picking.move_ids:
+                move.write({'quantity': move_qty or move.product_uom_qty, 'picked': True})
+            picking._action_done()
+            picking.move_ids.state = 'done'
