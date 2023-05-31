@@ -3,9 +3,10 @@
 from datetime import datetime
 
 from .common import TestCommonPlanning
+from odoo.addons.mail.tests.common import MailCommon
 
 
-class TestPlanningPublishing(TestCommonPlanning):
+class TestPlanningPublishing(TestCommonPlanning, MailCommon):
 
     @classmethod
     def setUpClass(cls):
@@ -38,7 +39,8 @@ class TestPlanningPublishing(TestCommonPlanning):
         Mails = self.env['mail.mail'].sudo()
         before_mails = Mails.search([])
 
-        self.shift.action_send()
+        with self.mock_mail_gateway():
+            self.shift.action_send()
         self.assertEqual(self.shift.state, 'published', 'planning is published when we call its action_send')
 
         shift_mails = set(Mails.search([])) ^ set(before_mails)

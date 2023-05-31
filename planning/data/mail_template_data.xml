@@ -8,7 +8,7 @@
             <field name="subject">{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}</field>
             <field name="email_to">{{ ctx.get('work_email', '') }}</field>
             <field name="model_id" ref="model_planning_slot"/>
-            <field name="auto_delete" eval="False"/>
+            <field name="auto_delete" eval="True"/>
             <field name="description">Email sent automatically when publishing a shift</field>
             <field name="body_html" type="html">
                 <style>
@@ -37,50 +37,63 @@
                     }
                 </style>
                 <div>
-                    <p>Dear <t t-out="ctx.get('employee_name', '')">Anita Oliver</t>,<br/><br/></p>
-                    <t t-if="ctx.get('open_shift_available')">
-                        <p>A new open shift is available:</p>
-                    </t>
-                    <t t-else="">
-                        <p>You have been assigned the following schedule:</p>
-                    </t>
+                    <p t-if="ctx.get('employee_name')">Dear <t t-out="ctx['employee_name']">Anita Oliver</t>,</p>
+                    <p t-else="">Hello,</p>
                     <br/>
-                    <table style="width: 80%; margin: auto;">
-                        <tr>
-                            <th style="padding: 5px;text-align: left;">From</th>
-                            <td style="padding: 5px;" t-out="ctx.get('start_datetime') or ''">05/31/2021 08:00:00</td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 5px;text-align: left;">To</th>
-                            <td style="padding: 5px;" t-out="ctx.get('end_datetime') or ''">05/31/2021 16:00:00</td>
+                    <p t-if="ctx.get('open_shift_available')">We have a new shift opening:</p>
+                    <p t-else="">You have been assigned the following shift:</p>
+                    <table style="margin-left: 30px;">
+                        <tr t-if="(ctx.get('start_datetime') and ctx.get('end_datetime'))
+                                  or ctx.get('allocated_hours')
+                                  or ctx.get('allocated_percentage')"
+                        >
+                            <th style="padding: 5px; text-align: left;">Date</th>
+                            <td style="padding: 5px;">
+                                <span t-if="ctx.get('start_datetime') and ctx.get('end_datetime')"
+                                      t-out="'%s ⟶ %s' % (
+                                    ctx['start_datetime'],
+                                    ctx['end_datetime'],
+                                )">
+                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM
+                                </span>
+                                <span t-if="ctx.get('allocated_hours')" style="opacity: 0.5;">
+                                    (<t t-out="ctx['allocated_hours']">4:00</t>h)
+                                </span>
+                                <span t-if="ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'" style="opacity: 0.5;">
+                                    (<t t-out="ctx['allocated_percentage']">50</t>%)
+                                </span>
+                            </td>
                         </tr>
                         <tr t-if="object.role_id">
-                            <th style="padding: 5px;text-align: left;">Role</th>
+                            <th style="padding: 5px; text-align: left;">Role</th>
                             <td style="padding: 5px;" t-out="object.role_id.name or ''">Bartender</td>
                         </tr>
                         <tr t-if="hasattr(object, 'project_id') and object.project_id">
-                            <th style="padding: 5px;text-align: left;">Project</th>
+                            <th style="padding: 5px; text-align: left;">Project</th>
                             <td style="padding: 5px;" t-out="object.sudo().project_id.name or ''">Gathering</td>
                         </tr>
                         <tr t-if="hasattr(object, 'sale_line_id') and object.sale_line_id">
-                            <th style="padding: 5px; text-align: left;">Sale Order Item</th>
-                            <td style="padding: 5px;" t-out="object.sudo().sale_line_id.name or ''"></td>
+                            <th style="padding: 5px; text-align: left;">Sales Order Item</th>
+                            <td style="padding: 5px;" t-out="object.sudo().sale_line_id.name or ''">Coffee</td>
                         </tr>
                         <tr t-if="hasattr(object, 'name') and object.name">
-                            <th style="padding: 5px;text-align: left;">Note</th>
+                            <th style="padding: 5px; text-align: left;">Note</th>
                             <td style="padding: 5px;" t-out="object.name or ''">/</td>
                         </tr>
                     </table>
                     <div class="button_box">
-                        <a t-if="ctx.get('available_link')" t-att-href="ctx.get('available_link')" target="_blank"
+                        <a t-if="ctx.get('available_link')" t-att-href="ctx['available_link']" target="_blank"
                             class="planning_mail_template_button top_button">Assign me this shift</a>
-                        <a t-if="ctx.get('unavailable_link')" t-att-href="ctx.get('unavailable_link')" target="_blank"
+                        <a t-if="ctx.get('unavailable_link')" t-att-href="ctx['unavailable_link']" target="_blank"
                             class="planning_mail_template_button top_button">I am unavailable</a>
-                        <a t-if="ctx.get('google_url')" t-att-href="ctx.get('google_url')" target="_blank"
+                        <a t-if="ctx.get('google_url')" t-att-href="ctx['google_url']" target="_blank"
                             class="planning_mail_template_button">Add to Google Calendar</a>
-                        <a t-if="ctx.get('google_url')" t-att-href="ctx.get('iCal_url')" target="_blank"
+                        <a t-if="ctx.get('iCal_url')" t-att-href="ctx['iCal_url']" target="_blank"
                             class="planning_mail_template_button">Add to iCal/Outlook</a>
                     </div>
+                    <br/>
+                    <p t-if="ctx.get('open_shift_available')">If you are interested and available, please assign yourself this open shift.</p>
+                    <p t-else="">In case the current shift doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>
                 </div>
             </field>
         </record>
@@ -91,7 +104,7 @@
             <field name="subject">Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ format_date(ctx.get('end_datetime')) }}</field>
             <field name="email_to"></field><!-- Set in the code  -->
             <field name="model_id" ref="model_planning_planning"/>
-            <field name="auto_delete" eval="False"/><!-- TODO JEM  change this as we are testing -->
+            <field name="auto_delete" eval="True"/>
             <field name="description">Email sent automatically when publishing the schedule of your employees</field>
             <field name="body_html" type="html">
                 <style>
@@ -106,57 +119,34 @@
                 }
                 </style>
                 <div>
-                    <p>
-                    <t t-if="ctx.get('employee')">
-                        Dear <t t-out="ctx['employee'].name or ''"></t>,
-                    </t>
-                    <t t-else="">
-                        Hello,
-                    </t>
-                        <br/><br/>
-                    <t t-if="ctx.get('assigned_new_shift')">
-                        You have been assigned new shifts:
-                    </t>
-                    <t t-else="">
-                        Please, find your planning for the following period:
-                    </t>
-                    </p>
+                    <p t-if="ctx.get('employee')">Dear <t t-out="ctx['employee'].name or ''">Anita Oliver</t>,</p>
+                    <p t-else="">Hello,</p>
                     <br/>
-
-                    <table style="table-layout: fixed; width: 80%; margin: auto;">
-                        <tr>
-                            <th style="padding: 5px;text-align: left; width: 15%;">From</th>
-                            <td style="padding: 5px;" t-out="format_date(ctx.get('start_datetime')) or ''">05/05/2021</td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 5px;text-align: left; width: 15%;">To</th>
-                            <td style="padding: 5px;" t-out="format_date(ctx.get('end_datetime')) or ''">05/05/2021</td>
-                        </tr>
-                    </table>
-
+                    <p t-if="ctx.get('start_datetime') and ctx.get('end_datetime')">
+                        Your upcoming shifts from <t t-out="format_date(ctx['start_datetime'])">05-05-2021</t>
+                        to <t t-out="format_date(ctx['end_datetime'])">05-11-2021</t> have been published.
+                    </p>
                     <div style="display: flex; margin: 15px;">
                         <div t-if="ctx.get('planning_url')" style="margin-right: 15px;">
-                            <a t-att-href="ctx.get('planning_url')" target="_blank" class="planning_mail_template_button"
+                            <a t-att-href="ctx['planning_url']" target="_blank" class="planning_mail_template_button"
                                 style="color: #FFFFFF; background-color: #875A7B; border: solid #875A7B;">View Your Planning</a>
                         </div>
                         <div t-if="ctx.get('planning_url_ics')">
-                            <a t-att-href="ctx.get('planning_url_ics')" target="_blank" class="planning_mail_template_button"
+                            <a t-att-href="ctx['planning_url_ics']" target="_blank" class="planning_mail_template_button"
                                 style="color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;">Add to Calendar</a>
                         </div>
                     </div>
-
-                    <div t-if="ctx.get('slot_unassigned')">
-                        <p>If an open shift is available and at your convenience, please assign yourself to it</p>
-                    </div>
                     <br/>
-
-                    <t t-if="ctx.get('message')">
-                        <p t-out="ctx['message'] or ''"></p>
-                    </t>
-
-                    <p t-if="hasattr(object, 'allow_self_unassign') and object.allow_self_unassign and hasattr(object, 'self_unassign_days_before') and object.self_unassign_days_before">
-                        As a small reminder, you have <t t-out="object.self_unassign_days_before or ''">5</t>day(s) before the beginning of a shift to unassign yourself if you are unavailable. Thank you for your understanding.
+                    <p t-if="ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)">
+                        <t t-if="ctx.get('slot_unassigned')">
+                            We would also like to remind you that there are some open shifts available, and if you are interested and available, please assign yourself to those shifts.
+                        </t>
+                        <t t-if="object.allow_self_unassign and object.self_unassign_days_before">
+                            If you are unable to work a shift that has been assigned to you, please unassign yourself within <t t-out="object.self_unassign_days_before or ''">5</t> day(s) before the start of the shift.
+                        </t>
                     </p>
+                    <p t-if="ctx.get('message')" t-out="ctx['message']"></p>
+                    <p t-if="object.allow_self_unassign">In case your current schedule doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>
                 </div>
             </field>
         </record>
@@ -167,42 +157,57 @@
             <field name="subject">Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ ctx.get('new_assignee_name', 'Marc Demo') }}</field>
             <field name="email_to"></field><!-- Set in the code  -->
             <field name="model_id" ref="model_planning_slot"/>
-            <field name="auto_delete" eval="False"/><!-- TODO JEM  change this as we are testing -->
-            <field name="description">Email sent automatically when employee self assigns to an unwanted shift of another employee</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="description">Email sent automatically when an employee self-assigns to the unwanted shift of another employee, notifying the person who requested to switch that the shift has been taken</field>
             <field name="body_html" type="html">
                 <div>
-                    <p>
-                        Dear <t t-out="ctx.get('old_assignee_name', 'Mitchel Admin')"></t>,
-                        <br/><br/>
-                        Your following shift was re-assigned to <t t-out="ctx.get('new_assignee_name', 'Marc Demo')"></t>.
-                    </p>
+                    <p t-if="ctx.get('old_assignee_name')">Dear <t t-out="ctx['old_assignee_name']">Anita Oliver</t>,</p>
+                    <p t-else="">Hello,</p>
                     <br/>
-                    <table style="width: 80%; margin: auto;">
-                        <tr>
-                            <th style="padding: 5px;text-align: left;">From</th>
-                            <td style="padding: 5px;" t-out="ctx.get('start_datetime') or ''">05/31/2021 08:00:00</td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 5px;text-align: left;">To</th>
-                            <td style="padding: 5px;" t-out="ctx.get('end_datetime') or ''">05/31/2021 16:00:00</td>
+                    <p>
+                        The following shift that you requested to switch has been re-assigned
+                        <t t-if="ctx.get('new_assignee_name')"> to <t t-out="ctx['new_assignee_name']">Marc Demo</t></t>.
+                    </p>
+                    <table style="margin-left: 30px;">
+                        <tr t-if="(ctx.get('start_datetime') and ctx.get('end_datetime'))
+                                  or ctx.get('allocated_hours')
+                                  or ctx.get('allocated_percentage')"
+                        >
+                            <th style="padding: 5px; text-align: left;">Date</th>
+                            <td style="padding: 5px;">
+                                <span t-if="ctx.get('start_datetime') and ctx.get('end_datetime')"
+                                      t-out="'%s ⟶ %s' % (
+                                    ctx['start_datetime'],
+                                    ctx['end_datetime'],
+                                )">
+                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM
+                                </span>
+                                <span t-if="ctx.get('allocated_hours')" style="opacity: 0.5;">
+                                    (<t t-out="ctx['allocated_hours']">4:00</t>h)
+                                </span>
+                                <span t-if="ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'" style="opacity: 0.5;">
+                                    (<t t-out="ctx['allocated_percentage']">50</t>%)
+                                </span>
+                            </td>
                         </tr>
                         <tr t-if="object.role_id">
-                            <th style="padding: 5px;text-align: left;">Role</th>
+                            <th style="padding: 5px; text-align: left;">Role</th>
                             <td style="padding: 5px;" t-out="object.role_id.name or ''">Bartender</td>
                         </tr>
                         <tr t-if="hasattr(object, 'project_id') and object.project_id">
-                            <th style="padding: 5px;text-align: left;">Project</th>
+                            <th style="padding: 5px; text-align: left;">Project</th>
                             <td style="padding: 5px;" t-out="object.sudo().project_id.name or ''">Gathering</td>
                         </tr>
                         <tr t-if="hasattr(object, 'sale_line_id') and object.sale_line_id">
-                            <th style="padding: 5px; text-align: left;">Sale Order Item</th>
-                            <td style="padding: 5px;" t-out="object.sudo().sale_line_id.name or ''"></td>
+                            <th style="padding: 5px; text-align: left;">Sales Order Item</th>
+                            <td style="padding: 5px;" t-out="object.sudo().sale_line_id.name or ''">Coffee</td>
                         </tr>
                         <tr t-if="hasattr(object, 'name') and object.name">
-                            <th style="padding: 5px;text-align: left;">Note</th>
+                            <th style="padding: 5px; text-align: left;">Note</th>
                             <td style="padding: 5px;" t-out="object.name or ''">/</td>
                         </tr>
                     </table>
+                    <br/>
                 </div>
             </field>
         </record>

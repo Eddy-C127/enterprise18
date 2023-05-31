@@ -79,6 +79,16 @@ class PlanningSend(models.TransientModel):
             return self.action_send()
 
     def action_send(self):
+        if not all(employee.work_email for employee in self.employee_ids):
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'danger',
+                    'message': _("The work email is missing for the following employees:"),
+                }
+            }
+
         if self.include_unassigned:
             slot_to_send = self.slot_ids.filtered(lambda s: not s.employee_id or s.employee_id in self.employee_ids)
         else:

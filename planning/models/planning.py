@@ -1411,7 +1411,7 @@ class Planning(models.Model):
             return None
         context = dict(self._context)
         context['force_email'] = True
-        context['form_view_ref'] = 'planning.hr_employee_view_form_simplified'
+        context['form_view_ref'] = 'planning.hr_employee_view_form_email'
         return {
             'relation': 'hr.employee',
             'res_ids': employee_ids_without_work_email,
@@ -1943,6 +1943,9 @@ class Planning(models.Model):
             start_datetime = self._format_datetime_to_user_tz(self.start_datetime, employee.env, tz=employee.tz, lang_code=employee.user_partner_id.lang)
             end_datetime = self._format_datetime_to_user_tz(self.end_datetime, employee.env, tz=employee.tz, lang_code=employee.user_partner_id.lang)
             unassign_deadline = self._format_datetime_to_user_tz(self.unassign_deadline, employee.env, tz=employee.tz, lang_code=employee.user_partner_id.lang)
+            allocated_hours = timedelta(hours=self.allocated_hours).total_seconds()
+            formatted_allocated_hours = "%d:%02d" % (allocated_hours // 3600, round(allocated_hours % 3600 / 60))
+            allocated_percentage = float_utils.float_repr(self.allocated_percentage, precision_digits=0)
             # update context to build a link for view in the slot
             view_context.update({
                 'link': employee_url_map[employee.id],
@@ -1950,6 +1953,8 @@ class Planning(models.Model):
                 'end_datetime': end_datetime,
                 'employee_name': employee.name,
                 'work_email': employee.work_email,
+                'allocated_hours': formatted_allocated_hours,
+                'allocated_percentage': allocated_percentage,
                 'unassign_deadline': unassign_deadline
             })
             mail_id = template.with_context(view_context).send_mail(self.id, email_layout_xmlid='mail.mail_notification_light')
@@ -1971,11 +1976,15 @@ class Planning(models.Model):
         template = self.env.ref('planning.email_template_shift_switch_email', raise_if_not_found=False)
         start_datetime = self._format_datetime_to_user_tz(slot.start_datetime, assignee.env, tz=assignee.tz, lang_code=assignee.user_partner_id.lang)
         end_datetime = self._format_datetime_to_user_tz(slot.end_datetime, assignee.env, tz=assignee.tz, lang_code=assignee.user_partner_id.lang)
+        allocated_hours = float_utils.float_repr(self.allocated_hours, precision_digits=2)
+        allocated_percentage = float_utils.float_repr(self.allocated_percentage, precision_digits=0)
         template_context = {
             'old_assignee_name': assignee.name,
             'new_assignee_name': human_resource.employee_id.name,
             'start_datetime': start_datetime,
             'end_datetime': end_datetime,
+            'allocated_hours': allocated_hours,
+            'allocated_percentage': allocated_percentage,
         }
         if template and assignee != human_resource.employee_id:
             template.with_context(**template_context).send_mail(

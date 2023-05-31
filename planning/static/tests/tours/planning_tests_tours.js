@@ -168,8 +168,8 @@ registry.category("web_tour.tours").add('planning_test_tour_no_email', {
     content: "Click on the 'Publish' button",
     run: "click",
 }, {
-    trigger: ".o_field_widget.o_field_image.oe_avatar",
-    content: "The 'No Email Address for the Employee' wizard should be raised",
+    trigger: ".modal-content label:contains('Work Email')",
+    content: "The 'Add Work Email' wizard should be raised",
 },]});
 
 registry.category("web_tour.tours").add('planning_shift_switching_backend', {

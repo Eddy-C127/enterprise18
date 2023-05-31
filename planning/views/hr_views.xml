@@ -75,4 +75,23 @@
         </field>
     </record>
 
+    <record id="hr_employee_view_form_email" model="ir.ui.view">
+        <field name="name">hr.employee.public.view.form</field>
+        <field name="model">hr.employee.public</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="user_id" invisible="1" />
+                    <div class="oe_title">
+                        <p class="text-muted">Please add a work email for the following employee so that they can receive their planning:</p>
+                    </div>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="work_email" widget="email" required="True"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
 </odoo>

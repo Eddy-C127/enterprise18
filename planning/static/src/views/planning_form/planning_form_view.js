@@ -88,13 +88,31 @@ export class PlanningFormController extends FormController {
             if (!canProceed) {
                 return false;
             }
-        } else if (clickParams.name === 'action_send' && shift.resId) {
-            // We want to check if all employees impacted to this action have a email.
-            // For those who do not have any email in work_email field, then a FormViewDialog is displayed for each employee who is not email.
-            const result = await this.orm.call(this.props.resModel, "get_employees_without_work_email", [shift.resId]);
-            if (result) {
-                const { res_ids: resIds, relation: resModel, context } = result;
-                const canProceed = await this.displayDialogWhenEmployeeNoEmail(resIds, resModel, context);
+        } else if (clickParams.name === 'action_send') {
+            if (shift.resId) {
+                // We want to check if all employees impacted to this action have a email.
+                // For those who do not have any email in work_email field, then a FormViewDialog is displayed for each employee who is not email.
+                const result = await this.orm.call(this.props.resModel, "get_employees_without_work_email", [shift.resId]);
+                if (result) {
+                    const { res_ids: resIds, relation: resModel, context } = result;
+                    const canProceed = await this.displayDialogWhenEmployeeNoEmail(resIds, resModel, context);
+                    if (!canProceed) {
+                        return false;
+                    }
+                }
+            } else if (shift.data.employee_id && !shift.data.work_email) {
+                const canProceed = await new Promise((resolve) => {
+                    this.dialogService.add(FormViewDialog, {
+                        title: "Add Work Email",
+                        resModel: "hr.employee",
+                        resId: shift.data.employee_id[0],
+                        context: {
+                            form_view_ref: 'planning.hr_employee_view_form_email',
+                            force_email: true,
+                        },
+                        onRecordSaved: () => resolve(true),
+                    }, { onClose: () => resolve(false) });
+                });
                 if (!canProceed) {
                     return false;
                 }
