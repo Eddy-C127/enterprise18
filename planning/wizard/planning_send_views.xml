@@ -33,19 +33,15 @@
         <field name="model">planning.send</field>
         <field name="arch" type="xml">
             <form string="Employees with no Work Email">
-                <group col="2">
-                    <p colspan="2">
-                        Define a work email address for the following employees so they will receive the planning.
-                    </p>
-                </group>
-                <group col="2">
-                    <field name="employees_no_email" nolabel="1" colspan="2" options="{'link': false, 'unlink': false}">
-                        <tree editable="bottom">
-                            <field name="name" required="1" readonly="1"/>
-                            <field name="work_email" required="1"/>
-                        </tree>
-                    </field>
-                </group>
+                <p>
+                    Define a work email address for the following employees so they will receive the planning.
+                </p>
+                <field name="employees_no_email" nolabel="1" options="{'link': false, 'unlink': false}">
+                    <tree editable="bottom">
+                        <field name="name" required="1" readonly="1"/>
+                        <field name="work_email" required="1"/>
+                    </tree>
+                </field>
                 <footer>
                     <button name="action_send" type="object" string="Save &amp; Send Schedule"
                             class='btn-primary'/>
