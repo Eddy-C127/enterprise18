@@ -592,3 +592,44 @@ Content-Transfer-Encoding: quoted-printable
         self.assertEqual(open_ticket.partner_ticket_count, 1, "There should be one other ticket than this one for this partner")
         self.assertEqual(closed_ticket.partner_open_ticket_count, 1, "There should be one other open ticket than this one for this partner")
         self.assertEqual(closed_ticket.partner_ticket_count, 1, "There should be one other ticket than this one for this partner")
+
+    def test_create_ticket_in_batch_with_email_cc(self):
+        user_a, user_b, user_c = self.env['res.users'].create([{
+            'name': 'user A',
+            'login': 'loginA',
+            'email': 'email@bisous1',
+        }, {
+            'name': 'user B',
+            'login': 'loginB',
+            'email': 'email@bisous2',
+        }, {
+            'name': 'user C',
+            'login': 'loginC',
+            'email': 'email@bisous3',
+        }])
+        partner_a, partner_b = self.env['res.partner'].create([{
+            'name': 'partner A',
+            'email': 'email@bisous4',
+        }, {
+            'name': 'partner B',
+        }])
+        ticket_1, ticket_2 = self.env['helpdesk.ticket'].with_context({'mail_create_nolog': True}).create([{
+            'name': 'ticket 1',
+            'team_id': self.test_team.id,
+            'email_cc': 'email@bisous1, email@bisous2, email@bisous4',
+            'partner_id': partner_b.id,
+        }, {
+            'name': 'ticket 2',
+            'team_id': self.test_team.id,
+            'email_cc': 'email@bisous3, email@bisous2, email@bisous4'
+        }])
+        self.assertTrue(user_a.partner_id in ticket_1.message_partner_ids)
+        self.assertTrue(user_b.partner_id in ticket_1.message_partner_ids)
+        self.assertFalse(user_c.partner_id in ticket_1.message_partner_ids)
+        self.assertFalse(partner_a in ticket_1.message_partner_ids)
+        self.assertTrue(partner_b in ticket_1.message_partner_ids)
+        self.assertFalse(user_a.partner_id in ticket_2.message_partner_ids)
+        self.assertTrue(user_b.partner_id in ticket_2.message_partner_ids)
+        self.assertTrue(user_c.partner_id in ticket_2.message_partner_ids)
+        self.assertFalse(partner_a in ticket_2.message_partner_ids)
+        self.assertFalse(partner_b in ticket_2.message_partner_ids)

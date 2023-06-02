@@ -138,4 +138,12 @@
         <field name="lang">{{ object.partner_id.lang or object.user_id.lang or user.lang }}</field>
         <field name="auto_delete" eval="True"/>
     </record>
+    <!-- You have been invited to follow the ticket -->
+        <template id="ticket_invitation_follower">
+<div>
+    Hello <t t-out="partner_name"/>,
+    <br/><br/>
+    <span style="margin-top: 8px;">You have been invited to follow Ticket Document : <t t-out="object.display_name"/>.</span>
+</div>
+        </template>
 </data></odoo>

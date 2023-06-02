@@ -485,10 +485,33 @@ class HelpdeskTicket(models.Model):
         # context: no_log, because subtype already handle this
         tickets = super(HelpdeskTicket, self).create(list_value)
 
+        all_partner_emails = []
+        for ticket in tickets:
+            all_partner_emails += tools.email_split(ticket.email_cc)
+        partners = self.env['res.partner'].search([('email', 'in', all_partner_emails)])
+        partner_per_email = {
+            partner.email: partner
+            for partner in partners
+            if not all(u.share for u in partner.user_ids)
+        }
+
         # make customer follower
         for ticket in tickets:
+            partner_ids = []
             if ticket.partner_id:
-                ticket.message_subscribe(partner_ids=ticket.partner_id.ids)
+                partner_ids = ticket.partner_id.ids
+            if ticket.email_cc:
+                partners_with_internal_user = self.env['res.partner']
+                for email in tools.email_split(ticket.email_cc):
+                    new_partner = partner_per_email.get(email)
+                    if new_partner:
+                        partners_with_internal_user |= new_partner
+                if not partners_with_internal_user:
+                    continue
+                ticket._send_email_notify_to_cc(partners_with_internal_user)
+                partner_ids += partners_with_internal_user.ids
+            if partner_ids:
+                ticket.message_subscribe(partner_ids)
 
             ticket._portal_ensure_token()
 
@@ -783,6 +806,28 @@ class HelpdeskTicket(models.Model):
         if not self.description and message.subtype_id == self._creation_subtype() and self.partner_id == message.author_id:
             self.description = message.body
         return super(HelpdeskTicket, self)._message_post_after_hook(message, msg_vals)
+
+    def _send_email_notify_to_cc(self, partners_to_notify):
+        self.ensure_one()
+        template_id = self.env['ir.model.data']._xmlid_to_res_id('helpdesk.ticket_invitation_follower', raise_if_not_found=False)
+        if not template_id:
+            return
+        ticket_model_description = self.env['ir.model']._get(self._name).display_name
+        values = {
+            'object': self,
+        }
+        for partner in partners_to_notify:
+            values['partner_name'] = partner.name
+            assignation_msg = self.env['ir.qweb']._render('helpdesk.ticket_invitation_follower', values, minimal_qcontext=True)
+            self.message_notify(
+                subject=_('You have been invited to follow %s', self.display_name),
+                body=assignation_msg,
+                partner_ids=partner.ids,
+                record_name=self.display_name,
+                email_layout_xmlid='mail.mail_notification_layout',
+                model_description=ticket_model_description,
+                mail_auto_delete=True,
+            )
 
     def _track_template(self, changes):
         res = super(HelpdeskTicket, self)._track_template(changes)
