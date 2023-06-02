@@ -639,6 +639,21 @@ class MrpProductionWorkcenterLine(models.Model):
             self.check_ids.unlink()
         super()._update_qty_producing(quantity)
 
+    def _web_gantt_reschedule_is_record_candidate(self, start_date_field_name, stop_date_field_name):
+        return self.state not in ['progress', 'done', 'cancel'] \
+            and super()._web_gantt_reschedule_is_record_candidate(start_date_field_name, stop_date_field_name)
+
+    def _web_gantt_reschedule_is_relation_candidate(self, master, slave, start_date_field_name, stop_date_field_name):
+        return self != slave \
+            and super()._web_gantt_reschedule_is_relation_candidate(master, slave, start_date_field_name, stop_date_field_name)
+
+    def _web_gantt_reschedule_compute_dates(self, date_candidate, search_forward, start_date_field_name, stop_date_field_name, cache):
+        from_date, to_date = self.workcenter_id._get_first_available_slot(date_candidate, self.duration_expected, backward=not search_forward, leaves_to_ignore=self.leave_id)
+        return [from_date, to_date]
+
+    def _web_gantt_reschedule_write_new_dates(self, new_start_date, new_stop_date, start_date_field_name, stop_date_field_name):
+        return super(MrpProductionWorkcenterLine, self.with_context(bypass_duration_calculation=True))._web_gantt_reschedule_write_new_dates(new_start_date, new_stop_date, start_date_field_name, stop_date_field_name)
+
     def _web_gantt_progress_bar_workcenter_id(self, res_ids, start, stop):
         self.env['mrp.workorder'].check_access_rights('read')
         workcenters = self.env['mrp.workcenter'].search([('id', 'in', res_ids)])
