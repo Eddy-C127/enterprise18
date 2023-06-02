@@ -965,7 +965,6 @@ class Task(models.Model):
 
         return sorted([first_datetime, searched_date])
 
-    @api.model
     def _web_gantt_reschedule_is_record_candidate(self, start_date_field_name, stop_date_field_name):
         """ Get whether the record is a candidate for the rescheduling. This method is meant to be overridden when
             we need to add a constraint in order to prevent some records to be rescheduled. This method focuses on the
@@ -980,7 +979,6 @@ class Task(models.Model):
         is_record_candidate = super()._web_gantt_reschedule_is_record_candidate(start_date_field_name, stop_date_field_name)
         return is_record_candidate and self.project_id.allow_task_dependencies and self.state not in CLOSED_STATES
 
-    @api.model
     def _web_gantt_reschedule_is_relation_candidate(self, master, slave, start_date_field_name, stop_date_field_name):
         """ Get whether the relation between master and slave is a candidate for the rescheduling. This method is meant
             to be overridden when we need to add a constraint in order to prevent some records to be rescheduled.

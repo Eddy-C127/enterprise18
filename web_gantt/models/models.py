@@ -130,7 +130,7 @@ class Base(models.AbstractModel):
         if not self.env[self._name].search(search_domain, limit=1):
             raise ValueError("Record '%r' is not a parent record of '%r'" % (master_record.name, slave_record.name))
 
-        if not self._web_web_gantt_reschedule_is_relation_candidate(
+        if not self._web_gantt_reschedule_is_relation_candidate(
                 master_record, slave_record, start_date_field_name, stop_date_field_name):
             return {
                 'type': 'ir.actions.client',
@@ -461,7 +461,7 @@ class Base(models.AbstractModel):
                 if master_record.id in record_ids_to_exclude[record.id] \
                    or not master_record._web_gantt_reschedule_is_record_candidate(
                         start_date_field_name, stop_date_field_name) \
-                   or not self._web_web_gantt_reschedule_is_relation_candidate(
+                   or not self._web_gantt_reschedule_is_relation_candidate(
                         master_record, record, start_date_field_name, stop_date_field_name) \
                    or not self._web_gantt_reschedule_is_in_conflict_or_force(
                             master_record, record, start_date_field_name, stop_date_field_name, rescheduling_forward):
@@ -492,7 +492,7 @@ class Base(models.AbstractModel):
                 if slave_record.id in record_ids_to_exclude[record.id] \
                    or not slave_record._web_gantt_reschedule_is_record_candidate(
                         start_date_field_name, stop_date_field_name) \
-                   or not self._web_web_gantt_reschedule_is_relation_candidate(
+                   or not self._web_gantt_reschedule_is_relation_candidate(
                         record, slave_record, start_date_field_name, stop_date_field_name) \
                    or not self._web_gantt_reschedule_is_in_conflict_or_force(
                             record, slave_record, start_date_field_name, stop_date_field_name, rescheduling_backward):
@@ -610,8 +610,7 @@ class Base(models.AbstractModel):
         return self[start_date_field_name] and self[stop_date_field_name] \
             and self[start_date_field_name].replace(tzinfo=timezone.utc) > datetime.now(timezone.utc)
 
-    @api.model
-    def _web_web_gantt_reschedule_is_relation_candidate(self, master, slave, start_date_field_name, stop_date_field_name):
+    def _web_gantt_reschedule_is_relation_candidate(self, master, slave, start_date_field_name, stop_date_field_name):
         """ Get whether the relation between master and slave is a candidate for the rescheduling. This method is meant
             to be overridden when we need to add a constraint in order to prevent some records to be rescheduled.
             This method focuses on the relation between records (if your logic is rather on one record, rather override
