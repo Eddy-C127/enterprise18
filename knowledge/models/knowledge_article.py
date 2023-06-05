@@ -1170,6 +1170,11 @@ class Article(models.Model):
         })
         article = self.create(article_vals)
         article._update_article_references(self)
+        # Copy the related stages for the /kanban command:
+        for stage in self.env["knowledge.article.stage"].search([("parent_id", "=", self.id)]):
+            stage.copy({
+                "parent_id": article.id
+            })
         return article
 
     @api.returns('self', lambda value: value.id)
@@ -1191,6 +1196,11 @@ class Article(models.Model):
         })
         article = self.create(article_vals)
         article._update_article_references(self)
+        # Copy the related stages for the /kanban command:
+        for stage in self.env["knowledge.article.stage"].search([("parent_id", "=", self.id)]):
+            stage.copy({
+                "parent_id": article.id
+            })
         return article
 
     def action_home_page(self):
