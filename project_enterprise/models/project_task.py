@@ -334,20 +334,25 @@ class Task(models.Model):
 
         return res
 
-    @api.model
+    def _get_additional_group_expand_user_ids_domain(self, domain):
+        return []
+
     def _group_expand_user_ids(self, users, domain, order):
         """ Group expand by user_ids in gantt view :
             all users which have and open task in this project + the current user if not filtered by assignee
         """
+        additional_domain = self._get_additional_group_expand_user_ids_domain(domain)
         start_date = self._context.get('gantt_start_date')
         scale = self._context.get('gantt_scale')
         if not (start_date and scale) or any(
                 is_leaf(elem) and elem[0] == 'user_ids' for elem in domain):
             return self.env['res.users']
-
+        domain = filter_domain_leaf(domain, lambda field: field not in ['planned_date_begin', 'date_deadline', 'state'])
+        search_on_comodel = self._search_on_comodel(domain, "user_ids", "res.users", order)
+        if search_on_comodel:
+            return search_on_comodel | self.env.user
         last_start_date = fields.Datetime.from_string(start_date) - relativedelta(**{f"{scale}s": 1})
         next_start_date = fields.Datetime.from_string(start_date) + relativedelta(**{f"{scale}s": 1})
-        domain = filter_domain_leaf(domain, lambda field: field not in ['planned_date_begin', 'date_deadline', 'state'])
         domain_expand = [
             ('planned_date_begin', '>=', last_start_date),
             ('date_deadline', '<', next_start_date)
@@ -364,11 +369,17 @@ class Task(models.Model):
             domain_expand = expression.AND([[
                 ('project_id', '!=', False),
             ], domain_expand])
-        domain_expand = expression.AND([domain_expand, domain])
-        search_on_comodel = self._search_on_comodel(domain, "user_ids", "res.users", order)
-        if search_on_comodel:
-            return search_on_comodel | self.env.user
-        return self.search(domain_expand).user_ids | self.env.user
+        domain_expand = expression.AND([
+            domain_expand,
+            domain,
+        ])
+        users = self.search(domain_expand).user_ids | self.env.user
+        if additional_domain:
+            users = self.env['res.users'].search(expression.AND([
+                [('id', 'in', users.ids)],
+                additional_domain,
+            ]))
+        return users
 
     @api.model
     def _group_expand_project_ids(self, projects, domain, order):

@@ -151,18 +151,31 @@ class Task(models.Model):
             res &= search_on_comodel
         return res
 
-    @api.model
     def _group_expand_user_ids(self, users, domain, order):
-        res = super()._group_expand_user_ids(users, domain, order)
         if self.env.context.get('fsm_mode'):
+            search_on_comodel = self._search_on_comodel(domain, "user_ids", "res.users", order)
+            if search_on_comodel:
+                return search_on_comodel | self.env.user
             recently_created_tasks_user_ids = self.env['project.task']._read_group([
                 ('create_date', '>', datetime.now() - timedelta(days=30)),
                 ('is_fsm', '=', True),
                 ('user_ids', '!=', False)
             ], [], ['user_ids:array_agg'])[0][0]
-            search_domain = ['&', ('company_id', 'in', self.env.companies.ids), '|', '|', ('id', 'in', users.ids), ('groups_id', 'in', self.env.ref('industry_fsm.group_fsm_user').id), ('id', 'in', recently_created_tasks_user_ids)]
-            res |= users.search(search_domain, order=order)
-        return res
+            search_domain = [
+                '&',
+                    ('company_id', 'in', self.env.companies.ids),
+                    '|',
+                        '|',
+                            ('id', 'in', users.ids),
+                            ('groups_id', 'in', self.env.ref('industry_fsm.group_fsm_user').id),
+                        ('id', 'in', recently_created_tasks_user_ids),
+            ]
+            search_domain = expression.AND([
+                search_domain,
+                self._get_additional_group_expand_user_ids_domain(search_domain),
+            ])
+            return users.search(search_domain, order=order) | self.env.user
+        return super()._group_expand_user_ids(users, domain, order)
 
     def _compute_fsm_done(self):
         closed_tasks = self.filtered(lambda t: t.state in CLOSED_STATES)
