@@ -16,8 +16,6 @@ class WorksheetTemplate(models.Model):
     _description = 'Worksheet Template'
     _order = 'sequence, name'
 
-    def _get_default_color(self):
-        return randint(1, 11)
 
     name = fields.Char(string='Name', required=True)
     sequence = fields.Integer()
@@ -26,7 +24,6 @@ class WorksheetTemplate(models.Model):
     action_id = fields.Many2one('ir.actions.act_window', readonly=True)
     company_ids = fields.Many2many('res.company', string='Companies', domain=lambda self: [('id', 'in', self.env.companies.ids)])
     report_view_id = fields.Many2one('ir.ui.view', domain=[('type', '=', 'qweb')], readonly=True)
-    color = fields.Integer('Color', default=_get_default_color)
     active = fields.Boolean(default=True)
     res_model = fields.Char('Host Model', help="The model that is using this template")
 

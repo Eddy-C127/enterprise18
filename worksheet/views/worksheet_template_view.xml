@@ -25,7 +25,6 @@
                             <field name="name" placeholder="e.g Device Installation"/>
                             <field name="active" invisible="1"/>
                             <field name="company_ids" widget="many2many_tags" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"/>
-                            <field name="color"  widget="color_picker"/>
                         </group>
                         <group>
                             <field name="model_id" invisible="1"/>
@@ -41,12 +40,13 @@
         <field name="name">worksheet.template.view.list</field>
         <field name="model">worksheet.template</field>
         <field name="arch" type="xml">
-            <tree multi_edit="1" sample="1">
+            <tree editable="bottom" multi_edit="1" sample="1" duplicate="0">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="company_ids" widget="many2many_tags" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}" optional="show"/>
                 <field name="worksheet_count" string="Worksheets" optional="show"/>
-                <field name="color" widget="color_picker" optional="show"/>
+                <widget name="open_studio_button"/>
+                <button name="action_analysis_report" class="btn btn-secondary p-1 px-2" type="object" string="Analysis"/>
             </tree>
         </field>
     </record>

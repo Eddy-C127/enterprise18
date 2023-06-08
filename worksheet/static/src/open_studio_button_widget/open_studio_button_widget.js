@@ -18,6 +18,12 @@ class OpenStudioWidget extends Component {
         this.ui = useService("ui");
     }
     async onClick() {
+        if (!this.props.record.resId) {
+            const result = await this.props.record.save();
+            if (result !== true) {
+                return;
+            }
+        }
         this.ui.block();
         const action = await this.orm.call(
             "worksheet.template",

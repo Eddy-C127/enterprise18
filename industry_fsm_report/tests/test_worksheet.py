@@ -12,7 +12,6 @@ class TestWorksheet(TransactionCase):
 
         cls.worksheet_template = cls.env['worksheet.template'].create({
             'name': 'New worksheet',
-            'color': 4,
             'res_model': 'project.task',
         })
         cls.fsm_project = cls.env['project.project'].create({

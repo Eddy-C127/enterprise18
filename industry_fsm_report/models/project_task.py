@@ -16,7 +16,6 @@ class ProjectTask(models.Model):
         group_expand='_group_expand_worksheet_template_id',
         help="Create templates for each type of intervention you have and customize their content with your own custom fields.")
     worksheet_count = fields.Integer(compute='_compute_worksheet_count')
-    worksheet_color = fields.Integer(related='worksheet_template_id.color')
     display_sign_report_primary = fields.Boolean(compute='_compute_display_sign_report_buttons')
     display_sign_report_secondary = fields.Boolean(compute='_compute_display_sign_report_buttons')
     display_send_report_primary = fields.Boolean(compute='_compute_display_send_report_buttons')

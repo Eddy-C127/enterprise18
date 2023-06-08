@@ -13,7 +13,6 @@ class TestWorksheet(TestFsmFlowSaleCommon):
         super().setUpClass()
         cls.worksheet_template = cls.env['worksheet.template'].with_context(worksheet_no_generation=True).create({
             'name': 'New worksheet',
-            'color': 4,
             'res_model': 'project.task',
         })
         cls.fsm_project.write({
@@ -22,7 +21,6 @@ class TestWorksheet(TestFsmFlowSaleCommon):
         })
         cls.second_worksheet_template = cls.env['worksheet.template'].with_context(worksheet_no_generation=True).create({
             'name': 'Second worksheet',
-            'color': 3,
             'res_model': 'project.task',
         })
 
