@@ -34,19 +34,23 @@ class WorkflowActionRuleAccount(models.Model):
     def _compute_move_type(self):
         for rule in self:
             move_type = False
-            if rule.create_model and rule.create_model.startswith('account.move'):
+            if rule.create_model and (rule.create_model.startswith('account.move') or rule.create_model.startswith('account.bank.statement')):
                 move_type = rule.create_model.split('.')[2]
             rule.move_type = move_type
 
     @api.depends('move_type')
     @api.depends_context('company')
     def _compute_suitable_journal_ids(self):
-        for rule in self:
-            if self.env['account.journal'].search([
+        company_journals = self.env['account.journal'].search([
                 *self.env['account.journal']._check_company_domain(self.env.company),
-            ]):
-                move = self.env["account.move"].new({'move_type': rule.move_type})
-                rule.suitable_journal_ids = rule.move_type and move.suitable_journal_ids._origin
+        ])
+        for rule in self:
+            if company_journals:
+                if rule.move_type == 'statement':
+                    rule.suitable_journal_ids = company_journals.filtered(lambda journal: journal.type == 'bank')
+                else:
+                    move = self.env['account.move'].new({'move_type': rule.move_type})
+                    rule.suitable_journal_ids = rule.move_type and move.suitable_journal_ids._origin
                 rule.display_journal_id = bool(rule.move_type)
             else:
                 rule.suitable_journal_ids = False
@@ -105,7 +109,7 @@ class WorkflowActionRuleAccount(models.Model):
             # the bank account later on. Also it is not possible to link the doc
             # to the newly created entry as they can be more than one. But importing
             # many times the same bank statement is later checked.
-            default_journal = self.env['account.journal'].search([('type', '=', 'bank')], limit=1)
+            default_journal = self.journal_id or self.env['account.journal'].search([('type', '=', 'bank')], limit=1)
             return default_journal.create_document_from_attachment(attachment_ids=documents.attachment_id.ids)
 
         return rv
