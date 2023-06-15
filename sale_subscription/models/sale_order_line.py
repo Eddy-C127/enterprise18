@@ -302,6 +302,7 @@ class SaleOrderLine(models.Model):
             It allows avoiding using the _compute_qty_to_invoice with a context_today
         """
         today = fields.Date.today()
+        # TODO add under-delivered message
         for line in self:
             if not line.recurring_invoice or line.product_id.invoice_policy == 'delivery' or line.order_id.start_date and line.order_id.start_date > today:
                 continue

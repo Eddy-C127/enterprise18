@@ -3,6 +3,7 @@
 
 import logging
 from dateutil.relativedelta import relativedelta
+from markupsafe import escape, Markup
 from psycopg2.extensions import TransactionRollbackError
 from ast import literal_eval
 from collections import defaultdict
@@ -1940,3 +1941,28 @@ class SaleOrder(models.Model):
             'next_invoice_amount': amount_to_pay.get('amount_total') or 0.0,
             'tax_totals': tax_totals
         }
+
+    def _upsell_activity_line(self):
+        self.ensure_one()
+        return Markup('&nbsp;<br>').join(
+            escape(_('- You delivered %(delivered)s %(name)s and invoiced %(invoiced)s', delivered=line.qty_delivered, name=line.name, invoiced=line.qty_invoiced))
+            for line in self.order_line if line.invoice_status == 'upselling'
+        )
+
+    def _create_upsell_activity(self):
+        subscription = self.filtered('is_subscription')
+        super(SaleOrder, self - subscription)._create_upsell_activity()
+
+        for sub in subscription:
+            order_ref = sub._get_html_link()
+            customer_ref = sub.partner_id._get_html_link()
+            lines = sub._upsell_activity_line()
+            sub.activity_schedule(
+                'sale.mail_act_sale_upsell',
+                user_id=sub.user_id.id or sub.partner_id.user_id.id,
+                note=_(
+                    "Upsell %(order)s for customer %(customer)s for the period %(date_start)s to %(date_end)s %(nl)s%(lines)s",
+                    order=order_ref, customer=customer_ref, lines=lines, date_start=sub.last_invoice_date,
+                    date_end=sub.next_invoice_date, nl=Markup('&nbsp;<br>')
+                )
+            )

@@ -24,6 +24,12 @@ msgid ""
 msgstr ""
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid "- You delivered %(delivered)s %(name)s and invoiced %(invoiced)s"
+msgstr ""
+
+#. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__nbr
 msgid "# of Lines"
 msgstr ""
@@ -4129,6 +4135,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__subscription_state__7_upsell
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Upsell"
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid "Upsell %(order)s for customer %(customer)s for the period %(date_start)s to %(date_end)s %(nl)s%(lines)s"
 msgstr ""
 
 #. module: sale_subscription
