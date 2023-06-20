@@ -58,6 +58,16 @@ class ResConfigSettings(models.TransientModel):
             "l10n_in_gstr_gst_token": self.l10n_in_gstr_gst_token,
             "l10n_in_gstr_gst_token_validity": fields.Datetime.now() + timedelta(hours=6)
         })
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'info',
+                'sticky': False,
+                'message': _("API credentials validated successfully"),
+                'next': {'type': 'ir.actions.act_window_close'},
+              }
+        }
 
     def l10n_in_reports_gstr_buy_iap(self):
         if not self.l10n_in_gstr_gst_production_env:
