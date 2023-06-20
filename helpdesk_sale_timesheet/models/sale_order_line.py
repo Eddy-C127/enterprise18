@@ -7,12 +7,12 @@ class SaleOrderLine(models.Model):
 
     color = fields.Integer('Color', compute="_compute_color")
 
-    @api.depends('remaining_hours_available', 'remaining_hours')
+    @api.depends('remaining_hours_available', 'remaining_hours', 'state')
     def _compute_color(self):
         for line in self:
-            if not line.remaining_hours_available or line.remaining_hours > 0:
-                line.color = 0
-            elif line.remaining_hours < 0:
+            if line.state == 'cancel' or line.remaining_hours < 0:
                 line.color = 1
+            elif not line.remaining_hours_available or line.remaining_hours > 0:
+                line.color = 0
             else:
                 line.color = 2

@@ -21,6 +21,7 @@ class PlanningSlot(models.Model):
         help="Sales order item for which this shift will be performed. When sales orders are automatically planned,"
              " the remaining hours of the sales order item, as well as the role defined on the service, are taken into account.")
     sale_order_id = fields.Many2one('sale.order', string='Sales Order', related='sale_line_id.order_id', store=True)
+    sale_order_state = fields.Selection(string="Sales Order State", related='sale_order_id.state')
     partner_id = fields.Many2one('res.partner', related='sale_order_id.partner_id')
     role_product_ids = fields.One2many('product.template', related='role_id.product_ids')
     sale_line_plannable = fields.Boolean(related='sale_line_id.product_id.planning_enabled')

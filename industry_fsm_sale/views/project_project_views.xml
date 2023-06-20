@@ -11,10 +11,10 @@
                     invisible="not allow_timesheets or not pricing_type or not is_fsm"
                     required="is_fsm and allow_billable and allow_timesheets"/>
             </xpath>
-            <xpath expr="//page[@name='settings']//group/field[@name='sale_line_id']" position="attributes">
+            <xpath expr="//page[@name='settings']//group/div/field[@name='sale_line_id']" position="attributes">
                 <attribute name="invisible">is_fsm or not allow_billable or not partner_id</attribute>
             </xpath>
-            <xpath expr="//page[@name='settings']//group/field[@name='sale_line_id'][2]" position="attributes">
+            <xpath expr="//page[@name='settings']//group/div/field[@name='sale_line_id'][2]" position="attributes">
                 <attribute name="invisible">is_fsm or not allow_billable or not partner_id</attribute>
             </xpath>
 
