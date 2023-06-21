@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { Field } from "@web/views/fields/field";
+import { Field, getPropertyFieldInfo } from "@web/views/fields/field";
 import { Domain } from "@web/core/domain";
 import { evaluateExpr } from "@web/core/py_js/py";
 import { TimesheetDisplayTimer } from "../timesheet_display_timer/timesheet_display_timer";
@@ -86,6 +86,15 @@ export class TimesheetTimerHeader extends Component {
 
     get viewType() {
         return this.env.config.viewType;
+    }
+    get fieldsInfo() {
+        return {
+            task_id: {
+                ...getPropertyFieldInfo({ name: "task_id", type: "task_with_hours" }),
+                viewType: this.viewType,
+                context: this.props.fields.task_id.context,
+            },
+        };
     }
 
     //--------------------------------------------------------------------------
