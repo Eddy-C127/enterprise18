@@ -1174,7 +1174,7 @@ QUnit.module("Views", (hooks) => {
             "The row title with the timer running should not contain a task name."
         );
 
-        await clickOpenM2ODropdown(target, "task_id");
+        await click(target, ".o_field_task_with_hours[name=task_id] input");
         await click(target.querySelector("div[name='task_id'] li > a"), "");
 
         assert.containsOnce(
@@ -1465,7 +1465,7 @@ QUnit.module("Views", (hooks) => {
             await click(target, ".btn_start_timer");
             await clickOpenM2ODropdown(target, "project_id");
             await click(target.querySelector("div[name='project_id'] li > a"), "");
-            await clickOpenM2ODropdown(target, "task_id");
+            await click(target, ".o_field_task_with_hours[name=task_id] input");
             target.querySelector(".o_field_widget[name=task_id] input").focus();
             await editInput(target, ".o_field_widget[name=task_id] input", "a new task");
             await click(target, ".o_field_widget[name=task_id] input");
