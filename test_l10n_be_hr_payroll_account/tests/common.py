@@ -271,6 +271,11 @@ class TestPayrollAccountCommon(odoo.tests.HttpCase):
         })
         cls.env.ref('base.main_partner').email = "info@yourcompany.example.com"
 
+        cls.env.ref('base.user_demo').write({'company_ids': [(4, cls.company_id.id)], 'name': 'Marc Demo'})
+        cls.env.ref('base.user_demo').partner_id.write(
+            {'email': 'marc.demo@example.com', 'name': 'Marc Demo'})
+
+
         cls.new_dev_contract = cls.env['hr.contract'].create({
             'name': 'New Developer Template Contract',
             'wage': 3000,

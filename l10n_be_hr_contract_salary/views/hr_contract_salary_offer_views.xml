@@ -13,7 +13,8 @@
                     <field name="country_code" invisible="1"/>
                     <field name="new_car"/>
                     <field name="show_new_car" invisible="1"/>
-                    <field name="car_id"/>
+                    <field name="car_id" widget="many2one_avatar_user"/>
+                    <field name="additional_car_ids" widget="many2many_avatar_user"/>
                     <field name="l10n_be_canteen_cost" invisible="1"/>
                 </group>
             </group>

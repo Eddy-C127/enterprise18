@@ -10,10 +10,12 @@
             </field>
             <field name="contract_start_date" position="after">
                 <field name="country_code" invisible="1"/>
-                <field name="show_new_car" invisible="1"/>
-                <field name="new_car" invisible="not show_new_car or country_code != 'BE'" />
-                <field name="car_id" invisible="country_code != 'BE'"/>
-                <field name="assigned_car_warning" class="alert alert-warning"
+                <field name="new_car" invisible="country_code != 'BE'"/>
+                <field name="wishlist_car_warning" class="alert text-center alert-warning"
+                       role="alert" colspan="2" nolabel="1"
+                       invisible="not wishlist_car_warning or not new_car"/>
+                <field name="car_id" widget="many2one_avatar_user" invisible="country_code != 'BE'"/>
+                <field name="assigned_car_warning" class="alert alert-warning center"
                        role="alert" colspan="2" nolabel="1"
                        invisible="not assigned_car_warning or country_code != 'BE'"/>
                 <field name="l10n_be_canteen_cost" invisible="1"/>

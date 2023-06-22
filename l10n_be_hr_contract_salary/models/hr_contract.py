@@ -161,6 +161,19 @@ class HrContract(models.Model):
         description += Markup('<ul>%s</ul>') % Markup().join([Markup('<li>%s: %s</li>') % (key, value) for key, value in car_elements.items() if value])
         return description
 
+    def _get_description_wishlist_car_total_depreciated_cost(self, new_value=None):
+        benefit = self.env.ref('l10n_be_hr_contract_salary.l10n_be_transport_new_car')
+        description = benefit.description or ""
+        if not new_value:
+            return description
+        else:
+            vehicle_id = new_value.split('-')[1]
+            vehicle = self.env['fleet.vehicle.model'].with_company(self.company_id).sudo().browse(int(vehicle_id))
+            car_elements = self._get_company_car_description_values(vehicle, True)
+            description += Markup('<ul>%s</ul>') % Markup().join([Markup('<li>%s: %s</li>') % (key, value) for key, value in car_elements.items() if value])
+
+        return description
+
     def _get_company_car_description_values(self, vehicle_id, is_new):
         if is_new:
             co2 = vehicle_id.default_co2
@@ -207,9 +220,3 @@ class HrContract(models.Model):
             'ip': True,
             'ip_wage_rate': contract.ip_wage_rate
         }
-
-    @api.constrains('company_car_total_depreciated_cost', 'company_bike_depreciated_cost')
-    def _check_car_and_bike(self):
-        for contract in self:
-            if contract.company_car_total_depreciated_cost and contract.company_bike_depreciated_cost:
-                raise ValidationError(_("You cannot select both Company Car and Company Bike."))

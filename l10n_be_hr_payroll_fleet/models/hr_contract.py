@@ -51,6 +51,10 @@ class HrContract(models.Model):
     available_cars_amount = fields.Integer(compute='_compute_available_cars_amount', string='Number of available cars')
     new_car = fields.Boolean(
         'Requested a new car', compute='_compute_new_car_model_id', store=True, readonly=False)
+    ordered_car_id = fields.Many2one('fleet.vehicle', string='Ordered New Car',
+        tracking=True, store=True, readonly=False,
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id), ('vehicle_type', '=', 'car')]",
+        groups='fleet.fleet_group_manager')
     new_car_model_id = fields.Many2one(
         'fleet.vehicle.model', string="New Company Car", domain=lambda self: self._get_possible_model_domain(),
         compute='_compute_new_car_model_id', store=True, readonly=False)
@@ -104,10 +108,10 @@ class HrContract(models.Model):
             if contract.new_bike_model_id:
                 contract.new_bike = True
 
-    @api.depends('car_id', 'transport_mode_private_car')
+    @api.depends('transport_mode_private_car')
     def _compute_new_car_model_id(self):
         for contract in self:
-            if contract.car_id or contract.transport_mode_private_car:
+            if contract.transport_mode_private_car:
                 contract.update({
                     'new_car_model_id': False,
                     'new_car': False,
@@ -123,9 +127,9 @@ class HrContract(models.Model):
             else:
                 contract.car_model_name = False
 
-    @api.depends('employee_id', 'new_car', 'new_car_model_id', 'transport_mode_private_car')
+    @api.depends('employee_id', 'transport_mode_private_car')
     def _compute_car_id(self):
-        contracts_to_reset = self.filtered(lambda c: c.new_car or c.new_car_model_id or c.transport_mode_private_car or not c.transport_mode_car)
+        contracts_to_reset = self.filtered(lambda c: c.transport_mode_private_car or not c.transport_mode_car)
         contracts_to_reset.car_id = False
         remaining_contracts = self - contracts_to_reset
         if not remaining_contracts:
@@ -216,11 +220,9 @@ class HrContract(models.Model):
         for contract in self:
             contract.max_unused_cars = 999999 if contract.env.context.get('is_applicant') else int(max_unused_cars)
 
-    @api.onchange('new_car', 'transport_mode_car')
+    @api.onchange('new_car')
     def _onchange_transport_mode_car(self):
         if self.new_car:
-            self.transport_mode_car = False
-            self.car_id = False
             self.transport_mode_private_car = False
 
     @api.onchange('new_bike')
@@ -229,7 +231,7 @@ class HrContract(models.Model):
             self.bike_id = False
             self.transport_mode_bike = False
 
-    @api.onchange('transport_mode_bike', 'transport_mode_car', 'transport_mode_train', 'transport_mode_public')
+    @api.onchange('transport_mode_bike', 'transport_mode_train', 'transport_mode_public')
     def _onchange_transport_mode(self):
         super(HrContract, self)._onchange_transport_mode()
         if self.transport_mode_bike:

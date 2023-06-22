@@ -641,7 +641,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: "label[for=company_car_total_depreciated_cost]",
             run: function () {
                 $(
-                    'select[name="select_company_car_total_depreciated_cost"] option:contains(Opel)'
+                    'select[name="select_company_car_total_depreciated_cost"] option:contains(a3)'
                 ).prop("selected", true);
                 $('select[name="select_company_car_total_depreciated_cost"]').trigger("change");
             },
@@ -1003,11 +1003,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             trigger:
                 "div.o_field_widget.o_required_modifier.o_field_many2one_avatar_user.o_field_many2one_avatar[name=hr_responsible_id]",
             run: function (actions) {
-                actions.text("Laurie Poiret", this.$anchor.find("input"));
+                actions.text("Marc Demo", this.$anchor.find("input"));
             },
         },
         {
-            trigger: ".ui-autocomplete > li > a:contains('Laurie Poiret')",
+            trigger: ".ui-autocomplete > li > a:contains('Marc Demo')",
             auto: true,
         },
         {
@@ -1106,6 +1106,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             auto: true,
         },
         {
+            content: "Enable wishlist",
+            trigger: ".modal-body .o_field_widget.o_field_boolean[name='new_car'] input",
+            run: "click",
+        },
+        {
             content: "Send Offer",
             trigger: "button[name='action_send_offer']",
             extra_trigger: "div.modal-content",
@@ -1151,7 +1156,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             trigger: "label[for=wishlist_car_total_depreciated_cost]",
             run: function () {
                 $(
-                    'select[name="select_wishlist_car_total_depreciated_cost"] option:contains(a3)'
+                    'select[name="select_wishlist_car_total_depreciated_cost"] option:contains(Corsa)'
                 ).prop("selected", true);
                 $('select[name="select_wishlist_car_total_depreciated_cost"]').trigger("change");
             },
@@ -1426,4 +1431,68 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: function () {},
         },
     ],
+});
+
+registry.category("web_tour.tours").add("hr_contract_salary_tour_counter_sign", {
+    test: true,
+    url: "/web",
+    wait_for: Promise.resolve(odoo.__TipTemplateDef),
+    steps: () => [
+        {
+            content: "Log into Belgian Company",
+            trigger: ".o_menu_systray .o_switch_company_menu button.dropdown-toggle",
+            run: "click",
+        },
+        {
+            content: "Log into Belgian Company",
+            trigger:
+                ".o_menu_systray .o_switch_company_menu .dropdown-item div span:contains('My Belgian Company - TEST')",
+            run: "click",
+        },
+        {
+            content: 'Open Activity Systray',
+            trigger: '.o-mail-ActivityMenu-counter',
+            run: "click"
+        }, {
+            content: 'Open Sign Requests',
+            trigger: '.o-mail-ActivityGroup:contains("Signature")',
+            run: "click"
+        },
+        {
+            content: 'Go to Signable Document',
+            trigger: "button[name='go_to_signable_document']",
+            run: "click",
+        },
+        {
+            content: "Next 1",
+            trigger: "iframe .o_sign_sign_item_navigator",
+            run: "click",
+        },
+        {
+            content: "Next 2",
+            trigger: "iframe .o_sign_sign_item_navigator",
+            run: "click",
+        },
+        {
+            content: "Click Signature",
+            trigger: "iframe button.o_sign_sign_item",
+            run: "click",
+        },
+        {
+            content: "Click Auto",
+            trigger: "a.o_web_sign_auto_button:contains('Auto')",
+            run: "click",
+        },
+        {
+            content: "Adopt & Sign",
+            trigger: "footer.modal-footer button.btn-primary:enabled",
+            run: "click",
+        },
+        {
+            content: "Validate and Sign",
+            trigger: ".o_sign_validate_banner button",
+            extra_trigger: "iframe body:not(:has(footer.modal-footer button.btn-primary))",
+            run: "click",
+        }
+    ]
 });

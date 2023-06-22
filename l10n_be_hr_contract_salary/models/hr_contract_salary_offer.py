@@ -11,13 +11,15 @@ class HrContractSalaryOffer(models.Model):
     contract_type_id = fields.Many2one(
         'hr.contract.type', "Contract Type", tracking=True)
     new_car = fields.Boolean(
-        string="Force New Cars List", tracking=True,
+        string='Show "Company Car (To Order)"', tracking=True,
         help="The employee will be able to choose a new car even if the maximum number of used cars available is reached.")
     show_new_car = fields.Boolean(tracking=True)
     car_id = fields.Many2one(
         'fleet.vehicle', string='Default Vehicle',
         readonly=False, domain="[('vehicle_type', '=', 'car')]",
         help="Default employee's company car. If left empty, the default value will be the employee's current car.")
+    additional_car_ids = fields.Many2many('fleet.vehicle', domain="[('vehicle_type', '=', 'car')]", string="Additional cars",
+                                          help="You can add used cars to this field, they'll be added to the list for simulation purposes.")
     l10n_be_canteen_cost = fields.Float(
         string="Canteen Cost", readonly=False)
     country_code = fields.Char(related='contract_template_id.country_code', depends=['contract_template_id'])

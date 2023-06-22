@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import hrContractSalary from "@hr_contract_salary/js/hr_contract_salary";
+import { renderToElement } from "@web/core/utils/render";
 
 hrContractSalary.include({
     events: Object.assign({}, hrContractSalary.prototype.events, {
@@ -10,6 +11,7 @@ hrContractSalary.include({
         "change input[name='fold_company_bike_depreciated_cost']": "onchangeCompanyBike",
         "change input[name='l10n_be_has_ambulatory_insurance_radio']": "onchangeAmbulatory",
         "change input[name='children']": "onchangeChildren",
+        "change input[name='fold_wishlist_car_total_depreciated_cost']": "onchangeWishlistCar",
     }),
 
     getBenefits() {
@@ -21,6 +23,14 @@ hrContractSalary.include({
     updateGrossToNetModal(data) {
         this._super(data);
         $("input[name='double_holiday_wage']").val(data['double_holiday_wage']);
+        if (data["wishlist_simulation"]) {
+            const modal_body = renderToElement('hr_contract_salary.salary_package_resume', {
+                'lines': data.wishlist_simulation.resume_lines_mapped,
+                'categories': data.wishlist_simulation.resume_categories,
+                'hide_details': true
+            });
+            this.$('main[name="wishlist_modal_body"]').html(modal_body);
+        }
     },
 
     onchangeCompanyCar: function(event) {
@@ -48,6 +58,29 @@ hrContractSalary.include({
             company_car_input.click()
         }
     },
+
+    onchangeWishlistCar: function(event) {
+        if (event.target.checked) {
+            const $button = $('<a/>', {
+                class: 'btn btn-link ps-0 pt-0 pb-2 m-3',
+                role: 'button',
+                'data-bs-toggle': 'modal',
+                'data-bs-target': '#hr_cs_modal_wishlist',
+                'data-bs-backdrop': 'false',
+                'data-bs-dismiss': 'modal',
+                name: 'wishlist_simulation_button',
+                text: 'Simulation',
+            });
+            const $element_next_to_select = this.$('input[name="wishlist_car_total_depreciated_cost"]').parent();
+            $button.insertAfter($element_next_to_select);
+        } else {
+            const wishlistSimulationButton = document.querySelector('a[name="wishlist_simulation_button"]');
+            if (wishlistSimulationButton){
+                wishlistSimulationButton.remove();
+            }
+        }
+    },
+
 
     onchangeFoldedResetInteger(benefitField) {
         if (benefitField === 'private_car_reimbursed_amount_manual' || benefitField === 'l10n_be_bicyle_cost_manual') {

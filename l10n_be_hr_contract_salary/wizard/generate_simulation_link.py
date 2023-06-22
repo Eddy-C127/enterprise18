@@ -7,16 +7,21 @@ from odoo import api, fields, models, _
 class GenerateSimulationLink(models.TransientModel):
     _inherit = 'generate.simulation.link'
 
+    def _default_new_car(self):
+        model = self.env.context.get('active_model')
+        return model == 'hr.applicant'
+
     contract_type_id = fields.Many2one('hr.contract.type', "Contract Type",
                                        default=lambda self: self.env.ref('l10n_be_hr_payroll.l10n_be_contract_type_cdi',
                                                                          raise_if_not_found=False))
 
-    new_car = fields.Boolean(string="Force New Cars List", help="The employee will be able to choose a new car even if the maximum number of used cars available is reached.")
-    show_new_car = fields.Boolean(compute='_compute_show_new_car', store=True)
-    car_id = fields.Many2one('fleet.vehicle', string='Default Vehicle', compute='_compute_car_id', store=True, readonly=False, domain="[('vehicle_type', '=', 'car')]", help="Default employee's company car. If left empty, the default value will be the employee's current car.")
+    new_car = fields.Boolean(string='Show "Company Car (To Order)"', default=_default_new_car, help="Display the Wishlist to show models that can be requested.")
+    car_id = fields.Many2one('fleet.vehicle', string='Default Car', compute='_compute_car_id', store=True, readonly=False, domain="[('vehicle_type', '=', 'car')]", help="Default employee's company car. If left empty, the default value will be the employee's current car.")
     l10n_be_canteen_cost = fields.Float(
         string="Canteen Cost", compute='_compute_l10n_be_canteen_cost', store=True, readonly=False)
     assigned_car_warning = fields.Char(compute='_compute_assigned_car_warning')
+    wishlist_car_warning = fields.Char(compute='_compute_wishlist_car_warning')
+
     country_code = fields.Char(related='company_id.country_id.code', depends=['company_id'])
 
     @api.depends('applicant_id.partner_id', 'employee_id.partner_id', 'car_id')
@@ -38,6 +43,14 @@ class GenerateSimulationLink(models.TransientModel):
                 warning.append(f"Car is already assigned to {link.car_id.future_driver_id.name} as a future driver.")
             if warning:
                 link.assigned_car_warning = f"Warning: {' '.join(warning)}"
+
+    @api.depends('new_car')
+    def _compute_wishlist_car_warning(self):
+        for wizard in self:
+            if wizard.contract_id.available_cars_amount > wizard.contract_id.max_unused_cars:
+                wizard.wishlist_car_warning = _("We already have %s car(s) without driver(s) available", wizard.contract_id.available_cars_amount)
+            else:
+                wizard.wishlist_car_warning = False
 
     @api.depends('applicant_id.partner_id', 'employee_id.partner_id')
     def _compute_car_id(self):
@@ -68,15 +81,6 @@ class GenerateSimulationLink(models.TransientModel):
                 car = car_is_driver or car_is_future_driver
             wizard.car_id = car if car else False
 
-    @api.depends('contract_id.available_cars_amount', 'contract_id.max_unused_cars')
-    def _compute_show_new_car(self):
-        for wizard in self:
-            if wizard.env.context.get('active_model') == "hr.applicant":
-                wizard.show_new_car = False
-                wizard.new_car = True
-            else:
-                wizard.show_new_car = wizard.contract_id.available_cars_amount >= wizard.contract_id.max_unused_cars
-
     @api.depends('contract_id.l10n_be_canteen_cost')
     def _compute_l10n_be_canteen_cost(self):
         for wizard in self:
@@ -87,7 +91,6 @@ class GenerateSimulationLink(models.TransientModel):
         values.update({
             'contract_type_id': self.contract_type_id.id,
             'new_car': self.new_car,
-            'show_new_car': self.show_new_car,
             'car_id': self.car_id.id,
             'l10n_be_canteen_cost': self.l10n_be_canteen_cost,
         })

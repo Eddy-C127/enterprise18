@@ -29,9 +29,10 @@
                     class="o_checkbox_optional_field"
                     groups="fleet.fleet_group_manager"
                     invisible="wage_type == 'hourly' or country_code != 'BE'">
-                    <field name="new_car" invisible="wage_type == 'hourly'" nolabel="1"/>
-                    <field name="new_car_model_id" invisible="not new_car" nolabel="1"/>
+                    <field name="new_car" readonly="1" invisible="wage_type == 'hourly'" nolabel="1"/>
+                    <field name="new_car_model_id" readonly="1" invisible="not new_car" nolabel="1"/>
                 </div>
+                <field name="ordered_car_id" readonly="1" invisible="not ordered_car_id"/>
             </xpath>
             <xpath expr="//label[@for='fuel_card']" position="attributes">
                 <attribute name="invisible">(wage_type == 'hourly' or not transport_mode_car) and not new_car</attribute>

@@ -493,9 +493,8 @@ class HrContractSalary(http.Controller):
         for key in ['employee_job_id', 'department_id']:
             try:
                 employee_infos[key] = int(employee_infos[key])
-            except ValueError:
+            except (ValueError, TypeError):
                 employee_infos[key] = None
-
         job = request.env['hr.job'].sudo().browse(employee_infos['employee_job_id'])
         if not employee_infos['job_title']:
             employee_infos['job_title'] = job.name

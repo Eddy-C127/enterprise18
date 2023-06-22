@@ -33,24 +33,21 @@ class SignContract(Sign):
                     'purchaser_id': contract.employee_id.work_contact_id.id,
                 }
             if contract.new_car:
-                model = contract.new_car_model_id.sudo()
+                contract.ordered_car_id = request.env['fleet.vehicle'].sudo().create({
+                    'model_id': contract.new_car_model_id.id,
+                    'state_id': state_new_request and state_new_request.id,
+                    'car_value': contract.new_car_model_id.default_car_value,
+                    'co2': contract.new_car_model_id.default_co2,
+                    'fuel_type': contract.new_car_model_id.default_fuel_type,
+                    'acquisition_date': fields.Date.today(),
+                    'company_id': contract.employee_id.company_id.id,
+                    'future_driver_id': contract.employee_id.work_contact_id.id
+                })
                 contract.update({
                     'new_car': False,
                     'new_car_model_id': False,
-                    'transport_mode_car': True,
                 })
-                contract.car_id = Vehicle.create(dict(vehicle_vals, **{
-                    'model_id': model.id,
-                    'car_value': model.default_car_value,
-                    'co2': model.default_co2,
-                    'fuel_type': model.default_fuel_type,
-                }))
-                vehicle_contract = contract.car_id.log_contracts and contract.car_id.log_contracts[0]
-                if vehicle_contract:
-                    vehicle_contract.write(dict(contracts_vals, **{
-                        'recurring_cost_amount_depreciated': model.default_recurring_cost_amount_depreciated,
-                        'cost_generated': model.default_recurring_cost_amount_depreciated,
-                    }))
+
             if contract.new_bike_model_id:
                 model = contract.new_bike_model_id.sudo()
                 contract.update({
@@ -124,7 +121,12 @@ class HrContractSalary(main.HrContractSalary):
             else:
                 res['new_value'] = round(request.env['fleet.vehicle'].sudo().with_company(contract.company_id).browse(int(vehicle_id)).total_depreciated_cost, 2)
         elif benefit_field == 'wishlist_car_total_depreciated_cost':
-            res['new_value'] = 0
+            car_options, vehicle_id = new_value.split('-')
+            if car_options == 'new':
+                contract = self._check_access_rights(contract_id)
+                res['new_value'] = round(request.env['fleet.vehicle.model'].with_company(contract.company_id).sudo().browse(int(vehicle_id)).default_total_depreciated_cost, 2)
+            else:
+                res['new_value'] = round(request.env['fleet.vehicle'].sudo().browse(int(vehicle_id)).total_depreciated_cost, 2)
         elif benefit_field == 'fold_company_car_total_depreciated_cost' and not res['new_value']:
             res['extra_values'] = [('company_car_total_depreciated_cost', 0)]
         elif benefit_field == 'fold_wishlist_car_total_depreciated_cost' and not res['new_value']:
@@ -177,8 +179,8 @@ class HrContractSalary(main.HrContractSalary):
 
     def _get_benefits(self, contract, offer):
         res = super()._get_benefits(contract, offer)
-        force_new_car = offer.new_car
-        if offer.applicant_id or force_new_car or contract.available_cars_amount < contract.max_unused_cars:
+        display_wishlist = offer.new_car
+        if not display_wishlist:
             res -= request.env.ref('l10n_be_hr_contract_salary.l10n_be_transport_new_car')
         return res
 
@@ -190,8 +192,10 @@ class HrContractSalary(main.HrContractSalary):
         available_bikes = request.env['fleet.vehicle'].sudo().with_company(contract.company_id).search(
             contract._get_available_vehicles_domain(contract.employee_id.work_contact_id, vehicle_type='bike')).sorted(key=lambda car: car.total_depreciated_cost)
         force_car = offer.car_id
+        force_additional_car = offer.additional_car_ids
         if force_car:
             available_cars |= force_car
+            available_cars |= force_additional_car
             contract.car_id = force_car
 
         def generate_dropdown_group_data(available, can_be_requested, only_new, allow_new_cars, vehicle_type='Car'):
@@ -295,13 +299,8 @@ class HrContractSalary(main.HrContractSalary):
         can_be_requested_models = request.env['fleet.vehicle.model'].sudo().with_company(contract.company_id).search(
         contract._get_possible_model_domain()).sorted(key=lambda model: model.default_total_depreciated_cost)
 
-        force_new_car = offer.new_car
+        wishlist_new_cars = offer.new_car
         allow_new_cars = False
-        wishlist_new_cars = False
-        if force_new_car or contract.available_cars_amount < contract.max_unused_cars:
-            allow_new_cars = True
-        else:
-            wishlist_new_cars = True
 
         if car_benefit.display_type == 'dropdown-group':
             dropdown_group_options['company_car_total_depreciated_cost'] = \
@@ -411,18 +410,8 @@ class HrContractSalary(main.HrContractSalary):
             wishlist_car = benefits['contract'].get('fold_wishlist_car_total_depreciated_cost', False)
             if wishlist_car:
                 dummy, model_id = benefits['contract']['select_wishlist_car_total_depreciated_cost'].split('-')
-                model = request.env['fleet.vehicle.model'].sudo().with_company(new_contract.company_id).browse(int(model_id))
-                state_waiting_list = request.env.ref('fleet.fleet_vehicle_state_waiting_list', raise_if_not_found=False)
-                car = request.env['fleet.vehicle'].sudo().create({
-                    'model_id': model.id,
-                    'state_id': state_waiting_list and state_waiting_list.id,
-                    'car_value': model.default_car_value,
-                    'co2': model.default_co2,
-                    'fuel_type': model.default_fuel_type,
-                    'acquisition_date': new_contract.car_id.acquisition_date or fields.Date.today(),
-                    'company_id': new_contract.company_id.id,
-                    'future_driver_id': new_contract.employee_id.work_contact_id.id
-                })
+                new_contract.new_car = True
+                new_contract.new_car_model_id = int(model_id)
             return new_contract, contract_diff
 
         if new_contract.transport_mode_car and new_contract.new_car:
@@ -454,6 +443,37 @@ class HrContractSalary(main.HrContractSalary):
         else:
             ordered_fields = ['wage_with_holidays', 'NET']
         result['resume_lines_mapped']['Monthly Salary'] = {field: resume.get(field, 0) for field in ordered_fields}
+        return result
+
+    @route('/salary_package/update_salary', type="json")
+    def update_salary(self, contract_id=None, offer_id=None, benefits=None, **kw):
+        result = super().update_salary(contract_id, offer_id, benefits, **kw)
+        wishlist_result = {}
+        contract = self._check_access_rights(contract_id)
+
+        if 'fold_wishlist_car_total_depreciated_cost' in benefits['contract'] and 'wishlist_car_total_depreciated_cost' in benefits['contract']:
+            benefits['contract'].update({
+                'fold_company_car_total_depreciated_cost': True,
+                'company_car_total_depreciated_cost': benefits['contract']['wishlist_car_total_depreciated_cost'],
+                'select_company_car_total_depreciated_cost': benefits['contract']['select_wishlist_car_total_depreciated_cost'],
+            })
+
+            new_contract = self.create_new_contract(contract, offer_id, benefits)[0]
+            final_yearly_costs = float(benefits['contract']['final_yearly_costs'] or 0.0)
+            new_gross = new_contract._get_gross_from_employer_costs(final_yearly_costs)
+            new_contract.write({
+                'wage': new_gross,
+                'final_yearly_costs': final_yearly_costs,
+            })
+            wishlist_result['new_gross'] = round(new_gross, 2)
+            new_contract = new_contract.with_context(
+                origin_contract_id=contract.id,
+                simulation_working_schedule=kw.get('simulation_working_schedule', '100'))
+            wishlist_result.update(self._get_compute_results(new_contract))
+
+            request.env.cr.rollback()
+            result['wishlist_simulation'] = wishlist_result
+
         return result
 
     def _generate_payslip(self, new_contract):
