@@ -540,6 +540,7 @@ class PlanningSlot(models.Model):
         res = super(PlanningSlot, self).auto_plan_ids(view_domain)
         if self._context.get('planning_slot_id'):
             # It means we are looking to assign one shift in particular to an available resource, which we do in planning.
+            res["sale_line_planned"] = []
             return res
         slots_to_assign = self._get_ordered_slots_to_assign(self._get_shifts_to_plan_domain(view_domain))
         start_datetime = max(datetime.strptime(self.env.context.get('default_start_datetime'), DEFAULT_SERVER_DATETIME_FORMAT), fields.Datetime.now().replace(hour=0, minute=0, second=0))
@@ -570,7 +571,14 @@ class PlanningSlot(models.Model):
                     # if no slot was generated (it uses the write method), then the employee_id is excluded from the employees assignable on this slot.
                     employee_ids_to_exclude.append(employee_id)
             slots_assigned += slot_assigned
-        return res + slots_assigned.ids
+
+        res["sale_line_planned"] = slots_assigned.ids
+        return res
+
+    @api.model
+    def action_rollback_auto_plan_ids(self, shifts_data):
+        self.browse(shifts_data["sale_line_planned"]).action_unschedule()
+        super().action_rollback_auto_plan_ids(shifts_data)
 
     # -------------------------------------------
     # Copy slots
@@ -623,16 +631,24 @@ class PlanningSlot(models.Model):
         return True
 
     def action_unschedule(self):
-        self.ensure_one()
-        if self.sale_line_id.product_id.planning_enabled:
-            if self.sale_line_id.planning_hours_to_plan - self.sale_line_id.planning_hours_planned > 0.0:
-                unscheduled_slot = self.search([
-                    ('sale_line_id', '=', self.sale_line_id.id),
-                    ('start_datetime', '=', False),
-                ])
-                if unscheduled_slot:
-                    self.unlink()
-                    return {'type': 'ir.actions.act_window_close'}
+        unfinished_slots = self.filtered(
+            lambda slot:
+                slot.sale_line_id.product_id.planning_enabled
+                and (slot.sale_line_id.planning_hours_to_plan - slot.sale_line_id.planning_hours_planned > 0.0)
+        )
+        if unfinished_slots:
+            unscheduled_slots = unfinished_slots.search([
+                ('id', 'not in', unfinished_slots.ids),
+                ('sale_line_id', 'in', unfinished_slots.sale_line_id.ids),
+                ('start_datetime', '=', False),
+            ])
+            slots_to_unlink = self.env["planning.slot"]
+            for slot in unscheduled_slots:
+                slots_to_unlink += unfinished_slots.filtered(lambda shift: shift != slot and shift.sale_line_id == slot.sale_line_id)
+            self = self - slots_to_unlink
+            slots_to_unlink.unlink()
+            if len(self) == 1:
+                return {'type': 'ir.actions.act_window_close'}
         return self.write({
             'start_datetime': False,
             'end_datetime': False,

@@ -14,5 +14,11 @@ patch(PlanningControllerActions.prototype, {
         return _t(
             "All open shifts and sales orders have already been assigned, or there are no resources available to take them at this time."
         );
-    }
+    },
+
+    autoPlanRollbackSuccessNotification() {
+        return _t(
+            "The open shifts and sales orders that had been planned have successfully been unscheduled."
+        );
+    },
 });

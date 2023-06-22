@@ -143,6 +143,31 @@ class TestSalePlanning(TestCommonSalePlanning):
         slot = so.order_line.planning_slot_ids.filtered('start_datetime')
         self.assertEqual(slot.employee_id, self.employee_wout, 'Planning should be assigned to the employee with one of its role equal to sol\'s product role')
 
+    def test_planning_undo_plan_order(self):
+        so_form = Form(self.env['sale.order'])
+        so_form.partner_id = self.planning_partner
+        with so_form.order_line.new() as sol_form:
+            sol_form.product_id = self.plannable_product
+            sol_form.product_uom_qty = 50
+        so = so_form.save()
+        so.action_confirm()
+        self.employee_wout.write({'planning_role_ids': [(4, so.order_line.product_id.planning_role_id.id)]})
+        Slot = self.env['planning.slot'].with_context(
+            default_start_datetime='2021-07-25 00:00:00',
+            default_end_datetime='2021-07-31 23:59:59',
+            scale='week',
+            focus_date='2021-07-31 00:00:00',
+            planning_gantt_active_sale_order_id=so.id,
+        )
+        with freeze_time('2021-07-26'):
+            shifts_planned = Slot.auto_plan_ids(view_domain=[('start_datetime', '=', '2021-07-25 00:00:00'), ('end_datetime', '=', '2021-07-31 23:59:59')])
+        slot_id = so.order_line.planning_slot_ids.filtered('start_datetime').id
+        Slot.action_rollback_auto_plan_ids(shifts_planned)
+        self.assertFalse(Slot.search([('id', '=', slot_id)]), 'The slot should be unlink')
+        self.assertEqual(len(so.order_line.planning_slot_ids), 1, 'Only one slot should exist')
+        self.assertFalse(so.order_line.planning_slot_ids.start_datetime, 'The remaining slot should not be scheduled')
+        self.assertEqual(so.order_line.product_uom_qty, 50, 'There should be 50 hours to plan on the sol')
+
     def test_planning_plan_order_previous_slot(self):
         so_form = Form(self.env['sale.order'])
         so_form.partner_id = self.planning_partner
@@ -357,5 +382,9 @@ class TestSalePlanning(TestCommonSalePlanning):
             focus_date='2021-07-31 00:00:00',
             planning_gantt_active_sale_order_id=so.id,
         )
-        shifts = PlanningSlot.auto_plan_ids([('start_datetime', '=', '2019-07-01 00:00:00'), ('end_datetime', '=', '2019-07-07 23:59:59')])
-        self.assertEqual(len(shifts), 0)
+        # expected result: {'open_shift_assigned': [], 'sale_line_planned': []}
+        shifts_data = PlanningSlot.auto_plan_ids([('start_datetime', '=', '2019-07-01 00:00:00'), ('end_datetime', '=', '2019-07-07 23:59:59')])
+        self.assertIn('open_shift_assigned', shifts_data)
+        self.assertIn('sale_line_planned', shifts_data)
+        self.assertEqual(len(shifts_data['open_shift_assigned']), 0)
+        self.assertEqual(len(shifts_data['sale_line_planned']), 0)

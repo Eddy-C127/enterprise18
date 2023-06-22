@@ -57,6 +57,7 @@ export class PlanningControllerActions {
                 {
                     type: "success",
                     sticky: true,
+                    className: "planning_notification",
                     buttons: [{
                         name: 'Undo',
                         icon: 'fa-undo',
@@ -112,29 +113,58 @@ export class PlanningControllerActions {
 
     async autoPlan() {
         const additionalContext = this.getAdditionalContext();
-        const highlightPlannedIds = await this.orm.call(
-            this.getResModel(),
-            "auto_plan_ids",
-            [this.getDomain()],
+        const res = await this.orm.call(this.getResModel(), "auto_plan_ids", [this.getDomain()], {
+            context: additionalContext,
+        });
+        const { open_shift_assigned = [], sale_line_planned = [] } = res;
+        if (!open_shift_assigned.length && !sale_line_planned.length) {
+            this.notifications.add(this.autoPlanFailureNotification(), { type: "danger" });
+            return;
+        }
+        let multipleClickProtection = false;
+        const notificationRemove = this.notifications.add(
+            markup(
+                `<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(
+                    this.autoPlanSuccessNotification()
+                )}</span>`
+            ),
             {
-                context: additionalContext,
+                type: "success",
+                sticky: true,
+                buttons: [
+                    {
+                        name: "Undo",
+                        icon: "fa-undo",
+                        onClick: async () => {
+                            if (multipleClickProtection) {
+                                return;
+                            }
+                            multipleClickProtection = true;
+                            await this.orm.call(
+                                this.getResModel(),
+                                "action_rollback_auto_plan_ids",
+                                [res]
+                            );
+                            await this.reload();
+                            this.notifications.add(
+                                markup(
+                                    `<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(
+                                        this.autoPlanRollbackSuccessNotification()
+                                    )}</span>`
+                                ),
+                                { type: "success" }
+                            );
+                            this.toggleHighlightPlannedFilter([
+                                ...open_shift_assigned,
+                                ...sale_line_planned,
+                            ]);
+                            notificationRemove();
+                        },
+                    },
+                ],
             }
         );
-        if (!highlightPlannedIds.length) {
-            this.notifications.add(
-                this.autoPlanFailureNotification(),
-                { type: "danger" }
-            );
-        } else {
-            this.notifications.add(
-                this.autoPlanSuccessNotification(),
-                { type: "success" }
-            );
-            if (this.env.searchModel.highlightPlannedIds) {
-                this.toggleHighlightPlannedFilter(this.env.searchModel.highlightPlannedIds);
-            }
-            this.toggleHighlightPlannedFilter(highlightPlannedIds);
-        }
+        this.toggleHighlightPlannedFilter([...open_shift_assigned, ...sale_line_planned]);
     }
 
     autoPlanSuccessNotification() {
@@ -145,6 +175,10 @@ export class PlanningControllerActions {
         return _t(
             "All open shifts have already been assigned, or there are no resources available to take them at this time."
         );
+    }
+
+    autoPlanRollbackSuccessNotification() {
+        return _t("The open shifts that had been planned have successfully been unscheduled.");
     }
 }
 

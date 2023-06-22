@@ -974,7 +974,7 @@ class Planning(models.Model):
             ['id:recordset', 'start_datetime:min', 'end_datetime:max'],
         )[0]
         if not open_shifts:
-            return []
+            return {"open_shift_assigned": []}
         user_tz = pytz.timezone(self.env.user.tz or 'UTC')
         min_start = min_start.astimezone(user_tz)
         max_end = max_end.astimezone(user_tz)
@@ -1051,7 +1051,7 @@ class Planning(models.Model):
                         return True
             return False
 
-        return open_shifts.filtered(find_resource).ids
+        return {"open_shift_assigned": open_shifts.filtered(find_resource).ids}
 
 # A. Represent the resoures shifts and the open shift on a timeline
 #   Legend
@@ -1200,6 +1200,11 @@ class Planning(models.Model):
             increments.append((value[0], value[1] - last_value))
             last_value = value[1]
         return increments
+
+    @api.model
+    def action_rollback_auto_plan_ids(self, shifts_data):
+        open_shift_assigned = shifts_data["open_shift_assigned"]
+        self.browse(open_shift_assigned).resource_id = False
 
     # ----------------------------------------------------
     # Gantt - Calendar view
