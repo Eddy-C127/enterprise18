@@ -332,7 +332,8 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 COALESCE(prod.intrastat_supplementary_unit_amount, 0) = 0 AND code.supplementary_unit IS NOT NULL as missing_unit,
                 COALESCE(prod.weight, 0) = 0 AND code.supplementary_unit IS NULL AS missing_weight,
                 prod.id AS product_id,
-                prodt.categ_id AS template_categ
+                prodt.categ_id AS template_categ,
+                prodt.description as goods_description
         """
         from_ = f"""
             FROM
