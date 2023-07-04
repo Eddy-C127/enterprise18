@@ -1309,3 +1309,36 @@ class Task(models.Model):
             progress_bars[field] = self._gantt_progress_bar(field, res_ids[field], start_utc, stop_utc)
 
         return progress_bars
+
+    @api.model
+    @api.readonly
+    def get_all_deadlines(self, date_start, date_end):
+        """ Get all deadlines (milestones and projects) between date_start and date_end.
+
+            :param date_start: The start date.
+            :param date_end: The end date.
+
+            :return: A dictionary with the field_name of tasks as key and list of records.
+        """
+        results = {}
+        project_id = self._context.get('default_project_id', False)
+        project_domain = [
+            ('date', '>=', date_start),
+            ('date_start', '<=', date_end),
+        ]
+        milestone_domain = [
+            ('deadline', '>=', date_start),
+            ('deadline', '<=', date_end),
+        ]
+        if project_id:
+            project_domain = expression.AND([project_domain, [('id', '=', project_id)]])
+            milestone_domain = expression.AND([milestone_domain, [('project_id', '=', project_id)]])
+        results['project_id'] = self.env['project.project'].search_read(
+            project_domain,
+            ['id', 'name', 'date', 'date_start']
+        )
+        results['milestone_id'] = self.env['project.milestone'].search_read(
+            milestone_domain,
+            ['name', 'deadline', 'is_deadline_exceeded', 'is_reached', 'project_id'],
+        )
+        return results

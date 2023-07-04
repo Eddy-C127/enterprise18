@@ -1,10 +1,19 @@
 /** @odoo-module */
 
-import { getFixture, patchDate, click, nextTick } from "@web/../tests/helpers/utils";
+import {
+    getFixture,
+    getNodesTextContent,
+    patchDate,
+    patchWithCleanup,
+    click,
+    nextTick,
+    triggerEvents,
+} from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
 import { clickCell, hoverGridCell, SELECTORS } from "@web_gantt/../tests/helpers";
 import { servicesToDefineInGantt } from "@project_enterprise/../tests/task_gantt_dependency_tests";
+import { browser } from "@web/core/browser/browser";
 
 const serviceRegistry = registry.category("services");
 
@@ -14,11 +23,20 @@ const ganttViewParams = {
     type: "gantt",
     groupBy: [],
     async mockRPC(_, args) {
-        if (args.method === "search_milestone_from_task") {
-            return [];
+        if (args.method === "get_all_deadlines") {
+            return { milestone_id: [], project_id: [] };
         }
     },
 };
+
+async function hoverEl(el) {
+    const rect = el.getBoundingClientRect();
+    const evAttrs = {
+        clientX: rect.x,
+        clientY: rect.y,
+    };
+    return triggerEvents(el, null, ["mouseenter", ["mousemove", evAttrs]]);
+}
 
 let target;
 QUnit.module("Views > TaskGanttView", {
@@ -30,11 +48,15 @@ QUnit.module("Views > TaskGanttView", {
         target = getFixture();
 
         for (const service of servicesToDefineInGantt) {
-            serviceRegistry.add(service, { start() {
-                return {
-                    formatter: () => { return ""; },
-                };
-            }});
+            serviceRegistry.add(service, {
+                start() {
+                    return {
+                        formatter: () => {
+                            return "";
+                        },
+                    };
+                },
+            });
         }
 
         ganttViewParams.serverData = {
@@ -62,6 +84,11 @@ QUnit.module("Views > TaskGanttView", {
                             type: "many2one",
                             relation: "project",
                         },
+                        milestone_id: {
+                            string: "Milestone",
+                            type: "many2one",
+                            relation: "milestone",
+                        },
                     },
                     records: [
                         {
@@ -71,6 +98,7 @@ QUnit.module("Views > TaskGanttView", {
                             stop: "2021-06-24 08:00:00",
                             user_ids: 100,
                             project_id: 1,
+                            milestone_id: 3,
                         },
                         {
                             id: 2,
@@ -104,8 +132,37 @@ QUnit.module("Views > TaskGanttView", {
                     fields: {
                         id: { string: "ID", type: "integer" },
                         name: { string: "Name", type: "char" },
+                        date: { string: "Date", type: "date" },
+                        date_start: { string: "Date Start", type: "date" },
                     },
                     records: [{ id: 1, name: "My Project" }],
+                },
+                milestone: {
+                    fields: {
+                        id: { string: "ID", type: "integer" },
+                        name: { string: "Name", type: "char" },
+                        deadline: { string: "Deadline", type: "date" },
+                        is_deadline_exceeded: { string: "Is Deadline Exceeded", type: "boolean" },
+                        is_reached: { string: "Is Reached", type: "boolean" },
+                        project_id: { string: "Project", type: "many2one", relation: "project" },
+                    },
+                    records: [
+                        {
+                            id: 1,
+                            name: "Milestone 1",
+                            deadline: "2021-06-01",
+                            project_id: 1,
+                            is_reached: true,
+                        },
+                        {
+                            id: 2,
+                            name: "Milestone 2",
+                            deadline: "2021-06-12",
+                            project_id: 1,
+                            is_deadline_exceeded: true,
+                        },
+                        { id: 3, name: "Milestone 3", deadline: "2021-06-24", project_id: 1 },
+                    ],
                 },
             },
         };
@@ -238,8 +295,8 @@ QUnit.test("progress bar has the correct unit", async (assert) => {
         groupBy: ["user_ids"],
         serverData: ganttViewParams.serverData,
         async mockRPC(_, { args, method, model }) {
-            if (method === "search_milestone_from_task") {
-                return [];
+            if (method === "get_all_deadlines") {
+                return { milestone_id: [], project_id: [] };
             }
             if (method === "gantt_progress_bar") {
                 assert.strictEqual(model, "task");
@@ -282,8 +339,8 @@ QUnit.test("open a dialog to schedule task", async (assert) => {
         type: "gantt",
         serverData: ganttViewParams.serverData,
         mockRPC(route, args) {
-            if (args.method === "search_milestone_from_task") {
-                return [];
+            if (args.method === "get_all_deadlines") {
+                return { milestone_id: [], project_id: [] };
             } else if (args.method === "schedule_tasks") {
                 assert.step("schedule_tasks");
                 return {};
@@ -333,3 +390,487 @@ QUnit.test("Lines are displayed in alphabetic order, except for the first one", 
         "The lines should be sorted by alphabetical order ('👤 Unassigned' is always first)"
     );
 });
+
+QUnit.test("Display milestones deadline in project.task gantt view", async (assert) => {
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+        async mockRPC(route, args) {
+            if (args.method === "get_all_deadlines") {
+                const [milestone1, milestone2] =
+                    ganttViewParams.serverData.models.milestone.records;
+                return {
+                    milestone_id: [
+                        {
+                            ...milestone1,
+                            project_id: [1, "My Project"],
+                        },
+                        {
+                            ...milestone2,
+                            project_id: [1, "My Project"],
+                        },
+                    ],
+                    project_id: [],
+                };
+            }
+        },
+    });
+
+    patchWithCleanup(browser, {
+        setTimeout: (fn) => fn(),
+    });
+    assert.containsN(target, ".o_project_milestone_diamond", 2);
+    assert.containsOnce(target, ".o_project_milestone_diamond .o_milestones_reached");
+    assert.containsOnce(target, ".o_project_milestone_diamond.o_unreached_milestones");
+    let milestoneDiamondEl = target.querySelector(".o_project_milestone_diamond");
+    await hoverEl(milestoneDiamondEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(target.querySelector(".o_popover u").innerText, "My Project");
+    assert.containsOnce(target, ".o_popover .o_milestones_reached");
+    assert.strictEqual(target.querySelector(".o_popover strong").innerText, "Milestone 1");
+
+    milestoneDiamondEl = target.querySelector(
+        ".o_project_milestone_diamond.o_unreached_milestones"
+    );
+    await hoverEl(milestoneDiamondEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(target.querySelector(".o_popover u").innerText, "My Project");
+    assert.containsOnce(target, ".o_popover .o_unreached_milestones");
+    assert.strictEqual(target.querySelector(".o_popover strong").innerText, "Milestone 2");
+});
+
+QUnit.test("Display milestones deadline in gantt view of tasks in a project", async (assert) => {
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+        async mockRPC(route, args) {
+            if (args.method === "get_all_deadlines") {
+                const [milestone1, milestone2] =
+                    ganttViewParams.serverData.models.milestone.records;
+                return {
+                    milestone_id: [
+                        {
+                            ...milestone1,
+                            project_id: [1, "My Project"],
+                        },
+                        {
+                            ...milestone2,
+                            project_id: [1, "My Project"],
+                        },
+                    ],
+                    project_id: [],
+                };
+            }
+        },
+        context: {
+            default_project_id: 1,
+        },
+    });
+
+    patchWithCleanup(browser, {
+        setTimeout: (fn) => fn(),
+    });
+    assert.containsN(target, ".o_project_milestone_diamond", 2);
+    assert.containsOnce(target, ".o_project_milestone_diamond .o_milestones_reached");
+    assert.containsOnce(target, ".o_project_milestone_diamond.o_unreached_milestones");
+    let milestoneDiamondEl = target.querySelector(".o_project_milestone_diamond");
+    await hoverEl(milestoneDiamondEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsNone(target, ".o_popover u");
+    assert.containsOnce(target, ".o_popover .o_milestones_reached");
+    assert.strictEqual(target.querySelector(".o_popover strong").innerText, "Milestone 1");
+
+    milestoneDiamondEl = target.querySelector(
+        ".o_project_milestone_diamond.o_unreached_milestones"
+    );
+    await hoverEl(milestoneDiamondEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsNone(target, ".o_popover u");
+    assert.containsOnce(target, ".o_popover .o_unreached_milestones");
+    assert.strictEqual(target.querySelector(".o_popover strong").innerText, "Milestone 2");
+});
+
+QUnit.test("Display project deadline in the gantt view of task", async (assert) => {
+    const myProject = ganttViewParams.serverData.models.project.records[0];
+    ganttViewParams.serverData.models.project.records[0] = {
+        ...myProject,
+        date_start: "2021-01-01",
+        date: "2021-06-24",
+    };
+    ganttViewParams.serverData.models.project.records.push({
+        id: 2,
+        name: "Other Project",
+        date_start: "2021-06-12",
+        date: "2021-06-28",
+    });
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+        async mockRPC(route, args) {
+            if (args.method === "get_all_deadlines") {
+                return {
+                    milestone_id: [],
+                    project_id: ganttViewParams.serverData.models.project.records,
+                };
+            }
+        },
+    });
+
+    patchWithCleanup(browser, {
+        setTimeout: (fn) => fn(),
+    });
+
+    assert.containsOnce(target, ".o_gantt_header_cell .o_project_startdate_circle");
+    assert.containsN(target, ".o_gantt_header_cell .o_project_deadline_circle", 2);
+    assert.containsNone(target, ".o_popover");
+    const projectStartDateCircleEl = target.querySelector(
+        ".o_gantt_header_cell .o_project_startdate_circle"
+    );
+    await hoverEl(projectStartDateCircleEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body u").innerText,
+        "Other Project"
+    );
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body em").innerText,
+        "Project start"
+    );
+    const [myProjectDeadlineCircleEl, otherProjectDeadlineCircleEl] = target.querySelectorAll(
+        ".o_gantt_header_cell .o_project_deadline_circle"
+    );
+    await hoverEl(myProjectDeadlineCircleEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(target.querySelector(".o_popover u").innerText, "My Project");
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body em").innerText,
+        "Project due"
+    );
+
+    await hoverEl(otherProjectDeadlineCircleEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(target.querySelector(".o_popover u").innerText, "Other Project");
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body em").innerText,
+        "Project due"
+    );
+});
+
+QUnit.test("Display project and milestones deadline in the gantt view of task", async (assert) => {
+    const myProject = ganttViewParams.serverData.models.project.records[0];
+    ganttViewParams.serverData.models.project.records[0] = {
+        ...myProject,
+        date_start: "2021-01-01",
+        date: "2021-06-24",
+    };
+    ganttViewParams.serverData.models.project.records.push({
+        id: 2,
+        name: "Other Project",
+        date_start: "2021-06-12",
+        date: "2021-06-28",
+    });
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+        async mockRPC(route, args) {
+            if (args.method === "get_all_deadlines") {
+                const [milestone1, milestone2] =
+                    ganttViewParams.serverData.models.milestone.records;
+                return {
+                    milestone_id: [
+                        {
+                            ...milestone1,
+                            project_id: [1, "My Project"],
+                        },
+                        {
+                            ...milestone2,
+                            project_id: [1, "My Project"],
+                        },
+                    ],
+                    project_id: ganttViewParams.serverData.models.project.records,
+                };
+            }
+        },
+    });
+
+    patchWithCleanup(browser, {
+        setTimeout: (fn) => fn(),
+    });
+    assert.containsN(target, ".o_project_milestone_diamond", 2);
+    assert.containsOnce(target, ".o_project_milestone_diamond .o_milestones_reached");
+    assert.containsOnce(target, ".o_project_milestone_diamond.o_unreached_milestones");
+    let milestoneDiamondEl = target.querySelector(".o_project_milestone_diamond");
+    await hoverEl(milestoneDiamondEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(target.querySelector(".o_popover u").innerText, "My Project");
+    assert.containsOnce(target, ".o_popover .o_milestones_reached");
+    assert.strictEqual(target.querySelector(".o_popover strong").innerText, "Milestone 1");
+
+    milestoneDiamondEl = target.querySelector(
+        ".o_project_milestone_diamond.o_unreached_milestones"
+    );
+    await hoverEl(milestoneDiamondEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(target.querySelector(".o_popover u").innerText, "My Project");
+    assert.containsOnce(target, ".o_popover .o_unreached_milestones");
+    assert.strictEqual(target.querySelector(".o_popover strong").innerText, "Milestone 2");
+
+    assert.containsOnce(target, ".o_gantt_header_cell .o_project_startdate_circle");
+    assert.containsN(target, ".o_gantt_header_cell .o_project_deadline_circle", 2);
+    const projectStartDateCircleEl = target.querySelector(
+        ".o_gantt_header_cell .o_project_startdate_circle"
+    );
+    await hoverEl(projectStartDateCircleEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body u").innerText,
+        "Other Project"
+    );
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body em").innerText,
+        "Project start"
+    );
+    const [myProjectDeadlineCircleEl, otherProjectDeadlineCircleEl] = target.querySelectorAll(
+        ".o_gantt_header_cell .o_project_deadline_circle"
+    );
+    await hoverEl(myProjectDeadlineCircleEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(target.querySelector(".o_popover u").innerText, "My Project");
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body em").innerText,
+        "Project due"
+    );
+
+    await hoverEl(otherProjectDeadlineCircleEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(target.querySelector(".o_popover u").innerText, "Other Project");
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body em").innerText,
+        "Project due"
+    );
+});
+
+QUnit.test("Display project deadline and milestone date in the same date", async (assert) => {
+    const myProject = ganttViewParams.serverData.models.project.records[0];
+    ganttViewParams.serverData.models.project.records[0] = {
+        ...myProject,
+        date_start: "2021-01-01",
+        date: "2021-06-24",
+    };
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+        async mockRPC(route, args) {
+            if (args.method === "get_all_deadlines") {
+                const milestone3 = ganttViewParams.serverData.models.milestone.records[2];
+                return {
+                    milestone_id: [
+                        {
+                            ...milestone3,
+                            project_id: [1, "My Project"],
+                        },
+                    ],
+                    project_id: ganttViewParams.serverData.models.project.records,
+                };
+            }
+        },
+    });
+
+    patchWithCleanup(browser, {
+        setTimeout: (fn) => fn(),
+    });
+    assert.containsOnce(
+        target,
+        ".o_gantt_header_cell .o_project_milestone_diamond.o_project_deadline_milestone"
+    );
+    const projectDeadlineCircleEl = target.querySelector(
+        ".o_gantt_header_cell .o_project_milestone_diamond.o_project_deadline_milestone"
+    );
+    await hoverEl(projectDeadlineCircleEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsOnce(target, ".o_popover u");
+    assert.strictEqual(target.querySelector(".o_popover u").innerText, "My Project");
+    assert.containsOnce(target, ".o_popover .popover-body");
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body em").innerText,
+        "Project due"
+    );
+    assert.strictEqual(
+        target.querySelector(".o_popover .popover-body strong").innerText,
+        "Milestone 3"
+    );
+});
+
+QUnit.test("Display 2 milestones in different project at the same date", async (assert) => {
+    ganttViewParams.serverData.models.project.records.push({
+        id: 2,
+        name: "Other Project",
+    });
+    ganttViewParams.serverData.models.milestone.records.push({
+        id: 4,
+        name: "Milestone 4",
+        deadline: "2021-06-24",
+        project_id: [2, "Other Project"],
+    });
+
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+        async mockRPC(route, args) {
+            if (args.method === "get_all_deadlines") {
+                const milestone3 = ganttViewParams.serverData.models.milestone.records[2];
+                const milestone4 = ganttViewParams.serverData.models.milestone.records[3];
+                return {
+                    milestone_id: [
+                        {
+                            ...milestone3,
+                            project_id: [1, "My Project"],
+                        },
+                        {
+                            ...milestone4,
+                            project_id: [2, "Other Project"],
+                        },
+                    ],
+                    project_id: [],
+                };
+            }
+        },
+    });
+
+    patchWithCleanup(browser, {
+        setTimeout: (fn) => fn(),
+    });
+    assert.containsOnce(target, ".o_project_milestone_diamond");
+    const milestoneDiamondEl = target.querySelector(".o_project_milestone_diamond");
+    await hoverEl(milestoneDiamondEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsN(target, ".o_popover u", 2);
+    assert.deepEqual(getNodesTextContent(target.querySelectorAll(".o_popover u")), [
+        "My Project",
+        "Other Project",
+    ]);
+    assert.containsN(target, ".o_popover .popover-body i.fa-square-o", 2);
+    assert.containsN(target, ".o_popover .popover-body strong", 2);
+    assert.deepEqual(
+        getNodesTextContent(target.querySelectorAll(".o_popover .popover-body strong")),
+        ["Milestone 3", "Milestone 4"]
+    );
+    assert.deepEqual(getNodesTextContent(target.querySelectorAll(".o_popover .popover-body")), [
+        "My ProjectMilestone 3Other ProjectMilestone 4",
+    ]);
+});
+
+QUnit.test("Display project deadline of 2 projects with the same deadline", async (assert) => {
+    const myProject = ganttViewParams.serverData.models.project.records[0];
+    ganttViewParams.serverData.models.project.records[0] = {
+        ...myProject,
+        date_start: "2021-01-01",
+        date: "2021-06-24",
+    };
+    ganttViewParams.serverData.models.project.records.push({
+        id: 2,
+        name: "Other Project",
+        date_start: "2021-05-12",
+        date: "2021-06-24",
+    });
+
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+        async mockRPC(route, args) {
+            if (args.method === "get_all_deadlines") {
+                return {
+                    milestone_id: [],
+                    project_id: ganttViewParams.serverData.models.project.records,
+                };
+            }
+        },
+    });
+
+    patchWithCleanup(browser, {
+        setTimeout: (fn) => fn(),
+    });
+    assert.containsOnce(target, ".o_gantt_header_cell .o_project_deadline_circle");
+    const projectDeadlineCircleEl = target.querySelector(
+        ".o_gantt_header_cell .o_project_deadline_circle"
+    );
+    await hoverEl(projectDeadlineCircleEl);
+    assert.containsOnce(target, ".o_popover");
+    assert.containsN(target, ".o_popover u", 2);
+    assert.deepEqual(getNodesTextContent(target.querySelectorAll(".o_popover u")), [
+        "My Project",
+        "Other Project",
+    ]);
+    assert.containsN(target, ".o_popover .popover-body em", 2);
+    assert.deepEqual(getNodesTextContent(target.querySelectorAll(".o_popover .popover-body em")), [
+        "Project due",
+        "Project due",
+    ]);
+    assert.deepEqual(getNodesTextContent(target.querySelectorAll(".o_popover .popover-body")), [
+        "My ProjectProject dueOther ProjectProject due",
+    ]);
+});
+
+QUnit.test(
+    "Display project deadline one day before the start date of the other project",
+    async (assert) => {
+        const myProject = ganttViewParams.serverData.models.project.records[0];
+        ganttViewParams.serverData.models.project.records[0] = {
+            ...myProject,
+            date_start: "2021-01-01",
+            date: "2021-06-24",
+        };
+        ganttViewParams.serverData.models.project.records.push({
+            id: 2,
+            name: "Other Project",
+            date_start: "2021-06-25",
+            date: "2021-10-01",
+        });
+
+        await makeView({
+            ...ganttViewParams,
+            groupBy: ["user_ids"],
+            async mockRPC(route, args) {
+                if (args.method === "get_all_deadlines") {
+                    return {
+                        milestone_id: [],
+                        project_id: ganttViewParams.serverData.models.project.records,
+                    };
+                }
+            },
+        });
+
+        patchWithCleanup(browser, {
+            setTimeout: (fn) => fn(),
+        });
+        assert.containsOnce(target, ".o_gantt_header_cell .o_project_deadline_circle");
+        const projectDeadlineCircleEl = target.querySelector(
+            ".o_gantt_header_cell .o_project_deadline_circle"
+        );
+        await hoverEl(projectDeadlineCircleEl);
+        assert.containsOnce(target, ".o_popover");
+        assert.containsN(target, ".o_popover u", 2);
+        assert.deepEqual(getNodesTextContent(target.querySelectorAll(".o_popover u")), [
+            "My Project",
+            "Other Project",
+        ]);
+        assert.containsN(target, ".o_popover .popover-body em", 2);
+        assert.deepEqual(
+            getNodesTextContent(target.querySelectorAll(".o_popover .popover-body em")),
+            ["Project due", "Project start"]
+        );
+        assert.deepEqual(getNodesTextContent(target.querySelectorAll(".o_popover .popover-body")), [
+            "My ProjectProject dueOther ProjectProject start",
+        ]);
+    }
+);

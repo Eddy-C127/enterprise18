@@ -22,8 +22,8 @@ const ganttViewParams = {
     resModel: "project.task",
     type: "gantt",
     async mockRPC(_route, { method }) {
-        if (method === "search_milestone_from_task") {
-            return [];
+        if (method === "get_all_deadlines") {
+            return { milestone_id: [], project_id: [] };
         }
     },
 };

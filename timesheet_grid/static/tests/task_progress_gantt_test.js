@@ -86,8 +86,8 @@ QUnit.test("Check progress bar values", async (assert) => {
         type: "gantt",
         serverData,
         async mockRPC(_, args) {
-            if (args.method === "search_milestone_from_task") {
-                return [];
+            if (args.method === "get_all_deadlines") {
+                return { milestone_id: [], project_id: [] };
             }
         }
     })

@@ -1,5 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from freezegun import freeze_time
+
 from odoo.fields import Datetime
 from odoo.tests import new_test_user
 
@@ -79,3 +81,86 @@ class TestTaskGanttView(TestProjectCommon):
         self.assertTrue(self.user_gantt_test_1 in displayed_gantt_users, 'There should be an empty line for test user 1')
         self.assertTrue(self.user_gantt_test_2 in displayed_gantt_users, 'There should be an empty line for test user 2')
         self.assertFalse(self.user_gantt_test_3 in displayed_gantt_users, 'There should be no empty line for test user 3')
+
+    @freeze_time('2020-01-12')
+    def test_get_all_deadlines(self):
+        self.project_pigs.write({'date_start': '2020-01-05', 'date': '2020-02-10'})
+        self.project_goats.write({'date_start': '2019-01-01', 'date': '2020-01-15'})
+        project_pigs_milestone_1, project_pigs_milestone_2, dummy, project_goats_milestone_1, dummy = self.env['project.milestone'].create([
+            {'name': 'Milestone 1 (project pigs)', 'project_id': self.project_pigs.id, 'deadline': '2020-01-10'},
+            {'name': 'Milestone 2 (project pigs)', 'project_id': self.project_pigs.id, 'deadline': '2020-01-30'},
+            {'name': 'Milestone 3 (project pigs)', 'project_id': self.project_pigs.id, 'deadline': '2020-02-10'},
+            {'name': 'Milestone 1 (project goats)', 'project_id': self.project_goats.id, 'deadline': '2020-01-15'},
+            {'name': 'Milestone 2 (project goats)', 'project_id': self.project_goats.id, 'deadline': '2020-02-01'},
+        ])
+        results = self.env['project.task'].get_all_deadlines("2020-01-01", "2020-01-31")
+        self.assertIsInstance(results, dict)
+        self.assertIn('project_id', results)
+        project_id_results = results['project_id']
+        self.assertEqual(len(project_id_results), 2)
+        project_pigs_result_expected = {
+            'id': self.project_pigs.id,
+            'name': self.project_pigs.name,
+            'date': self.project_pigs.date,
+            'date_start': self.project_pigs.date_start,
+        }
+        project_goats_result_expected = {
+            'id': self.project_goats.id,
+            'name': self.project_goats.name,
+            'date': self.project_goats.date,
+            'date_start': self.project_goats.date_start,
+        }
+        for project_result in project_id_results:
+            self.assertIn('id', project_result)
+            if project_result['id'] == self.project_pigs.id:
+                self.assertDictEqual(project_result, project_pigs_result_expected)
+            else:
+                self.assertDictEqual(project_result, project_goats_result_expected)
+        self.assertIn('milestone_id', results)
+        milestone_id_results = results['milestone_id']
+        self.assertEqual(len(milestone_id_results), 3)
+        project_pigs_milestone_1_expected = {
+            'id': project_pigs_milestone_1.id,
+            'name': project_pigs_milestone_1.name,
+            'deadline': project_pigs_milestone_1.deadline,
+            'is_deadline_exceeded': True,
+            'is_reached': False,
+            'project_id': (self.project_pigs.id, self.project_pigs.name),
+        }
+        project_pigs_milestone_2_expected = {
+            'id': project_pigs_milestone_2.id,
+            'name': project_pigs_milestone_2.name,
+            'deadline': project_pigs_milestone_2.deadline,
+            'is_deadline_exceeded': False,
+            'is_reached': False,
+            'project_id': (self.project_pigs.id, self.project_pigs.name),
+        }
+        project_goats_milestone_1_expected = {
+            'id': project_goats_milestone_1.id,
+            'name': project_goats_milestone_1.name,
+            'deadline': project_goats_milestone_1.deadline,
+            'is_deadline_exceeded': False,
+            'is_reached': False,
+            'project_id': (self.project_goats.id, self.project_goats.name),
+        }
+        for milestone_result in milestone_id_results:
+            if milestone_result['id'] == project_pigs_milestone_1.id:
+                self.assertDictEqual(milestone_result, project_pigs_milestone_1_expected)
+            elif milestone_result['id'] == project_pigs_milestone_2.id:
+                self.assertDictEqual(milestone_result, project_pigs_milestone_2_expected)
+            else:
+                self.assertDictEqual(milestone_result, project_goats_milestone_1_expected)
+
+        results = self.env['project.task'].with_context(default_project_id=self.project_pigs.id).get_all_deadlines("2020-01-01", "2020-01-31")
+        self.assertIn('project_id', results)
+        project_id_results = results['project_id']
+        self.assertEqual(len(project_id_results), 1)
+        self.assertDictEqual(project_id_results[0], project_pigs_result_expected)
+        self.assertIn('milestone_id', results)
+        milestone_id_results = results['milestone_id']
+        self.assertEqual(len(milestone_id_results), 2)
+        for milestone_result in milestone_id_results:
+            if milestone_result['id'] == project_pigs_milestone_1.id:
+                self.assertDictEqual(milestone_result, project_pigs_milestone_1_expected)
+            else:
+                self.assertDictEqual(milestone_result, project_pigs_milestone_2_expected)

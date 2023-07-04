@@ -11,22 +11,52 @@
     <t t-name="project_enterprise.TaskGanttRenderer.Header" t-inherit="web_gantt.GanttRenderer.Header">
         <xpath expr="//t[@t-foreach='columns']/div" position="inside">
             <t t-set="columnInfo" t-value="columnMilestones[column.id]"/>
-            <t t-if="columnInfo.milestones.length">
+            <t t-if="columnInfo.edge &amp;&amp; columnInfo.edge.hasStartDate">
+                <div class="o_project_edge_startdate_circle"
+                     t-on-mouseenter="(ev) => this.onMilestoneMouseEnter(ev, columnInfo.edge.projects)"
+                     t-on-mouseleave="onMilestoneMouseLeave"
+                />
+            </t>
+            <t t-if="columnInfo.hasMilestone">
                 <div class="o_project_milestone_diamond"
-                    t-att-class="{ 'o_unreached_milestones': columnInfo.hasDeadLineExceeded, 'edge_slot': column_last }"
-                    t-on-mouseenter="(ev) => this.onMilestoneMouseEnter(ev, columnInfo.milestones)"
+                    t-att-class="{
+                         'o_unreached_milestones': columnInfo.hasDeadLineExceeded,
+                         'edge_slot': column_last,
+                         'o_project_deadline_milestone': columnInfo.hasDeadline,
+                         'o_project_startdate_milestone': !columnInfo.hasDeadline &amp;&amp; columnInfo.hasStartDate,
+                     }"
+                    t-on-mouseenter="(ev) => this.onMilestoneMouseEnter(ev, columnInfo.projects)"
                     t-on-mouseleave="onMilestoneMouseLeave"
                     >
                     <i class="fa fa-check o_milestones_reached" t-att-class="{ 'edge_slot': column_last }" t-if="columnInfo.allReached"/>
                 </div>
+            </t>
+            <t t-elif="columnInfo.hasDeadline || columnInfo.hasStartDate">
+                <div
+                    t-att-class="{
+                         'o_project_deadline_circle': columnInfo.hasDeadline,
+                         'o_project_startdate_circle': !columnInfo.hasDeadline &amp;&amp; columnInfo.hasStartDate,
+                     }"
+                     t-on-mouseenter="(ev) => this.onMilestoneMouseEnter(ev, columnInfo.projects)"
+                     t-on-mouseleave="onMilestoneMouseLeave"
+                />
             </t>
         </xpath>
     </t>
 
     <t t-name="project_enterprise.TaskGanttRenderer.ColoredCellBorder">
         <t t-set="columnInfo" t-value="columnMilestones[column.id]"/>
-        <t t-if="columnInfo.milestones.length">
+        <t t-if="columnInfo.edge &amp;&amp; columnInfo.edge.hasStartDate">
+            <div class="o_edge_startdate_pin" t-att-style="coloredCellBorderStyle"/>
+        </t>
+        <t t-if="columnInfo.hasMilestone">
             <div class="o_project_milestone" t-att-style="coloredCellBorderStyle" t-att-class="{ 'o_unreached_milestones': columnInfo.hasDeadLineExceeded }"/>
+        </t>
+        <t t-elif="columnInfo.hasDeadline">
+            <div class="o_project_milestone o_unreached_milestones" t-att-style="coloredCellBorderStyle"/>
+        </t>
+        <t t-elif="columnInfo.hasStartDate">
+            <div class="o_project_milestone o_startdate_pin" t-att-style="coloredCellBorderStyle"/>
         </t>
     </t>
 

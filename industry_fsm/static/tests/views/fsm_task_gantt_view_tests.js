@@ -15,8 +15,8 @@ const ganttViewParams = {
         fsm_mode: true,
     },
     mockRPC(route, args) {
-        if (args.method === "search_milestone_from_task") {
-            return [];
+        if (args.method === "get_all_deadlines") {
+            return { milestone_id: [], project_id: [] };
         }
     },
 };
@@ -80,7 +80,7 @@ QUnit.module("Views > TaskGanttView", {
                 },
             },
             views: {
-                "task,false,form": 
+                "task,false,form":
                     `<form>
                         <field name="name"/>
                         <field name="start_datetime"/>

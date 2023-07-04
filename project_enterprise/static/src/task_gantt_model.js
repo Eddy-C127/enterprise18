@@ -68,11 +68,7 @@ export class TaskGanttModel extends GanttModel {
     }
 
     async unscheduleTask(id) {
-        await this.orm.call(
-            'project.task',
-            'action_unschedule_task',
-            [id],
-        );
+        await this.orm.call("project.task", "action_unschedule_task", [id]);
         this.fetchData();
     }
 
@@ -81,11 +77,12 @@ export class TaskGanttModel extends GanttModel {
     //-------------------------------------------------------------------------
 
     /**
-     * Retrieve the milestone data based on the task domain.
+     * Retrieve the milestone data based on the task domain and the project deadline if applicable.
      * @override
      */
     async _fetchData(metaData) {
         const startDate = metaData.startDate.toISODate();
+        const stopDate = metaData.stopDate.toISODate();
         const scale = metaData.scale.id;
         this.searchParams.context = {
             ...this.searchParams.context,
@@ -93,37 +90,42 @@ export class TaskGanttModel extends GanttModel {
             gantt_scale: scale,
         };
         const proms = [super._fetchData(...arguments)];
-        const milestones = [];
+        let milestones = [];
+        const projectDeadlines = [];
+        const projectStartDates = [];
         if (!this.orm.isSample && !this.env.isSmall) {
             const prom = this.orm
-                .call("project.milestone", "search_milestone_from_task", [], {
-                    task_domain: this.searchParams.domain,
-                    milestone_domain: [
-                        ["deadline", "<=", metaData.stopDate.toISODate()],
-                        ["deadline", ">=", startDate],
-                    ],
-                    fields: [
-                        "name",
-                        "deadline",
-                        "is_deadline_exceeded",
-                        "is_reached",
-                        "project_id",
-                    ],
-                    order: "project_id ASC, deadline ASC",
+                .call("project.task", "get_all_deadlines", [startDate, stopDate], {
                     context: this.searchParams.context,
                 })
-                .then((result) => {
-                    for (const milestone of result) {
-                        milestones.push({
-                            ...milestone,
-                            deadline: deserializeDate(milestone.deadline),
-                        });
+                .then(({ milestone_id, project_id }) => {
+                    milestones = milestone_id.map((m) => ({
+                        ...m,
+                        deadline: deserializeDate(m.deadline),
+                    }));
+                    for (const project of project_id) {
+                        const dateEnd = project.date;
+                        const dateStart = project.date_start;
+                        if (dateEnd >= startDate && dateEnd <= stopDate) {
+                            projectDeadlines.push({
+                                ...project,
+                                date: deserializeDate(dateEnd),
+                            });
+                        }
+                        if (dateStart >= startDate && dateStart <= stopDate) {
+                            projectStartDates.push({
+                                ...project,
+                                date: deserializeDate(dateStart),
+                            });
+                        }
                     }
                 });
             proms.push(prom);
         }
         await Promise.all(proms);
         this.data.milestones = sortBy(milestones, (m) => m.deadline);
+        this.data.projectDeadlines = sortBy(projectDeadlines, (d) => d.date);
+        this.data.projectStartDates = sortBy(projectStartDates, (d) => d.date);
     }
 
     /**

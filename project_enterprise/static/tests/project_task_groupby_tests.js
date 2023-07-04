@@ -57,8 +57,8 @@ QUnit.module("Project", (hooks) => {
         const { openView } = await start({
             serverData: { views },
             mockRPC: function (route, args) {
-                if (args.method === "search_milestone_from_task") {
-                    return [];
+                if (args.method === "get_all_deadlines") {
+                    return { milestone_id: [], project_id: [] };
                 }
             },
         });
