@@ -60,7 +60,7 @@
                 <button type="button"
                     class="btn btn-primary o_select_file_button"
                     t-att-class="{'d-none': this.state.uploading || this.props.record.data[this.props.name]}"
-                    t-on-click="() => {this.fileInputRef.el.click()}"
+                    t-on-click="_onUploadClick"
                     title="Select">Upload Video</button>
                 <button type="button"
                     class="btn btn-secondary fa fa-trash-o o_clear_file_button"
@@ -79,6 +79,8 @@
                     </form>
                 </div>
             </div>
+            <div class="alert alert-danger fw-bold w-100 h-100 mt-2 text-center"
+                t-out="state.uploadErrorMessage" t-if="state.uploadErrorMessage"/>
         </t>
     </t>
 </templates>

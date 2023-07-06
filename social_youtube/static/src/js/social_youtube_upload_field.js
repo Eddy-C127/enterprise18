@@ -39,6 +39,7 @@ export class YoutubeUploadField extends CharField {
             showSocialYoutubeBar: true,
             socialYoutubeText: _t("Uploading... 0%"),
             uploadProgress: 0,
+            uploadErrorMessage: false,
         });
         this.notification = useService("notification");
         this.dialogService = useService("dialog");
@@ -108,8 +109,8 @@ export class YoutubeUploadField extends CharField {
     async _openUploadSession(fileSize, fileType) {
         return new Promise((resolve, reject) => {
             const data = this.props.record.data;
-            const title = data.youtube_title || _t('Draft Video');
-            const description = data.youtube_description || '';
+            const title = data.youtube_title;
+            const description = data.youtube_description;
 
             $.ajax({
                 url: 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=status%2Csnippet',
@@ -133,7 +134,11 @@ export class YoutubeUploadField extends CharField {
                 success: (data, textStatus, request) => {
                     resolve(request.getResponseHeader('location'));
                 },
-                error: () => {
+                error: (e) => {
+                    if (e.responseText) {
+                        const errorReason = JSON.parse(e.responseText).error?.errors[0]?.reason;
+                        console.error(errorReason);
+                    }
                     this._uploadFailed();
                     reject();
                 },
@@ -315,6 +320,46 @@ export class YoutubeUploadField extends CharField {
             youtube_video_id: videoId,
             youtube_video_category_id: categoryId,
         });
+    }
+
+    /**
+     * Pre-validates the title and description of the video before initiating
+     * the upload, So that we can avoid upload failures from YouTube.
+     *
+     * Some special characters may not have consistent lengths across different encodings.
+     * YouTube checks for length using UTF-8 encoding, while JavaScript uses UTF-16.
+     * To obtain the correct UTF-8 length, we are destructuring the title and description.
+     *
+     * @private
+     */
+    _onUploadClick() {
+        const title = this.props.record.data.youtube_title;
+        const description = this.props.record.data.youtube_description;
+        let message;
+        if (!title) {
+            message = _t("You need to give your video a title.");
+        } else if (!description) {
+            message = _t("You need to give your video a description.");
+        } else if (
+            title.includes("<") ||
+            title.includes(">") ||
+            description.includes("<") ||
+            description.includes(">")
+        ) {
+            message = _t("You cannot use '>' or '<' in both title and description.");
+        } else if ([...title].length > 100) {
+            message = _t("Your title cannot exceed 100 characters.");
+        } else if ([...description].length > 5000) {
+            message = _t("Your description cannot exceed 5000 characters.");
+        } else {
+            message = false;
+        }
+        if (message) {
+            this.state.uploadErrorMessage = message;
+            return;
+        }
+        this.state.uploadErrorMessage = false;
+        this.fileInputRef.el.click();
     }
 }
 YoutubeUploadField.template = 'social_youtube.YoutubeUploadField';
