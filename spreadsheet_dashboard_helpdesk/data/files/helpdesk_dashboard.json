@@ -105,7 +105,7 @@
                 },
                 "A32": {
                     "style": 1,
-                    "content": "[Tickets By Stage](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[[\"stage_id\",\"!=\",false]],\"context\":{\"group_by\":[\"stage_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"stage_id\"]},\"modelName\":\"helpdesk.ticket.report.analysis\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"cohort\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Tickets By Stage\"})",
+                    "content": "[Tickets by Stage](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[[\"stage_id\",\"!=\",false]],\"context\":{\"group_by\":[\"stage_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"stage_id\"]},\"modelName\":\"helpdesk.ticket.report.analysis\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"cohort\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Tickets By Stage\"})",
                     "border": 1
                 },
                 "A33": {
@@ -152,6 +152,55 @@
                 "A43": {
                     "style": 4,
                     "content": "=ODOO.PIVOT.HEADER(3,\"#stage_id\",10)"
+                },
+                "A44": {
+                    "style": 1,
+                    "content": "[Top Customers](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[[\"partner_id\",\"!=\",false]],\"context\":{\"group_by\":[\"partner_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"partner_id\"]},\"modelName\":\"helpdesk.ticket.report.analysis\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"cohort\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Customers\"})",
+                    "border": 1
+                },
+                "A46": {
+                    "style": 2,
+                    "content": "=_t(\"Customer\")"
+                },
+                "A47": {
+                    "style": 3,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",1)"
+                },
+                "A48": {
+                    "style": 4,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",2)"
+                },
+                "A49": {
+                    "style": 3,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",3)"
+                },
+                "A50": {
+                    "style": 4,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",4)"
+                },
+                "A51": {
+                    "style": 3,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",5)"
+                },
+                "A52": {
+                    "style": 4,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",6)"
+                },
+                "A53": {
+                    "style": 3,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",7)"
+                },
+                "A54": {
+                    "style": 4,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",8)"
+                },
+                "A55": {
+                    "style": 3,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",9)"
+                },
+                "A56": {
+                    "style": 4,
+                    "content": "=ODOO.PIVOT.HEADER(7,\"#partner_id\",10)"
                 },
                 "B7": {
                     "style": 5,
@@ -201,6 +250,25 @@
                     "style": 6
                 },
                 "B42": {
+                    "style": 6
+                },
+                "B44": {
+                    "style": 5,
+                    "border": 1
+                },
+                "B47": {
+                    "style": 6
+                },
+                "B49": {
+                    "style": 6
+                },
+                "B51": {
+                    "style": 6
+                },
+                "B53": {
+                    "style": 6
+                },
+                "B55": {
                     "style": 6
                 },
                 "C7": {
@@ -305,6 +373,59 @@
                     "format": 1,
                     "content": "=ODOO.PIVOT(3,\"__count\",\"#stage_id\",10)"
                 },
+                "C44": {
+                    "style": 5,
+                    "border": 1
+                },
+                "C46": {
+                    "style": 7,
+                    "content": "=_t(\"Tickets\")"
+                },
+                "C47": {
+                    "style": 6,
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",1)"
+                },
+                "C48": {
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",2)"
+                },
+                "C49": {
+                    "style": 6,
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",3)"
+                },
+                "C50": {
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",4)"
+                },
+                "C51": {
+                    "style": 6,
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",5)"
+                },
+                "C52": {
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",6)"
+                },
+                "C53": {
+                    "style": 6,
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",7)"
+                },
+                "C54": {
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",8)"
+                },
+                "C55": {
+                    "style": 6,
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",9)"
+                },
+                "C56": {
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(7,\"__count\",\"#partner_id\",10)"
+                },
                 "E19": {
                     "style": 1,
                     "content": "[Top Assignees](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[[\"user_id\",\"!=\",false]],\"context\":{\"group_by\":[\"user_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"user_id\"]},\"modelName\":\"helpdesk.ticket.report.analysis\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"cohort\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Agents\"})",
@@ -357,53 +478,53 @@
                 },
                 "E32": {
                     "style": 1,
-                    "content": "[Top Customers](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[[\"partner_id\",\"!=\",false]],\"context\":{\"group_by\":[\"partner_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"partner_id\"]},\"modelName\":\"helpdesk.ticket.report.analysis\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"cohort\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Customers\"})",
+                    "content": "[Tickets by Tags](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[[\"tag_ids\",\"!=\",false]],\"context\":{\"group_by\":[\"tag_ids\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"tag_ids\"]},\"modelName\":\"helpdesk.ticket.report.analysis\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"cohort\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Tickets by Tags\"})",
                     "border": 1
                 },
                 "E33": {
                     "style": 2,
-                    "content": "=_t(\"Customer\")",
+                    "content": "=_t(\"Ticket Tags\")",
                     "border": 2
                 },
                 "E34": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",1)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",1)"
                 },
                 "E35": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",2)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",2)"
                 },
                 "E36": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",3)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",3)"
                 },
                 "E37": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",4)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",4)"
                 },
                 "E38": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",5)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",5)"
                 },
                 "E39": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",6)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",6)"
                 },
                 "E40": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",7)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",7)"
                 },
                 "E41": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",8)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",8)"
                 },
                 "E42": {
                     "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",9)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",9)"
                 },
                 "E43": {
                     "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(4,\"#partner_id\",10)"
+                    "content": "=ODOO.PIVOT.HEADER(4,\"#tag_ids\",10)"
                 },
                 "F7": {
                     "style": 5,
@@ -525,47 +646,47 @@
                 "G34": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",1)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",1)"
                 },
                 "G35": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",2)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",2)"
                 },
                 "G36": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",3)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",3)"
                 },
                 "G37": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",4)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",4)"
                 },
                 "G38": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",5)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",5)"
                 },
                 "G39": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",6)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",6)"
                 },
                 "G40": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",7)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",7)"
                 },
                 "G41": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",8)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",8)"
                 },
                 "G42": {
                     "style": 6,
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",9)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",9)"
                 },
                 "G43": {
                     "format": 1,
-                    "content": "=ODOO.PIVOT(4,\"__count\",\"#partner_id\",10)"
+                    "content": "=ODOO.PIVOT(4,\"__count\",\"#tag_ids\",10)"
                 },
                 "A8": {
                     "border": 2
@@ -1067,7 +1188,7 @@
             "context": {},
             "domain": [
                 [
-                    "partner_id",
+                    "tag_ids",
                     "!=",
                     false
                 ]
@@ -1080,9 +1201,9 @@
             ],
             "model": "helpdesk.ticket.report.analysis",
             "rowGroupBys": [
-                "partner_id"
+                "tag_ids"
             ],
-            "name": "Ticket Analysis by Customer",
+            "name": "Ticket Analysis by Tags",
             "sortedColumn": {
                 "groupId": [
                     [],
@@ -1161,9 +1282,39 @@
             "rowGroupBys": [],
             "name": "stats - previous",
             "sortedColumn": null
+        },
+        "7": {
+            "colGroupBys": [],
+            "context": {},
+            "domain": [
+                [
+                    "partner_id",
+                    "!=",
+                    false
+                ]
+            ],
+            "id": "7",
+            "measures": [
+                {
+                    "field": "__count"
+                }
+            ],
+            "model": "helpdesk.ticket.report.analysis",
+            "rowGroupBys": [
+                "partner_id"
+            ],
+            "name": "Ticket Analysis by Customer",
+            "sortedColumn": {
+                "groupId": [
+                    [],
+                    []
+                ],
+                "measure": "__count",
+                "order": "desc"
+            }
         }
     },
-    "pivotNextId": 7,
+    "pivotNextId": 8,
     "globalFilters": [
         {
             "id": "9c37c741-1bb5-439a-b93d-d5443a9544be",
@@ -1202,6 +1353,11 @@
                     "field": "create_date",
                     "type": "datetime",
                     "offset": -1
+                },
+                "7": {
+                    "field": "create_date",
+                    "type": "datetime",
+                    "offset": 0
                 }
             },
             "listFields": {},
@@ -1251,6 +1407,10 @@
                 "6": {
                     "field": "team_id",
                     "type": "many2one"
+                },
+                "7": {
+                    "field": "team_id",
+                    "type": "many2one"
                 }
             },
             "listFields": {},
@@ -1296,6 +1456,10 @@
                     "type": "many2one"
                 },
                 "6": {
+                    "field": "user_id",
+                    "type": "many2one"
+                },
+                "7": {
                     "field": "user_id",
                     "type": "many2one"
                 }
@@ -1345,6 +1509,10 @@
                 "6": {
                     "field": "stage_id",
                     "type": "many2one"
+                },
+                "7": {
+                    "field": "stage_id",
+                    "type": "many2one"
                 }
             },
             "listFields": {},
@@ -1392,6 +1560,10 @@
                 "6": {
                     "field": "partner_id",
                     "type": "many2one"
+                },
+                "7": {
+                    "field": "partner_id",
+                    "type": "many2one"
                 }
             },
             "listFields": {},
@@ -1403,6 +1575,57 @@
                 "7c83311f-28a2-47b3-b27c-4ff69ad74d38": {
                     "field": "partner_id",
                     "type": "many2one"
+                }
+            }
+        },
+        {
+            "id": "7cgfa52a-52bb-5t4e-2089-a980b0432ff5",
+            "type": "relation",
+            "label": "Tags",
+            "modelName": "helpdesk.tag",
+            "defaultValue": [],
+            "defaultValueDisplayNames": [],
+            "rangeType": "year",
+            "defaultsToCurrentPeriod": false,
+            "pivotFields": {
+                "1": {
+                    "field": "tag_ids",
+                    "type": "many2many"
+                },
+                "2": {
+                    "field": "tag_ids",
+                    "type": "many2many"
+                },
+                "3": {
+                    "field": "tag_ids",
+                    "type": "many2many"
+                },
+                "4": {
+                    "field": "tag_ids",
+                    "type": "many2many"
+                },
+                "5": {
+                    "field": "tag_ids",
+                    "type": "many2many"
+                },
+                "6": {
+                    "field": "tag_ids",
+                    "type": "many2many"
+                },
+                "7": {
+                    "field": "tag_ids",
+                    "type": "many2many"
+                }
+            },
+            "listFields": {},
+            "graphFields": {
+                "f16a9ed2-bf56-4fcd-9fa7-262c3be1e441": {
+                    "field": "tag_ids",
+                    "type": "many2many"
+                },
+                "7c83311f-28a2-47b3-b27c-4ff69ad74d38": {
+                    "field": "tag_ids",
+                    "type": "many2many"
                 }
             }
         }
