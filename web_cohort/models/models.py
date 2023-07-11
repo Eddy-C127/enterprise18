@@ -152,11 +152,11 @@ class Base(models.AbstractModel):
                     period = col_start_date.strftime(DISPLAY_FORMATS[interval])
 
                 if mode == 'churn':
-                    domain = [
+                    mode_domain = [
                         (date_stop, '<', col_end_date.strftime(DEFAULT_SERVER_DATE_FORMAT)),
                     ]
                 else:
-                    domain = ['|',
+                    mode_domain = ['|',
                         (date_stop, '>=', col_end_date.strftime(DEFAULT_SERVER_DATE_FORMAT)),
                         (date_stop, '=', False),
                     ]
@@ -165,7 +165,7 @@ class Base(models.AbstractModel):
                     'value': col_remaining_value,
                     'churn_value': col_value + (columns[-1]['churn_value'] if col_index > 0 else initial_churn_value),
                     'percentage': percentage,
-                    'domain': domain,
+                    'domain': mode_domain,
                     'period': period,
                 })
 
