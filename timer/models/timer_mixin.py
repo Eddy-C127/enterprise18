@@ -65,6 +65,17 @@ class TimerMixin(models.AbstractModel):
         # Return user's timers. Can have multiple timers if some are in pause
         return self.env['timer.timer'].search([('user_id', '=', self.env.user.id)])
 
+    def unlink(self):
+        if not self:
+            return True
+        timers = self.env['timer.timer'].search([
+            ('res_model', '=', self._name), ('res_id', 'in', self.ids), ('user_id', '!=', self.env.user.id)])
+        if timers:
+            self.check_access_rights('unlink')
+            self.check_access_rule('unlink')
+            timers.sudo().unlink()
+        return super().unlink()
+
     def action_timer_start(self):
         """ Start the timer of the current record
         First, if a timer is running, stop or pause it

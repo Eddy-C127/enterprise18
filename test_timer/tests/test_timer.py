@@ -139,3 +139,20 @@ class TestTimer(TransactionCase):
 
             # Try to stop the timer2 with usr2 (Unlink)
             timer2.with_user(self.usr2).action_timer_stop()
+
+    def test_timer_unlink_with_other_user(self):
+        """
+            To ensure that user2's timer is unlinked by user1.
+            Follow these steps:
+                - User2 starts a timer with User2.
+                - verifies that the timer has started.
+                - User1 unlinks the timer from their account.
+                - verifies that the timer is successfully unlinked and no longer associated with their account.
+        """
+        self.test_timer_bis.with_user(self.usr2).action_timer_start()
+        timer_domain = [('res_id', '=', self.test_timer_bis.id), ('res_model', '=', self.test_timer_bis._name)]
+        self.assertEqual(self.env['timer.timer'].search_count(timer_domain), 1, 'It should have created the timer.')
+        self.assertEqual(len(self.test_timer_bis.with_user(self.usr2).user_timer_id), 1,
+            'It should exist only one timer for this user, model and record')
+        self.test_timer_bis.with_user(self.usr1).unlink()
+        self.assertEqual(self.env['timer.timer'].search_count(timer_domain), 0, 'It should have deleted the timer.')
