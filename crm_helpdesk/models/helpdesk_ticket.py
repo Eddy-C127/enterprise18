@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, tools
+from odoo import models, tools, _
 
 
 class HelpdeskTicket(models.Model):
@@ -18,16 +18,15 @@ class HelpdeskTicket(models.Model):
         self.ensure_one()
         partner = self.partner_id
 
-        if not partner and self.partner_email:
-            partner = self.env['res.partner'].search([('email_normalized', '=', tools.email_normalize(self.partner_email))], limit=1)
-
-        if not partner and not email_only and self.partner_name:
-            partner = self.env['res.partner'].search([('name', 'ilike', self.partner_name)], limit=1)
+        if not partner and self.email_cc:
+            partner = self.env['res.partner'].search([('email_normalized', '=', tools.email_normalize(self.email_cc))], limit=1)
+        elif self.partner_phone:
+            partner = self.env['res.partner'].search([('phone', '=', self.partner_phone)], limit=1)
 
         if not partner and force_create:
             partner = self.env['res.partner'].create({
-                'name': self.partner_name,
-                'email': self.partner_email,
+                'name': self.partner_name or self.name,
+                'email': self.partner_name or self.email_cc,
                 'phone': self.partner_phone,
             })
 
@@ -38,3 +37,16 @@ class HelpdeskTicket(models.Model):
                 partner.phone = self.partner_phone
 
         return partner
+
+    def action_convert_ticket_to_lead_or_opportunity(self):
+        return {
+            'name': _('Convert to Lead') if self.env.user.has_group('crm.group_use_lead') else _('Convert to Opportunity'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'helpdesk.ticket.to.lead',
+            'view_mode': 'form',
+            'view_id': self.env.ref('crm_helpdesk.helpdesk_ticket_to_lead_view_form').id,
+            'target': 'new',
+            'context': {
+                'dialog_size': 'medium',
+            },
+        }

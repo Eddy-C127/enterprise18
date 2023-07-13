@@ -10,7 +10,25 @@
             <xpath expr="/form/header/button[last()]" position="after">
                 <button class="oe_stat_button" type="action" name="%(crm_lead_convert2ticket_action)d"
                         string="Convert to Ticket"
-                        invisible="not active or type == 'opportunity'"/>
+                        invisible="context.get('show_create_ticket', False) or not active or type == 'opportunity'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form_inherited" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherited</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="header" position="inside">
+                <button class="btn btn-secondary" type="object" string="Convert to Lead"
+                        name="action_convert_ticket_to_lead_or_opportunity"
+                        invisible="not active"
+                        groups="crm.group_use_lead" data-hotkey="q"/>
+                <button class="btn btn-secondary" type="object" string="Convert to Opportunity"
+                        name="action_convert_ticket_to_lead_or_opportunity"
+                        invisible="not active"
+                        groups="!crm.group_use_lead" data-hotkey="q"/>
             </xpath>
         </field>
     </record>

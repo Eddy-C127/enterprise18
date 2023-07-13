@@ -41,6 +41,7 @@ class TestTicketConvertToLead(helpdesk_common.HelpdeskCommon):
             'user_id': cls.helpdesk_user.id,
             'partner_name': 'My Test Customer',
             'partner_email': '"My Test Customer" <my.customer@example.com>',
+            'email_cc': '"My Test Customer" <my.customer@example.com>',
             'campaign_id': cls.test_campaign.id,
             'team_id': False,
             'medium_id': cls.test_medium.id,
@@ -152,7 +153,7 @@ class TestTicketConvertToLead(helpdesk_common.HelpdeskCommon):
             'partner_id': False,
             'partner_email': False,
         })
-        new_partner = self.env['res.partner'].search([('name', '=', 'My Test Customer')])
+        new_partner = self.env['res.partner'].search([('email', '=', 'my.customer@example.com')])
         self.assertTrue(len(new_partner))
 
         # ensure basic rights on team and ticket type

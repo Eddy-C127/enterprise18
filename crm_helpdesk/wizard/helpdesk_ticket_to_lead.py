@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
@@ -21,6 +20,12 @@ class HelpdeskTicketConvert2Lead(models.TransientModel):
                 raise ValidationError(_('An archived ticket cannot be converted into a lead.'))
         return res
 
+    convert_to = fields.Selection([
+        ('convert', 'Convert to opportunity'),
+    ], 'Conversion Action')
+    force_assignment = fields.Boolean(
+        'Force assignment', default=True,
+        help='If checked, forces salesman to be updated on updated opportunities even if already set.')
     ticket_id = fields.Many2one('helpdesk.ticket', required=True, readonly=False)
     action = fields.Selection([
         ('create', 'Create a new customer'),
@@ -40,7 +45,7 @@ class HelpdeskTicketConvert2Lead(models.TransientModel):
                 partner = convert.ticket_id._find_matching_partner()
                 if partner:
                     convert.action = 'exist'
-                elif convert.ticket_id.partner_name:
+                elif convert.ticket_id.name:
                     convert.action = 'create'
                 else:
                     convert.action = 'nothing'
@@ -74,12 +79,9 @@ class HelpdeskTicketConvert2Lead(models.TransientModel):
         self.ensure_one()
         # create partner if needed
         if self.action == 'create':
-            self.partner_id = self.ticket_id._find_matching_partner(force_create=True).id
+            self.partner_id = self.ticket_id._find_matching_partner(force_create=True)
 
-        lead_sudo = self.env['crm.lead'].with_context(
-            mail_create_nosubscribe=True,
-            mail_create_nolog=True
-        ).sudo().create({
+        values = {
             'name': self.ticket_id.name,
             'partner_id': self.partner_id.id,
             'team_id': self.team_id.id,
@@ -89,10 +91,26 @@ class HelpdeskTicketConvert2Lead(models.TransientModel):
             "campaign_id": self.ticket_id.campaign_id.id,
             "medium_id": self.ticket_id.medium_id.id,
             "source_id": self.ticket_id.source_id.id,
-        })
-        lead_sudo.message_post_with_source(
-            'helpdesk.ticket_creation',
-            render_values={'self': lead_sudo, 'ticket': self.ticket_id},
+        }
+
+        ticket_link = self.ticket_id._get_html_link(title=f"{self.ticket_id.name} #({self.ticket_id.ticket_ref})")
+
+        if self.env.user.has_group('crm.group_use_lead'):
+            mail_message = _('This lead has been created from ticket: %s', ticket_link)
+            mail_thread_message = _('Lead created')
+        else:
+            values['type'] = 'opportunity'
+            mail_message = _('This opportunity has been created from ticket: %s', ticket_link)
+            mail_thread_message = _('Opportunity created')
+
+        lead_sudo = self.env['crm.lead'].with_context(
+            mail_create_nosubscribe=True,
+            mail_create_nolog=True,
+        ).sudo().create(values)
+
+        lead_sudo.message_post(
+            body=mail_message,
+            message_type='comment',
             subtype_xmlid='mail.mt_note',
         )
 
@@ -105,7 +123,7 @@ class HelpdeskTicketConvert2Lead(models.TransientModel):
         # After mail thread move, add linked lead message to ticket
         self.ticket_id.message_post_with_source(
             'helpdesk.ticket_conversion_link',
-            render_values={'created_record': lead_sudo, 'message': _('Lead Created')},
+            render_values={'created_record': lead_sudo, 'message': mail_thread_message},
             subtype_xmlid='mail.mt_note',
         )
 
