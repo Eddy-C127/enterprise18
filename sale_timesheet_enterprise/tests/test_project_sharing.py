@@ -87,6 +87,8 @@ class TestProjectSharing(TestProjectSharingCommon):
             ])
 
         # 3) Check if the portal user can see the timesheets into that task
+        # The portal user is added to the followers of the task to enable its read access to it.
+        task.message_subscribe(partner_ids=self.user_portal.partner_id.ids)
         task_read_with_portal_user = task.with_user(self.user_portal).read(['timesheet_ids'])
         self.assertEqual(len(task_read_with_portal_user[0]['timesheet_ids']), 2, 'The external collaborator should see the both timesheets created in that task.')
 

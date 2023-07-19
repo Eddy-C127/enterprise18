@@ -178,7 +178,7 @@ class TestSaleValidatedTimesheet(TestCommonSaleTimesheet):
                 Command.link(portal_user.partner_id.id),
             ],
         }).action_send_mail()
-
+        ordered_task.message_subscribe(partner_ids=portal_user.partner_id.ids)
         fields_to_fetch = ['portal_remaining_hours', 'portal_effective_hours', 'portal_total_hours_spent', 'portal_subtask_effective_hours', 'portal_progress']
         basic_task_read = ordered_task.read(fields_to_fetch)[0]
         portal_task_read = ordered_task.with_user(portal_user).read(fields_to_fetch)[0]
