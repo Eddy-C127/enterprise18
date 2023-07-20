@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licens
 
+import logging
 from odoo import http, _
 from odoo.http import request
 from odoo.tools import format_duration
@@ -12,6 +13,13 @@ from odoo.tools.misc import get_lang
 
 from odoo import tools
 
+_logger = logging.getLogger(__name__)
+
+try:
+    import vobject
+except ImportError:
+    _logger.warning("`vobject` Python module not found, vcard file generation disabled. Consider installing this module if you want to generate vcard files")
+    vobject = None
 
 class ShiftController(http.Controller):
 
@@ -298,6 +306,52 @@ class ShiftController(http.Controller):
         if request.env.user:
             return request.redirect('/web?#action=planning.planning_action_open_shift')
         return request.env['ir.ui.view']._render_template('planning.slot_unassign')
+
+    @http.route(['/slot/<string:access_token>.ics'], type='http', auth="public", website=True)
+    def slot_get_ics_file(self, access_token, **kwargs):
+        """
+            Route to add the appointment event in a iCal/Outlook calendar
+        """
+        slot = request.env['planning.slot'].sudo().search([('access_token', '=', access_token)], limit=1)
+        if not slot or not vobject:
+            return request.not_found()
+
+        calendar = slot._get_ics_file(vobject.iCalendar(), slot.employee_id.tz)
+        if not calendar:
+            return request.not_found()
+        content = calendar.serialize().encode('utf-8')
+
+        shift_name = slot.role_id.name.replace(" ", "_") if slot.role_id else _('New_Shift')
+        shift_start_time = slot.start_datetime.astimezone(pytz.timezone(slot._get_tz())).strftime('%m_%d_%H_%M')
+
+        return request.make_response(content, [
+            ('Content-Type', 'application/octet-stream'),
+            ('Content-Length', len(content)),
+            ('Content-Disposition', f'attachment; filename=shift_{shift_name}_{shift_start_time}.ics')
+        ])
+
+    @http.route(['/planning/<string:planning_token>/<string:employee_token>.ics'], type='http', auth="public", website=True)
+    def planning_get_ics_file(self, planning_token, employee_token, **kwargs):
+        """
+            Route to add the appointment event in a iCal/Outlook calendar
+        """
+        employee_sudo = request.env['hr.employee'].sudo().search([('employee_token', '=', employee_token)], limit=1)
+
+
+        planning_sudo = request.env['planning.planning'].sudo().search([('access_token', '=', planning_token)], limit=1)
+        if not (planning_sudo and vobject):
+            return request.not_found()
+
+        calendar = planning_sudo._get_ics_file(
+            vobject.iCalendar(),
+            employee_sudo,
+        )
+        start_name = planning_sudo.date_start.strftime('%m_%d')
+        end_name = planning_sudo.date_end.strftime('%m_%d')
+        response = request.make_response(calendar.serialize())
+        response.headers.add('Content-Type', 'text/calendar')
+        response.headers.add('Content-Disposition', 'attachment', filename=f'planning_{start_name}_to_{end_name}.ics')
+        return response
 
     @staticmethod
     def _format_planning_shifts(color_code):

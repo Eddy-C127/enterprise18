@@ -95,3 +95,9 @@ class PlanningShift(models.Model):
             **super()._prepare_shift_vals(),
             'project_id': self.project_id.id,
         }
+
+    def _get_ics_description_data(self):
+        return {
+            **super()._get_ics_description_data(),
+            'project': self.project_id.sudo().display_name if self.project_id else '',
+        }

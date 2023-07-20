@@ -428,6 +428,14 @@ class PlanningSlot(models.Model):
         resource_calendar_validity_intervals = resource._get_calendars_validity_within_period(start, end, default_company=self.company_id)[resource.id]
         return resource_calendar_validity_intervals, resource
 
+    def _get_ics_description_data(self):
+        return {
+            **super()._get_ics_description_data(),
+            'sale_order': self.sale_line_id.sudo().order_id.name if self.sale_line_id else '',
+            'sale_order_item': self.sale_line_id.sudo().name if self.sale_line_id else '',
+            'partner': self.partner_id.name,
+        }
+
     # -------------------------------------------
     # Slots Assignation
     # -------------------------------------------

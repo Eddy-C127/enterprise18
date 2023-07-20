@@ -11,6 +11,17 @@
             <field name="auto_delete" eval="False"/>
             <field name="description">Email sent automatically when publishing a shift</field>
             <field name="body_html" type="html">
+                <style>
+                    .planning_mail_template_button {
+                        padding: 5px 10px;
+                        text-decoration: none;
+                        border: 1px;
+                        border-radius: 3px;
+                        display: inline-block; 
+                        width: 190px;
+                        text-align: center;
+                    }
+                </style>
                 <div>
                     <p>Dear <t t-out="ctx.get('employee_name', '')">Anita Oliver</t>,<br/><br/></p>
                     <t t-if="ctx.get('open_shift_available')">
@@ -46,6 +57,16 @@
                             <td style="padding: 5px;" t-out="object.name or ''">/</td>
                         </tr>
                     </table>
+                    <div style="display: flex; margin: 15px;">
+                        <div t-if="ctx.get('google_url')" style="margin-right: 15px;">
+                            <a t-att-href="ctx.get('google_url')" target="_blank" class="planning_mail_template_button"
+                                style="color: #374151; background-color: #E7E9ED; border: solid #E7E9ED; width: 200px;">Add to Google Calendar</a>
+                        </div>
+                        <div t-if="ctx.get('iCal_url')">
+                            <a t-att-href="ctx.get('iCal_url')" target="_blank" class="planning_mail_template_button"
+                                style="color: #374151; background-color: #E7E9ED; border: solid #E7E9ED; width: 200px;">Add to iCal/Outlook</a>
+                        </div>
+                    </div>
                 </div>
             </field>
         </record>
@@ -59,6 +80,17 @@
             <field name="auto_delete" eval="False"/><!-- TODO JEM  change this as we are testing -->
             <field name="description">Email sent automatically when publishing the schedule of your employees</field>
             <field name="body_html" type="html">
+                <style>
+                .planning_mail_template_button {
+                    padding: 5px 10px;
+                    text-decoration: none;
+                    border: 1px;
+                    border-radius: 3px;
+                    display: inline-block; 
+                    width: 190px;
+                    text-align: center;
+                }
+                </style>
                 <div>
                     <p>
                     <t t-if="ctx.get('employee')">
@@ -88,9 +120,15 @@
                         </tr>
                     </table>
 
-                    <div t-if="ctx.get('planning_url')" style="margin: 15px;">
-                        <a t-att-href="ctx.get('planning_url')" target="_blank"
-                            style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">View Your Planning</a>
+                    <div style="display: flex; margin: 15px;">
+                        <div t-if="ctx.get('planning_url')" style="margin-right: 15px;">
+                            <a t-att-href="ctx.get('planning_url')" target="_blank" class="planning_mail_template_button"
+                                style="color: #FFFFFF; background-color: #875A7B; border: solid #875A7B;">View Your Planning</a>
+                        </div>
+                        <div t-if="ctx.get('planning_url_ics')">
+                            <a t-att-href="ctx.get('planning_url_ics')" target="_blank" class="planning_mail_template_button"
+                                style="color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;">Add to Calendar</a>
+                        </div>
                     </div>
 
                     <div t-if="ctx.get('slot_unassigned')">

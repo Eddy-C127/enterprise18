@@ -9,6 +9,7 @@ import uuid
 from math import modf
 from random import randint, shuffle
 import itertools
+from werkzeug.urls import url_encode
 
 from odoo import api, fields, models, _
 from odoo.addons.resource.models.utils import Intervals, sum_intervals, string_to_datetime
@@ -29,6 +30,7 @@ def days_span(start_datetime, end_datetime):
     start = datetime.combine(start_datetime, datetime.min.time())
     duration = end - start
     return duration.days + 1
+
 
 
 class Planning(models.Model):
@@ -961,6 +963,35 @@ class Planning(models.Model):
             raise UserError(_("You cannot cancel a request to switch that is in the past."))
         return self.sudo().write({'request_to_switch': False})
 
+    def _get_ics_file(self, calendar, employee_tz):
+        def ics_datetime(idate):
+            return idate and idate.astimezone(
+                pytz.timezone(slot._get_tz())
+            ).replace(tzinfo=pytz.timezone(employee_tz))
+
+        for slot in self:
+            event = calendar.add('vevent')
+            if not slot.start_datetime or not slot.end_datetime:
+                raise UserError(_("First you have to specify the date of the invitation."))
+            event.add('created').value = ics_datetime(fields.Datetime.now())
+            event.add('dtstart').value = ics_datetime(slot.start_datetime)
+            event.add('dtend').value = ics_datetime(slot.end_datetime)
+            event.add('summary').value = slot.display_name
+            ics_description_data = {
+                'shift': slot._get_ics_description_data(),
+                'is_google_url': False,
+            }
+            event.add('description').value = self.env['ir.qweb']._render('planning.planning_shift_ics_description', ics_description_data)
+        return calendar
+
+    def _get_ics_description_data(self):
+        return {
+            'name': self.name,
+            'allocated_hours': self.allocated_hours,
+            'allocated_percentage': self.allocated_percentage,
+            'role': self.role_id.name,
+        }
+
     def auto_plan_id(self):
         """ Used in the form view to auto plan a single shift.
         """
@@ -1890,10 +1921,13 @@ class Planning(models.Model):
         template = self.env.ref('planning.email_template_slot_single')
         employee_url_map = {**employee_without_backend.sudo()._planning_get_url(planning), **employee_with_backend._slot_get_url(self)}
 
+        cal_url = self._get_slot_resource_urls()
         view_context = dict(self._context)
         view_context.update({
             'open_shift_available': not self.employee_id,
             'mail_subject': _('Planning: new open shift available on'),
+            'google_url': cal_url['google_url'],
+            'iCal_url': cal_url['iCal'],
         })
 
         if self.employee_id:
@@ -2089,6 +2123,24 @@ class Planning(models.Model):
             else calendar_intervals[self.company_id.resource_calendar_id.id]
         return sum_intervals(slot_interval & working_intervals)
 
+    def _get_slot_resource_urls(self):
+        def get_url_dt(dt):
+            return dt.astimezone(pytz.timezone(self._get_tz())).strftime('%Y%m%dT%H%M%S')
+        ics_description_data = {
+            'shift': self._get_ics_description_data(),
+            'is_google_url': True,
+        }
+        return {
+            'google_url': "https://www.google.com/calendar/render?" + url_encode({
+                'action': 'TEMPLATE',
+                'text': self.display_name or _('New Shift'),  # Event title
+                'dates': f'{get_url_dt(self.start_datetime)}/{get_url_dt(self.end_datetime)}',  # Event start and end date/time
+                'ctz': self._get_tz(),
+                'details': self.env['ir.qweb']._render('planning.planning_shift_ics_description', ics_description_data),
+            }),
+            'iCal': f'/slot/{self.access_token}.ics',
+        }
+
     def _get_duration_over_period(self, start_utc, stop_utc, work_intervals, calendar_intervals, has_allocated_hours=True):
         assert start_utc.tzinfo and stop_utc.tzinfo
         self.ensure_one()
@@ -2242,6 +2294,19 @@ class PlanningPlanning(models.Model):
             and slot_sudo.state == "published"
         )
 
+    def _get_ics_file(self, calendar, employee):
+        self.ensure_one()
+        slots_in_planning = self.env['planning.slot'].search([
+            ('start_datetime', '>=', self.start_datetime),
+            ('end_datetime', '<=', self.end_datetime),
+            ('state', '=', 'published'),
+            '|',
+                ('employee_id', '=', employee.id),
+                ('request_to_switch', '=', True),
+        ])
+        slots_in_planning._get_ics_file(calendar, employee.tz)
+        return calendar
+
     def _send_planning(self, slots, message=None, employees=False):
         email_from = self.env.user.email or self.env.user.company_id.email or ''
         # extract planning URLs
@@ -2252,6 +2317,7 @@ class PlanningPlanning(models.Model):
         template_context = {
             'slot_unassigned': self.include_unassigned,
             'message': message,
+            'planning_ics_url': f'/planning/ics/{self.access_token}.ics',
         }
         if template:
             # /!\ For security reason, we only given the public employee to render mail template
@@ -2261,6 +2327,7 @@ class PlanningPlanning(models.Model):
                     template_context['start_datetime'] = self.date_start
                     template_context['end_datetime'] = self.date_end
                     template_context['planning_url'] = employee_url_map[employee.id]
+                    template_context['planning_url_ics'] = employee_url_map[employee.id] + '.ics'
                     template_context['assigned_new_shift'] = bool(slots.filtered(lambda slot: slot.employee_id.id == employee.id))
                     template.with_context(**template_context).send_mail(self.id, email_values={'email_to': employee.work_email, 'email_from': email_from}, email_layout_xmlid='mail.mail_notification_light')
         # mark as sent
