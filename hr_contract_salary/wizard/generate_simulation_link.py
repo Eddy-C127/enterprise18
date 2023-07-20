@@ -133,8 +133,8 @@ class GenerateSimulationLink(models.TransientModel):
         }
 
     def action_save(self):
-        if self.env.context.get('active_model') == "hr.applicant" and not self.applicant_id.partner_name:
-            raise UserError(_('Offer link can not be send. The applicant needs to have a name.'))
+        if self.env.context.get('active_model') == "hr.applicant" and (not self.applicant_id.partner_name or not self.email_to):
+            raise UserError(_('Offer link can not be send. The applicant needs to have a name and email.'))
 
         validity_end = (fields.Date.context_today(self) + relativedelta(days=self.validity))
         offer_values = self._get_offer_values()
@@ -158,8 +158,8 @@ class GenerateSimulationLink(models.TransientModel):
         }
 
     def action_send_offer(self):
-        if self.env.context.get('active_model') == "hr.applicant" and not self.applicant_id.partner_name:
-            raise UserError(_('Offer link can not be send. The applicant needs to have a name.'))
+        if self.env.context.get('active_model') == "hr.applicant" and (not self.applicant_id.partner_name or not self.email_to):
+            raise UserError(_('Offer link can not be send. The applicant needs to have a name and email.'))
 
         try:
             template_id = self.env.ref('hr_contract_salary.mail_template_send_offer').id
@@ -170,10 +170,7 @@ class GenerateSimulationLink(models.TransientModel):
         except ValueError:
             template_applicant_id = False
         partner_to = False
-        email_to = False
-        if self.employee_id:
-            email_to = self.employee_id.work_email
-        elif self.applicant_id:
+        if self.applicant_id:
             partner_to = self.applicant_id.partner_id
             if not partner_to:
                 partner_to = self.env['res.partner'].create({
@@ -212,7 +209,7 @@ class GenerateSimulationLink(models.TransientModel):
             'access_token': offer.access_token,
             'partner_to': partner_to and partner_to.id or False,
             'validity_end': validity_end,
-            'email_to': email_to or False,
+            'email_to': self.email_to,
             'mail_post_autofollow': False,
         }
         return {

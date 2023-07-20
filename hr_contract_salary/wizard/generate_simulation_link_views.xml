@@ -34,8 +34,9 @@
                     </div>
                     <div class="alert alert-danger text-center"
                         role="alert" colspan="2"
-                        invisible="email_to or applicant_id">
-                        The employee does not have a valid work email set. The Simulation Link won't be able to be completed.
+                        invisible="email_to">
+                        <span invisible="applicant_id">The employee does not have a valid work email set. The Simulation Link won't be able to be completed.</span>
+                        <span invisible="not applicant_id">The applicant does not have a valid email set. The Offer Link won't be able to be completed.</span>
                     </div>
                 </group>
                 <footer>
