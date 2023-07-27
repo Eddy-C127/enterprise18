@@ -288,7 +288,8 @@ class AnalyticLine(models.Model):
                     raise AccessError(_('Timesheets before the %s (included) have been validated, and can no longer be %s.', last_validated_timesheet_date_str, deleted if delete else modified))
 
     def _check_can_create(self):
-
+        if self.filtered(lambda t: t.unit_amount > 999999):
+            raise UserError(_("You can't encode numbers with more than six digits."))
         # Check if the user has the correct access to create timesheets
         if not (self.user_has_groups('hr_timesheet.group_hr_timesheet_approver') or self.env.su) and any(line.is_timesheet and line.user_id.id != self.env.user.id for line in self):
             raise AccessError(_("You cannot access timesheets that are not yours."))
@@ -297,6 +298,9 @@ class AnalyticLine(models.Model):
         return super()._check_can_create()
 
     def _check_can_write(self, vals):
+        if vals.get('unit_amount', 0) > 999999:
+            raise UserError(_("You can't encode numbers with more than six digits."))
+
         if not self.user_has_groups('hr_timesheet.group_hr_timesheet_approver'):
             if 'validated' in vals:
                 raise AccessError(_('You can only validate the timesheets of employees of whom you are the manager or the timesheet approver.'))
