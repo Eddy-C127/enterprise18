@@ -11,6 +11,7 @@ import { escape } from "@web/core/utils/strings";
 import { MilestonesPopover } from "./milestones_popover";
 import { TaskGanttPopover } from "./task_gantt_popover";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
+import { formatFloatTime } from "@web/views/fields/formatters";
 
 export class TaskGanttRenderer extends GanttRenderer {
     static components = {
@@ -90,7 +91,7 @@ export class TaskGanttRenderer extends GanttRenderer {
         props.unschedule = async () => {
             await this.model.unscheduleTask(record.id);
         };
-
+        props.context.allocated_hours = formatFloatTime(props.context.allocated_hours);
         return props;
     }
 

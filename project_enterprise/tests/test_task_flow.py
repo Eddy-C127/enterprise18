@@ -60,28 +60,32 @@ class TestTaskFlow(common.TransactionCase):
             'user_ids': self.project_user,
             'project_id': self.project_test.id,
             'planned_date_begin': datetime.now(),
-            'date_deadline': datetime.now() + relativedelta(hours=4)
+            'date_deadline': datetime.now() + relativedelta(hours=4),
+            'allocated_hours': 4,
         })
         task_B = self.env['project.task'].create({
             'name': 'Fsm task 2',
             'user_ids': self.project_user,
             'project_id': self.project_test.id,
             'planned_date_begin': datetime.now() + relativedelta(hours=2),
-            'date_deadline': datetime.now() + relativedelta(hours=6)
+            'date_deadline': datetime.now() + relativedelta(hours=6),
+            'allocated_hours': 4,
         })
         task_C = self.env['project.task'].create({
             'name': 'Fsm task 2',
             'user_ids': self.project_user,
             'project_id': self.project_test.id,
             'planned_date_begin': datetime.now() + relativedelta(hours=5),
-            'date_deadline': datetime.now() + relativedelta(hours=7)
+            'date_deadline': datetime.now() + relativedelta(hours=7),
+            'allocated_hours': 2,
         })
         task_D = self.env['project.task'].create({
             'name': 'Fsm task 2',
             'user_ids': self.project_user,
             'project_id': self.project_test.id,
             'planned_date_begin': datetime.now() + relativedelta(hours=8),
-            'date_deadline': datetime.now() + relativedelta(hours=9)
+            'date_deadline': datetime.now() + relativedelta(hours=9),
+            'allocated_hours': 1,
         })
         self.assertEqual(task_A.planning_overlap, Markup('<p>Armande Project_user has 1 tasks at the same time.</p>'))
         self.assertEqual(task_B.planning_overlap, Markup('<p>Armande Project_user has 2 tasks at the same time.</p>'))
@@ -94,24 +98,28 @@ class TestTaskFlow(common.TransactionCase):
             'project_id': self.project_test.id,
             'planned_date_begin': '2021-09-24 06:00:00',
             'date_deadline': '2021-09-24 15:00:00',
+            'allocated_hours': 8,
         }, {
             'name': 'Task 2',
             'user_ids': self.project_user,
             'project_id': self.project_test.id,
             'planned_date_begin': '2021-09-27 06:00:00',
             'date_deadline': '2021-09-28 15:00:00',
+            'allocated_hours': 16,
         }, {
             'name': 'Task 3',
             'user_ids': self.project_user,
             'project_id': self.project_test.id,
             'planned_date_begin': '2021-09-29 05:00:00',
             'date_deadline': '2021-09-29 08:00:00',
+            'allocated_hours': 3,
         }, {
             'name': 'Task 4',
             'user_ids': self.project_user,
             'project_id': self.project_test.id,
             'planned_date_begin': '2021-09-30 12:00:00',
             'date_deadline': '2021-09-30 15:00:00',
+            'allocated_hours': 3,
         }])
 
         progress_bar = self.env['project.task'].gantt_progress_bar(
@@ -121,31 +129,33 @@ class TestTaskFlow(common.TransactionCase):
         self.assertEqual(40, progress_bar[self.project_user.id]['max_value'], "User is expected to work 40 hours on this period")
 
         self.env['project.task'].create([{
-            'name': 'Task 1',
+            'name': 'Task 5',
             'user_ids': self.project_user,
             'project_id': self.project_test.id,
-            'planned_date_begin': '2021-10-02 08:00:00',
-            'date_deadline': '2021-10-02 17:00:00',
+            'planned_date_begin': '2021-10-02 06:00:00',
+            'date_deadline': '2021-10-02 15:00:00',
+            'allocated_hours': 8,
         }])
 
         progress_bar = self.env['project.task'].gantt_progress_bar(
             ['user_ids'], {'user_ids': self.project_user.ids}, '2021-09-26 00:00:00', '2021-10-02 23:59:59'
         )['user_ids']
-        self.assertEqual(31, progress_bar[self.project_user.id]['value'], "User should have 31 hours planned on this period")
+        self.assertEqual(30, progress_bar[self.project_user.id]['value'], "User should have 30 hours planned on this period")
         self.assertEqual(40, progress_bar[self.project_user.id]['max_value'], "User is expected to work 40 hours on this period")
 
         self.env['project.task'].create([{
-            'name': 'Task 2',
+            'name': 'Task 6',
             'user_ids': self.project_user,
             'project_id': self.project_test.id,
-            'planned_date_begin': '2021-09-24 08:00:00',
-            'date_deadline': '2021-09-27 17:00:00',
+            'planned_date_begin': '2021-09-24 06:00:00',
+            'date_deadline': '2021-09-27 15:00:00',
+            'allocated_hours': 16,
         }])
 
         progress_bar = self.env['project.task'].gantt_progress_bar(
             ['user_ids'], {'user_ids': self.project_user.ids}, '2021-09-26 00:00:00', '2021-10-02 23:59:59'
         )['user_ids']
-        self.assertEqual(39, progress_bar[self.project_user.id]['value'], "User should have 39 hours planned on this period")
+        self.assertEqual(38, progress_bar[self.project_user.id]['value'], "User should have 38 hours planned on this period")
         self.assertEqual(40, progress_bar[self.project_user.id]['max_value'], "User is expected to work 40 hours on this period")
 
     def test_project_user_can_see_progress_bar(self):
@@ -155,12 +165,13 @@ class TestTaskFlow(common.TransactionCase):
             'project_id': self.project_test.id,
             'planned_date_begin': '2021-09-27 06:00:00',
             'date_deadline': '2021-09-28 15:00:00',
+            'allocated_hours': 16,
         }])
 
         progress_bar = self.env['project.task'].with_user(self.project_test_user).gantt_progress_bar(
             ['user_ids'], {'user_ids': self.project_user.ids}, '2021-09-26 00:00:00', '2021-10-02 23:59:59'
         )['user_ids']
-        self.assertEqual(16, progress_bar[self.project_user.id]['value'], "User should have 22 hours planned on this period")
+        self.assertEqual(16, progress_bar[self.project_user.id]['value'], "User should have 16 hours planned on this period")
         self.assertEqual(40, progress_bar[self.project_user.id]['max_value'], "User is expected to work 40 hours on this period")
 
     def test_portal_user_cannot_see_progress_bar(self):
@@ -170,6 +181,7 @@ class TestTaskFlow(common.TransactionCase):
             'project_id': self.project_test.id,
             'planned_date_begin': '2021-09-27 06:00:00',
             'date_deadline': '2021-09-28 15:00:00',
+            'allocated_hours': 16,
         }])
 
         progress_bar = self.env['project.task'].with_user(self.portal_user).gantt_progress_bar(
@@ -210,7 +222,7 @@ class TestTaskFlow(common.TransactionCase):
         end = start + relativedelta(days=nb / 2 + 1)
         users = self.project_user | self.project_test_user
 
-        with self.assertQueryCount(__system__=7):
+        with self.assertQueryCount(__system__=9):
             # Query count should be stable even if the number of tasks or users increase (progress bar query count is O(1))
             progress_bar = self.env['project.task'].gantt_progress_bar(
                 ['user_ids'], {'user_ids': users.ids}, start.strftime(DEFAULT_SERVER_DATETIME_FORMAT), end.strftime(DEFAULT_SERVER_DATETIME_FORMAT)

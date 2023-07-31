@@ -41,6 +41,10 @@ patch(registry.category("web_tour.tours").get("project_test_tour"), {
         }, {
             trigger: '.o_gantt_button_add',
             content: 'Add a task in gantt',
+        }, {
+            trigger: 'div[name="allocated_hours"] input',
+            content: 'Set allocated_hours',
+            run: 'text 200'
         });
 
         originalSteps.splice(originalSteps.length, 0, {

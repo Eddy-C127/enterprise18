@@ -7,10 +7,11 @@ from datetime import timedelta, datetime
 from dateutil.relativedelta import relativedelta
 from odoo.tools.date_utils import get_timedelta
 
-from odoo import Command, fields, models, api, _, _lt
+from odoo import fields, models, api, _, _lt
 from odoo.osv import expression
 from odoo.exceptions import UserError
 from odoo.tools import topological_sort
+from odoo.tools.sql import SQL
 from odoo.addons.resource.models.utils import filter_domain_leaf
 from odoo.osv.expression import is_leaf
 
@@ -79,74 +80,150 @@ class Task(models.Model):
         if not self.date_deadline:
             self.planned_date_begin = False
 
-    def _get_planning_overlap_per_task(self, group_by_user=False):
+    def _fetch_planning_overlap(self, additional_domain=None):
+        domain = [
+            ('active', '=', True),
+            ('state', 'in', ('01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal')),
+            ('planned_date_begin', '!=', False),
+            ('date_deadline', '!=', False),
+            ('date_deadline', '>', fields.Datetime.now()),
+            ('project_id', '!=', False),
+        ]
+        if additional_domain:
+            domain = expression.AND([domain, additional_domain])
+        Task = self.env['project.task']
+        planning_overlap_query = Task._where_calc(
+            expression.AND([
+                domain,
+                [('id', 'in', self.ids)]
+            ])
+        )
+        tu1_alias = planning_overlap_query.join(Task._table, 'id', 'project_task_user_rel', 'task_id', 'TU1')
+        task2_alias = planning_overlap_query.make_alias(Task._table, 'T2')
+        task2_expression = expression.expression(domain, Task, task2_alias)
+        task2_query = task2_expression.query
+
+        # add additional condition to join with the main query
+        task2_query.add_where(
+            SQL(
+                "%s != %s",
+                SQL.identifier(task2_alias, 'id'),
+                SQL.identifier(self._table, 'id')
+            )
+        )
+        task2_query.add_where(
+            SQL(
+                "(%s::TIMESTAMP, %s::TIMESTAMP) OVERLAPS (%s::TIMESTAMP, %s::TIMESTAMP)",
+                SQL.identifier(Task._table, 'planned_date_begin'),
+                SQL.identifier(Task._table, 'date_deadline'),
+                SQL.identifier(task2_alias, 'planned_date_begin'),
+                SQL.identifier(task2_alias, 'date_deadline')
+            )
+        )
+
+        # join task2 query with the main query
+        planning_overlap_query.add_join(
+            'JOIN',
+            task2_alias,
+            Task._table,
+            task2_query.where_clause
+        )
+        tu2_alias = planning_overlap_query.join(task2_alias, 'id', 'project_task_user_rel', 'task_id', 'TU2')
+        planning_overlap_query.add_where(
+            SQL(
+                "%s = %s",
+                SQL.identifier(tu1_alias, 'user_id'),
+                SQL.identifier(tu2_alias, 'user_id')
+            )
+        )
+        user_alias = planning_overlap_query.join(tu1_alias, 'user_id', 'res_users', 'id', 'U')
+        partner_alias = planning_overlap_query.join(user_alias, 'partner_id', 'res_partner', 'id', 'P')
+        query_str = planning_overlap_query.select(
+            SQL.identifier(Task._table, 'id'),
+            SQL.identifier(Task._table, 'planned_date_begin'),
+            SQL.identifier(Task._table, 'date_deadline'),
+            SQL("ARRAY_AGG(%s) AS task_ids", SQL.identifier(task2_alias, 'id')),
+            SQL("MIN(%s)", SQL.identifier(task2_alias, 'planned_date_begin')),
+            SQL("MAX(%s)", SQL.identifier(task2_alias, 'date_deadline')),
+            SQL("%s AS user_id", SQL.identifier(user_alias, 'id')),
+            SQL("%s AS partner_name", SQL.identifier(partner_alias, 'name')),
+            SQL("%s", SQL.identifier(Task._table, 'allocated_hours')),
+            SQL("SUM(%s)", SQL.identifier(task2_alias, 'allocated_hours')),
+        )
+
+        self.env.cr.execute(
+            SQL(
+                """
+                    %s
+                    GROUP BY %s
+                """,
+                query_str,
+                SQL(", ").join([
+                    SQL.identifier(Task._table, 'id'),
+                    SQL.identifier(user_alias, 'id'),
+                    SQL.identifier(partner_alias, 'name'),
+                ])
+            )
+        )
+        return self.env.cr.dictfetchall()
+
+    def _get_planning_overlap_per_task(self):
         if not self.ids:
             return {}
         self.flush_model(['active', 'planned_date_begin', 'date_deadline', 'user_ids', 'project_id', 'state'])
 
-        additional_select_fields = additional_join_fields = additional_join_str = ""
-
-        if group_by_user:
-            additional_select_fields = ", P.name, P.id AS res_partner_id"
-            additional_join_fields = ", P.name, P.id"
-            additional_join_str = """
-                INNER JOIN res_users U3 ON U3.id = U1.user_id
-                INNER JOIN res_partner P ON P.id = U3.partner_id
-            """
-
-        query = """
-            SELECT T.id, COUNT(T2.id)
-            %s
-              FROM project_task T
-        INNER JOIN project_task_user_rel U1 ON T.id = U1.task_id
-        INNER JOIN project_task T2 ON T.id != T2.id
-               AND T2.active = 't'
-               AND T2.state IN ('01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal')
-               AND T2.planned_date_begin IS NOT NULL
-               AND T2.date_deadline IS NOT NULL
-               AND T2.date_deadline > NOW() AT TIME ZONE 'UTC'
-               AND T2.project_id IS NOT NULL
-               AND (T.planned_date_begin::TIMESTAMP, T.date_deadline::TIMESTAMP)
-          OVERLAPS (T2.planned_date_begin::TIMESTAMP, T2.date_deadline::TIMESTAMP)
-        INNER JOIN project_task_user_rel U2 ON T2.id = U2.task_id
-               AND U2.user_id = U1.user_id
-        %s
-             WHERE T.id IN %s
-               AND T.active = 't'
-               AND T.state IN ('01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal')
-               AND T.planned_date_begin IS NOT NULL
-               AND T.date_deadline IS NOT NULL
-               AND T.date_deadline > NOW() AT TIME ZONE 'UTC'
-               AND T.project_id IS NOT NULL
-          GROUP BY T.id
-          %s
-        """ % (additional_select_fields, additional_join_str, '%s', additional_join_fields)
-        self.env.cr.execute(query, (tuple(self.ids),))
-        raw_data = self.env.cr.dictfetchall()
-        if group_by_user:
-            res = {}
-            for row in raw_data:
-                if row['id'] not in res:
-                    res[row['id']] = []
-                res[row['id']].append((row['name'], row['count']))
-            return res
-
-        return dict(map(lambda d: d.values(), raw_data))
+        res = defaultdict(lambda: defaultdict(lambda: {
+            'overlapping_tasks_ids': [],
+            'sum_allocated_hours': 0,
+            'min_planned_date_begin': False,
+            'max_date_deadline': False,
+        }))
+        for row in self._fetch_planning_overlap([('allocated_hours', '>', 0)]):
+            res[row['id']][row['user_id']] = {
+                'partner_name': row['partner_name'],
+                'overlapping_tasks_ids': row['task_ids'],
+                'sum_allocated_hours': row['sum'] + row['allocated_hours'],
+                'min_planned_date_begin': min(row['min'], row['planned_date_begin']),
+                'max_date_deadline': max(row['max'], row['date_deadline'])
+            }
+        return res
 
     @api.depends('planned_date_begin', 'date_deadline', 'user_ids')
     def _compute_planning_overlap(self):
-        overlap_mapping = self._get_planning_overlap_per_task(group_by_user=True)
-        if overlap_mapping:
-            for task in self:
-                if not task.id in overlap_mapping:
-                    task.planning_overlap = False
-                else:
-                    task.planning_overlap = ' '.join([
-                        _('%(user)s has %(amount)s tasks at the same time.', user=task_mapping[0], amount=task_mapping[1])
-                            for task_mapping in overlap_mapping[task.id]
-                    ])
-        else:
+        overlap_mapping = self._get_planning_overlap_per_task()
+        if not overlap_mapping:
             self.planning_overlap = False
+            return overlap_mapping
+        user_ids = set()
+        absolute_min_start = utc.localize(self[0].planned_date_begin)
+        absolute_max_end = utc.localize(self[0].date_deadline)
+        for task in self:
+            for user_id, task_mapping in overlap_mapping.get(task.id, {}).items():
+                absolute_min_start = min(absolute_min_start, utc.localize(task_mapping["min_planned_date_begin"]))
+                absolute_max_end = max(absolute_max_end, utc.localize(task_mapping["max_date_deadline"]))
+                user_ids.add(user_id)
+        users = self.env['res.users'].browse(list(user_ids))
+        users_work_intervals, dummy = users.sudo()._get_valid_work_intervals(absolute_min_start, absolute_max_end)
+        res = {}
+        for task in self:
+            overlap_messages = []
+            for user_id, task_mapping in overlap_mapping.get(task.id, {}).items():
+                task_intervals = Intervals([
+                    (utc.localize(task_mapping['min_planned_date_begin']),
+                     utc.localize(task_mapping['max_date_deadline']),
+                     self.env['resource.calendar.attendance'])
+                ])
+                if task_mapping['sum_allocated_hours'] > sum_intervals((users_work_intervals[user_id] & task_intervals)):
+                    overlap_messages.append(_(
+                        '%s has %s tasks at the same time.',
+                        task_mapping["partner_name"],
+                        len(task_mapping['overlapping_tasks_ids'])
+                    ))
+                    if task.id not in res:
+                        res[task.id] = {}
+                    res[task.id][user_id] = task_mapping
+            task.planning_overlap = ' '.join(overlap_messages) or False
+        return res
 
     @api.model
     def _search_planning_overlap(self, operator, value):
@@ -315,6 +392,15 @@ class Task(models.Model):
 
         res = super().write(vals)
 
+        # Get the tasks which are either not linked to a project or their project has not timesheet tracking
+        tasks_without_timesheets_track = self.filtered(lambda task: (
+            'allocated_hours' not in vals and
+            (task.planned_date_begin and task.date_deadline) and
+            ("allow_timesheet" in task.project_id and not task.project_id.allow_timesheet)
+        ))
+        if tasks_without_timesheets_track:
+            tasks_without_timesheets_track._set_allocated_hours_for_tasks()
+
         if compute_default_planned_dates:
             # Take the default planned dates
             planned_date_begin = vals.get('planned_date_begin', False)
@@ -330,6 +416,33 @@ class Task(models.Model):
                 })
 
         return res
+
+    def _set_allocated_hours_for_tasks(self):
+        tasks_by_resource_calendar_dict = self._get_tasks_by_resource_calendar_dict()
+        for (calendar, tasks) in tasks_by_resource_calendar_dict.items():
+            # 1. Get the min start and max end among the tasks
+            absolute_min_start, absolute_max_end = tasks[0].planned_date_begin, tasks[0].date_deadline
+            for task in tasks:
+                absolute_max_end = max(absolute_max_end, task.date_deadline)
+                absolute_min_start = min(absolute_min_start, task.planned_date_begin)
+            start = fields.Datetime.from_string(absolute_min_start)
+            stop = fields.Datetime.from_string(absolute_max_end)
+            if not start.tzinfo:
+                start = start.replace(tzinfo=utc)
+            if not stop.tzinfo:
+                stop = stop.replace(tzinfo=utc)
+            # 2. Fetch the working hours between min start and max end
+            work_intervals = calendar._work_intervals_batch(start, stop)[False]
+            # 3. For each task compute and write the allocated hours corresponding to their planned dates
+            for task in tasks:
+                start = task.planned_date_begin
+                stop = task.date_deadline
+                if not start.tzinfo:
+                    start = start.replace(tzinfo=utc)
+                if not stop.tzinfo:
+                    stop = stop.replace(tzinfo=utc)
+                allocated_hours = sum_intervals(work_intervals & Intervals([(start, stop, self.env['resource.calendar.attendance'])]))
+                task.allocated_hours = allocated_hours
 
     def _get_additional_users(self, domain):
         return self.env['res.users']
@@ -1109,30 +1222,14 @@ class Task(models.Model):
         project_tasks = project_tasks.with_context(prefetch_fields=False)
         # Prefetch fields from database to avoid doing one query by __get__.
         project_tasks.fetch(['planned_date_begin', 'date_deadline', 'user_ids'])
-
         allocated_hours_mapped = defaultdict(float)
-        user_work_intervals, _dummy = users.sudo()._get_valid_work_intervals(start, stop)
-        for task in project_tasks:
-            # if the task goes over the gantt period, compute the duration only within
-            # the gantt period
-            max_start = max(start, utc.localize(task.planned_date_begin))
-            min_end = min(stop, utc.localize(task.date_deadline))
-            # for forecast tasks, use the conjunction between work intervals and task.
-            interval = Intervals([(
-                max_start, min_end, self.env['resource.calendar.attendance']
-            )])
-            duration = (task.date_deadline - task.planned_date_begin).total_seconds() / 3600.0 if task.planned_date_begin and task.date_deadline else 0.0
-            nb_hours_per_user = (sum_intervals(interval) / (len(task.user_ids) or 1)) if duration < 24 else 0.0
-            for user in task.user_ids:
-                if duration < 24:
-                    allocated_hours_mapped[user.id] += nb_hours_per_user
-                else:
-                    work_intervals = interval & user_work_intervals[user.id]
-                    allocated_hours_mapped[user.id] += sum_intervals(work_intervals)
+        # Get the users work intervals between start and end dates of the gantt view
+        users_work_intervals, dummy = users.sudo()._get_valid_work_intervals(start, stop)
+        allocated_hours_mapped = project_tasks._allocated_hours_per_user_for_scale(users, start, stop)
         # Compute employee work hours based on its work intervals.
         work_hours = {
             user_id: sum_intervals(work_intervals)
-            for user_id, work_intervals in user_work_intervals.items()
+            for user_id, work_intervals in users_work_intervals.items()
         }
         return {
             user.id: {
@@ -1141,6 +1238,30 @@ class Task(models.Model):
             }
             for user in users
         }
+
+    def _allocated_hours_per_user_for_scale(self, users, start, stop):
+        absolute_max_end, absolute_min_start = stop, start
+        allocated_hours_mapped = defaultdict(float)
+        for task in self:
+            absolute_max_end = max(absolute_max_end, utc.localize(task.date_deadline))
+            absolute_min_start = min(absolute_min_start, utc.localize(task.planned_date_begin))
+        users_work_intervals, _dummy = users.sudo()._get_valid_work_intervals(absolute_min_start, absolute_max_end)
+        for task in self:
+            task_date_begin = utc.localize(task.planned_date_begin)
+            task_deadline = utc.localize(task.date_deadline)
+            max_start = max(start, task_date_begin)
+            min_end = min(stop, task_deadline)
+            for user in task.user_ids:
+                work_intervals_for_scale = sum_intervals(users_work_intervals[user.id] & Intervals([(max_start, min_end, self.env['resource.calendar.attendance'])]))
+                work_intervals_for_task = sum_intervals(users_work_intervals[user.id] & Intervals([(task_date_begin, task_deadline, self.env['resource.calendar.attendance'])]))
+                # The ratio between the workable hours in the gantt view scale and the workable hours
+                # between start and end dates of the task allows to determine the allocated hours for the current scale
+                ratio = 1
+                if work_intervals_for_task:
+                    ratio = work_intervals_for_scale / work_intervals_for_task
+                allocated_hours_mapped[user.id] += (task.allocated_hours / len(task.user_ids)) * ratio
+
+        return allocated_hours_mapped
 
     def _gantt_progress_bar(self, field, res_ids, start, stop):
         if field == 'user_ids':

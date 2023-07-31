@@ -8,6 +8,7 @@ from odoo import Command, fields, models, api, _
 from odoo.osv import expression
 from odoo.tools import get_lang
 from odoo.addons.project.models.project_task import CLOSED_STATES
+from odoo.addons.resource.models.utils import Intervals, sum_intervals
 
 class Task(models.Model):
     _inherit = "project.task"
@@ -44,6 +45,43 @@ class Task(models.Model):
         string="Phone", readonly=False, store=True, copy=False)
     partner_city = fields.Char(related='partner_id.city', readonly=False)
     is_task_phone_update = fields.Boolean(compute='_compute_is_task_phone_update')
+
+    @api.depends('planned_date_begin', 'date_deadline', 'user_ids')
+    def _compute_planning_overlap(self):
+        """Computes overlap warnings for fsm tasks.
+
+            Unlike other tasks, fsm tasks overlap in two scenarios:
+            1. When the combined allocated hours of an fsm task and a normal task exceed the user's workable hours.
+            2. When two fsm tasks have overlapping planned dates.
+
+            Example:
+            - Task A (normal) conflicts with Task B (fsm) if their combined hours > user's workable hours. Both have 1 conflict.
+            - Introduce Task C (fsm) with no allocated hours (no conflict with Task A) but same time period as Task B.
+            Result: Task A has 1 conflict, Task B has 2 conflicts, Task C has 1 conflict.
+        """
+        fsm_tasks = self.filtered("is_fsm")
+        overlap_mapping = super()._compute_planning_overlap()
+        for row in self._fetch_planning_overlap([('is_fsm', '=', True)]):
+            task_id = row["id"]
+            if task_id not in overlap_mapping:
+                overlap_mapping[task_id] = {row["user_id"]: {}}
+            overlap_data = overlap_mapping[task_id][row["user_id"]]
+            overlap_data['partner_name'] = row['partner_name']
+            existing_task_ids = overlap_data.get('overlapping_tasks_ids', [])
+            overlap_data['overlapping_tasks_ids'] = list(set(existing_task_ids) | set(row['task_ids']))
+            existing_min_date = overlap_data.get('min_planned_date_begin', row['min'])
+            overlap_data['min_planned_date_begin'] = min(existing_min_date, row['min'])
+            existing_max_date = overlap_data.get('max_date_deadline', row['max'])
+            overlap_data['max_date_deadline'] = max(existing_max_date, row['max'])
+        if not overlap_mapping:
+            fsm_tasks.planning_overlap = False
+            return
+        for task in fsm_tasks:
+            overlap_messages = []
+            for dummy, task_mapping in overlap_mapping.get(task.id, {}).items():
+                message = _('%s has %s tasks at the same time.', task_mapping['partner_name'], len(task_mapping['overlapping_tasks_ids']))
+                overlap_messages.append(message)
+            task.planning_overlap = ' '.join(overlap_messages) or False
 
     @property
     def SELF_READABLE_FIELDS(self):
@@ -306,3 +344,26 @@ class Task(models.Model):
             super()._get_projects_to_make_billable_domain(additional_domain),
             [('is_fsm', '=', False)],
         ])
+
+    def _allocated_hours_per_user_for_scale(self, users, start, stop):
+        fsm_tasks = self.filtered("is_fsm")
+        allocated_hours_mapped = super(Task, self - fsm_tasks)._allocated_hours_per_user_for_scale(users, start, stop)
+        users_work_intervals, dummy = users.sudo()._get_valid_work_intervals(start, stop)
+        for task in fsm_tasks:
+            # if the task goes over the gantt period, compute the duration only within
+            # the gantt period
+            max_start = max(start, pytz.utc.localize(task.planned_date_begin))
+            min_end = min(stop, pytz.utc.localize(task.date_deadline))
+            # for forecast tasks, use the conjunction between work intervals and task.
+            interval = Intervals([(
+                max_start, min_end, self.env['resource.calendar.attendance']
+            )])
+            duration = (task.date_deadline - task.planned_date_begin).total_seconds() / 3600.0 if task.planned_date_begin and task.date_deadline else 0.0
+            nb_hours_per_user = (sum_intervals(interval) / (len(task.user_ids) or 1)) if duration < 24 else 0.0
+            for user in task.user_ids:
+                if duration < 24:
+                    allocated_hours_mapped[user.id] += nb_hours_per_user
+                else:
+                    work_intervals = interval & users_work_intervals[user.id]
+                    allocated_hours_mapped[user.id] += sum_intervals(work_intervals)
+        return allocated_hours_mapped

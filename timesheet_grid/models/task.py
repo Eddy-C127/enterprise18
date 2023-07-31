@@ -50,6 +50,9 @@ class Task(models.Model):
         for task in self:
             task.display_timesheet_timer = task.allow_timesheets and task.analytic_account_active
 
+    def _set_allocated_hours_for_tasks(self):
+        super(Task, self.filtered(lambda task: not task.allow_timesheets))
+
     def _gantt_progress_bar_project_id(self, res_ids):
         timesheet_read_group = self.env['account.analytic.line']._read_group(
             [('project_id', 'in', res_ids)],
