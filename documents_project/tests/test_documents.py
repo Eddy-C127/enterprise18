@@ -344,3 +344,17 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         self.assertEqual(len(self.env['documents.folder'].search([('id', '>', last_folder_id)])), 1, "There should only be one new folder created.")
         self.project_goats.with_context(no_create_folder=True).copy()
         self.assertEqual(len(self.env['documents.folder'].search([('id', '>', last_folder_id + 1)])), 0, "There should be no new folder created.")
+
+    def test_propagate_document_name_task(self):
+        """
+        This test will check that the document's name and partner fields are propagated to its tasks on creation
+        """
+        test_partner = self.env['res.partner'].create({'name': 'TestPartner'})
+        self.attachment_txt.write({'partner_id': test_partner.id})
+
+        self.workflow_rule_task.apply_actions([self.attachment_txt.id])
+
+        task = self.env['project.task'].browse(self.attachment_txt.res_id)
+
+        self.assertEqual(task.name, self.attachment_txt.name, "The task's name and the document's name should be the same")
+        self.assertEqual(task.partner_id, self.attachment_txt.partner_id, "The task's partner and the document's partner should be the same")
