@@ -926,7 +926,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Select Contract Details Tab",
-            trigger: ".o_notebook ul > li > a:contains(Contract)",
+            trigger: ".o_notebook ul > li > a:contains(Details)",
             run: "click",
         },
         {
@@ -938,6 +938,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin')",
             auto: true,
+        },
+        {
+            content: "Select Signatories Tab",
+            trigger: ".o_notebook ul > li > a:contains(Signatories)",
+            run: "click",
         },
         {
             content: "Contract Update Template",
@@ -954,8 +959,9 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: `edit test_employee_contract`,
         },
         {
-            trigger: ".ui-autocomplete > li > a:contains('test_employee_contract')",
-            auto: true,
+            content: "Select Contract Details Tab",
+            trigger: ".o_notebook ul > li > a:contains(Details)",
+            run: "click",
         },
         {
             content: "Select Salary Information Tab",

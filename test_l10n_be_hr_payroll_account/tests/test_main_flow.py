@@ -47,7 +47,7 @@ class TestHR(AccountTestInvoicingCommon):
 
         cls.hr_fleet_manager = cls.create_user_employee(login='leh', groups='fleet.fleet_group_manager')
 
-        cls.hr_contract_manager = cls.create_user_employee(login='nfz', groups='hr_contract.group_hr_contract_manager')
+        cls.hr_contract_manager = cls.create_user_employee(login='nfz', groups='hr_contract.group_hr_contract_manager,sign.group_sign_manager')
         cls.hr_payroll_user = cls.create_user_employee(login='ldj', groups='hr_payroll.group_hr_payroll_user,hr_holidays.group_hr_holidays_user')
         cls.hr_payroll_manager = cls.create_user_employee(login='lxt', groups='hr_payroll.group_hr_payroll_manager')
 
@@ -264,9 +264,9 @@ class TestHR(AccountTestInvoicingCommon):
         contract_form.hr_responsible_id = self.user
         contract_form.sign_template_id = sign_template
         contract_form.contract_update_template_id = sign_template
-        contract_form.save()
-        contract_form.state = state
-        return contract_form.save()
+        contract = contract_form.save()
+        contract.state = state
+        return contract
 
     def create_work_entry_type(self, user, name, code, is_leave=False, leave_type=None):
         work_entry_type_form = Form(self.env['hr.work.entry.type'].with_user(user))

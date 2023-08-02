@@ -13,8 +13,8 @@ patch(registry.category("web_tour.tours").get("payroll_dashboard_ui_tour"), {
              * Add some steps upon creating the contract as new fields are added and are required
              * with the hr_contract_salary module.
              */
-            content: "Select Contract Details Tab",
-            trigger: '.o_notebook ul > li > a:contains(Contract)',
+            content: "Select Details Tab",
+            trigger: '.o_notebook ul > li > a:contains(Details)',
             run: 'click',
         }, {
             content: "Set HR Responsible",
@@ -28,6 +28,10 @@ patch(registry.category("web_tour.tours").get("payroll_dashboard_ui_tour"), {
         }, {
             content: "Select HR Reponsible (2)",
             trigger: 'div[name=hr_responsible_id] .dropdown-item:contains(Laurie)',
+        }, {
+            content: "Select Signatories Tab",
+            trigger: '.o_notebook ul > li > a:contains(Signatories)',
+            run: 'click',
         }, {
             content: "Set Contract Template",
             trigger: 'div.o_field_widget.o_field_many2one[name="sign_template_id"] div input',

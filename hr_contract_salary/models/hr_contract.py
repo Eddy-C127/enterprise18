@@ -28,12 +28,18 @@ class HrContract(models.Model):
         compute="_compute_default_contract", store=True, readonly=False,
         domain="[('company_id', '=', company_id), ('employee_id', '=', False)]",
         help="Default contract used when making an offer to an applicant.")
-    sign_template_id = fields.Many2one('sign.template', compute='_compute_sign_template_id', readonly=False, store=True, string="New Contract Document Template",
+    sign_template_id = fields.Many2one('sign.template', compute='_compute_sign_template_id', readonly=False, store=True, copy=True, string="New Contract Template",
         help="Default document that the applicant will have to sign to accept a contract offer.")
+    sign_template_signatories_ids = fields.One2many('hr.contract.signatory', 'contract_template_id',
+                                                    compute="_compute_sign_template_signatories_ids", store=True,
+                                                    readonly=False, copy=True)
     contract_update_template_id = fields.Many2one(
-        'sign.template', string="Contract Update Document Template",
-        compute='_compute_contract_update_template_id', store=True, readonly=False,
+        'sign.template', string="Contract Update",
+        compute='_compute_contract_update_template_id', store=True, readonly=False, copy=True,
         help="Default document that the employee will have to sign to update his contract.")
+    contract_update_signatories_ids = fields.One2many('hr.contract.signatory', 'update_contract_template_id',
+                                                      compute="_compute_contract_update_signatories_ids", store=True,
+                                                      readonly=False, copy=True)
     signatures_count = fields.Integer(compute='_compute_signatures_count', string='# Signatures',
         help="The number of signatures on the pdf contract with the most signatures.")
     image_1920_filename = fields.Char()
@@ -58,6 +64,31 @@ class HrContract(models.Model):
     monthly_yearly_costs = fields.Monetary(
         compute='_compute_monthly_yearly_costs', string='Monthly Cost (Real)', readonly=True,
         help="Total real monthly cost of the employee for the employer.")
+
+    @api.constrains('sign_template_signatories_ids')
+    def _check_signatories_unicity(self):
+        for contract in self:
+            # We don't want to remove duplicates
+            roles = [i.sign_role_id for i in contract.sign_template_signatories_ids]
+            if len(roles) != len(set(roles)):
+                raise ValidationError(_("You cannot have multiple person responsible for the same role"))
+
+    @api.constrains('contract_update_signatories_ids')
+    def _check_update_signatories_unicity(self):
+        for contract in self:
+            roles = contract.contract_update_signatories_ids.mapped('sign_role_id')
+            if len(roles) != len(set(roles)):
+                raise ValidationError(_("You cannot have multiple person responsible for the same role"))
+
+    @api.depends('sign_template_id')
+    def _compute_sign_template_signatories_ids(self):
+        for contract in self:
+            contract.sign_template_signatories_ids = self.env['hr.contract.signatory'].create_empty_signatories(contract.sign_template_id)
+
+    @api.depends('contract_update_template_id')
+    def _compute_contract_update_signatories_ids(self):
+        for contract in self:
+            contract.contract_update_signatories_ids = self.env['hr.contract.signatory'].create_empty_signatories(contract.contract_update_template_id)
 
     @api.constrains('hr_responsible_id', 'sign_template_id')
     def _check_hr_responsible_id(self):

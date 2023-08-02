@@ -900,28 +900,31 @@ class HrContractSalary(http.Controller):
                 'origin_contract_id': contract_id,
             })
         sign_template = new_contract.contract_update_template_id if offer.employee_contract_id else new_contract.sign_template_id
+        signatories = contract.contract_update_signatories_ids if offer.employee_contract_id else contract.sign_template_signatories_ids
         if not sign_template:
             return {'error': 1, 'error_msg': _('No signature template defined on the contract. Please contact the HR responsible.')}
-        if not new_contract.hr_responsible_id:
+        if not new_contract.hr_responsible_id and 'hr' in signatories.mapped('signatory'):
             return {'error': 1, 'error_msg': _('No HR responsible defined on the job position. Please contact an administrator.')}
 
         # ask the contract responsible to create a sign request
         SignRequestSudo = request.env['sign.request'].with_user(new_contract.hr_responsible_id).sudo()
 
+        signatory_dict = {
+            'employee': new_contract.employee_id.work_contact_id.id,
+            'hr': new_contract.hr_responsible_id.work_contact_id.id or new_contract.hr_responsible_id.partner_id.id
+        }
+
+        signatories_command = [
+            Command.create(
+                {'role_id': signatory.sign_role_id.id,
+                 'partner_id': signatory_dict.get(signatory.signatory, signatory.partner_id.id),
+                 'mail_sent_order': signatory.order})
+            for signatory in signatories
+        ]
+
         sign_request_sudo = SignRequestSudo.create({
             'template_id': sign_template.id,
-            'request_item_ids': [
-                Command.create({
-                    'role_id': request.env.ref('sign.sign_item_role_employee').id,
-                    'partner_id': new_contract.employee_id.work_contact_id.id,
-                    'mail_sent_order': 1
-                }),
-                Command.create({
-                    'role_id': request.env.ref('hr_contract_sign.sign_item_role_job_responsible').id,
-                    'partner_id': new_contract.hr_responsible_id.partner_id.id,
-                    'mail_sent_order': 2
-                }),
-            ],
+            'request_item_ids': signatories_command,
             'reference': _('Signature Request - %s', new_contract.name),
             'subject': _('Signature Request - %s', new_contract.name),
         })
