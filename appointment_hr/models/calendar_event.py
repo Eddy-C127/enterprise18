@@ -3,7 +3,7 @@
 
 from odoo import api, fields, models
 from odoo.addons.appointment.utils import interval_from_events, intervals_overlap
-from odoo.addons.resource.models.utils import timezone_datetime
+from odoo.addons.resource.models.utils import Intervals, timezone_datetime
 
 
 class CalendarEvent(models.Model):
@@ -34,7 +34,7 @@ class CalendarEvent(models.Model):
                 for employee in partner_employees:
                     if not employee.resource_calendar_id or not employee.resource_id:
                         continue
-                    unavailabilities = calendar_to_unavailabilities[employee.resource_calendar_id].get(employee.resource_id.id, [])
+                    unavailabilities = calendar_to_unavailabilities.get(employee.resource_calendar_id, {}).get(employee.resource_id.id, [])
                     if any(intervals_overlap(unavailability, (event.start, event.stop)) for unavailability in unavailabilities):
                         event_partners_on_leave += employee.user_partner_id
                 event.partners_on_leave = event_partners_on_leave
@@ -42,29 +42,36 @@ class CalendarEvent(models.Model):
     @api.model
     def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
         # skip if not dealing with appointments
-        user_ids = [row['resId'] for row in rows if row.get('resId')]  # remove empty rows
-        if not group_bys or group_bys[0] != 'user_id' or not user_ids:
+        partner_ids = [row['resId'] for row in rows if row.get('resId')]  # remove empty rows
+        if not group_bys or group_bys[0] != 'partner_ids' or not partner_ids:
             return super().gantt_unavailability(start_date, end_date, scale, group_bys=group_bys, rows=rows)
 
         start_datetime = timezone_datetime(fields.Datetime.from_string(start_date))
         end_datetime = timezone_datetime(fields.Datetime.from_string(end_date))
 
-        user_ids = self.env['res.users'].browse(user_ids)
-        calendar_ids = user_ids.employee_id.resource_calendar_id
-        calendar_to_employee = user_ids.employee_id.grouped('resource_calendar_id')
-        calendar_to_unavailabilities = {
+        partners = self.env['res.partner'].browse(partner_ids)
+        users = partners.user_ids
+        users_from_partner_id = users.grouped(lambda user: user.partner_id.id)
+
+        calendars = users.employee_id.resource_calendar_id
+        employee_by_calendar = users.employee_id.grouped('resource_calendar_id')
+        unavailabilities_by_calendar = {
             calendar: calendar._unavailable_intervals_batch(
                 start_datetime, end_datetime,
-                resources=calendar_to_employee[calendar].resource_id
-            ) for calendar in calendar_ids}
+                resources=employee_by_calendar[calendar].resource_id
+            ) for calendar in calendars
+        }
+
         for row in rows:
-            user_id = user_ids.browse(row.get('resId'))
-            if not user_id:
-                continue
-            user_employee = user_id.employee_id
-            user_calendar = user_employee.resource_calendar_id
-            if not user_calendar:
-                continue
-            user_unavailabilities = calendar_to_unavailabilities[user_calendar].get(user_employee.resource_id.id, [])
-            row['unavailabilities'] = [{'start': start, 'stop': stop} for start, stop in user_unavailabilities]
+            attendee_users = users_from_partner_id.get(row['resId'], self.env['res.users'])
+            attendee = partners.filtered(lambda partner: partner.id == row['resId'])
+
+            # calendar leaves
+            unavailabilities = Intervals([])
+            for user in attendee_users.filtered('resource_calendar_id').filtered('employee_id'):
+                calendar_leaves = unavailabilities_by_calendar[user.resource_calendar_id]
+                unavailabilities |= Intervals([
+                    (start, end, attendee)
+                    for start, end in calendar_leaves.get(user.employee_id.resource_id.id, [])])
+            row['unavailabilities'] = [{'start': start, 'stop': stop} for start, stop, _ in unavailabilities]
         return rows
