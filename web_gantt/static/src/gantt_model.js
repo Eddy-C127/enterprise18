@@ -417,7 +417,7 @@ export class GanttModel extends Model {
                     context,
                 });
                 if (callback) {
-                    callback(result);
+                    await callback(result);
                 }
             } finally {
                 this.fetchData();

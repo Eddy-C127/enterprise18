@@ -58,6 +58,7 @@ class CalendarEvent(models.Model):
                                               store=True, group_expand="_read_group_appointment_resource_id")
     appointment_resource_ids = fields.Many2many('appointment.resource', string="Appointment Resources", compute="_compute_resource_ids")
     booking_line_ids = fields.One2many('appointment.booking.line', 'calendar_event_id', string="Booking Lines")
+    partner_ids = fields.Many2many('res.partner', group_expand="_read_group_partner_ids")
     resource_total_capacity_reserved = fields.Integer('Total Capacity Reserved', compute="_compute_resource_total_capacity", inverse="_inverse_appointment_resource_id_or_capacity")
     resource_total_capacity_used = fields.Integer('Total Capacity Used', compute="_compute_resource_total_capacity")
     user_id = fields.Many2one('res.users', group_expand="_read_group_user_id")
@@ -191,6 +192,16 @@ class CalendarEvent(models.Model):
         if default_appointment_type:
             return self.env['appointment.type'].browse(default_appointment_type).resource_ids.filtered_domain(filter_shared_resources)
         return self.env['appointment.resource'].search(filter_shared_resources)
+
+    def _read_group_partner_ids(self, partners, domain, order):
+        """Show the partners associated with relevant staff users in appointment gantt context."""
+        if not self.env.context.get('appointment_booking_gantt_show_all_resources'):
+            return partners
+        appointment_type_id = self.env.context.get('default_appointment_type_id', False)
+        appointment_types = self.env['appointment.type'].browse(appointment_type_id)
+        if appointment_types:
+            return appointment_types.staff_user_ids.partner_id
+        return self.env['appointment.type'].search([('schedule_based_on', '=', 'users')]).staff_user_ids.partner_id
 
     def _read_group_user_id(self, users, domain, order):
         if not self.env.context.get('appointment_booking_gantt_show_all_resources'):
@@ -351,3 +362,12 @@ class CalendarEvent(models.Model):
             row['unavailabilities'] = [{'start': start, 'stop': stop}
                                        for start, stop in resource_unavailabilities.get(appointment_resource_id.resource_id.id, [])]
         return rows
+
+    @api.model
+    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0):
+        """Filter out rows where the partner isn't linked to an staff user."""
+        gantt_data = super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset)
+        if self.env.context.get('appointment_booking_gantt_show_all_resources') and groupby and groupby[0] == 'partner_ids':
+            staff_partner_ids = self.env['appointment.type'].search([('schedule_based_on', '=', 'users')]).staff_user_ids.partner_id.ids
+            gantt_data['groups'] = [group for group in gantt_data['groups'] if group['partner_ids'][0] in staff_partner_ids]
+        return gantt_data

@@ -6,6 +6,7 @@ import { clickAllDaySlot } from "@web/../tests/views/calendar/helpers";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
 import testUtils from '@web/../tests/legacy/helpers/test_utils';
+import { getServerModels } from "./appointment_tests_common";
 
 const { DateTime } = luxon;
 const mockRegistry = registry.category("mock_server");
@@ -36,104 +37,7 @@ QUnit.module('appointment.appointment_link', {
     beforeEach: function () {
         serverData = {
             models: {
-                'res.users': {
-                    fields: {
-                        id: {string: 'ID', type: 'integer'},
-                        name: {string: 'Name', type: 'char'},
-                        partner_id: {string: 'Partner', type: 'many2one', relation: 'res.partner'},
-                    },
-                    records: [
-                        {id: uid, name: 'User 1', partner_id: 1},
-                        {id: 214, name: 'User 214', partner_id: 214},
-                        {id: 216, name: 'User 216', partner_id: 216},
-                    ],
-                },
-                'res.partner': {
-                    fields: {
-                        id: {string: 'ID', type: 'integer'},
-                        display_name: {string: "Displayed name", type: "char"},
-                    },
-                    records: [
-                        {id: 1, display_name: 'Partner 1'},
-                        {id: 214, display_name: 'Partner 214'},
-                        {id: 216, display_name: 'Partner 216'},
-                    ],
-                },
-                'calendar.event': {
-                    fields: {
-                        id: {string: 'ID', type: 'integer'},
-                        user_id: {string: 'User', type: 'many2one', relation: 'res.users'},
-                        partner_id: {string: 'Partner', type: 'many2one', relation: 'res.partner', related: 'user_id.partner_id'},
-                        name: {string: 'Name', type: 'char'},
-                        start_date: {string: 'Start date', type: 'date'},
-                        stop_date: {string: 'Stop date', type: 'date'},
-                        start: {string: 'Start datetime', type: 'datetime'},
-                        stop: {string: 'Stop datetime', type: 'datetime'},
-                        allday: {string: 'Allday', type: 'boolean'},
-                        partner_ids: {string: 'Attendees', type: 'one2many', relation: 'res.partner'},
-                        appointment_type_id: {string: 'Appointment Type', type: 'many2one', relation: 'appointment.type'},
-                    },
-                    records: [{
-                        id: 1,
-                        user_id: uid,
-                        partner_id: uid,
-                        name: 'Event 1',
-                        start: DateTime.now().plus({years:1}).toFormat("yyyy'-01-12 10:00:00'"),
-                        stop: DateTime.now().plus({years:1}).toFormat("yyyy'-01-12 11:00:00'"),
-                        allday: false,
-                        partner_ids: [1],
-                    }, {
-                        id: 2,
-                        user_id: uid,
-                        partner_id: uid,
-                        name: 'Event 2',
-                        start: DateTime.now().plus({years:1}).toFormat("yyyy'-01-05 10:00:00'"),
-                        stop: DateTime.now().plus({years:1}).toFormat("yyyy'-01-05 11:00:00'"),
-                        allday: false,
-                        partner_ids: [1],
-                    }, {
-                        id: 3,
-                        user_id: 214,
-                        partner_id: 214,
-                        name: 'Event 3',
-                        start: DateTime.now().plus({years:1}).toFormat("yyyy'-01-05 10:00:00'"),
-                        stop: DateTime.now().plus({years:1}).toFormat("yyyy'-01-05 11:00:00'"),
-                        allday: false,
-                        partner_ids: [214],
-                    }
-                    ],
-                    check_access_rights: function () {
-                        return Promise.resolve(true);
-                    }
-                },
-                'appointment.type': {
-                    fields: {
-                        name: {type: 'char'},
-                        website_url: {type: 'char'},
-                        staff_user_ids: {type: 'many2many', relation: 'res.users'},
-                        website_published: {type: 'boolean'},
-                        slot_ids: {type: 'one2many', relation: 'appointment.slot'},
-                        category: {
-                            type: 'selection',
-                            selection: [['recurring', 'Recurring'], ['custom', 'Custom']]
-                        },
-                    },
-                    records: [{
-                        id: 1,
-                        name: 'Very Interesting Meeting',
-                        website_url: '/appointment/1',
-                        website_published: true,
-                        staff_user_ids: [214],
-                        category: 'recurring',
-                    }, {
-                        id: 2,
-                        name: 'Test Appointment',
-                        website_url: '/appointment/2',
-                        website_published: true,
-                        staff_user_ids: [uid],
-                        category: 'recurring',
-                    }],
-                },
+                ...getServerModels(DateTime.now().plus({ year: 1 }).year),
                 'appointment.slot': {
                     fields: {
                         appointment_type_id: {type: 'many2one', relation: 'appointment.type'},
