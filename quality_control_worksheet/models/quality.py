@@ -12,7 +12,7 @@ class QualityPoint(models.Model):
 
     worksheet_template_id = fields.Many2one(
         'worksheet.template', 'Template',
-        domain="[('res_model', '=', 'quality.check'), '|', ('company_ids', '=', False), ('company_ids', 'in', company_id)]")
+        domain="[('res_model', '=', 'quality.check'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
     # tech field used by quality_field_domain widget
     worksheet_model_name = fields.Char(
         'Model Name', related='worksheet_template_id.model_id.model', readonly=True, store=True)
@@ -24,7 +24,7 @@ class QualityCheck(models.Model):
 
     worksheet_template_id = fields.Many2one(
         'worksheet.template', 'Quality Template',
-        domain="[('res_model', '=', 'quality.check'), '|', ('company_ids', '=', False), ('company_ids', 'in', company_id)]")
+        domain="[('res_model', '=', 'quality.check'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
     worksheet_count = fields.Integer(compute='_compute_worksheet_count')
 
     @api.onchange('point_id')

@@ -11,7 +11,7 @@ class MaintenanceRequest(models.Model):
 
     worksheet_template_id = fields.Many2one(
         'worksheet.template', string="Worksheet Template",
-        domain="[('res_model', '=', 'maintenance.request'), '|', ('company_ids', '=', False), ('company_ids', 'in', company_id)]",
+        domain="[('res_model', '=', 'maintenance.request'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
         help="Create templates for each type of request you have and customize their content with your own custom fields.")
     worksheet_count = fields.Integer('Worksheet Count', compute='_compute_worksheet_count')
 

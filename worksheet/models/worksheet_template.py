@@ -22,7 +22,7 @@ class WorksheetTemplate(models.Model):
     worksheet_count = fields.Integer(compute='_compute_worksheet_count', compute_sudo=True)
     model_id = fields.Many2one('ir.model', ondelete='cascade', readonly=True, domain=[('state', '=', 'manual')])
     action_id = fields.Many2one('ir.actions.act_window', readonly=True)
-    company_ids = fields.Many2many('res.company', string='Companies', domain=lambda self: [('id', 'in', self.env.companies.ids)])
+    company_id = fields.Many2one('res.company', string='Company', domain=lambda self: [('id', 'in', self.env.companies.ids)])
     report_view_id = fields.Many2one('ir.ui.view', domain=[('type', '=', 'qweb')], readonly=True)
     active = fields.Boolean(default=True)
     res_model = fields.Char('Host Model', help="The model that is using this template")
@@ -54,10 +54,10 @@ class WorksheetTemplate(models.Model):
         return templates
 
     def write(self, vals):
-        old_company_ids = self.company_ids
+        old_company_id = self.company_id
         res = super().write(vals)
-        if 'company_ids' in vals and self.company_ids:
-            update_company_ids = old_company_ids - self.company_ids
+        if 'company_id' in vals and self.company_id:
+            update_company_id = old_company_id - self.company_id
             template_dict = defaultdict(lambda: self.env['worksheet.template'])
             for template in self:
                 template_dict[template.res_model] |= template
@@ -65,9 +65,9 @@ class WorksheetTemplate(models.Model):
                 for model, name in self._get_models_to_check_dict()[res_model]:
                     records = self.env[model].search([('worksheet_template_id', 'in', templates.ids)])
                     for record in records:
-                        company_names = ', '.join(update_company_ids.mapped('name'))
-                        if record.company_id not in record.worksheet_template_id.company_ids:
-                            raise UserError(_("Unfortunately, you cannot unlink this worksheet template from %s because the template is still connected to tasks within the company.", company_names))
+                        company_name = ', '.join(update_company_id.mapped('name'))
+                        if record.company_id not in record.worksheet_template_id.company_id:
+                            raise UserError(_("Unfortunately, you cannot unlink this worksheet template from %s because the template is still connected to tasks within the company.", company_name))
         return res
 
     def unlink(self):

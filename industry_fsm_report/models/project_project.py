@@ -11,7 +11,7 @@ class ProjectProject(models.Model):
     worksheet_template_id = fields.Many2one(
         'worksheet.template', compute="_compute_worksheet_template_id", store=True, readonly=False,
         string="Default Worksheet",
-        domain="[('res_model', '=', 'project.task'), '|', ('company_ids', '=', False), ('company_ids', 'in', company_id)]")
+        domain="[('res_model', '=', 'project.task'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
 
     @api.depends('is_fsm')
     def _compute_allow_worksheets(self):
@@ -25,7 +25,7 @@ class ProjectProject(models.Model):
         for project in self:
             if not project.worksheet_template_id:
                 if project.allow_worksheets:
-                    if default_worksheet and (not project.company_id or not default_worksheet.company_ids or project.company_id in default_worksheet.company_ids):
+                    if default_worksheet and (not project.company_id or not default_worksheet.company_id or project.company_id in default_worksheet.company_id):
                         project.worksheet_template_id = default_worksheet
                     else:
                         project_ids.append(project.id)
@@ -34,13 +34,13 @@ class ProjectProject(models.Model):
         if project_ids:
             projects = self.browse(project_ids)
             if len(projects.company_id) == 1:
-                projects.worksheet_template_id = self.env['worksheet.template'].search([('company_ids', 'in', [projects.company_id.id, False])], limit=1)
+                projects.worksheet_template_id = self.env['worksheet.template'].search([('company_id', '=', [projects.company_id.id, False])], limit=1)
             else:
                 worksheet_per_company = {
                     company: worksheets[:1]
                     for company, worksheets in self.env['worksheet.template']._read_group(
-                        [('company_ids', 'in', [*projects.company_id.ids, False])],
-                        ['company_ids'],
+                        [('company_id', 'in', [*projects.company_id.ids, False])],
+                        ['company_id'],
                         ['id:recordset'],
                     )
                 }

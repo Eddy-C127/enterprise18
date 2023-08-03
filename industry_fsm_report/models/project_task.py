@@ -12,7 +12,7 @@ class ProjectTask(models.Model):
     worksheet_template_id = fields.Many2one(
         'worksheet.template', string="Worksheet Template",
         compute='_compute_worksheet_template_id', store=True, readonly=False, tracking=True,
-        domain="[('res_model', '=', 'project.task'), '|', ('company_ids', '=', False), ('company_ids', 'in', company_id)]",
+        domain="[('res_model', '=', 'project.task'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
         group_expand='_group_expand_worksheet_template_id',
         help="Create templates for each type of intervention you have and customize their content with your own custom fields.")
     worksheet_count = fields.Integer(compute='_compute_worksheet_count', compute_sudo=True)
