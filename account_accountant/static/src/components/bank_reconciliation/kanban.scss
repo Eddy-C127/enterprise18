@@ -1,11 +1,13 @@
 .o_bank_rec_main_div {
     display: flex;
-    flex-flow: row wrap;
-    background-color: $o-view-background-color;;
+    background-color: $o-view-background-color;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 
+    .o_form_view.o_xxl_form_view.o_view_controller .o_form_view_container {
+        width: 100%; 
+    }
+    
     .o_kanban_renderer {
         border-top: 0;
     }
@@ -14,7 +16,6 @@
         width: 30%;
         height: 100%;
         position: relative;
-        overflow: auto;
         padding: 0;
         margin: 0;
         --KanbanRecord-padding-h: #{$o-kanban-inside-hgutter * 1.5};
@@ -88,7 +89,6 @@
         height: 100%;
         position: relative;
         overflow: auto;
-        overflow-x: hidden;
 
         .o_content{
             .o_form_nosheet{
@@ -179,6 +179,21 @@
             .o_notebook {
                 --notebook-margin-x: 0 !important;
             }
+        }
+    }
+}
+@include media-breakpoint-down(md) {
+    .o_bank_rec_widget_kanban_view {
+        --ControlPanel-border-bottom: initial;
+    }
+
+    .o_bank_rec_main_div {
+        .o_bank_rec_kanban_div {
+            --KanbanRecord-margin-h: #{-$border-width};
+        }
+
+        .o_bank_rec_kanban_div, .o_bank_rec_right_div {
+            flex: 1 0 95vw;
         }
     }
 }
