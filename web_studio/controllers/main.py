@@ -793,15 +793,20 @@ Are you sure you want to remove the selection values of those records?""", len(r
             studio_view = self._get_studio_view(view)
             return self._return_view(view, studio_view, context)
 
-    @http.route('/web_studio/export', type='http', auth='user')
+    @http.route('/web_studio/export/<int:studio_export_wizard_id>', type='http', auth='user')
     def export(self, **kw):
         """ Exports a zip file containing the 'studio_customization' module
             gathering all customizations done with Studio (customizations of
-            existing apps and freshly created apps).
+            existing apps and freshly created apps) along with the
+            StudioExportModel's related data.
         """
+        if not request.env.is_admin():
+            return
+
         studio_module = request.env['ir.module.module'].get_studio_module()
-        data = request.env['ir.model.data'].search([('studio', '=', True)])
-        content = export.generate_archive(studio_module, data)
+        wizard = request.env['studio.export.wizard'].browse(kw.get('studio_export_wizard_id'))
+        export_info = wizard._get_export_info()
+        content = export.generate_archive(studio_module, export_info)
 
         return request.make_response(content, headers=[
             ('Content-Disposition', content_disposition('customizations.zip')),

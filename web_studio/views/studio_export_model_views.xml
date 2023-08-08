@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="models_to_export_list" model="ir.ui.view">
+        <field name="name">Studio Export</field>
+        <field name="model">studio.export.model</field>
+        <field name="arch" type="xml">
+            <tree string="Studio Exports">
+                    <header>
+                        <button type="object" name="action_autofill" string="Auto-Fill" display="always" class="oe_highlight"/>
+                        <button type="action" name="web_studio.action_studio_export_wizard" string="Export" display="always" class="btn-danger"/>
+                    </header>
+                    <field name="sequence" widget="handle"/>
+                    <field name="model_id"/>
+                    <field name="is_demo_data"/>
+                    <field name="no_update"/>
+                    <field name="include_attachment"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="models_to_export_form_view" model="ir.ui.view">
+        <field name="name">models.to.export.form</field>
+        <field name="model">studio.export.model</field>
+        <field name="arch" type="xml">
+            <form string="Models To Export">
+            <group>
+                <group>
+                    <field name="model_name" invisible="1"/>
+                    <field name="model_id"/>
+                    <field name="domain" widget="domain" options="{'model': 'model_name'}"/>
+                </group>
+                <group>
+                    <field name="include_attachment"/>
+                    <field name="is_demo_data"/>
+                    <field name="no_update"/>
+                </group>
+            </group>
+            <group>
+                <field name="excluded_fields" widget="many2many">
+                    <tree no_open="1">
+                        <field name="field_description"/>
+                        <field name="name"/>
+                        <field name="ttype"/>
+                        <field name="relation"/>
+                        <field name="required"/>
+                        <field name="readonly"/>
+                        <field name="store"/>
+                    </tree>
+                </field>
+            </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_models_to_export" model="ir.actions.act_window">
+        <field name="name">Models To Export</field>
+        <field name="res_model">studio.export.model</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Additional Studio Exports
+            </p>
+            <p>
+                Configure additional models to export with Studio, such as records that hold configuration information or demo data.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        name="Studio Exports"
+        action="action_models_to_export"
+        id="menu_models_to_export"
+        parent="base.next_id_9"/>
+
+</odoo>

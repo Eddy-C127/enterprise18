@@ -7,7 +7,6 @@ import { rpc } from "@web/core/network/rpc";
 import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { browser } from "@web/core/browser/browser";
-import { download } from "@web/core/network/download";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { FileInput } from "@web/core/file_input/file_input";
 
@@ -38,7 +37,7 @@ export class HomeMenuCustomizer extends Component {
      * modules.
      */
     exportCusto() {
-        download({ url: "/web_studio/export", data: {} });
+        this.actionManager.doAction("web_studio.action_studio_export_wizard");
     }
     /**
      * Open a dialog allowing to import new modules

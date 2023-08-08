@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_studio_export_wizard" model="ir.actions.act_window">
+        <field name="name">Export module</field>
+        <field name="res_model">studio.export.wizard</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <record id="view_studio_export_wizard" model="ir.ui.view">
+        <field name="name">studio.export.wizard.form</field>
+        <field name="model">studio.export.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <notebook>
+                    <page string="Models to export">
+                        <p class="alert alert-danger" role="alert">
+                            Pay attention to the models you choose to export.
+                            They may include sensible information.
+                            Do not share the exported content without review.
+                        </p>
+                        <group>
+                            <field name="default_models" widget="many2many_tags"/>
+                            <field name="additional_models"/>
+                        </group>
+                    </page>
+                    <page string="Studio Customizations">
+                        <field name="default_export_data">
+                            <tree>
+                                <field name="model_name"/>
+                                <field name="name"/>
+                                <field name="xmlid"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Additional records">
+                        <field name="additional_export_data">
+                            <tree>
+                                <field name="model_name"/>
+                                <field name="name"/>
+                                <field name="xmlid"/>
+                                <field name="is_demo_data"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="export_module" string="Export" type="object" class="btn-danger" data-hotkey="q"/>
+                    <button special="cancel" data-hotkey="x" string="Cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
