@@ -36,6 +36,33 @@
         </t>
     </template>
 
+    <template id="helpdesk_all_team" name="Help">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="col-md px-0 team_list_columns">
+                    <div class="row">
+                            <div class="col-12"><h1 class="o_page_header mb32 mt32">Select your Team for help</h1></div>
+                        <div t-foreach="teams" t-as="team" class="col-md-6 col-lg-4 mb-4">
+                            <article class="card border-1 shadow-sm h-100 team_card">
+                                <a t-attf-href="#{team.website_url}" class="text-reset text-decoration-none h-100 d-flex flex-column">
+                                    <img src="/website_helpdesk/static/src/img/team_image.jpg" alt="Image"/>
+                                    <main class="card-body d-flex flex-column">
+                                        <h2 t-attf-class="fw-bold my-3">
+                                            <span t-field="team.name" itemprop="name"/>
+                                        </h2>
+                                        <div class="navbar-brand fw-bold text-primary text-uppercase h5 me-auto w-100">
+                                            Contact us <i class="oi oi-arrow-right"/>
+                                        </div>
+                                    </main>
+                                </a>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
     <template id="ticket_submited" name="Ticket Received">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure oe_empty h-100">

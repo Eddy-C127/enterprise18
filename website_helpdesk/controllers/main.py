@@ -30,12 +30,22 @@ class WebsiteHelpdesk(http.Controller):
                 raise NotFound()
             teams_domain = expression.AND([teams_domain, [('website_published', '=', True)]])
 
-        if team and team.show_knowledge_base and not kwargs.get('contact_form'):
-            return redirect(team.website_url + '/knowledgebase')
-
         teams = request.env['helpdesk.team'].search(teams_domain, order="id asc")
         if not teams:
             raise NotFound()
+
+        if not team:
+            if len(teams) != 1:
+                return request.render("website_helpdesk.helpdesk_all_team", {'teams': teams})
+            redirect_url = teams.website_url
+            if teams.show_knowledge_base and not kwargs.get('contact_form'):
+                redirect_url += '/knowledgebase'
+            elif kwargs.get('contact_form'):
+                redirect_url += '/?contact_form=1'
+            return redirect(redirect_url)
+
+        if team.show_knowledge_base and not kwargs.get('contact_form'):
+            return redirect(team.website_url + '/knowledgebase')
 
         result = self.get_helpdesk_team_data(team or teams[0], search=search)
         result['multiple_teams'] = len(teams) > 1

@@ -30,6 +30,7 @@ class TestHelpdeskKnowledgePortalTour(TestHelpdeskPortal):
         self.assertTrue(bool(help_team), "Check helpdesk team is found.")
         help_team.write({
             'use_website_helpdesk_knowledge': True,
+            'use_website_helpdesk_form': True,
             'website_article_id': help_article.id,
         })
         self.assertTrue(help_team.use_website_helpdesk_form)

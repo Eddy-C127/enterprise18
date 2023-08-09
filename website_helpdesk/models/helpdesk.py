@@ -111,40 +111,21 @@ class HelpdeskTeam(models.Model):
         with_website = self.filtered_domain([('use_website_helpdesk_form', '=', True)])
         without_website = self - with_website
         without_website.website_menu_id.unlink()
-
-        team_count_data = self.env['helpdesk.team']._read_group([
+        team_count = self.env['helpdesk.team'].search_count([
             ('use_website_helpdesk_form', '=', True),
-        ], ['website_id'], ['__count', 'id:recordset'])
-        team_count = {website.id: count for website, count, teams in team_count_data}
-
-        for team in with_website:
-            if not team.website_menu_id:
-                parent_menu = team.website_id.menu_id
-                if parent_menu:
-                    menu = self.env['website.menu'].sudo().create({
-                        'name': team.name if team_count.get(team.website_id.id, 0) > 1 else _('Help'),
-                        'url': team.website_url,
-                        'parent_id': parent_menu.id,
-                        'sequence': 50,
-                        'website_id': team.website_id.id,
-                    })
-                    team.website_menu_id = menu.id
-
-        for team_count, teams in ((team_count, teams) for _, team_count, teams in team_count_data):
-            # Rename team menu from "{Team Name}" -> "Help"
-            if team_count == 1:
-                team = teams.filtered(
-                    lambda t: t.website_menu_id.name == t.name
-                )
-                if team:
-                    team.website_menu_id.name = _('Help')
-            # Rename team menu from "Help" -> "{Team Name}"
-            elif team_count > 1:
-                teams = teams.filtered(
-                    lambda t: t.website_menu_id.name != t.name
-                )
-                for team in teams:
-                    team.website_menu_id.name = team.name
+            ('website_id', '=', with_website.website_id.id)
+        ])
+        if not team_count > 1 and not with_website.website_menu_id:
+            parent_menu = with_website.website_id.menu_id
+            if parent_menu:
+                menu = self.env['website.menu'].sudo().create({
+                    'name': _('Help'),
+                    'url': '/helpdesk',
+                    'parent_id': parent_menu.id,
+                    'sequence': 50,
+                    'website_id': with_website.website_id.id,
+                })
+                with_website.website_menu_id = menu.id
 
     @api.depends('name', 'use_website_helpdesk_form', 'company_id')
     def _compute_form_url(self):
