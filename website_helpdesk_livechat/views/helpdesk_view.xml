@@ -13,6 +13,9 @@
                     <div>
                         <button name="%(mail.mail_shortcode_action)d" type="action" string="Configure Canned Responses" icon="oi-arrow-right" class="btn-link"/>
                     </div>
+                    <div>
+                        <button name="%(im_livechat.chatbot_script_action)d" type="action" string="Configure Chatbots" icon="oi-arrow-right" class="btn-link"/>
+                    </div>
                 </div>
             </xpath>
         </field>
@@ -20,6 +23,15 @@
 
     <menuitem id="helpdesk_team_canned_response_menu"
         action="mail.mail_shortcode_action"
+        groups="website_helpdesk_livechat.group_use_website_helpdesk_livechat"
         sequence="17" parent="helpdesk.helpdesk_menu_config"/>
+
+    <menuitem
+        id="chatbot_config"
+        name="Chatbots"
+        parent="helpdesk.helpdesk_menu_config"
+        action="im_livechat.chatbot_script_action"
+        groups="website_helpdesk_livechat.group_use_website_helpdesk_livechat"
+        sequence="18"/>
 
 </odoo>

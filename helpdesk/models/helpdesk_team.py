@@ -479,6 +479,13 @@ class HelpdeskTeam(models.Model):
             self._get_helpdesk_user_group().write({'implied_ids': [Command.unlink(group_auto_assignment.id)]})
             group_auto_assignment.write({'users': [Command.clear()]})
 
+    def _get_field_check_method(self):
+        # mapping of field names to the function that checks if their feature is enabled
+        return {
+            'use_sla': self._check_sla_feature_enabled,
+            'use_rating': self._check_rating_feature_enabled,
+        }
+
     @api.model
     def _get_field_modules(self):
         # mapping of field names to module names
@@ -496,6 +503,14 @@ class HelpdeskTeam(models.Model):
             'use_coupons': 'helpdesk_sale_loyalty',
             'use_fsm': 'helpdesk_fsm',
         }
+
+    @api.model
+    def check_features_enabled(self, updated_features=None):
+        if not self.user_has_groups("helpdesk.group_helpdesk_user"):
+            return {}
+        if updated_features is None:
+            return {key: bool(check_method()) for key, check_method in self._get_field_check_method().items()}
+        return {key: bool(check_method()) for key, check_method in self._get_field_check_method().items() if updated_features and key in updated_features}
 
     @api.model
     def check_modules_to_install(self, enabled_features):

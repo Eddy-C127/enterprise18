@@ -44,7 +44,7 @@ class TestWebsiteHelpdeskLivechat(HttpCase, HelpdeskCommon):
         ticket_name = 'Test website helpdesk livechat'
         discuss_channel.execute_command_helpdesk(body=f"/ticket {ticket_name}")
 
-        bus = self.env['bus.bus'].search([('channel', 'like', f"\"res.partner\",{self.helpdesk_manager.partner_id.id}")], order='id desc', limit=1)
+        bus = self.env['bus.bus'].search([('channel', 'like', f'"res.partner",{self.helpdesk_manager.partner_id.id}')], order='id desc', limit=1)
         message = json.loads(bus.message)
         ticket = self.env['helpdesk.ticket'].search([('team_id', '=', self.test_team.id)])
         expected_message = f"<span class='o_mail_notification'>Created a new ticket: <a href=# data-oe-model='helpdesk.ticket' data-oe-id='{ticket.id}'>{ticket_name} (#{ticket.ticket_ref})</a></span>"
@@ -57,8 +57,19 @@ class TestWebsiteHelpdeskLivechat(HttpCase, HelpdeskCommon):
         # Search the tickets with the /search_tickets command
         discuss_channel.execute_command_helpdesk_search(body=f"/search_tickets {ticket_name}")
 
-        bus = self.env['bus.bus'].search([('channel', 'like', f"\"res.partner\",{self.helpdesk_manager.partner_id.id}")], order='id desc', limit=1)
+        bus = self.env['bus.bus'].search([('channel', 'like', f'"res.partner",{self.helpdesk_manager.partner_id.id}')], order='id desc', limit=1)
         message = json.loads(bus.message)
         expected_message = f"<span class='o_mail_notification'>Tickets search results for <b>Test website helpdesk livechat</b>: <br/><a href=# data-oe-model='helpdesk.ticket' data-oe-id='{ticket.id}'>{ticket_name} (#{ticket.ticket_ref})</a></span>"
 
         self.assertEqual(message['payload']['body'], expected_message, 'A message should be posted saying the previously created ticket matches the command.')
+
+        # Create 5 additional tickets with similar name as the previous ticket
+        for i in range(5):
+            discuss_channel.execute_command_helpdesk(body=f"/ticket {ticket_name}{i}")
+
+        discuss_channel.execute_command_helpdesk_search(body=f"/search_tickets {ticket_name}")
+        bus = self.env['bus.bus'].search([('channel', 'like', f'"res.partner",{self.helpdesk_manager.partner_id.id}')], order='id desc', limit=1)
+        message = json.loads(bus.message)
+
+        load_more_expected_message = f'<b><a href="#" data-oe-type="load" data-oe-lst="{ticket_name}" data-oe-load-counter="1">Load More</a></b>'
+        self.assertIn(load_more_expected_message, message['payload']['body'], "Load More link should be present when more than 5 tickets are found by the search_tickets command")

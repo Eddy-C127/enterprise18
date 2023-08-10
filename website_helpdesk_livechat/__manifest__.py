@@ -22,6 +22,7 @@ Features:
     """,
     'data': [
         'data/helpdesk_livechat_chatbot_data.xml',
+        'security/helpdesk_security.xml',
 
         'views/chatbot_script_views.xml',
         'views/chatbot_script_step_views.xml',

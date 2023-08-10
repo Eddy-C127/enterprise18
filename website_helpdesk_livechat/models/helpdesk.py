@@ -5,8 +5,8 @@ import re
 from markupsafe import Markup
 
 from odoo import Command, fields, models, _
-from odoo.tools import html_escape, is_html_empty, plaintext2html
-
+from odoo.tools import is_html_empty, plaintext2html
+from odoo.osv.expression import OR
 
 class HelpdeskTeam(models.Model):
     _inherit = ['helpdesk.team']
@@ -87,6 +87,40 @@ class DiscussChannel(models.Model):
                 msg = _("Created a new ticket: %s", helpdesk_ticket._get_html_link())
         return self._send_transient_message(self.env.user.partner_id, msg)
 
+    def fetch_ticket_by_keyword(self, list_keywords, load_counter=0):
+        keywords = re.findall(r'\w+', ' '.join(list_keywords))
+        helpdesk_tag_ids = self.env['helpdesk.tag'].search(
+            OR([[('name', 'ilike', keyword)] for keyword in keywords])
+        ).ids
+        tickets = self.env['helpdesk.ticket'].search([('tag_ids', 'in', helpdesk_tag_ids)], offset=load_counter*5, limit=6, order='id desc')
+        if not tickets:
+            for Keyword in keywords:
+                tickets |= self.env['helpdesk.ticket'].search([
+                    '|', '|', '|', '|', '|',
+                    ('name', 'ilike', Keyword),
+                    ('ticket_ref', 'ilike', Keyword),
+                    ('partner_id.id', 'ilike', Keyword),
+                    ('partner_name', 'ilike', Keyword),
+                    ('partner_email', 'ilike', Keyword),
+                    ('partner_phone', 'ilike', Keyword),
+                ], order="id desc", offset=load_counter*5, limit=6 - len(tickets))
+        if not tickets:
+            return False
+        load_more = False
+        if len(tickets) > 5:
+            tickets = tickets[:-1]
+            load_more = True
+        msg = Markup('<br/>').join(ticket.with_context(with_partner=True)._get_html_link() for ticket in tickets)
+        if load_more:
+            msg += Markup('<br/>')
+            msg += Markup('<div class="o_load_more"><b><a href="#" data-oe-type="load" data-oe-lst="%s" data-oe-load-counter="%s">%s</a></b></div>') % (
+                ' '.join(list_keywords),
+                load_counter + 1,
+                _('Load More')
+            )
+        return msg
+
+
     def execute_command_helpdesk_search(self, **kwargs):
         key = kwargs.get('body').split()
         partner = self.env.user.partner_id
@@ -95,30 +129,11 @@ class DiscussChannel(models.Model):
             if len(key) == 1:
                 msg = _('Search helpdesk tickets by typing <b>/search_tickets <i>keyword</i></b>')
             else:
-                list_value = key[1:]
-                Keywords = re.findall('\w+', ' '.join(list_value))
-                HelpdeskTag = self.env['helpdesk.tag']
-                for Keyword in Keywords:
-                    HelpdeskTag |= HelpdeskTag.search([('name', 'ilike', Keyword)])
-                tickets = self.env['helpdesk.ticket'].search([('tag_ids', 'in', HelpdeskTag.ids)], limit=10)
-                if not tickets:
-                    for Keyword in Keywords:
-                        tickets |= self.env['helpdesk.ticket'].search([
-                            '|', '|', '|', '|', '|',
-                            ('name', 'ilike', Keyword),
-                            ('ticket_ref', 'ilike', Keyword),
-                            ('partner_id.id', 'ilike', Keyword),
-                            ('partner_name', 'ilike', Keyword),
-                            ('partner_email', 'ilike', Keyword),
-                            ('partner_phone', 'ilike', Keyword)
-                        ], order="id desc", limit=10)
-                        if len(tickets) > 10:
-                            break
+                list_keywords = key[1:]
+                tickets = self.fetch_ticket_by_keyword(list_keywords)
                 if tickets:
-                    msg = _('Tickets search results for %s: ', Markup("<b>%s</b>") % ' '.join(list_value))
-                    msg += Markup('<br/>') + Markup('<br/>').join(ticket.with_context(with_partner=True)._get_html_link() for ticket in tickets)
+                    msg = _('Tickets search results for ') + Markup('<b>') + ' '.join(list_keywords) + Markup('</b>: <br/>') + tickets
                 else:
-                    msg = _('No tickets found for <b>%s</b>. <br> Make sure you are using the right format:<br> <b>/search_tickets <i>keyword</i></b>', ''.join(list_value))
-                    msg = _('No tickets found for %s.', Markup("<b>%s</b>") % ''.join(list_value)) + \
+                    msg = _('No tickets found for %s.', Markup("<b>%s</b>") % ''.join(list_keywords)) + \
                         Markup("<br>") + _("Make sure you are using the right format:") + Markup("<br> <b>/search_tickets <i>%s</i></b>") % _("keyword")
         return self._send_transient_message(partner, msg)
