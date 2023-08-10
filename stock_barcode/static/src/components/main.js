@@ -362,6 +362,25 @@ class MainComponent extends Component {
         this.state.view = "packagePage";
     }
 
+    async newScrapProduct() {
+        await this.env.model.save();
+        this.state.view = 'scrapProductPage';
+    }
+
+    get scrapViewProps() {
+        const context = this.env.model.scrapContext;
+        return {
+            resModel: 'stock.scrap',
+            context: context,
+            viewId: this.env.model.scrapViewId,
+            display: { controlPanel: false },
+            mode: "edit",
+            type: "form",
+            onSave: () => this.toggleBarcodeLines(),
+            onDiscard: () => this.toggleBarcodeLines(),
+        };
+    }
+
     async onOpenProductPage(line) {
         await this.env.model.save();
         if (line) {

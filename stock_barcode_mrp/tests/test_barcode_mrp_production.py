@@ -295,3 +295,20 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
         url = "/web#action=" + str(action_id.id)
         self.start_tour(url, 'test_barcode_production_component_no_stock', login='admin', timeout=180)
+
+    def test_mo_scrap_digipad_view(self):
+        """
+        Checks if a new, mobile-friendly scrap view is shown for MOs.
+        """
+        mo = self.env['mrp.production'].create({
+            'product_id': self.final_product.id,
+            'product_qty': 1,
+            'move_raw_ids': [(0, 0, {
+                'product_id': self.component01.id,
+                'product_uom_qty': 1
+            })]
+        })
+
+        action = self.env.ref('stock_barcode_mrp.stock_barcode_mo_client_action')
+        url = '/web?debug=assets#action=%s&active_id=%s' % (action.id, mo.id)
+        self.start_tour(url, 'test_mo_scrap_digipad_view', login='admin', timeout=180)

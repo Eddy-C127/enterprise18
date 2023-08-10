@@ -14,7 +14,6 @@
         'views/mrp_production.xml',
         'views/stock_move_line.xml',
         'views/stock_picking_type.xml',
-        'views/stock_scrap.xml',
         'views/res_config_settings_views.xml',
     ],
     'assets': {

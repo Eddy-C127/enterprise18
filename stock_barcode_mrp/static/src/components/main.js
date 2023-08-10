@@ -38,25 +38,6 @@ patch(MainComponent.prototype, {
         };
     },
 
-    get scrapViewProps() {
-        const context = this.env.model._getNewLineDefaultContext({ scrapProduct: true });
-        if (this.env.model.record.state != 'done') {
-            context['product_ids'] = this.env.model.pageLines.map(line => line.product_id.id);
-        } else {
-            context['product_ids'] = [this.env.model.record.product_id.id, ...this.env.model.byProductLines.map(line => line.product_id.id)];
-        }
-        return {
-            resModel: 'stock.scrap',
-            context: context,
-            viewId: this.env.model.scrapViewId,
-            display: { controlPanel: false },
-            mode: "edit",
-            type: "form",
-            onSave: () => this.toggleBarcodeLines(),
-            onDiscard: () => this.toggleBarcodeLines(),
-        };
-    },
-
     get lineFormViewProps() {
         const res = super.lineFormViewProps;
         const params = { newByProduct: this.state.displayByProduct };
@@ -119,11 +100,6 @@ patch(MainComponent.prototype, {
     openByProductLines() {
         this._editedLineParams = undefined;
         this.state.displayByProduct = true;
-    },
-
-    async newScrapProduct() {
-        await this.env.model.save();
-        this.state.view = 'scrapProductPage';
     },
 
     onOpenProductPage(line) {

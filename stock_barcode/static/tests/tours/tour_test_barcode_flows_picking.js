@@ -3292,6 +3292,59 @@ registry.category("web_tour.tours").add("test_scrap", {test: true, steps: () => 
             helper.assert(Boolean(scrapButton), false, "Scrap button shouldn't be displayed");
         },
     },
+    // Exits the delivery and opens the receipt, checks if the digipad scrap view is used
+    { trigger: "button.o_exit" },
+    { extra_trigger: ".o_barcode_lines_header", trigger: "button.o_exit" },
+    { trigger: ".o_stock_barcode_main_menu", run: "scan receipt_scrap_test" },
+    { trigger: ".o_barcode_actions" },
+    { trigger: ".o_barcode_settings" },
+    { trigger: ".o_scrap" },
+    {
+        trigger: ".o_qty_done_field_not_completed",
+        run: function() {
+            const digipadView = document.querySelector(".o_digipad_widget");
+            helper.assert(Boolean(digipadView), true, "Scrap view should use the digipad widget.");
+        },
+    },
+    {
+        content: "Select SN product from the dropdown",
+        trigger: ".o_input_dropdown .o_input#product_id_0",
+        run: "click",
+    },
+    {
+        content: "Product `productserial1` should be available, despite not having any move lines",
+        trigger: "a.dropdown-item:contains('productserial1')",
+        run: "click",
+    },
+    {
+        content: "Digipad should be hidden after selecting the SN product",
+        trigger: "body:not(:has(.o_digipad_widget))",
+        run: () => {},
+    },
+    {
+        content: "Check available lots",
+        trigger: ".o_input_dropdown .o_input#lot_id_0",
+        run: "click",
+    },
+    {
+        trigger: "a.dropdown-item:contains('SN')",
+        extra_trigger: "ul.o-autocomplete--dropdown-menu",
+        run: function() {
+            const dropdownContent = document.querySelector(".dropdown-menu").textContent;
+            helper.assert(
+                dropdownContent.includes("SN0001") && dropdownContent.includes("SN0002"), true,
+                "All SN lots for productserial1 should be available in the dropdown."
+            );
+        },
+    },
+    { trigger: "input#should_replenish_0" },
+    // Exits the form
+    { trigger: "button.o_discard" },
+    { trigger: "button.o_exit" },
+    {
+        trigger: 'button.button_operations',
+        isCheck: true,
+    },
 ]});
 
 registry.category("web_tour.tours").add('test_show_entire_package', {test: true, steps: () => [

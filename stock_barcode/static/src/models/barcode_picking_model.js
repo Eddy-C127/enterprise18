@@ -36,6 +36,7 @@ export default class BarcodePickingModel extends BarcodeModel {
         }
         this.lineFormViewId = data.data.line_view_id;
         this.formViewId = data.data.form_view_id;
+        this.scrapViewId = data.data.scrap_view_id;
         this.packageKanbanViewId = data.data.package_view_id;
         this.precision = data.data.precision;
     }
@@ -470,6 +471,13 @@ export default class BarcodePickingModel extends BarcodeModel {
                (picking_type_code === "internal");
     }
 
+    get scrapContext() {
+        const context = this._getNewLineDefaultContext();
+        const moves = this.record.move_ids.map(id => this.cache.getRecord("stock.move", id))
+        context['product_ids'] = moves.map(move => move.product_id);
+        return context;
+    }
+
     get canSelectLocation() {
         return !(this.config.restrict_scan_source_location || this.config.restrict_scan_dest_location != 'optional');
     }
@@ -712,7 +720,7 @@ export default class BarcodePickingModel extends BarcodeModel {
             buttons.push({
                 name: _t("Scrap"),
                 class: 'o_scrap',
-                method: 'button_scrap',
+                onclick: 'newScrapProduct',
             });
         }
 

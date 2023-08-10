@@ -34,6 +34,11 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
                 class: 'o_print_finsihed_product_pdf',
                 action: 'mrp.action_report_finished_product',
             },
+            {
+                name: _t("Scrap"),
+                class: 'o_scrap',
+                onclick: 'newScrapProduct',
+            },
         ];
         return buttons;
     }
@@ -106,6 +111,16 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         return true;
     }
 
+    get scrapContext() {
+        const context = this._getNewLineDefaultContext({ scrapProduct: true });
+        if (this.record.state != 'done') {
+            context['product_ids'] = this.pageLines.map(line => line.product_id.id);
+        } else {
+            context['product_ids'] = [this.record.product_id.id, ...this.byProductLines.map(line => line.product_id.id)];
+        }
+        return context;
+    }
+
     get selectedLine() {
         if (this.record.virtualId === this.selectedLineVirtualId) {
             return this._getFinalProductLine();
@@ -134,7 +149,6 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         data.actionId = this.actionId || data.actionId;
         super.setData(...arguments);
         this.headerViewId = data.data.header_view_id;
-        this.scrapViewId = data.data.scrap_view_id;
     }
 
     _getName() {

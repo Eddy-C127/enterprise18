@@ -14,7 +14,6 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
 
     setData(data) {
         super.setData(...arguments);
-        this.formViewId = data.data.form_view_id;
         // In case it's a new batch, we must display the pickings selector first.
         if (this.record.state === 'draft' && this.record.picking_ids.length === 0) {
             this.selectedPickings = [];

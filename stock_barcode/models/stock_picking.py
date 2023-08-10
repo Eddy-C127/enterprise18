@@ -91,7 +91,7 @@ class StockPicking(models.Model):
         lots = move_lines.lot_id
         owners = move_lines.owner_id
         # Fetch all implied products in `self` and adds last used products to avoid additional rpc.
-        products = move_lines.product_id
+        products = self.move_ids.product_id | move_lines.product_id
         packagings = products.packaging_ids
 
         uoms = products.uom_id | move_lines.product_uom_id
@@ -116,6 +116,7 @@ class StockPicking(models.Model):
             "records": {
                 "stock.picking": self.read(self._get_fields_stock_barcode(), load=False),
                 "stock.picking.type": self.picking_type_id.read(self.picking_type_id._get_fields_stock_barcode(), load=False),
+                "stock.move": self.move_ids.read(self.move_ids._get_fields_stock_barcode(), load=False),
                 "stock.move.line": move_lines.read(move_lines._get_fields_stock_barcode(), load=False),
                 # `self` can be a record set (e.g.: a picking batch), set only the first partner in the context.
                 "product.product": products.with_context(partner_id=self[:1].partner_id.id).read(products._get_fields_stock_barcode(), load=False),
@@ -140,6 +141,7 @@ class StockPicking(models.Model):
             data['config']['create_backorder'] = 'never'
         data['line_view_id'] = self.env.ref('stock_barcode.stock_move_line_product_selector').id
         data['form_view_id'] = self.env.ref('stock_barcode.stock_picking_barcode').id
+        data['scrap_view_id'] = self.env.ref('stock_barcode.scrap_product_selector').id
         data['package_view_id'] = self.env.ref('stock_barcode.stock_quant_barcode_kanban').id
         return data
 
@@ -181,6 +183,7 @@ class StockPicking(models.Model):
         """
         return [
             'move_line_ids',
+            'move_ids',
             'picking_type_id',
             'location_id',
             'location_dest_id',

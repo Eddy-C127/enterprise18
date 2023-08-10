@@ -165,8 +165,13 @@
                 background: var(--barcode__input--completed, #f6fdf6);
             }
 
-            .o_qty_done_field_not_completed input {
-                background: var(--barcode__input--notCompleted, #fcf9f2);
+            .o_qty_done_field_not_completed {
+                input {
+                    background: var(--barcode__input--notCompleted, #fcf9f2);
+                }
+                &[name="scrap_qty"] {
+                    width: 150px;
+                }
             }
 
             & > div {

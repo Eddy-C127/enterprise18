@@ -118,7 +118,7 @@ class ManufacturingOrder(models.Model):
         data['line_view_id'] = self.env.ref('stock_barcode.stock_move_line_product_selector').id
         data['form_view_id'] = self.env.ref('stock_barcode_mrp.mrp_barcode_form').id
         data['header_view_id'] = self.env.ref('stock_barcode_mrp.mrp_product_selector').id
-        data['scrap_view_id'] = self.env.ref('stock_barcode_mrp.scrap_product_selector').id
+        data['scrap_view_id'] = self.env.ref('stock_barcode.scrap_product_selector').id
         data['package_view_id'] = self.env.ref('stock_barcode.stock_quant_barcode_kanban').id
         return data
 

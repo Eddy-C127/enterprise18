@@ -608,3 +608,16 @@ registry.category("web_tour.tours").add("test_barcode_production_component_no_st
         isCheck: true,
     },
 ]});
+
+registry.category("web_tour.tours").add('test_mo_scrap_digipad_view', {test: true, steps: () => [
+    { trigger: ".o_barcode_actions" },
+    { trigger: ".o_barcode_settings" },
+    { trigger: ".o_scrap" },
+    {
+        trigger: ".o_qty_done_field_not_completed",
+        run: function() {
+            const digipadView = document.querySelector(".o_digipad_widget");
+            helper.assert(Boolean(digipadView), true, "Scrap view should use the digipad widget.");
+        },
+    },
+]});

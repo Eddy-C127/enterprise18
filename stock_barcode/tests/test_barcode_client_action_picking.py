@@ -1841,12 +1841,23 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
     def test_scrap(self):
         """ Checks the scrap button is displayed for when it's possible to scrap
         and the corresponding barcode command follows the same rules."""
+        # Creates SN product lots, for digipad testing
+        self.env['stock.lot'].create([{
+            'name': 'SN0001',
+            'product_id': self.productserial1.id,
+        }, {
+            'name': 'SN0002',
+            'product_id': self.productserial1.id,
+        }])
         # Creates a receipt and a delivery.
         receipt_form = Form(self.env['stock.picking'])
         receipt_form.picking_type_id = self.picking_type_in
         with receipt_form.move_ids_without_package.new() as move:
             move.product_id = self.product1
             move.product_uom_qty = 1
+        # Adds one line with SN product, for digipad testing
+        with receipt_form.move_ids_without_package.new() as move:
+            move.product_id = self.productserial1
         receipt_picking = receipt_form.save()
         receipt_picking.action_confirm()
         receipt_picking.action_assign()
