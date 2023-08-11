@@ -19,6 +19,14 @@ class SurveySurvey(models.Model):
                 'users_can_go_back': True,
             })
 
+    @api.depends('survey_type')
+    @api.depends_context('uid')
+    def _compute_allowed_survey_types(self):
+        super()._compute_allowed_survey_types()
+        if self.env.user.has_group('hr_appraisal.group_hr_appraisal_user') or \
+                self.env.user.has_group('survey.group_survey_user'):
+            self.allowed_survey_types = (self.allowed_survey_types or []) + [('appraisal', 'Appraisal')]
+
     def action_open_all_survey_inputs(self):
         return {
             'type': 'ir.actions.act_url',
@@ -42,6 +50,14 @@ class SurveySurvey(models.Model):
                 'domain': [('survey_id.survey_type', '=', 'appraisal')]
             })
         return action
+
+    def get_formview_id(self, access_uid=None):
+        if self.survey_type == 'appraisal':
+            access_user = self.env['res.users'].browse(access_uid) if access_uid else self.env.user
+            if not access_user.has_group('survey.group_survey_user'):
+                if view := self.env.ref('hr_appraisal_survey.survey_survey_view_form', raise_if_not_found=False):
+                    return view.id
+        return super().get_formview_id(access_uid=access_uid)
 
 
 class SurveyUserInput(models.Model):

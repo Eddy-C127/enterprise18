@@ -257,6 +257,7 @@
     </record>
     <!-- Employee Opinion form -->
     <record model="survey.survey" id="opinion_form">
+        <field name="survey_type">appraisal</field>
         <field name="title">Employee Opinion Form</field>
         <field name="user_id" ref="base.user_admin"/>
         <field name="access_mode">token</field>
