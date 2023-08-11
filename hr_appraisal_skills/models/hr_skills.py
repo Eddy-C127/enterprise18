@@ -7,7 +7,7 @@ from odoo import api, fields, models
 class HrAppraisal(models.Model):
     _inherit = 'hr.appraisal'
 
-    skill_ids = fields.One2many('hr.appraisal.skill', 'appraisal_id', string="Skills")
+    skill_ids = fields.One2many('hr.appraisal.skill', 'appraisal_id', string="Skills", domain=['|', ('skill_type_id.active', '=', True), ('appraisal_id.state', '=', 'done')])
 
     def write(self, vals):
         if 'state' in vals and vals['state'] == 'pending':
@@ -75,7 +75,7 @@ class HrAppraisalSkill(models.Model):
     appraisal_id = fields.Many2one('hr.appraisal', required=True, ondelete='cascade')
     employee_id = fields.Many2one('hr.employee', related='appraisal_id.employee_id', store=True)
     manager_ids = fields.Many2many('hr.employee', compute='_compute_manager_ids', store=True)
-    skill_id = fields.Many2one('hr.skill', compute='_compute_skill_id', store=True, domain="[('skill_type_id', '=', skill_type_id)]", readonly=False, required=True)
+    skill_id = fields.Many2one('hr.skill', compute='_compute_skill_id', store=True, domain="[('skill_type_id', '=', skill_type_id), ('skill_type_id.active', '=', True)]", readonly=False, required=True)
     previous_skill_level_id = fields.Many2one('hr.skill.level')
     skill_level_id = fields.Many2one('hr.skill.level', compute='_compute_skill_level_id', domain="[('skill_type_id', '=', skill_type_id)]", store=True, readonly=False, required=True)
     skill_type_id = fields.Many2one('hr.skill.type')
