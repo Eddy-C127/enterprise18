@@ -405,7 +405,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         }
     }
     /**
-     * Create a col header from a value
+     * Create a col header from a non-header value
      *
      * @param {string} pivotId Id of the pivot
      * @param {number} nextIndex Index of the target column
@@ -416,21 +416,23 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @returns {string}
      */
     _autofillColFromValue(pivotId, nextIndex, currentElement) {
+        if (nextIndex >= 0) {
+            return "";
+        }
         const dataSource = this.getters.getPivotDataSource(pivotId);
         const table = dataSource.getTableStructure();
         const groupIndex = table.getColMeasureIndex(currentElement.cols);
         if (groupIndex < 0) {
             return "";
         }
-        const levels = dataSource.getNumberOfColGroupBys();
-        const index = levels + 1 + nextIndex;
-        if (index < 0 || index >= levels + 1) {
+        const isTotalCol = currentElement.cols.length === 1;
+        const headerLevels = isTotalCol ? 2 // measure and 'Total'
+            : dataSource.getNumberOfColGroupBys() + 1; // Groupby levels + measure
+        const index = headerLevels + nextIndex;
+        if (index < 0) {
             return "";
         }
-        const cols = [];
-        for (let i = 0; i <= index; i++) {
-            cols.push(currentElement.cols[i]);
-        }
+        const cols = isTotalCol ? currentElement.cols.slice(0, index) : currentElement.cols.slice(0, index + 1);
         return makePivotFormula("ODOO.PIVOT.HEADER", this._buildArgs(pivotId, undefined, [], cols));
     }
     /**

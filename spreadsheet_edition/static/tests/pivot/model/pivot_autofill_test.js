@@ -288,6 +288,33 @@ QUnit.module("spreadsheet > pivot_autofill", {}, () => {
         const tooltipContent = model.getters.getAutofillTooltip().props.content;
         assert.deepEqual(tooltipContent, [{ value: "April 2016" }, { value: "" }]);
     });
+    QUnit.test(
+        "Autofill last column cells vertically by targeting col headers",
+        async function (assert) {
+            const { model } = await createSpreadsheetWithPivot();
+            assert.strictEqual(
+                getPivotAutofillValue(model, "F3", { direction: "top", steps: 1 }),
+                getCellFormula(model, "F2")
+            );
+            assert.strictEqual(
+                getPivotAutofillValue(model, "F3", { direction: "top", steps: 2 }),
+                getCellFormula(model, "F1")
+            );
+            assert.strictEqual(
+                getPivotAutofillValue(model, "F5", { direction: "top", steps: 3 }),
+                getCellFormula(model, "F2")
+            );
+            assert.strictEqual(
+                getPivotAutofillValue(model, "F5", { direction: "top", steps: 4 }),
+                getCellFormula(model, "F1")
+            );
+            setCellContent(model, "H10", `=ODOO.PIVOT(1,"probability","bar","true")`);
+            assert.strictEqual(
+                getPivotAutofillValue(model, "H10", { direction: "top", steps: 5 }),
+                ""
+            );
+        }
+    );
 
     QUnit.test("Autofill pivot values with date in rows", async function (assert) {
         assert.expect(6);
