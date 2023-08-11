@@ -60,11 +60,18 @@ class PlanningShift(models.Model):
 
     def _get_domain_template_slots(self):
         domain = super(PlanningShift, self)._get_domain_template_slots()
+        domain = expression.AND([
+            domain,
+            ['|', ('company_id', '=', False), ('company_id', '=', self.company_id.id)],
+        ])
         if self.project_id:
-            domain += ['|', ('project_id', '=', self.project_id.id), ('project_id', '=', False)]
+            domain = expression.AND([
+                domain,
+                [('project_id', '=', self.project_id.id)],
+            ])
         return domain
 
-    @api.depends('role_id', 'employee_id', 'project_id')
+    @api.depends('role_id', 'employee_id', 'project_id', 'company_id')
     def _compute_template_autocomplete_ids(self):
         super(PlanningShift, self)._compute_template_autocomplete_ids()
 

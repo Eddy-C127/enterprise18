@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
-import { markup, useEnv, onWillUnmount } from "@odoo/owl";
+import { markup, useEnv, onWillUnmount, useEffect } from "@odoo/owl";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import { useService } from "@web/core/utils/hooks";
 import { escape } from "@web/core/utils/strings";
@@ -220,4 +220,24 @@ export function usePlanningModelActions({
             return getHighlightPlannedIds() || [];
         },
     };
+}
+
+export function setupDisplayName(displayNameRef) {
+    useEffect(
+        (displayNameEl) => {
+            const displayNameMatch = displayNameEl.textContent.match(/^(.*)(\(.*\))$/);
+            if (displayNameMatch) {
+                const textMuted = document.createElement("span");
+                textMuted.className = "text-muted text-truncate";
+                textMuted.textContent = displayNameMatch[2];
+                const displayNameText = document.createElement("span");
+                displayNameText.textContent = displayNameMatch[1];
+                displayNameEl.replaceChildren(displayNameText);
+                displayNameEl.appendChild(textMuted);
+            } else {
+                displayNameEl.replaceChildren(document.createTextNode(displayNameEl.textContent));
+            }
+        },
+        () => [displayNameRef.el]
+    );
 }

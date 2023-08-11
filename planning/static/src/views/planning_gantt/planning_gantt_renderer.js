@@ -6,6 +6,7 @@ import { formatFloat } from "@web/core/utils/numbers";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";
 import { getUnionOfIntersections } from "@web_gantt/gantt_helpers";
 import { PlanningEmployeeAvatar } from "./planning_employee_avatar";
+import { PlanningMaterialRole } from "./planning_material_role";
 import { PlanningGanttRowProgressBar } from "./planning_gantt_row_progress_bar";
 import { useEffect, onWillStart, useRef } from "@odoo/owl";
 import { serializeDateTime } from "@web/core/l10n/dates";
@@ -21,6 +22,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
         ...GanttRenderer.components,
         Avatar: PlanningEmployeeAvatar,
         GanttRowProgressBar: PlanningGanttRowProgressBar,
+        Material: PlanningMaterialRole,
     };
     setup() {
         this.duplicateToolHelperRef = useRef("duplicateToolHelper");
@@ -51,6 +53,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
 
     computeDerivedParams() {
         this.rowsWithAvatar = {};
+        this.rowsWithMaterial = {};
         super.computeDerivedParams();
     }
 
@@ -142,6 +145,10 @@ export class PlanningGanttRenderer extends GanttRenderer {
 
     getAvatarProps(row) {
         return this.rowsWithAvatar[row.id];
+    }
+
+    getMaterialProps(row) {
+        return this.rowsWithMaterial[row.id];
     }
 
     /**
@@ -326,6 +333,10 @@ export class PlanningGanttRenderer extends GanttRenderer {
         return row.id in this.rowsWithAvatar;
     }
 
+    hasMaterial(row) {
+        return row.id in this.rowsWithMaterial;
+    }
+
     /**
      * @override
      */
@@ -358,6 +369,8 @@ export class PlanningGanttRenderer extends GanttRenderer {
             const { fields } = this.model.metaData;
             const resModel = fields.resource_id.relation;
             this.rowsWithAvatar[row.id] = { resModel, resId: row.resId, displayName: name, isResourceMaterial, showPopover, resourceColor };
+        } else if (isResourceMaterial) {
+            this.rowsWithMaterial[row.id] = { displayName: name };
         }
         return super.processRow(...arguments);
     }

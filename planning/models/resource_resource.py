@@ -3,7 +3,7 @@
 from random import randint
 
 from datetime import datetime, time, timedelta
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 class ResourceResource(models.Model):
     _inherit = 'resource.resource'
@@ -63,7 +63,10 @@ class ResourceResource(models.Model):
         if not self.env.context.get('show_job_title'):
             return super()._compute_display_name()
         for resource in self:
-            resource.display_name = resource.employee_id.display_name if resource.employee_id else resource.name
+            if resource.resource_type == 'material' and resource.default_role_id:
+                resource.display_name = _("%s (%s)") % (resource.name, resource.default_role_id.name)
+            else:
+                resource.display_name = resource.employee_id.display_name if resource.employee_id else resource.name
 
     def action_archive(self):
         res = super().action_archive()

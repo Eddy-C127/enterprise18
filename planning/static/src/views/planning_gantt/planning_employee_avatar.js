@@ -1,10 +1,10 @@
 /* @odoo-module */
 
-import { Avatar } from "@mail/views/web/fields/avatar/avatar";
 import { AvatarCardResourcePopover } from "@resource_mail/components/avatar_card_resource/avatar_card_resource_popover";
-import { useEffect, useRef } from "@odoo/owl";
 import { usePopover } from "@web/core/popover/popover_hook";
-
+import { Avatar } from "@mail/views/web/fields/avatar/avatar";
+import { useRef } from "@odoo/owl";
+import { setupDisplayName } from "../planning_hooks";
 
 export class PlanningEmployeeAvatar extends Avatar {
     static template = "planning.PlanningEmployeeAvatar";
@@ -18,22 +18,7 @@ export class PlanningEmployeeAvatar extends Avatar {
 
     setup() {
         const displayNameRef = useRef("displayName");
-        useEffect(
-            (displayNameEl) => {
-                // Mute the last content between parenthesis in Gantt title column
-                const text = displayNameEl.textContent;
-                const jobTitleRegexp = /^(.*)(\(.*\))$/;
-                const jobTitleMatch = text.match(jobTitleRegexp);
-                if (jobTitleMatch) {
-                    const textMuted = document.createElement("span");
-                    textMuted.className = "text-muted text-truncate";
-                    textMuted.replaceChildren(jobTitleMatch[2]);
-                    displayNameEl.replaceChildren(jobTitleMatch[1], textMuted);
-                }
-            },
-            () => [displayNameRef.el]
-        );
-
+        setupDisplayName(displayNameRef);
         this.avatarCard = usePopover(AvatarCardResourcePopover);
     }
 

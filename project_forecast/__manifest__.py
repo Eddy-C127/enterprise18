@@ -14,6 +14,7 @@ Schedule your teams across projects and estimate deadlines more accurately.
         'data/planning_demo.xml',
     ],
     'data': [
+        'security/project_forecast_security.xml',
         'views/planning_template_views.xml',
         'views/planning_templates.xml',
         'views/planning_views.xml',
