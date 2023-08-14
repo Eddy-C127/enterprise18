@@ -378,4 +378,6 @@ class StockPickingType(models.Model):
         return [
             'default_location_dest_id',
             'default_location_src_id',
+            'use_create_lots',
+            'use_existing_lots',
         ]

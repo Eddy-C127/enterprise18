@@ -139,6 +139,7 @@
                                    invisible="code == 'incoming'"/>
                             <field name="restrict_scan_product" string="Product"/>
                             <field name="restrict_scan_tracking_number" string="Lot/Serial"
+                                   invisible="not use_create_lots and not use_existing_lots"
                                    groups="stock.group_production_lot"/>
                             <field name="restrict_put_in_pack"
                                    groups="stock.group_tracking_lot" string="Put in Pack"/>

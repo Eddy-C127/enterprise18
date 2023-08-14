@@ -42,7 +42,11 @@ export default class LineComponent extends Component {
     }
 
     get isTracked() {
-        return this.line.product_id.tracking !== 'none';
+        let tracked = this.line.product_id.tracking !== 'none';
+        if (tracked && this.env.model.resModel == 'stock.picking' && !(this.env.model.record.picking_type_id.use_create_lots || this.env.model.record.picking_type_id.use_existing_lots)) {
+            tracked = false;
+        }
+        return tracked;
     }
 
     get lotName() {

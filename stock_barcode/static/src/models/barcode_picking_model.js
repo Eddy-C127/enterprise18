@@ -363,7 +363,7 @@ export default class BarcodePickingModel extends BarcodeModel {
         const product = line.product_id;
 
         // About tracking numbers.
-        if (product.tracking !== 'none') {
+        if (product.tracking !== 'none' && (this.record.picking_type_id.use_create_lots || this.record.picking_type_id.use_existing_lots)) {
             const isLot = product.tracking === "lot";
             if (this.getQtyDemand(line) && (line.lot_id || line.lot_name)) { // Reserved.
                 if (this.getQtyDone(line) === 0) { // Lot/SN not scanned yet.

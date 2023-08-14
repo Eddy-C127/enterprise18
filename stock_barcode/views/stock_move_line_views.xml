@@ -54,7 +54,7 @@
             </div>
             <div class="row justify-content-center justify-content-md-start">
                 <div class="col-12 col-sm-10 col-md-8 my-2 ms-md-5 align-items-baseline"
-                    invisible="tracking == 'serial'">
+                    invisible="tracking == 'serial' and (picking_type_use_create_lots or picking_type_use_existing_lots)">
                     <widget name="digipad" quantity_field="qty_done"/>
                 </div>
             </div>
@@ -101,7 +101,7 @@
             <field name="parent_location_dest_id" invisible="1"/>
             <div class="row" groups="stock.group_production_lot">
                 <div class="col-12 col-md-6 my-2 d-flex align-items-baseline">
-                    <i class="fa fa-fw fa-lg fa-barcode me-3" title="Serial/Lot Number" invisible="tracking not in ['serial', 'lot']"/>
+                    <i class="fa fa-fw fa-lg fa-barcode me-3" title="Serial/Lot Number" invisible="tracking not in ['serial', 'lot'] or (not picking_type_use_create_lots and not picking_type_use_existing_lots)"/>
                     <field name="lot_name" placeholder="Serial/Lot Number"
                            invisible="hide_lot_name"/>
                     <field name="lot_id" placeholder="Serial/Lot Number" options="{'no_open': True}"
