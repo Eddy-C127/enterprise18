@@ -568,8 +568,22 @@ class HelpdeskTeam(models.Model):
             values['alias_defaults'] = defaults = ast.literal_eval(self.alias_defaults or "{}")
             defaults['team_id'] = self.id
             if not self.alias_name:
-                values['alias_name'] = self.name.replace(' ', '-')
+                base_email_alias = self.name.lower().replace(' ', '-')
+                values['alias_name'] = self._ensure_unique_email_alias(base_email_alias)
         return values
+
+    def _ensure_unique_email_alias(self, email_alias):
+        existing_aliases = self._get_existing_email_aliases(email_alias)
+        modified_email_alias = email_alias
+        counter = 2
+        while modified_email_alias in existing_aliases:
+            modified_email_alias = f"{email_alias}-{counter}"
+            counter += 1
+        return self.env['mail.alias']._sanitize_alias_name(modified_email_alias)
+
+    def _get_existing_email_aliases(self, email_alias):
+        existing_aliases = self.env['mail.alias'].search([('alias_name', 'ilike', email_alias)])
+        return {alias.alias_name for alias in existing_aliases}
 
     # ------------------------------------------------------------
     # Business Methods

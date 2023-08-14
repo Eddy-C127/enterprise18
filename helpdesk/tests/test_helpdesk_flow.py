@@ -7,6 +7,7 @@ from freezegun import freeze_time
 
 from .common import HelpdeskCommon
 from odoo.exceptions import AccessError
+from odoo.tests import users
 
 
 class TestHelpdeskFlow(HelpdeskCommon):
@@ -662,3 +663,18 @@ Content-Transfer-Encoding: quoted-printable
         self.assertTrue(user_c.partner_id in ticket_2.message_partner_ids)
         self.assertFalse(partner_a in ticket_2.message_partner_ids)
         self.assertFalse(partner_b in ticket_2.message_partner_ids)
+
+    @users('hm')
+    def test_mail_alias_after_helpdesk_team_creation(self):
+        team_1, team_2, team_3 = self.env['helpdesk.team'].with_context({'mail_create_nolog': True}).create([
+            {'name': 'Telecom Team', 'use_alias': True},
+            {'name': 'telecom', 'use_alias': True},
+            {'name': 'Telecom Team', 'use_alias': True},
+        ])
+        for team in (team_1, team_2, team_3):
+            self.assertTrue(team.alias_id, 'Alias should be created')
+            self.assertTrue(team.use_alias, 'Alias feature should be enabled')
+
+        self.assertEqual(team_1.alias_id.alias_name, 'telecom-team', 'Alias name should be telecom-team')
+        self.assertEqual(team_2.alias_id.alias_name, 'telecom', 'Alias name should be telecom')
+        self.assertEqual(team_3.alias_id.alias_name, 'telecom-team-2', 'Alias name should be telecom-team-2')
