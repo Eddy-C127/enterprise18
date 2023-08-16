@@ -106,7 +106,7 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
         }])
 
         # Export Wizard ----------------------------------------
-        cls.export_wizard = cls.env['account.fr.fec'].create([{
+        cls.export_wizard = cls.env['l10n_fr.fec.export.wizard'].create([{
             'date_from': datetime.date(1990, 1, 1),
             'date_to': datetime.date.today(),
             'test_file': True,
@@ -294,8 +294,8 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
         """ Test that imports the results of a FEC export """
 
         # Generate the FEC content with the export wizard
-        self.export_wizard.sudo().with_company(self.company_export).generate_fec()
-        content = self.export_wizard.fec_data
+
+        content = base64.encodebytes(self.export_wizard.generate_fec()['file_content'])
         self.wizard.attachment_id = content
 
         # Import the exported FEC file in the test's main company

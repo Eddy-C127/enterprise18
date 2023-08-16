@@ -23,7 +23,7 @@ https://github.com/DGFiP/Test-Compta-Demat
 
     """,
     "category": "Accounting/Accounting",
-    "depends": ["account_accountant", "base_vat", "l10n_fr", "l10n_fr_fec", "account_base_import"],
+    "depends": ["account_accountant", "base_vat", "l10n_fr", "l10n_fr_reports", "account_base_import"],
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
