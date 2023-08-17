@@ -175,6 +175,14 @@ class Task(models.Model):
                     sale_order_id.partner_shipping_id.commercial_partner_id):
                 task.sale_order_id = sale_order_id
 
+    @api.depends('sale_order_id.partner_shipping_id')
+    def _compute_partner_id(self):
+        if self.user_has_groups('account.group_delivery_invoice_address'):
+            for task in self:
+                if task.is_fsm:
+                    task.partner_id = task.sale_order_id.partner_shipping_id
+        return super()._compute_partner_id() # Call to super will reset partner_id for non-billable tasks
+
     def action_create_invoice(self):
         # ensure the SO exists before invoicing, then confirm it
         so_to_confirm = self.filtered(
