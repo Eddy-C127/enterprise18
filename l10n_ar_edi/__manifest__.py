@@ -83,6 +83,7 @@ For Development information go to http://www.afip.gob.ar/fe/documentos/WSBFEv1%2
     },
     'data': [
         'wizards/l10n_ar_afip_ws_consult_view.xml',
+        'wizards/account_move_reversal_view.xml',
         'views/l10n_ar_afipws_connection_view.xml',
         'views/res_config_settings_view.xml',
         'views/account_move_view.xml',
