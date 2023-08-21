@@ -921,7 +921,7 @@ class AccountMove(models.Model):
             }
             for invl in self._l10n_mx_edi_cfdi_invoice_line_ids()
         ]
-        Document._add_base_lines_tax_amounts(base_lines)
+        Document._add_base_lines_tax_amounts(base_lines, cfdi_values['company'])
         if global_invoice and self.reversal_move_id:
             refund_base_lines = [
                 {
@@ -934,7 +934,7 @@ class AccountMove(models.Model):
             for refund_base_line in refund_base_lines:
                 refund_base_line['quantity'] *= -1
                 refund_base_line['price_subtotal'] *= -1
-            Document._add_base_lines_tax_amounts(refund_base_lines)
+            Document._add_base_lines_tax_amounts(refund_base_lines, cfdi_values['company'])
             base_lines += refund_base_lines
 
         # Manage the negative lines.

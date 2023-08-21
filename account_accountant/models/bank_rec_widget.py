@@ -670,7 +670,8 @@ class BankRecWidget(models.Model):
             group_tax=line.group_tax_id,
             account=line.account_id,
             analytic_distribution=line.analytic_distribution,
-            tax_amount=line.amount_currency,
+            tax_amount_currency=line.amount_currency,
+            tax_amount=line.balance,
         )
 
     def _lines_prepare_tax_line(self, tax_line_vals):
@@ -710,6 +711,7 @@ class BankRecWidget(models.Model):
 
         tax_results = self.env['account.tax']._compute_taxes(
             [self._convert_to_tax_base_line_dict(x) for x in base_lines],
+            self.company_id,
             tax_lines=[self._convert_to_tax_line_dict(x) for x in tax_lines],
             include_caba_tags=True,
         )

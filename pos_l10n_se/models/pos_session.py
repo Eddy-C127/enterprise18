@@ -10,5 +10,4 @@ class PosSession(models.Model):
     def _load_data_params(self, config_id):
         params = super()._load_data_params(config_id)
         params["product.product"]["fields"].append("type")
-        params["account.tax"]["fields"].append("sweden_identification_letter")
         return params

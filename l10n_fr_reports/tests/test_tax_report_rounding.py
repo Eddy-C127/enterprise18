@@ -84,8 +84,8 @@ class TestFrenchFiscalRounding(TestAccountReportsCommon):
         # both correspond to the same report line
         expected_closing_entry_lines = [
             (0, 0, {'name': '20% G', 'debit': 24.69, 'credit': 0, 'account_id': self.tva_collected.id}),
-            (0, 0, {'name': '20% G INC', 'debit': 20.57, 'credit': 0, 'account_id': self.tva_collected.id}),
-            (0, 0, {'name': 'Difference from rounding taxes', 'debit': 0, 'credit': 0.26, 'account_id': self.difference_profit_acc.id}),
+            (0, 0, {'name': '20% G INC', 'debit': 20.58, 'credit': 0, 'account_id': self.tva_collected.id}),
+            (0, 0, {'name': 'Difference from rounding taxes', 'debit': 0, 'credit': 0.27, 'account_id': self.difference_profit_acc.id}),
         ]
         lines, _ = self.handler._compute_vat_closing_entry(self.company_data['company'], options)
         self.assertEqual(lines, expected_closing_entry_lines)

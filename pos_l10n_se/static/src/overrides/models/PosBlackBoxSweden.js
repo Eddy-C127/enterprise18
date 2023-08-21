@@ -132,7 +132,7 @@ patch(Order.prototype, {
             });
         } else if (
             this.pos.useBlackBoxSweden() &&
-            !this.pos.models["account.tax"].get(product.taxes_id[0]).sweden_identification_letter
+            !this.pos.mapTaxValues(product.taxes_id)[0]?.sweden_identification_letter
         ) {
             this.env.services.dialog(AlertDialog, {
                 title: _t("POS error"),
@@ -245,8 +245,7 @@ patch(Orderline.prototype, {
         }
         return {
             ...super.getDisplayData(...arguments),
-            taxLetter:
-                this.pos.models["account.tax"].get(this.product.taxes_id[0])?.sweden_identification_letter,
+            taxLetter: this.pos.mapTaxValues(this.product.taxes_id)[0]?.sweden_identification_letter,
         };
     },
 });

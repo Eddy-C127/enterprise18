@@ -46,7 +46,6 @@ class pos_session(models.Model):
         params["pos.session"]["fields"].extend(["users_clocked_ids", "employees_clocked_ids"])
         if params.get('hr.employee'):
             params["hr.employee"]["fields"].append("insz_or_bis_number")
-        params["account.tax"]["fields"].append("identification_letter")
         return params
 
     @api.depends("order_ids")

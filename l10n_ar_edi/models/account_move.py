@@ -521,7 +521,6 @@ class AccountMove(models.Model):
                 vat_tax = line.tax_ids.filtered(lambda x: x.tax_group_id.l10n_ar_vat_afip_code)
                 vat_taxes_amounts = vat_tax.compute_all(
                     line.price_unit, self.currency_id, line.quantity, product=line.product_id, partner=self.partner_id,
-                    fixed_multiplicator=line.move_id.direction_sign,
                 )
 
                 line.product_id.product_tmpl_id._check_l10n_ar_ncm_code()

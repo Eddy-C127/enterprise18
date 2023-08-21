@@ -169,7 +169,7 @@ patch(Order.prototype, {
                 'body': _t("User must be clocked in."),
             });
             return;
-        } else if (this.pos.useBlackBoxBe() && !this.pos.models["account.tax"].get(product.taxes_id[0]).identification_letter) {
+        } else if (this.pos.useBlackBoxBe() && !this.pos.mapTaxValues(product.taxes_id)[0]?._letter) {
             this.pos.env.services.dialog.add(AlertDialog, {
                 'title': _t("POS error"),
                 'body': _t("Product has an invalid tax amount. Only 21%, 12%, 6% and 0% are allowed."),
@@ -234,10 +234,6 @@ patch(Order.prototype, {
             result.orderlines = result.orderlines.map((l) => ({
                 ...l,
                 price: l.price === "free" ? l.price : l.price + " " + l.taxLetter,
-            }));
-            result.tax_details = result.tax_details.map((t) => ({
-                ...t,
-                tax: { ...t.tax, letter: t.tax.identification_letter },
             }));
             result.blackboxBeData = {
                 "pluHash": order.blackbox_plu_hash,
@@ -444,6 +440,6 @@ patch(Orderline.prototype, {
         };
     },
     getLineTaxLetter() {
-        return this.pos.models["account.tax"].get(this.product.taxes_id[0])?.identification_letter;
+        return this.pos.mapTaxValues(this.product.taxes_id)[0]?._letter;
     },
 });

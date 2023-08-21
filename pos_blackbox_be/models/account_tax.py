@@ -30,3 +30,10 @@ class AccountTax(models.Model):
                     rec.identification_letter = False
             else:
                 rec.identification_letter = False
+
+    def _prepare_dict_for_taxes_computation(self):
+        # EXTENDS 'account'
+        results = super()._prepare_dict_for_taxes_computation()
+        results['identification_letter'] = self.identification_letter
+        results['_letter'] = results['_letter'] or results['identification_letter']
+        return results

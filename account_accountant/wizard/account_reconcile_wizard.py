@@ -375,6 +375,7 @@ class AccountReconcileWizard(models.TransientModel):
         )
         tax_results = self.env['account.tax']._compute_taxes(
             [tax_data],
+            self.company_id,
             include_caba_tags=True,
         )
 

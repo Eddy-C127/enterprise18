@@ -1398,9 +1398,9 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         self.assertRecordValues(wizard.line_ids, [
             # pylint: disable=C0326
             {'flag': 'liquidity',   'balance': 1000.0},
-            {'flag': 'manual',      'balance': -763.36},
+            {'flag': 'manual',      'balance': -763.35},
             {'flag': 'tax_line',    'balance': -160.31},
-            {'flag': 'tax_line',    'balance': -76.33},
+            {'flag': 'tax_line',    'balance': -76.34},
         ])
 
         # Changing the account should recompute the taxes but preserve the "price included taxes" mode.
@@ -1412,9 +1412,9 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         self.assertRecordValues(wizard.line_ids, [
             # pylint: disable=C0326
             {'flag': 'liquidity',   'balance': 1000.0},
-            {'flag': 'manual',      'balance': -763.36},
+            {'flag': 'manual',      'balance': -763.35},
             {'flag': 'tax_line',    'balance': -160.31},
-            {'flag': 'tax_line',    'balance': -76.33},
+            {'flag': 'tax_line',    'balance': -76.34},
         ])
 
         # The wizard can be validated.
@@ -1425,9 +1425,9 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         self.assertRecordValues(st_line.line_ids, [
             # pylint: disable=C0326
             {'balance': 1000.0},
-            {'balance': -763.36},
+            {'balance': -763.35},
             {'balance': -160.31},
-            {'balance': -76.33},
+            {'balance': -76.34},
         ])
         self.assertRecordValues(wizard, [{'state': 'reconciled'}])
 

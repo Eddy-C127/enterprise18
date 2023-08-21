@@ -27,3 +27,10 @@ class AccountTax(models.Model):
                     tax.sweden_identification_letter = False
             else:
                 tax.sweden_identification_letter = False
+
+    def _prepare_dict_for_taxes_computation(self):
+        # EXTENDS 'account'
+        results = super()._prepare_dict_for_taxes_computation()
+        results['sweden_identification_letter'] = self.sweden_identification_letter
+        results['_letter'] = results['_letter'] or results['sweden_identification_letter']
+        return results

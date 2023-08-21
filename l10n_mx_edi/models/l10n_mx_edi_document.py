@@ -687,11 +687,12 @@ class L10nMxEdiDocument(models.Model):
         cfdi_values['objeto_imp'] = tax_objected
 
     @api.model
-    def _get_taxes_cfdi_values(self, base_lines, filter_tax_values=None):
+    def _get_taxes_cfdi_values(self, base_lines, company, filter_tax_values=None):
         """ Compute the taxes for the CFDI document based on the lines passed as parameter.
 
         :param base_lines:          A list of dictionaries representing the lines of the document.
                                     (see '_convert_to_tax_base_line_dict' in account.tax).
+        :param company:             The company.
         :param filter_tax_values:   See '_aggregate_taxes' in account.tax.
         :return                     The results of the '_aggregate_taxes' method in account.tax.
         """
@@ -705,18 +706,23 @@ class L10nMxEdiDocument(models.Model):
                 'tax_amount_field': tax.amount,
             }
 
-        taxes_values_to_aggregate = []
+        to_process = []
         for base_line in base_lines:
 
             # Don't consider fully discounted lines for taxes computation.
             if base_line['discount'] == 100.0:
                 continue
 
-            to_update_vals, tax_values_list = self.env['account.tax']._compute_taxes_for_single_line(base_line)
-            taxes_values_to_aggregate.append((base_line, to_update_vals, tax_values_list))
+            tax_details_results = self.env['account.tax']._prepare_base_line_tax_details(
+                base_line,
+                company,
+                split_repartition_lines=True,
+            )
+            to_process.append((base_line, tax_details_results))
 
         return self.env['account.tax']._aggregate_taxes(
-            taxes_values_to_aggregate,
+            to_process,
+            company,
             filter_tax_values_to_apply=filter_tax_values,
             grouping_key_generator=grouping_key_generator,
         )
@@ -865,18 +871,21 @@ class L10nMxEdiDocument(models.Model):
         return self._dispatch_cfdi_base_lines(base_lines)['cfdi_lines']
 
     @api.model
-    def _add_base_lines_tax_amounts(self, base_lines):
+    def _add_base_lines_tax_amounts(self, base_lines, company):
         """ Add the taxes to each base line.
 
-        :param base_lines: A list of dictionaries representing the lines of the document.
-                           (see '_convert_to_tax_base_line_dict' in account.tax).
+        :param base_lines:  A list of dictionaries representing the lines of the document.
+                            (see '_convert_to_tax_base_line_dict' in account.tax).
+        :param company:     The company.
         """
         tax_details_transferred = self._get_taxes_cfdi_values(
             base_lines,
+            company,
             filter_tax_values=lambda _base_line, tax_values: tax_values['tax_repartition_line'].tax_id.amount >= 0.0,
         )
         tax_details_withholding = self._get_taxes_cfdi_values(
             base_lines,
+            company,
             filter_tax_values=lambda _base_line, tax_values: tax_values['tax_repartition_line'].tax_id.amount < 0.0,
         )
         for base_line in base_lines:
