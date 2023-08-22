@@ -60,7 +60,7 @@ class TestNlTaxReportSBR(TestAccountReportsCommon):
                 <link:schemaRef xlink:type="simple" xlink:href="http://www.nltaxonomie.nl/nt16/bd/20211208/entrypoints/bd-rpt-ob-aangifte-2022.xsd"/>
                 <xbrli:context id="Msg">
                     <xbrli:entity>
-                        <xbrli:identifier scheme="www.belastingdienst.nl/omzetbelastingnummer">NL123456782B90</xbrli:identifier>
+                        <xbrli:identifier scheme="www.belastingdienst.nl/omzetbelastingnummer">123456782B90</xbrli:identifier>
                     </xbrli:entity>
                     <xbrli:period>
                         <xbrli:startDate>2019-01-01</xbrli:startDate>
