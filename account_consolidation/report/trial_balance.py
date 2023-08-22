@@ -21,8 +21,6 @@ class TrialBalanceCustomHandler(models.AbstractModel):
             },
             'templates': {
                 'AccountReportHeader': 'account_consolidation.ConsolidationReportHeader',
-                'AccountReportLine': 'account_consolidation.ConsolidationReportLine',
-                'AccountReportLineName': 'account_consolidation.ConsolidationReportLineName',
             },
         }
 
