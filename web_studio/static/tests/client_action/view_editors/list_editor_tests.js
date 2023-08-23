@@ -2454,5 +2454,30 @@ QUnit.module(
             );
             assert.verifySteps(["web_search_read"]);
         });
+
+        QUnit.test("List readonly attribute should not set force_save", async function (assert) {
+            assert.expect(2);
+            const changeArch = makeArchChanger();
+
+            const arch = '<tree><field name="display_name"/></tree>';
+            await createViewEditor({
+                serverData,
+                type: "list",
+                resModel: "coucou",
+                arch: arch,
+                mockRPC: function (route, args) {
+                    if (route === "/web_studio/edit_view") {
+                        assert.strictEqual(args.operations[0].new_attrs.readonly, "True");
+                        assert.notOk("force_save" in args.operations[0].new_attrs);
+                        changeArch(args.view_id, arch);
+                    }
+                },
+            });
+
+            await click(
+                target.querySelector(".o_web_studio_list_view_editor [name='display_name']")
+            );
+            await click(target, ".o_web_studio_sidebar input#readonly");
+        });
     }
 );
