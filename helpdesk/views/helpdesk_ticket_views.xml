@@ -78,7 +78,6 @@
                 <field name="sla_ids" groups="helpdesk.group_use_sla"/>
                 <field name="priority" invisible="1"/>
                 <field name="company_id" groups="base.group_multi_company" invisible="context.get('default_team_id', False)"/>
-                <field name="description"/>
 
                 <filter string="My Tickets" domain="[('user_id','=',uid)]" name="my_ticket"/>
                 <filter string="Followed" domain="[('message_is_follower', '=', True)]" name="my_follow_ticket"/>
@@ -129,7 +128,7 @@
         <field name="inherit_id" ref="helpdesk_tickets_view_search_base"/>
         <field name="priority">20</field>
         <field name="arch" type="xml">
-            <field name="description" position="after">
+            <field name="company_id" position="after">
                 <field name="properties"/>
             </field>
             <filter name="sla_deadline" position="after">
