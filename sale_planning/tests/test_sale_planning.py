@@ -402,3 +402,25 @@ class TestSalePlanning(TestCommonSalePlanning):
         # Assert that planning hours to plan on the sale order are still correct after auto-planning, even after cancellation
         unplanned_shift = self.env['planning.slot'].search([('sale_order_id', 'in', so.ids), '|', ('start_datetime', '=', False), ('resource_id', '=', False)])
         self.assertFalse(unplanned_shift.exists())
+
+    def test_compute_allocated_hours(self):
+        self.assertFalse(self.plannable_sol.planning_slot_ids, "No slot should be linked to the SOL.")
+        self.assertFalse(self.plannable_sol.planning_hours_to_plan, "There is not hours to plan for that SOL since the SO linked is not yet confirmed.")
+        self.plannable_so.action_confirm()
+        self.assertEqual(len(self.plannable_sol.planning_slot_ids), 1, "One slot should be generated for the SOL.")
+        unplanned_slot = self.plannable_sol.planning_slot_ids[0]
+        self.assertEqual(self.plannable_sol.planning_hours_to_plan, 10.0, 'There are 10 hours to plan after the SO confirmation.')
+        self.assertFalse(self.plannable_sol.planning_hours_planned, 'There is no slot planned for that SOL.')
+        self.assertEqual(unplanned_slot.allocated_hours, 10.0, "The allocated_hours should be 10.0")
+        self.employee_joseph.resource_calendar_id = self.env.user.company_id.resource_calendar_id  # 40h/week
+        slot = self.env['planning.slot'].create({
+            'start_datetime': "2021-07-29 08:00:00",
+            'end_datetime': "2021-07-29 12:00:00",
+            'sale_line_id': self.plannable_sol.id,
+            'employee_id': self.employee_joseph.id,
+            'role_id': self.planning_role_junior.id,
+        })
+        self.assertEqual(self.plannable_sol.planning_hours_to_plan, 10.0, 'There are no hours to plan before SO confirmation.')
+        self.assertEqual(self.plannable_sol.planning_hours_planned, 4.0, 'There are 4 hours planned for that SOL.')
+        self.assertEqual(unplanned_slot.allocated_hours, 6.0, "The allocated_hours should be 6.0")
+        self.assertEqual(slot.allocated_hours, 4.0, "The allocated_hours should be 4.0")

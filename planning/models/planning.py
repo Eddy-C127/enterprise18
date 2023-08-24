@@ -230,7 +230,7 @@ class Planning(models.Model):
             else:
                 slot.allocation_type = 'forecast'
 
-    @api.depends('start_datetime', 'end_datetime', 'employee_id.resource_calendar_id', 'allocated_hours')
+    @api.depends('allocated_hours')
     def _compute_allocated_percentage(self):
         # [TW:Cyclic dependency] allocated_hours,allocated_percentage
         # As allocated_hours and allocated percentage have some common dependencies, and are dependant one from another, we have to make sure
@@ -257,7 +257,8 @@ class Planning(models.Model):
                 slot.allocated_percentage = 100 * slot.allocated_hours / work_hours if work_hours else 100
 
     @api.depends(
-        'start_datetime', 'end_datetime', 'resource_id.calendar_id',
+        'start_datetime', 'end_datetime',
+        'employee_id.resource_calendar_id', 'resource_id.calendar_id',
         'company_id.resource_calendar_id', 'allocated_percentage')
     def _compute_allocated_hours(self):
         percentage_field = self._fields['allocated_percentage']

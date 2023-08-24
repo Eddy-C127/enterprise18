@@ -43,20 +43,24 @@ class PlanningSlot(models.Model):
 
     @api.depends('start_datetime', 'sale_line_id.planning_hours_to_plan', 'sale_line_id.planning_hours_planned')
     def _compute_allocated_hours(self):
-        if self.env.context.get('sale_planning_prevent_recompute'):
-            return
         planned_slots = self.filtered('start_datetime')
-        for slot in self - planned_slots:
-            if slot.sale_line_id:
-                slot.allocated_hours = max(
-                    slot.sale_line_id.planning_hours_to_plan - slot.sale_line_id.planning_hours_planned,
-                    0.0
-                )
+        unplanned_slots = self - planned_slots
+        if self.env.context.get('sale_planning_prevent_recompute'):
+            self.env.remove_to_compute(self._fields['allocated_percentage'], unplanned_slots)
+        else:
+            for slot in unplanned_slots:
+                if slot.sale_line_id:
+                    slot.allocated_hours = max(
+                        slot.sale_line_id.planning_hours_to_plan - slot.sale_line_id.planning_hours_planned,
+                        0.0
+                    )
         super(PlanningSlot, planned_slots)._compute_allocated_hours()
-        SaleOrderLine = self.env['sale.order.line']
-        self.env.add_to_compute(SaleOrderLine._fields['planning_hours_planned'], self.sale_line_id)
+        if planned_slots:
+            self.env.add_to_compute(
+                self.env['sale.order.line']._fields['planning_hours_planned'],
+                self.sale_line_id
+            )
 
-    @api.depends('start_datetime')
     def _compute_allocated_percentage(self):
         planned_slots = self.filtered('start_datetime')
         super(PlanningSlot, planned_slots)._compute_allocated_percentage()
