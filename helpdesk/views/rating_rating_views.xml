@@ -97,8 +97,8 @@
             <field name="res_name" position="attributes">
                 <attribute name="string">Ticket</attribute>
             </field>
-            <xpath expr="//field[@name='parent_res_name']" position="after">
-                <field name="res_name" position="move"/>
+            <xpath expr="//field[@name='rated_partner_id']" position="after">
+                <field name="parent_res_name" position="move"/>
             </xpath>
             <field name="parent_res_name" position="attributes">
                 <attribute name="string">Helpdesk Team</attribute>
@@ -112,12 +112,13 @@
             <filter name="responsible" position="attributes">
                 <attribute name="string">Assigned to</attribute>
             </filter>
-            <filter name="customer" position="after">
-                <filter string="Helpdesk Team" name="res_team" context="{'group_by':'parent_res_name'}"/>
-            </filter>
-            <xpath expr="//filter[@name='resource']" position="after">
-                <filter name="rating_text" position="move"/>
+            <xpath expr="//filter[@name='resource']" position="attributes">
+                <attribute name="invisible">1</attribute>
             </xpath>
+            <filter name="customer" position="before">
+                <filter string="Helpdesk Team" name="res_team" context="{'group_by':'parent_res_name'}"/>
+                <filter name="rating_text" position="move"/>
+            </filter>
             <xpath expr="/search" position="inside">
                 <!-- TODO remove me in master -->
                 <filter string="Last 30 Days" name="rating_last_30_days" domain="[
