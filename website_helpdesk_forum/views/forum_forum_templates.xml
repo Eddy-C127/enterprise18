@@ -39,6 +39,10 @@
                     <i class="fa fa-life-ring fa-fw" />
                     View Ticket
                 </a>
+                <button groups="helpdesk.group_helpdesk_user" t-if="not answer and not question.show_ticket and show_create_ticket" class="dropdown-item ps-3 create_ticket_forum" t-att-data-forum-id="forum.id" t-att-data-post-id="question.id">
+                    <i class="fa fa-life-ring fa-fw" />
+                    Create Ticket
+                </button>
             </t>
         </xpath>
     </template>

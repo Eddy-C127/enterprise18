@@ -23,12 +23,18 @@ Website Forum integration for the helpdesk module
         'views/forum_forum_templates.xml',
         'views/helpdesk_templates.xml',
         'views/helpdesk_views.xml',
+        'views/forum_forum_views.xml',
         'wizards/helpdesk_ticket_select_forum.xml',
     ],
     'demo': [
         'data/helpdesk_demo.xml',
         'data/website_helpdesk_forum_demo.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'website_helpdesk_forum/static/src/**/*',
+        ],
+    },
     'auto_install': True,
     'license': 'OEEL-1',
 }

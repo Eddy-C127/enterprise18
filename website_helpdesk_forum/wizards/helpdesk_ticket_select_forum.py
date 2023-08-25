@@ -16,6 +16,7 @@ class HelpdeskTicketSelectForumWizard(models.TransientModel):
 
     title = fields.Char(compute='_compute_post', store=True, readonly=False, required=True)
     description = fields.Html(compute='_compute_post', store=True, readonly=False, required=True)
+    answer_content = fields.Html(string="Answer")
     tag_ids = fields.Many2many('forum.tag', string='Tags', compute='_compute_post', store=True, readonly=False)
 
     def default_get(self, fields_list):
@@ -57,6 +58,14 @@ class HelpdeskTicketSelectForumWizard(models.TransientModel):
             'ticket_id': self.ticket_id.id,
             'tag_ids': [(6, 0, self.tag_ids.ids)]
         })
+        if self.answer_content:
+            self.env['forum.post'].create({
+                'forum_id': self.forum_id.id,
+                'content': self.answer_content,
+                'ticket_id': self.ticket_id.id,
+                'is_correct': True,
+                'parent_id': forum_post.id,
+            })
         body = Markup("<a href='/forum/%s/question/%s'>%s</a> %s") % (
             self.forum_id.id, forum_post.id, forum_post.name, _('Forum Post Created'))
         self.ticket_id.message_post(body=body)

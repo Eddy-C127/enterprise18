@@ -21,6 +21,7 @@ class TestHelpdeskForum(HelpdeskCommon, TestForumCommon):
             'description': cls.ticket_description,
             'team_id': cls.test_team.id,
         })
+        cls._activate_multi_website()
 
     def test_share_ticket(self):
         self.assertTrue(self.ticket.can_share_forum, 'Ticket should be able to be shared on the forums.')

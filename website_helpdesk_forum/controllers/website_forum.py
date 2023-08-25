@@ -21,5 +21,48 @@ class WebsiteForumHelpdesk(WebsiteForum):
             'forums': forums
         })
 
+    @route('/forum/<model("forum.forum"):forum>/<model("forum.post"):question>/get-forum-data', type='json', auth="user", website=True)
+    def create_ticket_and_view(self, forum, question):
+        teams = []
+        teams_per_forum_read_group = request.env['helpdesk.team']._read_group(
+            domain=[('use_website_helpdesk_forum', '=', True), ('website_id', '=', request.website.id)],
+            groupby=['website_forum_ids'],
+            aggregates=['id:recordset'],
+        )
+        teams_per_forum_dict = dict(teams_per_forum_read_group)
+        # When the forum isn't connected to any team then all the teams should be shown to the users
+        if teams_per_forum_dict.get(request.env["forum.forum"]):
+            teams = [
+                (t.id, t.display_name)
+                for teams in teams_per_forum_dict.values()
+                for t in teams
+            ]
+        elif helpdesk_teams := teams_per_forum_dict.get(request.env['forum.forum']):
+            teams = [(t.id, t.display_name) for t in helpdesk_teams]
+        else:
+            teams = []
+        return {
+            'post_creator_id': question.create_uid.partner_id.id,
+            'post_creator_name': question.create_uid.name,
+            'post_description': question.content,
+            'post_title': question.display_name,
+            'teams': teams,
+        }
+
     def get_template_xml_id(self):
         return "website_helpdesk_forum.forum_all"
+
+    def _prepare_question_template_vals(self, forum, post, question):
+        values = super()._prepare_question_template_vals(forum, post, question)
+        teams_per_forum_read_group = request.env['helpdesk.team']._read_group(
+            [('use_website_helpdesk_forum', '=', True), ('website_id', '=', request.website.id)],
+            ['website_forum_ids'],
+            ['id:recordset'],
+            [('__count', '>', 0)],
+        )
+        teams_per_forum_dict = dict(teams_per_forum_read_group)
+        if teams_per_forum_dict.get(request.env["forum.forum"]):
+            values['show_create_ticket'] = True
+        else:
+            values['show_create_ticket'] = bool(teams_per_forum_dict.get(forum))
+        return values

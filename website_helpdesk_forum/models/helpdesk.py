@@ -9,7 +9,7 @@ class HelpdeskTeam(models.Model):
     _inherit = "helpdesk.team"
 
     show_knowledge_base_forum = fields.Boolean(compute="_compute_show_knowledge_base_forum", export_string_translation=False)
-    website_forum_ids = fields.Many2many('forum.forum', string='Forums', help="In the help center, customers will only be able to see posts from the selected forums.")
+    website_forum_ids = fields.Many2many('forum.forum', 'forum_forum_helpdesk_team_rel', 'helpdesk_team_id', 'forum_forum_id', string='Forums', help="Customers will see only the posts from chosen forums in the help center. If you want all forums to be accessible, just leave the field empty. Alternatively, you can make forums private to restrict this feature to internal users.")
     top_forum_posts = fields.Many2many('forum.post', string='Top Posts', help="These are the top posts in the forums associated with this helpdesk team", compute="_compute_top_forum_posts")
 
     @api.depends('website_forum_ids')

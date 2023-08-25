@@ -11,7 +11,8 @@
                         <field name="forum_id" options="{'no_open': True, 'no_create': True}"/>
                         <field name="title"/>
                         <field name="description" required="1"/>
-                        <field name="tag_ids" widget="many2many_tags"/>
+                        <field name="answer_content"/>
+                        <field name="tag_ids" widget="many2many_tags" context="{'default_forum_id': forum_id}"/>
                     </group>
                 </sheet>
                 <footer>
