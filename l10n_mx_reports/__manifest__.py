@@ -30,5 +30,6 @@ DIOT Report
         "views/res_partner_view.xml",
     ],
     "installable": True,
+    'post_init_hook': '_l10n_mx_reports_post_init',
     "auto_install": ['l10n_mx', 'account_reports'],
 }

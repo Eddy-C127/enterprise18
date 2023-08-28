@@ -15,6 +15,7 @@ Accounting reports for US
         'data/check_register.xml',
     ],
     'installable': True,
+    'post_init_hook': '_l10n_us_reports_post_init',
     'auto_install': ['l10n_us', 'account_reports'],
     'license': 'OEEL-1',
     'assets': {

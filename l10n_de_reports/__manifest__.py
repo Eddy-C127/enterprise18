@@ -24,6 +24,7 @@ Also adds DATEV export options to general ledger
         'data/report_export_template.xml',
     ],
     'installable': True,
+    'post_init_hook': '_l10n_de_reports_post_init',
     'auto_install': ['l10n_de', 'account_reports'],
     'license': 'OEEL-1',
 }

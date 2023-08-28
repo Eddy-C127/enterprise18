@@ -144,6 +144,8 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
             <catalogocuentas:Ctas CodAgrup="216.04" NumCta="216.04" Desc="Taxes withheld from income tax for professional services" Nivel="2" Natur="A"/>
             <catalogocuentas:Ctas CodAgrup="216.10" NumCta="216.10" Desc="VAT withholding taxes" Nivel="2" Natur="A"/>
             <catalogocuentas:Ctas CodAgrup="216.11" NumCta="216.11" Desc="IMSS withholdings from workers" Nivel="2" Natur="A"/>
+            <catalogocuentas:Ctas CodAgrup="260" NumCta="260" Desc="Deferred liabilities" Nivel="1" Natur="A"/>
+            <catalogocuentas:Ctas CodAgrup="260.01" NumCta="260.01" Desc="Deferred liabilities" Nivel="2" Natur="A"/>
             <catalogocuentas:Ctas CodAgrup="302" NumCta="302" Desc="Heritage" Nivel="1" Natur="A"/>
             <catalogocuentas:Ctas CodAgrup="302.01" NumCta="302.01" Desc="Heritage" Nivel="2" Natur="A"/>
             <catalogocuentas:Ctas CodAgrup="304" NumCta="304" Desc="Result of previous years" Nivel="1" Natur="A"/>

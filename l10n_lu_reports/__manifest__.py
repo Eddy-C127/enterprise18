@@ -43,6 +43,7 @@ Necessary master data is also included.
         'security/l10n_lu_yearly_tax_report_appendix_security.xml',
     ],
     'demo': ['demo/demo_company.xml'],
+    'post_init_hook': '_l10n_lu_reports_post_init',
     'auto_install': ['l10n_lu', 'account_reports'],
     'license': 'OEEL-1',
     'assets': {

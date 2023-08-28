@@ -31,6 +31,7 @@ in the "Statement Reports" section).
         'wizard/fec_report.xml',
     ],
     'auto_install': ['l10n_fr_account', 'account_reports'],
+    'post_init_hook': '_l10n_fr_reports_post_init',
     'installable': True,
     'license': 'OEEL-1',
 }

@@ -4,6 +4,7 @@
 from . import account_sales_report
 from . import res_partner
 from . import res_company
+from . import account_chart_template
 from . import account_financial_report
 from . import tax_report
 from . import ir_attachment
