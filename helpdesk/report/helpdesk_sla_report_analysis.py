@@ -19,7 +19,7 @@ class HelpdeskSLAReport(models.Model):
         string='Tags', readonly=True)
     ticket_ref = fields.Char(string='Ticket IDs Sequence', readonly=True)
     name = fields.Char(string='Subject', readonly=True)
-    create_date = fields.Datetime("Ticket Create Date", readonly=True)
+    create_date = fields.Datetime("Ticket Creation Date", readonly=True)
     priority = fields.Selection(TICKET_PRIORITY, string='Minimum Priority', readonly=True)
     user_id = fields.Many2one('res.users', string="Assigned To", readonly=True)
     partner_id = fields.Many2one('res.partner', string="Customer", readonly=True)
@@ -28,10 +28,11 @@ class HelpdeskSLAReport(models.Model):
     partner_phone = fields.Char(string='Customer Phone', readonly=True)
     ticket_type_id = fields.Many2one('helpdesk.ticket.type', string="Type", readonly=True)
     stage_id = fields.Many2one('helpdesk.stage', string="Stage", readonly=True)
+    ticket_open_hours = fields.Float("Hours Open", group_operator="avg", readonly=True)
     ticket_closed = fields.Boolean("Ticket Closed", readonly=True)
     ticket_close_hours = fields.Integer("Working Hours to Close", group_operator="avg", readonly=True)
     ticket_assignation_hours = fields.Integer("Working Hours to Assign", group_operator="avg", readonly=True)
-    close_date = fields.Datetime("Close date", readonly=True)
+    close_date = fields.Datetime("Closing Date", readonly=True)
     sla_id = fields.Many2one('helpdesk.sla', string='SLA', readonly=True)
     sla_ids = fields.Many2many('helpdesk.sla', 'helpdesk_sla_status', 'ticket_id', 'sla_id', string="SLAs", copy=False)
     sla_status_ids = fields.One2many('helpdesk.sla.status', 'ticket_id', string="SLA Status")
@@ -41,7 +42,7 @@ class HelpdeskSLAReport(models.Model):
     sla_fail = fields.Boolean("SLA Status Failed", group_operator='bool_or', readonly=True)
     sla_success = fields.Boolean("SLA Status Success", group_operator='bool_or', readonly=True)
     sla_exceeded_hours = fields.Integer("Working Hours to Reach SLA", group_operator='avg', readonly=True, help="Day to reach the stage of the SLA, without taking the working calendar into account")
-    sla_status_failed = fields.Integer("Number of SLA Failed", readonly=True)
+    sla_status_failed = fields.Integer("Number of SLAs Failed", readonly=True)
     active = fields.Boolean("Active", readonly=True)
     rating_last_value = fields.Float("Rating (/5)", group_operator="avg", readonly=True)
     rating_avg = fields.Float('Average Rating', readonly=True, group_operator='avg')
@@ -52,6 +53,8 @@ class HelpdeskSLAReport(models.Model):
         ('normal', 'Grey'),
         ('done', 'Green'),
         ('blocked', 'Red')], string='Kanban State', readonly=True)
+    avg_response_hours = fields.Float("Average Hours to Respond", group_operator="avg", readonly=True)
+    first_response_hours = fields.Float("Hours to First Response", group_operator="avg", readonly=True)
 
     def _select(self):
         return """
@@ -72,11 +75,17 @@ class HelpdeskSLAReport(models.Model):
                             T.partner_phone AS partner_phone,
                             T.company_id,
                             T.kanban_state AS kanban_state,
-                            T.rating_last_value AS rating_last_value,
+                            NULLIF(T.rating_last_value, 0) AS rating_last_value,
                             AVG(rt.rating) as rating_avg,
                             T.priority AS priority,
-                            T.close_hours AS ticket_close_hours,
-                            T.assign_hours AS ticket_assignation_hours,
+                            NULLIF(T.close_hours, 0) AS ticket_close_hours,
+                            CASE
+                                WHEN EXTRACT(EPOCH FROM (COALESCE(T.assign_date, NOW() AT TIME ZONE 'UTC') - T.create_date)) / 3600 < 1 THEN NULL
+                                ELSE EXTRACT(EPOCH FROM (COALESCE(T.assign_date, NOW() AT TIME ZONE 'UTC') - T.create_date)) / 3600
+                            END AS ticket_open_hours,
+                            NULLIF(T.assign_hours, 0) AS ticket_assignation_hours,
+                            NULLIF(T.avg_response_hours, 0) AS avg_response_hours,
+                            NULLIF(T.first_response_hours, 0) AS first_response_hours,
                             T.close_date AS close_date,
                             STAGE.fold AS ticket_closed,
                             SLA.stage_id as sla_stage_id,
@@ -87,7 +96,7 @@ class HelpdeskSLAReport(models.Model):
                             CASE
                                 WHEN SLA_S.reached_datetime IS NOT NULL AND SLA_S.deadline IS NOT NULL AND SLA_S.reached_datetime >= SLA_S.deadline THEN 1
                                 WHEN SLA_S.reached_datetime IS NULL AND SLA_S.deadline IS NOT NULL AND SLA_S.deadline < NOW() AT TIME ZONE 'UTC' THEN 1
-                                ELSE 0
+                                ELSE NULL
                             END AS sla_status_failed,
                             CASE
                                 WHEN SLA_S.reached_datetime IS NOT NULL AND (SLA_S.deadline IS NULL OR SLA_S.reached_datetime < SLA_S.deadline) THEN 'reached'

@@ -18,6 +18,7 @@
         'views/project_views.xml',
         'views/hr_timesheet_views.xml',
         'wizard/helpdesk_ticket_create_timesheet_views.xml',
+        'report/helpdesk_sla_report_analysis_views.xml',
         'report/helpdesk_ticket_analysis_views.xml',
         'report/report_timesheet_templates.xml',
     ],

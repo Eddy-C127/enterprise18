@@ -12,7 +12,7 @@ class HelpdeskSLAReport(models.Model):
 
     def _select(self):
         return super()._select() + """ ,
-            sol.remaining_hours as remaining_hours_so,
+            NULLIF(sol.remaining_hours, 0) as remaining_hours_so,
             T.sale_line_id as sale_line_id
         """
 

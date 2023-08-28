@@ -23,7 +23,7 @@ class HelpdeskTicketReport(models.Model):
     sla_success = fields.Boolean("SLA Status Success", group_operator='bool_or', readonly=True)
     sla_ids = fields.Many2many('helpdesk.sla', 'helpdesk_sla_status', 'ticket_id', 'sla_id', string="SLAs", copy=False)
     sla_status_ids = fields.One2many('helpdesk.sla.status', 'ticket_id', string="SLA Status")
-    create_date = fields.Datetime("Created On", readonly=True)
+    create_date = fields.Datetime("Ticket Creation Date", readonly=True)
     priority = fields.Selection(TICKET_PRIORITY, string='Minimum Priority', readonly=True)
     user_id = fields.Many2one('res.users', string="Assigned To", readonly=True)
     partner_id = fields.Many2one('res.partner', string="Customer", readonly=True)
@@ -37,7 +37,7 @@ class HelpdeskTicketReport(models.Model):
     ticket_close_hours = fields.Float("Working Hours to Close", group_operator="avg", readonly=True)
     ticket_open_hours = fields.Float("Hours Open", group_operator="avg", readonly=True)
     ticket_assignation_hours = fields.Float("Hours to Assign", group_operator="avg", readonly=True)
-    close_date = fields.Datetime("Close date", readonly=True)
+    close_date = fields.Datetime("Closing Date", readonly=True)
     assign_date = fields.Datetime("First assignment date", readonly=True)
     rating_last_value = fields.Float("Rating (/5)", group_operator="avg", readonly=True)
     active = fields.Boolean("Active", readonly=True)
@@ -71,7 +71,10 @@ class HelpdeskTicketReport(models.Model):
                    T.sla_deadline AS sla_deadline,
                    NULLIF(T.sla_deadline_hours, 0) AS ticket_deadline_hours,
                    NULLIF(T.close_hours, 0) AS ticket_close_hours,
-                   EXTRACT(EPOCH FROM (COALESCE(T.close_date, NOW() AT TIME ZONE 'UTC') - T.create_date)) / 3600 AS ticket_open_hours,
+                   CASE
+                     WHEN EXTRACT(EPOCH FROM (COALESCE(T.close_date, NOW() AT TIME ZONE 'UTC') - T.create_date)) / 3600 < 1 THEN NULL
+                     ELSE EXTRACT(EPOCH FROM (COALESCE(T.close_date, NOW() AT TIME ZONE 'UTC') - T.create_date)) / 3600
+                   END AS ticket_open_hours,
                    NULLIF(T.assign_hours, 0) AS ticket_assignation_hours,
                    T.close_date AS close_date,
                    T.assign_date AS assign_date,

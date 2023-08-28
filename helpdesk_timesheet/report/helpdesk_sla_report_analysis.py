@@ -11,12 +11,14 @@ class HelpdeskSLAReport(models.Model):
     manager_id = fields.Many2one('hr.employee', string='Manager', readonly=True)
     employee_id = fields.Many2one('hr.employee', string='Employee', readonly=True)
     analytic_account_id = fields.Many2one('account.analytic.account', readonly=True)
+    total_hours_spent = fields.Float("Hours Spent (Timesheets)", group_operator="avg", readonly=True)
 
     def _select(self):
         select_str = super()._select()
         select_str += """, DEP.id as department_id,
                          EMP.parent_id as manager_id,
                          EMP.id as employee_id,
+                         NULLIF(T.total_hours_spent, 0) AS total_hours_spent,
                          T.analytic_account_id as analytic_account_id"""
         return select_str
 
@@ -25,6 +27,7 @@ class HelpdeskSLAReport(models.Model):
             DEP.id,
             EMP.parent_id,
             EMP.id,
+            T.total_hours_spent,
             T.analytic_account_id
         """
 

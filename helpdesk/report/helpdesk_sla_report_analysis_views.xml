@@ -14,6 +14,9 @@
             <field name="ticket_assignation_hours" widget="float_time"/>
             <field name="sla_exceeded_hours" widget="float_time"/>
             <field name="rating_avg" type="measure" invisible="1"/>
+            <field name="avg_response_hours" widget="float_time"/>
+            <field name="ticket_open_hours" widget="float_time"/>
+            <field name="first_response_hours" widget="float_time"/>
          </pivot>
      </field>
     </record>
@@ -61,6 +64,9 @@
                 <field name="ticket_assignation_hours" widget="float_time"/>
                 <field name="ticket_close_hours" widget="float_time"/>
                 <field name="sla_exceeded_hours" widget="float_time"/>
+                <field name="avg_response_hours" widget="float_time"/>
+                <field name="ticket_open_hours" widget="float_time"/>
+                <field name="first_response_hours" widget="float_time"/>
             </cohort>
         </field>
     </record>
