@@ -125,6 +125,9 @@ class Task(models.Model):
             else:
                 if task.invoice_status in ['upselling', 'to invoice']:
                     secondary = False
+                elif task.invoice_count > 0 and task.invoice_status == 'no':
+                    secondary = False
+                    primary = False
                 else:  # Means invoice status is 'Nothing to Invoice'
                     primary = False
             task.update({
