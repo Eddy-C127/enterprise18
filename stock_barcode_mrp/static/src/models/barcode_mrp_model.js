@@ -103,6 +103,10 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         return true;
     }
 
+    get showReservedSns() {
+        return true;
+    }
+
     get isComplete() {
         return this.record.qty_producing >= this.record.product_qty;
     }

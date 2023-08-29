@@ -565,6 +565,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         and checks the new created line has the right SN's package & owner.
         """
         self.clean_access_rights()
+        self.picking_type_out.show_reserved_sns = True
         grp_lot = self.env.ref('stock.group_production_lot')
         grp_owner = self.env.ref('stock.group_tracking_owner')
         grp_pack = self.env.ref('stock.group_tracking_lot')
@@ -822,6 +823,49 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             {'product_uom_qty': 4, 'quantity': 2, 'picked': False, 'product_id': self.product2.id},
             {'product_uom_qty': 4, 'quantity': 0, 'picked': False, 'product_id': product3.id},
         ])
+
+    def test_delivery_reserved_5_dont_show_reserved_sn(self):
+        """ Checks reserved serial numbers aren't show until scanned when
+        `show_reserved_sns` is set on False."""
+        self.clean_access_rights()
+        self.env.user.write({'groups_id': [(4, self.env.ref('stock.group_production_lot').id, 0)]})
+        self.picking_type_out.show_reserved_sns = False
+
+        # Creates some SN and adds more than enough quantity on hand for the delivery.
+        serial_numbers = self.env['stock.lot'].create([{
+            'name': f'sn{n}',
+            'product_id': self.productserial1.id,
+            'company_id': self.env.company.id,
+        } for n in range(1, 6)])
+        for sn in serial_numbers:
+            self.env['stock.quant']._update_available_quantity(
+                self.productserial1, self.stock_location, 1, lot_id=sn)
+
+        # Creates and confirms a delivery.
+        delivery_picking = self.env['stock.picking'].create({
+            'name': 'test_delivery_reserved_5',
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+        })
+        self.env['stock.move'].create({
+            'name': 'move_test_delivery_reserved_5',
+            'location_id': delivery_picking.location_id.id,
+            'location_dest_id': delivery_picking.location_dest_id.id,
+            'picking_id': delivery_picking.id,
+            'product_id': self.productserial1.id,
+            'product_uom': self.uom_unit.id,
+            'product_uom_qty': 4,
+        })
+        delivery_picking.action_confirm()
+        reserved_move_lines = delivery_picking.move_line_ids
+        self.assertEqual(len(delivery_picking.move_line_ids), 4)
+        self.assertEqual(reserved_move_lines.mapped('quantity'), [1, 1, 1, 1])
+        self.assertEqual(reserved_move_lines.lot_id.mapped('name'), ['sn1', 'sn2', 'sn3', 'sn4'])
+
+        url = self._get_client_action_url(delivery_picking.id)
+        self.start_tour(url, 'test_delivery_reserved_5_dont_show_reserved_sn', login='admin', timeout=180)
+        self.assertEqual(delivery_picking.move_line_ids.lot_id.mapped('name'), ['sn1', 'sn2', 'sn3', 'sn5'])
 
     def test_delivery_from_scratch_1(self):
         """ Scan unreserved lots on a delivery order.
@@ -1984,12 +2028,14 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.picking_type_internal.barcode_validation_full = False
         self.picking_type_internal.restrict_put_in_pack = 'no'
         self.picking_type_internal.restrict_scan_dest_location = 'mandatory'
+        self.picking_type_internal.show_reserved_sns = True
         # Pick: source mandatory, lots reserved only.
         warehouse.pick_type_id.barcode_validation_full = False
         warehouse.pick_type_id.restrict_scan_source_location = 'mandatory'
         warehouse.pick_type_id.restrict_put_in_pack = 'mandatory'  # Will use cluster packs.
         warehouse.pick_type_id.restrict_scan_tracking_number = 'mandatory'
         warehouse.pick_type_id.restrict_scan_dest_location = 'no'
+        warehouse.pick_type_id.show_reserved_sns = True
         # Pack: pack after group, all products have to be packed to be validate.
         warehouse.pack_type_id.restrict_put_in_pack = 'optional'
         warehouse.pack_type_id.restrict_scan_tracking_number = 'mandatory'

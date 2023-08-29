@@ -45,10 +45,12 @@ class StockPickingType(models.Model):
     show_barcode_validation = fields.Boolean(
         compute='_compute_show_barcode_validation',
         help='Technical field used to compute whether the "Final Validation" group should be displayed, solving combined groups/invisible complexity.')
+    show_reserved_sns = fields.Boolean(
+        "Show reserved lots/SN", help="Allows to display reserved lots/serial numbers. "
+        "When non active, it is clear for the picker that they can pick the lots/serials they want.")
     is_barcode_picking_type = fields.Boolean(
         compute='_compute_is_barcode_picking_type',
         help="Technical field indicating if should be used in barcode app and used to control visibility in the related UI.")
-
 
     @api.depends('restrict_scan_product', 'restrict_put_in_pack', 'restrict_scan_dest_location')
     def _compute_show_barcode_validation(self):
@@ -116,4 +118,5 @@ class StockPickingType(models.Model):
             'default_location_src_id',
             'use_create_lots',
             'use_existing_lots',
+            'show_reserved_sns',
         ]

@@ -53,15 +53,6 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
             helper.assertLinesBelongTo(linesFromThirdPicking, "picking_receipt_3");
         },
     },
-    // Unfolds grouped lines for product tracked by SN.
-    { trigger: '.o_line_button.o_toggle_sublines' },
-    {
-        trigger: '.o_sublines .o_barcode_line',
-        run: function () {
-            const sublines = helper.getSublines();
-            helper.assert(sublines.length, 2, 'it should have 2 sublines');
-        }
-    },
 
     //Check show information.
     {
@@ -148,12 +139,6 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
         run: function() {
             currentViewState.scanMessage = 'scan_serial';
             checkState(currentViewState);
-            const sublines = helper.getSublines();
-            helper.assert(sublines.length, 2);
-            helper.assertLineQty(sublines[0], "0 / 1");
-            helper.assertLineIsHighlighted(sublines[0]);
-            helper.assertLineQty(sublines[1], "0 / 1");
-            helper.assertLineIsHighlighted(sublines[1], false);
         }
     },
 
@@ -167,10 +152,6 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
         run: function() {
             currentViewState.scanMessage = 'scan_serial';
             checkState(currentViewState);
-            const sublines = helper.getSublines({ barcode: "productserial1" });
-            helper.assert(sublines.length, 2, "Expect 2 lines for productserial1");
-            helper.assertLineQty(sublines[0], "1 / 1");
-            helper.assertLineQty(sublines[1], "0 / 1");
         }
     },
     // Scan the same serial number -> Should show an warning message.
@@ -185,8 +166,10 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
         trigger: '.o_barcode_client_action',
         run: 'scan SN-OQPAPT'
     },
+    // Unfolds grouped lines for product tracked by SN.
+    { trigger: '.o_line_button.o_toggle_sublines' },
     {
-        trigger: '.o_barcode_line.o_highlight[data-barcode="productserial1"]:contains("SN-OQPAPT")',
+        trigger: '.o_sublines .o_barcode_line',
         run: function() {
             currentViewState.scanMessage = 'scan_product_or_dest';
             checkState(currentViewState);

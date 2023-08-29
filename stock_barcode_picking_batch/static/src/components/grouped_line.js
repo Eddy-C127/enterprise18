@@ -12,5 +12,12 @@ patch(GroupedLineComponent.prototype, {
             props.hidePickingName = Boolean(this.pickingName);
         }
         return props;
+    },
+
+    get displayToggleBtn() {
+        if (this.env.model.resModel === "stock.picking.batch" && !Boolean(this.pickingName)) {
+            return true;
+        }
+        return super.displayToggleBtn;
     }
 });

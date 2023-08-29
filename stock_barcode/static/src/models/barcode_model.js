@@ -159,6 +159,10 @@ export default class BarcodeModel extends EventBus {
         return this.displayDestinationLocation;
     }
 
+    get showReservedSns() {
+        return true;
+    }
+
     get displayResultPackage() {
         return false;
     }

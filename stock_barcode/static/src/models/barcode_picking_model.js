@@ -486,6 +486,13 @@ export default class BarcodePickingModel extends BarcodeModel {
         return this.record.use_create_lots;
     }
 
+    get showReservedSns() {
+        if (this.canCreateNewLot && !this.useExistingLots) {
+            return false;
+        }
+        return this.record.picking_type_id.show_reserved_sns;
+    }
+
     get canPutInPack() {
         if (this.config.restrict_scan_product) {
             return this.pageLines.some(line => line.qty_done && !line.result_package_id);

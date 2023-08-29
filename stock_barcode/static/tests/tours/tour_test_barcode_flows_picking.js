@@ -996,6 +996,53 @@ registry.category("web_tour.tours").add("test_delivery_reserved_4_backorder", { 
     }
 ]});
 
+registry.category("web_tour.tours").add("test_delivery_reserved_5_dont_show_reserved_sn", { test: true, steps: () => [
+    {
+        trigger: '.o_barcode_client_action',
+        run: function() {
+            helper.assertScanMessage('scan_product');
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "0 / 4");
+            helper.assertLineProduct(0, "productserial1");
+            helper.assert(
+                Boolean(document.querySelector('.o_toggle_sublines')), false,
+                "No sublines should be displayed yet, so the button shouldn't neither"
+            );
+            helper.assert(
+                Boolean(document.querySelector('.btn.o_edit')), true,
+                "Edit button should be visible"
+            );
+        }
+    },
+    { trigger: '.o_barcode_client_action', run: 'scan productserial1' },
+    { trigger: '.o_barcode_line.o_selected .btn.o_edit' },
+    { trigger: '.o_discard' },
+
+    // Scans sn1 (reserved) and sn5 (not reserved). As soon there is at least
+    // two scanned SN, the button to display sublines should be visible.
+    { trigger: '.o_barcode_line', run: 'scan sn1' },
+    {
+        trigger: '.qty-done:contains("1")',
+        run: () => {
+            helper.assert(
+                Boolean(document.querySelector('.o_toggle_sublines')), false,
+                "Toggle button should still not be present in view"
+            );
+        }
+    },
+    { trigger: '.o_barcode_client_action', run: 'scan sn5' },
+    {
+        trigger: '.o_line_button.o_toggle_sublines',
+        run: function() {
+            helper.assertLineQty(0, "2 / 4");
+        }
+    },
+    // Scans 2 more SN to complete the delivery and validates it.
+    { trigger: '.o_barcode_client_action', run: 'scan sn2' },
+    { trigger: '.o_barcode_client_action', run: 'scan sn3' },
+    ...stepUtils.validateBarcodeOperation(".o_barcode_line.o_selected.o_line_completed"),
+]});
+
 registry.category("web_tour.tours").add('test_delivery_using_buttons', {test: true, steps: () => [
     {
         trigger: '.o_barcode_client_action',
@@ -1825,20 +1872,19 @@ registry.category("web_tour.tours").add('test_delivery_duplicate_serial_number',
         trigger: '.o_barcode_line:contains("productserial1")',
         run: 'scan sn1',
     },
-
+    // Changes the location and scans again the same serial number.
     {
         trigger: '.o_barcode_line .o_line_lot_name:contains("sn1")',
-        run: 'scan LOC-01-01-00',
+        run: 'scan LOC-01-02-00',
     },
 
     {
         trigger: '.o_scan_message.o_scan_validate',
         run: 'scan productserial1',
     },
-    { trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-caret-down' },
 
     {
-        trigger: '.o_barcode_line:nth-child(2)',
+        trigger: '.o_barcode_line:contains("productserial1")',
         run: 'scan sn1',
     },
 
@@ -1853,6 +1899,7 @@ registry.category("web_tour.tours").add('test_delivery_duplicate_serial_number',
         trigger: '.o_barcode_client_action',
         run: 'scan sn2',
     },
+    { trigger: '.o_barcode_line.o_selected:nth-child(2)' },
     ...stepUtils.validateBarcodeOperation(),
 
     {

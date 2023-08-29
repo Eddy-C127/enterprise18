@@ -23,6 +23,19 @@ export default class GroupedLineComponent extends LineComponent {
         };
     }
 
+    get linesToDisplay() {
+        if (!this.env.model.showReservedSns) {
+            return this.props.line.lines.filter(line => {
+                return this.env.model.getQtyDone(line) > 0 || line.product_id.tracking == "none" || this.env.model.getQtyDemand(line) == 0;
+            });
+        }
+        return this.props.line.lines;
+    }
+
+    get displayToggleBtn() {
+        return this.linesToDisplay.length > 1;
+    }
+
     toggleSublines(ev) {
         ev.stopPropagation();
         this.env.model.toggleSublines(this.line);
