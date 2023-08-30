@@ -16,6 +16,9 @@ import { ExitSplitToolsDialog } from "@documents/owl/components/pdf_exit_dialog/
 
 import { Component, onWillStart, toRaw, useRef, useState, useEffect } from "@odoo/owl";
 
+const BLANK_PAGE_THRESHOLD = 2500;
+const BLANK_PIXEL_FILTER_VALUE = 220;
+
 export class PdfManager extends Component {
     static components = {
         Dialog,
@@ -208,6 +211,11 @@ export class PdfManager extends Component {
             }
         );
         this._setUseCommand(
+            _t("Split all white pages"),
+            this._splitWhitePagesHandler.bind(this),
+            "shift+s",
+        );
+        this._setUseCommand(
             _t("Delete focused or selected pages"),
             this.onArchive.bind(this),
             "backspace"
@@ -368,6 +376,45 @@ export class PdfManager extends Component {
         const pagesToTreat = toggleSeparatorBool ? pagesToGather : pagesToSplit;
         for (const page of pagesToTreat) {
             this._pageSeparator(page.pageId, page.groupId);
+        }
+    }
+    /**
+     * Handles the split of all the whites pages in the document.
+     * This method will traverse all the pages sequentially and create groups
+     * delimited by a (or some) white page(s). It will ease the user experience
+     * when processing scanned documents.
+     */
+    async _splitWhitePagesHandler() {
+        let precedingPageIsBlank = false;
+        let docCount = 1;
+        const allPagesIds = this.sortedPagesIds;
+        this.state.groupData = {};
+        this.state.groupIds = [];
+        this._createGroup({
+            pageIds: allPagesIds,
+            name: this.state.pages[allPagesIds[0]].isBlank
+                ? _t("Blank Page")
+                : _t("sub-doc-%s", docCount++),
+        });
+        for (const pageId in this.state.pages) {
+            const page = this.state.pages[pageId];
+            const createGroup = (name) => {
+                const group = this.state.groupData[page.groupId];
+                const groupPageIds = group.pageIds;
+                const newGroupPageIds = groupPageIds.slice(groupPageIds.indexOf(pageId));
+                this._createGroup({
+                    name: name,
+                    pageIds: newGroupPageIds,
+                });
+                group.pageIds = groupPageIds.filter((page) => !newGroupPageIds.includes(page));
+            };
+            if (page.isBlank && !precedingPageIsBlank) {
+                createGroup(_t("Blank Page"));
+            } else if (!page.isBlank && precedingPageIsBlank) {
+                createGroup(_t("sub-doc-%s", docCount++));
+            }
+            page.isSelected = !page.isBlank;
+            precedingPageIsBlank = page.isBlank;
         }
     }
     /**
@@ -559,6 +606,39 @@ export class PdfManager extends Component {
         }
         return groupId;
     }
+
+    /**
+     * This method will check if the page contains any text (for computer
+     * generated pdf) and for the image pixels if it's a scanned pdf.
+     */
+    async _isBlankPage(page, canvas) {
+        const pageContent = await page.getTextContent();
+        const hasText = pageContent.items.length > 0;
+        return !hasText && this._hasBlankGraphics(canvas);
+    }
+
+    /**
+     * This method will check the canvas for each pixel based on its color.
+     * If the sum of all the color code for each pixel doesn't exceed the
+     * empirically tested threshold the image is considered as blank.
+     * It's used to detect scanned blank page (they are never really empty...)
+     */
+    async _hasBlankGraphics(canvas) {
+        const pixels = canvas
+            .getContext("2d")
+            .getImageData(0, 0, canvas.width, canvas.height, { colorSpace: "display-p3" }).data;
+        let totalSum = 0;
+        for (const pixel of pixels) {
+            if (pixel < BLANK_PIXEL_FILTER_VALUE) {
+                totalSum += 255 - pixel;
+                if (totalSum >= BLANK_PAGE_THRESHOLD) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     /**
      * @private
      * @param {Object} [param0]
@@ -640,6 +720,7 @@ export class PdfManager extends Component {
                 height: 230,
             });
             this.state.pageCanvases[pageId] = { page, canvas };
+            this.state.pages[pageId].isBlank = await this._isBlankPage(page, canvas);
         }
     }
     /**
@@ -652,14 +733,17 @@ export class PdfManager extends Component {
      */
     async _renderCanvas(page, { width, height }) {
         const viewPort = page.getViewport({ scale: 1 });
+        const isLandscape = viewPort.width > viewPort.height;
         const canvas = document.createElement("canvas");
         canvas.className = "o_documents_pdf_canvas";
         canvas.width = width;
         canvas.height = height;
-        const scale = Math.min(canvas.width / viewPort.width, canvas.height / viewPort.height);
+        const scale = isLandscape
+            ? Math.min(canvas.width / viewPort.height, canvas.height / viewPort.width)
+            : Math.min(canvas.width / viewPort.width, canvas.height / viewPort.height);
         await page.render({
             canvasContext: canvas.getContext("2d"),
-            viewport: page.getViewport({ scale }),
+            viewport: page.getViewport({ scale, rotation: isLandscape ? 270 : 0 }),
         }).promise;
         return canvas;
     }

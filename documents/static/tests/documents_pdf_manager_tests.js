@@ -47,6 +47,9 @@ QUnit.module("documents", {}, function () {
                             numPages: 6,
                         };
                     },
+                    async _isBlankPage(page, canvas) {
+                        return false;
+                    },
                     async _renderCanvas(page, { width, height }) {
                         const canvas = document.createElement("canvas");
                         canvas.width = width;
