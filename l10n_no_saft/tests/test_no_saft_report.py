@@ -133,7 +133,15 @@ class TestNoSaftReport(TestAccountReportsCommon):
                             </Account>
                             <Account>
                                 <AccountID>___ignore___</AccountID>
-                                <AccountDescription>Accounts payable (copy)</AccountDescription>
+                                <AccountDescription>Retained result</AccountDescription>
+                                <StandardAccountID>2099</StandardAccountID>
+                                <AccountType>GL</AccountType>
+                                <OpeningDebitBalance>8000.00</OpeningDebitBalance>
+                                <ClosingDebitBalance>0.00</ClosingDebitBalance>
+                            </Account>
+                            <Account>
+                                <AccountID>___ignore___</AccountID>
+                                <AccountDescription>Trade creditors (copy)</AccountDescription>
                                 <StandardAccountID>2401</StandardAccountID>
                                 <AccountType>GL</AccountType>
                                 <OpeningCreditBalance>10000.00</OpeningCreditBalance>
@@ -141,35 +149,27 @@ class TestNoSaftReport(TestAccountReportsCommon):
                             </Account>
                             <Account>
                                 <AccountID>___ignore___</AccountID>
-                                <AccountDescription>Outbound VAT high rate</AccountDescription>
-                                <StandardAccountID>2701</StandardAccountID>
+                                <AccountDescription>Output VAT, high rate</AccountDescription>
+                                <StandardAccountID>2700</StandardAccountID>
                                 <AccountType>GL</AccountType>
                                 <OpeningDebitBalance>0.00</OpeningDebitBalance>
                                 <ClosingCreditBalance>500.00</ClosingCreditBalance>
                             </Account>
                             <Account>
                                 <AccountID>___ignore___</AccountID>
-                                <AccountDescription>Input VAT high rate</AccountDescription>
-                                <StandardAccountID>2711</StandardAccountID>
+                                <AccountDescription>Input VAT - import of goods, high rate</AccountDescription>
+                                <StandardAccountID>2715</StandardAccountID>
                                 <AccountType>GL</AccountType>
                                 <OpeningDebitBalance>2000.00</OpeningDebitBalance>
                                 <ClosingDebitBalance>2000.00</ClosingDebitBalance>
                             </Account>
                             <Account>
                                 <AccountID>___ignore___</AccountID>
-                                <AccountDescription>Revenue from sales of merchandise tax pl. high rate</AccountDescription>
+                                <AccountDescription>Sales revenue, merchandise, subject to VAT, high rate</AccountDescription>
                                 <StandardAccountID>3000</StandardAccountID>
                                 <AccountType>GL</AccountType>
                                 <OpeningDebitBalance>0.00</OpeningDebitBalance>
                                 <ClosingCreditBalance>2000.00</ClosingCreditBalance>
-                            </Account>
-                            <Account>
-                                <AccountID>___ignore___</AccountID>
-                                <AccountDescription>Undistributed Profits/Losses</AccountDescription>
-                                <StandardAccountID>999999</StandardAccountID>
-                                <AccountType>GL</AccountType>
-                                <OpeningDebitBalance>8000.00</OpeningDebitBalance>
-                                <ClosingDebitBalance>0.00</ClosingDebitBalance>
                             </Account>
                         </GeneralLedgerAccounts>
                         <Customers>

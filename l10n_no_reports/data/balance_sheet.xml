@@ -37,11 +37,11 @@
                                 <field name="aggregation_formula">NO_100.balance + NO_102_106.balance + NO_107.balance + NO_108_109.balance</field>
                                 <field name="children_ids">
                                     <record id="account_financial_report_NO_active_RD" model="account.report.line">
-                                        <field name="name">Research and Development</field>
+                                        <field name="name">Development</field>
                                         <field name="code">NO_100</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">100 + 101</field>
+                                        <field name="account_codes_formula">100</field>
                                     </record>
                                     <record id="account_financial_report_NO_active_Licences" model="account.report.line">
                                         <field name="name">Licences</field>
@@ -191,14 +191,14 @@
                                         <field name="code">NO_150_155</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">150 + 151 + 152 + 155 + 154 + 153</field>
+                                        <field name="account_codes_formula">150 + 155 + 153</field>
                                     </record>
                                     <record id="account_financial_report_NO_active_other_receivables_2" model="account.report.line">
                                         <field name="name">Other Receivables</field>
                                         <field name="code">NO_156_176</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">179 + 170 + 173 + 172 + 156 + 176 + 158 + 174 + 175 + 159 + 171 + 16 + 157</field>
+                                        <field name="account_codes_formula">170 + 156 + 176 + 158 + 174 + 175 + 159 + 171 + 16 + 157</field>
                                     </record>
                                     <record id="account_financial_report_NO_active_other_payment_to_be_received_by_owner" model="account.report.line">
                                         <field name="name">Payment to be Received by Owner</field>
@@ -390,7 +390,7 @@
                                                 <field name="code">NO_216_218</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
-                                                <field name="account_codes_formula">-218 - 216 - 214</field>
+                                                <field name="account_codes_formula">-218 - 216</field>
                                             </record>
                                         </field>
                                     </record>
@@ -426,7 +426,7 @@
                                                 <field name="code">NO_225_229</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
-                                                <field name="account_codes_formula">-225 - 228 - 226 - 227 - 229 - 224</field>
+                                                <field name="account_codes_formula">-225 - 228 - 226 - 229</field>
                                             </record>
                                         </field>
                                     </record>
@@ -434,7 +434,7 @@
                                         <field name="name">III. Current liability</field>
                                         <field name="code">NO_23_29</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="aggregation_formula">NO_230.balance + NO_232.balance + NO_236_239.balance + NO_24.balance + NO_25.balance + NO_26_27.balance + NO_28_29.balance</field>
+                                        <field name="aggregation_formula">NO_230.balance + NO_232.balance + NO_233.balance + NO_236_239.balance + NO_24.balance + NO_25.balance + NO_26_27.balance + NO_28_29.balance</field>
                                         <field name="children_ids">
                                             <record id="account_financial_report_NO_short_term_convertible_loans" model="account.report.line">
                                                 <field name="name">Short-Term Convertible Loans</field>
@@ -449,6 +449,13 @@
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
                                                 <field name="account_codes_formula">-232</field>
+                                            </record>
+                                            <record id="account_financial_report_NO_derivatives" model="account.report.line">
+                                                <field name="name">Derivatives</field>
+                                                <field name="code">NO_233</field>
+                                                <field name="groupby">account_id</field>
+                                                <field name="foldable" eval="True"/>
+                                                <field name="account_codes_formula">-233</field>
                                             </record>
                                             <record id="account_financial_report_NO_short_term_debt_to_financial_institutions" model="account.report.line">
                                                 <field name="name">Short-Term Debt to Financial Institutions</field>

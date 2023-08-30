@@ -340,34 +340,6 @@
                     </record>
                 </field>
                 <field name="children_ids">
-                    <record id="account_financial_report_NO_changes_in_balance_value" model="account.report.line">
-                        <field name="name">Changes in Balance Value</field>
-                        <field name="code">NO_84_85</field>
-                        <field name="groupby">account_id</field>
-                        <field name="foldable" eval="True"/>
-                        <field name="expression_ids">
-                            <record id="account_financial_report_NO_changes_in_balance_value_balance" model="account.report.expression">
-                                <field name="label">balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-84 - 85</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                        </field>
-                    </record>
-                    <record id="account_financial_report_NO_tax_on_extraordinary_charges" model="account.report.line">
-                        <field name="name">Tax on Extraordinary Charges</field>
-                        <field name="code">NO_86</field>
-                        <field name="groupby">account_id</field>
-                        <field name="foldable" eval="True"/>
-                        <field name="expression_ids">
-                            <record id="account_financial_report_NO_tax_on_extraordinary_charges_balance" model="account.report.expression">
-                                <field name="label">balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-86</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                        </field>
-                    </record>
                     <record id="account_financial_report_NO_net_profit_loss_for_the_year" model="account.report.line">
                         <field name="name">Net profit/Loss for the Year</field>
                         <field name="code">NO_profit_loss</field>
@@ -376,7 +348,7 @@
                             <record id="account_financial_report_NO_net_profit_loss_for_the_year_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">NO_Ordinary_Result_After_Tax.balance + NO_84_85.balance + NO_86.balance</field>
+                                <field name="formula">NO_Ordinary_Result_After_Tax.balance</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
