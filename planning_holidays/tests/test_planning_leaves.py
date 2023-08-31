@@ -179,3 +179,28 @@ class TestPlanningLeaves(TestCommon):
                          "bert is on time off on 01/02/2020 from 2:00 PM to 6:00 PM. \n")
         self.assertEqual(slot_3.leave_warning, False,
                          "Employee is not on leave, there should be no warning")
+
+    def test_progress_bar_with_holiday(self):
+        """
+        Test Case
+        ---------
+            1) Create one day time-off
+            2) Create weekly shift
+            3) Calculate percentage and verify
+        """
+        self.env['hr.leave'].sudo().create({
+            'holiday_status_id': self.leave_type.id,
+            'employee_id': self.employee_bert.id,
+            'request_date_from': '2020-1-9',
+            'request_date_to': '2020-1-9',
+        }).action_validate()
+
+        self.env['planning.slot'].sudo().create({
+            'resource_id': self.resource_bert.id,
+            'start_datetime': datetime.datetime(2020, 1, 7, 0, 0),
+            'end_datetime': datetime.datetime(2020, 1, 10, 17, 0),
+        })
+        planning_hours_info = self.env['planning.slot']._gantt_progress_bar(
+            'resource_id', self.resource_bert.ids, datetime.datetime(2020, 1, 5, 8, 0), datetime.datetime(2020, 1, 11, 17, 0)
+        )
+        self.assertEqual(75, (planning_hours_info[self.resource_bert.id]['value'] / planning_hours_info[self.resource_bert.id]['max_value']) * 100)

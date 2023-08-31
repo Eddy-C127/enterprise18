@@ -736,3 +736,43 @@ test("Test highlight shifts added by executed action", async function () {
     });
     expect(".o_gantt_pill").toHaveCount(2, { message: "2 pills should be in the gantt view." });
 });
+
+test("The date should take into the account when created through the button in Gantt View", async function () {
+    mockDate("2022-12-10 07:00:00");
+    PlanningSlot._records.push({
+        name: "First Record",
+        start_datetime: "2022-12-07 09:00:00",
+        end_datetime: "2022-12-07 18:00:00",
+        resource_id: 1,
+    });
+
+    PlanningSlot._views = {
+        form: `
+            <form>
+               <field name="name"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="resource_id"/>
+            </form>
+        `,
+    };
+
+    onRpc("gantt_resource_work_interval", ganttResourceWorkIntervalRPC);
+
+    await mountGanttView({
+        resModel: "planning.slot",
+        arch: `<gantt js_class="planning_gantt" date_start="start_datetime"
+                date_stop="end_datetime" default_scale="week" sample="1" plan="false"/>`,
+        groupBy: ["resource_id"],
+    });
+
+    await clickCell("09 W49 2022", "Resource 1");
+    await contains(".modal .o_form_view .o_field_widget[name=name] input").edit("New Shift");
+    await clickSave();
+
+    expect(queryAllTexts(".o_gantt_pill_wrapper")).toEqual(["First Record","New Shift"],
+        { message: "Records should be match for Shifts" });
+
+    expect([...queryAll(".o_gantt_pill_wrapper")].map((node) => node.style.gridRow.split(' / ')[0])).
+        toEqual(["r2","r2"], { message: "The record should be added to the Resource column" });
+});
