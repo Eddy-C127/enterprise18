@@ -16,7 +16,7 @@ from odoo import fields, models
 from odoo.addons.l10n_cl_edi.models.l10n_cl_edi_util import UnexpectedXMLResponse, InvalidToken
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
-from odoo.tools.float_utils import float_repr, float_round
+from odoo.tools.float_utils import float_repr
 
 _logger = logging.getLogger(__name__)
 
@@ -664,9 +664,6 @@ services reception has been received as well.
             'Otro': _('Internal Error'),
         }.get(sii_response_status, sii_response_status)
 
-    def _float_repr_float_round(self, value, decimal_places):
-        return float_repr(float_round(value, decimal_places), decimal_places)
-
     def _l10n_cl_normalize_currency_name(self, currency_name):
         currency_dict = {
             'AED': 'DIRHAM',
@@ -699,95 +696,6 @@ services reception has been received as well.
             'ZAR': 'RAND',
         }
         return currency_dict.get(currency_name, 'OTRAS MONEDAS')
-
-    def _l10n_cl_get_amounts(self):
-        """
-        This method is used to calculate the amount and taxes required in the Chilean localization electronic documents.
-        """
-        self.ensure_one()
-        global_discounts = self.invoice_line_ids.filtered(lambda x: x.price_subtotal < 0)
-        export = self.l10n_latam_document_type_id._is_doc_type_export()
-        key_main_currency = 'amount_currency' if export else 'balance'
-        sign_main_currency = -1 if self.move_type == 'out_invoice' else 1
-        currency_round_main_currency = self.currency_id if export else self.company_id.currency_id
-        currency_round_other_currency = self.company_id.currency_id if export else self.currency_id
-        total_amount_main_currency = currency_round_main_currency.round(
-            self.amount_total) if export else currency_round_main_currency.round(abs(self.amount_total_signed))
-        other_currency = self.currency_id != self.company_id.currency_id
-        values = {
-            'vat_amount': 0,
-            'subtotal_amount_taxable': 0,
-            'subtotal_amount_exempt': 0,
-            'total_amount': total_amount_main_currency,
-            'main_currency_round': currency_round_main_currency.decimal_places,
-        }
-        values['main_currency_name'] = self._l10n_cl_normalize_currency_name(
-            currency_round_main_currency.name) if export else False
-        vat_percent = 0
-
-        if other_currency:
-            key_other_currency = 'balance' if export else 'amount_currency'
-            values['second_currency'] = {
-                'subtotal_amount_taxable': 0,
-                'subtotal_amount_exempt': 0,
-                'vat_amount': 0,
-                'total_amount': currency_round_other_currency.round(abs(self.amount_total_signed)) \
-                    if export else currency_round_other_currency.round(self.amount_total),
-                'round_currency': currency_round_other_currency.decimal_places,
-                'name': self._l10n_cl_normalize_currency_name(currency_round_other_currency.name),
-                'rate': round(abs(self.amount_total_signed) / self.amount_total, 4) if self.amount_total else False,
-            }
-        for line in self.line_ids:
-            if line.tax_line_id and line.tax_line_id.l10n_cl_sii_code == 14:
-                values['vat_amount'] += line[key_main_currency] * sign_main_currency
-                if other_currency:
-                    values['second_currency']['vat_amount'] += line[key_other_currency] * sign_main_currency # amount_currency behaves as balance
-                vat_percent = line.tax_line_id.amount if line.tax_line_id.amount > vat_percent else vat_percent
-            if line.display_type == 'product':
-                if line.tax_ids:
-                    values['subtotal_amount_taxable'] += line[key_main_currency] * sign_main_currency
-                    if other_currency:
-                        values['second_currency']['subtotal_amount_taxable'] += line[key_other_currency] * sign_main_currency
-                else:
-                    values['subtotal_amount_exempt'] += line[key_main_currency] * sign_main_currency
-                    if other_currency:
-                        values['second_currency']['subtotal_amount_exempt'] += line[key_other_currency] * sign_main_currency
-        values['global_discounts'] = []
-        for gd in global_discounts:
-            main_value = currency_round_main_currency.round(abs(gd.price_subtotal)) if \
-                (not other_currency and not export) or (other_currency and export) else \
-                currency_round_main_currency.round(abs(gd.balance))
-            second_value = currency_round_other_currency.round(abs(gd.balance)) if other_currency and export else \
-                currency_round_other_currency.round(abs(gd.price_subtotal))
-            values['global_discounts'].append(
-                {
-                    'name': gd.name,
-                    'global_discount_main_value': main_value,
-                    'global_discount_second_value': second_value if second_value != main_value else False,
-                    'tax_ids': gd.tax_ids,
-                }
-            )
-        values['vat_percent'] = '%.2f' % vat_percent if vat_percent > 0 else False
-        return values
-
-    def _l10n_cl_get_withholdings(self):
-        """
-        This method calculates the section of withholding taxes, or 'other' taxes for the Chilean electronic invoices.
-        These taxes are not VAT taxes in general; they are special taxes (for example, alcohol or sugar-added beverages,
-        withholdings for meat processing, fuel, etc.
-        The taxes codes used are included here:
-        [15, 17, 18, 19, 24, 25, 26, 27, 271]
-        http://www.sii.cl/declaraciones_juradas/ddjj_3327_3328/cod_otros_imp_retenc.pdf
-        The need of the tax is not just the amount, but the code of the tax, the percentage amount and the amount
-        :return:
-        """
-        self.ensure_one()
-        cid = self.company_id.id
-        return [{'tax_code': line.tax_line_id.l10n_cl_sii_code,
-                 'tax_percent': abs(line.tax_line_id.amount),
-                 'tax_amount': self.currency_id.round(abs(line.amount_currency))} for line in self.line_ids.filtered(
-            lambda x: x.tax_group_id.id in [
-                self.env.ref(f'account.{cid}_tax_group_ila').id, self.env.ref(f'account.{cid}_tax_group_retenciones').id])]
 
     def _l10n_cl_get_dte_barcode_xml(self):
         """
@@ -901,73 +809,3 @@ services reception has been received as well.
         for record in self.search([('l10n_cl_dte_status', '=', 'not_sent')]):
             record.with_context(cron_skip_connection_errs=True).l10n_cl_send_dte_to_sii()
             self.env.cr.commit()
-
-
-class AccountMoveLine(models.Model):
-    _inherit = 'account.move.line'
-
-    def _l10n_cl_get_line_amounts(self):
-        """
-        This method is used to calculate the amount and taxes of the lines required in the Chilean localization
-        electronic documents.
-        """
-        # If in this fix we should check for boletas, we have the following cases, and how this affects the xml
-        # for facturas and boletas:
-
-        # 1. local invoice in same currency tax not included in price
-        # 2. local invoice in same currency tax included in price (there is difference of -1 peso in amount_untaxed
-        # and +1 peso in vat tax amount. The lines are OK
-        # 3. local invoice in different currency tax not included in price
-        # 4. local invoice in different currency tax include in price -> this is the most problematic case because
-        # 5. foreign invoice in different currency (without tax)
-
-        domestic_invoice_other_currency = self.move_id.currency_id != self.move_id.company_id.currency_id and not \
-            self.move_id.l10n_latam_document_type_id._is_doc_type_export()
-        export = self.move_id.l10n_latam_document_type_id._is_doc_type_export()
-        if not export:
-            # This is to manage case 1, 2, 3 and 4
-            # cases 1 and 2: domestic invoice in same currency and cases 3 and 4 with other currency
-            main_currency = self.move_id.company_id.currency_id
-            main_currency_field = 'balance'
-            second_currency_field = 'price_subtotal'
-            second_currency = self.currency_id
-            main_currency_rate = 1
-            second_currency_rate = abs(self.balance) / self.price_subtotal if domestic_invoice_other_currency and self.price_subtotal else False
-            inverse_rate = second_currency_rate if domestic_invoice_other_currency else main_currency_rate
-        else:
-            # This is to manage case 5 (export docs)
-            main_currency = self.currency_id
-            second_currency = self.move_id.company_id.currency_id
-            main_currency_field = 'price_subtotal'
-            second_currency_field = 'balance'
-            inverse_rate = abs(self.balance) / self.price_subtotal if self.price_subtotal else False
-        price_subtotal = abs(self[main_currency_field])
-        if self.quantity and self.discount != 100.0:
-            price_unit = (price_subtotal / abs(self.quantity)) / (1 - self.discount / 100)
-            discount_amount = (price_subtotal / (1 - self.discount / 100)) * self.discount / 100
-        else:
-            price_unit = self.price_unit
-            discount_amount = self.price_unit * self.quantity
-        values = {
-            'decimal_places': main_currency.decimal_places,
-            'price_item': round(price_unit, 6),
-            'total_discount': main_currency.round(discount_amount),
-            'price_subtotal': main_currency.round(price_subtotal),
-            'exempt': bool(not self.tax_ids),
-        }
-        if domestic_invoice_other_currency or export:
-            price_subtotal_second = abs(self[second_currency_field])
-            if self.quantity and self.discount != 100.0:
-                price_unit_second = (price_subtotal_second / abs(self.quantity)) / (1 - self.discount / 100)
-            else:
-                price_unit_second = self.price_unit
-            discount_amount_second = price_unit_second * self.quantity - price_subtotal_second
-            values['second_currency'] = {
-                'price': second_currency.round(price_unit_second),
-                'currency_name': self.move_id._format_length(second_currency.name, 3),
-                'conversion_rate': round(inverse_rate, 4),
-                'amount_discount': second_currency.round(discount_amount_second),
-                'total_amount': second_currency.round(price_subtotal_second),
-                'round_currency': second_currency.decimal_places,
-            }
-        return values
