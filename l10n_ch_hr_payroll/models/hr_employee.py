@@ -71,21 +71,7 @@ class HrEmployee(models.Model):
         string="SV-AS Number",
         groups="hr.group_hr_user",
         help="Thirteen-digit AS number assigned by the Central Compensation Office (CdC)")
-    marital = fields.Selection(
-        selection_add=[
-            ("separated", "Separated"),
-            ("registered_partnership", "Registered Partnership"),
-            ("partnership_dissolved_by_law", "Partnership Dissolved By Law"),
-            ("partnership_dissolved_by_death", "Partnership Dissolved By Law"),
-            ("partnership_dissolved_by_declaration_of_lost", "Partnership Dissolved By Declaration of Lost"),
-        ],
-        ondelete={
-            'separated': 'set default',
-            'registered_partnership': 'set default',
-            'partnership_dissolved_by_law': 'set default',
-            'partnership_dissolved_by_death': 'set default',
-            'partnership_dissolved_by_declaration_of_lost': 'set default',
-        }, required=True)
+    marital = fields.Selection(selection='_get_marital_status_selection')
     l10n_ch_marital_from = fields.Date(string="Marital Status Start Date", groups="hr.group_hr_user")
     l10n_ch_spouse_sv_as_number = fields.Char(string="Spouse SV-AS-Number", groups="hr.group_hr_user")
     l10n_ch_spouse_work_canton = fields.Selection(string="Spouse Work Canton", selection=CANTONS, groups="hr.group_hr_user")
@@ -179,3 +165,14 @@ class HrEmployee(models.Model):
                 continue
             if not employee.l10n_ch_spouse_sv_as_number.replace('.', '').isdigit() or len(employee.l10n_ch_spouse_sv_as_number) != 16:
                 raise UserError(_('The SV-AS number should be a thirteen-digit number, comma-separated (eg: 756.1848.4786.64)'))
+
+    def _get_marital_status_selection(self):
+        if self.env.company.country_id.code != "CH":
+            return super()._get_marital_status_selection()
+        return super()._get_marital_status_selection() + [
+            ("separated", "Separated"),
+            ("registered_partnership", "Registered Partnership"),
+            ("partnership_dissolved_by_law", "Partnership Dissolved By Law"),
+            ("partnership_dissolved_by_death", "Partnership Dissolved By Law"),
+            ("partnership_dissolved_by_declaration_of_lost", "Partnership Dissolved By Declaration of Lost"),
+        ]
