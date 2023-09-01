@@ -18,7 +18,10 @@ Create customizable worksheet
     ],
     'assets': {
         'web.assets_backend': [
-            'worksheet/static/src/**/*',
+            'worksheet/static/src/open_studio_button_widget/*',
+        ],
+        'web_studio.studio_assets': [
+            'worksheet/static/src/client_action/navbar/navbar.js'
         ],
         'web.qunit_suite_tests': [
             'worksheet/static/tests/*.js',

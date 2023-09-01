@@ -200,12 +200,7 @@ class WorksheetTemplate(models.Model):
             'name': 'Worksheets',
             'res_model': model.model,
             'search_view_id': search_view.id,
-            'context': {
-                'edit': False,
-                'create': False,
-                'delete': False,
-                'duplicate': False,
-            }
+            'context': self._get_template_action_context()
         }))
 
         self.env['ir.model.data'].sudo().create(xid_values)
@@ -222,6 +217,14 @@ class WorksheetTemplate(models.Model):
         conname = '%s_x_%s_id_uniq' % (name, res_model)
         concode = 'unique(x_%s_id)' % (res_model)
         tools.add_constraint(self.env.cr, name, conname, concode)
+
+    def _get_template_action_context(self):
+        return {
+            'edit': False,
+            'create': False,
+            'delete': False,
+            'duplicate': False,
+        }
 
     def _prepare_default_fields_values(self):
         """Prepare a list that contains the data to create the default fields for
@@ -341,7 +344,8 @@ class WorksheetTemplate(models.Model):
         action = self.action_id.read()[0]
         action.update({
             'views': [[False, "form"]],
-            'context': {'default_x_%s_id' % self.res_model.replace('.', '_'): True},  # to hide model_id from view
+            'context': {'default_x_%s_id' % self.res_model.replace('.', '_'): True,  # to hide model_id from view
+                        'worksheet_template_id': self.id},
         })
         return action
 

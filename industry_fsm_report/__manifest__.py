@@ -33,6 +33,9 @@ Create Reports for Field Service
         'web.assets_frontend': [
             'industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js',
         ],
+        'web.assets_tests': [
+            'industry_fsm_report/static/tests/tours/**/*',
+        ],
     },
     'license': 'OEEL-1',
 }

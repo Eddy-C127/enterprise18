@@ -36,6 +36,21 @@ class WorksheetTemplate(models.Model):
     def _get_project_task_module_name(self):
         return 'industry_fsm_report'
 
+    def _get_template_action_context(self):
+        context = super()._get_template_action_context()
+        if self.res_model == 'project.task':
+            context.update({
+                'action_xml_id': 'industry_fsm_report.fsm_worksheets_action_settings',
+                'worksheet_template_id': self.id,
+            })
+        return context
+
+    def get_x_model_form_action(self):
+        action = super().get_x_model_form_action()
+        if self.res_model == 'project.task':
+            action['context'].update({'action_xml_id': 'industry_fsm_report.fsm_worksheets_action_settings'})
+        return action
+
     @api.model
     def _create_demo_data_fsm(self):
         # create demo data in batch for performance reasons (avoid multiple calls to setup_models)
