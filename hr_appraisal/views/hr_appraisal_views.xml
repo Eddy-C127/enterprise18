@@ -82,7 +82,7 @@
                 <field name="appraisal_properties" columns="2"/>
                 <notebook>
                     <page string="Appraisal" name="appraisal">
-                        <div class="o_appraisal_both_feedback d-flex flex-column flex-md-row flex-wrap align-items-stretch" >
+                        <div class="o_appraisal_both_feedback d-flex flex-column flex-md-row flex-wrap align-items-stretch" style="min-height: 20rem">
                             <div class="o_appraisal_feedback col-12 col-md-6">
                                 <div class="row">
                                     <div class="o_appraisal_feedback_title col-12 d-flex justify-content-between">
@@ -162,7 +162,7 @@
             <tree string="Appraisal" multi_edit="1" sample="1">
                 <field name="active" column_invisible="True"/>
                 <field name="employee_id" string="Name" readonly="1" widget="many2one_avatar_user"/>
-                <field name="date_close" widget="remaining_days"/>
+                <field name="date_close" widget="date"/>
                 <field name="date_final_interview" widget="remaining_days"/>
                 <field name="assessment_note" optional="hide"/>
                 <field name="state" widget="badge" readonly="1" decoration-info="state in ('new','pending')" decoration-success="state == 'done'"/>

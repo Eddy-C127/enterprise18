@@ -54,11 +54,12 @@
         <field name="arch" type="xml">
             <tree sample="1" class="o_goal_list">
                 <field name="name" class="fw-bold"/>
-                <field name="deadline" widget="remaining_days"/>
-                <field name="activity_ids" widget="list_activity"/>
+                <field name="create_date" widget="appraisal_goal_date"/>
+                <field name="deadline" widget="remaining_days" optional="hidden"/>
+                <field name="activity_ids" widget="list_activity" optional="hidden"/>
                 <field name="progression" widget="badge" decoration-success="progression == '100'"/>
-                <field name="employee_id" widget="many2one_avatar_user"/>
-                <field name="manager_id" widget="many2one_avatar_user"/>
+                <field name="employee_id" widget="many2one_avatar_user" options="{'no_open': True}"/>
+                <field name="manager_id" widget="many2one_avatar_user" optional="hidden" options="{'no_open': True}"/>
                 <field name="tag_ids" widget="many2many_tags" readonly="1" optional="hidden" options="{'color_field': 'color'}"/>
             </tree>
         </field>
@@ -98,7 +99,7 @@
                             <div class="o_kanban_record_bottom mt-auto d-flex justify-content-between align-items-end">
                                 <div class="oe_kanban_bottom_left">
                                     <field name="activity_ids" widget="kanban_activity"/>
-                                    <field name="deadline" widget="remaining_days"/>
+                                    <field name="create_date" widget="appraisal_goal_date"/>
                                 </div>
                                 <div class="oe_kanban_bottom_right">
                                     <field name="employee_id" widget="many2one_avatar_user"/>
@@ -128,15 +129,23 @@
         <field name="model">hr.appraisal.goal</field>
         <field name="arch" type="xml">
             <search>
+                <field string="Goal" name="name"/>
                 <field name="employee_id"/>
                 <field name="manager_id"/>
                 <field name="tag_ids"/>
                 <filter string="My Goals" name="filter_my_goals" domain="[('employee_id.user_id', '=', uid)]"/>
                 <filter string="People I Manage" name="people_i_manage" domain="[('employee_id.parent_id.user_id', '=', uid)]" groups="hr_appraisal.group_hr_appraisal_user"/>
+                <filter string="In Progress" name="in_progress" domain="[('progression', 'in', ('000','025','050','075'))]"/>
+                <filter string="Done" name="completed" domain="[('progression', '=', '100')]"/>
                 <separator/>
                 <filter string="Late" name="filter_late" domain="[('deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Created On" name="filter_create_date" date="create_date"/>
                 <filter string="Deadline" name="filter_deadline" date="deadline"/>
                 <filter string='Deadline' name="deadline_group"  context="{'group_by': 'deadline'}"/>
+                <filter string="Created On" name="groupby_create_date" context="{'group_by': 'create_date'}"/>
+                <filter string="Created By" name="groupby_create_by" context="{'group_by': 'create_uid'}"/>
+                <filter string='Employee' name="groupby_employee"  context="{'group_by': 'employee_id'}"/>
+                <filter string='Manager' name="manager_id"  context="{'group_by': 'manager_id'}"/>
             </search>
         </field>
     </record>
@@ -144,7 +153,8 @@
     <record id="action_hr_appraisal_goal" model="ir.actions.act_window">
         <field name="name">Goals</field>
         <field name="res_model">hr.appraisal.goal</field>
-        <field name="view_mode">kanban,tree,form,graph</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="context">{'search_default_groupby_employee': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create new goals
