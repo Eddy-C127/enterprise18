@@ -174,7 +174,7 @@ class TestCohortForward(TestCohortCommon):
             If an event has no rating, it would make sense that its "avg_rating" is False rather than 0.
             In this case, the event shouldn't be taken into account in the cohort average.
         """
-        self.WebCohortSimpleModel._fields['revenue'].aggregator = 'avg'
+        self.patch(self.WebCohortSimpleModel._fields['revenue'], 'aggregator', 'avg')
         result = self.WebCohortSimpleModel.get_cohort_data(
             'date_start', 'date_stop', 'revenue', 'week', [], 'retention', 'forward'
         )

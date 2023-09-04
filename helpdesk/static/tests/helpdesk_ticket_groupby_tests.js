@@ -45,6 +45,7 @@ QUnit.module("helpdesk", (hooks) => {
                     type: "date",
                     store: true,
                     sortable: true,
+                    groupable: true,
                 },
                 team_id: { string: "Team", type: "many2one", relation: "helpdesk.team" },
                 stage_id: { string: "Stage", type: "many2one", relation: "helpdesk.stage" },
