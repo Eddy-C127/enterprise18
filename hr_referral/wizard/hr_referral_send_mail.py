@@ -29,10 +29,14 @@ class HrReferralSendMail(models.TransientModel):
     @api.depends('job_id', 'url')
     def _compute_body_html(self):
         for wizard in self:
-            if not wizard.job_id:
-                wizard.body_html = _('Hello,<br><br>There are some amazing job offers in my company! Have a look, they  can be interesting for you<br><a href="%s">See Job Offers</a>', wizard.url)
-            else:
-                wizard.body_html = _('Hello,<br><br>There is an amazing job offer for %s in my company! It will be a fit for you<br><a href="%s">See Job Offer</a>', wizard.job_id.name, wizard.url)
+            wizard.body_html = self.env["ir.ui.view"]._render_template(
+                'hr_referral.referral_email_body_template',
+                {
+                    'job_id': wizard.job_id,
+                    'companies': self.env.companies.filtered(lambda c: c.website_id.domain or c.website),
+                    'url': wizard.url,
+                }
+            )
 
     def send_mail_referral(self):
         if not self.env.user.has_group('hr_referral.group_hr_recruitment_referral_user'):
