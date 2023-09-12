@@ -31,8 +31,8 @@ class AppointmentTest(AppointmentCommon, HttpCase):
         self.env["calendar.event"].create([
             {
                 "name": "event-1",
-                "start": datetime(2023, 6, 5, 8, 0),
-                "stop": datetime(2023, 6, 5, 9, 0),
+                "start": datetime(2023, 6, 5, 10, 10),
+                "stop": datetime(2023, 6, 5, 11, 11),
                 "show_as": 'free',
                 "partner_ids": [(Command.set(employee.partner_id.ids))],
                 "attendee_ids": [(0, 0, {
@@ -56,8 +56,8 @@ class AppointmentTest(AppointmentCommon, HttpCase):
 
         unique_slots = [{
             'allday': False,
-            'start_datetime': datetime(2023, 6, 5, 8, 0),
-            'end_datetime': datetime(2023, 6, 5, 9, 0),
+            'start_datetime': datetime(2023, 6, 5, 10, 10),
+            'end_datetime': datetime(2023, 6, 5, 11, 11),
         }, {
             'allday': False,
             'start_datetime': datetime(2023, 6, 5, 12, 0),
@@ -99,6 +99,7 @@ class AppointmentTest(AppointmentCommon, HttpCase):
         self.assertEqual(len(available_unique_slots), 1)
 
         for unique_slot, apt_type, is_available in zip(unique_slots, apt_types, [True, False]):
+            duration = (unique_slot['end_datetime'] - unique_slot['start_datetime']).total_seconds() / 3600
             self.assertEqual(
                 apt_type._check_appointment_is_valid_slot(
                     employee,
@@ -106,7 +107,7 @@ class AppointmentTest(AppointmentCommon, HttpCase):
                     0,
                     'UTC',
                     unique_slot['start_datetime'],
-                    1.0
+                    duration
                 ),
                 is_available
             )
