@@ -9,6 +9,8 @@ from odoo.http import request
 from odoo.osv import expression
 
 from odoo.addons.website.controllers import form
+from odoo.addons.base.models.ir_qweb_fields import nl2br_enclose
+from odoo.tools import html2plaintext
 
 class WebsiteHelpdesk(http.Controller):
 
@@ -153,3 +155,24 @@ class WebsiteForm(form.WebsiteForm):
             attachments = request.env['ir.attachment'].sudo().search([('res_model', '=', model_name), ('res_id', '=', ticket.id), ('access_token', '=', False)])
             attachments.generate_access_token()
             ticket.message_ids.filtered(lambda m: m.attachment_ids == attachments).is_internal = False
+
+    def insert_record(self, request, model, values, custom, meta=None):
+        res = super().insert_record(request, model, values, custom, meta=meta)
+        if not (custom or meta) or model.model != 'helpdesk.ticket':
+            return res
+        ticket = request.env['helpdesk.ticket'].sudo().browse(res)
+        custom = "<b>" + custom.replace(' :', ':</b>').replace('\n', '\n<b>').replace('\r\n<b>', '\r\n')
+        custom_label = "<h4>%s</h4>\n\n" % _("Other Information")  # Title for custom fields
+        default_field = model.website_form_default_field_id
+        default_field_data = values.get(default_field.name, '')
+        default_field_content = "<h4>%s</h4>\n<p>%s</p>" % (_("Description"), html2plaintext(default_field_data))
+        custom_content = (f"{default_field_content} \n\n\n" if default_field_data else '') \
+                        + (f"{custom_label} {custom} \n\n " if custom else '') \
+                        + (self._meta_label + meta if meta else '')
+
+        if default_field.name:
+            ticket._message_log(
+                body=nl2br_enclose(custom_content, 'p'),
+                message_type='comment',
+            )
+        return res
