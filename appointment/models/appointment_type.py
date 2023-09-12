@@ -901,7 +901,7 @@ class AppointmentType(models.Model):
                 continue
             if slot['slot'].slot_type == 'recurring' and self_sudo.appointment_duration != duration:
                 continue
-            if slot['slot'].slot_type == 'unique' and slot['slot'].duration != duration:
+            if slot['slot'].slot_type == 'unique' and slot['slot'].duration != round(duration, 2):
                 continue
             return True
         return False
