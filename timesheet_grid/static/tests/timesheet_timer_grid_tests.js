@@ -1256,7 +1256,7 @@ QUnit.module("Views", (hooks) => {
             });
             await nextTick();
             assert.containsOnce(target, ".btn_start_timer", "No timer should be running.");
-            const gridTimerButton = target.querySelector(".btn_timer_line[data-hotkey='A']");
+            const gridTimerButton = target.querySelector('button.btn_timer_line');
             const gridTimerButtonContainer = gridTimerButton.closest(".o_grid_highlightable");
             assert.strictEqual(
                 target.querySelector(
@@ -1273,8 +1273,8 @@ QUnit.module("Views", (hooks) => {
             );
             assert.containsOnce(
                 target,
-                ".btn_timer_line.btn-danger[data-hotkey='A']",
-                "The row with the running timer should be the one with the 'A' letter in the GridTimerButton"
+                "button.btn_timer_line.btn-danger",
+                "The row with the running timer should be the one with the 'a' letter in the GridTimerButton"
             );
 
             await triggerEvent(document.activeElement, "", "keydown", { key: "a" });
@@ -1339,7 +1339,7 @@ QUnit.module("Views", (hooks) => {
             });
 
             assert.containsOnce(target, ".btn_start_timer", "No timer should be running.");
-            const gridTimerButton = target.querySelector(".btn_timer_line[data-hotkey='A']");
+            const gridTimerButton = target.querySelector('button.btn_timer_line');
             const gridTimerButtonContainer = gridTimerButton.closest(".o_grid_highlightable");
             assert.strictEqual(
                 target.querySelector(
@@ -1356,8 +1356,8 @@ QUnit.module("Views", (hooks) => {
             );
             assert.containsOnce(
                 target,
-                ".btn_timer_line.btn-danger[data-hotkey='A']",
-                "The row with the running timer should be the one with the 'A' letter in the GridTimerButton"
+                ".o_grid_row_timer.o_grid_highlightable[data-row='1']",
+                "The row with the running timer should be the one with the 'a' letter in the GridTimerButton"
             );
             await triggerEvent(document.activeElement, "", "keydown", { key: "b" });
             assert.containsNone(target, ".btn_start_timer", "A timer should be running");
@@ -1368,8 +1368,8 @@ QUnit.module("Views", (hooks) => {
             );
             assert.containsOnce(
                 target,
-                ".btn_timer_line.btn-danger[data-hotkey='B']",
-                "The row with the running timer should be the one with the 'B' letter in the GridTimerButton"
+                ".o_grid_row_timer.o_grid_highlightable[data-row='2']",
+                "The row with the running timer should be the one with the 'b' letter in the GridTimerButton"
             );
             assert.strictEqual(
                 target.querySelector(
