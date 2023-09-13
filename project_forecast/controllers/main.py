@@ -24,17 +24,17 @@ class ShiftControllerProject(ShiftController):
             slot_data = mapped_data[slot_sudo.id]
             slot_data['project'] = slot_sudo.project_id.name
             # Reset the title according to the project and task name
-            title = slot_sudo.role_id.name or ''
-            title_full = " - ".join([x for x in (title, slot_sudo.project_id.name) if x])
-            if not title_full:
-                title_full = _('Shift')
-            if slot_sudo.name:
-                title_full += u' \U0001F4AC'
-            slot_data['title'] = title_full
+            vals = self._prepare_slot_vals(slot_sudo, employee_token)
+            slot_data['title'] = vals['title']
             new_employee_fullcalendar_data.append(slot_data)
         result['employee_slots_fullcalendar_data'] = new_employee_fullcalendar_data
         open_slots = result['open_slots_ids']
         unwanted_slots = result['unwanted_slots_ids']
         result['open_slot_has_project'] = any(s.project_id for s in open_slots)
         result['unwanted_slot_has_project'] = any(s.project_id for s in unwanted_slots)
+        return result
+
+    def _prepare_slot_vals(self, slot, employee_token):
+        result = super()._prepare_slot_vals(slot, employee_token)
+        result['title'] = " - ".join(x for x in (result['title'], slot.project_id.name) if x)
         return result

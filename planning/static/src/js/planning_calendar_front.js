@@ -113,6 +113,21 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
         }
         calRender.el.classList.add('cursor-pointer');
         calRender.el.childNodes[0].classList.add('fw-bold');
+        const timeElement = document.createElement('span');
+        timeElement.classList.add('ps-1');
+        const allocatedHours = calRender.event.extendedProps.alloc_hours;
+        const hoursSpan = document.createElement('span');
+        hoursSpan.textContent = `(${allocatedHours})`;
+        timeElement.appendChild(hoursSpan);
+        const allocatedPercent = calRender.event.extendedProps.alloc_perc;
+        if (allocatedPercent != 100) {
+            const percentSpan = document.createElement('span');
+            percentSpan.classList.add('ps-1');
+            percentSpan.textContent = `(${allocatedPercent}%)`;
+            timeElement.appendChild(percentSpan);
+        }
+        calRender.el.querySelector('.fc-time').appendChild(timeElement);
+
         if (calRender.event.extendedProps.request_to_switch && !calRender.event.extendedProps.allow_self_unassign) {
             calRender.el.style.borderColor = 'rgb(255, 172, 0)';
             calRender.el.style.borderWidth = '5px';

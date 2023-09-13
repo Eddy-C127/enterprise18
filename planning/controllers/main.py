@@ -23,6 +23,28 @@ class ShiftController(http.Controller):
             return request.not_found()
         return request.render('planning.period_report_template', planning_data)
 
+    def _prepare_slot_vals(self, slot, employee_token):
+        # This method provides a hook for customization by allowing the overriding for specific values
+        employee_sudo = request.env['hr.employee'].sudo().search([('employee_token', '=', employee_token)], limit=1)
+        employee_tz = pytz.timezone(employee_sudo.tz or 'UTC')
+        slot_start_datetime = pytz.utc.localize(slot.start_datetime).astimezone(employee_tz).replace(tzinfo=None)
+        slot_end_datetime = pytz.utc.localize(slot.end_datetime).astimezone(employee_tz).replace(tzinfo=None)
+        return {
+            'title': '%s%s' % (slot.role_id.name or _('Shift'), u' \U0001F4AC' if slot.name else ''),
+            'start': str(slot_start_datetime),
+            'end': str(slot_end_datetime),
+            'color': self._format_planning_shifts(slot.role_id.color),
+            'alloc_hours': format_duration(slot.allocated_hours),
+            'alloc_perc': f'{slot.allocated_percentage:.2f}',
+            'slot_id': slot.id,
+            'note': slot.name,
+            'allow_self_unassign': slot.allow_self_unassign,
+            'is_unassign_deadline_passed': slot.is_unassign_deadline_passed,
+            'role': slot.role_id.name,
+            'request_to_switch': slot.request_to_switch,
+            'is_past': slot.is_past,
+        }
+
     def _planning_get(self, planning_token, employee_token, message=False):
         employee_sudo = request.env['hr.employee'].sudo().search([('employee_token', '=', employee_token)], limit=1)
         if not employee_sudo:
@@ -92,21 +114,8 @@ class ShiftController(http.Controller):
                 ):
                     unwanted_slots.append(slot)
                 if slot.employee_id == employee_sudo:
-                    employee_fullcalendar_data.append({
-                        'title': '%s%s' % (slot.role_id.name or _('Shift'), u' \U0001F4AC' if slot.name else ''),
-                        'start': str(slot_start_datetime),
-                        'end': str(slot_end_datetime),
-                        'color': self._format_planning_shifts(slot.role_id.color),
-                        'alloc_hours': format_duration(slot.allocated_hours),
-                        'alloc_perc': f'{slot.allocated_percentage:.2f}',
-                        'slot_id': slot.id,
-                        'note': slot.name,
-                        'allow_self_unassign': slot.allow_self_unassign,
-                        'is_unassign_deadline_passed': slot.is_unassign_deadline_passed,
-                        'role': slot.role_id.name,
-                        'request_to_switch': slot.request_to_switch,
-                        'is_past': slot.is_past,
-                    })
+                    vals = self._prepare_slot_vals(slot, employee_token)
+                    employee_fullcalendar_data.append(vals)
                 # We add the slot start and stop into the list after converting it to the timezone of the employee
                 slots_start_datetime.append(slot_start_datetime)
                 slots_end_datetime.append(slot_end_datetime)
