@@ -80,6 +80,16 @@ class JournalReportCustomHandler(models.AbstractModel):
         if self.user_has_groups('base.group_multi_currency'):
             options['multi_currency'] = True
 
+    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
+        if options['export_mode'] != 'print':
+            return lines
+        new_lines = []
+        for line in lines:
+            model_info = self.env['account.report']._get_model_info_from_id(line['id'])
+            if model_info[0] == 'account.journal' and line.get('unfolded', False) or model_info[0] != 'account.journal':
+                new_lines.append(line)
+        return new_lines
+
     def _query_journal(self, options):
         params = []
         queries = []
