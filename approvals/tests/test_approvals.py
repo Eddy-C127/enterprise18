@@ -8,9 +8,11 @@ from odoo.exceptions import UserError
 
 class TestRequest(common.TransactionCase):
     def test_compute_request_status(self):
-        category_test = self.env['approval.category'].browse(1)
+        category_test = self.env.ref('approvals.approval_category_data_business_trip')
+        requester_user = self.env.ref('base.user_admin')
         record = self.env['approval.request'].create({
             'name': 'test request',
+            'request_owner_id': requester_user.id,
             'category_id': category_test.id,
             'date_start': fields.Datetime.now(),
             'date_end': fields.Datetime.now(),
@@ -74,9 +76,11 @@ class TestRequest(common.TransactionCase):
         self.assertEqual(record.request_status, 'new')
 
     def test_compute_request_status_with_required(self):
-        category_test = self.env['approval.category'].browse(1)
+        category_test = self.env.ref('approvals.approval_category_data_business_trip')
+        requester_user = self.env.ref('base.user_admin')
         record = self.env['approval.request'].create({
             'name': 'test request',
+            'request_owner_id': requester_user.id,
             'category_id': category_test.id,
             'date_start': fields.Datetime.now(),
             'date_end': fields.Datetime.now(),
@@ -117,7 +121,7 @@ class TestRequest(common.TransactionCase):
         self.assertEqual(record.request_status, 'approved')
 
     def test_product_line_compute_uom(self):
-        category_test = self.env['approval.category'].browse(1)
+        category_test = self.env.ref('approvals.approval_category_data_business_trip')
         uom = self.env.ref('uom.product_uom_dozen')
         product = self.env['product.product'].create({
             'name': 'foo',

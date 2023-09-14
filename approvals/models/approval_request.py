@@ -200,6 +200,21 @@ class ApprovalRequest(models.Model):
                 lambda approver: approver.user_id == self.env.user
             )
         approver.write({'status': 'approved'})
+        # Send approval accepted message
+        for approval in self:
+            if approval.request_owner_id.partner_id:
+                body = _("The request created on %(create_date)s by %(request_owner)s has been accepted.",
+                         create_date=approval.create_date.date(),
+                         request_owner=approval.request_owner_id.name)
+                subject = _("The request %(request_name)s for %(request_owner)s has been accepted",
+                            request_name=approval.name,
+                            request_owner=approval.request_owner_id.name)
+                approval.message_notify(
+                    body=body,
+                    subject=subject,
+                    partner_ids=approval.request_owner_id.partner_id.ids,
+                )
+
         self.sudo()._update_next_approvers('pending', approver, only_next_approver=True)
         self.sudo()._get_user_approval_activities(user=self.env.user).action_feedback()
 
@@ -209,6 +224,22 @@ class ApprovalRequest(models.Model):
                 lambda approver: approver.user_id == self.env.user
             )
         approver.write({'status': 'refused'})
+
+        # Send approval refused message
+        for approval in self:
+            if approval.request_owner_id.partner_id:
+                body = _("The request created on %(create_date)s by %(request_owner)s has been refused.",
+                         create_date=approval.create_date.date(),
+                         request_owner=approval.request_owner_id.name)
+                subject = _("The request %(request_name)s for %(request_owner)s has been refused",
+                            request_name=approval.name,
+                            request_owner=approval.request_owner_id.name)
+                approval.message_notify(
+                    body=body,
+                    subject=subject,
+                    partner_ids=approval.request_owner_id.partner_id.ids,
+                )
+
         self.sudo()._update_next_approvers('refused', approver, only_next_approver=False, cancel_activities=True)
         self.sudo()._get_user_approval_activities(user=self.env.user).action_feedback()
 
