@@ -3,7 +3,6 @@
 import { _t } from "@web/core/l10n/translation";
 import { ArticleSelectionBehaviorDialog } from '@knowledge/components/behaviors/article_behavior_dialog/article_behavior_dialog';
 import { ArticleTemplatePickerDialog } from "@knowledge/components/article_template_picker_dialog/article_template_picker_dialog";
-import { clamp } from "@web/core/utils/numbers";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import {
     KnowledgeSidebarFavoriteSection,
@@ -828,7 +827,7 @@ export class KnowledgeSidebar extends Component {
     resize() {
         const onPointerMove = throttleForAnimation(event => {
             event.preventDefault();
-            this.state.sidebarSize = clamp(event.pageX, 200, 576);
+            this.state.sidebarSize = event.pageX;
         });
         const onPointerUp = () => {
             document.removeEventListener('pointermove', onPointerMove);

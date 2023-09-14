@@ -2,7 +2,7 @@
 <templates id="template" xml:space="preserve">
     <t t-name="knowledge.Sidebar">
         <aside class="o_knowledge_sidebar d-flex flex-shrink-0 d-print-none bg-view"
-            t-attf-style="width: #{env.isSmall ? 'auto' : state.sidebarSize + 'px' };">
+            t-attf-style="--knowledge-article-sidebar-size: #{state.sidebarSize}px">
             <div class="d-flex flex-column flex-grow-1 min-w-0">
                 <!-- Search bar -->
                 <div class="d-flex align-items-center gap-2 px-sm-3 px-3 ps-2 py-3">
