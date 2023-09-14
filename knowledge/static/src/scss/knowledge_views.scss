@@ -68,8 +68,6 @@
     // = Sidebar
     // --------------------------------------------------------------------------
     .o_knowledge_sidebar {
-        transition: width 0.15s linear;
-
         .o_scroll_view {
             max-height: 100%;
         }
@@ -373,6 +371,10 @@
 
 @include media-breakpoint-up(sm) {
     .o_knowledge_form_view {
+        .o_knowledge_sidebar {
+            transition: width 0.15s linear;
+            width: clamp(200px, var(--knowledge-article-sidebar-size), 576px);
+        }
         .o_scroll_view {
             // Make icon overwrap the cover
             .o_widget_knowledge_cover + .o_field_knowledge_icon {
@@ -411,7 +413,6 @@
         }
         .o_knowledge_sidebar {
             @include o-position-absolute(0, 50px, 0, 0);
-            width: auto;
             z-index: 3; // should be greater than the backdrop z-index
         }
         .o_knowledge_backdrop {
