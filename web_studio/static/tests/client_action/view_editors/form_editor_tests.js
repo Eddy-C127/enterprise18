@@ -466,6 +466,59 @@ QUnit.module("View Editors", (hooks) => {
         );
     });
 
+    QUnit.test("image size can be unset from the selection", async function (assert) {
+        const arch = `<form>
+                <sheet>
+                    <field name='image' widget='image' class='oe_avatar' options='{"preview_image": "image", "size": [0,90]}'/>
+                    <div class='oe_title'>
+                        <field name='name'/>
+                    </div>
+                </sheet>
+            </form>`;
+        let editViewCount = 0;
+
+        await createViewEditor({
+            serverData,
+            type: "form",
+            resModel: "partner",
+            arch: arch,
+            mockRPC: function (route, args) {
+                if (route === "/web_studio/edit_view") {
+                    editViewCount++;
+                    let newArch;
+                    if (editViewCount === 1) {
+                        assert.deepEqual(
+                            args.operations[0].new_attrs, {
+                                "options": "{\"preview_image\":\"image\"}"
+                              },
+                            "size is no longer present in the attrs of the image field"
+                        );
+                        newArch = `<form>
+                                <sheet>
+                                    <field name='image' widget='image' class='oe_avatar' options='{"preview_image": "image"}'/>
+                                    <div class='oe_title'>
+                                        <field name='name'/>
+                                    </div>
+                                </sheet>
+                            </form>`;
+                    }
+                    return createMockViewResult(serverData, "form", newArch, "partner");
+                }
+            },
+        });
+
+        assert.containsOnce(
+            target,
+            '.o_field_widget.oe_avatar[name="image"]',
+            "there should be avatar image with field image"
+        );
+
+        await click(target.querySelector(".o_field_widget[name='image']"));
+        assert.strictEqual(target.querySelector(".o_web_studio_property_size .o_select_menu").textContent, "Small");
+        await click(target.querySelector(".o_web_studio_property_size .o_select_menu_toggler_clear"));
+        assert.strictEqual(target.querySelector(".o_web_studio_property_size .o_select_menu").textContent, "");
+    });
+
     QUnit.test("signature field edition (change full_name)", async function (assert) {
         assert.expect(8);
 
