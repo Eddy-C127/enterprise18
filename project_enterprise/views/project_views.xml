@@ -12,9 +12,9 @@
                 color="stage_id"
                 string="Planning"
                 display_unavailability="1"
+                js_class="project_gantt"
                 precision="{'week': 'day:full', 'month': 'day:full'}"
                 default_group_by="user_id"
-                thumbnails="{'user_id': 'avatar_128'}"
                 total_row="True">
                 <templates>
                     <div t-name="gantt-popover">
