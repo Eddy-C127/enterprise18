@@ -68,6 +68,10 @@ import {
     getGridContent,
     hoverGridCell,
     SELECTORS,
+    CLASSES,
+    getPillWrapper,
+    dragPill,
+    resizePill,
     getTexts,
 } from "@web_gantt/../tests/helpers";
 
@@ -662,4 +666,91 @@ QUnit.module("Views", (hooks) => {
             );
         }
     );
+
+    QUnit.test("Resize or Drag-Drop should open recurrence update wizard", async (assert) => {
+        patchDate(2022, 9, 10, 0, 0, 0);
+        const pyEnv = await startServer();
+        const employeeId = pyEnv['hr.employee'].create([
+            { name: "Employee 1" },
+        ]);
+        const resourceId = pyEnv['resource.resource'].create([
+            { name: "Resource 1", employee_id: [employeeId], resource_type: 'user' },
+        ]);
+
+        pyEnv['planning.slot'].create({
+            name: "Task With Repeat",
+            start_datetime: "2022-10-11 08:00:00",
+            end_datetime: "2022-10-11 10:00:00",
+            resource_id: resourceId,
+            employee_id: employeeId,
+            allocated_percentage: 100,
+            repeat: true,
+        });
+
+        const views = {
+            'planning.slot,false,gantt': `
+                <gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" total_row="1" default_scale="month"
+                precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}" display_unavailability="1" progress_bar="resource_id">
+                    <field name="allocated_percentage"/>
+                    <field name="resource_id"/>
+                    <field name="employee_id"/>
+                    <field name="name"/>
+                    <field name="repeat"/>
+                </gantt>`,
+        }
+        const { openView } = await start({
+            mockRPC: ganttResourceWorkIntervalRPC,
+            serverData: { views },
+        });
+        await openView({
+            res_model: 'planning.slot',
+            views: [[false, 'gantt']],
+            context: {
+                group_by: ['resource_id', 'name'],
+            },
+        });
+
+        assert.hasClass(getPillWrapper("Task With Repeat"), CLASSES.draggable);
+        assert.deepEqual(getGridContent().rows[3], {
+            pills: [
+                {
+                    "title": "Task With Repeat",
+                    "level": 0,
+                    "colSpan": "11 -> 11",
+                },
+            ],
+            title: "Task With Repeat",
+        });
+
+        // move a pill in the next cell (+1 day)
+        const { drop } = await dragPill("Task With Repeat");
+        await drop({ row: 3, column: 12 });
+        // click on the confirm button
+        await click(Object.entries(target.querySelectorAll('.btn-primary')).at(-1)[1]);
+        assert.deepEqual(getGridContent().rows[3], {
+            pills: [
+                {
+                    "title": "Task With Repeat",
+                    "level": 0,
+                    "colSpan": "12 -> 12",
+                },
+            ],
+            title: "Task With Repeat",
+        });
+
+        // resize a pill in the next cell (+1 day)
+        await resizePill(getPillWrapper("Task With Repeat"), "end", 1);
+        // click on the confirm button
+        await click(Object.entries(target.querySelectorAll('.btn-primary')).at(-1)[1]);
+        assert.deepEqual(getGridContent().rows[3], {
+            pills: [
+                {
+                    "title": "Task With Repeat",
+                    "level": 0,
+                    "colSpan": "12 -> 13",
+                },
+            ],
+            title: "Task With Repeat",
+        });
+    });
 });

@@ -10,6 +10,7 @@ import { PlanningMaterialRole } from "./planning_material_role";
 import { PlanningGanttRowProgressBar } from "./planning_gantt_row_progress_bar";
 import { useEffect, onWillStart, useRef } from "@odoo/owl";
 import { serializeDateTime } from "@web/core/l10n/dates";
+import { planningAskRecurrenceUpdate } from "../planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_hook";
 
 const { Duration, DateTime } = luxon;
 
@@ -156,6 +157,14 @@ export class PlanningGanttRenderer extends GanttRenderer {
      */
     getAggregateValue(group, previousGroup) {
         return group.aggregateValue + previousGroup.aggregateValue;
+    }
+
+    /**
+     * @override
+     */
+    getScheduleParams(pill) {
+        const { record } = this.pills[pill.dataset.pillId];
+        return { recurrence_update: record.recurrence_update };
     }
 
     /**
@@ -461,4 +470,31 @@ export class PlanningGanttRenderer extends GanttRenderer {
             }
         }
     }
+
+    async dragPillDrop({pill}) {
+        const { record } = this.pills[pill.dataset.pillId];
+        if (record.repeat) {
+            const recurrenceUpdate = await planningAskRecurrenceUpdate(this.dialogService);
+            if (recurrenceUpdate) {
+                record.recurrence_update = recurrenceUpdate;
+                super.dragPillDrop(...arguments);
+            }
+        } else {
+            super.dragPillDrop(...arguments);
+        }
+    }
+
+    async resizePillDrop({pill}) {
+        const { record } = this.pills[pill.dataset.pillId];
+        if (record.repeat) {
+            const recurrenceUpdate = await planningAskRecurrenceUpdate(this.dialogService);
+            if (recurrenceUpdate) {
+                record.recurrence_update = recurrenceUpdate;
+                super.resizePillDrop(...arguments);
+            }
+        } else {
+            super.resizePillDrop(...arguments);
+        }
+    }
+
 }

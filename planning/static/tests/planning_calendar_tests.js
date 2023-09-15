@@ -1,21 +1,21 @@
 /** @odoo-module **/
 
 import { click, getFixture, patchDate, patchWithCleanup, nextTick } from "@web/../tests/helpers/utils";
+import { browser } from "@web/core/browser/browser";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
+import { resizeEventToTime, clickEvent } from "@web/../tests/views/calendar/helpers";
+
 const { DateTime } = luxon;
 let target;
+let serverData;
 
 QUnit.module("Planning.planning_calendar_tests", ({ beforeEach }) => {
     beforeEach(() => {
         patchDate(2021, 5, 22, 8, 0, 0);
         target = getFixture();
         setupViewRegistries();
-    });
-
-    QUnit.test("planning calendar view: copy previous week", async function (assert) {
-        assert.expect(6);
-        const serverData = {
+        serverData = {
             models: {
                 "planning.slot": {
                     fields: {
@@ -25,6 +25,16 @@ QUnit.module("Planning.planning_calendar_tests", ({ beforeEach }) => {
                         display_name: { string: "Name", type: "char" },
                         start: { string: "Start Date", type: "datetime" },
                         stop: { string: "Stop Date", type: "datetime" },
+                        repeat: { string: "Repeat", type: "boolean" },
+                        recurrence_update: {
+                            string: "Recurrence Update",
+                            type: "selection",
+                            selection: [
+                                ['this', 'This shift'],
+                                ['subsequent', 'This and following shifts'],
+                                ['all', 'All shifts'],
+                            ]
+                        },
                         resource_id: { string: "Assigned to", type: "many2one", relation: "resource.resource" },
                         role_id: { string: "Role", type: "many2one", relation: "role" },
                         state: {
@@ -46,6 +56,7 @@ QUnit.module("Planning.planning_calendar_tests", ({ beforeEach }) => {
                             color: 7,
                             role_id: 1,
                             state: "draft",
+                            repeat: true,
                         },
                         {
                             id: 2,
@@ -108,13 +119,18 @@ QUnit.module("Planning.planning_calendar_tests", ({ beforeEach }) => {
                             <field name="resource_id" />
                             <field name="role_id" filters="1" color="color"/>
                             <field name="state"/>
+                            <field name="repeat"/>
+                            <field name="recurrence_update"/>
+                            <field name="stop"/>
                     </calendar>`,
                 "planning.slot,false,list":
                     '<list js_class="planning_tree"><field name="resource_id"/></list>',
                 "planning.slot,false,search": `<search />`,
             },
         };
+    });
 
+    QUnit.test("planning calendar view: copy previous week", async function (assert) {
         const mockRPC = (route, args) => {
             if (args.method === "action_copy_previous_week") {
                 assert.step("copy_previous_week()");
@@ -149,5 +165,38 @@ QUnit.module("Planning.planning_calendar_tests", ({ beforeEach }) => {
         await click(target, ".o_switch_view.o_list");
         await nextTick();
         assert.doesNotHaveClass(target.querySelector(".o_action_manager"), "o_notification_body");
+    });
+
+    QUnit.test("Resize or Drag-Drop should open recurrence update wizard", async function (assert) {
+        const webClient = await createWebClient({ serverData });
+        await doAction(webClient, 1);
+        patchWithCleanup(browser, {
+            setTimeout: (fn) => fn(),
+        });
+
+        // Change the time of the repeat pill
+        await resizeEventToTime(target, 1, "2021-06-22 23:30:00");
+        await click(Object.entries(target.querySelectorAll('.btn-primary')).at(-1)[1]);
+        await clickEvent(target, 1);
+        assert.containsOnce(target, ".o_cw_popover", "should open a popover clicking on event");
+        assert.strictEqual(
+            target.querySelector(
+                ".o_cw_popover .o_cw_popover_fields_secondary .list-group-item .o_field_datetime"
+            ).textContent.split(' ')[1],
+            "23:30:00",
+            "should have correct start date"
+        );
+
+        // Change the time of the normal pill
+        await resizeEventToTime(target, 2, "2021-06-24 23:30:00");
+        await clickEvent(target, 2);
+        assert.containsOnce(target, ".o_cw_popover", "should open a popover clicking on event");
+        assert.strictEqual(
+            target.querySelector(
+                ".o_cw_popover .o_cw_popover_fields_secondary .list-group-item .o_field_datetime"
+            ).textContent.split(' ')[1],
+            "23:30:00",
+            "should have correct start date"
+        );
     });
 });

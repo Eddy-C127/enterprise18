@@ -6,6 +6,7 @@ import { formatPercentage } from "@web/views/fields/formatters";
 import { GanttModel, computeRange } from "@web_gantt/gantt_model";
 import { usePlanningModelActions } from "../planning_hooks";
 import { Domain } from "@web/core/domain";
+import { pick } from "@web/core/utils/objects";
 import { router } from "@web/core/browser/router";
 
 const GROUPBY_COMBINATIONS = [
@@ -119,6 +120,28 @@ export class PlanningGanttModel extends GanttModel {
     getDomain() {
         const metaData = this._buildMetaData();
         return this._getDomain(metaData);
+    }
+
+    /**
+     * @override
+     */
+    getSchedule(params = {}) {
+        const result = super.getSchedule(params);
+        if (params.recurrence_update) {
+            result.recurrence_update = params.recurrence_update;
+        }
+        return result;
+    }
+
+    /**
+     * @override
+     */
+    removeRedundantData(data, ids) {
+        const result = super.removeRedundantData(data, ids);
+        if (data.recurrence_update) {
+            result.recurrence_update = data.recurrence_update;
+        }
+        return result;
     }
 
     //--------------------------------------------------------------------------
@@ -321,5 +344,18 @@ export class PlanningGanttModel extends GanttModel {
             }
         }
         return super._getRowName(...arguments);
+    }
+
+    /**
+     * @override
+     */
+    _scheduleToData(schedule) {
+        const allowedFields = [
+            'recurrence_update',
+            this.metaData.dateStartField,
+            this.metaData.dateStopField,
+            ...this.metaData.groupedBy,
+        ];
+        return pick(schedule, ...allowedFields);
     }
 }

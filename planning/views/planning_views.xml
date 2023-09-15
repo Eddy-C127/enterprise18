@@ -343,6 +343,7 @@
                 <field name="resource_id" avatar_field="avatar_128" widget="many2one_avatar_resource"/>
                 <field name="resource_type" invisible="1"/>
                 <field name="is_hatched" invisible="1" />
+                <field name="repeat" invisible="1" />
                 <field name="resource_type" invisible="1"/>
                 <field name="resource_color" invisible="1"/>
                 <field name="role_id" filters="1" color="color" invisible="resource_type == 'material'"/>
@@ -423,6 +424,7 @@
 
                 <field name="allocated_hours"/>
                 <field name="recurrency_id" />
+                <field name="repeat" invisible="1"/>
                 <field name="state"/>
                 <field name="publication_warning"/>
                 <field name="request_to_switch"/>

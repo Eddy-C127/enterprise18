@@ -776,11 +776,14 @@ export class GanttRenderer extends Component {
         const { dateStartField, dateStopField, scale } = this.model.metaData;
         const { cellTime, time } = scale;
         const { record } = this.pills[pill.dataset.pillId];
+        const params = this.getScheduleParams(pill);
 
-        const start =
+        params.start =
             diff && dateAddFixedOffset(record[dateStartField], { [time]: cellTime * diff });
-        const stop = diff && dateAddFixedOffset(record[dateStopField], { [time]: cellTime * diff });
-        const schedule = this.model.getSchedule({ rowId, start, stop });
+        params.stop = diff && dateAddFixedOffset(record[dateStopField], { [time]: cellTime * diff });
+        params.rowId = rowId;
+
+        const schedule = this.model.getSchedule(params);
 
         if (this.interaction.dragAction === "copy") {
             await this.model.copy(record.id, schedule, this.openPlanDialogCallback);
@@ -955,6 +958,16 @@ export class GanttRenderer extends Component {
             o_gantt_hoverable: this.isHoverable(row),
             o_group_open: !this.model.isClosed(row.id),
         };
+    }
+
+    /**
+     * Get schedule parameters
+     *
+     * @param {Element} pill
+     * @returns {Object} - An object containing parameters needed for scheduling the pill.
+     */
+    getScheduleParams(pill) {
+        return {};
     }
 
     /**
@@ -1664,7 +1677,7 @@ export class GanttRenderer extends Component {
         const { dateStartField, dateStopField, scale } = this.model.metaData;
         const { cellTime, time } = scale;
         const { record } = this.pills[pill.dataset.pillId];
-        const params = {};
+        const params = this.getScheduleParams(pill);
 
         if (direction === "start") {
             params.start = dateAddFixedOffset(record[dateStartField], { [time]: cellTime * diff });

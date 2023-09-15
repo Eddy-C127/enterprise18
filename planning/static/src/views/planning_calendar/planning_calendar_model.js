@@ -2,11 +2,15 @@
 
 import { CalendarModel } from "@web/views/calendar/calendar_model";
 import { usePlanningModelActions } from "../planning_hooks";
+import { planningAskRecurrenceUpdate} from "./planning_ask_recurrence_update/planning_ask_recurrence_update_hook";
 import { _t } from "@web/core/l10n/translation";
 
 export class PlanningCalendarModel extends CalendarModel {
-    setup() {
+    static services = [...CalendarModel.services, "dialog", "orm"];
+
+    setup(params, services) {
         super.setup(...arguments);
+        this.dialog = services.dialog;
         this.getHighlightIds = usePlanningModelActions({
             getHighlightPlannedIds: () => this.env.searchModel.highlightPlannedIds,
             getContext: () => this.env.searchModel._context,
@@ -41,6 +45,32 @@ export class PlanningCalendarModel extends CalendarModel {
     async loadRecords(data) {
         this.highlightIds = await this.getHighlightIds();
         return await super.loadRecords(data);
+    }
+
+    /**
+     * @override
+     */
+    async updateRecord(record) {
+        const rec = this.records[record.id];
+        if (rec.rawRecord.repeat) {
+            const recurrenceUpdate = await planningAskRecurrenceUpdate(this.dialog);
+            if (!recurrenceUpdate) {
+                return this.notify();
+            }
+            record.recurrenceUpdate = recurrenceUpdate;
+        }
+        return await super.updateRecord(...arguments);
+    }
+
+    /**
+     * @override
+     */
+    buildRawRecord(partialRecord, options = {}) {
+        const result = super.buildRawRecord(partialRecord, options);
+        if (partialRecord.recurrenceUpdate) {
+            result.recurrence_update = partialRecord.recurrenceUpdate;
+        }
+        return result;
     }
 
     /**
