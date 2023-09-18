@@ -1407,3 +1407,24 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 </xpath>
             </data>
         '''.format(boolean_field=boolean_field))
+
+    def test_new_field_rename_description(self):
+        self.testView.arch = '''
+             <form>
+                 <group>
+                    <field name="name" />
+                 </group>
+             </form>
+        '''
+
+        self.start_tour("/web", "web_studio_test_new_field_rename_description", login="admin")
+        new_field = self.env["ir.model.fields"]._get("res.partner", "x_studio_my_new_field")
+        self.assertEqual(new_field.field_description, "my new field")
+        studioView = _get_studio_view(self.testView)
+        self.assertXMLEqual(studioView.arch, """
+            <data>
+                <xpath expr="//form[1]/group[1]/field[@name='name']" position="after">
+                   <field name="x_studio_my_new_field"/>
+                </xpath>
+            </data>
+        """)

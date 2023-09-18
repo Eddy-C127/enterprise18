@@ -600,7 +600,7 @@ export class ViewEditorModel extends Reactive {
         return this._fieldsAllowedRename.has(fieldName);
     }
 
-    async renameField(fieldName, newName, autoUnique = true) {
+    async renameField(fieldName, newName, { label, autoUnique = true } = {}) {
         // Sanitization
         newName = newName
             .toLowerCase()
@@ -636,6 +636,7 @@ export class ViewEditorModel extends Reactive {
             model: this.resModel,
             old_name: fieldName,
             new_name: newName,
+            new_label: label,
         });
 
         this._snackBar.add(prom);
