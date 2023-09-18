@@ -93,10 +93,10 @@ class Webhook(http.Controller):
         signature = request.httprequest.headers.get('X-Hub-Signature-256')
         if not signature or not signature.startswith('sha256=') or len(signature) != 71:
             # Signature must be valid SHA-256 (sha256=<64 hex digits>)
-            _logger.error('Invalid signature header %r', signature)
+            _logger.warning('Invalid signature header %r', signature)
             return False
         if not business_account.app_secret:
-            _logger.error('App-secret is missing, can not check signature')
+            _logger.warning('App-secret is missing, can not check signature')
             return False
 
         expected = hmac.new(
