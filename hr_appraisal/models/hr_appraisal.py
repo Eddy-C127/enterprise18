@@ -57,7 +57,7 @@ class HrAppraisal(models.Model):
          ('done', 'Done'),
          ('cancel', "Cancelled")],
         string='Status', tracking=True, required=True, copy=False,
-        default='new', index=True, group_expand='_group_expand_states')
+        default='new', index=True, group_expand=True)
     manager_ids = fields.Many2many(
         'hr.employee', 'appraisal_manager_rel', 'hr_appraisal_id',
         context={'active_test': False},
@@ -234,9 +234,6 @@ class HrAppraisal(models.Model):
             appraisal.display_name = _(
                 "Appraisal for %(employee)s on %(date)s",
                 employee=appraisal.employee_id.name, date=appraisal.date_close)
-
-    def _group_expand_states(self, states, domain, order):
-        return [key for key, val in self._fields['state'].selection]
 
     @api.onchange('employee_id')
     def _onchange_employee_id(self):

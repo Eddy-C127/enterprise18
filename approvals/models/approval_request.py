@@ -16,11 +16,6 @@ class ApprovalRequest(models.Model):
 
     _check_company_auto = True
 
-    @api.model
-    def _read_group_request_status(self, stages, domain, order):
-        request_status_list = dict(self._fields['request_status'].selection).keys()
-        return request_status_list
-
     name = fields.Char(string="Approval Subject", tracking=True)
     category_id = fields.Many2one('approval.category', string="Category", required=True)
     category_image = fields.Binary(related='category_id.image')
@@ -49,7 +44,7 @@ class ApprovalRequest(models.Model):
         ('cancel', 'Canceled'),
     ], default="new", compute="_compute_request_status",
         store=True, index=True, tracking=True,
-        group_expand='_read_group_request_status')
+        group_expand=True)
     request_owner_id = fields.Many2one('res.users', string="Request Owner",
         check_company=True, domain="[('company_ids', 'in', company_id)]")
     user_status = fields.Selection([

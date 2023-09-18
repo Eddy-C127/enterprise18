@@ -63,9 +63,6 @@ class SignRequest(models.Model):
     def _default_access_token(self):
         return str(uuid.uuid4())
 
-    def _expand_states(self, states, domain, order):
-        return [key for key, val in self._fields['state'].selection]
-
     def _get_mail_link(self, email, subject):
         return "mailto:%s?subject=%s" % (url_quote(email), url_quote(subject))
 
@@ -84,7 +81,7 @@ class SignRequest(models.Model):
         ("refused", "Refused"),
         ("canceled", "Cancelled"),
         ("expired", "Expired"),
-    ], default='sent', tracking=True, group_expand='_expand_states', copy=False, index=True)
+    ], default='sent', tracking=True, group_expand=True, copy=False, index=True)
 
     completed_document = fields.Binary(readonly=True, string="Completed Document", attachment=True, copy=False)
 

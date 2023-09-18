@@ -14,10 +14,6 @@ class RentalSchedule(models.Model):
     _rec_name = 'card_name'
 
     @api.model
-    def _read_group_report_line_status(self, report_line_status, domain, order):
-        return [key for key, val in self._fields['report_line_status'].selection]
-
-    @api.model
     def _read_group_product_ids(self, products, domain, order):
         if self._context.get('restrict_renting_products'):
             return products
@@ -57,7 +53,7 @@ class RentalSchedule(models.Model):
         ('reserved', 'Reserved'),
         ('pickedup', 'Pickedup'),
         ('returned', 'Returned'),
-    ], string="Rental Status (advanced)", readonly=True, group_expand="_read_group_report_line_status")
+    ], string="Rental Status (advanced)", readonly=True, group_expand=True)
     color = fields.Integer(readonly=True)
     late = fields.Boolean("Is Late", readonly=True)
 

@@ -26,7 +26,7 @@ class MarketingCampaign(models.Model):
         ('running', 'Running'),
         ('stopped', 'Stopped')
         ], copy=False, default='draft',
-        group_expand='_group_expand_states')
+        group_expand=True)
     model_id = fields.Many2one(
         'ir.model', string='Model', index=True, required=True, ondelete='cascade',
         default=lambda self: self.env.ref('base.model_res_partner', raise_if_not_found=False),
@@ -142,9 +142,7 @@ class MarketingCampaign(models.Model):
             campaign.total_participant_count = campaign.completed_participant_count + campaign.running_participant_count
             campaign.test_participant_count = campaign_data.get('is_test', 0)
 
-    def _group_expand_states(self, states, domain, order):
-        return [key for key, val in self._fields['state'].selection]
-
+    @api.returns('self')
     def copy(self, default=None):
         """ Copy the activities of the campaign, each parent_id of each child
         activities should be set to the new copied parent activity. """
