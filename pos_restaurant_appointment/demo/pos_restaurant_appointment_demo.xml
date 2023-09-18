@@ -30,7 +30,7 @@
     <!-- Table 1 -->
     <record id="appointment_type_restaurant_table_table_01" model="appointment.resource">
         <field name="name">Main Floor - Table 1</field>
-        <field name="capacity">4</field>
+        <field name="capacity">2</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_01')])]"/>
     </record>
@@ -38,25 +38,33 @@
     <!-- Table 2 -->
     <record id="appointment_type_restaurant_table_table_02" model="appointment.resource">
         <field name="name">Main Floor - Table 2</field>
-        <field name="capacity">4</field>
+        <field name="capacity">2</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_02')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01')])]"/>
     </record>
 
     <!-- Table 3 -->
     <record id="appointment_type_restaurant_table_table_03" model="appointment.resource">
         <field name="name">Main Floor - Table 3</field>
-        <field name="capacity">4</field>
+        <field name="capacity">2</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_03')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_02')])]"/>
     </record>
 
     <!-- Table 4 -->
     <record id="appointment_type_restaurant_table_table_04" model="appointment.resource">
         <field name="name">Main Floor - Table 4</field>
-        <field name="capacity">4</field>
+        <field name="capacity">2</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_04')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_02'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_03')])]"/>
     </record>
 
     <!-- Table 5 -->
@@ -65,6 +73,11 @@
         <field name="capacity">4</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_05')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_02'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_03'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_04')])]"/>
     </record>
 
     <!-- Table 6 -->
@@ -73,6 +86,12 @@
         <field name="capacity">4</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_06')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_02'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_03'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_04'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_05')])]"/>
     </record>
 
     <!-- Table 7 -->
@@ -81,6 +100,13 @@
         <field name="capacity">4</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_07')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_02'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_03'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_04'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_05'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_06')])]"/>
     </record>
 
     <!-- Table 8 -->
@@ -89,30 +115,68 @@
         <field name="capacity">4</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_08')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_02'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_03'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_04'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_05'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_06'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_07')])]"/>
     </record>
 
     <!-- Table 9 -->
     <record id="appointment_type_restaurant_table_table_09" model="appointment.resource">
         <field name="name">Main Floor - Table 9</field>
-        <field name="capacity">4</field>
+        <field name="capacity">6</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_09')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_02'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_03'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_04'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_05'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_06'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_07'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_08')])]"/>
     </record>
 
     <!-- Table 10 -->
     <record id="appointment_type_restaurant_table_table_10" model="appointment.resource">
         <field name="name">Main Floor - Table 10</field>
-        <field name="capacity">4</field>
+        <field name="capacity">6</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_10')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_02'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_03'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_04'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_05'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_06'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_07'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_08'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_09')])]"/>
     </record>
 
     <!-- Table 11 -->
     <record id="appointment_type_restaurant_table_table_11" model="appointment.resource">
         <field name="name">Main Floor - Table 11</field>
-        <field name="capacity">4</field>
+        <field name="capacity">6</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
         <field name="pos_table_ids" eval="[(6, 0, [ref('pos_restaurant.table_11')])]"/>
+        <field name="linked_resource_ids" eval="[(6, 0, [
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_01'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_02'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_03'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_04'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_05'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_06'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_07'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_08'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_09'),
+            ref('pos_restaurant_appointment.appointment_type_restaurant_table_table_10')])]"/>
     </record>
 
     <!-- Patio: Left table row -->
@@ -211,6 +275,7 @@
         <field name="name">Patio - Table 12</field>
         <field name="capacity">4</field>
         <field name="appointment_type_ids" eval="[(6, 0, [ref('appointment_type_restaurant_table')])]"/>
-        <field name="pos_table_ids">[(4, ref('pos_restaurant.table_32'))]</field>
+        <field name="pos_table_ids" eval="[(4, ref('pos_restaurant.table_32'))]"/>
     </record>
+
 </odoo>
