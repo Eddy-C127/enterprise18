@@ -681,15 +681,18 @@ class WebStudioController(http.Controller):
         return self._return_view(view, studio_view)
 
     @http.route('/web_studio/rename_field', type='json', auth='user')
-    def rename_field(self, studio_view_id, studio_view_arch, model, old_name, new_name):
+    def rename_field(self, studio_view_id, studio_view_arch, model, old_name, new_name, new_label=None):
         studio_view = request.env['ir.ui.view'].browse(studio_view_id)
 
         # a field cannot be renamed if it appears in a view ; we thus reset the
         # studio view before all operations to be able to rename the field
         studio_view.arch_db = studio_view_arch
 
-        field_id = request.env['ir.model.fields']._get(model, old_name)
-        field_id.write({'name': new_name})
+        field_id = request.env['ir.model.fields']._get(model, old_name).with_context(lang=None)
+        to_write = {'name': new_name}
+        if new_label is not None:
+            to_write["field_description"] = new_label
+        field_id.write(to_write)
 
         if field_id.ttype == 'binary' and not field_id.related:
             # during the binary field creation, another char field containing

@@ -1040,3 +1040,29 @@ registry.category("web_tour.tours").add("web_studio_test_change_lone_attr_modifi
         }
     ]
 });
+
+registry.category("web_tour.tours").add("web_studio_test_new_field_rename_description", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+        },
+        {
+            extra_trigger: ".o_form_view",
+            trigger: ".o_web_studio_navbar_item button",
+        },
+        {
+            extra_trigger: ".o_web_studio_form_view_editor",
+            trigger: ".o_web_studio_sidebar .o_web_studio_component.o_web_studio_field_char",
+            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(1))"
+        },
+        {
+            trigger: ".o_web_studio_sidebar input[name='string']",
+            run: "text my new field",
+        },
+        {
+            trigger: ".o_web_studio_form_view_editor label[for='x_studio_my_new_field_0']:contains(my new field)",
+            isCheck: true,
+        }
+    ]
+});
