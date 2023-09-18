@@ -1361,3 +1361,15 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         </form>
         '''
         self.start_tour("/web?debug=tests", "web_studio_test_undo_new_field", login="admin", timeout=200)
+
+    def test_change_lone_attr_modifier_form(self):
+        self.testView.arch = """<form><field name='name' required="not context.get('something')"/></form>"""
+        self.start_tour("/web?debug=tests", "web_studio_test_change_lone_attr_modifier_form", login="admin")
+        studioView = _get_studio_view(self.testView)
+        assertViewArchEqual(self, studioView.arch, '''
+        <data>
+          <xpath expr="//form[1]/field[@name='name']" position="attributes">
+             <attribute name="required">False</attribute>
+          </xpath>
+        </data>
+        ''')

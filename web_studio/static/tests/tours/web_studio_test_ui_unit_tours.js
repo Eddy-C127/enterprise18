@@ -973,3 +973,39 @@ registry.category("web_tour.tours").add("web_studio_test_undo_new_field", {
         }
     ]
 });
+
+registry.category("web_tour.tours").add("web_studio_test_change_lone_attr_modifier_form", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+        },
+        {
+            extra_trigger: ".o_form_view",
+            trigger: ".o_web_studio_navbar_item button",
+        },
+        {
+            extra_trigger: ".o_web_studio_form_view_editor",
+            trigger: ".o_field_widget[name='name']",
+        },
+        {
+            extra_trigger: `.o_web_studio_sidebar input[name="required"]`,
+            trigger: '.o_web_studio_sidebar',
+            run() {
+                const required = this.$anchor[0].querySelector(`input[name="required"]`);
+                assertEqual(required.checked, true);
+            }
+        },
+        {
+            trigger: '.o_web_studio_sidebar input[name="required"]',
+        },
+        {
+            extra_trigger: ".o_web_studio_form_view_editor:not(:has(.o_required_modifier))",
+            trigger: '.o_web_studio_sidebar',
+            run() {
+                const required = this.$anchor[0].querySelector(`input[name="required"]`);
+                assertEqual(required.checked, false);
+            }
+        }
+    ]
+});
