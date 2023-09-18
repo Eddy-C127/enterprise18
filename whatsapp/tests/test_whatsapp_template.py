@@ -346,6 +346,33 @@ class WhatsAppTemplatePreview(WhatsAppTemplateCommon):
 class WhatsAppTemplateSync(WhatsAppTemplateCommon):
 
     @users('user_wa_admin')
+    def test_synchornize_archived(self):
+        """ If template is archived then it should sync the archived template
+        instead of creating new one. """
+        self.basic_template.write({
+            'active': False,
+            'wa_template_uid': '778510144283702',  # sync with mock template_data
+        })
+        with self.mockWhatsappGateway():
+            self.whatsapp_account.with_env(self.env).button_sync_whatsapp_account_templates()
+        self.assertWATemplate(
+            self.basic_template,
+            status='approved',
+            fields_values={
+                'body': 'Greetings of the day! I hope you are safe and doing well. \n '
+                        'This is {{1}} from Odoo. My mobile number is {{2}}.\n'
+                        'I will be happy to help you with any queries you may have.\n'
+                        'Thank you',
+                'wa_template_uid': '778510144283702',
+            },
+            template_variables=[
+                ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
+                ('{{1}}', 'body', 'free_text', {'demo_value': 'Jigar'}),
+                ('{{2}}', 'body', 'free_text', {'demo_value': '+91 12345 12345'})
+            ],
+        )
+
+    @users('user_wa_admin')
     def test_synchronize_without_existing_template_from_account(self):
         """ Test template sync with whatsapp where there is no existing template for that account in odoo """
         with self.mockWhatsappGateway():

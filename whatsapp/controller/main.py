@@ -46,7 +46,7 @@ class Webhook(http.Controller):
                 # Process Template webhooks
                 if value.get('message_template_id'):
                     # There is no user in webhook, so we need to SUPERUSER_ID to write on template object
-                    template = request.env['whatsapp.template'].sudo().search([('wa_template_uid', '=', value['message_template_id'])])
+                    template = request.env['whatsapp.template'].sudo().with_context(active_test=False).search([('wa_template_uid', '=', value['message_template_id'])])
                     if template:
                         if changes['field'] == 'message_template_status_update':
                             template.write({'status': value['event'].lower()})

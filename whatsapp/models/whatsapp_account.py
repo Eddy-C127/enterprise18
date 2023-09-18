@@ -73,13 +73,13 @@ class WhatsAppAccount(models.Model):
             It will create new templates and update existing templates.
         """
         self.ensure_one()
-        wa_api = WhatsAppApi(self)
-        WhatsappTemplate = self.env['whatsapp.template']
         try:
-            response = wa_api._get_all_template()
-        except WhatsAppError as e:
-            raise ValidationError(str(e))
-        existing_tmpls = WhatsappTemplate.search([('wa_account_id', '=', self.id)])
+            response = WhatsAppApi(self)._get_all_template()
+        except WhatsAppError as err:
+            raise ValidationError(str(err)) from err
+
+        WhatsappTemplate = self.env['whatsapp.template']
+        existing_tmpls = WhatsappTemplate.with_context(active_test=False).search([('wa_account_id', '=', self.id)])
         existing_tmpl_by_id = {t.wa_template_uid: t for t in existing_tmpls}
         template_update_count = 0
         template_create_count = 0
