@@ -207,7 +207,7 @@ class ProjectTask(models.Model):
         template_id = self.env.ref('industry_fsm_report.mail_template_data_task_report').id
         self.message_subscribe(partner_ids=self.partner_id.ids)
         return {
-            'name': _("Send report"),
+            'name': _("Send Field Service Report"),
             'type': 'ir.actions.act_window',
             'res_model': 'mail.compose.message',
             'views': [(False, 'form')],

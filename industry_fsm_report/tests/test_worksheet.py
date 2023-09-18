@@ -100,9 +100,9 @@ class TestWorksheet(TransactionCase):
            <div>
              <div>
                <div>
-                 <div class="row mb-3" style="page-break-inside: avoid">
-                   <div t-att-class="('col-5' if report_type == 'pdf' else 'col-lg-5 col-12') + ' font-weight-bold'">Comments</div>
-                   <div placeholder="Add details about your intervention..." t-att-class="'col-7' if report_type == 'pdf' else 'col-lg-7 col-12'" t-field="worksheet.x_comments"/>
+                 <div class="row mb-2 bg-light bg-opacity-25 border-top border-bottom pt-2 pb-2" style="page-break-inside: avoid">
+                   <div t-att-class="('col-5' if report_type == 'pdf' else 'col-lg-3 col-12') + ' fw-bold'">Comments</div>
+                   <div placeholder="Add details about your intervention..." t-att-class="'col-7' if report_type == 'pdf' else 'col-lg-9 col-12'" t-field="worksheet.x_comments"/>
                  </div>
                </div>
              </div>

@@ -56,7 +56,9 @@ class CustomerFsmPortal(CustomerPortal):
             return {'error': _('Invalid signature data.')}
 
         pdf = request.env['ir.actions.report'].sudo()._render_qweb_pdf('industry_fsm_report.task_custom_report', [task_sudo.id])[0]
-        task_sudo.message_post(body=_('The worksheet has been signed'), attachments=[('%s.pdf' % task_sudo.name, pdf)])
+        task_sudo.message_post(
+            body=_('The field service report has been signed by the customer.'),
+            attachments=[('Field Service Report - %s - %s.pdf' % (task_sudo.name, task_sudo.partner_id.name), pdf)])
         return {
             'force_refresh': True,
             'redirect_url': task_sudo.get_portal_url(query_string=f'&source={source}'),

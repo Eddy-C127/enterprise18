@@ -119,8 +119,8 @@ QUnit.module("Worksheet", (hooks) => {
 
         await click(target.querySelector(".o_widget_open_studio_button button"));
         assert.verifySteps([
-            "block ui",
             "get_x_model_form_action",
+            "block ui",
             "open studio",
             "unblock ui"
         ]);

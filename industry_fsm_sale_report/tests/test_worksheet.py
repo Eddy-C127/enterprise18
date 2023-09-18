@@ -3,7 +3,7 @@
 
 from odoo import Command
 from odoo.addons.industry_fsm_sale.tests.common import TestFsmFlowSaleCommon
-from odoo.tests import tagged
+from odoo.tests import Form, tagged
 
 @tagged('post_install', '-at_install')
 class TestWorksheet(TestFsmFlowSaleCommon):
@@ -62,3 +62,24 @@ class TestWorksheet(TestFsmFlowSaleCommon):
         tasks = self.env['project.task'].search([('project_id', '=', self.fsm_project.id)])
         self.assertEqual(len(tasks), expected_tasks_count)
         self.assertTrue(any(t.id != task.id and t.worksheet_template_id == self.second_worksheet_template for t in tasks))
+
+    def test_product_form_view(self):
+        """Ensure that the worksheet is associated with the project that the user has selected.
+        Step for the product template and product:
+           1. Create product template
+           2. Set the create order on by Task and set FSM project
+           3. Check worksheet template
+        """
+        with Form(self.env['product.template']) as product_template:
+            product_template.name = 'product template'
+            product_template.detailed_type = 'service'
+            product_template.service_tracking = 'task_global_project'
+            product_template.project_id = self.fsm_project
+            self.assertEqual(product_template.worksheet_template_id, self.fsm_project.worksheet_template_id)
+
+        with Form(self.env['product.product']) as product:
+            product.name = "product product"
+            product.detailed_type = 'service'
+            product.service_tracking = 'task_global_project'
+            product.project_id = self.fsm_project
+            self.assertEqual(product.worksheet_template_id, self.fsm_project.worksheet_template_id)

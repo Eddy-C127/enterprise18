@@ -3,7 +3,7 @@
 
     <template id="portal_task_sign_button" name="Sign Button">
         <a t-if="task.has_to_be_signed()" role="button" class="btn btn-primary align-self-start" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#">
-            <i class="fa fa-check me-1"/>Sign
+            <i class="fa fa-check me-1"/>Sign Report
         </a>
     </template>
 
@@ -14,7 +14,7 @@
                 <form id="accept" method="POST" t-att-data-task-id="task.id" t-att-data-token="task.access_token" class="js_accept_json modal-content js_website_submit_form">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <header class="modal-header">
-                        <h4 class="modal-title">Sign Task</h4>
+                        <h4 class="modal-title">Sign Field Service Report</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </header>
                     <main class="modal-body" id="sign-dialog">
@@ -22,7 +22,7 @@
                             <t t-set="call_url" t-value="task.get_portal_url(suffix='/worksheet/sign/%s' % source)"/>
                             <t t-set="default_name" t-value="task.partner_id.name"/>
                             <t t-set="font_color" t-value="'black'"/>
-                            <t t-set="send_label">Sign</t>
+                            <t t-set="send_label">Sign Report</t>
                         </t>
                     </main>
                 </form>

@@ -19,18 +19,17 @@ class OpenStudioWidget extends Component {
     }
     async onClick() {
         if (!this.props.record.resId) {
-            const result = await this.props.record.save();
-            if (result !== true) {
+            if (!(await this.props.record.save())) {
                 return;
             }
         }
-        this.ui.block();
         const action = await this.orm.call(
             "worksheet.template",
             "get_x_model_form_action",
             [this.props.record.resId]
         );
         await this.action.doAction(action);
+        this.ui.block();
         await this.studio.open();
         await this.studio.ready;
         this.ui.unblock();

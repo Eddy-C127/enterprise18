@@ -278,7 +278,7 @@ class WorksheetTemplate(models.Model):
             'name': 'tree_view_' + self.name.replace(' ', '_'),
             'model': model.model,
             'arch': tree_arch_func and tree_arch_func() or """
-                <tree>
+                <tree default_order="create_date DESC">
                     <field name="create_date"/>
                     <field name="x_name"/>
                 </tree>
@@ -319,6 +319,11 @@ class WorksheetTemplate(models.Model):
             'view_mode': 'graph,pivot,list,form',
             'res_model': self.sudo().model_id.model,
             'context': "{'search_default_group_by_month': True}",
+            'help': """
+                <p class="o_view_nocontent_empty_folder">%s</p>
+                <p>%s</p>
+                """ % (_("No data to display"),
+                       _("Keep track of and analyze intervention data. Identify recurring patterns and take preventive measures accordingly.")),
         }
 
     def action_view_worksheets(self):
@@ -384,15 +389,17 @@ class WorksheetTemplate(models.Model):
                         't-att-class'] = "'col-lg-7 col-12 fa ' + ('fa-check-square' if %s else 'fa-square-o')" % field_name
                 else:
                     field_node.tag = 'div'
-                    field_node.attrib['t-att-class'] = "'col-7' if report_type == 'pdf' else 'col-lg-7 col-12'"
+                    field_node.attrib['t-att-class'] = "'col-7' if report_type == 'pdf' else 'col-lg-9 col-12'"
                     field_node.attrib['t-field'] = field_name
                 # generate a description
-                description = etree.Element('div', {'t-att-class': "('col-5' if report_type == 'pdf' else 'col-lg-5 col-12') + ' font-weight-bold'"})
+                description = etree.Element('div', {'t-att-class': "('col-5' if report_type == 'pdf' else 'col-lg-3 col-12') + ' fw-bold'"})
                 description.text = field_info and field_info.get('string')
                 # insert all that in a container
-                container = etree.Element('div', {'class': 'row mb-3', 'style': 'page-break-inside: avoid'})
+                container = etree.Element('div', {'class': 'row mb-2', 'style': 'page-break-inside: avoid'})
                 container.append(description)
                 container.append(field_node)
+                if len(new_container_col) % 2 == 0:
+                    container.attrib['class'] += " bg-light bg-opacity-25 border-top border-bottom pt-2 pb-2"
                 new_container_col.append(container)
         return new_container_col
 

@@ -10,7 +10,7 @@ class ProjectProject(models.Model):
         "Worksheets", compute="_compute_allow_worksheets", store=True, readonly=False)
     worksheet_template_id = fields.Many2one(
         'worksheet.template', compute="_compute_worksheet_template_id", store=True, readonly=False,
-        string="Default Worksheet",
+        string="Worksheet Template",
         domain="[('res_model', '=', 'project.task'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
 
     @api.depends('is_fsm')

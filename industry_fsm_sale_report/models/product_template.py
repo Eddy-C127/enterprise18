@@ -32,3 +32,8 @@ class ProductTemplate(models.Model):
         if ('service_tracking' in vals or 'project_id' in vals):
             self._compute_worksheet_template_id(keep_template=('worksheet_template_id' in vals))
         return res
+
+    @api.onchange('project_id')
+    def _onchange_project(self):
+        if self.project_id.worksheet_template_id:
+            self.worksheet_template_id = self.project_id.worksheet_template_id
