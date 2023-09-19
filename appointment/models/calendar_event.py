@@ -231,7 +231,9 @@ class CalendarEvent(models.Model):
                 self._track_set_log_message(message_body)
                 self.with_user(SUPERUSER_ID).action_archive()
             else:
-                self.message_post(body=message_body, message_type='notification', author_id=partner_ids[0])
+                # Use the organizer as the author if set or fallback on the first attendee cancelling
+                author_id = self.user_id.partner_id.id or partner_ids[0]
+                self.message_post(body=message_body, message_type='notification', author_id=author_id)
 
     def _find_or_create_partners(self, guest_emails_str):
         """Used to find the partners from the emails strings and creates partners if not found.
