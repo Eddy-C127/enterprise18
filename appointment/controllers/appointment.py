@@ -735,10 +735,6 @@ class AppointmentController(http.Controller):
 
             :returns: a dict of useful values used in the redirection to next step
         """
-        # FIXME AWA/TDE double check this and/or write some tests to ensure behavior
-        # The 'mail_notify_author' is only placed here and not in 'calendar.attendee#_send_mail_to_attendees'
-        # Because we only want to notify the author in the context of Online Appointments
-        # When creating a meeting from your own calendar in the backend, there is no need to notify yourself
         event = request.env['calendar.event'].with_context(
             mail_notify_author=True,
             mail_create_nolog=True,

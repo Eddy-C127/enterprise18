@@ -239,14 +239,15 @@ class CalendarEvent(models.Model):
         if attendees:
             cancelling_attendees = ", ".join([attendee.display_name for attendee in attendees])
             message_body = _("Appointment canceled by: %(partners)s", partners=cancelling_attendees)
-            self.partner_ids -= attendees.partner_id
             if self.appointment_booker_id.id == partner_ids[0]:
                 self._track_set_log_message(message_body)
-                self.with_user(SUPERUSER_ID).action_archive()
+                # Use the organizer if set or fallback on SUPERUSER to notify attendees that the event is archived
+                self.with_user(self.user_id or SUPERUSER_ID).sudo().action_archive()
             else:
                 # Use the organizer as the author if set or fallback on the first attendee cancelling
                 author_id = self.user_id.partner_id.id or partner_ids[0]
                 self.message_post(body=message_body, message_type='notification', author_id=author_id)
+                self.partner_ids -= attendees.partner_id
 
     def _find_or_create_partners(self, guest_emails_str):
         """Used to find the partners from the emails strings and creates partners if not found.
