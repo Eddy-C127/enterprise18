@@ -75,7 +75,7 @@
         <field name="stage_id" ref="helpdesk.stage_solved"/>
         <field name="time">4</field>
         <field name="ticket_type_ids" eval="[Command.link(ref('helpdesk.type_question'))]"/>
-        <field name="sale_line_ids" eval="[Command.link(ref('sale_order_line_helpdesk_sale_timesheet_1'))]"/>
+        <field name="sale_line_ids" eval="[Command.link(ref('sale_order_line_helpdesk_sale_timesheet_1')), Command.link(ref('sale_timesheet.sale_line_11'))]"/>
         <field name="exclude_stage_ids" eval="[Command.link(ref('helpdesk.stage_in_progress'))]"/>
     </record>
     <record id="helpdesk_ticket_24" model="helpdesk.ticket">
