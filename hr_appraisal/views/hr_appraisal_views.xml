@@ -56,8 +56,10 @@
                                 widget="many2one_avatar_employee"/>
                         </h1>
                     </div>
-                    <div class="o_employee_avatar mw-25 m-0 p-0">
-                        <field name="image_1920" widget='image' class="oe_avatar m-0" options='{"zoom": true, "preview_image":"avatar_128"}'/>
+                    <div class="d-flex justify-content-end  mw-25 m-0" invisible="not active">
+                        <small role="img" class="fa fa-circle text-muted" invisible="state != 'new'" aria-label="To Confirm" title="To Confirm"/>
+                        <small role="img" class="fa fa-circle text-success" invisible="state != 'pending' or waiting_feedback" aria-label="Ready"
+                            title="Ready"/>
                     </div>
                 </div>
                 <group>
@@ -166,7 +168,8 @@
                 <field name="date_close" widget="date"/>
                 <field name="date_final_interview" widget="remaining_days"/>
                 <field name="assessment_note" optional="hide"/>
-                <field name="state" widget="badge" readonly="1" decoration-info="state in ('new','pending')" decoration-success="state == 'done'"/>
+                <field name="state" widget="badge" readonly="1"
+                    decoration-warning="state == 'new'" decoration-info="state == 'pending'" decoration-success="state == 'done'"/>
                 <field name="company_id" readonly="1" optional="hide"/>
                 <field name="activity_exception_decoration" widget="activity_exception"/>
             </tree>
@@ -196,6 +199,7 @@
             <search string="Search Appraisal">
                 <field name="employee_id"/>
                 <filter string="To Do" name="my_appraisals" domain="['|', ('state', '=', 'new'), ('state', '=', 'pending')]"/>
+                <filter string="Ready" name="filter_ready" domain="[('employee_feedback_published', '=', True), ('manager_feedback_published', '=', True), ('state', '=', 'pending')]"/>
                 <filter string="Done" name="filter_done" domain="[('state', '=', 'done')]"/>
                 <separator/>
                 <filter string="My Appraisals" name="my_appraisals" domain="[('employee_id.user_id', '=', uid)]"/>
@@ -245,9 +249,6 @@
                             <div class="ribbon ribbon-top-right" invisible="state != 'done'">
                                 <span class="bg-success">Done</span>
                             </div>
-                            <div class="ribbon ribbon-top-right" invisible="state != 'pending' and state != 'waiting_feedback'">
-                                <span class="bg-info">Ready</span>
-                            </div>
                             <div class="ribbon ribbon-top-right" invisible="state != 'cancel'">
                                 <span class="text-bg-danger">Cancelled</span>
                             </div>
@@ -288,6 +289,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <small role="img" class="fa fa-circle text-muted" invisible="state != 'new'"
+                                aria-label="To Confirm" title="To Confirm"/>
+                            <small role="img" class="fa fa-circle text-success" invisible="state != 'pending' or waiting_feedback"
+                                aria-label="Ready" title="Ready"/>
                             <div class="clearfix"></div>
                         </div>
                     </t>
