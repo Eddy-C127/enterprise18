@@ -8,5 +8,16 @@
                 </a>
             </span>
         </xpath>
+        <xpath expr="//div[@name='stage_name']" position="inside">
+            <span t-if="tasks == grouped_tasks[0]
+                        and project and grouped_tasks[0].project_id.use_documents
+                        and tasks[0].project_id.shared_document_count"
+                class="ms-auto"
+            >
+                <a class="btn btn-secondary px-1 py-0" target="_blank" t-attf-href="/my/projects/{{ tasks[0].project_id.id }}/documents?{{ keep_query() }}">
+                    <t t-out="tasks[0].project_id.shared_document_count"/> Documents
+                </a>
+            </span>
+        </xpath>
     </template>
 </odoo>
