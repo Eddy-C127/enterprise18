@@ -92,12 +92,7 @@
             <p class="o_view_nocontent_smiling_face">
                 Create a new subscription
             </p><p>
-                Create subscriptions to manage recurring invoicing and payments. Subscriptions can
-                be time-bounded or not. In case of a limited period, they are flagged as to be renewed
-                one month from the end date.
-            </p><p>
-                Subscriptions can be automatically generated from sales orders in Sales or eCommerce
-                apps.
+                Create subscriptions to manage recurring invoicing and payments from your customers.
             </p>
         </field>
     </record>
@@ -176,6 +171,14 @@
                 (0, 0, {'view_mode': 'form'}),
             ]"/>
         <field name="search_view_id" eval='sale_subscription_view_search'/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Upsell Found
+            </p><p>
+                Upsell orders allow you to add or remove products to ongoing subscriptions.
+                It can be created by clicking on the Upsell button from an active subscription.
+            </p>
+        </field>
     </record>
 
     <!-- Kanban from subscription App -->
@@ -357,12 +360,7 @@
             <p class="o_view_nocontent_smiling_face">
                 Create a subscription quotation
             </p><p>
-                Create subscriptions to manage recurring invoicing and payments. Subscriptions can
-                be time-bounded or not. In case of a limited period, they are flagged as to be renewed
-                one month from the end date.
-            </p><p>
-                Subscriptions can be automatically generated from sales orders in Sales or eCommerce
-                apps.
+                Create subscriptions to manage recurring invoicing and payments from your customers.
             </p>
         </field>
     </record>

@@ -66,7 +66,7 @@ class SaleOrder(models.Model):
                              help="The start date indicate when the subscription periods begin.")
     last_invoice_date = fields.Date(string='Last invoice date', compute='_compute_last_invoice_date')
     next_invoice_date = fields.Date(
-        string='Date of Next Invoice',
+        string='Next Invoice',
         compute='_compute_next_invoice_date',
         store=True, copy=False,
         readonly=False,
