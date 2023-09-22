@@ -393,7 +393,7 @@ class WorksheetTemplate(models.Model):
                     field_node.attrib['t-field'] = field_name
                 # generate a description
                 description = etree.Element('div', {'t-att-class': "('col-5' if report_type == 'pdf' else 'col-lg-3 col-12') + ' fw-bold'"})
-                description.text = field_info and field_info.get('string')
+                description.text = field_node.attrib.pop('string', field_info and field_info.get('string'))
                 # insert all that in a container
                 container = etree.Element('div', {'class': 'row mb-2', 'style': 'page-break-inside: avoid'})
                 container.append(description)
