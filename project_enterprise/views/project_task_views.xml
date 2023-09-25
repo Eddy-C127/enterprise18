@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="project_task_view_search_conflict_task_project_enterprise" model="ir.ui.view">
+        <field name="name">project.task.view.search.conflict.task.project.enterprise</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form_project_fsm_base"/>
+        <field name="arch" type="xml">
+            <filter name="unassigned" position="before">
+                <filter name="conflict_task" string="Tasks in Conflict" context="{'highlight_conflicting_task': 1}" invisible="1"/>
+            </filter>
+        </field>
+    </record>
+
     <record id="project_task_view_tree" model="ir.ui.view">
         <field name="name">project.task.view.tree.inherit.project.enterprise"</field>
         <field name="model">project.task</field>
@@ -17,6 +28,18 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_ebterprise_task_tree2" model="ir.ui.view">
+            <field name="name">project.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="js_class">project_enterprise_task_list</attribute>
+                </xpath>
+            </field>
+        </record>
 
     <record id="project_task_view_form" model="ir.ui.view">
         <field name="name">project.task.view.form.inherit.project.enterprise</field>
@@ -107,6 +130,7 @@
                 default_group_by="user_ids"
                 progress_bar="user_ids"
                 pill_label="True"
+                total_row="True"
                 dependency_field="depend_on_ids"
                 dependency_inverted_field="dependent_ids">
                 <templates>

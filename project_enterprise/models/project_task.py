@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from pytz import utc, timezone
@@ -1208,12 +1207,12 @@ class Task(models.Model):
             gantt_view = self.env.ref("project_enterprise.project_task_dependency_view_gantt")
             map_view = self.env.ref('project_enterprise.project_task_map_view_no_title')
             action['views'] = [(gantt_view.id, 'gantt'), (map_view.id, 'map')] + [(state, view) for state, view in action['views'] if view not in ['gantt', 'map']]
+        name = _('Tasks in Conflict')
         action.update({
-            'name': _('Overlapping Tasks'),
+            'display_name': name,
+            'name': name,
             'domain' : [
                 ('user_ids', 'in', self.user_ids.ids),
-                ('planned_date_begin', '<', self.date_deadline),
-                ('date_deadline', '>', self.planned_date_begin),
             ],
             'context': {
                 'fsm_mode': False,

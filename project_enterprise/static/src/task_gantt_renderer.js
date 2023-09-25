@@ -34,6 +34,19 @@ export class TaskGanttRenderer extends GanttRenderer {
         this.milestonePopover = usePopover(MilestonesPopover, { position });
     }
 
+    /**
+     * @override
+     */
+    enrichPill(pill) {
+        const enrichedPill = super.enrichPill(pill);
+        if (enrichedPill?.record) {
+            if (this.props.model.highlightIds && !this.props.model.highlightIds.includes(enrichedPill.record.id)) {
+                pill.className += " opacity-25";
+            }
+        }
+        return enrichedPill;
+    }
+
     computeColumns() {
         super.computeColumns();
         this.columnMilestones = {}; // deadlines and milestones by project

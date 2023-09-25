@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 # Copyright (c) 2005-2006 Axelor SARL. (http://www.axelor.com)
@@ -10,10 +9,13 @@ from pytz import timezone, utc
 
 from odoo import api, fields, models, _
 from odoo.tools.misc import get_lang
+from odoo.tools import format_time
 
 
-def format_time(env, time):
-    return time.strftime(get_lang(env).time_format)
+def convert_time_to_string(env, time, time_format='medium'):
+    lang_time_string = time.strftime(get_lang(env).time_format)
+    lang_time = time.strptime(lang_time_string, get_lang(env).time_format)
+    return format_time(env, lang_time, tz=timezone(env.user.tz or 'UTC'), time_format=time_format)
 
 
 def format_date(env, date):
@@ -71,12 +73,16 @@ class HrLeave(models.Model):
             for period in periods:
                 dfrom = period['from']
                 dto = period['to']
-                if period.get('show_hours', False):
+                number_of_days = period['number_of_days']
+                if number_of_days == 1:
                     leaves_for_employee['leaves'].append({
                         "start_date": format_date(self.env, localize(dfrom)),
-                        "start_time": format_time(self.env, localize(dfrom)),
-                        "end_date": format_date(self.env, localize(dto)),
-                        "end_time": format_time(self.env, localize(dto))
+                    })
+                elif number_of_days < 1:
+                    leaves_for_employee['leaves'].append({
+                        "start_date": format_date(self.env, localize(dfrom)),
+                        "start_time": convert_time_to_string(self.env, localize(dfrom), 'short'),
+                        "end_time": convert_time_to_string(self.env, localize(dto), 'short')
                     })
                 else:
                     leaves_for_employee['leaves'].append({
@@ -87,10 +93,12 @@ class HrLeave(models.Model):
         return res
 
     def format_date_range_to_string(self, date_dict):
-        if len(date_dict) == 4:
-            return _('from %(start_date)s at %(start_time)s to %(end_date)s at %(end_time)s', **date_dict)
-        else:
+        if len(date_dict) == 3:
+            return _('on %(start_date)s from %(start_time)s to %(end_time)s', **date_dict)
+        elif len(date_dict) == 2:
             return _('from %(start_date)s to %(end_date)s', **date_dict)
+        else:
+            return _('on %(start_date)s', **date_dict)
 
     def _get_leave_warning(self, leaves, employee, date_from, date_to):
         leaves_parameters = self._get_leave_warning_parameters(leaves, employee, date_from, date_to)
@@ -139,17 +147,20 @@ class HrLeave(models.Model):
                 is_validated = False
             else:
                 dt_delta = (leave.date_to - leave.date_from)
-                number_of_days = dt_delta.days + ((dt_delta.seconds / 3600) / 24)
+                if leave.holiday_id and not (leave.holiday_id.request_unit_half or leave.holiday_id.request_unit_hours):
+                    number_of_days = dt_delta.days + 1
+                else:
+                    number_of_days = dt_delta.days + ((dt_delta.seconds / 3600) / 24)
             # leaves are ordered by date_from and grouped by type. When go from the batch of validated time offs to the
             # requested ones, we need to bypass the second condition with the third one
             if not periods or has_working_hours(periods[-1]['from'], leave.date_to) or \
                     periods[-1]['is_validated'] != is_validated:
-                periods.append({'is_validated': is_validated, 'from': leave.date_from, 'to': leave.date_to, 'show_hours': number_of_days <= 1})
+                periods.append({'is_validated': is_validated, 'from': leave.date_from, 'to': leave.date_to, 'number_of_days': number_of_days})
             else:
                 periods[-1]['is_validated'] = is_validated
                 if periods[-1]['to'] < leave.date_to:
                     periods[-1]['to'] = leave.date_to
-                periods[-1]['show_hours'] = periods[-1].get('show_hours') or number_of_days <= 1
+                periods[-1]['number_of_days'] = periods[-1].get('number_of_days') or number_of_days
         return periods
 
     @api.model

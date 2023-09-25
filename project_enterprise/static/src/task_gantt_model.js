@@ -2,6 +2,8 @@ import { _t } from "@web/core/l10n/translation";
 import { deserializeDate, deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
 import { GanttModel } from "@web_gantt/gantt_model";
 import { sortBy } from "@web/core/utils/arrays";
+import { Domain } from "@web/core/domain";
+import { useProjectModelActions } from "./project_conflicted_tasks";
 
 const MAP_MANY_2_MANY_FIELDS = [
     {
@@ -11,6 +13,14 @@ const MAP_MANY_2_MANY_FIELDS = [
 ];
 
 export class TaskGanttModel extends GanttModel {
+    setup() {
+        super.setup(...arguments);
+        this.getHighlightIds = useProjectModelActions({
+            getContext: () => this.env.searchModel._context,
+            resModel: this.metaData.resModel,
+        }).getHighlightIds;
+    }
+
     //-------------------------------------------------------------------------
     // Public
     //-------------------------------------------------------------------------
@@ -79,6 +89,11 @@ export class TaskGanttModel extends GanttModel {
      * @override
      */
     async _fetchData(metaData, additionalContext) {
+        const [ highlightIds ] = await Promise.all([
+            this.getHighlightIds(),
+            super._fetchData(...arguments)
+        ]);
+        this.highlightIds = highlightIds;
         const startDate = metaData.startDate.toISODate();
         const stopDate = metaData.stopDate.toISODate();
         const scale = metaData.scale.id;
@@ -214,4 +229,27 @@ export class TaskGanttModel extends GanttModel {
         this._replaceSpecialMany2manyKeys(data);
         return data;
     }
+
+    /**
+     * @override
+     */
+    load(searchParams) {
+        const { context, domain, groupBy } = searchParams;
+        let displayUnassigned = false;
+        if (groupBy.length === 0 || groupBy[groupBy.length - 1] === "user_ids") {
+            for (const node of domain) {
+                if (
+                    node.length === 3 &&
+                    node[0] === "user_ids.name" &&
+                    node[1] === "ilike"
+                ) {
+                    displayUnassigned = true;
+                }
+            }
+        }
+        if (displayUnassigned) {
+            searchParams.domain = Domain.or([domain, "[('user_ids', '=', false)]"]).toList();
+        }
+        return super.load({ ...searchParams, context: { ...context }, displayUnassigned });
+    };
 }

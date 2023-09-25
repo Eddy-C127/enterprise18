@@ -296,7 +296,7 @@ QUnit.test('Empty groupby "Assigned To" and "Project" can be rendered', async fu
 });
 
 QUnit.test("progress bar has the correct unit", async (assert) => {
-    assert.expect(9);
+    assert.expect(12);
     await makeView({
         arch: '<gantt js_class="task_gantt" date_start="start" date_stop="stop" progress_bar="user_ids"/>',
         resModel: "task",

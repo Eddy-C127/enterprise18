@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import datetime
 
@@ -35,7 +34,7 @@ class TestPlanningLeaves(TestCommon):
                             "employee is on leave, should have a warning")
         # The warning should display the whole concerned leave period
         self.assertEqual(slot_1.leave_warning,
-                         "bert is on time off from 01/01/2020 at 09:00:00 to 01/01/2020 at 18:00:00. \n")
+                         "bert is on time off on 01/01/2020. \n")
 
         self.assertEqual(slot_2.leave_warning, False,
                          "employee is not on leave, no warning")
@@ -130,3 +129,53 @@ class TestPlanningLeaves(TestCommon):
             self.assertDictEqual(initial_slot, {
                 'allocated_hours': slot.allocated_hours
                 }, "The Working days and Allocated hours should be updated")
+
+    def test_half_day_employee_leave(self):
+        leave_1, leave_2 = self.env['hr.leave'].create([{
+            'holiday_status_id': self.leave_type.id,
+            'employee_id': self.employee_bert.id,
+            'request_date_from': '2020-01-01 09:00:00',
+            'request_date_to': '2020-01-01 13:00:00',
+            'request_unit_half': True,
+            'request_date_from_period': 'am',
+        }, {
+            'holiday_status_id': self.leave_type.id,
+            'employee_id': self.employee_bert.id,
+            'request_date_from': '2020-01-02 14:00:00',
+            'request_date_to': '2020-01-02 18:00:00',
+            'request_unit_half': True,
+            'request_date_from_period': 'pm',
+        }])
+
+        slot_1, slot_2 = self.env['planning.slot'].create([{
+            'resource_id': self.resource_bert.id,
+            'start_datetime': datetime.datetime(2020, 1, 1, 9, 0),
+            'end_datetime': datetime.datetime(2020, 1, 1, 13, 0),
+        }, {
+            'resource_id': self.resource_bert.id,
+            'start_datetime': datetime.datetime(2020, 1, 2, 14, 0),
+            'end_datetime': datetime.datetime(2020, 1, 2, 18, 0),
+        }])
+        slot_3 = self.env['planning.slot'].create({
+            'resource_id': self.resource_bert.id,
+            'start_datetime': datetime.datetime(2020, 1, 3, 8, 0),
+            'end_datetime': datetime.datetime(2020, 1, 3, 17, 0),
+        })
+
+        self.assertNotEqual(slot_1.leave_warning, False,
+                             "Leave is not validated, but there is a warning for requested time off")
+        self.assertNotEqual(slot_2.leave_warning, False,
+                             "Leave is not validated, but there is a warning for requested time off")
+
+        (leave_1 + leave_2).action_validate()
+
+        self.assertNotEqual(slot_1.leave_warning, False,
+                             "Employee is on leave, there should be a warning")
+        self.assertNotEqual(slot_2.leave_warning, False,
+                             "Employee is on leave, there should be a warning")
+        self.assertEqual(slot_1.leave_warning,
+                         "bert is on time off on 01/01/2020 from 9:00 AM to 1:00 PM. \n")
+        self.assertEqual(slot_2.leave_warning,
+                         "bert is on time off on 01/02/2020 from 2:00 PM to 6:00 PM. \n")
+        self.assertEqual(slot_3.leave_warning, False,
+                         "Employee is not on leave, there should be no warning")
