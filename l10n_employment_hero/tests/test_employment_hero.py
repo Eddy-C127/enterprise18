@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import datetime
@@ -9,8 +8,9 @@ from odoo.tests.common import tagged, TransactionCase
 
 
 @tagged('external_l10n', 'external', 'post_install', '-at_install')
-@skipIf(not os.getenv("KEYPAY_BUSINESS_ID" or not os.getenv("KEYPAY_API_KEY")), "no keypay credentials")
-class TestKeypay(TransactionCase):
+@skipIf(not os.getenv("KEYPAY_BUSINESS_ID") or not os.getenv("KEYPAY_API_KEY"), "no keypay credentials")
+class TestEmploymentHero(TransactionCase):
+
     @classmethod
     def setUpClass(cls):
         res = super().setUpClass()
@@ -29,11 +29,11 @@ class TestKeypay(TransactionCase):
 
         # Update config
         cls.config = cls.env["res.config.settings"].create({
-            "l10n_au_kp_api_key": cls.KEYPAY_API_KEY,
-            "l10n_au_kp_enable": True,
-            "l10n_au_kp_identifier": cls.KEYPAY_BUSINESS_ID,
-            "l10n_au_kp_lock_date": datetime.date(2023, 12, 31),
-            "l10n_au_kp_journal_id": cls.env['account.journal'].search([
+            "l10n_eh_api_key": cls.KEYPAY_API_KEY,
+            "l10n_eh_enable": True,
+            "l10n_eh_identifier": cls.KEYPAY_BUSINESS_ID,
+            "l10n_eh_lock_date": datetime.date(2023, 12, 31),
+            "l10n_eh_journal_id": cls.env['account.journal'].search([
                 ('code', '=', 'MISC'), ('company_id', '=', cls.company.id)
             ], limit=1).id,
         })
@@ -48,12 +48,12 @@ class TestKeypay(TransactionCase):
             'account_type': 'liability_current',
         }, {
             'name': 'Test 1 bis',
-            'l10n_au_kp_account_identifier': '1234',
+            'l10n_eh_account_identifier': '1234',
             'code': '9999',
             'account_type': 'liability_current',
         }, {
             'name': 'Test 2 bis',
-            'l10n_au_kp_account_identifier': '5678',
+            'l10n_eh_account_identifier': '5678',
             'code': '8888',
             'account_type': 'liability_current',
         }, {
@@ -82,28 +82,28 @@ class TestKeypay(TransactionCase):
         cls.tax = Tax.create({
             'name': 'Test Tax 1',
             'amount': 10.0,
-            'l10n_au_kp_tax_identifier': 'VAT1',
+            'l10n_eh_tax_identifier': 'VAT1',
         })
 
         return res
 
-    def test_01_keypay_fetch_payrun(self):
+    def test_01_employment_hero_fetch_payrun(self):
         # kp_lock_date is after all the entries no entries should be fetched
-        self.config.action_kp_payroll_fetch_payrun()
-        moves = self.env['account.move'].search([('l10n_au_kp_payrun_identifier', '!=', False)])
+        self.config.action_eh_payroll_fetch_payrun()
+        moves = self.env['account.move'].search([('l10n_eh_payrun_identifier', '!=', False)])
         self.assertEqual(len(moves), 0)
 
         # kp_lock_date is on the day of the first entry this one should not be fetched
         # there is more than a 100 payruns so this will do 2 calls to fetch everything
-        self.company.write({"l10n_au_kp_lock_date": datetime.date(2020, 7, 31)})
-        self.config.action_kp_payroll_fetch_payrun()
-        moves = self.env['account.move'].search([('l10n_au_kp_payrun_identifier', '!=', False), ('date', '<=', datetime.date(2021, 7, 1))])
+        self.company.write({"l10n_eh_lock_date": datetime.date(2020, 7, 31)})
+        self.config.action_eh_payroll_fetch_payrun()
+        moves = self.env['account.move'].search([('l10n_eh_payrun_identifier', '!=', False), ('date', '<=', datetime.date(2021, 7, 1))])
         self.assertEqual(len(moves), 17)
 
         # No kp_lock_date remaining entry should be fetched
-        self.company.write({"l10n_au_kp_lock_date": False})
-        self.config.action_kp_payroll_fetch_payrun()
-        moves = self.env['account.move'].search([('l10n_au_kp_payrun_identifier', '!=', False), ('date', '<=', datetime.date(2021, 7, 1))])
+        self.company.write({"l10n_eh_lock_date": False})
+        self.config.action_eh_payroll_fetch_payrun()
+        moves = self.env['account.move'].search([('l10n_eh_payrun_identifier', '!=', False), ('date', '<=', datetime.date(2021, 7, 1))])
         self.assertEqual(len(moves), 18)
 
         # verify if entries are correct
@@ -119,11 +119,11 @@ class TestKeypay(TransactionCase):
         self.assertEqual(moves[-1].line_ids.mapped('account_id.name'), ['Test 2 bis', 'Test 1 bis', 'Test 4', 'Test 6', 'Test 7'])
         self.assertEqual(moves[-2].line_ids.mapped('account_id.name'), ['Test 2 bis', 'Test 1 bis', 'Test 4', 'Test 6', 'Test 7'])
 
-    def test_02_keypay_fetch_payrun_with_tax(self):
-        self.company.write({"l10n_au_kp_lock_date": datetime.date(2021, 8, 25)})
+    def test_02_employment_hero_fetch_payrun_with_tax(self):
+        self.company.write({"l10n_eh_lock_date": datetime.date(2021, 8, 25)})
 
-        self.config.action_kp_payroll_fetch_payrun()
-        moves = self.env['account.move'].search([('l10n_au_kp_payrun_identifier', '!=', False), ('date', '<=', datetime.date(2021, 8, 31))])
+        self.config.action_eh_payroll_fetch_payrun()
+        moves = self.env['account.move'].search([('l10n_eh_payrun_identifier', '!=', False), ('date', '<=', datetime.date(2021, 8, 31))])
         self.assertEqual(len(moves), 1)
 
         self.assertEqual(len(moves.line_ids), 3)

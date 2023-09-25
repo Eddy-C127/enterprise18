@@ -1,12 +1,10 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Employment Hero Australian Payroll',
-    'countries': ['au'],
+    'name': 'Employment Hero Payroll',
+    'countries': ['au', 'nz', 'gb', 'sg', 'my'],
     'category': 'Accounting',
     'depends': [
-        'l10n_au',
         'account_accountant',
     ],
     'version': '1.0',
@@ -19,7 +17,7 @@ This Module will synchronise all payrun journals from Employment Hero to Odoo.
         'Michael Villamar',
         'Jacob Oldfield',
     ],
-    'website': 'http://www.inspiredsoftware.com.au',
+    'website': 'https://www.inspiredsoftware.com.au',
     'data': [
         'data/ir_cron_data.xml',
         'views/account_views.xml',
