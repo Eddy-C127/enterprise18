@@ -40,17 +40,24 @@ patch(PlanningGanttModel.prototype, {
         this.addSpecialKeys(context);
         return context;
     },
-    async existsShiftToPlan(planDomain) {
+    async searchShiftsToPlan(planDomain, check_if_exists = true) {
         const domain = planDomain || [
             "|",
             [dateStartField, "=", false],
             [dateStopField, "=", false],
         ];
         const { dateStartField, dateStopField, resModel } = this.metaData;
-        const result = await this.orm.searchCount(resModel, domain, {
-            context: this.searchParams.context,
-            limit: 1,
-        });
-        return Boolean(result);
+        if (check_if_exists) {
+            const result = await this.orm.searchCount(resModel, domain, {
+                context: this.searchParams.context,
+                limit: 1,
+            });
+            return Boolean(result);
+        } else {
+            const slotIds = await this.orm.search(resModel, domain, {
+                context: this.searchParams.context,
+            });
+            return slotIds;
+        }
     },
 });

@@ -35,11 +35,13 @@ patch(PlanningGanttRenderer.prototype, {
         });
         return props;
     },
+    displayFailedPlanningNotification(message) {
+        return this.notification.add(message, { type: "danger" });
+    },
     openPlanDialogCallback(result) {
         if (!result) {
-            this.notification.add(
-                _t("This resource is not available for this shift during the selected period."),
-                { type: "danger" }
+            this.displayFailedPlanningNotification(
+                _t("This resource is not available for this shift during the selected period.")
             );
         }
     },
@@ -47,9 +49,37 @@ patch(PlanningGanttRenderer.prototype, {
      * @override
      */
     async onPlan(rowId, columnStart, columnStop) {
+        const { start, stop } = this.getColumnStartStop(columnStart, columnStop);
+        const schedule = this.props.model.getDialogContext({ rowId, start, stop });
+        if ("sale_line_id" in schedule) {
+            if (!schedule.sale_line_id) {
+                this.displayFailedPlanningNotification(
+                    _t("There are no sales order items to plan.")
+                );
+            } else {
+                const slotIds = await this.props.model.searchShiftsToPlan(
+                    [
+                        ["sale_line_id", "=", schedule.sale_line_id],
+                        ["start_datetime", "=", false],
+                        ["end_datetime", "=", false],
+                    ],
+                    false
+                );
+                if (slotIds.length) {
+                    await this.props.model.reschedule(slotIds, schedule, false);
+                } else {
+                    this.displayFailedPlanningNotification(
+                        _t(
+                            "There are no hours left to plan, or there are no resources available at the time."
+                        )
+                    );
+                }
+            }
+            return;
+        }
         const currentRow = this.rows.find((row) => row.id === rowId);
         this.roleIds = (currentRow.progressBar && currentRow.progressBar.role_ids) || [];
-        const existsShiftToPlan = await this.props.model.existsShiftToPlan(
+        const existsShiftToPlan = await this.props.model.searchShiftsToPlan(
             this.getPlanDialogDomain()
         );
         if (!existsShiftToPlan) {
