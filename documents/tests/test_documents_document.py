@@ -537,3 +537,9 @@ class TestCaseDocuments(TransactionCase):
         self.assertFalse(self.document_txt.active, 'the document should be inactive')
         self.document_txt.unlink()
         self.assertFalse(self.document_txt.exists(), 'the document should not exist')
+
+    def test_copy_document(self):
+        copy = self.document_txt.copy()
+        self.assertEqual(copy.name, "file.txt (copy)")
+        copy_with_default = self.document_txt.copy({"name": "test"})
+        self.assertEqual(copy_with_default.name, "test")

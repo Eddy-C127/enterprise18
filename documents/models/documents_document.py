@@ -409,6 +409,14 @@ class Document(models.Model):
                     activity_vals['user_id'] = user.id
                 record.activity_schedule(**activity_vals)
 
+    def copy(self, default=None):
+        self.ensure_one()
+        if default is None:
+            default = {}
+        if 'name' not in default:
+            default['name'] = _("%s (copy)") % self.name
+        return super().copy(default=default)
+
     def toggle_favorited(self):
         self.ensure_one()
         self.sudo().write({'favorited_ids': [(3 if self.env.user in self[0].favorited_ids else 4, self.env.user.id)]})

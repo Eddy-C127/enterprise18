@@ -616,6 +616,16 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
             "Copy should have the same snapshot data",
         )
 
+    def test_copy_sheet_name(self):
+        spreadsheet = self.create_spreadsheet({"name": "spreadsheet"})
+        copy = spreadsheet.copy()
+        self.assertEqual(copy.name, 'spreadsheet (copy)')
+
+    def test_copy_default_sheet_name(self):
+        spreadsheet = self.create_spreadsheet({"name": "spreadsheet"})
+        copy = spreadsheet.copy({'name': 'sheet'})
+        self.assertEqual(copy.name, 'sheet')
+
     def test_autovacuum_remove_old_empty_spreadsheet(self):
         self.env["documents.document"].search([('handler', '=', 'spreadsheet')]).unlink()
 
