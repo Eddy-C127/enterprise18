@@ -5,30 +5,32 @@ import { insertList } from "@spreadsheet_edition/bundle/list/list_init_callback"
 import { InsertListSpreadsheetMenu } from "@spreadsheet_edition/assets/list_view/insert_list_spreadsheet_menu_owl";
 import { selectCell, setCellContent } from "@spreadsheet/../tests/utils/commands";
 import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/utils/data";
-import { getCellFormula, getEvaluatedCell } from "@spreadsheet/../tests/utils/getters";
-import {
-    click,
-    getFixture,
-    nextTick,
-    patchWithCleanup,
-    patchDate,
-    editInput,
-} from "@web/../tests/helpers/utils";
-import { toggleActionMenu } from "@web/../tests/search/helpers";
+import { getCellFormula, getEvaluatedCell, getCellValue } from "@spreadsheet/../tests/utils/getters";
+import { click, getFixture, nextTick, patchWithCleanup, patchDate, editInput, makeDeferred } from "@web/../tests/helpers/utils";
+import { toggleActionMenu, pagerNext } from "@web/../tests/search/helpers";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
 import { ListRenderer } from "@web/views/list/list_renderer";
-import { createSpreadsheetFromListView, toggleCogMenuSpreadsheet } from "../utils/list_helpers";
+import { ListController } from "@web/views/list/list_controller";
+import { createSpreadsheetFromListView, spawnListViewForSpreadsheet, toggleCogMenuSpreadsheet } from "../utils/list_helpers";
 import { createSpreadsheet } from "../spreadsheet_test_utils.js";
 import { doMenuAction } from "@spreadsheet/../tests/utils/ui";
 import { session } from "@web/session";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
 import { insertListInSpreadsheet } from "@spreadsheet/../tests/utils/list";
+import { SpreadsheetAction } from "../../src/bundle/actions/spreadsheet_action";
+import { getSpreadsheetActionModel } from "@spreadsheet_edition/../tests/utils/webclient_helpers";
+import { patchListControllerExportSelection } from "@spreadsheet_edition/assets/list_view/list_controller";
+import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { onMounted } from "@odoo/owl";
 
 const { topbarMenuRegistry, cellMenuRegistry } = spreadsheet.registries;
 const { toZone } = spreadsheet.helpers;
 
-QUnit.module("document_spreadsheet > list view", {}, () => {
+QUnit.module("document_spreadsheet > list view", {
+    beforeEach: ()=> {
+        patchWithCleanup(ListController.prototype, patchListControllerExportSelection);
+    }}, () => {
     QUnit.test("List export with a invisible field", async (assert) => {
         const { model } = await createSpreadsheetFromListView({
             serverData: {
@@ -327,6 +329,100 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
         await toggleCogMenuSpreadsheet(target);
         await click(target, ".o_insert_list_spreadsheet_menu");
         await click(target, ".modal button.btn-primary");
+    });
+
+    QUnit.test("Selected records from current page are inserted correctly", async function (assert) {
+        assert.expect(2);
+        const def = makeDeferred();
+        let spreadsheetAction = {};
+        patchWithCleanup(SpreadsheetAction.prototype, {
+            setup() {
+                super.setup();
+                onMounted(() => {
+                    spreadsheetAction = this;
+                    def.resolve();
+                });
+            },
+        });
+        const serverData = {
+            models: getBasicData(),
+            views: {
+                "partner,false,list": `
+                    <tree limit="2">
+                        <field name="foo"/>
+                    </tree>`,
+                "partner,false,search": "<search/>",
+            }
+        }
+        await spawnListViewForSpreadsheet({
+            serverData,
+        });
+
+        /** Insert the selected records from current page in a new spreadsheet */
+        const target = getFixture();
+        await click(target.querySelectorAll("td.o_list_record_selector input")[1]);
+        await pagerNext(target);
+        await click(target.querySelectorAll("td.o_list_record_selector input")[0]);
+        await toggleActionMenu(target);
+        const insertMenuItem = [
+            ...target.querySelectorAll(".o_cp_action_menus .o_menu_item"),
+        ].filter((el) => el.innerText === "Insert in spreadsheet")[0];
+        await click(insertMenuItem);
+        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
+
+        await def;
+        const model = getSpreadsheetActionModel(spreadsheetAction);
+        await waitForDataSourcesLoaded(model);
+        assert.strictEqual(getCellValue(model, "A2"), 17, "First record from page 2 (i.e. 3 of 4 records) should be inserted");
+        assert.strictEqual(getCellValue(model, "A3"), "");
+    });
+
+    QUnit.test("Selected all records from current page are inserted correctly", async function (assert) {
+        assert.expect(4);
+        const def = makeDeferred();
+        let spreadsheetAction = {};
+        patchWithCleanup(SpreadsheetAction.prototype, {
+            setup() {
+                super.setup();
+                onMounted(() => {
+                    spreadsheetAction = this;
+                    def.resolve();
+                });
+            },
+        });
+        const serverData = {
+            models: getBasicData(),
+            views: {
+                "partner,false,list": `
+                    <tree limit="2">
+                        <field name="foo"/>
+                    </tree>`,
+                "partner,false,search": "<search/>",
+            }
+        }
+        await spawnListViewForSpreadsheet({
+            serverData,
+        });
+
+        /** Insert the selected records from current page in a new spreadsheet */
+        const target = getFixture();
+        await click(target.querySelectorAll("td.o_list_record_selector input")[1]);
+        await click(target.querySelectorAll("td.o_list_record_selector input")[0]);
+        await click(target.querySelector(".o_list_select_domain"));
+        await toggleActionMenu(target);
+        const insertMenuItem = [
+            ...target.querySelectorAll(".o_cp_action_menus .o_menu_item"),
+        ].filter((el) => el.innerText === "Insert in spreadsheet")[0];
+        await click(insertMenuItem);
+        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
+
+        await def;
+        const model = getSpreadsheetActionModel(spreadsheetAction);
+        await waitForDataSourcesLoaded(model);
+        assert.strictEqual(getCellValue(model, "A2"), 12, "First record from page 2 (i.e. 3 of 4 records) should be inserted");
+        assert.strictEqual(getCellValue(model, "A3"), 1);
+        assert.strictEqual(getCellValue(model, "A4"), 17);
+        assert.strictEqual(getCellValue(model, "A5"), 2);
     });
 
     QUnit.test("Can see record of a list", async function (assert) {

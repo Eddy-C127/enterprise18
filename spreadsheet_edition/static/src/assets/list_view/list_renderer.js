@@ -19,12 +19,13 @@ patch(ListRenderer.prototype, {
         useBus(this.env.bus, "insert-list-spreadsheet", this.insertListSpreadsheet.bind(this));
     },
 
-    insertListSpreadsheet() {
+    async insertListSpreadsheet() {
         const model = this.env.model.root;
         const count = model.groups
             ? model.groups.reduce((acc, group) => group.count + acc, 0)
             : model.count;
-        const threshold = Math.min(count, model.limit);
+        const selection = await model.getResIds(true);
+        const threshold = selection.length > 0 ? selection.length: Math.min(count, model.limit);
         let name = this.env.config.getDisplayName();
         const sortBy = model.orderBy[0];
         if (sortBy) {
@@ -34,6 +35,11 @@ patch(ListRenderer.prototype, {
             });
         }
         const { list, fields } = this.getListForSpreadsheet(name);
+
+        // if some records are selected, we replace the domain with a "id in [selection]" clause
+        if (selection.length > 0) {
+            list.domain = [["id", "in", selection]];
+        }
         const actionOptions = {
             preProcessingAsyncAction: "insertList",
             preProcessingAsyncActionData: { list, threshold, fields },
