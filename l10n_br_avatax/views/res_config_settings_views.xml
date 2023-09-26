@@ -5,14 +5,14 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="account.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <setting id="taxcloud_settings" position="after">
-                <setting id="avatax_settings" string="AvaTax Brazil"
+            <setting id="rounding_method" position="after">
+                <setting id="l10n_br_edi_avatax_settings" string="AvaTax Brazil"
                          help="Automatically compute tax rates"
                          invisible="country_code != 'BR'"
                          company_dependent="1"> <!-- TODO: add documentation attr when docs are published -->
                 <field name="l10n_br_avatax_api_identifier" invisible="1"/>
                 <field name="l10n_br_avatax_api_key" invisible="1"/>
-                <div class="content-group" id="l10n_br_avatax_settings">
+                <div class="content-group">
                     <div class="row">
                         <label string="Environment" for="l10n_br_avalara_environment" class="col-lg-3 o_light_label"/>
                         <field name="l10n_br_avalara_environment"/>
