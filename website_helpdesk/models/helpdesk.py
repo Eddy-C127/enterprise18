@@ -20,7 +20,7 @@ class HelpdeskTeam(models.Model):
     @api.constrains('use_website_helpdesk_form', 'website_id', 'company_id')
     def _check_website_company(self):
         if any(t.use_website_helpdesk_form and t.website_id and t.website_id.company_id != t.company_id for t in self):
-            raise ValidationError(_('The team company and the website company should match'))
+            raise ValidationError(_('The companies of the team and the website should match.'))
 
     @api.depends('company_id')
     def _compute_website_id(self):

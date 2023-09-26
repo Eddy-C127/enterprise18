@@ -59,7 +59,7 @@ class DiscussChannel(models.Model):
 
     def execute_command_helpdesk(self, **kwargs):
         key = kwargs.get('body').split()
-        msg = _('Something is missing or wrong in command')
+        msg = _('Something is missing or wrong in the command')
         partners = self.with_context(active_test=False).channel_partner_ids.filtered(lambda partner: partner != self.env.user.partner_id)
         if key[0].lower() == '/ticket':
             if len(key) == 1:

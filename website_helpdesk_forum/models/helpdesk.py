@@ -33,7 +33,7 @@ class HelpdeskTeam(models.Model):
     def _ensure_help_center_is_activated(self):
         self.ensure_one()
         if not self.show_knowledge_base_forum:
-            raise UserError(_('Help Center not active for this team.'))
+            raise UserError(_('Help Center is not active for this team.'))
         return True
 
     @api.model
@@ -98,7 +98,7 @@ class HelpdeskTicket(models.Model):
         self.ensure_one()
         self.team_id._ensure_help_center_is_activated()
         if not self.forum_post_ids:
-            raise UserError(_('No posts associated to this ticket.'))
+            raise UserError(_('There are no posts associated with this ticket.'))
 
         if len(self.forum_post_ids) > 1:
             action = self.env['ir.actions.actions']._for_xml_id('website_forum.forum_post_action_forum_main')

@@ -909,7 +909,7 @@ class Planning(models.Model):
         self.ensure_one()
         # user must at least 'read' the shift to self assign (Prevent any user in the system (portal, ...) to assign themselves)
         if not self.check_access_rights('read', raise_exception=False):
-            raise AccessError(_("You don't have the right to self assign."))
+            raise AccessError(_("You don't have the right to assign yourself to shifts."))
         if self.resource_id and not self.request_to_switch:
             raise UserError(_("You can not assign yourself to an already assigned shift."))
         return self.sudo().write({'resource_id': self.env.user.employee_id.resource_id.id if self.env.user.employee_id else False})
@@ -920,7 +920,7 @@ class Planning(models.Model):
         # The following condition will check the read access on planning.slot, and that user must at least 'read' the
         # shift to self unassign. Prevent any user in the system (portal, ...) to unassign any shift.
         if not self.allow_self_unassign:
-            raise UserError(_("The company does not allow you to self unassign."))
+            raise UserError(_("The company does not allow you to unassign yourself from shifts."))
         if self.is_unassign_deadline_passed:
             raise UserError(_("The deadline for unassignment has passed."))
         if self.employee_id != self.env.user.employee_id:
@@ -934,7 +934,7 @@ class Planning(models.Model):
         if not self.check_access_rights('read', raise_exception=False):
             raise AccessError(_("You don't have the right to switch shifts."))
         if self.employee_id != self.env.user.employee_id:
-            raise UserError(_("You can not request to switch a shift that is assigned to another user."))
+            raise UserError(_("You cannot request to switch a shift that is assigned to another user."))
         if self.is_past:
             raise UserError(_("You cannot switch a shift that is in the past."))
         return self.sudo().write({'request_to_switch': True})
@@ -946,7 +946,7 @@ class Planning(models.Model):
         if not self.check_access_rights('read', raise_exception=False):
             raise AccessError(_("You don't have the right to cancel a request to switch."))
         if self.employee_id != self.env.user.employee_id:
-            raise UserError(_("You can not cancel a request to switch made by another user."))
+            raise UserError(_("You cannot cancel a request to switch made by another user."))
         if self.is_past:
             raise UserError(_("You cannot cancel a request to switch that is in the past."))
         return self.sudo().write({'request_to_switch': False})

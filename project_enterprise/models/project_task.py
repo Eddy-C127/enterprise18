@@ -145,7 +145,7 @@ class Task(models.Model):
                     task.planning_overlap = False
                 else:
                     task.planning_overlap = ' '.join([
-                        _('%s has %s tasks at the same time.', task_mapping[0], task_mapping[1])
+                        _('%(user)s has %(amount)s tasks at the same time.', user=task_mapping[0], amount=task_mapping[1])
                             for task_mapping in overlap_mapping[task.id]
                     ])
         else:
@@ -268,8 +268,8 @@ class Task(models.Model):
         for task in self:
             depends_on_names = depends_on_names_for_id.get(task.id)
             task.dependency_warning = depends_on_names and _(
-                'This task cannot be planned before Tasks %s, on which it depends.',
-                ', '.join(depends_on_names)
+                'This task cannot be planned before the following tasks on which it depends: %(task_list)s',
+                task_list=', '.join(depends_on_names)
             )
 
     @api.model
@@ -1141,7 +1141,7 @@ class Task(models.Model):
         if field == 'user_ids':
             return dict(
                 self._gantt_progress_bar_user_ids(res_ids, start, stop),
-                warning=_("This user isn't expected to have any tasks assigned during this period because they don't have any running contract. Planned hours :"),
+                warning=_("This user isn't expected to have any tasks assigned during this period because they don't have any running contract. Planned hours:"),
             )
         raise NotImplementedError(_("This Progress Bar is not implemented."))
 

@@ -58,7 +58,7 @@ class HelpdeskTicketSelectForumWizard(models.TransientModel):
             'tag_ids': [(6, 0, self.tag_ids.ids)]
         })
         body = Markup("<a href='/forum/%s/question/%s'>%s</a> %s") % (
-            self.forum_id.id, forum_post.id, forum_post.name, _('Forum Post created'))
+            self.forum_id.id, forum_post.id, forum_post.name, _('Forum Post Created'))
         self.ticket_id.message_post(body=body)
         self.ticket_id.write({
             'forum_post_ids': [(4, forum_post.id, 0)]

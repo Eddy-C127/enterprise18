@@ -38,7 +38,7 @@ class PlanningRecurrency(models.Model):
     def _check_multi_company(self):
         for recurrency in self:
             if any(recurrency.company_id != planning.company_id for planning in recurrency.slot_ids):
-                raise ValidationError(_('An shift must be in the same company as its recurrency.'))
+                raise ValidationError(_('A shift must be in the same company as its recurrence.'))
 
     @api.depends('repeat_type', 'repeat_interval', 'repeat_until')
     def _compute_display_name(self):
@@ -46,7 +46,7 @@ class PlanningRecurrency(models.Model):
             if recurrency.repeat_type == 'forever':
                 name = _('Forever, every %s week(s)', recurrency.repeat_interval)
             else:
-                name = _('Every %s week(s) until %s', recurrency.repeat_interval, recurrency.repeat_until)
+                name = _('Every %(repeat_interval)s week(s) until %(repeat_until)s', repeat_interval=recurrency.repeat_interval, repeat_until=recurrency.repeat_until)
             recurrency.display_name = name
 
     @api.model

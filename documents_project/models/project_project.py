@@ -24,7 +24,7 @@ class ProjectProject(models.Model):
     def _check_company_is_folder_company(self):
         for project in self:
             if project.documents_folder_id and project.documents_folder_id.company_id and project.company_id != project.documents_folder_id.company_id:
-                raise UserError(_('The "%s" workspace should either be in the "%s" company like this project or be open to all companies.', project.documents_folder_id.name, project.company_id.name))
+                raise UserError(_('The "%(workspace)s" workspace should either be in the "%(company)s" company like this project or be open to all companies.', workspace=project.documents_folder_id.name, company=project.company_id.name))
 
     def _compute_attached_document_count(self):
         Task = self.env['project.task']
@@ -142,9 +142,9 @@ class ProjectProject(models.Model):
                     if other_projects and other_projects.company_id.id != vals['company_id']:
                         lines = [f"- {project.name}" for project in other_projects]
                         raise UserError(_(
-                            'You cannot change the company of this project, because its workspace is linked to the other following projects that are still in the "%s" company:\n%s\n\n'
-                            'Please update the company of all projects so that they remain in the same company as their workspace, or leave the company of the "%s" workspace blank.',
-                            other_projects.company_id.name, '\n'.join(lines), project.documents_folder_id.name))
+                            'You cannot change the company of this project, because its workspace is linked to the other following projects that are still in the "%(other_company)s" company:\n%(other_workspaces)s\n\n'
+                            'Please update the company of all projects so that they remain in the same company as their workspace, or leave the company of the "%(workspace)s" workspace blank.',
+                            other_company=other_projects.company_id.name, other_workspaces='\n'.join(lines), workspace=project.documents_folder_id.name))
 
         if 'name' in vals and len(self.documents_folder_id.project_ids) == 1 and self.name == self.documents_folder_id.name:
             self.documents_folder_id.name = vals['name']

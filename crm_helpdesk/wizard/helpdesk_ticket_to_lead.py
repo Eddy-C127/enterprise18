@@ -18,7 +18,7 @@ class HelpdeskTicketConvert2Lead(models.TransientModel):
         if res.get('ticket_id'):
             ticket = self.env['helpdesk.ticket'].browse(res.get('ticket_id'))
             if not ticket.active:
-                raise ValidationError(_('The archived ticket can not converted as lead.'))
+                raise ValidationError(_('An archived ticket cannot be converted into a lead.'))
         return res
 
     ticket_id = fields.Many2one('helpdesk.ticket', required=True, readonly=False)
@@ -90,10 +90,9 @@ class HelpdeskTicketConvert2Lead(models.TransientModel):
             "medium_id": self.ticket_id.medium_id.id,
             "source_id": self.ticket_id.source_id.id,
         })
-        ticket_link = self.ticket_id._get_html_link(title=self.ticket_id.name +' #({})'.format(self.ticket_id.id))
-        lead_sudo.message_post(
-            body=_('This lead has been created from ticket: %s', ticket_link),
-            message_type='comment',
+        lead_sudo.message_post_with_source(
+            'helpdesk.ticket_creation',
+            render_values={'self': lead_sudo, 'ticket': self.ticket_id},
             subtype_xmlid='mail.mt_note',
         )
 
@@ -106,7 +105,7 @@ class HelpdeskTicketConvert2Lead(models.TransientModel):
         # After mail thread move, add linked lead message to ticket
         self.ticket_id.message_post_with_source(
             'helpdesk.ticket_conversion_link',
-            render_values={'created_record': lead_sudo, 'message': _('Lead created')},
+            render_values={'created_record': lead_sudo, 'message': _('Lead Created')},
             subtype_xmlid='mail.mt_note',
         )
 

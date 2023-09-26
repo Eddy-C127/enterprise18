@@ -12,7 +12,7 @@
                   t-att-class="{'o_target_to_set': !props.showDemo}" t-on-click.stop="_toggleFocus"
             >
                 <div t-if="state.value" class="position-relative p-2">
-                    <t t-out="state.value"/><span t-if="props.percentage"> %</span>
+                    <t t-esc="this.valueString"/>
                     <i class="fa fa-pencil position-absolute ms-2 mt-1 opacity-0"/>
                 </div>
                 <div t-else="">

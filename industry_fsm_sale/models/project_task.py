@@ -272,7 +272,7 @@ class Task(models.Model):
                 'default_partner_id': self.partner_id.id,
                 'default_task_id': self.id,
                 'default_company_id': self.company_id.id,
-                'default_origin': f'{self.project_id.name} - {self.name}',
+                'default_origin': _("%(project_name)s - %(task_name)s", project_name=self.project_id.name, task_name=self.name),
             },
         })
         return action
@@ -402,7 +402,7 @@ class Task(models.Model):
             'company_id': self.company_id.id,
             'analytic_account_id': self._get_task_analytic_account_id().id,
             'team_id': team.id if team else False,
-            'origin': f'{self.project_id.name} - {self.name}',
+            'origin': _("%(project_name)s - %(task_name)s", project_name=self.project_id.name, task_name=self.name),
         })
         # update after creation since onchange_partner_id sets the current user
         sale_order.user_id = user_id.id

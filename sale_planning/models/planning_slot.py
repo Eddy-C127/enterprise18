@@ -29,7 +29,7 @@ class PlanningSlot(models.Model):
     _sql_constraints = [
         ('check_datetimes_set_or_plannable_slot',
          'CHECK((start_datetime IS NOT NULL AND end_datetime IS NOT NULL) OR sale_line_id IS NOT NULL)',
-         'Only slots linked to a sale order with a plannable service can be unscheduled.')
+         'Only slots linked to a Sales Order with a plannable service can be unscheduled.')
     ]
 
     @api.depends('sale_line_id')
@@ -656,7 +656,7 @@ class PlanningSlot(models.Model):
         if field == 'sale_line_id':
             return dict(
                 self._gantt_progress_bar_sale_line_id(res_ids),
-                warning=_("This Sale Order Item doesn't have a target value of planned hours. Planned hours :")
+                warning=_("This Sales Order Item doesn't have a target value of planned hours. Planned hours:")
             )
         return super()._gantt_progress_bar(field, res_ids, start, stop)
 

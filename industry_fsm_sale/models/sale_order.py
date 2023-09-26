@@ -28,8 +28,11 @@ class SaleOrder(models.Model):
         res = super().action_confirm()
         for sale_order in self:
             if sale_order.task_id:
-                message = _("This Sales Order has been created from Task: %s", sale_order.task_id._get_html_link())
-                sale_order.message_post(body=message)
+                sale_order.message_post_with_source(
+                    'mail.message_origin_link',
+                    render_values={'self': sale_order, 'origin': sale_order.task_id},
+                    subtype_xmlid='mail.mt_note',
+                )
         return res
 
 

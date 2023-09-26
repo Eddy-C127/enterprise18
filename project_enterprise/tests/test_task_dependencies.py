@@ -20,4 +20,4 @@ class TestTaskDependencies(ProjectEnterpriseGanttRescheduleCommon):
         self.assertFalse(self.task_4.dependency_warning)
         self.task_5.write({'depend_on_ids': False})
         self.task_4.write({'depend_on_ids': [Command.link(self.task_5.id)]})
-        self.assertEqual(self.task_4.dependency_warning, Markup('<p>This task cannot be planned before Tasks %s, on which it depends.</p>') % (self.task_5.name))
+        self.assertEqual(self.task_4.dependency_warning, Markup('<p>This task cannot be planned before the following tasks on which it depends: %s</p>') % (self.task_5.name))

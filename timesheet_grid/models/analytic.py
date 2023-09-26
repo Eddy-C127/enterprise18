@@ -282,9 +282,11 @@ class AnalyticLine(models.Model):
 
                 if show_access_error:
                     last_validated_timesheet_date_str = str(last_validated_timesheet_date.strftime('%m/%d/%Y'))
-                    deleted = _('deleted')
-                    modified = _('modified')
-                    raise AccessError(_('Timesheets before the %s (included) have been validated, and can no longer be %s.', last_validated_timesheet_date_str, deleted if delete else modified))
+                    if delete:
+                        error_message = _('Timesheets before the %(date)s (included) have been validated, and can no longer be deleted.', date=last_validated_timesheet_date_str)
+                    else:
+                        error_message = _('Timesheets before the %(date)s (included) have been validated, and can no longer be modified.', date=last_validated_timesheet_date_str)
+                    raise AccessError(error_message)
 
     def _check_can_create(self):
 
@@ -347,7 +349,7 @@ class AnalyticLine(models.Model):
     def _unlink_if_manager(self):
         if not self.user_has_groups('hr_timesheet.group_hr_timesheet_approver') and self.filtered(
                 lambda r: r.is_timesheet and r.validated):
-            raise AccessError(_('You cannot delete a validated entry. Please, contact your manager or your timesheet approver.'))
+            raise AccessError(_('You cannot delete a validated entry. Please contact your manager or your timesheet approver.'))
 
         self.check_if_allowed(delete=True)
 

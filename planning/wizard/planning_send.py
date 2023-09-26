@@ -68,7 +68,7 @@ class PlanningSend(models.TransientModel):
     def action_check_emails(self):
         if self.employees_no_email:
             return {
-                'name': _('No Email Address For Some Employees'),
+                'name': _('No Email Address for Some Employees'),
                 'view_mode': 'form',
                 'res_model': 'planning.send',
                 'views': [(self.env.ref('planning.employee_no_email_list_wizard').id, 'form')],
