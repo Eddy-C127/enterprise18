@@ -117,7 +117,7 @@ msgstr "Opciones de configuración"
 #. odoo-python
 #: code:addons/l10n_ar_reports/models/l10n_ar_vat_book.py:0
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #. module: l10n_ar_reports
 #: model:ir.model.fields,field_description:l10n_ar_reports.field_account_ar_vat_line__cuit
@@ -132,12 +132,12 @@ msgstr "Moneda"
 #. module: l10n_ar_reports
 #: model:ir.model.fields.selection,name:l10n_ar_reports.selection__account_ar_vat_line__move_type__out_refund
 msgid "Customer Credit Note"
-msgstr ""
+msgstr "Nota de Crédito de Cliente"
 
 #. module: l10n_ar_reports
 #: model:ir.model.fields.selection,name:l10n_ar_reports.selection__account_ar_vat_line__move_type__out_invoice
 msgid "Customer Invoice"
-msgstr ""
+msgstr "Factura de Cliente"
 
 #. module: l10n_ar_reports
 #: model:account.report.column,name:l10n_ar_reports.l10n_ar_vat_book_report_column_invoice_date
@@ -166,13 +166,13 @@ msgstr "Tipo de Comprobante"
 #. odoo-python
 #: code:addons/l10n_ar_reports/models/l10n_ar_vat_book.py:0
 msgid "Edit Country"
-msgstr ""
+msgstr "Editar País"
 
 #. module: l10n_ar_reports
 #. odoo-python
 #: code:addons/l10n_ar_reports/models/l10n_ar_vat_book.py:0
 msgid "Edit Partner"
-msgstr ""
+msgstr "Editar Contacto"
 
 #. module: l10n_ar_reports
 #: model:ir.model.fields,field_description:l10n_ar_reports.field_account_ar_vat_line__move_id
@@ -236,9 +236,11 @@ msgid "Journal Entry"
 msgstr "Asiento Contable"
 
 #. module: l10n_ar_reports
-#: model:ir.model.fields,field_description:l10n_ar_reports.field_account_ar_vat_line____last_update
-msgid "Last Modified on"
-msgstr "Última modificación en"
+#. odoo-python
+#: code:addons/l10n_ar_reports/models/l10n_ar_vat_book.py:0
+#, python-format
+msgid "Legal Entity VAT"
+msgstr "CUIT Entidad"
 
 #. module: l10n_ar_reports
 #: model:ir.model.fields,field_description:l10n_ar_reports.field_account_ar_vat_line__move_name
@@ -256,9 +258,16 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: l10n_ar_reports
+#. odoo-python
+#: code:addons/l10n_ar_reports/models/l10n_ar_vat_book.py:0
+#, python-format
+msgid "Natural Person VAT"
+msgstr "CUIT Persona Física"
+
+#. module: l10n_ar_reports
 #: model:account.report.column,name:l10n_ar_reports.l10n_ar_vat_book_report_column_not_taxed
 msgid "Not Taxed"
-msgstr ""
+msgstr "No Gravado"
 
 #. module: l10n_ar_reports
 #: model:ir.model.fields,help:l10n_ar_reports.field_account_ar_vat_line__not_taxed
@@ -294,7 +303,7 @@ msgstr "Abrir asiento"
 #: model:account.report.column,name:l10n_ar_reports.l10n_ar_vat_book_report_column_other_taxes
 #: model:ir.model.fields,field_description:l10n_ar_reports.field_account_ar_vat_line__other_taxes
 msgid "Other Taxes"
-msgstr "Otros"
+msgstr "Otros Impuestos"
 
 #. module: l10n_ar_reports
 #. odoo-python
@@ -373,25 +382,24 @@ msgstr "Estado"
 #. odoo-javascript
 #: code:addons/l10n_ar_reports/static/src/components/argentinian_report/filter_tax_type.xml:0
 msgid "Tax Type:"
-msgstr ""
+msgstr "Tipo de Impuesto:"
 
 #. module: l10n_ar_reports
 #: model:account.report.column,name:l10n_ar_reports.l10n_ar_vat_book_report_column_taxed
 msgid "Taxed"
 msgstr "Gravado"
 
-
 #. module: l10n_ar_reports
 #. odoo-python
 #: code:addons/l10n_ar_reports/models/l10n_ar_vat_book.py:0
 msgid "The country '%s' does not have a '%s' configured."
-msgstr ""
+msgstr "El país '%s' no tiene '%s' configurado."
 
 #. module: l10n_ar_reports
 #. odoo-python
 #: code:addons/l10n_ar_reports/models/l10n_ar_vat_book.py:0
 msgid "The partner '%s' does not have a country configured."
-msgstr ""
+msgstr "El contacto '%s' no tiene país configurado."
 
 #. module: l10n_ar_reports
 #. odoo-python
@@ -461,7 +469,7 @@ msgstr "Libro de IVA (ZIP)"
 #. module: l10n_ar_reports
 #: model:account.report.column,name:l10n_ar_reports.l10n_ar_vat_book_report_column_vat_per
 msgid "VAT Perc"
-msgstr ""
+msgstr "Perc. IVA."
 
 #. module: l10n_ar_reports
 #: model:ir.model.fields,field_description:l10n_ar_reports.field_account_ar_vat_line__vat_per
@@ -493,7 +501,7 @@ msgstr "Línea de IVA para análisis en localización argentina"
 #. module: l10n_ar_reports
 #: model:ir.model.fields.selection,name:l10n_ar_reports.selection__account_ar_vat_line__move_type__in_invoice
 msgid "Vendor Bill"
-msgstr ""
+msgstr "Factura de Proveedor"
 
 #. module: l10n_ar_reports
 #: model:ir.model.fields.selection,name:l10n_ar_reports.selection__account_ar_vat_line__move_type__in_refund
