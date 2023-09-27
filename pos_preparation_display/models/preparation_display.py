@@ -1,4 +1,3 @@
-import secrets
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
@@ -6,6 +5,7 @@ from odoo.addons.pos_preparation_display.models.preparation_display_orderline im
 
 class PosPreparationDisplay(models.Model):
     _name = 'pos_preparation_display.display'
+    _inherit = ["pos.bus.mixin"]
     _description = "Preparation display"
 
     name = fields.Char("Name", required=True)
@@ -20,15 +20,7 @@ class PosPreparationDisplay(models.Model):
         {'name': 'Completed', 'color': '#4ea82a', 'alert_timer': 0}
     ])
     contains_bar_restaurant = fields.Boolean("Is a Bar/Restaurant", compute='_compute_contains_bar_restaurant', store=True)
-    access_token = fields.Char("Access Token",
-        copy=False,
-        required=True,
-        readonly=True,
-        default=lambda self: self._get_access_token())
-
-    @staticmethod
-    def _get_access_token():
-        return secrets.token_hex(16)
+    access_token = fields.Char("Access Token", default=lambda self: self._ensure_access_token())
 
     # getter for pos_category_ids and pos_config_ids, in case of no one selected, return all of each.
     def _get_pos_category_ids(self):
@@ -105,9 +97,7 @@ class PosPreparationDisplay(models.Model):
 
     def _send_load_orders_message(self):
         self.ensure_one()
-        self.env['bus.bus']._sendone(f'preparation_display-{self.access_token}', 'load_orders', {
-            'preparation_display_id': self.id,
-        })
+        self._notify('LOAD_ORDERS', {})
 
     @api.depends('stage_ids', 'pos_config_ids', 'category_ids')
     def _compute_order_count(self):

@@ -185,17 +185,6 @@ export class PreparationDisplay extends Reactive {
         }
     }
 
-    async getOrders() {
-        this.rawData.orders = await this.orm.call(
-            "pos_preparation_display.order",
-            "get_preparation_display_order",
-            [[], this.id],
-            {}
-        );
-
-        this.processOrders();
-    }
-
     processCategories() {
         this.categories = Object.fromEntries(
             this.rawData.categories
@@ -248,26 +237,6 @@ export class PreparationDisplay extends Reactive {
 
         this.filterOrders();
         return this.orders;
-    }
-
-    wsChangeLinesStatus(linesStatus) {
-        for (const status of linesStatus) {
-            if (!this.orderlines[status.id]) {
-                continue;
-            }
-
-            this.orderlines[status.id].todo = status.todo;
-        }
-    }
-
-    wsMoveToNextStage(orderId, stageId, lastStageChange) {
-        const order = this.orders[orderId];
-        clearTimeout(order.changeStageTimeout);
-
-        order.stageId = stageId;
-        order.lastStageChange = lastStageChange;
-        this.resetOrderlineStatus(order, false, true);
-        this.filterOrders();
     }
 
     toggleCategory(category) {

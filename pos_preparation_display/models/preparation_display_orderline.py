@@ -27,16 +27,7 @@ class PosPreparationDisplayOrderline(models.Model):
                 'todo': orderline.todo
             })
 
-        self.env['bus.bus']._sendmany([
-            [
-                f'preparation_display-{preparation_display.access_token}',
-                'change_orderline_status',
-                {
-                    'preparation_display_id': preparation_display.id,
-                    'status': orderlines_status
-                }
-            ]
-            for preparation_display in preparation_displays
-        ])
+        for preparation_display in preparation_displays:
+            preparation_display._notify('CHANGE_ORDERLINE_STATUS', orderlines_status)
 
         return True

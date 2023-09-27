@@ -2,6 +2,7 @@
 import { useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { PreparationDisplay } from "@pos_preparation_display/app/models/preparation_display";
+import { getOnNotified } from "@point_of_sale/utils";
 import { useService } from "@web/core/utils/hooks";
 
 const preparationDisplayService = {
@@ -19,29 +20,31 @@ const preparationDisplayService = {
             env,
             odoo.preparation_display.id
         ).ready;
-
-        bus_service.addChannel(`preparation_display-${odoo.preparation_display.access_token}`);
-        bus_service.subscribe("load_orders", (datas) => {
-            if (datas.preparation_display_id !== odoo.preparation_display.id) {
-                return false;
-            }
-            preparationDisplayService.getOrders();
-        });
-        bus_service.subscribe("change_order_stage", (datas) => {
-            if (datas.preparation_display_id !== odoo.preparation_display.id) {
-                return false;
-            }
-            preparationDisplayService.wsMoveToNextStage(
-                datas.order_id,
-                datas.stage_id,
-                datas.last_stage_change
+        const onNotified = getOnNotified(bus_service, odoo.preparation_display.access_token);
+        onNotified("LOAD_ORDERS", async () => {
+            preparationDisplayService.rawData.orders = await preparationDisplayService.orm.call(
+                "pos_preparation_display.order",
+                "get_preparation_display_order",
+                [[], preparationDisplayService.id],
+                {}
             );
+            preparationDisplayService.processOrders();
         });
-        bus_service.subscribe("change_orderline_status", (datas) => {
-            if (datas.preparation_display_id !== odoo.preparation_display.id) {
-                return false;
+        onNotified("CHANGE_ORDER_STAGE", ({ order_id, stage_id, last_stage_change }) => {
+            const order = preparationDisplayService.orders[order_id];
+            clearTimeout(order.changeStageTimeout);
+            order.stageId = stage_id;
+            order.lastStageChange = last_stage_change;
+            preparationDisplayService.resetOrderlineStatus(order, false, true);
+            preparationDisplayService.filterOrders();
+        });
+        onNotified("CHANGE_ORDERLINE_STATUS", (lineStatus) => {
+            for (const status of lineStatus) {
+                if (!preparationDisplayService.orderlines[status.id]) {
+                    continue;
+                }
+                preparationDisplayService.orderlines[status.id].todo = status.todo;
             }
-            preparationDisplayService.wsChangeLinesStatus(datas.status);
         });
         return preparationDisplayService;
     },

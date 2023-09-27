@@ -41,6 +41,7 @@
 
             ('include', 'web._assets_core'),
 
+            'point_of_sale/static/src/utils.js',
             'bus/static/src/services/bus_service.js',
             'bus/static/src/bus_parameters_service.js',
             'bus/static/src/multi_tab_service.js',

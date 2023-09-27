@@ -44,16 +44,11 @@ class CalendarEvent(models.Model):
                         'event': event_dict,
                     })
 
-        messages = []
         for item in event_list:
-            messages.append((item['session']._get_bus_channel_name(), "TABLE_BOOKING", {
+            session.config_id._notify(("TABLE_BOOKING", {
                 "command": command,
                 "event": item['event'],
             }))
-
-        if len(messages) > 0:
-            self.env['bus.bus']._sendmany(messages)
-
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -35,9 +35,7 @@ class PosPreparationDisplay(models.Model):
     def _send_orders_to_customer_display(self):
         self.ensure_one()
         orders = self._get_pos_orders()
-        self.env["bus.bus"]._sendone(
-            f"pos_tracking_display-{self.access_token}", "NEW_ORDERS", orders
-        )
+        self._notify("NEW_ORDERS", orders)
 
     def _send_load_orders_message(self):
         super()._send_load_orders_message()

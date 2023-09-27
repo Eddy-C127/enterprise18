@@ -104,8 +104,6 @@ class PosPreparationDisplayOrder(models.Model):
         p_dis_categories = p_dis._get_pos_category_ids()
 
         if len(set(p_dis_categories.ids).intersection(categories)) > 0:
-            channel = f'preparation_display-{p_dis.access_token}'
-
             if stage_id in p_dis.stage_ids.ids:
                 current_stage = self.order_stage_ids.create({
                     'preparation_display_id': p_dis.id,
@@ -114,8 +112,7 @@ class PosPreparationDisplayOrder(models.Model):
                     'done': False
                 })
 
-                self.env['bus.bus']._sendone(channel, 'change_order_stage', {
-                    'preparation_display_id': p_dis.id,
+                p_dis._notify('CHANGE_ORDER_STAGE', {
                     'order_id': self.id,
                     'last_stage_change': current_stage.write_date,
                     'stage_id': stage_id
