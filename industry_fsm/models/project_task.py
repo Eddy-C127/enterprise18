@@ -14,15 +14,20 @@ class Task(models.Model):
 
     @api.model
     def default_get(self, fields_list):
-        result = super(Task, self).default_get(fields_list)
+        context = dict(self.env.context)
         is_fsm_mode = self._context.get('fsm_mode')
-        if 'project_id' in fields_list and not result.get('project_id') and is_fsm_mode:
+        fsm_project = False
+        if is_fsm_mode and 'project_id' in fields_list:
             company_id = self.env.context.get('default_company_id') or self.env.company.id
             fsm_project = self.env['project.project'].search([('is_fsm', '=', True), ('company_id', '=', company_id)], order='sequence', limit=1)
             if fsm_project:
-                result['stage_id'] = self.stage_find(fsm_project.id, [('fold', '=', False)])
-                result['project_id'] = fsm_project.id
-                result['company_id'] = company_id
+                context['default_project_id'] = self.env.context.get('default_project_id', fsm_project.id)
+        result = super(Task, self.with_context(context)).default_get(fields_list)
+        if fsm_project:
+            result.update({
+                'company_id': company_id,
+                'stage_id': self.stage_find(fsm_project.id, [('fold', '=', False)])
+            })
         return result
 
     is_fsm = fields.Boolean(related='project_id.is_fsm', search='_search_is_fsm')

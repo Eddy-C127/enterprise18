@@ -72,3 +72,9 @@ class TestFsmFlow(TestIndustryFsmCommon):
     @users('Fsm user')
     def test_fsm_user_can_create_stop_timers_wizard(self):
         self.env['project.task.stop.timers.wizard'].with_user(self.env.user).create({'line_ids': [Command.create({'task_id': self.task.id})]})
+
+    def test_default_user_not_assigned_to_task(self):
+        # Create a task without specifying the assignee.
+        task = self.env['project.task'].with_context(fsm_mode=True).create({'name': 'New Task'})
+        # Ensure that the default user is not set as the assignee.
+        self.assertNotEqual(task.user_ids, self.env.user, "Default user should not be set as the assignee of the task.")
