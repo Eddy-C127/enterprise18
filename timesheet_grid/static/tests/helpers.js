@@ -158,6 +158,7 @@ export class TimesheetGridSetupHelper {
                         ["ghi", "GHI"],
                     ],
                 },
+                display_timer: {string: "Display Timer", type: "boolean"},
                 ...additionalAnalyticLineFields,
             },
             records: [
@@ -167,6 +168,7 @@ export class TimesheetGridSetupHelper {
                     employee_id: employeeId7,
                     date: "2017-01-24",
                     unit_amount: 2.5,
+                    display_timer: true,
                 },
                 {
                     id: 2,

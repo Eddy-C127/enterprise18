@@ -114,7 +114,31 @@ export class TimesheetTimerRendererHook {
     }
 
     async newTimesheetTimer() {
-        return this.propsList.addNewRecord(true);
+        if (this.propsList.addNewRecord) {
+            return this.propsList.addNewRecord(true);
+        }
+        const values = await this.propsList.model._loadNewRecord({
+            resModel: this.propsList.resModel,
+            activeFields: this.propsList.activeFields,
+            fields: this.propsList.fields,
+            context: this.propsList.context,
+        });
+        return new this.propsList.model.constructor.Record(
+            this.propsList.model,
+            {
+                context: this.propsList.context,
+                activeFields: this.propsList.activeFields,
+                resModel: this.propsList.resModel,
+                fields: this.propsList.fields,
+                resId: values.id || false,
+                resIds: values.id ? [values.id] : [],
+                isMonoRecord: true,
+                currentCompanyId: this.propsList.currentCompanyId,
+                mode: "edit",
+            },
+            values,
+            { manuallyAdded: !values.id }
+        );
     }
 
     async _onTimerStarted() {
