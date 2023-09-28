@@ -796,7 +796,7 @@ class HrPayslip(models.Model):
                 else:
                     rule_name = _('Basic Salary')
             elif rule.code == "GROSS":
-                rule_name = _('Gross')
+                rule_name = _('Taxable Salary')
             elif rule.code == "DEDUCTION":
                 rule_name = _('Deduction')
             elif rule.code == "REIMBURSEMENT":

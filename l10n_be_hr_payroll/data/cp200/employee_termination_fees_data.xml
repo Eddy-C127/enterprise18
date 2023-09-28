@@ -522,7 +522,7 @@ result = - result_rules['ONSS']['total']
 
     <record id="cp200_employees_termination_fees_gross" model="hr.salary.rule">
         <field name="category_id" ref="hr_payroll.GROSS"/>
-        <field name="name">GROSS</field>
+        <field name="name">Taxable Salary</field>
         <field name="sequence">70</field>
         <field name="code">GROSS</field>
         <field name="condition_select">none</field>

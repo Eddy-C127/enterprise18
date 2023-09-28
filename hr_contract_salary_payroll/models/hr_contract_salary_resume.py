@@ -9,7 +9,7 @@ class HrContractSalaryResume(models.Model):
 
     def _get_available_fields(self):
         result = super()._get_available_fields()
-        return result + [('BASIC', 'Basic'), ('SALARY', 'Salary'), ('GROSS', 'Gross'), ('NET', 'Net')]
+        return result + [('BASIC', 'Basic'), ('SALARY', 'Salary'), ('GROSS', 'Taxable Salary'), ('NET', 'Net')]
 
     code = fields.Selection(_get_available_fields)
     value_type = fields.Selection(selection_add=[
