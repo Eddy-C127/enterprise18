@@ -150,7 +150,7 @@ class TestLuSaftReport(TestAccountReportsCommon):
                             <Account>
                                 <AccountID>___ignore___</AccountID>
                                 <AccountDescription>Suppliers (copy)</AccountDescription>
-                                <StandardAccountID>441140</StandardAccountID>
+                                <StandardAccountID>441111</StandardAccountID>
                                 <AccountType>Payable</AccountType>
                                 <OpeningCreditBalance>9360.00</OpeningCreditBalance>
                                 <ClosingCreditBalance>9360.00</ClosingCreditBalance>

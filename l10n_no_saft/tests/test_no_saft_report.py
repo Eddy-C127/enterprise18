@@ -134,7 +134,7 @@ class TestNoSaftReport(TestAccountReportsCommon):
                             <Account>
                                 <AccountID>___ignore___</AccountID>
                                 <AccountDescription>Accounts payable (copy)</AccountDescription>
-                                <StandardAccountID>2410</StandardAccountID>
+                                <StandardAccountID>2401</StandardAccountID>
                                 <AccountType>GL</AccountType>
                                 <OpeningCreditBalance>10000.00</OpeningCreditBalance>
                                 <ClosingCreditBalance>10000.00</ClosingCreditBalance>

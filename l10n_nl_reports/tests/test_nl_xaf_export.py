@@ -97,7 +97,7 @@ class TestNlXafExport(TestAccountReportsCommon):
                                 <changeDescription>___ignore___</changeDescription>
                             </changeInfo>
                         </ledgerAccount><ledgerAccount>
-                            <accID>130010</accID>
+                            <accID>130001</accID>
                             <accDesc>Creditors (copy)</accDesc>
                             <accTp>B</accTp>
                             <changeInfo>
@@ -239,7 +239,7 @@ class TestNlXafExport(TestAccountReportsCommon):
                             <amntTp>C</amntTp>
                         </obLine><obLine>
                             <nr>___ignore___</nr>
-                            <accID>110010</accID>
+                            <accID>110001</accID>
                             <amnt>1452.0</amnt>
                             <amntTp>D</amntTp>
                         </obLine>
@@ -615,7 +615,7 @@ class TestNlXafExport(TestAccountReportsCommon):
                                     </currency>
                                 </trLine><trLine>
                                     <nr>___ignore___</nr>
-                                    <accID>130010</accID>
+                                    <accID>130001</accID>
                                     <docRef>/</docRef>
                                     <effDate>2019-01-01</effDate>
                                     <desc>installment #1</desc>
@@ -629,7 +629,7 @@ class TestNlXafExport(TestAccountReportsCommon):
                                     </currency>
                                 </trLine><trLine>
                                     <nr>___ignore___</nr>
-                                    <accID>130010</accID>
+                                    <accID>130001</accID>
                                     <docRef>/</docRef>
                                     <effDate>2019-01-01</effDate>
                                     <desc>installment #2</desc>

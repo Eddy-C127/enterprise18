@@ -132,7 +132,7 @@ class TestDKReport(TestAccountReportsCommon):
         expected_values = (
             ('KONTONUMMER', 'KONTONAVN', 'VAERDI'),
             ('6190', 'Trade and other receivables', '6250'),
-            ('7200', 'Other payables - long-term (copy)', '-10000'),
+            ('7191', 'Other payables - long-term (copy)', '-10000'),
             ('7680', 'Sales tax', '-1250'),
             ('7740', 'VAT on purchases', '2000'),
             ('999999', 'Undistributed Profits/Losses', '3000'),
