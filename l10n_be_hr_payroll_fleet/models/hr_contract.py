@@ -238,6 +238,13 @@ class HrContract(models.Model):
         if self.transport_mode_car:
             self.new_car = False
             self.new_car_model_id = False
+            self.has_bicycle = False
+
+    @api.onchange('has_bicycle')
+    def _onchange_has_bicycle(self):
+        if self.has_bicycle:
+            self.transport_mode_car = False
+            self.car_id = False
 
     def _get_fields_that_recompute_payslip(self):
         # Returns the fields that should recompute the payslip

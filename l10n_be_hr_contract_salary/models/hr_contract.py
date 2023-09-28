@@ -6,6 +6,7 @@ import ast
 from markupsafe import Markup
 
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class HrContract(models.Model):
@@ -206,3 +207,9 @@ class HrContract(models.Model):
             'ip': True,
             'ip_wage_rate': contract.ip_wage_rate
         }
+
+    @api.constrains('company_car_total_depreciated_cost', 'company_bike_depreciated_cost')
+    def _check_car_and_bike(self):
+        for contract in self:
+            if contract.company_car_total_depreciated_cost and contract.company_bike_depreciated_cost:
+                raise ValidationError(_("You cannot select both Company Car and Company Bike."))

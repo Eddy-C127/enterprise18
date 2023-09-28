@@ -7,6 +7,7 @@ hrContractSalary.include({
         "change input[name='has_hospital_insurance_radio']": "onchangeHospital",
         "change input[name='fold_company_car_total_depreciated_cost']": "onchangeCompanyCar",
         "change input[name='fold_private_car_reimbursed_amount']": "onchangePrivateCar",
+        "change input[name='fold_company_bike_depreciated_cost']": "onchangeCompanyBike",
         "change input[name='l10n_be_has_ambulatory_insurance_radio']": "onchangeAmbulatory",
         "change input[name='children']": "onchangeChildren",
     }),
@@ -27,9 +28,21 @@ hrContractSalary.include({
         if (event.target.checked && private_car_input.length && private_car_input[0].checked) {
             private_car_input.click()
         }
+
+        var company_bike_input = $("input[name='fold_company_bike_depreciated_cost']")
+        if (event.target.checked && company_bike_input.length && company_bike_input[0].checked) {
+            company_bike_input.click()
+        }
     },
 
     onchangePrivateCar: function(event) {
+        var company_car_input = $("input[name='fold_company_car_total_depreciated_cost']")
+        if (event.target.checked && company_car_input.length && company_car_input[0].checked) {
+            company_car_input.click()
+        }
+    },
+
+    onchangeCompanyBike: function(event) {
         var company_car_input = $("input[name='fold_company_car_total_depreciated_cost']")
         if (event.target.checked && company_car_input.length && company_car_input[0].checked) {
             company_car_input.click()
