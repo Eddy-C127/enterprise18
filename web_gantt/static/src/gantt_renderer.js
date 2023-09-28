@@ -43,6 +43,7 @@ import { GanttPopover } from "./gantt_popover";
 import { GanttResizeBadge } from "./gantt_resize_badge";
 import { GanttRowProgressBar } from "./gantt_row_progress_bar";
 import { computeRange } from "./gantt_model";
+import { browser } from "@web/core/browser/browser";
 
 const { DateTime } = luxon;
 
@@ -602,7 +603,7 @@ export class GanttRenderer extends Component {
     computeColumnWidth() {
         const { cellPart } = this.model.metaData.scale;
         const subColumnCount = this.columns.length * cellPart;
-        const totalWidth = window.innerWidth;
+        const totalWidth = browser.innerWidth;
         const rowHeaderWidthPercentage = this.constructor.getRowHeaderWidth(totalWidth);
         const cellContainerWidthPercentage = 100 - rowHeaderWidthPercentage;
         let cellContainerWidth = totalWidth * (cellContainerWidthPercentage / 100);
@@ -1410,9 +1411,15 @@ export class GanttRenderer extends Component {
     }
 
     onWillRender() {
+        if (this.noDisplayedConnectors && this.shouldRenderConnectors()) {
+            delete this.noDisplayedConnectors;
+            this.computeDerivedParams();
+        }
+
         this.visibleRows = [...new Set([...toRaw(this.virtualRows), ...this.extraRows])];
 
         if (!this.shouldRenderConnectors()) {
+            this.noDisplayedConnectors = true;
             return;
         }
 
