@@ -354,7 +354,7 @@ class CalendarEvent(models.Model):
 
     def _track_template(self, changes):
         res = super(CalendarEvent, self)._track_template(changes)
-        if not self.appointment_type_id:
+        if not self.appointment_type_id or self._skip_send_mail_status_update():
             return res
 
         appointment_type_sudo = self.appointment_type_id.sudo()

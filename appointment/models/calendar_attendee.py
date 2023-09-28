@@ -34,7 +34,8 @@ class Attendee(models.Model):
                 # groupby returns a list -> convert back to a recordset
                 calendar_attendees = self.env['calendar.attendee'].concat(*attendees)
                 super(Attendee, calendar_attendees).with_context(mail_notify_author=True)._send_mail_to_attendees(
-                    appointment_type.booked_mail_template_id
+                    appointment_type.booked_mail_template_id,
+                    force_send=True,
                 )
 
     def _should_notify_attendee(self):

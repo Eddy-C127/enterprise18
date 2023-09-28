@@ -23,6 +23,7 @@ class TestAppointmentEventNotifications(AppointmentCommon):
             for the invitation. No mail is sent for basic event for the cancellation because it's only
             sent for appointment when the event is archive (c.f. CalendarEvent._track_template() in appointment module)
         """
+        self.env['ir.config_parameter'].sudo().set_param('mail.mail_force_send_limit', None)
         all_recipients = self.staff_user_bxls.partner_id + self.user_portal.partner_id
         for appointment_type_id, invite_recipients, nb_invitation, cancel_recipients, nb_cancellation in [
             (self.apt_type_bxls_2days.id, all_recipients, 2, all_recipients, 2),
@@ -53,7 +54,7 @@ class TestAppointmentEventNotifications(AppointmentCommon):
                     })
                 invitation_mails = self.env['mail.mail']
                 for recipient in invite_recipients:
-                    invitation_mails |= self.assertMailMail(recipient, "outgoing", author=self.staff_user_bxls.partner_id)
+                    invitation_mails |= self.assertMailMail(recipient, "sent", author=self.staff_user_bxls.partner_id)
                 self.assertEqual(len(invitation_mails), nb_invitation)
                 self.flush_tracking()  # Flush possible mail tracking values before cancellation
 

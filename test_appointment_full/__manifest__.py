@@ -15,6 +15,8 @@ Take into account the working schedule (sick leaves, part time, ...) of employee
     'depends': [
         'appointment_crm',
         'appointment_hr',
+        'google_calendar',
+        'microsoft_calendar',
         'website_appointment',
     ],
     'license': 'OEEL-1',
