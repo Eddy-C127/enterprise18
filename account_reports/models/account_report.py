@@ -4822,9 +4822,13 @@ class AccountReport(models.Model):
         else:
             reports_to_print = self
 
+        reports_options = []
         for report in reports_to_print:
             report_options = report.get_options(previous_options={**print_options, 'selected_section_id': report.id})
+            reports_options.append(report_options)
             report._inject_report_into_xlsx_sheet(report_options, workbook, workbook.add_worksheet(report.name[:31]))
+
+        self._add_options_xlsx_sheet(workbook, reports_options)
 
         workbook.close()
         output.seek(0)
@@ -4961,6 +4965,127 @@ class AccountReport(models.Model):
                     sheet.write_datetime(y + y_offset, x + lines[y].get('colspan', 1) - 1, cell_value, date_default_style)
                 else:
                     sheet.write(y + y_offset, x + lines[y].get('colspan', 1) - 1, cell_value, style)
+
+    def _add_options_xlsx_sheet(self, workbook, options_list):
+        """Adds a new sheet for xlsx report exports with a summary of all filters and options activated at the moment of the export."""
+        filters_sheet = workbook.add_worksheet(_("Filters"))
+        # Set first and second column widths.
+        filters_sheet.set_column(0, 0, 20)
+        filters_sheet.set_column(1, 1, 50)
+        name_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'bottom': 2})
+        y_offset = 0
+
+        if len(options_list) == 1:
+            self.env['account.report'].browse(options_list[0]['report_id'])._inject_report_options_into_xlsx_sheet(options_list[0], filters_sheet, y_offset)
+            return
+
+        # Find uncommon keys
+        options_sets = list(map(set, options_list))
+        common_keys = set.intersection(*options_sets)
+        all_keys = set.union(*options_sets)
+        uncommon_options_keys = all_keys - common_keys
+        # Try to find the common filter values between all reports to avoid duplication.
+        common_options_values = {}
+        for key in common_keys:
+            first_value = options_list[0][key]
+            if all(options[key] == first_value for options in options_list[1:]):
+                common_options_values[key] = first_value
+            else:
+                uncommon_options_keys.add(key)
+
+        # Write common options to the sheet.
+        filters_sheet.write(y_offset, 0, _("All"), name_style)
+        y_offset += 1
+        y_offset = self._inject_report_options_into_xlsx_sheet(common_options_values, filters_sheet, y_offset)
+
+        for report_options in options_list:
+            report = self.env['account.report'].browse(report_options['report_id'])
+
+            filters_sheet.write(y_offset, 0, _("%s", report.name), name_style)
+            y_offset += 1
+            new_offset = report._inject_report_options_into_xlsx_sheet(report_options, filters_sheet, y_offset, uncommon_options_keys)
+
+            if y_offset == new_offset:
+                y_offset -= 1
+                # Clear the report name's cell since it didn't add any data to the xlsx.
+                filters_sheet.write(y_offset, 0, " ")
+            else:
+                y_offset = new_offset
+
+    def _inject_report_options_into_xlsx_sheet(self, options, sheet, y_offset, options_to_print=None):
+        """
+        Injects the report options into the filters sheet.
+
+        :param options: Dictionary containing report options.
+        :param sheet: XLSX sheet to inject options into.
+        :param y_offset: Offset for the vertical position in the sheet.
+        :param options_to_print: Optional list of names to print. If not provided, all printable options will be included.
+        """
+        def write_filter_lines(filter_title, filter_lines, y_offset):
+            sheet.write(y_offset, 0, filter_title)
+            for line in filter_lines:
+                sheet.write(y_offset, 1, line)
+                y_offset += 1
+            return y_offset
+
+        def should_print_option(option_key):
+            """Check if the option should be printed based on options_to_print."""
+            return not options_to_print or option_key in options_to_print
+
+        # Company
+        if should_print_option('companies'):
+            companies = options['companies']
+            title = _("Companies") if len(companies) > 1 else _("Company")
+            lines = [company['name'] for company in companies]
+            y_offset = write_filter_lines(title, lines, y_offset)
+
+        # Journals
+        if should_print_option('journals') and (journals := options.get('journals')):
+            journal_titles = [journal.get('title') for journal in journals if journal.get('selected')]
+            if journal_titles:
+                y_offset = write_filter_lines(_("Journals"), journal_titles, y_offset)
+
+        # Partners
+        if should_print_option('selected_partner_ids') and (partner_names := options.get('selected_partner_ids')):
+            y_offset = write_filter_lines(_("Partners"), partner_names, y_offset)
+
+        # Partner categories
+        if should_print_option('selected_partner_categories') and (partner_categories := options.get('selected_partner_categories')):
+            y_offset = write_filter_lines(_("Partner Categories"), partner_categories, y_offset)
+
+        # Horizontal groups
+        if should_print_option('selected_horizontal_group_id') and (group_id := options.get('selected_horizontal_group_id')):
+            for horizontal_group in options['available_horizontal_groups']:
+                if horizontal_group['id'] == group_id:
+                    filter_name = horizontal_group['name']
+                    y_offset = write_filter_lines(_("Horizontal Group"), [filter_name], y_offset)
+                    break
+
+        # Currency
+        if should_print_option('company_currency') and options.get('company_currency'):
+            y_offset = write_filter_lines(_("Company Currency"), [options['company_currency']['currency_name']], y_offset)
+
+        # Filters
+        if should_print_option('aml_ir_filters'):
+            if options.get('aml_ir_filters') and any(opt['selected'] for opt in options['aml_ir_filters']):
+                filter_names = [opt['name'] for opt in options['aml_ir_filters'] if opt['selected']]
+                y_offset = write_filter_lines(_("Filters"), filter_names, y_offset)
+
+        # Extra options
+        # Array of tuples for the extra options: (name, option_key, condition)
+        extra_options = [
+            (_("With Draft Entries"), 'all_entries', self.filter_show_draft),
+            (_("Only Show Unreconciled Entries"), 'unreconciled', self.filter_unreconciled),
+            (_("Including Analytic Simulations"), 'include_analytic_without_aml', True)
+        ]
+        filter_names = [
+            name for name, option_key, condition in extra_options
+            if (not options_to_print or option_key in options_to_print) and condition and options.get(option_key)
+        ]
+        if filter_names:
+            y_offset = write_filter_lines(_("Options"), filter_names, y_offset)
+
+        return y_offset
 
     def _get_cell_type_value(self, cell):
         if 'date' not in cell.get('class', '') or not cell.get('name'):
