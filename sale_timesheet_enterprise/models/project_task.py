@@ -39,7 +39,7 @@ class ProjectTask(models.Model):
             # Unpacking `subtask_ids_per_task_id` values in `set.union` seems to be the appropriate method:
             # >>> set.union({}, [2, 4], [4], [], [1, 2, 3]) = {2, 4, 1, 3}
             all_task_ids = set.union(set(), *subtask_ids_per_task_id.values(), self.ids)
-            timesheet_read_group = self.env['account.analytic.line']._read_group(
+            timesheet_read_group = self.env['account.analytic.line'].sudo()._read_group(
                 [
                     ('project_id', '!=', False),
                     ('task_id', 'in', list(all_task_ids)),
