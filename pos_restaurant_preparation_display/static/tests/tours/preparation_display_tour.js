@@ -4,6 +4,7 @@ import * as PaymentScreen from "@point_of_sale/../tests/tours/helpers/PaymentScr
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/helpers/ReceiptScreenTourMethods";
 import * as FloorScreen from "@pos_restaurant/../tests/tours/helpers/FloorScreenTourMethods";
 import * as ProductScreenPos from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
+import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
 import * as ProductScreenResto from "@pos_restaurant/../tests/tours/helpers/ProductScreenTourMethods";
 const ProductScreen = { ...ProductScreenPos, ...ProductScreenResto };
 import { registry } from "@web/core/registry";
@@ -13,7 +14,7 @@ registry.category("web_tour.tours").add("PreparationDisplayTourResto", {
     url: "/pos/ui",
     steps: () =>
         [
-            ProductScreen.confirmOpeningPopup(),
+            Dialog.confirm("Open session"),
 
             // Create first order
             FloorScreen.clickTable("5"),

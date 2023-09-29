@@ -2,7 +2,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { RPCError } from "@web/core/network/rpc_service";
 import { PaymentInterface } from "@point_of_sale/app/payment/payment_interface";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
 export class PaymentIngenico extends PaymentInterface {
     get_terminal() {
@@ -71,7 +71,7 @@ export class PaymentIngenico extends PaymentInterface {
     }
     _onActionResult(data) {
         if (data.result === false) {
-            this.env.services.popup.add(ErrorPopup, {
+            this.env.services.dialog.add(AlertDialog, {
                 title: _t("Connection to terminal failed"),
                 body: _t("Please check if the terminal is still connected."),
             });
@@ -81,7 +81,7 @@ export class PaymentIngenico extends PaymentInterface {
         }
     }
     _onActionFail() {
-        this.env.services.popup.add(ErrorPopup, {
+        this.env.services.dialog.add(AlertDialog, {
             title: _t("Connection to IoT Box failed"),
             body: _t("Please check if the IoT Box is still connected."),
         });
@@ -90,7 +90,7 @@ export class PaymentIngenico extends PaymentInterface {
         }
     }
     _showErrorConfig() {
-        this.env.services.popup.add(ErrorPopup, {
+        this.env.services.dialog.add(AlertDialog, {
             title: _t("Configuration of payment terminal failed"),
             body: _t("You must select a payment terminal in your POS config."),
         });
@@ -98,7 +98,7 @@ export class PaymentIngenico extends PaymentInterface {
 
     _waitingPayment(resolve, data, line) {
         if (data.Error) {
-            this.env.services.popup.add(ErrorPopup, {
+            this.env.services.dialog.add(AlertDialog, {
                 title: _t("Payment terminal error"),
                 body: _t(data.Error),
             });
@@ -180,7 +180,7 @@ export class PaymentWorldline extends PaymentIngenico {
                 // Cancel failed, wait for transaction response
                 this.cancel_resolve(false);
                 line.set_payment_status("waitingCard");
-                this.env.services.popup.add(ErrorPopup, {
+                this.env.services.dialog.add(AlertDialog, {
                     title: _t("Transaction could not be cancelled"),
                     body: data.Error,
                 });
@@ -192,7 +192,7 @@ export class PaymentWorldline extends PaymentIngenico {
         } else if (data.Disconnected) {
             // Terminal disconnected
             line.set_payment_status("force_done");
-            this.env.services.popup.add(ErrorPopup, {
+            this.env.services.dialog.add(AlertDialog, {
                 title: _t("Terminal Disconnected"),
                 body: _t(
                     "Please check the network connection and then check the status of the last transaction manually."

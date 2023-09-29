@@ -2,7 +2,7 @@
 
 import { patch } from "@web/core/utils/patch";
 import { PosStore } from "@point_of_sale/app/store/pos_store";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 
 patch(PosStore.prototype, {
@@ -59,10 +59,9 @@ patch(PosStore.prototype, {
         // otherwise the user has already received a popup telling him
         // that this functionality will be limited.
         if (!result && this.synch.status === "connected") {
-            await this.popup.add(ErrorPopup, {
+            this.dialog.add(AlertDialog, {
                 title: _t("Send failed"),
                 body: _t("Failed in sending the changes to preparation display"),
-                sound: false,
             });
         }
 

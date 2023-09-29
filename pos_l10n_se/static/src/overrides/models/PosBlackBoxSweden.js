@@ -1,9 +1,9 @@
 /** @odoo-module */
 import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { Order, Orderline } from "@point_of_sale/app/store/models";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
 const { DateTime } = luxon;
 import { deserializeDateTime } from "@web/core/l10n/dates";
 
@@ -38,7 +38,7 @@ patch(PosStore.prototype, {
                 }
                 this.setDataForPushOrderFromSwedenBlackBox(order, data);
             } catch (err) {
-                this.env.services.popup.add(ErrorPopup, {
+                this.env.services.dialog.add(AlertDialog, {
                     title: _t("Blackbox error"),
                     body: _t(err.status.message_title ? err.status.message_title : err.status),
                 });
@@ -127,7 +127,7 @@ patch(Order.prototype, {
     },
     async add_product(product, options) {
         if (this.pos.useBlackBoxSweden() && product.taxes_id.length === 0) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.env.services.dialog(AlertDialog, {
                 title: _t("POS error"),
                 body: _t("Product has no tax associated with it."),
             });
@@ -135,19 +135,19 @@ patch(Order.prototype, {
             this.pos.useBlackBoxSweden() &&
             !this.pos.taxes_by_id[product.taxes_id[0]].sweden_identification_letter
         ) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.env.services.dialog(AlertDialog, {
                 title: _t("POS error"),
                 body: _t(
                     "Product has an invalid tax amount. Only 25%, 12%, 6% and 0% are allowed."
                 ),
             });
         } else if (this.pos.useBlackBoxSweden() && this.pos.get_order().is_refund) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.env.services.dialog(AlertDialog, {
                 title: _t("POS error"),
                 body: _t("Cannot modify a refund order."),
             });
         } else if (this.pos.useBlackBoxSweden() && this.hasNegativeAndPositiveProducts(product)) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.env.services.dialog(AlertDialog, {
                 title: _t("POS error"),
                 body: _t("You can only make positive or negative order. You cannot mix both."),
             });

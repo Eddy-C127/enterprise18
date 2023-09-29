@@ -5,6 +5,7 @@ import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
 import * as Order from "@point_of_sale/../tests/tours/helpers/generic_components/OrderWidgetMethods";
+import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
 
 class PosScaleDummy {
     action() {}
@@ -33,6 +34,7 @@ registry.category("web_tour.tours").add("pos_iot_scale_tour", {
         {
             trigger: ".o_pos_kanban button.oe_kanban_action_button",
         },
+        Dialog.confirm("Open session"),
         {
             trigger: ".pos .pos-content",
             run: function () {
@@ -40,9 +42,6 @@ registry.category("web_tour.tours").add("pos_iot_scale_tour", {
             },
         },
         ...ProductScreen.clickHomeCategory(),
-        {
-            trigger: '.opening-cash-control .button:contains("Open session")',
-        },
         {
             trigger: '.product:contains("Whiteboard Pen")',
         },
@@ -53,18 +52,5 @@ registry.category("web_tour.tours").add("pos_iot_scale_tour", {
             trigger: ".buy-product",
         },
         ...Order.hasLine({ quantity: "2.35" }),
-        {
-            trigger: ".menu-button",
-        },
-        {
-            trigger: ".close-button",
-        },
-        {
-            trigger: ".menu-button",
-        },
-        {
-            trigger: ".close-button",
-            run: function () {}, //it's a check,
-        },
     ],
 });

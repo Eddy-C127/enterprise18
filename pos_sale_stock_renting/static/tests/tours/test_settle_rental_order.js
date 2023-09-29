@@ -5,6 +5,7 @@ import * as ProductScreenSale from "@pos_sale/../tests/helpers/ProductScreenTour
 const ProductScreen = { ...ProductScreenPos, ...ProductScreenSale };
 import * as PaymentScreen from "@point_of_sale/../tests/tours/helpers/PaymentScreenTourMethods";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/helpers/ReceiptScreenTourMethods";
+import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
 import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add("OrderLotsRentalTour", {
@@ -12,32 +13,14 @@ registry.category("web_tour.tours").add("OrderLotsRentalTour", {
     url: "/pos/ui",
     steps: () =>
         [
+            Dialog.confirm("Open session"),
             ProductScreen.clickQuotationButton(),
             ProductScreen.selectFirstOrder(),
-            enterSerialNumber("123456789"),
+            ProductScreen.clickLotIcon(),
+            ProductScreen.enterLotNumber("123456789"),
             ProductScreen.clickPayButton(),
             PaymentScreen.clickPaymentMethod("Cash"),
             PaymentScreen.clickValidate(),
             ReceiptScreen.isShown(),
         ].flat(),
 });
-
-export function enterSerialNumber(serialNumber) {
-    return [
-        {
-            content: `click serial number icon'`,
-            trigger: ".line-lot-icon",
-            run: "click",
-        },
-        {
-            content: `insert serial number '${serialNumber}'`,
-            trigger: ".popup-input.list-line-input",
-            run: "text " + serialNumber,
-        },
-        {
-            content: `click validate button'`,
-            trigger: ".button.confirm",
-            run: "click",
-        },
-    ];
-}

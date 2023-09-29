@@ -1,8 +1,9 @@
 /** @odoo-module */
 
 import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
-import { TextAreaPopup } from "@point_of_sale/app/utils/input_popups/textarea_popup";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { TextInputPopup } from "@point_of_sale/app/utils/input_popups/text_input_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
+import { makeAwaitable } from "@point_of_sale/app/store/make_awaitable_dialog";
 import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
 
@@ -35,7 +36,7 @@ patch(PaymentScreen.prototype, {
                 this.currentOrder._isRefundOrder() &&
                 this.currentOrder.get_partner().id === this.pos.consumidorFinalAnonimoId
             ) {
-                this.popup.add(ErrorPopup, {
+                this.dialog.add(AlertDialog, {
                     title: _t("Refund not possible"),
                     body: _t("You cannot refund orders for the Consumidor Final Anònimo."),
                 });
@@ -56,9 +57,7 @@ patch(PaymentScreen.prototype, {
                 }
             }
             if (missingFields.length > 0) {
-                this.notification.add(
-                    _t("Please fill out missing fields to proceed.", 5000)
-                );
+                this.notification.add(_t("Please fill out missing fields to proceed.", 5000));
                 this.selectPartner(true, missingFields);
                 return false;
             }
@@ -71,16 +70,14 @@ patch(PaymentScreen.prototype, {
             this.pos.isChileanCompany() &&
             this.paymentLines.some((line) => line.payment_method.is_card_payment)
         ) {
-            const { confirmed, payload } = await this.popup.add(TextAreaPopup, {
-                confirmText: _t("Confirm"),
-                cancelText: _t("Cancel"),
+            const voucherNumber = await makeAwaitable(this.dialog, TextInputPopup, {
+                rows: 4,
                 title: _t("Please register the voucher number"),
             });
-
-            if (!confirmed) {
+            if (!voucherNumber) {
                 return;
             }
-            this.currentOrder.voucherNumber = payload;
+            this.currentOrder.voucherNumber = voucherNumber;
         }
         await super.validateOrder(arguments);
     },

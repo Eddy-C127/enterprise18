@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
+import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
 
 registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order", {
     test: true,
@@ -14,7 +14,7 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order", {
             content: "Open POS session from backend",
             trigger: "button[name='open_ui']",
         },
-        ...ProductScreen.confirmOpeningPopup(),
+        Dialog.confirm("Open session"),
         {
             content: "Select a product",
             trigger: "div.product-content:contains('product_mx')",
@@ -37,10 +37,7 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order", {
             trigger: "select[name='l10n_mx_edi_cfdi_to_public']",
             run: "text 1",
         },
-        {
-            content: "Confirm and close the popup",
-            trigger: ".button.confirm",
-        },
+        Dialog.confirm(),
         {
             content: "Open the list of customers",
             trigger: "span:contains('Customer')",

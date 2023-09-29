@@ -2,7 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
 export class TaxError extends Error {
     constructor(product) {
@@ -14,7 +14,7 @@ export class TaxError extends Error {
 
 function taxErrorHandler(env, _error, originalError) {
     if (originalError instanceof TaxError) {
-        env.services.popup.add(ErrorPopup, {
+        env.services.dialog.add(AlertDialog, {
             title: _t("Tax Error"),
             body: originalError.message,
         });

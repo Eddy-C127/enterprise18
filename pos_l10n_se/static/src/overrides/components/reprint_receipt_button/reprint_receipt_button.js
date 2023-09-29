@@ -2,15 +2,15 @@
 
 import { ReprintReceiptButton } from "@point_of_sale/app/screens/ticket_screen/reprint_receipt_button/reprint_receipt_button";
 import { patch } from "@web/core/utils/patch";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
 
 patch(ReprintReceiptButton.prototype, {
     setup() {
         super.setup(...arguments);
-        this.popup = useService("popup");
         this.orm = useService("orm");
+        this.dialog = useService("dialog");
     },
     async _onClick() {
         if (this.pos.useBlackBoxSweden()) {
@@ -21,7 +21,7 @@ patch(ReprintReceiptButton.prototype, {
                     [this.pos.validated_orders_name_server_id_map[order.name]],
                 ]);
                 if (isReprint) {
-                    await this.popup.add(ErrorPopup, {
+                    this.dialog.add(AlertDialog, {
                         title: _t("POS error"),
                         body: _t("A duplicate has already been printed once."),
                     });

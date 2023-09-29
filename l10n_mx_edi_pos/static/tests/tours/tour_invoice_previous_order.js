@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
+import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
 
 registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_order", {
     test: true,
@@ -14,7 +14,7 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
             content: "Open POS session from backend",
             trigger: "button[name='open_ui']",
         },
-        ...ProductScreen.confirmOpeningPopup(),
+        Dialog.confirm("Open session"),
         {
             content: "Select a product",
             trigger: "div.product-content:contains('product_mx')",
@@ -59,10 +59,7 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
             content: "Ask an invoice for this order",
             trigger: "button.control-button:contains('Invoice')",
         },
-        {
-            content: "Do you want to select a customer ? Yes",
-            trigger: "div.button.confirm:contains('Ok')",
-        },
+        Dialog.confirm(),
         {
             content: "Select first partner in the list",
             trigger: "tr.partner-line:first",
@@ -77,10 +74,7 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
             trigger: "select[name='l10n_mx_edi_cfdi_to_public']",
             run: "text 1",
         },
-        {
-            content: "Confirm and close the popup",
-            trigger: ".button.confirm",
-        },
+        Dialog.confirm(),
         {
             content: "The 'Invoice' button should have now turned to 'Reprint Invoice'",
             trigger: "span:contains('Reprint Invoice')",

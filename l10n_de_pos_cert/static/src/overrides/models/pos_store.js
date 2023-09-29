@@ -3,9 +3,8 @@
 import { Order } from "@point_of_sale/app/store/models";
 import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { patch } from "@web/core/utils/patch";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
-import { OfflineErrorPopup } from "@point_of_sale/app/errors/popups/offline_error_popup";
-import { ConfirmPopup } from "@point_of_sale/app/utils/confirm_popup/confirm_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
+import { ask } from "@point_of_sale/app/store/make_awaitable_dialog";
 import { _t } from "@web/core/l10n/translation";
 
 const RATE_ID_MAPPING = {
@@ -200,7 +199,7 @@ patch(PosStore.prototype, {
         if (error.status === 0) {
             const title = _t("No internet");
             const body = message.noInternet;
-            await this.popup.add(OfflineErrorPopup, { title, body });
+            this.dialog.add(AlertDialog, { title, body });
         } else if (error.status === 401 && error.source === "authenticate") {
             await this._showUnauthorizedPopup();
         } else if (
@@ -217,11 +216,11 @@ patch(PosStore.prototype, {
         } else {
             const title = _t("Unknown error");
             const body = message.unknown;
-            await this.popup.add(ErrorPopup, { title, body });
+            this.dialog.add(AlertDialog, { title, body });
         }
     },
     async showFiskalyNoInternetConfirmPopup(event) {
-        const { confirmed } = await this.popup.add(ConfirmPopup, {
+        const confirmed = await ask(this.dialog, {
             title: _t("Problem with internet"),
             body: _t(
                 "You can either wait for the connection issue to be resolved or continue with a non-compliant receipt (the order will still be sent to Fiskaly once the connection issue is resolved).\n" +
@@ -235,14 +234,14 @@ patch(PosStore.prototype, {
     async _showBadRequestPopup(data) {
         const title = _t("Bad request");
         const body = _t("Your %s is incorrect. Update it in your PoS settings", data);
-        await this.popup.add(ErrorPopup, { title, body });
+        this.dialog.add(AlertDialog, { title, body });
     },
     async _showUnauthorizedPopup() {
         const title = _t("Unauthorized error to Fiskaly");
         const body = _t(
             "It seems that your Fiskaly API key and/or secret are incorrect. Update them in your company settings."
         );
-        await this.popup.add(ErrorPopup, { title, body });
+        this.dialog.add(AlertDialog, { title, body });
     },
     async _showTaxError() {
         const rates = Object.keys(this.vatRateMapping);
@@ -259,6 +258,6 @@ patch(PosStore.prototype, {
                 "There was an error while loading the Germany taxes. Try again later or your Fiskaly API key and secret might have been corrupted, request new ones"
             );
         }
-        await this.popup.add(ErrorPopup, { title, body });
+        this.dialog.add(AlertDialog, { title, body });
     },
 });

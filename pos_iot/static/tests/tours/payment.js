@@ -4,6 +4,7 @@
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
+import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
 import * as Numpad from "@point_of_sale/../tests/tours/helpers/NumpadTourMethods";
 import * as Order from "@point_of_sale/../tests/tours/helpers/generic_components/OrderWidgetMethods";
 import { inLeftSide } from "@point_of_sale/../tests/tours/helpers/utils";
@@ -69,6 +70,8 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
             content: "Start session",
             trigger: ".o_pos_kanban button.oe_kanban_action_button",
         },
+        // PART 1: Pay exactly the price of order. Should automatically go to receipt screen.
+        Dialog.confirm("Open session"),
         {
             content: "Waiting for loading to finish",
             trigger: ".pos .pos-content",
@@ -80,11 +83,6 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
                     }
                 });
             },
-        },
-        {
-            // PART 1: Pay exactly the price of order. Should automatically go to receipt screen.
-            content: "cash control",
-            trigger: ".opening-cash-control footer .button",
         },
         ...ProductScreen.clickHomeCategory(),
         {

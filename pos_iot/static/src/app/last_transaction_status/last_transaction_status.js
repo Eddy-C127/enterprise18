@@ -1,6 +1,6 @@
 /** @odoo-module */
-import { AbstractAwaitablePopup } from "@point_of_sale/app/popup/abstract_awaitable_popup";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { Dialog } from "@web/core/dialog/dialog";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
 import { useState, Component } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
@@ -16,9 +16,9 @@ export class LastTransactionStatusButton extends Component {
     static template = "pos_iot.LastTransactionStatusButton";
 
     setup() {
-        this.popup = useService("popup");
         this.state = useState({ pending: false });
         this.pos = usePos();
+        this.dialog = useService("dialog");
     }
 
     sendLastTransactionStatus() {
@@ -28,7 +28,7 @@ export class LastTransactionStatusButton extends Component {
 
         const status = this.pos.get_order()?.selected_paymentline?.payment_status;
         if (status && ["waiting", "waitingCard", "waitingCancel"].includes(status)) {
-            this.popup.add(ErrorPopup, {
+            this.dialog.add(AlertDialog, {
                 title: _t("Electronic payment in progress"),
                 body: _t(
                     "You cannot check the status of the last transaction when a payment in in progress."
@@ -51,7 +51,7 @@ export class LastTransactionStatusButton extends Component {
 
     _onLastTransactionStatus(data) {
         this.state.pending = false;
-        this.popup.add(LastTransactionPopup, data.value);
+        this.dialog.add(LastTransactionPopup, data.value);
     }
 }
 
@@ -61,7 +61,7 @@ export class LastTransactionStatusButton extends Component {
  * Displays the result of the last transaction processed by the connected
  * Worldline payment terminal
  */
-export class LastTransactionPopup extends AbstractAwaitablePopup {
+export class LastTransactionPopup extends Component {
     static template = "pos_iot.LastTransactionPopup";
-    static defaultProps = { cancelKey: false };
+    static components = { Dialog };
 }

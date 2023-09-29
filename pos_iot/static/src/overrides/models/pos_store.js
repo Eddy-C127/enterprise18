@@ -2,7 +2,7 @@
 
 import { patch } from "@web/core/utils/patch";
 import { PosStore, register_payment_method } from "@point_of_sale/app/store/pos_store";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
 import { DeviceController } from "@iot/device_controller";
@@ -62,7 +62,7 @@ patch(PosStore.prototype, {
                         ["waiting", "waitingCard", "waitingCancel"].includes(pl.payment_status)
                 )
         ) {
-            this.popup.add(ErrorPopup, {
+            this.dialog.add(AlertDialog, {
                 title: _t("Transaction in progress"),
                 body: _t("Please process or cancel the current transaction."),
             });

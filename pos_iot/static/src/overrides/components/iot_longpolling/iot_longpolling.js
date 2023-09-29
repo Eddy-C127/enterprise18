@@ -1,25 +1,21 @@
 /** @odoo-module */
 /* global posmodel */
 
-import { _t } from "@web/core/l10n/translation";
 import { IoTLongpolling, iotLongpollingService } from "@iot/iot_longpolling";
 import { patch } from "@web/core/utils/patch";
-import { IoTErrorPopup } from "@pos_iot/app/io_t_error_popup/io_t_error_popup";
+import { iotBoxDisconnectedDialog } from "@pos_iot/app/iot_box_disconnected_dialog";
 
 patch(iotLongpollingService, {
-    dependencies: ["popup", "hardware_proxy", ...iotLongpollingService.dependencies],
+    dependencies: ["dialog", "hardware_proxy", ...iotLongpollingService.dependencies],
 });
 patch(IoTLongpolling.prototype, {
-    setup({ popup, hardware_proxy }) {
+    setup({ dialog, hardware_proxy }) {
         super.setup(...arguments);
-        this.popup = popup;
         this.hardwareProxy = hardware_proxy;
+        this.dialog = dialog;
     },
     _doWarnFail(url) {
-        this.popup.add(IoTErrorPopup, {
-            title: _t("Connection to IoT Box failed"),
-            url: url,
-        });
+        this.dialog.add(iotBoxDisconnectedDialog, { url });
         this.hardwareProxy.setProxyConnectionStatus(url, false);
         const order = posmodel.get_order();
         if (

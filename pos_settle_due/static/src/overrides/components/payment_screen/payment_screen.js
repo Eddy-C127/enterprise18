@@ -4,7 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
 import { patch } from "@web/core/utils/patch";
 import { floatIsZero } from "@web/core/utils/numbers";
-import { ConfirmPopup } from "@point_of_sale/app/utils/confirm_popup/confirm_popup";
+import { ask } from "@point_of_sale/app/store/make_awaitable_dialog";
 
 patch(PaymentScreen.prototype, {
     get partnerInfos() {
@@ -35,7 +35,7 @@ patch(PaymentScreen.prototype, {
         ) {
             const partner = order.get_partner();
             if (partner) {
-                const { confirmed } = await this.popup.add(ConfirmPopup, {
+                const confirmed = await ask(this.dialog, {
                     title: _t("The order is empty"),
                     body: _t(
                         "Do you want to deposit %s to %s?",
@@ -50,7 +50,7 @@ patch(PaymentScreen.prototype, {
                     return super.validateOrder(...arguments);
                 }
             } else {
-                const { confirmed } = await this.popup.add(ConfirmPopup, {
+                const confirmed = await ask(this.dialog, {
                     title: _t("The order is empty"),
                     body: _t(
                         "Do you want to deposit %s to a specific customer? If so, first select him/her.",

@@ -4,13 +4,8 @@ import { _t } from "@web/core/l10n/translation";
 import { PartnerListScreen } from "@point_of_sale/app/screens/partner_list/partner_list";
 import { patch } from "@web/core/utils/patch";
 import { SelectionPopup } from "@point_of_sale/app/utils/input_popups/selection_popup";
-import { useService } from "@web/core/utils/hooks";
 
 patch(PartnerListScreen.prototype, {
-    setup() {
-        super.setup(...arguments);
-        this.popup = useService("popup");
-    },
     get isBalanceDisplayed() {
         return true;
     },
@@ -36,34 +31,33 @@ patch(PartnerListScreen.prototype, {
             label: paymentMethod.name,
             item: paymentMethod,
         }));
-        const { confirmed, payload: selectedPaymentMethod } = await this.popup.add(SelectionPopup, {
+        this.dialog.add(SelectionPopup, {
             title: _t("Select the payment method to settle the due"),
             list: selectionList,
-        });
-        if (!confirmed) {
-            return;
-        }
-        this.state.selectedPartner = this.state.editModeProps.partner;
-        this.confirm(); // make sure the PartnerListScreen resolves and properly closed.
+            getPayload: (selectedPaymentMethod) => {
+                this.state.selectedPartner = this.state.editModeProps.partner;
+                this.confirm(); // make sure the PartnerListScreen resolves and properly closed.
 
-        // Reuse an empty order that has no partner or has partner equal to the selected partner.
-        let newOrder;
-        const emptyOrder = this.pos.orders.find(
-            (order) =>
-                order.orderlines.length === 0 &&
-                order.paymentlines.length === 0 &&
-                (!order.partner || order.partner.id === this.state.selectedPartner.id)
-        );
-        if (emptyOrder) {
-            newOrder = emptyOrder;
-            // Set the empty order as the current order.
-            this.pos.set_order(newOrder);
-        } else {
-            newOrder = this.pos.add_new_order();
-        }
-        const payment = newOrder.add_paymentline(selectedPaymentMethod);
-        payment.set_amount(totalDue);
-        newOrder.set_partner(this.state.selectedPartner);
-        this.pos.showScreen("PaymentScreen");
+                // Reuse an empty order that has no partner or has partner equal to the selected partner.
+                let newOrder;
+                const emptyOrder = this.pos.orders.find(
+                    (order) =>
+                        order.orderlines.length === 0 &&
+                        order.paymentlines.length === 0 &&
+                        (!order.partner || order.partner.id === this.state.selectedPartner.id)
+                );
+                if (emptyOrder) {
+                    newOrder = emptyOrder;
+                    // Set the empty order as the current order.
+                    this.pos.set_order(newOrder);
+                } else {
+                    newOrder = this.pos.add_new_order();
+                }
+                const payment = newOrder.add_paymentline(selectedPaymentMethod);
+                payment.set_amount(totalDue);
+                newOrder.set_partner(this.state.selectedPartner);
+                this.pos.showScreen("PaymentScreen");
+            },
+        });
     },
 });

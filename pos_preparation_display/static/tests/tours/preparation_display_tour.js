@@ -3,6 +3,7 @@
 import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/helpers/PaymentScreenTourMethods";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/helpers/ReceiptScreenTourMethods";
+import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
 import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add("PreparationDisplayTour", {
@@ -12,7 +13,7 @@ registry.category("web_tour.tours").add("PreparationDisplayTour", {
         [
             // First order should send these orderlines to preparation:
             // - Letter Tray x10
-            ProductScreen.confirmOpeningPopup(),
+            Dialog.confirm("Open session"),
 
             ProductScreen.addOrderline("Letter Tray", "10"),
             ProductScreen.selectedOrderlineHas("Letter Tray", "10.0"),

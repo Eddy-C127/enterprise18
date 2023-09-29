@@ -4,15 +4,15 @@ import { _t } from "@web/core/l10n/translation";
 import { LoginScreen } from "@pos_hr/app/login_screen/login_screen";
 import { patch } from "@web/core/utils/patch";
 import { isBarcodeScannerSupported, scanBarcode } from "@web/webclient/barcode/barcode_scanner";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
 
 patch(LoginScreen.prototype, {
     setup() {
         super.setup(...arguments);
+        this.dialog = useService("dialog");
         this.barcodeReader = useService("barcode_reader");
         this.hasMobileScanner = isBarcodeScannerSupported() && this.barcodeReader;
-        this.popup = useService("popup");
     },
     async open_mobile_scanner() {
         let data;
@@ -21,7 +21,7 @@ patch(LoginScreen.prototype, {
         } catch (error) {
             if (error.error && error.error.message) {
                 // Here, we know the structure of the error raised by BarcodeScanner.
-                this.popup.add(ErrorPopup, {
+                this.dialog.add(AlertDialog, {
                     title: _t("Unable to scan"),
                     body: error.error.message,
                 });
