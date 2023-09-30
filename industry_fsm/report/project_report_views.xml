@@ -6,14 +6,20 @@
         <field name="model">report.project.task.user.fsm</field>
         <field name="arch" type="xml">
             <pivot string="Tasks Analysis" display_quantity="1" sample="1" disable_linking="1">
-                <field name="project_id" type="row"/>
-                <field name="effective_hours" widget="timesheet_uom" type="measure"/>
-                <field name="remaining_hours" widget="timesheet_uom" type="measure"/>
-                <field name="allocated_hours" widget="timesheet_uom" type="measure"/>
-                <field name="working_days_close" type="measure" string="Working Days to Close"/>
-                <field name="working_days_open" type="measure" string="working days to assign"/>
+                <field name="project_id"/>
+                <field name="create_date" type="row"/>
+                <field name="effective_hours" widget="timesheet_uom"/>
+                <field name="remaining_hours" widget="timesheet_uom"/>
+                <field name="allocated_hours" widget="timesheet_uom"/>
+                <field name="overtime" widget="timesheet_uom"/>
+                <field name="working_hours_open" widget="timesheet_uom" type="measure"/>
+                <field name="working_hours_close" widget="timesheet_uom" type="measure"/>
+                <field name="total_hours_spent" widget="timesheet_uom" type="measure"/>
+                <field name="working_days_open" string="Working Days to Assign"/>
+                <field name="working_days_close" string="Working Days to Close"/>
                 <field name="nbr" invisible="1"/>
                 <field name="delay_endings_days" invisible="1"/>
+                <field name="remaining_hours_percentage" invisible="1"/>
             </pivot>
         </field>
     </record>
@@ -23,14 +29,20 @@
         <field name="model">report.project.task.user.fsm</field>
         <field name="arch" type="xml">
             <graph string="Tasks Analysis" sample="1" js_class="hr_timesheet_graphview" disable_linking="1">
+                <field name="create_date"/>
                 <field name="project_id"/>
-                <field name="nbr" type="measure" invisible="1"/>
-                <field name="delay_endings_days" type="measure"/>
-                <field name="effective_hours" widget="timesheet_uom" type="measure"/>
-                <field name="remaining_hours" widget="timesheet_uom" type="measure"/>
-                <field name="working_days_close" type="measure" string="Working Days to Close"/>
-                <field name="working_days_open" type="measure" string="Working Days to Assign"/>
-                <field name="allocated_hours" widget="timesheet_uom" type="measure"/>
+                <field name="nbr" invisible="1"/>
+                <field name="delay_endings_days"/>
+                <field name="effective_hours" widget="timesheet_uom"/>
+                <field name="remaining_hours" widget="timesheet_uom"/>
+                <field name="working_days_close" string="Working Days to Close"/>
+                <field name="working_days_open" string="Working Days to Assign"/>
+                <field name="allocated_hours" widget="timesheet_uom"/>
+                <field name="overtime" widget="timesheet_uom"/>
+                <field name="total_hours_spent" widget="timesheet_uom"/>
+                <field name="working_hours_close" widget="timesheet_uom"/>
+                <field name="working_hours_open" widget="timesheet_uom"/>
+                <field name="remaining_hours_percentage" invisible="1"/>
             </graph>
         </field>
     </record>
@@ -70,8 +82,6 @@
         <field name="context">{
             'group_by_no_leaf': 1,
             'group_by': [],
-            'pivot_measures': ['__count__', 'allocated_hours', 'effective_hours', 'remaining_hours'],
-            'graph_measure': '__count__',
         }</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_empty_folder">
