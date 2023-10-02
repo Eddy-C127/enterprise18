@@ -19,6 +19,8 @@ import {
     markup,
     useState,
     onWillUpdateProps,
+    onMounted,
+    onPatched,
     reactive,
     useRef,
     useExternalListener,
@@ -105,6 +107,10 @@ export class GridRenderer extends Component {
         };
         this.isEditing = false;
         onWillUpdateProps(this.onWillUpdateProps);
+        onMounted(this._focusOnToday);
+        onPatched(this._focusOnToday);
+        // This property is used to avoid refocus on today whenever a cell value is updated.
+        this.shouldFocusOnToday = true;
         this.onMouseOver = useDebounced(this._onMouseOver, 10);
         this.onMouseOut = useDebounced(this._onMouseOut, 10);
         this.virtualRows = useVirtual({
@@ -314,6 +320,22 @@ export class GridRenderer extends Component {
         };
         const title = _t("Add a Line");
         this.props.createRecord({ context, title });
+    }
+
+    _focusOnToday() {
+        if (!this.shouldFocusOnToday) {
+            return;
+        }
+        this.shouldFocusOnToday = false;
+        const { navigationInfo, columnFieldIsDate } = this.props.model;
+        if (this.isMobile || !columnFieldIsDate || navigationInfo.range.name != "month"){
+            return;
+        }
+        const rendererEl = this.rendererRef.el;
+        const todayEl = rendererEl.querySelector("div.o_grid_column_title.fw-bolder");
+        if (todayEl) {
+            rendererEl.parentElement.scrollLeft = todayEl.offsetLeft - rendererEl.offsetWidth / 2 + todayEl.offsetWidth / 2;
+        }
     }
 
     _onMouseOver(ev) {
@@ -580,17 +602,21 @@ export class GridRenderer extends Component {
     async onRangeClick(name) {
         await this.props.model.setRange(name);
         this.props.state.activeRangeName = name;
+        this.shouldFocusOnToday = true;
     }
 
     async onTodayButtonClick() {
         await this.props.model.setTodayAnchor();
+        this.shouldFocusOnToday = true;
     }
 
     async onPreviousButtonClick() {
         await this.props.model.moveAnchor("backward");
+        this.shouldFocusOnToday = true;
     }
 
     async onNextButtonClick() {
         await this.props.model.moveAnchor("forward");
+        this.shouldFocusOnToday = true;
     }
 }

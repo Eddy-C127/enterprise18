@@ -2234,4 +2234,68 @@ QUnit.module("Views", (hooks) => {
             assert.verifySteps(["grid_update_cell", "notification_danger"]);
         }
     );
+
+    QUnit.test("today should be focused", async function (assert) {
+        assert.expect(7);
+        await makeView({
+            type: "grid",
+            resModel: "analytic.line",
+            serverData,
+            arch: `
+                <grid display_empty="1" editable="1">
+                    <field name="project_id" type="row"/>
+                    <field name="task_id" type="row"/>
+                    <field name="date" type="col">
+                        <range name="week" string="Week" span="week" step="day"/>
+                        <range name="month" string="Month" span="month" step="day"/>
+                    </field>
+                    <field name="unit_amount" type="measure"/>
+                </grid>
+            `,
+            async mockRPC(route, args) {
+                if (args.method === "grid_unavailability") {
+                    return {};
+                }
+            },
+        });
+
+        const content = target.querySelector(".o_content");
+        content.style.overflow = "scroll";
+        function assertScrollLeft(shouldBeScrolled) {
+            if (shouldBeScrolled) {
+                assert.ok(content.scrollLeft);
+                content.scrollLeft = 0;
+            } else {
+                assert.notOk(content.scrollLeft);
+            }
+        }
+
+        await click(target, "button.btn-secondary[data-hotkey='v']");
+        await nextTick();
+        await click(target, "span.dropdown-item[data-hotkey='m']");
+        assertScrollLeft(true);
+
+        await click(target, "button.btn-secondary[data-hotkey='n']");
+        assertScrollLeft(false);
+
+        await click(target, "button.btn-secondary[data-hotkey='p']");
+        assertScrollLeft(true);
+
+        await click(target, "button.btn-secondary[data-hotkey='p']");
+        assertScrollLeft(false);
+
+        await click(target, "button.btn-secondary[data-hotkey='t']");
+        assertScrollLeft(true);
+
+        await hoverGridCell(target.querySelector('.o_grid_highlightable:not(.o_grid_column_title):not(.o_grid_row_title)'));
+        await click(target, ".o_grid_cell");
+        await nextTick();
+        await editInput(target, ".o_grid_cell input", "2");
+        assertScrollLeft(false);
+
+        await click(target, "button.btn-secondary[data-hotkey='v']");
+        await nextTick();
+        await click(target, "span.dropdown-item[data-hotkey='w']");
+        assertScrollLeft(false);
+    });
 });
