@@ -333,43 +333,55 @@ class SaleOrder(models.Model):
 
     @api.depends('subscription_child_ids', 'origin_order_id')
     def _get_invoiced(self):
-        so_with_origin = self.filtered('origin_order_id')
-        res = super(SaleOrder, self - so_with_origin)._get_invoiced()
-        if not so_with_origin:
+        """
+        Compute the invoices and their counts
+        For subscription, we find all the invoice lines related to the orders
+        descending from the origin_order_id
+        """
+        subscription_ids = []
+        so_by_origin = defaultdict(lambda: self.env['sale.order'])
+        parent_order_ids = []
+        for order in self:
+            if order.is_subscription and not isinstance(order.id, models.NewId):
+                subscription_ids.append(order.id)
+                origin_key = order.origin_order_id.id if order.origin_order_id else order.id
+                parent_order_ids.append(origin_key)
+                so_by_origin[origin_key] += order
+
+        subscriptions = self.browse(subscription_ids)
+        res = super(SaleOrder, self - subscriptions)._get_invoiced()
+        if not subscriptions:
             return res
         # Ensure that we give value to everyone
-        so_with_origin.update({
+        subscriptions.update({
             'invoice_ids': [],
             'invoice_count': 0
         })
-        so_by_origin = defaultdict(lambda: self.env['sale.order'])
-        for so in so_with_origin:
-            # We only search for existing origin
-            if so.origin_order_id.id:
-                so_by_origin[so.origin_order_id.id] += so
 
-        if not so_by_origin:
+        if not so_by_origin or not subscription_ids:
             return res
 
-        so_with_origin.flush_recordset(fnames=['origin_order_id'])
+        self.flush_recordset(fnames=['origin_order_id'])
+        all_subscription_ids = self.search([('origin_order_id', 'in', parent_order_ids)]).ids + parent_order_ids
 
         query = """
-            SELECT so.origin_order_id, array_agg(DISTINCT am.id)
-
-            FROM sale_order so
-            JOIN sale_order_line sol ON sol.order_id = so.id
-            JOIN sale_order_line_invoice_rel solam ON sol.id = solam.order_line_id
-            JOIN account_move_line aml ON aml.id = solam.invoice_line_id
-            JOIN account_move am ON am.id = aml.move_id
-
-            WHERE so.origin_order_id IN %s
-            AND am.company_id IN %s
-            AND am.move_type IN ('out_invoice', 'out_refund')
-            GROUP BY so.origin_order_id
+            SELECT COALESCE(origin_order_id, so.id),
+                   array_agg(DISTINCT am.id) AS move_ids
+              FROM sale_order so
+              JOIN sale_order_line sol ON sol.order_id = so.id
+              JOIN sale_order_line_invoice_rel solam ON sol.id = solam.order_line_id
+              JOIN account_move_line aml ON aml.id = solam.invoice_line_id
+              JOIN account_move am ON am.id = aml.move_id
+             WHERE am.company_id IN %s
+               AND so.id IN %s
+               AND am.move_type IN ('out_invoice', 'out_refund')
+          GROUP BY COALESCE(origin_order_id, so.id)
         """
-        self.env.cr.execute(query, [tuple(origin for origin in so_by_origin), tuple(self.env.companies.ids)])
-        for origin_id, invoices_ids in self.env.cr.fetchall():
-            so_by_origin[origin_id].update({
+
+        self.env.cr.execute(query, [tuple(self.env.companies.ids), tuple(all_subscription_ids)])
+        orders_vals = self.env.cr.fetchall()
+        for origin_order_id, invoices_ids in orders_vals:
+            so_by_origin[origin_order_id].update({
                 'invoice_ids': invoices_ids,
                 'invoice_count': len(invoices_ids)
             })

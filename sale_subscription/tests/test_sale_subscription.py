@@ -337,6 +337,8 @@ class TestSubscription(TestSubscriptionCommon):
                 'currency_id': self.subscription.currency_id.id,
                 'amount': self.subscription.amount_total,
             })._create_payments()
+            self.assertEqual(self.subscription.invoice_count, 1)
+
         self.assertTrue(self.subscription.invoice_ids.payment_state in ['in_payment', 'paid'], "the invoice is considered paid, depending on the settings.")
 
         with freeze_time("2021-12-18"):
@@ -366,15 +368,19 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertEqual(renewal_so.next_invoice_date, datetime.date(2021, 12, 18))
             self.assertEqual(renewal_so.start_date, datetime.date(2021, 12, 18))
             self.assertTrue(renewal_so.is_subscription)
+            renewal_so._create_recurring_invoice()
 
         with freeze_time("2024-11-17"):
             invoice = self.subscription._create_recurring_invoice()
             self.assertFalse(invoice, "Locked contract should not generate invoices")
         with freeze_time("2024-11-19"):
-            self.subscription._create_recurring_invoice()
+            self.subscription._create_recurring_invoice() # it will close self.subscription
             renew_close_reason_id = self.env.ref('sale_subscription.close_reason_renew').id
             self.assertEqual(self.subscription.subscription_state, '5_renewed')
             self.assertEqual(self.subscription.close_reason_id.id, renew_close_reason_id)
+            (self.subscription | renewal_so).invalidate_recordset(['invoice_ids', 'invoice_count'])
+            self.assertEqual(self.subscription.invoice_count, 2)
+            self.assertEqual(renewal_so.invoice_count, 2)
 
     def test_upsell_no_start_date(self):
         self.sub_product_tmpl.product_subscription_pricing_ids = [(5, 0, 0)]
