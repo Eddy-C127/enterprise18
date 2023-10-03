@@ -161,7 +161,7 @@ class SaleOrder(models.Model):
             if so.subscription_state == '7_upsell' and so.subscription_id.pricelist_id.currency_id != so.pricelist_id.currency_id:
                 raise ValidationError(_('You cannot upsell a subscription using a different currency.'))
 
-    @api.constrains('plan_id', 'state', 'is_subscription')
+    @api.constrains('plan_id', 'state', 'order_line')
     def _constraint_subscription_plan(self):
         recurring_product_orders = self.order_line.filtered(lambda l: l.product_id.recurring_invoice).order_id
         for so in self:
@@ -169,7 +169,7 @@ class SaleOrder(models.Model):
                 continue
             if so in recurring_product_orders and not so.plan_id:
                 raise UserError(_('You cannot save a sale order with recurring product and no subscription plan.'))
-            if so.plan_id and so.order_line and so not in recurring_product_orders:
+            if so.plan_id and so not in recurring_product_orders:
                 raise UserError(_('You cannot save a sale order with a subscription plan and no recurring product.'))
 
     @api.constrains('subscription_state', 'state')

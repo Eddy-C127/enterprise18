@@ -209,6 +209,11 @@ class TestSaleSubscription(TestCommissionsSetup):
         form.partner_id = self.customer
         form.referrer_id = self.referrer
         form.sale_order_template_id = self.template_yearly
+        # Subscription plan is defined by the product and pricing
+        with form.order_line.new() as line:
+            line.name = self.worker.name
+            line.product_id = self.worker
+            line.product_uom_qty = 1
         form.commission_plan_frozen = True
         form.commission_plan_id = self.silver_plan
         sub_A = form.save()
@@ -223,6 +228,11 @@ class TestSaleSubscription(TestCommissionsSetup):
         form.partner_id = self.customer
         form.referrer_id = self.referrer
         form.sale_order_template_id = self.template_yearly
+        # Subscription plan is defined by the product and pricing
+        with form.order_line.new() as line:
+            line.name = self.worker.name
+            line.product_id = self.worker
+            line.product_uom_qty = 1
         form.commission_plan_frozen = True
         form.commission_plan_id = self.silver_plan
         form.commission_plan_frozen = False
@@ -238,6 +248,11 @@ class TestSaleSubscription(TestCommissionsSetup):
         form.partner_id = self.customer
         form.referrer_id = self.referrer
         form.sale_order_template_id = self.template_yearly
+        # Subscription plan is defined by the product and pricing
+        with form.order_line.new() as line:
+            line.name = self.worker.name
+            line.product_id = self.worker
+            line.product_uom_qty = 1
         form.commission_plan_frozen = True
         sub_C = form.save()
         sub_C.action_confirm()
