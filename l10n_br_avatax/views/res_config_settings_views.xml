@@ -9,7 +9,8 @@
                 <setting id="avatax_settings" string="AvaTax Brazil"
                          help="Automatically compute tax rates"
                          invisible="country_code != 'BR'"
-                         company_dependent="1"> <!-- TODO: add documentation attr when docs are published -->
+                         documentation="/applications/finance/fiscal_localizations/brazil.html#configure-avatax-integration"
+                         company_dependent="1">
                 <field name="l10n_br_avatax_api_identifier" invisible="1"/>
                 <field name="l10n_br_avatax_api_key" invisible="1"/>
                 <div class="content-group" id="l10n_br_avatax_settings">
