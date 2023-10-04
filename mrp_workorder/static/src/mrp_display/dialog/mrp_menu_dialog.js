@@ -122,9 +122,12 @@ export class MrpMenuDialog extends Component {
         this.proposeChange('update_step');
     }
 
-    addStep(){
-        const check = this.props.params.checks.length ? this.props.params.checks.at(-1).resId : [];
-        this.proposeChangeForCheck("add_step", check);
+    async addStep(){
+        if (this.props.params.checks?.length > 0) {
+            this.proposeChange('add_step');
+        } else {
+            await this.proposeChangeForCheck('add_step', null);
+        }
     }
 
     removeStep(){
@@ -152,7 +155,9 @@ export class MrpMenuDialog extends Component {
     async proposeChangeForCheck(type, check) {
         let action;
         if (type === 'add_step'){
-            await this.orm.write("mrp.workorder", [this.props.record.resId], { current_quality_check_id: check.id });
+            if (check) {
+                await this.orm.write("mrp.workorder", [this.props.record.resId], { current_quality_check_id: check.id });
+            }
             action = await this.orm.call(
                 "mrp.workorder",
                 "action_add_step",
