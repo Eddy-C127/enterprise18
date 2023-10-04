@@ -5,6 +5,7 @@ from odoo import _
 from odoo.http import request
 from odoo.exceptions import AccessError, MissingError
 from odoo.addons.helpdesk.controllers import portal
+from odoo.addons.hr_timesheet.controllers.portal import TimesheetCustomerPortal
 
 
 class CustomerPortal(portal.CustomerPortal):
@@ -53,3 +54,16 @@ class CustomerPortal(portal.CustomerPortal):
             return ['|', ('sale_order_id.name', 'ilike', search), ('sale_line_id.name', 'ilike', search)]
         else:
             return super()._ticker_get_search_domain(search_in, search)
+
+
+class HelpdeskSaleTimesheetCustomerPortal(TimesheetCustomerPortal):
+
+    def _get_searchbar_inputs(self):
+        return super()._get_searchbar_inputs() | {
+            'helpdesk_ticket_id': {'input': 'helpdesk_ticket_id', 'label': _('Search in Ticket'), 'sequence': 60},
+        }
+
+    def _get_searchbar_groupby(self):
+        return super()._get_searchbar_groupby() | {
+            'helpdesk_ticket_id': {'label': _('Ticket'), 'sequence': 60},
+        }
