@@ -50,7 +50,7 @@ class ProposeChange(models.TransientModel):
         original_title = self.step_id.title
         super()._do_update_step(notify_bom=False)
         # get the step on the new bom related to the one we want to update
-        new_step = eco.new_bom_id.operation_ids.quality_point_ids.filtered(lambda p: p._get_comparison_values() == self.step_id.point_id._get_comparison_values())
+        new_step = eco.new_bom_id.operation_ids.quality_point_ids.filtered(lambda p: p._get_sync_values() == self.step_id.point_id._get_sync_values())
         body = self._get_update_step_note(original_title)
         if new_step:
             new_step.note = self.step_id.note
@@ -62,7 +62,7 @@ class ProposeChange(models.TransientModel):
                 'res_id': eco.id,
                 'user_id': self.workorder_id.product_id.responsible_id.id or SUPERUSER_ID,
                 'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                'summary': _('BoM feedback for not found step: %s (%s)', self.step_id.point_id.title, self.workorder_id.production_id.name),
+                'summary': _('BoM feedback for not found step: %(step)s (%(production)s - %(operation)s)', step=self.step_id.point_id.title, production=self.workorder_id.production_id.name, operation=self.workorder_id.operation_id.name),
                 'note': body,
             })
 
@@ -70,7 +70,7 @@ class ProposeChange(models.TransientModel):
         eco = self._get_eco()
         super()._do_remove_step(notify_bom=False)
         # get the step on the new bom related to the one we want to delete
-        new_step = eco.new_bom_id.operation_ids.quality_point_ids.filtered(lambda p: p._get_comparison_values() == self.step_id.point_id._get_comparison_values())
+        new_step = eco.new_bom_id.operation_ids.quality_point_ids.filtered(lambda p: p._get_sync_values() == self.step_id.point_id._get_sync_values())
         new_step.unlink()
         # Leave a note in the old step's chatter telling why it should be removed.
         old_step = self.step_id.point_id
@@ -81,7 +81,7 @@ class ProposeChange(models.TransientModel):
         eco = self._get_eco()
         super()._do_set_picture(notify_bom=False)
         # get the step on the new bom related to the one we want to update
-        new_step = eco.new_bom_id.operation_ids.quality_point_ids.filtered(lambda p: p._get_comparison_values() == self.step_id.point_id._get_comparison_values())
+        new_step = eco.new_bom_id.operation_ids.quality_point_ids.filtered(lambda p: p._get_sync_values() == self.step_id.point_id._get_sync_values())
         if new_step:
             # remove existing images, but keep existing text + append image after text
             existing_text = False
@@ -103,6 +103,6 @@ class ProposeChange(models.TransientModel):
                 'res_id': eco.id,
                 'user_id': self.workorder_id.product_id.responsible_id.id or SUPERUSER_ID,
                 'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                'summary': _('BoM feedback for not found step: %s (%s)', self.step_id.point_id.title, self.workorder_id.production_id.name),
+                'summary': _('BoM feedback for not found step: %(step)s (%(production)s - %(operation)s)', step=self.step_id.point_id.title, production=self.workorder_id.production_id.name, operation=self.workorder_id.operation_id.name),
                 'note': self._get_set_picture_note(),
             })

@@ -5,7 +5,7 @@ import re
 
 from markupsafe import Markup
 
-from odoo import SUPERUSER_ID, api, fields, models, _
+from odoo import api, fields, models, _
 from odoo.tools import is_html_empty
 
 
@@ -52,7 +52,7 @@ class ProposeChange(models.TransientModel):
         tl_text = _("New Instruction suggested by %(user_name)s", user_name=self._workorder_name())
         body = Markup("<b>%s</b>") % tl_text
         if self.note and not is_html_empty(self.note):
-            body += Markup("<br/>%s") % self.note
+            body += Markup("<br/><b>%s</b>%s") % (_("Instruction:"), self.note)
         if self.comment:
             body += Markup("<br/><b>%s</b> %s") % (_("Reason:"), self.comment)
         if self.title and self.title != original_title:
@@ -73,14 +73,9 @@ class ProposeChange(models.TransientModel):
         else:
             self.step_id.note = self.note
         if notify_bom and self.workorder_id.production_id.bom_id:
-            self.env['mail.activity'].sudo().create({
-                'res_model_id': self.env.ref('mrp.model_mrp_bom').id,
-                'res_id': self.workorder_id.production_id.bom_id.id,
-                'user_id': self.workorder_id.product_id.responsible_id.id or SUPERUSER_ID,
-                'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                'summary': _('BoM feedback %s (%s)', self.step_id.title, self.workorder_id.production_id.name),
-                'note': self._get_update_step_note(self.step_id.title),
-            })
+            body = _('BoM feedback %(step)s (%(production)s - %(operation)s)', step=self.step_id.title, production=self.workorder_id.production_id.name, operation=self.workorder_id.operation_id.name)
+            body += Markup("<br/>%s") % self._get_update_step_note(self.step_id.title)
+            self.workorder_id.production_id.bom_id.message_post(body=body)
         if self.title and self.title != self.step_id.title:
             self.step_id.title = self.title
 
@@ -93,22 +88,16 @@ class ProposeChange(models.TransientModel):
 
     def _do_remove_step(self, notify_bom=True):
         self.ensure_one()
-        if not self.step_id.point_id and not(self.step_id.test_type.startswith('register_')):
+        if not self.step_id.point_id and not (self.step_id.test_type.startswith('register_')):
             # remove additionmal step
             self.step_id.workorder_id._change_quality_check('next')
             self.step_id.unlink()
-
         self.step_id.is_deleted = True
         bom = self.step_id.workorder_id.production_id.bom_id
         if notify_bom and bom:
-            self.env['mail.activity'].sudo().create({
-                'res_model_id': self.env.ref('mrp.model_mrp_bom').id,
-                'res_id': bom.id,
-                'user_id': self.workorder_id.product_id.responsible_id.id or SUPERUSER_ID,
-                'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                'summary': _('BoM feedback %s (%s)', self.step_id.title, self.workorder_id.production_id.name),
-                'note': self._get_remove_step_note(),
-            })
+            body = _('BoM feedback %(step)s (%(production)s - %(operation)s)', step=self.step_id.title, production=self.workorder_id.production_id.name, operation=self.workorder_id.operation_id.name)
+            body += Markup("<br/>%s") % self._get_remove_step_note()
+            bom.message_post(body=body)
 
     @api.model
     def image_url(self, record, field):
@@ -139,11 +128,6 @@ class ProposeChange(models.TransientModel):
         self.step_id.worksheet_document = self.picture
         bom = self.step_id.workorder_id.production_id.bom_id
         if notify_bom and bom:
-            self.env['mail.activity'].sudo().create({
-                'res_model_id': self.env.ref('mrp.model_mrp_bom').id,
-                'res_id': bom.id,
-                'user_id': self.workorder_id.product_id.responsible_id.id or SUPERUSER_ID,
-                'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                'summary': _('BoM feedback %s (%s)', self.step_id.title, self.workorder_id.production_id.name),
-                'note': self._get_set_picture_note(),
-            })
+            body = _('BoM feedback %(step)s (%(production)s - %(operation)s)', step=self.step_id.title, production=self.workorder_id.production_id.name, operation=self.workorder_id.operation_id.name)
+            body += Markup("<br/>%s") % self._get_set_picture_note()
+            bom.message_post(body=body)

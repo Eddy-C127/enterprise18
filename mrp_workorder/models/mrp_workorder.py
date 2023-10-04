@@ -24,6 +24,7 @@ class MrpProductionWorkcenterLine(models.Model):
 
     check_ids = fields.One2many('quality.check', 'workorder_id')
     finished_product_check_ids = fields.Many2many('quality.check', compute='_compute_finished_product_check_ids')
+    done_check_ids = fields.Many2many('quality.check', compute='_compute_done_check_ids')
     quality_check_todo = fields.Boolean(compute='_compute_check')
     quality_check_fail = fields.Boolean(compute='_compute_check')
     quality_alert_ids = fields.One2many('quality.alert', 'workorder_id')
@@ -100,6 +101,11 @@ class MrpProductionWorkcenterLine(models.Model):
     def _compute_finished_product_check_ids(self):
         for wo in self:
             wo.finished_product_check_ids = wo.check_ids.filtered(lambda c: c.finished_product_sequence == wo.qty_produced)
+
+    @api.depends('check_ids.quality_state')
+    def _compute_done_check_ids(self):
+        for wo in self:
+            wo.done_check_ids = wo.check_ids.filtered(lambda c: c.quality_state != 'none')
 
     def write(self, values):
         res = super().write(values)

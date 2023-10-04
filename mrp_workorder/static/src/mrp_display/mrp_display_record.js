@@ -240,53 +240,50 @@ export class MrpDisplayRecord extends Component {
 
     async getWorksheetData(record) {
         const recordData = record.data;
-        if (recordData.source_document === "step") {
-            if (recordData.worksheet_document) {
-                const sheet = await record.model.orm.read(
-                    "quality.check",
-                    [record.resId],
-                    ["worksheet_document"]
-                );
-                return {
-                    resModel: "quality.check",
-                    resId: recordData.id,
-                    resField: "worksheet_document",
-                    value: sheet[0].worksheet_document,
-                    page: 1,
-                };
-            }
-            if (recordData.worksheet_url) {
-                return {
-                    resModel: "quality.check",
-                    resId: recordData.id,
-                    resField: "worksheet_url",
-                    value: recordData.worksheet_url,
-                    page: 1,
-                };
-            }
-        } else {
-            if (this.record.worksheet) {
-                const sheet = await this.props.record.model.orm.read(
-                    "mrp.workorder",
-                    [this.record.id],
-                    ["worksheet"]
-                );
-                return {
-                    resModel: "mrp.workorder",
-                    resId: this.record.id,
-                    resField: "worksheet",
-                    value: sheet[0].worksheet,
-                    page: recordData.worksheet_page,
-                };
-            }
-            if (this.record.worksheet_google_slide) {
-                return {
-                    resModel: "mrp.workorder",
-                    resId: this.record.id,
-                    resField: "worksheet_google_slide",
-                    value: this.record.worksheet_google_slide,
-                    page: recordData.worksheet_page,
-                }
+        if (recordData.worksheet_document) {
+            const sheet = await record.model.orm.read(
+                "quality.check",
+                [record.resId],
+                ["worksheet_document"]
+            );
+            return {
+                resModel: "quality.check",
+                resId: recordData.id,
+                resField: "worksheet_document",
+                value: sheet[0].worksheet_document,
+                page: 1,
+            };
+        }
+        if (recordData.worksheet_url) {
+            return {
+                resModel: "quality.check",
+                resId: recordData.id,
+                resField: "worksheet_url",
+                value: recordData.worksheet_url,
+                page: 1,
+            };
+        }
+        if (this.record.worksheet) {
+            const sheet = await this.props.record.model.orm.read(
+                "mrp.workorder",
+                [this.record.id],
+                ["worksheet"]
+            );
+            return {
+                resModel: "mrp.workorder",
+                resId: this.record.id,
+                resField: "worksheet",
+                value: sheet[0].worksheet,
+                page: recordData.worksheet_page,
+            };
+        }
+        if (this.record.worksheet_google_slide) {
+            return {
+                resModel: "mrp.workorder",
+                resId: this.record.id,
+                resField: "worksheet_google_slide",
+                value: this.record.worksheet_google_slide,
+                page: recordData.worksheet_page,
             }
         }
     }

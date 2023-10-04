@@ -263,6 +263,12 @@ class MrpEco(models.Model):
     bom_change_ids = fields.One2many(
         'mrp.eco.bom.change', 'eco_id', string="ECO BoM Changes",
         compute='_compute_bom_change_ids', help='Difference between old BoM and new BoM revision', store=True)
+    bom_change_ids_on_line = fields.One2many(
+        'mrp.eco.bom.change', 'eco_id', string="ECO BoM Changes - Component",
+        domain=[('bom_line_id', '!=', False)])
+    bom_change_ids_on_byproduct = fields.One2many(
+        'mrp.eco.bom.change', 'eco_id', string="ECO BoM Changes - By-Product",
+        domain=[('byproduct_id', '!=', False)])
     bom_rebase_ids = fields.One2many('mrp.eco.bom.change', 'rebase_id', string="BoM Rebase")
     routing_change_ids = fields.One2many(
         'mrp.eco.routing.change', 'eco_id', string="ECO Routing Changes",
@@ -306,47 +312,81 @@ class MrpEco(models.Model):
 
     def _get_difference_bom_lines(self, old_bom, new_bom):
         # Return difference lines from two bill of material.
-        def bom_line_key(line):
-            return (
-                line.product_id, line.operation_id._get_comparison_values(),
-                tuple(line.bom_product_template_attribute_value_ids.ids),
-            )
-        new_bom_commands = [(5,)]
-        old_bom_lines = list(old_bom.bom_line_ids)
-        if self.new_bom_id:
-            for line in new_bom.bom_line_ids:
-                old_line = False
-                for i, bom_line in enumerate(old_bom_lines):
-                    if bom_line_key(line) == bom_line_key(bom_line):
-                        old_line = old_bom_lines.pop(i)
-                        break
-                if old_line and (line.product_uom_id != old_line.product_uom_id or
-                   tools.float_compare(line.product_qty, old_line.product_qty, precision_rounding=line.product_uom_id.rounding)):
-                    new_bom_commands += [(0, 0, {
-                        'change_type': 'update',
-                        'product_id': line.product_id.id,
-                        'old_uom_id': old_line.product_uom_id.id,
-                        'new_uom_id': line.product_uom_id.id,
-                        'old_operation_id': old_line.operation_id.id,
-                        'new_operation_id': line.operation_id.id,
-                        'new_product_qty': line.product_qty,
-                        'old_product_qty': old_line.product_qty})]
-                elif not old_line:
+        new_bom_commands = [Command.clear()]
+        old_bom_lines = {line._get_sync_values(): line for line in old_bom.bom_line_ids}
+        if new_bom:
+            for new_line in new_bom.bom_line_ids:
+                old_line = old_bom_lines.get(new_line._get_sync_values())
+                if old_line:
+                    old_bom_lines.pop(old_line._get_sync_values())
+                    if new_line.product_uom_id != old_line.product_uom_id or tools.float_compare(new_line.product_qty, old_line.product_qty, precision_rounding=new_line.product_uom_id.rounding):
+                        new_bom_commands += [(0, 0, {
+                            'change_type': 'update',
+                            'product_id': new_line.product_id.id,
+                            'old_product_qty': old_line.product_qty,
+                            'new_product_qty': new_line.product_qty,
+                            'old_uom_id': old_line.product_uom_id.id,
+                            'new_uom_id': new_line.product_uom_id.id,
+                            'old_operation_id': old_line.operation_id.id,
+                            'new_operation_id': new_line.operation_id.id,
+                            'bom_line_id': new_line.id
+                        })]
+                else:
                     new_bom_commands += [(0, 0, {
                         'change_type': 'add',
-                        'product_id': line.product_id.id,
-                        'new_uom_id': line.product_uom_id.id,
-                        'new_operation_id': line.operation_id.id,
-                        'new_product_qty': line.product_qty
+                        'product_id': new_line.product_id.id,
+                        'new_product_qty': new_line.product_qty,
+                        'new_uom_id': new_line.product_uom_id.id,
+                        'new_operation_id': new_line.operation_id.id,
+                        'bom_line_id': new_line.id,
                     })]
-            for old_line in old_bom_lines:
+            for old_line in old_bom_lines.values():
                 new_bom_commands += [(0, 0, {
                     'change_type': 'remove',
                     'product_id': old_line.product_id.id,
+                    'old_product_qty': old_line.product_qty,
                     'old_uom_id': old_line.product_uom_id.id,
                     'old_operation_id': old_line.operation_id.id,
-                    'old_product_qty': old_line.product_qty,
+                    'bom_line_id': old_line.id,
                 })]
+
+        old_byproducts = {byproduct._get_sync_values(): byproduct for byproduct in old_bom.byproduct_ids}
+        if new_bom:
+            for new_byproduct in new_bom.byproduct_ids:
+                old_byproduct = old_byproducts.get(new_byproduct._get_sync_values())
+                if old_byproduct:
+                    old_byproducts.pop(old_byproduct._get_sync_values())
+                    if new_byproduct.product_uom_id != old_byproduct.product_uom_id or tools.float_compare(new_byproduct.product_qty, old_byproduct.product_qty, precision_rounding=new_byproduct.product_uom_id.rounding):
+                        new_bom_commands += [Command.create({
+                            'change_type': 'update',
+                            'product_id': new_byproduct.product_id.id,
+                            'old_product_qty': old_byproduct.product_qty,
+                            'new_product_qty': new_byproduct.product_qty,
+                            'old_uom_id': old_byproduct.product_uom_id.id,
+                            'new_uom_id': new_byproduct.product_uom_id.id,
+                            'old_operation_id': old_byproduct.operation_id.id,
+                            'new_operation_id': new_byproduct.operation_id.id,
+                            'byproduct_id': new_byproduct.id
+                        })]
+                else:
+                    new_bom_commands += [Command.create({
+                        'change_type': 'add',
+                        'product_id': new_byproduct.product_id.id,
+                        'new_product_qty': new_byproduct.product_qty,
+                        'new_uom_id': new_byproduct.product_uom_id.id,
+                        'new_operation_id': new_byproduct.operation_id.id,
+                        'byproduct_id': new_byproduct.id,
+                    })]
+            for old_byproduct in old_byproducts.values():
+                new_bom_commands += [Command.create({
+                    'change_type': 'remove',
+                    'product_id': old_byproduct.product_id.id,
+                    'old_product_qty': old_byproduct.product_qty,
+                    'old_uom_id': old_byproduct.product_uom_id.id,
+                    'old_operation_id': old_byproduct.operation_id.id,
+                    'byproduct_id': old_byproduct.id,
+                })]
+
         return new_bom_commands
 
     def rebase(self, old_bom_lines, new_bom_lines, rebase_lines):
@@ -361,7 +401,11 @@ class MrpEco(models.Model):
             if new_bom_line:
                 if new_bom_line.product_qty + reb_line.upd_product_qty > 0.0:
                     # Update line if it exist in new bom.
-                    new_bom_line.write({'product_qty': new_bom_line.product_qty + reb_line.upd_product_qty, 'operation_id': reb_line.new_operation_id.id, 'product_uom_id': reb_line.new_uom_id.id})
+                    new_bom_line.write({
+                        'product_qty': new_bom_line.product_qty + reb_line.upd_product_qty,
+                        'product_uom_id': reb_line.new_uom_id.id,
+                        'operation_id': reb_line.new_operation_id.id,
+                    })
                 else:
                     # Unlink lines if old bom removed lines
                     new_bom_line.unlink()
@@ -401,7 +445,10 @@ class MrpEco(models.Model):
         self.message_post(body=_('Successfully Rebased!'))
         return self.write(vals)
 
-    @api.depends('bom_id.bom_line_ids', 'new_bom_id.bom_line_ids', 'new_bom_id.bom_line_ids.product_qty', 'new_bom_id.bom_line_ids.product_uom_id', 'new_bom_id.bom_line_ids.operation_id')
+    @api.depends('bom_id.bom_line_ids',
+                 'new_bom_id.bom_line_ids', 'new_bom_id.bom_line_ids.product_qty', 'new_bom_id.bom_line_ids.product_uom_id', 'new_bom_id.bom_line_ids.operation_id',
+                 'bom_id.byproduct_ids',
+                 'new_bom_id.byproduct_ids', 'new_bom_id.byproduct_ids.product_qty', 'new_bom_id.bom_line_ids.operation_id')
     def _compute_bom_change_ids(self):
         # Compute difference between old bom and new bom revision.
         for eco in self:
@@ -416,7 +463,8 @@ class MrpEco(models.Model):
             else:
                 eco.previous_change_ids = False
 
-    @api.depends('bom_id.operation_ids', 'bom_id.operation_ids.active', 'new_bom_id.operation_ids', 'new_bom_id.operation_ids.active')
+    @api.depends('bom_id.operation_ids', 'bom_id.operation_ids.active', 'bom_id.operation_ids.time_mode', 'bom_id.operation_ids.time_mode_batch', 'bom_id.operation_ids.time_cycle_manual',
+                 'new_bom_id.operation_ids', 'new_bom_id.operation_ids.active', 'new_bom_id.operation_ids.time_mode', 'new_bom_id.operation_ids.time_mode_batch', 'new_bom_id.operation_ids.time_cycle_manual')
     def _compute_routing_change_ids(self):
         for rec in self:
             if rec.state == 'confirmed' or rec.type == 'product':
@@ -425,19 +473,22 @@ class MrpEco(models.Model):
             old_routing_lines = defaultdict(lambda: self.env['mrp.routing.workcenter'])
             # Two operations could have the same values so we save them with the same key
             for op in rec.bom_id.operation_ids:
-                old_routing_lines[op._get_comparison_values()] |= op
+                old_routing_lines[op._get_sync_values()] |= op
             if rec.new_bom_id and rec.bom_id:
                 for operation in rec.new_bom_id.operation_ids:
-                    key = (operation._get_comparison_values())
+                    key = (operation._get_sync_values())
                     old_op = old_routing_lines[key][:1]
                     if old_op:
                         old_routing_lines[key] -= old_op
-                        if tools.float_compare(old_op.time_cycle_manual, operation.time_cycle_manual, 2) != 0:
+                        if old_op.time_mode != operation.time_mode or \
+                                old_op.time_mode_batch != operation.time_mode_batch or \
+                                tools.float_compare(old_op.time_cycle_manual, operation.time_cycle_manual, 2) != 0:
                             new_routing_commands += [Command.create({
                                 'change_type': 'update',
                                 'workcenter_id': operation.workcenter_id.id,
-                                'new_time_cycle_manual': operation.time_cycle_manual,
-                                'old_time_cycle_manual': old_op.time_cycle_manual,
+                                'upd_time_mode': old_op.time_mode + ' -> ' + operation.time_mode if operation.time_mode != old_op.time_mode else '',
+                                'upd_time_mode_batch': operation.time_mode_batch - old_op.time_mode_batch if operation.time_mode == 'auto' else 0,
+                                'upd_time_cycle_manual': operation.time_cycle_manual - old_op.time_cycle_manual if operation.time_mode == 'manual' else 0,
                                 'operation_id': operation.id,
                             })]
                         new_routing_commands += self._prepare_detailed_change_commands(operation, old_op)
@@ -445,16 +496,17 @@ class MrpEco(models.Model):
                         new_routing_commands += [Command.create({
                             'change_type': 'add',
                             'workcenter_id': operation.workcenter_id.id,
-                            'new_time_cycle_manual': operation.time_cycle_manual,
+                            'upd_time_mode': operation.time_mode,
+                            'upd_time_mode_batch': operation.time_mode_batch,
+                            'upd_time_cycle_manual': operation.time_cycle_manual,
                             'operation_id': operation.id,
                         })]
                         new_routing_commands += self._prepare_detailed_change_commands(operation, None)
             for old_ops in old_routing_lines.values():
                 for old_op in old_ops:
-                    new_routing_commands += [(0, 0, {
+                    new_routing_commands += [Command.create({
                         'change_type': 'remove',
                         'workcenter_id': old_op.workcenter_id.id,
-                        'old_time_cycle_manual': old_op.time_cycle_manual,
                         'operation_id': old_op.id,
                     })]
             rec.routing_change_ids = new_routing_commands
@@ -810,6 +862,8 @@ class MrpEcoBomChange(models.Model):
     uom_change = fields.Char('Unit of Measure', compute='_compute_change', compute_sudo=True)
     operation_change = fields.Char(compute='_compute_change', string='Consumed in Operation', compute_sudo=True)
     conflict = fields.Boolean()
+    bom_line_id = fields.Many2one('mrp.bom.line', 'BoM Line', check_company=True)
+    byproduct_id = fields.Many2one('mrp.bom.byproduct', 'BoM By-Product', check_company=True)
 
     @api.depends('new_product_qty', 'old_product_qty')
     def _compute_upd_product_qty(self):
@@ -823,8 +877,28 @@ class MrpEcoBomChange(models.Model):
             rec.uom_change = False
             if (rec.old_uom_id and rec.new_uom_id) and rec.old_uom_id != rec.new_uom_id:
                 rec.uom_change = rec.old_uom_id.name + ' -> ' + rec.new_uom_id.name
-            if (rec.old_operation_id._get_comparison_values() != rec.new_operation_id._get_comparison_values()) and rec.change_type == 'update':
+            if (rec.old_operation_id._get_sync_values() != rec.new_operation_id._get_sync_values()) and rec.change_type == 'update':
                 rec.operation_change = (rec.old_operation_id.name or '') + ' -> ' + (rec.new_operation_id.name or '')
+
+    def action_open_component_change(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'mrp.bom',
+            'res_id': self.bom_line_id.bom_id.id,
+            'view_mode': 'form',
+            'view_id': self.env.ref('mrp_plm.mrp_bom_view_form_inherit_plm_components').id,
+        }
+
+    def action_open_byproduct_change(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'mrp.bom',
+            'res_id': self.byproduct_id.bom_id.id,
+            'view_mode': 'form',
+            'view_id': self.env.ref('mrp_plm.mrp_bom_view_form_inherit_plm_byproducts').id,
+        }
 
 
 class MrpEcoRoutingChange(models.Model):
@@ -834,17 +908,21 @@ class MrpEcoRoutingChange(models.Model):
     eco_id = fields.Many2one('mrp.eco', 'Engineering Change', ondelete='cascade', required=True)
     change_type = fields.Selection([('add', 'Add'), ('remove', 'Remove'), ('update', 'Update')], string='Type', required=True)
     workcenter_id = fields.Many2one('mrp.workcenter', 'Work Center')
-    old_time_cycle_manual = fields.Float('Old manual duration', default=0)
-    new_time_cycle_manual = fields.Float('New manual duration', default=0)
-    upd_time_cycle_manual = fields.Float('Manual Duration Change', compute='_compute_upd_time_cycle_manual', store=True)
-    operation_id = fields.Many2one('mrp.routing.workcenter', 'New or Previous Operation')
+    upd_time_mode = fields.Char('Mode Change')
+    upd_time_mode_batch = fields.Integer('Batch count Change')
+    upd_time_cycle_manual = fields.Float('Manual Duration Change')
+
+    operation_id = fields.Many2one('mrp.routing.workcenter', 'Operation Id')
     operation_name = fields.Char(related='operation_id.name', string='Operation')
 
-    @api.depends('new_time_cycle_manual', 'old_time_cycle_manual')
-    def _compute_upd_time_cycle_manual(self):
-        for rec in self:
-            rec.upd_time_cycle_manual = rec.new_time_cycle_manual - rec.old_time_cycle_manual
-
+    def action_open_routing_change_operation(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'mrp.routing.workcenter',
+            'res_id': self.operation_id.id,
+            'view_mode': 'form',
+        }
 
 class MrpEcoTag(models.Model):
     _name = "mrp.eco.tag"

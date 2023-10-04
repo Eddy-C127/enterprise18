@@ -10,7 +10,7 @@ from odoo.osv import expression
 class MrpBom(models.Model):
     _inherit = 'mrp.bom'
 
-    version = fields.Integer('Version', default=1, readonly=True)
+    version = fields.Integer('Version', default=1)
     previous_bom_id = fields.Many2one('mrp.bom', 'Previous BoM')
     active = fields.Boolean('Production Ready')
     image_128 = fields.Image(related='product_tmpl_id.image_128', readonly=False)
@@ -179,3 +179,19 @@ class MrpBomLine(models.Model):
         # It will create update rebase line.
         self._bom_line_change({'product_qty': 0.0})
         return super(MrpBomLine, self).unlink()
+
+    def _get_sync_values(self):
+        if not self:
+            return tuple()
+        self.ensure_one()
+        return tuple([self.product_id] + self.bom_product_template_attribute_value_ids.ids) + self.operation_id._get_sync_values()
+
+
+class MrpByProduct(models.Model):
+    _inherit = 'mrp.bom.byproduct'
+
+    def _get_sync_values(self):
+        if not self:
+            return tuple()
+        self.ensure_one()
+        return tuple([self.product_id] + self.bom_product_template_attribute_value_ids.ids) + self.operation_id._get_sync_values()

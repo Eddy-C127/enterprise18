@@ -136,8 +136,12 @@ export class MrpMenuDialog extends Component {
     }
 
     proposeChange(type){
+        let title = _t("Select the step you want to modify");
+        if(type == 'add_step') {
+            title = _t("Indicate after which step you would like to add this one");
+        }
         const params = {
-            title: _t("Select the concerning quality check"),
+            title,
             confirm: this.proposeChangeForCheck.bind(this),
             checks: this.props.params.checks,
             type,

@@ -88,14 +88,10 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
         add_step = add_step_form.save()
         add_step.with_user(self.user_admin).add_check_in_chain()
 
-        activities = mo.bom_id.activity_ids
-        self.assertEqual(len(activities), 2, 'should be 2 activities created on the BoM')
-        activity = activities[0]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (new_step_title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>New Step suggested by Mitchell Admin</b><br><b>Instruction:</b><p>%s</p>' % new_step_note))
-        activity = activities[1]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (add_step.test_type, mo.name), "Title of step should have defaulted to its test_type")
-        self.assertEqual(activity.note, Markup('<b>New Step suggested by Mitchell Admin</b>'))
+        messages = mo.bom_id.message_ids
+        self.assertEqual(len(messages), 2, 'should be 2 messages created on the BoM')
+        self.assertEqual(messages[0].body, Markup('<p>BoM feedback (%s - %s)<br>New Step suggested by Mitchell Admin</p>') % (mo.name, wo.operation_id.name))
+        self.assertEqual(messages[1].body, Markup('<p>BoM feedback (%s - %s)<br>New Step suggested by Mitchell Admin<br><b>Title:</b> %s<br><b>Instruction:</b></p><p>%s</p>') % (mo.name, wo.operation_id.name, new_step_title, new_step_note))
 
     def test_remove_step(self):
         """ Removes steps in the tablet view via the 'suggest
@@ -137,18 +133,11 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
         remove_step = remove_step_form.save()
         remove_step.with_user(self.user_admin).process()
 
-        activities = mo.bom_id.activity_ids
-        self.assertEqual(len(activities), 3, 'should be 3 activities created on the BoM')
-        activity = activities[0]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (wo.check_ids[0].title, mo.name))
-        self.assertEqual(activity.note, Markup('<span><b>Mitchell Admin suggests to delete this instruction</b><br><b>Reason:</b> %s</span>' % remove_step_comment))
-        activity = activities[1]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (new_step_title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>New Step suggested by Mitchell Admin</b>'))
-        # !! expected behavior: there is NO chatter message about the new step being removed !!
-        activity = activities[2]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (wo.check_ids[1].title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>Mitchell Admin suggests to delete this instruction</b>'))
+        messages = mo.bom_id.message_ids
+        self.assertEqual(len(messages), 3, 'should be 3 messages created on the BoM')
+        self.assertEqual(messages[0].body, Markup('<p>BoM feedback %s (%s - %s)<br><b>Mitchell Admin suggests to delete this instruction</b></p>') % (wo.check_ids[1].title, mo.name, wo.operation_id.name))
+        self.assertEqual(messages[1].body, Markup('<p>BoM feedback (%s - %s)<br>New Step suggested by Mitchell Admin<br><b>Title:</b> %s</p>') % (mo.name, wo.operation_id.name, new_step_title))
+        self.assertEqual(messages[2].body, Markup('<p>BoM feedback %s (%s - %s)<br><b>Mitchell Admin suggests to delete this instruction</b><br><b>Reason:</b> %s</p>') % (wo.check_ids[0].title, mo.name, wo.operation_id.name, remove_step_comment))
 
     def test_update_instructions(self):
         """ 'Update Instructions' for a step in the tablet view via the 'suggest
@@ -205,22 +194,12 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
         update_step.with_user(self.user_admin).process()
         self.assertEqual(add_step.note, Markup("<p>%s</p>" % new_step_note), "New step's note should have been updated")
 
-        activities = mo.bom_id.activity_ids
-        self.assertEqual(len(activities), 4, 'should be 4 activities created on the BoM')
-        # existing BoM step
-        activity = activities[0]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (original_title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>New Instruction suggested by Mitchell Admin</b>'))
-        activity = activities[1]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (original_title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>New Instruction suggested by Mitchell Admin</b><br><p>%s</p><br><b>Reason:</b> %s<br><b>New Title suggested: %s</b>') % (updated_note, update_comment, updated_title))
-        # suggested new step
-        activity = activities[2]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (new_step_title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>New Step suggested by Mitchell Admin</b>'))
-        activity = activities[3]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (new_step_title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>New Instruction suggested by Mitchell Admin</b><br><p>%s</p>') % new_step_note)
+        messages = mo.bom_id.message_ids
+        self.assertEqual(len(messages), 4, 'should be 4 messages created on the BoM')
+        self.assertEqual(messages[0].body, Markup('<p>BoM feedback %s (%s - %s)<br><b>New Instruction suggested by Mitchell Admin</b><br><b>Instruction:</b></p><p>%s</p>') % (new_step_title, mo.name, wo.operation_id.name, new_step_note))
+        self.assertEqual(messages[1].body, Markup('<p>BoM feedback (%s - %s)<br>New Step suggested by Mitchell Admin<br><b>Title:</b> %s</p>') % (mo.name, wo.operation_id.name, new_step_title))
+        self.assertEqual(messages[2].body, Markup('<p>BoM feedback %s (%s - %s)<br><b>New Instruction suggested by Mitchell Admin</b><br><b>Instruction:</b></p><p>%s</p><br><b>Reason:</b> %s<br><b>New Title suggested: %s</b>') % (original_title, mo.name, wo.operation_id.name, updated_note, update_comment, updated_title))
+        self.assertEqual(messages[3].body, Markup('<p>BoM feedback %s (%s - %s)<br><b>New Instruction suggested by Mitchell Admin</b></p>') % (original_title, mo.name, wo.operation_id.name))
 
     def test_update_instructions_w_images(self):
         """ 'Update Instructions' for a step in the tablet view via the 'suggest
@@ -266,16 +245,8 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
         update_step.with_user(self.user_admin).process()
         self.assertEqual(wo.current_quality_check_id.note, updated_image + Markup("<p>%s</p>" % updated_note), "Step's note should have been updated to updated image + updated text")
 
-        activities = mo.bom_id.activity_ids
-        self.assertEqual(len(activities), 3, 'should be 3 activities created on the BoM')
-        # existing BoM step
-        activity = activities[0]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (wo.check_ids[0].title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>New Instruction suggested by Mitchell Admin</b><br>') + image)
-        activity = activities[1]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (wo.check_ids[1].title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>New Instruction suggested by Mitchell Admin</b><br><p>%s</p>' % updated_note), "Only the updated text instructions should be in chatter message to avoid wasting db space with unnecessary images")
-        # suggested new step
-        activity = activities[2]
-        self.assertEqual(activity.summary, 'BoM feedback %s (%s)' % (wo.check_ids[1].title, mo.name))
-        self.assertEqual(activity.note, Markup('<b>New Instruction suggested by Mitchell Admin</b><br>') + updated_image + Markup('<p>%s</p>' % updated_note))
+        messages = mo.bom_id.message_ids
+        self.assertEqual(len(messages), 3, 'should be 3 messages created on the BoM')
+        self.assertEqual(messages[0].body, Markup('<p>BoM feedback %s (%s - %s)<br><b>New Instruction suggested by Mitchell Admin</b><br><b>Instruction:</b></p>%s<p>%s</p>') % (wo.check_ids[1].title, mo.name, wo.operation_id.name, updated_image, updated_note))
+        self.assertEqual(messages[1].body, Markup('<p>BoM feedback %s (%s - %s)<br><b>New Instruction suggested by Mitchell Admin</b><br><b>Instruction:</b></p><p>%s</p>') % (wo.check_ids[1].title, mo.name, wo.operation_id.name, updated_note))
+        self.assertEqual(messages[2].body, Markup('<p>BoM feedback %s (%s - %s)<br><b>New Instruction suggested by Mitchell Admin</b><br><b>Instruction:</b></p>') % (wo.check_ids[0].title, mo.name, wo.operation_id.name) + Markup(self.step_image_html))

@@ -115,6 +115,6 @@ class TestMrpWorkorderPlm(TestPlmCommon):
         })
 
         # Check correctness
-        self.assertEqual(eco1.routing_change_ids[0].change_type, 'update', "Wrong type on opration change line.")
-        self.assertEqual(eco1.routing_change_ids[1].change_type, 'remove', "Wrong type on opration change line.")
-        self.assertEqual(eco1.routing_change_ids[2].change_type, 'add', "Wrong type on opration change line.")
+        self.assertEqual(eco1.routing_change_ids[0].change_type, 'update', "Wrong type on operation change line.")
+        self.assertEqual(eco1.routing_change_ids[1].change_type, 'remove', "Wrong type on operation change line.")
+        self.assertEqual(eco1.routing_change_ids[2].change_type, 'add', "Wrong type on operation change line.")

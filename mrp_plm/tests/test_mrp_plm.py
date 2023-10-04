@@ -292,10 +292,8 @@ class TestMrpPlm(TestPlmCommon):
 
         # Check correctness
         op1_change = eco1.routing_change_ids.filtered(lambda x: x.workcenter_id == self.workcenter_1)
-        self.assertEqual(op1_change[0].change_type, 'add', "Wrong type on opration change line.")
-        self.assertEqual(op1_change[1].change_type, 'remove', "Wrong type on opration change line.")
-        self.assertEqual(op1_change[0].new_time_cycle_manual, 20.0, "Wrong duration change.")
-        self.assertEqual(op1_change[1].old_time_cycle_manual, 10.0, "Wrong duration change.")
+        self.assertEqual(op1_change[0].change_type, 'update', "Wrong type on operation change line.")
+        self.assertEqual(op1_change[0].upd_time_cycle_manual, 10.0, "Wrong duration change.")
 
         # ---------------------------------------------------------------
         # ECO 1 : Remove operation2
@@ -305,7 +303,7 @@ class TestMrpPlm(TestPlmCommon):
         op2.unlink()
 
         op2_change = eco1.routing_change_ids.filtered(lambda x: x.workcenter_id == self.workcenter_2)
-        self.assertEqual(op2_change.change_type, 'remove', "Wrong type on opration change line.")
+        self.assertEqual(op2_change.change_type, 'remove', "Wrong type on operation change line.")
 
         # ---------------------------------------------------------------
         # ECO 1 : Add operation3
@@ -320,7 +318,7 @@ class TestMrpPlm(TestPlmCommon):
         })
 
         op3_change = eco1.routing_change_ids.filtered(lambda x: x.workcenter_id == self.workcenter_3)
-        self.assertEqual(op3_change.change_type, 'add', "Wrong type on opration change line.")
+        self.assertEqual(op3_change.change_type, 'add', "Wrong type on operation change line.")
         self.assertEqual(op3_change.upd_time_cycle_manual, 10.0, "Wrong duration change.")
 
     def test_operation_eco_counting(self):

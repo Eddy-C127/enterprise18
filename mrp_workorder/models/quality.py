@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import base64
 from markupsafe import Markup
-from odoo import SUPERUSER_ID, api, fields, models, _
+
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.fields import Command
 from odoo.tools import float_compare, float_round, is_html_empty
@@ -114,7 +116,7 @@ class QualityPoint(models.Model):
         default='operation')
     worksheet_page = fields.Integer('Worksheet Page', default=1)
     worksheet_document = fields.Binary('Image/PDF')
-    worksheet_url = fields.Char('Google doc URL')
+    worksheet_url = fields.Char('Google doc URL', tracking=True)
     # Used with type register_consumed_materials the product raw to encode.
     component_id = fields.Many2one('product.product', 'Product To Register', check_company=True)
 
@@ -159,12 +161,6 @@ class QualityPoint(models.Model):
     def _change_product_ids_for_bom(self, bom_id):
         products = bom_id.product_id or bom_id.product_tmpl_id.product_variant_ids
         self.product_ids = [Command.set(products.ids)]
-
-    def _get_comparison_values(self):
-        if not self:
-            return False
-        self.ensure_one()
-        return tuple(self[key] for key in ('test_type_id', 'title', 'component_id', 'sequence'))
 
     @api.onchange('operation_id')
     def _onchange_operation_id(self):
@@ -353,26 +349,25 @@ class QualityCheck(models.Model):
         self.ensure_one()
         self._next(continue_production=True)
 
-    def add_check_in_chain(self, activity=True):
+    def add_check_in_chain(self, notify_bom=True):
         self.ensure_one()
         if self.workorder_id.current_quality_check_id:
             self._insert_in_chain('after', self.workorder_id.current_quality_check_id)
         else:
             self.workorder_id.current_quality_check_id = self
-        if self.workorder_id.production_id.bom_id and activity:
-            tl_text = _("New Step suggested by %(user_name)s", user_name=self.env.user.name)
-            body = Markup("<b>%s</b>") % tl_text
+        if notify_bom and self.workorder_id.production_id.bom_id:
+            body = _('BoM feedback (%(production)s - %(operation)s)', production=self.workorder_id.production_id.name, operation=self.workorder_id.operation_id.name)
+            body += Markup("<br/>%s") % _("New Step suggested by %(user_name)s", user_name=self.env.user.name)
+            if self.title:
+                body += Markup("<br/><b>%s</b> %s") % (_("Title:"), self.title)
             if self.note and not is_html_empty(self.note):
-                tl_text = _("Instruction:")
-                body += Markup("<br/><b>%s</b>%s") % (tl_text, self.note)
-            self.env['mail.activity'].sudo().create({
-                'res_model_id': self.env.ref('mrp.model_mrp_bom').id,
-                'res_id': self.workorder_id.production_id.bom_id.id,
-                'user_id': self.workorder_id.product_id.responsible_id.id or SUPERUSER_ID,
-                'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                'summary': _('BoM feedback %s (%s)', self.title or self.test_type, self.workorder_id.production_id.name),
-                'note': body,
-            })
+                body += Markup("<br/><b>%s</b>%s") % (_("Instruction:"), self.note)
+            attachments = []
+            if self.worksheet_document:
+                attachments = [('document', base64.b64decode(self.worksheet_document))]
+            if self.worksheet_url:
+                body += Markup("<br/><a href='%s'>%s</a>") % (self.worksheet_url, _("Google Doc"))
+            self.workorder_id.production_id.bom_id.message_post(body=body, attachments=attachments)
 
     @api.model
     def _prepare_component_quantity(self, move, qty_producing):

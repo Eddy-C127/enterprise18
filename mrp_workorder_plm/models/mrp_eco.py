@@ -7,6 +7,13 @@ from odoo import api, fields, models, Command
 class MrpEco(models.Model):
     _inherit = 'mrp.eco'
 
+    routing_change_ids_on_operation = fields.One2many(
+        'mrp.eco.routing.change', 'eco_id', string="ECO Routing Changes - Operation",
+        domain=[('quality_point_id', '=', False)])
+    routing_change_ids_on_quality_point = fields.One2many(
+        'mrp.eco.routing.change', 'eco_id', string="ECO Routing Changes - Quality Point",
+        domain=[('quality_point_id', '!=', False)])
+
     @api.depends(
         'bom_id.operation_ids.quality_point_ids',
         'new_bom_id.operation_ids.quality_point_ids',
@@ -57,4 +64,14 @@ class MrpEcoRoutingChange(models.Model):
 
     quality_point_id = fields.Many2one('quality.point')
     step = fields.Char(related='quality_point_id.name', string='Step')
+    title = fields.Char(related='quality_point_id.title', string='Title')
     test_type = fields.Many2one('quality.point.test_type', related='quality_point_id.test_type_id', string='Step Type')
+
+    def action_open_routing_change_quality_point(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'quality.point',
+            'res_id': self.quality_point_id.id,
+            'view_mode': 'form',
+        }
