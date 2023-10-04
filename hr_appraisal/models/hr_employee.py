@@ -20,6 +20,7 @@ class HrEmployee(models.Model):
     ongoing_appraisal_count = fields.Integer(compute='_compute_ongoing_appraisal_count', store=True, groups="hr.group_hr_user")
     appraisal_count = fields.Integer(compute='_compute_appraisal_count', store=True, groups="hr.group_hr_user")
     uncomplete_goals_count = fields.Integer(compute='_compute_uncomplete_goals_count')
+    goals_count = fields.Integer(compute='_compute_goals_count')
     appraisal_ids = fields.One2many('hr.appraisal', 'employee_id')
 
     @api.constrains('next_appraisal_date')
@@ -52,6 +53,12 @@ class HrEmployee(models.Model):
         for employee in self:
             employee.uncomplete_goals_count = result.get(employee.id, 0)
 
+    def _compute_goals_count(self):
+        read_group_result = self.env['hr.appraisal.goal']._read_group([('employee_id', 'in', self.ids)], ['employee_id'], ['__count'])
+        result = {employee.id: count for employee, count in read_group_result}
+        for employee in self:
+            employee.goals_count = result.get(employee.id, 0)
+
     @api.depends('ongoing_appraisal_count', 'company_id.appraisal_plan')
     def _compute_next_appraisal_date(self):
         self.filtered('ongoing_appraisal_count').next_appraisal_date = False
@@ -83,3 +90,12 @@ class HrEmployee(models.Model):
     def _get_appraisal_plan_starting_date(self):
         self.ensure_one()
         return self.create_date
+
+    def action_open_goals(self):
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id('hr_appraisal.action_hr_appraisal_goal')
+        action.update({
+            'domain': [('employee_id', '=', self.id)],
+            'context': {'default_employee_id': self.id},
+        })
+        return action

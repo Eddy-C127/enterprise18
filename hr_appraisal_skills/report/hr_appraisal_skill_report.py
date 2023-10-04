@@ -11,15 +11,16 @@ class HrAppraisalSkillReport(models.BaseModel):
 
     id = fields.Id()
     display_name = fields.Char(related='employee_id.name')
+    create_date = fields.Date(string='Create Date', readonly=True)
     employee_id = fields.Many2one('hr.employee', readonly=True)
     company_id = fields.Many2one('res.company', readonly=True)
     department_id = fields.Many2one('hr.department', readonly=True)
     skill_id = fields.Many2one('hr.skill', readonly=True)
     skill_type_id = fields.Many2one('hr.skill.type', readonly=True)
-    previous_skill_level_id = fields.Many2one('hr.skill.level', string="Previous Skill Level", readonly=True)
-    previous_level_progress = fields.Float(string="Previous Skill Progress", readonly=True, group_operator='avg')
-    current_skill_level_id = fields.Many2one('hr.skill.level', string="Current Skill Level", readonly=True)
-    current_level_progress = fields.Float(string="Current Skill Progress", readonly=True, group_operator='avg')
+    previous_skill_level_id = fields.Many2one('hr.skill.level', string="Previous Level", readonly=True)
+    previous_level_progress = fields.Float(string="Previous Progress", readonly=True, group_operator='avg')
+    current_skill_level_id = fields.Many2one('hr.skill.level', string="Current Level", readonly=True)
+    current_level_progress = fields.Float(string="Current Progress", readonly=True, group_operator='avg')
     justification = fields.Char(readonly=True)
     evolution_sequence = fields.Integer()
     evolution = fields.Selection([
@@ -28,6 +29,7 @@ class HrAppraisalSkillReport(models.BaseModel):
         ('just_added', 'Just added'),
         ('decline', 'Decline'),
     ], 'Evolution')
+    progress_evolution = fields.Float("Progress Evolution", readonly=True, group_operator='avg')
 
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
@@ -37,6 +39,7 @@ class HrAppraisalSkillReport(models.BaseModel):
             SELECT
             row_number() OVER () AS id,
                 e.id AS employee_id,
+                date(s.create_date) as create_date,
                 e.company_id AS company_id,
                 e.department_id AS department_id,
                 s.skill_id AS skill_id,
@@ -46,6 +49,7 @@ class HrAppraisalSkillReport(models.BaseModel):
                 sl.id AS current_skill_level_id,
                 sl_p.id AS previous_skill_level_id,
                 sl_p.level_progress / 100.0 AS previous_level_progress,
+                (sl.level_progress - sl_p.level_progress) / 100.0 AS progress_evolution,
             CASE
                 WHEN sl.level_progress > sl_p.level_progress THEN 'improvement'
                 WHEN sl.level_progress < sl_p.level_progress THEN 'decline'
@@ -63,6 +67,6 @@ class HrAppraisalSkillReport(models.BaseModel):
             JOIN hr_skill_level sl ON sl.id = s.skill_level_id
             JOIN hr_skill_level sl_p ON sl_p.id = s.previous_skill_level_id
             JOIN hr_appraisal a ON a.id = s.appraisal_id
-            WHERE a.state = 'done' and e.last_appraisal_id = a.id
+            WHERE a.state = 'done' and e.last_appraisal_id = a.id and s.skill_level_id != s.previous_skill_level_id
         )
         """ % (self._table))

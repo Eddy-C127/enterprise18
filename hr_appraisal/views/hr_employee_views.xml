@@ -56,6 +56,14 @@
                         </span>
                     </div>
                 </button>
+                <button class="oe_stat_button" name="action_open_goals" icon="fa-bullseye" type="object">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="goals_count"/>
+                            </span>
+                            <span class="o_stat_text">Goals</span>
+                        </div>
+                </button>
             </div>
             <group name="application_group" position="attributes">
                 <attribute name="invisible">0</attribute>
