@@ -139,6 +139,38 @@ class TestEcEdiWithholdWizard(TestEcEdiCommon):
             with self.subTest(invoice=invoice):
                 self.assertEqual(invoice.line_ids.filtered(lambda l: l.display_type == 'payment_term').matched_credit_ids.credit_move_id.move_id, withhold)
 
+    def test_computed_base_of_withhold_lines(self):
+        """Test that the base amount of the withhold lines is still correct after triggering its computed method."""
+        invoice = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'partner_id': self.partner_a.id,
+            'name': 'BILL/01',
+            'invoice_date': self.frozen_today,
+            'date': self.frozen_today,
+            'l10n_ec_sri_payment_id': self.env['l10n_ec.sri.payment'].search([('code', '=', 20)], limit=1).id,  # Otros con utilización del sistema financiero (see l10n_ec.sri.payment.csv)
+            'l10n_latam_document_number': '001-001-000000001',
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': self.product_a.id,
+                    'quantity': 1,
+                    'price_unit': 100,
+                    'tax_ids': [Command.set(self._get_tax_by_xml_id('tax_vat_510_sup_01').ids)],
+                }),
+                Command.create({
+                    'name': 'No product line',
+                    'quantity': 1,
+                    'price_unit': 50,
+                    'tax_ids': [Command.set(self._get_tax_by_xml_id('tax_vat_510_sup_01').ids)],
+                }),
+            ],
+        })
+        invoice.action_post()
+        wizard = self.env['l10n_ec.wizard.account.withhold'].with_context(active_ids=invoice.id, active_model='account.move').create({})
+        default_base = wizard.withhold_line_ids.mapped('base')
+        wizard.withhold_line_ids._compute_base()
+        computed_base = wizard.withhold_line_ids.mapped('base')
+        self.assertEqual(computed_base, default_base)
+
     # ===== HELPER METHODS =====
 
     def get_wizard_and_invoice(self, invoice_args=None):
