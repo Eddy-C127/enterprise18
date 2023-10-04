@@ -63,7 +63,7 @@ class ProjectTask(models.Model):
                 total_hours_spent = effective_hours + subtask_effective_hours
                 remaining_hours = task.allocated_hours - total_hours_spent
                 if task.allocated_hours > 0:
-                    progress = 100 if max(total_hours_spent - task.allocated_hours, 0) else round(total_hours_spent / task.allocated_hours * 100, 2)
+                    progress = 1 if max(total_hours_spent - task.allocated_hours, 0) else round(total_hours_spent / task.allocated_hours, 2)
             task.portal_remaining_hours = remaining_hours
             task.portal_effective_hours = effective_hours
             task.portal_subtask_effective_hours = subtask_effective_hours

@@ -204,7 +204,7 @@ class TestSaleValidatedTimesheet(TestCommonSaleTimesheet):
         self.assertEqual(basic_task_read['portal_effective_hours'], 8)
         self.assertEqual(basic_task_read['portal_subtask_effective_hours'], 0)
         self.assertEqual(basic_task_read['portal_total_hours_spent'], 8)
-        self.assertEqual(basic_task_read['portal_progress'], 80)
+        self.assertEqual(basic_task_read['portal_progress'], 0.8)
 
         self.assertEqual(portal_task_read['portal_remaining_hours'], 0)
         self.assertEqual(portal_task_read['portal_effective_hours'], 0)
@@ -231,10 +231,10 @@ class TestSaleValidatedTimesheet(TestCommonSaleTimesheet):
         self.assertEqual(basic_task_read['portal_effective_hours'], 10)
         self.assertEqual(basic_task_read['portal_subtask_effective_hours'], 0)
         self.assertEqual(basic_task_read['portal_total_hours_spent'], 10)
-        self.assertEqual(basic_task_read['portal_progress'], 100)
+        self.assertEqual(basic_task_read['portal_progress'], 1)
 
         self.assertEqual(portal_task_read['portal_remaining_hours'], 8)
         self.assertEqual(portal_task_read['portal_effective_hours'], 2)
         self.assertEqual(portal_task_read['portal_subtask_effective_hours'], 0)
         self.assertEqual(portal_task_read['portal_total_hours_spent'], 2)
-        self.assertEqual(portal_task_read['portal_progress'], 20)
+        self.assertEqual(portal_task_read['portal_progress'], 0.2)

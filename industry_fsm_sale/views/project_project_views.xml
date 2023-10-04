@@ -53,6 +53,14 @@
              <xpath expr="//field[@name='partner_id']" position="attributes">
                 <attribute name="invisible">not allow_billable and not is_fsm</attribute>
             </xpath>
+            <xpath expr="//page[@name='billing_employee_rate']/p/span" position="attributes">
+                <attribute name="invisible">is_fsm</attribute>
+            </xpath>
+            <xpath expr="//page[@name='billing_employee_rate']/p/span" position="after">
+                <span invisible="not is_fsm">
+                    Define the service and the rate at which an employee's time is billed based on their expertise, skills or experience.
+                </span>
+            </xpath>
         </field>
     </record>
 

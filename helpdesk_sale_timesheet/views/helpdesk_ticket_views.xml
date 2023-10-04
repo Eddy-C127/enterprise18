@@ -18,13 +18,13 @@
                     groups="!sales_team.group_sale_salesman"
                     column_invisible="not parent.use_helpdesk_sale_timesheet or not parent.partner_id"
                     readonly="readonly_timesheet"
-                    domain="[('is_service', '=', True), ('order_partner_id', 'child_of', parent.commercial_partner_id), ('is_expense', '=', False), ('state', '=', 'sale')]"
+                    domain="[('is_service', '=', True), ('order_partner_id', 'child_of', parent.commercial_partner_id), ('is_expense', '=', False), ('state', '=', 'sale'), ('is_downpayment', '=', False)]"
                     optional="show" options="{'no_create': True, 'no_open': True}"/>
                 <field name="so_line"
                     groups="sales_team.group_sale_salesman"
                     column_invisible="not parent.use_helpdesk_sale_timesheet or not parent.partner_id"
                     readonly="readonly_timesheet"
-                    domain="[('is_service', '=', True), ('order_partner_id', 'child_of', parent.commercial_partner_id), ('is_expense', '=', False), ('state', '=', 'sale')]"
+                    domain="[('is_service', '=', True), ('order_partner_id', 'child_of', parent.commercial_partner_id), ('is_expense', '=', False), ('state', '=', 'sale'), ('is_downpayment', '=', False)]"
                     context="{'with_remaining_hours': True, 'with_price_unit': True}"
                     optional="hide" options="{'no_create': True, 'no_open': True}"/>
             </xpath>
@@ -59,11 +59,12 @@
                             'form_view_ref': 'sale_project.sale_order_line_view_form_editable',
                             'default_partner_id': partner_id,
                             'default_company_id': company_id,
+                            'is_downpayment': False,
                         }"
                     />
-                    <span 
+                    <span
                         class="fa fa-exclamation-triangle text-warning"
-                        title="The sales order associated with this ticket has been canceled. We recommend either updating the sales order item or canceling this ticket in alignment with the cancellation of the sales order." 
+                        title="The sales order associated with this ticket has been canceled. We recommend either updating the sales order item or canceling this ticket in alignment with the cancellation of the sales order."
                         invisible="sale_order_state != 'cancel'"
                     />
                 </div>

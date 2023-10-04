@@ -13,8 +13,8 @@
             <xpath expr="//field[@name='child_ids']/tree/field[@name='remaining_hours']" position="attributes">
                 <attribute name="name">portal_remaining_hours</attribute>
                 <attribute name="string">Remaining Hours</attribute>
-                <attribute name="decoration-danger">portal_progress &gt;= 100</attribute>
-                <attribute name="decoration-warning">portal_progress &lt;= 100</attribute>
+                <attribute name="decoration-danger">portal_progress &gt;= 1</attribute>
+                <attribute name="decoration-warning">portal_progress &lt;= 1</attribute>
             </xpath>
             <xpath expr="//field[@name='child_ids']/tree/field[@name='progress']" position="attributes">
                 <attribute name="name">portal_progress</attribute>
@@ -23,6 +23,7 @@
             <xpath expr="//div[hasclass('text-nowrap')]//field[@name='progress']" position="attributes">
                 <attribute name="name">portal_progress</attribute>
                 <attribute name="string">Progress</attribute>
+                <attribute name="decoration-danger">portal_progress &gt; 1.005</attribute>
             </xpath>
             <xpath expr="//label[@for='effective_hours']" position="attributes">
                 <attribute name="for">portal_effective_hours</attribute>
@@ -86,8 +87,8 @@
             <xpath expr="/kanban/field[@name='remaining_hours']" position="attributes">
                 <attribute name="name">portal_remaining_hours</attribute>
             </xpath>
-            <xpath expr="//t[@t-set='badge' and @t-if='record.progress.raw_value &gt;= 80 and record.progress.raw_value &lt;= 100']" position="attributes">
-                <attribute name="t-if">record.portal_progress.raw_value &gt;= 80 and record.portal_progress.raw_value &lt;= 100</attribute>
+            <xpath expr="//t[@t-set='badge' and @t-if='record.progress.raw_value &gt;= 0.8 and record.progress.raw_value &lt;= 1']" position="attributes">
+                <attribute name="t-if">record.portal_progress.raw_value &gt;= 0.8 and record.portal_progress.raw_value &lt;= 1</attribute>
             </xpath>
             <xpath expr="//t[@t-set='badge' and @t-if='record.remaining_hours.raw_value &lt; 0']" position="attributes">
                 <attribute name="t-if">record.portal_remaining_hours.raw_value &lt; 0</attribute>
@@ -110,8 +111,8 @@
             <xpath expr="//field[@name='remaining_hours']" position="attributes">
                 <attribute name="name">portal_remaining_hours</attribute>
                 <attribute name="string">Remaining Hours</attribute>
-                <attribute name="decoration-danger">portal_progress &gt;= 100</attribute>
-                <attribute name="decoration-warning">portal_progress &gt;= 80 and portal_progress &lt;= 100</attribute>
+                <attribute name="decoration-danger">portal_progress &gt;= 1</attribute>
+                <attribute name="decoration-warning">portal_progress &gt;= 0.8 and portal_progress &lt;= 1</attribute>
             </xpath>
             <xpath expr="//field[@name='subtask_effective_hours']" position="attributes">
                 <attribute name="name">portal_subtask_effective_hours</attribute>

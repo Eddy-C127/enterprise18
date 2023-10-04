@@ -8,4 +8,4 @@ class HelpdeskSLA(models.Model):
 
     sale_line_ids = fields.Many2many(
         'sale.order.line', string="Sales Order Items",
-        domain="[('is_service', '=', True)]")
+        domain="[('is_service', '=', True), ('is_downpayment', '=', False)]")

@@ -22,13 +22,13 @@ class TestFsmTaskAnalysis(TestIndustryFsmCommon):
                 Command.create({
                     'name': '/',
                     'employee_id': self.employee_user.id,
-                    'unit_amount': 4,
+                    'unit_amount': 20,
                 })
             ]
         })
-        self.assertEqual(self.task.effective_hours, 4)
-        self.assertEqual(self.task.remaining_hours, 12)
-        self.assertEqual(self.task.progress, 25)
+        self.assertEqual(self.task.effective_hours, 20)
+        self.assertEqual(self.task.remaining_hours, -4)
+        self.assertEqual(self.task.progress, 1.25)
 
         self.assertFalse(self.task.working_days_close)
         self.assertFalse(self.task.working_days_open)
@@ -50,7 +50,7 @@ class TestFsmTaskAnalysis(TestIndustryFsmCommon):
         self.env.flush_all()
         task_report = self.env['report.project.task.user'].search_read([('project_id', '=', self.fsm_project.id), ('task_id', '=', self.task.id)], ['remaining_hours', 'progress', 'allocated_hours', 'effective_hours', 'working_days_close', 'working_hours_close', 'working_days_open', 'working_hours_open'])[0]
         for field_name, actual_value in task_report.items():
-            expected_value = values[field_name]
+            expected_value = values[field_name] if field_name != "progress" else values[field_name]*100
             self.assertEqual(float_compare(actual_value, expected_value, 2), 0, f'The value of {field_name} in the report should equal to the one in the task')
 
     @users('Base user')

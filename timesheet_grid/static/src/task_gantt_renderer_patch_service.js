@@ -15,7 +15,7 @@ patch(TaskGanttRenderer.prototype, {
         const { record } = pill;
         const formatter = this.timesheetUOMService.formatter;
         ctx.total_hours_spent_formatted = formatter(record.total_hours_spent);
-        ctx.progressFormatted = Math.round(record.progress);
+        ctx.progressFormatted = Math.round(record.progress * 100);
         return props;
     },
 });
