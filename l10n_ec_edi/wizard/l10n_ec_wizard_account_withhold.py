@@ -95,6 +95,25 @@ class L10nEcWizardAccountWithhold(models.TransientModel):
             result['related_invoice_ids'] = [Command.set(invoices.ids)]
         return result
 
+    def _prepare_withhold_line_data(self, invoice):
+        withhold_data = []
+        # Calculate tax_details grouped for the (profit, VAT) withholds
+        profit_grouped, vat_grouped = invoice._get_profit_vat_tax_grouped_details()
+
+        for group, base_key in [(profit_grouped, 'base_amount'), (vat_grouped, 'tax_amount')]:
+            for tax_details in group['tax_details'].values():
+                if tax_details['withhold_tax']:
+                    tax_amount, _dummy = self.env['l10n_ec.wizard.account.withhold.line']._tax_compute_all_helper(
+                        tax_details[base_key], tax_details['withhold_tax'])
+                    withhold_data.append({
+                        'invoice_id': invoice._origin.id,
+                        'base': tax_details[base_key],
+                        'tax_id': tax_details['withhold_tax'].id,
+                        'taxsupport_code': tax_details['tax_support'],
+                        'amount': tax_amount,
+                    })
+        return withhold_data
+
     #  ===== COMPUTE & ONCHANGE METHODS =====
 
     @api.depends('related_invoice_ids')
@@ -107,21 +126,9 @@ class L10nEcWizardAccountWithhold(models.TransientModel):
 
             withhold_lines = []
             invoice = wiz.related_invoice_ids[0]
-            # Calculate tax_details grouped for the (profit, VAT) withholds
-            profit_grouped, vat_grouped = invoice._get_profit_vat_tax_grouped_details()
-
-            for group, base_key in [(profit_grouped, 'base_amount'), (vat_grouped, 'tax_amount')]:
-                for tax_details in group['tax_details'].values():
-                    if tax_details['withhold_tax']:
-                        tax_amount, _dummy = self.env['l10n_ec.wizard.account.withhold.line']._tax_compute_all_helper(
-                            tax_details[base_key], tax_details['withhold_tax'])
-                        withhold_lines.append(Command.create({
-                            'invoice_id': invoice._origin.id,
-                            'base': tax_details[base_key],
-                            'tax_id': tax_details['withhold_tax'].id,
-                            'taxsupport_code': tax_details['tax_support'],
-                            'amount': tax_amount,
-                        }))
+            withhold_data = self._prepare_withhold_line_data(invoice)
+            for data in withhold_data:
+                withhold_lines.append(Command.create(data))
             wiz.withhold_line_ids = withhold_lines
 
     @api.depends('related_invoice_ids')
@@ -452,15 +459,20 @@ class L10nEcWizardAccountWithholdLine(models.TransientModel):
     @api.depends('invoice_id', 'taxsupport_code', 'tax_id')
     def _compute_base(self):
         # Suggest a "base amount" according to linked invoice_id and tax type, and "remaining base" not yet used
+        withhold_data = defaultdict(list)
         for line in self:
             base = amount_vat = amount_base = 0.0
             if line.invoice_id:
-                if line.wizard_id.withhold_type == 'in_withhold' and line.taxsupport_code:
-                    tax_supports = line.invoice_id._origin._l10n_ec_get_inv_taxsupports_and_amounts()
-                    taxsupportamounts = tax_supports.get(line.taxsupport_code)
-                    if taxsupportamounts:
-                        amount_base = taxsupportamounts['amount_base']
-                        amount_vat = taxsupportamounts['amount_vat']
+                if not withhold_data[line.invoice_id.id]:
+                    withhold_data[line.invoice_id.id] = self.wizard_id._prepare_withhold_line_data(line.invoice_id)
+                if line.wizard_id.withhold_type == 'in_withhold' and line.taxsupport_code and withhold_data[line.invoice_id.id]:
+                    amounts = list(filter(
+                        lambda l: l['invoice_id'] == line.invoice_id.id
+                                  and l['taxsupport_code'] == line.taxsupport_code
+                                  and l['tax_id'] == line.tax_id.id,
+                    withhold_data[line.invoice_id.id]))
+                    if amounts:
+                        amount_base = amounts[0]['base']
                 else:
                     amount_base = abs(line.invoice_id.amount_untaxed_signed)
                     amount_vat = abs(line.invoice_id.amount_tax_signed)
@@ -470,16 +482,16 @@ class L10nEcWizardAccountWithholdLine(models.TransientModel):
                     previous_related_lines = line.wizard_id.withhold_line_ids.filtered(
                         lambda r: r.invoice_id == line.invoice_id._origin
                         and r.taxsupport_code == line.taxsupport_code
-                        and r.tax_id.tax_group_id.l10n_ec_type == l10n_ec_type
+                        and r.tax_id == line.tax_id
                         and r != line
                     )
                     if previous_related_lines:
                         # Odoo onchanges creates a new object to replace line with it, following line removes the new object (last element in the list)
                         previous_related_lines = previous_related_lines - previous_related_lines[-1]
                     previous_base = sum(previous_related_lines.mapped('base'))
-                    if l10n_ec_type in ['withhold_vat_sale', 'withhold_vat_purchase']:
+                    if l10n_ec_type == 'withhold_vat_sale':
                         base = amount_vat - previous_base
-                    elif l10n_ec_type in ['withhold_income_sale', 'withhold_income_purchase']:
+                    else:
                         base = amount_base - previous_base
             line.base = base
 
