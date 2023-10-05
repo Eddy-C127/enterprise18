@@ -635,6 +635,26 @@ class SaleOrder(models.Model):
             elif (order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + SUBSCRIPTION_DRAFT_STATE
                   and not any(state in ['draft', 'posted'] for state in order.order_line.invoice_lines.move_id.mapped('state'))):
                 order.order_log_ids.sudo().unlink()
+                parent_transfer_log = order.subscription_id.order_log_ids.filtered(lambda log: log.event_type == '3_transfer' and log.amount_signed < 0)
+                if parent_transfer_log and parent_transfer_log == order.subscription_id.order_log_ids[:1]:
+                    # Delete the parent transfer log if it is the last log of the parent.
+                    parent_transfer_log.sudo().unlink()
+                    # Reopen the parent order and avoid recreating logs
+                    order.subscription_id.with_context(tracking_disable=True).set_open()
+                    parent_link = order.subscription_id._get_html_link()
+                    cancel_activity_body = _("""Subscription %s has been canceled. The parent order %s has been reopened.
+                                                You should close %s if the customer churned, or renew it if the customer continue the service.
+                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly
+                                                created subscription and renew %s instead""", order._get_html_link(),
+                                                                                                parent_link,
+                                                                                                parent_link,
+                                                                                                parent_link)
+                    order.activity_schedule(
+                        'mail.mail_activity_data_todo',
+                        summary=_("Check reopened subscription"),
+                        note=cancel_activity_body,
+                        user_id=order.subscription_id.user_id.id
+                    )
                 order.subscription_state = False
             elif order.subscription_state in SUBSCRIPTION_PROGRESS_STATE:
                 raise ValidationError(_('You cannot cancel a subscription that has been invoiced.'))
@@ -1029,7 +1049,7 @@ class SaleOrder(models.Model):
         return True
 
     def set_open(self):
-        self.filtered('is_subscription').update({'subscription_state': '3_progress'})
+        self.filtered('is_subscription').update({'subscription_state': '3_progress', 'state': 'sale'})
 
     @api.model
     def _cron_update_kpi(self):
