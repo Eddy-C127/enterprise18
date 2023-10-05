@@ -794,14 +794,27 @@ export default class BarcodePickingModel extends BarcodeModel {
     async _assignEmptyPackage(line, resultPackage) {
         const fieldsParams = this._convertDataToFieldsParams({ resultPackage });
         const parentLine = this._getParentLine(line);
-        if (parentLine) { // Assigns the result package on all sibling lines.
-            for (const subline of parentLine.lines) {
-                if (subline.qty_done && !subline.result_package_id) {
-                    await this.updateLine(subline, fieldsParams);
+        const targetLines = parentLine ? parentLine.lines : [line]
+        for (const subline of targetLines) { // Assigns the result package on all sibling lines
+            if (subline === line || (subline.qty_done && !subline.result_package_id)) {
+                const remainingQty = subline.reserved_uom_qty - subline.qty_done;
+                if (!subline.result_package_id && subline.qty_done && remainingQty && subline.reserved_uom_qty) {
+                    // Subline has no package already and is only partially full,
+                    // so we split off the remaining amount into a new move line
+                    subline.reserved_uom_qty = subline.qty_done
+                    const newLine = await this._createNewLine({
+                        copyOf: subline,
+                        fieldsParams: { location_dest_id: subline.location_dest_id.id },
+                    });
+                    [newLine.sortIndex, subline.sortIndex] = [subline.sortIndex, newLine.sortIndex]
+                    newLine.qty_done = 0;
+                    newLine.reserved_uom_qty = remainingQty;
+                    if (subline === line) {
+                        this.selectLine(newLine);
+                    }
                 }
+                await this.updateLine(subline, fieldsParams);
             }
-        } else {
-            await this.updateLine(line, fieldsParams);
         }
     }
 

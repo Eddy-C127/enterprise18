@@ -2534,3 +2534,82 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(move.product_id, product)
         self.assertEqual(move.quantity, 30)
         self.assertEqual(move.picked, True)
+
+    def test_split_line_on_scan(self):
+        """
+        This test ensures that move lines are split correctly
+        when a user scans a package on an incomplete move line
+        """
+        self.clean_access_rights()
+        grp_pack = self.env.ref('stock.group_tracking_lot')
+        self.env.user.write({'groups_id': [(4, grp_pack.id, 0)]})
+
+        self.env['stock.quant']._update_available_quantity(self.product2, self.stock_location, 5)
+        # Create two empty packs
+        pack1 = self.env['stock.quant.package'].create({
+            'name': 'THEPACK1',
+        })
+        pack2 = self.env['stock.quant.package'].create({
+            'name': 'THEPACK2',
+        })
+
+        delivery_form = Form(self.env['stock.picking'])
+        delivery_form.picking_type_id = self.picking_type_out
+        with delivery_form.move_ids_without_package.new() as move:
+            move.product_id = self.product2
+            move.product_uom_qty = 5
+        delivery_with_move = delivery_form.save()
+        delivery_with_move.action_confirm()
+        delivery_with_move.action_assign()
+
+        url = self._get_client_action_url(delivery_with_move.id)
+        self.start_tour(url, 'test_split_line_on_scan', login='admin', timeout=180)
+
+        self.assertEqual(len(pack1.quant_ids), 1)
+        self.assertEqual(len(pack2.quant_ids), 1)
+        self.assertEqual(len(delivery_with_move.move_line_ids), 2)
+
+    def test_scan_line_splitting_preserve_destination(self):
+        """
+        This test ensures that move lines, when assigned a new destination
+        while scanning, properly preserve destination info after scanning
+        a package
+        """
+        self.clean_access_rights()
+        grp_pack = self.env.ref('stock.group_tracking_lot')
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.write({'groups_id': [(4, grp_pack.id, 0)]})
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
+
+        # Create two empty packs
+        pack1 = self.env['stock.quant.package'].create({
+            'name': 'THEPACK1',
+        })
+        pack2 = self.env['stock.quant.package'].create({
+            'name': 'THEPACK2',
+        })
+
+        # Create a receipt and confirm it.
+        receipt_form = Form(self.env['stock.picking'])
+        receipt_form.picking_type_id = self.picking_type_in
+        with receipt_form.move_ids_without_package.new() as move:
+            move.product_id = self.product2
+            move.product_uom_qty = 5
+        receipt_picking = receipt_form.save()
+        receipt_picking.action_confirm()
+        receipt_picking.action_assign()
+
+        url = self._get_client_action_url(receipt_picking.id)
+        self.start_tour(url, 'test_scan_line_splitting_preserve_destination', login='admin', timeout=180)
+
+        self.assertEqual(len(pack1.quant_ids), 1)
+        self.assertEqual(pack1.location_id.id, self.shelf3.id)
+        self.assertRecordValues(pack1.quant_ids, [
+            {'product_id': self.product2.id, 'quantity': 2, 'location_id': self.shelf3.id},
+        ])
+
+        self.assertEqual(len(pack2.quant_ids), 1)
+        self.assertEqual(pack2.location_id.id, self.shelf4.id)
+        self.assertRecordValues(pack2.quant_ids, [
+            {'product_id': self.product2.id, 'quantity': 3, 'location_id': self.shelf4.id},
+        ])

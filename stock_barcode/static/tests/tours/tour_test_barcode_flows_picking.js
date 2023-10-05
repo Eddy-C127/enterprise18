@@ -3657,3 +3657,148 @@ registry.category("web_tour.tours").add('test_split_line_reservation', {test: tr
         },
     },
 ]});
+
+registry.category("web_tour.tours").add('test_split_line_on_scan', {test: true, steps: () => [
+    // Scan product2 twice
+    {
+        trigger: '.o_barcode_client_action',
+        run: 'scan product2'
+    },
+    {
+        trigger: '.o_barcode_line.o_selected .qty-done:contains(1)',
+        run: 'scan product2'
+    },
+    // Add current balance to empty pack
+    {
+        trigger:  '.o_barcode_line.o_selected .qty-done:contains(2)',
+        run: 'scan THEPACK1'
+    },
+    // Check that line gets split properly
+    {
+        trigger: '.o_barcode_line[data-barcode="product2"].o_line_completed',
+        run: function () {
+            helper.assertLinesCount(2);
+            [0, 1].map(i => helper.assertLineQty(i, ["0 / 3", "2 / 2"][i]));
+        },
+    },
+    // Assign empty move line to other empty pack
+    {
+        trigger: '.o_barcode_client_action',
+        run: 'scan THEPACK2'
+    },
+    // Ensure it doesn't split prematurely
+    {
+        trigger:  '.o_barcode_line.o_selected:contains("THEPACK2") .qty-done:contains(0)',
+        run: function () {
+            helper.assertLinesCount(2);
+            const lines = helper.getLines({ barcode: 'product2' });
+            helper.assert(lines[0].querySelector('.result-package').innerText, "THEPACK2");
+            helper.assert(lines[1].querySelector('.result-package').innerText, "THEPACK1");
+        },
+    },
+    // Add product2 x3 to finish the new move line
+    {
+        trigger: '.o_barcode_client_action',
+        run: 'scan product2'
+    },
+    {
+        trigger: '.o_barcode_client_action',
+        run: 'scan product2'
+    },
+    {
+        trigger: '.o_barcode_client_action',
+        run: 'scan product2'
+    },
+    {
+        trigger: '.o_validate_page',
+        run: function () {
+            helper.assertValidateVisible(true);
+            helper.assertValidateIsHighlighted(true);
+            helper.assertValidateEnabled(true);
+            // Check that lines' quantity didn't change.
+            helper.assertLinesCount(2);
+            [0, 1].map(i => helper.assertLineQty(i, ["3 / 3", "2 / 2"][i]));
+        },
+    },
+    { trigger: '.btn.o_validate_page' },
+    { trigger: '.o_notification.border-success', isCheck: true },
+]});
+
+registry.category("web_tour.tours").add('test_scan_line_splitting_preserve_destination', {test: true, steps: () => [
+    // Select the first (only) line
+    {
+        trigger: '.o_barcode_line',
+        run: 'click',
+    },
+    {
+        trigger:  '.o_barcode_line.o_selected',
+        run: function () {
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, '0 / 5');
+            helper.assertLineDestinationLocation(0, 'WH/Stock');
+        },
+    },
+    // Reassign destination, add product2 x3, then pack it
+    {
+        trigger: '.o_barcode_line',
+        run: 'scan shelf3',
+    },
+    {
+        trigger: '.o_barcode_line .o_line_destination_location:contains("Section 3")',
+        run: 'scan product2',
+    },
+    {
+        trigger: '.o_barcode_line',
+        run: 'scan product2',
+    },
+    {
+        trigger: '.o_barcode_line .qty-done:contains("2")',
+        run: 'scan THEPACK1',
+    },
+    // Ensure that packing split the line and preserved the new destination
+    {
+        trigger:  '.o_barcode_line.o_selected .qty-done:contains(0)',
+        run: function () {
+            helper.assertLinesCount(2);
+            [0, 1].map(i => helper.assertLineQty(i, ["0 / 3", "2 / 2"][i]));
+            [0, 1].map(i => helper.assertLineDestinationLocation(i, '.../Section 3'));
+        },
+    },
+    // Add product2 x3, completing the remaining line, then add to a pack, then reassign destination
+    {
+        trigger: '.o_barcode_line',
+        run: 'scan product2',
+    },
+    {
+        trigger: '.o_barcode_line',
+        run: 'scan product2',
+    },
+    {
+        trigger: '.o_barcode_line',
+        run: 'scan product2',
+    },
+    {
+        trigger: '.o_barcode_line.o_selected.o_line_completed',
+        run: 'scan THEPACK2',
+    },
+    {
+        trigger: '.o_barcode_line.o_selected .result-package:contains("THEPACK2")',
+        run: 'scan shelf4',
+    },
+    {
+        trigger: '.o_barcode_line .o_line_destination_location:contains("Section 4")',
+        run: function () {
+            helper.assertValidateVisible(true);
+            helper.assertValidateIsHighlighted(true);
+            helper.assertValidateEnabled(true);
+            // Check that lines' quantity didn't change.
+            helper.assertLinesCount(2);
+            const lines = helper.getLines({ barcode: 'product2' });
+            [0, 1].map(i => helper.assert(lines[i].querySelector('.result-package').innerText, ["THEPACK2","THEPACK1"][i]));
+            [0, 1].map(i => helper.assertLineQty(lines[i], ["3 / 3", "2 / 2"][i]));
+            [0, 1].map(i => helper.assertLineDestinationLocation(lines[i], [".../Section 4", ".../Section 3"][i]));
+        },
+    },
+    { trigger: '.btn.o_validate_page' },
+    { trigger: '.o_notification.border-success', isCheck: true },
+]});
