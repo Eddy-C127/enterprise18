@@ -53,12 +53,21 @@ class CustomerPortal(payment_portal.PaymentPortal):
         return order_sudo, None
 
     @http.route(['/my/subscriptions', '/my/subscriptions/page/<int:page>', '/my/subscription'], type='http', auth="user", website=True)
-    def my_subscription(self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw):
+    def my_subscription(self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, order_id=None, **kw):
         values = self._prepare_portal_layout_values()
         partner = request.env.user.partner_id
         Order = request.env['sale.order']
 
-        domain = self._get_subscription_domain(partner)
+        if order_id:
+            order_sudo, redirection = self._get_subscription(None, int(order_id))
+            if redirection:
+                return redirection
+            origin_order = order_sudo.origin_order_id or order_sudo
+            domain = [('state', 'not in', ['cancel', 'draft']),
+                '|', ('id', '=', origin_order.id), ('origin_order_id', '=', origin_order.id)
+            ]
+        else:
+            domain = self._get_subscription_domain(partner)
 
         if date_begin and date_end:
             domain += [('create_date', '>', date_begin), ('create_date', '<=', date_end)]
@@ -163,13 +172,14 @@ class CustomerPortal(payment_portal.PaymentPortal):
             'display_payment_message': display_payment_message,
             'backend_url': backend_url,
             'product_documents': order_sudo._get_product_documents(),
+            'next_billing_details': order_sudo._next_billing_details(),
         }
 
         portal_page_values = self._get_page_view_values(
             order_sudo, access_token, portal_page_values, 'my_subscriptions_history', False)
 
         payment_form_values = {
-            'default_token_id': order_sudo.payment_token_id.id,
+            'default_token_id': order_sudo.payment_token_id,
             'sale_order_id': order_sudo.id,  # Allow Stripe to check if tokenization is required.
         }
 
@@ -439,11 +449,6 @@ class PaymentPortal(payment_portal.PaymentPortal):
         return super()._invoice_get_page_view_values(invoice, access_token, **kwargs)
 
 class SalePortal(sale_portal.CustomerPortal):
-
-    def _prepare_orders_domain(self, partner):
-        domain = super()._prepare_orders_domain(partner)
-        domain.append(('is_subscription', '=', False))
-        return domain
 
     def _get_payment_values(self, order_sudo, is_subscription=False, **kwargs):
         """ Override of `sale` to specify whether the sales order is a subscription.

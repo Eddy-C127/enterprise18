@@ -308,7 +308,7 @@ class SaleOrder(models.Model):
         super()._compute_access_url()
         for order in self:
             # Quotations are handled in the quotation menu
-            if order.is_subscription and order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + SUBSCRIPTION_CLOSED_STATE:
+            if order.is_subscription and order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + SUBSCRIPTION_CLOSED_STATE and not self._context.get('force_sale_url'):
                 order.access_url = '/my/subscriptions/%s' % order.id
 
     @api.depends('order_line.product_id', 'order_line.product_id.active')
@@ -1904,3 +1904,38 @@ class SaleOrder(models.Model):
                 self.subscription_state in SUBSCRIPTION_DRAFT_STATE + SUBSCRIPTION_PROGRESS_STATE
         else:
             return super()._can_be_edited_on_portal()
+
+    def _next_billing_details(self):
+        """ Prepare the dictionary of next invoice's details i.e product, tax and amount.
+
+        :return: The values of upcoming bill.
+        :rtype: dict
+        """
+        self.ensure_one()
+        def get_tax_totals(display_lines):
+            return self.env['account.tax']._prepare_tax_totals(
+               [x._convert_to_tax_base_line_dict() for x in display_lines],
+                self.currency_id or self.company_id.currency_id,
+                self.company_id
+            )
+
+        display_lines = self._get_invoiceable_lines()
+        amount_to_pay = get_tax_totals(display_lines) if display_lines else dict()
+
+        # Considering the product having delivery policy but not deliver
+        undelivered_lines = self.order_line.filtered(lambda line: line.product_uom_qty and not line.qty_delivered and line.product_id.invoice_policy == "delivery")
+        if undelivered_lines:
+            display_lines += undelivered_lines
+        # We always display recurring product
+        if not display_lines:
+            display_lines = self.order_line.filtered(lambda line: line.product_id.recurring_invoice)
+        if self.subscription_state == '5_renewed':
+            display_lines = self.order_line
+
+        tax_totals = get_tax_totals(display_lines)
+        return {
+            'sale_order': self,
+            'display_lines': display_lines,
+            'next_invoice_amount': amount_to_pay.get('amount_total') or 0.0,
+            'tax_totals': tax_totals
+        }
