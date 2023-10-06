@@ -67,7 +67,7 @@ class HrContractEmployeeReport(models.Model):
         ''' % fields
 
         from_ = """
-                (SELECT age(COALESCE(date_end, current_date), date_start) as age, * FROM hr_contract WHERE state != 'cancel') c
+                (SELECT age(COALESCE(date_end, current_date), date_start) as age, * FROM hr_contract WHERE state != 'cancel' and active IS TRUE and employee_id IS NOT NULL) c
                 LEFT JOIN hr_employee e ON (e.id = c.employee_id)
                 LEFT JOIN (
                     SELECT employee_id, contract_end
