@@ -82,13 +82,13 @@ class TestPayrollHKComputation(TestL10NHkHrPayrollAccountCommon):
         self.georges_payslip4.compute_sheet()
         self.georges_payslip4.action_payslip_done()
         # First Month:
-        # Salary: 20000, Internet Allowance: 200, Actual Working Days: 31
+        # 713 Gross: 20200, Actual Working Days: 31
         # Second Month:
-        # Salary: 20000, Internet Allowance: 200, Commission: 10000, Actual Working Days: 28
+        # 713 Gross: 30200, Actual Working Days: 28
         # Third Month:
-        # Salary: 19354.84, Internet Allowance: 200, Actual Working Days: 30
-        # Daily Wage: (20000 + 20000 + 19354.84 + 600 + 10000) / (31 + 28 + 30) = 786.01
-        self.assertAlmostEqual(self.georges_payslip4._get_moving_daily_wage(), 786.01, delta=0.01, msg="Incorrect moving daily wage for the fourth month payslip")
+        # 713 Gross: 19548.39, Actual Working Days: 30
+        # Daily Wage: (20200 + 30200 + 19548.39) / (31 + 28 + 30) = 785.94
+        self.assertAlmostEqual(self.georges_payslip4._get_moving_daily_wage(), 785.94, delta=0.01, msg="Incorrect moving daily wage for the fourth month payslip")
 
     def test_part_time_moving_daily_wage(self):
         self.john_payslip = self.env['hr.payslip'].create({
