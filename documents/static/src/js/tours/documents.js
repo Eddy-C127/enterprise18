@@ -26,10 +26,12 @@ registry.category("web_tour.tours").add("documents_tour", {
                 'body:not(:has(.o_FileViewer)) img[src="https://img.youtube.com/vi/Ayab6wZ_U1A/0.jpg"]',
             content: markup(_t("Click on a thumbnail to <b>preview the document</b>.")),
             position: "bottom",
-            run: function (actions) {
-                // closes the modal
-                $(".o_close_btn").click();
-            },
+        },
+        {
+            trigger: "[title='Close (Esc)']",
+            extra_trigger: ".o_documents_kanban",
+            content: markup(_t("Click the cross to <b>exit preview</b>.")),
+            position: "left",
         },
         {
             // equivalent to '.o_search_panel_filter_value:contains('Inbox')' but language agnostic.
