@@ -162,6 +162,7 @@
             <tree string="Appraisal" multi_edit="1" sample="1">
                 <field name="active" column_invisible="True"/>
                 <field name="employee_id" string="Name" readonly="1" widget="many2one_avatar_user"/>
+                <field name="department_id"/>
                 <field name="date_close" widget="date"/>
                 <field name="date_final_interview" widget="remaining_days"/>
                 <field name="assessment_note" optional="hide"/>
@@ -212,6 +213,7 @@
                 <separator/>
                 <group expand='0' string='Group by...'>
                     <filter string='Employee' name="employee" icon="fa-user" domain="[]" context="{'group_by': 'employee_id'}"/>
+                    <filter string='Department' name="department_id" context="{'group_by': 'department_id'}"/>
                     <filter name="groupby_state" context="{'group_by': 'state'}"/>
                     <filter name="groupby_date_close" context="{'group_by': 'date_close'}"/>
                </group>
