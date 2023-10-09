@@ -25,7 +25,7 @@ class ReturnPicking(models.TransientModel):
     def _compute_picking_id(self):
         for r in self:
             if not r.picking_id:
-                domain = [('state', '=', 'done'), ('partner_id', '=', r.ticket_id.partner_id.id)]
+                domain = [('state', '=', 'done'), ('partner_id', 'in', (r.ticket_id.partner_id.id, r.ticket_id.partner_id.parent_id.id))]
                 if r.ticket_id.product_id:
                     domain += [('move_line_ids.product_id', '=', r.ticket_id.product_id.id)]
                 picking = self.env['stock.picking'].search(domain, limit=1, order='id desc')
