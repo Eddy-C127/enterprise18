@@ -104,7 +104,7 @@ class Planning(models.Model):
     state = fields.Selection([
             ('draft', 'Draft'),
             ('published', 'Published'),
-    ], string='Status', default='draft', copy=True) # "state" field is not copied by default in the orm, which is not a desired behavior in planning
+    ], string='Status', default='draft')
     # template dummy fields (only for UI purpose)
     template_creation = fields.Boolean("Save as Template", store=False, inverse='_inverse_template_creation')
     template_autocomplete_ids = fields.Many2many('planning.slot.template', store=False, compute='_compute_template_autocomplete_ids')
@@ -849,6 +849,14 @@ class Planning(models.Model):
                     recurrence._delete_slot(end_datetime)
                     recurrence._repeat_slot()
         return result
+
+    @api.returns(None, lambda value: value[0])
+    def copy_data(self, default=None):
+        if default is None:
+            default = {}
+        if self._context.get('planning_split_tool'):
+            default['state'] = self.state
+        return super().copy_data(default=default)
 
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
