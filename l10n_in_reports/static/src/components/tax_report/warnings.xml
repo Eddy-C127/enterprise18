@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="l10n_in_reports.invalid_intra_state_warning">
+        <span>
+            IGST is not applicable for 
+            <a type="button" t-on-click="(ev) => controller.reportAction(ev, 'open_invalid_intra_state_lines', warningParams)">
+                Intra State Transactions
+            </a>
+        </span>
+    </t>
+
+    <t t-name="l10n_in_reports.invalid_inter_state_warning">
+        <span>
+            SGST and CGST are not applicable for 
+            <a type="button" t-on-click="(ev) => controller.reportAction(ev, 'open_invalid_inter_state_lines', warningParams)">
+                Inter State Transactions
+            </a>
+        </span>
+    </t>
+
+    <t t-name="l10n_in_reports.missing_hsn_warning">
+        <span>
+            HSN code must be assigned to the
+            <a type="button" t-on-click="(ev) => controller.reportAction(ev, 'open_missing_hsn_products', warningParams)">
+                Products
+            </a>
+        </span>
+    </t>
+
+    <t t-name="l10n_in_reports.invalid_type_service_for_hsn_warning">
+        <span>
+            <a type="button" t-on-click="(ev) => controller.reportAction(ev, 'open_invalid_type_service_for_hsn_products', warningParams)">
+                Products
+            </a>
+            with HSN code starting with '99' must have 'Service' as their type
+        </span>
+    </t>
+
+    <t t-name="l10n_in_reports.invalid_hsn_for_service_warning">
+        <span>
+            <a type="button" t-on-click="(ev) => controller.reportAction(ev, 'open_invalid_hsn_for_service_products', warningParams)">
+                Products
+            </a>
+            of type 'Service' must have HSN codes starting with '99'
+        </span>
+    </t>
+
+    <t t-name="l10n_in_reports.invalid_uqc_code_warning">
+        <span> 
+            <a type="button" t-on-click="(ev) => controller.reportAction(ev, 'open_invalid_uqc_codes', warningParams)">
+                UQC code
+            </a>
+            must match the Indian GST standards
+        </span>
+    </t>
+
+</templates>

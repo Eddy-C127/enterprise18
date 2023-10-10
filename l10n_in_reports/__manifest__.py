@@ -19,4 +19,9 @@ Accounting reports for India
     'auto_install': ['l10n_in', 'account_reports'],
     'installable': True,
     'license': 'OEEL-1',
+    'assets': {
+        'web.assets_backend': [
+            'l10n_in_reports/static/src/components/**/*',
+        ],
+    },
 }
