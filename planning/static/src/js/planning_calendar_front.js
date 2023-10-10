@@ -59,6 +59,10 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
             };
         }
         const titleFormat = { month: "long", year: "numeric" };
+        let noEventsContent = _t("You don't have any shifts planned yet.")
+        if (openSlotsIds?.length) {
+            noEventsContent = _t("You don't have any shifts planned yet. You can assign yourself some of the available open shifts.")
+        }
         this.calendar = new FullCalendar.Calendar(document.querySelector("#calendar_employee .o_calendar_widget"), {
             // Settings
             locale: locale,
@@ -91,7 +95,7 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
                 timeGridWeek: _t("Week"),
                 listMonth: _t("List"),
             },
-            noEventsContent: '',
+            noEventsContent: noEventsContent,
         });
         this.calendar.setOption('locale', locale);
         this.calendar.render();

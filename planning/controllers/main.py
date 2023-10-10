@@ -31,16 +31,12 @@ class ShiftController(http.Controller):
             return request.not_found()
         return request.render('planning.period_report_template', planning_data)
 
-    def _prepare_slot_vals(self, slot, employee_token):
-        # This method provides a hook for customization by allowing the overriding for specific values
-        employee_sudo = request.env['hr.employee'].sudo().search([('employee_token', '=', employee_token)], limit=1)
-        employee_tz = pytz.timezone(employee_sudo.tz or 'UTC')
-        slot_start_datetime = pytz.utc.localize(slot.start_datetime).astimezone(employee_tz).replace(tzinfo=None)
-        slot_end_datetime = pytz.utc.localize(slot.end_datetime).astimezone(employee_tz).replace(tzinfo=None)
+    def _get_slot_title(self, slot):
+        return '%s%s' % (slot.role_id.name or _('Shift'), ' \U0001F4AC' if slot.name else '')
+
+    def _get_slot_vals(self, slot):
         return {
-            'title': '%s%s' % (slot.role_id.name or _('Shift'), u' \U0001F4AC' if slot.name else ''),
-            'start': str(slot_start_datetime),
-            'end': str(slot_end_datetime),
+            'title': self._get_slot_title(slot),
             'color': self._format_planning_shifts(slot.role_id.color),
             'alloc_hours': format_duration(slot.allocated_hours),
             'alloc_perc': f'{slot.allocated_percentage:.2f}',
@@ -52,6 +48,32 @@ class ShiftController(http.Controller):
             'request_to_switch': slot.request_to_switch,
             'is_past': slot.is_past,
         }
+
+    def _get_slots_vals(self, slot, employee_token, attendance_intervals):
+        # This method provides a hook for customization by allowing the overriding for specific values
+        employee_sudo = request.env['hr.employee'].sudo().search([('employee_token', '=', employee_token)], limit=1)
+        if not employee_sudo:
+            return []
+
+        employee_tz = pytz.timezone(employee_sudo.tz or 'UTC')
+        datetime_start = pytz.utc.localize(slot.start_datetime)
+        datetime_end = pytz.utc.localize(slot.end_datetime)
+
+        if not employee_sudo.resource_calendar_id:
+            vals = self._get_slot_vals(slot)
+            vals['start'] = str(datetime_start.astimezone(employee_tz).replace(tzinfo=None))
+            vals['end'] = str(datetime_end.astimezone(employee_tz).replace(tzinfo=None))
+            return [vals]
+
+        res = []
+        for start, stop, dummy in attendance_intervals:
+            if datetime_start < stop and datetime_end > start:
+                vals = self._get_slot_vals(slot)
+                vals['start'] = str(max(datetime_start, start).astimezone(employee_tz).replace(tzinfo=None))
+                vals['end'] = str(min(datetime_end, stop).astimezone(employee_tz).replace(tzinfo=None))
+                res.append(vals)
+
+        return [{**vals, 'alloc_hours': format_duration(slot.allocated_hours / len(res))} for vals in res]
 
     def _planning_get(self, planning_token, employee_token, message=False):
         employee_sudo = request.env['hr.employee'].sudo().search([('employee_token', '=', employee_token)], limit=1)
@@ -93,6 +115,15 @@ class ShiftController(http.Controller):
                 ],
             ])
         planning_slots = request.env['planning.slot'].sudo().search(domain, order='start_datetime asc')
+
+        datetime_start = pytz.utc.localize(planning_sudo.start_datetime)
+        datetime_end = pytz.utc.localize(planning_sudo.end_datetime)
+        resource_work_intervals, dummy = employee_sudo.resource_id._get_valid_work_intervals(
+            datetime_start,
+            datetime_end,
+        )
+        attendance_intervals = resource_work_intervals[employee_sudo.resource_id.id]
+
         # filter and format slots
         slots_start_datetime = []
         slots_end_datetime = []
@@ -122,15 +153,18 @@ class ShiftController(http.Controller):
                 ):
                     unwanted_slots.append(slot)
                 if slot.employee_id == employee_sudo:
-                    vals = self._prepare_slot_vals(slot, employee_token)
-                    employee_fullcalendar_data.append(vals)
+                    vals = self._get_slots_vals(slot, employee_token, attendance_intervals)
+                    employee_fullcalendar_data.extend(vals)
                 # We add the slot start and stop into the list after converting it to the timezone of the employee
                 slots_start_datetime.append(slot_start_datetime)
                 slots_end_datetime.append(slot_end_datetime)
             elif not slot.is_past and (
                 not employee_sudo.planning_role_ids
                 or not slot.role_id
-                or slot.role_id in employee_sudo.planning_role_ids
+                or slot.role_id in employee_sudo.planning_role_ids) and (
+            # This slot is for employee working flexible hours or the slot is during at least a valid working interval
+                not employee_sudo.resource_calendar_id or
+                any(pytz.utc.localize(slot.start_datetime) < end and pytz.utc.localize(slot.end_datetime) > start for start, end, dummy in attendance_intervals._items)
             ):
                 open_slots.append(slot)
         # Calculation of the events to define the default calendar view:
@@ -144,18 +178,15 @@ class ShiftController(http.Controller):
             default_view = 'timeGridWeek'
         else:
             default_view = 'dayGridMonth'
-        if employee_sudo.resource_calendar_id.id:
-            # Calculation of the minTime and maxTime values in timeGridDay and timeGridWeek
-            # We want to avoid displaying overly large hours range each day or hiding slots outside the
-            # normal working hours
-            attendances = employee_sudo.resource_calendar_id._work_intervals_batch(
-                pytz.utc.localize(planning_sudo.start_datetime),
-                pytz.utc.localize(planning_sudo.end_datetime),
-                resources=employee_sudo.resource_id, tz=employee_tz
-            )[employee_sudo.resource_id.id]
-            if attendances and attendances._items:
-                checkin_min = min(map(lambda a: a[0].hour, attendances._items))  # hour in the timezone of the employee
-                checkout_max = max(map(lambda a: a[1].hour, attendances._items))  # idem
+        # Calculation of the minTime and maxTime values in timeGridDay and timeGridWeek
+        # We want to avoid displaying overly large hours range each day or hiding slots outside the
+        # normal working hours
+        if employee_sudo.resource_calendar_id and attendance_intervals:
+            checkin_min = 24
+            checkout_max = 0
+            for start, end, dummy in attendance_intervals:
+                checkin_min = min(checkin_min, start.hour)
+                checkout_max = max(checkout_max, end.hour)
         # We calculate the earliest/latest hour of the slots. It is used in the weekview.
         if slots_start_datetime and slots_end_datetime:
             event_hour_min = min(map(lambda s: s.hour, slots_start_datetime)) # idem
