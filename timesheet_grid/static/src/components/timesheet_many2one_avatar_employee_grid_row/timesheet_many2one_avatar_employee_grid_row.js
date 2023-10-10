@@ -1,7 +1,5 @@
 /** @odoo-module */
 
-import { useOpenChat } from "@mail/core/web/open_chat_hook";
-
 import { Component } from "@odoo/owl";
 
 import { registry } from "@web/core/registry";
@@ -9,6 +7,9 @@ import { Many2OneGridRow, many2OneGridRow } from "@web_grid/components/many2one_
 import { EmployeeOvertimeIndication } from "../employee_overtime_indication/employee_overtime_indication";
 import { useTimesheetOvertimeProps } from "../../hooks/useTimesheetOvertimeProps";
 import { TimesheetGridMany2OneGridRow } from "../timesheet_grid_many2one/timesheet_grid_many2one_field";
+import { AvatarCardEmployeePopover } from "@hr/components/avatar_card_employee/avatar_card_employee_popover";
+import { usePopover } from "@web/core/popover/popover_hook";
+
 
 export class TimesheetMany2OneAvatarEmployeeGridRow extends Component {
     static template = "timesheet_grid.TimesheetMany2OneAvatarEmployeeGridRow";
@@ -24,8 +25,8 @@ export class TimesheetMany2OneAvatarEmployeeGridRow extends Component {
 
     setup() {
         super.setup(...arguments);
-        this.openChat = useOpenChat(this.relation);
         this.employeeOvertimeProps = useTimesheetOvertimeProps();
+        this.avatarCard = usePopover(AvatarCardEmployeePopover);
     }
 
     get relation() {
@@ -61,9 +62,15 @@ export class TimesheetMany2OneAvatarEmployeeGridRow extends Component {
         };
     }
 
-    onClickAvatar() {
-        if (this.resId) {
-            this.openChat(this.resId);
+    openCard(ev) {
+        if (this.env.isSmall) {
+            return;
+        }
+        const target = ev.currentTarget;
+        if (!this.avatarCard.isOpen) {
+            this.avatarCard.open(target, {
+                id: this.resId,
+            });
         }
     }
 }

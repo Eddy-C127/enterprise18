@@ -213,12 +213,7 @@
                                 <div class="oe_kanban_bottom_right">
                                     <field name="state" widget="label_selection"
                                         options="{'classes': {'draft': 'default', 'published': 'success'}}" groups="planning.group_planning_manager"/>
-                                    <t t-if="record.employee_id.value">
-                                        <field name="employee_id" widget="many2one_avatar_employee"/>
-                                    </t>
-                                    <t t-if="record.resource_type.value == 'Material'">
-                                        <field name="resource_id" widget="many2one_avatar_resource"/>
-                                    </t>
+                                    <field name="resource_id" widget="many2one_avatar_resource"/>
                                 </div>
                             </div>
                         </div>

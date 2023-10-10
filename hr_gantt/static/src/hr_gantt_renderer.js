@@ -1,11 +1,11 @@
 /* @odoo-module */
 
-import { Avatar } from "@mail/views/web/fields/avatar/avatar";
+import { GanttEmployeeAvatar } from "./hr_gantt_employee_avatar";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";
 
 export class HrGanttRenderer extends GanttRenderer {
     static rowHeaderTemplate = "hr.HrGanttRenderer.RowHeader";
-    static components = { ...GanttRenderer.components, Avatar };
+    static components = { ...GanttRenderer.components, Avatar: GanttEmployeeAvatar };
     computeDerivedParams() {
         this.rowsWithAvatar = {};
         super.computeDerivedParams();

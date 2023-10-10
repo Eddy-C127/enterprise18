@@ -15,6 +15,11 @@ Planning integration with time off
         'views/planning_slot_views.xml',
         'report/planning_report_views.xml',
     ],
+    'assets': {
+        'web.qunit_suite_tests': [
+            'planning_holidays/static/tests/**/*',
+        ],
+    },
     'auto_install': True,
     'license': 'OEEL-1',
 }

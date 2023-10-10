@@ -226,14 +226,14 @@ export class PlanningGanttRenderer extends GanttRenderer {
         const { fromServer, groupedByField, name, progressBar } = row;
         const isGroupedByResource = groupedByField === "resource_id";
         const employeeId = progressBar && progressBar.employee_id;
-        const employeeModel = progressBar && progressBar.employee_model;
         const isResourceMaterial = progressBar && progressBar.is_material_resource;
-        const showEmployeeAvatar =
-            !isResourceMaterial && isGroupedByResource && fromServer && Boolean(employeeId);
+        const resourceColor = progressBar && progressBar.resource_color || 0;
+        const showPopover = !isResourceMaterial || progressBar.display_popover_material_resource;
+        const showEmployeeAvatar = isGroupedByResource && fromServer && Boolean(employeeId) || Boolean(row.resId && isResourceMaterial);
         if (showEmployeeAvatar) {
             const { fields } = this.model.metaData;
-            const resModel = employeeModel || fields.employee_id.relation;
-            this.rowsWithAvatar[row.id] = { resModel, resId: employeeId, displayName: name };
+            const resModel = fields.resource_id.relation;
+            this.rowsWithAvatar[row.id] = { resModel, resId: row.resId, displayName: name, isResourceMaterial, showPopover, resourceColor };
         }
         return super.processRow(...arguments);
     }

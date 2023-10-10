@@ -48,6 +48,7 @@ class Planning(models.Model):
     resource_id = fields.Many2one('resource.resource', 'Resource', domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]", group_expand='_group_expand_resource_id')
     resource_type = fields.Selection(related='resource_id.resource_type')
     resource_color = fields.Integer(related='resource_id.color', string="Resource color")
+    resource_roles = fields.Many2many(related='resource_id.role_ids')
     employee_id = fields.Many2one('hr.employee', 'Employee', compute='_compute_employee_id', store=True)
     work_email = fields.Char("Work Email", related='employee_id.work_email')
     work_address_id = fields.Many2one(related='employee_id.address_id', store=True)
@@ -2087,10 +2088,10 @@ class Planning(models.Model):
             resource.id: {
                 'is_material_resource': resource.resource_type == 'material',
                 'resource_color': resource.color,
+                'display_popover_material_resource': len(resource.role_ids) > 1,
                 'value': planned_hours_mapped[resource.id],
                 'max_value': work_hours.get(resource.id, 0.0),
                 'employee_id': resource.employee_id.id,
-                'employee_model': 'hr.employee' if self.env.user.has_group('hr.group_hr_user') else 'hr.employee.public',
             }
             for resource in resources
         }
