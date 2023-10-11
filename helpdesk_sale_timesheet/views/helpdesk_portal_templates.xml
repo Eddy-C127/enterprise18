@@ -13,7 +13,7 @@
             <section id="details" style="page-break-inside: auto;" class="mt32" t-if="timesheets">
                 <h3 id="details">Timesheets</h3>
 
-                <table class="table table-sm" id="timesheet_table">
+                <table class="table table-sm table-striped" id="timesheet_table">
                     <t t-set="display_sol" t-value="False"/>
                     <t t-foreach="timesheets" t-as="timesheet">
                         <t t-if="timesheet.so_line != ticket.sale_line_id">
@@ -32,7 +32,7 @@
                     </thead>
                     <tbody>
                         <t t-foreach="timesheets" t-as="line">
-                            <tr>
+                            <tr valign="middle">
                                 <td><span t-field="line.date"/></td>
                                 <td><span t-field="line.employee_id"/></td>
                                 <td><span t-field="line.name"/></td>
