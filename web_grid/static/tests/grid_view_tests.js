@@ -2353,4 +2353,54 @@ QUnit.module("Views", (hooks) => {
         assert.deepEqual([...target.querySelectorAll(".o_grid_row.o_grid_row_total")].map(el => el.textContent), ["7:30", "2:30"]);
         assert.verifySteps(["grid.isWeekendVisible-false"]);
     });
+
+    QUnit.test(
+        "grid: use the context in the action when a record will be created",
+        async function (assert) {
+            patchDate(2017, 1, 25, 0, 0, 0);
+
+            await makeView({
+                type: "grid",
+                resModel: "analytic.line",
+                serverData,
+                arch: `<grid display_empty="1">
+                    <field name="project_id" type="row"/>
+                    <field name="task_id" type="row"/>
+                    <field name="date" type="col">
+                        <range name="week" string="Week" span="week" step="day"/>
+                        <range name="month" string="Month" span="month" step="day"/>
+                        <range name="year" string="Year" span="year" step="month"/>
+                    </field>
+                    <field name="unit_amount" type="measure"/>
+                </grid>`,
+                async mockRPC(route, args) {
+                    if (args.method === "grid_unavailability") {
+                        return {};
+                    } else if (args.method === "create") {
+                        assert.strictEqual(
+                            args.args[0][0].date,
+                            "2017-02-25",
+                            "default date should be the current day"
+                        );
+                    }
+                },
+                context: {
+                    default_project_id: 31,
+                },
+            });
+            assert.containsNone(target, ".o_grid_row_title");
+            assert.containsNone(target, ".modal");
+            assert.containsNone(target, ".o_view_nocontent");
+            await click(
+                $(target).find(".o_control_panel_main_buttons > :visible").get(0),
+                ".o_grid_button_add"
+            );
+            assert.containsOnce(target, ".modal");
+            assert.containsOnce(target, ".modal div[name=project_id]");
+            assert.strictEqual(
+                target.querySelector(".modal div[name=project_id] input").value,
+                "P1"
+            );
+        }
+    );
 });
