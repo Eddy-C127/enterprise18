@@ -175,7 +175,7 @@ class WorksheetTemplate(models.Model):
             'perm_read': True,
             'perm_unlink': True,
         }])
-        self.env['ir.rule'].create([{
+        self.env['ir.rule'].sudo().create([{
             'name': name + '_own',
             'model_id': model.id,
             'domain_force': "[('create_uid', '=', user.id)]",

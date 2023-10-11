@@ -22,6 +22,7 @@ Create Reports for Field Service
         'report/worksheet_custom_reports.xml',
         'data/fsm_report_data.xml',
         'data/mail_template_data.xml',
+        'wizard/wizard_load_worksheet_template_views.xml',
     ],
     'demo': ['data/fsm_report_demo.xml'],
     'post_init_hook': 'post_init',

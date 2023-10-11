@@ -128,6 +128,25 @@ class ProjectTask(models.Model):
         return self._is_fsm_report_available() and not self.worksheet_signature
 
     def action_fsm_worksheet(self):
+        if self.env.user.has_group('industry_fsm.group_fsm_manager'):
+            worksheets_count = self.env['worksheet.template'].search_count([('res_model', '=', 'project.task')], limit=2)
+            if worksheets_count == 1:
+                current_template = self.worksheet_template_id
+                if not current_template.worksheet_count and current_template.name == 'Default Worksheet':
+                    wizard = self.env['worksheet.template.load.wizard'].create({'task_id': self.id})
+                    action = {
+                        'name': _('Explore Worksheets Using an Example Template'),
+                        'type': 'ir.actions.act_window',
+                        'res_model': 'worksheet.template.load.wizard',
+                        'views': [[False, 'form']],
+                        'view_id': 'view_worksheet_template_load_form',
+                        'target': 'new',
+                        'res_id': wizard.id,
+                    }
+                    return action
+        return self.open_fsm_worksheet()
+
+    def open_fsm_worksheet(self):
         action = self.worksheet_template_id.action_id.sudo().read()[0]
         worksheet = self.env[self.worksheet_template_id.sudo().model_id.model].search([('x_project_task_id', '=', self.id)])
         context = literal_eval(action.get('context', '{}'))
