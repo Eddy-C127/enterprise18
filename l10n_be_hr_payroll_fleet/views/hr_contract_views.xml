@@ -41,7 +41,7 @@
                 <attribute name="invisible">(wage_type == 'hourly' or not transport_mode_car) and not new_car</attribute>
             </xpath>
             <xpath expr="//div[@name='fuel_card_div']" position="inside">
-                <span invisible="not fuel_type">(Fuel Type: <field name="fuel_type" class="oe_inline" readonly="1"/>)</span>
+                <span invisible="not fuel_type" groups="fleet.fleet_group_manager">(Fuel Type: <field name="fuel_type" class="oe_inline" readonly="1"/>)</span>
             </xpath>
             <field name="car_atn" position="attributes">
                 <attribute name="invisible">not transport_mode_car and not new_car</attribute>

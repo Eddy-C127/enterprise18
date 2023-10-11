@@ -22,9 +22,6 @@
         <field name="priority" eval="10"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                <field name="parent_user_id" invisible="1"/>
-                <field name="ongoing_appraisal_count" invisible="1"/>
-                <field name="can_request_appraisal" invisible="1"/>
                 <button name="action_send_appraisal_request"
                     string="Request Appraisal"
                     type="object"
@@ -71,9 +68,6 @@
             </div>
             <group name="application_group" position="attributes">
                 <attribute name="invisible">0</attribute>
-            </group>
-            <group name="application_group" position="inside">
-                <field name="parent_user_id" invisible="1"/>
             </group>
             <field name="coach_id" position="after">
                 <field name="next_appraisal_date" invisible="ongoing_appraisal_count != 0"/>

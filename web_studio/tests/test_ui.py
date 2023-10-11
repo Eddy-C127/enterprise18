@@ -879,7 +879,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "display_name": doesNotHaveGroup.display_name,
         }])
 
-        xml_temp = E.field(name="title", column_invisible="True", groups=doesNotHaveGroupXmlId.complete_name, studio_groups=studio_groups)
+        xml_temp = E.field(name="title", groups=doesNotHaveGroupXmlId.complete_name, column_invisible="True", studio_groups=studio_groups)
 
         expected = '''
             <tree>

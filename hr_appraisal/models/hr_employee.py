@@ -17,7 +17,7 @@ class HrEmployee(models.Model):
         string='Last Appraisal Date', groups="hr.group_hr_user",
         help="The date of the last appraisal")
     related_partner_id = fields.Many2one('res.partner', compute='_compute_related_partner', groups="hr.group_hr_user")
-    ongoing_appraisal_count = fields.Integer(compute='_compute_ongoing_appraisal_count', store=True, groups="hr.group_hr_user")
+    ongoing_appraisal_count = fields.Integer(compute='_compute_ongoing_appraisal_count', store=True)
     appraisal_count = fields.Integer(compute='_compute_appraisal_count', store=True, groups="hr.group_hr_user")
     uncomplete_goals_count = fields.Integer(compute='_compute_uncomplete_goals_count', groups="hr.group_hr_user")
     goals_count = fields.Integer(compute='_compute_goals_count', groups="hr.group_hr_user")

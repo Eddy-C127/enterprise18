@@ -45,12 +45,12 @@ class TestDashboardUi(HttpCase):
             with file_open('sign/static/demo/employment.pdf', "rb") as f:
                 pdf_content = base64.b64encode(f.read())
 
-            attachment = self.env['ir.attachment'].create({
+            attachment = self.env['ir.attachment'].with_user(user).create({
                 'type': 'binary',
                 'datas': pdf_content,
                 'name': 'Employment Contract.pdf',
             })
-            self.env['sign.template'].create({
+            self.env['sign.template'].with_user(user).create({
                 'attachment_id': attachment.id,
                 'sign_item_ids': [(6, 0, [])],
             })

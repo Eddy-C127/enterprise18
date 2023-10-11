@@ -359,7 +359,7 @@
                     <field name="rating_avg" invisible="1"/>
                     <field name="company_id" invisible="1"/>
                     <field name="team_privacy_visibility" invisible="1"/>
-                    <div class="oe_button_box" name="button_box">
+                    <div class="oe_button_box" name="button_box" groups="base.group_user">
                         <button name="action_open_ratings" type="object" class="oe_stat_button" icon="" invisible="not use_rating or rating_count == 0" groups="helpdesk.group_use_rating">
                             <i class="fa fa-fw o_button_icon fa-smile-o text-success" invisible="rating_avg &lt; 3.66" title="Satisfied"/>
                             <i class="fa fa-fw o_button_icon fa-meh-o text-warning" invisible="rating_avg &lt; 2.33 or rating_avg &gt;= 3.66" title="Okay"/>

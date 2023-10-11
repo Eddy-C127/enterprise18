@@ -7,10 +7,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='marital']" position="after">
                 <field name="spouse_fiscal_status" invisible="marital not in ['married', 'cohabitant']" readonly="not can_edit" required="marital in ['married', 'cohabitant']" help="if spouse has professionnel income or not"/>
-                <p colspan="2" class="p-0 m-0 " invisible="marital not in ['married', 'cohabitant']">
+                <p colspan="2" class="p-0 m-0 " invisible="marital not in ['married', 'cohabitant']" groups="hr.group_hr_user">
                     <a class="btn btn-link p-0 mb-1" data-bs-toggle="collapse" href="#spouse_status_explanation" role="button" aria-expanded="false" aria-controls="#spouse_status_explanation">Toggle Explanation</a>
                 </p>
-                <div class="collapse" id="spouse_status_explanation" colspan="2" invisible="marital not in ['married', 'cohabitant']">
+                <div class="collapse" id="spouse_status_explanation" colspan="2" invisible="marital not in ['married', 'cohabitant']" groups="hr.group_hr_user">
                   <div class="card card-body">
                     <field name="spouse_fiscal_status_explanation" nolabel="1" class="text-muted" widget="text"/>
                   </div>

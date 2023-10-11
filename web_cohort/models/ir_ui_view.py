@@ -9,5 +9,5 @@ class View(models.Model):
 
     def _postprocess_tag_cohort(self, node, name_manager, node_info):
         for additional_field in ('date_start', 'date_stop'):
-            if node.get(additional_field):
-                name_manager.has_field(node, node.get(additional_field).split('.', 1)[0])
+            if fnames := node.get(additional_field):
+                name_manager.has_field(node, fnames.split('.', 1)[0], node_info)
