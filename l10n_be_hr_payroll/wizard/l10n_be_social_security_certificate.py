@@ -4,6 +4,8 @@
 import base64
 
 from dateutil.relativedelta import relativedelta
+from odoo.tools.misc import xlsxwriter
+from io import BytesIO
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
@@ -25,15 +27,21 @@ class L10nBeSocialSecurityCertificate(models.TransientModel):
         ('draft', 'Draft'),
         ('done', 'Done'),
     ], default='draft')
+    state_xlsx = fields.Selection([
+        ('draft', 'Draft'),
+        ('done', 'Done'),
+    ], default='draft')
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     social_security_sheet = fields.Binary('Social Security Certificate', readonly=True, attachment=False)
     social_security_filename = fields.Char()
+    social_security_xlsx = fields.Binary('Social Security Certificate Spreadsheet', readonly=True, attachment=False)
+    social_security_filename_xlsx = fields.Char()
     aggregation_level = fields.Selection([
         ('company', 'Whole Company'),
         ('department', 'By Department'),
         ('employee', 'By Employee')], default='company', required=True)
 
-    def print_report(self):
+    def _get_report_data(self):
         def _get_total(payslips, all_values, codes):
             return sum(all_values[code][p.id]['total'] for p in payslips for code in codes)
 
@@ -224,7 +232,14 @@ class L10nBeSocialSecurityCertificate(models.TransientModel):
             }
             report_data.append((aggregate_name, aggregate_data))
 
-        filename = 'SocialBalance-%s-%s.pdf' % (self.date_from.strftime("%d%B%Y"), self.date_to.strftime("%d%B%Y"))
+        return report_data
+
+    def print_report(self):
+        report_data = self._get_report_data()
+        filename = _(
+            'SocialBalance-%(date_from)s-%(date_to)s.pdf',
+            date_from=self.date_from.strftime("%d%B%Y"),
+            date_to=self.date_to.strftime("%d%B%Y"))
         export_274_sheet_pdf, dummy = self.env["ir.actions.report"].sudo()._render_qweb_pdf(
             self.env.ref('l10n_be_hr_payroll.action_report_social_security_certificate').id,
             res_ids=self.ids, data={'report_data': report_data})
@@ -235,6 +250,588 @@ class L10nBeSocialSecurityCertificate(models.TransientModel):
         self.state = 'done'
         return {
             'type': 'ir.actions.act_window',
+            'name': _('Social Security Certificate'),
+            'res_model': self._name,
+            'view_mode': 'form',
+            'res_id': self.id,
+            'views': [(False, 'form')],
+            'target': 'new',
+        }
+
+    def export_report_xlsx(self):
+        reports_data = self._get_report_data()
+        output = BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        company_worksheet = workbook.add_worksheet(_('Identification Of The Company And Infos'))
+
+        # styling
+        style_header = workbook.add_format({'bold': True, 'pattern': 1, 'bg_color': '#E0E0E0', 'align': 'center', 'bottom': 1})
+        style_vertical_header = workbook.add_format({'bold': True, 'pattern': 1, 'bg_color': '#E0E0E0', 'align': 'center', 'bottom': 1, 'right': 1})
+        style_subtotal_header = workbook.add_format({'bold': True, 'pattern': 1, 'bg_color': '#875A7B', 'align': 'center', 'bottom': 1, 'right': 1})
+        style_normal = workbook.add_format({'align': 'center'})
+        style_subtotal_normal = workbook.add_format({'bg_color': '#B49DAE', 'align': 'center'})
+        column_width = 25
+        double_column_width = 50
+        triple_column_width = 75
+
+        # company worksheet
+        current_line = 0
+        company_header = _('Identification of the company')
+        company_worksheet.set_column(0, 0, double_column_width)
+        company_worksheet.set_column(1, 1, double_column_width)
+        company_worksheet.write(0, 0, company_header, style_header)
+        company_worksheet.write(0, 1, '', style_vertical_header)
+        company_data = {
+            'name': {
+                'header': _('Name'),
+                'value': self.company_id.name,
+            },
+            'vat': {
+                'header': _('VAT Number'),
+                'value': self.company_id.vat,
+            },
+            'onss': {
+                'header': _('ONSS Number'),
+                'value': self.company_id.onss_registration_number,
+            },
+            'established': {
+                'header': _('Established on'),
+                'value': self.create_date.strftime("%d %B %Y at %H:%M:%S"),
+            },
+            'joint_committees': {
+                'header': _('Number of joint committees'),
+                'value': 20000,
+            },
+            'period': {
+                'header': _('Period'),
+                'value': _('%(date_from)s to %(date_to)s', date_from=self.date_from.strftime("%d %B %Y"), date_to=self.date_to.strftime("%d %B %Y")),
+            },
+            'currency': {
+                'header': _('Currency'),
+                'value': self.company_id.currency_id.name,
+            },
+        }
+
+        for data in company_data.values():
+            current_line += 1
+            company_worksheet.write(current_line, 0, data['header'], style_vertical_header)
+            company_worksheet.write(current_line, 1, data['value'], style_normal)
+
+        current_line += 2
+        aggregation_header = _('Aggregation Level:')
+        if self.aggregation_level == 'company':
+            aggregation_data = _('Whole Company')
+            company_worksheet.write(current_line, 0, aggregation_header, style_vertical_header)
+            current_line += 1
+            company_worksheet.write(current_line, 0, aggregation_data, style_vertical_header)
+        elif self.aggregation_level == 'department':
+            aggregation_data = _('departments:')
+            company_worksheet.write(current_line, 0, aggregation_header, style_vertical_header)
+            current_line += 1
+            company_worksheet.write(current_line, 0, aggregation_data, style_vertical_header)
+            for department, dummy in reports_data:
+                current_line += 1
+                company_worksheet.write(current_line, 0, department, style_normal)
+        else:
+            aggregation_data = _('Employees:')
+            company_worksheet.write(current_line, 0, aggregation_header, style_vertical_header)
+            current_line += 1
+            company_worksheet.write(current_line, 0, aggregation_data, style_vertical_header)
+            for employee, dummy in reports_data:
+                current_line += 1
+                company_worksheet.write(current_line, 0, employee, style_normal)
+
+        for aggregation_data, report_data in reports_data:
+            current_worksheet = workbook.add_worksheet(aggregation_data)
+            current_worksheet.set_column(0, 0, triple_column_width)
+            current_worksheet.set_column(1, 3, column_width)
+            current_worksheet.write(0, 0, aggregation_data, style_header)
+
+            for key, value in report_data.items():
+                if isinstance(value, float):
+                    report_data[key] = round(value, 2)
+
+            # workers
+            current_line = 3
+            workers_headers = [_('Workers'), '', '', '']
+            for i, header in enumerate(workers_headers):
+                current_worksheet.write(current_line, i, header, style_vertical_header)
+            current_line += 1
+            workers_headers = ['', _('Total'), _('Employee'), _('Worker')]
+            for i, header in enumerate(workers_headers):
+                current_worksheet.write(current_line, i, header, style_vertical_header)
+
+            workers_data = {
+                'gross_before_onss': {
+                    'header': _('Gross Salary Before ONSS'),
+                    'values': [
+                        report_data['gross_before_onss'],
+                        report_data['gross_before_onss'],
+                        '',
+                    ],
+                },
+                'atn': {
+                    'header': _('Benefits In Kind Submitted To ONSS'),
+                    'values': [
+                        report_data['atn'],
+                        report_data['atn'],
+                        '',
+                    ],
+                },
+                'termination_fees': {
+                    'header': _('Termination Fees'),
+                    'values': [
+                        report_data['termination_fees'],
+                        report_data['termination_fees'],
+                        '',
+                    ],
+                },
+                'thirteen_month': {
+                    'header': _('Thirteen Month'),
+                    'values': [
+                        report_data['thirteen_month'],
+                        report_data['thirteen_month'],
+                        '',
+                    ],
+                },
+                'double_pay': {
+                    'header': _('Double Holiday'),
+                    'values': [
+                        report_data['double_pay'],
+                        report_data['double_pay'],
+                        '',
+                    ],
+                },
+                'student': {
+                    'header': _('Student'),
+                    'values': [
+                        report_data['student'],
+                        report_data['student'],
+                        '',
+                    ],
+                },
+                'total_gross_before_onss': {
+                    'header': _('Total Gross Before ONSS'),
+                    'values': [
+                        report_data['total_gross_before_onss'],
+                        report_data['total_gross_before_onss'],
+                        '',
+                    ],
+                },
+                'atn_without_onss': {
+                    'header': _('Benefits In Kind Without ONSS'),
+                    'values': [
+                        report_data['atn_without_onss'],
+                        report_data['atn_without_onss'],
+                        '',
+                    ],
+                },
+                'early_holiday_pay': {
+                    'header': _('Early Holiday Pay'),
+                    'values': [
+                        report_data['early_holiday_pay'],
+                        report_data['early_holiday_pay'],
+                        '',
+                    ],
+                },
+                'holiday_pay_supplement': {
+                    'header': _('Holiday Pay Supplement'),
+                    'values': [
+                        report_data['holiday_pay_supplement'],
+                        report_data['holiday_pay_supplement'],
+                        '',
+                    ],
+                },
+                'other_exempted_amount': {
+                    'header': _('Other Exempted Amount From ONSS'),
+                    'values': [
+                        report_data['other_exempted_amount'],
+                        report_data['other_exempted_amount'],
+                        '',
+                    ],
+                },
+                'double_gross': {
+                    'header': _('Double Holiday Gross'),
+                    'values': [
+                        report_data['double_gross'],
+                        report_data['double_gross'],
+                        '',
+                    ],
+                },
+                'subtotal_gross': {
+                    'header': _('Sub-Total Gross'),
+                    'values': [
+                        report_data['subtotal_gross'],
+                        report_data['subtotal_gross'],
+                        '',
+                    ],
+                },
+                'onss_cotisation': {
+                    'header': _('ONSS Cotisation'),
+                    'values': [
+                        report_data['onss_cotisation'],
+                        report_data['onss_cotisation'],
+                        '',
+                    ],
+                },
+                'onss_cotisation_termination_fees': {
+                    'header': _('ONSS Cotisation Termination Fees'),
+                    'values': [
+                        report_data['onss_cotisation_termination_fees'],
+                        report_data['onss_cotisation_termination_fees'],
+                        '',
+                    ],
+                },
+                'anticipated_holiday_pay_retenue': {
+                    'header': _('Anticipated Holiday Pay Retenue'),
+                    'values': [
+                        report_data['anticipated_holiday_pay_retenue'],
+                        report_data['anticipated_holiday_pay_retenue'],
+                        '',
+                    ],
+                },
+                'holiday_pay_supplement_retenue': {
+                    'header': _('Holiday Pay Supplement Retenue'),
+                    'values': [
+                        report_data['holiday_pay_supplement_retenue'],
+                        report_data['holiday_pay_supplement_retenue'],
+                        '',
+                    ],
+                },
+                'onss_thirteen_month': {
+                    'header': _('ONSS Thirteen Month'),
+                    'values': [
+                        report_data['onss_thirteen_month'],
+                        report_data['onss_thirteen_month'],
+                        '',
+                    ],
+                },
+                'onss_double': {
+                    'header': _('ONSS Double Holiday'),
+                    'values': [
+                        report_data['onss_double'],
+                        report_data['onss_double'],
+                        '',
+                    ],
+                },
+                'onss_student': {
+                    'header': _('ONSS Student'),
+                    'values': [
+                        report_data['onss_student'],
+                        report_data['onss_student'],
+                        '',
+                    ],
+                },
+                'taxable_adaptation': {
+                    'header': _('Taxable Adaptation'),
+                    'values': [
+                        report_data['taxable_adaptation'],
+                        report_data['taxable_adaptation'],
+                        '',
+                    ],
+                },
+                'taxable_325': {
+                    'header': _('Taxable Amounts (325)'),
+                    'values': [
+                        report_data['taxable_325'],
+                        report_data['taxable_325'],
+                        '',
+                    ],
+                },
+                'gift_in_kind': {
+                    'header': _('Gift In Kind'),
+                    'values': [
+                        report_data['gift_in_kind'],
+                        report_data['gift_in_kind'],
+                        '',
+                    ],
+                },
+                'representation_fees': {
+                    'header': _('Reimbursed Expenses (Representation Fees)'),
+                    'values': [
+                        report_data['representation_fees'],
+                        report_data['representation_fees'],
+                        '',
+                    ],
+                },
+                'private_car': {
+                    'header': _('Private Car'),
+                    'values': [
+                        report_data['private_car'],
+                        report_data['private_car'],
+                        '',
+                    ],
+                },
+                'public_transport': {
+                    'header': _('Public Transport'),
+                    'values': [
+                        report_data['public_transport'],
+                        report_data['public_transport'],
+                        '',
+                    ],
+                },
+                'cycle_allowance': {
+                    'header': _('Cycle Allowance'),
+                    'values': [
+                        report_data['cycle_allowance'],
+                        report_data['cycle_allowance'],
+                        '',
+                    ],
+                },
+                'atn_car': {
+                    'header': _('Benefits In Kind (Company Car)'),
+                    'values': [
+                        report_data['atn_car'],
+                        report_data['atn_car'],
+                        '',
+                    ],
+                },
+                'canteen_costs': {
+                    'header': _('Canteen Costs'),
+                    'values': [
+                        report_data['canteen_costs'],
+                        report_data['canteen_costs'],
+                        '',
+                    ],
+                },
+                'withholding_taxes': {
+                    'header': _('Withholding Taxes'),
+                    'values': [
+                        report_data['withholding_taxes'],
+                        report_data['withholding_taxes'],
+                        '',
+                    ],
+                },
+                'misc_onss': {
+                    'header': _('Special Social Cotisation'),
+                    'values': [
+                        report_data['misc_onss'],
+                        report_data['misc_onss'],
+                        '',
+                    ],
+                },
+                'salary_attachment': {
+                    'header': _('Salary Attachment'),
+                    'values': [
+                        report_data['salary_attachment'],
+                        report_data['salary_attachment'],
+                        '',
+                    ],
+                },
+                'atn_deduction': {
+                    'header': _('Benefits In Kind Deduction'),
+                    'values': [
+                        report_data['atn_deduction'],
+                        report_data['atn_deduction'],
+                        '',
+                    ],
+                },
+                'meal_voucher_employee': {
+                    'header': _('Meal Voucher (Employee Part)'),
+                    'values': [
+                        report_data['meal_voucher_employee'],
+                        report_data['meal_voucher_employee'],
+                        '',
+                    ],
+                },
+                'net_third_party': {
+                    'header': _('Net Salary Paid By Third Party'),
+                    'values': [
+                        report_data['net_third_party'],
+                        report_data['net_third_party'],
+                        '',
+                    ],
+                },
+                'salary_assignment': {
+                    'header': _('Salary Assignment'),
+                    'values': [
+                        report_data['salary_assignment'],
+                        report_data['salary_assignment'],
+                        '',
+                    ],
+                },
+                'salary_advance': {
+                    'header': _('Salary Advance'),
+                    'values': [
+                        report_data['salary_advance'],
+                        report_data['salary_advance'],
+                        '',
+                    ],
+                },
+                'net': {
+                    'header': _('Net Salary'),
+                    'values': [
+                        report_data['net'],
+                        report_data['net'],
+                        '',
+                    ],
+                },
+                'total_net': {
+                    'header': _('Total Net'),
+                    'values': [
+                        report_data['total_net'],
+                        report_data['total_net'],
+                        '',
+                    ],
+                },
+            }
+
+            for key, data in workers_data.items():
+                current_line += 1
+                if key == 'subtotal_gross':
+                    current_worksheet.write(current_line, 0, data['header'], style_subtotal_header)
+                    for j, value in enumerate(data['values']):
+                        current_worksheet.write(current_line, j + 1, value, style_subtotal_normal)
+                    continue
+                current_worksheet.write(current_line, 0, data['header'], style_vertical_header)
+                for j, value in enumerate(data['values']):
+                    current_worksheet.write(current_line, j + 1, value, style_normal)
+            current_line += 2
+
+            # employer
+            employer_headers = [_('Employer'), '', '', '']
+            for i, header in enumerate(employer_headers):
+                current_worksheet.write(current_line, i, header, style_vertical_header)
+            current_line += 1
+            employer_headers = ['', _('Total'), _('Employee'), _('Worker')]
+            for i, header in enumerate(employer_headers):
+                current_worksheet.write(current_line, i, header, style_vertical_header)
+
+            employer_data = {
+                'emp_onss': {
+                    'header': _('ONSS Cotisation'),
+                    'values': [
+                        report_data['emp_onss'],
+                        report_data['emp_onss'],
+                        '',
+                    ],
+                },
+                'emp_termination_onss': {
+                    'header': _('ONSS Cotisation Termination Fees'),
+                    'values': [
+                        report_data['emp_termination_onss'],
+                        report_data['emp_termination_onss'],
+                        '',
+                    ],
+                },
+                'closure_fund': {
+                    'header': _('Business Closure Fund Cotisation'),
+                    'values': [
+                        report_data['closure_fund'],
+                        report_data['closure_fund'],
+                        '',
+                    ],
+                },
+                'charges_redistribution': {
+                    'header': _('ONSS Cotisation: Charges Redistribution'),
+                    'values': [
+                        report_data['charges_redistribution'],
+                        report_data['charges_redistribution'],
+                        '',
+                    ],
+                },
+                'co2_fees': {
+                    'header': _('Solidarity Cotisation: Company Cars'),
+                    'values': [
+                        report_data['co2_fees'],
+                        report_data['co2_fees'],
+                        '',
+                    ],
+                },
+                'structural_reductions': {
+                    'header': _('Structural Reductions'),
+                    'values': [
+                        report_data['structural_reductions'],
+                        report_data['structural_reductions'],
+                        '',
+                    ],
+                },
+                'meal_voucher_employer': {
+                    'header': _('Meal Voucher (Employer Part)'),
+                    'values': [
+                        report_data['meal_voucher_employer'],
+                        report_data['meal_voucher_employer'],
+                        '',
+                    ],
+                },
+                'withholding_taxes_deduction': {
+                    'header': _('Withholding Taxes Deduction'),
+                    'values': [
+                        report_data['withholding_taxes_deduction'],
+                        report_data['withholding_taxes_deduction'],
+                        '',
+                    ],
+                },
+                'total_employer_cost': {
+                    'header': _('Total Employer Cost'),
+                    'values': [
+                        report_data['total_employer_cost'],
+                        report_data['total_employer_cost'],
+                        '',
+                    ],
+                },
+                'holiday_pay_provision': {
+                    'header': _('Holiday Pay Provision'),
+                    'values': [
+                        report_data['holiday_pay_provision'],
+                        report_data['holiday_pay_provision'],
+                        '',
+                    ],
+                },
+                'withholding_taxes_exemption_32': {
+                    'header': _('Withholding Taxes Exemption (Scientific Research) - Doctors / Civil Engineers'),
+                    'values': [
+                        report_data['withholding_taxes_exemption_32'],
+                        report_data['withholding_taxes_exemption_32'],
+                        '',
+                    ],
+                },
+                'withholding_taxes_exemption_33': {
+                    'header': _('Withholding Taxes Exemption (Scientific Research) - Masters'),
+                    'values': [
+                        report_data['withholding_taxes_exemption_33'],
+                        report_data['withholding_taxes_exemption_33'],
+                        '',
+                    ],
+                },
+                'withholding_taxes_exemption_34': {
+                    'header': _('Withholding Taxes Exemption (Scientific Research) - Bachelors'),
+                    'values': [
+                        report_data['withholding_taxes_exemption_34'],
+                        report_data['withholding_taxes_exemption_34'],
+                        '',
+                    ],
+                },
+                'withholding_taxes_capping': {
+                    'header': _('Withholding Taxes Capping (Bachelors)'),
+                    'values': [
+                        report_data['withholding_taxes_capping'],
+                        report_data['withholding_taxes_capping'],
+                        '',
+                    ],
+                },
+            }
+
+            for data in employer_data.values():
+                current_line += 1
+                current_worksheet.write(current_line, 0, data['header'], style_vertical_header)
+                for j, value in enumerate(data['values']):
+                    current_worksheet.write(current_line, j + 1, value, style_normal)
+
+        workbook.close()
+
+        base64_xlsx = base64.encodebytes(output.getvalue())
+        filename = _(
+            'SocialBalance-%(date_from)s-%(date_to)s.xlsx',
+            date_from=self.date_from.strftime("%d%B%Y"),
+            date_to=self.date_to.strftime("%d%B%Y"))
+        self.social_security_filename_xlsx = filename
+        self.social_security_xlsx = base64_xlsx
+        self.state_xlsx = 'done'
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Social Security Certificate'),
             'res_model': self._name,
             'view_mode': 'form',
             'res_id': self.id,
