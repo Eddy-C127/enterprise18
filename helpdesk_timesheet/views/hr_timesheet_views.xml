@@ -85,6 +85,7 @@
                 <field name="helpdesk_ticket_id" string="Ticket"
                     invisible="display_task"
                     readonly="readonly_timesheet"
+                    context="{'search_default_my_ticket': True, 'search_default_is_open': True, 'search_view_ref': 'helpdesk.helpdesk_ticket_view_search_analysis'}"
                     options="{'no_open': True}" groups="helpdesk_timesheet.group_use_helpdesk_timesheet"/>
             </xpath>
             <xpath expr="//field[@name='task_id']" position="attributes">

@@ -48,25 +48,23 @@
                             name="'project_id'"
                             class="!props.timesheet.isInEdition ? 'd-inline align-middle pt-1 o_required_modifier' : 'o_required_modifier'"
                             record="props.timesheet"
-                            attrs="props.fields['project_id'].attrs"
-                            placeholder="props.fields['project_id'].placeholder"
                             canCreateEdit="false"
+                            fieldInfo="props.fields['project_id']"
+                            placeholder="props.fields['project_id'].placeholder"
                         />
                         <Field
                             name="'task_id'"
                             class="!props.timesheet.isInEdition and 'd-inline align-middle pt-1'"
                             record="props.timesheet"
-                            attrs="props.fields['task_id'].attrs"
-                            placeholder="props.fields['task_id'].placeholder"
                             canCreateEdit="false"
-                            domain="getDomain('task_id')"
-                            fieldInfo="fieldsInfo.task_id"
+                            fieldInfo="props.fields['task_id']"
+                            placeholder="props.fields['task_id'].placeholder"
                         />
                         <Field
                             name="'name'"
                             class="!props.timesheet.isInEdition and 'd-inline align-middle pt-1'"
                             record="props.timesheet"
-                            attrs="props.fields['name'].attrs"
+                            fieldInfo="props.fields['name']"
                             placeholder="props.fields['name'].placeholder"
                         />
                     </div>

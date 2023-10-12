@@ -5,6 +5,7 @@ import { Domain } from "@web/core/domain";
 import { useService } from "@web/core/utils/hooks";
 import { Record } from "@web/model/record";
 import { getRawValue } from "@web/views/kanban/kanban_record";
+import { getPropertyFieldInfo } from "@web/views/fields/field";
 
 import { TimesheetTimerHeader } from "../timesheet_timer_header/timesheet_timer_header";
 
@@ -52,25 +53,19 @@ export class GridTimesheetTimerHeader extends Component {
 
     getFieldInfo(fieldName) {
         const field = this.fields[fieldName];
-        const fieldInfo = {
-            attrs: {},
-            options: {},
+        const fieldInfo = getPropertyFieldInfo({
+            field: field,
+            name: fieldName,
+            type: field.type,
             domain: field.domain || "[]",
-            placeholder: field.string || "",
             required: "False",
-        };
+        });
+        fieldInfo.placeholder = field.string || "";
         if (fieldName === "project_id") {
-            if (field.domain) {
-                fieldInfo.domain = Domain.and([
-                    field.domain,
-                    [["timesheet_encode_uom_id", "=", this.timesheetUOMService.timesheetUOMId]],
-                ]).toString();
-            } else {
-                fieldInfo.domain = [
-                    ["allow_timesheets", "=", true],
-                    ["timesheet_encode_uom_id", "=", this.timesheetUOMService.timesheetUOMId],
-                ];
-            }
+            fieldInfo.domain = Domain.and([
+                fieldInfo.domain,
+                new Domain([["allow_timesheets", "=", true]]),
+            ]).toString();
             fieldInfo.context = `{'search_default_my_projects': True}`;
             fieldInfo.required = "True";
         } else if (fieldName === "task_id") {

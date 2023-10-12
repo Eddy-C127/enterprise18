@@ -6,10 +6,9 @@
                 name="'helpdesk_ticket_id'"
                 class="'mt-3 mt-md-0 px-md-2 flex-grow-1'"
                 record="props.timesheet"
-                attrs="props.fields['helpdesk_ticket_id'].attrs"
-                placeholder="'Ticket'"
+                fieldInfo="props.fields['helpdesk_ticket_id']"
+                placeholder="props.fields['helpdesk_ticket_id'].placeholder"
                 t-if="hasHelpdeskProject"
-                domain="getDomain('helpdesk_ticket_id')"
             />
         </xpath>
         <xpath expr='//Field[@name="&apos;task_id&apos;"]' position="attributes">

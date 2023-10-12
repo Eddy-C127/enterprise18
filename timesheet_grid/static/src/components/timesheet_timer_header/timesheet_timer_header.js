@@ -1,8 +1,6 @@
 /** @odoo-module **/
 
 import { Field, getPropertyFieldInfo } from "@web/views/fields/field";
-import { Domain } from "@web/core/domain";
-import { evaluateExpr } from "@web/core/py_js/py";
 import { TimesheetDisplayTimer } from "../timesheet_display_timer/timesheet_display_timer";
 import { useService, useAutofocus } from "@web/core/utils/hooks";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
@@ -48,19 +46,6 @@ export class TimesheetTimerHeader extends Component {
     onWillUpdateProps(nextProps) {
         if (nextProps.timesheet && nextProps.timesheet.data.name === "/") {
             this._clearTimesheetName(nextProps.timesheet);
-        }
-    }
-
-    getDomain(fieldName) {
-        return () => {
-            const evalContext = this.props.timesheet.evalContext;
-            if (this.props.fields[fieldName].domain) {
-                return new Domain(evaluateExpr(this.props.fields[fieldName].domain, evalContext)).toList();
-            }
-            const { domain } = this.props.timesheet.fields[fieldName];
-            return typeof domain === "string"
-                ? new Domain(evaluateExpr(domain, evalContext)).toList()
-                : domain || [];
         }
     }
 

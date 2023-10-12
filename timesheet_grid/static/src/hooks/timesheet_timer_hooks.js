@@ -6,6 +6,7 @@ import { useService } from "@web/core/utils/hooks";
 import { useDebounced } from "@web/core/utils/timing";
 import { getRawValue } from "@web/views/kanban/kanban_record";
 import { DynamicRecordList } from "@web/model/relational_model/dynamic_record_list";
+import { getPropertyFieldInfo } from "@web/views/fields/field";
 import {
     useState,
     useComponent,
@@ -43,41 +44,37 @@ export class TimesheetTimerRendererHook {
         return this.timesheetUOMService.timesheetWidget === "float_time";
     }
 
+    getFieldInfo(fieldName, field) {
+        const fieldInfo = getPropertyFieldInfo({
+            field: field,
+            name: fieldName,
+            type: field.type,
+            domain: field.domain || "[]",
+            required: "False",
+        });
+        fieldInfo.placeholder = field.string || "";
+        if (fieldName === "project_id") {
+            fieldInfo.domain = Domain.and([
+                fieldInfo.domain,
+                new Domain([["allow_timesheets", "=", true]]),
+            ]).toString();
+            fieldInfo.context = `{'search_default_my_projects': True}`;
+            fieldInfo.required = "True";
+        } else if (fieldName === "task_id") {
+            fieldInfo.context = `{'default_project_id': project_id, 'search_default_my_tasks': True, 'search_default_open_tasks': True}`;
+        } else if (fieldName === "name") {
+            fieldInfo.placeholder = _t("Describe your activity...");
+        }
+        if (field.depends?.length) {
+            fieldInfo.onChange = true;
+        }
+        return fieldInfo;
+    }
+
     get fields() {
         const fields = {};
-        for (const [fieldName, field] of Object.entries(this.propsList.activeFields)) {
-            const fieldInfo = { ...field };
-            if (fieldName === "project_id") {
-                if (field.domain) {
-                    fieldInfo.domain = Domain.and([
-                        field.domain,
-                        [["timesheet_encode_uom_id", "=", this.timesheetUOMService.timesheetUOMId]],
-                    ]).toList();
-                } else {
-                    fieldInfo.domain = [
-                        ["allow_timesheets", "=", true],
-                        ["timesheet_encode_uom_id", "=", this.timesheetUOMService.timesheetUOMId],
-                    ];
-                }
-                fieldInfo.required = "True";
-                if (!fieldInfo.placeholder && fieldInfo.string) {
-                    fieldInfo.placeholder = fieldInfo.string;
-                }
-                fieldInfo.context = `{'search_default_my_projects': True}`;
-            } else if (fieldName === "task_id") {
-                if (!fieldInfo.placeholder && fieldInfo.string) {
-                    fieldInfo.placeholder = fieldInfo.string;
-                }
-                fieldInfo.context = `{'default_project_id': project_id, 'search_default_my_tasks': True, 'search_default_open_tasks': True}`;
-            } else if (fieldName === "name") {
-                if (fieldInfo.required) {
-                    fieldInfo.required = "False";
-                }
-                fieldInfo.placeholder = _t("Describe your activity...");
-            }
-            if (field.depends?.length && !fieldInfo.onChange) {
-                fieldInfo.onChange = true;
-            }
+        for (const [fieldName] of Object.entries(this.propsList.activeFields)) {
+            const fieldInfo = this.getFieldInfo(fieldName, this.propsList.fields[fieldName]);
             fields[fieldName] = fieldInfo;
         }
         return fields;
