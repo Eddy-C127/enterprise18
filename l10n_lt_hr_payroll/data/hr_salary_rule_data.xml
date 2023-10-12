@@ -61,6 +61,7 @@ result_rate = -payslip._rule_parameter('l10n_lt_pit_rate_sick')
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['PITLAST'].amount
+result_name = inputs['PITLAST'].name
 result_rate = -payslip._rule_parameter('l10n_lt_pit_rate_high')
         </field>
         <field name="appears_on_payroll_report" eval="True"/>

@@ -19,7 +19,10 @@
             <field name="condition_select">python</field>
             <field name="condition_python">result = 'EXTRA_HOURS_25' in inputs</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = inputs['EXTRA_HOURS_25'].amount</field>
+            <field name="amount_python_compute">
+result = inputs['EXTRA_HOURS_25'].amount
+result_name = inputs['EXTRA_HOURS_25'].name
+            </field>
             <field name="struct_id" ref="hr_payroll_salary_ma_structure_base"/>
         </record>
         <record id="l10n_ma_hr_rule_extra_hours_50" model="hr.salary.rule">
@@ -30,7 +33,10 @@
             <field name="condition_select">python</field>
             <field name="condition_python">result = 'EXTRA_HOURS_50' in inputs</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = inputs['EXTRA_HOURS_50'].amount</field>
+            <field name="amount_python_compute">
+result = inputs['EXTRA_HOURS_50'].amount
+result_name = inputs['EXTRA_HOURS_50'].name
+            </field>
             <field name="struct_id" ref="hr_payroll_salary_ma_structure_base"/>
         </record>
         <record id="l10n_ma_hr_rule_extra_hours_100" model="hr.salary.rule">
@@ -41,7 +47,10 @@
             <field name="condition_select">python</field>
             <field name="condition_python">result = 'EXTRA_HOURS_100' in inputs</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = inputs['EXTRA_HOURS_100'].amount</field>
+            <field name="amount_python_compute">
+result = inputs['EXTRA_HOURS_100'].amount
+result_name = inputs['EXTRA_HOURS_100'].name
+            </field>
             <field name="struct_id" ref="hr_payroll_salary_ma_structure_base"/>
         </record>
         <record id="l10n_ma_hr_rule_seniority" model="hr.salary.rule">
@@ -349,7 +358,10 @@ if virtual_net > min:
             <field name="condition_select">python</field>
             <field name="amount_select">code</field>
             <field name="condition_python">result = 'AVS' in inputs > 0</field>
-            <field name="amount_python_compute">result = -inputs['AVS'].amount</field>
+            <field name="amount_python_compute">
+result = -inputs['AVS'].amount
+result_name = inputs['AVS'].name
+            </field>
             <field name="struct_id" ref="hr_payroll_salary_ma_structure_base"/>
         </record>
 

@@ -42,6 +42,7 @@ result = payslip.paid_amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['ADVANCE'].amount
+result_name = inputs['ADVANCE'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -66,6 +67,7 @@ result = inputs['ADVANCE'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['HOLDEP'].amount
+result_name = inputs['HOLDEP'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -111,6 +113,7 @@ result = payslip._get_contract_wage() / 12.0
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['GRAT'].amount
+result_name = inputs['GRAT'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -134,6 +137,7 @@ result = inputs['GRAT'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['BONUS'].amount
+result_name = inputs['BONUS'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -157,6 +161,7 @@ result = inputs['BONUS'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['COMMISSION'].amount
+result_name = inputs['COMMISSION'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -180,6 +185,7 @@ result = inputs['COMMISSION'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['JUBILEE'].amount
+result_name = inputs['JUBILEE'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -203,6 +209,7 @@ result = inputs['JUBILEE'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['SICKWAGE'].amount
+result_name = inputs['SICKWAGE'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -227,6 +234,7 @@ result = inputs['SICKWAGE'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['ACCIDENTWAGE'].amount
+result_name = inputs['ACCIDENTWAGE'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -251,6 +259,7 @@ result = inputs['ACCIDENTWAGE'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['MILITARYWAGE'].amount
+result_name = inputs['MILITARYWAGE'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -275,6 +284,7 @@ result = inputs['MILITARYWAGE'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['CAFEE'].amount
+result_name = inputs['CAFEE'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -298,6 +308,7 @@ result = inputs['CAFEE'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['MEALS'].amount
+result_name = inputs['MEALS'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -321,6 +332,7 @@ result = inputs['MEALS'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['ROOM'].amount
+result_name = inputs['ROOM'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -344,6 +356,7 @@ result = inputs['ROOM'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['HOUSING'].amount
+result_name = inputs['HOUSING'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -367,6 +380,7 @@ result = inputs['HOUSING'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['COMPCAR'].amount
+result_name = inputs['COMPCAR'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -390,6 +404,7 @@ result = inputs['COMPCAR'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['OPTIJM'].amount
+result_name = inputs['OPTIJM'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -413,6 +428,7 @@ result = inputs['OPTIJM'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['OPTLPP'].amount
+result_name = inputs['OPTLPP'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -436,6 +452,7 @@ result = inputs['OPTLPP'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['OPTLPPRED'].amount
+result_name = inputs['OPTLPPRED'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -459,6 +476,7 @@ result = inputs['OPTLPPRED'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['OPTCM'].amount
+result_name = inputs['OPTCM'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -482,6 +500,7 @@ result = inputs['OPTCM'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['OPTAANP'].amount
+result_name = inputs['OPTAANP'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -505,6 +524,7 @@ result = inputs['OPTAANP'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['OPTLAAC'].amount
+result_name = inputs['OPTLAAC'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -528,6 +548,7 @@ result = inputs['OPTLAAC'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['INDAPG'].amount
+result_name = inputs['INDAPG'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -552,6 +573,7 @@ result = inputs['INDAPG'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['INDAI'].amount
+result_name = inputs['INDAI'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -576,6 +598,7 @@ result = inputs['INDAI'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['ANNAI'].amount
+result_name = inputs['ANNAI'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -600,6 +623,7 @@ result = inputs['ANNAI'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -inputs['INDACC'].amount
+result_name = inputs['INDACC'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -624,6 +648,7 @@ result = -inputs['INDACC'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -inputs['INDSICK'].amount
+result_name = inputs['INDSICK'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -648,6 +673,7 @@ result = -inputs['INDSICK'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -inputs['INDMAT'].amount
+result_name = inputs['INDMAT'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_ac_included" eval="True"/>
@@ -670,6 +696,7 @@ result = -inputs['INDMAT'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['CHILDALW'].amount
+result_name = inputs['CHILDALW'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -694,6 +721,7 @@ result = inputs['CHILDALW'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['TRAININGALW'].amount
+result_name = inputs['TRAININGALW'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -718,6 +746,7 @@ result = inputs['TRAININGALW'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['FAMILYALW'].amount
+result_name = inputs['FAMILYALW'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -741,6 +770,7 @@ result = inputs['FAMILYALW'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['BIRTHALW'].amount
+result_name = inputs['BIRTHALW'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -764,6 +794,7 @@ result = inputs['BIRTHALW'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['MARRIAGEALW'].amount
+result_name = inputs['MARRIAGEALW'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1515,6 +1546,8 @@ else:
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = - inputs['LPP'].amount if 'LPP' in inputs else 0
+if 'LPP' in inputs:
+    result_name = inputs['LPP'].name
         </field>
         <field name="note">
 Pension
@@ -1545,6 +1578,7 @@ Source:
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['LPPRED'].amount
+result_name = inputs['LPPRED'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1566,6 +1600,8 @@ result = inputs['LPPRED'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['LPPCOMP'] if 'LPPCOMP' in inputs else 0
+if 'LPPCOMP' in inputs:
+    result_name = inputs['LPPCOMP']
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="note">
@@ -1641,6 +1677,7 @@ See: https://www.estv.admin.ch/estv/fr/accueil/impot-federal-direct/impot-a-la-s
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['ISCOR'].amount
+result_name = inputs['ISCOR'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1690,6 +1727,7 @@ result_rate = - contract.l10n_ch_compensation_fund_id._get_caf_rates(payslip.dat
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -inputs.COMPCAR.amount
+result_name = inputs.COMPCAR.name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1711,6 +1749,7 @@ result = -inputs.COMPCAR.amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['TRAVEXP'].amount
+result_name = inputs['TRAVEXP'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1733,6 +1772,7 @@ result = inputs['TRAVEXP'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['CAREXP'].amount
+result_name = inputs['CAREXP'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1755,6 +1795,7 @@ result = inputs['CAREXP'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['LUNCHEXP'].amount
+result_name = inputs['LUNCHEXP'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1777,6 +1818,7 @@ result = inputs['LUNCHEXP'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['NIGHTEXP'].amount
+result_name = inputs['NIGHTEXP'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1799,6 +1841,7 @@ result = inputs['NIGHTEXP'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['OTHEREXP'].amount
+result_name = inputs['OTHEREXP'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1821,6 +1864,7 @@ result = inputs['OTHEREXP'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['REPFEES'].amount
+result_name = inputs['REPFEES'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1843,6 +1887,7 @@ result = inputs['REPFEES'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['CARFEES'].amount
+result_name = inputs['CARFEES'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1865,6 +1910,7 @@ result = inputs['CARFEES'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['OTHERFEES'].amount
+result_name = inputs['OTHERFEES'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
@@ -1886,6 +1932,7 @@ result = inputs['OTHERFEES'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['INDACC'].amount
+result_name = inputs['INDACC'].name
         </field>
         <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
     </record>
@@ -1900,6 +1947,7 @@ result = inputs['INDACC'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['INDSICK'].amount
+result_name = inputs['INDSICK'].name
         </field>
         <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
     </record>
@@ -1914,6 +1962,7 @@ result = inputs['INDSICK'].amount
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['INDMAT'].amount
+result_name = inputs['INDMAT'].name
         </field>
         <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
     </record>

@@ -1327,6 +1327,7 @@ class Payslip(models.Model):
         result_qty = 1
         result_rate = 6.8
         result = inputs['GROSS_REF'].amount if 'GROSS_REF' in inputs else 0
+        result_name = inputs['GROSS_REF'].name if 'GROSS_REF' in inputs else None
         date_from = self.date_from
         if self.struct_id.code == "CP200HOLN1":
             existing_double_pay = self.env['hr.payslip'].search([
@@ -1338,4 +1339,4 @@ class Payslip(models.Model):
             ])
             if existing_double_pay:
                 result = 0
-        return (result_qty, result_rate, result)
+        return (result_qty, result_rate, result, result_name)

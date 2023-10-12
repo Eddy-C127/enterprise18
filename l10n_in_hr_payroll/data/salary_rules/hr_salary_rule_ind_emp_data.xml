@@ -108,7 +108,10 @@ result = contract.wage * city_alw_percent
         <field name="name">Arrears</field>
         <field name="category_id" ref="hr_payroll.ALW"/>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = 'ARS' in inputs and inputs['ARS'].amount</field>
+        <field name="amount_python_compute">
+result = 'ARS' in inputs and inputs['ARS'].amount
+result_name = 'ARS' in inputs and inputs['ARS'].name
+        </field>
         <field eval="0.0" name="amount_fix"/>
         <field name="sequence" eval="28"/>
         <field name="note">Generally arrears are fully taxable, but employee may claim exemption u/s 89(1).
@@ -122,7 +125,10 @@ Now difference of income tax between payment year and actual year would be allow
         <field name="name">Medical Reimbursement</field>
         <field name="category_id" ref="hr_payroll.ALW"/>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = 'MR' in inputs and inputs['MR'].amount</field>
+        <field name="amount_python_compute">
+result = 'MR' in inputs and inputs['MR'].amount
+result_name = 'MR' in inputs and inputs['MR'].name
+        </field>
         <field name="sequence" eval="32"/>
         <field name="note">This component is on-taxable up to 15000 per year (or Rs 1500 per month) on producing medical bills.</field>
         <field name="struct_id" ref="hr_payroll_salary_structure_ind_emp"/>
@@ -178,7 +184,10 @@ result = -contract.wage * pf_ctb_percent
         <field name="name">Book and Periodicals Allowance (BNP)</field>
         <field name="category_id" ref="hr_payroll.ALW"/>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = 'PJ' in inputs and inputs['PJ'].amount</field>
+        <field name="amount_python_compute">
+result = 'PJ' in inputs and inputs['PJ'].amount
+result_name = 'PJ' in inputs and inputs['PJ'].name
+        </field>
         <field name="sequence" eval="34"/>
         <field name="note">Some employers may provide component for buying magazines, journals and books as a part of knowledge enhancement for business growth.This part would become non taxable on providing original bills.</field>
         <field name="struct_id" ref="hr_payroll_salary_structure_ind_emp"/>
@@ -200,7 +209,10 @@ result = -contract.wage * pf_ctb_percent
         <field name="name">Telephone Reimbursement</field>
         <field name="category_id" ref="hr_payroll.ALW"/>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = 'TR' in inputs and inputs['TR'].amount</field>
+        <field name="amount_python_compute">
+result = 'TR' in inputs and inputs['TR'].amount
+result_name = 'TR' in inputs and inputs['TR'].name
+        </field>
         <field name="sequence" eval="36"/>
         <field name="note">In some of the cases, companies may provide a component for telephone bills.Employees may provide actual phone usage bills to reimburse this component and make it non-taxable.
         </field>
@@ -222,7 +234,10 @@ result = -contract.wage * pf_ctb_percent
         <field name="name">Car Expenses Reimbursement</field>
         <field name="category_id" ref="hr_payroll.ALW"/>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = 'CEI' in inputs and inputs['CEI'].amount</field>
+        <field name="amount_python_compute">
+result = 'CEI' in inputs and inputs['CEI'].amount
+result_name = 'CEI' in inputs and inputs['CEI'].name
+        </field>
         <field name="sequence" eval="38"/>
         <field name="note">In case company provides component for this and employee use self owned car for official and personal purposes, Rs 1800 per month would be non-taxable on showing bills for fuel or can maintenance. This amount would be Rs 2400 in case car is more capacity than 1600cc.</field>
         <field name="struct_id" ref="hr_payroll_salary_structure_ind_emp"/>
@@ -233,7 +248,10 @@ result = -contract.wage * pf_ctb_percent
         <field name="name">Mobile and Internet Expense</field>
         <field name="category_id" ref="hr_payroll.ALW"/>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = 'IE' in inputs and inputs['IE'].amount</field>
+        <field name="amount_python_compute">
+result = 'IE' in inputs and inputs['IE'].amount
+result_name = 'IE' in inputs and inputs['IE'].name
+        </field>
         <field name="sequence" eval="39"/>
         <field name="note">Employer may also provide reimbursement of  Mobile and Internet Expense and thus this would become non taxable.</field>
         <field name="struct_id" ref="hr_payroll_salary_structure_ind_emp"/>
@@ -384,7 +402,10 @@ result = -contract.wage * VPF / 100
         <field name="condition_select">python</field>
         <field name="condition_python">result = 'LAI' in inputs</field>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = -inputs['LAI'].amount</field>
+        <field name="amount_python_compute">
+result = -inputs['LAI'].amount
+result_name = inputs['LAI'].name
+        </field>
         <field name="struct_id" ref="hr_payroll_salary_structure_ind_emp"/>
     </record>
 

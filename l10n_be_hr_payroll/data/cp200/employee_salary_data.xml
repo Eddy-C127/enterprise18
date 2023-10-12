@@ -85,6 +85,7 @@ result_name = inputs['HIRINGBONUS'].name
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['REPFEESREGUL'].amount
+result_name = inputs['REPFEESREGUL'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_salary"/>
     </record>
@@ -127,7 +128,10 @@ result_name = inputs['AFTERPUB'].name
         <field name="condition_select">python</field>
         <field name="condition_python">result = 'SIMPLEDECEMBER' in inputs and inputs['SIMPLEDECEMBER'].amount</field>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = inputs['SIMPLEDECEMBER'].amount</field>
+        <field name="amount_python_compute">
+result = inputs['SIMPLEDECEMBER'].amount
+result_name = inputs['SIMPLEDECEMBER'].name
+        </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_salary"/>
     </record>
 
@@ -646,7 +650,10 @@ if not salary_simulation:
         <field name="condition_select">python</field>
         <field name="condition_python">result = 'DOUBLEDECEMBER' in inputs and inputs['DOUBLEDECEMBER'].amount</field>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = inputs['DOUBLEDECEMBER'].amount</field>
+        <field name="amount_python_compute">
+result = inputs['DOUBLEDECEMBER'].amount
+result_name = inputs['DOUBLEDECEMBER'].name
+        </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_salary"/>
     </record>
 
@@ -725,6 +732,7 @@ result = inputs['EXPENSES'].amount > 0.0 if 'EXPENSES' in inputs else False
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['EXPENSES'].amount if 'EXPENSES' in inputs else 0
+result_name = inputs['EXPENSES'].name if 'EXPENSES' in inputs
         </field>
         <field name="code">EXPENSES</field>
         <field name="category_id" ref="hr_payroll.ALW"/>
@@ -741,7 +749,10 @@ result = inputs['EXPENSES'].amount if 'EXPENSES' in inputs else 0
         <field name="condition_select">python</field>
         <field name="condition_python">result = 'NEGATIVE' in inputs</field>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = -inputs['NEGATIVE'].amount</field>
+        <field name="amount_python_compute">
+result = -inputs['NEGATIVE'].amount
+result_name = inputs['NEGATIVE'].name
+        </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_salary"/>
     </record>
 
@@ -753,7 +764,10 @@ result = inputs['EXPENSES'].amount if 'EXPENSES' in inputs else 0
         <field name="condition_select">python</field>
         <field name="condition_python">result = 'ADVANCE' in inputs</field>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = -inputs['ADVANCE'].amount</field>
+        <field name="amount_python_compute">
+result = -inputs['ADVANCE'].amount
+result_name = inputs['ADVANCE'].amount
+        </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_salary"/>
     </record>
 

@@ -23,6 +23,8 @@ result = contract._get_contract_wage()
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['YEAREND_BONUS'].amount if 'YEAREND_BONUS' in inputs else 0
+if 'YEAREND_BONUS' in inputs:
+    result_name = inputs['YEAREND_BONUS'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -37,6 +39,8 @@ result = inputs['YEAREND_BONUS'].amount if 'YEAREND_BONUS' in inputs else 0
         <field name="amount_python_compute">
 result_qty = 13.92
 result = inputs['RESIDENCE'].amount if 'RESIDENCE' in inputs else 0
+if 'RESIDENCE' in inputs:
+    result_name = inputs['RESIDENCE'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -51,6 +55,8 @@ result = inputs['RESIDENCE'].amount if 'RESIDENCE' in inputs else 0
         <field name="amount_python_compute">
 result_qty = 12
 result = inputs['EXPATRIATE'].amount if 'EXPATRIATE' in inputs else 0
+if 'EXPATRIATE' in inputs:
+    result_name = inputs['EXPATRIATE'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -91,6 +97,8 @@ result = contract.eco_checks
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['VARIABLE_SALARY'].amount if 'VARIABLE_SALARY' in inputs else 0
+if 'VARIABLE_SALARY' in inputs:
+    result_name = inputs['VARIABLE_SALARY'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -118,6 +126,8 @@ result = VARIABLE_SALARY
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = inputs['BENEFIT_IN_KIND'].amount if 'BENEFIT_IN_KIND' in inputs else 0
+if 'BENEFIT_IN_KIND' in inputs:
+    result_name = inputs['BENEFIT_IN_KIND'].name
 result_qty = 12.92
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
@@ -167,6 +177,8 @@ result = contract.car_atn if contract.transport_mode_car else 0
         <field name="amount_python_compute">
 result_qty = 12
 result = inputs['HOSPITAL_INSURANCE'].amount if 'HOSPITAL_INSURANCE' in inputs else 0
+if 'HOSPITAL_INSURANCE' in inputs:
+    result_name = inputs['HOSPITAL_INSURANCE'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -181,6 +193,8 @@ result = inputs['HOSPITAL_INSURANCE'].amount if 'HOSPITAL_INSURANCE' in inputs e
         <field name="amount_python_compute">
 result_qty = 12
 result = inputs['AMBULATORY_INSURANCE'].amount if 'AMBULATORY_INSURANCE' in inputs else 0
+if 'AMBULATORY_INSURANCE' in inputs:
+    result_name = inputs['AMBULATORY_INSURANCE'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -195,6 +209,8 @@ result = inputs['AMBULATORY_INSURANCE'].amount if 'AMBULATORY_INSURANCE' in inpu
         <field name="amount_python_compute">
 result_qty = 12
 result = inputs['GROUP_INSURANCE'].amount if 'GROUP_INSURANCE' in inputs else 0
+if 'GROUP_INSURANCE' in inputs:
+    result_name = inputs['GROUP_INSURANCE'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -209,6 +225,8 @@ result = inputs['GROUP_INSURANCE'].amount if 'GROUP_INSURANCE' in inputs else 0
         <field name="amount_python_compute">
 result_qty = 12
 result = inputs['GROUP_INSURANCE'].amount if 'GROUP_INSURANCE' in inputs else 0
+if 'GROUP_INSURANCE' in inputs:
+    result_name = inputs['GROUP_INSURANCE'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -223,6 +241,8 @@ result = inputs['GROUP_INSURANCE'].amount if 'GROUP_INSURANCE' in inputs else 0
         <field name="amount_python_compute">
 result_qty = 12
 result = inputs['STOCK_OPTION'].amount if 'STOCK_OPTION' in inputs else 0
+if 'STOCK_OPTION' in inputs:
+    result_name = inputs['STOCK_OPTION'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -237,6 +257,8 @@ result = inputs['STOCK_OPTION'].amount if 'STOCK_OPTION' in inputs else 0
         <field name="amount_python_compute">
 result_qty = 12
 result = inputs['SPECIFIC_RULES'].amount if 'SPECIFIC_RULES' in inputs else 0
+if 'SPECIFIC_RULES' in inputs:
+    result_name = inputs['SPECIFIC_RULES'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
@@ -251,6 +273,8 @@ result = inputs['SPECIFIC_RULES'].amount if 'SPECIFIC_RULES' in inputs else 0
         <field name="amount_python_compute">
 result_qty = 12
 result = inputs['OTHER'].amount if 'OTHER' in inputs else 0
+if 'OTHER' in inputs:
+    result_name = inputs['OTHER'].name
         </field>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
