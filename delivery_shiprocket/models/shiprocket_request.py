@@ -205,12 +205,14 @@ class ShipRocket:
             else:
                 packages = self.carrier._get_packages_from_order(order, default_package)
 
+            dimensions = {}
+            if len(packages) == 1:
+                dimensions = {
+                    'length': packages[0].dimension['length'],
+                    'width': packages[0].dimension['width'],
+                    'height': packages[0].dimension['height']
+                }
             total_weight = sum(pack.weight for pack in packages)
-            dimensions = {
-                'length': sum(pack.dimension['length'] for pack in packages),
-                'width': sum(pack.dimension['width'] for pack in packages),
-                'height': sum(pack.dimension['height'] for pack in packages)
-            }
         weight_in_kg = self.carrier._shiprocket_convert_weight(total_weight)
         rate_dict = self._get_rate(shipper, recipient, weight_in_kg, dimensions)
         return rate_dict
