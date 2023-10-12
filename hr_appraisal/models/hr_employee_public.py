@@ -10,6 +10,7 @@ class HrEmployeePublic(models.Model):
     ongoing_appraisal_count = fields.Integer()
     last_appraisal_id = fields.Many2one(readonly=True)
     next_appraisal_date = fields.Date(compute='_compute_manager_only_fields', search='_search_next_appraisal_date')
+    can_request_appraisal = fields.Boolean(compute='_compute_can_request_appraisal')
 
     def _get_manager_only_fields(self):
         return super()._get_manager_only_fields() + ['next_appraisal_date']

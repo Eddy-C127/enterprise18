@@ -8,34 +8,19 @@
         <xpath expr="//header" position="inside">
             <field name="parent_user_id" invisible="1"/>
             <field name="ongoing_appraisal_count" invisible="1"/>
+            <field name="can_request_appraisal" invisible="1"/>
             <button name="action_send_appraisal_request"
                 string="Request Appraisal"
                 type="object"
                 data-hotkey="g"
-                groups="!hr_appraisal.group_hr_appraisal_user"
                 class="btn btn-primary"
-                invisible="parent_user_id != uid or ongoing_appraisal_count != 0"/>
+                invisible="not can_request_appraisal or ongoing_appraisal_count"/>
             <button name="action_send_appraisal_request"
                 string="Request Appraisal"
                 type="object"
                 data-hotkey="g"
-                groups="hr_appraisal.group_hr_appraisal_user"
-                invisible="ongoing_appraisal_count != 0"
-                class="btn btn-primary"/>
-            <button name="action_send_appraisal_request"
-                string="Request Appraisal"
-                type="object"
-                data-hotkey="g"
-                groups="!hr_appraisal.group_hr_appraisal_user"
                 class="btn btn-secondary"
-                invisible="parent_user_id != uid or ongoing_appraisal_count == 0"/>
-            <button name="action_send_appraisal_request"
-                string="Request Appraisal"
-                type="object"
-                data-hotkey="g"
-                groups="hr_appraisal.group_hr_appraisal_user"
-                invisible="ongoing_appraisal_count == 0"
-                class="btn btn-secondary"/>
+                invisible="not can_request_appraisal or not ongoing_appraisal_count"/>
         </xpath>
             <xpath expr="//field[@name='work_email']" position="after">
                 <field name="is_manager" invisible="1"/>

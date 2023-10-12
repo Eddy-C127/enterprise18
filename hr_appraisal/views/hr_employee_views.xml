@@ -19,54 +19,44 @@
         <field name="name">hr.employee.view.form.inherit.appraisal</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
-        <field name="priority" eval="80"/>
+        <field name="priority" eval="10"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <field name="parent_user_id" invisible="1"/>
                 <field name="ongoing_appraisal_count" invisible="1"/>
+                <field name="can_request_appraisal" invisible="1"/>
                 <button name="action_send_appraisal_request"
                     string="Request Appraisal"
                     type="object"
                     data-hotkey="g"
-                    groups="!hr_appraisal.group_hr_appraisal_user"
                     class="btn btn-primary"
-                    invisible="parent_user_id != uid or ongoing_appraisal_count != 0"/>
+                    invisible="ongoing_appraisal_count"/>
                 <button name="action_send_appraisal_request"
                     string="Request Appraisal"
                     type="object"
                     data-hotkey="g"
-                    groups="hr_appraisal.group_hr_appraisal_user"
-                    invisible="ongoing_appraisal_count != 0"
-                    class="btn btn-primary"/>
-                <button name="action_send_appraisal_request"
-                    string="Request Appraisal"
-                    type="object"
-                    data-hotkey="g"
-                    groups="!hr_appraisal.group_hr_appraisal_user"
                     class="btn btn-secondary"
-                    invisible="parent_user_id != uid or ongoing_appraisal_count == 0"/>
-                <button name="action_send_appraisal_request"
-                    string="Request Appraisal"
-                    type="object"
-                    data-hotkey="g"
-                    groups="hr_appraisal.group_hr_appraisal_user"
-                    invisible="ongoing_appraisal_count == 0"
-                    class="btn btn-secondary"/>
+                    invisible="not ongoing_appraisal_count"/>
             </xpath>
             <div name="button_box" position="inside">
                 <field name="appraisal_count" invisible="1"/>
                 <field name="ongoing_appraisal_count" invisible="1"/>
                 <field name="last_appraisal_id" invisible="1"/>
+                <field name="last_appraisal_state" invisible="1"/>
                 <button name="action_open_last_appraisal"
-                    class="oe_stat_button" invisible="not last_appraisal_id"
+                    class="oe_stat_button"
                     icon="fa-star-half-o"
+                    invisible="not last_appraisal_id"
                     type="object">
                     <div class="o_field_widget o_stat_info">
-                        <span class="o_stat_value">
-                            <field name="last_appraisal_date" readonly="1"/>
+                        <span class="o_stat_text" invisible="last_appraisal_state == 'done'">
+                            Ongoing
+                        </span>
+                        <span class="o_stat_text" invisible="last_appraisal_state != 'done'">
+                            Latest
                         </span>
                         <span class="o_stat_text">
-                            Last Appraisal
+                            Appraisal
                         </span>
                     </div>
                 </button>

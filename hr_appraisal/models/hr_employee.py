@@ -22,6 +22,7 @@ class HrEmployee(models.Model):
     uncomplete_goals_count = fields.Integer(compute='_compute_uncomplete_goals_count')
     goals_count = fields.Integer(compute='_compute_goals_count')
     appraisal_ids = fields.One2many('hr.appraisal', 'employee_id')
+    can_request_appraisal = fields.Boolean(compute='_compute_can_request_appraisal')
 
     @api.constrains('next_appraisal_date')
     def _check_next_appraisal_date(self):

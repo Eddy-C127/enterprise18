@@ -353,6 +353,18 @@ class HrAppraisal(models.Model):
             else:
                 raise UserError(_('The manager feedback cannot be changed by an employee.'))
 
+    def _find_previous_appraisals(self):
+        result = {}
+        all_appraisals = self.env['hr.appraisal'].search([
+            ('employee_id', 'in', self.mapped('employee_id').ids),
+            ('state', '!=', 'cancel'),
+        ], order='employee_id, id desc')
+        for appraisal in self:
+            previous_appraisals = all_appraisals.filtered(lambda x: x.employee_id == appraisal.employee_id and x.id != appraisal.id and x.create_date < appraisal.create_date)
+            if previous_appraisals:
+                result[appraisal.id] = previous_appraisals[0]
+        return result
+
     def write(self, vals):
         if 'manager_feedback_published' in vals and not all(a.can_see_manager_publish for a in self):
             raise UserError(_('The "Manager Feedback Published" cannot be changed by an employee.'))
@@ -391,6 +403,14 @@ class HrAppraisal(models.Model):
         if 'state' in vals and vals['state'] == 'cancel':
             self.meeting_ids.unlink()
             self.activity_unlink(['mail.mail_activity_data_meeting', 'mail.mail_activity_data_todo'])
+            previous_appraisals = self._find_previous_appraisals()
+            for appraisal in self:
+                if appraisal.employee_id and appraisal.employee_id.last_appraisal_id == appraisal:
+                    previous_appraisal = previous_appraisals.get(appraisal.id)
+                    appraisal.employee_id.sudo().write({
+                        'last_appraisal_id': previous_appraisal.id if previous_appraisal else False,
+                        'last_appraisal_date': previous_appraisal.date_close if previous_appraisal else False,
+                    })
         previous_managers = {}
         if 'manager_ids' in vals:
             previous_managers = {x: y for x, y in self.mapped(lambda a: (a.id, a.manager_ids))}
@@ -402,6 +422,18 @@ class HrAppraisal(models.Model):
         if 'manager_ids' in vals:
             self._sync_meeting_attendees(previous_managers)
         return result
+
+    def unlink(self):
+        previous_appraisals = self._find_previous_appraisals()
+        for appraisal in self:
+            # If current appraisal is the last_appraisal_id for the employee we should update last_appraisal_id bfore deleting
+            if appraisal.employee_id and appraisal.employee_id.last_appraisal_id == appraisal:
+                previous_appraisal = previous_appraisals.get(appraisal.id)
+                appraisal.employee_id.sudo().write({
+                    'last_appraisal_id': previous_appraisal.id if previous_appraisal else False,
+                    'last_appraisal_date': previous_appraisal.date_close if previous_appraisal else False,
+                })
+        return super(HrAppraisal, self).unlink()
 
     def _appraisal_plan_post(self):
         odoobot = self.env.ref('base.partner_root')

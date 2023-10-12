@@ -13,10 +13,21 @@ class TestHrAppraisalRequest(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
 
+        cls.manager_2_user = new_test_user(cls.env, login='Averell Dalton', name='Averell Dalton')
+        cls.manager_2 = cls.env['hr.employee'].create({
+            'name': 'Averell Dalton',
+            'user_id': cls.manager_2_user.id,
+        })
+        cls.manager_3_user = new_test_user(cls.env, login='Angus Dalton', name='Angus Dalton')
+        cls.manager_3 = cls.env['hr.employee'].create({
+            'name': 'Angus Dalton',
+            'user_id': cls.manager_3_user.id,
+        })
         cls.manager_user = new_test_user(cls.env, login='Lucky Luke', name='Manager Tiranique')
         cls.manager = cls.env['hr.employee'].create({
             'name': 'Manager Tiranique',
             'user_id': cls.manager_user.id,
+            'parent_id': cls.manager_2.id,
         })
         cls.employee_user = new_test_user(cls.env, login='Rantanplan', name='Michaël Hawkins')
         cls.employee = cls.env['hr.employee'].create({
@@ -100,3 +111,12 @@ class TestHrAppraisalRequest(TransactionCase):
             ('message_type', '=', 'comment'),
         ])
         self.assertTrue("<p>My awesome message</p>" in notification.body)
+
+    def test_compute_can_request_appraisal(self):
+        self.employee.with_user(self.manager_2_user)._compute_can_request_appraisal()
+        # Check the appraisal request rights
+        self.assertTrue(self.employee.can_request_appraisal)
+
+        self.employee.with_user(self.manager_3_user)._compute_can_request_appraisal()
+        # Check the appraisal request rights
+        self.assertFalse(self.employee.can_request_appraisal)
