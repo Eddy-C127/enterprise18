@@ -40,6 +40,30 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
             'unit_amount': 3.11,
         })
 
+    def test_generate_timesheet_after_validation(self):
+        self.env.company.timesheet_encode_uom_id = self.env.ref('uom.product_uom_day')
+        Timesheet = self.env['account.analytic.line']
+        today = fields.Date.today()
+        timesheet_entry = Timesheet.with_user(self.user_manager).create({
+            'project_id': self.project_customer.id,
+            'task_id': self.task1.id,
+            'name': 'my first timesheet',
+            'unit_amount': 4.0,
+            'employee_id': self.empl_manager.id,
+        })
+        timesheet_entry.with_user(self.user_manager).action_validate_timesheet()
+        timesheet_domain = [('employee_id', '=', self.empl_manager.id), ('date', '=', today)]
+        sheet_count = Timesheet.search_count(timesheet_domain)
+        self.assertEqual(sheet_count, 1)
+
+        Timesheet.with_user(self.user_manager).grid_update_cell([('id', '=', timesheet_entry.id)], 'unit_amount', 2.0)
+        timesheet_entrys = Timesheet.search(timesheet_domain)
+        self.assertEqual(len(timesheet_entrys), 2, "After the timesheet is validated, a new timesheet entry should be generated.")
+
+        Timesheet.with_user(self.user_manager).grid_update_cell([('id', 'in', timesheet_entrys.ids)], 'unit_amount', 5.0)
+        sheet_count1 = Timesheet.search(timesheet_domain)
+        self.assertEqual(len(sheet_count1), 2, "Modify non-validated timesheet entries if there's any.")
+
     def test_timesheet_validation_user(self):
         """ Employee record its timesheets and Officer validate them. Then try to modify/delete it and get Access Error """
         # Officer validate timesheet of 'user_employee' through wizard
