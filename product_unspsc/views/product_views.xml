@@ -11,6 +11,9 @@
                         <field name="unspsc_code_id"/>
                     </group>
                 </xpath>
+                <page name="invoicing" position="attributes">
+                    <attribute name="groups">account.group_account_invoice,account.group_account_readonly</attribute>
+                </page>
             </field>
         </record>
         <record model="ir.ui.view" id="view_product_uom_form_unspsc">
