@@ -29,7 +29,14 @@ export class ListDetailsSidePanel extends Component {
             this.modelDisplayName = await this.dataSource.getModelLabel();
         };
         onWillStart(() => loadData(this.props.listId));
-        onWillUpdateProps((nextProps) => loadData(nextProps.listId));
+        onWillUpdateProps(async (nextProps) => {
+            if (!this.env.model.getters.isExistingList(nextProps.listId)) {
+                this.props.onCloseSidePanel();
+            }
+            else {
+                await loadData(nextProps.listId);
+            }
+        });
     }
 
     get listDefinition() {

@@ -29,7 +29,14 @@ export class PivotDetailsSidePanel extends Component {
             this.modelDisplayName = await this.dataSource.getModelLabel();
         };
         onWillStart(() => loadData(this.props.pivotId));
-        onWillUpdateProps((nextProps) => loadData(nextProps.pivotId));
+        onWillUpdateProps(async (nextProps) => {
+            if (!this.env.model.getters.isExistingPivot(nextProps.pivotId)) {
+                this.props.onCloseSidePanel();
+            }
+            else {
+                await loadData(nextProps.pivotId);
+            }
+        });
     }
 
     get pivotDefinition() {
