@@ -22,7 +22,7 @@ class AppointmentCalendarController(CalendarController):
     # CALENDAR EVENT VIEW
     # ------------------------------------------------------------
 
-    @route(website=True)
+    @route()
     def view_meeting(self, token, id):
         """Redirect the internal logged in user to the form view of calendar.event, and redirect
            regular attendees to the website page of the calendar.event for appointments"""
