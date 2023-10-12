@@ -307,8 +307,8 @@ class AppointmentType(models.Model):
     def _check_staff_user_configuration(self):
         anytime_appointments = self.search([('category', '=', 'anytime')])
         for appointment_type in self.filtered(lambda appt: appt.schedule_based_on == "users"):
-            if appointment_type.category not in ['punctual', 'recurring'] and len(appointment_type.staff_user_ids) != 1:
-                raise ValidationError(_("This category of appointment type should only have one user but got %s users", len(appointment_type.staff_user_ids)))
+            if appointment_type.category == 'anytime' and len(appointment_type.staff_user_ids) != 1:
+                raise ValidationError(_("Anytime appointment types should only have one user but got %s users", len(appointment_type.staff_user_ids)))
             invalid_restricted_users = appointment_type.slot_ids.restrict_to_user_ids - appointment_type.staff_user_ids
             if invalid_restricted_users:
                 raise ValidationError(_("The following users are in restricted slots but they are not part of the available staff: %s", ", ".join(invalid_restricted_users.mapped('name'))))

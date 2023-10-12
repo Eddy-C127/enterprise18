@@ -121,29 +121,6 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
             )
 
     @users('apt_manager')
-    def test_appointment_type_create(self):
-        # Custom: current user set as default, otherwise accepts only 1 user
-        apt_type = self.env['appointment.type'].create({
-            'category': 'custom',
-            'name': 'Custom without user',
-        })
-        self.assertEqual(apt_type.staff_user_ids, self.apt_manager)
-
-        apt_type = self.env['appointment.type'].create({
-            'category': 'custom',
-            'staff_user_ids': [(4, self.staff_users[0].id)],
-            'name': 'Custom with user',
-        })
-        self.assertEqual(apt_type.staff_user_ids, self.staff_users[0])
-
-        with self.assertRaises(ValidationError):
-            self.env['appointment.type'].create({
-                'category': 'custom',
-                'staff_user_ids': self.staff_users.ids,
-                'name': 'Custom with users',
-            })
-
-    @users('apt_manager')
     def test_appointment_type_create_anytime(self):
         # Any Time: only 1 / employee
         apt_type = self.env['appointment.type'].create({
@@ -178,6 +155,29 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
                 'category': 'anytime',
                 'staff_user_ids': [(6, 0, self.staff_users.ids)]
             })
+
+    @users('apt_manager')
+    def test_appointment_type_create_custom(self):
+        # Custom: current user set as default
+        apt_type = self.env['appointment.type'].create({
+            'category': 'custom',
+            'name': 'Custom without user',
+        })
+        self.assertEqual(apt_type.staff_user_ids, self.apt_manager)
+
+        apt_type = self.env['appointment.type'].create({
+            'category': 'custom',
+            'staff_user_ids': [(4, self.staff_users[0].id)],
+            'name': 'Custom with user',
+        })
+        self.assertEqual(apt_type.staff_user_ids, self.staff_users[0])
+
+        apt_type = self.env['appointment.type'].create({
+            'category': 'custom',
+            'staff_user_ids': self.staff_users.ids,
+            'name': 'Custom with users',
+        })
+        self.assertEqual(apt_type.staff_user_ids, self.staff_users)
 
     @mute_logger('odoo.sql_db')
     @users('apt_manager')
