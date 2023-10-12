@@ -35,7 +35,7 @@
             <t t-set="additionalRecordData" t-value="getRecordAdditionalData(record)"/>
             <div name="document_preview" t-att-class="getPreviewClasses(record, additionalRecordData)">
                 <t t-set="mimetype" t-value="record.data.mimetype"/>
-                <t t-if="additionalRecordData.isImage or additionalRecordData.isGif or additionalRecordData.isYoutubeVideo or (record.isPdf() and record.hasStoredThumbnail())">
+                <t t-if="additionalRecordData.isImage or additionalRecordData.isGif or additionalRecordData.isYoutubeVideo or record.hasStoredThumbnail()">
                     <t t-set="size" t-value="nbPreviews === 1 ? '268x130' : nbPreviews === 2 ? '120x130' : '120x75'"/>
                     <img t-if="additionalRecordData.isYoutubeVideo"
                          t-on-click.stop.prevent="() => this.openPreview(record)"
@@ -45,7 +45,7 @@
                          alt="Youtube Video"/>
                     <t t-else="">
                         <t t-set="unique" t-value="record.data.checksum ? record.data.checksum.slice(-8) : ''"/>
-                        <img t-if="!record.isPdf()" class="o_preview_available o_documents_image_background"
+                        <img t-if="!record.hasStoredThumbnail()" class="o_preview_available o_documents_image_background"
                              t-on-click.stop.prevent="() => this.openPreview(record)"
                              t-attf-src="/documents/image/{{record.resId}}/{{size}}?unique={{unique}}"
                              t-att-title="record.data.name"/>

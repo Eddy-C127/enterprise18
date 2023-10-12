@@ -18,7 +18,6 @@ import {
     getEnrichedSearchArch,
 } from "./documents_test_utils";
 import { registry } from "@web/core/registry";
-import { getOrigin } from "@web/core/utils/urls";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
 import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 
@@ -1312,11 +1311,10 @@ QUnit.module("documents", {}, function () {
                 await legacyClick(target, ".o_preview_available");
 
                 assert.containsOnce(target, ".o-FileViewer div[title='Split PDF']");
+                const encodedRoute = encodeURIComponent("/documents/content/2?is_document_preview=1");
                 assert.containsOnce(
                     target,
-                    `iframe[data-src="/web/static/lib/pdfjs/web/viewer.html?file=${encodeURIComponent(
-                        getOrigin() + "/web/content/2?model=documents.document"
-                    )}#pagemode=none"]`,
+                    `iframe[data-src="/web/static/lib/pdfjs/web/viewer.html?file=${encodedRoute}#pagemode=none"]`,
                     "should have an iframe with the correct pdfviewer src"
                 );
 

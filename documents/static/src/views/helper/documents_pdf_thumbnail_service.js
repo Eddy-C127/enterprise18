@@ -24,7 +24,6 @@ export const documentsPdfThumbnailService = {
             if (
                 record.data.thumbnail_status !== "client_generated" ||
                 record.hasStoredThumbnail() ||
-                record.data.thumbnail_status === "error" ||
                 !enabled
             ) {
                 return;
@@ -45,8 +44,9 @@ export const documentsPdfThumbnailService = {
             }
             let thumbnail = undefined;
             try {
-                const pdf = await window.pdfjsLib.getDocument(`/documents/content/${record.resId}`)
-                    .promise;
+                const pdf = await window.pdfjsLib.getDocument(
+                    `/documents/content/${record.resId}?is_document_preview=1`
+                ).promise;
                 const page = await pdf.getPage(1);
 
                 // Render first page onto a canvas

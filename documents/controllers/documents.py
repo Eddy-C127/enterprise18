@@ -21,8 +21,16 @@ class ShareRoute(http.Controller):
 
     # util methods #################################################################################
 
-    def _get_file_response(self, document_id, share_id=None, share_token=None, field='raw', as_attachment=None):
-        """ returns the http response to download one file. """
+    def _get_file_response(self, document_id, is_document_preview=False, share_id=None, share_token=None, field='raw', as_attachment=None):
+        """Generate http response to download or preview one file.
+
+        :param document_id: The id of the <documents.document> to download / preview
+        :param is_document_preview: if True, we call that method to generate the preview of the file
+        :param share_id: The id of the <documents.share>
+        :param share_token: The share token
+        :param field: The field to read on the document
+        :param as_attachment: If True, we will force the browser to download the file
+        """
         record = request.env['documents.document'].browse(int(document_id))
 
         if share_id:
@@ -199,8 +207,15 @@ class ShareRoute(http.Controller):
         return response
 
     @http.route(['/documents/content/<int:document_id>'], type='http', auth='user')
-    def documents_content(self, document_id):
-        return self._get_file_response(document_id)
+    def documents_content(self, document_id, is_document_preview=False):
+        """Serve the file of the document.
+
+        :param document_id: the document_id of the <documents.document>
+        :param is_document_preview: If True, some extra processing may be done before serving the document
+            For example, inside the account override, special XML files can contain
+            a PDF attachment and we want to preview that PDF instead.
+        """
+        return self._get_file_response(document_id, is_document_preview=is_document_preview)
 
     @http.route(['/documents/document/<int:document_id>/update_thumbnail'], type='json', auth='user')
     def documents_update_thumbnail(self, document_id, thumbnail):
