@@ -320,13 +320,14 @@ class AnalyticLine(models.Model):
         if timesheets.project_id and not timesheets.project_id.sudo().allow_timesheets:
             raise UserError(_("You cannot adjust the time of the timesheet for a project with timesheets disabled."))
 
-        if len(timesheets) > 1 or (len(timesheets) == 1 and timesheets.validated):
+        non_validated_timesheets = timesheets.filtered(lambda timesheet: not timesheet.validated)
+        if len(non_validated_timesheets) > 1 or (len(timesheets) == 1 and timesheets.validated):
             timesheets[0].copy({
                 'name': '/',
                 measure_field_name: value,
             })
-        elif len(timesheets) == 1:
-            timesheets[measure_field_name] += value
+        elif len(non_validated_timesheets) == 1:
+            non_validated_timesheets[measure_field_name] += value
         else:
             project_id = self._context.get('default_project_id', False)
             field_name, model_name = self._get_timesheet_field_and_model_name()
