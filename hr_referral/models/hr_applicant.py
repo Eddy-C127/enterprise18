@@ -124,16 +124,19 @@ class Applicant(models.Model):
     def archive_applicant(self):
         for applicant in self:
             if applicant.ref_user_id:
-                applicant._send_notification(_("Sorry, your referral %s has been refused in the recruitment process.", applicant.name))
+                applicant._send_notification(
+                    body=_("Sorry, your referral %s has been refused in the recruitment process.", applicant.name),
+                    action_value='hr_referral.action_hr_refused_applicant_employee_referral'
+                )
         self.write({'referral_state': 'closed'})
         return super(Applicant, self).archive_applicant()
 
-    def _send_notification(self, body):
+    def _send_notification(self, body, action_value='hr_referral.action_hr_applicant_employee_referral'):
         if self.partner_name:
             subject = _('Referral: %s (%s)', self.partner_name, self.name)
         else:
             subject = _('Referral: %s', self.name)
-        url = url_encode({'action': 'hr_referral.action_hr_applicant_employee_referral', 'active_model': self._name})
+        url = url_encode({'action': action_value, 'active_model': self._name})
         action_url = '/web#' + url
         body = Markup("<a class='o_document_link' href=%s>%s</a><br>%s") % (action_url, subject, body)
         odoobot = self.env.ref('base.partner_root')
