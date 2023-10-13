@@ -589,43 +589,29 @@ class Task(models.Model):
             self.write(vals)
             return {}
 
-        warnings = {}
-        tasks_with_allocated_hours = self.filtered(lambda task: task._get_hours_to_plan() > 0)
-        tasks_without_allocated_hours = self - tasks_with_allocated_hours
-
-        # We schedule first the tasks with allocated hours and then the ones without.
-        for tasks_to_schedule in [tasks_with_allocated_hours, tasks_without_allocated_hours]:
-            task_ids_per_project_id = defaultdict(list)
-            for task in tasks_to_schedule:
-                task_ids_per_project_id[task.project_id.id].append(task.id)
-            Task = self.env['project.task']
-            for task_ids in task_ids_per_project_id.values():
-                warnings.update(Task.browse(task_ids)._scheduling(vals))
-        return warnings
+        return self.sorted(
+            lambda t: (not t.date_deadline, t.date_deadline, t._get_hours_to_plan() <= 0, -int(t.priority))
+        )._scheduling(vals)
 
     def _scheduling(self, vals):
         tasks_to_write = {}
         warnings = {}
-        user = self.env['res.users']
-        calendar = self.project_id.resource_calendar_id
-        company = self.company_id if len(self.company_id) == 1 else self.project_id.company_id
-        if not company:
-            company = self.env.company
 
-        sorted_tasks = self.sorted('priority', reverse=True)
+        company = self.company_id if len(self.company_id) == 1 else self.env.company
+        tz_info = self._context.get('tz') or 'UTC'
         if (vals.get('user_ids') and len(vals['user_ids']) == 1) or ('user_ids' not in vals and len(self.user_ids) == 1):
             user = self.env['res.users'].browse(vals.get('user_ids', self.user_ids.ids))
-            if user.resource_calendar_id:
-                calendar = user.resource_calendar_id
-            dependencies_dict = {  # contains a task as key and the list of tasks before this one as values
-                task:
-                    [t for t in self if t != task and t in task.depend_on_ids]
-                    if task.depend_on_ids
-                    else []
-                for task in sorted_tasks
-            }
-            sorted_tasks = topological_sort(dependencies_dict)
-        tz_info = calendar.tz or self._context.get('tz') or 'UTC'
+            tz_info = user.tz if user.tz else tz_info
+            calendar = user.resource_calendar_id
+        else:
+            if (self.env.context.get("default_project_id")):
+                project = self.env['project.project'].browse(self.env.context["default_project_id"])
+                company = project.company_id if project.company_id else company
+                calendar = project.resource_calendar_id
+            else:
+                calendar = company.resource_calendar_id
+            user = self.env['res.users']
+            tz_info = calendar.tz if calendar.tz else tz_info
 
         max_date_start = datetime.strptime(self.env.context.get('last_date_view'), '%Y-%m-%d %H:%M:%S').astimezone(timezone(tz_info))
         init_date_start = datetime.strptime(vals["planned_date_begin"], '%Y-%m-%d %H:%M:%S').astimezone(timezone(tz_info))
@@ -645,6 +631,14 @@ class Task(models.Model):
         delta = relativedelta(months=1) if scale == "year" else relativedelta(hours=24 / cell_part)
         delta_scale = relativedelta(**{f"{scale}s": 1})
 
+        dependencies_dict = {  # contains a task as key and the list of tasks before this one as values
+            task:
+                [t for t in self if t != task and t in task.depend_on_ids]
+                if task.depend_on_ids
+                else []
+            for task in self
+        }
+        sorted_tasks = topological_sort(dependencies_dict)
         for task in sorted_tasks:
             hours_to_plan = task._get_hours_to_plan()
             compute_date_start = compute_date_end = False

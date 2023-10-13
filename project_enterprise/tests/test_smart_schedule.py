@@ -428,3 +428,104 @@ class TestSmartSchedule(TestProjectCommon):
         # Check if the user is the target one
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.user_ids, self.user_projectmanager, "Wrong user id")
         self.assertEqual(self.task_project_pigs_no_allocated_hours_user.user_ids, self.user_projectmanager, "Wrong user id")
+
+    def test_smart_schedule_with_allocated_hours_and_deadlines(self):
+        """ test if the recordset is correctly sorted when multiple dependencies are involved """
+        self.user_projectmanager.write({
+            "tz": "Europe/Brussels",
+            "resource_calendar_id": self.env['ir.model.data']._xmlid_to_res_id("resource.resource_calendar_std"),
+        })
+
+        vals_list = [{
+            'name': f"Task (deadline: {day_of_week}, allocated: {allocated_hours}h, priority: {priority})",
+            'date_deadline': date_deadline,
+            'allocated_hours': allocated_hours,
+            'priority': priority,
+        } for date_deadline, day_of_week in [(False, "None"), (datetime(2023, 10, 17, 10, 0), "Tuesday"), (datetime(2023, 10, 18, 10, 0), "Wednesday")]
+            for allocated_hours in [0, 8]
+                for priority in ["0", "1"]
+        ]
+
+        tasks = self.env['project.task'].with_context({
+            'mail_create_nolog': True,
+            'default_project_id': self.project_pigs.id,
+        }).create(vals_list)
+
+        # Click on the magnifying glass, on Monday's cell, to schedule the tasks
+        tasks.with_context({
+            'last_date_view': '2023-10-31 22:00:00',
+            'cell_part': 2.0,
+        }).schedule_tasks({
+            'planned_date_begin': '2023-10-15 22:00:00',
+            'date_deadline': '2023-10-16 21:59:59',
+            'user_ids': self.user_projectmanager.ids,
+        })
+
+        self.assertEqual(
+            tasks.sorted('planned_date_begin').mapped(lambda t: (t.name, t.allocated_hours, t.planned_date_begin, t.date_deadline)),
+            [
+                ('Task (deadline: Tuesday, allocated: 8h, priority: 1)', 8.0, datetime(2023, 10, 16, 6, 0), datetime(2023, 10, 16, 15, 0)),
+                ('Task (deadline: Tuesday, allocated: 8h, priority: 0)', 8.0, datetime(2023, 10, 17, 6, 0), datetime(2023, 10, 17, 15, 0)),
+                ('Task (deadline: Tuesday, allocated: 0h, priority: 1)', 0.0, datetime(2023, 10, 18, 6, 0), datetime(2023, 10, 18, 10, 0)),
+                ('Task (deadline: Tuesday, allocated: 0h, priority: 0)', 0.0, datetime(2023, 10, 18, 11, 0), datetime(2023, 10, 18, 15, 0)),
+                ('Task (deadline: Wednesday, allocated: 8h, priority: 1)', 8.0, datetime(2023, 10, 19, 6, 0), datetime(2023, 10, 19, 15, 0)),
+                ('Task (deadline: Wednesday, allocated: 8h, priority: 0)', 8.0, datetime(2023, 10, 20, 6, 0), datetime(2023, 10, 20, 15, 0)),
+                ('Task (deadline: Wednesday, allocated: 0h, priority: 1)', 0.0, datetime(2023, 10, 23, 6, 0), datetime(2023, 10, 23, 10, 0)),
+                ('Task (deadline: Wednesday, allocated: 0h, priority: 0)', 0.0, datetime(2023, 10, 23, 11, 0), datetime(2023, 10, 23, 15, 0)),
+                ('Task (deadline: None, allocated: 8h, priority: 1)', 8.0, datetime(2023, 10, 24, 6, 0), datetime(2023, 10, 24, 15, 0)),
+                ('Task (deadline: None, allocated: 8h, priority: 0)', 8.0, datetime(2023, 10, 25, 6, 0), datetime(2023, 10, 25, 15, 0)),
+                ('Task (deadline: None, allocated: 0h, priority: 1)', 0.0, datetime(2023, 10, 26, 6, 0), datetime(2023, 10, 26, 10, 0)),
+                ('Task (deadline: None, allocated: 0h, priority: 0)', 0.0, datetime(2023, 10, 26, 11, 0), datetime(2023, 10, 26, 15, 0)),
+            ],
+            """
+            We expect the tasks to be sorted as follows:
+                - 3 groups of 4 tasks, having respectively and in that order Tuesday, Wednesday, None as deadline.
+                - In each group, 2 subgroups of 2 tasks, having respectively and in that order 8h and 0h allocated.
+                - In each subgroup, 2 tasks, having respectively and in that order priority 1 and 0.
+            Moreover, the tasks with 8h allocated should take the whole day, while the tasks with 0h allocated should take half a day.
+            """
+        )
+
+    def test_smart_schedule_impossible_deadline(self):
+        """ test if the recordset is correctly sorted when multiple dependencies are involved """
+        self.user_projectmanager.tz = "Europe/Brussels"
+        tasks = task_concu, *dummy = self.env['project.task'].with_context({
+            'mail_create_nolog': True,
+            'default_project_id': self.project_pigs.id,
+        }).create([{
+            # This task is planned for "tomorrow".
+            'name': "Task concu",
+            'user_ids': self.user_projectmanager.ids,
+            'planned_date_begin': datetime(2023, 10, 17, 6, 0),
+            'date_deadline': datetime(2023, 10, 17, 15, 0),
+        }, {
+            # This task has the closest deadline, but can't be done in 1 day (`allocated_hours` > 8h),
+            # so it'll be scheduled later.
+            'name': "Task (allocated: 1, deadline: Tuesday)",
+            'date_deadline': datetime(2023, 10, 17, 10, 0),
+            'allocated_hours': 16,
+        }, {
+            # This one, though having the farthest deadline, can be done in 1 day (8h),
+            # so it'll be scheduled first.
+            'name': "Task (allocated: 1 days, deadline: Friday)",
+            'date_deadline': datetime(2023, 10, 20, 10, 0),
+            'allocated_hours': 8,
+        }])
+        tasks -= task_concu
+
+        tasks.with_context({
+            'last_date_view': '2023-10-31 22:00:00',
+            'cell_part': 2.0,
+        }).schedule_tasks({
+            'planned_date_begin': '2023-10-15 22:00:00',
+            'date_deadline': '2023-10-16 21:59:59',
+            'user_ids': self.user_projectmanager.ids,
+        })
+
+        self.assertEqual(
+            tasks.sorted('planned_date_begin').mapped(lambda t: (t.allocated_hours, t.planned_date_begin, t.date_deadline)),
+            [
+                (8.0, datetime(2023, 10, 16, 6, 0), datetime(2023, 10, 16, 15, 0)),
+                (16.0, datetime(2023, 10, 18, 6, 0), datetime(2023, 10, 19, 15, 0)),
+            ],
+        )
