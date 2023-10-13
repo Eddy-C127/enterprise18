@@ -322,6 +322,9 @@ export class MrpDisplayRecord extends Component {
             delete this.lastOpenedQualityCheck;
             return;
         }
+        if (!isNaN(record)) {
+            record = this.props.record.data.check_ids.records.find((r) => r.resId === record);
+        }
 
         const worksheetData = await this.getWorksheetData(record);
 
@@ -343,6 +346,7 @@ export class MrpDisplayRecord extends Component {
                 delete this.lastOpenedQualityCheck;
             },
             qualityCheckDone: this.qualityCheckDone.bind(this),
+            openCheck: this.displayInstruction.bind(this),
         };
 
         this.dialog.add(MrpQualityCheckConfirmationDialog, params);

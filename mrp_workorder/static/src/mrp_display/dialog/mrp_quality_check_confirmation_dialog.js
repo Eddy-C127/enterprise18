@@ -17,6 +17,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
         qualityCheckDone: { type: Function, optional: true },
         worksheetData: { type: Object, optional: true },
         checkInstruction: { type: Object, optional: true },
+        openCheck: { type: Function, optional: true },
     };
     static template = "mrp_workorder.MrpQualityCheckConfirmationDialog";
     static components = {
@@ -180,5 +181,15 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
 
     get recordData() {
         return this.props.record.data;
+    }
+
+    back() {
+        this.props.openCheck(this.props.record.data.previous_check_id[0]);
+        this.props.close();
+    }
+
+    skip() {
+        this.props.openCheck(this.props.record.data.next_check_id[0]);
+        this.props.close();
     }
 }
