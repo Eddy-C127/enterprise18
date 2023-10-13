@@ -2,12 +2,12 @@
 <templates xml:space="preserve">
     <t t-name="mrp_workorder.MrpDisplay">
         <div class="o_action o_mrp_display h-100 overflow-auto">
-            <Layout display="display" className="'d-flex' + showEmployeesPanel ? 'o_component_with_search_panel' : ''">
+            <Layout display="display" className="'d-flex' + state.showEmployeesPanel ? 'o_component_with_search_panel' : ''">
                 <t t-if="group_mrp_routings" t-set-slot="control-panel-top-middle">
                     <t t-call="{{ constructor.buttonTemplate }}"/>
                 </t>
                 <t t-set-slot="control-panel-additional-actions">
-                    <button class="btn btn-light oi oi-panel-right fa-flip-horizontal" t-if="group_mrp_routings" t-att-class="showEmployeesPanel ? 'active' : ''" t-on-click="toggleEmployeesPanel"/>
+                    <button class="btn btn-light oi oi-panel-right fa-flip-horizontal" t-if="group_mrp_routings" t-att-class="state.showEmployeesPanel ? 'active' : ''" t-on-click="toggleEmployeesPanel"/>
                 </t>
                 <t t-set-slot="layout-actions">
                     <t t-if="group_mrp_routings">
@@ -28,7 +28,7 @@
                         <i class="fa fa-lg fa-sign-out me-md-1"/><span class="d-none d-md-inline">Close</span>
                     </button>
                 </t>
-                <MrpDisplayEmployeesPanel t-if="this.group_mrp_routings &amp;&amp; showEmployeesPanel" employees="useEmployee.employees"
+                <MrpDisplayEmployeesPanel t-if="this.group_mrp_routings &amp;&amp; state.showEmployeesPanel" employees="useEmployee.employees"
                     setSessionOwner.bind="useEmployee.toggleSessionOwner"
                     popupAddEmployee.bind="useEmployee.popupAddEmployee"
                     logout.bind="useEmployee.logout"/>

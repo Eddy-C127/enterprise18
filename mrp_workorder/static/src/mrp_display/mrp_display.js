@@ -71,6 +71,7 @@ export class MrpDisplay extends Component {
                 : this.props.resModel,
             activeWorkcenter: this.props.context.workcenter_id || false,
             workcenters: JSON.parse(localStorage.getItem(this.env.localStorageName)) || [],
+            showEmployeesPanel: localStorage.getItem("mrp_workorder.show_employees") === "true",
             canLoadSamples: false,
         });
 
@@ -84,14 +85,6 @@ export class MrpDisplay extends Component {
                 await this.useEmployee.getConnectedEmployees();
             },
         });
-        this.showEmployeesPanel = JSON.parse(localStorage.getItem("mrp_workorder.show_employees"));
-        if (this.showEmployeesPanel === null) {
-            this.showEmployeesPanel = false;
-            localStorage.setItem(
-                "mrp_workorder.show_employees",
-                JSON.stringify(this.showEmployeesPanel)
-            );
-        }
         this.useEmployee = useConnectedEmployee("mrp_display", this.props.context, this.env);
         this.barcode = useService("barcode");
         useBus(this.barcode.bus, "barcode_scanned", (event) =>
@@ -262,9 +255,8 @@ export class MrpDisplay extends Component {
     }
 
     toggleEmployeesPanel() {
-        this.showEmployeesPanel = !this.showEmployeesPanel;
-        localStorage.setItem('mrp_workorder.show_employees', JSON.stringify(this.showEmployeesPanel));
-        this.render(true);
+        this.state.showEmployeesPanel = !this.state.showEmployeesPanel;
+        localStorage.setItem("mrp_workorder.show_employees", String(this.state.showEmployeesPanel));
     }
 
     filterWorkorderByProduction(workorder, production) {
