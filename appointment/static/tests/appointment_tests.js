@@ -220,6 +220,8 @@ QUnit.test('verify appointment links button are displayed', async function (asse
                 return Promise.resolve(true);
             } else if (route === '/calendar/check_credentials') {
                 return Promise.resolve({});
+            } else if (route === "/web/dataset/call_kw/calendar.event/get_default_duration") {
+                return 1;
             }
         },
     });
@@ -270,6 +272,8 @@ QUnit.test('create/search anytime appointment type', async function (assert) {
                 return Promise.resolve(true);
             } else if (route === '/calendar/check_credentials') {
                 return Promise.resolve({});
+            } else if (route === "/web/dataset/call_kw/calendar.event/get_default_duration") {
+                return 1;
             }
         },
         session: {
@@ -322,6 +326,8 @@ QUnit.test('discard slot in calendar', async function (assert) {
                 return Promise.resolve(true);
             } else if (route === '/calendar/check_credentials') {
                 return Promise.resolve({});
+            } else if (route === "/web/dataset/call_kw/calendar.event/get_default_duration") {
+                return 1;
             }
         },
     });
@@ -383,6 +389,8 @@ QUnit.test("cannot move real event in slots-creation mode", async function (asse
                 return Promise.resolve(true);
             } else if (route === '/calendar/check_credentials') {
                 return Promise.resolve({});
+            } else if (route === "/web/dataset/call_kw/calendar.event/get_default_duration") {
+                return 1;
             }
         },
     });
@@ -437,6 +445,8 @@ QUnit.test("create slots for custom appointment type", async function (assert) {
                 return Promise.resolve(true);
             } else if (route === '/calendar/check_credentials') {
                 return Promise.resolve({});
+            } else if (route === "/web/dataset/call_kw/calendar.event/get_default_duration") {
+                return 1;
             }
         },
     });
@@ -491,6 +501,8 @@ QUnit.test('filter works in slots-creation mode', async function (assert) {
                 return Promise.resolve(true);
             } else if (route === '/calendar/check_credentials') {
                 return Promise.resolve({});
+            } else if (route === "/web/dataset/call_kw/calendar.event/get_default_duration") {
+                return 1;
             }
         },
     });
@@ -564,6 +576,8 @@ QUnit.test('click & copy appointment type url', async function (assert) {
                 return Promise.resolve(true);
             } else if (route === '/calendar/check_credentials') {
                 return Promise.resolve({});
+            } else if (route === "/web/dataset/call_kw/calendar.event/get_default_duration") {
+                return 1;
             }
         },
     });
