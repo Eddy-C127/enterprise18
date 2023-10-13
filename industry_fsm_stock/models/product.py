@@ -140,3 +140,20 @@ class ProductProduct(models.Model):
             'res_id': validation.id,
             'views': [(False, 'form')]
         }
+
+    def action_product_forecast_report(self):
+        action = super(ProductProduct, self).action_product_forecast_report()
+
+        if not self._context.get('fsm_task_id', False):
+            return action
+
+        task = self.env['project.task'].browse(self._context['fsm_task_id'])
+        if task.sale_order_id:
+            warehouse_id = task.sale_order_id.warehouse_id.id
+        elif self.env.user.property_warehouse_id:
+            warehouse_id = self.env.user.property_warehouse_id.id
+        else:
+            warehouse_id = self.env['stock.warehouse'].with_company(task.company_id.id).search([], limit=1, order='sequence').id
+
+        action['context'] = action.get('context', {}).update(warehouse=warehouse_id)
+        return action
