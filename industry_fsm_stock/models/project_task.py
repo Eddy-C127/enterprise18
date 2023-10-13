@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models
+from odoo import models, fields, _
 from odoo.tools import float_compare, float_round
 
 
 class Task(models.Model):
     _inherit = "project.task"
+
+    stock_move_customer_product_count = fields.Integer(compute='_compute_stock_move_customer_product_total')
 
     def _prepare_materials_delivery(self):
         """ Prepare the materials delivery
@@ -106,6 +108,30 @@ class Task(models.Model):
                     rounding_method='HALF-UP')
                 move.quantity = qty_to_do
         pickings_to_do.with_context(skip_sms=True, cancel_backorder=True).button_validate()
+
+    def _get_task_SOL_stock_move_customer(self):
+        return self.env['stock.move'].search([
+            ('sale_line_id.order_id', '=', self.sale_order_id.id),
+            ('sale_line_id.task_id', '=', False),
+            ('state', 'not in', ['done', 'cancel']),
+            ('location_dest_usage', '=', 'customer'),
+        ])
+
+    def _compute_stock_move_customer_product_total(self):
+        for record in self:
+            customer_move_lines = record.sudo()._get_task_SOL_stock_move_customer()
+            record.stock_move_customer_product_count = round(sum(customer_move_lines.mapped('product_uom_qty')))
+
+    def action_fsm_pick_up(self):
+        stock_move_ids = self.sudo()._get_task_SOL_stock_move_customer()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Pick Up Material'),
+            'view_mode': 'tree',
+            'domain': [('id', 'in', stock_move_ids.ids)],
+            'res_model': 'stock.move',
+            'views': [(self.env.ref('industry_fsm_stock.view_move_tree_picking_redirect').id, 'list')],
+        }
 
     def _fsm_ensure_sale_order(self):
         """Since we want to use the current user warehouse when using the FSM product kanban view, the SO must

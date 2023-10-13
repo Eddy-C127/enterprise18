@@ -128,6 +128,7 @@ class FsmStockTracking(models.TransientModel):
             SaleOrderLine.with_context(industry_fsm_stock_tracking=True).create(vals)
 
         dict_moves_per_picking = self._get_moves_dict(self.task_id.sale_order_id)
+        self.env['stock.move'].check_access_rights('write')
 
         if dict_moves_per_picking:  # create/update the move_lines for the intermediate deliveries
             ml_to_create = []

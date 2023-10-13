@@ -576,6 +576,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         wizard = self.env['fsm.stock.tracking'].with_user(self.project_user).browse(wizard_action['res_id'])
         with self.assertRaises(AccessError, msg="The user should not be able to generate the lot since he has no access to Inventory app."):
             wizard.generate_lot()
+        # To adapt since the FSM/User has reading rights in stock.picking model
 
     def test_stock_moves_and_pickings_when_task_is_done(self):
         """
@@ -1585,6 +1586,74 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         warehouse = self.env['stock.warehouse'].with_company(self.task.company_id.id).search([], limit=1, order='sequence')
         product_forecast_report_action = self.product_lot.with_context(fsm_task_id=self.task.id).action_product_forecast_report()
         self.assertEqual(product_forecast_report_action['context']['warehouse'], warehouse.id, "The warehouse set should be the first one found")
+
+    def test_stock_move_customer_product_count(self):
+        """ Flows to tests on the stock_move_customer_product_count field
+        1) Add consumable product through the SOL (should increment the counter)
+        2) Add consumable product through the task (shouldn't increment the counter)
+        3) Add Storable product through the SOL (should increment the counter)
+        4) Reserve the storable product (should increment the counter)
+        5) Validating the delivery
+        """
+
+        self.warehouse.delivery_steps = 'ship_only'
+        self.env.user.write({'property_warehouse_id': self.warehouse.id})
+
+        self.task.write({'partner_id': self.partner_1.id})
+        self.task.with_user(self.project_user)._fsm_ensure_sale_order()
+
+        # Adding 3 quantity of a consumable product through the Sale order
+        self.task.sale_order_id.write({
+            'order_line': [
+                Command.create({
+                    'product_id': self.consu_product_ordered.id,
+                    'product_uom_qty': 3,
+                }),
+            ],
+        })
+
+        self.task._compute_stock_move_customer_product_total()
+        self.assertEqual(self.task.stock_move_customer_product_count, 3, "There are 3 products ready to be delivered to the customer")
+
+        # Adding 4 quantity of a storable product through the Sale order
+        self.task.sale_order_id.write({
+            'order_line': [
+                Command.create({
+                    'product_id': self.storable_product_ordered.id,
+                    'product_uom_qty': 4,
+                }),
+            ],
+        })
+
+        self.assertEqual(round(sum(self.task.sale_order_id.order_line.move_ids.mapped('product_uom_qty'))), 7)
+        self.task._compute_stock_move_customer_product_total()
+        self.assertEqual(self.task.stock_move_customer_product_count, 7, "Adding storable product should be counted in the stock_move_customer_count even if it's not reserved yet")
+
+        # Reserve the quantity of the storable product
+        storable_stock_move = self.env['stock.move'].search([('picking_id', '=', self.task.sale_order_id.picking_ids.id), ('product_id', '=', self.storable_product_ordered.id)])
+        storable_stock_move.write({'quantity': 4})
+
+        self.task._compute_stock_move_customer_product_total()
+        self.assertEqual(self.task.stock_move_customer_product_count, 7, "Reserved quantities of the storable product should be counted into the stock_move_customer_count")
+
+        # Adding 5 quantity of a product through the task
+        self.consu_product_ordered.with_user(self.project_user).with_context(fsm_task_id=self.task.id).set_fsm_quantity(5)
+
+        self.assertEqual(round(sum(self.task.sale_order_id.order_line.move_ids.mapped('product_uom_qty'))), 12)
+        self.task._compute_stock_move_customer_product_total()
+        self.assertEqual(self.task.stock_move_customer_product_count, 7, "Quantities added through the task shouldn't be counted as product to pick up")
+
+        # Changing the current user warehouse back to the original one
+        self.env.user.write({'property_warehouse_id': self.warehouse.id})
+
+        self.task._compute_stock_move_customer_product_total()
+        self.assertEqual(self.task.stock_move_customer_product_count, 7)
+
+        # Validationg the delivery
+        self.task.sale_order_id.picking_ids.with_context(skip_sms=True, cancel_backorder=True).button_validate()
+
+        self.task._compute_stock_move_customer_product_total()
+        self.assertEqual(self.task.stock_move_customer_product_count, 0, "Once the delivery is validated the stock_move_customer_count should be reset")
 
     def test_tracking_product_route_order_line_info(self):
         """
