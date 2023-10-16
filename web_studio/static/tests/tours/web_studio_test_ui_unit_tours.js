@@ -245,6 +245,37 @@ registry
         ],
     });
 
+registry.category("web_tour.tours").add(
+    "web_studio_boolean_field_drag_and_drop",
+    {
+        test: true,
+        sequence: 260,
+        steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']"
+        },
+        {
+            trigger: ".o_form_view .o_form_editable"
+        },
+        {
+            trigger: ".o_web_studio_navbar_item button"
+        },
+        {
+            trigger: ".o_web_studio_sidebar .o_web_studio_new_fields .o_web_studio_field_boolean",
+            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(0))",
+        },
+        {
+            extra_trigger: ".o_web_studio_form_view_editor",
+            trigger: ".o_wrap_field_boolean .o_wrap_label",
+            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(2))",
+        },
+        {
+            trigger: ".o_wrap_label:eq(1):contains('New CheckBox')",
+            run() {}
+        },
+    ]
+});
+
 registry.category("web_tour.tours").add("web_studio_field_with_group", {
     test: true,
     sequence: 260,

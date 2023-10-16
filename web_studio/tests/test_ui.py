@@ -1382,3 +1382,25 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
           </xpath>
         </data>
         ''')
+
+    def test_drag_and_drop_boolean(self):
+        self.testView.arch = '''
+             <form>
+                 <group>
+                    <field name="name" />
+                 </group>
+             </form>
+        '''
+
+        self.start_tour("/web?debug=tests", 'web_studio_boolean_field_drag_and_drop', login="admin", timeout=200)
+
+        studioView = _get_studio_view(self.testView)
+        boolean_field = self.env['ir.model.fields'].search([('name', 'like', 'x_studio_boolean')])[0]
+
+        assertViewArchEqual(self, studioView.arch, '''
+             <data>
+                <xpath expr="//form[1]/group[1]/field[@name='name']" position="after">
+                    <field name="{boolean_field.name}"/>
+                </xpath>
+            </data>
+        '''.format(boolean_field=boolean_field))
