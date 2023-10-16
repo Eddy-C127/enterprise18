@@ -528,7 +528,8 @@ class MrpProductionWorkcenterLine(models.Model):
         return action
 
     def action_open_manufacturing_order(self):
-        action = self.with_context(no_start_next=True).do_finish()
+        no_start_next = self.env.context.get("no_start_next", True)
+        action = self.with_context(no_start_next=no_start_next).do_finish()
         try:
             with self.env.cr.savepoint():
                 res = self.production_id.button_mark_done()
