@@ -326,5 +326,26 @@ QUnit.module(
                 assert.equal(modelName.innerText, "Product (product)");
             }
         );
+
+        QUnit.test("Duplicate the pivot from the side panel", async function (assert) {
+            const { model, env } = await createSpreadsheetFromPivotView();
+            const [pivotId] = model.getters.getPivotIds();
+            model.dispatch("SELECT_PIVOT", { pivotId });
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {});
+            await nextTick();
+
+            assert.equal(model.getters.getPivotIds().length, 1);
+            assert.equal(
+                target.querySelector(".o_sp_en_display_name").innerText,
+                "(#1) Partners by Foo"
+            );
+
+            await click(target, ".o_duplicate_pivot");
+            assert.equal(model.getters.getPivotIds().length, 2);
+            assert.equal(
+                target.querySelector(".o_sp_en_display_name").innerText,
+                "(#2) Partners by Foo"
+            );
+        });
     }
 );

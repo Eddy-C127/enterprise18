@@ -265,3 +265,63 @@ QUnit.test("Re-insert and remove a pivot concurrently", async (assert) => {
         0
     );
 });
+
+QUnit.test("Duplicate and remove a pivot concurrently", async (assert) => {
+    await insertPivot(alice);
+    await network.concurrent(() => {
+        bob.dispatch("REMOVE_PIVOT", {
+            pivotId: "1",
+        });
+        alice.dispatch("DUPLICATE_PIVOT", {
+            pivotId: "1",
+            newPivotId: "2",
+        });
+    });
+    assert.spreadsheetIsSynchronized(
+        [alice, bob, charlie],
+        (user) => user.getters.getPivotIds().length,
+        0
+    );
+});
+
+QUnit.test("Duplicate pivots concurrently", async (assert) => {
+    await insertPivot(alice);
+    await network.concurrent(() => {
+        bob.dispatch("DUPLICATE_PIVOT", {
+            pivotId: "1",
+            newPivotId: "2",
+        });
+        alice.dispatch("DUPLICATE_PIVOT", {
+            pivotId: "1",
+            newPivotId: "2",
+        });
+    });
+    const expectedIds = ["1", "2", "3"];
+    assert.spreadsheetIsSynchronized(
+        [alice, bob, charlie],
+        (user) => user.getters.getPivotIds(),
+        expectedIds
+    );
+});
+
+QUnit.test("Duplicate and insert pivot concurrently", async (assert) => {
+    const { definition, dataSource } = await getPivotReady(bob, "2");
+    await insertPivot(alice);
+    await network.concurrent(() => {
+        bob.dispatch("DUPLICATE_PIVOT", {
+            pivotId: "1",
+            newPivotId: "2",
+        });
+        insertPreloadedPivot(alice, {
+            definition,
+            dataSource,
+            pivotId: "2",
+        });
+    });
+    const expectedIds = ["1", "2", "3"];
+    assert.spreadsheetIsSynchronized(
+        [alice, bob, charlie],
+        (user) => user.getters.getPivotIds(),
+        expectedIds
+    );
+});

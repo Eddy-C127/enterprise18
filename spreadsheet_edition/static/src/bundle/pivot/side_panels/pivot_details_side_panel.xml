@@ -7,6 +7,9 @@
             <EditableName name="env.model.getters.getPivotName(props.pivotId)"
                           displayName="env.model.getters.getPivotDisplayName(props.pivotId)"
                           onChanged.bind="onNameChanged"/>
+            <div class="btn btn-link o_duplicate_pivot" t-on-click="duplicatePivot">
+                <i class="fa fa-solid fa-copy me-1"/>Duplicate Pivot
+            </div>
         </div>
         <div class="o_side_panel_section">
             <div class="o_side_panel_title">Model</div>

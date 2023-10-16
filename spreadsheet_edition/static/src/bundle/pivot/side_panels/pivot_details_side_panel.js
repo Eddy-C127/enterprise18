@@ -12,6 +12,7 @@ import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 export class PivotDetailsSidePanel extends Component {
     setup() {
         this.dialog = useService("dialog");
+        this.notification = useService("notification");
         /** @type {import("@spreadsheet/pivot/pivot_data_source").default} */
         this.dataSource = undefined;
         const loadData = async (pivotId) => {
@@ -88,6 +89,22 @@ export class PivotDetailsSidePanel extends Component {
                     domain: new Domain(domain).toJson(),
                 }),
         });
+    }
+
+    duplicatePivot() {
+        const newPivotId = this.env.model.getters.getNextPivotId();
+        const result = this.env.model.dispatch("DUPLICATE_PIVOT", {
+            pivotId: this.props.pivotId,
+            newPivotId,
+        });
+        const msg = result.isSuccessful
+            ? _t('Pivot duplicated. Use the "Re-insert pivot" menu item to insert it in a sheet.')
+            : _t("Pivot duplication failed");
+        const type = result.isSuccessful ? "success" : "danger";
+        this.notification.add(msg, { sticky: false, type });
+        if (result.isSuccessful) {
+            this.env.model.dispatch("SELECT_PIVOT", { pivotId: newPivotId });
+        }
     }
 }
 PivotDetailsSidePanel.template = "spreadsheet_edition.PivotDetailsSidePanel";
