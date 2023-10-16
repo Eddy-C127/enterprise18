@@ -167,3 +167,58 @@ QUnit.test("Re-insert and remove a list concurrently", async (assert) => {
         0
     );
 });
+
+QUnit.test("Duplicate and remove list at the same time concurrently", async (assert) => {
+    insertList(alice, "1");
+    await network.concurrent(() => {
+        bob.dispatch("REMOVE_ODOO_LIST", {
+            listId: "1",
+        });
+        alice.dispatch("DUPLICATE_ODOO_LIST", {
+            listId: "1",
+            newListId: "2",
+        });
+    });
+    assert.spreadsheetIsSynchronized(
+        [alice, bob, charlie],
+        (user) => user.getters.getListIds().length,
+        0
+    );
+});
+
+QUnit.test("Duplicate list concurrently", async (assert) => {
+    insertList(alice, "1");
+    await network.concurrent(() => {
+        bob.dispatch("DUPLICATE_ODOO_LIST", {
+            listId: "1",
+            newListId: "2",
+        });
+        alice.dispatch("DUPLICATE_ODOO_LIST", {
+            listId: "1",
+            newListId: "2",
+        });
+    });
+    const expectedListIds = ["1", "2", "3"];
+    assert.spreadsheetIsSynchronized(
+        [alice, bob, charlie],
+        (user) => user.getters.getListIds(),
+        expectedListIds
+    );
+});
+
+QUnit.test("Duplicate and insert list concurrently", async (assert) => {
+    insertList(alice, "1");
+    await network.concurrent(() => {
+        bob.dispatch("DUPLICATE_ODOO_LIST", {
+            listId: "1",
+            newListId: "2",
+        });
+        insertList(alice, "2");
+    });
+    const expectedListIds = ["1", "2", "3"];
+    assert.spreadsheetIsSynchronized(
+        [alice, bob, charlie],
+        (user) => user.getters.getListIds(),
+        expectedListIds
+    );
+});

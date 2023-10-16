@@ -571,4 +571,31 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
             assert.equal(modelName.innerText, "Product (product)");
         }
     );
+
+    QUnit.test("Duplicate a list from the side panel", async function (assert) {
+        const serverData = getBasicServerData();
+        serverData.models.partner.fields.foo.sortable = true;
+        const { model, env } = await createSpreadsheetFromListView({
+            serverData,
+            orderBy: [{ name: "foo", asc: true }],
+        });
+        const fixture = getFixture();
+        const [listId] = model.getters.getListIds();
+        model.dispatch("SELECT_ODOO_LIST", { listId });
+        env.openSidePanel("LIST_PROPERTIES_PANEL", {});
+        await nextTick();
+
+        assert.equal(model.getters.getListIds().length, 1);
+        assert.equal(
+            fixture.querySelector(".o_sp_en_display_name").innerText,
+            "(#1) Partners by Foo"
+        );
+
+        await click(fixture, ".o_duplicate_list");
+        assert.equal(model.getters.getListIds().length, 2);
+        assert.equal(
+            fixture.querySelector(".o_sp_en_display_name").innerText,
+            "(#2) Partners by Foo"
+        );
+    });
 });

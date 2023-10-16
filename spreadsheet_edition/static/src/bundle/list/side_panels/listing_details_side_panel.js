@@ -14,6 +14,7 @@ export class ListingDetailsSidePanel extends Component {
     setup() {
         this.getters = this.env.model.getters;
         this.dialog = useService("dialog");
+        this.notification = useService("notification");
         const loadData = async (listId) => {
             this.dataSource = await this.env.model.getters.getAsyncListDataSource(listId);
             this.modelDisplayName = await this.dataSource.getModelLabel();
@@ -72,6 +73,22 @@ export class ListingDetailsSidePanel extends Component {
                     domain: new Domain(domain).toJson(),
                 }),
         });
+    }
+
+    duplicateList() {
+        const newListId = this.env.model.getters.getNextListId();
+        const result = this.env.model.dispatch("DUPLICATE_ODOO_LIST", {
+            listId: this.props.listId,
+            newListId,
+        });
+        const msg = result.isSuccessful
+            ? _t('List duplicated. Use the "Re-insert list" menu item to insert it in a sheet.')
+            : _t("List duplication failed");
+        const type = result.isSuccessful ? "success" : "danger";
+        this.notification.add(msg, { sticky: false, type });
+        if (result.isSuccessful) {
+            this.env.model.dispatch("SELECT_ODOO_LIST", { listId: newListId });
+        }
     }
 }
 ListingDetailsSidePanel.template = "spreadsheet_edition.ListingDetailsSidePanel";
