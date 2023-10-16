@@ -43,32 +43,64 @@ class TestWebsiteSaleRenting(TestWebsiteSaleRentingCommon):
             'partner_id': self.partner.id,
             'company_id': self.company.id,
             'rental_start_date': now + relativedelta(weekday=SA),
-            'rental_return_date': now + relativedelta(weeks=1, weekday=SU),
+            'rental_return_date': now + relativedelta(weeks=1, weekday=SA),
+            'website_id': self.website.id,
         })
         sol = self.env['sale.order.line'].create({
             'order_id': so.id,
             'product_id': self.computer.id,
         })
         sol.update({'is_rental': True})
+
+        # Created a sale order with same dates for different website
+        so_2 = so.copy({'website_id': self.website_2.id})
+        sol_2 = self.env['sale.order.line'].create({
+            'order_id': so_2.id,
+            'product_id': self.computer.id,
+        })
+        sol_2.update({'is_rental': True})
+
         self.assertFalse(
             so._is_valid_renting_dates(),
             "Pickup and Return dates cannot be set on renting unavailabilities days"
         )
+        self.assertTrue(
+            so_2._is_valid_renting_dates(),
+            "Pickup and Return dates can be set on renting availabilities days"
+        )
+
         so.write({
             'rental_start_date': now + relativedelta(weekday=FR),
-            'rental_return_date': now + relativedelta(weeks=1, weekday=SU),
+            'rental_return_date': now + relativedelta(weeks=1, weekday=SA),
         })
         self.assertFalse(
             so._is_valid_renting_dates(),
             "Return date cannot be set on a renting unavailabilities day"
         )
+        so_2.write({
+            'rental_start_date': now + relativedelta(weekday=FR),
+            'rental_return_date': now + relativedelta(weeks=1, weekday=SA),
+        })
+        self.assertTrue(
+            so_2._is_valid_renting_dates(),
+            "Return date can be set on a renting availabilities day"
+        )
+
         so.write({
-            'rental_start_date': now + relativedelta(weekday=SU),
+            'rental_start_date': now + relativedelta(weekday=SA),
             'rental_return_date': now + relativedelta(weeks=1, weekday=FR),
         })
         self.assertFalse(
             so._is_valid_renting_dates(), "Start date cannot be set on a renting unavailabilities day"
         )
+        so_2.write({
+            'rental_start_date': now + relativedelta(weekday=SA),
+            'rental_return_date': now + relativedelta(weeks=1, weekday=FR),
+        })
+        self.assertTrue(
+            so_2._is_valid_renting_dates(), "Start date can be set on a renting availabilities day"
+        )
+
         so.write({
             'rental_start_date': now + relativedelta(weeks=1, weekday=SU),
             'rental_return_date': now,

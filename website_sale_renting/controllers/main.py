@@ -103,6 +103,7 @@ class WebsiteSaleRenting(WebsiteSale):
                 'duration': request.env.company.renting_minimal_time_duration,
                 'unit': request.env.company.renting_minimal_time_unit,
             },
+            'website_tz': request.website.tz,
         }
 
     def _prepare_product_values(self, product, category, search, start_date=None, end_date=None, **kwargs):

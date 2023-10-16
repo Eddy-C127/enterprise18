@@ -23,3 +23,4 @@ class ResConfigSettings(models.TransientModel):
         "Saturday", related="company_id.renting_forbidden_sat", readonly=False)
     renting_forbidden_sun = fields.Boolean(
         "Sunday", related="company_id.renting_forbidden_sun", readonly=False)
+    tz = fields.Selection(related='website_id.tz', readonly=False)

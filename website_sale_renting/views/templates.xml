@@ -42,7 +42,9 @@
                     <input type="hidden" name="default_start_date" t-att-value="wso.rental_start_date or combination_info['default_start_date']"/>
                     <input type="hidden" name="default_end_date" t-att-value="wso.rental_return_date or combination_info['default_end_date']"/>
                     <input type="hidden" name="rental_duration_unit" t-att-value="combination_info['rental_duration_unit']"/>
-                    <strong class="attribute_name">Rental Period</strong>
+                    <strong class="attribute_name">Rental Period
+                        <t t-if="website._is_customer_in_the_same_timezone()" t-out="website._get_utc_offset(website.tz)"/>
+                    </strong>
                     <div class="oe_unremovable w-100">
                         <div class="s_website_form_datetime input-group date col-md-8 ps-0 o_daterange_picker"
                              id="rentingDates"
@@ -148,14 +150,17 @@
             <div t-if="website_sale_order and website_sale_order.has_rented_products" class="pt-3 border-top mb-3">
                 <h6 class="attribute_name">Rental Period</h6>
                 <div class="oe_unremovable d-flex gap-1 align-items-center w-100 text-muted">
-                    <span t-field="website_sale_order.rental_start_date"
+                    <span t-out="website_sale_order.convert_to_website_tz(website_sale_order.rental_start_date)"
                           widget="datetime"
                           class="o_not_editable"/>
                     <i class="oi oi-arrow-right"/>
-                    <span t-field="website_sale_order.rental_return_date"
+                    <span t-out="website_sale_order.convert_to_website_tz(website_sale_order.rental_return_date)"
                           widget="datetime"
                           class="o_not_editable"/>
                 </div>
+                <t t-if="website_sale_order.website_id._is_customer_in_the_same_timezone()">
+                    (<t t-out="website_sale_order.website_id.tz"/>)
+                </t>
             </div>
         </xpath>
     </template>

@@ -39,7 +39,7 @@ export const RentingMixin = {
                 const rentingDuration = endDate - startDate;
                 if (rentingDuration < 0) {
                     message = _t("The return date should be after the pickup date.");
-                } else if (startDate.startOf("day") < luxon.DateTime.now().startOf("day")) {
+                } else if (startDate.startOf("day") < luxon.DateTime.now().setZone(this.websiteTz).startOf("day")) {
                     message = _t("The pickup date cannot be in the past.");
                 } else if (
                     ["hour", "day", "week", "month"].includes(this.rentingMinimalTime.unit)
@@ -79,13 +79,13 @@ export const RentingMixin = {
     _getDateFromInputOrDefault(input, fieldName, inputName) {
         const parse = this._isDurationWithHours() ? parseDateTime : parseDate;
         try {
-            return parse(input?.value);
+            return parse(input?.value, { tz: this.websiteTz });
         } catch (e) {
             if (!(e instanceof ConversionError)) {
                 throw e;
             }
             const $defaultDate = this.el.querySelector('input[name="default_' + inputName + '"]');
-            return $defaultDate && deserializeDateTime($defaultDate.value);
+            return $defaultDate && deserializeDateTime($defaultDate.value, { tz: this.websiteTz });
         }
     },
 

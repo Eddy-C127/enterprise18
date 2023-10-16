@@ -1,5 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import pytz
 from datetime import timedelta
 
 from odoo import _, fields, models
@@ -37,6 +38,19 @@ class SaleOrder(models.Model):
 
         return new_qty, warning
 
+    def convert_to_website_tz(self, value):
+        """ Convert a given naive datetime into the website's timezone.
+
+        The naive datetime value is assumed to be in UTC timezone (default database format).
+
+        :param datetime value: The date to convert.
+        :return: naive datetime expressed in the website timezone.
+        :rtype: naive datetime
+        """
+        return pytz.utc.localize(value).astimezone(
+            pytz.timezone(self.website_id.tz)
+        ).replace(tzinfo=None)
+
     def _is_valid_renting_dates(self):
         """ Check if the pickup and return dates are valid.
 
@@ -47,11 +61,14 @@ class SaleOrder(models.Model):
         if not self.has_rented_products:
             return True
         days_forbidden = self.company_id._get_renting_forbidden_days()
+        converted_rental_start_date = self.convert_to_website_tz(self.rental_start_date)
+        converted_rental_return_date = self.convert_to_website_tz(self.rental_return_date)
+        converted_current_datetime = self.convert_to_website_tz(fields.Datetime.now())
         return (
             # 15 minutes of allowed time between adding the product to cart and paying it.
-            self.rental_start_date >= fields.Datetime.now() - timedelta(minutes=15)
-            and self.rental_start_date.isoweekday() not in days_forbidden
-            and self.rental_return_date.isoweekday() not in days_forbidden
+            converted_rental_start_date >= converted_current_datetime - timedelta(minutes=15)
+            and converted_rental_start_date.isoweekday() not in days_forbidden
+            and converted_rental_return_date.isoweekday() not in days_forbidden
             and self._get_renting_duration() >= self.company_id.renting_minimal_time_duration
         )
 

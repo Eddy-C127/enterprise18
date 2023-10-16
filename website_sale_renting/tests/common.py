@@ -14,6 +14,16 @@ class TestWebsiteSaleRentingCommon(TransactionCase):
             'renting_forbidden_sat': True,
             'renting_forbidden_sun': True,
         })
+        cls.website = cls.env['website'].create({
+            'name': 'Test website',
+            'company_id': cls.company.id,
+            'tz': 'Europe/Brussels',
+        })
+        cls.website_2 = cls.env['website'].create({
+            'name': 'Test website 2',
+            'company_id': cls.company.id,
+            'tz': 'America/New_York',
+        })
         cls.computer = cls.env['product.product'].create({
             'name': 'Computer',
             'list_price': 2000,

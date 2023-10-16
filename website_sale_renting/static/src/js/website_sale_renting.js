@@ -29,8 +29,8 @@ WebsiteSale.include({
         );
         wSaleUtils.updateCartNavBar(values);
         const format = this._isDurationWithHours() ? formatDateTime : formatDate;
-        document.querySelector("input[name=renting_start_date]").value = format(deserializeDateTime(start_date));
-        document.querySelector("input[name=renting_end_date]").value = format(deserializeDateTime(end_date));
+        document.querySelector("input[name=renting_start_date]").value = format(deserializeDateTime(start_date, { tz: this.websiteTz }), { tz: this.websiteTz });
+        document.querySelector("input[name=renting_end_date]").value = format(deserializeDateTime(end_date, { tz: this.websiteTz }), { tz: this.websiteTz });
     },
 
     /**
@@ -76,6 +76,9 @@ WebsiteSale.include({
         }
         if (info.rentingMinimalTime) {
             this.rentingMinimalTime = info.rentingMinimalTime;
+        }
+        if (info.websiteTz) {
+            this.websiteTz = info.websiteTz;
         }
     },
 

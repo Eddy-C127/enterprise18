@@ -62,9 +62,11 @@ publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(Re
         return rpc("/rental/product/constraints").then((constraints) => {
             this.rentingUnavailabilityDays = constraints.renting_unavailabity_days;
             this.rentingMinimalTime = constraints.renting_minimal_time;
+            this.websiteTz = constraints.website_tz
             $('.oe_website_sale').trigger('renting_constraints_changed', {
                 rentingUnavailabilityDays: this.rentingUnavailabilityDays,
                 rentingMinimalTime: this.rentingMinimalTime,
+                websiteTz: this.websiteTz,
             });
         });
     },
@@ -82,6 +84,7 @@ publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(Re
         el.dataset.hasDefaultDates = hasDefaultDates;
         const value =
             this.isShopDatePicker && !hasDefaultDates ? ["", ""] : [this.startDate, this.endDate];
+        const datetimeWebsiteTz = DateTime.now().setZone(this.websiteTz);
         this.call(
             "datetime_picker",
             "create",
@@ -91,10 +94,11 @@ publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(Re
                     value,
                     range: true,
                     type: this._isDurationWithHours() ? "datetime" : "date",
-                    minDate: DateTime.min(DateTime.now(), this.startDate),
-                    maxDate: DateTime.max(DateTime.now().plus({ years: 3 }), this.endDate),
+                    minDate: DateTime.min(datetimeWebsiteTz, this.startDate),
+                    maxDate: DateTime.max(datetimeWebsiteTz.plus({ years: 3 }), this.endDate),
                     isDateValid: this._isValidDate.bind(this),
                     dayCellClass: (date) => this._isCustomDate(date).join(" "),
+                    tz: this.websiteTz,
                 },
                 onApply: ([start_date, end_date]) => {
                     this.startDate = start_date;
@@ -131,7 +135,7 @@ publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(Re
         // that means that the date is not in the url
         const defaultDateEl = this.el.querySelector(`input[name="default_${inputName}"]`);
         if (defaultDateEl) {
-            return deserializeDateTime(defaultDateEl.value);
+            return deserializeDateTime(defaultDateEl.value, { tz: this.websiteTz });
         }
         if (this.startDate) {
             // that means that the start date is already set

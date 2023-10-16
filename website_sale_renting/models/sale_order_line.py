@@ -1,7 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models
-from odoo.http import request
 
 
 class SaleOrderLine(models.Model):
@@ -20,9 +19,21 @@ class SaleOrderLine(models.Model):
         return pricing.description
 
     def _get_tz(self):
-        return request and request.httprequest.cookies.get('tz') or super()._get_tz()
+        return self.order_id.website_id.tz or super()._get_tz()
 
     def _is_reorder_allowed(self):
         if self.is_rental:
             return False
         return super()._is_reorder_allowed()
+
+    def _get_rental_order_line_description(self):
+        """ Add timezone of website to sale order line description
+
+        :return: order line description after adding timezone of website
+        :rtype: string
+        """
+        order_line_description = super()._get_rental_order_line_description()
+        website = self.order_id.website_id
+        if website and website._is_customer_in_the_same_timezone():
+            order_line_description += f' ({self.order_id.website_id.tz})'
+        return order_line_description
