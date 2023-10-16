@@ -2819,6 +2819,9 @@ class Article(models.Model):
             # Do not fetch articles that the user did not join (articles with
             # internal permissions may be set as visible to members only)
             root_articles_domain.append(("is_article_visible", "=", True))
+        else:
+            # Do not fetch private articles of other users for portal user
+            expression.AND([root_articles_domain, ['|', ('user_has_access', '=', True), ('category', '!=', 'private')]])
 
         # Fetch root article_ids as sudo, ACLs will be checked on next global call fetching 'all_visible_articles'
         # this helps avoiding 2 queries done for ACLs (and redundant with the global fetch)
