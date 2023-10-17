@@ -27,12 +27,12 @@ class PlanningShift(models.Model):
             elif slot.previous_template_id and not slot.template_id and slot.previous_template_id.project_id == slot.project_id:
                 slot.project_id = False
 
-    def _read_group_project_id(self, projects, domain, order):
+    def _read_group_project_id(self, projects, domain):
         dom_tuples = [(dom[0], dom[1]) for dom in domain if isinstance(dom, list) and len(dom) == 3]
         if self._context.get('planning_expand_project') and ('start_datetime', '<=') in dom_tuples and ('end_datetime', '>=') in dom_tuples:
             if ('project_id', '=') in dom_tuples or ('project_id', 'ilike') in dom_tuples:
                 filter_domain = self._expand_domain_m2o_groupby(domain, 'project_id')
-                return self.env['project.project'].search(filter_domain, order=order)
+                return self.env['project.project'].search(filter_domain)
             filters = expression.AND([[('project_id.active', '=', True)], self._expand_domain_dates(domain)])
             return self.env['planning.slot'].search(filters).mapped('project_id')
         return projects

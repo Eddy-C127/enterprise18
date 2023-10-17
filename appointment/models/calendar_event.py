@@ -207,24 +207,7 @@ class CalendarEvent(models.Model):
                 event.booking_line_ids.unlink()
         self.env['appointment.booking.line'].create(booking_lines)
 
-    @api.model
-    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
-        """ Simulate group_by on resource_ids by using appointment_resource_ids.
-            appointment_resource_ids is only used to store the data through the appointment_booking_line
-            table. All computation on the resources and the capacity reserved is done with capacity_reserved.
-            Simulating the group_by on resource_ids also avoids to do weird override in JS on appointment_resource_ids.
-            This is needed because when simply writing on the field, it tries to create the corresponding booking line
-            with the field capacity_reserved required leading to ValidationError.
-        """
-        groupby = [group_element if group_element != "resource_ids" else "appointment_resource_ids" for group_element in groupby]
-        read_group_data = super().read_group(domain, fields, groupby, offset, limit, orderby, lazy)
-        for data in read_group_data:
-            if data.get('appointment_resource_ids'):
-                data['resource_ids'] = data['appointment_resource_ids']
-                data['resource_ids_count'] = data['appointment_resource_ids_count']
-        return read_group_data
-
-    def _read_group_appointment_resource_ids(self, resources, domain, order):
+    def _read_group_appointment_resource_ids(self, resources, domain):
         if not self.env.context.get('appointment_booking_gantt_show_all_resources'):
             return resources
         # If we have a default appointment type, we only want to show those resources
@@ -233,7 +216,7 @@ class CalendarEvent(models.Model):
             return self.env['appointment.type'].browse(default_appointment_type).resource_ids
         return self.env['appointment.resource'].search([])
 
-    def _read_group_partner_ids(self, partners, domain, order):
+    def _read_group_partner_ids(self, partners, domain):
         """Show the partners associated with relevant staff users in appointment gantt context."""
         if not self.env.context.get('appointment_booking_gantt_show_all_resources'):
             return partners
@@ -243,7 +226,7 @@ class CalendarEvent(models.Model):
             return appointment_types.staff_user_ids.partner_id
         return self.env['appointment.type'].search([('schedule_based_on', '=', 'users')]).staff_user_ids.partner_id
 
-    def _read_group_user_id(self, users, domain, order):
+    def _read_group_user_id(self, users, domain):
         if not self.env.context.get('appointment_booking_gantt_show_all_resources'):
             return users
         appointment_types = self.env['appointment.type'].browse(self.env.context.get('default_appointment_type_id', []))

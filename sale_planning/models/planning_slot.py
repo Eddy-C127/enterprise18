@@ -95,19 +95,19 @@ class PlanningSlot(models.Model):
         (self - planned_slots).template_autocomplete_ids = self.template_id
         super(PlanningSlot, planned_slots)._compute_template_autocomplete_ids()
 
-    def _group_expand_sale_line_id(self, sale_lines, domain, order):
+    def _group_expand_sale_line_id(self, sale_lines, domain):
         dom_tuples = [(dom[0], dom[1]) for dom in domain if isinstance(dom, (list, tuple)) and len(dom) == 3]
         sale_line_ids = self.env.context.get('filter_sale_line_ids', False)
         if sale_line_ids:
             # search method is used rather than browse since the order needs to be handled
-            return self.env['sale.order.line'].search([('id', 'in', sale_line_ids)], order=order)
+            return sale_lines.search([('id', 'in', sale_line_ids)])
         elif self._context.get('planning_expand_sale_line_id') and ('start_datetime', '<=') in dom_tuples and ('end_datetime', '>=') in dom_tuples:
             if ('sale_line_id', '=') in dom_tuples or ('sale_line_id', 'ilike') in dom_tuples:
                 filter_domain = self._expand_domain_m2o_groupby(domain, 'sale_line_id')
-                return self.env['sale.order.line'].search(filter_domain, order=order)
+                return sale_lines.search(filter_domain)
             filters = self._expand_domain_dates(domain)
             sale_lines = self.env['planning.slot'].search(filters).mapped('sale_line_id')
-            return sale_lines.search([('id', 'in', sale_lines.ids)], order=order)
+            return sale_lines.search([('id', 'in', sale_lines.ids)])
         return sale_lines
 
     # -----------------------------------------------------------------

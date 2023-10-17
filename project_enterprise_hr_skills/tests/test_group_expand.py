@@ -73,7 +73,7 @@ class TestTaskGanttViewWithSkills(TestTaskGanttView):
         displayed_gantt_users = self.env['project.task'].with_context({
             'gantt_start_date': Datetime.to_datetime('2023-02-01'),
             'gantt_scale': 'month',
-        })._group_expand_user_ids(None, domain_with_skill, None)
+        })._group_expand_user_ids(None, domain_with_skill)
 
         self.assertTrue(self.user_gantt_test_1 in displayed_gantt_users, 'There should be an empty line for test user 1')
         self.assertFalse(self.user_gantt_test_2 in displayed_gantt_users, 'There should not be an empty line for test user 2')
@@ -86,7 +86,7 @@ class TestTaskGanttViewWithSkills(TestTaskGanttView):
         displayed_gantt_users = self.env['project.task'].with_context({
             'gantt_start_date': Datetime.to_datetime('2023-02-01'),
             'gantt_scale': 'month',
-        })._group_expand_user_ids(None, domain_with_skill, None)
+        })._group_expand_user_ids(None, domain_with_skill)
 
         self.assertTrue(self.user_gantt_test_1 in displayed_gantt_users, 'There should be an empty line for test user 1')
         self.assertTrue(self.user_gantt_test_2 in displayed_gantt_users, 'There should be an empty line for test user 2')
@@ -99,7 +99,7 @@ class TestTaskGanttViewWithSkills(TestTaskGanttView):
         displayed_gantt_users = self.env['project.task'].with_context({
             'gantt_start_date': Datetime.to_datetime('2023-02-01'),
             'gantt_scale': 'month',
-        })._group_expand_user_ids(None, domain_with_skill, None)
+        })._group_expand_user_ids(None, domain_with_skill)
 
         self.assertFalse(self.user_gantt_test_1 in displayed_gantt_users, 'There should not be an empty line for test user 1')
         self.assertFalse(self.user_gantt_test_2 in displayed_gantt_users, 'There should not be an empty line for test user 2')
@@ -121,7 +121,7 @@ class TestTaskGanttViewWithSkills(TestTaskGanttView):
             'gantt_start_date': Datetime.to_datetime('2023-01-02'),
             'gantt_scale': 'day',
         })
-        displayed_gantt_users = ProjectTask._group_expand_user_ids(None, domain_with_skill, None)
+        displayed_gantt_users = ProjectTask._group_expand_user_ids(None, domain_with_skill)
 
         self.assertTrue(self.user_gantt_test_1 in displayed_gantt_users, 'There should be an empty line for test user 1')
         self.assertFalse(self.user_gantt_test_2 in displayed_gantt_users, 'There should not be an empty line for test user 2')
@@ -131,7 +131,7 @@ class TestTaskGanttViewWithSkills(TestTaskGanttView):
             domain,
             [('user_skill_ids', 'ilike', self.en_skill.name)],
         ])
-        displayed_gantt_users = ProjectTask._group_expand_user_ids(None, domain_with_skill, None)
+        displayed_gantt_users = ProjectTask._group_expand_user_ids(None, domain_with_skill)
 
         self.assertTrue(self.user_gantt_test_1 in displayed_gantt_users, 'There should be an empty line for test user 1')
         self.assertTrue(self.user_gantt_test_2 in displayed_gantt_users, 'There should be an empty line for test user 2')
@@ -141,7 +141,7 @@ class TestTaskGanttViewWithSkills(TestTaskGanttView):
             domain,
             [('user_skill_ids', 'ilike', self.es_skill.name)],
         ])
-        displayed_gantt_users = ProjectTask._group_expand_user_ids(None, domain_with_skill, None)
+        displayed_gantt_users = ProjectTask._group_expand_user_ids(None, domain_with_skill)
 
         self.assertFalse(self.user_gantt_test_1 in displayed_gantt_users, 'There should not be an empty line for test user 1')
         self.assertFalse(self.user_gantt_test_2 in displayed_gantt_users, 'There should not be an empty line for test user 2')

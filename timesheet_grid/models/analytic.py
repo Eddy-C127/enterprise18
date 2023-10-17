@@ -419,7 +419,7 @@ class AnalyticLine(models.Model):
             cell_field: change,
         }
 
-    def _group_expand_employee_ids(self, employees, domain, order):
+    def _group_expand_employee_ids(self, employees, domain):
         """ Group expand by employee_ids in grid view
 
             This group expand allow to add some record by employee, where
@@ -469,14 +469,7 @@ class AnalyticLine(models.Model):
             ], filter_domain_leaf(domain, lambda field: field != 'date')
         ])
 
-        group_order = self.env['hr.employee']._order
-        if order == group_order:
-            order = 'employee_id'
-        elif order == tools.reverse_order(group_order):
-            order = 'employee_id desc'
-        else:
-            order = None
-        return self.search(domain_search, order=order).employee_id
+        return self.search(domain_search).employee_id
 
     def _get_last_week(self):
         today = fields.Date.to_string(fields.Date.today())

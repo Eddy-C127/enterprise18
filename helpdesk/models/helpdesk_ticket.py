@@ -49,7 +49,7 @@ class HelpdeskTicket(models.Model):
         return team_id
 
     @api.model
-    def _read_group_stage_ids(self, stages, domain, order):
+    def _read_group_stage_ids(self, stages, domain):
         # write the domain
         # - ('id', 'in', stages.ids): add columns that should be present
         # - OR ('team_ids', '=', team_id) if team_id: add team columns
@@ -57,7 +57,7 @@ class HelpdeskTicket(models.Model):
         if self.env.context.get('default_team_id'):
             search_domain = ['|', ('team_ids', 'in', self.env.context['default_team_id'])] + search_domain
 
-        return stages.search(search_domain, order=order)
+        return stages.search(search_domain)
 
     name = fields.Char(string='Subject', required=True, index=True, tracking=True)
     team_id = fields.Many2one('helpdesk.team', string='Helpdesk Team', default=_default_team_id, index=True, tracking=True)

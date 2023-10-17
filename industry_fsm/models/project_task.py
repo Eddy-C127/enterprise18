@@ -191,10 +191,10 @@ class Task(models.Model):
         return super(Task, self_fsm).write(vals)
 
     @api.model
-    def _group_expand_project_ids(self, projects, domain, order):
-        res = super()._group_expand_project_ids(projects, domain, order)
+    def _group_expand_project_ids(self, projects, domain):
+        res = super()._group_expand_project_ids(projects, domain)
         if self._context.get('fsm_mode'):
-            search_on_comodel = self._search_on_comodel(domain, "project_id", "project.project", order, [('is_fsm', '=', True)])
+            search_on_comodel = self._search_on_comodel(domain, "project_id", "project.project", [('is_fsm', '=', True)])
             res &= search_on_comodel
         return res
 

@@ -344,7 +344,7 @@ class QualityAlert(models.Model):
             self.company_id = self.team_id.company_id or self.env.company
 
     @api.model
-    def _read_group_stage_ids(self, stages, domain, order):
+    def _read_group_stage_ids(self, stages, domain):
         """ Only shows the stage related to the current team.
         """
         team_id = self.env.context.get('default_team_id')
@@ -358,5 +358,5 @@ class QualityAlert(models.Model):
             # if enter here, means we won't get any team_id and stage_id to search
             # so search stage without team_ids instead
             domain = [('team_ids', '=', False)]
-        stage_ids = stages._search(domain, order=order, access_rights_uid=SUPERUSER_ID)
+        stage_ids = stages._search(domain, order=stages._order, access_rights_uid=SUPERUSER_ID)
         return stages.browse(stage_ids)

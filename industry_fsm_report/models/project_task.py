@@ -111,13 +111,13 @@ class ProjectTask(models.Model):
             record.worksheet_count = worksheet_count
 
     @api.model
-    def _group_expand_worksheet_template_id(self, worksheets, domain, order):
+    def _group_expand_worksheet_template_id(self, worksheets, domain):
         start_date = self._context.get('gantt_start_date')
         scale = self._context.get('gantt_scale')
         if not (start_date and scale):
             return worksheets
         domain = self._expand_domain_dates(domain)
-        search_on_comodel = self._search_on_comodel(domain, "worksheet_template_id", "worksheet.template", order)
+        search_on_comodel = self._search_on_comodel(domain, "worksheet_template_id", "worksheet.template")
         if search_on_comodel:
             return search_on_comodel
         else:

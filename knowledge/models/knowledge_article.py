@@ -996,12 +996,11 @@ class Article(models.Model):
         return duplicates
 
     @api.model
-    def _read_group_stage_ids(self, stages, domain, order):
+    def _read_group_stage_ids(self, stages, domain):
         search_domain = [('id', 'in', stages.ids)]
         if self.env.context.get('default_parent_id'):
             search_domain = expression.OR([[('parent_id', '=', self.env.context['default_parent_id'])], search_domain])
-        stage_ids = stages._search(search_domain, order=order)
-        return stages.browse(stage_ids)
+        return stages.search(search_domain)
 
     def _get_read_domain(self):
         """ Independently from admin bypass, give the domain allowing to read

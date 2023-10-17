@@ -77,11 +77,10 @@ class RoomBooking(models.Model):
         return res
 
     @api.model
-    def _read_group_room_id(self, rooms, domain, order):
+    def _read_group_room_id(self, rooms, domain):
         # Display all the rooms in the gantt view even if they have no booking,
         # and order them by office first, then by usual order (because the
         # office name is shown in the display name)
         if self.env.context.get("room_booking_gantt_show_all_rooms"):
-            room_ids = rooms._search([], order="office_id," + order)
-            return rooms.browse(room_ids)
+            return rooms.search([], order=f"office_id, {rooms._order}")
         return rooms

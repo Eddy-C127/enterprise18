@@ -11,7 +11,7 @@ class PlanningSlot(models.Model):
     employee_skill_ids = fields.One2many(related='employee_id.employee_skill_ids', string='Skills')
 
     @api.model
-    def _group_expand_resource_id(self, resources, domain, order):
+    def _group_expand_resource_id(self, resources, domain):
         """
         overriding
         _group_expand_resource_id adds 'resource_ids' in the domain corresponding to 'employee_skill_ids' fields already in the domain
@@ -23,7 +23,7 @@ class PlanningSlot(models.Model):
             field_name_mapping={'employee_skill_ids': 'name'}
         )
         if not skill_search_domain:
-            return super()._group_expand_resource_id(resources, domain, order)
+            return super()._group_expand_resource_id(resources, domain)
 
         # 2. Get matching employee_ids for every employee_skill_id found in the initial domain
         skill_ids = self.env['hr.skill']._search(skill_search_domain)
@@ -41,4 +41,4 @@ class PlanningSlot(models.Model):
             [('resource_id', 'in', matching_resource_ids)],
             domain,
         ])
-        return super()._group_expand_resource_id(resources, filtered_domain, order)
+        return super()._group_expand_resource_id(resources, filtered_domain)

@@ -48,7 +48,7 @@ class TestTaskGanttView(TestProjectCommon):
         displayed_gantt_users = self.env['project.task'].with_context({
             'gantt_start_date': Datetime.to_datetime('2023-02-01'),
             'gantt_scale': 'month',
-        })._group_expand_user_ids(None, domain, None)
+        })._group_expand_user_ids(None, domain)
 
         self.assertTrue(self.user_gantt_test_1 in displayed_gantt_users, 'There should be an empty line for test user 1')
         self.assertTrue(self.user_gantt_test_2 in displayed_gantt_users, 'There should be an empty line for test user 2')
@@ -76,7 +76,7 @@ class TestTaskGanttView(TestProjectCommon):
         displayed_gantt_users = self.env['project.task'].with_context({
             'gantt_start_date': Datetime.to_datetime('2023-01-02'),
             'gantt_scale': 'day',
-        })._group_expand_user_ids(None, [('state', 'not in', list(CLOSED_STATES))], None)
+        })._group_expand_user_ids(None, [('state', 'not in', list(CLOSED_STATES))])
 
         self.assertTrue(self.user_gantt_test_1 in displayed_gantt_users, 'There should be an empty line for test user 1')
         self.assertTrue(self.user_gantt_test_2 in displayed_gantt_users, 'There should be an empty line for test user 2')

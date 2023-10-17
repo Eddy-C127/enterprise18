@@ -568,7 +568,7 @@ class MrpEco(models.Model):
         return res
 
     @api.model
-    def _read_group_stage_ids(self, stages, domain, order):
+    def _read_group_stage_ids(self, stages, domain):
         """ Read group customization in order to display all the stages of the ECO type
         in the Kanban view, even if there is no ECO in that stage
         """
@@ -576,7 +576,7 @@ class MrpEco(models.Model):
         if self._context.get('default_type_ids'):
             search_domain = [('type_ids', 'in', self._context['default_type_ids'])]
 
-        stage_ids = stages._search(search_domain, order=order, access_rights_uid=SUPERUSER_ID)
+        stage_ids = stages._search(search_domain, order=stages._order, access_rights_uid=SUPERUSER_ID)
         return stages.browse(stage_ids)
 
     @api.returns('mail.message', lambda value: value.id)

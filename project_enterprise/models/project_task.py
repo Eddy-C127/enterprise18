@@ -518,7 +518,7 @@ class Task(models.Model):
     def _get_additional_users(self, domain):
         return self.env['res.users']
 
-    def _group_expand_user_ids(self, users, domain, order):
+    def _group_expand_user_ids(self, users, domain):
         """ Group expand by user_ids in gantt view :
             all users which have and open task in this project + the current user if not filtered by assignee
         """
@@ -531,7 +531,7 @@ class Task(models.Model):
                 is_leaf(elem) and elem[0] == 'user_ids' for elem in domain):
             return additional_users
         domain = filter_domain_leaf(domain, lambda field: field not in ['planned_date_begin', 'date_deadline', 'state'])
-        search_on_comodel = self._search_on_comodel(domain, "user_ids", "res.users", order)
+        search_on_comodel = self._search_on_comodel(domain, "user_ids", "res.users")
         if search_on_comodel:
             return search_on_comodel | self.env.user
         start_date = fields.Datetime.from_string(start_date)
@@ -561,7 +561,7 @@ class Task(models.Model):
         return domain_expand
 
     @api.model
-    def _group_expand_project_ids(self, projects, domain, order):
+    def _group_expand_project_ids(self, projects, domain):
         start_date = self._context.get('gantt_start_date')
         scale = self._context.get('gantt_scale')
         default_project_id = self._context.get('default_project_id')
@@ -573,19 +573,19 @@ class Task(models.Model):
         # Indeed, the project_id != False default search would lead in a wrong result when
         # no other search have been made
         filtered_domain = filter_domain_leaf(domain, lambda field: field == "project_id")
-        search_on_comodel = self._search_on_comodel(domain, "project_id", "project.project", order)
+        search_on_comodel = self._search_on_comodel(domain, "project_id", "project.project")
         if search_on_comodel and (default_project_id or is_my_task or len(filtered_domain) > 1):
             return search_on_comodel
         return self.search(domain).project_id
 
     @api.model
-    def _group_expand_partner_ids(self, partners, domain, order):
+    def _group_expand_partner_ids(self, partners, domain):
         start_date = self._context.get('gantt_start_date')
         scale = self._context.get('gantt_scale')
         if not (start_date and scale):
             return partners
         domain = self._expand_domain_dates(domain)
-        search_on_comodel = self._search_on_comodel(domain, "partner_id", "res.partner", order)
+        search_on_comodel = self._search_on_comodel(domain, "partner_id", "res.partner")
         if search_on_comodel:
             return search_on_comodel
         return self.search(domain).partner_id

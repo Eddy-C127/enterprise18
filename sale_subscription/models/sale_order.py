@@ -840,7 +840,7 @@ class SaleOrder(models.Model):
         if last_token:
             self.payment_token_id = last_token
 
-    def _group_expand_states(self, states, domain, order):
+    def _group_expand_states(self, states, domain):
         return sorted(states + ['3_progress', '4_paused'])
 
     @api.model

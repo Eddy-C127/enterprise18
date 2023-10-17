@@ -1855,11 +1855,11 @@ class Planning(models.Model):
         if shift_ids_to_remove_resource:
             self.sudo().browse(shift_ids_to_remove_resource).write({'resource_id': False})
 
-    def _group_expand_resource_id(self, resources, domain, order):
+    def _group_expand_resource_id(self, resources, domain):
         dom_tuples = [(dom[0], dom[1]) for dom in domain if isinstance(dom, (tuple, list)) and len(dom) == 3]
         resource_ids = self.env.context.get('filter_resource_ids', False)
         if resource_ids:
-            return self.env['resource.resource'].search([('id', 'in', resource_ids)], order=order)
+            return self.env['resource.resource'].search([('id', 'in', resource_ids)])
         if self.env.context.get('planning_expand_resource') and ('start_datetime', '<=') in dom_tuples and ('end_datetime', '>=') in dom_tuples:
             # Search on the roles and resources
             search_on_role_domain = []
@@ -1881,12 +1881,12 @@ class Planning(models.Model):
             return self.env["resource.resource"].search(search_on_expanded_dates)
         return resources
 
-    def _read_group_role_id(self, roles, domain, order):
+    def _read_group_role_id(self, roles, domain):
         dom_tuples = [(dom[0], dom[1]) for dom in domain if isinstance(dom, list) and len(dom) == 3]
         if self._context.get('planning_expand_role') and ('start_datetime', '<=') in dom_tuples and ('end_datetime', '>=') in dom_tuples:
             if ('role_id', '=') in dom_tuples or ('role_id', 'ilike') in dom_tuples:
                 filter_domain = self._expand_domain_m2o_groupby(domain, 'role_id')
-                return self.env['planning.role'].search(filter_domain, order=order)
+                return self.env['planning.role'].search(filter_domain)
             filters = expression.AND([[('role_id.active', '=', True)], self._expand_domain_dates(domain)])
             return self.env['planning.slot'].search(filters).mapped('role_id')
         return roles
