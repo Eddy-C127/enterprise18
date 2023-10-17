@@ -5,12 +5,13 @@ import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
-import { Dropdown } from "@web/core/dropdown/dropdown";
+
+import { ThumbnailItem } from "@web_studio/client_action/components/thumbnail_item/thumbnail_item";
 
 class WebsiteIntegrator extends Component {
     static template = "website_studio.WebsiteIntegrator";
     static props = { ...standardActionServiceProps };
-    static components = { Dropdown, DropdownItem };
+    static components = { ThumbnailItem, DropdownItem };
 
     setup() {
         this.studio = useService("studio");

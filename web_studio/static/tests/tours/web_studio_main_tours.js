@@ -355,7 +355,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             // edit form view
             trigger:
-                '.o_web_studio_view_category .o_web_studio_view_type[data-type="form"] .o_web_studio_thumbnail',
+                ".o_web_studio_view_category .o_web_studio_thumbnail_item.o_web_studio_thumbnail_form",
         },
         {
             // verify Chatter can be added after changing view to form
@@ -455,8 +455,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // add a kanban
-            trigger:
-                '.o_web_studio_view_category .o_web_studio_view_type.o_web_studio_inactive[data-type="kanban"] .o_web_studio_thumbnail',
+            trigger: ".o_web_studio_view_category .o_web_studio_thumbnail_kanban.disabled",
         },
         {
             // add a dropdown
@@ -483,10 +482,9 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             // check that the kanban view is now active
             extra_trigger:
-                '.o_web_studio_view_category .o_web_studio_view_type:not(.o_web_studio_inactive)[data-type="kanban"]',
+                ".o_web_studio_view_category .o_web_studio_thumbnail_kanban:not(.disabled)",
             // add an activity view
-            trigger:
-                '.o_web_studio_view_category .o_web_studio_view_type.o_web_studio_inactive[data-type="activity"] .o_web_studio_thumbnail',
+            trigger: ".o_web_studio_view_category .o_web_studio_thumbnail_activity.disabled",
         },
         {
             extra_trigger: ".o_activity_view",
@@ -496,8 +494,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // add a graph view
-            trigger:
-                '.o_web_studio_view_category .o_web_studio_view_type.o_web_studio_inactive[data-type="graph"] .o_web_studio_thumbnail',
+            trigger: ".o_web_studio_view_category .o_web_studio_thumbnail_graph.disabled",
         },
         {
             extra_trigger: ".o_graph_renderer",
@@ -507,7 +504,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             extra_trigger: ".o_web_studio_views",
             // edit the search view
             trigger:
-                '.o_web_studio_view_category .o_web_studio_view_type[data-type="search"] .o_web_studio_thumbnail',
+                ".o_web_studio_view_category .o_web_studio_thumbnail_item.o_web_studio_thumbnail_search",
         },
         {
             extra_trigger: ".o_web_studio_search_view_editor",
@@ -1202,7 +1199,7 @@ registry.category("web_tour.tours").add("web_studio_create_app_with_pipeline_and
             trigger: ".o_web_studio_editor .o_menu_sections a:contains(Views)",
         },
         {
-            trigger: ".o_web_studio_view_type[data-type='kanban'] .o_web_studio_thumbnail",
+            trigger: ".o_web_studio_thumbnail_item.o_web_studio_thumbnail_kanban",
         },
         {
             extra_trigger: ".o_web_studio_kanban_view_editor",

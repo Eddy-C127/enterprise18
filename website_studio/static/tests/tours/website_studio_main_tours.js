@@ -18,7 +18,7 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
         },
         {
             content: "Create a listing page",
-            trigger: ".o_website_studio_listing .o-website-studio-item-card",
+            trigger: ".o_website_studio_listing .o_web_studio_thumbnail_item",
         },
         {
             content: "Set the name of the page",
@@ -41,14 +41,14 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
         {
             trigger: "body",
             run: () => {
-                const listingCount = [...document.querySelectorAll(".o_website_studio_listing .o-website-studio-item-card:not(.o_website_studio_new_card)")].length;
+                const listingCount = [...document.querySelectorAll(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
                 assertEqual(listingCount, 1);
-                const pagesCount = [...document.querySelectorAll(".o_website_studio_single .o-website-studio-item-card:not(.o_website_studio_new_card)")].length;
+                const pagesCount = [...document.querySelectorAll(".o_website_studio_single .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
                 assertEqual(pagesCount, 1);
                 // the listing has the right name
-                assertEqual(document.querySelector(".o_website_studio_listing .o-website-studio-item-card:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
+                assertEqual(document.querySelector(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
                 // the page has the right name
-                assertEqual(document.querySelector(".o_website_studio_single .o-website-studio-item-card:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
+                assertEqual(document.querySelector(".o_website_studio_single .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
             }
         },
     ],
@@ -96,12 +96,12 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
         {
             trigger: "body",
             run: () => {
-                const listingCount = [...document.querySelectorAll(".o_website_studio_listing .o-website-studio-item-card:not(.o_website_studio_new_card)")].length;
+                const listingCount = [...document.querySelectorAll(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
                 assertEqual(listingCount, 1);
-                const pagesCount = [...document.querySelectorAll(".o_website_studio_single .o-website-studio-item-card:not(.o_website_studio_new_card)")].length;
+                const pagesCount = [...document.querySelectorAll(".o_website_studio_single .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
                 assertEqual(pagesCount, 0);
                 // the listing has the right name
-                assertEqual(document.querySelector(".o_website_studio_listing .o-website-studio-item-card:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
+                assertEqual(document.querySelector(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
             }
         },
     ],

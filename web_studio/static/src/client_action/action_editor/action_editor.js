@@ -4,7 +4,6 @@ import { useOwnedDialogs, useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
 import { sortBy } from "@web/core/utils/arrays";
-import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
@@ -17,6 +16,7 @@ import {
 import { CharField } from "@web/views/fields/char/char_field";
 import { TextField } from "@web/views/fields/text/text_field";
 
+import { ThumbnailItem } from "@web_studio/client_action/components/thumbnail_item/thumbnail_item";
 import { viewTypeToString, useStudioServiceAsReactive } from "@web_studio/studio_service";
 import { NewViewDialog } from "../editor/new_view_dialogs/new_view_dialog";
 import { MapNewViewDialog } from "../editor/new_view_dialogs/map_new_view_dialog";
@@ -75,7 +75,7 @@ class ActionEditor extends Component {
     static template = "web_studio.ActionEditor";
     static props = { ...standardActionServiceProps };
     static components = {
-        Dropdown,
+        ThumbnailItem,
         DropdownItem,
         Record,
         CharField,

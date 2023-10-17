@@ -57,12 +57,12 @@ QUnit.module("Website Integrator", (hooks) => {
                 (el) => el.textContent === "Website"
             )[0];
             await click(websiteItem);
-            assert.containsN(target, ".o_website_studio_form .o-website-studio-item-card", 2);
+            assert.containsN(target, ".o_website_studio_form .o_web_studio_thumbnail_item", 2);
             const websiteStudioForms = target.querySelectorAll(
-                ".o_website_studio_form .o-website-studio-item-card"
+                ".o_website_studio_form .o_web_studio_thumbnail_item"
             );
-            assert.strictEqual(websiteStudioForms[0].textContent, "New Form");
-            assert.strictEqual(websiteStudioForms[1].textContent, "partner");
+            assert.strictEqual(websiteStudioForms[0].innerText, "New Form");
+            assert.strictEqual(websiteStudioForms[1].innerText, "Partner");
 
             assert.verifySteps(["/website_studio/get_forms", "/website_studio/get_website_pages"]);
         }

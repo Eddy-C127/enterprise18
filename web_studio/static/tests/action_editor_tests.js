@@ -86,9 +86,7 @@ QUnit.module("ActionEditor", (hooks) => {
         await openStudio(target, { noEdit: true });
 
         await click(
-            target.querySelector(
-                '.o_web_studio_view_type[data-type="gantt"] .o_web_studio_thumbnail'
-            )
+            target.querySelector(".o_web_studio_thumbnail_item.o_web_studio_thumbnail_gantt")
         );
         assert.containsOnce(
             $,
@@ -167,18 +165,22 @@ QUnit.module("ActionEditor", (hooks) => {
         await click(target.querySelector(".o_menu_sections a"));
 
         // make list view disable and form view only will be there in studio view
-        await click(target.querySelector('div[data-type="list"] .o_web_studio_more'));
-        await click(target.querySelector('div[data-type="list"] [data-action="disable_view"]'));
+        await click(target.querySelector(".o_web_studio_thumbnail_list .o_web_studio_more"));
+        await click(
+            target.querySelector('.o_web_studio_thumbnail_list [data-action="disable_view"]')
+        );
         // reloadAction = false;
         assert.hasClass(
-            $(target).find('div[data-type="list"]'),
-            "o_web_studio_inactive",
+            target.querySelector(".o_web_studio_thumbnail_list"),
+            "disabled",
             "list view should have become inactive"
         );
 
         // make form view disable and it should prompt the alert dialog
-        await click(target.querySelector('div[data-type="form"] .o_web_studio_more'));
-        await click(target.querySelector('div[data-type="form"] [data-action="disable_view"]'));
+        await click(target.querySelector(".o_web_studio_thumbnail_form .o_web_studio_more"));
+        await click(
+            target.querySelector('.o_web_studio_thumbnail_form [data-action="disable_view"]')
+        );
         assert.containsOnce(
             $,
             ".o_technical_modal",

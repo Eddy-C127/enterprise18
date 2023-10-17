@@ -204,8 +204,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             position: "bottom",
         },
         {
-            trigger:
-                '.o_web_studio_view_category .o_web_studio_view_type.o_web_studio_inactive[data-type="kanban"] .o_web_studio_thumbnail',
+            trigger: ".o_web_studio_view_category .o_web_studio_thumbnail_kanban.disabled",
             content: markup(_t("What about a <b>Kanban view</b>?")),
             position: "bottom",
         },

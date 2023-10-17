@@ -312,7 +312,7 @@ QUnit.module("Studio", (hooks) => {
         // open list view
         await click(
             target.querySelector(
-                ".o_web_studio_views .o_web_studio_view_type[data-type=list] .o_web_studio_thumbnail"
+                ".o_web_studio_views .o_web_studio_thumbnail_item.o_web_studio_thumbnail_list"
             )
         );
 
