@@ -3359,6 +3359,35 @@ QUnit.module("View Editors", (hooks) => {
             "Some FieldIDLast Modified onName"
         );
     });
+
+    QUnit.test('Restrict drag and drop of notebook and group in a inner group', async function (assert) {
+        const arch = `<form>
+            <sheet>
+                <group>
+                    <field name='display_name'/>
+                </group>
+            </sheet>
+        </form>`;
+        let editViewCount = 0;
+        await createViewEditor({
+            serverData,
+            type: "form",
+            resModel: "coucou",
+            arch: arch,
+            mockRPC: function (route, args) {
+                if (route === "/web_studio/edit_view") {
+                    editViewCount++;
+                    return createMockViewResult(serverData, "form", arch, "coucou");
+                }
+            },
+        });
+        await dragAndDrop(target.querySelector('.o_web_studio_field_type_container .o_web_studio_field_tabs'), target.querySelector('.o_inner_group .o_wrap_field'));
+        assert.strictEqual(editViewCount, 0,
+            "the notebook cannot be dropped inside a group");
+        await dragAndDrop(target.querySelector('.o_web_studio_field_type_container .o_web_studio_field_columns'), target.querySelector('.o_inner_group .o_wrap_field'));
+        assert.strictEqual(editViewCount, 0,
+            "the group cannot be dropped inside a group");
+    });
 });
 
 QUnit.module("View Editors", (hooks) => {
