@@ -5,7 +5,8 @@ import * as spreadsheet from "@odoo/o-spreadsheet";
 import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks";
 
 import { PivotAutofillPlugin } from "./plugins/pivot_autofill_plugin";
-import { PivotSidePanel } from "./side_panels/pivot_list_side_panel";
+import { AllPivotsSidePanel } from "./side_panels/pivot_list_side_panel";
+import { PivotDetailsSidePanel } from "./side_panels/pivot_details_side_panel";
 
 import "./autofill";
 import "./operational_transform";
@@ -15,9 +16,13 @@ const { featurePluginRegistry, sidePanelRegistry, cellMenuRegistry } = spreadshe
 
 featurePluginRegistry.add("odooPivotAutofillPlugin", PivotAutofillPlugin);
 
+sidePanelRegistry.add("ALL_PIVOTS_PANEL", {
+    title: () => _t("Pivot properties"),
+    Body: AllPivotsSidePanel,
+});
 sidePanelRegistry.add("PIVOT_PROPERTIES_PANEL", {
     title: () => _t("Pivot properties"),
-    Body: PivotSidePanel,
+    Body: PivotDetailsSidePanel,
 });
 
 initCallbackRegistry.add("insertPivot", insertPivot);
@@ -28,8 +33,7 @@ cellMenuRegistry.add("pivot_properties", {
     execute(env) {
         const position = env.model.getters.getActivePosition();
         const pivotId = env.model.getters.getPivotIdFromPosition(position);
-        env.model.dispatch("SELECT_PIVOT", { pivotId });
-        env.openSidePanel("PIVOT_PROPERTIES_PANEL", {});
+        env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
     },
     isVisible: (env) => {
         const position = env.model.getters.getActivePosition();

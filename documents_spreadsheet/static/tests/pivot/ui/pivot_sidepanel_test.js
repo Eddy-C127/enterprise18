@@ -1,6 +1,5 @@
 /** @odoo-module */
 
-import * as spreadsheet from "@odoo/o-spreadsheet";
 import { click, editInput, getFixture, nextTick } from "@web/../tests/helpers/utils";
 import {
     getBasicData,
@@ -8,13 +7,10 @@ import {
     getBasicServerData,
 } from "@spreadsheet/../tests/utils/data";
 import { getCellValue } from "@spreadsheet/../tests/utils/getters";
-import { selectCell } from "@spreadsheet/../tests/utils/commands";
 import { createSpreadsheetFromPivotView } from "../../utils/pivot_helpers";
 import { PivotUIPlugin } from "@spreadsheet/pivot/plugins/pivot_ui_plugin";
 import { insertPivotInSpreadsheet } from "@spreadsheet/../tests/utils/pivot";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
-
-const { cellMenuRegistry } = spreadsheet.registries;
 
 let target;
 
@@ -26,7 +22,7 @@ QUnit.module(
         },
     },
     function () {
-        QUnit.test("Open pivot properties properties", async function (assert) {
+        QUnit.test("Open pivot properties", async function (assert) {
             const { model, env } = await createSpreadsheetFromPivotView({
                 serverData: {
                     models: getBasicData(),
@@ -41,14 +37,8 @@ QUnit.module(
                     },
                 },
             });
-            // opening from a pivot cell
-            const sheetId = model.getters.getActiveSheetId();
-            const pivotA3 = model.getters.getPivotIdFromPosition({ sheetId, col: 0, row: 2 });
-            await model.getters.getAsyncPivotDataSource(pivotA3);
-            model.dispatch("SELECT_PIVOT", { pivotId: pivotA3 });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {
-                pivot: pivotA3,
-            });
+            const [pivotId] = model.getters.getPivotIds();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             let title = target.querySelector(".o-sidePanelTitle").innerText;
             assert.equal(title, "Pivot properties");
@@ -77,12 +67,7 @@ QUnit.module(
             assert.equal(dimensions.children[1].innerText, "Bar");
             assert.equal(dimensions.children[2].innerText, "Foo");
 
-            // opening from a non pivot cell
-            const pivotA1 = model.getters.getPivotIdFromPosition({ sheetId, col: 0, row: 0 });
-            model.dispatch("SELECT_PIVOT", { pivotId: pivotA1 });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {
-                pivot: pivotA1,
-            });
+            env.openSidePanel("ALL_PIVOTS_PANEL");
             await nextTick();
             title = target.querySelector(".o-sidePanelTitle").innerText;
             assert.equal(title, "Pivot properties");
@@ -96,13 +81,8 @@ QUnit.module(
                     await click(target.querySelector("thead .o_pivot_measure_row"));
                 },
             });
-            // opening from a pivot cell
-            const sheetId = model.getters.getActiveSheetId();
-            const pivotA3 = model.getters.getPivotIdFromPosition({ sheetId, col: 0, row: 2 });
-            model.dispatch("SELECT_PIVOT", { pivotId: pivotA3 });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {
-                pivot: pivotA3,
-            });
+            const [pivotId] = model.getters.getPivotIds();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
 
             const sections = target.querySelectorAll(".o_side_panel_section");
@@ -120,13 +100,8 @@ QUnit.module(
                     await click(target.querySelector("thead .o_pivot_measure_row"));
                 },
             });
-            // opening from a pivot cell
-            const sheetId = model.getters.getActiveSheetId();
-            const pivotA3 = model.getters.getPivotIdFromPosition({ sheetId, col: 0, row: 2 });
-            model.dispatch("SELECT_PIVOT", { pivotId: pivotA3 });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {
-                pivot: pivotA3,
-            });
+            const [pivotId] = model.getters.getPivotIds();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
 
             const sections = target.querySelectorAll(".o_side_panel_section");
@@ -143,13 +118,8 @@ QUnit.module(
                     await click(target.querySelector("thead .o_pivot_measure_row"));
                 },
             });
-            // opening from a pivot cell
-            const sheetId = model.getters.getActiveSheetId();
-            const pivotA3 = model.getters.getPivotIdFromPosition({ sheetId, col: 0, row: 2 });
-            model.dispatch("SELECT_PIVOT", { pivotId: pivotA3 });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {
-                pivot: pivotA3,
-            });
+            const [pivotId] = model.getters.getPivotIds();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
 
             let sections = target.querySelectorAll(".o_side_panel_section");
@@ -166,33 +136,22 @@ QUnit.module(
             assert.equal(pivotSorting.children[1].innerText, "Probability (ascending)");
         });
 
-        QUnit.test("Pivot focus changes on side panel click", async function (assert) {
-            assert.expect(6);
+        QUnit.test("Can select a pivot from the pivot list side panel", async function (assert) {
             const { model, env } = await createSpreadsheetFromPivotView();
             await insertPivotInSpreadsheet(model, { arch: getBasicPivotArch() });
 
-            selectCell(model, "L1"); //target empty cell
-            const root = cellMenuRegistry.getAll().find((item) => item.id === "pivot_properties");
-            root.execute(env);
-            assert.notOk(model.getters.getSelectedPivotId(), "No pivot should be selected");
+            env.openSidePanel("ALL_PIVOTS_PANEL");
             await nextTick();
             assert.containsN(target, ".o_side_panel_select", 2);
+
             await click(target.querySelectorAll(".o_side_panel_select")[0]);
-            assert.strictEqual(
-                model.getters.getSelectedPivotId(),
-                "1",
-                "The selected pivot should be have the id 1"
-            );
-            await nextTick();
+            let pivotName = target.querySelector(".o_sp_en_display_name").textContent;
+            assert.equal(pivotName, "(#1) Partners by Foo");
+
             await click(target, ".o_pivot_cancel");
-            assert.notOk(model.getters.getSelectedPivotId(), "No pivot should be selected anymore");
-            assert.containsN(target, ".o_side_panel_select", 2);
             await click(target.querySelectorAll(".o_side_panel_select")[1]);
-            assert.strictEqual(
-                model.getters.getSelectedPivotId(),
-                "2",
-                "The selected pivot should be have the id 2"
-            );
+            pivotName = target.querySelector(".o_sp_en_display_name").textContent;
+            assert.equal(pivotName, "(#2) Partner Pivot");
         });
 
         QUnit.test(
@@ -221,13 +180,10 @@ QUnit.module(
                     product_id: 41,
                     tag_ids: [],
                 });
-                const sheetId = model.getters.getActiveSheetId();
-                const pivotA3 = model.getters.getPivotIdFromPosition({ sheetId, col: 0, row: 2 });
-                model.dispatch("SELECT_PIVOT", { pivotId: pivotA3 });
-                env.openSidePanel("PIVOT_PROPERTIES_PANEL", {});
+                const [pivotId] = model.getters.getPivotIds();
+                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
                 await nextTick();
-                await click(target.querySelectorAll(".o_refresh_measures")[0]);
-                await nextTick();
+                await click(target, ".o_refresh_measures");
                 assert.equal(getCellValue(model, "D4"), 10 + 10);
             }
         );
@@ -244,10 +200,7 @@ QUnit.module(
                 dataSource._loadPromise = undefined;
                 dataSource._createModelPromise = undefined;
                 dataSource._model = undefined;
-                model.dispatch("SELECT_PIVOT", { pivotId: "1" });
-                env.openSidePanel("PIVOT_PROPERTIES_PANEL", {
-                    pivot: model.getters.getSelectedPivotId(),
-                });
+                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: "1" });
                 await nextTick();
                 const sections = target.querySelectorAll(".o_side_panel_section");
                 const fields = sections[3];
@@ -258,21 +211,14 @@ QUnit.module(
         );
 
         QUnit.test("Update the pivot title from the side panel", async function (assert) {
-            assert.expect(1);
-
             const { model, env } = await createSpreadsheetFromPivotView();
-            // opening from a pivot cell
-            const sheetId = model.getters.getActiveSheetId();
-            const pivotA3 = model.getters.getPivotIdFromPosition({ sheetId, col: 0, row: 2 });
-            model.dispatch("SELECT_PIVOT", { pivotId: pivotA3 });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {
-                pivot: pivotA3,
-            });
+            const [pivotId] = model.getters.getPivotIds();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
-            await click(document.body.querySelector(".o_sp_en_rename"));
-            await editInput(document, ".o_sp_en_name", "new name");
-            await click(document.body.querySelector(".o_sp_en_save"));
-            assert.equal(model.getters.getPivotName(pivotA3), "new name");
+            await click(target, ".o_sp_en_rename");
+            await editInput(target, ".o_sp_en_name", "new name");
+            await click(target, ".o_sp_en_save");
+            assert.equal(model.getters.getPivotName("1"), "new name");
         });
 
         QUnit.test("Update the pivot domain from the side panel", async function (assert) {
@@ -284,10 +230,7 @@ QUnit.module(
                 },
             });
             const [pivotId] = model.getters.getPivotIds();
-            model.dispatch("SELECT_PIVOT", { pivotId });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {
-                pivot: pivotId,
-            });
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             const fixture = getFixture();
             await click(fixture.querySelector(".o_edit_domain"));
@@ -313,14 +256,12 @@ QUnit.module(
                 });
                 const pivotIds = model.getters.getPivotIds();
 
-                model.dispatch("SELECT_PIVOT", { pivotId: pivotIds[0] });
-                env.openSidePanel("PIVOT_PROPERTIES_PANEL", {});
+                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: pivotIds[0] });
                 await nextTick();
                 let modelName = target.querySelector(".o_side_panel_section .o_model_name");
                 assert.equal(modelName.innerText, "Partner (partner)");
 
-                model.dispatch("SELECT_PIVOT", { pivotId: pivotIds[1] });
-                env.openSidePanel("PIVOT_PROPERTIES_PANEL", {});
+                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: pivotIds[1] });
                 await nextTick();
                 modelName = target.querySelector(".o_side_panel_section .o_model_name");
                 assert.equal(modelName.innerText, "Product (product)");
@@ -330,8 +271,7 @@ QUnit.module(
         QUnit.test("Duplicate the pivot from the side panel", async function (assert) {
             const { model, env } = await createSpreadsheetFromPivotView();
             const [pivotId] = model.getters.getPivotIds();
-            model.dispatch("SELECT_PIVOT", { pivotId });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {});
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
 
             assert.equal(model.getters.getPivotIds().length, 1);

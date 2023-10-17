@@ -13,10 +13,8 @@ export class PivotDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.PivotDetailsSidePanel";
     static components = { DomainSelector, EditableName };
     static props = {
-        pivotId: {
-            type: String,
-            optional: true,
-        },
+        onCloseSidePanel: Function,
+        pivotId: String,
     };
 
     setup() {
@@ -112,7 +110,18 @@ export class PivotDetailsSidePanel extends Component {
         const type = result.isSuccessful ? "success" : "danger";
         this.notification.add(msg, { sticky: false, type });
         if (result.isSuccessful) {
-            this.env.model.dispatch("SELECT_PIVOT", { pivotId: newPivotId });
+            this.env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: newPivotId });
         }
+    }
+
+    goToPivotList() {
+        this.env.openSidePanel("ALL_PIVOTS_PANEL");
+    }
+
+    deletePivot() {
+        this.env.askConfirmation(_t("Are you sure you want to delete this pivot?"), () => {
+            this.env.model.dispatch("REMOVE_PIVOT", { pivotId: this.props.pivotId });
+            this.props.onCloseSidePanel();
+        });
     }
 }

@@ -327,20 +327,15 @@ QUnit.module(
             const { model, env } = await createSpreadsheetFromPivotView();
             await insertPivotInSpreadsheet(model, { arch: getBasicPivotArch() });
 
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {});
-            assert.notOk(model.getters.getSelectedPivotId(), "No pivot should be selected");
             await doMenuAction(topbarMenuRegistry, ["data", "item_pivot_1"], env);
-            assert.equal(
-                model.getters.getSelectedPivotId(),
-                "1",
-                "The selected pivot should have id 1"
-            );
+            await nextTick();
+            let pivotName = target.querySelector(".o_sp_en_display_name").textContent;
+            assert.equal(pivotName, "(#1) Partners by Foo");
+
             await doMenuAction(topbarMenuRegistry, ["data", "item_pivot_2"], env);
-            assert.equal(
-                model.getters.getSelectedPivotId(),
-                "2",
-                "The selected pivot should have id 2"
-            );
+            await nextTick();
+            pivotName = target.querySelector(".o_sp_en_display_name").textContent;
+            assert.equal(pivotName, "(#2) Partner Pivot");
         });
 
         QUnit.test(

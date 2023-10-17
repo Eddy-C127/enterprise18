@@ -68,8 +68,7 @@ topbarMenuRegistry.addChild("data_sources_data", ["data"], (env) => {
         name: env.model.getters.getPivotDisplayName(pivotId),
         sequence: sequence++,
         execute: (env) => {
-            env.model.dispatch("SELECT_PIVOT", { pivotId: pivotId });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", {});
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
         },
         icon: "o-spreadsheet-Icon.PIVOT",
         separator: index === env.model.getters.getPivotIds().length - 1,
