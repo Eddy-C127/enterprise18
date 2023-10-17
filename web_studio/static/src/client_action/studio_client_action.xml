@@ -2,7 +2,7 @@
 <templates>
 
 <t t-name="web_studio.StudioClientAction">
-    <div class="o_studio">
+    <div class="o_studio h-100">
         <StudioNavbar />
 
         <StudioHomeMenu t-if="studio.mode === studio.MODES.HOME_MENU" apps="homeMenuProps.apps" />

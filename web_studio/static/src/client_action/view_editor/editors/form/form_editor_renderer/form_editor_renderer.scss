@@ -10,6 +10,18 @@
             overflow: unset;
         }
 
+        .o_web_studio_show_invisible, & + .o-web-studio-element-ghost {
+            outline: 1px solid $o-web-studio-bg-lighter;
+            background: repeating-linear-gradient(
+                45deg,
+                white,
+                white 5px,
+                $o-web-studio-bg-lighter 5px,
+                $o-web-studio-bg-lighter 10px
+            );
+            background-attachment: fixed;
+        }
+
         .o-web-studio-editor--element-clickable {
             // HOVER HANDLING
             // native selector: the main sibling is hovered
@@ -75,19 +87,17 @@
                 }
             }
         }
-        .o_web_studio_statusbar_hook {
-            text-align: center;
-            color: $o-brand-primary;
-            background-color: lightgray;
-            font-weight: bold;
-            cursor: pointer;
-            height: 42px;
-            line-height: 42px;
+        .o_web_studio_add_element {
             opacity: 0.5;
             transition: opacity 0.3s ease 0s;
 
             &:hover {
                 opacity: 1;
+            }
+
+            &.o_web_studio_avatar {
+                width: 90px;
+                height: 90px;
             }
         }
         .o_statusbar_status {
@@ -164,21 +174,6 @@
             }
         }
 
-        .o_web_studio_button_hook {
-            width: 48px;
-            cursor: pointer;
-            text-align: center;
-            padding: 0;
-            justify-content: center;
-
-            &:before {
-                content: "\f0fe";
-                font-family: FontAwesome;
-                font-size: 16px;
-                color: $o-brand-primary;
-            }
-        }
-
         .o_notebook li {
             margin-right: 3px;
         }
@@ -224,19 +219,6 @@
                     max-width: 100%;
                     opacity: 1;
                 }
-            }
-        }
-        .o_web_studio_avatar {
-            color: $o-brand-primary;
-            background-color: lightgray;
-            font-weight: bold;
-            width: 90px;
-            height: 90px;
-            cursor: pointer;
-            font-size: 1em;
-            opacity: 0.5;
-            &:hover {
-                opacity: 1;
             }
         }
 

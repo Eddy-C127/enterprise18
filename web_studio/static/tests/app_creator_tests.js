@@ -118,7 +118,7 @@ QUnit.module("AppCreator", (hooks) => {
     });
 
     QUnit.test("app creator: standard flow with model creation", async (assert) => {
-        assert.expect(39);
+        assert.expect(37);
 
         const fakeHttpRequestService = {
             start() {
@@ -208,20 +208,11 @@ QUnit.module("AppCreator", (hooks) => {
         assert.strictEqual(icon.style.color, "rgb(241, 196, 15)", "default color: #f1c40f");
         assert.hasClass(icon, "fa fa-diamond", "default icon class: diamond");
 
-        await click(target.getElementsByClassName("o_web_studio_selector")[0]);
-
+        await click(target.querySelector(".o_web_studio_selector_background"));
         assert.containsOnce(target, ".o_web_studio_palette", "the first palette should be open");
 
-        await triggerEvent(target, ".o_web_studio_palette", "mouseleave");
-
-        assert.containsNone(
-            target,
-            ".o_web_studio_palette",
-            "leaving palette with mouse should close it"
-        );
-
-        await click(target.querySelectorAll(".o_web_studio_selectors > .o_web_studio_selector")[0]);
-        await click(target.querySelectorAll(".o_web_studio_selectors > .o_web_studio_selector")[1]);
+        await click(target.querySelector(".o_web_studio_selector_background"));
+        await click(target.querySelector(".o_web_studio_selector_color"));
 
         assert.containsOnce(
             target,
@@ -230,19 +221,11 @@ QUnit.module("AppCreator", (hooks) => {
         );
 
         await click(target.querySelectorAll(".o_web_studio_palette div")[2]);
-        await click(target.querySelectorAll(".o_web_studio_selectors > .o_web_studio_selector")[2]);
+        await click(target.querySelector(".o_web_studio_selector_icon"));
         await click(target.querySelectorAll(".o_web_studio_icons_library div")[43]);
 
-        await triggerEvent(target, ".o_web_studio_icons_library", "mouseleave");
-
-        assert.containsNone(
-            target,
-            ".o_web_studio_palette",
-            "no palette should be visible anymore"
-        );
-
         assert.strictEqual(
-            target.querySelectorAll(".o_web_studio_selector")[1].style.backgroundColor,
+            target.querySelector(".o_web_studio_selector_color > div").style.backgroundColor,
             "rgb(0, 222, 201)", // translation of #00dec9
             "color selector should have changed"
         );
@@ -486,7 +469,6 @@ QUnit.module("AppCreator", (hooks) => {
         );
 
         await click(buttonNext);
-
         assert.hasClass(
             target.querySelector(".o_web_studio_menu_creator_model"),
             "o_web_studio_field_warning"

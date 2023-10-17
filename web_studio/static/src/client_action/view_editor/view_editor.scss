@@ -23,38 +23,16 @@
 
         .o_web_studio_view_renderer {
             flex: 1 1 auto;
-            overflow: auto;
             min-width: 0;
 
             .o_view_nocontent {
                 left: $o-web-studio-sidebar-width;
             }
-            .o_web_studio_no_preview {
-                padding: 20px;
-                color: $o-web-studio-bg-light;
-                font-size: x-large;
-            }
-            .o_web_studio_show_invisible, & + .o-web-studio-element-ghost {
-                opacity: 1;
-                outline: 1px solid $o-web-studio-bg-lighter;
-                background: repeating-linear-gradient(
-                    45deg,
-                    white,
-                    white 5px,
-                    $o-web-studio-bg-lighter 5px,
-                    $o-web-studio-bg-lighter 10px
-                );
-                background-attachment: fixed;
-            }
-            // remove background color of notebook page anchor to have invisible background
-            .o_form_view .o_notebook > .o_notebook_headers > .nav.nav-tabs > .nav-item.o_web_studio_show_invisible > .nav-link {
-                background-color: inherit;
-            }
             .o_web_studio_widget_empty {
                 background-color: $o-web-studio-bg-lighter;
                 color: $o-web-studio-text-inactive;
             }
-            .o_web_studio_list_view_editor, > div.table-responsive, .o_legacy_kanban_view {
+            .o_web_studio_list_view_editor, > div.table-responsive {
                 padding: 0 12px;
             }
         }

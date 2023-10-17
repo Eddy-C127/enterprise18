@@ -29,26 +29,14 @@
     </xpath>
   </t>
 
-  <t t-name="web_studio.StatusBarFieldHook">
-    <div class="o_web_studio_statusbar_hook" t-on-click="onClick">
-      Add a pipeline status bar
-    </div>
+  <t t-name="web_studio.AddElementHook">
+    <button t-attf-class="o_web_studio_add_element btn d-flex align-items-center justify-content-center text-center text-primary fw-bolder py-3 {{ classNames || '' }}" t-att-data-tooltip="tooltip" t-on-click.stop="onClick" t-out="title" />
   </t>
 
   <t t-name="web_studio.FormLabel" t-inherit="web.FormLabel">
     <xpath expr="./label" position="attributes" >
       <attribute name="t-ref">rootRef</attribute>
     </xpath>
-  </t>
-
-  <t t-name="web_studio.AvatarHook">
-    <div t-att-class="props.class" t-on-click="onClick">
-      Add Picture
-    </div>
-  </t>
-
-  <t t-name="web_studio.ButtonHook">
-      <button class="btn oe_stat_button btn-outline-secondary flex-grow-1 flex-lg-grow-0 o_web_studio_button_hook" t-on-click.stop="onClick" data-tooltip="Add a button"/>
   </t>
 
 </templates>

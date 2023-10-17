@@ -40,10 +40,10 @@
     <SidebarPropertiesToolbox />
 </t>
 
-<div t-name="web_studio.ViewEditorSidebar.ApprovalRule" class="o_studio_sidebar_approval_rule mb-3">
+<div t-name="web_studio.ViewEditorSidebar.ApprovalRule" class="o_studio_sidebar_approval_rule position-relative border-start border-secondary ps-2 mb-3">
     <Record t-props="recordProps" onRecordChanged="(r, c) => this.onChangeApprovalRecord(r, c, rule.id)" values="rule" t-slot-scope="data">
         <t t-set="record" t-value="data.record" />
-        <div class="o_studio_sidebar_approval_rule">
+        <div>
             <label t-attf-for="rule_group_{{rule.id}}">
                 Allowed Group
                 <sup class="text-info p-1" data-tooltip="Only members of this group will be able to approve or reject the rule" t-esc="'?'"/>
@@ -53,13 +53,13 @@
                     <Many2OneField id="'group_id'" name="'group_id'" record="data.record" canOpen="false"/>
                 </div>
                 <button
-                    t-attf-class="btn btn-sm btn-dark o_approval_domain {{rule.domain ? '' : 'inactive'}}"
+                    t-attf-class="btn btn-sm btn-dark o_approval_domain {{rule.domain ? '' : 'opacity-50'}}"
                     t-att-data-tooltip="rule.domain ? 'Edit rule condition' : 'Set condition on rule'"
                     t-on-click="() => this.onApprovalSelectDomain(rule.id)">
                     <i class="fa fa-fw fa-filter"/>
                 </button>
                 <button
-                    class="btn btn-sm btn-dark inactive o_approval_archive"
+                    class="btn btn-sm btn-dark o_approval_archive opacity-50"
                     data-tooltip="Remove rule"
                     t-on-click="() => this.onApprovalArchive(rule.id)">
                     <i class="fa fa-fw fa-trash"/>

@@ -115,12 +115,18 @@ export class StatusBarButtons extends components.StatusBarButtons {
 }
 
 export class StatusBarFieldHook extends Component {
-    static template = "web_studio.StatusBarFieldHook";
+    static template = "web_studio.AddElementHook";
     static props = {
         addStatusBar: { type: Boolean },
     };
     setup() {
         this.addDialog = useOwnedDialogs();
+    }
+    get classNames() {
+        return "o_web_studio_statusbar_hook bg-secondary";
+    }
+    get title() {
+        return _t("Add a pipeline status bar");
     }
     onClick() {
         this.addDialog(SelectionContentDialog, {
@@ -169,10 +175,16 @@ export class StatusBarFieldHook extends Component {
 }
 
 export class AvatarHook extends Component {
-    static template = "web_studio.AvatarHook";
-    static props = { fields: Object, class: { type: String, optional: true } };
+    static template = "web_studio.AddElementHook";
+    static props = { fields: Object };
     setup() {
         this.addDialog = useOwnedDialogs();
+    }
+    get classNames() {
+        return "oe_avatar ms-3 o_web_studio_avatar bg-secondary";
+    }
+    get title() {
+        return _t("Add Picture");
     }
     onClick() {
         const fields = [];
@@ -195,13 +207,19 @@ export class AvatarHook extends Component {
 }
 
 export class ButtonHook extends Component {
-    static template = "web_studio.ButtonHook";
+    static template = "web_studio.AddElementHook";
     static props = {
         add_buttonbox: { type: Boolean, optional: true },
         studioIsVisible: { type: Boolean, optional: true },
     };
     setup() {
         this.addDialog = useOwnedDialogs();
+    }
+    get classNames() {
+        return "oe_stat_button o_web_studio_button_hook btn-outline-secondary flex-grow-1 flex-lg-grow-0 fa fa-plus-square";
+    }
+    get tooltip() {
+        return _t("Add a button");
     }
     onClick() {
         this.addDialog(NewButtonBoxDialog, {

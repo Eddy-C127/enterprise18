@@ -6,8 +6,6 @@ import { Component, onError, onMounted, toRaw, useRef, xml, useSubEnv, useEffect
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 
-const HEIGHT = "height: 100%;";
-
 export class StudioView extends Component {
     static components = { WithSearch };
     static template = xml`
@@ -20,7 +18,7 @@ export class StudioView extends Component {
     static props = { autoClick: { type: Function, optional: true }, "*": true }; // Same as View.js. This is just a wrapper
     setup() {
         this.notification = useService("notification");
-        this.style = this.props.setOverlay ? `pointer-events: none; ${HEIGHT}` : HEIGHT;
+        this.style = this.props.setOverlay ? "pointer-events: none;" : "";
         this.withSearchProps = {
             resModel: this.props.resModel,
             SearchModel: this.props.SearchModel,

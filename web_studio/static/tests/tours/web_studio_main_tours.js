@@ -138,7 +138,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             trigger: ".o_web_studio_selector:eq(0)",
         },
         {
-            trigger: ".o_web_studio_palette > .o_web_studio_selector:first",
+            trigger: ".o_web_studio_palette > .o_web_studio_selector_value:first",
         },
         {
             trigger: ".modal-footer .btn.btn-primary",

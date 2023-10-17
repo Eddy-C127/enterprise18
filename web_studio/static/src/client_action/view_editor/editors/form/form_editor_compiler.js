@@ -68,8 +68,8 @@ export class FormEditorCompiler extends formView.Compiler {
         }
 
         const checkStatusBarButtons = compiled.querySelector("StatusBarButtons");
-        if(!checkStatusBarButtons) {
-            const addButtonAction = createElement("AddButtonAction");     
+        if (!checkStatusBarButtons) {
+            const addButtonAction = createElement("AddButtonAction");
             const el = compiled.querySelector(".o_form_sheet_bg") || compiled;
             el.prepend(addButtonAction);
         }
@@ -116,10 +116,6 @@ export class FormEditorCompiler extends formView.Compiler {
                 const avatarHook = createElement("AvatarHook", {
                     fields: `__comp__.props.record.fields`,
                 });
-                avatarHook.setAttribute(
-                    "class",
-                    `'oe_avatar d-flex align-items-center justify-content-center ms-3 o_web_studio_avatar h4'`
-                );
                 title.before(avatarHook);
             }
         }

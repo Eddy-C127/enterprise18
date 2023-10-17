@@ -3,13 +3,13 @@
 
 <t t-name="web_studio.IconCreator">
     <div class="o_web_studio_icon_creator">
-        <div t-if="props.type === 'base64'" class="o_web_studio_uploaded_image mx-auto"
+        <div t-if="props.type === 'base64'" class="o_web_studio_uploaded_image mx-auto mb-4 rounded-3 shadow bg-white"
             t-attf-style="background-image: url({{props.webIconData}})"
         />
         <t t-else="">
             <h6 t-if="props.editable">Design your Icon</h6>
-            <div class="o_web_studio_icon">
-                <div class="o_app_icon" t-attf-style="background-color: {{props.backgroundColor}};">
+            <div class="o_web_studio_icon float-start">
+                <div class="o_app_icon d-flex align-items-center justify-content-center rounded-3 shadow" t-attf-style="background-color: {{props.backgroundColor}};">
                     <i t-att-class="state.iconClass"
                         t-attf-style="color: {{props.color}};"
                         t-ref="app-icon"
@@ -17,57 +17,56 @@
                 </div>
             </div>
             <t t-if="props.editable">
-                <div class="o_web_studio_selectors">
-                    <div class="o_web_studio_selector"
-                        t-attf-style="background-color: {{props.backgroundColor}};"
-                        t-on-click="() => this.onTogglePalette('backgroundColor')"
+                <div class="o_web_studio_selectors float-end mt-2">
+                    <Dropdown
+                        togglerClass="'o_web_studio_selector btn o_web_studio_selector_background mb-4 ms-3 p-0 rounded-3 overflow-hidden border-2 border-transparent'"
+                        menuClass="'o_web_studio_palette'"
+                        position="'bottom-start'"
                     >
-                        <span class="o_web_studio_selector_pointer" />
-                        <div t-if="show.backgroundColor" class="o_web_studio_palette"
-                            t-on-click.stop=""
-                            t-on-mouseleave="() => show.backgroundColor = false"
-                        >
-                            <div t-foreach="BG_COLORS" t-as="backgroundColor"
-                                t-key="backgroundColor_index"
-                                class="o_web_studio_selector"
-                                t-attf-style="background-color: {{backgroundColor}}"
-                                t-on-click="() => this.onPaletteItemClick('backgroundColor', backgroundColor)"
-                            />
-                        </div>
-                    </div>
-                    <div class="o_web_studio_selector"
-                        t-attf-style="background-color: {{props.color}};"
-                        t-on-click="() => this.onTogglePalette('color')"
+                        <t t-set-slot="toggler">
+                            <div class="w-100 h-100" t-attf-style="background-color: {{props.backgroundColor}};"> </div>
+                            <span class="o_web_studio_selector_pointer" />
+                        </t>
+                        <div t-foreach="BG_COLORS" t-as="backgroundColor"
+                            t-key="backgroundColor_index"
+                            class="o_web_studio_selector_value m-1 rounded-3 border border-primary d-inline-flex"
+                            t-attf-style="background-color: {{backgroundColor}}"
+                            t-on-click="() => this.onPaletteItemClick('backgroundColor', backgroundColor)"
+                        />
+                    </Dropdown>
+                    <Dropdown
+                        togglerClass="'o_web_studio_selector btn o_web_studio_selector_color mb-4 ms-3 p-0 rounded-3 overflow-hidden border-2 border-transparent'"
+                        menuClass="'o_web_studio_palette'"
+                        position="'bottom-start'"
                     >
-                        <span class="o_web_studio_selector_pointer" />
-                        <div t-if="show.color" class="o_web_studio_palette"
-                            t-on-click.stop=""
-                            t-on-mouseleave="() => show.color = false"
+                        <t t-set-slot="toggler">
+                            <div class="w-100 h-100" t-attf-style="background-color: {{props.color}};"> </div>
+                            <span class="o_web_studio_selector_pointer" />
+                        </t>
+                        <div t-foreach="COLORS" t-as="color"
+                            t-key="color_index"
+                            class="o_web_studio_selector_value m-1 rounded-3 border border-primary d-inline-flex"
+                            t-attf-style="background-color: {{color}}"
+                            t-on-click="() => this.onPaletteItemClick('color', color)"
+                        />
+                    </Dropdown>
+                    <Dropdown
+                        togglerClass="'o_web_studio_selector btn o_web_studio_selector_icon mb-4 ms-3 p-0 rounded-3 overflow-hidden d-flex justify-content-center align-items-center bg-white'"
+                        menuClass="'o_web_studio_icons_library'"
+                        position="'bottom-start'"
+                    >
+                        <t t-set-slot="toggler">
+                            <i t-att-class="state.iconClass" />
+                            <span class="o_web_studio_selector_pointer" />
+                        </t>
+                        <div t-foreach="ICONS" t-as="iconClass"
+                            t-key="iconClass_index"
+                            class="o_web_studio_selector_value m-1 rounded-3 border border-primary p-3 d-inline-flex justify-content-center align-items-center fs-3"
+                            t-on-click="() => this.onPaletteItemClick('iconClass', iconClass)"
                         >
-                            <div t-foreach="COLORS" t-as="color"
-                                t-key="color_index"
-                                class="o_web_studio_selector"
-                                t-attf-style="background-color: {{color}}"
-                                t-on-click="() => this.onPaletteItemClick('color', color)"
-                            />
+                            <i t-att-class="iconClass" />
                         </div>
-                    </div>
-                    <div class="o_web_studio_selector" t-on-click="() => this.onTogglePalette('iconClass')">
-                        <i t-att-class="state.iconClass" />
-                        <span class="o_web_studio_selector_pointer" />
-                        <div t-if="show.iconClass" class="o_web_studio_icons_library"
-                            t-on-click.stop=""
-                            t-on-mouseleave="() => show.iconClass = false"
-                        >
-                            <div t-foreach="ICONS" t-as="iconClass"
-                                t-key="iconClass_index"
-                                class="o_web_studio_selector"
-                                t-on-click="() => this.onPaletteItemClick('iconClass', iconClass)"
-                            >
-                                <i t-att-class="iconClass" />
-                            </div>
-                        </div>
-                    </div>
+                    </Dropdown>
                 </div>
                 <div class="clearfix" />
             </t>

@@ -321,7 +321,7 @@ QUnit.module("Studio", (hooks) => {
 
         // Change the icon's pictogram
         await click(dialog.querySelectorAll(".o_web_studio_selector")[2]);
-        await click(dialog, ".o_web_studio_selector .fa.fa-balance-scale");
+        await click(dialog, ".o_web_studio_selector_value .fa.fa-balance-scale");
 
         assert.hasClass(
             dialog.querySelector(".o_web_studio_icon .o_app_icon i"),

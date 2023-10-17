@@ -72,8 +72,7 @@ class AppCreatorState {
     }
 
     get nextStep() {
-        const next = this._next;
-        return this._stepInvalidFields.length ? false : next;
+        return this._stepInvalidFields.length ? false : this._next;
     }
 
     get hasPrevious() {

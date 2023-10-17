@@ -1,5 +1,6 @@
 /** @odoo-module **/
 import { COLORS, BG_COLORS, ICONS } from "@web_studio/utils";
+import { Dropdown } from "@web/core/dropdown/dropdown";
 import { FileInput } from "@web/core/file_input/file_input";
 import { useService } from "@web/core/utils/hooks";
 
@@ -21,6 +22,9 @@ const DEFAULT_ICON = {
  * @extends Component
  */
 export class IconCreator extends Component {
+    static components = {
+        Dropdown,
+    };
     static defaultProps = DEFAULT_ICON;
     static props = {
         backgroundColor: { type: String, optional: 1 },

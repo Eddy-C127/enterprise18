@@ -9,7 +9,8 @@
   > .o_action_manager {
     direction: ltr; //Define direction attribute here so when rtlcss preprocessor run, it converts it to rtl
     flex: 1 1 auto;
-    height: calc(100% - 36px); // 36px is the web_studio_menu navbar
+    height: calc(100% - #{$o-web-studio-menu-height}); // $o-web-studio-menu-height is the web_studio_menu navbar
+    overflow: hidden;
 
     > .o_action {
       height: 100%;
