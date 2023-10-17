@@ -27,10 +27,14 @@ class WhatsAppComposer(models.TransientModel):
                 result['wa_template_id'] = wa_template_id.id
             elif not wa_template_id and not result.get('wa_template_id'):
                 if self.env.user.has_group('whatsapp.group_whatsapp_admin'):
-                    action = self.env.ref('whatsapp.whatsapp_template_action')
-                    raise RedirectWarning(_("No template available for this model"), action.id, _("View Templates"))
+                    raise RedirectWarning(
+                        _("No approved WhatsApp Templates are available for this model."),
+                        self.env.ref('whatsapp.whatsapp_template_action').id,
+                        _("Configure Templates"),
+                        {'search_default_model': result['res_model']}
+                    )
                 else:
-                    raise ValidationError(_("No template available for this model"))
+                    raise ValidationError(_("No approved WhatsApp Templates are available for this model."))
         if context.get('active_ids') or context.get('active_id'):
             result['res_ids'] = context.get('active_ids') or [context.get('active_id')]
         if context.get('active_ids') and len(context['active_ids']) > 1:

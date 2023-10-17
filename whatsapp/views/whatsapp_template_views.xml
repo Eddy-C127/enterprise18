@@ -205,6 +205,7 @@
                 <search string="Templates">
                     <field name="name"/>
                     <field name="model_id"/>
+                    <field name="model" invisible="1"/>
                     <separator/>
                     <filter string="My Templates" name="my" domain="[('create_uid', '=', uid)]"/>
                     <separator/>
