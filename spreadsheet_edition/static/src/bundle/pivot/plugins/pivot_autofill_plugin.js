@@ -565,7 +565,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 (!isColumn && dataSource.isRowGroupBy(fieldName))
             ) {
                 tooltips.push({
-                    value: dataSource.getDisplayedPivotHeaderValue(domain.slice(0, i)),
+                    value: dataSource.computeOdooPivotHeaderValue(domain.slice(0, i)),
                 });
             }
         }
@@ -604,7 +604,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             return [{ value: _t("Total") }];
         }
         for (let i = 2; i <= domain.length; i += 2) {
-            tooltips.push({ value: dataSource.getDisplayedPivotHeaderValue(domain.slice(0, i)) });
+            tooltips.push({ value: dataSource.computeOdooPivotHeaderValue(domain.slice(0, i)) });
         }
         return tooltips;
     }
