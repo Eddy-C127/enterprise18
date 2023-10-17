@@ -601,11 +601,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (definition.measures.length !== 1 && isColumn) {
             const measure = args[1];
             tooltips.push({
-                value: dataSource.getGroupByDisplayLabel(
-                    "measure",
-                    measure,
-                    this.getters.getLocale()
-                ),
+                value: dataSource.getMeasureDisplayName(measure),
             });
         }
         if (!tooltips.length) {

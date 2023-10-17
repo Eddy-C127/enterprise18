@@ -1,6 +1,5 @@
 /** @odoo-module */
 
-import { _t } from "@web/core/l10n/translation";
 import { Dialog } from "@web/core/dialog/dialog";
 import { PivotDialogTable } from "./spreadsheet_pivot_dialog_table";
 
@@ -263,16 +262,6 @@ export class PivotDialog extends Component {
         return Array.from(rowIndexes).sort((a, b) => a - b);
     }
 
-    _getDisplayedPivotHeaderValue(domain) {
-        const len = domain.length;
-        if (len === 0) {
-            return _t("Total");
-        }
-        const field = domain[len - 2];
-        const value = domain[len - 1];
-        return this.dataSource.getGroupByDisplayLabel(field, value, this.props.getters.getLocale());
-    }
-
     // ---------------------------------------------------------------------
     // Data table creation
     // ---------------------------------------------------------------------
@@ -298,7 +287,7 @@ export class PivotDialog extends Component {
                 }
                 current.push({
                     formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
-                    value: this._getDisplayedPivotHeaderValue(domain),
+                    value: this.dataSource.computeOdooPivotHeaderValue(domain),
                     span: cell.width,
                     isMissing: !this.dataSource.isUsedHeader(domain),
                 });
@@ -334,7 +323,7 @@ export class PivotDialog extends Component {
             const cell = {
                 args: domain,
                 formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
-                value: this._getDisplayedPivotHeaderValue(domain),
+                value: this.dataSource.computeOdooPivotHeaderValue(domain),
                 isMissing: !this.dataSource.isUsedHeader(domain),
             };
             if (row.indent > 1) {
