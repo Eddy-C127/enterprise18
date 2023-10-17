@@ -94,7 +94,7 @@ function canDropNotebook(hookEl) {
     if (hookEl.dataset.type === "page") {
         return false;
     }
-    if (hookEl.closest(".o_group")) {
+    if (hookEl.closest(".o_group") || hookEl.closest(".o_inner_group")) {
         return false;
     }
     return true;
@@ -104,7 +104,7 @@ function canDropGroup(hookEl) {
     if (hookEl.dataset.type === "insideGroup") {
         return false;
     }
-    if (hookEl.closest(".o_group")) {
+    if (hookEl.closest(".o_group") || hookEl.closest(".o_inner_group")) {
         return false;
     }
     return true;
