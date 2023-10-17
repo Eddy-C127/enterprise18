@@ -274,6 +274,13 @@ QUnit.module(
             );
         });
 
+        QUnit.test("Verify presence of pivot properties on pivot cell", async function (assert) {
+            const { model, env } = await createSpreadsheetWithPivot();
+            selectCell(model, "B2");
+            const root = cellMenuRegistry.getAll().find((item) => item.id === "pivot_properties");
+            assert.ok(root.isVisible(env));
+        });
+
         QUnit.test("Verify absence of pivot properties on non-pivot cell", async function (assert) {
             const { model, env } = await createSpreadsheetWithPivot();
             selectCell(model, "Z26");
