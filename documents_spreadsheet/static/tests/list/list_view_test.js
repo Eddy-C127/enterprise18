@@ -125,8 +125,8 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
         assert.deepEqual(model.getters.getListDefinition("1").columns, ["bar"]);
     });
 
-    QUnit.test("Open list properties properties", async function (assert) {
-        const { model, env } = await createSpreadsheetFromListView();
+    QUnit.test("Open list properties", async function (assert) {
+        const { env } = await createSpreadsheetFromListView();
 
         await doMenuAction(topbarMenuRegistry, ["data", "item_list_1"], env);
         await nextTick();
@@ -147,11 +147,7 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
         assert.equal(domain.children[0].innerText, "Domain");
         assert.equal(domain.children[1].innerText, "Match all records\nInclude archived");
 
-        // opening from a non pivot cell
-        model.dispatch("SELECT_ODOO_LIST", {});
-        env.openSidePanel("LIST_PROPERTIES_PANEL", {
-            listId: undefined,
-        });
+        env.openSidePanel("ALL_LISTS_PANEL");
         await nextTick();
         title = target.querySelector(".o-sidePanelTitle").innerText;
         assert.equal(title, "List properties");
@@ -185,21 +181,21 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
     });
 
     QUnit.test("Re-insert a list correctly ask for lines number", async function (assert) {
-        const { model, env } = await createSpreadsheetFromListView();
+        const { model, env, fixture } = await createSpreadsheetFromListView();
         selectCell(model, "Z26");
         await doMenuAction(topbarMenuRegistry, ["data", "reinsert_list", "reinsert_list_1"], env);
         await nextTick();
         /** @type {HTMLInputElement} */
-        const input = document.body.querySelector(".modal-body input");
+        const input = fixture.querySelector(".modal-body input");
         assert.ok(input);
         assert.strictEqual(input.type, "number");
 
-        await click(document, ".o_dialog .btn-secondary"); // cancel
+        await click(fixture, ".o_dialog .btn-secondary"); // cancel
         assert.strictEqual(getCellFormula(model, "Z26"), "", "the list is not re-inserted");
 
         await doMenuAction(topbarMenuRegistry, ["data", "reinsert_list", "reinsert_list_1"], env);
         await nextTick();
-        await click(document, ".o_dialog .btn-primary"); // confirm
+        await click(fixture, ".o_dialog .btn-primary"); // confirm
         assert.strictEqual(
             getCellFormula(model, "Z26"),
             '=ODOO.LIST.HEADER(1,"foo")',
@@ -375,21 +371,14 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
     });
 
     QUnit.test("Update the list title from the side panel", async function (assert) {
-        assert.expect(1);
-
-        const { model, env } = await createSpreadsheetFromListView();
-        // opening from a pivot cell
-        const sheetId = model.getters.getActiveSheetId();
-        const listA3 = model.getters.getListIdFromPosition({ sheetId, col: 0, row: 2 });
-        model.dispatch("SELECT_ODOO_LIST", { listId: listA3 });
-        env.openSidePanel("LIST_PROPERTIES_PANEL", {
-            listId: listA3,
-        });
+        const { model, env, fixture } = await createSpreadsheetFromListView();
+        const [listId] = model.getters.getListIds();
+        env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
         await nextTick();
-        await click(document.body.querySelector(".o_sp_en_rename"));
-        await editInput(document, ".o_sp_en_name", "new name");
-        await click(document.body.querySelector(".o_sp_en_save"));
-        assert.equal(model.getters.getListName(listA3), "new name");
+        await click(fixture, ".o_sp_en_rename");
+        editInput(fixture, ".o_sp_en_name", "new name");
+        await click(fixture, ".o_sp_en_save");
+        assert.equal(model.getters.getListName(listId), "new name");
     });
 
     QUnit.test("list with a contextual domain", async (assert) => {
@@ -451,10 +440,7 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
             },
         });
         const [listId] = model.getters.getListIds();
-        model.dispatch("SELECT_ODOO_LIST", { listId });
-        env.openSidePanel("LIST_PROPERTIES_PANEL", {
-            listId,
-        });
+        env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
         await nextTick();
         const fixture = getFixture();
         await click(fixture.querySelector(".o_edit_domain"));
@@ -510,12 +496,8 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
                 ],
                 linesNumber: 4,
             });
-            const sheetId = model.getters.getActiveSheetId();
-            const listId = model.getters.getListIds(sheetId)[0];
-            model.dispatch("SELECT_ODOO_LIST", { listId });
-            env.openSidePanel("LIST_PROPERTIES_PANEL", {
-                listId,
-            });
+            const [listId] = model.getters.getListIds();
+            env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
             await nextTick();
             const fixture = getFixture();
             const sortingSection = fixture.querySelectorAll(".o_side_panel_section")[3];
@@ -535,12 +517,8 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
             orderBy: [{ name: "foo", asc: true }],
             linesNumber: 4,
         });
-        const sheetId = model.getters.getActiveSheetId();
-        const listId = model.getters.getListIds(sheetId)[0];
-        model.dispatch("SELECT_ODOO_LIST", { listId });
-        env.openSidePanel("LIST_PROPERTIES_PANEL", {
-            listId,
-        });
+        const [listId] = model.getters.getListIds();
+        env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
         await nextTick();
         const fixture = getFixture();
         const sortingSection = fixture.querySelectorAll(".o_side_panel_section")[3];
@@ -561,14 +539,12 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
             const listIds = model.getters.getListIds();
             const fixture = getFixture();
 
-            model.dispatch("SELECT_ODOO_LIST", { listId: listIds[0] });
-            env.openSidePanel("LIST_PROPERTIES_PANEL", {});
+            env.openSidePanel("LIST_PROPERTIES_PANEL", { listId: listIds[0] });
             await nextTick();
             let modelName = fixture.querySelector(".o_side_panel_section .o_model_name");
             assert.equal(modelName.innerText, "Partner (partner)");
 
-            model.dispatch("SELECT_ODOO_LIST", { listId: listIds[1] });
-            env.openSidePanel("LIST_PROPERTIES_PANEL", {});
+            env.openSidePanel("LIST_PROPERTIES_PANEL", { listId: listIds[1] });
             await nextTick();
             modelName = fixture.querySelector(".o_side_panel_section .o_model_name");
             assert.equal(modelName.innerText, "Product (product)");
@@ -584,8 +560,7 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
         });
         const fixture = getFixture();
         const [listId] = model.getters.getListIds();
-        model.dispatch("SELECT_ODOO_LIST", { listId });
-        env.openSidePanel("LIST_PROPERTIES_PANEL", {});
+        env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
         await nextTick();
 
         assert.equal(model.getters.getListIds().length, 1);

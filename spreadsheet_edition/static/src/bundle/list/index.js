@@ -7,7 +7,8 @@ import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks"
 import "./autofill";
 import "./operational_transform";
 
-import { ListingAllSidePanel } from "./side_panels/listing_all_side_panel";
+import { AllListsSidePanel } from "./side_panels/listing_all_side_panel";
+import { ListingDetailsSidePanel } from "./side_panels/listing_details_side_panel";
 import { ListAutofillPlugin } from "./plugins/list_autofill_plugin";
 
 import { insertList } from "./list_init_callback";
@@ -16,9 +17,13 @@ const { featurePluginRegistry, sidePanelRegistry, cellMenuRegistry } = spreadshe
 
 featurePluginRegistry.add("odooListAutofillPlugin", ListAutofillPlugin);
 
+sidePanelRegistry.add("ALL_LISTS_PANEL", {
+    title: () => _t("List properties"),
+    Body: AllListsSidePanel,
+});
 sidePanelRegistry.add("LIST_PROPERTIES_PANEL", {
     title: () => _t("List properties"),
-    Body: ListingAllSidePanel,
+    Body: ListingDetailsSidePanel,
 });
 
 initCallbackRegistry.add("insertList", insertList);
@@ -29,8 +34,7 @@ cellMenuRegistry.add("listing_properties", {
     execute(env) {
         const position = env.model.getters.getActivePosition();
         const listId = env.model.getters.getListIdFromPosition(position);
-        env.model.dispatch("SELECT_ODOO_LIST", { listId });
-        env.openSidePanel("LIST_PROPERTIES_PANEL", {});
+        env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
     },
     isVisible: (env) => {
         const position = env.model.getters.getActivePosition();

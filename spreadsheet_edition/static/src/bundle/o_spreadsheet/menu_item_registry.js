@@ -79,8 +79,7 @@ topbarMenuRegistry.addChild("data_sources_data", ["data"], (env) => {
             name: env.model.getters.getListDisplayName(listId),
             sequence: sequence++,
             execute: (env) => {
-                env.model.dispatch("SELECT_ODOO_LIST", { listId: listId });
-                env.openSidePanel("LIST_PROPERTIES_PANEL", {});
+                env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
             },
             icon: "o-spreadsheet-Icon.ODOO_LIST",
             separator: index === env.model.getters.getListIds().length - 1,

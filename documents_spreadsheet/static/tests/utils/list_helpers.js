@@ -105,16 +105,16 @@ export async function createSpreadsheetFromListView(params = {}) {
         orderBy: params.orderBy,
         additionalContext: params.additionalContext,
     });
-    const target = getFixture();
+    const fixture = getFixture();
     if (params.actions) {
-        await params.actions(target);
+        await params.actions(fixture);
     }
     /** Put the current list in a new spreadsheet */
-    await toggleActionMenu(target);
-    await toggleCogMenuSpreadsheet(target);
-    await click(target.querySelector(".o_insert_list_spreadsheet_menu"));
+    await toggleActionMenu(fixture);
+    await toggleCogMenuSpreadsheet(fixture);
+    await click(fixture.querySelector(".o_insert_list_spreadsheet_menu"));
     /** @type {HTMLInputElement} */
-    const input = target.querySelector(`.o-sp-dialog-meta-threshold-input`);
+    const input = fixture.querySelector(`.o-sp-dialog-meta-threshold-input`);
     input.value = params.linesNumber ? params.linesNumber.toString() : "10";
     await triggerEvent(input, null, "input");
     await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
@@ -122,6 +122,7 @@ export async function createSpreadsheetFromListView(params = {}) {
     const model = getSpreadsheetActionModel(spreadsheetAction);
     await waitForDataSourcesLoaded(model);
     return {
+        fixture,
         webClient,
         model,
         env: getSpreadsheetActionEnv(spreadsheetAction),

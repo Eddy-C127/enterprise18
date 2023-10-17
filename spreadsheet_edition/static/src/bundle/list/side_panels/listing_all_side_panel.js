@@ -1,35 +1,13 @@
 /** @odoo-module */
 
-import { _t } from "@web/core/l10n/translation";
-import { ListingDetailsSidePanel } from "./listing_details_side_panel";
-
 import { Component } from "@odoo/owl";
 
-export class ListingAllSidePanel extends Component {
-    static template = "spreadsheet_edition.ListingAllSidePanel";
-    static components = { ListingDetailsSidePanel };
-    static props = {
-        onCloseSidePanel: Function,
-        listId: { type: String, optional: true },
-    };
+export class AllListsSidePanel extends Component {
+    static template = "spreadsheet_edition.AllListsSidePanel";
+    static components = {};
+    static props = { onCloseSidePanel: Function };
 
-    constructor() {
-        super(...arguments);
-        this.getters = this.env.model.getters;
-    }
-
-    selectListing(listId) {
-        this.env.model.dispatch("SELECT_ODOO_LIST", { listId });
-    }
-
-    resetListingSelection() {
-        this.env.model.dispatch("SELECT_ODOO_LIST");
-    }
-
-    delete(listId) {
-        this.env.askConfirmation(_t("Are you sure you want to delete this list?"), () => {
-            this.env.model.dispatch("REMOVE_ODOO_LIST", { listId });
-            this.props.onCloseSidePanel();
-        });
+    selectList(listId) {
+        this.env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
     }
 }

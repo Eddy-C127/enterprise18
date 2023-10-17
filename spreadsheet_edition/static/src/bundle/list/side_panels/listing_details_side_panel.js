@@ -14,10 +14,8 @@ export class ListingDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.ListingDetailsSidePanel";
     static components = { DomainSelector, EditableName };
     static props = {
-        listId: {
-            type: String,
-            optional: true,
-        },
+        onCloseSidePanel: Function,
+        listId: String,
     };
 
     setup() {
@@ -96,7 +94,18 @@ export class ListingDetailsSidePanel extends Component {
         const type = result.isSuccessful ? "success" : "danger";
         this.notification.add(msg, { sticky: false, type });
         if (result.isSuccessful) {
-            this.env.model.dispatch("SELECT_ODOO_LIST", { listId: newListId });
+            this.env.openSidePanel("LIST_PROPERTIES_PANEL", { listId: newListId });
         }
+    }
+
+    goBackToListOfLists() {
+        this.env.openSidePanel("ALL_LISTS_PANEL");
+    }
+
+    deleteList() {
+        this.env.askConfirmation(_t("Are you sure you want to delete this list?"), () => {
+            this.env.model.dispatch("REMOVE_ODOO_LIST", { listId: this.props.listId });
+            this.props.onCloseSidePanel();
+        });
     }
 }
