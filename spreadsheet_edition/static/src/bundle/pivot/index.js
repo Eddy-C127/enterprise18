@@ -5,7 +5,7 @@ import * as spreadsheet from "@odoo/o-spreadsheet";
 import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks";
 
 import { PivotAutofillPlugin } from "./plugins/pivot_autofill_plugin";
-import { AllPivotsSidePanel } from "./side_panels/pivot_list_side_panel";
+import { AllPivotsSidePanel } from "./side_panels/all_pivots_side_panel";
 import { PivotDetailsSidePanel } from "./side_panels/pivot_details_side_panel";
 
 import "./autofill";

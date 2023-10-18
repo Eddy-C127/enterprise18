@@ -10,8 +10,8 @@ import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
 
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 
-export class ListingDetailsSidePanel extends Component {
-    static template = "spreadsheet_edition.ListingDetailsSidePanel";
+export class ListDetailsSidePanel extends Component {
+    static template = "spreadsheet_edition.ListDetailsSidePanel";
     static components = { DomainSelector, EditableName };
     static props = {
         onCloseSidePanel: Function,

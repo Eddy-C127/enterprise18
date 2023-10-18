@@ -7,8 +7,8 @@ import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks"
 import "./autofill";
 import "./operational_transform";
 
-import { AllListsSidePanel } from "./side_panels/listing_all_side_panel";
-import { ListingDetailsSidePanel } from "./side_panels/listing_details_side_panel";
+import { AllListsSidePanel } from "./side_panels/all_lists_side_panel";
+import { ListDetailsSidePanel } from "./side_panels/list_details_side_panel";
 import { ListAutofillPlugin } from "./plugins/list_autofill_plugin";
 
 import { insertList } from "./list_init_callback";
@@ -23,7 +23,7 @@ sidePanelRegistry.add("ALL_LISTS_PANEL", {
 });
 sidePanelRegistry.add("LIST_PROPERTIES_PANEL", {
     title: () => _t("List properties"),
-    Body: ListingDetailsSidePanel,
+    Body: ListDetailsSidePanel,
 });
 
 initCallbackRegistry.add("insertList", insertList);
