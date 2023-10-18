@@ -195,6 +195,8 @@ class Task(models.Model):
             'active_ids': self.mapped('sale_order_id').ids,
             'industry_fsm_message_post_task_id': so_task_mapping,
         })
+        if not self.sale_order_id._get_invoiceable_lines(False):
+            context['default_advance_payment_method'] = 'percentage'
         action['context'] = context
         return action
 
