@@ -1811,6 +1811,42 @@ QUnit.module("Views", (hooks) => {
         );
     });
 
+    QUnit.test('Group By selection field without passing selection field in data', async function (assert) {
+        serverData.models["analytic.line"].records.push({
+            id: 6,
+            project_id: 142,
+            task_id: 12,
+            date: "2017-01-24",
+            unit_amount: 7.0,
+        });
+
+        const webClient = await createWebClient({
+            serverData,
+            async mockRPC(route, args) {
+                if (args.method === "grid_unavailability") {
+                    return {};
+                }
+            },
+        });
+
+        await doAction(webClient, {
+            res_model: "analytic.line",
+            type: "ir.actions.act_window",
+            views: [[1, "grid"]],
+            context: {
+                search_default_groupby_selection: 1,
+                grid_anchor: "2017-01-24",
+            },
+        });
+
+        assert.ok(
+            getNodesTextContent(target.querySelectorAll(".o_grid_row_title")).includes(
+                "None"
+            ),
+            "'None' should be displayed."
+        );
+    });
+
     QUnit.test("stop edition when the user clicks outside", async function (assert) {
         const arch = serverData.views["analytic.line,false,grid"].replace(
             "<grid>",
