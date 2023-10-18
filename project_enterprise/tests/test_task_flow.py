@@ -4,6 +4,8 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from markupsafe import Markup
+from odoo.tests import Form
+from freezegun import freeze_time
 
 from odoo.tests import common
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
@@ -53,6 +55,21 @@ class TestTaskFlow(common.TransactionCase):
             'planned_date_begin': now + relativedelta(days=i / 2, hour=hour_start[i % 2]),
             'date_deadline': now + relativedelta(days=i / 2, hour=hour_end[i % 2])
         } for i in range(0, nb)])
+
+    @freeze_time('2023-01-02')
+    def test_default_allocated_hours_when_creating_tasks(self):
+        with Form(self.env["project.task"].with_context({
+            'planned_date_begin': datetime.now(),
+            'date_deadline': datetime.now() + relativedelta(days=7),
+        })) as task:
+            task.name = "Test"
+            task.user_ids = self.project_user
+            task.project_id = self.project_test
+            self.assertEqual(task.allocated_hours, 40.0, "Allocated hours should be computed according to planned dates")
+            task.date_deadline = datetime.now() + relativedelta(hours=23)
+            self.assertEqual(task.allocated_hours, 8.0, "Allocated hours should be computed when the planned dates are modified")
+            task.planned_date_begin = False
+            self.assertEqual(task.allocated_hours, 0.0, "Allocated hours should be 0 as there is no planned_date_begin")
 
     def test_planning_overlap(self):
         task_A = self.env['project.task'].create({

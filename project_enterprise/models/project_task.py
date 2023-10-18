@@ -30,7 +30,7 @@ class Task(models.Model):
     planned_date_begin = fields.Datetime("Start date", tracking=True)
     # planned_date_start is added to be able to display tasks in calendar view because both start and end date are mandatory
     planned_date_start = fields.Datetime(compute="_compute_planned_date_start", search="_search_planned_date_start")
-
+    allocated_hours = fields.Float(compute='_compute_allocated_hours', store=True, readonly=False)
     # Task Dependencies fields
     display_warning_dependency_in_gantt = fields.Boolean(compute="_compute_display_warning_dependency_in_gantt")
     planning_overlap = fields.Html(compute='_compute_planning_overlap', search='_search_planning_overlap')
@@ -59,8 +59,8 @@ class Task(models.Model):
         planned_date_begin = result.get('planned_date_begin', self.env.context.get('planned_date_begin', False))
         date_deadline = result.get('date_deadline', self.env.context.get('date_deadline', False))
         if planned_date_begin and date_deadline:
-            user_id = result.get('user_id', None)
-            planned_date_begin, date_deadline = self._calculate_planned_dates(planned_date_begin, date_deadline, user_id)
+            user_ids = self.env.context.get('user_ids', [])
+            planned_date_begin, date_deadline = self._calculate_planned_dates(planned_date_begin, date_deadline, user_ids)
             result.update(planned_date_begin=planned_date_begin, date_deadline=date_deadline)
         return result
 
@@ -79,6 +79,37 @@ class Task(models.Model):
     def _onchange_planned_dates(self):
         if not self.date_deadline:
             self.planned_date_begin = False
+
+    @api.depends('date_deadline', 'planned_date_begin', 'user_ids')
+    def _compute_allocated_hours(self):
+        # Only change values when creating a new record from the gantt view
+        if self._origin:
+            return
+        if not self.date_deadline or not self.planned_date_begin:
+            self.allocated_hours = 0
+            return
+        date_begin, date_end = self._calculate_planned_dates(
+            self.planned_date_begin,
+            self.date_deadline,
+            user_id=self.user_ids.ids if len(self.user_ids) == 1 else None,
+            calendar=self.env.company.resource_calendar_id if len(self.user_ids) != 1 else None,
+        )
+        if len(self.user_ids) == 1:
+            tz = self.user_ids.tz or 'UTC'
+            # We need to browse on res.users in order to bypass the new origin id
+            work_intervals, _dummy = self.env["res.users"].browse(self.user_ids.id.origin).sudo()._get_valid_work_intervals(
+                date_begin.astimezone(timezone(tz)),
+                date_end.astimezone(timezone(tz))
+            )
+            work_duration = sum_intervals(work_intervals[self.user_ids.id.origin])
+        else:
+            tz = self.env.company.resource_calendar_id.tz or 'UTC'
+            work_duration = self.env.company.resource_calendar_id.get_work_hours_count(
+                date_begin.astimezone(timezone(tz)),
+                date_end.astimezone(timezone(tz)),
+                compute_leaves=False
+            )
+        self.allocated_hours = round(work_duration, 2)
 
     def _fetch_planning_overlap(self, additional_domain=None):
         domain = [
