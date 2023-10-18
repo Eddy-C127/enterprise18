@@ -5,7 +5,7 @@
         <field name="name">planning.slot.report.pivot</field>
         <field name="model">planning.analysis.report</field>
         <field name="arch" type="xml">
-            <pivot string="Planning Analysis" sample="1" disable_linking="True">
+            <pivot string="Planning Analysis" sample="1" disable_linking="True" js_class="planning_pivot">
                 <field name="start_datetime" interval="month" type="row"/>
                 <field name="allocated_hours" type="measure" widget="float_time"/>
                 <field name="working_days_count" type="measure"/>
@@ -17,7 +17,7 @@
         <field name="name">planning.slot.report.graph</field>
         <field name="model">planning.analysis.report</field>
         <field name="arch" type="xml">
-            <graph string="Planning Analysis" sample="1" order="desc" disable_linking="True">
+            <graph string="Planning Analysis" sample="1" order="desc" disable_linking="True" js_class="planning_graph">
                 <field name="start_datetime" interval="month"/>
                 <field name="resource_id"/>
                 <field name="allocated_hours" type="measure" widget="float_time"/>
