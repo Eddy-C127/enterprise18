@@ -263,4 +263,18 @@
         <field name="users_can_go_back" eval="True"/>
         <field name="description" type="html"><p> </p></field>
     </record>
+    <!-- Appraisal survey -->
+    <record id="survey_appraisal" model="survey.user_input">
+        <field name="survey_id" ref="appraisal_feedback_template"/>
+        <field name="deadline" eval="(DateTime.today() + relativedelta(days=+15))"/>
+        <field name="partner_id" ref="hr.work_contact_qdp"/>
+        <field name="email">demo@yourcompany.example.com</field>
+        <field name="appraisal_id" ref="hr_appraisal.hr_appraisal_4bis"/>
+        <field name="create_uid" ref="base.user_admin"/>
+        <field name="end_datetime" eval="datetime.now() - timedelta(days=0, hours=3, minutes=0)"/>
+        <field name="start_datetime" eval="datetime.now() - timedelta(days=0, hours=3, minutes=50)"/>
+    </record>
+    <record id="hr_appraisal.hr_appraisal_4bis" model="hr.appraisal">
+        <field name="employee_feedback_ids" eval="[(4, ref('hr.employee_admin'))]"/>
+    </record>
 </odoo>

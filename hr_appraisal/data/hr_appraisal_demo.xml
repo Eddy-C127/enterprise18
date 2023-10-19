@@ -26,6 +26,9 @@
         </record>
         <function model="hr.appraisal" name="action_cancel" eval="[ref('hr_appraisal.hr_appraisal_2')]"/>
 
+        <record id="note_good" model="hr.appraisal.note">
+            <field name="name">Good</field>
+        </record>
         <record id="hr_appraisal_3" model="hr.appraisal">
             <field name="employee_id" ref="hr.employee_qdp"/>
             <field name="state">new</field>
@@ -35,7 +38,7 @@
             <field name="manager_feedback" type="html"><p>The employee is autonomous</p></field>
             <field name="employee_feedback_published" eval="True"/>
             <field name="employee_feedback" type="html"><p>I feel much more comfortable than last year</p></field>
-            <field name="assessment_note" model="hr.appraisal.note" eval="obj().search([], order='id desc', limit=1)"/>
+            <field name="assessment_note" ref="note_good"/>
         </record>
         <function model="hr.appraisal" name="action_confirm" eval="[ref('hr_appraisal.hr_appraisal_3')]"/>
         <function model="hr.appraisal" name="action_done" eval="[ref('hr_appraisal.hr_appraisal_3')]"/>
@@ -45,7 +48,7 @@
             <field name="state">new</field>
             <field name="date_close" eval="(DateTime.now() + relativedelta(months=2)).strftime('%Y-%m-%d')"/>
             <field name="manager_ids" eval="[(4, ref('hr.employee_admin'))]"/>
-            <field name="assessment_note" model="hr.appraisal.note" eval="obj().search([], order='id desc', limit=1)"/>
+            <field name="assessment_note" ref="note_good"/>
         </record>
         <function model="hr.appraisal" name="action_confirm" eval="[ref('hr_appraisal.hr_appraisal_4')]"/>
         <function model="hr.appraisal" name="action_done" eval="[ref('hr_appraisal.hr_appraisal_4')]"/>
@@ -174,6 +177,17 @@
             <field name="manager_id" ref="hr.employee_admin"/>
             <field name="progression">075</field>
             <field name="deadline" eval="(DateTime.now() + relativedelta(months=1)).strftime('%Y-%m-%d')"/>
+        </record>
+
+        <record id="hr_appraisal_activity_1" model="mail.activity">
+            <field name="res_id" ref="hr_appraisal_4bis"/>
+            <field name="res_model_id" ref="hr_appraisal.model_hr_appraisal"/>
+            <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+            <field name="date_deadline" eval="(DateTime.today() + relativedelta(months=+1))"/>
+            <field name="summary">Appraisal Form to Fill</field>
+            <field name="create_uid" ref="base.user_admin"/>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="note">Fill appraisal for Ronnie Hart</field>
         </record>
     </data>
 </odoo>
