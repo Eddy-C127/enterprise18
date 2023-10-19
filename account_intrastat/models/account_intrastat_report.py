@@ -23,6 +23,7 @@ _merchandise_import_code = {
 
 _unknown_country_code = {
     'BE': 'QU',
+    'FR': 'QU',  # source: https://www.douane.gouv.fr/debweb/cf.srv when trying with the simulation tool
     'NL': 'QV',
 }
 
@@ -417,6 +418,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                             THEN inv_line_uom.factor ELSE 1 END
                         )
                     ) ELSE NULL END AS supplementary_units,
+                code.supplementary_unit AS supplementary_units_code,
                 account_move_line.quantity AS line_quantity,
                 -- We double sign the balance to make sure that we keep consistency between invoice/bill and the intrastat report
                 -- Example: An invoice selling 10 items (but one is free 10 - 1), in the intrastat report we'll have 2 lines
@@ -428,6 +430,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                      WHEN partner.vat IS NULL AND partner.is_company IS FALSE THEN %(unknown_individual_vat)s
                      ELSE 'QV999999999999'
                 END AS partner_vat,
+                partner.id AS partner_id,
                 transaction.expiry_date <= account_move.invoice_date AS expired_trans,
                 transaction.start_date > account_move.invoice_date AS premature_trans,
                 transaction.id IS NULL AS missing_trans,
@@ -669,6 +672,40 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 'list',
             ), (False, 'form')],
             'domain': [('id', 'in', params['ids'])],
+            'context': {
+                'create': False,
+                'delete': False,
+                'expand': True,
+            },
+        }
+
+    def action_missing_intrastat_product_origin_country_code(self, move_line_ids):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Missing country of origin'),
+            'res_model': 'account.move.line',
+            'views': [(
+                self.env.ref('account_intrastat.account_move_line_tree_view_account_intrastat_product_origin_country_id').id,
+                'list',
+            ), (False, 'form')],
+            'domain': [('id', 'in', move_line_ids)],
+            'context': {
+                'create': False,
+                'delete': False,
+                'expand': True,
+            },
+        }
+
+    def action_invalid_transport_mode_moves(self, move_ids):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Invalid transport mode code entries.'),
+            'res_model': 'account.move',
+            'views': [(
+                self.env.ref('account_intrastat.account_move_tree_view_account_intrastat_transport_codes').id,
+                'list',
+            ), (False, 'form')],
+            'domain': [('id', 'in', move_ids)],
             'context': {
                 'create': False,
                 'delete': False,
