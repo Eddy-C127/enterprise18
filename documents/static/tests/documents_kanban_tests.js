@@ -8,6 +8,7 @@ import { presenceService } from "@bus/services/presence_service";
 import { multiTabService } from "@bus/multi_tab_service";
 import { busParametersService } from "@bus/bus_parameters_service";
 import { busService } from "@bus/services/bus_service";
+import { DocumentsKanbanRenderer } from "@documents/views/kanban/documents_kanban_renderer";
 import { documentService } from "@documents/core/document_service";
 import { storeService } from "@mail/core/common/store_service";
 import { attachmentService } from "@mail/core/common/attachment_service";
@@ -5213,6 +5214,64 @@ QUnit.module("documents", {}, function () {
                         target.querySelector(".btn-group button.dropdown-toggle-split").disabled,
                         "the dropdown button should be disabled"
                     );
+                }
+            );
+
+            QUnit.test(
+                "click events triggered inside the FileViewer should not bubble up to trigger the event bound on the DocumentsKanbanRenderer",
+                async function (assert) {
+                    assert.expect(6);
+
+                    const { openView } = await createDocumentsViewWithMessaging({
+                        serverData: {
+                            views: {
+                                "documents.document,false,kanban": `<kanban js_class="documents_kanban">
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div>
+                                                <field name="name"/>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>`,
+                            },
+                        },
+                    });
+                    await openView({
+                        res_model: "documents.document",
+                        views: [[false, "kanban"]],
+                    });
+                    patchWithCleanup(DocumentsKanbanRenderer.prototype, {
+                        onGlobalClick(ev) {
+                            super.onGlobalClick(ev);
+                            assert.step("global click");
+                        },
+                    });
+                    await legacyClick($(target).find(".o_kanban_record:contains(burp)")[0]);
+                    assert.containsOnce(
+                        target,
+                        ".o_mimetype_icon[data-mimetype='image/png']",
+                        "should have a clickable image"
+                    );
+                    await legacyClick(target, ".o_mimetype_icon[data-mimetype='image/png']");
+                    assert.containsOnce(target, ".o-FileViewer");
+
+                    assert.containsOnce(target, ".o-FileViewer-header");
+                    await legacyClick(target, ".o-FileViewer-header");
+
+                    assert.containsOnce(
+                        target,
+                        ".o-FileViewer-navigation[title='Next (Right-Arrow)']"
+                    );
+                    await legacyClick(
+                        target,
+                        ".o-FileViewer-navigation[title='Next (Right-Arrow)']"
+                    );
+                    await legacyClick(target, ".o-FileViewer-headerButton[title='Close (Esc)']");
+
+                    // to verify the patchWithCleanup above works
+                    await legacyClick(target.querySelectorAll(".o_kanban_ghost")[2]);
+                    assert.verifySteps(["global click"]);
                 }
             );
         }
