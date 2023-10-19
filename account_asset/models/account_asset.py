@@ -498,11 +498,29 @@ class AccountAsset(models.Model):
     # -------------------------------------------------------------------------
     # BOARD COMPUTATION
     # -------------------------------------------------------------------------
+    def _get_linear_amount(self, days_before_period, days_until_period_end, total_depreciable_value):
+
+        amount_expected_previous_period = total_depreciable_value * days_before_period / self.asset_lifetime_days
+        amount_after_expected = total_depreciable_value * days_until_period_end / self.asset_lifetime_days
+        number_days_for_period = days_until_period_end - days_before_period
+        # In case of a decrease, we need to lower the amount of the depreciation with the amount of the decrease
+        # spread over the remaining lifetime
+        amount_of_decrease_spread_over_period = [
+            number_days_for_period * mv.depreciation_value / (self.asset_lifetime_days - self._get_delta_days(self.paused_prorata_date, mv.asset_depreciation_beginning_date))
+            for mv in self.depreciation_move_ids.filtered(lambda mv: mv.asset_value_change)
+        ]
+        computed_linear_amount = self.currency_id.round(amount_after_expected - self.currency_id.round(amount_expected_previous_period) - sum(amount_of_decrease_spread_over_period))
+        return computed_linear_amount
+
+
     def _compute_board_amount(self, residual_amount, period_start_date, period_end_date, days_already_depreciated, days_left_to_depreciated, residual_declining):
+
+        days_until_period_end = self._get_delta_days(self.paused_prorata_date, period_end_date)
+        days_before_period = self._get_delta_days(self.paused_prorata_date, period_start_date + relativedelta(days=-1))
+        days_before_period = max(days_before_period, 0)  # if disposed before the beginning of the asset for example
+        number_days = days_until_period_end - days_before_period
         if self.asset_lifetime_days == 0:
             return 0, 0
-        number_days = self._get_delta_days(period_start_date, period_end_date)
-        total_days = number_days + days_already_depreciated
 
         if self.method in ('degressive', 'degressive_then_linear'):
             # Declining by year but divided per month
@@ -511,7 +529,7 @@ class AccountAsset(models.Model):
             # => For each month in the year we will decline the same amount.
             amount = (number_days / DAYS_PER_YEAR) * residual_declining * self.method_progress_factor
         else:
-            computed_linear_amount = (self.total_depreciable_value * total_days / self.asset_lifetime_days) + residual_amount - self.total_depreciable_value
+            computed_linear_amount = self._get_linear_amount(days_before_period, days_until_period_end, self.total_depreciable_value)
             if float_compare(residual_amount, 0, precision_rounding=self.currency_id.rounding) >= 0:
                 linear_amount = min(computed_linear_amount, residual_amount)
                 amount = max(linear_amount, 0)
@@ -519,9 +537,9 @@ class AccountAsset(models.Model):
                 linear_amount = max(computed_linear_amount, residual_amount)
                 amount = min(linear_amount, 0)
 
-        if self.method == 'degressive_then_linear' and days_left_to_depreciated != 0:
+        if self.method == 'degressive_then_linear':
             if not self.parent_id:
-                linear_amount = number_days * self.total_depreciable_value / self.asset_lifetime_days
+                linear_amount = self._get_linear_amount(days_before_period, days_until_period_end, self.total_depreciable_value)
             else:
                 # we want to know the amount before the reeval for the parent so the child can follow the same curve,
                 # so it transitions from degressive to linear at the same moment
@@ -529,14 +547,14 @@ class AccountAsset(models.Model):
                 parent_cumulative_depreciation = parent_moves[-1].asset_depreciated_value if parent_moves else self.parent_id.already_depreciated_amount_import
                 parent_depreciable_value = parent_moves[-1].asset_remaining_value if parent_moves else self.parent_id.total_depreciable_value
                 if self.currency_id.is_zero(parent_depreciable_value):
-                    linear_amount = number_days * self.total_depreciable_value / self.asset_lifetime_days
+                    linear_amount = self._get_linear_amount(days_before_period, days_until_period_end, self.total_depreciable_value)
                 else:
                     # To have the same curve as the parent, we need to have the equivalent amount before the reeval.
                     # The child's depreciable value corresponds to the amount that is left to depreciate for the parent.
                     # So, we use the proportion between them to compute the equivalent child's total to depreciate.
                     # We use it then with the duration of the parent to compute the depreciation amount
                     depreciable_value = self.total_depreciable_value * (1 + parent_cumulative_depreciation/parent_depreciable_value)
-                    linear_amount = number_days * depreciable_value/self.parent_id.asset_lifetime_days
+                    linear_amount = self._get_linear_amount(days_before_period, days_until_period_end, depreciable_value) * self.asset_lifetime_days / self.parent_id.asset_lifetime_days
             amount = max(linear_amount, amount, key=abs)
 
         # if self.method == 'degressif_chelou' and days_left_to_depreciated != 0:
@@ -547,28 +565,27 @@ class AccountAsset(models.Model):
         #         amount = min(linear_amount, amount)
 
 
-        if abs(residual_amount) < abs(amount) or total_days >= self.asset_lifetime_days:
+        if abs(residual_amount) < abs(amount) or days_until_period_end >= self.asset_lifetime_days:
             # If the residual amount is less than the computed amount, we keep the residual amount
             # If total_days is greater or equals to asset lifetime days, it should mean that
-            # the asset will finish in this period and the value for this period is equals to the residual amount.
+            # the asset will finish in this period and the value for this period is equal to the residual amount.
             amount = residual_amount
         return number_days, self.currency_id.round(amount)
 
-    def compute_depreciation_board(self):
+    def compute_depreciation_board(self, date=False):
         # Need to unlink draft moves before adding new ones because if we create new moves before, it will cause an error
-        # in the compute for the depreciable/cumulative value
         self.depreciation_move_ids.filtered(lambda mv: mv.state == 'draft').unlink()
 
         new_depreciation_moves_data = []
         for asset in self:
-            new_depreciation_moves_data.extend(asset._recompute_board())
+            new_depreciation_moves_data.extend(asset._recompute_board(date))
 
         new_depreciation_moves = self.env['account.move'].create(new_depreciation_moves_data)
         new_depreciation_moves_to_post = new_depreciation_moves.filtered(lambda move: move.asset_id.state == 'open')
         # In case of the asset is in running mode, we post in the past and set to auto post move in the future
         new_depreciation_moves_to_post._post()
 
-    def _recompute_board(self):
+    def _recompute_board(self, start_depreciation_date=False):
         self.ensure_one()
         # All depreciation moves that are posted
         posted_depreciation_move_ids = self.depreciation_move_ids.filtered(
@@ -581,29 +598,21 @@ class AccountAsset(models.Model):
             residual_amount += imported_amount
         residual_declining = residual_amount
 
-        # Days already depreciated
-        days_already_depreciated = sum(posted_depreciation_move_ids.mapped('asset_number_days'))
-        days_left_to_depreciated = self.asset_lifetime_days - days_already_depreciated
-
+        start_depreciation_date = start_depreciation_date or self.paused_prorata_date
         if not self.parent_id:
-            days_already_added = sum([(mv.date - mv.asset_depreciation_beginning_date).days + 1 for mv in posted_depreciation_move_ids])
-            start_depreciation_date = self.paused_prorata_date + relativedelta(days=days_already_added)
             final_depreciation_date = self.paused_prorata_date + relativedelta(months=int(self.method_period) * self.method_number, days=-1)
         else:
             # If it has a parent, we want the increase only for the remaining days the parent has
-            posted = self.parent_id.depreciation_move_ids.filtered(lambda mv: mv.state == 'posted' and not mv.asset_value_change)
-            days_already_added = sum([(mv.date - mv.asset_depreciation_beginning_date).days + 1 for mv in posted])
-            start_depreciation_date = self.parent_id.paused_prorata_date + relativedelta(days=days_already_added)
             final_depreciation_date = self.parent_id.paused_prorata_date + relativedelta(months=int(self.parent_id.method_period) * self.parent_id.method_number, days=-1)
 
         final_depreciation_date = self._get_end_period_date(final_depreciation_date)
         depreciation_move_values = []
         if not float_is_zero(self.value_residual, precision_rounding=self.currency_id.rounding):
-            while days_already_depreciated < self.asset_lifetime_days:
+            while not self.currency_id.is_zero(residual_amount) and start_depreciation_date < final_depreciation_date:
                 period_end_depreciation_date = self._get_end_period_date(start_depreciation_date)
                 period_end_fiscalyear_date = self.company_id.compute_fiscalyear_dates(period_end_depreciation_date).get('date_to')
 
-                days, amount = self._compute_board_amount(residual_amount, start_depreciation_date, period_end_depreciation_date, days_already_depreciated, days_left_to_depreciated, residual_declining)
+                days, amount = self._compute_board_amount(residual_amount, start_depreciation_date, period_end_depreciation_date, False, False, residual_declining)
                 residual_amount -= amount
 
                 if not posted_depreciation_move_ids:
@@ -629,10 +638,8 @@ class AccountAsset(models.Model):
                         'date': period_end_depreciation_date,
                         'asset_number_days': days,
                     }))
-                days_already_depreciated += days
 
                 if period_end_depreciation_date == period_end_fiscalyear_date:
-                    days_left_to_depreciated = self.asset_lifetime_days - days_already_depreciated
                     residual_declining = residual_amount
 
                 start_depreciation_date = period_end_depreciation_date + relativedelta(days=1)
@@ -957,22 +964,34 @@ class AccountAsset(models.Model):
 
         The new depreciation/move is depreciating the residual value.
         """
-        self._cancel_future_moves(date)
-        all_lines_before_date = self.depreciation_move_ids.filtered(lambda x: x.date <= date)
+        all_lines_before_date = self.depreciation_move_ids.filtered(
+            lambda x:
+            x.date <= date
+            and not x.reversal_move_id
+            and not x.reversed_entry_id
+            and x.state == 'posted'
+        ).sorted('date')
 
-        days_already_depreciated = sum(all_lines_before_date.mapped('asset_number_days'))
-        days_left = self.asset_lifetime_days - days_already_depreciated
-        days_to_add = sum([
-            (mv.date - mv.asset_depreciation_beginning_date).days + 1 for mv in
-            all_lines_before_date.filtered(lambda x: not x.reversed_entry_id and not x.reversal_move_id)
-        ])
+        if all_lines_before_date:
+            last_move_date_not_reversed = max(all_lines_before_date.mapped('date'))
+            # We don't know when begins the period that the move is supposed to cover
+            # So, we use the earliest beginning of a move that comes after the last move not cancelled
+            future_moves_beginning_date = self.depreciation_move_ids.filtered(
+                lambda m: m.date > last_move_date_not_reversed and (
+                    not m.reversal_move_id and not m.reversed_entry_id and m.state == 'posted'
+                    or m.state == 'draft'
+                )
+            ).mapped('asset_depreciation_beginning_date')
+            beginning_depreciation_date = min(future_moves_beginning_date) if future_moves_beginning_date else self.paused_prorata_date
+        else:
+            beginning_depreciation_date = self.paused_prorata_date
+
+        self._cancel_future_moves(date)
 
         imported_amount = self.already_depreciated_amount_import if not all_lines_before_date else 0
         value_residual = self.value_residual + self.already_depreciated_amount_import if not all_lines_before_date else self.value_residual
 
-        beginning_depreciation_date = self.paused_prorata_date + relativedelta(days=days_to_add)
-
-        days_depreciated, amount = self._compute_board_amount(value_residual, beginning_depreciation_date, date, days_already_depreciated, days_left, value_residual)
+        days_depreciated, amount = self._compute_board_amount(value_residual, beginning_depreciation_date, date, False, False, value_residual)
 
         if abs(imported_amount) <= abs(amount):
             amount -= imported_amount

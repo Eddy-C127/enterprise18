@@ -18,7 +18,7 @@ class AccountMove(models.Model):
     # true when this move is the result of the changing of value of an asset
     asset_value_change = fields.Boolean()
     #  how many days of depreciation this entry corresponds to
-    asset_number_days = fields.Integer(string="Number of days", copy=False)
+    asset_number_days = fields.Integer(string="Number of days", copy=False) # deprecated
     asset_depreciation_beginning_date = fields.Date(string="Date of the beginning of the depreciation", copy=False) # technical field stating when the depreciation associated with this entry has begun
     depreciation_value = fields.Monetary(
         string="Depreciation",
