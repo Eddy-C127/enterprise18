@@ -564,9 +564,11 @@ export class PivotAutofillPlugin extends UIPlugin {
                 (isColumn && dataSource.isColumnGroupBy(fieldName)) ||
                 (!isColumn && dataSource.isRowGroupBy(fieldName))
             ) {
-                tooltips.push({
-                    value: dataSource.computeOdooPivotHeaderValue(domain.slice(0, i)),
-                });
+                const formattedValue = this.getters.getPivotHeaderFormattedValue(
+                    pivotId,
+                    domain.slice(0, i)
+                );
+                tooltips.push({ value: formattedValue });
             }
         }
         if (definition.measures.length !== 1 && isColumn) {
@@ -595,12 +597,15 @@ export class PivotAutofillPlugin extends UIPlugin {
     _tooltipFormatPivotHeader(pivotId, args) {
         const tooltips = [];
         const domain = args.slice(1); // e.g. ["create_date:month", "04/2022", "user_id", 3]
-        const dataSource = this.getters.getPivotDataSource(pivotId);
         if (domain.length === 0) {
             return [{ value: _t("Total") }];
         }
         for (let i = 2; i <= domain.length; i += 2) {
-            tooltips.push({ value: dataSource.computeOdooPivotHeaderValue(domain.slice(0, i)) });
+            const formattedValue = this.getters.getPivotHeaderFormattedValue(
+                pivotId,
+                domain.slice(0, i)
+            );
+            tooltips.push({ value: formattedValue });
         }
         return tooltips;
     }
