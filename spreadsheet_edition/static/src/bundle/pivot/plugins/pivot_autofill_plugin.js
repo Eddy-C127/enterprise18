@@ -119,7 +119,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             const definition = this.getters.getPivotDefinition(pivotId);
             return this._tooltipFormatPivot(pivotId, args, isColumn, dataSource, definition);
         } else if (functionName === "ODOO.PIVOT.HEADER") {
-            return this._tooltipFormatPivotHeader(args, dataSource);
+            return this._tooltipFormatPivotHeader(pivotId, args, dataSource);
         }
         return [];
     }
@@ -593,9 +593,11 @@ export class PivotAutofillPlugin extends UIPlugin {
                 (isColumn && this._isColumnGroupBy(dataSource, definition, fieldName)) ||
                 (!isColumn && this._isRowGroupBy(dataSource, definition, fieldName))
             ) {
-                tooltips.push({
-                    value: dataSource.computeOdooPivotHeaderValue(domain.slice(0, i)),
-                });
+                const formattedValue = this.getters.getPivotHeaderFormattedValue(
+                    pivotId,
+                    domain.slice(0, i)
+                );
+                tooltips.push({ value: formattedValue });
             }
         }
         if (definition.measures.length !== 1 && isColumn) {
@@ -614,6 +616,7 @@ export class PivotAutofillPlugin extends UIPlugin {
     /**
      * Get the tooltip for a pivot header formula
      *
+     * @param {string} pivotId
      * @param {Array<string>} args
      * @param {PivotDataSource} dataSource
      *
@@ -621,14 +624,18 @@ export class PivotAutofillPlugin extends UIPlugin {
      *
      * @returns {Array<TooltipFormula>}
      */
-    _tooltipFormatPivotHeader(args, dataSource) {
+    _tooltipFormatPivotHeader(pivotId, args, dataSource) {
         const tooltips = [];
         const domain = args.slice(1); // e.g. ["create_date:month", "04/2022", "user_id", 3]
         if (domain.length === 0) {
             return [{ value: _t("Total") }];
         }
         for (let i = 2; i <= domain.length; i += 2) {
-            tooltips.push({ value: dataSource.computeOdooPivotHeaderValue(domain.slice(0, i)) });
+            const formattedValue = this.getters.getPivotHeaderFormattedValue(
+                pivotId,
+                domain.slice(0, i)
+            );
+            tooltips.push({ value: formattedValue });
         }
         return tooltips;
     }

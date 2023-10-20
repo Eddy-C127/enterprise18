@@ -287,7 +287,7 @@ export class PivotDialog extends Component {
                 }
                 current.push({
                     formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
-                    value: this.dataSource.computeOdooPivotHeaderValue(domain),
+                    value: this.props.getters.getPivotHeaderFormattedValue(id, domain),
                     span: cell.width,
                     isMissing: !this.dataSource.isUsedHeader(domain),
                 });
@@ -323,7 +323,7 @@ export class PivotDialog extends Component {
             const cell = {
                 args: domain,
                 formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
-                value: this.dataSource.computeOdooPivotHeaderValue(domain),
+                value: this.props.getters.getPivotHeaderFormattedValue(id, domain),
                 isMissing: !this.dataSource.isUsedHeader(domain),
             };
             if (row.indent > 1) {

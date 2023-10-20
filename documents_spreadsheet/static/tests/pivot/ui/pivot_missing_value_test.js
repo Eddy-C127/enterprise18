@@ -29,6 +29,46 @@ QUnit.module("documents_spreadsheet > Pivot missing values", {}, function () {
         assert.equal(getCellFormula(model, "D8"), getCellFormula(model, "B1"));
     });
 
+    QUnit.test("pivot dialog with row date field (day)", async function (assert) {
+        const { env } = await createSpreadsheetFromPivotView({
+            serverData: {
+                models: getBasicData(),
+                views: {
+                    "partner,false,pivot": /*xml*/ `
+                        <pivot>
+                            <field name="date" interval="day" type="row"/>
+                            <field name="probability" type="measure"/>
+                        </pivot>`,
+                    "partner,false,search": `<search/>`,
+                },
+            },
+        });
+        await doMenuAction(topbarMenuRegistry, insertPivotCellPath, env);
+        await nextTick();
+        const firstRowHeader = document.body.querySelectorAll(".o_pivot_table_dialog tr th")[3];
+        assert.strictEqual(firstRowHeader.textContent, "4/14/2016");
+    });
+
+    QUnit.test("pivot dialog with col date field (day)", async function (assert) {
+        const { env } = await createSpreadsheetFromPivotView({
+            serverData: {
+                models: getBasicData(),
+                views: {
+                    "partner,false,pivot": /*xml*/ `
+                        <pivot>
+                            <field name="date" interval="day" type="col"/>
+                            <field name="probability" type="measure"/>
+                        </pivot>`,
+                    "partner,false,search": `<search/>`,
+                },
+            },
+        });
+        await doMenuAction(topbarMenuRegistry, insertPivotCellPath, env);
+        await nextTick();
+        const firstRowHeader = document.body.querySelectorAll(".o_pivot_table_dialog tr th")[1];
+        assert.strictEqual(firstRowHeader.textContent, "4/14/2016");
+    });
+
     QUnit.test(
         "Insert missing value modal can show only the values not used in the current sheet",
         async function (assert) {
