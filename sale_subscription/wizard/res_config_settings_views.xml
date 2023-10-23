@@ -6,15 +6,20 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@id='order_default_values_div']" position="inside">
-                <div class="mt16">
-                    <label for="subscription_default_plan_id" class="me-2"/>
-                    <field name="subscription_default_plan_id"/>
-                </div>
-                <div class="text-muted">
-                    Default period to use as recurrence for a new quotation.
-                </div>
-            </xpath>
+            <setting id="quotation_validity_days" position="after">
+                <setting id="subscription_default_plan">
+                    <div class="mt16">
+                        <label for="subscription_default_plan_id" class="me-2"/>
+                        <field name="subscription_default_plan_id"/>
+                        <span class="fa fa-lg fa-building-o p-2"
+                              title="Values set here are company-specific."
+                              groups="base.group_multi_company"/>
+                    </div>
+                    <div class="text-muted">
+                        Default period to use as recurrence for a new quotation.
+                    </div>
+                </setting>
+            </setting>
             <setting id="down_payments" position="after">
                 <setting id="invoice_consolidation" help="Consolidate all of a customer's subscriptions that are due to be billed on the same day onto a single invoice.">
                     <field name="invoice_consolidation"/>
