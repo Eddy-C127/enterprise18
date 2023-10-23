@@ -9,8 +9,10 @@ result = payslip.vehicle_id._get_car_atn(date=payslip.date_from)
 salary_simulation = payslip.env.context.get('salary_simulation')
 if not salary_simulation:
     first_period_contract_ids = payslip._get_period_contracts()
-    first_period_contract = contract.browse(first_period_contract_ids).filtered(lambda c: c.transport_mode_car)
-    result = result if (first_period_contract and payslip.contract_id == first_period_contract[0]) else 0
+    first_period_contracts = contract.browse(first_period_contract_ids).filtered(lambda c: c.transport_mode_car)
+    if first_period_contracts:
+        target_contract = payslip._get_max_basic_salary_contract(first_period_contracts)
+    result = result if (first_period_contracts and payslip.contract_id == target_contract) else 0
             </field>
         </record>
         <record id="l10n_be_hr_payroll.cp200_employees_salary_company_car_2" model="hr.salary.rule">
@@ -36,8 +38,10 @@ result = payslip.vehicle_id.with_context(
 salary_simulation = payslip.env.context.get('salary_simulation')
 if not salary_simulation:
     first_period_contract_ids = payslip._get_period_contracts()
-    first_period_contract = contract.browse(first_period_contract_ids).filtered(lambda c: c.transport_mode_car)[0]
-    result = result if payslip.contract_id == first_period_contract else 0</field>
+    first_period_contracts = contract.browse(first_period_contract_ids).filtered(lambda c: c.transport_mode_car)
+    if first_period_contracts:
+        target_contract = payslip._get_max_basic_salary_contract(first_period_contracts)
+    result = result if (first_period_contracts and payslip.contract_id == target_contract) else 0</field>
             <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_salary"/>
             <field name="appears_on_payslip" eval="False"/>
             <field name="appears_on_payroll_report" eval="True"/>

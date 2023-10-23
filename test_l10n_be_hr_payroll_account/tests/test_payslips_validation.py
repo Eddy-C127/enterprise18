@@ -10709,3 +10709,101 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'CO2FEE': 0,
         }
         self._validate_payslip(payslip, payslip_results)
+
+    def test_bik_first_payslip_unpaid(self):
+        self.contract.write({
+            'name': "Full Time Parental Time Off",
+            'time_credit': True,
+            'standard_calendar_id': self.resource_calendar_38_hours_per_week.id,
+            'work_time_rate': 0,
+            'time_credit_type_id': self.env.ref('l10n_be_hr_payroll.work_entry_type_parental_time_off').id,
+            'resource_calendar_id': self.resource_calendar_0_hours_per_week.id,
+            'date_start': datetime.date(2023, 10, 1),
+            'date_end': datetime.date(2023, 10, 10),
+            'wage': 0,
+            'wage_on_signature': 0,
+        })
+
+        contract_2 = self.contract.copy({
+            'name': '4/5 Parental Time Off',
+            'date_start': datetime.date(2023, 10, 11),
+            'date_end': False,
+            'state': 'open',
+            'work_time_rate': 80,
+            'resource_calendar_id': self.resource_calendar_4_5_wednesday_off.id,
+            'wage': 3000,
+            'wage_on_signature': 3000,
+        })
+
+        (self.contract + contract_2).generate_work_entries(datetime.date(2023, 10, 1), datetime.date(2023, 10, 31))
+        payslip_1 = self._generate_payslip(datetime.date(2023, 10, 1), datetime.date(2023, 10, 31), contract_id=self.contract.id)
+        payslip_2 = self._generate_payslip(datetime.date(2023, 10, 1), datetime.date(2023, 10, 31), contract_id=contract_2.id)
+
+        payslip_results = {
+            'BASIC': 0,
+            'ATN.INT': 0,
+            'ATN.MOB': 0,
+            'SALARY': 0,
+            'ONSS': 0,
+            'ONSSTOTAL': 0,
+            'ATN.CAR': 0,
+            'GROSSIP': 0,
+            'IP.PART': 0,
+            'GROSS': 0,
+            'P.P': 0,
+            'PPTOTAL': 0,
+            'ATN.CAR.2': 0,
+            'ATN.INT.2': 0,
+            'ATN.MOB.2': 0,
+            'M.ONSS': 0,
+            'MEAL_V_EMP': 0,
+            'REP.FEES': 0,
+            'IP': 0,
+            'IP.DED': 0,
+            'NET': 0,
+            'REMUNERATION': 0,
+            'ONSSEMPLOYERBASIC': 0,
+            'ONSSEMPLOYERFFE': 0,
+            'ONSSEMPLOYERMFFE': 0,
+            'ONSSEMPLOYERCPAE': 0,
+            'ONSSEMPLOYERRESTREINT': 0,
+            'ONSSEMPLOYERUNEMP': 0,
+            'ONSSEMPLOYER': 0,
+            'CO2FEE': 0,
+        }
+        self._validate_payslip(payslip_1, payslip_results)
+
+        payslip_results = {
+            'BASIC': 2030.77,
+            'ATN.INT': 5.0,
+            'ATN.MOB': 4.0,
+            'SALARY': 2039.77,
+            'ONSS': -266.6,
+            'EmpBonus.1': 0,
+            'ONSSTOTAL': 266.6,
+            'ATN.CAR': 169.15,
+            'GROSSIP': 1942.33,
+            'IP.PART': -507.69,
+            'GROSS': 1434.63,
+            'P.P': -54.18,
+            'PPTOTAL': 54.18,
+            'ATN.CAR.2': -169.15,
+            'ATN.INT.2': -5.0,
+            'ATN.MOB.2': -4.0,
+            'M.ONSS': -3.6,
+            'MEAL_V_EMP': -13.08,
+            'REP.FEES': 63.46,
+            'IP': 507.69,
+            'IP.DED': -38.08,
+            'NET': 1718.69,
+            'REMUNERATION': 1523.08,
+            'ONSSEMPLOYERBASIC': 510.55,
+            'ONSSEMPLOYERFFE': 1.43,
+            'ONSSEMPLOYERMFFE': 2.04,
+            'ONSSEMPLOYERCPAE': 4.69,
+            'ONSSEMPLOYERRESTREINT': 34.47,
+            'ONSSEMPLOYERUNEMP': 2.04,
+            'ONSSEMPLOYER': 555.23,
+            'CO2FEE': 31.34,
+        }
+        self._validate_payslip(payslip_2, payslip_results)

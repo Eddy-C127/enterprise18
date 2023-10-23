@@ -7,7 +7,7 @@ from dateutil import rrule
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 from odoo import api, models, fields, _
-from odoo.tools import float_round, date_utils, ormcache
+from odoo.tools import float_round, float_is_zero, date_utils, ormcache
 from odoo.exceptions import UserError
 
 
@@ -77,6 +77,25 @@ class Payslip(models.Model):
             states=['open', 'close']
         ).sorted('date_start')
         return contracts.ids
+
+    def _get_max_basic_salary_contract(self, contracts):
+        self.ensure_one()
+        if len(contracts) == 1:
+            return contracts
+        credit_time_work_entry_type_ids = [
+            self.env['ir.model.data']._xmlid_to_res_model_res_id('l10n_be_hr_payroll.work_entry_type_credit_time')[1],
+            self.env['ir.model.data']._xmlid_to_res_model_res_id('l10n_be_hr_payroll.work_entry_type_parental_time_off')[1],
+        ]
+        unpaid_work_entry_types = self.struct_id.unpaid_work_entry_type_ids.ids + credit_time_work_entry_type_ids
+        for contract in contracts:
+            date_end = min([contract.date_end, self.date_to]) if contract.date_end else self.date_to
+            all_work_hours = contract.get_work_hours(self.date_from, date_end)
+            work_hours = sum(
+                hours for work_entry_type_id, hours in all_work_hours.items() \
+                if work_entry_type_id not in unpaid_work_entry_types)
+            if not float_is_zero(work_hours, precision_digits=2):
+                return contract
+        return contracts[0]
 
     @api.depends('worked_days_line_ids.number_of_hours', 'worked_days_line_ids.is_paid', 'worked_days_line_ids.is_credit_time')
     def _compute_worked_hours(self):

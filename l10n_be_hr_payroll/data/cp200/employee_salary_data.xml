@@ -150,7 +150,9 @@ result = 5.0
 if not salary_simulation:
     first_period_contract_ids = payslip._get_period_contracts()
     first_period_contract = contract.browse(first_period_contract_ids).filtered(lambda c: c.internet)
-    result = result if (first_period_contract and payslip.contract_id == first_period_contract[0]) else 0
+    if first_period_contract:
+        target_contract = payslip._get_max_basic_salary_contract(first_period_contract)
+    result = result if (first_period_contract and payslip.contract_id == target_contract) else 0
         </field>
         <field name="struct_id" ref="hr_payroll_structure_cp200_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -173,7 +175,9 @@ salary_simulation = payslip.env.context.get('salary_simulation')
 if not salary_simulation:
     first_period_contract_ids = payslip._get_period_contracts()
     first_period_contract = contract.browse(first_period_contract_ids).filtered(lambda c: c.mobile)
-    result = result if (first_period_contract and payslip.contract_id == first_period_contract[0]) else 0
+    if first_period_contract:
+        target_contract = payslip._get_max_basic_salary_contract(first_period_contract)
+    result = result if (first_period_contract and payslip.contract_id == target_contract) else 0
         </field>
         <field name="struct_id" ref="hr_payroll_structure_cp200_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -190,7 +194,9 @@ if not salary_simulation:
         <field name="amount_python_compute">
 first_period_contract_ids = payslip._get_period_contracts()
 first_period_contract = contract.browse(first_period_contract_ids).filtered(lambda c: c.has_laptop)
-result = payslip._rule_parameter('cp200_bik_laptop') if (first_period_contract and payslip.contract_id == first_period_contract[0]) else 0
+if first_period_contract:
+    target_contract = payslip._get_max_basic_salary_contract(first_period_contract)
+result = payslip._rule_parameter('cp200_bik_laptop') if (first_period_contract and payslip.contract_id == target_contract) else 0
         </field>
         <field name="struct_id" ref="hr_payroll_structure_cp200_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -304,7 +310,9 @@ salary_simulation = payslip.env.context.get('salary_simulation')
 if not salary_simulation:
     first_period_contract_ids = payslip._get_period_contracts()
     first_period_contract = contract.browse(first_period_contract_ids).filtered(lambda c: c.transport_mode_car)
-    result = result if (first_period_contract and payslip.contract_id == first_period_contract[0]) else 0
+    if first_period_contract:
+        target_contract = payslip._get_max_basic_salary_contract(first_period_contract)
+    result = result if (first_period_contract and payslip.contract_id == target_contract) else 0
         </field>
         <field name="struct_id" ref="hr_payroll_structure_cp200_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
