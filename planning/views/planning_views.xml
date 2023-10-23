@@ -106,7 +106,7 @@
                             <field name="resource_id" context="{'search_view_ref': 'planning.resource_resource_search_view_roles', 'search_default_role_ids': role_id, 'from_planning': True, 'show_job_title': True, 'tree_view_ref': 'planning.resource_resource_tree_view_inherit'}" options="{'no_create_edit': True}"
                                 readonly="not start_datetime or not end_datetime" widget="many2one_avatar_resource" placeholder="Open Shift"/>
                             <field name="role_id" context="{'search_default_resource_ids': resource_id}" placeholder="e.g. Bartender"/>
-                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
                             <field name="company_id" invisible="1"/>
                         </group>
                         <!-- slot_info_right group is used in another module -->

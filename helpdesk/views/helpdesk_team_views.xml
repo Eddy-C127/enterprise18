@@ -78,7 +78,7 @@
                     <field name="active" invisible="1"/>
                     <field name="company_id" invisible="1"/>
                     <field name="description" placeholder="Describe your team to your colleagues and customers..."/>
-                    <field name="company_id" groups="base.group_multi_company" required="1" nolabel="1" context="{'create': False}"/>
+                    <field name="company_id" groups="base.group_multi_company" required="1" nolabel="1" options="{'no_create': True}" context="{'create': False}"/>
                     <h2>Visibility &amp; Assignment </h2>
                     <div class="row mt16 o_settings_container" id="productivity">
                         <setting
