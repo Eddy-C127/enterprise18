@@ -3,24 +3,11 @@
 
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { _t } from "@web/core/l10n/translation";
+import { loadBundle } from "@web/core/assets";
 const { DateTime } = luxon;
 
 publicWidget.registry.PlanningView = publicWidget.Widget.extend({
     selector: '#calendar_employee',
-    jsLibs: [
-        '/web/static/lib/fullcalendar/core/main.js',
-        '/web/static/lib/fullcalendar/core/locales-all.js',
-        '/web/static/lib/fullcalendar/interaction/main.js',
-        '/web/static/lib/fullcalendar/daygrid/main.js',
-        '/web/static/lib/fullcalendar/timegrid/main.js',
-        '/web/static/lib/fullcalendar/list/main.js'
-    ],
-    cssLibs: [
-        '/web/static/lib/fullcalendar/core/main.css',
-        '/web/static/lib/fullcalendar/daygrid/main.css',
-        '/web/static/lib/fullcalendar/timegrid/main.css',
-        '/web/static/lib/fullcalendar/list/main.css'
-    ],
 
     init: function (parent, options) {
         this._super.apply(this, arguments);
@@ -110,6 +97,9 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
             this.calendar.setOption('locale', locale);
             this.calendar.render();
         }
+    },
+    willStart: async function () {
+        await loadBundle("web.fullcalendar_lib");
     },
     eventRenderFunction: function (calRender) {
         const eventContent = calRender.el.querySelectorAll('.fc-time, .fc-title');

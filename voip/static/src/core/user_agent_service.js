@@ -5,7 +5,7 @@ import { reactive } from "@odoo/owl";
 
 import { Registerer } from "@voip/core/registerer";
 
-import { getBundle, loadBundle } from "@web/core/assets";
+import { loadBundle } from "@web/core/assets";
 import { browser } from "@web/core/browser/browser";
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
@@ -182,7 +182,7 @@ export class UserAgent {
             return;
         }
         try {
-            await loadBundle(await getBundle("voip.assets_sip"));
+            await loadBundle("voip.assets_sip");
         } catch (error) {
             console.error(error);
             this.voip.triggerError(
