@@ -374,8 +374,8 @@
                     <ITE_6 t-out="invoice.currency_id.name"/>
                     <ITE_7 t-out="format_monetary(line.price_unit, invoice.currency_id)"/>
                     <ITE_8 t-out="invoice.currency_id.name"/>
-                    <ITE_10 t-out="(line.name or '')[:150]"/>
-                    <ITE_11 t-out="(line.name or '')[:150]"/>
+                    <ITE_10 t-out="line._l10n_co_edi_get_line_name()"/>
+                    <ITE_11 t-out="line._l10n_co_edi_get_line_name()"/>
                     <ITE_18 t-out="line.product_id.default_code or line.product_id.product_tmpl_id.default_code"/>
                     <ITE_19 t-out="format_monetary(line.price_subtotal, invoice.currency_id)"/>
                     <ITE_20 t-out="invoice.currency_id.name"/>
