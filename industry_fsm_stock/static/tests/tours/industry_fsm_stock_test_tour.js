@@ -87,6 +87,103 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     },
     ...AddTrackingLineAndValidateSteps,
     {
+        trigger: '.o_back_button',
+        content: 'go back to fsm',
+    },
+    {
+        trigger: 'button[name="action_view_so"]',
+        content: 'Go to the sale order',
+    },
+    {
+        trigger: 'button[name="action_view_delivery"]',
+        content: 'Go to the the delivery',
+    },
+    {
+        trigger: 'button[name="button_validate"]',
+        content: 'Validate delivery',
+    },
+    {
+        trigger: '.o_back_button',
+        content: 'Go back to SO',
+    },
+    {
+        trigger: 'button[name="action_view_task"]',
+        content: 'Go back to fsm task',
+    },
+    {
+        trigger: 'button[name="action_fsm_view_material"]',
+        content: 'Click on the Products stat button',
+    },
+    {
+        content: 'Check that is it not possible to reduce the quantity of the first product (no lot) since it has been delivered',
+        trigger: '.o_kanban_record:first-child:has(button:has(i.fa-trash)[disabled])',
+        run: () => {},
+    },
+    {
+        content: 'Check that is it not possible to reduce the quantity of the first product (lot) since it has been delivered',
+        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:has(button:has(i.fa-minus)[disabled])',
+        run: () => {},
+    }, 
+    {
+        content: 'Add quantity to the first product (no lot)',
+        trigger: '.o_kanban_record:first-child button:has(i.fa-plus)',
+    },
+    {
+        content: 'Check that is it now possible to reduce the quantity of the first product (no lot) since we added quantities',
+        trigger: '.o_kanban_record:first-child:not(button:has(i.fa-trash)[disabled])',
+        run: () => {},
+    },
+    {
+        content: 'Open the second product (lot) SN assignation wizard by using the plus button',
+        trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-plus)',
+    },
+    {
+        content: 'Check that clicking on the plus button opened the Serial number assignation wizard',
+        trigger: '.modal-content .modal-header .btn-close',
+        extra_trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+    },
+    {
+        content: 'Open the second product (lot) SN assignation wizard by using the fa-list button',
+        trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-list)',
+    },
+    {
+        content: 'Check that clicking on the fa-list button opened the Serial number assignation wizard',
+        trigger: '.modal-content .modal-header .btn-close',
+        extra_trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+    },
+    {
+        content: 'Open the second product (lot) SN assignation wizard by inputing a quantity',
+        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity input[type="number"]',
+        run: 'text 4',
+    },
+    {
+        content: 'Check that inputing a quantity opened the Serial number assignation wizard',
+        trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+    },
+    {
+        content: 'Check that the Already Delivered list view is displayed',
+        trigger: 'div[name="tracking_validated_line_ids"] table',
+    },
+    {
+        content: 'Check that the warehouse column is not visible (thus that the second one is the Quantity)',
+        trigger: 'div[name="tracking_line_ids"] table thead th:nth-of-type(2)[data-name="quantity"]',
+    },
+    ...AddTrackingLineAndValidateSteps,
+    {
+        content: 'Check that its now possible to reduce the quantity of the first product (lot) since we added new quantities to it',
+        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:not(button:has(i.fa-minus)[disabled])',
+        run: () => {},
+    },
+    {
+        content: 'Open the second product (lot) SN assignation wizard by using the minus button',
+        trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-minus)',
+    },
+    {
+        content: 'Check that clicking on the minus button opened the Serial number assignation wizard',
+        trigger: '.modal-content .modal-header .btn-close',
+        extra_trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+    },
+    {
         content: 'Open user menu',
         trigger: 'div.o_user_menu button',
     },
@@ -111,9 +208,13 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     },
     ...StepToFSMProductsKanbanWithFavoritesFilterSteps,
     {
-        content: 'Check that is it not possible to reduce the quantity of the first product (no lot)',
+        content: 'Check that is it not possible to reduce the quantity of the first product (no lot) because of the warehouse change',
         trigger: '.o_kanban_record:first-child:has(button:has(i.fa-trash)[disabled])',
     },
+    {
+        content: 'Check that is it not possible to reduce the quantity of the first product (lot) because of the warehouse change',
+        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:has(button:has(i.fa-minus)[disabled])',
+    }, 
     {
         content: 'Add quantity to the first product (lot)',
         trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-plus)',
