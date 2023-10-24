@@ -25,6 +25,7 @@ from odoo.tools.float_utils import float_round
 from odoo.tools.misc import formatLang, format_date, xlsxwriter
 from odoo.tools.safe_eval import expr_eval, safe_eval
 from odoo.models import check_method_name
+from itertools import groupby
 
 _logger = logging.getLogger(__name__)
 
@@ -4665,36 +4666,56 @@ class AccountReport(models.Model):
         else:
             reports_to_print = self
 
-        bodies = []
-        max_col_number = 0
+        reports_options = []
         for report in reports_to_print:
-            report_options = report.get_options(previous_options={**print_options, 'selected_section_id': report.id})
+            reports_options.append(report.get_options(previous_options={**print_options, 'selected_section_id': report.id}))
 
-            max_col_number = max(max_col_number, len(report_options['columns']) * len(report_options['column_groups']))
-
-            bodies.append(report._get_pdf_export_html(
-                report_options,
-                report._filter_out_folded_children(report._get_lines(report_options)),
-                additional_context={'base_url': base_url}
-            ))
+        grouped_reports_by_format = groupby(
+            zip(reports_to_print, reports_options),
+            key=lambda report: len(report[1]['columns']) > 5
+        )
 
         footer = self.env['ir.actions.report']._render_template("account_reports.internal_layout", values=rcontext)
         footer = self.env['ir.actions.report']._render_template("web.minimal_layout", values=dict(rcontext, subst=True, body=markupsafe.Markup(footer.decode())))
 
-        file_content = self.env['ir.actions.report']._run_wkhtmltopdf(
-            bodies,
-            footer=footer.decode(),
-            landscape=max_col_number > 5,
-            specific_paperformat_args={
-                'data-report-margin-top': 10,
-                'data-report-header-spacing': 10,
-                'data-report-margin-bottom': 15,
-            }
-        )
+        action_report = self.env['ir.actions.report']
+        files_stream = []
+        for is_landscape, reports_with_options in grouped_reports_by_format:
+            bodies = []
+
+            for report, report_options in reports_with_options:
+                bodies.append(report._get_pdf_export_html(
+                    report_options,
+                    report._filter_out_folded_children(report._get_lines(report_options)),
+                    additional_context={'base_url': base_url}
+                ))
+
+            files_stream.append(
+                io.BytesIO(action_report._run_wkhtmltopdf(
+                    bodies,
+                    footer=footer.decode(),
+                    landscape=is_landscape,
+                    specific_paperformat_args={
+                        'data-report-margin-top': 10,
+                        'data-report-header-spacing': 10,
+                        'data-report-margin-bottom': 15,
+                    }
+                )
+            ))
+
+        if len(files_stream) > 1:
+            result_stream = action_report._merge_pdfs(files_stream)
+            result = result_stream.getvalue()
+            # Close the different stream
+            result_stream.close()
+            for file_stream in files_stream:
+                file_stream.close()
+        else:
+            result = files_stream[0].read()
 
         return {
             'file_name': self.get_default_report_filename(options, 'pdf'),
-            'file_content': file_content,
+            'file_content': result,
             'file_type': 'pdf',
         }
 
