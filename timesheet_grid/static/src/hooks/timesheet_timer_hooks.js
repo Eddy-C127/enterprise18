@@ -196,16 +196,18 @@ export class TimesheetTimerRendererHook {
             return;
         }
 
-        if (propsList instanceof DynamicRecordList) {
-            const timesheet =
-                propsList.records.find((record) => record.resId === this.timerState.timesheetId) ||
-                (await propsList.addExistingRecord(this.timerState.timesheetId, true));
-            if (this.propsList.editedRecord) {
-                this.propsList.leaveEditMode();
-            }
-            await this.propsList.enterEditMode(timesheet);
-            this.timesheet = timesheet;
+        let timesheet = propsList.records.find((record) => record.resId === this.timerState.timesheetId);
+        if (!timesheet && propsList instanceof DynamicRecordList) {
+            timesheet = await propsList.addExistingRecord(this.timerState.timesheetId, true);
         }
+        if (!timesheet) {
+            return;
+        }
+        if (this.propsList.editedRecord) {
+            this.propsList.leaveEditMode();
+        }
+        await this.propsList.enterEditMode(timesheet);
+        this.timesheet = timesheet;
     }
 
     async _fetchRunningTimer() {
