@@ -90,7 +90,7 @@ class Article(models.Model):
         ondelete="cascade")
     # used to speed-up hierarchy operators such as child_of/parent_of
     # see '_parent_store' implementation in the ORM for details
-    parent_path = fields.Char(index=True, unaccent=False)
+    parent_path = fields.Char(index=True)
     child_ids = fields.One2many(
         "knowledge.article", "parent_id", string="Child Articles and Items",
         copy=True)

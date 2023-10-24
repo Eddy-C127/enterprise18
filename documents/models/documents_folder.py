@@ -49,7 +49,7 @@ class DocumentFolder(models.Model):
                                        string="Parent Workspace",
                                        ondelete="cascade",
                                        help="A workspace will inherit the tags of its parent workspace")
-    parent_path = fields.Char(index=True, unaccent=False)
+    parent_path = fields.Char(index=True)
     name = fields.Char(required=True, translate=True)
     description = fields.Html(string="Description", translate=True, copy=True)
     children_folder_ids = fields.One2many('documents.folder', 'parent_folder_id', string="Sub workspaces")

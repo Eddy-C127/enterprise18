@@ -12,8 +12,13 @@ class Contact(models.Model):
     def get_contacts(self, offset, limit, search_terms):
         domain = ["|", ("phone", "!=", False), ("mobile", "!=", False)]
         if search_terms:
-            search_fields = ["complete_name", "phone", "mobile", "email"]
-            search_domain = expression.OR([[(field, "ilike", search_terms)] for field in search_fields])
+            search_domain = [
+                "|", "|", "|",
+                ("phone", "like", search_terms),
+                ("mobile", "like", search_terms),
+                ("complete_name", "ilike", search_terms),
+                ("email", "ilike", search_terms),
+            ]
             domain = expression.AND([domain, search_domain])
         return self.search(domain, offset=offset, limit=limit)._format_contacts()
 
