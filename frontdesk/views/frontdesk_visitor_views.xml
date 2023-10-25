@@ -204,6 +204,13 @@
             "search_default_state_is_checked_in": 1,
             "search_default_today": 1
         }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+              No visitors yet. Let's add one!
+            </p><p>
+              Odoo helps you to track all information related to your visitors.
+            </p>
+        </field>
     </record>
 
     <record id="action_open_station_visitor" model="ir.actions.act_window">
@@ -211,6 +218,13 @@
         <field name="res_model">frontdesk.visitor</field>
         <field name="view_mode">tree,form,kanban,graph,pivot,calendar,gantt</field>
         <field name="domain">[("station_id", "=", active_id)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+              No visitors yet. Let's add one!
+            </p><p>
+              Odoo helps you to track all information related to your visitors.
+            </p>
+        </field>
     </record>
 
     <record id="action_open_guest_on_site_visitor" model="ir.actions.act_window">
@@ -219,6 +233,13 @@
         <field name="view_mode">tree,form</field>
         <field name="domain">[("station_id", "=", active_id)]</field>
         <field name="context">{"search_default_state_is_checked_in": 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+              No visitors yet. Let's add one!
+            </p><p>
+              Odoo helps you to track all information related to your visitors.
+            </p>
+        </field>
     </record>
 
     <record id="action_open_planned_visitor" model="ir.actions.act_window">
@@ -227,6 +248,13 @@
         <field name="view_mode">tree,form</field>
         <field name="domain">[("station_id", "=", active_id)]</field>
         <field name="context">{"search_default_state_is_planned": 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+              No visitors yet. Let's add one!
+            </p><p>
+              Odoo helps you to track all information related to your visitors.
+            </p>
+        </field>
     </record>
 
     <record id="action_open_drink_to_serve_visitor" model="ir.actions.act_window">
@@ -235,6 +263,13 @@
         <field name="view_mode">tree,form</field>
         <field name="domain">[("station_id", "=", active_id)]</field>
         <field name="context">{"search_default_drink_to_serve": 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+              No visitors yet. Let's add one!
+            </p><p>
+              Odoo helps you to track all information related to your visitors.
+            </p>
+        </field>
     </record>
 
     <record id="frontdesk_visitor_action_configure_properties_field" model="ir.actions.client">

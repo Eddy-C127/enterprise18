@@ -29,6 +29,9 @@
         'demo/frontdesk_demo.xml',
     ],
     'assets': {
+        'web.assets_backend': [
+            'frontdesk/static/src/js/**/*',
+        ],
         'frontdesk.assets_frontdesk': [
             # 1 Define frontdesk variables (takes priority over frontend ones)
             "frontdesk/static/src/primary_variables.scss",

@@ -8,7 +8,7 @@
     <data noupdate="0">
         <!-- Stations -->
         <record model="frontdesk.frontdesk" id="frontdesk_frontdesk_1">
-            <field name="name">Office 1</field>
+            <field name="name">Frontdesk</field>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="self_check_in">True</field>
             <field name="drink_offer">True</field>
@@ -17,10 +17,11 @@
 
         <!-- Visitors  -->
         <record model="frontdesk.visitor" id="frontdesk_visitor_1">
-            <field name="name">Tony Stark</field>
-            <field name="phone">1230004567</field>
-            <field name="email">stark@industries.com</field>
-            <field eval="datetime.now() + timedelta(hours=0.5)" name="check_in"/>
+            <field name="name">John Smith</field>
+            <field name="phone">(644)-169-1353</field>
+            <field name="email">johnsmith@example.com</field>
+            <field name="check_in" eval="datetime.now()"/>
+            <field name="host_ids" eval="[(4, ref('hr.employee_admin'))]"/>
             <field name="state">planned</field>
             <field name="station_id" ref="frontdesk.frontdesk_frontdesk_1"/>
         </record>
