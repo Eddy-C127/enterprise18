@@ -9,7 +9,8 @@
                 <field name="contract_type_id"/>
             </field>
             <group name="group_offer_to" position="after">
-                <group name="group_car" string="Car">
+                <group name="group_car" string="Car" invisible="country_code != 'BE'">
+                    <field name="country_code" invisible="1"/>
                     <field name="new_car"/>
                     <field name="show_new_car" invisible="1"/>
                     <field name="car_id"/>

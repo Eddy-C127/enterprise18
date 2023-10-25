@@ -20,3 +20,4 @@ class HrContractSalaryOffer(models.Model):
         help="Default employee's company car. If left empty, the default value will be the employee's current car.")
     l10n_be_canteen_cost = fields.Float(
         string="Canteen Cost", readonly=False)
+    country_code = fields.Char(related='contract_template_id.country_code', depends=['contract_template_id'])

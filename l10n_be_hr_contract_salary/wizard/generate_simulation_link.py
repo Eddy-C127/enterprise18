@@ -17,6 +17,7 @@ class GenerateSimulationLink(models.TransientModel):
     l10n_be_canteen_cost = fields.Float(
         string="Canteen Cost", compute='_compute_l10n_be_canteen_cost', store=True, readonly=False)
     assigned_car_warning = fields.Char(compute='_compute_assigned_car_warning')
+    country_code = fields.Char(related='company_id.country_id.code', depends=['company_id'])
 
     @api.depends('applicant_id.partner_id', 'employee_id.partner_id', 'car_id')
     def _compute_assigned_car_warning(self):
