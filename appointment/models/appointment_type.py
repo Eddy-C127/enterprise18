@@ -305,21 +305,15 @@ class AppointmentType(models.Model):
             if not record.appointment_duration > 0.0:
                 raise ValidationError(_('Appointment Duration should be higher than 0.00.'))
 
-    @api.constrains('category', 'staff_user_ids', 'schedule_based_on', 'slot_ids')
+    @api.constrains('category', 'staff_user_ids', 'schedule_based_on')
     def _check_staff_user_configuration(self):
         anytime_appointments = self.search([('category', '=', 'anytime')])
-        for appointment_type in self.filtered(lambda appt: appt.schedule_based_on == "users"):
-            if appointment_type.category == 'anytime' and len(appointment_type.staff_user_ids) != 1:
+        for appointment_type in self.filtered(lambda appt: appt.schedule_based_on == "users" and appt.category == "anytime"):
+            if len(appointment_type.staff_user_ids) != 1:
                 raise ValidationError(_("Anytime appointment types should only have one user but got %s users", len(appointment_type.staff_user_ids)))
-            invalid_restricted_users = appointment_type.slot_ids.restrict_to_user_ids - appointment_type.staff_user_ids
-            if invalid_restricted_users:
-                raise ValidationError(_("The following users are in restricted slots but they are not part of the available staff: %s", ", ".join(invalid_restricted_users.mapped('name'))))
-            if appointment_type.category == 'anytime':
-                duplicate = anytime_appointments.filtered(lambda apt_type: bool(apt_type.staff_user_ids & appointment_type.staff_user_ids))
-                if appointment_type.ids:
-                    duplicate = duplicate.filtered(lambda apt_type: apt_type.id not in appointment_type.ids)
-                if duplicate:
-                    raise ValidationError(_("Only one anytime appointment type is allowed for a specific user."))
+            duplicate = anytime_appointments.filtered(lambda apt_type: bool(apt_type.staff_user_ids & appointment_type.staff_user_ids))
+            if appointment_type.ids != duplicate.ids:
+                raise ValidationError(_("Only one anytime appointment type is allowed for a specific user."))
 
     @api.model_create_multi
     def create(self, vals_list):

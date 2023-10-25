@@ -1086,6 +1086,63 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
             unique_slots[1]['start_datetime'].strftime('%Y-%m-%d %H:%M:%S'),
         )
 
+    @users('apt_manager')
+    def test_synchronize_restricted_resource_and_staff_to_appointment_type(self):
+        """ Check that when changing staff users or resources, the appointment slots adapt their
+            restricted users/resources to only keep the new staff users / resources. Remove the rest.
+            When changing schedule_based_on, remove previous mode users/ resources on both type and slots.
+        """
+        appointment_type = self.apt_type_bxls_2days
+        self.assertTrue(len(appointment_type.slot_ids) >= 3)
+        slot_1, slot_2, slot_3 = appointment_type.slot_ids[:3]
+
+        appointment_type.staff_user_ids = [(6, False, [self.apt_manager.id, self.staff_user_bxls.id])]
+        self.assertEqual(appointment_type.staff_user_ids, self.apt_manager | self.staff_user_bxls)
+        slot_1.restrict_to_user_ids = [self.apt_manager.id, self.staff_user_bxls.id]
+        slot_2.restrict_to_user_ids = [self.apt_manager.id]
+        slot_3.restrict_to_user_ids = []
+        self.assertEqual(slot_1.restrict_to_user_ids, self.apt_manager | self.staff_user_bxls)
+        self.assertEqual(slot_2.restrict_to_user_ids, self.apt_manager)
+        self.assertFalse(slot_3.restrict_to_user_ids)
+
+        appointment_type.staff_user_ids = [(6, False, [self.staff_user_bxls.id, self.staff_user_aust.id])]
+        self.assertEqual(appointment_type.staff_user_ids, self.staff_user_bxls | self.staff_user_aust)
+        self.assertEqual(slot_1.restrict_to_user_ids, self.staff_user_bxls)
+        self.assertFalse(slot_2.restrict_to_user_ids)
+        self.assertFalse(slot_3.restrict_to_user_ids)
+
+        appointment_type.schedule_based_on = 'resources'
+        self.assertFalse(appointment_type.staff_user_ids)
+        self.assertFalse(slot_1.restrict_to_user_ids | slot_2.restrict_to_user_ids | slot_3.restrict_to_user_ids)
+        resource_1, resource_2, resource_3 = self.env['appointment.resource'].create([{
+            'appointment_type_ids': appointment_type.ids,
+            'name': 'Resource 1',
+        }, {
+            'appointment_type_ids': appointment_type.ids,
+            'name': 'Resource 2',
+        }, {
+            'appointment_type_ids': appointment_type.ids,
+            'name': 'Resource 3',
+        }])
+
+        self.assertEqual(appointment_type.resource_ids, resource_1 | resource_2 | resource_3)
+        slot_1.restrict_to_resource_ids = [resource_1.id, resource_2.id]
+        slot_2.restrict_to_resource_ids = [resource_1.id]
+        slot_3.restrict_to_resource_ids = []
+        self.assertEqual(slot_1.restrict_to_resource_ids, resource_1 | resource_2)
+        self.assertEqual(slot_2.restrict_to_resource_ids, resource_1)
+        self.assertFalse(slot_3.restrict_to_user_ids)
+
+        appointment_type.resource_ids = [(6, False, [resource_2.id, resource_3.id])]
+        self.assertEqual(appointment_type.resource_ids, resource_2 | resource_3)
+        self.assertEqual(slot_1.restrict_to_resource_ids, resource_2)
+        self.assertFalse(slot_2.restrict_to_resource_ids)
+        self.assertFalse(slot_3.restrict_to_resource_ids)
+
+        appointment_type.schedule_based_on = 'users'
+        self.assertFalse(appointment_type.resource_ids)
+        self.assertFalse(slot_1.restrict_to_resource_ids | slot_2.restrict_to_resource_ids | slot_3.restrict_to_resource_ids)
+
     def test_check_appointment_timezone(self):
         session = self.authenticate(None, None)
         odoo.http.root.session_store.save(session)

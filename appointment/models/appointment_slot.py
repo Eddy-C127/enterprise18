@@ -22,11 +22,12 @@ class AppointmentSlot(models.Model):
         defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar.""")
     allday = fields.Boolean('All day',
         help="Determine if the slot englobe the whole day, mainly used for unique slot type")
-    restrict_to_user_ids = fields.Many2many(
-        'res.users', string='Restrict to Users',
+    restrict_to_user_ids = fields.Many2many('res.users', string='Restrict to Users',
+        compute="_compute_restrict_to_user_ids", readonly=False, store=True,
         help="If empty, all users are considered to be available.\n"
              "If set, only the selected users will be taken into account for this slot.")
     restrict_to_resource_ids = fields.Many2many("appointment.resource", string="Restrict to Resources",
+        compute="_compute_restrict_to_resource_ids", readonly=False, store=True,
         help="If empty, all resources are considered to be available.\n"
              "If set, only the selected resources will be taken into account for this slot.")
     # Recurring slot
@@ -112,3 +113,13 @@ class AppointmentSlot(models.Model):
                 slot.display_name = "%s, %02d:%02d - %02d:%02d" % (weekdays.get(slot.weekday), int(slot.start_hour), int(round((slot.start_hour % 1) * 60)), int(slot.end_hour), int(round((slot.end_hour % 1) * 60)))
             else:
                 slot.display_name = f"{slot.start_datetime} - {slot.end_datetime}"
+
+    @api.depends('appointment_type_id.resource_ids')
+    def _compute_restrict_to_resource_ids(self):
+        for slot in self:
+            slot.restrict_to_resource_ids &= slot.appointment_type_id.resource_ids
+
+    @api.depends('appointment_type_id.staff_user_ids')
+    def _compute_restrict_to_user_ids(self):
+        for slot in self:
+            slot.restrict_to_user_ids &= slot.appointment_type_id.staff_user_ids
