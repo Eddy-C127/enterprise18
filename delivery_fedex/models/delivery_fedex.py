@@ -11,33 +11,11 @@ from odoo.exceptions import UserError
 from odoo.tools import pdf, float_repr
 from odoo.tools.safe_eval import const_eval
 
-from .fedex_request import FedexRequest
+from .fedex_request import FedexRequest, _convert_curr_iso_fdx, _convert_curr_fdx_iso
 
 
 _logger = logging.getLogger(__name__)
 
-# Why using standardized ISO codes? It's way more fun to use made up codes...
-# https://www.fedex.com/us/developer/WebHelp/ws/2014/dvg/WS_DVG_WebHelp/Appendix_F_Currency_Codes.htm
-FEDEX_CURR_MATCH = {
-    u'UYU': u'UYP',
-    u'XCD': u'ECD',
-    u'MXN': u'NMP',
-    u'KYD': u'CID',
-    u'CHF': u'SFR',
-    u'GBP': u'UKL',
-    u'IDR': u'RPA',
-    u'DOP': u'RDD',
-    u'JPY': u'JYE',
-    u'KRW': u'WON',
-    u'SGD': u'SID',
-    u'CLP': u'CHP',
-    u'JMD': u'JAD',
-    u'KWD': u'KUD',
-    u'AED': u'DHS',
-    u'TWD': u'NTD',
-    u'ARS': u'ARN',
-    u'LVL': u'EURO',
-}
 
 FEDEX_STOCK_TYPE = [
     ('PAPER_4X6', 'PAPER_4X6'),
@@ -547,10 +525,3 @@ class ProviderFedex(models.Model):
         return srm
 
 
-def _convert_curr_fdx_iso(code):
-    curr_match = {v: k for k, v in FEDEX_CURR_MATCH.items()}
-    return curr_match.get(code, code)
-
-
-def _convert_curr_iso_fdx(code):
-    return FEDEX_CURR_MATCH.get(code, code)
