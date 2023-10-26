@@ -10,6 +10,7 @@ import { getPropertyFieldInfo } from "@web/views/fields/field";
 import { TimesheetTimerHeader } from "../timesheet_timer_header/timesheet_timer_header";
 
 import { Component, onWillStart } from "@odoo/owl";
+import { TimerReactive } from "@timer/models/timer_reactive";
 
 export class GridTimesheetTimerHeader extends Component {
     static components = {
@@ -33,7 +34,7 @@ export class GridTimesheetTimerHeader extends Component {
     setup() {
         this.notificationService = useService("notification");
         this.timesheetUOMService = useService("timesheet_uom");
-        this.timerService = useService("timer");
+        this.timerReactive = new TimerReactive(this.env);
         onWillStart(this.onWillStart);
     }
 
@@ -88,7 +89,7 @@ export class GridTimesheetTimerHeader extends Component {
     }
 
     async onTimesheetChanged(timesheet, changes) {
-        const secondsElapsed = this.timerService.toSeconds;
+        const secondsElapsed = this.timerReactive.toSeconds;
         if (timesheet.isNew) {
             if (changes.project_id || changes.task_id) {
                 // create the timesheet when the project is set

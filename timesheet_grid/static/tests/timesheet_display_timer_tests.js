@@ -7,7 +7,6 @@ import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { getFixture, mount, nextTick } from "@web/../tests/helpers/utils";
 
 import { TimesheetDisplayTimer, TimesheetTimerFloatTimerField } from "@timesheet_grid/components/timesheet_display_timer/timesheet_display_timer";
-import { timerService } from "@timer/services/timer_service";
 import { EventBus } from "@odoo/owl";
 
 const { DateTime } = luxon;
@@ -20,7 +19,6 @@ QUnit.module("timesheet_grid", (hooks) => {
         target = getFixture();
         now = DateTime.utc();
         registry.category("services").add("orm", ormService, {force: true});
-        registry.category("services").add("timer", timerService, {force: true});
     });
 
     QUnit.module("TimesheetTimerFloatTimerField");

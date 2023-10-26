@@ -11,7 +11,6 @@ import { getPyEnv } from "@bus/../tests/helpers/mock_python_environment";
 import { start } from "@mail/../tests/helpers/test_utils";
 
 import { setupTestEnv } from "@hr_timesheet/../tests/hr_timesheet_common_tests";
-import { timerService } from "@timer/services/timer_service";
 import { timesheetGridUOMService } from "@timesheet_grid/services/timesheet_grid_uom_service";
 
 import { TimesheetGridSetupHelper } from "@timesheet_grid/../tests/helpers";
@@ -42,7 +41,6 @@ QUnit.module("Views", (hooks) => {
         setupTestEnv();
         const serviceRegistry = registry.category("services");
         serviceRegistry.add("orm", ormService, { force: true });
-        serviceRegistry.add("timer", timerService, { force: true });
         const gridComponentsRegistry = registry.category("grid_components");
         if (gridComponentsRegistry.contains("timesheet_uom")) {
             gridComponentsRegistry.remove("timesheet_uom"); // the component will be added by timesheet_grid_uom_service

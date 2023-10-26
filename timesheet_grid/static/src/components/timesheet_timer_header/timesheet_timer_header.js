@@ -18,7 +18,7 @@ export class TimesheetTimerHeader extends Component {
         addTimeMode: Boolean,
         fields: { type: Object, optional: true },
         headerReadonly: { type: Boolean, optional: true },
-        timerService: { type: Object, optional: true },
+        timerReactive: { type: Object, optional: true },
         onTimerStarted: Function,
         onTimerStopped: Function,
         onTimerUnlinked: Function,

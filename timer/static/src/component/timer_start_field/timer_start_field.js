@@ -2,9 +2,9 @@
 
 import { Component, useState, onWillStart, onWillUnmount } from "@odoo/owl";
 import { registry } from "@web/core/registry";
-import { useService } from "@web/core/utils/hooks";
 import { useRecordObserver } from "@web/model/relational_model/utils";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
+import { TimerReactive } from "../../models/timer_reactive";
 
 export class TimerStartField extends Component {
     static props = {
@@ -14,28 +14,25 @@ export class TimerStartField extends Component {
 
     setup() {
         super.setup(...arguments);
-        this.timerService = useService("timer");
-        this.state = useState({ timer: undefined, time: "", serverOffset: 0 });
+        this.timerReactive = useState(new TimerReactive(this.env));
 
         onWillStart(this.onWillStart);
         useRecordObserver(this.onRecordChange.bind(this));
         onWillUnmount(() => {
-            clearInterval(this.state.timer);
+            clearInterval(this.timerReactive.timer);
         });
     }
 
     async onWillStart() {
-        const serverTime = await this.timerService.getServerTime();
-        this.timerService.computeOffset(serverTime);
-        this.state.serverOffset = this.timerService.offset;
+        const serverTime = await this.timerReactive.getServerTime();
+        this.timerReactive.computeOffset(serverTime);
     }
 
     onRecordChange(record) {
-        clearInterval(this.state.timer);
-        this.state.timer = undefined;
+        clearInterval(this.timerReactive.timer);
         const timerPause = record.data.timer_pause;
         if (timerPause && !record.data.timer_pause) {
-            this.timerService.clearTimer();
+            this.timerReactive.clearTimer();
         }
         this.startTimer(record.data[this.props.name], timerPause);
     }
@@ -45,26 +42,24 @@ export class TimerStartField extends Component {
             let currentTime;
             if (timerPause) {
                 currentTime = timerPause;
-                this.timerService.computeOffset(currentTime);
+                this.timerReactive.computeOffset(currentTime);
             } else {
-                this.timerService.offset = this.state.serverOffset;
-                currentTime = this.timerService.getCurrentTime();
+                currentTime = this.timerReactive.getCurrentTime();
             }
-            this.timerService.setTimer(0, timerStart, currentTime);
-            this.state.time = this.timerService.timerFormatted;
-            clearInterval(this.state.timer);
-            this.state.timer = setInterval(() => {
+            this.timerReactive.setTimer(0, timerStart, currentTime);
+            this.timerReactive.formatTime();
+            clearInterval(this.timerReactive.timer);
+            this.timerReactive.timer = setInterval(() => {
                 if (timerPause) {
-                    clearInterval(this.state.timer);
+                    clearInterval(this.timerReactive.timer);
                 } else {
-                    this.timerService.updateTimer(timerStart);
-                    this.state.time = this.timerService.timerFormatted;
+                    this.timerReactive.updateTimer(timerStart);
+                    this.timerReactive.formatTime();
                 }
             }, 1000);
         } else if (!timerPause) {
-            clearInterval(this.state.timer);
-            this.state.time = "";
-            this.timerService.clearTimer();
+            clearInterval(this.timerReactive.timer);
+            this.timerReactive.clearTimer();
         }
     }
 }

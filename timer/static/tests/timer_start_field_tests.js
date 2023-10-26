@@ -1,8 +1,6 @@
 /** @odoo-module */
 
-import { registry } from "@web/core/registry";
 import { serializeDateTime } from "@web/core/l10n/dates";
-import { timerService } from "@timer/services/timer_service";
 
 import { makeView } from "@web/../tests/views/helpers";
 import { getFixture } from "@web/../tests/helpers/utils";
@@ -17,7 +15,6 @@ QUnit.module("timer", (hooks) => {
     const now = DateTime.utc();
     hooks.beforeEach(async function (assert) {
         setupTestEnv();
-        registry.category("services").add("timer", timerService, { force: true });
 
         let serverData = getServerData();
         serverData.models["account.analytic.line"].fields["timer_start"] = { string: "Timer Started", type: 'datetime' };

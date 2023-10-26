@@ -1,10 +1,10 @@
 /** @odoo-module **/
 
-import { useService } from "@web/core/utils/hooks";
 import { formatFloatTime } from "@web/views/fields/formatters";
 import { FloatTimeField } from "@web/views/fields/float_time/float_time_field";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
 import { Component, useState, onWillStart, onWillDestroy, onWillUpdateProps } from "@odoo/owl";
+import { TimerReactive } from "@timer/models/timer_reactive";
 
 export class TimesheetTimerFloatTimerField extends FloatTimeField {
     static template = "timesheet_grid.TimesheetTimerFloatTimeField";
@@ -36,7 +36,7 @@ export class TimesheetDisplayTimer extends Component {
         timerRunning: { type: Boolean, optional: true },
         context: { type: Object, optional: true },
         displayRed: { type: Boolean, optional: true },
-        timerService: { type: Object, optional: true },
+        timerReactive: { type: Object, optional: true },
     };
 
     static defaultProps = { displayRed: true };
@@ -47,7 +47,7 @@ export class TimesheetDisplayTimer extends Component {
     };
 
     setup() {
-        this.timerService = this.props.timerService || useService("timer");
+        this.timerReactive = this.props.timerReactive || new TimerReactive(this.env);
         this.state = useState({
             timerStart: this.props.record.data.timer_start,
             timerRunning:
@@ -71,13 +71,13 @@ export class TimesheetDisplayTimer extends Component {
             this.props.value !== nextProps.value;
         if (this.state.timerRunning && shouldReloadTimer) {
             this._stopTimeRefresh();
-            this.timerService.clearTimer();
+            this.timerReactive.clearTimer();
             if (nextProps.record.data.timer_start) {
                 this.state.timerStart = nextProps.record.data.timer_start;
             }
-            this.timerService.setTimer(newValue, this.state.timerStart, this.serverTime);
-            this.timerService.updateTimer(this.state.timerStart);
-            newValue = this.timerService.floatValue;
+            this.timerReactive.setTimer(newValue, this.state.timerStart, this.serverTime);
+            this.timerReactive.updateTimer(this.state.timerStart);
+            newValue = this.timerReactive.floatValue;
             this._startTimeRefresh();
         }
         this.state.value = newValue;
@@ -85,14 +85,14 @@ export class TimesheetDisplayTimer extends Component {
 
     async onWillStart() {
         if (this.state.timerRunning) {
-            this.serverTime = await this.timerService.getServerTime();
-            this.timerService.computeOffset(this.serverTime);
+            this.serverTime = await this.timerReactive.getServerTime();
+            this.timerReactive.computeOffset(this.serverTime);
             if (!this.state.timerStart) {
-                this.state.timerStart = this.timerService.getCurrentTime();
+                this.state.timerStart = this.timerReactive.getCurrentTime();
             }
-            this.timerService.setTimer(this.state.value, this.state.timerStart, this.serverTime);
-            this.timerService.updateTimer(this.state.timerStart);
-            this.state.value = this.timerService.floatValue;
+            this.timerReactive.setTimer(this.state.value, this.state.timerStart, this.serverTime);
+            this.timerReactive.updateTimer(this.state.timerStart);
+            this.state.value = this.timerReactive.floatValue;
             this._startTimeRefresh();
         }
     }
@@ -100,8 +100,8 @@ export class TimesheetDisplayTimer extends Component {
     _startTimeRefresh() {
         if (!this.timeRefresh) {
             this.timeRefresh = setInterval(() => {
-                this.timerService.updateTimer(this.state.timerStart);
-                this.state.value = this.timerService.floatValue;
+                this.timerReactive.updateTimer(this.state.timerStart);
+                this.state.value = this.timerReactive.floatValue;
             }, 1000);
         }
     }
@@ -116,7 +116,7 @@ export class TimesheetDisplayTimer extends Component {
     get TimesheetTimerFloatTimerFieldProps() {
         const { timerRunning, value } = this.state;
         const props = { ...this.props };
-        delete props.timerService;
+        delete props.timerReactive;
         return { ...props, timerRunning, value };
     }
 }

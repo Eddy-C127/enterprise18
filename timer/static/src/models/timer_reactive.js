@@ -1,13 +1,14 @@
 /** @odoo-module */
 
 import { deserializeDateTime } from "@web/core/l10n/dates";
-import { registry } from "@web/core/registry";
+import { Reactive } from "@web/core/utils/reactive";
 
 const { DateTime, Interval } = luxon;
 
-class TimerService {
-    constructor(orm) {
-        this.orm = orm;
+export class TimerReactive extends Reactive {
+    constructor(env) {
+        super();
+        this.orm = env.services.orm;
         this.clearTimer();
     }
 
@@ -19,11 +20,11 @@ class TimerService {
         return this.toSeconds / 3600;
     }
 
-    get timerFormatted() {
+    formatTime() {
         const hours = `${this.hours}`.padStart(2, "0");
         const minutes = `${this.minutes}`.padStart(2, "0");
         const seconds = `${this.seconds}`.padStart(2, "0");
-        return `${hours}:${minutes}:${seconds}`;
+        this.time = `${hours}:${minutes}:${seconds}`;
     }
 
     addHours(hours) {
@@ -42,11 +43,11 @@ class TimerService {
         this.addMinutes(Math.floor(seconds / 60));
     }
 
-    computeOffset(time) {
-        const { seconds } = this.getInterval(DateTime.now(), time)
+    computeOffset(serverTime) {
+        const { seconds } = this.getInterval(DateTime.now(), serverTime)
             .toDuration(["seconds", "milliseconds"])
             .toObject();
-        this.offset = seconds;
+        this.serverOffset = seconds;
     }
 
     setTimer(timeElapsed, timerStart, serverTime) {
@@ -81,7 +82,7 @@ class TimerService {
     }
 
     getCurrentTime() {
-        return DateTime.now().plus({ seconds: this.offset });
+        return DateTime.now().plus({ seconds: this.serverOffset });
     }
 
     async getServerTime() {
@@ -113,22 +114,11 @@ class TimerService {
         this.hours = 0;
         this.minutes = 0;
         this.seconds = 0;
+        this.time = "";
     }
 
     clearTimer() {
         this.resetTimer();
-        delete this.offset;
+        delete this.serverOffset;
     }
 }
-
-export const timerService = {
-    dependencies: ["orm"],
-    async: [
-        "getServerTime",
-    ],
-    start(env, { orm }) {
-        return new TimerService(orm);
-    }
-};
-
-registry.category('services').add('timer', timerService);

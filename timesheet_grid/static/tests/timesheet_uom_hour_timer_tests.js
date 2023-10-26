@@ -3,7 +3,6 @@
 import { serializeDateTime } from "@web/core/l10n/dates";
 import { registry } from "@web/core/registry";
 import { ormService } from "@web/core/orm_service";
-import { timerService } from "@timer/services/timer_service";
 
 import { makeView } from "@web/../tests/views/helpers";
 import { click, getFixture } from "@web/../tests/helpers/utils";
@@ -29,7 +28,6 @@ QUnit.module("timesheet_grid", (hooks) => {
     hooks.beforeEach(async function (assert) {
         setupTestEnv();
         registry.category("services").add("orm", ormService, {force: true});
-        registry.category("services").add("timer", timerService, {force: true});
 
         const serverData = getServerData();
         serverData.models["account.analytic.line"].fields.timer_start = { string: "Timer Started", type: 'datetime' };
