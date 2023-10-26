@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"></field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='pricelist_id']" position="after">
-                <field name="voucher_number"/>
+                <field name="voucher_number" invisible="country_code != 'CL'"/>
             </xpath>
         </field>
     </record>
