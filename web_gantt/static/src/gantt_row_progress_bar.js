@@ -8,7 +8,7 @@ export class GanttRowProgressBar extends Component {
         reactive: {
             type: Object,
             shape: {
-                el: [HTMLElement, { value: null }],
+                hoveredRowId: [String, { value: null }],
             },
         },
         rowId: String,
@@ -28,7 +28,7 @@ export class GanttRowProgressBar extends Component {
 
     get show() {
         const { reactive, rowId } = this.props;
-        return reactive.el?.dataset.rowId === rowId || isMobileOS() || hasTouch();
+        return reactive.hoveredRowId === rowId || isMobileOS() || hasTouch();
     }
 
     get status() {

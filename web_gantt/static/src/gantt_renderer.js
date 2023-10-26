@@ -213,7 +213,7 @@ export class GanttRenderer extends Component {
         this.onInteractionChange(); // Used to hook into "interaction"
         /** @type {Record<ConnectorId, ConnectorProps>} */
         this.connectors = reactive({});
-        this.progressBarsReactive = reactive({ el: null });
+        this.progressBarsReactive = reactive({ hoveredRowId: null });
         /** @type {ResizeBadge} */
         this.resizeBadgeReactive = reactive({});
 
@@ -676,7 +676,7 @@ export class GanttRenderer extends Component {
         }
 
         if (this.isDragging) {
-            this.progressBarsReactive.el = null;
+            this.progressBarsReactive.hoveredRowId = null;
             return;
         }
 
@@ -689,7 +689,7 @@ export class GanttRenderer extends Component {
                 }
             }
             if (hoveredConnectorId) {
-                this.progressBarsReactive.el = null;
+                this.progressBarsReactive.hoveredRowId = null;
                 return this.toggleConnectorHighlighting(hoveredConnectorId, true);
             }
         }
@@ -729,7 +729,7 @@ export class GanttRenderer extends Component {
         }
 
         // Update progress bars
-        this.progressBarsReactive.el = hoverable;
+        this.progressBarsReactive.hoveredRowId = hoverable ? hoverable.dataset.rowId : null;
     }
 
     /**
@@ -1364,7 +1364,10 @@ export class GanttRenderer extends Component {
         pill.highlighted = highlighted;
         const pillWrapper = this.getPillWrapperEl(pillId);
         pillWrapper?.classList.toggle("highlight", highlighted);
-        pillWrapper?.classList.toggle("o_connector_creator_highlight", highlighted && this.connectorDragState.dragging);
+        pillWrapper?.classList.toggle(
+            "o_connector_creator_highlight",
+            highlighted && this.connectorDragState.dragging
+        );
     }
 
     initializeConnectors() {

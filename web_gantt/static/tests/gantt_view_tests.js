@@ -1,6 +1,6 @@
 /** @odoo-module */
 
-import { markup, onPatched, useEffect, useRef } from "@odoo/owl";
+import { markup, onPatched, onRendered, useEffect, useRef } from "@odoo/owl";
 import {
     click,
     editInput,
@@ -45,6 +45,7 @@ import {
     setScale,
 } from "./helpers";
 import { MockServer } from "@web/../tests/helpers/mock_server";
+import { GanttRowProgressBar } from "@web_gantt/gantt_row_progress_bar";
 
 function randomName(length) {
     const CHARS = "abcdefghijklmnopqrstuvwxyzàùéèâîûêôäïüëö";
@@ -4758,10 +4759,60 @@ QUnit.test("Progress bar rpc is triggered when option set.", async (assert) => {
         ["50%", "12.5%"]
     );
     await hoverGridCell(1, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "50h / 100h");
+    assert.deepEqual(
+        target.querySelector(SELECTORS.progressBarForeground).textContent,
+        "50h / 100h"
+    );
     await hoverGridCell(2, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "25h / 200h");
+    assert.deepEqual(
+        target.querySelector(SELECTORS.progressBarForeground).textContent,
+        "25h / 200h"
+    );
 });
+
+QUnit.test(
+    "Progress bar component will not render when hovering cells of the same row",
+    async (assert) => {
+        patchWithCleanup(GanttRowProgressBar.prototype, {
+            setup() {
+                super.setup(...arguments);
+                onRendered(() => assert.step("rendering progress bar"));
+            },
+        });
+        await makeView({
+            type: "gantt",
+            resModel: "tasks",
+            serverData,
+            arch: `
+            <gantt
+                date_start="start"
+                date_stop="stop"
+                default_scale="week" scales="week"
+                default_group_by="user_id"
+                progress_bar="user_id"
+            >
+                <field name="user_id"/>
+            </gantt>
+        `,
+            async mockRPC(_, { method }) {
+                if (method === "gantt_progress_bar") {
+                    return {
+                        user_id: {
+                            1: { value: 50, max_value: 100 },
+                            2: { value: 25, max_value: 200 },
+                        },
+                    };
+                }
+            },
+        });
+        assert.verifySteps(["rendering progress bar", "rendering progress bar"]);
+        await hoverGridCell(1, 4);
+        assert.verifySteps(["rendering progress bar", "rendering progress bar"]);
+        await hoverGridCell(1, 3);
+        await hoverGridCell(2, 3);
+        assert.verifySteps(["rendering progress bar", "rendering progress bar"]);
+    }
+);
 
 QUnit.test("Progress bar when multilevel grouped.", async (assert) => {
     assert.expect(13);
@@ -4814,9 +4865,15 @@ QUnit.test("Progress bar when multilevel grouped.", async (assert) => {
         ["50%", "12.5%"]
     );
     await hoverGridCell(1, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "50h / 100h");
+    assert.deepEqual(
+        target.querySelector(SELECTORS.progressBarForeground).textContent,
+        "50h / 100h"
+    );
     await hoverGridCell(3, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "25h / 200h");
+    assert.deepEqual(
+        target.querySelector(SELECTORS.progressBarForeground).textContent,
+        "25h / 200h"
+    );
 });
 
 QUnit.test("Progress bar warning when max_value is zero", async (assert) => {
@@ -4877,7 +4934,7 @@ QUnit.test("Progress bar when value less than hour", async (assert) => {
                 assert.deepEqual(args[1], { user_id: [1, 2] });
                 return {
                     user_id: {
-                        1: { value: 0.50, max_value: 100 },
+                        1: { value: 0.5, max_value: 100 },
                     },
                 };
             }
