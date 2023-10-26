@@ -98,7 +98,8 @@ export class MrpMenuDialog extends Component {
     }
 
     addStep(){
-        this.proposeChange('add_step');
+        const check = this.props.params.checks.length ? this.props.params.checks.at(-1).resId : [];
+        this.proposeChangeForCheck("add_step", check);
     }
 
     removeStep(){
