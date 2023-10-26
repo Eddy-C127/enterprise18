@@ -7,7 +7,8 @@
             <field name="inherit_id" ref="base.view_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook[last()]" position="inside">
-                    <page string="MX parameters" name="mx_parameters">
+                    <field name="fiscal_country_codes" invisible="1"/>
+                    <page string="MX parameters" name="mx_parameters" invisible="'MX' not in fiscal_country_codes">
                         <group>
                             <field name="l10n_mx_edi_addenda_flag"/>
                         </group>

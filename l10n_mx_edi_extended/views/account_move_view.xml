@@ -7,10 +7,10 @@
             <field name="inherit_id" ref="account.view_move_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='other_info']" position="inside">
-                    <group invisible="move_type not in ('out_invoice', 'out_refund')">
+                    <group invisible="move_type not in ('out_invoice', 'out_refund') or country_code != 'MX'">
                         <group string="External Trade">
                             <field name="l10n_mx_edi_external_trade" invisible="1"/>
-                            <field name="l10n_mx_edi_external_trade_type" invisible="country_code != 'MX'"/>
+                            <field name="l10n_mx_edi_external_trade_type"/>
                             <field name="l10n_mx_edi_cer_source" invisible="l10n_mx_edi_external_trade_type not in ['02', '03']"/>
                         </group>
                     </group>

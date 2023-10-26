@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class IrView(models.Model):
@@ -10,3 +10,10 @@ class IrView(models.Model):
         string='Is an addenda?',
         help='If True, the view is an addenda for the Mexican EDI invoicing.',
         default=False)
+
+    fiscal_country_codes = fields.Char(compute="_compute_fiscal_country_codes")
+
+    @api.depends_context('allowed_company_ids')
+    def _compute_fiscal_country_codes(self):
+        for record in self:
+            record.fiscal_country_codes = ",".join(self.env.companies.mapped('account_fiscal_country_id.code'))

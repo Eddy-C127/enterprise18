@@ -19,15 +19,15 @@
 
             <xpath expr="//group[@name='order_fields']" position="inside">
                 <field name="l10n_mx_edi_cfdi_state"
-                       invisible="not l10n_mx_edi_cfdi_state"/>
+                       invisible="not l10n_mx_edi_cfdi_state or country_code != 'MX'"/>
                 <field name="l10n_mx_edi_cfdi_sat_state"
-                       invisible="not l10n_mx_edi_cfdi_sat_state"/>
+                       invisible="not l10n_mx_edi_cfdi_sat_state or country_code != 'MX'"/>
                 <field name="l10n_mx_edi_cfdi_uuid"
-                       invisible="not l10n_mx_edi_cfdi_uuid"/>
+                       invisible="not l10n_mx_edi_cfdi_uuid or country_code != 'MX'"/>
                 <field name="l10n_mx_edi_usage"
-                       invisible="not l10n_mx_edi_usage"/>
+                       invisible="not l10n_mx_edi_usage or country_code != 'MX'"/>
                 <field name="l10n_mx_edi_cfdi_to_public"
-                       invisible="not l10n_mx_edi_is_cfdi_needed"
+                       invisible="not l10n_mx_edi_is_cfdi_needed or country_code != 'MX'"
                        readonly="l10n_mx_edi_cfdi_state in ('sent', 'global_sent')"/>
             </xpath>
 
@@ -35,7 +35,7 @@
             <xpath expr="//page[@name='notes']" position="after">
                 <page id="edi_documents"
                       string="CFDI"
-                      invisible="not l10n_mx_edi_document_ids">
+                      invisible="not l10n_mx_edi_document_ids or country_code != 'MX'">
                     <field name="l10n_mx_edi_document_ids">
                         <tree create="false" delete="false" edit="false" no_open="1">
                             <!-- Invisible fields -->
