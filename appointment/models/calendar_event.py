@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 
 from odoo import _, api, Command, fields, models, SUPERUSER_ID
 from odoo.tools import html2plaintext, email_normalize, email_split_tuples
+from odoo.addons.resource.models.utils import Intervals, timezone_datetime
 from ..utils import interval_from_events, intervals_overlap
 
 _logger = logging.getLogger(__name__)
@@ -349,11 +350,17 @@ class CalendarEvent(models.Model):
     def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
         # skip if not dealing with appointments
         resource_ids = [row['resId'] for row in rows if row.get('resId')]  # remove empty rows
-        if not group_bys or group_bys[0] != 'appointment_resource_id' or not resource_ids:
+        if not group_bys or group_bys[0] not in ('appointment_resource_id', 'partner_ids') or not resource_ids:
             return super().gantt_unavailability(start_date, end_date, scale, group_bys=group_bys, rows=rows)
 
         start_datetime = fields.Datetime.from_string(start_date)
         end_datetime = fields.Datetime.from_string(end_date)
+
+        if group_bys[0] == 'partner_ids':
+            unavailabilities = self._gantt_unavailabilities_events(start_datetime, end_datetime, self.env['res.partner'].browse(resource_ids))
+            for row in rows:
+                row['unavailabilities'] = [{'start': start, 'stop': stop} for start, stop, _ in unavailabilities.get(row['resId'], [])]
+            return rows
 
         appointment_resource_ids = self.env['appointment.resource'].browse(resource_ids)
         resource_unavailabilities = appointment_resource_ids.resource_id._get_unavailable_intervals(start_datetime, end_datetime)
@@ -362,6 +369,18 @@ class CalendarEvent(models.Model):
             row['unavailabilities'] = [{'start': start, 'stop': stop}
                                        for start, stop in resource_unavailabilities.get(appointment_resource_id.resource_id.id, [])]
         return rows
+
+    def _gantt_unavailabilities_events(self, start_datetime, end_datetime, partners):
+        """Get a mapping from partner id to unavailabilities based on existing events.
+
+        :return dict[int, Intervals[<res.partner>]]: {5: Intervals([(monday_morning, monday_noon, <res.partner>(5))])}
+        """
+        return {
+            attendee.id: Intervals([
+                (timezone_datetime(event.start), timezone_datetime(event.stop), attendee)
+                for event in partners._get_calendar_events(start_datetime, end_datetime).get(attendee.id, [])
+            ]) for attendee in partners
+        }
 
     @api.model
     def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0):

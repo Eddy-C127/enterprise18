@@ -6,7 +6,7 @@ from odoo.addons.mail.tests.common import mail_new_test_user
 from .common import AppointmentCommon
 
 
-class AppointmentGanttTest(AppointmentCommon):
+class AppointmentGanttTestCommon(AppointmentCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -46,6 +46,7 @@ class AppointmentGanttTest(AppointmentCommon):
         cls.gantt_context = {'appointment_booking_gantt_show_all_resources': True}
         cls.gantt_domain = [('appointment_type_id', 'in', cls.apt_types.ids)]
 
+class AppointmentGanttTest(AppointmentGanttTestCommon):
     def test_gantt_empty_groups(self):
         """Check that the data sent to gantt includes the right groups in the context of appointments."""
         gantt_data = self.env['calendar.event'].with_context(self.gantt_context).get_gantt_data(
