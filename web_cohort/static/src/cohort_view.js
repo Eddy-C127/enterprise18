@@ -40,6 +40,7 @@ export const cohortView = {
                 timeline: archInfo.timeline,
                 title: archInfo.title,
                 disableLinking: Boolean(archInfo.disableLinking),
+                widgets: archInfo.widgets,
             };
         }
 

@@ -915,4 +915,22 @@ QUnit.module("Views", (hooks) => {
         assert.containsOnce(target, ".table", "should have a table");
         await click(target.querySelector("td.o_cohort_value")); // should not trigger a do_action
     });
+
+    QUnit.test('test widget', async function (assert) {
+        await makeView({
+            type: "cohort",
+            resModel: "subscription",
+            serverData,
+            arch: `
+                <cohort date_start="start" date_stop="stop" measure="recurring">
+                    <field name="recurring" widget="percentage"/>
+                </cohort>
+            `,
+        });
+        assert.equal(
+            target.querySelectorAll("td.o_cohort_value")[1].innerText,
+            "1000%",
+            "widget 'percentage' should be applied",
+        );
+    });
 });

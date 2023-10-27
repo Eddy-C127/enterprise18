@@ -1,13 +1,16 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
-import { formatPercentage, formatFloat } from "@web/views/fields/formatters";
+import { formatPercentage } from "@web/views/fields/formatters";
+import { registry } from "@web/core/registry";
 
 import { Component } from "@odoo/owl";
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { ViewScaleSelector } from "@web/views/view_components/view_scale_selector";
 import { download } from "@web/core/network/download";
+
+const formatters = registry.category("formatters");
 
 export class CohortRenderer extends Component {
     setup() {
@@ -18,8 +21,16 @@ export class CohortRenderer extends Component {
         return Array.from({ length: n }, (_, i) => i);
     }
 
-    formatFloat(value) {
-        return formatFloat(value, { digits: [false, 1] });
+    getFormattedValue(value) {
+        const fieldName = this.model.metaData.measure;
+        const field = this.model.metaData.measures[fieldName];
+        let formatType = this.model.metaData.widgets[fieldName];
+        if (!formatType) {
+            const fieldType = field.type;
+            formatType = ["many2one", "reference"].includes(fieldType) ? "integer" : fieldType;
+        }
+        const formatter = formatters.get(formatType);
+        return formatter(value, field);
     }
 
     formatPercentage(value) {

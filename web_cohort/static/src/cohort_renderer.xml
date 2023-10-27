@@ -67,7 +67,7 @@
                                     <t t-esc="row.date" />
                                 </td>
                                 <td class="o_cohort_value text-center align-middle p-0">
-                                    <t t-esc="formatFloat(row.value)" />
+                                    <t t-esc="getFormattedValue(row.value)" />
                                 </td>
                                 <td t-foreach="row.columns" t-as="col" t-key="col.period" class="text-center align-middle p-0">
                                     <t t-set="count" t-value="mode === 'churn' ? (col.churn_value === '-' ? '' : col.churn_value) : (col.value === '-' ? '' : col.value)" />
@@ -86,7 +86,7 @@
                             <tr>
                                 <td class="text-center align-middle">Average</td>
                                 <td class="text-center align-middle">
-                                    <t t-esc="formatFloat(data.avg.avg_value)"/>
+                                    <t t-esc="getFormattedValue(data.avg.avg_value)"/>
                                 </td>
                                 <td t-foreach="data.avg.columns_avg" t-as="col" t-key="col_index" class="text-center align-middle">
                                     <t t-if="data.avg.columns_avg[col]['count']">

@@ -9,6 +9,7 @@ export class CohortArchParser {
     parse(arch, fields) {
         const archInfo = {
             fieldAttrs: {},
+            widgets: {},
         };
         visitXML(arch, (node) => {
             switch (node.tagName) {
@@ -88,6 +89,9 @@ export class CohortArchParser {
                     ) {
                         archInfo.fieldAttrs[fieldName].isInvisible = true;
                         break;
+                    }
+                    if (node.hasAttribute("widget")) {
+                        archInfo.widgets[fieldName] = node.getAttribute("widget");
                     }
                 }
             }
