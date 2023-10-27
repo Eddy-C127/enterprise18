@@ -286,8 +286,8 @@ class CalendarEvent(models.Model):
             return res
 
         appointment_type_sudo = self.appointment_type_id.sudo()
-        # Replace Public User with OdooBot
-        author = {'author_id': self.env.ref('base.partner_root').id} if self.env.user._is_public() else {}
+        # set 'author_id' and 'email_from' based on the organizer
+        vals = {'author_id': self.user_id.partner_id.id, 'email_from': self.user_id.email_formatted} if self.user_id else {}
 
         if 'appointment_type_id' in changes:
             try:
@@ -296,7 +296,7 @@ class CalendarEvent(models.Model):
                 _logger.warning("Mail could not be sent, as mail template is not found : %s", e)
             else:
                 res['appointment_type_id'] = (booked_template.sudo(), {
-                    **author,
+                    **vals,
                     'auto_delete_keep_log': False,
                     'subtype_id': self.env['ir.model.data']._xmlid_to_res_id('appointment.mt_calendar_event_booked'),
                     'email_layout_xmlid': 'mail.mail_notification_light'
@@ -306,7 +306,7 @@ class CalendarEvent(models.Model):
             and appointment_type_sudo.canceled_mail_template_id
         ):
             res['active'] = (appointment_type_sudo.canceled_mail_template_id, {
-                **author,
+                **vals,
                 'auto_delete_keep_log': False,
                 'subtype_id': self.env['ir.model.data']._xmlid_to_res_id('appointment.mt_calendar_event_canceled'),
                 'email_layout_xmlid': 'mail.mail_notification_light'
