@@ -116,7 +116,7 @@ class HelpdeskTicket(models.Model):
     sla_reached_late = fields.Boolean("Has SLA reached late", compute='_compute_sla_reached_late', compute_sudo=True, store=True)
     sla_reached = fields.Boolean("Has SLA reached", compute='_compute_sla_reached', compute_sudo=True, store=True)
     sla_deadline = fields.Datetime("SLA Deadline", compute='_compute_sla_deadline', compute_sudo=True, store=True)
-    sla_deadline_hours = fields.Float("Hours to SLA Deadline", compute='_compute_sla_deadline', compute_sudo=True, store=True)
+    sla_deadline_hours = fields.Float("Hours until SLA Deadline", compute='_compute_sla_deadline', compute_sudo=True, store=True)
     sla_fail = fields.Boolean("Failed SLA Policy", compute='_compute_sla_fail', search='_search_sla_fail')
     sla_success = fields.Boolean("Success SLA Policy", compute='_compute_sla_success', search='_search_sla_success')
 
@@ -132,7 +132,7 @@ class HelpdeskTicket(models.Model):
     website_message_ids = fields.One2many(domain=lambda self: [('model', '=', self._name), ('message_type', 'in', ['email', 'comment', 'email_outgoing'])])
 
     first_response_hours = fields.Float("Hours to First Response")
-    avg_response_hours = fields.Float("Average Hours to Respond")
+    avg_response_hours = fields.Float("Hours to Respond")
     oldest_unanswered_customer_message_date = fields.Datetime("Oldest Unanswered Customer Message Date")
     answered_customer_message_count = fields.Integer('# Exchanges')
     total_response_hours = fields.Float("Total Exchange Time in Hours")

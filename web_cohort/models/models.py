@@ -71,7 +71,7 @@ class Base(models.AbstractModel):
             today = date.today()
             convert_method = fields.Date.to_date
 
-        for group_value, sum, value in row_groups:
+        for group_value, sum_value, value in row_groups:
             total_value += value
             group_domain = expression.AND([
                 domain,
@@ -88,7 +88,7 @@ class Base(models.AbstractModel):
             }
 
             columns = []
-            initial_value = sum
+            initial_value = sum_value
             col_range = range(-15, 1) if timeline == 'backward' else range(0, 16)
             for col_index, col in enumerate(col_range):
                 col_start_date = group_value
@@ -133,11 +133,11 @@ class Base(models.AbstractModel):
                         aggregates=[measure],
                     )
                     initial_value = float(col_group[0][0])
-                    initial_churn_value = sum - initial_value
+                    initial_churn_value = sum_value - initial_value
 
                 previous_col_remaining_value = initial_value if col_index == 0 else columns[-1]['value']
                 col_remaining_value = previous_col_remaining_value - col_value
-                percentage = sum and (col_remaining_value) / sum or 0
+                percentage = sum_value and (col_remaining_value) / sum_value or 0
                 if mode == 'churn':
                     percentage = 1 - percentage
 

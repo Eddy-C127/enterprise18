@@ -33,8 +33,8 @@ class HelpdeskTicketReport(models.Model):
     ticket_type_id = fields.Many2one('helpdesk.ticket.type', string="Type", readonly=True)
     stage_id = fields.Many2one('helpdesk.stage', string="Stage", readonly=True)
     sla_deadline = fields.Datetime("Ticket Deadline", readonly=True)
-    ticket_deadline_hours = fields.Float("Hours to SLA Deadline", group_operator="avg", readonly=True)
-    ticket_close_hours = fields.Float("Hours to Close", group_operator="avg", readonly=True)
+    ticket_deadline_hours = fields.Float("Working Hours until SLA Deadline", group_operator="avg", readonly=True)
+    ticket_close_hours = fields.Float("Working Hours to Close", group_operator="avg", readonly=True)
     ticket_open_hours = fields.Float("Hours Open", group_operator="avg", readonly=True)
     ticket_assignation_hours = fields.Float("Hours to Assign", group_operator="avg", readonly=True)
     close_date = fields.Datetime("Close date", readonly=True)
@@ -49,7 +49,7 @@ class HelpdeskTicketReport(models.Model):
         ('done', 'Green'),
         ('blocked', 'Red')], string='Kanban State', readonly=True)
     first_response_hours = fields.Float("Hours to First Response", group_operator="avg", readonly=True)
-    avg_response_hours = fields.Float("Average Hours to Respond", group_operator="avg", readonly=True)
+    avg_response_hours = fields.Float("Hours to Respond", group_operator="avg", readonly=True)
     rating_avg = fields.Float('Average Rating', readonly=True, group_operator='avg')
 
     def _select(self):
@@ -75,8 +75,8 @@ class HelpdeskTicketReport(models.Model):
                    NULLIF(T.assign_hours, 0) AS ticket_assignation_hours,
                    T.close_date AS close_date,
                    T.assign_date AS assign_date,
-                   T.rating_last_value AS rating_last_value,
-                   AVG(rt.rating) as rating_avg,
+                   CASE WHEN ht.use_rating AND COUNT(rt.id) > 0 THEN T.rating_last_value ELSE NULL END as rating_last_value,
+                   CASE WHEN ht.use_rating AND COUNT(rt.id) > 0 THEN AVG(rt.rating) ELSE NULL END as rating_avg,
                    T.active AS active,
                    T.team_id AS team_id,
                    T.company_id AS company_id,
@@ -91,7 +91,8 @@ class HelpdeskTicketReport(models.Model):
 
     def _group_by(self):
         return """
-                t.id
+                t.id,
+                ht.use_rating
         """
 
     def _from(self):
@@ -101,6 +102,7 @@ class HelpdeskTicketReport(models.Model):
                         AND rt.res_model = 'helpdesk.ticket'
                         AND rt.consumed = True
                         AND rt.rating >= {RATING_LIMIT_MIN}
+                INNER JOIN helpdesk_team ht ON ht.id = t.team_id
         """
         return from_str
 

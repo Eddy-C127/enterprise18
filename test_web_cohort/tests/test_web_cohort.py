@@ -164,7 +164,7 @@ class TestCohortForward(TestCohortCommon):
             'date_start', 'date_stop', 'revenue', 'week', [], 'retention', 'forward'
         )
         self.assertNotIn(
-            'W47 2018',map(lambda row: row['date'], result['rows']),
+            'W47 2018', (row['date'] for row in result['rows']),
             'Empty data should not be displayed',
         )
 

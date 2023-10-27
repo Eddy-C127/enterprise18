@@ -916,7 +916,7 @@ QUnit.module("Views", (hooks) => {
         await click(target.querySelector("td.o_cohort_value")); // should not trigger a do_action
     });
 
-    QUnit.test('test widget', async function (assert) {
+    QUnit.test('field with widget attribute', async function (assert) {
         await makeView({
             type: "cohort",
             resModel: "subscription",
@@ -927,7 +927,7 @@ QUnit.module("Views", (hooks) => {
                 </cohort>
             `,
         });
-        assert.equal(
+        assert.strictEqual(
             target.querySelectorAll("td.o_cohort_value")[1].innerText,
             "1000%",
             "widget 'percentage' should be applied",

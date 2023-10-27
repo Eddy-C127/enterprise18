@@ -20,6 +20,8 @@
         'views/project_project_views.xml',
         'views/product_views.xml',
         'views/sale_views.xml',
+        'report/helpdesk_ticket_analysis_views.xml',
+        'report/helpdesk_sla_analysis_views.xml',
     ],
     'demo': ['data/helpdesk_sale_timesheet_demo.xml'],
     'license': 'OEEL-1',
