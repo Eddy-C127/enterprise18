@@ -95,18 +95,14 @@ class AccountMove(models.Model):
         """ Returns `True` if the document should be automatically sent to the extraction server"""
         self.ensure_one()
         if (
+            self._context.get('disable_ocr_auto_extraction') or
             self.extract_state != "no_extract_requested" or
             not self._check_digitalization_mode(self.company_id, self.move_type, 'auto_send') or
             not self.is_in_extractable_state
         ):
             return False
 
-        # Auto extract if comes from email alias, unless attachment is not pdf and pdf filter is set on journal
-        if self._context.get('from_alias'):
-            return not self.journal_id.alias_auto_extract_pdfs_only \
-                or (self.message_main_attachment_id and self.message_main_attachment_id.mimetype.endswith('pdf'))
-
-        # If not from email alias, only auto extract for purchase moves
+        # Only auto extract for purchase moves
         return self.is_purchase_document()
 
     def _get_ocr_module_name(self):
@@ -818,12 +814,14 @@ class AccountMove(models.Model):
     def _get_edi_decoder(self, file_data, new=False):
         # EXTENDS 'account'
         self.ensure_one()
-        if file_data['type'] in ('pdf', 'binary'):
-            if new:
+
+        if file_data['type'] in ('pdf', 'binary') and not self._context.get('disable_ocr_auto_extraction'):
+            if self._context.get('from_alias'):
+                if not self.journal_id.alias_auto_extract_pdfs_only or (self.message_main_attachment_id.mimetype or '').endswith('pdf'):
+                    return self._import_invoice_ocr
+            elif self._needs_auto_extract():
+                return self._import_invoice_ocr
+            elif new:
                 if self._check_digitalization_mode(self.company_id, self.move_type, 'auto_send'):
                     return self._import_invoice_ocr
-            else:
-                if self._needs_auto_extract():
-                    return self._import_invoice_ocr
-
         return super()._get_edi_decoder(file_data, new=new)
