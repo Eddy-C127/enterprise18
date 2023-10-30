@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details
 from freezegun import freeze_time
+from datetime import datetime
 
 from odoo.tests import Form, tagged
 
@@ -76,3 +77,17 @@ class TestSaleForecast(TestSalePlanning):
         slot1.write({'project_id': line2_project.id})
         # changing project of slot should not change to new project's sol if sol of slot is already set
         self.assertEqual(slot1.sale_line_id, line1_project.sale_line_id, 'Sale order item of Planning should not change to new project\'s sol if it\'s already set')
+
+    @freeze_time('2023-1-1')
+    def test_archive_employee_should_move_shifts_to_open_shifts(self):
+        slot = self.env['planning.slot'].create([{
+            'resource_id': self.employee_joseph.resource_id.id,
+            'start_datetime': datetime(2023, 1, 2, 8, 0),
+            'end_datetime': datetime(2023, 1, 2, 17, 0),
+            'sale_line_id': self.sale_order_line1.id,
+            'project_id': self.sale_order_line1.project_id.id,
+        }])
+        self.employee_joseph.action_archive()
+        self.assertFalse(slot.resource_id, "Resource of the shift should be open")
+        self.assertEqual(slot.sale_line_id, self.sale_order_line1, "Project should be the same")
+        self.assertEqual(slot.project_id, self.sale_order_line1.project_id, "SOL should be the same")
