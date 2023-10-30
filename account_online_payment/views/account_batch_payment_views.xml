@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_batch_payment_form_inherit" model="ir.ui.view">
+        <field name="name">sct.account.batch.payment.form.inherit</field>
+        <field name="model">account.batch.payment</field>
+        <field name="inherit_id" ref="account_batch_payment.view_batch_payment_form"/>
+        <field name="arch" type="xml">
+            <!-- We use two <xpath /> elements because the button appears twice on the inherited view -->
+            <xpath expr="//button[@name='validate_batch_button']" position="replace" />
+            <xpath expr="//button[@name='validate_batch_button']" position="replace">
+                <button
+                    name="initiate_payment"
+                    class="oe_highlight"
+                    type="object"
+                    string="Initiate Payment"
+                    invisible="state != 'draft' or not account_online_linked or payment_online_status not in ['uninitiated'] or batch_type == 'inbound'"
+                />
+                <button
+                    name="validate_batch"
+                    type="object"
+                    string="XML"
+                    context="{'xml_export': True}"
+                    invisible="state != 'draft' or not account_online_linked or payment_online_status not in ['unsigned', 'uninitiated']"
+                />
+                <button
+                    name="export_batch_payment"
+                    type="object"
+                    string="XML"
+                    context="{'xml_export': True}"
+                    invisible="state == 'draft' or not account_online_linked"
+                />
+                <button
+                    name="initiate_payment"
+                    type="object"
+                    string="Sign Payment"
+                    invisible="state == 'draft' or payment_online_status != 'unsigned' and account_online_linked or batch_type == 'inbound'"
+                />
+                <button
+                    name="initiate_payment"
+                    type="object"
+                    string="Initiate Payment"
+                    invisible="state == 'draft' or payment_online_status != 'uninitiated' and account_online_linked or batch_type == 'inbound'"
+                />
+            </xpath>
+
+            <xpath expr="//field[@name='iso20022_batch_booking']" position="after">
+                <field name="payment_online_status" widget="account_online_payment_refresh_button" invisible="state == 'draft' or not account_online_linked or payment_online_status == 'uninitiated'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_batch_payment_tree_inherit" model="ir.ui.view">
+        <field name="name">sct.account.batch.payment.tree.inherit</field>
+        <field name="model">account.batch.payment</field>
+        <field name="inherit_id" ref="account_batch_payment.view_batch_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field
+                    name="payment_online_status"
+                    widget="badge"
+                    decoration-success="payment_online_status == 'accepted'"
+                    decoration-info="payment_online_status in ['pending', 'unsigned']"
+                    decoration-danger="payment_online_status in ['rejected', 'canceled']"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
