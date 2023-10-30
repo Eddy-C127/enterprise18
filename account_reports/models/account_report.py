@@ -98,7 +98,7 @@ class AccountReport(models.Model):
     def _get_existing_menuitem(self):
         self.ensure_one()
         action = self.env['ir.actions.client']\
-            .search([('name', '=', self.name), ('tag', '=', 'account_reports')])\
+            .search([('name', '=', self.name), ('tag', '=', 'account_report')])\
             .filtered(lambda act: ast.literal_eval(act.context).get('report_id') == self.id)
         menuitem = self.env['ir.ui.menu']\
             .with_context({'active_test': False, 'ir.ui.menu.full_list': True})\
