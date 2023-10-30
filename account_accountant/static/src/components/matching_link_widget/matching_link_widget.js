@@ -16,11 +16,12 @@ class MatchingLink extends Component {
     showMatchingButton() {
         const mandatoryFilters = ["account_id", "partner_id"];
         const searchFilters = this.env.searchModel.getSearchItems(
-            (item) => 
-                item.type === "field" && 
+            (item) =>
+                !item.isActive &&
+                item.type === "field" &&
                 mandatoryFilters.includes(item.fieldName)
         );
-        return searchFilters.some((filter) => !filter.isActive)
+        return searchFilters.length;
     }
 
     async reconcile() {
@@ -34,7 +35,7 @@ class MatchingLink extends Component {
 
     async viewMatch() {
         const action = await this.orm.call("account.move.line", "open_reconcile_view", [this.props.record.resId], {});
-        this.action.doAction(action, { additionalContext: { is_matched_view: true }});
+        this.action.doAction(action, { additionalContext: { is_matched_view: true } });
     }
 
     get colorCode() {
