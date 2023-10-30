@@ -35,6 +35,9 @@
             <button name="action_cancel" position="before">
                 <button string="Create Alternative" name="create_alternative" type="object"
                     invisible="subscription_state != '2_renewal' or state not in ['draft', 'sent']"/>
+                <button string="Create Alternative" name="create_alternative" type="object"
+                    context="{'default_subscription_state': '7_upsell'}"
+                    invisible="subscription_state != '7_upsell' or state not in ['draft', 'sent']"/>
             </button>
             <button name="action_cancel" position="after">
                 <button string="Upsell" name="prepare_upsell_order" type="object"
