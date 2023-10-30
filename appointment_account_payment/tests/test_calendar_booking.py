@@ -186,6 +186,29 @@ class AppointmentAccountPaymentTest(AppointmentAccountPaymentCommon):
         calendar_booking.unlink()
         self.assertTrue(answer_inputs.exists())
 
+    @users('apt_manager')
+    def test_contiguous_bookings_availability(self):
+        """ Checks that two bookings with the same user (or resource) are both considered as available on contiguous slots. """
+        booking_values = {
+            'appointment_type_id': self.appointment_users_payment.id,
+            'duration': 1.0,
+            'partner_id': self.apt_manager.partner_id.id,
+            'product_id': self.appointment_users_payment.product_id.id,
+            'staff_user_id': self.staff_user_bxls.id,
+        }
+        calendar_bookings = self.env['calendar.booking'].create([{
+            'start': self.start_slot,
+            'stop': self.stop_slot,
+            **booking_values
+        }, {
+            'start': self.stop_slot,
+            'stop': self.stop_slot + relativedelta(hours=1),
+            **booking_values
+        }])
+        self.assertFalse(calendar_bookings._filter_unavailable_bookings())
+        calendar_bookings._make_event_from_paid_booking()
+        self.assertEqual(len(calendar_bookings.calendar_event_id), 2)
+
     def test_gc_calendar_booking(self):
         """ Remove bookings still existing after 6 months.
             Remove bookings with ending passed for 2 months at least. """
