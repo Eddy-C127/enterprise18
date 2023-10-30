@@ -5,6 +5,50 @@ import { endKnowledgeTour, openCommandBar } from "../knowledge_tour_utils.js";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
 /**
+ * Verify that a filter is not duplicated and is properly maintained after
+ * a round trip with the breadcrumbs.
+ *
+ * @param {String} kanban name of a kanban view in which records can be created
+ * @param {String} filterName name of a favorite filter which is already present in the view
+ * @returns {Array} steps
+ */
+const validateFavoriteFilterPersistence = function(kanban, filterName) {
+    return [{
+        content: 'create and edit item in the kanban view',
+        trigger: `.o_knowledge_embedded_view .o_kanban_view:contains(${kanban}) .o-kanban-button-new`,
+	    run: "click",
+    }, {
+        content: 'Give the name to the item',
+        trigger: 'input#name_0',
+        run: 'text Item 1',
+    }, {
+        content: 'click on the edit button',
+        trigger: '.o_kanban_edit',
+    }, {
+        content: `go to the ${kanban} from the breadcrumb`,
+        trigger: '.o_back_button',
+    }, {
+        // Open the favorite of the first kanban and check it's favorite
+        trigger: `.o_breadcrumb:contains('${kanban}')`,
+        run: function () {
+            const view = this.$anchor[0].closest(
+                '.o_kanban_view'
+            );
+            const searchMenuButton = view.querySelector(".o_searchview_dropdown_toggler");
+            searchMenuButton.click();
+        },
+    }, {
+        trigger: '.o_favorite_menu',
+        run: function () {
+            const favorites = this.$anchor[0].querySelectorAll("span.dropdown-item");
+            if (favorites.length !== 1 || favorites[0].innerText !== filterName) {
+                console.error(`Only one filter "(${filterName})" should be available`);
+            }
+        },
+    }]
+};
+
+/**
  * Insert the Knowledge kanban view as an embedded view in article.
  *
  * @param {String} article article name
@@ -157,6 +201,8 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
             run: () => {},
         },
         ...validateFavoriteFiltersSteps("Items 1", "Items 2"),
+        // testFilter was added as a favorite during validateFavoriteFiltersSteps to Items 1
+        ...validateFavoriteFilterPersistence("Items 1", "testFilter"),
         ...endKnowledgeTour(),
     ],
 });
