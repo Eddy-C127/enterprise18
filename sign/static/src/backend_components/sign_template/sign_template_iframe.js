@@ -108,6 +108,8 @@ export class SignTemplateIframe extends EditablePDFIframeMixin(PDFIframe) {
                     onClose: () => {
                         this.closePopoverFns = {};
                     },
+                    closeOnClickAway: false,
+                    popoverClass: "sign-popover",
                 }
             );
             this.closePopoverFns[signItem.data.id] = {
