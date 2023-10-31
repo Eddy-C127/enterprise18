@@ -863,10 +863,7 @@ class AccountMove(models.Model):
         self.ensure_one()
 
         if file_data['type'] in ('pdf', 'binary') and not self._context.get('disable_ocr_auto_extraction'):
-            if self._context.get('from_alias'):
-                if not self.journal_id.alias_auto_extract_pdfs_only or (self.message_main_attachment_id.mimetype or '').endswith('pdf'):
-                    return self._import_invoice_ocr
-            elif self._needs_auto_extract():
+            if self._needs_auto_extract():
                 return self._import_invoice_ocr
             elif new:
                 if self._check_digitalization_mode(self.company_id, self.move_type, 'auto_send'):

@@ -707,31 +707,6 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
         self.assertEqual(invoice.extract_state, 'waiting_extraction')
         self.assertEqual(invoice.extract_document_uuid, 'some_token')
 
-    def test_automatic_sending_customer_invoice_email_alias_pdf_filter(self):
-        # test that alias_auto_extract_pdfs_only option successfully prevent non pdf attachments to be sent to OCR
-        self.env.company.extract_out_invoice_digitalization_mode = 'auto_send'
-        self.journal_with_alias.alias_auto_extract_pdfs_only = True
-
-        # attachment is not pdf -> do not extract
-        mail = self._get_email_for_journal_alias(message_id='message_1')
-        with self._mock_iap_extract(self.parse_success_response()):
-            invoice = self.env['account.move'].browse(self.env['mail.thread'].message_process('account.move', mail))
-        self.assertEqual(invoice.extract_state, 'no_extract_requested')
-        self.assertFalse(invoice.extract_document_uuid)
-
-        # attachment is pdf -> extract
-        with file_open('base/tests/minimal.pdf', 'rb') as file:
-            pdf_bytes = file.read()
-        mail = self._get_email_for_journal_alias(
-            attachment=pdf_bytes,
-            attach_content_type='application/pdf',
-            message_id='message_2'
-        )
-        with self._mock_iap_extract(extract_response=self.parse_success_response()):
-            invoice = self.env['account.move'].browse(self.env['mail.thread'].message_process('account.move', mail))
-        self.assertEqual(invoice.extract_state, 'waiting_extraction')
-        self.assertEqual(invoice.extract_document_uuid, 'some_token')
-
     def test_no_automatic_sending_customer_invoice_message_post(self):
         # test that a customer invoice isn't automatically sent to the OCR server when a message with attachment is posted and the option is enabled
         self.env.company.extract_out_invoice_digitalization_mode = 'auto_send'
