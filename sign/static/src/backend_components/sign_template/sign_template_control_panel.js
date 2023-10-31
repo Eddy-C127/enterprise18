@@ -11,6 +11,14 @@ export class SignTemplateControlPanel extends Component {
     static components = {
         ControlPanel,
     };
+    static props = {
+        responsibleCount: { type: Number },
+        isPDF: { type: Boolean },
+        hasSignRequests: { type: Boolean },
+        actionType: { type: String },
+        signTemplate: { type: Object },
+        goBackToKanban: { type: Function },
+    };
 
     setup() {
         this.controlPanelDisplay = {};

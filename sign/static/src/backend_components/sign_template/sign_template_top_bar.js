@@ -40,6 +40,12 @@ export class SignTemplateTopBar extends Component {
         Many2ManyTagsField,
         Record,
     };
+    static props = {
+        signTemplate: { type: Object },
+        hasSignRequests: { type: Boolean },
+        onTemplateNameChange: { type: Function },
+        manageTemplateAccess: { type: Boolean },
+    };
 
     setup() {
         this.displayNameInput = useRef("display-name");

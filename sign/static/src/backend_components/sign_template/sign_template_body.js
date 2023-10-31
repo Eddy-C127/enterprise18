@@ -13,6 +13,18 @@ export class SignTemplateBody extends Component {
     static components = {
         SignTemplateTopBar,
     };
+    static props = {
+        signItemTypes: { type: Array },
+        signItems: { type: Array },
+        signRoles: { type: Array },
+        hasSignRequests: { type: Boolean },
+        signItemOptions: { type: Array },
+        attachmentLocation: { type: String },
+        signTemplate: { type: Object },
+        goBackToKanban: { type: Function },
+        manageTemplateAccess: { type: Boolean },
+        isPDF: { type: Boolean },
+    };
 
     setup() {
         this.orm = useService("orm");
@@ -122,7 +134,7 @@ export class SignTemplateBody extends Component {
                     updatedSignItems[id] = {
                         type_id: signItem.type_id[0],
                         required: signItem.required,
-                        name: signItem.name,
+                        name: signItem.placeholder || signItem.name,
                         alignment: signItem.alignment,
                         option_ids: signItem.option_ids,
                         responsible_id: responsible,

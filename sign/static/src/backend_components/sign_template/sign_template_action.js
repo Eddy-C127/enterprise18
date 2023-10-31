@@ -7,12 +7,16 @@ import { useService } from "@web/core/utils/hooks";
 import { SignTemplateControlPanel } from "./sign_template_control_panel";
 import { SignTemplateBody } from "./sign_template_body";
 import { Component, onWillStart } from "@odoo/owl";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 export class SignTemplate extends Component {
     static template = "sign.Template";
     static components = {
         SignTemplateControlPanel,
         SignTemplateBody,
+    };
+    static props = {
+        ...standardActionServiceProps,
     };
 
     setup() {

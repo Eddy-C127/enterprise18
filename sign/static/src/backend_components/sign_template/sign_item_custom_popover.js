@@ -42,6 +42,23 @@ export class SignItemCustomPopover extends Component {
         Many2ManyTagsField,
         Many2OneField,
     };
+    static props = {
+        id: { type: Number },
+        alignment: { type: String },
+        placeholder: { type: String },
+        required: { type: Boolean },
+        option_ids: { type: Array },
+        responsible: { type: Number },
+        onValidate: { type: Function },
+        updateSelectionOptions: { type: Function },
+        updateRoles: { type: Function },
+        type: { type: String },
+        onDelete: { type: Function },
+        onClose: { type: Function },
+        debug: { type: String },
+        roles: { type: Object },
+        close: { type: Function },
+    };
 
     setup() {
         this.alignmentOptions = [
