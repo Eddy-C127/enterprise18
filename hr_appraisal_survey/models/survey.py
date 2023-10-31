@@ -1,13 +1,23 @@
 # -*- encoding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 from werkzeug.urls import url_encode
 
 class SurveySurvey(models.Model):
     _inherit = 'survey.survey'
 
     survey_type = fields.Selection(selection_add=[('appraisal', 'Appraisal')], ondelete={'appraisal': 'set default'})
+
+    @api.onchange('survey_type')
+    def _onchange_survey_type(self):
+        super()._onchange_survey_type()
+        if self.survey_type == 'appraisal':
+            self.write({
+                'access_mode': 'token',
+                'is_attempts_limited': True,
+                'users_can_go_back': True,
+            })
 
     def action_open_all_survey_inputs(self):
         return {
