@@ -57,6 +57,6 @@ class SpreadsheetDashboardAccess(TransactionCase):
         revisions = dashboard.with_context(active_test=False).spreadsheet_revision_ids
         self.assertEqual(len(revisions.exists()), 2)
         self.assertTrue(dashboard.spreadsheet_snapshot)
-        dashboard.spreadsheet_data = "{ version: 2 }"
+        dashboard.spreadsheet_data = '{ "version": 2 }'
         self.assertFalse(revisions.exists())
         self.assertFalse(dashboard.spreadsheet_snapshot)

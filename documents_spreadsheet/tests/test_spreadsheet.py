@@ -265,7 +265,7 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
             spreadsheet1 = self.create_spreadsheet()
         with freeze_time("2020-02-15 18:00"):
             spreadsheet2 = self.create_spreadsheet()
-        spreadsheet1.spreadsheet_data = "data"
+        spreadsheet1.spreadsheet_data = r"{}"
         spreadsheets = self.env["documents.document"].get_spreadsheets_to_display([])
         spreadsheet_ids = [s["id"] for s in spreadsheets]
         self.assertEqual(spreadsheet_ids, [spreadsheet1.id, spreadsheet2.id])
@@ -570,7 +570,7 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
             "mimetype": "application/o-spreadsheet",
             "folder_id": self.folder.id,
         })
-        data = b"{ sheets: [] }"
+        data = b'{ "sheets": [] }'
         document.spreadsheet_data = data
         self.assertEqual(document.datas, base64.b64encode(data))
 
