@@ -9,8 +9,7 @@
   > .o_action_manager {
     direction: ltr; //Define direction attribute here so when rtlcss preprocessor run, it converts it to rtl
     flex: 1 1 auto;
-    height: calc(100% - 46px); // 46px is the web_studio_menu navbar
-    overflow: hidden;
+    height: calc(100% - 36px); // 36px is the web_studio_menu navbar
 
     > .o_action {
       height: 100%;
@@ -31,6 +30,6 @@
   }
 
   .o_web_studio_sidebar {
-    width: $o-web-studio-sidebar-width;
+    flex: 0 0 $o-web-studio-sidebar-width;
   }
 }

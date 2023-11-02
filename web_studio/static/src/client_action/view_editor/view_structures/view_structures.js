@@ -3,7 +3,10 @@ import { Component, useState } from "@odoo/owl";
 
 import { _t } from "@web/core/l10n/translation";
 
+import { SidebarDraggableItem } from "@web_studio/client_action/components/sidebar_draggable_item/sidebar_draggable_item";
+
 export class ExistingFields extends Component {
+    static components = { SidebarDraggableItem };
     static props = {
         fieldsInArch: { type: Array },
         fields: { type: Object },
@@ -87,6 +90,7 @@ const newFields = [
 ];
 
 export class NewFields extends Component {
+    static components = { SidebarDraggableItem };
     static props = {};
     static template = "web_studio.ViewStructures.NewFields";
 

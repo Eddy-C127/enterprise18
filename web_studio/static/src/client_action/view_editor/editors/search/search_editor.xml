@@ -97,7 +97,7 @@
         <div class="o_web_studio_field_type_container o_web_studio_new_components d-flex flex-row">
             <h3 class="text-white w-100">Components</h3>
             <t t-foreach="structures" t-as="struct" t-key="struct_index">
-                <div class="o_web_studio_component o-draggable" t-att-class="struct_value.class" t-esc="struct_value.name" t-att-data-structure="struct" />
+                <SidebarDraggableItem string="struct_value.name" className="struct_value.class" structure="struct" />
             </t>
         </div>
     </t>

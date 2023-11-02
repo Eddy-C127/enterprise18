@@ -6,6 +6,7 @@ import {
     getNodesFromXpath,
 } from "@web_studio/client_action/view_editor/editors/xml_utils";
 import { visitXML } from "@web/core/utils/xml";
+import { SidebarDraggableItem } from "@web_studio/client_action/components/sidebar_draggable_item/sidebar_draggable_item";
 import { StudioHook } from "@web_studio/client_action/view_editor/editors/components/studio_hook_component";
 import { InteractiveEditorSidebar } from "@web_studio/client_action/view_editor/interactive_editor/interactive_editor_sidebar";
 import { ExistingFields } from "@web_studio/client_action/view_editor/view_structures/view_structures";
@@ -228,6 +229,7 @@ class SearchEditorController extends Component {
 /** SIDEBAR STUFF */
 
 class SearchComponents extends Component {
+    static components = { SidebarDraggableItem };
     static props = {};
     static template = "web_studio.SearchEditor.Sidebar.Components";
 

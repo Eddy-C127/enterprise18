@@ -1,6 +1,7 @@
 /** @odoo-module */
 import { Component, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
+import { SidebarDraggableItem } from "@web_studio/client_action/components/sidebar_draggable_item/sidebar_draggable_item";
 import { InteractiveEditorSidebar } from "@web_studio/client_action/view_editor/interactive_editor/interactive_editor_sidebar";
 import {
     ExistingFields,
@@ -19,6 +20,7 @@ import { ChatterProperties } from "@web_studio/client_action/view_editor/editors
 import { useEditNodeAttributes } from "@web_studio/client_action/view_editor/view_editor_model";
 
 class FormComponents extends Component {
+    static components = { SidebarDraggableItem };
     static template = "web_studio.FormEditor.Sidebar.Components";
     static props = {};
 
