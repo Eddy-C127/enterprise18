@@ -17,7 +17,6 @@ import { formatDateTime, serializeDate, serializeDateTime } from "@web/core/l10n
 import { localization } from "@web/core/l10n/localization";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { evaluateBooleanExpr } from "@web/core/py_js/py";
-import { sortBy } from "@web/core/utils/arrays";
 import { useService } from "@web/core/utils/hooks";
 import { omit } from "@web/core/utils/objects";
 import { debounce, throttleForAnimation } from "@web/core/utils/timing";
@@ -1167,13 +1166,18 @@ export class GanttRenderer extends Component {
      */
     getPills() {
         const { records } = this.model.data;
+        const { dateStartField } = this.model.metaData;
         const pills = [];
         for (const record of records) {
             const pill = this.getPill(record);
             pills.push(this.enrichPill(pill));
         }
         // sorting cannot be done when fetching data --> the snapping of pills breaks order
-        return sortBy(pills, (pill) => pill.grid.column[0]);
+        return pills.sort(
+            (p1, p2) =>
+                p1.grid.column[0] - p2.grid.column[0] ||
+                p1.record[dateStartField] - p2.record[dateStartField]
+        );
     }
 
     /**
@@ -1365,7 +1369,10 @@ export class GanttRenderer extends Component {
         pill.highlighted = highlighted;
         const pillWrapper = this.getPillWrapperEl(pillId);
         pillWrapper?.classList.toggle("highlight", highlighted);
-        pillWrapper?.classList.toggle("o_connector_creator_highlight", highlighted && this.connectorDragState.dragging);
+        pillWrapper?.classList.toggle(
+            "o_connector_creator_highlight",
+            highlighted && this.connectorDragState.dragging
+        );
     }
 
     initializeConnectors() {
@@ -1524,7 +1531,7 @@ export class GanttRenderer extends Component {
             } else {
                 const level = this.calculatePillsLevel(rowPills);
                 span = level * baseSpan;
-                if(!this.isTouchDevice){
+                if (!this.isTouchDevice) {
                     span += 4;
                 }
             }
