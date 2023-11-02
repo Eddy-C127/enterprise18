@@ -7,7 +7,6 @@ import { Component, onWillStart, useState } from "@odoo/owl";
 import { session } from "@web/session";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
-
 export class TimesheetLeaderboardDialog extends Component {
     static template = "sale_timesheet_enterprise.TimesheetLeaderboardDialog";
     static components = {
@@ -114,15 +113,15 @@ export class TimesheetLeaderboardDialog extends Component {
 
     getBillingRateText(employee) {
         return _t("%(billableTime)s / %(billable_time_target)s (%(billingRate)s%)", {
-            billableTime: this.timesheetUOMService.formatter(employee.billable_time),
-            billable_time_target: this.timesheetUOMService.formatter(employee.billable_time_target),
+            billableTime: this.format(employee.billable_time),
+            billable_time_target: this.format(employee.billable_time_target),
             billingRate: Math.round(employee.billing_rate),
         });
     }
 
     getTotalTimeText(employee) {
         return _t("Total: %(totalTime)s", {
-            totalTime: this.timesheetUOMService.formatter(employee.total_time),
+            totalTime: this.format(employee.total_time),
         });
     }
 
@@ -139,6 +138,15 @@ export class TimesheetLeaderboardDialog extends Component {
     }
 
     get currentFormattedDate() {
-        return this.state.date.toFormat('LLL yyyy');
+        return this.state.date.setLocale(this.user.lang.replaceAll("_", "-")).toLocaleString({
+            year: "numeric",
+            month: "long",
+        });
+    }
+
+    format(value) {
+        return this.timesheetUOMService.formatter(value, {
+            noLeadingZeroHour: true,
+        }).replace(/(:00|.00)/g, "");
     }
 }

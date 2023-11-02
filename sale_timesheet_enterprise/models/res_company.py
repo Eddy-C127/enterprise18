@@ -59,15 +59,10 @@ class ResCompany(models.Model):
             "leaderboard": self.env.company._get_leaderboard_data(period_start, period_end, today),
             "employee_id": self.env.user.employee_id.id,
             "billing_rate_target": self.env.company.billing_rate_target,
-            "total_time_target": False,
+            "total_time_target": sum(self.env.user.employee_id.get_daily_working_hours(period_start, period_end).values()),
         }
 
         if fetch_tip:
             data["tip"] = self.env["hr.timesheet.tip"]._get_random_tip() or _("Make it a habit to record timesheets every day.")
-
-        if today > period_start and today <= period_end:
-            data["total_time_target"] = sum(self.env.user.employee_id.get_daily_working_hours(period_start, today.replace(day=today.day - 1)).values())
-        elif today > period_end:
-            data["total_time_target"] = sum(self.env.user.employee_id.get_daily_working_hours(period_start, period_end).values())
 
         return data

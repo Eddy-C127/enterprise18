@@ -17,10 +17,19 @@ patch(TimerTimesheetGridRenderer.prototype, {
     setup() {
         super.setup()
         this.user = useService('user');
+        this.orm = useService('orm');
     },
 
     async onWillStart() {
         super.onWillStart();
-        this.userHasBillingRateGroup = await this.user.hasGroup("sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates");
+        this.userHasBillingRateGroup = await this.user.hasGroup('sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates');
+        const billableTimeTarget = await this.orm.searchRead(
+            'hr.employee',
+            [['user_id', '=', this.user.userId]],
+            ['billable_time_target']
+        );
+        this.showIndicators = billableTimeTarget[0].billable_time_target > 0;
+        this.showLeaderboard = await this.user.hasGroup('sale_timesheet_enterprise.group_use_timesheet_leaderboard');
+        this.showLeaderboardComponent = (this.userHasBillingRateGroup && this.showIndicators) || this.showLeaderboard;
     },
 });

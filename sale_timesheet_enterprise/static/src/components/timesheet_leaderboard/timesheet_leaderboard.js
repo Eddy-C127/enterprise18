@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { Many2OneAvatarRankField } from "@sale_timesheet_enterprise/components/many2one_avatar_rank_field/many2one_avatar_rank_field";
-import { Component, onWillStart } from "@odoo/owl";
+import { Component } from "@odoo/owl";
 import { TimesheetLeaderboardDialog } from "@sale_timesheet_enterprise/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog";
 
 import { useService } from "@web/core/utils/hooks";
@@ -17,6 +17,8 @@ export class TimesheetLeaderboard extends Component {
     static props = {
         model: { type: Object, optional: true },
         date: { type: Object, optional: true },
+        showIndicators: { type: Boolean },
+        showLeaderboard: { type: Boolean },
         leaderboard: { type: Object },
         type: { type: String },
         changeType: { type: Function },
@@ -30,14 +32,6 @@ export class TimesheetLeaderboard extends Component {
         this.user = useService("user");
         this.dialog = useService("dialog");
         this.timesheetUOMService = useService("timesheet_uom");
-
-        onWillStart(this.onWillStart);
-    }
-
-    async onWillStart() {
-        this.hasLeaderboardGroup = await this.user.hasGroup(
-            "sale_timesheet_enterprise.group_use_timesheet_leaderboard"
-        )
     }
 
     openLeaderboardPopup() {
@@ -67,11 +61,11 @@ export class TimesheetLeaderboard extends Component {
     }
 
     get currentBillableTimeText() {
-        return this.timesheetUOMService.formatter(this.props.leaderboard.current_employee.billable_time);
+        return this.format(this.props.leaderboard.current_employee.billable_time);
     }
 
     get currentBillingText() {
-        return _t("Billing: %(currentBillableTimeText)s / %(currentTargetTotalTimeText)s ", {
+        return _t("%(currentBillableTimeText)s / %(currentTargetTotalTimeText)s ", {
             currentBillableTimeText: this.currentBillableTimeText,
             currentTargetTotalTimeText: this.currentTargetTotalTimeText,
         });
@@ -79,15 +73,21 @@ export class TimesheetLeaderboard extends Component {
 
     get currentTotalTimeText() {
         return _t("%(totalTime)s ", {
-            totalTime: this.timesheetUOMService.formatter(this.props.leaderboard.current_employee.total_time),
-        })
+            totalTime: this.format(this.props.leaderboard.current_employee.total_time),
+        });
     }
 
     get currentTargetTotalTimeText() {
-        return this.timesheetUOMService.formatter(this.props.leaderboard.current_employee.billable_time_target);
+        return this.format(this.props.leaderboard.current_employee.billable_time_target);
     }
 
     get totalTimeSuffix() {
-        return  this.timesheetUOMService.timesheetWidget === "float_toggle" ? _t(" days") : _t(" hours");
+        return this.timesheetUOMService.timesheetWidget === "float_toggle" ? _t(" days") : _t(" hours");
+    }
+
+    format(value) {
+        return this.timesheetUOMService.formatter(value, {
+            noLeadingZeroHour: true,
+        }).replace(/(:00|\.00)/g, "");
     }
 }

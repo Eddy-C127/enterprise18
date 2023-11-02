@@ -60,9 +60,9 @@
                                 </t>
                             </t>
                         </div>
-                        <div t-attf-class="o_leaderboard_modal_table {{ state.current_employee.index &gt; 9 ? 'o_table_height_extra' : '' }} px-1">
-                            <table class="table table-borderless table-striped table-sm mb-0 overflow-auto" t-if="state.leaderboard.length > 2">
-                                <tbody class="align-middle">
+                        <div t-attf-class="o_leaderboard_modal_table {{ state.current_employee.index &gt; 9 ? 'o_table_height_extra' : '' }} px-1" t-if="state.leaderboard.length > 2">
+                            <table class="table table-borderless table-striped table-sm mb-0 overflow-auto">
+                                <tbody class="align-middle o_table_height_extra">
                                     <tr t-foreach="state.leaderboard.slice(3, displayLimit)" t-as="employee" t-key="employee_index" t-attf-class="{{ employee.id === state.current_employee.id ? 'fw-bolder' : '' }}">
                                         <Many2OneAvatarRankField
                                             size="'small'"
