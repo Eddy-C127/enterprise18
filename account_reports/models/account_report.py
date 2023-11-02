@@ -6,12 +6,12 @@ import datetime
 import io
 import json
 import logging
-import math
 import re
 import base64
 from ast import literal_eval
 from collections import defaultdict
 from functools import cmp_to_key
+from PIL import ImageFont
 
 import markupsafe
 from babel.dates import get_quarter_names
@@ -20,9 +20,9 @@ from dateutil.relativedelta import relativedelta
 from odoo.addons.web.controllers.utils import clean_action
 from odoo import models, fields, api, _, osv, _lt
 from odoo.exceptions import RedirectWarning, UserError, ValidationError
-from odoo.tools import config, date_utils, get_lang, float_compare, float_is_zero
+from odoo.tools import  date_utils, get_lang, float_is_zero, float_repr
 from odoo.tools.float_utils import float_round
-from odoo.tools.misc import formatLang, format_date, xlsxwriter
+from odoo.tools.misc import formatLang, format_date, xlsxwriter, file_path
 from odoo.tools.safe_eval import expr_eval, safe_eval
 from odoo.models import check_method_name
 from itertools import groupby
@@ -4860,26 +4860,85 @@ class AccountReport(models.Model):
             'file_type': 'xlsx',
         }
 
+    @api.model
+    def _set_xlsx_cell_sizes(self, sheet, fonts, col, row, value, style, has_colspan):
+        """ This small helper will resize the cells if needed, to allow to get a better output. """
+        def get_string_width(font, string):
+            return font.getsize(string)[0] / 5
+
+        # Get the correct font for the row style
+        font_type = ('Bol' if style.bold else 'Reg') + ('Ita' if style.italic else '')
+        report_font = fonts[font_type]
+
+        # 8.43 is the default width of a column in Excel.
+        col_width = sheet.col_sizes.get(col, [8.43])[0]
+        row_height = sheet.row_sizes.get(row, [8.43])[0]
+
+        try:
+            # This is needed, otherwise we could compute width on very long number such as 12.0999999998
+            # which wouldn't show well in the end result as the numbers are rounded.
+            value = float_repr(float(value), self.env.company.currency_id.decimal_places)
+        except ValueError:
+            pass
+
+        # Start by computing the width of the cell if we are not using colspans.
+        row_increase = 0
+        if not has_colspan:
+            # Ensure to take indents into account when computing the width.
+            formatted_value = f"{'  ' * style.indent}{value}"
+            width = get_string_width(
+                report_font,
+                max(formatted_value.split('\n'), key=lambda line: get_string_width(report_font, line))
+            )
+            # We set the width if it is bigger than the current one, with a limit at 75 (max to avoid taking excessive space).
+            if width > col_width:
+                # if the computed width is > 75, we need to increase the row height to avoid having the text cut.
+                if width > 75:
+                    # For every 75 width, we need to increase the row height by 1.
+                    row_increase = int(width / 75)
+                sheet.set_column(col, col, min(width, 75))
+
+        # We then also compute the height of the row. This is needed when having values in multiple lines.
+        # 15.75 is the default height of a row in Excel. We simply multiply that by the amount of lines.
+        height = 15.75 + (15.75 * (value.count('\n') + row_increase))
+        if height > row_height:
+            sheet.set_row(row, height)
+
     def _inject_report_into_xlsx_sheet(self, options, workbook, sheet):
-        def write_with_colspan(sheet, x, y, value, colspan, style):
+
+        # We start by gathering the bold, italic and regular fonts to use later.
+        fonts = {}
+        for font_type in ('Reg', 'Bol', 'RegIta', 'BolIta'):
+            try:
+                lato_path = f'web/static/fonts/lato/Lato-{font_type}-webfont.ttf'
+                fonts[font_type] = ImageFont.truetype(file_path(lato_path), 12)
+            except (OSError, FileNotFoundError):
+                # This won't give great result, but it will work.
+                fonts[font_type] = ImageFont.load_default()
+
+        def write_cell(sheet, x, y, value, style, colspan=1, datetime=False):
+            self._set_xlsx_cell_sizes(sheet, fonts, x, y, value, style, colspan > 1)
             if colspan == 1:
-                sheet.write(y, x, value, style)
+                if datetime:
+                    sheet.write_datetime(y, x, value, style)
+                else:
+                    sheet.write(y, x, value, style)
             else:
                 sheet.merge_range(y, x, y, x + colspan - 1, value, style)
 
-        date_default_col1_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'num_format': 'yyyy-mm-dd'})
-        date_default_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'num_format': 'yyyy-mm-dd'})
-        default_col1_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'indent': 2})
-        default_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666'})
-        title_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'bottom': 2})
-        level_0_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 6, 'font_color': '#666666'})
-        level_1_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666'})
-        level_2_col1_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 1})
-        level_2_col1_total_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666'})
-        level_2_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666'})
-        level_3_col1_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'indent': 2})
-        level_3_col1_total_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 1})
-        level_3_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666'})
+        date_default_col1_style = workbook.add_format({'font_name': 'Lato', 'align': 'left', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'num_format': 'yyyy-mm-dd', 'text_wrap': True})
+        date_default_style = workbook.add_format({'font_name': 'Lato', 'align': 'left', 'font_size': 12, 'font_color': '#666666', 'num_format': 'yyyy-mm-dd'})
+        default_col1_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'text_wrap': True})
+        default_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666'})
+        title_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'bold': True, 'bottom': 2})
+        level_0_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 13, 'bottom': 6, 'font_color': '#666666', 'text_wrap': True})
+        level_1_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666', 'text_wrap': True})
+        level_2_col1_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 1, 'text_wrap': True})
+        level_2_col1_total_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666'})
+        level_2_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'text_wrap': True})
+        level_3_col1_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'text_wrap': True})
+        level_3_col1_total_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 1})
+        level_3_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'text_wrap': True})
 
         print_mode_self = self.with_context(no_format=True)
         lines = self._filter_out_folded_children(print_mode_self._get_lines(options))
@@ -4893,14 +4952,6 @@ class AccountReport(models.Model):
                 # Reuse the _split_code_name to split the name and code in two values.
                 account_lines_split_names[line['id']] = self.env['account.account']._split_code_name(line['name'])
 
-        # Set the first column width to 50.
-        # If we have account lines and split the name and code in two columns, we will also set the second column.
-        if len(account_lines_split_names) > 0:
-            sheet.set_column(0, 0, 11)
-            sheet.set_column(1, 1, 50)
-        else:
-            sheet.set_column(0, 0, 50)
-
         original_x_offset = 1 if len(account_lines_split_names) > 0 else 0
 
         y_offset = 0
@@ -4913,23 +4964,23 @@ class AccountReport(models.Model):
         for header_level_index, header_level in enumerate(options['column_headers']):
             for header_to_render in header_level * column_headers_render_data['level_repetitions'][header_level_index]:
                 colspan = header_to_render.get('colspan', column_headers_render_data['level_colspan'][header_level_index])
-                write_with_colspan(sheet, x_offset, y_offset, header_to_render.get('name', ''), colspan, title_style)
+                write_cell(sheet, x_offset, y_offset, header_to_render.get('name', ''), title_style, colspan)
                 x_offset += colspan
             if options['show_growth_comparison']:
-                write_with_colspan(sheet, x_offset, y_offset, '%', 1, title_style)
+                write_cell(sheet, x_offset, y_offset, '%', title_style)
             y_offset += 1
             x_offset = original_x_offset + 1
 
         for subheader in column_headers_render_data['custom_subheaders']:
             colspan = subheader.get('colspan', 1)
-            write_with_colspan(sheet, x_offset, y_offset, subheader.get('name', ''), colspan, title_style)
+            write_cell(sheet, x_offset, y_offset, subheader.get('name', ''), title_style, colspan)
             x_offset += colspan
         y_offset += 1
         x_offset = original_x_offset + 1
 
         for column in options['columns']:
             colspan = column.get('colspan', 1)
-            write_with_colspan(sheet, x_offset, y_offset, column.get('name', ''), colspan, title_style)
+            write_cell(sheet, x_offset, y_offset, column.get('name', ''), title_style, colspan)
             x_offset += colspan
         y_offset += 1
 
@@ -4963,16 +5014,16 @@ class AccountReport(models.Model):
             x_offset = original_x_offset + 1
             if lines[y]['id'] in account_lines_split_names:
                 code, name = account_lines_split_names[lines[y]['id']]
-                sheet.write(y + y_offset, x_offset - 2, code, col1_style)
-                sheet.write(y + y_offset, x_offset - 1, name, col1_style)
+                write_cell(sheet, x_offset - 2, y + y_offset, code, col1_style)
+                write_cell(sheet, x_offset - 1, y + y_offset, name, col1_style)
             else:
                 if lines[y].get('parent_id') and lines[y]['parent_id'] in account_lines_split_names:
-                    sheet.write(y + y_offset, x_offset - 2, account_lines_split_names[lines[y]['parent_id']][0], col1_style)
+                    write_cell(sheet, x_offset - 2, y + y_offset, account_lines_split_names[lines[y]['parent_id']][0], col1_style)
                 cell_type, cell_value = self._get_cell_type_value(lines[y])
                 if cell_type == 'date':
-                    sheet.write_datetime(y + y_offset, x_offset - 1, cell_value, date_default_col1_style)
+                    write_cell(sheet, x_offset - 1, y + y_offset, cell_value, date_default_col1_style, datetime=True)
                 else:
-                    sheet.write(y + y_offset, x_offset - 1, cell_value, col1_style)
+                    write_cell(sheet, x_offset - 1, y + y_offset, cell_value, col1_style)
 
             #write all the remaining cells
             columns = lines[y]['columns']
@@ -4981,9 +5032,9 @@ class AccountReport(models.Model):
             for x, column in enumerate(columns, start=x_offset):
                 cell_type, cell_value = self._get_cell_type_value(column)
                 if cell_type == 'date':
-                    sheet.write_datetime(y + y_offset, x + lines[y].get('colspan', 1) - 1, cell_value, date_default_style)
+                    write_cell(sheet, x + lines[y].get('colspan', 1) - 1, y + y_offset, cell_value, date_default_style, datetime=True)
                 else:
-                    sheet.write(y + y_offset, x + lines[y].get('colspan', 1) - 1, cell_value, style)
+                    write_cell(sheet, x + lines[y].get('colspan', 1) - 1, y + y_offset, cell_value, style)
 
     def _add_options_xlsx_sheet(self, workbook, options_list):
         """Adds a new sheet for xlsx report exports with a summary of all filters and options activated at the moment of the export."""
