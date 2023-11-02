@@ -318,12 +318,12 @@ QUnit.test("ungrouped gantt rendering", async (assert) => {
     assert.deepEqual(rows, [
         {
             pills: [
-                { title: "Task 1", level: 0, colSpan: "01 -> 31" },
-                { title: "Task 5", level: 1, colSpan: "01 -> 04 (1/2)" },
-                { title: "Task 2", level: 1, colSpan: "17 (1/2) -> 22 (1/2)" },
+                { title: "Task 5", level: 0, colSpan: "01 -> 04 (1/2)" },
+                { title: "Task 1", level: 1, colSpan: "01 -> 31" },
+                { title: "Task 2", level: 0, colSpan: "17 (1/2) -> 22 (1/2)" },
                 { title: "Task 4", level: 2, colSpan: "20 -> 20 (1/2)" },
                 { title: "Task 7", level: 2, colSpan: "20 (1/2) -> 20" },
-                { title: "Task 3", level: 1, colSpan: "27 -> 31" },
+                { title: "Task 3", level: 0, colSpan: "27 -> 31" },
             ],
         },
     ]);
@@ -851,6 +851,55 @@ QUnit.test("gantt rendering, thumbnails", async (assert) => {
     );
 });
 
+QUnit.test("gantt rendering, pills must be chronologically ordered", async (assert) => {
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt string="Tasks" default_scale="week" date_start="start" date_stop="stop" thumbnails="{'user_id': 'image'}"/>`,
+        mockRPC: function (_, args) {
+            if (args.method === "get_gantt_data") {
+                return {
+                    groups: [
+                        {
+                            user_id: [1, "User 1"],
+                            __record_ids: [1],
+                        },
+                        {
+                            user_id: false,
+                            __record_ids: [2],
+                        },
+                    ],
+                    length: 2,
+                    records: [
+                        {
+                            display_name: "Task 14:30:00",
+                            id: 1,
+                            start: "2018-12-17 14:30:00",
+                            stop: "2018-12-17 18:29:59",
+                        },
+                        {
+                            display_name: "Task 08:30:00",
+                            id: 2,
+                            start: "2018-12-17 08:30:00",
+                            stop: "2018-12-17 13:29:59",
+                        },
+                    ],
+                };
+            }
+        },
+    });
+    const gridContent = getGridContent();
+    assert.deepEqual(gridContent.rows, [
+        {
+            pills: [
+                { title: "Task 08:30:00", level: 0, colSpan: "Monday, 17 -> Monday, 17" },
+                { title: "Task 14:30:00", level: 1, colSpan: "Monday, 17 (1/2) -> Monday, 17" },
+            ],
+        },
+    ]);
+});
+
 QUnit.test("scale switching", async (assert) => {
     await makeView({
         type: "gantt",
@@ -868,12 +917,12 @@ QUnit.test("scale switching", async (assert) => {
     assert.deepEqual(gridContent.rows, [
         {
             pills: [
-                { title: "Task 1", level: 0, colSpan: "01 -> 31" },
-                { title: "Task 5", level: 1, colSpan: "01 -> 04 (1/2)" },
-                { title: "Task 2", level: 1, colSpan: "17 (1/2) -> 22 (1/2)" },
+                { title: "Task 5", level: 0, colSpan: "01 -> 04 (1/2)" },
+                { title: "Task 1", level: 1, colSpan: "01 -> 31" },
+                { title: "Task 2", level: 0, colSpan: "17 (1/2) -> 22 (1/2)" },
                 { title: "Task 4", level: 2, colSpan: "20 -> 20 (1/2)" },
                 { title: "Task 7", level: 2, colSpan: "20 (1/2) -> 20" },
-                { title: "Task 3", level: 1, colSpan: "27 -> 31" },
+                { title: "Task 3", level: 0, colSpan: "27 -> 31" },
             ],
         },
     ]);
@@ -931,12 +980,12 @@ QUnit.test("scale switching", async (assert) => {
     assert.deepEqual(gridContent.rows, [
         {
             pills: [
-                { title: "Task 1", level: 0, colSpan: "01 -> 31" },
-                { title: "Task 5", level: 1, colSpan: "01 -> 04 (1/2)" },
-                { title: "Task 2", level: 1, colSpan: "17 (1/2) -> 22 (1/2)" },
+                { title: "Task 5", level: 0, colSpan: "01 -> 04 (1/2)" },
+                { title: "Task 1", level: 1, colSpan: "01 -> 31" },
+                { title: "Task 2", level: 0, colSpan: "17 (1/2) -> 22 (1/2)" },
                 { title: "Task 4", level: 2, colSpan: "20 -> 20 (1/2)" },
                 { title: "Task 7", level: 2, colSpan: "20 (1/2) -> 20" },
-                { title: "Task 3", level: 1, colSpan: "27 -> 31" },
+                { title: "Task 3", level: 0, colSpan: "27 -> 31" },
             ],
         },
     ]);
@@ -952,13 +1001,13 @@ QUnit.test("scale switching", async (assert) => {
     assert.deepEqual(gridContent.rows, [
         {
             pills: [
-                { title: "Task 1", level: 0, colSpan: "November -> December" },
-                { title: "Task 5", level: 1, colSpan: "November -> December" },
-                { title: "Task 6", level: 2, colSpan: "November -> November" },
-                { title: "Task 2", level: 2, colSpan: "December -> December" },
-                { title: "Task 3", level: 3, colSpan: "December -> December" },
-                { title: "Task 4", level: 4, colSpan: "December -> December" },
-                { title: "Task 7", level: 5, colSpan: "December -> December" },
+                { title: "Task 5", level: 0, colSpan: "November -> December" },
+                { title: "Task 6", level: 1, colSpan: "November -> November" },
+                { title: "Task 1", level: 2, colSpan: "November -> December" },
+                { title: "Task 2", level: 1, colSpan: "December -> December" },
+                { title: "Task 4", level: 3, colSpan: "December -> December" },
+                { title: "Task 7", level: 4, colSpan: "December -> December" },
+                { title: "Task 3", level: 5, colSpan: "December -> December" },
             ],
         },
     ]);
@@ -2131,16 +2180,16 @@ QUnit.test("resize pill in year mode", async (assert) => {
         },
     });
 
-    const initialPillWidth = getPillWrapper("Task 1").getBoundingClientRect().width;
+    const initialPillWidth = getPillWrapper("Task 5").getBoundingClientRect().width;
 
-    assert.hasClass(getPillWrapper("Task 1"), CLASSES.resizable);
+    assert.hasClass(getPillWrapper("Task 5"), CLASSES.resizable);
 
     // Resize way over the limit
-    await resizePill(getPillWrapper("Task 1"), "end", 0, { x: 200 });
+    await resizePill(getPillWrapper("Task 5"), "end", 0, { x: 200 });
 
     assert.strictEqual(
         initialPillWidth,
-        getPillWrapper("Task 1").getBoundingClientRect().width,
+        getPillWrapper("Task 5").getBoundingClientRect().width,
         "the pill should have the same width as before the resize"
     );
 });
@@ -2904,8 +2953,8 @@ QUnit.test("drag&drop on other pill in grouped view", async (assert) => {
         {
             title: "Project 1",
             pills: [
-                { title: "Task 1", level: 0, colSpan: "Sunday, 16 -> Sunday, 16 (1/2)" },
-                { title: "Task 2", level: 1, colSpan: "Sunday, 16 -> Sunday, 16 (1/2)" },
+                { title: "Task 2", level: 0, colSpan: "Sunday, 16 -> Sunday, 16 (1/2)" },
+                { title: "Task 1", level: 1, colSpan: "Sunday, 16 -> Sunday, 16 (1/2)" },
                 { title: "Task 4", level: 0, colSpan: "Thursday, 20 -> Thursday, 20 (1/2)" },
             ],
         },
@@ -2970,12 +3019,12 @@ QUnit.test("edit attribute", async (assert) => {
     assert.deepEqual(getGridContent().rows, [
         {
             pills: [
-                { title: "Task 1", level: 0, colSpan: "01 -> 31" },
-                { title: "Task 5", level: 1, colSpan: "01 -> 04 (1/2)" },
-                { title: "Task 2", level: 1, colSpan: "17 (1/2) -> 22 (1/2)" },
+                { title: "Task 5", level: 0, colSpan: "01 -> 04 (1/2)" },
+                { title: "Task 1", level: 1, colSpan: "01 -> 31" },
+                { title: "Task 2", level: 0, colSpan: "17 (1/2) -> 22 (1/2)" },
                 { title: "Task 4", level: 2, colSpan: "20 -> 20 (1/2)" },
                 { title: "Task 7", level: 2, colSpan: "20 (1/2) -> 20" },
-                { title: "Task 3", level: 1, colSpan: "27 -> 31" },
+                { title: "Task 3", level: 0, colSpan: "27 -> 31" },
             ],
         },
     ]);
@@ -3000,18 +3049,18 @@ QUnit.test("total_row attribute", async (assert) => {
         {
             pills: [
                 {
-                    colSpan: "01 -> 31",
-                    level: 0,
-                    title: "Task 1",
-                },
-                {
                     colSpan: "01 -> 04 (1/2)",
-                    level: 1,
+                    level: 0,
                     title: "Task 5",
                 },
                 {
-                    colSpan: "17 (1/2) -> 22 (1/2)",
+                    colSpan: "01 -> 31",
                     level: 1,
+                    title: "Task 1",
+                },
+                {
+                    colSpan: "17 (1/2) -> 22 (1/2)",
+                    level: 0,
                     title: "Task 2",
                 },
                 {
@@ -3026,7 +3075,7 @@ QUnit.test("total_row attribute", async (assert) => {
                 },
                 {
                     colSpan: "27 -> 31",
-                    level: 1,
+                    level: 0,
                     title: "Task 3",
                 },
             ],
@@ -3356,18 +3405,18 @@ QUnit.test("consolidation feature (single level)", async (assert) => {
         {
             pills: [
                 {
-                    colSpan: "01 -> 31",
-                    level: 0,
-                    title: "Task 1",
-                },
-                {
                     colSpan: "01 -> 04 (1/2)",
-                    level: 1,
+                    level: 0,
                     title: "Task 5",
                 },
                 {
-                    colSpan: "20 -> 20 (1/2)",
+                    colSpan: "01 -> 31",
                     level: 1,
+                    title: "Task 1",
+                },
+                {
+                    colSpan: "20 -> 20 (1/2)",
+                    level: 0,
                     title: "Task 4",
                 },
             ],
@@ -3781,18 +3830,18 @@ QUnit.test("default_group_by attribute", async (assert) => {
                 title: "User 1",
                 pills: [
                     {
-                        colSpan: "01 -> 31",
-                        level: 0,
-                        title: "Task 1",
-                    },
-                    {
                         colSpan: "01 -> 04 (1/2)",
-                        level: 1,
+                        level: 0,
                         title: "Task 5",
                     },
                     {
-                        colSpan: "20 -> 20 (1/2)",
+                        colSpan: "01 -> 31",
                         level: 1,
+                        title: "Task 1",
+                    },
+                    {
+                        colSpan: "20 -> 20 (1/2)",
+                        level: 0,
                         title: "Task 4",
                     },
                 ],
@@ -6114,18 +6163,18 @@ QUnit.test("groups_limit attribute (no groupBy)", async (assert) => {
         {
             pills: [
                 {
-                    colSpan: "01 -> 31",
-                    level: 0,
-                    title: "Task 1",
-                },
-                {
                     colSpan: "01 -> 04 (1/2)",
-                    level: 1,
+                    level: 0,
                     title: "Task 5",
                 },
                 {
-                    colSpan: "17 (1/2) -> 22 (1/2)",
+                    colSpan: "01 -> 31",
                     level: 1,
+                    title: "Task 1",
+                },
+                {
+                    colSpan: "17 (1/2) -> 22 (1/2)",
+                    level: 0,
                     title: "Task 2",
                 },
                 {
@@ -6140,7 +6189,7 @@ QUnit.test("groups_limit attribute (no groupBy)", async (assert) => {
                 },
                 {
                     colSpan: "27 -> 31",
-                    level: 1,
+                    level: 0,
                     title: "Task 3",
                 },
             ],
