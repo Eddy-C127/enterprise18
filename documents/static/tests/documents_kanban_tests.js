@@ -292,7 +292,7 @@ QUnit.module("documents", {}, function () {
         },
         function () {
             QUnit.test("kanban basic rendering", async function (assert) {
-                assert.expect(25);
+                assert.expect(26);
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -446,6 +446,12 @@ QUnit.module("documents", {}, function () {
                 assert.ok(
                     target.querySelector(".o_documents_kanban_share_domain").disabled === false,
                     "the share button should be enabled when a folder is selected"
+                );
+                await legacyClick(target, ".o_search_panel_category_value[title='Trash'] header");
+                assert.containsOnce(
+                    target.querySelector(".o_cp_buttons"),
+                    ".o_documents_kanban_upload.pe-none.opacity-25",
+                    "the upload button should be disabled inside TRASH folder."
                 );
             });
 
@@ -5188,6 +5194,33 @@ QUnit.module("documents", {}, function () {
                         }),
                     ]);
                     assert.verifySteps(["xhrSend"]);
+                }
+            );
+
+            QUnit.test(
+                "when no sharable workspace is present, check the visibility of dropdown button inside 'All' workspace",
+                async function (assert) {
+                    pyEnv["documents.folder"].unlink(pyEnv["documents.folder"].search([]));
+                    await createDocumentsView({
+                        type: "kanban",
+                        resModel: "documents.document",
+                        arch: `<kanban js_class="documents_kanban">
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div>
+                                                <i class="fa fa-circle-thin o_record_selector"/>
+                                                <field name="name"/>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>`,
+                    });
+                    await click(".o_search_panel_category_value:nth-of-type(1) header");
+                    await nextTick();
+                    assert.ok(
+                        target.querySelector(".btn-group button.dropdown-toggle-split").disabled,
+                        "the dropdown button should be disabled"
+                    );
                 }
             );
         }
