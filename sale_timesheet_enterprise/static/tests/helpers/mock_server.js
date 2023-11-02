@@ -9,16 +9,21 @@ patch(MockServer.prototype, {
             if (method === "get_timesheet_ranking_data") {
                 return this._mockResCompanyRetrieveRankingData();
             }
-            if (method === "read" && args[1].length === 1 && args[1][0] === "timesheet_show_rates") {
-                return this._mockReadTimesheetShowRates();
+            if (method === "read" && args[1].length === 2 && args[1][0] === "timesheet_show_rates" && args[1][1] === "timesheet_show_leaderboard") {
+                return this._mockReadTimesheetShowRatesLeaderboard();
             }
+        } else if (model === "hr.employee" && method === "get_billable_time_target") {
+            return this._mockGetBillableTimeTarget(args);
         }
         return super._performRPC(...arguments);
     },
     _mockResCompanyRetrieveRankingData() {
         return { leaderboard: [], current_employee: {} };
     },
-    _mockReadTimesheetShowRates() {
-        return [true];
-    }
+    _mockReadTimesheetShowRatesLeaderboard() {
+        return [true, true];
+    },
+    _mockGetBillableTimeTarget() {
+        return [{ billable_time_target: 150 }];
+    },
 });

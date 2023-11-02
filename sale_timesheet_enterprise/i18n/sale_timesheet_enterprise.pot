@@ -36,6 +36,12 @@ msgstr ""
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
+msgid "%(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#. odoo-javascript
+#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 msgid "%(percentage)s%"
 msgstr ""
 
@@ -104,8 +110,8 @@ msgstr ""
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
-#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
-msgid "Billing: %(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
+#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
+msgid "Billing:"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
@@ -364,16 +370,6 @@ msgstr ""
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_project_task
 msgid "Task"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.constraint,message:sale_timesheet_enterprise.constraint_hr_employee_check_billable_time_target
-msgid "The billable time target cannot be negative."
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.constraint,message:sale_timesheet_enterprise.constraint_res_company_check_billing_rate
-msgid "The billing rate target percentage must be between 0 and 100."
 msgstr ""
 
 #. module: sale_timesheet_enterprise

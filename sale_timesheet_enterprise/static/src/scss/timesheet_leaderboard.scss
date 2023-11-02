@@ -1,5 +1,5 @@
 $o-ranking-colors: (1: #eca801, 2: #acacac, 3: #ba651f);
-$table-max-height-base: 37vh;
+$table-height-base: 29vh;
 $table-max-height-lg: 46vh;
 $td-width-avatar: 32px;
 
@@ -13,7 +13,8 @@ $td-width-avatar: 32px;
 }
 
 .o_leaderboard_modal_table {
-    max-height: $table-max-height-base;
+    min-height: $table-height-base;
+    max-height: $table-height-base;
     overflow-y: auto;
 
     td:nth-child(2) {
