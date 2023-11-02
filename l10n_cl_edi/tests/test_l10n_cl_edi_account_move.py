@@ -31,7 +31,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
     @freeze_time('2019-10-24T20:00:00', tz_offset=3)
     def test_l10n_cl_dte_33(self):
         self.tax_19 = self.env['account.tax'].search([
-            ('name', '=', '19%'),
+            ('name', '=', '19% VAT'),
             ('type_tax_use', '=', 'sale'),
             ('company_id', '=', self.company_data['company'].id)])
         invoice = self.env['account.move'].with_context(default_move_type='out_invoice').create({
@@ -75,7 +75,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
     @freeze_time('2019-10-24T20:00:00', tz_offset=3)
     def test_l10n_cl_dte_33_with_reference_ids(self):
         self.tax_19 = self.env['account.tax'].search([
-            ('name', '=', '19%'),
+            ('name', '=', '19% VAT'),
             ('type_tax_use', '=', 'sale'),
             ('company_id', '=', self.company_data['company'].id)])
         invoice = self.env['account.move'].with_context(default_move_type='out_invoice').create({
@@ -135,7 +135,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
     @freeze_time('2019-10-24T20:00:00', tz_offset=3)
     def test_l10n_cl_dte_33_withholding_taxes(self):
         self.tax_19 = self.env['account.tax'].search([
-            ('name', '=', '19%'),
+            ('name', '=', '19% VAT'),
             ('type_tax_use', '=', 'sale'),
             ('company_id', '=', self.company_data['company'].id)])
         self.tax_205 = self.env['account.tax'].search([
@@ -224,7 +224,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
     @freeze_time('2019-10-24T20:00:00', tz_offset=3)
     def test_l10n_cl_dte_33_with_discounts(self):
         self.tax_19 = self.env['account.tax'].search([
-            ('name', '=', '19%'),
+            ('name', '=', '19% VAT'),
             ('type_tax_use', '=', 'sale'),
             ('company_id', '=', self.company_data['company'].id)])
         invoice = self.env['account.move'].with_context(default_move_type='out_invoice').create({
@@ -278,7 +278,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
     @freeze_time('2022-11-24T12:45:37', tz_offset=3)
     def test_l10n_cl_dte_33_usd_with_discounts(self):
         self.tax_19 = self.env['account.tax'].search([
-            ('name', '=', '19%'),
+            ('name', '=', '19% VAT'),
             ('type_tax_use', '=', 'sale'),
             ('company_id', '=', self.company_data['company'].id)])
         currency_usd = self.env.ref('base.USD')
@@ -375,7 +375,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
     @freeze_time('2019-10-24T20:00:00', tz_offset=3)
     def test_l10n_cl_dte_56(self):
         self.tax_19 = self.env['account.tax'].search([
-            ('name', '=', '19%'),
+            ('name', '=', '19% VAT'),
             ('type_tax_use', '=', 'sale'),
             ('company_id', '=', self.company_data['company'].id)])
 
