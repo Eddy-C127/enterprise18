@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.SelectPartnerButton" t-inherit-mode="extension">
+        <xpath expr="//button[hasclass('set-partner')]/i" position="replace">
+            <i class="fa fa-warning me-1" t-if="isOverLimit()"/>
+            <i class="fa fa-user me-1" role="img" aria-label="Customer" title="Customer" t-else="" />
+        </xpath>
+        <xpath expr="//button[hasclass('set-partner')]" position="attributes">
+            <attribute name="t-att-class">{'btn-warning': isOverLimit()}</attribute>
+        </xpath>
+    </t>
+ </templates>
