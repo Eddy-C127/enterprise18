@@ -7,6 +7,7 @@ from odoo import models, api, fields, Command, _
 from odoo.addons.web.controllers.utils import clean_action
 from odoo.exceptions import UserError, RedirectWarning
 from odoo.osv import expression
+from odoo.tools import SQL
 from odoo.tools.misc import get_lang
 
 
@@ -186,25 +187,6 @@ class AccountTaxReportHandler(models.AbstractModel):
         self.env['account.move.line'].flush_model(['account_id', 'debit', 'credit', 'move_id', 'tax_line_id', 'date', 'company_id', 'display_type', 'parent_state'])
         self.env['account.move'].flush_model(['state'])
 
-        # Check whether it is multilingual, in order to get the translation from the JSON value if present
-        lang = self.env.user.lang or get_lang(self.env).code
-        tax_name = f"COALESCE(tax.name->>'{lang}', tax.name->>'en_US')" if \
-            self.pool['account.tax'].name.translate else 'tax.name'
-
-        sql = f"""
-            SELECT "account_move_line".tax_line_id as tax_id,
-                    tax.tax_group_id as tax_group_id,
-                    {tax_name} as tax_name,
-                    "account_move_line".account_id,
-                    COALESCE(SUM("account_move_line".balance), 0) as amount
-            FROM account_tax tax, account_tax_repartition_line repartition, %s
-            WHERE %s
-              AND tax.id = "account_move_line".tax_line_id
-              AND repartition.id = "account_move_line".tax_repartition_line_id
-              AND repartition.use_in_tax_closing
-            GROUP BY tax.tax_group_id, "account_move_line".tax_line_id, tax.name, "account_move_line".account_id
-        """
-
         new_options = {
             **options,
             'all_entries': False,
@@ -222,13 +204,35 @@ class AccountTaxReportHandler(models.AbstractModel):
         # position to 'all' when the report is the generic tax report)
         new_options['fiscal_position'] = options['fiscal_position']
 
-        tables, where_clause, where_params = self.env.ref('account.generic_tax_report')._query_get(
+        table_references, search_condition = self.env.ref('account.generic_tax_report')._get_table_expression(
             new_options,
             'strict_range',
             domain=self._get_vat_closing_entry_additional_domain()
         )
-        query = sql % (tables, where_clause)
-        self.env.cr.execute(query, where_params)
+
+        # Check whether it is multilingual, in order to get the translation from the JSON value if present
+        lang = self.env.user.lang or get_lang(self.env).code
+        tax_name = self.with_context(lang=lang).env['account.tax']._field_to_sql('tax', 'name')
+
+        query = SQL(
+            """
+            SELECT "account_move_line".tax_line_id as tax_id,
+                    tax.tax_group_id as tax_group_id,
+                    %(tax_name)s as tax_name,
+                    "account_move_line".account_id,
+                    COALESCE(SUM("account_move_line".balance), 0) as amount
+            FROM account_tax tax, account_tax_repartition_line repartition, %(table_references)s
+            WHERE %(search_condition)s
+              AND tax.id = "account_move_line".tax_line_id
+              AND repartition.id = "account_move_line".tax_repartition_line_id
+              AND repartition.use_in_tax_closing
+            GROUP BY tax.tax_group_id, "account_move_line".tax_line_id, tax.name, "account_move_line".account_id
+            """,
+            tax_name=tax_name,
+            table_references=table_references,
+            search_condition=search_condition,
+        )
+        self.env.cr.execute(query)
         results = self.env.cr.dictfetchall()
         results = self._postprocess_vat_closing_entry_results(company, new_options, results)
 

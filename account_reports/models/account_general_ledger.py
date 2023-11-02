@@ -4,7 +4,7 @@ import json
 
 from odoo import models, fields, api, _
 from odoo.tools.misc import format_date
-from odoo.tools import get_lang
+from odoo.tools import get_lang, SQL
 from odoo.exceptions import UserError
 
 from datetime import timedelta
@@ -348,8 +348,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     def _get_aml_values(self, report, options, expanded_account_ids, offset=0, limit=None):
         rslt = {account_id: {} for account_id in expanded_account_ids}
-        aml_query, aml_params = self._get_query_amls(report, options, expanded_account_ids, offset=offset, limit=limit)
-        self._cr.execute(aml_query, aml_params)
+        aml_query = self._get_query_amls(report, options, expanded_account_ids, offset=offset, limit=limit)
+        self._cr.execute(aml_query)
         aml_results_number = 0
         has_more = False
         for aml_result in self._cr.dictfetchall():
@@ -386,7 +386,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         return rslt, has_more
 
-    def _get_query_amls(self, report, options, expanded_account_ids, offset=0, limit=None):
+    def _get_query_amls(self, report, options, expanded_account_ids, offset=0, limit=None) -> SQL:
         """ Construct a query retrieving the account.move.lines when expanding a report line with or without the load
         more.
         :param options:               The report options.
@@ -397,19 +397,18 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         """
         additional_domain = [('account_id', 'in', expanded_account_ids)] if expanded_account_ids is not None else None
         queries = []
-        all_params = []
         lang = self.env.user.lang or get_lang(self.env).code
-        journal_name = f"COALESCE(journal.name->>'{lang}', journal.name->>'en_US')" if \
-            self.pool['account.journal'].name.translate else 'journal.name'
-        account_name = f"COALESCE(account.name->>'{lang}', account.name->>'en_US')" if \
-            self.pool['account.account'].name.translate else 'account.name'
+        self_lang = self.with_context(lang=lang)
+        journal_name = self_lang.env['account.journal']._field_to_sql('journal', 'name')
+        account_name = self_lang.env['account.account']._field_to_sql('account', 'name')
         for column_group_key, group_options in report._split_options_per_column_group(options).items():
             # Get sums for the account move lines.
             # period: [('date' <= options['date_to']), ('date', '>=', options['date_from'])]
-            tables, where_clause, where_params = report._query_get(group_options, domain=additional_domain, date_scope='strict_range')
-            ct_query = report._get_query_currency_table(group_options)
-            query = f'''
-                (SELECT
+            table_references, search_condition = report._get_table_expression(group_options, domain=additional_domain, date_scope='strict_range')
+            ct_query = SQL(report._get_query_currency_table(group_options))
+            query = SQL(
+                '''
+                SELECT
                     account_move_line.id,
                     account_move_line.date,
                     account_move_line.date_maturity,
@@ -430,37 +429,39 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     partner.name                            AS partner_name,
                     move.move_type                          AS move_type,
                     account.code                            AS account_code,
-                    {account_name}                          AS account_name,
+                    %(account_name)s                        AS account_name,
                     journal.code                            AS journal_code,
-                    {journal_name}                          AS journal_name,
+                    %(journal_name)s                        AS journal_name,
                     full_rec.id                             AS full_rec_name,
-                    %s                                      AS column_group_key
-                FROM {tables}
+                    %(column_group_key)s                    AS column_group_key
+                FROM %(table_references)s
                 JOIN account_move move                      ON move.id = account_move_line.move_id
-                LEFT JOIN {ct_query}                        ON currency_table.company_id = account_move_line.company_id
+                LEFT JOIN %(ct_query)s                      ON currency_table.company_id = account_move_line.company_id
                 LEFT JOIN res_company company               ON company.id = account_move_line.company_id
                 LEFT JOIN res_partner partner               ON partner.id = account_move_line.partner_id
                 LEFT JOIN account_account account           ON account.id = account_move_line.account_id
                 LEFT JOIN account_journal journal           ON journal.id = account_move_line.journal_id
                 LEFT JOIN account_full_reconcile full_rec   ON full_rec.id = account_move_line.full_reconcile_id
-                WHERE {where_clause}
-                ORDER BY account_move_line.date, account_move_line.id)
-            '''
-
+                WHERE %(search_condition)s
+                ORDER BY account_move_line.date, account_move_line.id
+                ''',
+                account_name=account_name,
+                journal_name=journal_name,
+                column_group_key=column_group_key,
+                table_references=table_references,
+                ct_query=ct_query,
+                search_condition=search_condition,
+            )
             queries.append(query)
-            all_params.append(column_group_key)
-            all_params += where_params
 
-        full_query = " UNION ALL ".join(queries)
+        full_query = SQL(" UNION ALL ").join(SQL("(%s)", query) for query in queries)
 
         if offset:
-            full_query += ' OFFSET %s '
-            all_params.append(offset)
+            full_query = SQL('%s OFFSET %s ', full_query, offset)
         if limit:
-            full_query += ' LIMIT %s '
-            all_params.append(limit)
+            full_query = SQL('%s LIMIT %s ', full_query, limit)
 
-        return (full_query, all_params)
+        return full_query
 
     def _get_initial_balance_values(self, report, account_ids, options):
         """

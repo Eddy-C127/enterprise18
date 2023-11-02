@@ -20,7 +20,7 @@ from dateutil.relativedelta import relativedelta
 from odoo.addons.web.controllers.utils import clean_action
 from odoo import models, fields, api, _, osv, _lt
 from odoo.exceptions import RedirectWarning, UserError, ValidationError
-from odoo.tools import  date_utils, get_lang, float_is_zero, float_repr
+from odoo.tools import  date_utils, get_lang, float_is_zero, float_repr, SQL
 from odoo.tools.float_utils import float_round
 from odoo.tools.misc import formatLang, format_date, xlsxwriter, file_path
 from odoo.tools.safe_eval import expr_eval, safe_eval
@@ -1735,6 +1735,11 @@ class AccountReport(models.Model):
 
     @api.model
     def _query_get(self, options, date_scope, domain=None):
+        table_references, condition = self._get_table_expression(options, date_scope, domain=domain)
+        return table_references.code, condition.code, table_references.params + condition.params
+
+    def _get_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
+        """ returns the table reference list and the search condition of the query """
         domain = self._get_options_domain(options, date_scope) + (domain or [])
 
         if options.get('forced_domain'):
@@ -1748,7 +1753,7 @@ class AccountReport(models.Model):
         # Wrap the query with 'company_id IN (...)' to avoid bypassing company access rights.
         self.env['account.move.line']._apply_ir_rules(query)
 
-        return query.get_sql()
+        return query.from_clause, query.where_clause
 
     ####################################################
     # LINE IDS MANAGEMENT HELPERS
@@ -2977,45 +2982,51 @@ class AccountReport(models.Model):
             all_expressions |= expressions
         tags = all_expressions._get_matching_tags()
 
-        currency_table_query = self._get_query_currency_table(options)
-        groupby_sql = f'account_move_line.{current_groupby}' if current_groupby else None
-        tables, where_clause, where_params = self._query_get(options, date_scope)
-        tail_query, tail_params = self._get_engine_query_tail(offset, limit)
-        if self.pool['account.account.tag'].name.translate:
-            lang = self.env.user.lang or get_lang(self.env).code
-            acc_tag_name = f"COALESCE(acc_tag.name->>'{lang}', acc_tag.name->>'en_US')"
-        else:
-            acc_tag_name = 'acc_tag.name'
-        sql = f"""
+        currency_table_query = SQL(self._get_query_currency_table(options))  # TODO: ask currency_table_query to be a SQL object
+        groupby_sql = SQL.identifier('account_move_line', current_groupby) if current_groupby else None
+        table_references, search_condition = self._get_table_expression(options, date_scope)
+        tail_query = self._get_engine_query_tail(offset, limit)
+        lang = self.env.user.lang or get_lang(self.env).code
+        acc_tag_name = self.with_context(lang=lang).env['account.account.tag']._field_to_sql('acc_tag', 'name')
+        sql = SQL(
+            """
             SELECT
-                SUBSTRING({acc_tag_name}, 2, LENGTH({acc_tag_name}) - 1) AS formula,
+                SUBSTRING(%(acc_tag_name)s, 2, LENGTH(%(acc_tag_name)s) - 1) AS formula,
                 SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
                     * CASE WHEN acc_tag.tax_negate THEN -1 ELSE 1 END
                     * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
                 ) AS balance,
                 COUNT(account_move_line.id) AS aml_count
-                {f', {groupby_sql} AS grouping_key' if groupby_sql else ''}
+                %(select_groupby_sql)s
 
-            FROM {tables}
+            FROM %(table_references)s
 
             JOIN account_account_tag_account_move_line_rel aml_tag
                 ON aml_tag.account_move_line_id = account_move_line.id
             JOIN account_account_tag acc_tag
                 ON aml_tag.account_account_tag_id = acc_tag.id
-                AND acc_tag.id IN %s
-            JOIN {currency_table_query}
+                AND acc_tag.id IN %(tag_ids)s
+            JOIN %(currency_table_query)s
                 ON currency_table.company_id = account_move_line.company_id
 
-            WHERE {where_clause}
+            WHERE %(search_condition)s
 
-            GROUP BY SUBSTRING({acc_tag_name}, 2, LENGTH({acc_tag_name}) - 1)
-                {f', {groupby_sql}' if groupby_sql else ''}
+            GROUP BY SUBSTRING(%(acc_tag_name)s, 2, LENGTH(%(acc_tag_name)s) - 1)
+                %(groupby_sql)s
 
-            {tail_query}
-        """
+            %(tail_query)s
+            """,
+            acc_tag_name=acc_tag_name,
+            select_groupby_sql=SQL(', %s AS grouping_key', groupby_sql) if groupby_sql else SQL(''),
+            table_references=table_references,
+            tag_ids=tuple(tags.ids),
+            currency_table_query=currency_table_query,
+            search_condition=search_condition,
+            groupby_sql=SQL(', %s', groupby_sql) if groupby_sql else SQL(''),
+            tail_query=tail_query,
+        )
 
-        params = [tuple(tags.ids)] + where_params + tail_params
-        self._cr.execute(sql, params)
+        self._cr.execute(sql)
 
         rslt = {formula_expr: [] if current_groupby else {'result': 0, 'has_sublines': False} for formula_expr in formulas_dict.items()}
         for query_res in self._cr.dictfetchall():
@@ -3416,21 +3427,18 @@ class AccountReport(models.Model):
                 expressions, options, date_scope, current_groupby, next_groupby, offset=offset, limit=limit, warnings=None)
         return rslt
 
-    def _get_engine_query_tail(self, offset, limit):
+    def _get_engine_query_tail(self, offset, limit) -> SQL:
         """ Helper to generate the OFFSET, LIMIT and ORDER conditions of formula engines' queries.
         """
-        params = []
-        query_tail = ""
+        query_tail = SQL("")
 
         if offset:
-            query_tail += " OFFSET %s"
-            params.append(offset)
+            query_tail = SQL("%s OFFSET %s", query_tail, offset)
 
         if limit:
-            query_tail += " LIMIT %s"
-            params.append(limit)
+            query_tail = SQL("%s LIMIT %s", query_tail, limit)
 
-        return query_tail, params
+        return query_tail
 
     def _generate_carryover_external_values(self, options):
         """ Generates the account.report.external.value objects corresponding to this report's carryover under the provided options.

@@ -5,6 +5,7 @@ import json
 from odoo import api, models, _, fields
 from odoo.exceptions import UserError
 from odoo.osv import expression
+from odoo.tools import SQL
 from odoo.tools.misc import format_date, get_lang
 
 from datetime import timedelta
@@ -417,43 +418,27 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
 
         partner_ids_wo_none = [x for x in partner_ids if x]
         directly_linked_aml_partner_clauses = []
-        directly_linked_aml_partner_params = []
-        indirectly_linked_aml_partner_params = []
-        indirectly_linked_aml_partner_clause = 'aml_with_partner.partner_id IS NOT NULL'
+        indirectly_linked_aml_partner_clause = SQL('aml_with_partner.partner_id IS NOT NULL')
         if None in partner_ids:
-            directly_linked_aml_partner_clauses.append('account_move_line.partner_id IS NULL')
+            directly_linked_aml_partner_clauses.append(SQL('account_move_line.partner_id IS NULL'))
         if partner_ids_wo_none:
-            directly_linked_aml_partner_clauses.append('account_move_line.partner_id IN %s')
-            directly_linked_aml_partner_params.append(tuple(partner_ids_wo_none))
-            indirectly_linked_aml_partner_clause = 'aml_with_partner.partner_id IN %s'
-            indirectly_linked_aml_partner_params.append(tuple(partner_ids_wo_none))
-        directly_linked_aml_partner_clause = '(' + ' OR '.join(directly_linked_aml_partner_clauses) + ')'
+            directly_linked_aml_partner_clauses.append(SQL('account_move_line.partner_id IN %s', tuple(partner_ids_wo_none)))
+            indirectly_linked_aml_partner_clause = SQL('aml_with_partner.partner_id IN %s', tuple(partner_ids_wo_none))
+        directly_linked_aml_partner_clause = SQL('(%s)', SQL(' OR ').join(directly_linked_aml_partner_clauses))
 
-        ct_query = self.env['account.report']._get_query_currency_table(options)
+        ct_query = SQL(self.env['account.report']._get_query_currency_table(options))  # todo: improve
         queries = []
-        all_params = []
         lang = self.env.lang or get_lang(self.env).code
-        journal_name = f"COALESCE(journal.name->>'{lang}', journal.name->>'en_US')" if \
-            self.pool['account.journal'].name.translate else 'journal.name'
-        account_name = f"COALESCE(account.name->>'{lang}', account.name->>'en_US')" if \
-            self.pool['account.account'].name.translate else 'account.name'
+        self_lang = self.with_context(lang=lang)
+        journal_name = self_lang.env['account.journal']._field_to_sql('journal', 'name')
+        account_name = self_lang.env['account.account']._field_to_sql('account', 'name')
         report = self.env.ref('account_reports.partner_ledger_report')
         for column_group_key, group_options in report._split_options_per_column_group(options).items():
-            tables, where_clause, where_params = report._query_get(group_options, 'strict_range')
-
-            all_params += [
-                column_group_key,
-                *where_params,
-                *directly_linked_aml_partner_params,
-                column_group_key,
-                *indirectly_linked_aml_partner_params,
-                *where_params,
-                group_options['date']['date_from'],
-                group_options['date']['date_to'],
-            ]
+            table_references, search_condition = report._get_table_expression(group_options, 'strict_range')
 
             # For the move lines directly linked to this partner
-            queries.append(f'''
+            queries.append(SQL(
+                '''
                 SELECT
                     account_move_line.id,
                     account_move_line.date_maturity,
@@ -473,24 +458,33 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     account_move.name                                                                AS move_name,
                     account_move.move_type                                                           AS move_type,
                     account.code                                                                     AS account_code,
-                    {account_name}                                                                   AS account_name,
+                    %(account_name)s                                                                 AS account_name,
                     journal.code                                                                     AS journal_code,
-                    {journal_name}                                                                   AS journal_name,
-                    %s                                                                               AS column_group_key,
+                    %(journal_name)s                                                                 AS journal_name,
+                    %(column_group_key)s                                                             AS column_group_key,
                     'directly_linked_aml'                                                            AS key
-                FROM {tables}
+                FROM %(table_references)s
                 JOIN account_move ON account_move.id = account_move_line.move_id
-                LEFT JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
+                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
                 LEFT JOIN res_company company               ON company.id = account_move_line.company_id
                 LEFT JOIN res_partner partner               ON partner.id = account_move_line.partner_id
                 LEFT JOIN account_account account           ON account.id = account_move_line.account_id
                 LEFT JOIN account_journal journal           ON journal.id = account_move_line.journal_id
-                WHERE {where_clause} AND {directly_linked_aml_partner_clause}
+                WHERE %(search_condition)s AND %(directly_linked_aml_partner_clause)s
                 ORDER BY account_move_line.date, account_move_line.id
-            ''')
+                ''',
+                account_name=account_name,
+                journal_name=journal_name,
+                column_group_key=column_group_key,
+                table_references=table_references,
+                ct_query=ct_query,
+                search_condition=search_condition,
+                directly_linked_aml_partner_clause=directly_linked_aml_partner_clause,
+            ))
 
             # For the move lines linked to no partner, but reconciled with this partner. They will appear in grey in the report
-            queries.append(f'''
+            queries.append(SQL(
+                '''
                 SELECT
                     account_move_line.id,
                     account_move_line.date_maturity,
@@ -516,13 +510,13 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     account_move.name                                                                   AS move_name,
                     account_move.move_type                                                              AS move_type,
                     account.code                                                                        AS account_code,
-                    {account_name}                                                                      AS account_name,
+                    %(account_name)s                                                                    AS account_name,
                     journal.code                                                                        AS journal_code,
-                    {journal_name}                                                                      AS journal_name,
-                    %s                                                                                  AS column_group_key,
+                    %(journal_name)s                                                                    AS journal_name,
+                    %(column_group_key)s                                                                AS column_group_key,
                     'indirectly_linked_aml'                                                             AS key
-                FROM {tables}
-                    LEFT JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id,
+                FROM %(table_references)s
+                    LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id,
                     account_partial_reconcile partial,
                     account_move,
                     account_move_line aml_with_partner,
@@ -533,25 +527,33 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     AND account_move_line.partner_id IS NULL
                     AND account_move.id = account_move_line.move_id
                     AND (aml_with_partner.id = partial.debit_move_id OR aml_with_partner.id = partial.credit_move_id)
-                    AND {indirectly_linked_aml_partner_clause}
+                    AND %(indirectly_linked_aml_partner_clause)s
                     AND journal.id = account_move_line.journal_id
                     AND account.id = account_move_line.account_id
-                    AND {where_clause}
-                    AND partial.max_date BETWEEN %s AND %s
+                    AND %(search_condition)s
+                    AND partial.max_date BETWEEN %(date_from)s AND %(date_to)s
                 ORDER BY account_move_line.date, account_move_line.id
-            ''')
+                ''',
+                account_name=account_name,
+                journal_name=journal_name,
+                column_group_key=column_group_key,
+                table_references=table_references,
+                ct_query=ct_query,
+                indirectly_linked_aml_partner_clause=indirectly_linked_aml_partner_clause,
+                search_condition=search_condition,
+                date_from=group_options['date']['date_from'],
+                date_to=group_options['date']['date_to'],
+            ))
 
-        query = '(' + ') UNION ALL ('.join(queries) + ')'
+        query = SQL(" UNION ALL ").join(SQL("(%s)", query) for query in queries)
 
         if offset:
-            query += ' OFFSET %s '
-            all_params.append(offset)
+            query = SQL('%s OFFSET %s ', query, offset)
 
         if limit:
-            query += ' LIMIT %s '
-            all_params.append(limit)
+            query = SQL('%s LIMIT %s ', query, limit)
 
-        self._cr.execute(query, all_params)
+        self._cr.execute(query)
         for aml_result in self._cr.dictfetchall():
             if aml_result['key'] == 'indirectly_linked_aml':
 

@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, models, _
-from odoo.tools import get_lang
+from odoo.tools import get_lang, SQL
 from odoo.tools.float_utils import float_repr, float_round
 
 from datetime import datetime
@@ -48,15 +48,13 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         total_values_dict = {}
 
         # Build query
-        query_list = []
-        full_query_params = []
-        for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            query, params = self._prepare_query(column_group_options, column_group_key)
-            query_list.append(f"({query})")
-            full_query_params += params
+        query_list = [
+            SQL("(%s)", self._prepare_query(column_group_options, column_group_key))
+            for column_group_key, column_group_options in report._split_options_per_column_group(options).items()
+        ]
+        full_query = SQL(" UNION ALL ").join(query_list)
 
-        full_query = " UNION ALL ".join(query_list)
-        self._cr.execute(full_query, full_query_params)
+        self._cr.execute(full_query)
         results = self._cr.dictfetchall()
 
         # Fill dictionaries
@@ -249,32 +247,36 @@ class IntrastatReportCustomHandler(models.AbstractModel):
     # REPORT LINES: QUERY
     ####################################################
 
-    @api.model
-    def _prepare_query(self, options, column_group_key=None):
-        query_blocks, where_params = self._build_query(options, column_group_key)
-        query = f"{query_blocks['select']} {query_blocks['from']} {query_blocks['where']} {query_blocks['order']}"
-        return query, where_params
+    # @api.model
+    def _prepare_query(self, options, column_group_key=None) -> SQL:
+        query_blocks = self._build_query(options, column_group_key)
+        return SQL('%s %s %s %s', query_blocks['select'], query_blocks['from'], query_blocks['where'], query_blocks['order'])
 
     @api.model
-    def _build_query(self, options, column_group_key=None):
+    def _build_query(self, options, column_group_key=None) -> SQL:
         # triangular use cases are handled by letting the intrastat_country_id editable on
         # invoices. Modifying or emptying it allow to alter the intrastat declaration
         # accordingly to specs (https://www.nbb.be/doc/dq/f_pdf_ex/intra2017fr.pdf (§ 4.x))
-        tables, where_clause, where_params = self.env['account.report'].browse(options['report_id'])._query_get(options, 'strict_range')
+        table_references, search_condition = self.env['account.report'].browse(options['report_id'])._get_table_expression(options, 'strict_range')
 
         import_merchandise_code = _merchandise_import_code.get(self.env.company.country_id.code, '29')
         export_merchandise_code = _merchandise_export_code.get(self.env.company.country_id.code, '19')
         unknown_individual_vat = 'QN999999999999' if self.env.company.country_id.code in _qn_unknown_individual_vat_country_codes else 'QV999999999999'
         unknown_country_code = _unknown_country_code.get(self.env.company.country_id.code, 'QV')
         weight_category_id = self.env['ir.model.data']._xmlid_to_res_id('uom.product_uom_categ_kgm')
+        lang = self.env.user.lang or get_lang(self.env).code
+        self_lang = self.with_context(lang=lang)
+        country_name = self_lang.env['res.country']._field_to_sql('country', 'name')
+        product_country_name = self_lang.env['res.country']._field_to_sql('product_country', 'name')
 
-        select = f"""
+        select = SQL(
+            """
             SELECT
-                %s AS column_group_key,
+                %(column_group_key)s AS column_group_key,
                 row_number() over () AS sequence,
-                CASE WHEN account_move.move_type IN ('in_invoice', 'out_refund') THEN %s ELSE %s END AS system,
+                CASE WHEN account_move.move_type IN ('in_invoice', 'out_refund') THEN %(import_merchandise_code)s ELSE %(export_merchandise_code)s END AS system,
                 country.code AS country_code,
-                COALESCE(country.name->>'{self.env.user.lang or get_lang(self.env).code}', country.name->>'en_US') AS country_name,
+                %(country_name)s AS country_name,
                 company_country.code AS comp_country_code,
                 transaction.code AS transaction_code,
                 company_region.code AS region_code,
@@ -317,10 +319,10 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                     ) ELSE NULL END AS supplementary_units,
                 account_move_line.quantity AS line_quantity,
                 CASE WHEN account_move_line.price_subtotal = 0 THEN account_move_line.price_unit * account_move_line.quantity ELSE account_move_line.price_subtotal END AS value,
-                CASE WHEN product_country.code = 'GB' THEN 'XU' ELSE COALESCE(product_country.code, %s) END AS intrastat_product_origin_country_code,
-                COALESCE(product_country.name->>'{self.env.user.lang or get_lang(self.env).code}', product_country.name->>'en_US') AS intrastat_product_origin_country_name,
+                CASE WHEN product_country.code = 'GB' THEN 'XU' ELSE COALESCE(product_country.code, %(unknown_country_code)s) END AS intrastat_product_origin_country_code,
+                %(product_country_name)s AS intrastat_product_origin_country_name,
                 CASE WHEN partner.vat IS NOT NULL THEN partner.vat
-                     WHEN partner.vat IS NULL AND partner.is_company IS FALSE THEN %s
+                     WHEN partner.vat IS NULL AND partner.is_company IS FALSE THEN %(unknown_individual_vat)s
                      ELSE 'QV999999999999'
                 END AS partner_vat,
                 transaction.expiry_date <= account_move.invoice_date AS expired_trans,
@@ -334,10 +336,19 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 prod.id AS product_id,
                 prodt.categ_id AS template_categ,
                 prodt.description as goods_description
-        """
-        from_ = f"""
+            """,
+            column_group_key=column_group_key,
+            import_merchandise_code=import_merchandise_code,
+            export_merchandise_code=export_merchandise_code,
+            country_name=country_name,
+            unknown_country_code=unknown_country_code,
+            product_country_name=product_country_name,
+            unknown_individual_vat=unknown_individual_vat,
+        )
+        from_ = SQL(
+            """
             FROM
-                {tables}
+                %(table_references)s
                 JOIN account_move ON account_move.id = account_move_line.move_id
                 LEFT JOIN account_intrastat_code transaction ON account_move_line.intrastat_transaction_id = transaction.id
                 LEFT JOIN res_company company ON account_move.company_id = company.id
@@ -357,22 +368,27 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 LEFT JOIN account_intrastat_code comp_transport ON company.intrastat_transport_mode_id = comp_transport.id
                 LEFT JOIN res_country product_country ON product_country.id = account_move_line.intrastat_product_origin_country_id
                 LEFT JOIN res_country partner_country ON partner.country_id = partner_country.id AND partner_country.intrastat IS TRUE
-                LEFT JOIN uom_uom ref_weight_uom on ref_weight_uom.category_id = %s and ref_weight_uom.uom_type = 'reference'
-        """
-        where = f"""
+                LEFT JOIN uom_uom ref_weight_uom on ref_weight_uom.category_id = %(weight_category_id)s and ref_weight_uom.uom_type = 'reference'
+            """,
+            table_references=table_references,
+            weight_category_id=weight_category_id,
+        )
+        where = SQL(
+            """
             WHERE
-                {where_clause}
+                %(search_condition)s
                 AND account_move_line.display_type = 'product'
                 AND (account_move_line.price_subtotal != 0 OR account_move_line.price_unit * account_move_line.quantity != 0)
                 AND company_country.id != country.id
                 AND country.intrastat = TRUE AND (country.code != 'GB' OR account_move.date < '2021-01-01')
                 AND prodt.type != 'service'
                 AND ref_weight_uom.active
-        """
-        order = "ORDER BY account_move.invoice_date DESC, account_move_line.id"
-
-        if options['intrastat_with_vat']:
-            where += " AND partner.vat IS NOT NULL "
+                %(vat_condition)s
+            """,
+            search_condition=search_condition,
+            vat_condition=SQL("AND partner.vat IS NOT NULL") if options['intrastat_with_vat'] else SQL(),
+        )
+        order = SQL("ORDER BY account_move.invoice_date DESC, account_move_line.id")
 
         query = {
             'select': select,
@@ -381,17 +397,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             'order': order,
         }
 
-        query_params = [
-            column_group_key,
-            import_merchandise_code,
-            export_merchandise_code,
-            unknown_country_code,
-            unknown_individual_vat,
-            weight_category_id,
-            *where_params
-        ]
-
-        return query, query_params
+        return query
 
     ####################################################
     # REPORT LINES: HELPERS

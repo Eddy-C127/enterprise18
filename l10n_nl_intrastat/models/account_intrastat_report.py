@@ -53,9 +53,9 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         date_from = options['date']['date_from']
         date_to = options['date']['date_to']
 
-        query, params = self._prepare_query(options)
+        query = self._prepare_query(options)
 
-        self._cr.execute(query, params)
+        self._cr.execute(query)
         query_res = self._cr.dictfetchall()
         query_res = self._fill_missing_values(query_res)
         line_map = dict((l.id, l) for l in self.env['account.move.line'].browse(res['id'] for res in query_res))

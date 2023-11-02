@@ -5,7 +5,7 @@ from collections import defaultdict
 
 from odoo.addons.account_reports.models.account_report import AccountReportFileDownloadException
 from odoo.exceptions import UserError
-from odoo.tools import float_repr, get_lang
+from odoo.tools import float_repr, get_lang, SQL
 
 from odoo import api, fields, models, release, _
 
@@ -82,14 +82,14 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'closing_balance': closing_balance,
             })
         # Fill 'total_debit_in_period', 'total_credit_in_period', 'move_vals_list'.
-        tables, where_clause, where_params = report._query_get(options, 'strict_range')
+        table_references, search_condition = report._get_table_expression(options, 'strict_range')
         lang = self.env.user.lang or get_lang(self.env).code
-        tax_name = f"COALESCE(tax.name->>'{lang}', tax.name->>'en_US')" if \
-            self.pool['account.tax'].name.translate else 'tax.name'
-        journal_name = f"COALESCE(journal.name->>'{lang}', journal.name->>'en_US')" if \
-            self.pool['account.journal'].name.translate else 'journal.name'
-        uom_name = f"""COALESCE(uom.name->>'{lang}', uom.name->>'en_US')"""
-        query = f'''
+        self_lang = self.with_context(lang=lang)
+        tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')
+        journal_name = self_lang.env['account.journal']._field_to_sql('journal', 'name')
+        uom_name = self_lang.env['uom.uom']._field_to_sql('uom', 'name')
+        query = SQL(
+            '''
             SELECT
                 account_move_line.id,
                 account_move_line.display_type,
@@ -115,18 +115,18 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 account_move.invoice_origin                 AS move_invoice_origin,
                 account_move.statement_line_id              AS move_statement_line_id,
                 tax.id                                      AS tax_id,
-                {tax_name}                                  AS tax_name,
+                %(tax_name)s                                AS tax_name,
                 tax.amount                                  AS tax_amount,
                 tax.amount_type                             AS tax_amount_type,
                 journal.id                                  AS journal_id,
                 journal.code                                AS journal_code,
-                {journal_name}                              AS journal_name,
+                %(journal_name)s                            AS journal_name,
                 journal.type                                AS journal_type,
                 account.account_type                        AS account_type,
                 currency.name                               AS currency_code,
                 product.default_code                        AS product_default_code,
-                {uom_name}                                  AS product_uom_name
-            FROM ''' + tables + '''
+                %(uom_name)s                                AS product_uom_name
+            FROM %(table_references)s
             JOIN account_move ON account_move.id = account_move_line.move_id
             JOIN account_journal journal ON journal.id = account_move_line.journal_id
             JOIN account_account account ON account.id = account_move_line.account_id
@@ -134,10 +134,16 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             LEFT JOIN product_product product ON product.id = account_move_line.product_id
             LEFT JOIN uom_uom uom ON uom.id = account_move_line.product_uom_id
             LEFT JOIN account_tax tax ON tax.id = account_move_line.tax_line_id
-            WHERE ''' + where_clause + '''
+            WHERE %(search_condition)s
             ORDER BY account_move_line.date, account_move_line.id
-        '''
-        self._cr.execute(query, where_params)
+            ''',
+            tax_name=tax_name,
+            journal_name=journal_name,
+            uom_name=uom_name,
+            table_references=table_references,
+            search_condition=search_condition,
+        )
+        self._cr.execute(query)
 
         journal_vals_map = {}
         move_vals_map = {}
@@ -195,28 +201,26 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         tables, where_clause, where_params = report._query_get(options, 'strict_range')
         tax_details_query, tax_details_params = self.env['account.move.line']._get_query_tax_details(tables, where_clause, where_params)
-        if self.pool['account.tax'].name.translate:
-            lang = self.env.user.lang or get_lang(self.env).code
-            tax_name = f"COALESCE(tax.name->>'{lang}', tax.name->>'en_US')"
-        else:
-            tax_name = 'tax.name'
-        self._cr.execute(f'''
+        tax_details_query = SQL(tax_details_query, *tax_details_params)
+        lang = self.env.user.lang or get_lang(self.env).code
+        tax_name = self.with_context(lang=lang).env['account.tax']._field_to_sql('tax', 'name')
+        self._cr.execute(SQL('''
             SELECT
                 tax_detail.base_line_id,
                 tax_line.currency_id,
                 tax.id AS tax_id,
                 tax.type_tax_use AS tax_type,
                 tax.amount_type AS tax_amount_type,
-                {tax_name} AS tax_name,
+                %(tax_name)s AS tax_name,
                 tax.amount AS tax_amount,
                 tax.create_date AS tax_create_date,
                 SUM(tax_detail.tax_amount) AS amount,
                 SUM(tax_detail.tax_amount) AS amount_currency
-            FROM ({tax_details_query}) AS tax_detail
+            FROM (%(tax_details_query)s) AS tax_detail
             JOIN account_move_line tax_line ON tax_line.id = tax_detail.tax_line_id
             JOIN account_tax tax ON tax.id = tax_detail.tax_id
             GROUP BY tax_detail.base_line_id, tax_line.currency_id, tax.id
-        ''', tax_details_params)
+        ''', tax_name=tax_name, tax_details_query=tax_details_query))
         for tax_vals in self._cr.dictfetchall():
             line_vals = values['tax_detail_per_line_map'][tax_vals['base_line_id']]
             line_vals['tax_detail_vals_list'].append({

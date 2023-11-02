@@ -9,7 +9,7 @@ from unicodedata import normalize
 
 from odoo import _, fields, models
 from odoo.exceptions import RedirectWarning, UserError
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, get_lang
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, get_lang, SQL
 
 _logger = logging.getLogger(__name__)
 
@@ -71,15 +71,17 @@ class MexicanAccountReportCustomHandler(models.AbstractModel):
             return []
 
         cash_basis_journal_ids = self.env.companies.filtered('tax_cash_basis_journal_id').tax_cash_basis_journal_id
-        tables, where_clause, where_params = report._query_get(options, 'strict_range', domain=[
+        table_references, search_condition = report._get_table_expression(options, 'strict_range', domain=[
             ('parent_state', '=', 'posted'),
             ('journal_id', 'in', cash_basis_journal_ids.ids),
         ])
         lang = self.env.user.lang or get_lang(self.env).code
+        country_demonym = self.with_context(lang=lang).env['res.country']._field_to_sql('country', 'demonym')
         tags = report.line_ids.expression_ids._get_matching_tags()
 
-        tail_query, tail_params = report._get_engine_query_tail(offset, limit)
-        self._cr.execute(f"""
+        tail_query = report._get_engine_query_tail(offset, limit)
+        self._cr.execute(SQL(
+            """
             WITH raw_results as (
                 SELECT
                     account_move_line.partner_id AS grouping_key,
@@ -87,14 +89,14 @@ class MexicanAccountReportCustomHandler(models.AbstractModel):
                     partner.l10n_mx_type_of_operation AS operation_type_code,
                     partner.vat AS partner_vat_number,
                     country.code AS country_code,
-                    COALESCE(country.demonym->>'{lang}', country.demonym->>'en_US') AS partner_nationality
-                FROM {tables}
+                    %(country_demonym)s AS partner_nationality
+                FROM %(table_references)s
                 JOIN account_move AS move ON move.id = account_move_line.move_id
                 JOIN account_account_tag_account_move_line_rel AS tag_aml_rel ON account_move_line.id = tag_aml_rel.account_move_line_id
-                JOIN account_account_tag AS tag ON tag.id = tag_aml_rel.account_account_tag_id AND tag.id IN %s
+                JOIN account_account_tag AS tag ON tag.id = tag_aml_rel.account_account_tag_id AND tag.id IN %(tags)s
                 JOIN res_partner AS partner ON partner.id = account_move_line.partner_id
                 JOIN res_country AS country ON country.id = partner.country_id
-                WHERE {where_clause}
+                WHERE %(search_condition)s
                 ORDER BY partner.name, account_move_line.date, account_move_line.id
             )
             SELECT
@@ -113,13 +115,14 @@ class MexicanAccountReportCustomHandler(models.AbstractModel):
                 raw_results.partner_vat_number,
                 raw_results.country_code,
                 raw_results.partner_nationality
-           {tail_query}
-        """,
-            [tuple(tags.ids)] + [
-                *where_params,
-                *tail_params,
-            ],
-        )
+            %(tail_query)s
+            """,
+            country_demonym=country_demonym,
+            table_references=table_references,
+            tags=tuple(tags.ids),
+            search_condition=search_condition,
+            tail_query=tail_query,
+        ))
 
         return [diot_country_adapt(vals) for vals in self.env.cr.dictfetchall()]
 

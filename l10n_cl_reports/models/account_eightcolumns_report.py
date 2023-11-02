@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models, _
-from odoo.tools import get_lang
+from odoo.tools import get_lang, SQL
 
 from collections import OrderedDict
 from datetime import timedelta
@@ -24,17 +24,15 @@ class ChileanReportCustomHandler(models.AbstractModel):
 
         # Build query
         query_list = []
-        full_query_params = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            query, query_params = self._prepare_query(report, column_group_options, column_group_key)
-            query_list.append(f"({query})")
-            full_query_params += query_params
+            query = self._prepare_query(report, column_group_options, column_group_key)
+            query_list.append(SQL("(%s)", query))
 
             # Set defaults here since the results of the query for this column_group_key might be empty
             subtotals_dict[column_group_key] = dict.fromkeys([col['expression_label'] for col in column_group_options['columns']], 0.0)
 
-        full_query = " UNION ALL ".join(query_list)
-        self._cr.execute(full_query, full_query_params)
+        full_query = SQL(" UNION ALL ").join(query_list)
+        self._cr.execute(full_query)
 
         # Fill lines and subtotals dictionaries
         for result in self._cr.dictfetchall():
@@ -82,17 +80,15 @@ class ChileanReportCustomHandler(models.AbstractModel):
         return lines
 
     @api.model
-    def _prepare_query(self, report, options, column_group_key):
-        tables, where_clause, where_params = report._query_get(options, 'normal')
+    def _prepare_query(self, report, options, column_group_key) -> SQL:
+        table_references, search_condition = report._get_table_expression(options, 'normal')
 
-        if self.pool['account.account'].name.translate:
-            lang = self.env.user.lang or get_lang(self.env).code
-            aa_name = f"COALESCE(aa.name->>'{lang}', aa.name->>'en_US')"
-        else:
-            aa_name = 'aa.name'
-        sql_query = f"""
-            SELECT %s AS column_group_key,
-                   aa.id, aa.code, {aa_name} AS name,
+        lang = self.env.user.lang or get_lang(self.env).code
+        aa_name = self.with_context(lang=lang).env['account.account']._field_to_sql('aa', 'name')
+        sql_query = SQL(
+            """
+            SELECT %(column_group_key)s AS column_group_key,
+                   aa.id, aa.code, %(aa_name)s AS name,
                    SUM(account_move_line.debit) AS debit,
                    SUM(account_move_line.credit) AS credit,
                    GREATEST(SUM(account_move_line.balance), 0) AS debitor,
@@ -105,13 +101,18 @@ class ChileanReportCustomHandler(models.AbstractModel):
                       THEN GREATEST(SUM(account_move_line.balance), 0) ELSE 0 END AS loss,
                    CASE WHEN aa.internal_group IN ('expense', 'income')
                       THEN GREATEST(SUM(-account_move_line.balance), 0) ELSE 0 END AS gain
-            FROM account_account AS aa, {tables}
-            WHERE {where_clause}
+            FROM account_account AS aa, %(table_references)s
+            WHERE %(search_condition)s
             AND aa.id = account_move_line.account_id
-            GROUP BY aa.id, aa.code, {aa_name}
+            GROUP BY aa.id, aa.code, %(aa_name)s
             ORDER BY aa.code
-        """
-        return sql_query, [column_group_key, *where_params]
+            """,
+            column_group_key=column_group_key,
+            aa_name=aa_name,
+            table_references=table_references,
+            search_condition=search_condition,
+        )
+        return sql_query
 
     def _create_report_line(self, report, options, vals, vals_id):
         """ Create a standard (non total) line for the report

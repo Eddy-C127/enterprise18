@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, _
-from odoo.tools.misc import get_lang
+from odoo.tools import SQL
 
 
 class DisallowedExpensesFleetCustomHandler(models.AbstractModel):
@@ -51,32 +51,37 @@ class DisallowedExpensesFleetCustomHandler(models.AbstractModel):
                 'args': [account[0].id for account in accounts],
             }
 
-    def _get_query(self, options, line_dict_id=None):
+    def _get_query(self, options, line_dict_id=None) -> tuple[SQL, SQL, SQL, SQL, SQL, SQL]:
         # EXTENDS account_disallowed_expenses.
-        select, from_, where, group_by, order_by, order_by_rate, params = super()._get_query(options, line_dict_id)
+        select, from_, where, group_by, order_by, order_by_rate = super()._get_query(options, line_dict_id)
         current = self._parse_line_id(options, line_dict_id)
-        params.update(current)
-        lang = self.env.user.lang or get_lang(self.env).code
+        # assert lang in params
 
-        select += """,
-            ARRAY_AGG(fleet_rate.rate) fleet_rate,
-            ARRAY_AGG(vehicle.id) vehicle_id,
-            ARRAY_AGG(vehicle.name) vehicle_name,
-            SUM(aml.balance * (
-                CASE WHEN fleet_rate.rate IS NOT NULL
-                THEN
-                    CASE WHEN rate.rate IS NOT NULL
+        select = SQL(
+            """
+            %(select)s,
+                ARRAY_AGG(fleet_rate.rate) fleet_rate,
+                ARRAY_AGG(vehicle.id) vehicle_id,
+                ARRAY_AGG(vehicle.name) vehicle_name,
+                SUM(aml.balance * (
+                    CASE WHEN fleet_rate.rate IS NOT NULL
                     THEN
-                        CASE WHEN fleet_rate.rate < rate.rate
-                        THEN fleet_rate.rate
-                        ELSE rate.rate
+                        CASE WHEN rate.rate IS NOT NULL
+                        THEN
+                            CASE WHEN fleet_rate.rate < rate.rate
+                            THEN fleet_rate.rate
+                            ELSE rate.rate
+                            END
+                        ELSE fleet_rate.rate
                         END
-                    ELSE fleet_rate.rate
-                    END
-                ELSE rate.rate
-                END)) / 100 AS fleet_disallowed_amount
-        """
-        from_ += """
+                    ELSE rate.rate
+                    END)) / 100 AS fleet_disallowed_amount
+            """,
+            select=select,
+        )
+        from_ = SQL(
+            """
+            %(from_)s
             LEFT JOIN fleet_vehicle vehicle ON aml.vehicle_id = vehicle.id
             LEFT JOIN fleet_disallowed_expenses_rate fleet_rate ON fleet_rate.id = (
                 SELECT r2.id FROm fleet_disallowed_expenses_rate r2
@@ -85,36 +90,46 @@ class DisallowedExpensesFleetCustomHandler(models.AbstractModel):
                   AND v2.id = vehicle.id
                 ORDER BY r2.date_from DESC LIMIT 1
             )
-        """
-        where += current.get('vehicle_id') and """
-              AND vehicle.id = %(vehicle_id)s""" or ""
-        where += current.get('account_id') and not current.get('vehicle_id') and options.get('vehicle_split') and """
-              AND vehicle.id IS NULL""" or ""
+            """,
+            from_=from_
+        )
 
-        group_by = f" GROUP BY category.id, COALESCE(category.name->>'{lang}', category.name->>'en_US')"
+        where = SQL(
+            """
+            %(where)s
+              %(vehicle_condition)s
+              %(vehicle_is_null)s
+            """,
+            where=where,
+            vehicle_condition=SQL("AND vehicle.id = %s", current['vehicle_id']) if current.get('vehicle_id') else SQL(),
+            vehicle_is_null=SQL("""AND vehicle.id IS NULL""") if current.get('account_id') and not current.get('vehicle_id') and options.get('vehicle_split') else SQL()
+        )
+
+        category_name = self.env['account.disallowed.expenses.category']._field_to_sql('category', 'name')
+        group_by = SQL("GROUP BY category.id, %s", category_name)
 
         if len(current) == 1 and current.get('category_id'):
             # Expanding a category
             if options.get('vehicle_split'):
-                group_by += ", (CASE WHEN aml.vehicle_id IS NOT NULL THEN aml.vehicle_id ELSE aml.account_id END)"
-                order_by = " ORDER BY (CASE WHEN aml.vehicle_id IS NOT NULL THEN aml.vehicle_id ELSE aml.account_id END)"
+                group_by = SQL("%s, (CASE WHEN aml.vehicle_id IS NOT NULL THEN aml.vehicle_id ELSE aml.account_id END)", group_by)
+                order_by = SQL(" ORDER BY (CASE WHEN aml.vehicle_id IS NOT NULL THEN aml.vehicle_id ELSE aml.account_id END)")
             else:
-                group_by += ", account.id"
-                order_by = " ORDER BY account.id"
+                group_by = SQL("%s, account.id", group_by)
+                order_by = SQL("ORDER BY account.id")
         elif current.get('vehicle_id') and not current.get('account_id'):
             # Expanding a vehicle
-            group_by += ", vehicle.id, vehicle.name, account.id"
-            order_by = " ORDER BY vehicle.id, vehicle.name, account.id"
+            group_by = SQL("%s, vehicle.id, vehicle.name, account.id", group_by)
+            order_by = SQL("ORDER BY vehicle.id, vehicle.name, account.id")
         elif current.get('account_id') and options.get('multi_rate_in_period'):
             # Expanding an account
             if options.get('vehicle_split'):
-                group_by += ",vehicle.id, vehicle.name, rate.rate, fleet_rate.rate"
-                order_by = " ORDER BY vehicle.id, vehicle.name, rate.rate, fleet_rate.rate"
+                group_by = SQL("%s, vehicle.id, vehicle.name, rate.rate, fleet_rate.rate", group_by)
+                order_by = SQL("ORDER BY vehicle.id, vehicle.name, rate.rate, fleet_rate.rate")
             else:
-                group_by += ", rate.rate, fleet_rate.rate"
-                order_by = " ORDER BY rate.rate, fleet_rate.rate"
+                group_by = SQL("%s, rate.rate, fleet_rate.rate", group_by)
+                order_by = SQL("ORDER BY rate.rate, fleet_rate.rate")
 
-        return select, from_, where, group_by, order_by, order_by_rate, params
+        return select, from_, where, group_by, order_by, order_by_rate
 
     def _parse_line_id(self, options, line_id):
         # OVERRIDES account_disallowed_expenses.

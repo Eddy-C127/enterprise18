@@ -11,7 +11,7 @@ import logging
 
 from odoo import _, fields, models
 from odoo.exceptions import UserError, RedirectWarning
-from odoo.tools import float_repr, float_is_zero, get_lang
+from odoo.tools import float_repr, float_is_zero, get_lang, SQL
 
 _logger = logging.getLogger(__name__)
 
@@ -572,15 +572,12 @@ class FecImportWizard(models.TransientModel):
         # The sum_move_lines_per_move query determines the type of the account of the lines
         # The sum_moves_per_journal query counts the account types on the lines for each move
         # The main query compares the sums with the threshold and determines the type
-        if self.pool['account.journal'].name.translate:
-            lang = self.env.user.lang or get_lang(self.env).code
-            aj_name = f"COALESCE(aj.name->>'{lang}', aj.name->>'en_US')"
-        else:
-            aj_name = 'aj.name'
-        sql = f"""
+        lang = self.env.user.lang or get_lang(self.env).code
+        aj_name = self.with_context(lang=lang).env['account.journal']._field_to_sql('aj', 'name')
+        sql = SQL("""
             WITH sum_move_lines_per_move as (
                 SELECT aml.journal_id as journal_id,
-                       {aj_name} as journal_name,
+                       %(aj_name)s as journal_name,
                        aml.move_id,
                        SUM(CASE WHEN aa.account_type IN ('asset_cash','liability_credit_card') THEN 1 ELSE 0 END) as bank,
                        SUM(CASE aa.account_type WHEN 'asset_receivable' THEN 1 ELSE 0 END) as sale,
@@ -588,7 +585,7 @@ class FecImportWizard(models.TransientModel):
                   FROM account_move_line aml
                        JOIN account_account aa on aa.id = aml.account_id
                        JOIN account_journal aj on aj.id = aml.journal_id
-                 WHERE aj.id in %s
+                 WHERE aj.id in %(journals_ids)s
               GROUP BY journal_id, journal_name, move_id),
 
             sum_moves_per_journal as (
@@ -598,12 +595,12 @@ class FecImportWizard(models.TransientModel):
                        SUM(CASE WHEN sale > 0 THEN 1 ELSE 0 END) as sale_sum,
                        SUM(CASE WHEN purchase > 0 THEN 1 ELSE 0 END) as purchase_sum,
                        COUNT(*) as moves,
-                       CAST(COUNT(*) * %s as integer) as threshold
+                       CAST(COUNT(*) * %(ratio)s as integer) as threshold
                   FROM sum_move_lines_per_move
               GROUP BY journal_id, journal_name)
 
             SELECT journal_id,
-                   CASE WHEN moves < %s THEN 'general'
+                   CASE WHEN moves < %(min_moves)s THEN 'general'
                         WHEN bank_sum >= threshold THEN 'bank'
                         WHEN sale_sum >= threshold and purchase_sum = 0 THEN 'sale'
                         WHEN purchase_sum >= threshold and sale_sum = 0 THEN 'purchase'
@@ -611,10 +608,10 @@ class FecImportWizard(models.TransientModel):
                     END as journal_type
               FROM sum_moves_per_journal
           ORDER BY journal_id
-        """
+        """, aj_name=aj_name, journals_ids=tuple(journals.ids), ratio=ratio, min_moves=min_moves)
 
         # Yield the records
-        self.env.cr.execute(sql, (tuple(journals.ids), ratio, min_moves))
+        self.env.cr.execute(sql)
         yield from self.env.cr.fetchall()
 
     def _setup_bank_journal(self, journal):

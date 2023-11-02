@@ -7,7 +7,7 @@ from dateutil.rrule import rrule, MONTHLY
 
 from odoo import models, fields, release, _
 from odoo.exceptions import RedirectWarning, UserError
-from odoo.tools import get_lang
+from odoo.tools import get_lang, SQL
 from odoo.tools.misc import street_split
 
 
@@ -98,10 +98,10 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         def get_vals_dict(report):
             #pylint: disable=sql-injection
-            tables, where_clause, where_params = report._query_get(options, 'strict_range')
+            table_references, search_condition = report._get_table_expression(options, 'strict_range')
 
             # Count the total number of lines to be used in the batching
-            self.env.cr.execute(f"SELECT COUNT(*) FROM {tables} WHERE {where_clause}", where_params)
+            self.env.cr.execute(SQL("SELECT COUNT(*) FROM %s WHERE %s", table_references, search_condition))
             count = self.env.cr.fetchone()[0]
 
             if count == 0:
@@ -114,14 +114,13 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             min_row_number = 0
 
             lang = self.env.user.lang or get_lang(self.env).code
-            journal_name = f"COALESCE(journal.name->>'{lang}', journal.name->>'en_US')" if \
-                self.pool['account.journal'].name.translate else 'journal.name'
-            account_name = f"COALESCE(account.name->>'{lang}', account.name->>'en_US')" if \
-                self.pool['account.account'].name.translate else 'account.name'
-            tax_name = f"COALESCE(tax.name->>'{lang}', tax.name->>'en_US')" if \
-                self.pool['account.tax'].name.translate else 'tax.name'
+            self_lang = self.with_context(lang=lang)
+            journal_name = self_lang.env['account.journal']._field_to_sql('journal', 'name')
+            account_name = self_lang.env['account.account']._field_to_sql('account', 'name')
+            tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')
             for dummy in range(0, count, batch_size):
-                self.env.cr.execute(f"""
+                self.env.cr.execute(SQL(
+                    """
                     WITH partner_bank AS (
                         SELECT DISTINCT ON (res_partner_bank.partner_id, res_partner_bank.company_id) partner_id, company_id,
                             res_partner_bank.id as id,
@@ -133,7 +132,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     SELECT * FROM (
                         SELECT DISTINCT ON (account_move_line.id)
                            journal.id AS journal_id,
-                           {journal_name} AS journal_name,
+                           %(journal_name)s AS journal_name,
                            journal.code AS journal_code,
                            journal.type AS journal_type,
                            account_move.id AS move_id,
@@ -155,7 +154,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                            account_move_line.move_name AS line_move_name,
                            account_move_line.amount_currency AS line_amount_currency,
                            account.id AS account_id,
-                           {account_name} AS account_name,
+                           %(account_name)s AS account_name,
                            account.code AS account_code,
                            account.write_uid AS account_write_uid,
                            account.write_date AS account_write_date,
@@ -190,9 +189,9 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                            partner.supplier_rank AS partner_supplier_rank,
                            country.code AS partner_country_code,
                            tax.id AS tax_id,
-                           {tax_name} AS tax_name,
+                           %(tax_name)s AS tax_name,
                            ROW_NUMBER () OVER (ORDER BY account_move_line.id) as row_number
-                        FROM {tables}
+                        FROM %(table_references)s
                         JOIN account_move ON account_move.id = account_move_line.move_id
                         JOIN account_journal journal ON account_move_line.journal_id = journal.id
                         JOIN account_account account ON account_move_line.account_id = account.id
@@ -206,11 +205,19 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                         LEFT JOIN res_country_state state ON partner.state_id = state.id
                         LEFT JOIN ir_property credit_limit ON credit_limit.res_id = 'res.partner,' || partner.id AND credit_limit.name = 'credit_limit'
                         LEFT JOIN res_partner parent_partner ON parent_partner.id = partner.parent_id
-                        WHERE {where_clause}
+                        WHERE %(search_condition)s
                         ORDER BY account_move_line.id) sub
-                    WHERE sub.row_number > %s
-                    LIMIT %s
-                    """, where_params + [min_row_number, batch_size])
+                    WHERE sub.row_number > %(min_row_number)s
+                    LIMIT %(batch_size)s
+                    """,
+                    journal_name=journal_name,
+                    account_name=account_name,
+                    tax_name=tax_name,
+                    table_references=table_references,
+                    search_condition=search_condition,
+                    min_row_number=min_row_number,
+                    batch_size=batch_size,
+                ))
                 res_list += self.env.cr.dictfetchall()
                 min_row_number = res_list[-1]['row_number']
 

@@ -114,11 +114,10 @@ class AccountReport(models.Model):
         }
         self.env.cr.execute(sql, params)
 
-    @api.model
-    def _query_get(self, options, date_scope, domain=None):
+    def _get_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
         # Override to add the context key which will eventually trigger the shadowing of the table
         context_self = self.with_context(account_report_cash_basis=options.get('report_cash_basis'))
-        return super(AccountReport, context_self)._query_get(options, date_scope, domain=domain)
+        return super(AccountReport, context_self)._get_table_expression(options, date_scope, domain=domain)
 
     def open_document(self, options, params=None):
         action = super().open_document(options, params)

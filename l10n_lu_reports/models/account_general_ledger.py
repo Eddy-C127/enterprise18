@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from itertools import groupby
 
-from odoo.tools import get_lang
+from odoo.tools import get_lang, SQL
 
 from odoo import api, models, _
 
@@ -34,18 +34,20 @@ class AccountGeneralLedger(models.AbstractModel):
 
         def _get_product_vals_list(values, encountered_product_ids):
             lang = self.env.user.lang or get_lang(self.env).code
-            product_template_name = f"COALESCE(product_template.name->>'{lang}', product_template.name->>'en_US')"
-            uom_name = f"COALESCE(uom.name->>'{lang}', uom.name->>'en_US')"
-            base_uom_name = f"COALESCE(base_uom.name->>'{lang}', base_uom.name->>'en_US')"
-            self._cr.execute(f'''
+            self_lang = self.with_context(lang=lang)
+            product_template_name = self_lang.env['product.template']._field_to_sql('product_template', 'name')
+            uom_name = self_lang.env['uom.uom']._field_to_sql('uom', 'name')
+            base_uom_name = self_lang.env['uom.uom']._field_to_sql('base_uom', 'name')
+            self._cr.execute(SQL(
+                '''
                 SELECT
                     product.id,
                     product.barcode,
-                    {product_template_name}             AS name,
+                    %(product_template_name)s             AS name,
                     product.product_tmpl_id,
                     product.default_code,
                     product_category.name               AS product_category,
-                    {uom_name}                          AS standard_uom,
+                    %(uom_name)s                        AS standard_uom,
                     uom.uom_type                        AS uom_type,
                     TRUNC(uom.factor, 8)                AS uom_ratio,
                     CASE
@@ -53,15 +55,20 @@ class AccountGeneralLedger(models.AbstractModel):
                         THEN TRUNC((1.0 / uom.factor), 8)
                         ELSE 0
                     END                                 AS ratio,
-                    {base_uom_name}                     AS base_uom
+                    %(base_uom_name)s                   AS base_uom
                 FROM product_product product
                     LEFT JOIN product_template          ON product_template.id = product.product_tmpl_id
                     LEFT JOIN product_category          ON product_category.id = product_template.categ_id
                     LEFT JOIN uom_uom uom               ON uom.id = product_template.uom_id
                     LEFT JOIN uom_uom base_uom          ON base_uom.category_id = uom.category_id AND base_uom.uom_type='reference'
-                WHERE product.id in %s
+                WHERE product.id in %(encountered_product_ids)s
                 ORDER BY default_code
-            ''', [tuple(encountered_product_ids)])
+                ''',
+                product_template_name=product_template_name,
+                uom_name=uom_name,
+                base_uom_name=base_uom_name,
+                encountered_product_ids=tuple(encountered_product_ids)
+            ))
 
             product_vals_list = self._cr.dictfetchall()
             duplicate_product_ids = set()

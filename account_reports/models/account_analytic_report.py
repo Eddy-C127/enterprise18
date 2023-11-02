@@ -176,18 +176,18 @@ class AccountReport(models.AbstractModel):
 
         self.env.cr.execute(query)
 
-    def _query_get(self, options, date_scope, domain=None):
+    def _get_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
         # Override to add the context key which will eventually trigger the shadowing of the table
         context_self = self.with_context(account_report_analytic_groupby=options.get('analytic_groupby_option'))
 
         # We add the domain filter for analytic_distribution here, as the search is not available
-        tables, where_clause, where_params = super(AccountReport, context_self)._query_get(options, date_scope, domain)
-        if options.get('analytic_accounts') and not any(x in options.get('analytic_accounts_list', []) for x in options['analytic_accounts']):
+        table_references, search_condition = super(AccountReport, context_self)._get_table_expression(options, date_scope, domain)
+        if options.get('analytic_accounts') and not any(
+                x in options.get('analytic_accounts_list', []) for x in options['analytic_accounts']):
             analytic_account_ids = [[str(account_id) for account_id in options['analytic_accounts']]]
-            where_params.append(analytic_account_ids)
-            where_clause = f'{where_clause} AND "account_move_line".analytic_distribution ?| array[%s]'
+            search_condition = SQL('%s AND "account_move_line".analytic_distribution ?| array[%s]', search_condition, analytic_account_ids)
 
-        return tables, where_clause, where_params
+        return table_references, search_condition
 
     def action_audit_cell(self, options, params):
         column_group_options = self._get_column_group_options(options, params['column_group_key'])

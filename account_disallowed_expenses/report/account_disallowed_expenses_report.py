@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, _
-from odoo.tools.misc import get_lang
+from odoo.tools import get_lang, SQL
 
 
 class DisallowedExpensesCustomHandler(models.AbstractModel):
@@ -91,7 +91,7 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
             'context': ctx,
         }
 
-    def _get_query(self, options, line_dict_id=None):
+    def _get_query(self, options, line_dict_id=None) -> tuple[SQL, SQL, SQL, SQL, SQL, SQL]:
         """ Generates all the query elements based on the 'options' and the 'line_dict_id'.
             :param options:         The report options.
             :param line_dict_id:    The generic id of the line being expanded (optional).
@@ -99,35 +99,29 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
         """
         company_ids = tuple(self.env['account.report'].get_report_company_ids(options))
         current = self._parse_line_id(options, line_dict_id)
-        params = {
-            'date_to': options['date']['date_to'],
-            'date_from': options['date']['date_from'],
-            'company_ids': company_ids,
-            'lang': self.env.user.lang or get_lang(self.env).code,
-            **current,
-        }
+        self = self.with_context(lang=self.env.user.lang or get_lang(self.env).code)
+        category_name = self.env['account.disallowed.expenses.category']._field_to_sql('category', 'name')
 
-        lang = self.env.user.lang or get_lang(self.env).code
-        if self.pool['account.account'].name.translate:
-            account_name = f"COALESCE(account.name->>'{lang}', account.name->>'en_US')"
-        else:
-            account_name = 'account.name'
-
-        select = f"""
+        select = SQL(
+            """
             SELECT
-                %(column_group_key)s AS column_group_key,
                 SUM(aml.balance) AS total_amount,
-                ARRAY_AGG({account_name}) account_name,
+                ARRAY_AGG(%(account_name)s) account_name,
                 ARRAY_AGG(account.code) account_code,
                 ARRAY_AGG(category.id) category_id,
-                ARRAY_AGG(COALESCE(category.name->>'{lang}', category.name->>'en_US')) category_name,
+                ARRAY_AGG(%(category_name)s) category_name,
                 ARRAY_AGG(category.code) category_code,
                 ARRAY_AGG(account.company_id) company_id,
                 ARRAY_AGG(aml.account_id) account_id,
                 ARRAY_AGG(rate.rate) account_rate,
-                SUM(aml.balance * rate.rate) / 100 AS account_disallowed_amount"""
+                SUM(aml.balance * rate.rate) / 100 AS account_disallowed_amount
+            """,
+            account_name=self.env['account.account']._field_to_sql('account', 'name'),
+            category_name=category_name,
+        )
 
-        from_ = """
+        from_ = SQL(
+            """
             FROM account_move_line aml
             JOIN account_move move ON aml.move_id = move.id
             JOIN account_account account ON aml.account_id = account.id
@@ -138,24 +132,39 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
                 WHERE r2.date_from <= aml.date
                   AND c2.id = category.id
                 ORDER BY r2.date_from DESC LIMIT 1
-            )"""
-        where = """
+            )
+            """
+        )
+        where = SQL(
+            """
             WHERE aml.company_id in %(company_ids)s
               AND aml.date >= %(date_from)s AND aml.date <= %(date_to)s
-              AND move.state != 'cancel'"""
-        where += current.get('category_id') and " AND category.id = %(category_id)s" or ""
-        where += current.get('account_id') and " AND aml.account_id = %(account_id)s" or ""
-        where += current.get('account_rate') and " AND rate.rate = %(account_rate)s" or ""
-        where += not options.get('all_entries') and " AND move.state = 'posted'" or ""
+              AND move.state != 'cancel'
+              %(category_condition)s
+              %(account_condition)s
+              %(account_rate_condition)s
+              %(not_all_entries_condition)s
+            """,
+            company_ids=company_ids,
+            date_from=options['date']['date_from'],
+            date_to=options['date']['date_to'],
+            category_condition=SQL("AND category.id = %s", current['category_id']) if current.get('category_id') else SQL(),
+            account_condition=SQL("AND aml.account_id = %s", current['account_id']) if current.get('account_id') else SQL(),
+            account_rate_condition=SQL("AND rate.rate = %s", current['account_rate']) if current.get('account_rate') else SQL(),
+            not_all_entries_condition=SQL("AND move.state = 'posted'") if not options.get('all_entries') else SQL(),
+        )
 
-        group_by = f" GROUP BY category.id, COALESCE(category.name->>'{lang}', category.name->>'en_US')"
-        group_by += current.get('category_id') and ", account_id" or ""
-        group_by += current.get('account_id') and options['multi_rate_in_period'] and ", rate.rate" or ""
+        group_by = SQL(
+            """GROUP BY category.id, %s%s%s""",
+            category_name,
+            current.get('category_id') and SQL(", account_id") or SQL(),
+            current.get('account_id') and options['multi_rate_in_period'] and SQL(", rate.rate") or SQL(),
+        )
 
-        order_by = " ORDER BY category_id, account_id"
-        order_by_rate = ", account_rate"
+        order_by = SQL("ORDER BY category_id, account_id")
+        order_by_rate = SQL(", account_rate")
 
-        return select, from_, where, group_by, order_by, order_by_rate, params
+        return select, from_, where, group_by, order_by, order_by_rate
 
     def _parse_line_id(self, options, line_id):
         current = {'category_id': None}
@@ -190,9 +199,9 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
         grouped_results = {}
 
         for column_group_key, column_group_options in self.env['account.report']._split_options_per_column_group(options).items():
-            select, from_, where, group_by, order_by, order_by_rate, params = self._get_query(column_group_options, line_dict_id)
-            params['column_group_key'] = column_group_key
-            self.env.cr.execute(select + from_ + where + group_by + order_by + order_by_rate, params)
+            select, from_, where, group_by, order_by, order_by_rate = self._get_query(column_group_options, line_dict_id)
+            select = SQL("%s, %s AS column_group_key", select, column_group_key)
+            self.env.cr.execute(SQL(' ').join([select, from_, where, group_by, order_by, order_by_rate]))
 
             for results in self.env.cr.dictfetchall():
                 key = self._get_group_key(results, primary_fields, secondary_fields, selector)

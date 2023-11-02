@@ -6,7 +6,7 @@ from lxml import etree
 
 from odoo import fields, models, release, _
 from odoo.exceptions import UserError
-from odoo.tools import date_utils
+from odoo.tools import date_utils, SQL
 from odoo.tools.misc import get_lang
 
 _logger = logging.getLogger(__name__)
@@ -102,26 +102,25 @@ class AccountGenericTaxReport(models.AbstractModel):
 
         tables, where_clause, where_params = report._query_get(options, 'strict_range')
         tax_details_query, tax_details_params = self.env['account.move.line']._get_query_tax_details(tables, where_clause, where_params)
+        tax_details_query = SQL(tax_details_query, *tax_details_params)
 
         # The following tax details query will group taxes with their tax repartition lines in order to have one result
         # per standard tax and two results per deductible taxes.
-        if self.pool['account.tax'].name.translate: # Will be true if l10n_multilang is installed
-            lang = self.env.user.lang or get_lang(self.env).code
-            acc_tag_name = f"COALESCE(tag.name->>'{lang}', tag.name->>'en_US')"
-            tax_name = f"COALESCE(tax.name->>'{lang}', tax.name->>'en_US')"
-        else:
-            acc_tag_name = 'tag.name'
-            tax_name = 'tax.name'
+        lang = self.env.user.lang or get_lang(self.env).code
+        self_lang = self.with_context(lang=lang)
+        acc_tag_name = self_lang.env['account.account.tag']._field_to_sql('tag', 'name')
+        tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')
 
-        self._cr.execute(f'''
+        self._cr.execute(SQL(
+            '''
             SELECT
                 /* Take the opposite to reflect amounts due to and owed by the tax authorities */
                 SUM(-tdr.tax_amount) AS tax_amount,
                 SUM(-tdr.base_amount) AS base_amount,
                 tax.amount AS rate,
-                {tax_name} AS name,
+                %(tax_name)s AS name,
                 SUBSTRING(report_line.code, '[0-9]+') AS tax_code
-            FROM ({tax_details_query}) AS tdr
+            FROM (%(tax_details_query)s) AS tdr
             JOIN account_tax_repartition_line trl ON trl.id = tdr.tax_repartition_line_id
             JOIN account_tax tax ON tax.id = tdr.tax_id
             JOIN account_tax src_tax ON
@@ -132,13 +131,18 @@ class AccountGenericTaxReport(models.AbstractModel):
             JOIN account_account_tag tag ON
                 tag.id = repartition_rel.account_account_tag_id
                 AND tag.applicability = 'taxes'
-                AND tag.country_id = %s
-            JOIN account_report_expression expression ON expression.engine = 'tax_tags' AND expression.formula = SUBSTRING({acc_tag_name} from 2)
+                AND tag.country_id = %(base_no_id)s
+            JOIN account_report_expression expression ON expression.engine = 'tax_tags' AND expression.formula = SUBSTRING(%(acc_tag_name)s from 2)
             JOIN account_report_line report_line ON expression.report_line_id = report_line.id
             JOIN res_country tax_country ON tax_country.id = tax.country_id
             WHERE tdr.tax_exigible
             GROUP BY tdr.tax_repartition_line_id, tax.id, report_line.code
-        ''', [*tax_details_params, self.env.ref('base.no').id])
+            ''',
+            tax_name=tax_name,
+            tax_details_query=tax_details_query,
+            base_no_id=self.env.ref('base.no').id,
+            acc_tag_name=acc_tag_name,
+        ))
 
         tax_details_list = self._cr.dictfetchall()
         tax_total = sum(row['tax_amount'] for row in tax_details_list)

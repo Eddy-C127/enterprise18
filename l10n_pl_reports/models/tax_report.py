@@ -1,5 +1,5 @@
 from odoo import models, fields, api, _
-from odoo.tools import date_utils, float_repr, float_is_zero, float_compare
+from odoo.tools import date_utils, float_repr, float_is_zero, float_compare, SQL
 from odoo.exceptions import UserError, RedirectWarning
 
 from datetime import datetime
@@ -76,14 +76,40 @@ class PolishTaxReportCustomHandler(models.AbstractModel):
             _("Configure your company"),
         )
 
-    @api.model
-    def _l10n_pl_get_query_parts(self):
+    def _l10n_pl_get_query(
+            self,
+            report,
+            options,
+            move_to_group_by=None,
+            additional_joined_table_for_aml_aggregates=None,
+            additional_select_list=None,
+            additional_joined_table=None,
+    ) -> SQL:
         """ This creates the query to get all information for JPK
             We split it, to be overridable (for example with point_of_sale)
             The query gets the information on moves and information aggregated from their lines for the whole move
             like the tax amounts that are grouped by tax grid and move """
-        dict_query_parts = {
-            'select_query_part': r"""
+
+        table_references, search_condition = report._get_table_expression(options, 'strict_range')
+
+        # To get if the line contains a tag, we get the expression (if needed), to get the id. It is then given to the params
+        oss_tag = self.env.ref('l10n_eu_oss.tag_oss', raise_if_not_found=False)
+        oss_tag_id = oss_tag.id if oss_tag else None
+
+        triangular_sale_expression = self.env.ref('l10n_pl.account_tax_report_line_triangular_2nd_payer_tag', raise_if_not_found=False)
+        triangular_sale_tags_ids = tuple(triangular_sale_expression._get_matching_tags().ids) if triangular_sale_expression else ()
+
+        triangular_purchase_expression = self.env.ref('l10n_pl.account_tax_report_line_triangular_buyer_2nd_payer_tag', raise_if_not_found=False)
+        triangular_purchase_tags_ids = tuple(triangular_purchase_expression._get_matching_tags().ids) if triangular_purchase_expression else ()
+
+        i_42_expression = self.env.ref('l10n_pl.account_tax_report_line_intracom_procedure_i_42_tag', raise_if_not_found=False)
+        i_42_tags_ids = tuple(i_42_expression._get_matching_tags().ids) if i_42_expression else ()
+
+        i_63_expression = self.env.ref('l10n_pl.account_tax_report_line_intracom_procedure_i_63_tag', raise_if_not_found=False)
+        i_63_tags_ids = tuple(i_63_expression._get_matching_tags().ids) if i_63_expression else ()
+
+        return SQL(
+                r"""
             WITH 
               -- payment_date is necessary in case of payment received before the invoice_date
               -- invoice_date_due in case of payment overdue, where we need the due date of the invoice
@@ -91,24 +117,24 @@ class PolishTaxReportCustomHandler(models.AbstractModel):
                     SELECT "counterpart_line".date,
                            "counterpart_move".invoice_date_due,
                            "account_move_line__move_id".id as id
-                      FROM {tables}
+                      FROM %(table_references)s
                       JOIN account_partial_reconcile part ON part.debit_move_id = "account_move_line".id
                       JOIN account_account ON "account_move_line".account_id = account_account.id
                       JOIN account_move_line "counterpart_line" ON part.credit_move_id = "counterpart_line".id
                       JOIN account_move "counterpart_move" ON "counterpart_line".move_id = "counterpart_move".id
                      WHERE account_account.account_type IN ('asset_receivable', 'liability_payable')
-                       AND {where_clause}
+                       AND %(search_condition)s
                  UNION ALL
                     SELECT "counterpart_line".date,
                            "counterpart_move".invoice_date_due,
                            "account_move_line__move_id".id as id
-                      FROM {tables}
+                      FROM %(table_references)s
                       JOIN account_partial_reconcile part ON part.credit_move_id = "account_move_line".id
                       JOIN account_account ON "account_move_line".account_id = account_account.id
                       JOIN account_move_line "counterpart_line" ON part.debit_move_id = "counterpart_line".id
                       JOIN account_move "counterpart_move" ON "counterpart_line".move_id = "counterpart_move".id
                      WHERE account_account.account_type IN ('asset_receivable', 'liability_payable')
-                       AND {where_clause}
+                       AND %(search_condition)s
                   ),
                   -- aml_aggregates corresponds to aggregate aml amount per tax tag for each move
                   aml_aggregates as (
@@ -117,24 +143,24 @@ class PolishTaxReportCustomHandler(models.AbstractModel):
                                * CASE WHEN tag.tax_negate THEN -1 ELSE 1 END
                                * account_move_line.balance
                            ) AS amounts,
-                           {move_to_group_by} AS move_id,
-                           SUBSTRING({tag_name}, 4) AS tag_number 
-                      FROM {tables}
+                           %(move_to_group_by)s AS move_id,
+                           SUBSTRING(%(tag_name)s, 4) AS tag_number
+                      FROM %(table_references)s
                       JOIN account_account_tag_account_move_line_rel aatamlr ON aatamlr.account_move_line_id = "account_move_line".id
                       JOIN account_account_tag tag ON aatamlr.account_account_tag_id = tag.id
-                      {additional_join_for_with}
-                     WHERE {where_clause}
-                       AND {tag_name} SIMILAR TO '(-|\+)K_\d\d'
-                       AND tag.country_id = {country_id}
-                  GROUP BY tag_number, {move_to_group_by}
+                      %(additional_joined_table_for_aml_aggregates)s
+                     WHERE %(search_condition)s
+                       AND %(tag_name)s SIMILAR TO '(-|\+)K_\d\d'
+                       AND tag.country_id = %(country_id)s
+                  GROUP BY tag_number, %(move_to_group_by)s
               )
             SELECT jsonb_object_agg(aml_aggregates.tag_number, aml_aggregates.amounts) FILTER(WHERE aml_aggregates.tag_number IS NOT NULL) AS tax_values,
                    array_agg(DISTINCT pt.l10n_pl_vat_gtu) FILTER (WHERE pt.l10n_pl_vat_gtu IS NOT NULL) AS gtus,
-                   COUNT(1) FILTER (WHERE tag.id IN %s) AS oss_tag,
-                   COUNT(1) FILTER (WHERE tag.id IN %s) AS l10n_pl_vat_tt_d,
-                   COUNT(1) FILTER (WHERE tag.id IN %s) AS l10n_pl_vat_tt_wnt,
-                   COUNT(1) FILTER (WHERE tag.id IN %s) AS l10n_pl_vat_i_42,
-                   COUNT(1) FILTER (WHERE tag.id IN %s) AS l10n_pl_vat_i_63,
+                   COUNT(1) FILTER (WHERE tag.id = %(oss_tag_id)s) AS oss_tag,
+                   COUNT(1) FILTER (WHERE tag.id IN %(triangular_sale_tags_ids)s) AS l10n_pl_vat_tt_d,
+                   COUNT(1) FILTER (WHERE tag.id IN %(triangular_purchase_tags_ids)s) AS l10n_pl_vat_tt_wnt,
+                   COUNT(1) FILTER (WHERE tag.id IN %(i_42_tags_ids)s) AS l10n_pl_vat_i_42,
+                   COUNT(1) FILTER (WHERE tag.id IN %(i_63_tags_ids)s) AS l10n_pl_vat_i_63,
                    "account_move_line__move_id".l10n_pl_vat_b_spv,
                    "account_move_line__move_id".l10n_pl_vat_b_spv_dostawa,
                    "account_move_line__move_id".l10n_pl_vat_b_mpv_prowizja,
@@ -158,10 +184,8 @@ class PolishTaxReportCustomHandler(models.AbstractModel):
                                 ), 
                           COALESCE("account_move_line__move_id".invoice_date, "account_move_line__move_id".date)
                           ) as sale_date
-                """,
-
-            'from_query_part': """
-                     FROM {tables}
+                   %(additional_select_list)s
+            FROM %(table_references)s
                 LEFT JOIN product_product pp ON "account_move_line".product_id = pp.id
                 LEFT JOIN product_template pt ON pp.product_tmpl_id = pt.id
                 LEFT JOIN aml_aggregates ON aml_aggregates.move_id = "account_move_line__move_id".id
@@ -170,61 +194,30 @@ class PolishTaxReportCustomHandler(models.AbstractModel):
                 LEFT JOIN account_account_tag_account_move_line_rel aa_tag_aml_rel ON aa_tag_aml_rel.account_move_line_id = "account_move_line".id
                 LEFT JOIN account_account_tag tag ON aa_tag_aml_rel.account_account_tag_id = tag.id
                 LEFT JOIN partial_reconcile_date ON partial_reconcile_date.id = "account_move_line__move_id".id
-            """,
-
-            'where_query_part': """
-                WHERE {where_clause}
-             GROUP BY "account_move_line__move_id".id, partn.id, country.code;
-            """,
-            'from_moves_to_aggregate': "account_move_line__move_id.id",
-            'additional_joins_for_aml_aggregate': ""
-        }
-
-        return dict_query_parts
+                %(additional_joined_table)s
+            WHERE %(search_condition)s
+            GROUP BY "account_move_line__move_id".id, partn.id, country.code;
+                """,
+                table_references=table_references,
+                search_condition=search_condition,
+                tag_name=self.with_context(lang='en_US').env['account.account.tag']._field_to_sql('tag', 'name'),
+                move_to_group_by=move_to_group_by or SQL('account_move_line__move_id.id'),
+                additional_joined_table_for_aml_aggregates=additional_joined_table_for_aml_aggregates or SQL(),
+                country_id=self.env.ref('base.pl').id,
+                oss_tag_id=oss_tag_id,
+                triangular_sale_tags_ids=triangular_sale_tags_ids,
+                triangular_purchase_tags_ids=triangular_purchase_tags_ids,
+                i_42_tags_ids=i_42_tags_ids,
+                i_63_tags_ids=i_63_tags_ids,
+                additional_select_list=additional_select_list or SQL(),
+                additional_joined_table=additional_joined_table or SQL(),
+            )
 
     @api.model
     def _l10n_pl_get_record_values_grouped_by_move(self, options, report):
         """ Get the result of the query to get all values for each move """
-        dict_query_parts = self._l10n_pl_get_query_parts()
-
-        # To get if the line contains a tag, we get the expression (if needed), to get the id. It is then given to the params
-        list_tag_params = []
-        oss_tag = self.env.ref('l10n_eu_oss.tag_oss', raise_if_not_found=False)
-        list_tag_params.append(tuple(oss_tag.ids if oss_tag else [oss_tag]))
-
-        triangular_sale_expression = self.env.ref('l10n_pl.account_tax_report_line_triangular_2nd_payer_tag', raise_if_not_found=False)
-        triangular_sale_tags = triangular_sale_expression._get_matching_tags()
-        list_tag_params.append(tuple(triangular_sale_tags.ids if triangular_sale_tags else []))
-
-        triangular_purchase_expression = self.env.ref('l10n_pl.account_tax_report_line_triangular_buyer_2nd_payer_tag', raise_if_not_found=False)
-        triangular_purchase_tags = triangular_purchase_expression._get_matching_tags()
-        list_tag_params.append(tuple(triangular_purchase_tags.ids if triangular_purchase_tags else []))
-
-        i_42_expression = self.env.ref('l10n_pl.account_tax_report_line_intracom_procedure_i_42_tag', raise_if_not_found=False)
-        i_42_tags = i_42_expression._get_matching_tags()
-        list_tag_params.append(tuple(i_42_tags.ids if i_42_tags else []))
-
-        i_63_expression = self.env.ref('l10n_pl.account_tax_report_line_intracom_procedure_i_63_tag', raise_if_not_found=False)
-        i_63_tags = i_63_expression._get_matching_tags()
-        list_tag_params.append(tuple(i_63_tags.ids if i_63_tags else []))
-
-        tables, where_clause, where_param = report._query_get(options, 'strict_range')
-        select = dict_query_parts.get('select_query_part', '') + dict_query_parts.get('from_query_part', '') + dict_query_parts.get('where_query_part', '')
-
-        where_param = where_param * (select.count('{where_clause}') - 1) + list_tag_params + where_param
-        tag_name = "tag.name ->> 'en_US'" if self.pool['account.account.tag'].name.translate else "tag.name"
-
-        self.env.cr.execute(
-            select.format(
-                where_clause=where_clause,
-                tables=tables,
-                tag_name=tag_name,
-                country_id=self.env.ref('base.pl').id,
-                additional_join_for_with=dict_query_parts.get('additional_joins_for_aml_aggregate', ''),
-                move_to_group_by=dict_query_parts.get('from_moves_to_aggregate', ''),
-            ),
-            where_param,
-        )
+        query = self._l10n_pl_get_query(report, options)
+        self.env.cr.execute(query)
         return self.env.cr.dictfetchall()
 
     @api.model

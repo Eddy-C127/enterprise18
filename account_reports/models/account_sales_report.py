@@ -3,7 +3,7 @@
 from collections import defaultdict
 
 from odoo import _, api, fields, models
-from odoo.tools import get_lang
+from odoo.tools import get_lang, SQL
 
 
 class ECSalesReportCustomHandler(models.AbstractModel):
@@ -255,10 +255,9 @@ class ECSalesReportCustomHandler(models.AbstractModel):
         :param options:             The report options.
         :return:                    (query, params)
         '''
-        params = []
         queries = []
         # Create the currency table.
-        ct_query = report._get_query_currency_table(options)
+        ct_query = SQL(report._get_query_currency_table(options))
         allowed_ids = self._get_tag_ids_filtered(options)
 
         # In the case of the generic report, we don't have a country defined. So no reliable tax report whose
@@ -266,47 +265,53 @@ class ECSalesReportCustomHandler(models.AbstractModel):
 
         lang = self.env.user.lang or get_lang(self.env).code
         if options.get('sales_report_taxes', {}).get('use_taxes_instead_of_tags'):
-            tax_elem_table = 'account_tax'
-            aml_rel_table = 'account_move_line_account_tax_rel'
-            tax_elem_table_name = f"COALESCE(account_tax.name->>'{lang}', account_tax.name->>'en_US')" if \
-                self.pool['account.tax'].name.translate else 'account_tax.name'
+            tax_elem_table = SQL('account_tax')
+            tax_elem_table_id = SQL('account_tax_id')
+            aml_rel_table = SQL('account_move_line_account_tax_rel')
+            tax_elem_table_name = self.with_context(lang=lang).env['account.tax']._field_to_sql('account_tax', 'name')
         else:
-            tax_elem_table = 'account_account_tag'
-            aml_rel_table = 'account_account_tag_account_move_line_rel'
-            tax_elem_table_name = f"COALESCE(account_account_tag.name->>'{lang}', account_account_tag.name->>'en_US')" if \
-                self.pool['account.account.tag'].name.translate else 'account_account_tag.name'
-
+            tax_elem_table = SQL('account_account_tag')
+            tax_elem_table_id = SQL('account_account_tag_id')
+            aml_rel_table = SQL('account_account_tag_account_move_line_rel')
+            tax_elem_table_name = self.with_context(lang=lang).env['account.account.tag']._field_to_sql('account_account_tag', 'name')
 
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            tables, where_clause, where_params = report._query_get(column_group_options, 'strict_range')
-            params.append(column_group_key)
-            params += where_params
+            table_references, search_condition = report._get_table_expression(column_group_options, 'strict_range')
             if allowed_ids:
-                where_clause += f" AND {tax_elem_table}.id IN %s"  # Add the tax element filter.
-                params.append(tuple(allowed_ids))
-            queries.append(f"""
+                search_condition = SQL('%s AND %s.id IN %s', search_condition, tax_elem_table, tuple(allowed_ids))
+            queries.append(SQL(
+                """
                 SELECT
-                    %s                              AS column_group_key,
+                    %(column_group_key)s            AS column_group_key,
                     account_move_line.partner_id    AS groupby,
                     res_partner.vat                 AS vat_number,
                     res_country.code                AS country_code,
                     -SUM(account_move_line.balance) AS balance,
-                    {tax_elem_table_name}           AS sales_type_code,
-                    {tax_elem_table}.id             AS tax_element_id,
+                    %(tax_elem_table_name)s         AS sales_type_code,
+                    %(tax_elem_table)s.id           AS tax_element_id,
                     (comp_partner.country_id = res_partner.country_id) AS same_country
-                FROM {tables}
-                JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
-                JOIN {aml_rel_table} ON {aml_rel_table}.account_move_line_id = account_move_line.id
-                JOIN {tax_elem_table} ON {aml_rel_table}.{tax_elem_table}_id = {tax_elem_table}.id
+                FROM %(table_references)s
+                JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                JOIN %(aml_rel_table)s ON %(aml_rel_table)s.account_move_line_id = account_move_line.id
+                JOIN %(tax_elem_table)s ON %(aml_rel_table)s.%(tax_elem_table_id)s = %(tax_elem_table)s.id
                 JOIN res_partner ON account_move_line.partner_id = res_partner.id
                 JOIN res_country ON res_partner.country_id = res_country.id
                 JOIN res_company ON res_company.id = account_move_line.company_id
                 JOIN res_partner comp_partner ON comp_partner.id = res_company.partner_id
-                WHERE {where_clause}
-                GROUP BY {tax_elem_table}.id, {tax_elem_table}.name, account_move_line.partner_id,
+                WHERE %(search_condition)s
+                GROUP BY %(tax_elem_table)s.id, %(tax_elem_table)s.name, account_move_line.partner_id,
                 res_partner.vat, res_country.code, comp_partner.country_id, res_partner.country_id
-            """)
-        return ' UNION ALL '.join(queries), params
+                """,
+                column_group_key=column_group_key,
+                tax_elem_table_name=tax_elem_table_name,
+                tax_elem_table=tax_elem_table,
+                table_references=table_references,
+                ct_query=ct_query,
+                aml_rel_table=aml_rel_table,
+                tax_elem_table_id=tax_elem_table_id,
+                search_condition=search_condition,
+            ))
+        return SQL(' UNION ALL ').join(queries)
 
     @api.model
     def _get_tag_ids_filtered(self, options):

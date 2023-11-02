@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, _
-from odoo.tools import format_date, date_utils, get_lang
+from odoo.tools import format_date, date_utils, get_lang, SQL
 from collections import defaultdict
 from odoo.exceptions import UserError, RedirectWarning
 
@@ -109,24 +109,18 @@ class JournalReportCustomHandler(models.AbstractModel):
         return new_lines
 
     def _query_journal(self, options):
-        params = []
         queries = []
         report = self.env.ref('account_reports.journal_report')
-        if self.pool['account.journal'].name.translate:
-            lang = self.env.user.lang or get_lang(self.env).code
-            j_name = f"COALESCE(j.name->>'{lang}', j.name->>'en_US')"
-        else:
-            j_name = "j.name"
+        lang = self.env.user.lang or get_lang(self.env).code
+        j_name = self.with_context(lang=lang).env['account.journal']._field_to_sql('j', 'name')
 
         for column_group_key, options_group in report._split_options_per_column_group(options).items():
-            tables, where_clause, where_params = report._query_get(options_group, 'strict_range')
-            params.append(column_group_key)
-            params += where_params
-            queries.append(f"""
+            table_references, search_condition = report._get_table_expression(options_group, 'strict_range')  # pylint: disable=unused-variable
+            queries.append(SQL("""
                 SELECT
-                    %s as column_group_key,
+                    %(column_group_key)s as column_group_key,
                     j.id,
-                    {j_name} as name,
+                    %(j_name)s as name,
                     j.code,
                     j.type,
                     j.currency_id,
@@ -134,16 +128,16 @@ class JournalReportCustomHandler(models.AbstractModel):
                     cp.currency_id as company_currency
                 FROM account_journal j
                 JOIN account_move_line ON j.id = account_move_line.journal_id
-                JOIN res_company cp ON cp.id = j.company_id
+                JOIN res_company cp ON cp.id = "account_move_line".company_id
                 LEFT JOIN res_currency journal_curr on journal_curr.id = j.currency_id
-                WHERE {where_clause}
+                WHERE %(search_condition)s
                 GROUP BY
-                    j.id, {j_name}, j.code, j.type, j.currency_id, journal_curr.name, cp.currency_id
+                    j.id, %(j_name)s, j.code, j.type, j.currency_id, journal_curr.name, cp.currency_id
                 ORDER BY j.id
-            """)
+            """, column_group_key=column_group_key, j_name=j_name, search_condition=search_condition))
 
         rslt = {}
-        self._cr.execute(" UNION ALL ".join(queries), params)
+        self._cr.execute(SQL(" UNION ALL ").join(SQL("(%s)", query) for query in queries))
         for journal_res in self._cr.dictfetchall():
             if journal_res['id'] not in rslt:
                 rslt[journal_res['id']] = {col_group_key: {} for col_group_key in options['column_groups']}
@@ -726,32 +720,26 @@ class JournalReportCustomHandler(models.AbstractModel):
     ####################################################
 
     def _query_aml(self, options, offset=0, journal=False):
-        params = []
         queries = []
         lang = self.env.user.lang or get_lang(self.env).code
-        acc_name = f"COALESCE(acc.name->>'{lang}', acc.name->>'en_US')" if \
-            self.pool['account.account'].name.translate else 'acc.name'
-        j_name = f"COALESCE(j.name->>'{lang}', j.name->>'en_US')" if \
-            self.pool['account.journal'].name.translate else 'j.name'
-        tax_name = f"COALESCE(tax.name->>'{lang}', tax.name->>'en_US')" if \
-            self.pool['account.tax'].name.translate else 'tax.name'
-        tag_name = f"COALESCE(tag.name->>'{lang}', tag.name->>'en_US')" if \
-            self.pool['account.account.tag'].name.translate else 'tag.name'
+        self_lang = self.with_context(lang=lang)
+        acc_name = self_lang.env['account.account']._field_to_sql('acc', 'name')
+        j_name = self_lang.env['account.journal']._field_to_sql('j', 'name')
+        tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')
+        tag_name = self_lang.env['account.account.tag']._field_to_sql('tag', 'name')
         report = self.env.ref('account_reports.journal_report')
         for column_group_key, options_group in report._split_options_per_column_group(options).items():
             # Override any forced options: We want the ones given in the options
             options_group['date'] = options['date']
-            tables, where_clause, where_params = report._query_get(options_group, 'strict_range', domain=[('journal_id', '=', journal.id)])
+            table_references, search_condition = report._get_table_expression(options_group, 'strict_range', domain=[('journal_id', '=', journal.id)])
             sort_by_date = options_group.get('sort_by_date')
-            params.append(column_group_key)
-            params += where_params
-
+            am_order = SQL('am.date, am.name') if sort_by_date else SQL('am.name , am.date')
             limit_to_load = report.load_more_limit + 1 if report.load_more_limit and options['export_mode'] != 'print' else None
 
-            params += [limit_to_load, offset]
-            queries.append(f"""
+            queries.append(SQL(
+                """
                 SELECT
-                    %s AS column_group_key,
+                    %(column_group_key)s AS column_group_key,
                     "account_move_line".id as move_line_id,
                     "account_move_line".name,
                     "account_move_line".date,
@@ -768,21 +756,21 @@ class JournalReportCustomHandler(models.AbstractModel):
                     am.currency_id != cp.currency_id as is_multicurrency,
                     p.name as partner_name,
                     acc.code as account_code,
-                    {acc_name} as account_name,
+                    %(acc_name)s as account_name,
                     acc.account_type as account_type,
                     COALESCE("account_move_line".debit, 0) as debit,
                     COALESCE("account_move_line".credit, 0) as credit,
                     COALESCE("account_move_line".balance, 0) as balance,
-                    {j_name} as journal_name,
+                    %(j_name)s as journal_name,
                     j.code as journal_code,
                     j.type as journal_type,
                     j.currency_id as journal_currency,
                     journal_curr.name as journal_currency_name,
                     cp.currency_id as company_currency,
                     CASE WHEN j.type = 'sale' THEN am.payment_reference WHEN j.type = 'purchase' THEN am.ref ELSE '' END as reference,
-                    array_remove(array_agg(DISTINCT {tax_name}), NULL) as taxes,
-                    array_remove(array_agg(DISTINCT {tag_name}), NULL) as tax_grids
-                FROM {tables}
+                    array_remove(array_agg(DISTINCT %(tax_name)s), NULL) as taxes,
+                    array_remove(array_agg(DISTINCT %(tag_name)s), NULL) as tax_grids
+                FROM %(table_references)s
                 JOIN account_move am ON am.id = "account_move_line".move_id
                 JOIN account_account acc ON acc.id = "account_move_line".account_id
                 LEFT JOIN res_partner p ON p.id = "account_move_line".partner_id
@@ -795,25 +783,36 @@ class JournalReportCustomHandler(models.AbstractModel):
                 LEFT JOIN account_account_tag_account_move_line_rel tag_rel ON tag_rel.account_move_line_id = "account_move_line".id
                 LEFT JOIN account_account_tag tag on tag_rel.account_account_tag_id = tag.id
                 LEFT JOIN res_currency journal_curr on journal_curr.id = j.currency_id
-                WHERE {where_clause}
+                WHERE %(search_condition)s
                 GROUP BY "account_move_line".id, am.id, p.id, acc.id, j.id, cp.id, journal_curr.id
                 ORDER BY j.id, CASE when am.name = '/' then 1 else 0 end,
-                {" am.date, am.name," if sort_by_date else " am.name , am.date,"}
+                %(am_order)s,
                 CASE acc.account_type
                     WHEN 'liability_payable' THEN 1
                     WHEN 'asset_receivable' THEN 1
                     WHEN 'liability_credit_card' THEN 5
                     WHEN 'asset_cash' THEN 5
                     ELSE 2
-               END,
-               "account_move_line".tax_line_id NULLS FIRST
-               LIMIT %s
-               OFFSET %s
-            """)
+                END,
+                "account_move_line".tax_line_id NULLS FIRST
+                LIMIT %(limit)s
+                OFFSET %(offset)s
+                """,
+                column_group_key=column_group_key,
+                acc_name=acc_name,
+                j_name=j_name,
+                tax_name=tax_name,
+                tag_name=tag_name,
+                table_references=table_references,
+                search_condition=search_condition,
+                am_order=am_order,
+                limit=limit_to_load,
+                offset=offset,
+            ))
 
         # 1.2.Fetch data from DB
         rslt = {}
-        self._cr.execute('(' + ') UNION ALL ('.join(queries) + ')', params)
+        self._cr.execute(SQL(" UNION ALL ").join(SQL("(%s)", query) for query in queries))
         for aml_result in self._cr.dictfetchall():
             rslt.setdefault(aml_result['move_line_id'], {col_group_key: {} for col_group_key in options['column_groups']})
             rslt[aml_result['move_line_id']][aml_result['column_group_key']] = aml_result
@@ -874,17 +873,17 @@ class JournalReportCustomHandler(models.AbstractModel):
         # Use the same option as we use to get the tax details, but this time to generate the query used to fetch the
         # grid information
         tax_report_options = self._get_generic_tax_report_options(options, data)
-        tables, where_clause, where_params = report._query_get(tax_report_options, 'strict_range')
+        table_references, search_condition = report._get_table_expression(tax_report_options, 'strict_range')
         lang = self.env.user.lang or get_lang(self.env).code
-        country_name = f"COALESCE(country.name->>'{lang}', country.name->>'en_US')"
-        tag_name = f"COALESCE(tag.name->>'{lang}', tag.name->>'en_US')" if \
-            self.pool['account.account.tag'].name.translate else 'tag.name'
-        query = f"""
+        self_lang = self.with_context(lang=lang)
+        country_name = self_lang.env['res.country']._field_to_sql('country', 'name')
+        tag_name = self_lang.env['account.account.tag']._field_to_sql('tag', 'name')
+        query = SQL("""
             WITH tag_info (country_name, tag_id, tag_name, tag_sign, balance) as (
                 SELECT
-                    {country_name} AS country_name,
+                    %(country_name)s AS country_name,
                     tag.id,
-                    {tag_name} AS name,
+                    %(tag_name)s AS name,
                     CASE WHEN tag.tax_negate IS TRUE THEN '-' ELSE '+' END,
                     SUM(COALESCE("account_move_line".balance, 0)
                         * CASE WHEN "account_move_line".tax_tag_invert THEN -1 ELSE 1 END
@@ -892,8 +891,8 @@ class JournalReportCustomHandler(models.AbstractModel):
                 FROM account_account_tag tag
                 JOIN account_account_tag_account_move_line_rel rel ON tag.id = rel.account_account_tag_id
                 JOIN res_country country on country.id = tag.country_id
-                , {tables}
-                WHERE {where_clause}
+                , %(table_references)s
+                WHERE %(search_condition)s
                   AND applicability = 'taxes'
                   AND "account_move_line".id = rel.account_move_line_id
                 GROUP BY country_name, tag.id
@@ -906,8 +905,8 @@ class JournalReportCustomHandler(models.AbstractModel):
                 tag_sign AS sign
             FROM tag_info
             ORDER BY country_name, name
-        """
-        self._cr.execute(query, where_params)
+        """, country_name=country_name, tag_name=tag_name, table_references=table_references, search_condition=search_condition)
+        self._cr.execute(query)
         query_res = self.env.cr.fetchall()
 
         res = defaultdict(lambda: defaultdict(dict))

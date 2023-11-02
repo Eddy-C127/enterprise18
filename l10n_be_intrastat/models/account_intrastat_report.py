@@ -51,8 +51,8 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             raise RedirectWarning(error_msg, action_error, _('Add company registry'))
 
         self.env.cr.flush()
-        query, params = self._prepare_query(options)
-        self._cr.execute(query, params)
+        query = self._prepare_query(options)
+        self._cr.execute(query)
         query_res = self._cr.dictfetchall()
         query_res = self._fill_missing_values(query_res)
 

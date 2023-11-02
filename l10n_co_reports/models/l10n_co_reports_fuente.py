@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models
-from odoo.tools.misc import get_lang
+from odoo.tools import get_lang, SQL
 
 class FuenteReportCustomHandler(models.AbstractModel):
     _name = 'l10n_co.fuente.report.handler'
@@ -16,15 +16,14 @@ class FuenteReportCustomHandler(models.AbstractModel):
 
     def _get_query_results(self, report, options, domain, account=False):
         queries = []
-        params = []
+        lang = self.env.user.lang or get_lang(self.env).code
+        account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('aa', 'name')
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            lang = self.env.user.lang or get_lang(self.env).code
-            account_name = f"COALESCE(aa.name->>'{lang}', aa.name->>'en_US')"
-
-            tables, where_clause, where_params = report._query_get(column_group_options, 'strict_range', domain=domain)
-            queries.append(f"""
+            table_references, search_condition = report._get_table_expression(column_group_options, 'strict_range', domain=domain)
+            queries.append(SQL(
+                """
                 SELECT
-                    %s AS column_group_key,
+                    %(column_group_key)s AS column_group_key,
                     SUM(account_move_line.credit - account_move_line.debit) AS balance,
                     SUM(CASE
                         WHEN account_move_line.credit > 0
@@ -34,19 +33,25 @@ class FuenteReportCustomHandler(models.AbstractModel):
                         ELSE 0
                         END
                     ) AS tax_base_amount,
-                    {account and f"aa.code || ' ' || {account_name} AS account_name," or ''}
-                    {account and "aa.id AS account_id," or ''}
+                    %(account_name)s
+                    %(account_id)s
                     rp.id AS partner_id,
                     rp.name AS partner_name
-                FROM {tables}
+                FROM %(table_references)s
                 JOIN res_partner rp ON account_move_line.partner_id = rp.id
                 JOIN account_account aa ON account_move_line.account_id = aa.id
-                WHERE {where_clause}
-                GROUP BY rp.id {account and ', aa.id' or ''}
-            """)
-            params += [column_group_key, *where_params]
+                WHERE %(search_condition)s
+                GROUP BY rp.id %(group_by_account_id)s
+                """,
+                column_group_key=column_group_key,
+                account_name=SQL("aa.code || ' ' || %s AS account_name,", account_name) if account else SQL(),
+                account_id=SQL("aa.id AS account_id,") if account else SQL(),
+                table_references=table_references,
+                search_condition=search_condition,
+                group_by_account_id=SQL(', aa.id') if account else SQL(),
+            ))
 
-        self._cr.execute(' UNION ALL '.join(queries), params)
+        self._cr.execute(SQL(' UNION ALL ').join(queries))
         return self._cr.dictfetchall()
 
     def _get_domain(self, report, options, line_dict_id=None):
