@@ -42,7 +42,7 @@ class AccountMove(models.Model):
         # assignments invoke method write() on non-protected records, which may
         # cause an infinite recursion in case method write() needs to read one
         # of these fields (like in case of a base automation)
-        fields = [type(self).asset_remaining_value, type(self).asset_depreciated_value]
+        fields = [self._fields['asset_remaining_value'], self._fields['asset_depreciated_value']]
         with self.env.protecting(fields, self.asset_id.depreciation_move_ids):
             for asset in self.asset_id:
                 depreciated = 0

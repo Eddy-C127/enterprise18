@@ -49,7 +49,7 @@ class WebStudioController(http.Controller):
             - it already inherits from mail.thread.
         """
         Model = request.env[model]
-        return Model._custom or isinstance(Model, type(request.env['mail.thread']))
+        return Model._custom or isinstance(Model, request.env.registry['mail.thread'])
 
     @http.route('/web_studio/activity_allowed', type='json', auth='user')
     def is_activity_allowed(self, model):
@@ -58,7 +58,7 @@ class WebStudioController(http.Controller):
             - it already inherits from mail.thread.
         """
         Model = request.env[model]
-        return Model._custom or isinstance(Model, type(request.env['mail.activity.mixin']))
+        return Model._custom or isinstance(Model, request.env.registry['mail.activity.mixin'])
 
     @http.route('/web_studio/get_studio_action', type='json', auth='user')
     def get_studio_action(self, action_name, model, view_id=None, view_type=None):

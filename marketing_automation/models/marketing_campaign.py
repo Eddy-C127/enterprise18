@@ -143,7 +143,7 @@ class MarketingCampaign(models.Model):
             campaign.test_participant_count = campaign_data.get('is_test', 0)
 
     def _group_expand_states(self, states, domain, order):
-        return [key for key, val in type(self).state.selection]
+        return [key for key, val in self._fields['state'].selection]
 
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):

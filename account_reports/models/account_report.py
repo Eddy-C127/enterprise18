@@ -72,9 +72,9 @@ class AccountReport(models.Model):
     def _validate_custom_handler_model(self):
         for report in self:
             if report.custom_handler_model_id:
-                custom_handler_model = self.env['account.report.custom.handler']
+                custom_handler_model = self.env.registry['account.report.custom.handler']
                 current_model = self.env[report.custom_handler_model_name]
-                if not isinstance(current_model, type(custom_handler_model)):
+                if not isinstance(current_model, custom_handler_model):
                     raise ValidationError(_(
                         "Field 'Custom Handler Model' can only reference records inheriting from [%s].",
                         custom_handler_model._name
