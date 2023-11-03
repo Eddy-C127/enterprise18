@@ -557,7 +557,11 @@ class MrpProductionWorkcenterLine(models.Model):
     def do_finish(self):
         self.end_all()
         if self.state != 'done':
+            loss_id = self.env['mrp.workcenter.productivity.loss'].search([('loss_type', '=', 'productive')], limit=1)
+            if len(loss_id) < 1:
+                raise UserError(_("You need to define at least one productivity loss in the category 'Productive'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."))
             action = self.record_production()
+            self._set_default_time_log(loss_id)
             if action is not True:
                 return action
         # workorder tree view action should redirect to the same view instead of workorder kanban view when WO mark as done.
@@ -831,6 +835,16 @@ class MrpProductionWorkcenterLine(models.Model):
             raise UserError(_("You need to define at least one productivity loss in the category 'Productive'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."))
 
         wo.state = 'done'
+        self._set_default_time_log(loss_id)
+
+    def _set_default_time_log(self, loss_id):
+        if self.env.context.get('mrp_display'):
+            if (self.env.context.get('employee_id')):
+                main_employee_connected = self.env.context.get('employee_id')
+            else:
+                main_employee_connected = self.env['hr.employee'].get_session_owner()
+        else:
+            main_employee_connected = self.env.user.employee_id.id
         productivity = []
         for wo in self:
             if not wo.time_ids:
