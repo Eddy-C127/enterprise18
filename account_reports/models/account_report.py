@@ -3679,8 +3679,12 @@ class AccountReport(models.Model):
             if expression_domain is None:
                 continue
 
-            audit_or_domains = audit_or_domains_per_date_scope.setdefault(expression_to_audit.date_scope, [])
-            audit_or_domains.append(expression_domain)
+            date_scope = expression.date_scope if expression.subformula == 'cross_report' else expression_to_audit.date_scope
+            audit_or_domains = audit_or_domains_per_date_scope.setdefault(date_scope, [])
+            audit_or_domains.append(osv.expression.AND([
+                expression_domain,
+                groupby_domain,
+            ]))
 
         if audit_or_domains_per_date_scope:
             domain = osv.expression.OR([
