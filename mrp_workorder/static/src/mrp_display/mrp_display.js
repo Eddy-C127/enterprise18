@@ -458,9 +458,12 @@ export class MrpDisplay extends Component {
         return params;
     }
 
-    onClickRefresh() {
-        this.env.reload();
-        this.sortOrderCache.ids = [];
+    async onClickRefresh() {
+        const result = await this.processValidationStack();
+        if (result.success) {
+            this.env.reload();
+            this.sortOrderCache.ids = [];
+        }
     }
 
     demoMORecords = [
