@@ -15,9 +15,6 @@ from requests import Request
 
 def smart_encode_request_data(value):
     try:
-        if sys.version_info[0] < 3:
-            return value
-
         # Odoo: This line got fixed
         if isinstance(value,str):
             return value.encode('utf-8')
