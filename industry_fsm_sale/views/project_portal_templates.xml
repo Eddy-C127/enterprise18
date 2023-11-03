@@ -121,7 +121,7 @@
 
             <div class="container_subtotal" name="so_total_summary">
                 <div id="total" class="row justify-content-end" name="total">
-                    <div t-attf-class="#{'col-auto' if report_type != 'html' else 'col-sm-2'}">
+                    <div t-attf-class="#{'col-6' if report_type == 'pdf' else 'col-auto'}">
                         <table t-if="final_subtotal != 0 or is_any_total_discount_line" class="table table-sm">
                             <tr t-if="final_tax" class="border-black o_subtotal" style="">
                                 <td><strong>Untaxed amount</strong></td>
