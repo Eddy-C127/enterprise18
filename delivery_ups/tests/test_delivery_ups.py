@@ -3,7 +3,7 @@
 from contextlib import contextmanager
 from unittest.mock import Mock, patch
 
-from odoo.tests.common import TransactionCase, tagged, Form
+from odoo.tests import Form, TransactionCase, tagged
 
 
 @tagged('-standard', 'external')

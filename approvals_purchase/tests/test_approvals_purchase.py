@@ -5,7 +5,7 @@ import datetime
 
 from odoo.addons.approvals_purchase.tests.common import TestApprovalsCommon
 from odoo.exceptions import UserError
-from odoo.tests.common import Form
+from odoo.tests import Form
 
 
 class TestApprovalsPurchase(TestApprovalsCommon):

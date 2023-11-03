@@ -6,8 +6,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
-from odoo.tests import tagged
-from odoo.tests.common import Form
+from odoo.tests import Form, tagged
 
 
 @tagged("post_install_l10n", "post_install", "-at_install", "superstream")

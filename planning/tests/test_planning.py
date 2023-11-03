@@ -7,8 +7,7 @@ from odoo.exceptions import UserError
 
 from odoo import fields
 from odoo.exceptions import ValidationError
-from odoo.tests.common import Form
-from odoo.tests import new_test_user
+from odoo.tests import Form, new_test_user
 
 from odoo.addons.mail.tests.common import MockEmail
 from .common import TestCommonPlanning

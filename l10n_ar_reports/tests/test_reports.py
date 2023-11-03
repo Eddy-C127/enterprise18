@@ -2,8 +2,7 @@
 from odoo import fields
 from odoo.addons.l10n_ar.tests.common import TestAr
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
-from odoo.tests.common import Form
-from odoo.tests import tagged
+from odoo.tests import Form, tagged
 from odoo.tools import file_open
 import logging
 

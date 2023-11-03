@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
 from odoo.exceptions import UserError
-from odoo.tests import TransactionCase, tagged, Form
+from odoo.tests import Form, TransactionCase, tagged
 from odoo.addons.delivery_bpost.models.delivery_bpost import TRACKING_REF_DELIM
 
 _logger = logging.getLogger(__name__)

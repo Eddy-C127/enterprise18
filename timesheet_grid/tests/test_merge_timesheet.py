@@ -4,7 +4,7 @@
 from datetime import timedelta
 
 from odoo import fields
-from odoo.tests.common import Form
+from odoo.tests import Form
 
 from odoo.addons.hr_timesheet.tests.test_timesheet import TestCommonTimesheet
 

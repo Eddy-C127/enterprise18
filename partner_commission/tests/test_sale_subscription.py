@@ -3,7 +3,7 @@
 
 from dateutil.relativedelta import relativedelta
 
-from odoo.tests.common import Form, tagged
+from odoo.tests import Form, tagged
 from odoo.addons.partner_commission.tests.setup import TestCommissionsSetup
 from odoo import fields
 

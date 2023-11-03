@@ -4,7 +4,7 @@
 from odoo.addons.mail.tests.common import mail_new_test_user
 from odoo.addons.social.tests import common
 from odoo.addons.social.tests.tools import mock_void_external_calls
-from odoo.tests.common import Form, users
+from odoo.tests import Form, users
 
 
 class TestSocialCrmConvert(common.SocialCase):

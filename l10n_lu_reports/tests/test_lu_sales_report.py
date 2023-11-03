@@ -6,8 +6,7 @@ import base64
 
 from odoo.addons.account_reports.tests.account_sales_report_common import AccountSalesReportCommon
 from odoo.exceptions import ValidationError
-from odoo.tests import tagged
-from odoo.tests.common import Form
+from odoo.tests import Form, tagged
 from odoo.tools.misc import NON_BREAKING_SPACE
 from freezegun import freeze_time
 

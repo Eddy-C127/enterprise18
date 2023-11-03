@@ -5,8 +5,7 @@ from freezegun import freeze_time
 
 from .common import TestAccountReportsCommon
 from odoo import fields, Command
-from odoo.tests import tagged
-from odoo.tests.common import Form
+from odoo.tests import Form, tagged
 
 
 @tagged('post_install', '-at_install')

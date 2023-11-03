@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.fields import Command
-from odoo.tests.common import Form
+from odoo.tests import Form
 
 from odoo.addons.helpdesk.tests.common import HelpdeskCommon
 from odoo.addons.website_forum.tests.common import TestForumCommon

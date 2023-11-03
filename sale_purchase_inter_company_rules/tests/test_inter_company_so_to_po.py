@@ -2,8 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from .common import TestInterCompanyRulesCommonSOPO
-from odoo.tests import Form
-from odoo.tests import tagged
+from odoo.tests import Form, tagged
 
 
 @tagged('post_install', '-at_install')

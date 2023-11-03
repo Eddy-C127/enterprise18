@@ -3,7 +3,7 @@
 import logging
 import re
 from odoo.exceptions import UserError
-from odoo.tests.common import TransactionCase, tagged, Form
+from odoo.tests import Form, TransactionCase, tagged
 
 
 _logger = logging.getLogger(__name__)

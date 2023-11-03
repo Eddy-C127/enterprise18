@@ -3,7 +3,7 @@
 from contextlib import contextmanager
 import unittest
 from unittest.mock import Mock, patch
-from odoo.tests.common import TransactionCase, tagged, Form
+from odoo.tests import Form, TransactionCase, tagged
 from odoo.exceptions import UserError
 
 

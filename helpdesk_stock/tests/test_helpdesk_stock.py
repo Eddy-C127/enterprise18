@@ -3,7 +3,7 @@
 
 from odoo.addons.helpdesk.tests import common
 from odoo.exceptions import UserError
-from odoo.tests.common import Form, tagged
+from odoo.tests import Form, tagged
 
 
 @tagged('post_install', '-at_install')

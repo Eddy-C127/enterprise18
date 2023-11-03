@@ -4,8 +4,7 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
-from odoo.tests import tagged
-from odoo.tests.common import Form
+from odoo.tests import Form, tagged
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class LuxembourgAssetsReportTaxesTest(TestAccountReportsCommon):

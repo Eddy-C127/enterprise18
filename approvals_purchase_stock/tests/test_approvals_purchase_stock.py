@@ -3,7 +3,6 @@
 
 from odoo import fields
 from odoo.addons.approvals_purchase_stock.tests.common import TestApprovalsCommon
-from odoo.tests.common import Form
 
 class TestApprovalsPurchaseStock(TestApprovalsCommon):
 

@@ -7,7 +7,7 @@ from unittest.mock import patch
 from odoo import fields
 from odoo.exceptions import AccessError
 from odoo.tools import format_date, get_timedelta
-from odoo.tests.common import Form, tagged
+from odoo.tests import Form, tagged
 from odoo.addons.partner_commission.tests.setup import Line, Spec, TestCommissionsSetup
 from odoo.tools.misc import NON_BREAKING_SPACE
 

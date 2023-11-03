@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 from odoo import fields, Command
 from odoo.exceptions import UserError, MissingError
-from odoo.tests.common import Form, tagged
+from odoo.tests import Form, tagged
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 
 

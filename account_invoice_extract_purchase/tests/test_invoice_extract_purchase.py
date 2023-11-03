@@ -3,8 +3,7 @@
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.addons.iap_extract.tests.test_extract_mixin import TestExtractMixin
-from odoo.tests import tagged
-from odoo.tests.common import Form
+from odoo.tests import Form, tagged
 
 
 @tagged('post_install', '-at_install')

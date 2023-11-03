@@ -3,7 +3,7 @@
 from datetime import datetime
 import pytz
 
-from odoo.tests.common import Form, new_test_user
+from odoo.tests import Form, new_test_user
 from .common import TestCommonPlanning
 
 
