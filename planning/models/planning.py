@@ -1169,11 +1169,11 @@ class Planning(models.Model):
 
         values = []
         # Sum and sort increments by instant.
-        increments = [
-            (group[0], sum(increment[1] for increment in group[1]))
-            for group in itertools.groupby(increments, key=lambda increment: increment[0])
-        ]
-        increments.sort(key=lambda x: x[0])
+        increments_sum_per_instant = defaultdict(float)
+        for instant, increment in increments:
+            increments_sum_per_instant[instant] += increment
+        increments = list(increments_sum_per_instant.items())
+        increments.sort(key=lambda increment: increment[0])
 
         def get_instant_plus_days(instant, days):
             return instant + relativedelta(days=days, hour=0, minute=0, second=0, microsecond=0)
