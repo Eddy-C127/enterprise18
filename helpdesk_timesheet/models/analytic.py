@@ -65,6 +65,8 @@ class AccountAnalyticLine(models.Model):
                 vals_update = {'account_id': ticket.analytic_account_id.id}
                 if ticket.project_id:
                     vals_update['project_id'] = ticket.project_id.id
+                if 'company_id' not in ticket_vals_list:
+                    vals_update['company_id'] = ticket.project_id.company_id.id
                 for vals in ticket_vals_list:
                     vals.update(vals_update)
         return super(AccountAnalyticLine, self)._timesheet_preprocess(vals_list)
