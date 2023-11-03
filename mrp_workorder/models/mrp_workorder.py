@@ -271,17 +271,18 @@ class MrpProductionWorkcenterLine(models.Model):
     def button_start(self, bypass=False):
         skip_employee_check = bypass or (not request and not self.env.user.employee_id)
         main_employee = False
-        if not self.env.context.get('mrp_display'):
-            main_employee = self.env.user.employee_id.id
-        elif not skip_employee_check:
-            connected_employees = self.env['hr.employee'].get_employees_connected()
-            if len(connected_employees) == 0:
-                raise UserError(_("You need to log in to process this work order."))
-            main_employee = self.env['hr.employee'].get_session_owner()
-            if not main_employee:
-                raise UserError(_("There is no session chief. Please log in."))
-            if any(main_employee not in [emp.id for emp in wo.allowed_employees] and not wo.all_employees_allowed for wo in self):
-                raise UserError(_("You are not allowed to work on the workorder"))
+        if not skip_employee_check:
+            if not self.env.context.get('mrp_display'):
+                main_employee = self.env.user.employee_id.id
+            else:
+                connected_employees = self.env['hr.employee'].get_employees_connected()
+                if len(connected_employees) == 0:
+                    raise UserError(_("You need to log in to process this work order."))
+                main_employee = self.env['hr.employee'].get_session_owner()
+                if not main_employee:
+                    raise UserError(_("There is no session chief. Please log in."))
+                if any(main_employee not in [emp.id for emp in wo.allowed_employees] and not wo.all_employees_allowed for wo in self):
+                    raise UserError(_("You are not allowed to work on the workorder"))
 
         res = super().button_start()
 
