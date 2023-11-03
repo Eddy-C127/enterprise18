@@ -59,7 +59,7 @@
                             </tbody>
                         </table>
                         <div class="row justify-content-end">
-                            <div t-att-class="'col-auto' if report_type != 'html' else 'col-sm-2'">
+                            <div t-att-class="'col-sm-2' if report_type == 'pdf' else 'col-auto'">
                                 <table class="table table-sm">
                                     <tr class="border-black o_total">
                                         <td colspan="4" class="text-end">
