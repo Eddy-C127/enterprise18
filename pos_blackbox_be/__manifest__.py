@@ -45,6 +45,6 @@ No modified version is certified and supported by Odoo SA.
         ],
     },
     'post_init_hook': '_set_tax_on_work_in_out',
-    'installable': True,
+    'installable': False,
     'license': 'OEEL-1',
 }
