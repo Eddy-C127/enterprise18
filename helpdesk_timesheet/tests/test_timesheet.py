@@ -273,3 +273,29 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
         helpdesk_ticket_valid.write({'team_id': no_timesheet_helpdesk_team.id})
         warning = helpdesk_ticket_valid._onchange_team_id()
         self.assertFalse(warning, "No warning should be raised when the ticket's timesheets are validated.")
+
+    def test_default_company_id_for_timesheet(self):
+        """ This test ensures that the default company_id used when a timesheet is created from the ticket form view is the company_id of its project. """
+        new_company = self.env['res.company'].create({'name': "Do the extra miles"})
+        project = self.env['project.project'].create({
+            'name': 'Project',
+            'allow_timesheets': True,
+            'partner_id': self.partner.id,
+            'company_id': new_company.id,
+        })
+        helpdesk_team = self.env['helpdesk.team'].create({
+            'name': 'Test Team new company',
+            'use_helpdesk_timesheet': True,
+            'project_id': project.id,
+            'company_id': new_company.id,
+        })
+        helpdesk_ticket = self.env['helpdesk.ticket'].create({
+            'name': 'Test Ticket',
+            'team_id': helpdesk_team.id,
+            'partner_id': self.partner.id,
+        })
+        # Use the default values sent by the form view
+        vals = {'date': '2023-11-03', 'user_id': False, 'employee_id': self.env['hr.employee'].create({'user_id': self.env.uid}).id, 'name': False,
+                'unit_amount': 0, 'project_id': self.project.id, 'task_id': False, 'helpdesk_ticket_id': helpdesk_ticket.id}
+        timesheet = self.env['account.analytic.line'].create([vals])
+        self.assertEqual(timesheet.company_id, new_company, 'The expected company of the timesheet is the company from the project of its ticket')
