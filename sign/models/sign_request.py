@@ -64,7 +64,7 @@ class SignRequest(models.Model):
         return str(uuid.uuid4())
 
     def _expand_states(self, states, domain, order):
-        return [key for key, val in type(self).state.selection]
+        return [key for key, val in self._fields['state'].selection]
 
     def _get_mail_link(self, email, subject):
         return "mailto:%s?subject=%s" % (url_quote(email), url_quote(subject))
