@@ -756,6 +756,11 @@ class WhatsAppTemplate(models.Model):
     # ------------------------------------------------------------
 
     @api.model
+    def _can_use_whatsapp(self, model_name):
+        return self.env.user.has_group('whatsapp.group_whatsapp_admin') or \
+            len(self._find_default_for_model(model_name)) > 0
+
+    @api.model
     def _find_default_for_model(self, model_name):
         return self.search([
             ('model', '=', model_name),
