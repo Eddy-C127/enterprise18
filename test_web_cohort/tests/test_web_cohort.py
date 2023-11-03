@@ -147,6 +147,47 @@ class TestCohortForward(TestCohortCommon):
         self.assertEqual(result[0]['columns'][0]['percentage'], round(100 - 81, 2))
         self.assertEqual(result[0]['columns'][1]['percentage'], 100 - 0)
 
+    def test_empty_data(self):
+        """ In some reports, some columns can be empty.
+            Say a model "event", with a field "rating_ids" (relation) and a field "avg_rating" (float related).
+            If an event has no rating, it would make sense that its "avg_rating" is False rather than 0.
+            In this case, the event shouldn't be displayed in the cohort.
+        """
+        start_date = START_DATE - datetime.timedelta(weeks=1)
+        self.WebCohortSimpleModel.create([{
+            'name': "no revenue",
+            'date_start': start_date,
+            'date_stop': start_date + datetime.timedelta(days=i),
+        } for i in range(7)])
+
+        result = self.WebCohortSimpleModel.with_context(test_empty_data=True).get_cohort_data(
+            'date_start', 'date_stop', 'revenue', 'week', [], 'retention', 'forward'
+        )
+        self.assertNotIn(
+            'W47 2018',map(lambda row: row['date'], result['rows']),
+            'Empty data should not be displayed',
+        )
+
+    def test_group_operator_avg(self):
+        """ In some reports, some columns can be empty.
+            Say a model "event", with a field "rating_ids" (relation) and a field "avg_rating" (float related).
+            If an event has no rating, it would make sense that its "avg_rating" is False rather than 0.
+            In this case, the event shouldn't be taken into account in the cohort average.
+        """
+        self.WebCohortSimpleModel._fields['revenue'].group_operator = 'avg'
+        result = self.WebCohortSimpleModel.get_cohort_data(
+            'date_start', 'date_stop', 'revenue', 'week', [], 'retention', 'forward'
+        )
+        self.assertFalse(
+            any(
+                column['percentage'] < 0
+                for row in result['rows']
+                for column in row['columns']
+            ),
+            'All percentages should be positive',
+        )
+
+
 class TestCohortBackward(TestCohortCommon):
     def setUp(self):
         super().setUp()

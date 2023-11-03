@@ -43,19 +43,24 @@ class Base(models.AbstractModel):
         total_value = 0
         initial_churn_value = 0
         if measure != '__count':
+            domain = expression.AND([domain, [(measure, '!=', False)]])
+            measures = [f'{measure}:sum']
             field = self._fields[measure]
             if field.type == 'many2one':
                 measure = f'{measure}:count_distinct'
             else:
                 measure = f'{measure}:{field.group_operator}'
+            measures.append(measure)
+        else:
+            measures = ['__count', '__count']
 
         locale = get_lang(self.env).code
 
-        domain = domain + [(date_start, '!=', False)]  # date not set are no take in account
+        domain = expression.AND([domain, [(date_start, '!=', False)]])  # date not set are no take in account
         row_groups = self._read_group(
             domain=domain,
             groupby=[date_start + ':' + interval],
-            aggregates=[measure],
+            aggregates=measures,
         )
 
         date_start_field = self._fields[date_start]
@@ -66,7 +71,7 @@ class Base(models.AbstractModel):
             today = date.today()
             convert_method = fields.Date.to_date
 
-        for group_value, value in row_groups:
+        for group_value, sum, value in row_groups:
             total_value += value
             group_domain = expression.AND([
                 domain,
@@ -83,7 +88,7 @@ class Base(models.AbstractModel):
             }
 
             columns = []
-            initial_value = value
+            initial_value = sum
             col_range = range(-15, 1) if timeline == 'backward' else range(0, 16)
             for col_index, col in enumerate(col_range):
                 col_start_date = group_value
@@ -128,11 +133,11 @@ class Base(models.AbstractModel):
                         aggregates=[measure],
                     )
                     initial_value = float(col_group[0][0])
-                    initial_churn_value = value - initial_value
+                    initial_churn_value = sum - initial_value
 
                 previous_col_remaining_value = initial_value if col_index == 0 else columns[-1]['value']
                 col_remaining_value = previous_col_remaining_value - col_value
-                percentage = value and (col_remaining_value) / value or 0
+                percentage = sum and (col_remaining_value) / sum or 0
                 if mode == 'churn':
                     percentage = 1 - percentage
 
