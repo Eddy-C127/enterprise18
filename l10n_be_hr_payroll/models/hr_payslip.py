@@ -1247,7 +1247,7 @@ class Payslip(models.Model):
         self.ensure_one()
         return max(self._get_representation_fees(localdict) - self._get_representation_fees_threshold(localdict), 0)
 
-    def _get_holiday_pay_recovery_n(self, localdict):
+    def _get_holiday_pay_recovery(self, localdict, recovery_type):
         """
             See: https://www.socialsecurity.be/employer/instructions/dmfa/fr/latest/intermediates#intermediate_row_196b32c7-9d98-4233-805d-ca9bf123ff48
 
@@ -1283,8 +1283,19 @@ class Payslip(models.Model):
         """
         self.ensure_one()
         worked_days = localdict['worked_days']
+        if 'LEAVE120' not in worked_days or not worked_days['LEAVE120'].amount:
+            return 0
         employee = self.employee_id
-        number_of_days = employee.l10n_be_holiday_pay_number_of_days_n
+        number_of_days = employee['l10n_be_holiday_pay_number_of_days_' + recovery_type]
+        all_payslips_during_civil_year = self.env['hr.payslip'].search([
+            ('employee_id', '=', employee.id),
+            ('date_from', '>=', date(self.date_from.year, 1, 1)),
+            ('date_to', '<=', date(self.date_from.year, 12, 31)),
+            ('state', 'in', ['done', 'paid']),
+        ])
+        remaining_day = number_of_days - all_payslips_during_civil_year._get_worked_days_line_number_of_days('LEAVE120')
+        if remaining_day <= 0:
+            return 0
         if self.wage_type == 'hourly':
             employee_hourly_cost = self.contract_id.hourly_wage
         else:
@@ -1292,34 +1303,19 @@ class Payslip(models.Model):
                 employee_hourly_cost = self.contract_id.contract_wage / self.sum_worked_hours
             else:
                 employee_hourly_cost = self.contract_id.contract_wage * 3 / 13 / self.contract_id.resource_calendar_id.hours_per_week
-        max_amount_to_recover = min(employee.l10n_be_holiday_pay_to_recover_n, employee_hourly_cost * number_of_days * 7.6)
-        if 'LEAVE120' not in worked_days or not worked_days['LEAVE120'].amount:
-            return 0
+        remaining_day_amount = min(remaining_day, number_of_days) * employee_hourly_cost * 7.6
+        days_to_recover = employee['l10n_be_holiday_pay_to_recover_' + recovery_type]
+        max_amount_to_recover = min(days_to_recover, employee_hourly_cost * number_of_days * 7.6)
         leave120_amount = self._get_worked_days_line_amount('LEAVE120')
         holiday_amount = min(leave120_amount, employee_hourly_cost * self._get_worked_days_line_number_of_hours('LEAVE120'))
-        remaining_amount = max(0, max_amount_to_recover - employee.l10n_be_holiday_pay_recovered_n)
-        return - min(remaining_amount, holiday_amount)
+        remaining_amount = max(0, max_amount_to_recover - employee['l10n_be_holiday_pay_recovered_' + recovery_type])
+        return - min(remaining_amount, remaining_day_amount, holiday_amount)
+
+    def _get_holiday_pay_recovery_n(self, localdict):
+        return self._get_holiday_pay_recovery(localdict, 'n')
 
     def _get_holiday_pay_recovery_n1(self, localdict):
-        self.ensure_one()
-        worked_days = localdict['worked_days']
-        employee = self.employee_id
-        number_of_days = employee.l10n_be_holiday_pay_number_of_days_n1
-        if self.wage_type == 'hourly':
-            employee_hourly_cost = self.contract_id.hourly_wage
-        else:
-            if self.date_from.year < 2024:
-                employee_hourly_cost = self.contract_id.contract_wage / self.sum_worked_hours
-            else:
-                employee_hourly_cost = self.contract_id.contract_wage * 3 / 13 / self.contract_id.resource_calendar_id.hours_per_week
-        max_amount_to_recover = min(employee.l10n_be_holiday_pay_to_recover_n1, employee_hourly_cost * number_of_days * 7.6)
-        if 'LEAVE120' not in worked_days or not worked_days['LEAVE120'].amount:
-            return 0
-        leave120_amount = self._get_worked_days_line_amount('LEAVE120')
-        holiday_amount = min(leave120_amount, employee_hourly_cost * self._get_worked_days_line_number_of_hours('LEAVE120'))
-        remaining_amount = max(max_amount_to_recover - employee.l10n_be_holiday_pay_recovered_n1, 0)
-        return - min(remaining_amount, holiday_amount)
-
+        return self._get_holiday_pay_recovery(localdict, 'n1')
 
     def _get_termination_n_basic_double(self, localdict):
         self.ensure_one()
