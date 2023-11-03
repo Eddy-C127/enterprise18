@@ -279,7 +279,7 @@ class TestStudioApproval(TransactionCase):
     def test_07_forbidden_record(self):
         """Getting/setting approval on records to which you don't have access."""
         MODEL = 'res.company'
-        METHOD = 'write_company_and_print_report'
+        METHOD = 'action_all_company_branches'
         main_company = self.manager.company_id
         alternate_company = self.env['res.company'].create({'name': 'SomeCompany'})
         self.rule.write({
