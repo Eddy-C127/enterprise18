@@ -1,10 +1,9 @@
-/** @odoo-module */
+/* @odoo-module */
 
 import { StreamPostCommentsReply } from '@social/js/stream_post_comments_reply';
 
 import { getFixture, patchWithCleanup } from "@web/../tests/helpers/utils";
-import { makeView, setupViewRegistries } from "@web/../tests/views/helpers"
-import { registry } from "@web/core/registry";;
+import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 
 import testUtils from "@web/../tests/legacy/helpers/test_utils";
 
@@ -320,20 +319,6 @@ QUnit.module('Facebook Comments', (hooks) => {
         }
 
         setupViewRegistries();
-        const serviceRegistry = registry.category("services");
-        // Mock the entire messaging service to do nothing (to avoid "messaging is undefined" errors)
-        serviceRegistry.add("messaging", {
-            start: () => {
-                return { get: () => {
-                    return Promise.resolve({
-                        messagingBus: {
-                            addEventListener: () => {},
-                            removeEventListener: () => {},
-                        }
-                    });
-                } };
-            }
-        }, { force: true });
     });
 
     QUnit.test('Check accounts statistics', async function (assert) {
