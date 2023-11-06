@@ -1422,3 +1422,30 @@ registry.category("web_tour.tours").add("web_studio_test_reload_after_restoring_
         },
     ],
 });
+
+registry.category("web_tour.tours").add("web_studio_test_edit_reified_field", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+            run: "click",
+        },
+        {
+            extra_trigger: ".o_form_view",
+            trigger: ".o_web_studio_navbar_item button",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_form_view_editor .o_field_widget[name^='sel_groups_'],.o_web_studio_form_view_editor .o_field_widget[name^='in_groups_']",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_sidebar input[name='string']",
+            run: "edit new name && click body",
+        },
+        {
+            trigger: ".o_web_studio_leave",
+            isCheck: true,
+        },
+    ]
+});
