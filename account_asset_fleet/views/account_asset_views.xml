@@ -13,6 +13,9 @@
             <xpath expr="//sheet/notebook/page[@name='related_items']//field[@name='account_id']" position="after">
                 <field name='vehicle_id' optional='hidden'/>
             </xpath>
+            <xpath expr="//field[@name='already_depreciated_amount_import']" position="after">
+                <field name='vehicle_id'/>
+            </xpath>
         </field>
     </record>
 

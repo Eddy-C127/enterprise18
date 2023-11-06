@@ -8,9 +8,9 @@ from odoo.exceptions import UserError
 class AccountAsset(models.Model):
     _inherit = 'account.asset'
 
-    vehicle_id = fields.Many2one('fleet.vehicle', compute='_compute_vehicle_id')
+    vehicle_id = fields.Many2one('fleet.vehicle', compute='_compute_vehicle_id', readonly=False, store=True)
 
-    @api.onchange('original_move_line_ids')
+    @api.depends('original_move_line_ids')
     def _compute_vehicle_id(self):
         for record in self:
             if len(record.original_move_line_ids.vehicle_id) > 1:
