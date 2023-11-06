@@ -8,11 +8,11 @@ import {
     invalidateDependenciesCommands,
 } from "@odoo/o-spreadsheet";
 import { VersionHistorySidePanel } from "./side_panel/version_history_side_panel";
-import { _lt } from "@web/core/l10n/translation";
+import { _t } from "@web/core/l10n/translation";
 import { VersionHistoryPlugin } from "./version_history_plugin";
 
 registries.topbarMenuRegistry.addChild("version_history", ["file"], {
-    name: _lt("See version history"),
+    name: _t("See version history"),
     sequence: 55,
     isVisible: (env) => env.showHistory,
     execute: (env) => env.showHistory(),
@@ -20,7 +20,7 @@ registries.topbarMenuRegistry.addChild("version_history", ["file"], {
 });
 
 registries.sidePanelRegistry.add("VersionHistory", {
-    title: _lt("Version History"),
+    title: _t("Version History"),
     Body: VersionHistorySidePanel,
 });
 
