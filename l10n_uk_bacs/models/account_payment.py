@@ -30,8 +30,8 @@ class AccountPayment(models.Model):
 
     @api.constrains('payment_method_line_id', 'journal_id', 'partner_bank_id')
     def _check_bacs_bank_account(self):
-        bacs_dc_payment_method = self.env.ref('account_bacs.payment_method_bacs_dc')
-        bacs_dd_payment_method = self.env.ref('account_bacs.payment_method_bacs_dd')
+        bacs_dc_payment_method = self.env.ref('l10n_uk_bacs.payment_method_bacs_dc')
+        bacs_dd_payment_method = self.env.ref('l10n_uk_bacs.payment_method_bacs_dd')
         for rec in self:
             if rec.payment_method_id in (bacs_dc_payment_method, bacs_dd_payment_method):
                 if not rec.journal_id.bank_account_id or rec.journal_id.bank_account_id.acc_type != 'iban' or rec.journal_id.bank_account_id.acc_number[:2] != 'GB':
@@ -42,8 +42,8 @@ class AccountPayment(models.Model):
     def _get_payment_method_codes_to_exclude(self):
         res = super()._get_payment_method_codes_to_exclude()
         gbp_currency_id = self.env.ref('base.GBP')
-        bacs_dc = self.env.ref('account_bacs.payment_method_bacs_dc', raise_if_not_found=False)
-        bacs_dd = self.env.ref('account_bacs.payment_method_bacs_dd', raise_if_not_found=False)
+        bacs_dc = self.env.ref('l10n_uk_bacs.payment_method_bacs_dc', raise_if_not_found=False)
+        bacs_dd = self.env.ref('l10n_uk_bacs.payment_method_bacs_dd', raise_if_not_found=False)
         if self.currency_id != gbp_currency_id:
             if bacs_dc:
                 res.append(bacs_dc.code)

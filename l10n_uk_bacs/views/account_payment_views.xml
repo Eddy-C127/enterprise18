@@ -22,7 +22,7 @@
                          role="status">Good news! A valid BACS Direct Debit Instruction is available.</div>
                     <div class="alert alert-warning text-center"
                          invisible="bacs_ddi_usable or state != 'draft' or payment_method_code != 'bacs_dd'"
-                         role="alert">Oops! No valid BACS Direct Debit Instruction for this customer. <a type="action" name="%(account_bacs.account_bacs_direct_debit_instruction_tree_act)d">Create it.</a></div>
+                         role="alert">Oops! No valid BACS Direct Debit Instruction for this customer. <a type="action" name="%(l10n_uk_bacs.account_bacs_direct_debit_instruction_tree_act)d">Create it.</a></div>
                 </xpath>
             </field>
         </record>

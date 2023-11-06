@@ -40,13 +40,13 @@ class AccountJournal(models.Model):
     def _default_outbound_payment_methods(self):
         res = super()._default_outbound_payment_methods()
         if self._is_payment_method_available('bacs_dc'):
-            res |= self.env.ref('account_bacs.payment_method_bacs_dc')
+            res |= self.env.ref('l10n_uk_bacs.payment_method_bacs_dc')
         return res
 
     def _default_inbound_payment_methods(self):
         res = super()._default_inbound_payment_methods()
         if self._is_payment_method_available('bacs_dd'):
-            res |= self.env.ref('account_bacs.payment_method_bacs_dd')
+            res |= self.env.ref('l10n_uk_bacs.payment_method_bacs_dd')
         return res
 
     def create_bacs_file(self, payments, payment_method_code, serial_number, bacs_multi_mode, processing_date, expiry_date, batch_ref, creation_date):

@@ -24,7 +24,7 @@ This module follows the implementation guidelines issued by the Bacs Payment Sch
     ],
     'assets': {
         'web.report_assets_common': [
-            'account_bacs/static/src/scss/**/*',
+            'l10n_uk_bacs/static/src/scss/**/*',
         ],
     },
     'license': 'OEEL-1',

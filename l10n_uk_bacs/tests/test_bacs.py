@@ -2,7 +2,7 @@
 
 from odoo import fields
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.account_bacs.models.account_journal import format_communication
+from odoo.addons.l10n_uk_bacs.models.account_journal import format_communication
 from odoo.tests import tagged
 
 import itertools
@@ -40,10 +40,10 @@ class TestBACS(AccountTestInvoicingCommon):
         })
 
         cls.bacs_dc = cls.bank_journal.outbound_payment_method_line_ids.filtered(lambda l: l.code == 'bacs_dc')
-        cls.bacs_dc_method = cls.env.ref('account_bacs.payment_method_bacs_dc')
+        cls.bacs_dc_method = cls.env.ref('l10n_uk_bacs.payment_method_bacs_dc')
 
         cls.bacs_dd = cls.bank_journal.inbound_payment_method_line_ids.filtered(lambda l: l.code == 'bacs_dd')
-        cls.bacs_dd_method = cls.env.ref('account_bacs.payment_method_bacs_dd')
+        cls.bacs_dd_method = cls.env.ref('l10n_uk_bacs.payment_method_bacs_dd')
 
     def create_account(self, number, partner, bank):
         return self.env['res.partner.bank'].create({

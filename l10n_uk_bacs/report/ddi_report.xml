@@ -21,25 +21,25 @@
             <field name="name">Direct Debit Instruction form</field>
             <field name="model">bacs.ddi</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">account_bacs.ddi_form_report</field>
-            <field name="report_file">account_bacs.ddi_form_report</field>
+            <field name="report_name">l10n_uk_bacs.ddi_form_report</field>
+            <field name="report_file">l10n_uk_bacs.ddi_form_report</field>
             <field name="attachment_use">True</field>
             <field name="binding_model_id" ref="model_bacs_ddi"/>
             <field name="binding_type">report</field>
-            <field name="paperformat_id" ref="account_bacs.bacs_paperformat"/>
+            <field name="paperformat_id" ref="l10n_uk_bacs.bacs_paperformat"/>
         </record>
 
-        <template id="account_bacs.ddi_form_report">
+        <template id="l10n_uk_bacs.ddi_form_report">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="account_bacs.ddi_form" t-lang="o.partner_id.lang"/>
+                    <t t-call="l10n_uk_bacs.ddi_form" t-lang="o.partner_id.lang"/>
                 </t>
             </t>
         </template>
 
-        <template id="account_bacs.ddi_form">
+        <template id="l10n_uk_bacs.ddi_form">
             <div class="header">
-                <img src="/account_bacs/static/src/img/dd_logo.png" class="bacs-logo float-end" />
+                <img src="/l10n_uk_bacs/static/src/img/dd_logo.png" class="bacs-logo float-end" />
             </div>
             <t t-call="web.basic_layout">
                 <div class="row font-regular">
@@ -111,7 +111,7 @@
                 <div class="border border-dark mx-5 pe-3 py-2 font-regular">
                     <div class="row">
                         <span class="bacs-garantee-text">The Direct Debit Guarantee</span>
-                        <img src="/account_bacs/static/src/img/dd_logo.png" class="bacs-logo-footer" />
+                        <img src="/l10n_uk_bacs/static/src/img/dd_logo.png" class="bacs-logo-footer" />
                     </div>
                     <div class="row">
                         <ul class="w-50 ">

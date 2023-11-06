@@ -54,7 +54,7 @@ class BACSDirectDebitInstruction(models.Model):
         for m in self:
             company_id = m.company_id.id or self.env.company.id
             domain = [('company_id', '=', company_id), ('type', '=', 'bank')]
-            payment_method = self.env.ref('account_bacs.payment_method_bacs_dd')
+            payment_method = self.env.ref('l10n_uk_bacs.payment_method_bacs_dd')
 
             # Get all journals which have the payment method bacs direct debit
             m.suitable_journal_ids = self.env['account.journal'].search(domain).filtered(
@@ -168,7 +168,7 @@ class BACSDirectDebitInstruction(models.Model):
         if self.partner_bank_id.sanitized_acc_number[:2] != 'GB':
             raise UserError(_("BACS Direct Debit scheme only accepts UK bank accounts. Please select a UK bank account for this BACS Direct Debit Instruction."))
         else:
-            return self.env.ref('account_bacs.ddi_form_report_main').report_action(self)
+            return self.env.ref('l10n_uk_bacs.ddi_form_report_main').report_action(self)
 
     @api.constrains('payment_journal_id')
     def _validate_account_journal_id(self):
