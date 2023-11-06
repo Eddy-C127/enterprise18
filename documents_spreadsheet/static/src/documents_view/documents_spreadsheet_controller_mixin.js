@@ -112,7 +112,9 @@ export const DocumentsSpreadsheetControllerMixin = () => ({
         this.dialogService.add(TemplateDialog, {
             folderId: this.env.searchModel.getSelectedFolderId() || undefined,
             context: this.props.context,
-            folders: this.env.searchModel.getFolders().slice(1),
+            folders: this.env.searchModel
+                .getFolders()
+                .filter((folder) => folder.id && folder.id !== "TRASH"),
         });
     },
 });

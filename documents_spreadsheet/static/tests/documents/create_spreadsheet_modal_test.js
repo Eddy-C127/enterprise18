@@ -384,5 +384,23 @@ QUnit.module(
             await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "dblclick");
             assert.verifySteps(["action_create_spreadsheet", "redirect"]);
         });
+
+        QUnit.test(
+            "The workspace selection should not display Trash workspace",
+            async function (assert) {
+                await initTestEnvWithKanban();
+                const menu = target.querySelector(
+                    ".o_control_panel .btn-group:not(.o_control_panel_collapsed_create .btn-group)"
+                );
+                await click(target, ".o_search_panel_category_value:nth-of-type(1) header");
+                await click(menu, ".dropdown-toggle");
+                await click(menu, ".o_documents_kanban_spreadsheet");
+                const selection = target.querySelector(".o-spreadsheet-templates-dialog select");
+                assert.notOk(
+                    [...selection.options].find((option) => option.value === "TRASH"),
+                    "Trash workspace should not be present in the selection"
+                );
+            }
+        );
     }
 );
