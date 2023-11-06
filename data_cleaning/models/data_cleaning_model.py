@@ -3,10 +3,9 @@
 
 import ast
 from dateutil.relativedelta import relativedelta
-from psycopg2 import sql
 
 from odoo import models, api, fields, _
-from odoo.tools import split_every
+from odoo.tools import split_every, SQL
 
 # When cleaning_mode = automatic, _clean_records calls action_validate.
 # This is quite slow so requires smaller batch size.
@@ -77,7 +76,7 @@ class DataCleaningModel(models.Model):
         self.sudo().search([])._clean_records(batch_commits=True)
         self.sudo()._notify_records_to_clean()
 
-    def _clean_records_format_phone(self, actions, field):
+    def _clean_records_format_phone(self, **kwargs):
         self.ensure_one()
 
         self._cr.execute("""
@@ -87,12 +86,13 @@ class DataCleaningModel(models.Model):
             ON data_cleaning_record_data_cleaning_rule_rel.data_cleaning_record_id = data_cleaning_record.id""")
         existing_rows = self._cr.fetchall()
 
+        field = kwargs['field_name']
         records = self.env[self.res_model_name].search([(field, 'not in', [False, ''])])
         records = records.with_context(prefetch_fields=False)
         # Avoids multiple select queries when reading fields in _get_country_id and record[field].
         records.read([fname for fname in ['country_id', 'company_id'] if fname in records] + [field])
-        field_id = actions[field]['field_id']
-        rule_ids = actions[field]['rule_ids']
+        field_id = kwargs['field_id']
+        rule_ids = kwargs['rule_ids']
         result = []
         for record in records:
             record_country = self.env['data_cleaning.record']._get_country_id(record)
@@ -110,71 +110,59 @@ class DataCleaningModel(models.Model):
     def _clean_records(self, batch_commits=False):
         self.env.flush_all()
 
-        lang = self.env.user.lang
         records_to_clean = []
+        cleaning_record_table = SQL.identifier(self.env['data_cleaning.record']._table)
         for cleaning_model in self:
             records_to_create = []
-            actions = cleaning_model.rule_ids._action_to_sql()
-            for field in actions:
-                action = actions[field]['action']
-                field_id = actions[field]['field_id']
-                rule_ids = actions[field]['rule_ids']
-                operator = actions[field]['operator']
-                cleaner = getattr(cleaning_model, '_clean_records_%s' % action, None)
-                if cleaner:
-                    values = cleaner(actions, field)
+            active_model = self.env[cleaning_model.res_model_name]
+            active_name = active_model._active_name
+
+            table = SQL.identifier(active_model._table)
+            active_cond = SQL("AND %s", SQL.identifier(active_name)) if active_name else SQL()
+
+            field_actions = cleaning_model.rule_ids._action_to_sql()
+            for field_name, field_action in field_actions.items():
+                action = field_action['action']
+                operator = field_action['operator']
+                if operator is False:  # special case for ACTIONS_SQL
+                    cleaner = getattr(cleaning_model, '_clean_records_%s' % action)
+                    values = cleaner(**field_action)
                     records_to_create += values
                 else:
-                    active_model = self.env[cleaning_model.res_model_name]
-                    active_name = active_model._active_name
-                    active_cond = sql.SQL("AND {}").format(sql.Identifier(active_name)) if active_name else sql.SQL('')
-
-                    field_name = sql.Identifier(field)
-                    cleaned_field_expr = sql.SQL(action.format(field))
-
-                    if active_model._fields[field].translate:
-                        field_name = sql.SQL("COALESCE({field}->>{lang}, {field}->>'en_US')").format(
-                            field=sql.Identifier(field),
-                            lang=sql.Literal(lang)
-                        )
-                        action = action.format("COALESCE({field}->>{lang}, {field}->>'en_US')")
-                        cleaned_field_expr = sql.SQL(action).format(
-                            field=sql.Identifier(field),
-                            lang=sql.Literal(lang)
-                        )
-
-                    query = sql.SQL("""
+                    query = SQL(
+                        """
                         SELECT
                             id AS res_id
                         FROM
-                            {table}
+                            %(table)s
                         WHERE
-                            {field_name} {operator} {cleaned_field_expr}
+                            %(field)s %(operator)s %(cleaned_field_expr)s
                             AND NOT EXISTS(
                                 SELECT 1
-                                FROM {cleaning_record_table}
+                                FROM %(cleaning_record_table)s
                                 WHERE
-                                    res_id = {table}.id
-                                    AND cleaning_model_id = %s)
-                            {active_cond}
-                    """).format(
-                        table=sql.Identifier(self.env[cleaning_model.res_model_name]._table),
-                        field_name=field_name,
-                        operator=sql.SQL(operator),
+                                    res_id = %(table)s.id
+                                    AND cleaning_model_id = %(cleaning_model_id)s)
+                            %(active_cond)s
+                        """,
+                        table=table,
+                        field=(field := active_model._field_to_sql(active_model._table, field_name)),
+                        operator=SQL(operator),
                         # can be complex sql expression & multiple actions get
                         # combined through string formatting, so doesn't seem
                         # to be a smarter solution than whitelisting the entire thing
-                        cleaned_field_expr=cleaned_field_expr,
-                        cleaning_record_table=sql.Identifier(self.env['data_cleaning.record']._table),
+                        cleaned_field_expr=SQL(action, field) if field_action['composable'] else SQL(action),
+                        cleaning_record_table=cleaning_record_table,
+                        cleaning_model_id=cleaning_model.id,
                         active_cond=active_cond
                     )
-                    self._cr.execute(query, [cleaning_model.id])
+                    self._cr.execute(query)
                     for r in self._cr.fetchall():
                         records_to_create.append({
                             'res_id': r[0],
-                            'rule_ids': rule_ids,
+                            'rule_ids': field_action['rule_ids'],
                             'cleaning_model_id': cleaning_model.id,
-                            'field_id': field_id,
+                            'field_id': field_action['field_id'],
                         })
 
             if cleaning_model.cleaning_mode == 'automatic':

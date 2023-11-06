@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models
+from odoo.tools import SQL
 
 class RentalSchedule(models.Model):
     _inherit = "sale.rental.schedule"
@@ -12,7 +13,7 @@ class RentalSchedule(models.Model):
     warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse', readonly=True)
     # TODO color depending on report_line_status
 
-    def _compute_is_available(self):
+    def _compute_is_available(self) -> SQL:
         quoted_rentals_with_product = self.filtered(
             lambda r: r.rental_status not in ['return', 'returned', 'cancel']
                 and r.return_date > fields.Datetime.now()
@@ -22,15 +23,15 @@ class RentalSchedule(models.Model):
             rental.is_available = sol.virtual_available_at_date - sol.product_uom_qty >= 0
         (self - quoted_rentals_with_product).is_available = True
 
-    def _get_product_name(self):
+    def _get_product_name(self) -> SQL:
         lang = self.env.lang or 'en_US'
-        return f"""COALESCE(lot_info.name, NULLIF(t.name->>'{lang}', ''), t.name->>'en_US') as product_name"""
+        return SQL("""COALESCE(lot_info.name, NULLIF(t.name->>%s, ''), t.name->>'en_US') as product_name""", lang)
 
-    def _id(self):
-        return """ROW_NUMBER() OVER () AS id"""
+    def _id(self) -> SQL:
+        return SQL("""ROW_NUMBER() OVER () AS id""")
 
-    def _quantity(self):
-        return """
+    def _quantity(self) -> SQL:
+        return SQL("""
             CASE WHEN lot_info.lot_id IS NULL then sum(sol.product_uom_qty / u.factor * u2.factor) ELSE 1.0 END as product_uom_qty,
             CASE WHEN lot_info.lot_id IS NULL then sum(sol.qty_delivered / u.factor * u2.factor)
                 WHEN lot_info.report_line_status = 'reserved' then 0.0
@@ -38,10 +39,10 @@ class RentalSchedule(models.Model):
             CASE WHEN lot_info.lot_id IS NULL then sum(sol.qty_returned / u.factor * u2.factor)
                 WHEN lot_info.report_line_status = 'returned' then 1.0
                 ELSE 0.0 END as qty_returned
-        """
+        """)
 
-    def _late(self):
-        return """
+    def _late(self) -> SQL:
+        return SQL("""
             CASE when lot_info.lot_id is NULL then
                 CASE WHEN s.rental_start_date < NOW() AT TIME ZONE 'UTC' AND sol.qty_delivered < sol.product_uom_qty THEN TRUE
                     WHEN s.rental_return_date < NOW() AT TIME ZONE 'UTC' AND sol.qty_returned < sol.qty_delivered THEN TRUE
@@ -59,10 +60,10 @@ class RentalSchedule(models.Model):
                         END
                 END
             END as late
-        """
+        """)
 
-    def _report_line_status(self):
-        return """
+    def _report_line_status(self) -> SQL:
+        return SQL("""
             CASE when lot_info.lot_id is NULL then
                 CASE when sol.qty_returned = sol.qty_delivered AND sol.qty_delivered = sol.product_uom_qty then 'returned'
                     when sol.qty_delivered = sol.product_uom_qty then 'pickedup'
@@ -70,11 +71,11 @@ class RentalSchedule(models.Model):
                 END
             ELSE lot_info.report_line_status
             END as report_line_status
-        """
+        """)
 
-    def _color(self):
+    def _color(self) -> SQL:
         """2 = orange, 4 = blue, 6 = red, 7 = green"""
-        return """
+        return SQL("""
             CASE when lot_info.lot_id is NULL then
                 CASE WHEN s.rental_start_date < NOW() AT TIME ZONE 'UTC' AND sol.qty_delivered < sol.product_uom_qty THEN 4
                     WHEN s.rental_return_date < NOW() AT TIME ZONE 'UTC' AND sol.qty_returned < sol.qty_delivered THEN 6
@@ -91,10 +92,10 @@ class RentalSchedule(models.Model):
                     ELSE 4
                 END
             END as color
-        """
+        """)
 
-    def _with(self):
-        return """
+    def _with(self) -> SQL:
+        return SQL("""
             WITH ordered_lots (lot_id, name, sol_id, report_line_status) AS
                 (SELECT
                     lot.id as lot_id,
@@ -117,23 +118,23 @@ class RentalSchedule(models.Model):
                         ON res.stock_lot_id=lot.id
                         OR pickedup.stock_lot_id=lot.id
                 )
-        """
+        """)
 
-    def _select(self):
-        return super(RentalSchedule, self)._select() + """,
+    def _select(self) -> SQL:
+        return SQL("""%s,
             lot_info.lot_id as lot_id,
             s.warehouse_id as warehouse_id
-        """
+        """, super(RentalSchedule, self)._select())
 
-    def _from(self):
-        return super(RentalSchedule, self)._from() + """
+    def _from(self) -> SQL:
+        return SQL("""%s
             LEFT OUTER JOIN ordered_lots lot_info ON sol.id=lot_info.sol_id
-        """
+        """, super(RentalSchedule, self)._from())
 
-    def _groupby(self):
+    def _groupby(self) -> SQL:
         # Add ORDER BY to ensure that `ROW_NUMBER() OVER () AS id` targets the same row each time
-        return super(RentalSchedule, self)._groupby() + """,
+        return SQL("""%s,
             lot_info.lot_id,
             lot_info.name,
             lot_info.report_line_status
-        ORDER BY sol.id, lot_info.lot_id"""
+        ORDER BY sol.id, lot_info.lot_id""", super(RentalSchedule, self)._groupby())

@@ -37,13 +37,16 @@ ACTIONS_PYTHON = {
 }
 
 ACTIONS_SQL = {
-    'trim_all': ('<>', "REPLACE({}, ' ', '')"),
-    'trim_superfluous': ('<>', "TRIM(REGEXP_REPLACE({}, '\s+', ' ', 'g'))"),
-    'case_first': ('<>', 'INITCAP({})'),
-    'case_upper': ('<>', 'UPPER({})'),
-    'case_lower': ('<>', 'LOWER({})'),
-    'phone': (False, 'format_phone'),  # special case, needs to be treated in Python
-    'html': ('~', "'<[a-z]+.*>'"),
+    # {action_technical: (operator, action, composable))}
+    'trim_all': ('<>', "REPLACE(%s, ' ', '')", True),
+    'trim_superfluous': ('<>', r"TRIM(REGEXP_REPLACE(%s, '\s+', ' ', 'g'))", True),
+    'case_first': ('<>', 'INITCAP(%s)', True),
+    'case_upper': ('<>', 'UPPER(%s)', True),
+    'case_lower': ('<>', 'LOWER(%s)', True),
+    'html': ('~', "'<[a-z]+.*>'", False),
+    # special cases (operator is False),
+    # needs to be treated in Python with data_cleaning.model's method '_clean_records_%s' % action_technical
+    'phone': (False, 'format_phone', False),
 }
 
 
@@ -93,17 +96,27 @@ class DataCleaningRule(models.Model):
     def _action_to_sql(self):
         field_actions = {}
         for rule in self:
-            existing_action = field_actions.get(rule.name, {}).get('action', '{}')
-            if field_actions.get(rule.name, {}).get('special_case'):
-                continue
-
-            operator, action = ACTIONS_SQL.get(rule.action_technical)
-            if not operator or operator != '<>':
-                field_actions[rule.name] = dict(action=action, rule_ids=rule.ids, field_id=rule.field_id.id, operator=operator, special_case=True)
+            operator, action, composable = ACTIONS_SQL.get(rule.action_technical)
+            if composable:
+                field_action = field_actions.setdefault(rule.name, {
+                    'action': '%s',
+                    'rule_ids': [],
+                    'field_name': rule.name,
+                    'field_id': rule.field_id.id,
+                    'operator': operator,
+                    'composable': True
+                })
+                field_action['rule_ids'].append(rule.id)
+                field_action['action'] = action % field_action['action']
             else:
-                field_actions.setdefault(rule.name, dict(rule_ids=[], field_id=rule.field_id.id, operator=operator))
-                field_actions[rule.name]['rule_ids'].append(rule.id)
-                field_actions[rule.name]['action'] = action.format(existing_action)
+                field_actions.setdefault(rule.name, {
+                    'action': action,
+                    'rule_ids': rule.ids,
+                    'field_name': rule.name,
+                    'field_id': rule.field_id.id,
+                    'operator': operator,
+                    'composable': False,
+                })
         return field_actions
 
     def _action_to_python(self):

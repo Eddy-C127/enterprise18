@@ -3,6 +3,7 @@
 from odoo import api, fields, models, tools
 from odoo.addons.sale.models.sale_order import SALE_ORDER_STATE
 from odoo.addons.sale_renting.models.sale_order import RENTAL_STATUS
+from odoo.tools import SQL
 
 
 class RentalSchedule(models.Model):
@@ -60,53 +61,53 @@ class RentalSchedule(models.Model):
     color = fields.Integer(readonly=True)
     late = fields.Boolean("Is Late", readonly=True)
 
-    def _with(self):
-        return """ """
+    def _with(self) -> SQL:
+        return SQL(""" """)
 
-    def _id(self):
-        return """sol.id as id"""
+    def _id(self) -> SQL:
+        return SQL("""sol.id as id""")
 
-    def _get_product_name(self):
-        return """t.name as product_name"""
+    def _get_product_name(self) -> SQL:
+        return SQL("""t.name as product_name""")
 
-    def _quantity(self):
-        return """
+    def _quantity(self) -> SQL:
+        return SQL("""
             sum(sol.product_uom_qty / u.factor * u2.factor) as product_uom_qty,
             sum(sol.qty_delivered / u.factor * u2.factor) as qty_delivered,
             sum(sol.qty_returned / u.factor * u2.factor) as qty_returned
-        """
+        """)
 
-    def _late(self):
-        return """
+    def _late(self) -> SQL:
+        return SQL("""
             CASE WHEN sol.state != 'sale' THEN FALSE
                 WHEN s.rental_start_date < NOW() AT TIME ZONE 'UTC' AND sol.qty_delivered < sol.product_uom_qty THEN TRUE
                 WHEN s.rental_return_date < NOW() AT TIME ZONE 'UTC' AND sol.qty_returned < sol.qty_delivered THEN TRUE
             ELSE FALSE
             END as late
-        """
+        """)
 
-    def _report_line_status(self):
-        return """
+    def _report_line_status(self) -> SQL:
+        return SQL("""
             CASE WHEN sol.qty_returned = sol.qty_delivered
                     AND sol.qty_delivered = sol.product_uom_qty THEN 'returned'
                 WHEN sol.qty_delivered = sol.product_uom_qty THEN 'pickedup'
             ELSE 'reserved'
             END as report_line_status
-        """
+        """)
 
-    def _color(self):
+    def _color(self) -> SQL:
         """2 = orange (pickedup), 4 = blue(reserved), 6 = red(late return), 7 = green(returned)"""
-        return """
+        return SQL("""
             CASE WHEN s.rental_start_date < NOW() AT TIME ZONE 'UTC' AND sol.qty_delivered < sol.product_uom_qty THEN 4
                 WHEN s.rental_return_date < NOW() AT TIME ZONE 'UTC' AND sol.qty_returned < sol.qty_delivered THEN 6
                 WHEN sol.qty_returned = sol.qty_delivered AND sol.qty_delivered = sol.product_uom_qty THEN 7
                 WHEN sol.qty_delivered = sol.product_uom_qty THEN 2
             ELSE 4
             END as color
-        """
+        """)
 
-    def _select(self):
-        return """%s,
+    def _select(self) -> SQL:
+        return SQL("""%s,
             %s,
             sol.product_id as product_id,
             t.uom_id as product_uom,
@@ -135,10 +136,10 @@ class RentalSchedule(models.Model):
             %s,
             %s,
             %s
-        """ % (self._id(), self._get_product_name(), self._quantity(), self._report_line_status(), self._late(), self._color())
+        """, self._id(), self._get_product_name(), self._quantity(), self._report_line_status(), self._late(), self._color())
 
-    def _from(self):
-        return """
+    def _from(self) -> SQL:
+        return SQL("""
             sale_order_line sol
                 join sale_order s on (sol.order_id=s.id)
                 join res_partner partner on s.partner_id = partner.id
@@ -146,10 +147,10 @@ class RentalSchedule(models.Model):
                 left join product_template t on (p.product_tmpl_id=t.id)
                 left join uom_uom u on (u.id=sol.product_uom)
                 left join uom_uom u2 on (u2.id=t.uom_id)
-        """
+        """)
 
-    def _groupby(self):
-        return """
+    def _groupby(self) -> SQL:
+        return SQL("""
             sol.product_id,
             sol.order_id,
             t.uom_id,
@@ -172,16 +173,16 @@ class RentalSchedule(models.Model):
             partner.name,
             s.id,
             sol.id
-        """
+        """)
 
-    def _query(self):
-        return """
+    def _query(self) -> SQL:
+        return SQL("""
             %s (SELECT %s
                 FROM %s
                 WHERE sol.product_id IS NOT NULL
                     AND sol.is_rental
                 GROUP BY %s)
-        """ % (
+            """,
             self._with(),
             self._select(),
             self._from(),
@@ -191,4 +192,4 @@ class RentalSchedule(models.Model):
     def init(self):
         # self._table = sale_rental_report
         tools.drop_view_if_exists(self.env.cr, self._table)
-        self.env.cr.execute("""CREATE or REPLACE VIEW %s as (%s)""" % (self._table, self._query()))
+        self.env.cr.execute(SQL("""CREATE or REPLACE VIEW %s as (%s)""", SQL.identifier(self._table), self._query()))
