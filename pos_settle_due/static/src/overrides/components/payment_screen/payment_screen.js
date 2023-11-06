@@ -58,12 +58,7 @@ patch(PaymentScreen.prototype, {
                     ),
                     confirmText: _t("Yes"),
                 });
-                if (confirmed) {
-                    const { confirmed: confirmedPartner, payload: newPartner } =
-                        await this.pos.showTempScreen("PartnerListScreen");
-                    if (confirmedPartner) {
-                        order.set_partner(newPartner);
-                    }
+                if (confirmed && this.pos.selectPartner()) {
                     const paylaterPayment = order.add_paymentline(paylaterPaymentMethod);
                     paylaterPayment.set_amount(-change);
                     return super.validateOrder(...arguments);
