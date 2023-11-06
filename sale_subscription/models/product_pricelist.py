@@ -14,3 +14,16 @@ class Pricelist(models.Model):
             '|', ('product_template_id', '=', None), ('product_template_id.active', '=', True),
         ],
     )
+
+    def toggle_active(self):
+        """
+        Archiving and unArchiving the price list and its product subscription pricing.
+        1. When archiving
+        We want to be archiving the product subscription pricing FIRST.
+        The record of product_subscription_pricing_ids will be inactive when the price-list is archived.
+
+        2. When un-archiving
+        We want to un-archive the product subscription pricing LAST.
+        The record of the product_subscription_pricing_ids will be active when the price list is unarchived."""
+        self.with_context({'active_test': False}).product_subscription_pricing_ids.toggle_active()
+        return super().toggle_active()

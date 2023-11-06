@@ -10,6 +10,7 @@ class SaleSubscriptionPricing(models.Model):
     _description = 'Pricing rule of subscription products'
     _order = 'product_template_id, price, pricelist_id, plan_id'
 
+    active = fields.Boolean('Active', default=True)
     name = fields.Char(related="plan_id.billing_period_display")
 
     product_template_id = fields.Many2one('product.template', string="Products", ondelete='cascade',
