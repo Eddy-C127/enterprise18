@@ -1728,3 +1728,31 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
 
     def test_reload_after_restoring_default_view(self):
         self.start_tour("/web?debug=tests", 'web_studio_test_reload_after_restoring_default_view', login="admin")
+
+    def test_edit_reified_field(self):
+        # find some reified field name
+        reified_fname = next(
+            fname
+            for fname in self.env["res.users"].fields_get()
+            if fname.startswith(('in_group_', 'sel_groups_'))
+        )
+
+        self.testView.write({
+            "name": "simple user",
+            "model": "res.users",
+            "arch": '''
+                <form>
+                    <field name="%s"/>
+                </form>
+            ''' % reified_fname
+        })
+        self.testAction.res_model = "res.users"
+        self.start_tour("/web?debug=tests", 'web_studio_test_edit_reified_field', login="admin")
+        studioView = _get_studio_view(self.testView)
+        assertViewArchEqual(self, studioView.arch, """
+            <data>
+              <xpath expr="//field[@name='%s']" position="attributes">
+                <attribute name="string">new name</attribute>
+              </xpath>
+            </data>
+        """ % reified_fname)
