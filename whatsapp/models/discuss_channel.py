@@ -7,7 +7,6 @@ from markupsafe import Markup
 
 from odoo import api, Command, fields, models, tools, _
 from odoo.exceptions import ValidationError
-from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 _logger = logging.getLogger(__name__)
@@ -274,8 +273,7 @@ class DiscussChannel(models.Model):
         for channel in self:
             if channel.channel_type == 'whatsapp':
                 channel_infos_dict[channel.id]['whatsapp_channel_valid_until'] = \
-                    channel.whatsapp_channel_valid_until.strftime(DEFAULT_SERVER_DATETIME_FORMAT) \
-                    if channel.whatsapp_channel_valid_until else False
+                    fields.Datetime.to_string(channel.whatsapp_channel_valid_until)
 
         return list(channel_infos_dict.values())
 
