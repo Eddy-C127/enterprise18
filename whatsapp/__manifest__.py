@@ -18,6 +18,7 @@
         'wizard/whatsapp_preview_views.xml',
         'wizard/whatsapp_composer_views.xml',
         'views/discuss_channel_views.xml',
+        'views/ir_actions_server_views.xml',
         'views/whatsapp_account_views.xml',
         'views/whatsapp_message_views.xml',
         'views/whatsapp_template_views.xml',

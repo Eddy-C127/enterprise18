@@ -234,6 +234,12 @@ class WhatsAppTemplate(models.Model):
             if text_vars and text_vars._extract_variable_index() != 1:
                 raise ValidationError(_('Free text variable in the header should be {{1}}'))
 
+    @api.constrains('model')
+    def _check_model(self):
+        for template in self:
+            if self.env['ir.actions.server'].sudo().search_count([('wa_template_id', '=', template.id), ('model_name', '!=', template.model)]):
+                raise UserError(_('You cannot modify a template model when it is linked to server actions.'))
+
     #=====================================================
     #                 Compute Methods
     #=====================================================
