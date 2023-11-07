@@ -193,8 +193,7 @@ class ProviderFedex(models.Model):
         srm.set_master_package(weight_value, 1)
 
         # Commodities for customs declaration (international shipping)
-        if 'INTERNATIONAL' in self.fedex_service_type or is_india:
-
+        if 'INTERNATIONAL' in self.fedex_service_type or self.fedex_service_type == 'FEDEX_REGIONAL_ECONOMY' or is_india:
             commodities = self._get_commodities_from_order(order)
             for commodity in commodities:
                 srm.commodities(self, commodity, _convert_curr_iso_fdx(order_currency.name))
@@ -258,7 +257,7 @@ class ProviderFedex(models.Model):
             net_weight = self._fedex_convert_weight(picking.shipping_weight, self.fedex_weight_unit)
 
             # Commodities for customs declaration (international shipping)
-            if 'INTERNATIONAL' in self.fedex_service_type  or (picking.partner_id.country_id.code == 'IN' and picking.picking_type_id.warehouse_id.partner_id.country_id.code == 'IN'):
+            if 'INTERNATIONAL' in self.fedex_service_type or self.fedex_service_type == 'FEDEX_REGIONAL_ECONOMY' or (picking.partner_id.country_id.code == 'IN' and picking.picking_type_id.warehouse_id.partner_id.country_id.code == 'IN'):
 
                 commodities = self._get_commodities_from_stock_move_lines(picking.move_line_ids)
                 for commodity in commodities:
@@ -394,7 +393,7 @@ class ProviderFedex(models.Model):
         for pkg in packages:
             srm.add_package(self, pkg, _convert_curr_iso_fdx(pkg.company_id.currency_id.name), reference=picking.display_name, po_number=po_number, dept_number=dept_number)
         srm.set_master_package(net_weight, 1)
-        if 'INTERNATIONAL' in self.fedex_service_type  or (picking.partner_id.country_id.code == 'IN' and picking.picking_type_id.warehouse_id.partner_id.country_id.code == 'IN'):
+        if 'INTERNATIONAL' in self.fedex_service_type or self.fedex_service_type == 'FEDEX_REGIONAL_ECONOMY' or (picking.partner_id.country_id.code == 'IN' and picking.picking_type_id.warehouse_id.partner_id.country_id.code == 'IN'):
 
             order_currency = picking.sale_id.currency_id or picking.company_id.currency_id
 
