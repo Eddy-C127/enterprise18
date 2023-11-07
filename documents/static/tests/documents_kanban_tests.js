@@ -1395,7 +1395,7 @@ QUnit.module("documents", {}, function () {
                 assert.containsN(target, ".o_record_selected", 2, "should have 2 selected records");
 
                 await legacyClick(
-                    target.querySelector(".o_documents_inspector_info .o_inspector_share")
+                    target.querySelector(".o_documents_inspector .o_inspector_share")
                 );
                 await nextTick();
                 assert.containsN(target, ".o_notification_body", 1, "should have a notification");

@@ -5,6 +5,7 @@
         <t t-set="currentFolder" t-value="getCurrentFolder()"/>
         <div class="o_documents_inspector h-100">
             <t t-set="nbPreviews" t-value="props.documents.length"/>
+            <t t-if="nbPreviews !== 0" t-call="documents.DocumentsInspector.buttons"/>
             <div class="o_documents_inspector_preview d-flex flex-row flex-wrap align-items-center justify-content-center position-relative">
                 <div t-if="nbPreviews === 0">
                     <t t-if="currentFolder">
@@ -18,7 +19,6 @@
             <div class="o_documents_inspector_info">
                 <t t-if="nbPreviews === 0" t-call="documents.DocumentsInspector.globalInfo"/>
                 <t t-else="">
-                    <t t-call="documents.DocumentsInspector.buttons"/>
                     <t t-call="documents.DocumentsInspector.documentsInfo" />
                 </t>
             </div>
@@ -120,10 +120,10 @@
     </t>
 
     <t t-name="documents.DocumentsInspector.buttons">
-        <div class="mb-3">
+        <t t-set="locked" t-value="isLocked"/>
+        <t t-set="editDisabled" t-value="isEditDisabled"/>
+        <div class="p-2">
             <div class="btn-group">
-                <t t-set="locked" t-value="isLocked"/>
-                <t t-set="editDisabled" t-value="isEditDisabled"/>
                 <t t-if="records[0].data.type == 'url'">
                     <t t-set="url" t-value="records[0].data.url"/>
                     <a t-if="url and (url.startsWith('https://') || url.startsWith('http://') || url.startsWith('ftp://'))"
@@ -157,11 +157,7 @@
                     </t>
                 </t>
             </div>
-            <button t-if="records[0].data.active" class="o_inspector_button o_inspector_archive o_active btn float-end" title="Move to trash"
-            t-on-click.stop.prevent="onArchive" t-att-disabled="editDisabled || locked" data-hotkey="delete">
-                <i class="fa fa-fw fa-trash"/>
-            </button>
-            <t t-else="">
+            <t t-if="!records[0].data.active">
                 <button class="o_inspector_button o_inspector_delete btn float-end" title="Delete" t-on-click.stop.prevent="onDelete" t-att-disabled="editDisabled || locked">
                     <i class="fa fa-fw fa-trash"/>
                 </button>
@@ -188,8 +184,13 @@
                     </label>
                 </span>
             </td>
-            <td class="o_inspector_value w-100">
+            <td class="o_inspector_value w-100 d-flex gap-2">
                 <DocumentsInspectorField t-props="this.getFieldProps(fieldName, additionalProps)"/>
+                <button t-if="fieldName === 'name' and records[0].data.active"
+                    class="o_inspector_button o_inspector_archive o_active btn float-end" title="Move to trash"
+                    t-on-click.stop.prevent="onArchive" t-att-disabled="isEditDisabled || isLocked" data-hotkey="delete">
+                    <i class="fa fa-fw fa-trash"/>
+                </button>
             </td>
         </tr>
     </t>
