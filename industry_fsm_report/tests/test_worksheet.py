@@ -87,3 +87,8 @@ class TestWorksheet(TransactionCase):
             'company_id': self.env.company.id,
         })
         self.assertTrue(fsm_project.allow_worksheets, "By default, worksheet should be enable for Fsm project")
+
+    def test_archive_worksheet_template(self):
+        self.fsm_project.worksheet_template_id = self.worksheet_template
+        self.worksheet_template.action_archive()
+        self.assertFalse(self.fsm_project.worksheet_template_id, "When archiving a worksheet template, it should be removed from the project")

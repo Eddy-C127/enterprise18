@@ -14,6 +14,12 @@ class WorksheetTemplate(models.Model):
         res['context'] = dict(literal_eval(res.get('context', '{}')), fsm_mode=True)
         return res
 
+    def action_archive(self):
+        res = super().action_archive()
+        projects = self.env['project.project'].search([('worksheet_template_id', 'in', self.ids)])
+        projects.worksheet_template_id = False
+        return res
+
     @api.model
     def _get_models_to_check_dict(self):
         res = super()._get_models_to_check_dict()
