@@ -3,7 +3,7 @@
 import { App, Component, xml, whenReady, useEffect, useComponent } from "@odoo/owl";
 import { MainComponentsContainer } from "@web/core/main_components_container";
 import { useService } from "@web/core/utils/hooks";
-import { templates } from "@web/core/assets";
+import { templates } from "@web/core/templates";
 import { makeEnv, startServices } from "@web/env";
 import { SignRefusalDialog } from "@sign/dialogs/dialogs";
 import { SignablePDFIframe } from "./signable_PDF_iframe";

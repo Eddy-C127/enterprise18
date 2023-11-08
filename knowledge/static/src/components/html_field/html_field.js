@@ -2,7 +2,8 @@
 
 import { HtmlField, htmlField } from "@web_editor/js/backend/html_field";
 import { patch } from "@web/core/utils/patch";
-import { templates, loadBundle } from "@web/core/assets";
+import { loadBundle } from "@web/core/assets";
+import { templates } from "@web/core/templates";
 import {
     copyOids,
     decodeDataBehaviorProps,
@@ -165,7 +166,7 @@ const HtmlFieldPatch = {
     //--------------------------------------------------------------------------
     // GETTERS/SETTERS
     //--------------------------------------------------------------------------
-    
+
     /**
      * Returns the container which holds the current value of the html_field
      * if it is already mounted and ready.
@@ -593,7 +594,7 @@ const HtmlFieldPatch = {
      * @param {Element} anchor Node in which the Behavior will be mounted
      * @returns {Object} props to be given to the Behavior Component. Returns
      *                   null if the Behavior can not be mounted.
-     *                  
+     *
      */
     _prepareBehaviorProps(Behavior, behaviorData, anchor) {
         // Default props for every Behavior.

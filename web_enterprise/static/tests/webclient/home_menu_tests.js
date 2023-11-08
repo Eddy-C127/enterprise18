@@ -20,7 +20,7 @@ import { browser } from "@web/core/browser/browser";
 import testUtils from "@web/../tests/legacy/helpers/test_utils";
 import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_menu/enterprise_subscription_service";
 import { session } from "@web/session";
-import { templates } from "@web/core/assets";
+import { templates } from "@web/core/templates";
 
 import { App, EventBus } from "@odoo/owl";
 const patchDate = testUtils.mock.patchDate;

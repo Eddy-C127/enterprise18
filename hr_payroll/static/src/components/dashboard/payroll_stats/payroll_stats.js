@@ -162,7 +162,7 @@ export class PayrollDashboardStats extends Component {
                     },
                 },
                 scales: {
-                    yAxes: 
+                    yAxes:
                         {
                             display: false,
                             beginAtZero: true,

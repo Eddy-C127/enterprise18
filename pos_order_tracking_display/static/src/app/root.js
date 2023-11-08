@@ -2,7 +2,7 @@
 
 import { Component, whenReady, App } from "@odoo/owl";
 import { makeEnv, startServices } from "@web/env";
-import { templates } from "@web/core/assets";
+import { templates } from "@web/core/templates";
 import { _t } from "@web/core/l10n/translation";
 import { Orders } from "@pos_order_tracking_display/app/components/orders/orders";
 import { OdooLogo } from "@point_of_sale/app/generic_components/odoo_logo/odoo_logo";
