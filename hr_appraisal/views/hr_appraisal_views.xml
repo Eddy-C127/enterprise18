@@ -165,6 +165,7 @@
                 <field name="active" column_invisible="True"/>
                 <field name="employee_id" string="Name" readonly="1" widget="many2one_avatar_user"/>
                 <field name="department_id"/>
+                <field name="create_date" widget="timeless_date" optional="hide"/>
                 <field name="date_close" widget="date"/>
                 <field name="date_final_interview" widget="remaining_days"/>
                 <field name="assessment_note" optional="hide"/>

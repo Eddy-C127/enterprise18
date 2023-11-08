@@ -21,4 +21,4 @@ export const appraisalGoalDate = {
     component: AppraisalGoalDate,
 }
 
-registry.category("fields").add('appraisal_goal_date',  appraisalGoalDate);
+registry.category("fields").add('timeless_date',  appraisalGoalDate);
