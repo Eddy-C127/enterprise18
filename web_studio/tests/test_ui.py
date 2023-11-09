@@ -200,6 +200,10 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "res_id": self.newMenu.id,
         })
 
+    @mute_logger('odoo.http')
+    def test_web_studio_check_method_in_model(self):
+        self.start_tour("/web?debug=tests", 'web_studio_check_method_in_model', login="admin")
+
     def test_create_action_button_in_form_view(self):
         self.start_tour("/web?debug=tests", 'web_studio_test_create_action_button_in_form_view', login="admin")
         studioView = _get_studio_view(self.testView)

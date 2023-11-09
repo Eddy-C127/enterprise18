@@ -1361,6 +1361,46 @@ const addActionButtonModalSteps = (
     },
 ];
 
+const addMethodButtonModalSteps = (
+    ) => [
+        {
+            trigger: ".o-web-studio-editor--add-button-action",
+        },
+        {
+            trigger: ".o-web-studio-editor--modal-add-action input#set_label",
+            run: `text test`,
+        },
+        {
+            trigger: ".o-web-studio-editor--modal-add-action input#set_button_type_to_object",
+        },
+        {
+            trigger: ".o-web-studio-editor--modal-add-action  input#set_method",
+            run: `text demo`,
+        },
+
+    ];
+
+registry.category("web_tour.tours").add("web_studio_check_method_in_model", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+        },
+            {
+            trigger: ".o_form_view .o_form_editable",
+        },
+        buttonToogleStudio,
+        ...addMethodButtonModalSteps(),
+        {
+            trigger: "div.text-danger",
+            run() {
+                const div_error = document.querySelector("div.text-danger");
+                assertEqual(div_error.innerHTML, "The method demo does not exist on the model res.partner().")
+                },
+        },
+    ],
+});
+
 registry.category("web_tour.tours").add("web_studio_test_create_action_button_in_form_view", {
     test: true,
     steps: () => [
