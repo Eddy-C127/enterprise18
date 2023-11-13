@@ -35,6 +35,7 @@ import {
     clickOpenM2ODropdown,
     dragAndDrop,
     getFixture,
+    makeDeferred,
     nextTick,
     patchWithCleanup,
     triggerEvent,
@@ -2063,6 +2064,86 @@ QUnit.module("documents", {}, function () {
                 await click(".o_inspector_tags ul li");
                 await contains(".o_inspector_tag", { count: 2 });
                 await contains(".o_inspector_tags input:focus");
+            });
+
+            /**
+             * Open the preview without selecting the record, and edit its values.
+             */
+            QUnit.test("document inspector: edit without selecting", async function (assert) {
+                assert.expect(18);
+
+                let waitWrite = makeDeferred();
+
+                await createDocumentsView({
+                    type: "kanban",
+                    resModel: "documents.document",
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
+                        <div>
+                            <i class="fa fa-circle-thin o_record_selector"/>
+                            <field name="name"/>
+                        </div>
+                        <div name="document_preview">
+                            <span class="open_preview">Preview</span>
+                        </div>
+                    </t></templates></kanban>`,
+                    mockRPC: function (route, args) {
+                        if (
+                            ["web_save", "write"].includes(args.method) &&
+                            args.model === "documents.document"
+                        ) {
+                            assert.step(JSON.stringify(args.args[1]));
+                            waitWrite.resolve();
+                        }
+                    },
+                });
+
+                await click(".o_kanban_record:nth-child(4) .open_preview");
+
+                assert.notOk(
+                    target
+                        .querySelector(".o_kanban_record:nth-child(4)")
+                        .classList.contains("o_record_selected"),
+                    "Should not select the record if we just open the preview"
+                );
+                assert.verifySteps([]);
+
+                // change the partner
+                await click("div[name='partner_id'] input");
+                await click(".o-autocomplete--dropdown-item:nth-child(2)");
+                await waitWrite;
+                waitWrite = makeDeferred();
+                assert.verifySteps(
+                    [JSON.stringify({ partner_id: 3 })],
+                    "Should have written the new partner"
+                );
+                assert.strictEqual(
+                    target.querySelector("div[name='partner_id'] input").value,
+                    "Your Company, Mitchell Admin"
+                );
+
+                // add a new tag
+                await click(".o_inspector_tags input");
+                await click(".o_inspector_tags .o-autocomplete--dropdown-item:nth-child(1)");
+                await waitWrite;
+                waitWrite = makeDeferred();
+                assert.verifySteps(
+                    [JSON.stringify({ tag_ids: [[4, 3]] })],
+                    "Should have added the tag"
+                );
+                await nextTick();
+                const tag = target.querySelector(".o_tag_prefix");
+                assert.ok(tag);
+                assert.strictEqual(tag.innerText, "Priority");
+
+                // remove the added tag
+                await click(".o_inspector_tag_remove");
+                await waitWrite;
+                assert.verifySteps(
+                    [JSON.stringify({ tag_ids: [[3, 3]] })],
+                    "Should have removed the tag"
+                );
+                await nextTick();
+                assert.notOk(target.querySelector(".o_tag_prefix"));
             });
 
             QUnit.test(
