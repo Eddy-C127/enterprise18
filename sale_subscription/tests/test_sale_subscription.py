@@ -2108,12 +2108,12 @@ class TestSubscription(TestSubscriptionCommon):
         with freeze_time("2021-01-03"):
             self.subscription.action_confirm()
             self.env['sale.order']._cron_recurring_create_invoice()
-            self.assertEqual(self.subscription.invoice_count, 1)
+            self.assertEqual(self.subscription.invoice_count, 1, "one invoice is created normally")
 
         with freeze_time("2021-02-03"):
             self.subscription.action_lock()
             self.env['sale.order']._cron_recurring_create_invoice()
-            self.assertEqual(self.subscription.invoice_count, 1)
+            self.assertEqual(self.subscription.invoice_count, 2, "locked state don't prevent invoices anymore")
 
     def test_create_alternative(self):
         self.subscription.next_invoice_date = fields.Date.today() + relativedelta(months=1)
