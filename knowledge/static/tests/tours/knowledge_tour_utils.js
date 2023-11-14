@@ -90,8 +90,10 @@ export function appendArticleLink(htmlFieldContainerSelector, articleName, offse
         trigger: '.oe-powerbox-commandName:contains(Article)',
         run: 'click',
         in_modal: false,
-    }, { // select an article in the list
-        trigger: `.o_select_menu_item:contains(${articleName})`,
+    }, {
+        // select an article in the list
+        // 'not has span' is used to remove children articles as they also contain the article name
+        trigger: `.o_select_menu_item > span:not(:has(span)):contains(${articleName})`,
         run: 'click',
         in_modal: false,
     }, { // wait for the choice to be registered
