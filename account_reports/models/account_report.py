@@ -5268,12 +5268,12 @@ class AccountReport(models.Model):
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         worksheet = workbook.add_worksheet(_('Accounts coverage'))
-        worksheet.set_column(0, 0, 15)
+        worksheet.set_column(0, 0, 20)
         worksheet.set_column(1, 1, 75)
         worksheet.set_column(2, 2, 80)
         worksheet.freeze_panes(1, 0)
 
-        headers = [_("Account Code"), _("Error message"), _("Report lines mentioning the account code"), '#FFFFFF']
+        headers = [_("Account Code / Tag"), _("Error message"), _("Report lines mentioning the account code"), '#FFFFFF']
         lines = [headers] + self._generate_accounts_coverage_report_xlsx_lines()
         for i, line in enumerate(lines):
             worksheet.write_row(i, 0, line[:-1], workbook.add_format({'bg_color': line[-1]}))
@@ -5297,13 +5297,27 @@ class AccountReport(models.Model):
         - an account is reported in multiple lines of the report (orange)
         - an account is reported in a line of the report but does not exist in the Chart of Accounts (yellow)
         """
+        def get_account_domain(prefix):
+            # Helper function to get the right domain to find the account
+            # This function verifies if we have to look for a tag or if we have
+            # to look for an account code.
+            if tag_matching := ACCOUNT_CODES_ENGINE_TAG_ID_PREFIX_REGEX.match(prefix):
+                if tag_matching['ref']:
+                    account_tag_id = self.env['ir.model.data']._xmlid_to_res_id(tag_matching['ref'])
+                else:
+                    account_tag_id = int(tag_matching['id'])
+                return 'tag_ids', 'in', (account_tag_id,)
+            else:
+                return 'code', '=like', f'{prefix}%'
+
         self.ensure_one()
 
         all_reported_accounts = self.env["account.account"]  # All accounts mentioned in the report (including those reported without using the account code)
         accounts_by_expressions = {}    # {expression_id: account.account objects}
         reported_account_codes = []     # [{'prefix': ..., 'balance': ..., 'exclude': ..., 'line': ...}, ...]
-        non_reported_codes = set()      # codes that exist in the CoA but are not reported in the report
         non_existing_codes = defaultdict(lambda: self.env["account.report.line"])  # {non_existing_account_code: {lines_with_that_code,}}
+        lines_per_non_linked_tag = defaultdict(lambda: self.env['account.report.line'])
+        lines_using_bad_operator_per_tag = defaultdict(lambda: self.env['account.report.line'])
         candidate_duplicate_codes = defaultdict(lambda: self.env["account.report.line"])  # {candidate_duplicate_account_code: {lines_with_that_code,}}
         duplicate_codes = defaultdict(lambda: self.env["account.report.line"])  # {verified duplicate_account_code: {lines_with_that_code,}}
         duplicate_codes_same_line = defaultdict(lambda: self.env["account.report.line"])  # {duplicate_account_code: {line_with_that_code_multiple_times,}}
@@ -5311,6 +5325,9 @@ class AccountReport(models.Model):
             *self.env['account.account']._check_company_domain(self.env.company),
             ('deprecated', '=', False),
         ]
+
+        # tag_ids already linked to an account - avoid several search_count to know if the tag is used or not
+        tag_ids_linked_to_account = set(self.env['account.account'].search([('tag_ids', '!=', False)]).tag_ids.ids)
 
         expressions = self.line_ids.expression_ids._expand_aggregations()
         for i, expr in enumerate(expressions):
@@ -5328,8 +5345,21 @@ class AccountReport(models.Model):
                             continue
                         operand[0] = operand[0].replace('account_id.', '')
                         # Check that the code exists in the CoA
-                        if operand[0] == 'code' and not self.env["account.account"].search([operand]):
+                        if operand[0] == 'code' and not self.env["account.account"].search_count([operand]):
                             non_existing_codes[operand[2]] |= expr.report_line_id
+                        elif operand[0] == 'tag_ids':
+                            tag_ids = operand[2]
+                            if not isinstance(tag_ids, (list, tuple, set)):
+                                tag_ids = [tag_ids]
+
+                            if operand[1] in ('=', 'in'):
+                                tag_ids_to_browse = [tag_id for tag_id in tag_ids if tag_id in tag_ids_linked_to_account]
+                                for tag in self.env['account.account.tag'].browse(tag_ids_to_browse):
+                                    lines_per_non_linked_tag[f'{tag.name} ({tag.id})'] |= expr.report_line_id
+                            else:
+                                for tag in self.env['account.account.tag'].browse(tag_ids):
+                                    lines_using_bad_operator_per_tag[f'{tag.name} ({tag.id}) - Operator: {operand[1]}'] |= expr.report_line_id
+
                     accounts_domain.append(operand)
                 reported_accounts += self.env['account.account'].search(accounts_domain)
             elif expr.engine == "account_codes":
@@ -5338,8 +5368,7 @@ class AccountReport(models.Model):
                     if not token:
                         continue
                     token_match = ACCOUNT_CODES_ENGINE_TERM_REGEX.match(token)
-                    # tag selectors on account_codes engine are not supported for now ; this will come later (probably not in stable)
-                    if not token_match or ACCOUNT_CODES_ENGINE_TAG_ID_PREFIX_REGEX.match(token_match['prefix']):
+                    if not token_match:
                         continue
 
                     parsed_token = token_match.groupdict()
@@ -5349,26 +5378,30 @@ class AccountReport(models.Model):
                         'exclude': parsed_token['excluded_prefixes'].split(',') if parsed_token['excluded_prefixes'] else [],
                         'line': expr.report_line_id,
                     })
+
                 for account_code in account_codes:
                     reported_account_codes.append(account_code)
-                    excl_tuples = [("code", "=like", excl_code + "%") for excl_code in account_code['exclude']]
+                    exclude_domain_accounts = [get_account_domain(exclude_code) for exclude_code in account_code['exclude']]
                     reported_accounts += self.env["account.account"].search([
                         *common_account_domain,
-                        ("code", "=like", account_code['prefix'] + "%"),
-                        *[excl_domain for excl_tuple in excl_tuples for excl_domain in ("!", excl_tuple)],
+                        get_account_domain(account_code['prefix']),
+                        *[excl_domain for excl_tuple in exclude_domain_accounts for excl_domain in ("!", excl_tuple)],
                     ])
-                    # Check that the code exists in the CoA
-                    if not self.env["account.account"].search([
-                        *common_account_domain,
-                        ('code', '=like', account_code['prefix'] + '%')
-                    ]):
-                        non_existing_codes[account_code['prefix']] |= account_code['line']
-                    for account_code_exclude in account_code['exclude']:
-                        if not self.env["account.account"].search([
+
+                    # Check that the code exists in the CoA or that the tag is linked to an account
+                    prefixes_to_check = [account_code['prefix']] + account_code['exclude']
+                    for prefix_to_check in prefixes_to_check:
+                        account_domain = get_account_domain(prefix_to_check)
+                        if not self.env["account.account"].search_count([
                             *common_account_domain,
-                            ('code', '=like', account_code_exclude + '%')
+                            account_domain,
                         ]):
-                            non_existing_codes[account_code_exclude] |= account_code['line']
+                            # Identify if we're working with account codes or account tags
+                            if account_domain[0] == 'code':
+                                non_existing_codes[prefix_to_check] |= account_code['line']
+                            elif account_domain[0] == 'tag_ids':
+                                lines_per_non_linked_tag[prefix_to_check] |= account_code['line']
+
             all_reported_accounts |= reported_accounts
             accounts_by_expressions[expr.id] = reported_accounts
 
@@ -5411,13 +5444,15 @@ class AccountReport(models.Model):
                 *common_account_domain,
                 ('account_type', 'not in', ("off_balance", "income", "income_other", "expense", "expense_depreciation", "expense_direct_cost"))
             ])
-        for account_in_coa in accounts_in_coa:
-            if account_in_coa not in all_reported_accounts:
-                non_reported_codes.add(account_in_coa.code)
+
+        # Compute codes that exist in the CoA but are not reported in the report
+        non_reported_codes = set((accounts_in_coa - all_reported_accounts).mapped('code'))
 
         # Create the lines that will be displayed in the xlsx
         all_reported_codes = sorted(set(all_reported_accounts.mapped("code")) | non_reported_codes | non_existing_codes.keys())
         errors_trie = self._get_accounts_coverage_report_errors_trie(all_reported_codes, non_reported_codes, duplicate_codes, duplicate_codes_same_line, non_existing_codes)
+        errors_trie['children'].update(**self._get_account_tag_coverage_report_errors_trie(lines_per_non_linked_tag, lines_using_bad_operator_per_tag))  # Add tags that are not linked to an account
+
         errors_trie = self._regroup_accounts_coverage_report_errors_trie(errors_trie)
         return self._get_accounts_coverage_report_coverage_lines("", errors_trie)
 
@@ -5466,6 +5501,7 @@ class AccountReport(models.Model):
                 errors.add("NON_EXISTING")
             else:
                 errors.add("NONE")
+
             for j in range(1, len(reported_code) + 1):
                 current_trie = current_trie["children"].setdefault(reported_code[:j], {
                     "children": {},
@@ -5473,6 +5509,29 @@ class AccountReport(models.Model):
                     "errors": errors
                 })
         return errors_trie
+
+    @api.model
+    def _get_account_tag_coverage_report_errors_trie(self, lines_per_non_linked_tag, lines_per_bad_operator_tag):
+        """ As we don't want to make a hierarchy for tags, we use a specific
+            function to handle tags.
+        """
+        errors = {
+            non_linked_tag: {
+                'children': {},
+                'lines': line,
+                'errors': {'NON_LINKED'},
+            }
+            for non_linked_tag, line in lines_per_non_linked_tag.items()
+        }
+        errors.update({
+            bad_operator_tag: {
+                'children': {},
+                'lines': line,
+                'errors': {'BAD_OPERATOR'},
+            }
+            for bad_operator_tag, line in lines_per_bad_operator_tag.items()
+        })
+        return errors
 
     def _regroup_accounts_coverage_report_errors_trie(self, trie):
         """
@@ -5520,6 +5579,14 @@ class AccountReport(models.Model):
                 "msg": _("This account is reported in a line of the report but does not exist in the Chart of Accounts"),
                 "color": "#FFBF00"
             },
+            "NON_LINKED": {
+                "msg": _("This tag is reported in a line of the report but is not linked to any account of the Chart of Accounts"),
+                "color": "#FFBF00",
+            },
+            "BAD_OPERATOR": {
+                "msg": _("The used operator is not supported for this expression."),
+                "color": "#FFBF00",
+            }
         }
         if coverage_lines is None:
             coverage_lines = []
