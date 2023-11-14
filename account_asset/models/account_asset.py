@@ -850,7 +850,7 @@ class AccountAsset(models.Model):
                 acc_depreciation_change = sum(posted_moves.line_ids.mapped(
                     lambda l: l.credit if l.account_id == asset.account_depreciation_id else 0.0
                 ))
-                entries = '<br>'.join(posted_moves.sorted('date').mapped(lambda m:
+                entries = Markup('<br>').join(posted_moves.sorted('date').mapped(lambda m:
                     f'{m.ref} - {m.date} - '
                     f'{formatLang(self.env, m.depreciation_value, currency_obj=m.currency_id)} - '
                     f'{m.name}'
@@ -859,15 +859,14 @@ class AccountAsset(models.Model):
                 msg = _('Asset Cancelled') + Markup('<br>') + \
                       _('The account %(exp_acc)s has been credited by %(exp_delta)s, '
                         'while the account %(dep_acc)s has been debited by %(dep_delta)s. '
-                        'This corresponds to %(move_count)s cancelled %(word)s:<br>%(entries)s',
+                        'This corresponds to %(move_count)s cancelled %(word)s:',
                         exp_acc=asset.account_depreciation_expense_id.display_name,
                         exp_delta=formatLang(self.env, depreciation_change, currency_obj=asset.currency_id),
                         dep_acc=asset.account_depreciation_id.display_name,
                         dep_delta=formatLang(self.env, acc_depreciation_change, currency_obj=asset.currency_id),
                         move_count=len(posted_moves),
                         word=_('entries') if len(posted_moves) > 1 else _('entry'),
-                        entries=entries,
-                    )
+                    ) + Markup('<br>') + entries
                 asset._message_log(body=msg)
             else:
                 asset._message_log(body=_('Asset Cancelled'))
