@@ -747,6 +747,10 @@ export default class BarcodeModel extends EventBus {
                 result.weight = parsedBarcode;
                 result.match = true;
                 barcode = parsedBarcode.base_code;
+            } else if (parsedBarcode.type === 'product' && parsedBarcode.code !== barcode) {
+                // The scanned barcode should match a product but was either an
+                // alias, either converted from UPC-A to EAN-13 (or vice versa.)
+                barcode = parsedBarcode.code;
             }
         } catch (err) {
             // The barcode can't be parsed but the error is caught to fallback

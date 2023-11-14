@@ -1586,6 +1586,38 @@ registry.category("web_tour.tours").add('test_delivery_reserved_with_sn_1', {tes
     ...stepUtils.discardBarcodeForm(),
 ]});
 
+registry.category("web_tour.tours").add('test_nomenclature_alias_and_conversion', {test: true, steps: () => [
+    // Before all, create a new receipt on the fly.
+    { trigger: '.o_stock_barcode_main_menu', run: 'scan WH-RECEIPTS' },
+    // First, scan the alias and check the product was found (a line was then created.)
+    { trigger: '.o_barcode_client_action', run: 'scan alias_for_upca' },
+    {
+        trigger: '.o_barcode_line.o_selected',
+        run: function () {
+            const line = helper.getLine({ barcode: '123123123125' });
+            helper.assertLineQty(line, "1");
+        }
+    },
+    // Secondly, scan the product's barcode but as a EAN-13.
+    { trigger: '.o_barcode_line.o_selected .qty-done:contains(1)', run: 'scan 0123123123125' },
+
+    // Then scan the second alias (who will be replaced by an EAN-13) and check the product is find
+    // in that case too (the EAN-13 should be converted into a UPC-A even if it comes from an alias,
+    // that's where the rules order is important since the alias rule should be used before the rule
+    // who convert an EAN-13 into an UPC-A).
+    { trigger: '.o_barcode_line.o_selected .qty-done:contains(2)', run: 'scan alias_for_ean13' },
+
+    // Finally, checks we can still scan the raw product's barcode :)
+    { trigger: '.o_barcode_line.o_selected .qty-done:contains(3)', run: 'scan 123123123125' },
+    {
+        trigger: '.o_barcode_line.o_selected .qty-done:contains(4)',
+        run: function () {
+            const line = helper.getLine({ barcode: '123123123125' });
+            helper.assertLineQty(line, "4");
+        }
+    },
+]});
+
 registry.category("web_tour.tours").add('test_receipt_reserved_lots_multiloc_1', {test: true, steps: () => [
     /* Receipt of a product tracked by lots. Open an existing picking with 4
     * units initial demands. Scan 2 units in lot1 in location WH/Stock. Then scan
