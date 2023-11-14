@@ -1211,9 +1211,7 @@ class SaleOrder(models.Model):
             elif line_condition:
                 if(
                     line.product_id.invoice_policy == 'order'
-                    and not line.order_id.locked
-                    # TODO ARJ replace locked check by check on subscription_state
-                    # needed for test_invoice_done_order
+                    and line.order_id.subscription_state != '5_renewed'
                 ):
                     # Invoice due lines
                     line_to_invoice = True
@@ -1728,7 +1726,7 @@ class SaleOrder(models.Model):
         self.env['account.move.line'].flush_model(fnames=['move_id', 'sale_line_ids'])
         self.env['sale.subscription.plan'].flush_model(fnames=['auto_close_limit'])
         today = fields.Date.today()
-        # set to close if date is passed or if locked sale order is passed
+        # set to close if date is passed or if renewed sale order passed
         domain_close = [
             ('is_subscription', '=', True),
             ('end_date', '<', today),
