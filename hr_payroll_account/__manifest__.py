@@ -1,4 +1,3 @@
-#-*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Payroll Accounting',
@@ -20,6 +19,7 @@ Generic Payroll system Integrated with Accounting.
         'views/hr_salary_rule_views.xml',
         'views/hr_payroll_structure_views.xml',
         'views/res_config_settings_views.xml',
+        'views/account_move_views.xml',
         'report/hr_contract_history_report_views.xml',
     ],
     'demo': [

@@ -1,4 +1,3 @@
-#-*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
@@ -239,3 +238,12 @@ class HrPayslip(models.Model):
             default_partner_id=self.employee_id.work_contact_id.id,
             default_partner_bank_id=bank_account.id
         ).action_register_payment()
+
+    def action_open_move(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Journal Entry'),
+            'res_model': 'account.move',
+            'view_mode': 'form',
+            'res_id': self.move_id.id,
+        }
