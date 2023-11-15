@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
-import { PdfGroupName } from '@documents/owl/components/pdf_group_name/pdf_group_name';
-import { PdfPage } from '@documents/owl/components/pdf_page/pdf_page';
+import { PdfGroupName } from "@documents/owl/components/pdf_group_name/pdf_group_name";
+import { PdfPage } from "@documents/owl/components/pdf_page/pdf_page";
 import { loadBundle } from "@web/core/assets";
 import { useCommand } from "@web/core/commands/command_hook";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
@@ -867,6 +867,7 @@ export class PdfManager extends Component {
             ev.key === "Shift" &&
             !ev.metaKey &&
             !ev.ctrlKey &&
+            !ev.altKey &&
             !this.state.viewedPage &&
             this.state.focusedPage
         ) {

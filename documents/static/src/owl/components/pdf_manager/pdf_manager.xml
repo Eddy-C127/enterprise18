@@ -110,6 +110,7 @@
             title="Split selected pages"
             t-att-disabled="state.uploadingLock || state.viewedPage"
             t-on-click.stop="onClickSplit"
+            data-hotkey="s"
         >
             Split
             <span t-if="state.uploadingLock" class="fa fa-circle-o-notch fa-spin"/>
@@ -127,14 +128,17 @@
             title="Add new file"
             t-att-disabled="state.uploadingLock || state.viewedPage"
             t-on-click.stop="onClickGlobalAdd"
+            data-hotkey="f"
         >
             Add File
         </button>
         <t t-foreach="props.rules" t-as="rule" t-key="rule.id">
+            <t t-set="hotkey" t-value="rule_index lt 9 ? `shift+${rule_index + 1}` : undefined"/>
             <button class="btn btn-secondary o_pdf_manager_button text-uppercase"
                 t-att-class="{'dropdown-item': isMobile, 'm-0': isMobile, 'h-auto': isMobile}"
                 t-on-click.stop="(ev) => this.onClickRule(rule.id)"
                 t-esc="rule.display_name"
+                t-att-data-hotkey="hotkey"
                 t-att-disabled="state.uploadingLock || state.viewedPage"/>
         </t>
     </t>
