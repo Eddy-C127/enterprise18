@@ -137,18 +137,19 @@ def xml2json_from_elementtree(el, preserve_whitespaces=False):
 CURRENCY_PROVIDER_SELECTION = [
     ([], 'ecb', 'European Central Bank'),
     (['IN'], 'xe_com', 'xe.com'),
-    (['AE'], 'cbuae', 'UAE Central Bank'),
-    (['CA'], 'boc', 'Bank Of Canada'),
-    (['CH'], 'fta', 'Federal Tax Administration (Switzerland)'),
-    (['CL'], 'mindicador', 'Chilean mindicador.cl'),
-    (['EG'], 'cbegy', 'Central Bank of Egypt'),
-    (['MX'], 'banxico', 'Mexican Bank'),
-    (['PE'], 'bcrp', 'SUNAT (replaces Bank of Peru)'),
-    (['RO'], 'bnr', 'National Bank Of Romania'),
-    (['TR'], 'tcmb', 'Turkey Republic Central Bank'),
-    (['PL'], 'nbp', 'National Bank of Poland'),
-    (['BR'], 'bbr', 'Central Bank of Brazil'),
-    (['CZ'], 'cnb', 'Czech National Bank'),
+    (['AE'], 'cbuae', '[AE] Central Bank of the UAE'),
+    (['BR'], 'bbr', '[BR] Central Bank of Brazil'),
+    (['CA'], 'boc', '[CA] Bank of Canada'),
+    (['CH'], 'fta', '[CH] Federal Tax Administration of Switzerland'),
+    (['CL'], 'mindicador', '[CL] Central Bank of Chile via mindicador.cl'),
+    (['CZ'], 'cnb', '[CZ] Czech National Bank'),
+    (['EG'], 'cbegy', '[EG] Central Bank of Egypt'),
+    (['GT'], 'banguat', '[GT] Bank of Guatemala'),
+    (['MX'], 'banxico', '[MX] Bank of Mexico'),
+    (['PE'], 'bcrp', '[PE] SUNAT (replaces Bank of Peru)'),
+    (['PL'], 'nbp', '[PL] National Bank of Poland'),
+    (['RO'], 'bnr', '[RO] National Bank of Romania'),
+    (['TR'], 'tcmb', '[TR] Central Bank of the Republic of Turkey'),
 ]
 
 class ResCompany(models.Model):
@@ -204,16 +205,21 @@ class ResCompany(models.Model):
                  successfully, False if at least one wasn't.
         '''
         active_currencies = self.env['res.currency'].search([])
-        rslt = True
         for (currency_provider, companies) in self._group_by_provider().items():
             parse_function = getattr(companies, '_parse_' + currency_provider + '_data')
             try:
                 parse_results = parse_function(active_currencies)
                 companies._generate_currency_rates(parse_results)
-            except Exception:
-                rslt = False
-                _logger.warning('Unable to connect to the online exchange rate platform %s. The web service may be temporary down.', currency_provider)
-        return rslt
+                return True
+            except Exception as error:
+                if self._context.get('suppress_errors'):
+                    _logger.warning(error)
+                    _logger.warning('Unable to connect to the online exchange rate platform %s. The web service may be temporarily down. Please try again in a moment.', currency_provider)
+                    return False
+                elif isinstance(error, UserError):
+                    raise error
+                else:
+                    raise UserError(_('Unable to connect to the online exchange rate platform %s. The web service may be temporarily down. Please try again in a moment.', currency_provider))
 
     def _group_by_provider(self):
         """ Returns a dictionnary grouping the companies in self by currency
@@ -380,6 +386,47 @@ class ResCompany(models.Model):
 
         if 'EGP' in available_currency_names:
             rslt['EGP'] = (1.0, date_rate)
+        return rslt
+
+    def _parse_banguat_data(self, available_currencies):
+        """ Bank of Guatemala
+        Info: https://banguat.gob.gt/tipo_cambio/
+        * SOAP URL: https://www.banguat.gob.gt/variables/ws/TipoCambio.asmx
+        * Exchange rate is expressed as 1 unit of USD converted into GTQ
+        """
+        available_currency_names = available_currencies.mapped('name')
+        if 'GTQ' not in available_currency_names or 'USD' not in available_currency_names:
+            raise UserError(_('The selected exchange rate provider requires the GTQ and USD currencies to be active.'))
+
+        headers = {
+            'Content-Type': 'application/soap+xml; charset=utf-8',
+        }
+        body = """<?xml version="1.0" encoding="utf-8"?>
+            <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+                <soap12:Body>
+                    <TipoCambioDia xmlns="http://www.banguat.gob.gt/variables/ws/"/>
+                </soap12:Body>
+            </soap12:Envelope>
+        """
+        res = requests.post(
+            'https://www.banguat.gob.gt/variables/ws/TipoCambio.asmx',
+            data=body,
+            headers=headers,
+            timeout=10
+        )
+        res.raise_for_status()
+
+        xml_tree = etree.fromstring(res.content)
+
+        rslt = {}
+        date_rate = xml_tree.xpath(".//*[local-name()='VarDolar']/*[local-name()='fecha']/text()")[0]
+        if date_rate:
+            date_rate = datetime.datetime.strptime(date_rate, '%d/%m/%Y').date()
+            rslt['GTQ'] = (1.0, date_rate)
+            rate = xml_tree.xpath(".//*[local-name()='VarDolar']/*[local-name()='referencia']/text()")[0] or 0.0
+            if rate:
+                rate = 1.0 / float(rate)
+                rslt['USD'] = (rate, date_rate)
         return rslt
 
     def _parse_bbr_data(self, available_currencies):
@@ -829,6 +876,4 @@ class ResConfigSettings(models.TransientModel):
 
     def update_currency_rates_manually(self):
         self.ensure_one()
-
-        if not (self.company_id.update_currency_rates()):
-            raise UserError(_('Unable to connect to the online exchange rate platform. The web service may be temporary down. Please try again in a moment.'))
+        self.company_id.update_currency_rates()
