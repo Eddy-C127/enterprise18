@@ -524,7 +524,8 @@ class TestReportEditorUIUnit(HttpCase):
             </t>
         """
 
-        self.start_tour(self.tour_url[:4] + '?debug=assets' + self.tour_url[4:], "web_studio.test_field_placeholder", login="admin")
+        url = self.tour_url.replace("/web", "/web?debug=assets")
+        self.start_tour(url, "web_studio.test_field_placeholder", login="admin")
         self.assertXMLEqual(self.main_view.arch, """
             <t t-name="web_studio.test_report">
                <t t-call="web.html_container">
@@ -702,7 +703,8 @@ class TestReportEditorUIUnit(HttpCase):
         """)
 
     def test_report_edition_dynamic_table(self):
-        self.start_tour(self.tour_url, "web_studio.test_report_edition_dynamic_table", login="admin")
+        url = self.tour_url.replace("/web", "/web?debug=assets")
+        self.start_tour(url, "web_studio.test_report_edition_dynamic_table", login="admin")
 
         self.assertXMLEqual(self.main_view_document.arch, """
             <t t-name="web_studio.test_report_document" class="">

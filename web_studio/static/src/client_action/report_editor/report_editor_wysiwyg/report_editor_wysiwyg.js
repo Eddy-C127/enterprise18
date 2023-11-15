@@ -122,10 +122,9 @@ class FieldDynamicPlaceholder extends Component {
             return {
                 value: k,
                 label: `${k} (${v.name})`,
-                model: v.model,
-            };
-        };
-        return sortBy(entries, sortFn, "desc").map((e) => mapFn(e));
+            }
+        }
+        return sortBy(entries, sortFn, "desc").map(e => mapFn(e));
     }
 
     validate(...args) {
@@ -147,8 +146,7 @@ class FieldDynamicPlaceholder extends Component {
         let defaultVar = this.sortedVariables.find((v) => {
             return ["doc", "o"].includes(v.value);
         });
-        defaultVar =
-            defaultVar || this.sortedVariables.find((v) => v.model === this.props.resModel);
+        defaultVar = defaultVar || this.sortedVariables.find((v) => this.props.availableQwebVariables[v.value].model === this.props.resModel);
         return defaultVar && defaultVar.value;
     }
 }
