@@ -3,6 +3,7 @@
 
 from odoo.tests import Form
 from odoo.tests.common import TransactionCase
+from odoo import Command
 
 
 class TestQuality(TransactionCase):
@@ -86,3 +87,28 @@ class TestQuality(TransactionCase):
         mo.workorder_ids.current_quality_check_id.action_next()
         # check a new move line is created or not for the above quality check record
         self.assertEqual(len(mo.workorder_ids.check_ids[1].move_line_id), 1)
+
+    def test_delete_move_linked_to_quality_check(self):
+        """
+        Test that a quality check is deleted when its linked move is deleted.
+        """
+        self.bom.bom_line_ids.product_id.tracking = 'lot'
+        self.bom.bom_line_ids.product_id.type = 'product'
+        self.bom.operation_ids[0].quality_point_ids = [Command.create({
+            'product_ids': [(4, self.product_1.id)],
+            'picking_type_ids': [(4, self.env['stock.picking.type'].search([('code', '=', 'mrp_operation')], limit=1).id)],
+            'test_type_id': self.env.ref('mrp_workorder.test_type_register_consumed_materials').id,
+            'component_id': self.product_2.id,
+        })]
+        mo_form = Form(self.env['mrp.production'])
+        mo_form.bom_id = self.bom
+        mo = mo_form.save()
+        mo.action_confirm()
+        qc = self.env['quality.check'].search([('product_id', '=', self.bom.product_id.id)])[-1]
+        move = qc.move_id
+        self.assertEqual(len(qc), 1)
+        self.assertFalse(move.move_line_ids)
+        move.state = 'draft'
+        move.unlink()
+        self.assertFalse(move.exists())
+        self.assertFalse(qc.exists())
