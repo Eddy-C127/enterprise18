@@ -44,8 +44,6 @@ export class Voip {
 
     constructor(env, services) {
         this.env = env;
-        /** @type {import("@mail/core/user_settings_service").UserSettings} */
-        this.settings = services["mail.user_settings"];
         /** @type {import("@mail/core/store_service").Store} */
         this.store = services["mail.store"];
         /** @type {import("@mail/core/messaging_service").Messaging} */
@@ -79,7 +77,7 @@ export class Voip {
      * @returns {boolean}
      */
     get areCredentialsSet() {
-        return Boolean(this.settings.voip_username && this.settings.voip_secret);
+        return Boolean(this.store.settings.voip_username && this.store.settings.voip_secret);
     }
 
     /**
@@ -90,7 +88,7 @@ export class Voip {
      * @returns {string}
      */
     get authorizationUsername() {
-        return this.settings.voip_username || "";
+        return this.store.settings.voip_username || "";
     }
 
     get calls() {
@@ -107,8 +105,8 @@ export class Voip {
 
     /** @returns {string} */
     get cleanedExternalDeviceNumber() {
-        return this.settings.external_device_number
-            ? cleanPhoneNumber(this.settings.external_device_number)
+        return this.store.settings.external_device_number
+            ? cleanPhoneNumber(this.store.settings.external_device_number)
             : "";
     }
 
@@ -146,7 +144,8 @@ export class Voip {
      */
     get willCallFromAnotherDevice() {
         return (
-            this.settings.should_call_from_another_device && this.cleanedExternalDeviceNumber !== ""
+            this.store.settings.should_call_from_another_device &&
+            this.cleanedExternalDeviceNumber !== ""
         );
     }
 
@@ -239,7 +238,7 @@ export class Voip {
         if (!isMobileOS()) {
             return true;
         }
-        const callMethod = this.settings.how_to_call_on_mobile;
+        const callMethod = this.store.settings.how_to_call_on_mobile;
         if (callMethod !== "ask") {
             return callMethod === "voip";
         }
@@ -289,7 +288,6 @@ export const voipService = {
         "mail.activity",
         "mail.messaging",
         "mail.store",
-        "mail.user_settings",
         "orm",
         "user",
         "voip.call",

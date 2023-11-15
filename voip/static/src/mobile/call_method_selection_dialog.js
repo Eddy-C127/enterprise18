@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { Component, useRef } from "@odoo/owl";
+import { Component, useRef, useState } from "@odoo/owl";
 
 import { Dialog } from "@web/core/dialog/dialog";
 import { useService } from "@web/core/utils/hooks";
@@ -14,7 +14,7 @@ export class CallMethodSelectionDialog extends Component {
     setup() {
         this.fieldsetRef = useRef("fieldset");
         this.rememberCheckboxRef = useRef("rememberCheckbox");
-        this.settings = useService("mail.user_settings");
+        this.store = useState(useService("mail.store"));
         this.orm = useService("orm");
     }
 
@@ -28,9 +28,14 @@ export class CallMethodSelectionDialog extends Component {
             "input[type='radio'][name='call-method']:checked"
         );
         if (this.rememberCheckboxRef.el.checked) {
-            this.orm.call("res.users.settings", "set_res_users_settings", [[this.settings.id]], {
-                new_settings: { how_to_call_on_mobile: value },
-            });
+            this.orm.call(
+                "res.users.settings",
+                "set_res_users_settings",
+                [[this.store.settings.id]],
+                {
+                    new_settings: { how_to_call_on_mobile: value },
+                }
+            );
         }
         this.props.useVoip.resolve(value === "voip");
         this.props.close();

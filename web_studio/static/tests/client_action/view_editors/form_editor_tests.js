@@ -3749,8 +3749,8 @@ QUnit.module("View Editors", (hooks) => {
             });
 
             assert.verifySteps([
-                "/web/webclient/load_menus",
                 "/mail/init_messaging",
+                "/web/webclient/load_menus",
                 "/mail/load_message_failures",
                 "/web/dataset/call_kw/res.users/systray_get_activities",
             ]);

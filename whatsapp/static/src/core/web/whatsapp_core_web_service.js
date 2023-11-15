@@ -17,7 +17,7 @@ export class WhatsappCoreWeb {
 
     setup() {
         this.messagingService.isReady.then((data) => {
-            if (data.current_user_settings?.is_discuss_sidebar_category_whatsapp_open) {
+            if (data.settings?.is_discuss_sidebar_category_whatsapp_open) {
                 this.store.discuss.whatsapp.isOpen = true;
             }
             this.busService.subscribe(

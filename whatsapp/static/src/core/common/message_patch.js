@@ -18,7 +18,7 @@ patch(Message.prototype, {
             let thread = this.store.Thread.get({ model: "discuss.channel", id });
             if (!thread?.hasSelfAsMember) {
                 await this.threadService.orm.call("discuss.channel", "add_members", [[id]], {
-                    partner_ids: [this.store.user.id],
+                    partner_ids: [this.store.self.id],
                 });
                 thread = this.store.Thread.insert({
                     id,

@@ -3,6 +3,8 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { fileUploadService } from "@web/core/file_upload/file_upload_service";
+import { imStatusService } from "@bus/im_status_service";
+import { presenceService } from "@bus/services/presence_service";
 import { multiTabService } from "@bus/multi_tab_service";
 import { busParametersService } from "@bus/bus_parameters_service";
 import { busService } from "@bus/services/bus_service";
@@ -80,6 +82,8 @@ QUnit.module("documents", {}, function () {
                     },
                     "document.document": documentService,
                     "mail.attachment": attachmentService,
+                    im_status: imStatusService,
+                    presence: presenceService,
                     "mail.store": storeService,
                     "discuss.voice_message": voiceMessageService,
                     multi_tab: multiTabService,
