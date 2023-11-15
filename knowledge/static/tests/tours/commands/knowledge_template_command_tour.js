@@ -26,12 +26,35 @@ registry.category("web_tour.tours").add('knowledge_template_command_tour', {
     run: 'click',
 }, { // wait for the block to appear in the editor
     trigger: '.o_knowledge_behavior_type_template',
+    run: () => {},
 }, { // enter text into the mail template
     trigger: '.o_knowledge_content > p',
     run: 'text Hello world'
 }, { // verify that the text was correctly inserted
     trigger: '.o_knowledge_content > p:contains(Hello world)',
+    run: () => {},
 }, { // open the chatter
+    trigger: '.btn-chatter',
+    run: 'click',
+}, {
+    trigger: '.o-mail-Thread',
+    run: () => {},
+}, { // open the follower list of the article
+    trigger: '.o-mail-Followers-button',
+    run: 'click',
+}, { // open the contact record of the follower
+    trigger: '.o-mail-Follower-details:contains(HelloWorldPartner)',
+    run: 'click',
+}, { // verify that the partner form view is fully loaded
+    trigger: '.o_breadcrumb .o_last_breadcrumb_item.active:contains(HelloWorldPartner)',
+    run: () => {},
+}, { // return to the knowledge article by going back from the breadcrumbs
+    trigger: '.o_breadcrumb a:contains(EditorCommandsArticle)',
+    run: 'click',
+}, {
+    trigger: '.o_knowledge_behavior_type_template button:first:contains(Copy)',
+    run: () => {},
+}, { // open the chatter again
     trigger: '.btn-chatter',
     run: 'click',
 }, {
