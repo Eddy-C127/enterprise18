@@ -608,6 +608,7 @@ export class GanttRenderer extends Component {
         let cellContainerWidth = totalWidth * (cellContainerWidthPercentage / 100);
         cellContainerWidth = Math.round(cellContainerWidth / subColumnCount) * subColumnCount;
         this.state.rowHeaderWidth = totalWidth - cellContainerWidth;
+        this.state.smallPills = (cellContainerWidth / subColumnCount) < 40;
     }
 
     computeDerivedParams() {
