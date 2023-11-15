@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="booking_table_address" model="res.partner">
-        <field name="name">Bar</field>
+        <field name="name">Bistr-Odoo</field>
+        <field name="is_company" eval="True"/>
         <field name="street">Rue des Bourlottes 9</field>
         <field name="city">Ramillies</field>
         <field name="zip">1367</field>
@@ -11,7 +12,7 @@
     <record id="appointment_type_restaurant_table" model="appointment.type">
         <field name="name">Table Booking</field>
         <field name="location_id" ref="booking_table_address"/>
-        <field name="appointment_duration">1</field>
+        <field name="appointment_duration">2</field>
         <field name="max_schedule_days">60</field>
         <field name="schedule_based_on">resources</field>
         <field name="assign_method">time_auto_assign</field>
@@ -19,6 +20,26 @@
         <field name="resource_manual_confirmation" eval="True"/>
         <field name="resource_manual_confirmation_percentage">0.8</field>
         <field name="message_partner_ids" eval="[(6, 0, [ref('base.partner_admin')])]"/>
+        <field name="event_videocall_source" eval="False"/>
+        <field name="is_published" eval="True"/>
+        <!-- Restaurant is open 1) from WED to SUN at 19, 19.30 and 20. 2) on WED, SAT, SUN at 12 and 12.30. -->
+        <field name="slot_ids" eval="[(5, 0, 0)] + [
+            (0, 0, {'weekday': weekday, 'start_hour': start_hour, 'end_hour': start_hour + 2.0})
+            for weekday in ('3', '4', '5', '6', '7')
+            for start_hour in (19, 19.50, 20)
+        ] + [
+            (0, 0, {'weekday': weekday, 'start_hour': start_hour, 'end_hour': start_hour + 2.0})
+            for weekday in ('3', '6', '7')
+            for start_hour in (12, 12.50)
+        ]"/>
+    </record>
+
+    <record id="appointment_type_restaurant_table_question_allergies" model="appointment.question">
+        <field name="appointment_type_id" ref="appointment_type_restaurant_table"/>
+        <field name="name">Do you have any dietary preferences or restrictions ?</field>
+        <field name="placeholder">e.g. Vegetarian, Lactose Intolerant, ...</field>
+        <field name="question_type">text</field>
+        <field name="sequence">1</field>
     </record>
 
     <!-- Pos Config override -->
