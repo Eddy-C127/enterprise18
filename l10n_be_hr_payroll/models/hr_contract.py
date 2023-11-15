@@ -11,7 +11,7 @@ from dateutil.rrule import rrule, DAILY
 from odoo import api, fields, models, _
 from odoo.tools import float_round, date_utils
 from odoo.tools.float_utils import float_compare
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 EMPLOYER_ONSS = 0.2714
 
@@ -785,7 +785,9 @@ class HrContract(models.Model):
         ]
 
     def action_work_schedule_change_wizard(self):
-        self.ensure_one()
+        if len(self) != 1:
+            raise UserError(_("This feature can only be used on a single contract."))
+
         if self.state not in ('draft', 'open'):
             return False
         action = self.env['ir.actions.actions']._for_xml_id('l10n_be_hr_payroll.schedule_change_wizard_action')
