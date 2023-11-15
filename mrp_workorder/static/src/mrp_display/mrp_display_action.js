@@ -5,6 +5,7 @@ import { useService } from "@web/core/utils/hooks";
 import { WithSearch } from "@web/search/with_search/with_search";
 import { MrpDisplay } from "@mrp_workorder/mrp_display/mrp_display";
 import { Component, onWillStart } from "@odoo/owl";
+import { MrpDisplaySearchModel } from "@mrp_workorder/mrp_display/search_model";
 
 // from record.js
 const defaultActiveField = { attrs: {}, options: {}, domain: "[]", string: "" };
@@ -164,6 +165,9 @@ export class MrpDisplayAction extends Component {
                     { name: "state", asc: false },
                     { name: "date_start", asc: true },
                 ],
+                SearchModel: MrpDisplaySearchModel,
+                searchModelArgs: context,
+                loadIrFilters: true,
             };
         });
     }

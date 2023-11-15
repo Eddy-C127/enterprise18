@@ -18,14 +18,10 @@ export class MrpWorkcenterDialog extends ConfirmationDialog {
     setup() {
         super.setup();
         this.ormService = useService("orm");
-        this.workcenters = [];
-        this.state = useState({ activeWorkcenters: this.props.active ? [...this.props.active] : [] });
-        for (const workcenter of this.props.workcenters || []) {
-            this.workcenters.push({
-                id: parseInt(workcenter[0]),
-                display_name: workcenter[1],
-            });
-        }
+        this.workcenters = this.props.workcenters || [];
+        this.state = useState({
+            activeWorkcenters: this.props.active ? [...this.props.active] : [],
+        });
 
         onWillStart(async () => {
             if (!this.workcenters.length) {

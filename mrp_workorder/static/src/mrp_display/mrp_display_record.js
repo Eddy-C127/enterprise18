@@ -31,16 +31,13 @@ export class MrpDisplayRecord extends Component {
     static props = {
         addToValidationStack: Function,
         groups: Object,
-        barcodeTarget: Boolean,
+        barcodeTarget: { type: Boolean, optional: true },
         production: { optional: true, type: Object },
         record: Object,
-        recordUpdated: Function,
         removeFromValidationStack: Function,
-        selectUser: Function,
         selectWorkcenter: { optional: true, type: Function },
         sessionOwner: Object,
         updateEmployees: Function,
-        workorders: Array,
         workcenters: Array,
         demoRecord: { type: Boolean, optional: true },
     };
@@ -205,9 +202,8 @@ export class MrpDisplayRecord extends Component {
         if (this.resModel == "mrp.workorder") {
             return [];
         }
-        const activeWorkordersIds = this.props.workorders.map((wo) => wo.data.id);
-        return this.props.record.data.workorder_ids.records.filter((wo) =>
-            activeWorkordersIds.includes(wo.data.id)
+        return this.props.record.data.workorder_ids.records.filter(
+            (wo) => !["pending", "waiting"].includes(wo.data.state)
         );
     }
 
@@ -434,16 +430,8 @@ export class MrpDisplayRecord extends Component {
             record: this.props.record,
             params,
             reload: this.env.reload.bind(this),
+            removeFromCache: this.env.searchModel.removeRecordFromCache.bind(this.env.searchModel),
         });
-    }
-
-    async actionAssignSerial() {
-        const { resModel, resId } = this.props.record;
-        if (resModel === "mrp.workorder") {
-            return;
-        }
-        await this.model.orm.call(resModel, "action_generate_serial", [resId]);
-        this.model.load();
     }
 
     onClickValidateButton() {
@@ -484,7 +472,7 @@ export class MrpDisplayRecord extends Component {
             // wizard will straight mark the MO as done without the confirmation delay.
             if (action && typeof action === "object") {
                 action.context.skip_redirection = true;
-                return this._doAction(action);
+                return this._doAction(action, resId);
             }
         }
         // Makes the validation taking a little amount of time (see o_fadeout_animation CSS class).
@@ -520,7 +508,6 @@ export class MrpDisplayRecord extends Component {
         } else if (this.props.record.resModel === "mrp.production") {
             await this.props.removeFromValidationStack(this.props.record);
             this.state.validated = true;
-            await this.props.updateEmployees();
         }
     }
 
@@ -538,11 +525,15 @@ export class MrpDisplayRecord extends Component {
         await this.props.updateEmployees();
     }
 
-    _doAction(action) {
-        const options = {
-            onClose: () => this.env.reload(),
-        };
-        return this.model.action.doAction(action, options);
+    _doAction(action, idToRemoveFromCache = false) {
+        let onClose = () => this.env.reload();
+        if (idToRemoveFromCache) {
+            onClose = () => {
+                this.env.searchModel.removeRecordFromCache(idToRemoveFromCache);
+                this.env.reload();
+            };
+        }
+        return this.model.action.doAction(action, { onClose });
     }
 
     openFormView() {
@@ -588,8 +579,6 @@ export class MrpDisplayRecord extends Component {
             await this.model.orm.call(resModel, "stop_employee", [resId, [admin_id]]);
         }
         await this.env.reload();
-        await this.props.recordUpdated(this.record.id);
-        await this.props.updateEmployees();
     }
 
     get showWorksheetCheck() {
@@ -632,9 +621,10 @@ export class MrpDisplayRecord extends Component {
         // wizard will straight mark the MO as done without the confirmation delay.
         if (action && typeof action === "object") {
             action.context.skip_redirection = true;
-            return this._doAction(action);
+            return this._doAction(action, this.props.record.resId);
         }
         await this.productionValidation();
+        this.env.searchModel.removeRecordFromCache(this.props.record.resId);
         this.env.reload();
     }
 }
