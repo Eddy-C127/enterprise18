@@ -163,4 +163,67 @@
     <record id="hr.job_developer" model="hr.job">
         <field name="default_contract_id" ref="hr_contract_cdi_experienced_developer"/>
     </record>
+
+    <record id="partner_developper" model="res.partner">
+        <field name='is_company'>false</field>
+        <field name="name">Billy Kyle</field>
+        <field name="email">billy_kyle@example.com</field>
+        <field name="image_1920" type="base64" file="hr_contract_salary/static/img/employee_chs-image.jpg"/>
+    </record>
+
+    <record id="hr_applicant_developper" model="hr.applicant">
+        <field name="name">Billy Kyle</field>
+        <field name="job_id" ref="hr.job_developer"/>
+        <field name="type_id" ref="hr_recruitment.degree_graduate"/>
+        <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_it')])]"/>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="email_from">billy_kyle@example.com</field>
+        <field name="priority">0</field>
+        <field name="partner_name">Billy Kyle</field>
+        <field name="partner_mobile">(555)-233-3213</field>
+        <field name="partner_id" ref="partner_developper"/>
+        <field name="stage_id" ref="hr_recruitment.stage_job5"/>
+    </record>
+
+
+    <record id="link_generation_applicant_developer" model="generate.simulation.link">
+        <field name="contract_id" ref="hr_contract_salary.hr_contract_cdi_experienced_developer"/>
+        <field name="employee_job_id" ref="hr.job_developer"/>
+        <field name="job_title">Experienced Developer</field>
+        <field name="applicant_id" ref="hr_applicant_developper"/>
+        <field name="department_id" ref="hr.dep_rd"/>
+        <field name="contract_start_date" eval="(DateTime.now() + relativedelta(days=-20))"/>
+        <field name="final_yearly_costs">37200.00</field>
+        <field name="validity">30</field>
+    </record>
+    <function model="generate.simulation.link" name="action_send_offer" eval="[[ref('link_generation_applicant_developer')]]"/>
+
+    <function model="hr.applicant" name="create_employee_from_applicant" eval="[[ref('hr_applicant_developper')]]"/>
+
+    <record id="hr_contract_applicant_developer" model="hr.contract">
+        <field name="name">Billy Kyle Contract</field>
+        <field name="date_start" eval="(DateTime.now() + relativedelta(days=-15))"/>
+        <field name="employee_id" model="hr.employee" search="[('name', '=', 'Billy Kyle')]"/>
+        <field eval="3100.0" name="wage"/>
+        <field eval="3100.0" name="wage_on_signature"/>
+        <field name="state">open</field>
+        <field name="kanban_state">normal</field>
+        <field name="structure_type_id" ref="hr_contract.structure_type_employee_cp200"/>
+        <field name="hr_responsible_id" ref="base.user_demo"/>
+        <field name="default_contract_id" ref="hr_contract_cdi_experienced_developer"/>
+        <field name="sign_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
+        <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
+        <field name="resource_calendar_id" ref="resource.resource_calendar_std_38h"/>
+        <field name="applicant_id" ref="hr_applicant_developper"/>
+    </record>
+
+    <function model="hr.contract.salary.offer" name="write">
+        <value model="hr.contract.salary.offer" search="[('applicant_id','=',ref('hr_applicant_developper'))]"/>
+        <value eval="{'state': 'full_signed'}"/>
+    </function>
+
+    <function model="hr.employee" name="write">
+        <value model="hr.employee" search="[('name','=','Billy Kyle')]"/>
+        <value model="res.partner" eval="{'image_1920': obj(ref('partner_developper')).image_1920}"/>
+    </function>
 </odoo>

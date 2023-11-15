@@ -181,8 +181,8 @@ class GenerateSimulationLink(models.TransientModel):
                     'mobile': self.applicant_id.partner_mobile
                 })
                 self.applicant_id.partner_id = partner_to
-
-        validity_end = (fields.Date.context_today(self) + relativedelta(days=self.validity))
+        start_date = self.contract_start_date or fields.Date.context_today(self)
+        validity_end = (start_date + relativedelta(days=self.validity))
         if self.applicant_id:
             default_template_id = template_applicant_id
         else:
