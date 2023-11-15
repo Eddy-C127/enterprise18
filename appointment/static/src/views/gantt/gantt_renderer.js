@@ -183,6 +183,7 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
                     }],
                 ).then(() => this.model.fetchData());
             },
+            appointmentTypeId: record.appointment_type_id,
             attendedState,
             title: popoverValues[0].name || this.getDisplayName(pill),
             context: {
