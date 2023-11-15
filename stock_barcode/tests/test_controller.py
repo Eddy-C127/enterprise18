@@ -21,7 +21,6 @@ class TestStockBarcodeController(HttpCase):
         ]
 
         for product in products:
-            product.update({'default_code': 'fuck'})
             self.env['product.product'].create(product)
 
         expected_responses = {

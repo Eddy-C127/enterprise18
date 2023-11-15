@@ -635,6 +635,27 @@ registry.category("web_tour.tours").add('test_receipt_product_not_consecutively'
     },
 ]});
 
+registry.category("web_tour.tours").add("test_delivery_lot_with_multi_companies", {test: true, steps: () => [
+    // Scans tsn-002: should find nothing since this SN belongs to another company.
+    { trigger: ".o_barcode_client_action", run: "scan tsn-002" },
+    // Checks a warning was displayed and scans tsn-001: a line should be added.
+    { trigger: ".o_notification_bar.bg-danger", run: "scan tsn-001" },
+    {
+        trigger: ".o_barcode_line",
+        run: function() {
+            const line = helper.getLine({ barcode: "productserial1" });
+            helper.assert(line.querySelector(".o_line_lot_name").innerText, "tsn-001");
+        },
+    },
+    // Scans tsn-003 then validate the delivery.
+    { trigger: ".o_barcode_client_action", run: "scan tsn-003" },
+    {
+        extra_trigger: ".o_toggle_sublines", // Should have sublines since there is two SN.
+        trigger: ".o_validate_page",
+    },
+    { trigger: ".o_notification_bar.bg-success", isCheck: true },
+]});
+
 registry.category("web_tour.tours").add('test_delivery_lot_with_package', {test: true, steps: () => [
     // Unfold grouped lines.
     { trigger: '.o_line_button.o_toggle_sublines' },
