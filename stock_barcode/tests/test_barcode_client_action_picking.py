@@ -2322,6 +2322,33 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(receipt_3.move_line_ids[2].product_id.id, product_gtin_8.id)
         self.assertEqual(receipt_3.move_line_ids[2].qty_done, 1)
 
+    def test_gs1_receipt_conflicting_barcodes_mistaken_as_gs1(self):
+        """ Checks if a record has a barcode who can be mistaken for a GS1 barcode,
+        this record can still be found anyway while using the GS1 nomenclature."""
+        self.clean_access_rights()
+        group_package = self.env.ref('stock.group_tracking_lot')
+        self.env.user.write({'groups_id': [(4, group_package.id, 0)]})
+        self.env.company.nomenclature_id = self.env.ref('barcodes_gs1_nomenclature.default_gs1_nomenclature')
+        # Creates two products and a package with misleading barcode.
+        self.env['product.product'].create({
+            'name': "Product AI 21",
+            'type': 'product',
+            'categ_id': self.env.ref('product.product_category_all').id,
+            'barcode': '21000000000003',  # Can be read as a serial number (AI 21)
+            'uom_id': self.env.ref('uom.product_uom_unit').id,
+        })
+        self.env['product.product'].create({
+            'name': "Product AI 30",
+            'type': 'product',
+            'categ_id': self.env.ref('product.product_category_all').id,
+            'barcode': '3000000015',  # Can be read as a quantity (15 units, AI 30)
+            'uom_id': self.env.ref('uom.product_uom_unit').id,
+        })
+        self.env['stock.quant.package'].create({'name': '21-Chouette-MegaPack'})
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_gs1_receipt_conflicting_barcodes_mistaken_as_gs1', login='admin', timeout=180)
+
     def test_gs1_receipt_lot_serial(self):
         """ Creates a receipt for a product tracked by lot, then process it in the Barcode App.
         """
