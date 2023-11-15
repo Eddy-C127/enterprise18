@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from collections import defaultdict
 from odoo import _, api, fields, models
+from odoo.tools.float_utils import float_compare
 from ..models.l10n_lu_tax_report_data import MULTI_COLUMN_FIELDS, YEARLY_ANNEX_MAPPING
 
 
@@ -49,10 +50,143 @@ class LuAnnualTaxReportCustomHandler(models.AbstractModel):
 
         return values
 
+    def _get_value_from_totals(self, expr_map, totals, field_name, label):
+        field_submap = expr_map.get(field_name)
+        if field_submap:
+            field_expression = expr_map[field_name][label]
+            field_value = totals.get(field_expression, {'value': False})['value']
+            return field_value
+        return False
+
+    def _check_dependent_fields(self, expr_map, totals):
+        """
+        If any of the dependent fields of a main field are filled in, the
+        main field should not be empty.
+        As the report expressions don't have codes, we take the target code to be the code of the report line
+        that corresponds to the expression that needs to be found
+        and the actual expressions can be found using the combination of the line code and
+        the target label. field_name is for user information.
+
+        the structure of the fields dictionary:
+            {
+                'field to check': [
+                    'field_name': the name of the dependent field to be checked,
+                    'target_code': the code of the line that actually contains that dependent field,
+                    'label': the label of the expression with which we can find the expression that corresponds to the dependent field
+                ]
+            }
+        """
+        dependent_fields = {
+            '206': [{'field_name': '007', 'target_code': '007', 'label': 'balance'}],
+            '229': [{'field_name': '100', 'target_code': '100', 'label': 'balance'}],
+            '264': [
+                {'field_name': '265', 'target_code': '265', 'label': 'total'},
+                {'field_name': '266', 'target_code': '265', 'label': 'percent'},
+                {'field_name': '267', 'target_code': '265', 'label': 'vat_excluded'},
+                {'field_name': '268', 'target_code': '265', 'label': 'vat_invoiced'},
+            ],
+            '273': [
+                {'field_name': '274', 'target_code': '274', 'label': 'total'},
+                {'field_name': '275', 'target_code': '274', 'label': 'percent'},
+                {'field_name': '276', 'target_code': '274', 'label': 'vat_excluded'},
+                {'field_name': '277', 'target_code': '274', 'label': 'vat_invoiced'},
+            ],
+            '278': [
+                {'field_name': '279', 'target_code': '279', 'label': 'total'},
+                {'field_name': '280', 'target_code': '279', 'label': 'percent'},
+                {'field_name': '281', 'target_code': '279', 'label': 'vat_excluded'},
+                {'field_name': '282', 'target_code': '279', 'label': 'vat_invoiced'},
+            ],
+            '318': [
+                {'field_name': '319', 'target_code': '319', 'label': 'vat_excluded'},
+                {'field_name': '320', 'target_code': '319', 'label': 'vat_invoiced'},
+            ],
+            '321': [
+                {'field_name': '322', 'target_code': '322', 'label': 'vat_excluded'},
+                {'field_name': '323', 'target_code': '322', 'label': 'vat_invoiced'},
+            ],
+            '357': [
+                {'field_name': '358', 'target_code': '358', 'label': 'vat_excluded'},
+                {'field_name': '359', 'target_code': '358', 'label': 'vat_invoiced'},
+            ],
+            '368': [{'field_name': '369', 'target_code': '369', 'label': 'balance'}],
+            '369': [{'field_name': '368', 'target_code': '368', 'label': 'balance'}],
+            '387': [{'field_name': '388', 'target_code': '388', 'label': 'balance'}],
+            '388': [{'field_name': '387', 'target_code': '387', 'label': 'balance'}],
+        }
+
+        errors = set()
+        for check_field in dependent_fields:
+            # if the main field is not in line_ids, then it is not the right report
+            if check_field not in expr_map:
+                continue
+            for related_field in dependent_fields[check_field]:
+                # if the main expression already has a value, we don't need to check related fields
+                check_label = 'total' if check_field in ('264', '273', '278', '318', '321', '357') else 'balance'
+                if self._get_value_from_totals(expr_map, totals, check_field, check_label):
+                    continue
+
+                related_field_value = self._get_value_from_totals(expr_map, totals, related_field['target_code'], related_field['label'])
+                if related_field_value:
+                    # display the warning with the field name and all related fields
+                    errors.add(
+                        _("The field %s must be filled in because one of the dependent fields (%s) is filled in.",
+                        check_field,
+                        ", ".join([related['field_name'] for related in dependent_fields[check_field]]))
+                    )
+
+        return errors
+
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        # we need a map between the line code (corresponds to report field code)
+        # and each expression label to the expression itself
+        expr_map = {
+            line.code.split('_')[3]: {expr.label: expr for expr in line.expression_ids}
+            for line in report.line_ids
+            if line.code
+        }
+
+        failed_controls = set()
+        # field 010 from Section 1 needs to be filled in when field 389 from Appendix B is filled in
+        # so we added a cross-report check expression that is not displayed in the tax report
+        # and only used for this warning
+        additional_checks = [
+            {
+                'fields': (('010', 'check'), ('010', 'balance')),
+                'check_function': lambda field_389, field_010: field_389 and not field_010,
+                'warning_message': _("The field 010 in Section 1 is mandatory if you fill in the field 389 in 'Appendix B'. Field 010 must be equal to field 389"),
+            },
+            {
+                'fields': (('368', 'balance'), ('369', 'balance')),
+                'check_function': lambda field_368, field_369: field_368 and field_369 and float_compare(field_369, field_368, 2) > 0,
+                'warning_message': _("The value of the field 369 must be lower than the value of the field 368 (Appendix B)."),
+            },
+            {
+                'fields': (('163', 'year_start'), ('164', 'year_start'), ('165', 'year_start')),
+                'check_function': lambda field_163, field_164, field_165: field_163 and not (field_164 and field_165) or  all([field_163, field_164, field_165]) and float_compare(field_163, field_164 + field_165, 2) != 0,
+                'warning_message': _("Fields 164 and 165 are mandatory when 163 is filled in and must add up to field 163."),
+            },
+        ]
+        for totals in all_column_groups_expression_totals.values():
+            # checking a list of main fields: if one of the related fields is filled in
+            # the main field should be filled as well
+            failed_controls.update(self._check_dependent_fields(expr_map, totals))
+            for check in additional_checks:
+                vals = [self._get_value_from_totals(expr_map, totals, field_name, label) for field_name, label in check['fields']]
+                if check['check_function'](*vals):
+                    failed_controls.add(check['warning_message'])
+            for monthly_field in ('472', '455', '456', '457', '458', '459', '460', '461'):
+                monthly_field_value = self._get_value_from_totals(expr_map, totals, monthly_field, 'balance')
+                if not self.env.company.currency_id.is_zero(monthly_field_value):
+                    failed_controls.add(_("The following monthly fields haven't been completely allocated yet: %s", monthly_field))
+
+        if failed_controls:
+            warnings['l10n_lu_reports.annual_tax_report_warning_checks'] = {'failed_controls': list(failed_controls), 'alert_type': 'danger'}
+
 
 class LuReportAppendixA(models.AbstractModel):
     _name = 'l10n_lu.appendix.a.tax.report.handler'
-    _inherit = 'account.tax.report.handler'
+    _inherit = 'l10n_lu.annual.tax.report.handler'
     _description = 'Custom Handler for the Appendix A of the LU Annual Tax Report'
 
     def _get_account_details(self, ln):

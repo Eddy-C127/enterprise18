@@ -112,29 +112,13 @@ class L10nLuGenerateTaxReport(models.TransientModel):
         }
         for field in char_fields:
             child_exists = any(form.get(related_field) for related_field in char_fields[field])
-            if not form.get(field) and child_exists:
-                raise ValidationError(_("The field %s must be filled because one of the dependent fields is filled in.", field))
-            elif form.get(field) and not child_exists:
+            if form.get(field) and not child_exists:
                 form.pop(field, None)
-
-        if form.get('389') and not form.get('010'):
-            raise ValidationError(_("The field 010 in 'Other Assimilated Supplies' is mandatory if you fill in the field 389 in 'Appendix B'. Field 010 must be equal to field 389"))
-        if form.get('369') or form.get('368'):
-            if not form.get('369') or not form.get('368'):
-                raise ValidationError(_("Both fields 369 and 368 must be either filled in or left empty (Appendix B)."))
-            elif form.get('368') < form.get('369'):
-                raise ValidationError(_("The field 369 must be smaller than field 368 (Appendix B)."))
-        if form.get('388', False) ^ form.get('387', False):
-            raise ValidationError(_("The field 387 must be filled in if field 388 is filled in and vice versa (Appendix B)."))
-        if form.get('387', False) ^ form.get('388', False):
-            raise ValidationError(_("The field 388 must be filled in if field 387 is filled in  and vice versa (Appendix B)."))
 
         if form.get('163') and form.get('165') and not form.get('164'):
             form['164'] = {'value': form.get('163') - form.get('165'), 'field_type': 'float'}
         elif form.get('163') and form.get('164') and not form.get('165'):
             form['165'] = {'value': form.get('163') - form.get('164'), 'field_type': 'float'}
-        elif (form.get('163') and not form.get('164') and not form.get('165')) or (form.get('163', 0) != form.get('164', 0) + form.get('165', 0)):
-            raise ValidationError(_("Fields 164 and 165 are mandatory when 163 is filled in and must add up to field 163 (Appendix E)."))
 
         if not form['361']['value']:
             form['361'] = form['414']
@@ -174,16 +158,7 @@ class L10nLuGenerateTaxReport(models.TransientModel):
         (https://ecdf-developer.b2g.etat.lu/ecdf/forms/popup/TVA_DECA_TYPE/2020/en/1/preview)
         """
         # Check the correct allocation of monthly fields
-        field_values = form['field_values']
-        allocation_dict = {}
-        for monthly_field in ('472', '455', '456', '457', '458', '459', '460', '461'):
-            allocation_dict[monthly_field] = field_values.get(monthly_field, {'value': 0.0})
-
-        rest = [k for k, v in allocation_dict.items() if float_compare(v['value'], 0.0, 2) != 0]
-        if rest:
-            raise ValidationError(_("The following monthly fields haven't been completely allocated yet: ") + str(rest))
-
-        field_values, expenditures = self._add_yearly_fields(field_values, options)
+        field_values, expenditures = self._add_yearly_fields(form['field_values'], options)
         if expenditures:
             form['tables'] = [expenditures]
 

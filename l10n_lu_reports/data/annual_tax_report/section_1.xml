@@ -215,6 +215,13 @@
                                                 <field name="formula">-tag(l10n_lu_reports.account_tag_010)</field>
                                                 <field name="date_scope">strict_range</field>
                                             </record>
+                                            <!-- this expression won't appear in the report, needed to perform a check on the field in _customize_warnings -->
+                                            <record id="l10n_lu_annual_tax_report_section_1_010_check" model="account.report.expression">
+                                                <field name="label">check</field>
+                                                <field name="engine">aggregation</field>
+                                                <field name="formula">L10N_LU_TAX_389.balance</field>
+                                                <field name="subformula">cross_report</field>
+                                            </record>
                                         </field>
                                     </record>
                                     <record id="l10n_lu_annual_tax_report_section_1_overall_turnover_011" model="account.report.line">
