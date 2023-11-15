@@ -427,6 +427,49 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(receipt_picking.move_line_ids.product_id.mapped('id'), [self.product1.id, self.product2.id])
         self.assertEqual(receipt_picking.move_line_ids.mapped('quantity'), [2, 1])
 
+    def test_delivery_lot_with_multi_companies(self):
+        """ This test ensures that scanning a lot or serial number who exists for
+        multiple companies will fetch only the one who belongs to the active company.
+        """
+        self.clean_access_rights()
+        # Creates two companies and assign them to the user.
+        company_a = self.env['res.company'].create({'name': 'Company "Ah !" (le meme TMTC)'})
+        company_b = self.env['res.company'].create({'name': 'Company Bae 😏😘'})
+        self.env.user.write({
+            'company_ids': [(4, company_a.id), (4, company_b.id)],
+            'company_id': company_b.id,
+        })
+        warehouse_b = self.env['stock.warehouse'].search([('company_id', '=', company_b.id)])
+        location_a = self.env['stock.warehouse'].search([('company_id', '=', company_a.id)]).lot_stock_id
+        location_b = warehouse_b.lot_stock_id
+        picking_type_out_b = warehouse_b.out_type_id
+        location_id_by_company = {
+            company_a: location_a.id,
+            company_b: location_b.id,
+        }
+        # Creates some serial numbers (some of them being in the two companies.)
+        sn_a_1 = self.env['stock.lot'].create({'name': 'tsn-001', 'product_id': self.productserial1.id, 'company_id': company_a.id})
+        sn_a_2 = self.env['stock.lot'].create({'name': 'tsn-002', 'product_id': self.productserial1.id, 'company_id': company_a.id})
+        sn_b_1 = self.env['stock.lot'].create({'name': 'tsn-001', 'product_id': self.productserial1.id, 'company_id': company_b.id})
+        sn_b_2 = self.env['stock.lot'].create({'name': 'tsn-003', 'product_id': self.productserial1.id, 'company_id': company_b.id})
+        for sn in [sn_a_1, sn_a_2, sn_b_1, sn_b_2]:
+            self.env['stock.quant'].with_context(inventory_mode=True).create({
+                'product_id': self.productserial1.id,
+                'inventory_quantity': 1,
+                'lot_id': sn.id,
+                'location_id': location_id_by_company[sn.company_id],
+            })
+        # Creates a delivery for Company B.
+        picking_form = Form(self.env['stock.picking'])
+        picking_form.picking_type_id = picking_type_out_b
+        delivery = picking_form.save()
+        url = self._get_client_action_url(delivery.id)
+        self.start_tour(url, 'test_delivery_lot_with_multi_companies', login='admin', timeout=180)
+        self.assertRecordValues(delivery.move_line_ids.lot_id, [
+            {'name': 'tsn-001', 'company_id': company_b.id},
+            {'name': 'tsn-003', 'company_id': company_b.id},
+        ])
+
     def test_delivery_lot_with_package(self):
         """ Have a delivery for a product tracked by SN, scan a non-reserved SN
         and checks the new created line has the right SN's package & owner.
