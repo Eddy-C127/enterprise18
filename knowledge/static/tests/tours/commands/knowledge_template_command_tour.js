@@ -21,6 +21,22 @@ registry.category("web_tour.tours").add('knowledge_template_command_tour', {
     run: function () {
         openCommandBar(this.$anchor[0]);
     },
+}, { // click on the /kanban command
+    trigger: '.oe-powerbox-commandName:contains("Item Kanban")',
+    run: 'click',
+}, { // insert a kanban view (which contains breadcrumbs, this is used as a
+     // check to verify that a clipboard macro will not consider those
+     // breadcrumbs to advance).
+    trigger: '.btn-primary:contains(Insert)',
+    run: 'click',
+}, { // wait for the block to appear in the editor
+    trigger: '.o_knowledge_behavior_type_embedded_view .o_last_breadcrumb_item:contains(Article Items)',
+    run: () => {},
+}, { // open the command bar
+    trigger: '.odoo-editor-editable > p',
+    run: function () {
+        openCommandBar(this.$anchor[0]);
+    },
 }, { // click on the /clipboard command
     trigger: '.oe-powerbox-commandName:contains("Clipboard")',
     run: 'click',
