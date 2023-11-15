@@ -63,8 +63,8 @@
                                             </t>
                                             <t t-foreach="appointment_type.question_ids" t-as="question">
                                                 <div class="row mb-4" t-if="question.question_type!='text'">
-                                                    <label class="col-sm-3 col-form-label fw-normal" t-attf-for="question_#{question.id}" t-out="' '.join([question.name, '*' if question.question_required else ''])"/>
-                                                    <div class="col-sm-9">
+                                                    <label class="col-12 mb-2 fw-normal" t-attf-for="question_#{question.id}" t-out="' '.join([question.name, '*' if question.question_required else ''])"/>
+                                                    <div class="col-12 col-sm-9 offset-sm-3">
                                                         <t t-if="question.question_type == 'char'">
                                                             <input type="char" class="form-control"
                                                                 t-attf-name="question_#{question.id}"
@@ -101,8 +101,8 @@
                                                         </t>
                                                     </div>
                                                 </div>
-                                                <div class="row mb-4" t-if="question.question_type == 'text'">
-                                                    <label t-attf-for="question_#{question.id}" class="col-sm-3 col-form-label fw-normal" t-out="' '.join([question.name, '*' if question.question_required else ''])"/>
+                                                <div class="mb-4" t-if="question.question_type == 'text'">
+                                                    <label t-attf-for="question_#{question.id}" class="fw-normal mb-2" t-out="' '.join([question.name, '*' if question.question_required else ''])"/>
                                                     <textarea class="form-control" rows="6"
                                                         t-att-required="question.question_required or None"
                                                         t-attf-name="question_#{question.id}"
