@@ -42,10 +42,10 @@ class TestStudioApproval(TransactionCase):
         cls.record = cls.user.partner_id
         # setup validation rules; inactive by default, they'll get
         # activated in the tests when they're needed
-        # i'll use the 'open_parent' method on partners because why not
+        # i'll use the 'address_get' method on partners because why not
         partner_model = cls.env.ref('base.model_res_partner')
         cls.MODEL = 'res.partner'
-        cls.METHOD = 'open_parent'
+        cls.METHOD = 'address_get'
         cls.rule = cls.env['studio.approval.rule'].create({
             'active': False,
             'model_id': partner_model.id,
@@ -78,6 +78,11 @@ class TestStudioApproval(TransactionCase):
             'domain': '[("is_company", "=", True)]',
             'exclusive_user': True,
         })
+
+    def setUp(self):
+        super().setUp()
+        # Force the call of `_unregister_hook` before the rollback of TransationCase
+        self.addCleanup(self.env['studio.approval.rule']._unregister_hook)
 
     def test_00_constraints(self):
         """Check that constraints on the model apply as expected."""
@@ -353,7 +358,7 @@ class TestStudioApproval(TransactionCase):
         other_exclusive_rule = self.env['studio.approval.rule'].create({
             'active': True,
             'model_id': self.rule_exclusive.model_id.id,
-            'method': 'main_partner',
+            'method': 'open_commercial_entity',
             'message': "You didn't say the magic word!",
             'group_id': self.group_user.id,
             'exclusive_user': True,
@@ -367,7 +372,7 @@ class TestStudioApproval(TransactionCase):
         approval_result = self.env['studio.approval.rule'].with_user(self.user).check_approval(
             model=self.MODEL,
             res_id=self.record.id,
-            method='main_partner',
+            method='open_commercial_entity',
             action_id=False)
         # check that the rule on 'unlink' is not prevented by another entry
         # for a rule that is not related to the same action/method
@@ -529,9 +534,14 @@ class TestStudioApprovalPost(TransactionCase):
         cls.record = cls.user.partner_id
         # setup validation rules; inactive by default, they'll get
         # activated in the tests when they're needed
-        # i'll use the 'open_parent' method on partners because why not
+        # i'll use the 'address_get' method on partners because why not
         cls.MODEL = 'res.partner'
-        cls.METHOD = 'open_parent'
+        cls.METHOD = 'address_get'
+
+    def setUp(self):
+        super().setUp()
+        # Force the call of `_unregister_hook` before the rollback of TransationCase
+        self.addCleanup(self.env['studio.approval.rule']._unregister_hook)
 
     def test_approval_method_patch(self):
         """Test that creating an approval rule causes a patch of the model method."""

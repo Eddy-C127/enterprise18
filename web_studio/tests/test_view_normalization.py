@@ -50,7 +50,7 @@ class TestViewNormalization(TransactionCase):
                             <label for="street" string="Address"/>
                             <div class="o_address_format">
                                 <div class="oe_edit_only">
-                                    <button name="open_parent" type="object" string="(edit)" class="oe_link" invisible="not parent_id or type != 'contact'"/>
+                                    <button name="open_commercial_entity" type="object" string="(edit)" class="oe_link" invisible="not parent_id or type != 'contact'"/>
                                 </div>
 
                                 <field name="street" placeholder="Street..." class="o_address_street" readonly="type == 'contact' and parent_id"/>
