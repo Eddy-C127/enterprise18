@@ -295,7 +295,7 @@ class AppointmentController(http.Controller):
         max_capacity_possible = possible_combinations[-1][1] if possible_combinations else 1
 
         return {
-            'asked_capacity': int(kwargs.get('asked_capacity', 1)),
+            'asked_capacity': int(kwargs['asked_capacity']) if kwargs.get('asked_capacity') else False,
             'available_appointments': kwargs['available_appointments'],
             'filter_appointment_type_ids': kwargs.get('filter_appointment_type_ids'),
             'filter_staff_user_ids': kwargs.get('filter_staff_user_ids'),
