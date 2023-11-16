@@ -5,8 +5,7 @@ from odoo.addons.whatsapp.tests.common import WhatsAppCommon
 from odoo.tests import tagged, users
 
 
-@tagged('wa_composer')
-class WhatsAppComposer(WhatsAppCommon):
+class WhatsAppComposerCase(WhatsAppCommon):
 
     @classmethod
     def setUpClass(cls):
@@ -53,6 +52,10 @@ Welcome to {{4}} office''',
             }
         ])
 
+
+@tagged('wa_composer')
+class WhatsAppComposerInternals(WhatsAppComposerCase):
+
     @users('employee')
     def test_composer_check_user_number(self):
         """ When using 'user_mobile' in template variables, number should be
@@ -67,13 +70,37 @@ Welcome to {{4}} office''',
             with self.subTest(mobile=mobile):
                 self.env.user.mobile = mobile
 
-                composer = self._instanciate_wa_composer_from_records(template, self.customers[0])
+                composer_form = self._wa_composer_form(template, self.customers[0])
+                composer = composer_form.save()
                 if should_crash:
                     with self.assertRaises(exceptions.ValidationError), self.mockWhatsappGateway():
                         composer.action_send_whatsapp_template()
                 else:
                     with self.mockWhatsappGateway():
                         composer.action_send_whatsapp_template()
+
+    @users('employee')
+    def test_composer_tpl_button(self):
+        """ Test adding buttons on templates """
+        for button_values in [
+            {'button_type': 'quick_reply'},
+            {'button_type': 'phone_number', 'call_number': '+91 (835) 902-5723'},
+            {'button_type': 'url', 'website_url': 'https://www.odoo.com'},
+        ]:
+            with self.subTest(button_values=button_values):
+                self.template_basic.write({'button_ids': [(5, 0)]})
+                self._add_button_to_template(self.template_basic, f"Test {button_values['button_type']}", **button_values)
+
+                template = self.template_basic.with_env(self.env)
+                composer = self._instanciate_wa_composer_from_records(template, from_records=self.customers[0])
+                with self.mockWhatsappGateway():
+                    composer.action_send_whatsapp_template()
+
+                self.assertWAMessage()
+
+
+@tagged('wa_composer')
+class WhatsAppComposerPreview(WhatsAppComposerCase):
 
     @users('user_wa_admin')
     def test_composer_preview(self):
@@ -103,36 +130,3 @@ Welcome to {{4}} office''',
         composer = self._instanciate_wa_composer_from_records(template, from_records=self.customers[0])
         for expected_var in ['Nishant', 'Jigar']:
             self.assertIn(expected_var, composer.preview_whatsapp)
-
-    @users('employee')
-    def test_composer_tpl_button(self):
-        self._add_button_to_template(self.template_basic, 'test button')
-
-        template = self.template_basic.with_env(self.env)
-        composer = self._instanciate_wa_composer_from_records(template, from_records=self.customers[0])
-        with self.mockWhatsappGateway():
-            composer.action_send_whatsapp_template()
-
-        self.assertWAMessage()
-
-    @users('employee')
-    def test_composer_tpl_button_phone_number(self):
-        self._add_button_to_template(self.template_basic, name="test call", call_number='+91 (835) 902-5723', button_type='phone_number')
-
-        template = self.template_basic.with_env(self.env)
-        composer = self._instanciate_wa_composer_from_records(template, from_records=self.customers[0])
-        with self.mockWhatsappGateway():
-            composer.action_send_whatsapp_template()
-
-        self.assertWAMessage()
-
-    @users('employee')
-    def test_composer_tpl_button_url(self):
-        self._add_button_to_template(self.template_basic, name="test url", website_url='https://www.odoo.com/', button_type='url')
-
-        template = self.template_basic.with_env(self.env)
-        composer = self._instanciate_wa_composer_from_records(template, from_records=self.customers[0])
-        with self.mockWhatsappGateway():
-            composer.action_send_whatsapp_template()
-
-        self.assertWAMessage()
