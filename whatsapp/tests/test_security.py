@@ -20,6 +20,23 @@ class WhatsAppSecurityCase(WhatsAppCommon):
             login='company_1_test_employee_2',
         )
 
+        cls.template_protected_fields = cls.env['whatsapp.template'].create({
+            'body': 'Signup link: {{1}}',
+            'model_id': cls.env['ir.model']._get_id('res.partner'),
+            'name': 'Test Template with Protected Fields',
+            'status': 'approved',
+            'variable_ids': [
+                (0, 0, {
+                    'demo_value': 'Customer',
+                    'field_name': 'signup_url',
+                    'field_type': 'field',
+                    'line_type': 'body',
+                    'name': '{{1}}',
+                }),
+            ],
+            'wa_account_id': cls.whatsapp_account.id,
+        })
+
 
 @tagged('wa_account', 'security')
 class WhatsAppAccountSecurity(WhatsAppSecurityCase):
@@ -292,3 +309,12 @@ class WhatsAppTemplateSecurity(WhatsAppSecurityCase):
                 'status': 'approved',
                 'variable_ids': [(4, template.variable_ids.id)],
             })
+
+    @users('user_wa_admin')
+    def test_tpl_update_wa_admin(self):
+        """ Check WA admins update involving field access. """
+        template = self.template_protected_fields.with_env(self.env)
+
+        # changing fields other than variables should not trigger security check
+        template.write({'name': 'Can Update'})
+        self.assertEqual(template.name, 'Can Update')

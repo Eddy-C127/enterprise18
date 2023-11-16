@@ -292,8 +292,10 @@ class WhatsAppTemplate(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
-        # model / variables might have been changed
-        self.variable_ids._check_field_name()
+        # Model change: explicitly check for field access. Other changes at variable
+        # level are checked by '_check_field_name' constraint.
+        if 'model_id' in vals:
+            self.variable_ids._check_field_name()
         return res
 
     def copy(self, default=None):
