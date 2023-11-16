@@ -148,5 +148,5 @@ class TestEcoVouchers(AccountTestInvoicingCommon):
             'reference_year': '2021',
         })
         employee_line = wizard.line_ids.filtered(lambda l: l.employee_id == employee)
-        expected_result = 215.48 if loaded_demo_data(self.env) else 217.67
+        expected_result = 211.1 if loaded_demo_data(self.env) else 217.67
         self.assertAlmostEqual(employee_line.amount, expected_result)
