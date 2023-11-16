@@ -290,6 +290,19 @@ export class MrpDisplayRecord extends Component {
         }
     }
 
+    async openWorksheet(){
+        const res = await this.props.record.model.orm.call(
+            this.lastOpenedQualityCheck.resModel,
+            "action_fill_sheet",
+            [this.lastOpenedQualityCheck.resId]);
+        this.action.doAction(res, {
+            onClose: async () => {
+                await this.lastOpenedQualityCheck.load();
+                this.qualityCheckDone(false, this.lastOpenedQualityCheck.data.quality_state);
+            },
+        });
+    }
+
     async displayInstruction(record) {
         if (!record) {
             // Searches the next Quality Check.
@@ -311,6 +324,14 @@ export class MrpDisplayRecord extends Component {
         }
 
         const worksheetData = await this.getWorksheetData(record);
+
+        this.lastOpenedQualityCheck = record;
+
+        if (!worksheetData && !record.data.operation_note && record.data.test_type === 'worksheet') {
+            // if there is no instruction to display, open worksheet form directly
+            this.openWorksheet();
+            return;
+        }
         const params = {
             body: record.data.note,
             record,
@@ -323,7 +344,6 @@ export class MrpDisplayRecord extends Component {
             },
             qualityCheckDone: this.qualityCheckDone.bind(this),
         };
-        this.lastOpenedQualityCheck = record;
 
         this.dialog.add(MrpQualityCheckConfirmationDialog, params);
     }
