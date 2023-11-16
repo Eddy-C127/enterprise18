@@ -1,12 +1,13 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.whatsapp.tests.common import WhatsAppCommon, MockIncomingWhatsApp
+from odoo.addons.test_whatsapp.tests.common import WhatsAppFullCase
+from odoo.addons.whatsapp.tests.common import MockIncomingWhatsApp
 from odoo.tests import tagged, users
 
 
-@tagged('whatsapp', 'post_install', '-at_install')
-class WhatsAppWebhookCase(WhatsAppCommon, MockIncomingWhatsApp):
+@tagged('whatsapp', 'post_install', '-at_install', 'wa_webhook')
+class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
 
     @classmethod
     def setUpClass(cls):
@@ -30,24 +31,24 @@ class WhatsAppWebhookCase(WhatsAppCommon, MockIncomingWhatsApp):
             login="user_salesperson_3",
         )
 
-        cls.whatsapp_template = cls.env['whatsapp.template'].create({
-            'body': 'Hello World',
-            'model_id': cls.env['ir.model']._get_id('whatsapp.test.base'),
-            'name': 'WhatsApp Template',
-            'template_name': 'whatsapp_template',  # not computed because pre-approved
-            'status': 'approved',
-            'wa_account_id': cls.whatsapp_account.id,
-        })
-
+    @users('user_wa_admin')
     def test_blocklist_message(self):
         """ Test the automatic blocklist mechanism when receiving 'stop'. """
-        self._receive_whatsapp_message(
-            self.whatsapp_account,
-            "Hello, how can remove my number from your WhatsApp listing?",
-            "32499123456",
-        )
+        test_record = self.test_base_record_nopartner.with_env(self.env)
+        whatsapp_template = self.whatsapp_template.with_env(self.env)
 
-        discuss_channel = self.assertWhatsAppChannel("32499123456")
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(
+                self.whatsapp_account,
+                "Hello, how can remove my number from your WhatsApp listing?",
+                "32499123456",
+            )
+        discuss_channel = self.assertWhatsAppDiscussChannel(
+            "32499123456", wa_account=self.whatsapp_account,
+            wa_message_fields_values={
+                'state': 'received',
+            },
+        )
 
         with self.mockWhatsappGateway():
             discuss_channel.message_post(
@@ -55,17 +56,19 @@ class WhatsAppWebhookCase(WhatsAppCommon, MockIncomingWhatsApp):
                 message_type="whatsapp_message",
             )
 
-        self._receive_whatsapp_message(self.whatsapp_account, "Stop", "32499123456")
-
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(self.whatsapp_account, "Stop", "32499123456")
         # at this point, we should have 3 mail.messages and whatsapp.messages
-        self.assertEqual(len(discuss_channel.message_ids), 3)
-        whatsapp_messages = self.env["whatsapp.message"].search([
-            ("mail_message_id", "in", discuss_channel.message_ids.ids)
-        ])
-        self.assertEqual(len(whatsapp_messages), 3)
+        discuss_channel = self.assertWhatsAppDiscussChannel(
+            "32499123456", wa_account=self.whatsapp_account,
+            wa_msg_count=3, msg_count=3,
+            wa_message_fields_values={
+                'state': 'received',
+            },
+        )
 
         # make sure we have a matching entry in the blacklist table
-        blacklist_record = self.env["phone.blacklist"].search([("number", "=", "+32499123456")])
+        blacklist_record = self.env["phone.blacklist"].sudo().search([("number", "=", "+32499123456")])
         self.assertTrue(bool(blacklist_record))
 
         # post a regular message: should not send through WhatsApp
@@ -81,20 +84,7 @@ class WhatsAppWebhookCase(WhatsAppCommon, MockIncomingWhatsApp):
         })
 
         # attempt to send a template: should not send through WhatsApp
-        test_record = self.env["whatsapp.test.base"].create({
-            "country_id": self.env.ref("base.be").id,
-            "name": "Test Record",
-            "phone": "+32499123456",
-        })
-
-        test_template = self.env["whatsapp.template"].create({
-            "body": "Hello World",
-            "model_id": self.env["ir.model"]._get_id("whatsapp.test.base"),
-            "name": "Hello World Template",
-            "status": "approved",
-        })
-
-        composer = self._instanciate_wa_composer_from_records(test_template, test_record)
+        composer = self._instanciate_wa_composer_from_records(whatsapp_template, test_record)
         with self.mockWhatsappGateway():
             composer.action_send_whatsapp_template()
         self.assertWAMessage("error", fields_values={
@@ -108,7 +98,7 @@ class WhatsAppWebhookCase(WhatsAppCommon, MockIncomingWhatsApp):
             "Hello, I would like to receive messages again.",
             "32499123456",
         )
-        self.assertFalse(self.env["phone.blacklist"].search([("number", "=", "+32499123456")]))
+        self.assertFalse(self.env["phone.blacklist"].sudo().search([("number", "=", "+32499123456")]))
         with self.mockWhatsappGateway():
             sent_message = discuss_channel.message_post(
                 body="Welcome back!",
@@ -127,8 +117,14 @@ class WhatsAppWebhookCase(WhatsAppCommon, MockIncomingWhatsApp):
         message sent within the 15 days time frame (see '_find_active_channel').
         If we send a message in reply to a specific one, we should find the
         discuss message of that channel and use that channel instead. """
-        self._receive_whatsapp_message(self.whatsapp_account, "Hey there", "32499123456")
-        no_document_discuss_channel = self.assertWhatsAppChannel("32499123456")
+        test_record = self.test_base_record_nopartner.with_env(self.env)
+        whatsapp_template = self.whatsapp_template.with_env(self.env)
+
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(self.whatsapp_account, "Hey there", "32499123456")
+        no_document_discuss_channel = self.assertWhatsAppDiscussChannel(
+            "32499123456",
+        )
 
         with self.mockWhatsappGateway():
             operator_message = no_document_discuss_channel.message_post(
@@ -136,30 +132,29 @@ class WhatsAppWebhookCase(WhatsAppCommon, MockIncomingWhatsApp):
                 message_type="whatsapp_message"
             )
         self.assertEqual(len(no_document_discuss_channel.message_ids), 2)
-        self.assertWAMessage("sent", fields_values={
-            "mail_message_id": operator_message,
-        })
+        self.assertWAMessage(
+            "sent",
+            fields_values={
+                "mail_message_id": operator_message,
+            },
+        )
         operator_whatsapp_message = self._new_wa_msg
 
         # send using template -> replies will create a new channel linked to the document
-        test_record = self.env['whatsapp.test.base'].create({
-            'country_id': self.env.ref('base.be').id,
-            'name': 'Test Record',
-            'phone': '+32499123456',
-        })
-        composer = self._instanciate_wa_composer_from_records(self.whatsapp_template.with_user(self.env.user), test_record)
+        composer = self._instanciate_wa_composer_from_records(whatsapp_template, test_record)
         with self.mockWhatsappGateway():
             composer.action_send_whatsapp_template()
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(
+                self.whatsapp_account, "Hello, why are you sending me this?", "32499123456",
+            )
 
-        self._receive_whatsapp_message(
-            self.whatsapp_account, "Hello, why are you sending me this?", "32499123456",
+        document_discuss_channel = self.assertWhatsAppDiscussChannel(
+            "32499123456",
+            channel_domain=[("id", "!=", no_document_discuss_channel.id)],
+            msg_count=2,
+            wa_msg_count=1,
         )
-
-        document_discuss_channel = self.env["discuss.channel"].search([
-            ("whatsapp_number", "=", "32499123456"),
-            ("id", "!=", no_document_discuss_channel.id)])
-        self.assertTrue(bool(document_discuss_channel))
-        self.assertEqual(len(document_discuss_channel.message_ids), 2)
 
         with self.mockWhatsappGateway():
             document_discuss_channel.message_post(
@@ -192,19 +187,25 @@ class WhatsAppWebhookCase(WhatsAppCommon, MockIncomingWhatsApp):
 
     def test_receive_no_document(self):
         """ Receive a message that is not linked to any document. It should
-        create a 'standalone' channel with the whatsapp account notified people. """
-        self._receive_whatsapp_message(
-            self.whatsapp_account, "Hello, I have a question please.", "32499123456"
+        create a 'standalone' channel with the whatsapp account notified people
+        and create a new customer. """
+        existing_partners = self.env['res.partner'].search([])
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(
+                self.whatsapp_account, "Hello, I have a question please.", "32499123456"
+            )
+        discuss_channel = self.assertWhatsAppDiscussChannel(
+            "32499123456",
+            wa_mail_message_values={
+                'body': '<p>Hello, I have a question please.</p>',
+            },
         )
-        discuss_channel = self.assertWhatsAppChannel("32499123456")
-
-        channel_message = discuss_channel.message_ids[0]
-        self.assertEqual(channel_message.body, "<p>Hello, I have a question please.</p>")
-
-        self.assertIn(self.user_wa_admin.partner_id, discuss_channel.channel_partner_ids)
-        customer_partner = discuss_channel.channel_partner_ids - self.user_wa_admin.partner_id
-        self.assertEqual(len(customer_partner), 1)
-        self.assertEqual(customer_partner.name, "+32 499 12 34 56")
+        new_partner = self.env['res.partner'].search([('id', 'not in', existing_partners.ids)])
+        self.assertEqual(len(new_partner), 1)
+        self.assertEqual(discuss_channel.channel_partner_ids, self.user_wa_admin.partner_id + new_partner)
+        self.assertEqual(new_partner.mobile, "+32 499 12 34 56")
+        self.assertEqual(new_partner.name, "+32 499 12 34 56")
+        self.assertFalse(new_partner.phone)
 
     def test_responsible_with_template(self):
         """ Test various use cases of receiving a message that is linked to a

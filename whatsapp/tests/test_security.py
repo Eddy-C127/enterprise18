@@ -115,11 +115,23 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                 default_rtc_session_ids=[(0, 0, {'is_screen_sharing_on': True})]
             ).whatsapp_channel_join_and_pin()
 
+        # Check that admin can join in any whatsapp channel
+        employee_channel = self.env['discuss.channel'].with_user(self.user_employee).create({
+            'channel_type': 'whatsapp',
+            'name': 'employee channel',
+            'whatsapp_number': '+32456001122',
+        })
+        employee_channel.with_user(self.user_admin).with_context(
+            default_rtc_session_ids=[(0, 0, {'is_screen_sharing_on': True})]
+        ).whatsapp_channel_join_and_pin()
+
 
 @tagged('wa_message', 'security')
 class WhatsAppMessageSecurity(WhatsAppSecurityCase):
 
-    @mute_logger('odoo.addons.base.models.ir_model')
+    @mute_logger('odoo.addons.auth_signup.models.res_users',
+                 'odoo.addons.base.models.ir_cron',
+                 'odoo.addons.base.models.ir_model')
     def test_message_signup_token(self):
         """Assert the template values sent to the whatsapp API are not fetched
         as sudo/SUPERUSER, even when going through the cron/queue. """
@@ -129,17 +141,17 @@ class WhatsAppMessageSecurity(WhatsAppSecurityCase):
         # that an admin wants to send user invitation links through a WA message
         env = self.env(user=self.user_admin)
         whatsapp_template_signup = env['whatsapp.template'].create({
-            'name': 'foo',
             'body': 'Signup link: {{1}}',
             'model_id': self.env['ir.model']._get_id('res.partner'),
+            'name': 'Template with Signup Url',
             'status': 'approved',
             'variable_ids': [
                 (0, 0, {
-                    'name': '{{1}}',
-                    'line_type': 'body',
-                    'field_type': 'field',
                     'demo_value': 'Customer',
-                    'field_name': 'signup_url'
+                    'field_type': 'field',
+                    'field_name': 'signup_url',
+                    'line_type': 'body',
+                    'name': '{{1}}',
                 }),
             ],
             'wa_account_id': self.whatsapp_account.id,
@@ -207,62 +219,76 @@ class WhatsAppTemplateSecurity(WhatsAppSecurityCase):
     @mute_logger('odoo.addons.base.models.ir_model')
     def test_tpl_create(self):
         """ Creation is for WA admins only """
-        Template_admin = self.env['whatsapp.template'].with_user(self.user_wa_admin)
-        template = Template_admin.create({'body': 'Hello', 'name': 'Test'})
-        self.assertEqual(template.model, 'res.partner')
+        template = self.env['whatsapp.template'].with_user(self.user_wa_admin).create({
+            'body': 'Hello',
+            'name': 'Test',
+        })
+        self.assertEqual(template.body, 'Hello')
 
-        Template_emp = self.env['whatsapp.template'].with_user(self.user_employee)
         with self.assertRaises(exceptions.AccessError):
-            template = Template_emp.create({'body': 'Hello', 'name': 'Test'})
+            template = self.env['whatsapp.template'].with_user(self.user_employee).create({
+                'body': 'Hello',
+                'name': 'Test 2',
+            })
 
     @mute_logger('odoo.addons.base.models.ir_rule')
     def test_tpl_read_allowed_users(self):
         """ Test 'allowed_users' that restricts access to the template """
-        Template_admin = self.env['whatsapp.template'].with_user(self.user_wa_admin)
-        template = Template_admin.create({'body': 'Hello', 'name': 'Test'})
-
-        self.assertTrue(template.with_user(self.user_employee).name)
-        self.assertTrue(template.with_user(self.user_employee2).name)
+        template = self.env['whatsapp.template'].with_user(self.user_wa_admin).create({
+            'body': 'Hello',
+            'name': 'Test'})
+        self.assertEqual(template.with_user(self.user_employee).name, 'Test')
+        self.assertEqual(template.with_user(self.user_employee2).name, 'Test')
 
         # update, limit allowed users
         template.write({'allowed_user_ids': [(4, self.user_wa_admin.id), (4, self.user_employee.id)]})
-        self.assertTrue(template.with_user(self.user_employee).name)
+        self.assertEqual(template.with_user(self.user_employee).name, 'Test')
         with self.assertRaises(exceptions.AccessError):
-            self.assertTrue(template.with_user(self.user_employee2).name)
+            self.assertEqual(template.with_user(self.user_employee2).name, 'Test')
 
     def test_tpl_safe_field_access(self):
-        # Create a WhatsApp admin user with specific groups and permissions related to WhatsApp functionality.
+        """ Check field access security """
         template = self.env['whatsapp.template'].create({
             'body': "hello, I am from '{{1}}'.",
+            'model_id': self.env['ir.model']._get_id('res.users'),
             'name': 'Test Template',
             'status': 'approved',
-            'model_id': self.env.ref('base.model_res_users').id,
-            'phone_field': 'phone_sanitized',
         })
 
         # Verify that a System User can use any field in template.
         template.with_user(self.user_admin).variable_ids = [
             (5, 0, 0),
-            (0, 0, {'name': "{{1}}", 'line_type': "body", 'field_type': "field", 'demo_value': "pwned", 'field_name': 'password'}),
+            (0, 0, {
+                'demo_value': "pwned",
+                'field_name': 'password',
+                'field_type': "field",
+                'line_type': "body",
+                'name': "{{1}}",
+            }),
         ]
 
         # Verify that a WhatsApp Admin can't set unsafe fields in template variable
         with self.assertRaises(exceptions.ValidationError):
             template.with_user(self.user_wa_admin).variable_ids = [
                 (5, 0, 0),
-                (0, 0, {'name': "{{1}}", 'line_type': "body", 'field_type': "field", 'demo_value': "pwned", 'field_name': 'password'}),
+                (0, 0, {
+                    'demo_value': "pwned",
+                    'field_name': 'password',
+                    'field_type': "field",
+                    'line_type': "body",
+                    'name': "{{1}}",
+                }),
             ]
 
         with self.assertRaises(exceptions.ValidationError):
-            template.with_user(self.user_wa_admin).model_id = self.env.ref('base.model_res_partner').id
+            template.with_user(self.user_wa_admin).model_id = self.env['ir.model']._get_id('res.partner')
 
         # try to change the model of the variable with x2many command
         with self.assertRaises(exceptions.ValidationError):
             self.env['whatsapp.template'].with_user(self.user_wa_admin).create({
                 'body': "hello, I am from '{{1}}'.",
+                'model_id': self.env['ir.model']._get_id('res.partner'),
                 'name': 'Test Template',
                 'status': 'approved',
-                'model_id': self.env.ref('base.model_res_users').id,
-                'phone_field': 'phone_sanitized',
                 'variable_ids': [(4, template.variable_ids.id)],
             })

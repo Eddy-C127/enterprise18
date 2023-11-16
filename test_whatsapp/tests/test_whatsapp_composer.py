@@ -5,21 +5,18 @@ from odoo.tests import tagged, users
 
 
 @tagged('wa_composer')
-class WhatsAppComposer(WhatsAppCommon):
+class WhatsAppComposerCase(WhatsAppCommon):
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-
-        # WRITE access on partner is required to be able to post a message on it
-        cls.user_employee.write({'groups_id': [(4, cls.env.ref('base.group_partner_manager').id)]})
 
         # test records for sending messages
         cls.test_base_records = cls.env['whatsapp.test.base'].create([
             {
                 'country_id': cls.env.ref('base.in').id,
                 'name': 'Recipient-IN',
-                'phone': "+91 12345 67891"
+                'phone': "+91 12345 67891",
             }, {
                 'country_id': cls.env.ref('base.be').id,
                 'name': 'Recipient-BE',
@@ -63,6 +60,17 @@ Welcome to {{4}} office''',
                 'wa_account_id': cls.whatsapp_account.id,
             }
         ])
+
+
+@tagged('wa_composer')
+class WhatsAppComposerRendering(WhatsAppComposerCase):
+    """ Test rendering based on various templates, notably using static or
+    dynamic content, headers, ... """
+
+    def test_assert_initial_data(self):
+        """ Ensure base data for tests, to ease understanding them """
+        self.assertEqual(self.company_admin.country_id, self.env.ref('base.us'))
+        self.assertEqual(self.user_admin.country_id, self.env.ref('base.be'))
 
     @users('employee')
     def test_composer_tpl_base(self):
