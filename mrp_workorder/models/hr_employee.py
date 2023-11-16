@@ -155,7 +155,10 @@ class HrEmployee(models.Model):
     def get_all_employees(self, login=False):
         if login:
             self.login_user_employee()
-        all_employees = self.search_read(fields=['id', 'name'])
+
+        companies_ids = self.env.companies.ids
+        all_employees = self.search_read(['|', ('company_id', '=', False), ('company_id', 'in', companies_ids)], fields=['id', 'name'])
+
         all_employees_ids = {employee['id'] for employee in all_employees}
         employees_connected = list(filter(
             lambda employee_id: employee_id in all_employees_ids, self.get_employees_connected()))
