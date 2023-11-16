@@ -359,7 +359,7 @@ class Picking(models.Model):
         errors = self._l10n_mx_edi_cfdi_check_external_trade_config() \
                  + self._l10n_mx_edi_cfdi_check_picking_config()
         if errors:
-            self._l10n_mx_edi_cfdi_invoice_document_sent_failed("\n".join(errors))
+            self._l10n_mx_edi_cfdi_document_sent_failed("\n".join(errors))
             return
 
         # == Lock ==
