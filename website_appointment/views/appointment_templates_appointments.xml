@@ -130,13 +130,12 @@
                                         </a>
                                     </div>
                                 </div>
+                                <!-- Prevent using 'resource' from the loop above as the selected one in other templates -->
+                                <t t-set="resource" t-value="False"/>
                             </div>
                             <div class="oe_structure"/>
                         </div>
-                        <t t-call="appointment.appointment_details_column">
-                            <!-- Used to check if we are on "Operator" step -->
-                            <t t-set="isOperator" t-value="True"/>
-                        </t>
+                        <t t-call="appointment.appointment_details_column"/>
                     </div>
                 </div>
             </div>

@@ -200,6 +200,8 @@
                         <t t-call="appointment.appointment_details_column">
                             <!-- Used to check if we are on "Date & Time" step -->
                             <t t-set="isDate" t-value="True"/>
+                            <t t-set="staff_user" t-value="user_selected"/>
+                            <t t-set="resource" t-value="resource_selected"/>
                         </t>
                     </div>
                 </div>
@@ -284,7 +286,7 @@
             <h4 class="my-4 d-md-none">Your Appointment</h4>
             <div t-if="appointment_type.category in ['punctual', 'recurring']" class="position-relative">
                 <t t-call="appointment.appointment_meeting_details"/>
-                <t t-if="staff_user or resource and not isOperator" t-call="appointment.appointment_meeting_user"/>
+                <t t-if="staff_user or resource" t-call="appointment.appointment_meeting_user"/>
                 <t t-if="date_locale and time_locale" t-call="appointment.appointment_meeting_date"/>
             </div>
         </aside>
