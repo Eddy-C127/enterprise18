@@ -21,6 +21,14 @@ class AccountReportFileDownloadErrorWizard(models.TransientModel):
 
     def action_open_partners(self, partner_ids):
         self.ensure_one()
+        if len(partner_ids) == 1:
+            return {
+                'name': _('Invalid Partner'),
+                'type': 'ir.actions.act_window',
+                'res_model': 'res.partner',
+                'res_id': partner_ids[0],
+                'views': [(False, 'form')],
+            }
         return {
             'name': _('Invalid Partners'),
             'type': 'ir.actions.act_window',

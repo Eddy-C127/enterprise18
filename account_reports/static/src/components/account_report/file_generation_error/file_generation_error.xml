@@ -5,7 +5,7 @@
         <ul>
             <t t-foreach="errors" t-as="error" t-key="error_index">
                 <li>
-                    <span class="m-1 d-flex gap-1">
+                    <span class="m-1 d-flex gap-1 align-items-center">
                         <t t-out="error.message"/>
                         <t t-if="error.action_name">
                             <a
@@ -17,9 +17,9 @@
                             >
                                 <i class="fa fa-arrow-right"/>
                                 <t t-out="error.action_text"/>
-                                <t t-if="error.critical"><i class="fa fa-warning"/></t>
                             </a>
                         </t>
+                        <t t-if="error.critical"><i class="fa fa-warning"/></t>
                     </span>
                 </li>
             </t>
