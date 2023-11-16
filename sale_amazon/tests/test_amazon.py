@@ -118,6 +118,7 @@ class TestAmazon(common.TestAmazonCommon):
             self.assertEqual(order.team_id.id, self.account.team_id.id)
             self.assertEqual(order.warehouse_id.id, self.account.location_id.warehouse_id.id)
             self.assertEqual(order.amazon_channel, 'fbm')
+            self.assertEqual(order.currency_id.name, 'USD')
 
             order_lines = self.env['sale.order.line'].search([('order_id', '=', order.id)])
             self.assertEqual(
@@ -457,6 +458,82 @@ class TestAmazon(common.TestAmazonCommon):
             # Sync an order canceled from Amazon.
             self.order_canceled = True
             self.account._sync_orders(auto_commit=False)
+
+    def test_sync_orders_replacement(self):
+        """ Test handling of Amazon replacement orders without currency. """
+
+        def get_sp_api_response_mock(_account, operation_, **_kwargs):
+            """ Return a mocked response without making an actual call to the SP-API. """
+            base_response_ = common.OPERATIONS_RESPONSES_MAP[operation_]
+            if operation_ == 'getOrders':
+                response_ = dict(base_response_, payload={
+                    'LastUpdatedBefore': base_response_['payload']['LastUpdatedBefore'],
+                    'Orders': [dict(
+                        common.ORDER_MOCK,
+                        IsReplacementOrder='true',
+                        ReplacedOrderId='replaced_order',
+                        OrderTotal=dict(Amount='0'),
+                    )],
+                })
+            elif operation_ == 'getOrderItems':
+                response_ = dict(base_response_, payload={
+                    'AmazonOrderId': base_response_['payload']['AmazonOrderId'],
+                    'OrderItems': [dict(
+                        ItemPrice=dict(Amount='0'),
+                        ShippingPrice=dict(Amount='0'),
+                        SellerSKU='TEST',
+                        Title='Run Test, Run!',
+                        QuantityOrdered=2,
+                        OrderItemId='987654321',
+                    )],
+                })
+            else:
+                response_ = base_response_
+            return response_
+
+        def find_matching_product_mock(
+            _self, product_code_, _default_xmlid, default_name_, default_type_
+        ):
+            """ Return a product created on-the-fly with the product code as internal reference. """
+            product_ = self.env['product.product'].create({
+                'name': default_name_,
+                'type': default_type_,
+                'list_price': 10.0,
+                'sale_ok': False,
+                'purchase_ok': False,
+                'default_code': product_code_,
+            })
+            product_.product_tmpl_id.taxes_id = False
+            return product_
+
+        with patch(
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
+        ), patch(
+            'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
+        ), patch(
+            'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._recompute_subtotal',
+            new=lambda self_, subtotal_, *args_, **kwargs_: subtotal_,
+        ), patch(
+            'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
+            new=find_matching_product_mock,
+        ):
+            currency = self.env['res.currency'].create({'name': 'QUA', 'symbol': 'Q'})
+            pricelist = self.env['product.pricelist'].create({
+                'name': 'QUA pricelist', 'currency_id': currency.id,
+            })
+            self.env['sale.order'].create({
+                'partner_id': self.env.ref('base.res_partner_1').id,
+                'pricelist_id': pricelist.id,
+                'amazon_order_ref': 'replaced_order',
+            })
+
+            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
+            self.account._sync_orders(auto_commit=False)
+
+            order = self.env['sale.order'].search([('amazon_order_ref', '=', '123456789')])
+            self.assertEqual(order.currency_id.name, 'QUA')
+            self.assertEqual(order.amount_total, 0)
 
     def test_inventory_sync_is_skipped_when_disabled(self):
         """ Test that the inventory synchronization is skipped when the account has disabled it. """

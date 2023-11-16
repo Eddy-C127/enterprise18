@@ -615,10 +615,23 @@ class AmazonAccount(models.Model):
         shipping_product = self._find_matching_product(
             shipping_code, 'shipping_product', 'Shipping', 'service'
         )
-        currency = self.env['res.currency'].with_context(active_test=False).search(
-            [('name', '=', order_data['OrderTotal']['CurrencyCode'])], limit=1
-        )
         amazon_order_ref = order_data['AmazonOrderId']
+        currency_code = order_data.get('OrderTotal', {}).get('CurrencyCode')
+        if currency_code:
+            currency = self.env['res.currency'].with_context(active_test=False).search(
+                [('name', '=', currency_code)], limit=1
+            )
+        elif order_data.get('IsReplacementOrder') == 'true':
+            replaced_order = self.env['sale.order'].search(
+                [('amazon_order_ref', '=', order_data['ReplacedOrderId'])], limit=1
+            )
+            currency = replaced_order.currency_id
+        else:
+            raise ValidationError(_(
+                "The Amazon order with reference %(ref)s was not recovered because its currency"
+                " was missing from the Amazon order data.",
+                ref=amazon_order_ref,
+            ))
         contact_partner, delivery_partner = self._find_or_create_partners_from_data(order_data)
         fiscal_position = self.env['account.fiscal.position'].with_company(
             self.company_id
