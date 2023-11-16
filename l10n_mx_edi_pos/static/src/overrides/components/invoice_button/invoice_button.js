@@ -10,7 +10,7 @@ patch(InvoiceButton.prototype, {
         if (this.pos.company.country?.code !== "MX") {
             return true;
         }
-        const payload = await makeAwaitable(this.dialog, AddInfoPopup);
+        const payload = await makeAwaitable(this.dialog, AddInfoPopup, { order });
         if (payload) {
             order.l10n_mx_edi_cfdi_to_public =
                 payload.l10n_mx_edi_cfdi_to_public === true ||

@@ -13,7 +13,7 @@ patch(PaymentScreen.prototype, {
     //@override
     async toggleIsToInvoice() {
         if (this.pos.company.country?.code === "MX" && !this.currentOrder.is_to_invoice()) {
-            const payload = await makeAwaitable(this.dialog, AddInfoPopup);
+            const payload = await makeAwaitable(this.dialog, AddInfoPopup, { order: this.currentOrder });
             if (payload) {
                 this.currentOrder.l10n_mx_edi_cfdi_to_public =
                     payload.l10n_mx_edi_cfdi_to_public === true ||
