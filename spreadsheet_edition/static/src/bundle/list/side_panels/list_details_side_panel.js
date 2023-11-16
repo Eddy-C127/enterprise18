@@ -9,10 +9,12 @@ import { _t } from "@web/core/l10n/translation";
 import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
 
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
+import { components } from "@odoo/o-spreadsheet";
+const { ValidationMessages } = components;
 
 export class ListDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.ListDetailsSidePanel";
-    static components = { DomainSelector, EditableName };
+    static components = { DomainSelector, EditableName, ValidationMessages };
     static props = {
         onCloseSidePanel: Function,
         listId: String,
@@ -107,5 +109,9 @@ export class ListDetailsSidePanel extends Component {
             this.env.model.dispatch("REMOVE_ODOO_LIST", { listId: this.props.listId });
             this.props.onCloseSidePanel();
         });
+    }
+
+    get unusedListWarning() {
+        return _t("This list is not used");
     }
 }

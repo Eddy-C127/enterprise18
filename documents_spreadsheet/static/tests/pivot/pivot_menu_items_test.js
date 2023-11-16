@@ -1,7 +1,7 @@
 /** @odoo-module */
 
 import * as spreadsheet from "@odoo/o-spreadsheet";
-import { nextTick, getFixture } from "@web/../tests/helpers/utils";
+import { nextTick, getFixture, click } from "@web/../tests/helpers/utils";
 import { createSpreadsheet } from "../spreadsheet_test_utils";
 import {
     getBasicData,
@@ -337,6 +337,28 @@ QUnit.module(
             pivotName = target.querySelector(".o_sp_en_display_name").textContent;
             assert.equal(pivotName, "(#2) Partner Pivot");
         });
+
+        QUnit.test(
+            "A warning is displayed in the menu item if the pivot is unused",
+            async function (assert) {
+                const { model } = await createSpreadsheetFromPivotView();
+                model.dispatch("CREATE_SHEET", { sheetId: "sh2", name: "Sheet2" });
+                await insertPivotInSpreadsheet(model, { sheetId: "sh2" });
+                await click(target, "div[data-id='data']");
+
+                const menuItemPivot1 = target.querySelector("div[data-name='item_pivot_1']");
+                const menuItemPivot2 = target.querySelector("div[data-name='item_pivot_2']");
+
+                assert.containsNone(menuItemPivot1, ".o-unused-pivot-icon");
+                assert.containsNone(menuItemPivot2, ".o-unused-pivot-icon");
+
+                model.dispatch("DELETE_SHEET", { sheetId: "sh2" });
+                await nextTick();
+
+                assert.containsNone(menuItemPivot1, ".o-unused-pivot-icon");
+                assert.containsOnce(menuItemPivot2, ".o-unused-pivot-icon");
+            }
+        );
 
         QUnit.test(
             "Can rebuild the Odoo domain of records based on the according merged pivot cell",

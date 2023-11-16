@@ -35,5 +35,8 @@
             <button t-on-click="deleteList" class="o-button o_delete_element">Delete</button>
             <button t-on-click="goBackToListOfLists" class="o-button o_pivot_cancel">Back</button>
         </div>
+        <div class="o_side_panel_section py-1" t-if="env.model.getters.isListUnused(props.listId)">
+            <ValidationMessages messages="[unusedListWarning]" msgType="'warning'"/>
+        </div>
     </div>
 </templates>

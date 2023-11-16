@@ -155,6 +155,59 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
         assert.containsOnce(target, ".o_side_panel_select");
     });
 
+    QUnit.test(
+        "A warning is displayed in the menu item if the list is unused",
+        async function (assert) {
+            const { model } = await createSpreadsheetFromListView();
+            model.dispatch("CREATE_SHEET", { sheetId: "sh2", name: "Sheet2" });
+            insertListInSpreadsheet(model, {
+                sheetId: "sh2",
+                model: "product",
+                columns: ["name", "active"],
+            });
+            const target = getFixture();
+            await click(target, "div[data-id='data']");
+
+            const menuItemList1 = target.querySelector("div[data-name='item_list_1']");
+            const menuItemList2 = target.querySelector("div[data-name='item_list_2']");
+            assert.containsNone(menuItemList1, ".o-unused-list-icon");
+            assert.containsNone(menuItemList2, ".o-unused-list-icon");
+
+            model.dispatch("DELETE_SHEET", { sheetId: "sh2" });
+            await nextTick();
+
+            assert.containsNone(menuItemList1, ".o-unused-list-icon");
+            assert.containsOnce(menuItemList2, ".o-unused-list-icon");
+        }
+    );
+
+    QUnit.test(
+        "A warning is displayed in the side panel if the list is unused",
+        async function (assert) {
+            const { model, env } = await createSpreadsheetFromListView();
+            const target = getFixture();
+
+            const [listId] = model.getters.getListIds();
+            env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
+            await nextTick();
+
+            const sidePanelEl = target.querySelector(".o-sidePanel");
+            assert.containsNone(sidePanelEl, ".o-validation-warning");
+
+            model.dispatch("CREATE_SHEET", { sheetId: "sh2", name: "Sheet2" });
+            const activeSheetId = model.getters.getActiveSheetId();
+            model.dispatch("ACTIVATE_SHEET", { sheetIdFrom: activeSheetId, sheetIdTo: "sh2" });
+            model.dispatch("DELETE_SHEET", { sheetId: activeSheetId });
+            await nextTick();
+
+            assert.containsOnce(sidePanelEl, ".o-validation-warning");
+
+            model.dispatch("REQUEST_UNDO");
+            await nextTick();
+            assert.containsNone(sidePanelEl, ".o-validation-warning");
+        }
+    );
+
     QUnit.test("Add list in an existing spreadsheet", async (assert) => {
         const { model } = await createSpreadsheetFromListView();
         const list = model.getters.getListDefinition("1");
@@ -173,7 +226,7 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
         assert.deepEqual(model.getters.getSheetIds()[1], "42");
     });
 
-    QUnit.test("Verify absence of pivot properties on non-pivot cell", async function (assert) {
+    QUnit.test("Verify absence of list properties on non-list cell", async function (assert) {
         const { model, env } = await createSpreadsheetFromListView();
         selectCell(model, "Z26");
         const root = cellMenuRegistry.getAll().find((item) => item.id === "listing_properties");

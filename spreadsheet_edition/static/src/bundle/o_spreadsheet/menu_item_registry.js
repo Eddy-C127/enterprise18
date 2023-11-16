@@ -72,6 +72,10 @@ topbarMenuRegistry.addChild("data_sources_data", ["data"], (env) => {
         },
         icon: "o-spreadsheet-Icon.PIVOT",
         separator: index === env.model.getters.getPivotIds().length - 1,
+        secondaryIcon: (env) =>
+            env.model.getters.isPivotUnused(pivotId)
+                ? "o-spreadsheet-Icon.UNUSED_PIVOT_WARNING"
+                : undefined,
     }));
     const lists_items = env.model.getters.getListIds().map((listId, index) => {
         return {
@@ -83,6 +87,10 @@ topbarMenuRegistry.addChild("data_sources_data", ["data"], (env) => {
             },
             icon: "o-spreadsheet-Icon.ODOO_LIST",
             separator: index === env.model.getters.getListIds().length - 1,
+            secondaryIcon: (env) =>
+                env.model.getters.isListUnused(listId)
+                    ? "o-spreadsheet-Icon.UNUSED_LIST_WARNING"
+                    : undefined,
         };
     });
     const charts_items = env.model.getters.getOdooChartIds().map((chartId, index) => {

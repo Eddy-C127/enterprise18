@@ -44,5 +44,8 @@
             <button t-on-click="deletePivot" class="o-button o_delete_element">Delete</button>
             <button t-on-click="goToPivotList" class="o-button o_pivot_cancel">Back</button>
         </div>
+        <div class="o_side_panel_section py-1" t-if="env.model.getters.isPivotUnused(props.pivotId)">
+            <ValidationMessages messages="[unusedPivotWarning]" msgType="'warning'"/>
+        </div>
     </div>
 </templates>

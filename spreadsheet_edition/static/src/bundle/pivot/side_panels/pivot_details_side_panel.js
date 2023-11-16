@@ -8,10 +8,12 @@ import { _t } from "@web/core/l10n/translation";
 import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
 
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
+import { components } from "@odoo/o-spreadsheet";
+const { ValidationMessages } = components;
 
 export class PivotDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.PivotDetailsSidePanel";
-    static components = { DomainSelector, EditableName };
+    static components = { DomainSelector, EditableName, ValidationMessages };
     static props = {
         onCloseSidePanel: Function,
         pivotId: String,
@@ -123,5 +125,9 @@ export class PivotDetailsSidePanel extends Component {
             this.env.model.dispatch("REMOVE_PIVOT", { pivotId: this.props.pivotId });
             this.props.onCloseSidePanel();
         });
+    }
+
+    get unusedPivotWarning() {
+        return _t("This pivot is not used");
     }
 }

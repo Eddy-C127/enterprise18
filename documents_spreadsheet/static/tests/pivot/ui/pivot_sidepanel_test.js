@@ -287,5 +287,30 @@ QUnit.module(
                 "(#2) Partners by Foo"
             );
         });
+
+        QUnit.test(
+            "A warning is displayed in the side panel if the pivot is unused",
+            async function (assert) {
+                const { model, env } = await createSpreadsheetFromPivotView();
+                const [pivotId] = model.getters.getPivotIds();
+                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
+                await nextTick();
+
+                const sidePanelEl = target.querySelector(".o-sidePanel");
+                assert.containsNone(sidePanelEl, ".o-validation-warning");
+
+                model.dispatch("CREATE_SHEET", { sheetId: "sh2", name: "Sheet2" });
+                const activeSheetId = model.getters.getActiveSheetId();
+                model.dispatch("ACTIVATE_SHEET", { sheetIdFrom: activeSheetId, sheetIdTo: "sh2" });
+                model.dispatch("DELETE_SHEET", { sheetId: activeSheetId });
+                await nextTick();
+
+                assert.containsOnce(sidePanelEl, ".o-validation-warning");
+
+                model.dispatch("REQUEST_UNDO");
+                await nextTick();
+                assert.containsNone(sidePanelEl, ".o-validation-warning");
+            }
+        );
     }
 );
