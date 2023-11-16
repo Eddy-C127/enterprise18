@@ -605,9 +605,8 @@ class AppointmentType(models.Model):
             )
             # Adapt local start to not append slot in the past from ref
             # Using ref_start to consider or not the min schedule hours at the beginning of first slot
-            if local_start.date() == ref_tz_apt_type.date():
-                while local_start < ref_start:
-                    local_start += relativedelta(hours=self.appointment_duration)
+            while local_start < ref_start:
+                local_start += relativedelta(hours=self.appointment_duration)
 
             local_end = local_start + relativedelta(hours=self.appointment_duration)
             # localized end time for the entire slot on that day
@@ -737,8 +736,7 @@ class AppointmentType(models.Model):
             last_day = requested_tz.fromutc(reference_date + relativedelta(days=appointment_duration_days))
         elif self.category == 'punctual':
             # Punctual appointment type, the first day is the start_datetime if it is in the future, else the first day is now
-            reference_date = self.start_datetime if self.start_datetime > now else now
-            first_day = requested_tz.fromutc(reference_date)
+            first_day = requested_tz.fromutc(self.start_datetime if self.start_datetime > now else now)
             last_day = requested_tz.fromutc(self.end_datetime)
         else:
             # Recurring appointment type

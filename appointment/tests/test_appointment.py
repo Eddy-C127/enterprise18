@@ -930,6 +930,69 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
                 test_reference_now.astimezone(pytz.UTC) < slot['UTC'][0].astimezone(pytz.UTC),
                 "A slot shouldn't be generated before the first_day datetime")
 
+    @users('apt_manager')
+    def test_slots_days_min_schedule(self):
+        """ Test that slots are generated correctly when min_schedule_hours is 47.0.
+        This means that the first returned slots should be on wednesday at 11:36.
+        """
+        test_reference_now = datetime(2022, 2, 14, 11, 45, 0)  # is a Monday
+        appointment = self.env['appointment.type'].create({
+            'appointment_tz': 'UTC',
+            'appointment_duration': 1.2,  # 1h12
+            'min_schedule_hours': 47.0,
+            'max_schedule_days': 8,
+            'name': 'Test',
+            'slot_ids': [
+                (0, False, {'weekday': weekday,
+                            'start_hour': 8,
+                            'end_hour': 14,
+                            })
+                for weekday in map(str, range(1, 4))
+            ],
+            'staff_user_ids': [self.staff_user_bxls.id],
+        })
+        first_day = (test_reference_now + timedelta(hours=appointment.min_schedule_hours)).astimezone(pytz.UTC)
+        last_day = (test_reference_now + timedelta(days=appointment.max_schedule_days)).astimezone(pytz.UTC)
+        with freeze_time(test_reference_now):
+            slots = appointment._slots_generate(first_day, last_day, 'UTC')
+
+        for slot in slots:
+            self.assertTrue(
+                first_day < slot['UTC'][0].astimezone(pytz.UTC),
+                "A slot shouldn't be generated before the first_day datetime")
+        self.assertEqual(len(slots), 12)  # 2 days of 5 slots and 2 slots on wednesday
+
+    @users('apt_manager')
+    def test_slots_days_min_schedule_punctual(self):
+        """ Test that slots are generated correctly when min_schedule_hours is 47.0 for punctual appointment.
+        This means that the first returned slots should be on wednesday at 11:36.
+        """
+        test_reference_now = datetime(2022, 2, 14, 11, 45, 0)  # is a Monday
+        appointment = self.env['appointment.type'].create({
+            'appointment_tz': 'UTC',
+            'appointment_duration': 1.2,  # 1h12
+            'category': 'punctual',
+            'min_schedule_hours': 47.0,
+            'max_schedule_days': False,
+            'name': 'Test',
+            'slot_ids': [
+                (0, False, {'weekday': weekday,
+                            'start_hour': 8,
+                            'end_hour': 14,
+                           })
+                for weekday in ['1', '2', '3', '4', '5']
+            ],
+            'start_datetime': datetime(2022, 2, 15, 9, 0, 0),
+            'end_datetime': datetime(2022, 2, 25, 9, 0, 0),
+            'staff_user_ids': [self.staff_user_bxls.id],
+        })
+        with freeze_time(test_reference_now):
+            slots = appointment.sudo()._get_appointment_slots('UTC')
+        slots = self._filter_appointment_slots(slots)
+        self.assertEqual(slots[0]['datetime'], "2022-02-16 11:36:00",
+                         "The first slot should take into account the min schedule hours")
+        self.assertEqual(slots[-1]['datetime'], "2022-02-24 12:48:00")
+
     @users('staff_user_aust')
     def test_timezone_delta(self):
         """ Test timezone delta. Not sure what original test was really doing. """
