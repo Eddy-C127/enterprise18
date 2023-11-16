@@ -98,6 +98,11 @@ class WhatsAppTemplateVariable(models.Model):
     def _onchange_model_id(self):
         self.field_name = False
 
+    @api.onchange('field_type')
+    def _onchange_field_type(self):
+        if self.field_type != 'field':
+            self.field_name = False
+
     def _get_variables_value(self, record):
         value_by_name = {}
         user = self.env.user
