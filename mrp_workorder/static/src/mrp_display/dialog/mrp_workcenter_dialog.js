@@ -1,5 +1,6 @@
 /** @odoo-module */
 
+import { _t } from "@web/core/l10n/translation";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
 import { onWillStart, useState } from "@odoo/owl";
@@ -13,11 +14,13 @@ export class MrpWorkcenterDialog extends ConfirmationDialog {
         disabled: { type: Array, optional: true },
         active: { type: Array, optional: true },
         radioMode: { type: Boolean, default: false, optional: true },
+        showWarning: { type: Boolean, default: false, optional: true },
     };
 
     setup() {
         super.setup();
         this.ormService = useService("orm");
+        this.notification = useService("notification");
         this.workcenters = this.props.workcenters || [];
         this.state = useState({
             activeWorkcenters: this.props.active ? [...this.props.active] : [],
@@ -62,5 +65,16 @@ export class MrpWorkcenterDialog extends ConfirmationDialog {
 
     async _loadWorkcenters() {
         this.workcenters = await this.ormService.searchRead("mrp.workcenter", [], ["display_name"]);
+        if (!this.workcenters.length) {
+            if (this.props.showWarning) {
+                this.notification.add(
+                    _t(
+                        "No workcenters are available, please create one first to add it to the shop floor view"
+                    ),
+                    { type: "warning" }
+                );
+            }
+            this.props.close();
+        }
     }
 }
