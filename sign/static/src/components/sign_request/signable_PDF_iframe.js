@@ -264,7 +264,7 @@ export class SignablePDFIframe extends PDFIframe {
                         this.signerName = signatureName;
                         await frame.updateFrame();
                         const frameData = frame.getFrameImageSrc();
-                        const signatureSrc = `data:${signature.getSignatureImage().join(", ")}`;
+                        const signatureSrc = signature.getSignatureImage();
                         type.auto_value = signatureSrc;
                         type.frame_value = frameData;
                         if (user.userId) {
@@ -297,7 +297,7 @@ export class SignablePDFIframe extends PDFIframe {
                     this.signerName = signatureName;
                     await frame.updateFrame();
                     const frameData = frame.getFrameImageSrc();
-                    const signatureSrc = `data:${signature.getSignatureImage().join(", ")}`;
+                    const signatureSrc = signature.getSignatureImage();
                     type.auto_value = signatureSrc;
                     type.frame_value = frameData;
                     if (user.userId) {
@@ -503,7 +503,9 @@ export class SignablePDFIframe extends PDFIframe {
                 signature,
                 onConfirm: () => {
                     this.signatureInfo.name = signature.name;
-                    this.signatureInfo.signatureValues = signature.getSignatureImage()[1];
+                    this.signatureInfo.signatureValues = signature
+                        .getSignatureImage()
+                        .split(",")[1];
                     this.signatureInfo.frameValues = [];
                     this.signatureInfo.hasNoSignature = false;
                     this.closeDialog();

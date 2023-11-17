@@ -37,10 +37,10 @@ export class SignNameAndSignature extends NameAndSignature {
                     this.signFrame.el.classList.toggle("active", true);
                     return html2canvas(this.signFrame.el, {
                         backgroundColor: null,
-                        width: this.$signatureField.width(),
-                        height: this.$signatureField.height(),
-                        x: -this.$signatureField.width() * xOffset,
-                        y: -this.$signatureField.height() * 0.09,
+                        width: this.signatureRef.el.width,
+                        height: this.signatureRef.el.height,
+                        x: -this.signatureRef.el.width * xOffset,
+                        y: -this.signatureRef.el.height * 0.09,
                     }).then((canvas) => {
                         this.frame = canvas.toDataURL("image/png");
                     });

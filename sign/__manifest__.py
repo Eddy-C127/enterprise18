@@ -105,7 +105,7 @@ Let your customers follow the signature process easily.
             'web/static/src/libs/fontawesome/css/font-awesome.css',
             ('include', 'web._assets_core'),
 
-            'web/static/lib/jquery/jquery.js',  # to be removed when jSignature is replaced
+            'web/static/lib/jquery/jquery.js',
 
             'web/static/lib/popper/popper.js',
             'web/static/lib/bootstrap/js/dist/dom/data.js',

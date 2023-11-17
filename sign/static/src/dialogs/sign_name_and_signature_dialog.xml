@@ -26,7 +26,7 @@
                 <p t-att-hash="props.hash" t-attf-sign_label="Signed with Odoo Sign"/>
             </div>
         </xpath>
-        <xpath expr="//div[hasclass('o_web_sign_signature')]" position="attributes">
+        <xpath expr="//canvas[hasclass('o_web_sign_signature')]" position="attributes">
             <attribute name="t-on-click">onSignatureAreaClick</attribute>
         </xpath>
     </t>
