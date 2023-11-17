@@ -602,15 +602,24 @@ class AccountMoveLine(models.Model):
         parsed_description = ' | '.join(parsed_description.split())
 
         from_clause, where_clause, params = (query if query is not None else self._build_predictive_query()).get_sql()
+        mask_from_clause, mask_where_clause, mask_params = self._build_predictive_query().get_sql()
         try:
+            account_move_line = self.env.cr.mogrify(
+                f"SELECT account_move_line.* FROM {mask_from_clause} WHERE {mask_where_clause}",
+                mask_params,
+            ).decode()
+            group_by_clause = ""
+            if "(" in field:  # aggregate function
+                group_by_clause = "GROUP BY account_move_line.id, account_move_line.name, account_move_line.partner_id"
             self.env.cr.execute(f"""
-                WITH source AS ({'(' + ') UNION ALL ('.join([self.env.cr.mogrify(f'''
+                WITH account_move_line AS MATERIALIZED ({account_move_line}),
+                source AS ({'(' + ') UNION ALL ('.join([self.env.cr.mogrify(f'''
                     SELECT {field} AS prediction,
                            setweight(to_tsvector(%%(lang)s, account_move_line.name), 'B')
                            || setweight(to_tsvector('simple', 'account_move_line'), 'A') AS document
                       FROM {from_clause}
                      WHERE {where_clause}
-                  GROUP BY account_move_line.id
+                  {group_by_clause}
                 ''', params).decode()] + (additional_queries or [])) + ')'}
                 ),
 
