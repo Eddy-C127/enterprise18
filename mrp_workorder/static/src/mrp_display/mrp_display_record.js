@@ -85,6 +85,9 @@ export class MrpDisplayRecord extends Component {
     }
 
     async quickRegisterProduction() {
+        if (this.productionComplete) {
+            return this.registerProduction();
+        }
         const { production } = this.props;
         const qtyToSet = this.productionComplete ? 0 : production.data.product_qty;
         await production.update({ qty_producing: qtyToSet }, { save: true });
