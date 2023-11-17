@@ -71,6 +71,7 @@ export class MrpDisplay extends Component {
                 : this.props.resModel,
             activeWorkcenter: this.props.context.workcenter_id || false,
             workcenters: JSON.parse(localStorage.getItem(this.env.localStorageName)) || [],
+            canLoadSamples: false,
         });
 
         const params = this._makeModelParams();
@@ -114,6 +115,9 @@ export class MrpDisplay extends Component {
             ) {
                 this.toggleWorkcenterDialog();
             }
+            this.state.canLoadSamples = await this.orm.call("mrp.production", "can_load_samples", [
+                [],
+            ]);
         });
         onWillDestroy(async () => {
             await this.processValidationStack(false);
@@ -464,6 +468,16 @@ export class MrpDisplay extends Component {
             this.env.reload();
             this.sortOrderCache.ids = [];
         }
+    }
+    async loadSamples() {
+        this.state.canLoadSamples = "disabled";
+        await this.orm.call("mrp.production", "action_load_samples", [[]]);
+        if (this.groups.workorders) {
+            this.toggleWorkcenter([]);
+            this.toggleWorkcenterDialog();
+        }
+        this.env.reload();
+        this.state.canLoadSamples = false;
     }
 
     demoMORecords = [
