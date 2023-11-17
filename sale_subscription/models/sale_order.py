@@ -1103,6 +1103,10 @@ class SaleOrder(models.Model):
 
     @api.model
     def _cron_recurring_create_invoice(self):
+        deferred_account = self.env.company.deferred_revenue_account_id
+        deferred_journal = self.env.company.deferred_journal_id
+        if not deferred_account or not deferred_journal:
+            raise ValidationError(_("The deferred settings are not properly set. Please complete them to generate subscription deferred revenues"))
         return self._create_recurring_invoice()
 
     def _get_invoiceable_lines(self, final=False):
@@ -1543,11 +1547,17 @@ class SaleOrder(models.Model):
                 self._subscription_commit_cursor(auto_commit)
             # if no transaction or failure, log error, rollback and remove invoice
 
-        except Exception:
+        except Exception as e:
             last_tx_sudo = (self.transaction_ids - existing_transactions).sudo()
-            error_message = (f"Error during renewal of contract {self.ids} "
-                             f"{', '.join(self.mapped(lambda order: order.client_order_ref or order.name))} "
-                             f"({'Payment recorded: %s' % last_tx_sudo.reference if last_tx_sudo and last_tx_sudo.renewal_state in ['pending', 'done'] else 'Payment not recorded'})")
+            if last_tx_sudo and last_tx_sudo.renewal_state in ['pending', 'done']:
+                payment_state = _("Payment recorded: %s", last_tx_sudo.reference)
+            else:
+                payment_state = _("Payment not recorded")
+            error_message = _("Error during renewal of contract %s %s %s",
+                             self.ids,
+                             ', '.join(self.mapped(lambda order: order.client_order_ref or order.name)),
+                             payment_state)
+            error_message = self._get_traceback_body(e, error_message)
             _logger.exception(error_message)
             self._subscription_rollback_cursor(auto_commit)
             mail = Mail.sudo().create([{
@@ -1563,11 +1573,11 @@ class SaleOrder(models.Model):
 
     def _get_traceback_body(self, exc, body):
         if not str2bool(self.env['ir.config_parameter'].sudo().get_param('sale_subscription.full_mail_traceback')):
-            return body
-        return Markup("%s<br><br>%s<br>%s") % (
+            return plaintext2html("%s\n\n%s" % (body, str(exc)))
+        return plaintext2html("%s\n\n%s\n%s" % (
             body,
-            plaintext2html(''.join(traceback.format_tb(exc.__traceback__))),
-            plaintext2html(str(exc)),
+            ''.join(traceback.format_tb(exc.__traceback__)),
+            str(exc)),
         )
 
     def _get_expired_subscriptions(self):

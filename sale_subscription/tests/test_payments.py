@@ -228,7 +228,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', side_effect=Exception("Bad Token")), self.mock_mail_gateway():
             self.subscription._create_recurring_invoice()
         found_mail = self._find_mail_mail_wemail('accountman@test.com', 'sent', author=self.env.user.partner_id)
-        mail_body = "Error during renewal of contract [%s] Customer REF XXXXXXX (Payment not recorded)" % self.subscription.id
+        mail_body = "<p>Error during renewal of contract [%s] Customer REF XXXXXXX Payment not recorded</p><p>Bad Token</p>" % self.subscription.id
         self.assertEqual(found_mail.body_html, mail_body)
 
     @mute_logger('odoo.addons.sale_subscription.models.sale_order')
