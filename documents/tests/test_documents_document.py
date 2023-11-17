@@ -299,7 +299,7 @@ class TestCaseDocuments(TransactionCase):
             'tag_ids': [(6, 0, [])],
             'type': 'domain',
             'date_deadline': '3052-01-01',
-            'action': 'downloadupload',
+            'allow_upload': True,
             'activity_option': True,
             'activity_type_id': self.ref('documents.mail_documents_activity_data_tv'),
             'activity_summary': 'test by Folder with upload and activites',

@@ -60,7 +60,7 @@
         <field name="name">Daily Meeting Notes Share Link</field>
         <field name="folder_id" model="documents.folder" eval="obj().env.ref('project.project_project_1').documents_folder_id.id"/>
         <field name="type">ids</field>
-        <field name="action">download</field>
+        <field name="allow_upload">False</field>
         <field name="document_ids" eval="[
             Command.link(ref('project_1_document_1')),
             Command.link(ref('project_1_document_2')),

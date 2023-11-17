@@ -5,7 +5,7 @@
         <field name="alias_name">inbox-financial</field>
         <field name="type">domain</field>
         <field name="folder_id" ref="documents_finance_folder"/>
-        <field name="action">downloadupload</field>
+        <field name="allow_upload">True</field>
         <field name="tag_ids" eval="[(6,0,[ref('documents_finance_status_inbox')])]"/>
         <field name="email_drop">True</field>
         <field name="activity_option">True</field>
@@ -19,7 +19,7 @@
         <field name="alias_name">inbox</field>
         <field name="type">domain</field>
         <field name="folder_id" ref="documents_internal_folder"/>
-        <field name="action">downloadupload</field>
+        <field name="allow_upload">True</field>
         <field name="tag_ids" eval="[(6,0,[ref('documents_internal_status_inbox')])]"/>
         <field name="email_drop">True</field>
         <field name="activity_option">True</field>

@@ -17,8 +17,8 @@ class DocumentShare(models.Model):
     _description = 'Documents Share'
 
     folder_id = fields.Many2one('documents.folder', string="Workspace", required=True, ondelete='cascade')
-    include_sub_folders = fields.Boolean()
-    name = fields.Char(string="Name")
+    include_sub_folders = fields.Boolean(default=True)
+    name = fields.Char(string="Name", compute="_compute_name", store=True, readonly=False)
 
     access_token = fields.Char(required=True, default=lambda x: str(uuid.uuid4()), groups="documents.group_documents_user")
     full_url = fields.Char(string="URL", compute='_compute_full_url')
@@ -39,10 +39,7 @@ class DocumentShare(models.Model):
     # type == 'domain'
     domain = fields.Char()
 
-    action = fields.Selection([
-        ('download', "Download"),
-        ('downloadupload', "Download and Upload"),
-    ], default='download', string="Allows to", inverse="_inverse_action")
+    allow_upload = fields.Boolean(string="Allow upload", default=False, inverse='_inverse_allow_upload')
     tag_ids = fields.Many2many('documents.tag', string="Shared Tags")
     partner_id = fields.Many2one('res.partner', string="Contact")
     owner_id = fields.Many2one('res.partner', string="Document Owner", default=lambda self: self.env.user.partner_id.id)
@@ -103,7 +100,7 @@ class DocumentShare(models.Model):
             if self.domain:
                 record_domain = literal_eval(self.domain)
             domains.append(record_domain)
-            if self.action == 'download':
+            if not self.allow_upload:
                 domains.append([('type', '!=', 'empty')])
         else:
             share_ids = limited_self.document_ids.ids
@@ -158,6 +155,14 @@ class DocumentShare(models.Model):
         else:
             return documents
 
+    @api.depends('type')
+    def _compute_name(self):
+        for record in self:
+            if record.type == 'ids':
+                record.name = "-".join(record.document_ids.mapped('name'))
+            else:
+                record.name = "-".join([record.folder_id.name, *record.tag_ids.mapped('name')])
+
     def _compute_can_upload(self):
         for record in self:
             folder = record.folder_id
@@ -179,10 +184,10 @@ class DocumentShare(models.Model):
                 if diff_time <= 0:
                     record.state = 'expired'
 
-    @api.depends('action', 'alias_name')
+    @api.depends('allow_upload', 'alias_name')
     def _compute_email_drop(self):
         for record in self:
-            record.email_drop = record.action == 'downloadupload' and bool(record.alias_name)
+            record.email_drop = record.allow_upload and bool(record.alias_name)
 
     @api.depends('access_token')
     def _compute_full_url(self):
@@ -203,11 +208,9 @@ class DocumentShare(models.Model):
                 documents = documents_from_domain.filtered_domain(record._get_documents_domain()[0])
             record.links_count = sum(1 for document in documents if document.type == 'url')
 
-    def _inverse_action(self):
+    def _inverse_allow_upload(self):
         # Prevent the alias from existing if the option is removed
-        for record in self:
-            if record.action != 'downloadupload' and record.alias_name:
-                record.alias_name = False
+        (self - self.filtered('allow_upload')).alias_name = False
 
     def _alias_get_creation_values(self):
         values = super(DocumentShare, self)._alias_get_creation_values()
@@ -228,7 +231,7 @@ class DocumentShare(models.Model):
             'context': context,
             'res_model': 'documents.share',
             'target': 'new',
-            'name': _('Share selected files') if vals.get('type') == 'ids' else _('Share selected workspace'),
+            'name': _('Share documents') if vals.get('type') == 'ids' else _('Share workspace'),
             'res_id': self.id if self else False,
             'type': 'ir.actions.act_window',
             'views': [[view_id, 'form']], 

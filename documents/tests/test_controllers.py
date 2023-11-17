@@ -26,7 +26,7 @@ class TestDocumentsRoutes(HttpCaseWithUserDemo):
             {
                 'folder_id': self.folder_b.id,
                 'type': 'domain',
-                'action': 'downloadupload',
+                'allow_upload': True,
             }
         )
 

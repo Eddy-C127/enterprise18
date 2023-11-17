@@ -32,7 +32,7 @@
             <field name="name">Customer Share Link</field>
             <field name="folder_id" model="documents.folder" eval="obj().search([('name', '=like', 'DOC%')], order='id desc', limit=1)"/>
             <field name="type">domain</field>
-            <field name="action">downloadupload</field>
+            <field name="allow_upload">True</field>
             <field name="include_sub_folders">True</field>
         </record>
 

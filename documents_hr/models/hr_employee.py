@@ -71,7 +71,7 @@ class HrEmployee(models.Model):
                     'name': _('HR Documents: %s', employee.name),
                     'type': 'domain',
                     'domain': "[('owner_id', '=', %s)]" % (employee.user_id.id),
-                    'action': 'download',
+                    'allow_upload': False,
                     'owner_id': employee.user_partner_id.id,
                 })
             if template:

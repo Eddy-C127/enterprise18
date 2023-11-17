@@ -210,6 +210,7 @@ export function useDocumentView(helpers) {
             dialogService.add(
                 FormViewDialog,
                 {
+                    title: act.name,
                     resModel: "documents.share",
                     resId: shareResId,
                     onRecordSaved: async (record) => {

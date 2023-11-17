@@ -391,7 +391,7 @@ class ShareRoute(http.Controller):
         :return if files are uploaded, recalls the share portal with the updated content.
         """
         share = http.request.env['documents.share'].sudo().browse(share_id)
-        if not share.can_upload or (not document_id and share.action != 'downloadupload'):
+        if not share.can_upload or (not document_id and not share.allow_upload):
             return http.request.not_found()
 
         available_documents = share._get_documents_and_check_access(
@@ -480,7 +480,7 @@ class ShareRoute(http.Controller):
                 'name': share.name,
                 'base_url': share.get_base_url(),
                 'token': str(token),
-                'upload': share.action == 'downloadupload',
+                'upload': share.allow_upload,
                 'share_id': str(share.id),
                 'author': share.create_uid.name,
                 'date_deadline': share.date_deadline,
@@ -491,7 +491,7 @@ class ShareRoute(http.Controller):
                 return request.render("documents.document_request_page", options)
             elif share.type == 'domain':
                 options.update(all_button='binary' in [document.type for document in shareable_documents],
-                               request_upload=share.action == 'downloadupload')
+                               request_upload=share.allow_upload)
                 return request.render('documents.share_workspace_page', options)
 
             total_size = sum(document.file_size for document in shareable_documents)

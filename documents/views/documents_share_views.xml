@@ -24,7 +24,7 @@
                 <field name="folder_id"/>
                 <field name="name"/>
                 <field name="type"/>
-                <field name="action"/>
+                <field name="allow_upload"/>
                 <field name="create_uid" widget="many2one_avatar_user"/>
                 <field name="create_date"/>
                 <field name="state" widget="badge" decoration-success="state == 'live'"/>
@@ -46,12 +46,12 @@
                         <field name="can_upload" invisible="1"/>
                         <field name="type" invisible="1"/>
                         <field name="name" placeholder="Name of the share link"/>
-                        <field name="action" widget="radio" invisible="type == 'ids' or not can_upload"/>
+                        <field name="allow_upload" widget="boolean_toggle" invisible="type == 'ids' or not can_upload"/>
                         </group>
                         <group>
                             <field name="date_deadline"/>
-                            <label for="email_drop" invisible="action == 'download'"/>
-                            <div invisible="action == 'download'">
+                            <label for="email_drop" invisible="not allow_upload"/>
+                            <div invisible="not allow_upload">
                                 <field name="email_drop"/>
                                 <div invisible="not email_drop" class="oe_inline">
                                     <div name="alias_def">
@@ -73,7 +73,7 @@
                             <field name="tag_ids" groups="base.group_no_one" widget="many2many_tags" readonly="1" invisible="type == 'ids'"/>
                         </group>
                     </group>
-                    <group string="Default values for uploaded documents" invisible="action == 'download'">
+                    <group string="Default values for uploaded documents" invisible="not allow_upload">
                         <group>
                             <field name="owner_id"/>
                             <field name="partner_id"/>
@@ -125,50 +125,63 @@
                         <field name="document_ids" widget="many2many_tags" readonly="1" options="{'no_edit_color': True}"/>
                     </group>
                     <group invisible="type != 'domain'">
-                        <group>
-                            <label string="Shared" for="folder_id"/>
+                        <label for="folder_id" string="Workspace to share"/>
+                        <div class="o_documents_content d-flex align-items-baseline">
+                            <i class="fa fa fa-folder text-primary me-2" title="Workspace"/>
+                            <div class="me-2">
+                                <field name="folder_id" readonly="1" options="{'no_open': True}" />
+                            </div>
                             <div class="o_documents_content d-flex align-items-baseline">
-                                <i class="fa fa fa-folder text-primary me-2" title="Workspace"/>
-                                <field name="folder_id" readonly="1" options="{'no_open': True}" class="w-100"/>
-                                <i class="fa fa-tag o_documents_tag_color ms-2" invisible="not tag_ids" title="Tags"/>
+                                <i class="fa fa-tag o_documents_tag_color me-2" title="Tags" invisible="not tag_ids" />
                                 <field name="tag_ids" readonly="1" widget="many2many_tags" options="{'no_edit_color': True}"/>
                             </div>
-                        </group>
-                        <group>
-                            <field name="include_sub_folders"/>
-                        </group>
+                        </div>
                     </group>
+                        <group>
+                            <field name="include_sub_folders" groups="base.group_no_one" widget="boolean_toggle" invisible="type == 'ids'"/>
+                        </group>
                     <group>
                         <group>
-                            <field name="name" placeholder="Name of the share link"/>
-                            <field name="action" widget="radio" invisible="type == 'ids' or not can_upload"/>
+                            <field name="name" />
+                            <field name="allow_upload" widget="boolean_toggle" invisible="type == 'ids' or not can_upload" />
+                            <div class="text-muted mb-4 mt-n3 content-group" colspan="2" invisible="type == 'ids' or allow_upload">
+                                Receiver will not be able to upload documents
+                            </div>
+                            <div class="text-muted mb-4 mt-n3 content-group" colspan="2" invisible="type == 'ids' or not allow_upload">
+                                Receiver will be able to upload documents
+                            </div>
                         </group>
                         <group>
                             <field name="date_deadline" placeholder="No limit"/>
                         </group>
                     </group>
-                    <group string="Upload by email" invisible="action != 'downloadupload'">
-                        <div class="content-group" invisible="alias_domain_id" colspan="2">
+                    <group invisible="not allow_upload">
+                        <group>
+                            <field name="owner_id" string="Default owner"/>
+                            <field name="partner_id" string="Default contact"/>
+                        </group>
+                    </group>
+                    <group invisible="not allow_upload">
+                        <label for="email_drop" string="Upload by Email" class="mb-2"/>
+                        <div class="o_row">
+                            <field name="email_drop" widget='checkbox' class="flex-grow-0 me-3"/>
                             <button name="%(settings_action)d" icon="oi-arrow-right" type="action"
-                                    string="Choose or Configure Email Servers" class="btn btn-sm btn-link"/>
+                                string="Choose or Configure Email Servers" class="btn btn-sm btn-link"
+                                invisible="not email_drop or alias_domain_id"/>
                         </div>
-                        <label for="alias_name" string="Email Alias"/>
-                        <span class="oe_edit_only" dir="ltr">
+                        <div class="text-muted mb-4 mt-n3 content-group" colspan="2" invisible="not email_drop">Upload documents sent to this email in workspace</div>
+                        <div class="text-muted mb-4 mt-n3 content-group" colspan="2" invisible="email_drop">Enable to upload documents sent by email in workspace</div>
+                        <label for="alias_name" string="Email Alias" invisible="not email_drop or not alias_domain_id"/>
+                        <span class="oe_edit_only" dir="ltr" invisible="not email_drop or not alias_domain_id">
                             <field name="alias_name" placeholder="alias" class="oe_inline"/>@
                             <field name="alias_domain_id" class="oe_inline" placeholder="e.g. mycompany.com"
                                    options="{'no_create': True, 'no_open': True}"/>
                         </span>
                     </group>
-                    <group string="Default values for uploaded documents" invisible="action == 'download'">
-                        <group>
-                            <field name="owner_id"/>
-                            <field name="partner_id"/>
-                        </group>
-                        <group>
-                            <field name="activity_option"/>
-                        </group>
+                    <group invisible="not allow_upload">
+                        <field name="activity_option"/>
                     </group>
-                    <group string="Activity" name="next_activity" autofocus="autofocus" invisible="not activity_option">
+                    <group name="next_activity" autofocus="autofocus" invisible="not activity_option">
                         <group>
                             <field name="activity_type_id" options="{'no_create': True, 'no_open': True}" required="activity_option"/>
                             <field name="activity_summary" placeholder="e.g. Discuss proposal"/>
@@ -183,8 +196,8 @@
                         </group>
                     </group>
                     <footer>
-                        <button special="save" data-hotkey="q" string="Share" class="btn btn-primary"/>
-                        <button special="cancel" string="Discard" class="btn btn-secondary" data-hotkey="x"/>
+                        <button special="save" data-hotkey="q" string="copy link &amp; close" class="btn btn-primary text-uppercase"/>
+                        <button special="cancel" string="cancel" class="btn btn-secondary text-uppercase" data-hotkey="x"/>
                     </footer>
                 </sheet>
             </form>
