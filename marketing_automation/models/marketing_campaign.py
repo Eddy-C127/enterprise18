@@ -426,19 +426,18 @@ class MarketingCampaign(models.Model):
 
     def _prepare_ir_actions_server_partner_tag_data(self):
         # Add the "Hot" category on partners who will click on a mail sent to them.
+        self._create_records_with_xml_ids({'res.partner.category': [self._prepare_res_partner_category_tag_hot_data()]})
+        hot_id = self.env.ref('marketing_automation.res_partner_category_tag_hot', raise_if_not_found=False).id
         return {
             'xml_id': 'marketing_automation.ir_actions_server_partner_tag',
             'values': {
                 'name': _('Add Hot Category'),
                 'model_id': self.env['ir.model']._get_id('res.partner'),
-                'state': 'code',
-                'code':
-"""
-contact = env['res.partner'].search([('id', '=', record.id)])
-new_tag = env.ref('marketing_automation.res_partner_category_tag_hot', raise_if_not_found=False)
-if new_tag:
-    records.write({'category_id': [(4, new_tag.id)]})
-"""
+                'update_field_id': self.env["ir.model.fields"]._get_ids('res.partner')['category_id'],
+                'update_path': 'category_id',
+                'evaluation_type': 'value',
+                'resource_ref': f'res.partner.category,{hot_id}',
+                'value': str(hot_id)
             }
         }
 
@@ -513,16 +512,13 @@ for record in records:
         for model_name, values in create_xmls.items():
             for record in values:
                 module, name = record['xml_id'].split('.')
-
-                try:
-                    record = self.env.ref(f'{module}.{name}')
-                except ValueError:
-                    record = self.env[model_name].create(record['values'])
+                if not self.env.ref(f'{module}.{name}', raise_if_not_found=False):
+                    created_record = self.env[model_name].create(record['values'])
                     self.env['ir.model.data'].create({
                         'name': name,
                         'module': module,
                         'model': model_name,
-                        'res_id': record.id,
+                        'res_id': created_record.id,
                     })
 
     # --------------------------------------
@@ -570,14 +566,12 @@ for record in records:
                 'description': _('Send an email to new recipients to confirm their consent.'),
                 'icon': '/marketing_automation/static/img/square-check.svg',
                 'function': '_get_marketing_template_double_opt_in_values'
-
             },
             'commercial_prospection': {
                 'title': _('Commercial prospection'),
                 'description': _('Send a free catalog and follow-up according to reactions.'),
                 'icon': '/marketing_automation/static/img/search.svg',
                 'function': '_get_marketing_template_commercial_prospection_values'
-
             },
         }
 
@@ -601,20 +595,15 @@ for record in records:
                 'mailing_type': 'mail',
             }],
         }
-
-        create_xmls = {
-            'res.partner.category': [self._prepare_res_partner_category_tag_hot_data()],
-            'ir.actions.server': [
-                self._prepare_ir_actions_server_partner_tag_data(),
-                self._prepare_ir_actions_server_partner_todo_data()
-            ]
-        }
-        self._create_records_with_xml_ids(create_xmls)
-
         for model_name, values in prerequisites.items():
             records = self.env[model_name].create(values)
             for idx, record in enumerate(records):
                 prerequisites[model_name][idx] = record
+
+        self._create_records_with_xml_ids({
+            'ir.actions.server': [self._prepare_ir_actions_server_partner_tag_data(),
+                                  self._prepare_ir_actions_server_partner_todo_data()]
+        })
 
         campaign = self.env['marketing.campaign'].create({
             'name': _('Tag Hot Contacts'),
