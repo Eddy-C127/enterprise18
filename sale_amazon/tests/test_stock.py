@@ -19,9 +19,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
         super().setUp()
 
         # Create sales order
-        partner = self.env['res.partner'].create({
-            'name': "Gederic Frilson",
-        })
+        partner = self.env['res.partner'].create({'name': "Gederic Frilson"})
         amazon_offer = self.account._find_or_create_offer(
             'test SKU', self.account.base_marketplace_id
         )
@@ -62,7 +60,8 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
 
         with patch(
             'odoo.addons.sale_amazon.models.stock_picking.StockPicking'
-            '._check_sales_order_line_completion', new=Mock()
+            '._check_sales_order_line_completion',
+            new=Mock(),
         ) as mock:
             self.picking.date_done = fields.Datetime.now()  # Trigger the check for SOL completion
             self.assertEqual(
@@ -104,7 +103,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
     def test_check_carrier_details_compliance_no_carrier(self):
         """ Test the validation of a picking when the delivery carrier is not set. """
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -119,8 +118,8 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
@@ -146,7 +145,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
     def test_check_carrier_details_compliance_intermediate_delivery_step(self):
         """ Test the validation of a picking when the delivery is in an intermediate step."""
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -161,8 +160,8 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
@@ -188,7 +187,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
     def test_check_carrier_details_compliance_no_tracking_number(self):
         """ Test the validation of a picking when the tracking reference is not set. """
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -203,8 +202,8 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
@@ -229,7 +228,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
     def test_check_carrier_details_compliance_requirements_met_in_last_step_delivery(self):
         """ Test the validation of a picking when the delivery carrier and tracking ref are set. """
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -244,8 +243,8 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
@@ -290,11 +289,9 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return response_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
-            'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
-        ):
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
+        ), patch('odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock):
             self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
 
             # Set up the test pickings
@@ -346,11 +343,9 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return response_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
-            'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
-        ):
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
+        ), patch('odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock):
             self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
 
             # Set up the test pickings
@@ -381,10 +376,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
         self.picking.amazon_sync_status = 'error'
         with patch(
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._sync_order_by_reference',
-        ), patch(
-                'odoo.addons.sale_amazon.utils.submit_feed',
-                return_value='Mock feed ID',
-        ):
+        ), patch('odoo.addons.sale_amazon.utils.submit_feed', return_value='Mock feed ID'):
             self.picking.action_retry_amazon_sync()
         msg = "Picking with Amazon sync status not updated in the sync order should be re-submitted"
         self.assertEqual(self.picking.amazon_sync_status, 'processing', msg=msg)

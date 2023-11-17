@@ -17,8 +17,9 @@ class TestAmazon(common.TestAmazonCommon):
         """ Test the available marketplaces synchronization with no change. """
         marketplaces = self.env['amazon.marketplace'].search([])
         with patch(
-                'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount'
-                '._get_available_marketplaces', return_value=marketplaces
+            'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount'
+            '._get_available_marketplaces',
+            return_value=marketplaces,
         ):
             self.account.write({
                 'available_marketplace_ids': [(6, 0, marketplaces.ids)],
@@ -33,8 +34,9 @@ class TestAmazon(common.TestAmazonCommon):
         """ Test the available marketplaces synchronization with a marketplace removal. """
         marketplaces = self.env['amazon.marketplace'].search([], limit=2)
         with patch(
-                'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount'
-                '._get_available_marketplaces', return_value=marketplaces[:1]
+            'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount'
+            '._get_available_marketplaces',
+            return_value=marketplaces[:1],
         ):
             self.account.write({
                 'available_marketplace_ids': [(6, 0, marketplaces.ids)],
@@ -54,8 +56,9 @@ class TestAmazon(common.TestAmazonCommon):
         """ Test the available marketplaces synchronization with a new marketplace. """
         marketplaces = self.env['amazon.marketplace'].search([], limit=2)
         with patch(
-                'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount'
-                '._get_available_marketplaces', return_value=marketplaces
+            'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount'
+            '._get_available_marketplaces',
+            return_value=marketplaces,
         ):
             self.account.write({
                 'available_marketplace_ids': [(6, 0, marketplaces.ids[:1])],
@@ -74,7 +77,7 @@ class TestAmazon(common.TestAmazonCommon):
         """ Test the orders synchronization with on-the-fly creation of all required records. """
 
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -89,8 +92,8 @@ class TestAmazon(common.TestAmazonCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
@@ -183,8 +186,8 @@ class TestAmazon(common.TestAmazonCommon):
             return response_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ):
@@ -211,8 +214,8 @@ class TestAmazon(common.TestAmazonCommon):
                 raise amazon_utils.AmazonRateLimitError(operation_)
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ):
@@ -230,8 +233,8 @@ class TestAmazon(common.TestAmazonCommon):
     def test_sync_orders_abort(self):
         """ Test the orders synchronization cancellation with no active marketplace. """
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ):
             self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             last_order_sync_copy = self.account.last_orders_sync
@@ -263,7 +266,7 @@ class TestAmazon(common.TestAmazonCommon):
                 return base_response_
 
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -278,8 +281,8 @@ class TestAmazon(common.TestAmazonCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ), patch(
@@ -302,7 +305,7 @@ class TestAmazon(common.TestAmazonCommon):
 
     @mute_logger('odoo.addons.sale_amazon.models.amazon_account')
     def test_sync_orders_europe(self):
-        """ Test the orders synchronization with an European marketplace. """
+        """ Test the orders synchronization with a European marketplace. """
 
         def get_sp_api_response_mock(_account, operation_, **_kwargs):
             """ Return a mocked response without making an actual call to the SP-API. """
@@ -317,7 +320,7 @@ class TestAmazon(common.TestAmazonCommon):
             return response_
 
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -332,8 +335,8 @@ class TestAmazon(common.TestAmazonCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ), patch(
@@ -395,8 +398,8 @@ class TestAmazon(common.TestAmazonCommon):
                 return base_response_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ):
@@ -435,8 +438,8 @@ class TestAmazon(common.TestAmazonCommon):
             return response_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ):
@@ -541,7 +544,7 @@ class TestAmazon(common.TestAmazonCommon):
         self.account.synchronize_inventory = False
         with patch(
             'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK
+            return_value=common.AWS_RESPONSE_MOCK,
         ) as mock:
             self.assertEqual(self.account.offer_ids, self.offer)
             self.assertEqual(self.offer.amazon_sync_status, False)
@@ -560,7 +563,7 @@ class TestAmazon(common.TestAmazonCommon):
         self.account.synchronize_inventory = True
         with patch(
             'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch('odoo.addons.sale_amazon.utils.submit_feed', return_value='An_amazing_id') as mock:
             self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             self.assertEqual(self.account.offer_ids, self.offer)
@@ -578,8 +581,8 @@ class TestAmazon(common.TestAmazonCommon):
     def test_sync_pickings(self):
         """ Test the pickings confirmation synchronization. """
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK
+            'odoo.addons.sale_amazon.utils.make_proxy_request',
+            return_value=common.AWS_RESPONSE_MOCK,
         ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda account_, operation_, **_kwargs: common.OPERATIONS_RESPONSES_MAP[operation_],
@@ -615,8 +618,7 @@ class TestAmazon(common.TestAmazonCommon):
     def test_find_matching_product_use_fallback(self):
         """ Test the product search failure with use of the fallback. """
         default_product = self.env['product.product'].create({
-            'name': "Default Name",
-            'type': 'consu',
+            'name': "Default Name", 'type': 'consu'
         })
         self.env['ir.model.data'].create({
             'module': 'sale_amazon',
@@ -631,8 +633,7 @@ class TestAmazon(common.TestAmazonCommon):
     def test_find_matching_product_regen_fallback(self):
         """ Test the product search failure with regeneration of the fallback. """
         default_product = self.env['product.product'].create({
-            'name': "Default Name",
-            'type': 'consu',
+            'name': "Default Name", 'type': 'consu',
         })
         self.env['ir.model.data'].create({
             'module': 'sale_amazon',
@@ -659,29 +660,23 @@ class TestAmazon(common.TestAmazonCommon):
 
     def test_get_pricelist_search(self):
         """ Test the pricelist search. """
-        currency = self.env['res.currency'].create({
-            'name': 'TEST',
-            'symbol': 'T',
-        })
+        currency = self.env['res.currency'].create({'name': 'TEST', 'symbol': 'T'})
         self.env['product.pricelist'].create({
             'name': 'Amazon Pricelist %s' % currency.name,
             'active': False,
             'currency_id': currency.id,
         })
-        pricelists_count = self.env['product.pricelist'].with_context(
-            active_test=False).search_count([])
+        pricelist = self.env['product.pricelist']
+        pricelists_count = pricelist.with_context(active_test=False).search_count([])
         self.assertTrue(self.account._find_or_create_pricelist(currency))
         self.assertEqual(self.env['product.pricelist'].with_context(
             active_test=False).search_count([]), pricelists_count)
 
     def test_get_pricelist_creation(self):
         """ Test the pricelist creation. """
-        currency = self.env['res.currency'].create({
-            'name': 'TEST',
-            'symbol': 'T',
-        })
-        pricelists_count = self.env['product.pricelist'].with_context(
-            active_test=False).search_count([])
+        currency = self.env['res.currency'].create({'name': 'TEST', 'symbol': 'T'})
+        pricelist = self.env['product.pricelist']
+        pricelists_count = pricelist.with_context(active_test=False).search_count([])
         pricelist = self.account._find_or_create_pricelist(currency)
         self.assertEqual(self.env['product.pricelist'].with_context(
             active_test=False).search_count([]), pricelists_count + 1)
@@ -691,9 +686,8 @@ class TestAmazon(common.TestAmazonCommon):
     def test_get_partners_no_creation_same_partners(self):
         """ Test the partners search with contact as delivery. """
         with patch(
-                'odoo.addons.sale_amazon.utils.make_sp_api_request',
-                new=lambda account_, operation_, **kwargs: common.OPERATIONS_RESPONSES_MAP[
-                    operation_],
+            'odoo.addons.sale_amazon.utils.make_sp_api_request',
+            new=lambda account_, operation_, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation_],
         ):
             country_id = self.env['res.country'].search([('code', '=', 'US')], limit=1).id
             self.env['res.partner'].create({
@@ -777,7 +771,7 @@ class TestAmazon(common.TestAmazonCommon):
                 return base_response_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
+            'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ):
             self.env['res.partner'].create({
                 'name': 'Gederic Frilson',
@@ -802,9 +796,8 @@ class TestAmazon(common.TestAmazonCommon):
     def test_get_partners_creation_contact(self):
         """ Test the partners search with creation of the contact. """
         with patch(
-                'odoo.addons.sale_amazon.utils.make_sp_api_request',
-                new=lambda account_, operation_, **kwargs: common.OPERATIONS_RESPONSES_MAP[
-                    operation_],
+            'odoo.addons.sale_amazon.utils.make_sp_api_request',
+            new=lambda account_, operation_, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation_],
         ):
             partners_count = self.env['res.partner'].search_count([])
             order_data = common.OPERATIONS_RESPONSES_MAP['getOrders']['payload']['Orders'][0]
