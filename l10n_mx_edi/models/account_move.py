@@ -863,7 +863,10 @@ class AccountMove(models.Model):
 
         # Payment terms.
         cfdi_values['metodo_pago'] = self.l10n_mx_edi_payment_policy
-        cfdi_values['forma_pago'] = (self.l10n_mx_edi_payment_method_id.code or '').replace('NA', '99')
+        if cfdi_values['metodo_pago'] == 'PPD':
+            cfdi_values['forma_pago'] = '99'
+        else:
+            cfdi_values['forma_pago'] = (self.l10n_mx_edi_payment_method_id.code or '').replace('NA', '99')
         cfdi_values['condiciones_de_pago'] = self.invoice_payment_term_id.name
 
         # Currency.
@@ -1098,10 +1101,9 @@ class AccountMove(models.Model):
         ]
 
         # Cleanup attributes for Exento taxes.
-        for key in ('retenciones_list', 'traslados_list'):
-            for tax_values in cfdi_values[key]:
-                if tax_values['tipo_factor'] == 'Exento':
-                    tax_values['importe'] = None
+        for tax_values in cfdi_values['traslados_list']:
+            if tax_values['tipo_factor'] == 'Exento':
+                tax_values['importe'] = None
 
     # -------------------------------------------------------------------------
     # CFDI: DOCUMENTS
