@@ -77,78 +77,55 @@ class TestCFDIInvoice(TestMxEdiCommon):
         self._assert_invoice_cfdi(invoice, 'test_invoice_national_customer_to_public')
 
     @freeze_time('2017-01-01')
-    def test_invoice_no_tax_breakdown(self):
-        self.partner_mx.l10n_mx_edi_no_tax_breakdown = True
-        invoice = self._create_invoice()
-        with self.with_mocked_pac_sign_success():
-            invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_no_tax_breakdown')
-
-    @freeze_time('2017-01-01')
-    def test_invoice_group_of_taxes(self):
-        tax_group = self.env['account.tax'].create({
-            'name': 'tax_group',
-            'amount_type': 'group',
-            'amount': 0.0,
-            'type_tax_use': 'sale',
-            'children_tax_ids': [Command.set((self.tax_16 + self.tax_10_negative).ids)],
-        })
-
-        invoice = self._create_invoice(
-            invoice_line_ids=[
-                Command.create({
+    def test_invoice_taxes(self):
+        def create_invoice(taxes_list, l10n_mx_edi_cfdi_to_public=False):
+            invoice_line_ids = []
+            for i, taxes in enumerate(taxes_list, start=1):
+                invoice_line_ids.append(Command.create({
                     'product_id': self.product.id,
-                    'price_unit': 2000.0,
+                    'price_unit': 1000.0 * i,
                     'quantity': 5,
                     'discount': 20.0,
-                    'tax_ids': [Command.set(tax_group.ids)],
-                }),
-            ],
-        )
-        with self.with_mocked_pac_sign_success():
-            invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_group_of_taxes')
-
-    @freeze_time('2017-01-01')
-    def test_invoice_tax_price_included(self):
-        tax_16_incl = self.env['account.tax'].create({
-            'name': 'tax_16',
-            'amount_type': 'percent',
-            'amount': 16,
-            'type_tax_use': 'sale',
-            'l10n_mx_factor_type': 'Tasa',
-            'l10n_mx_tax_type': 'iva',
-            'price_include': True,
-            'include_base_amount': True,
-        })
-
-        invoice = self._create_invoice(
-            invoice_line_ids=[
-                Command.create({
+                    'tax_ids': [Command.set(taxes.ids)],
+                }))
+                # Full discounted line:
+                invoice_line_ids.append(Command.create({
                     'product_id': self.product.id,
-                    'quantity': 2,
-                    'price_unit': 1160.0,
-                    'tax_ids': [Command.set(tax_16_incl.ids)],
-                }),
-            ],
-        )
-        with self.with_mocked_pac_sign_success():
-            invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_tax_price_included')
-
-    @freeze_time('2017-01-01')
-    def test_invoice_full_discount_line(self):
-        invoice = self._create_invoice(
-            invoice_line_ids=[
-                Command.create({
-                    'product_id': self.product.id,
+                    'price_unit': 1000.0 * i,
                     'discount': 100.0,
-                }),
-            ],
-        )
-        with self.with_mocked_pac_sign_success():
-            invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_full_discount_line')
+                    'tax_ids': [Command.set(taxes.ids)],
+                }))
+            return self._create_invoice(
+                invoice_line_ids=invoice_line_ids,
+                l10n_mx_edi_cfdi_to_public=l10n_mx_edi_cfdi_to_public,
+            )
+
+        for index, taxes_list in enumerate(self.existing_taxes_combinations_to_test, start=1):
+            # Test the invoice CFDI.
+            self.partner_mx.l10n_mx_edi_no_tax_breakdown = False
+            invoice = create_invoice(taxes_list)
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_invoice_try_send()
+            self._assert_invoice_cfdi(invoice, f'test_invoice_taxes_{index}_invoice')
+
+            # Test the payment CFDI.
+            payment = self._create_payment(invoice)
+            with self.with_mocked_pac_sign_success():
+                payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
+            self._assert_invoice_payment_cfdi(payment.move_id, f'test_invoice_taxes_{index}_payment')
+
+            # Test the global invoice CFDI.
+            invoice = create_invoice(taxes_list, l10n_mx_edi_cfdi_to_public=True)
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_global_invoice_try_send()
+            self._assert_global_invoice_cfdi_from_invoices(invoice, f'test_invoice_taxes_{index}_ginvoice')
+
+            # Test the invoice with no tax breakdown.
+            self.partner_mx.l10n_mx_edi_no_tax_breakdown = True
+            invoice = create_invoice(taxes_list)
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_invoice_try_send()
+            self._assert_invoice_cfdi(invoice, f'test_invoice_taxes_{index}_invoice_no_tax_breakdown')
 
     @freeze_time('2017-01-01')
     def test_invoice_addenda(self):
@@ -248,120 +225,6 @@ class TestCFDIInvoice(TestMxEdiCommon):
         self._assert_invoice_cfdi(invoice, 'test_invoice_tax_rounding')
 
     @freeze_time('2017-01-01')
-    def test_invoice_tax_objected_no_tax(self):
-        invoice = self._create_invoice(
-            invoice_line_ids=[
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'tax_ids': [],
-                }),
-            ],
-        )
-        with self.with_mocked_pac_sign_success():
-            invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_tax_objected_no_tax')
-
-    @freeze_time('2017-01-01')
-    def test_invoice_tax_objected_with_taxes(self):
-        invoice = self._create_invoice(
-            invoice_line_ids=[
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'tax_ids': [],
-                }),
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'discount': 100.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-            ],
-        )
-        with self.with_mocked_pac_sign_success():
-            invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_tax_objected_with_taxes')
-
-    @freeze_time('2017-01-01')
-    def test_invoice_tax_objected_tax_exempted(self):
-        self.partner_mx.l10n_mx_edi_no_tax_breakdown = True
-        invoice = self._create_invoice(
-            invoice_line_ids=[
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'tax_ids': [],
-                }),
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'discount': 100.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-            ],
-        )
-        with self.with_mocked_pac_sign_success():
-            invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_tax_objected_tax_exempted')
-
-    @freeze_time('2017-01-01')
-    def test_invoice_tax_0_exento(self):
-        invoice = self._create_invoice(
-            invoice_line_ids=[
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'tax_ids': [Command.set(self.tax_0_exento.ids)],
-                }),
-            ],
-        )
-        with self.with_mocked_pac_sign_success():
-            invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_tax_0_exento_1')
-
-        payment = self._create_payment(invoice)
-        with self.with_mocked_pac_sign_success():
-            payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
-        self._assert_invoice_payment_cfdi(
-            payment.move_id,
-            'test_invoice_tax_0_exento_2',
-        )
-
-    @freeze_time('2017-01-01')
-    def test_invoice_tax_0_tasa(self):
-        invoice = self._create_invoice(
-            invoice_line_ids=[
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'tax_ids': [Command.set(self.tax_0.ids)],
-                }),
-            ],
-        )
-        with self.with_mocked_pac_sign_success():
-            invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_tax_0_tasa_1')
-
-        payment = self._create_payment(invoice)
-        with self.with_mocked_pac_sign_success():
-            payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
-        self._assert_invoice_payment_cfdi(
-            payment.move_id,
-            'test_invoice_tax_0_tasa_2',
-        )
-
-    @freeze_time('2017-01-01')
     def test_invoice_company_branch(self):
         self.env.company.write({
             'child_ids': [Command.create({
@@ -377,109 +240,6 @@ class TestCFDIInvoice(TestMxEdiCommon):
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_invoice_try_send()
         self._assert_invoice_cfdi(invoice, 'test_invoice_company_branch')
-
-    @freeze_time('2017-01-05')
-    def test_global_invoice(self):
-        invoice1 = self._create_invoice(
-            l10n_mx_edi_cfdi_to_public=True,
-            invoice_date_due='2017-02-01',
-            invoice_date='2017-01-02',
-            date='2017-01-02',
-            l10n_mx_edi_payment_method_id=self.payment_method_efectivo.id,
-            invoice_line_ids=[
-                Command.create({
-                    # untaxed: 1000.0
-                    # tax: 0.0
-                    'product_id': self.product.id,
-                    'tax_ids': [],
-                }),
-                # Both following lines will be aggregated:
-                Command.create({
-                    # untaxed: 8000.0
-                    # tax: 1280.0
-                    'product_id': self.product.id,
-                    'price_unit': 2000.0,
-                    'quantity': 5,
-                    'discount': 20.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-                Command.create({
-                    # untaxed: 10000.0
-                    # tax: 1600.0
-                    'product_id': self.product.id,
-                    'quantity': 10,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-            ],
-        )
-        invoice2 = self._create_invoice(
-            l10n_mx_edi_cfdi_to_public=True,
-            invoice_date_due='2017-03-01',
-            invoice_date='2017-01-03',
-            date='2017-01-05',
-            l10n_mx_edi_payment_method_id=self.payment_method_efectivo.id,
-            invoice_line_ids=[
-                Command.create({
-                    # untaxed: 1800.0
-                    # tax: 288.0
-                    'product_id': self.product.id,
-                    'quantity': 2,
-                    'discount': 10.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-                Command.create({
-                    # untaxed: 1000.0
-                    # tax: 0.0
-                    'product_id': self.product.id,
-                    'tax_ids': [Command.set(self.tax_0_exento.ids)],
-                }),
-                Command.create({
-                    # untaxed: 1000.0
-                    # tax: 80.0
-                    'product_id': self.product.id,
-                    'tax_ids': [Command.set(self.tax_8_ieps.ids)],
-                }),
-                Command.create({
-                    # untaxed: 1000.0
-                    # tax: 80.0
-                    'product_id': self.product.id,
-                    'tax_ids': [Command.set((self.tax_0_exento + self.tax_8_ieps).ids)],
-                }),
-            ],
-        )
-        invoices = invoice1 + invoice2
-
-        with self.with_mocked_pac_sign_success():
-            invoices._l10n_mx_edi_cfdi_global_invoice_try_send()
-        self._assert_global_invoice_cfdi_from_invoices(invoices, 'test_global_invoice')
-
-    @freeze_time('2017-01-05')
-    def test_global_invoice_0_iva_tax_only(self):
-        invoice1 = self._create_invoice(
-            l10n_mx_edi_cfdi_to_public=True,
-            l10n_mx_edi_payment_method_id=self.payment_method_efectivo.id,
-            invoice_line_ids=[
-                Command.create({
-                    'product_id': self.product.id,
-                    'tax_ids': [Command.set(self.tax_0.ids)],
-                }),
-            ],
-        )
-        invoice2 = self._create_invoice(
-            l10n_mx_edi_cfdi_to_public=True,
-            l10n_mx_edi_payment_method_id=self.payment_method_efectivo.id,
-            invoice_line_ids=[
-                Command.create({
-                    'product_id': self.product.id,
-                    'tax_ids': [Command.set(self.tax_0.ids)],
-                }),
-            ],
-        )
-        invoices = invoice1 + invoice2
-
-        with self.with_mocked_pac_sign_success():
-            invoices._l10n_mx_edi_cfdi_global_invoice_try_send()
-        self._assert_global_invoice_cfdi_from_invoices(invoices, 'test_global_invoice_0_iva_tax_only')
 
     @freeze_time('2017-01-01')
     def test_invoice_then_refund(self):
