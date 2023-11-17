@@ -108,7 +108,7 @@ export class MrpDisplay extends Component {
                 JSON.parse(localStorage.getItem(this.env.localStorageName)) === null &&
                 this.group_mrp_routings
             ) {
-                this.toggleWorkcenterDialog();
+                this.toggleWorkcenterDialog(false);
             }
             this.state.canLoadSamples = await this.orm.call("mrp.production", "can_load_samples", [
                 [],
@@ -372,13 +372,14 @@ export class MrpDisplay extends Component {
         }
     }
 
-    toggleWorkcenterDialog() {
+    toggleWorkcenterDialog(showWarning = true) {
         const params = {
             title: _t("Select Work Centers for this station"),
             confirm: this.toggleWorkcenter.bind(this),
             disabled: [],
             active: this.state.workcenters.map((wc) => wc.id),
             radioMode: false,
+            showWarning: showWarning,
         };
         this.dialogService.add(MrpWorkcenterDialog, params);
     }

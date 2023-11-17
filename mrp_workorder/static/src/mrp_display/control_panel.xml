@@ -17,7 +17,7 @@
             </t>
         </div>
         <div class="position-sticky top-0 end-0 bg-view">
-            <button class="btn btn-light fa fa-plus" t-on-click="this.props.toggleWorkcenter"/>
+            <button class="btn btn-light fa fa-plus" t-on-click="() => {this.props.toggleWorkcenter();}"/>
         </div>
     </div>
     </t>
