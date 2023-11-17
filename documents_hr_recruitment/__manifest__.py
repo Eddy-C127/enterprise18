@@ -19,6 +19,9 @@ Add the ability to manage resumés and letters from the Documents app.
         'data/res_company_data.xml',
         'views/res_config_settings_views.xml',
     ],
+    'demo': [
+        'data/documents_demo.xml'
+    ],
     'installable': True,
     'auto_install': True,
     'license': 'OEEL-1',
