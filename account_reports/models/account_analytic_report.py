@@ -215,7 +215,7 @@ class AccountReport(models.AbstractModel):
                 # Replace the 'analytic_distribution' by the account_id domain as we expect for analytic lines.
                 elif field == 'analytic_distribution':
                     account_ids = tuple(int(account_id) for account_id in column_group_options.get('analytic_accounts_list', []))
-                    expression = [('account_id', 'in', account_ids)]
+                    expression = [('auto_account_id', 'in', account_ids)]
                 # For other fields not present in on the analytic line model, map them to get the info from the move_line.
                 # Or ignore these conditions if there is no move lines.
                 elif field.split('.')[0] not in AccountAnalyticLine._fields:
