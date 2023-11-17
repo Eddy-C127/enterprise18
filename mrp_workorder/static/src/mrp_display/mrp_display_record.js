@@ -359,11 +359,13 @@ export class MrpDisplayRecord extends Component {
                 As the props are not yet updated with the new checks, we need to use this hack
                 to get the updated next check from the env model.
              */
-            const MOChecks = this.env.model.root.records.find(
-                (r) => r.resId === this.props.production.resId
-            ).data.check_ids.records;
-            const nextCheckId = MOChecks.find((r) => r.resId === this.lastOpenedQualityCheck.resId).data.next_check_id[0];
-            return this.displayInstruction(MOChecks.find((r) => r.resId === nextCheckId));
+            const WOChecks = this.env.model.root.records
+                .find((r) => r.resId === this.props.production.resId)
+                .data.workorder_ids.records.find((wo) => wo.resId === this.props.record.resId).data
+                .check_ids.records;
+            const nextCheckId = WOChecks.find((r) => r.resId === this.lastOpenedQualityCheck.resId)
+                .data.next_check_id[0];
+            return this.displayInstruction(WOChecks.find((r) => r.resId === nextCheckId));
         }
         // Show the next Quality Check only if the previous one is passed.
         if (qualityState === "pass") {
