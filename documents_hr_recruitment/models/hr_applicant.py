@@ -32,7 +32,7 @@ class HrApplicant(models.Model):
             'domain': [('res_model', '=', 'hr.applicant'), ('res_id', 'in', self.ids)],
             'context': {
                 'searchpanel_default_folder_id': self._get_document_folder().id,
-                'default_res_model': 'hr.job',
+                'default_res_model': 'hr.applicant',
                 'default_res_id': self.ids[0],
             },
         }
