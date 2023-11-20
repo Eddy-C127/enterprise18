@@ -162,6 +162,29 @@
             <field name="domain_force">[('request_id.request_status', 'in', ['new', 'pending', 'cancel'])]</field>
         </record>
 
+        <!-- Approval Administrator -->
+        <record id="approval_request_manager" model="ir.rule">
+            <field name="name">Approval Request: manager</field>
+            <field name="model_id" ref="model_approval_request"/>
+            <field name="groups" eval="[(4, ref('group_approval_manager'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+        <record id="approval_approver_manager" model="ir.rule">
+            <field name="name">Approval Approver: manager</field>
+            <field name="model_id" ref="model_approval_approver"/>
+            <field name="groups" eval="[(4, ref('group_approval_manager'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
         <!-- Multi-company rules -->
         <record model="ir.rule" id="approval_request_rule">
             <field name="name">approval_request multi-company</field>
