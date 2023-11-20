@@ -62,9 +62,12 @@ class TestUi(odoo.tests.HttpCase, SignRequestCommon):
         self.start_tour("/web", "sign_template_creation_tour", login="admin")
 
         self.assertEqual(blank_template.name, 'filled_template', 'The tour should have changed the template name')
-        self.assertEqual(len(blank_template.sign_item_ids), 2)
+        self.assertEqual(len(blank_template.sign_item_ids), 3)
         self.assertEqual(blank_template.responsible_count, 2)
-        self.assertEqual(set(blank_template.sign_item_ids.mapped("type_id.item_type")), set(["text", "signature"]))
+        self.assertEqual(set(blank_template.sign_item_ids.mapped("type_id.item_type")), {"text", "signature", "selection"})
+        selection_sign_item = blank_template.sign_item_ids.filtered(lambda item: item.type_id.item_type == 'selection')
+        self.assertEqual(len(selection_sign_item.option_ids), 1)
+        self.assertEqual(selection_sign_item.option_ids[0].value, "option")
 
     def test_report_modal(self):
         self.start_tour("/web", "sign_report_modal_tour", login="admin")
