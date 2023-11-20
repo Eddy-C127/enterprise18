@@ -419,7 +419,8 @@ class QualityCheck(models.Model):
                 continue
             vals.update({
                 'location_id': quant.location_id.id,
-                'qty_done': min(quantity, qty_done),
+                'quantity': min(quantity, qty_done),
+                'picked': True,
             })
 
             vals_list.append(vals)
@@ -432,7 +433,8 @@ class QualityCheck(models.Model):
             vals = shared_vals.copy()
             vals.update({
                 'location_id': self.move_id.location_id.id,
-                'qty_done': qty_done,
+                'quantity': qty_done,
+                'picked': True,
             })
 
             vals_list.append(vals)
