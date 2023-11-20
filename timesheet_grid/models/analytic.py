@@ -11,7 +11,7 @@ from collections import defaultdict
 from odoo import tools, models, fields, api, _
 from odoo.addons.resource.models.utils import make_aware
 from odoo.addons.resource.models.utils import filter_domain_leaf
-from odoo.exceptions import UserError, AccessError
+from odoo.exceptions import RedirectWarning, UserError, AccessError
 from odoo.osv import expression
 
 
@@ -308,6 +308,19 @@ class AnalyticLine(models.Model):
 
         return super()._check_can_write(vals)
 
+    def _get_timesheet_action(self, value):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Open Form'),
+            'res_model': 'account.analytic.line',
+            'views': [(self.env.ref('timesheet_grid.timesheet_view_form_user_grid').id, 'form')],
+            'context': {
+                **self._context,
+                'default_unit_amount': value,
+                'is_timesheet': True,
+            },
+        }
+
     @api.model
     def _get_timesheet_field_and_model_name(self):
         return 'task_id', 'project.task'
@@ -337,15 +350,10 @@ class AnalyticLine(models.Model):
             if not project_id and field_value:
                 project_id = self.env[model_name].browse(field_value).project_id.id
             if not project_id:
-                return {
-                    'type': 'ir.actions.client',
-                    'tag': 'display_notification',
-                    'params': {
-                        'message': _("Your timesheet entry is missing a project. Please either group the Grid view by project or enter your timesheets through another view."),
-                        'type': 'danger',
-                        'sticky': False,
-                    }
-                }
+                warning_msg = _('Your timesheet entry is missing a project. Please either group the Grid view by project or enter your timesheets by adding a line via the Form view.')
+                action = self._get_timesheet_action(value)
+                raise RedirectWarning(warning_msg, action, _('Open Form'))
+
             if not self.env['project.project'].browse(project_id).sudo().allow_timesheets:
                 raise UserError(_("You cannot adjust the time of the timesheet for a project with timesheets disabled."))
 
