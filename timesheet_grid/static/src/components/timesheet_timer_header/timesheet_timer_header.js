@@ -53,9 +53,7 @@ export class TimesheetTimerHeader extends Component {
 
     getDomain(fieldName) {
         return () => {
-            const evalContext = this.props.timesheet.getEvalContext
-                ? this.props.timesheet.getEvalContext(true)
-                : this.props.timesheet.evalContext;
+            const evalContext = this.props.timesheet.evalContext;
             if (this.props.fields[fieldName].domain) {
                 return new Domain(evaluateExpr(this.props.fields[fieldName].domain, evalContext)).toList();
             }
