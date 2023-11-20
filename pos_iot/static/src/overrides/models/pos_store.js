@@ -10,25 +10,26 @@ import { IoTPrinter } from "@pos_iot/app/iot_printer";
 import { PaymentIngenico, PaymentWorldline } from "@pos_iot/app/payment";
 
 patch(PosStore.prototype, {
-    async _processData(loadedData) {
-        await super._processData(...arguments);
-        this._loadIotDevice(loadedData["iot.device"]);
-        this.hardwareProxy.iotBoxes = loadedData["iot.box"];
+    async processServerData(loadedData) {
+        await super.processServerData(...arguments);
+
+        this._loadIotDevice(this.models["iot.device"].getAll());
+        this.hardwareProxy.iotBoxes = this.models["iot.box"].getAll();
     },
     _loadIotDevice(devices) {
         const iotLongpolling = this.env.services.iot_longpolling;
         for (const device of devices) {
             // FIXME POSREF this seems like it can't work, we're pushing an id to an array of
             // objects expected to be of the form { ip, ip_url }, so this seems useless?
-            if (!this.hardwareProxy.iotBoxes.includes(device.iot_id[0])) {
-                this.hardwareProxy.iotBoxes.push(device.iot_id[0]);
+            if (!this.hardwareProxy.iotBoxes.includes(device.iot_id.id)) {
+                this.hardwareProxy.iotBoxes.push(device.iot_id.id);
             }
             const { deviceControllers } = this.hardwareProxy;
             const { type, identifier } = device;
             const deviceProxy = new DeviceController(iotLongpolling, device);
             if (type === "payment") {
-                for (const pm of this.payment_methods) {
-                    if (pm.iot_device_id[0] === device.id) {
+                for (const pm of this.models["pos.payment.method"].getAll()) {
+                    if (pm.iot_device_id?.id === device.id) {
                         pm.terminal_proxy = deviceProxy;
                     }
                 }
@@ -55,12 +56,11 @@ patch(PosStore.prototype, {
     showScreen() {
         if (
             this.mainScreen.component === PaymentScreen &&
-            this.get_order()
-                .paymentlines.some(
-                    (pl) =>
-                        pl.payment_method.use_payment_terminal === "worldline" &&
-                        ["waiting", "waitingCard", "waitingCancel"].includes(pl.payment_status)
-                )
+            this.get_order().paymentlines.some(
+                (pl) =>
+                    pl.payment_method.use_payment_terminal === "worldline" &&
+                    ["waiting", "waitingCard", "waitingCancel"].includes(pl.payment_status)
+            )
         ) {
             this.dialog.add(AlertDialog, {
                 title: _t("Transaction in progress"),

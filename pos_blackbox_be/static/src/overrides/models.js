@@ -8,10 +8,11 @@ import { _t } from "@web/core/l10n/translation";
 import { NumberPopup } from "@point_of_sale/app/utils/input_popups/number_popup";
 
 patch(PosStore.prototype, {
-    async _processData(loadedData) {
-        await super._processData(loadedData);
-        this.workInProduct = this.db.product_by_id[loadedData['product_product_work_in']];
-        this.workOutProduct = this.db.product_by_id[loadedData['product_product_work_out']]
+    async processServerData(loadedData) {
+        await super.processServerData(loadedData);
+        
+        this.workInProduct = this.models["product.product"].get(this.data.custom.product_product_work_in);
+        this.workOutProduct = this.models["product.product"].get(this.data.custom.product_product_work_out);
     },
     useBlackBoxBe() {
         return this.config.iface_fiscal_data_module;
@@ -19,9 +20,9 @@ patch(PosStore.prototype, {
     checkIfUserClocked() {
         const cashierId = this.get_cashier().id;
         if (this.config.module_pos_hr) {
-            return this.pos_session.employees_clocked_ids.find(elem => elem === cashierId);
+            return this.session.employees_clocked_ids.find(elem => elem === cashierId);
         }
-        return this.pos_session.users_clocked_ids.find(elem => elem === cashierId);
+        return this.session.users_clocked_ids.find(elem => elem === cashierId);
     },
     disallowLineQuantityChange() {
         const result = super.disallowLineQuantityChange();
@@ -168,7 +169,7 @@ patch(Order.prototype, {
                 'body': _t("User must be clocked in."),
             });
             return;
-        } else if (this.pos.useBlackBoxBe() && !this.pos.taxes_by_id[product.taxes_id[0]].identification_letter) {
+        } else if (this.pos.useBlackBoxBe() && !this.pos.models["account.tax"].get(product.taxes_id[0]).identification_letter) {
             this.pos.env.services.dialog.add(AlertDialog, {
                 'title': _t("POS error"),
                 'body': _t("Product has an invalid tax amount. Only 21%, 12%, 6% and 0% are allowed."),
@@ -215,7 +216,7 @@ patch(Order.prototype, {
             json.blackbox_unique_fdm_production_number = this.blackbox_unique_fdm_production_number,
             json.blackbox_vsc_identification_number = this.blackbox_vsc_identification_number,
             json.blackbox_plu_hash = this.getPlu(),
-            json.blackbox_pos_version = this.pos.version.server_serie
+            json.blackbox_pos_version = this.pos.server_version.server_serie
 
         return json;
     },
@@ -246,7 +247,7 @@ patch(Order.prototype, {
                 "blackboxTime": order.blackbox_time,
 
                 "blackboxSignature": order.blackbox_signature,
-                "versionId": this.pos.version.server_version,
+                "versionId": this.pos.server_version.server_version,
 
                 "vscIdentificationNumber": order.blackbox_vsc_identification_number,
                 "blackboxFdmNumber": order.blackbox_unique_fdm_production_number,
@@ -372,26 +373,12 @@ patch(Orderline.prototype, {
             return amount;
         } else {
             if (uom.category_id[1] === "Weight") {
-                let uom_gram = null;
-                for (let i = 0; i < this.pos.units_by_id.length; i++) {
-                    const unit = this.pos.units_by_id[i];
-                    if (unit.category_id[1] === "Weight" && unit.name === "g") {
-                        uom_gram = unit;
-                        break;
-                    }
-                }
+                const uom_gram = this.pos.models["uom.uom"].find((uom) => uom.category_id.name === "Weight" && uom.name === "g")
                 if (uom_gram) {
                     amount = (amount / uom.factor) * uom_gram.factor;
                 }
             } else if (uom.category_id[1] === "Volume") {
-                let uom_milliliter = null;
-                for (let i = 0; i < this.pos.units_by_id.length; i++) {
-                    const unit = this.pos.units_by_id[i];
-                    if (unit.category_id[1] === "Volume" && unit.name === "Milliliter(s)") {
-                        uom_milliliter = unit;
-                        break;
-                    }
-                }
+                const uom_milliliter = this.pos.models["uom.uom"].find((uom) => uom.category_id.name === "Volume" && uom.name === "Milliliter(s)")
                 if (uom_milliliter) {
                     amount = (amount / uom.factor) * uom_milliliter.factor;
                 }
@@ -457,6 +444,6 @@ patch(Orderline.prototype, {
         };
     },
     getLineTaxLetter() {
-        return this.pos.taxes_by_id[this.product.taxes_id[0]]?.identification_letter;
+        return this.pos.models["account.tax"].get(this.product.taxes_id[0])?.identification_letter;
     },
 });

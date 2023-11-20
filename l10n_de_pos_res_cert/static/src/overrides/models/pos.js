@@ -50,16 +50,9 @@ patch(PosStore.prototype, {
             .map((elem) => elem.data);
         let differences = {};
         if (ordersCheckDifference.length > 0) {
-            try {
-                differences = await this.env.services.orm.call(
-                    "pos.order",
-                    "retrieve_line_difference",
-                    [ordersCheckDifference]
-                );
-            } catch (error) {
-                this.set_synch("disconnected");
-                throw error;
-            }
+            differences = await this.data.call("pos.order", "retrieve_line_difference", [
+                ordersCheckDifference,
+            ]);
         }
 
         let fiskalyError;
@@ -85,7 +78,7 @@ patch(PosStore.prototype, {
                 this.db.save("orders", orders);
             }
             if (fiskalyError) {
-                this.set_synch("disconnected");
+                this.data.setOffline();
                 fiskalyError.code = "fiskaly";
                 throw fiskalyError;
             }
@@ -196,13 +189,12 @@ patch(Order.prototype, {
         };
     },
     async retrieveAndSendLineDifference() {
-        await this.env.services.orm
-            .call("pos.order", "retrieve_line_difference", [[this.exportOrderLinesAsJson()]])
-            .then(async (data) => {
-                if (data[this.uid].length > 0) {
-                    await this.sendLineDifference(data[this.uid]);
-                }
-            });
+        const data = await this.data.call("pos.order", "retrieve_line_difference", [
+            [this.exportOrderLinesAsJson()],
+        ]);
+        if (data[this.uid].length > 0) {
+            await this.sendLineDifference(data[this.uid]);
+        }
     },
     async sendLineDifference(difference) {
         await this.createAndFinishOrderTransaction(difference);

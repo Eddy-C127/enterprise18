@@ -6,16 +6,18 @@ import { patch } from "@web/core/utils/patch";
 
 patch(PosStore.prototype, {
     // @Override
-    async _processData(loadedData) {
-        await super._processData(...arguments);
+    async processServerData() {
+        await super.processServerData();
+
         if (this.isChileanCompany()) {
-            this.l10n_latam_identification_types = loadedData["l10n_latam.identification.type"];
-            this.sii_taxpayer_types = loadedData["sii_taxpayer_types"];
-            this.consumidorFinalAnonimoId = loadedData["consumidor_final_anonimo_id"];
+            this.sii_taxpayer_types = this.data.custom["sii_taxpayer_types"];
+            this.consumidorFinalAnonimoId = this.data.custom["consumidor_final_anonimo_id"];
+
+            this["l10n_latam.identification.type"] = this.data["l10n_latam.identification.type"];
         }
     },
     isChileanCompany() {
-        return this.company.country?.code == "CL";
+        return this.company.country_id?.code == "CL";
     },
     doNotAllowRefundAndSales() {
         return this.isChileanCompany() || super.doNotAllowRefundAndSales(...arguments);
@@ -29,7 +31,9 @@ patch(Order.prototype, {
             this.to_invoice = true;
             this.invoiceType = "boleta";
             if (!this.partner) {
-                this.partner = this.pos.db.partner_by_id[this.pos.consumidorFinalAnonimoId];
+                this.partner = this.pos.models["res.partner"].get(
+                    this.pos.consumidorFinalAnonimoId
+                );
             }
             this.voucherNumber = false;
         }

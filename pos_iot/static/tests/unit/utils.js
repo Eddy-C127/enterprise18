@@ -1,13 +1,18 @@
 /** @odoo-module */
 
-import { registry } from "@web/core/registry";
 import "@point_of_sale/../tests/unit/utils";
+import { registry } from "@web/core/registry";
 
-const originalLoad = registry.category("mock_server").get("pos.session/load_pos_data");
+const loadPosData = registry.category("mock_server").get("pos.session/load_data");
+
 registry.category("mock_server").add(
-    "pos.session/load_pos_data",
+    "pos.session/load_data",
     async function () {
-        return Object.assign(await originalLoad.call(this, ...arguments), { "iot.device": [] });
+        const res = await loadPosData.call(this, ...arguments);
+        res["data"]["iot.device"] = [];
+        res["relations"]["iot.device"] = {};
+        res["relations"]["iot.box"] = {};
+        return res;
     },
     { force: true }
 );

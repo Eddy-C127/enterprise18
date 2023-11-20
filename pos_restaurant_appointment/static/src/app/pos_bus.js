@@ -14,24 +14,22 @@ patch(PosBus.prototype, {
     },
 
     ws_syncTableBooking(data) {
-        const { command, table_event_pairs } = data;
+        const { command, event } = data;
 
         if (command === "ADDED") {
-            for (const [tableId, event] of table_event_pairs) {
-                const table = this.pos.tables_by_id[tableId];
-                if (!table) {
-                    continue;
-                }
-                table.appointment_ids[event.id] = event;
+            if (!event) {
+                return;
             }
+
+            this.pos.models.loadData({ "calendar.event": [event] });
         } else if (command === "REMOVED") {
-            for (const [tableId, event] of table_event_pairs) {
-                const table = this.pos.tables_by_id[tableId];
-                if (!table) {
-                    continue;
-                }
-                delete table.appointment_ids[event.id];
+            const rec = this.pos.models["calendar.event"].get(event.id);
+
+            if (!rec) {
+                return;
             }
+
+            rec.delete();
         }
     },
 });

@@ -3,7 +3,7 @@
 
     <t t-name="l10n_mx_edi_pos.PartnerEditor" t-inherit="point_of_sale.PartnerEditor" t-inherit-mode="extension">
         <xpath expr="//div[hasclass('partner-details-box')]" position="after">
-            <div t-if="pos.company.country?.code === 'MX'"
+            <div t-if="pos.company.country_id?.code === 'MX'"
                 class="partner-details-box row row-cols-1 row-cols-sm-2 gy-3 mt-3">
                 <h3 class="w-100">Additional invoicing information</h3>
                 <div class="partner-detail col div_l10n_mx_edi_additional_fields"

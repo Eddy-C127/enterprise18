@@ -8,14 +8,7 @@ import { _t } from "@web/core/l10n/translation";
 patch(PosStore.prototype, {
     async setup() {
         await super.setup(...arguments);
-        this.preparationDisplays = [];
-    },
-
-    _initializePreparationDisplay() {
-        const preparationDisplayCategories = this.preparationDisplays.flatMap(
-            (preparationDisplay) => preparationDisplay.pdis_category_ids
-        );
-        this.preparationDisplayCategoryIds = new Set(preparationDisplayCategories);
+        this["pos_preparation_display.display"] = [];
     },
 
     // @override - add preparation display categories to global order preparation categories
@@ -27,38 +20,25 @@ patch(PosStore.prototype, {
         return categoryIds;
     },
 
-    // @override
-    async _processData(loadedData) {
-        await super._processData(loadedData);
-        this.preparationDisplays = loadedData["pos_preparation_display.display"];
-    },
-
-    // @override
-    async after_load_server_data() {
-        await super.after_load_server_data(...arguments);
-        this._initializePreparationDisplay();
-    },
-
-    // @override
-    async updateModelsData(models_data) {
-        await super.updateModelsData(...arguments);
-        if ("pos_preparation_display.display" in models_data) {
-            this.preparationDisplays = models_data["pos_preparation_display.display"];
-            this._initializePreparationDisplay();
-        }
+    get preparationDisplayCategoryIds() {
+        return new Set(
+            this.models["pos_preparation_display.display"].flatMap((preparationDisplay) =>
+                preparationDisplay.category_ids.flatMap((cat) => cat.id)
+            )
+        );
     },
 
     async sendOrderInPreparation(order, cancelled = false) {
         let result = true;
 
-        if (this.preparationDisplayCategoryIds.size) {
+        if (this.models["pos_preparation_display.display"].length > 0) {
             result = await order.sendChanges(cancelled);
         }
 
         // We display this error popup only if the PoS is connected,
         // otherwise the user has already received a popup telling him
         // that this functionality will be limited.
-        if (!result && this.synch.status === "connected") {
+        if (!result && this.data.network.offline) {
             this.dialog.add(AlertDialog, {
                 title: _t("Send failed"),
                 body: _t("Failed in sending the changes to preparation display"),

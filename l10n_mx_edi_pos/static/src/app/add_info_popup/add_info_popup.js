@@ -14,9 +14,7 @@ export class AddInfoPopup extends Component {
         // when opening the popup for the first time, both variables are undefined !
         this.state = useState({
             l10n_mx_edi_usage:
-                order.l10n_mx_edi_usage === undefined
-                    ? "G01"
-                    : order.l10n_mx_edi_usage,
+                order.l10n_mx_edi_usage === undefined ? "G01" : order.l10n_mx_edi_usage,
             l10n_mx_edi_cfdi_to_public: !!order.l10n_mx_edi_cfdi_to_public,
         });
     }

@@ -12,8 +12,8 @@ export class PaymentSix extends PaymentWorldline{
             amount: Math.round(paymentline.amount*100),
             currency: pos.currency.name,
             cid: cid,
-            posId: pos.pos_session.name,
-            userId: pos.pos_session.user_id[0],
+            posId: pos.session.name,
+            userId: pos.session.user_id[0],
         };
     }
 

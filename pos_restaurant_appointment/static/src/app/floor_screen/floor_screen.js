@@ -9,9 +9,4 @@ patch(FloorScreen.prototype, {
         super.setup(...arguments);
         useSubEnv({ position: {} });
     },
-    async _createTableHelper(copyTable, duplicateFloor = false) {
-        const table = await super._createTableHelper(...arguments);
-        table.appointment_ids = {}; // event.id |-> event
-        return table;
-    },
 });

@@ -10,7 +10,6 @@ patch(ReprintReceiptButton.prototype, {
     setup() {
         super.setup();
         this.popup = useService("popup");
-        this.orm = useService("orm");
     },
     async _onClick() {
         if (this.pos.useBlackBoxBe()) {

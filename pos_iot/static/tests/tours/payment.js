@@ -77,7 +77,7 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
             trigger: ".pos .pos-content",
             run: function () {
                 //Overrides the methods inside DeviceController to mock the IoT Box
-                posmodel.payment_methods.forEach(function (payment_method) {
+                posmodel.models["pos.payment.method"].forEach(function (payment_method) {
                     if (payment_method.terminal_proxy) {
                         payment_method.terminal_proxy = new TerminalProxy();
                     }

@@ -87,12 +87,12 @@ patch(PosStore.prototype, {
         order.blackbox_unit_id = data.unit_id;
     },
     async get_order_sequence_number() {
-        return await this.env.services.orm.call("pos.config", "get_order_sequence_number", [
+        return await this.data.call("pos.config", "get_order_sequence_number", [
             this.config.id,
         ]);
     },
     async get_profo_order_sequence_number() {
-        return await this.env.services.orm.call("pos.config", "get_profo_order_sequence_number", [
+        return await this.data.call("pos.config", "get_profo_order_sequence_number", [
             this.config.id,
         ]);
     },
@@ -124,7 +124,7 @@ patch(Order.prototype, {
         }
         return false;
     },
-    async add_product(product, options) {
+    add_product(product, options) {
         if (this.pos.useBlackBoxSweden() && product.taxes_id.length === 0) {
             this.env.services.dialog(AlertDialog, {
                 title: _t("POS error"),
@@ -132,7 +132,7 @@ patch(Order.prototype, {
             });
         } else if (
             this.pos.useBlackBoxSweden() &&
-            !this.pos.taxes_by_id[product.taxes_id[0]].sweden_identification_letter
+            !this.pos.models["account.tax"].get(product.taxes_id[0]).sweden_identification_letter
         ) {
             this.env.services.dialog(AlertDialog, {
                 title: _t("POS error"),
@@ -245,7 +245,8 @@ patch(Orderline.prototype, {
         }
         return {
             ...super.getDisplayData(...arguments),
-            taxLetter: this.pos.taxes_by_id[this.product.taxes_id[0]]?.sweden_identification_letter,
+            taxLetter:
+                this.pos.models["account.tax"].get(this.product.taxes_id[0])?.sweden_identification_letter,
         };
     },
 });

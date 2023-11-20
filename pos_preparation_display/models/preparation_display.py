@@ -157,8 +157,8 @@ class PosPreparationDisplay(models.Model):
         return self.env['product.product'].sudo().search_count([('available_in_pos', '=', True), ('list_price', '>=', 0), ('id', 'not in', self.env['pos.config']._get_special_products().ids)], limit=1) > 0
 
     def load_product_frontend(self):
-        allowed = not self.pos_has_valid_product()
-        if allowed:
+        if not self.pos_has_valid_product():
             self.env['pos.session']._load_onboarding_data()
+
         categories = self._get_pos_category_ids().read(['id', 'display_name', 'sequence'])
         return categories

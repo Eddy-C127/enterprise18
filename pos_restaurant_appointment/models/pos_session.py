@@ -1,21 +1,29 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models
+from odoo import models, fields
 
 class PosSession(models.Model):
     _inherit = 'pos.session'
 
-    def _get_pos_ui_restaurant_floor(self, params):
-        floors = super()._get_pos_ui_restaurant_floor(params)
+    def _load_data_params(self, config_id):
+        params = super()._load_data_params(config_id)
+        now = fields.Datetime.now()
+        today = fields.Date.today()
 
-        # optimize get_appointments to work in batch
-        tables = [table for floor in floors for table in floor.get('tables', []) if table.get('id')]
-        tables_ids = [table.get('id') for table in tables]
+        if self.config_id.module_pos_restaurant:
+            params['restaurant.table']['fields'].append('appointment_resource_id')
+            params['appointment.resource'] = {
+                'fields': ['pos_table_ids'],
+                'domain': []
+            }
+            params['calendar.event'] = {
+                'domain': lambda data: [
+                    ('booking_line_ids.appointment_resource_id', 'in', [table['appointment_resource_id'] for table in data['restaurant.table']]),
+                    ('appointment_type_id', 'in', sum([config['appointment_type_ids'] for config in data['pos.config']], [])),
+                    ('start', '>=', now), ('stop', '<=', today),
+                ],
+                'fields': self.env['calendar.event']._fields_for_restaurant_table(),
+            }
 
-        table_prefetch = self.env['restaurant.table'].with_prefetch(tables_ids)
-        tables_appointments = table_prefetch.browse(tables_ids)._get_appointments()
-        for table in tables:
-            table['appointment_ids'] = tables_appointments.get(table['id']) or {}
-
-        return floors
+        return params

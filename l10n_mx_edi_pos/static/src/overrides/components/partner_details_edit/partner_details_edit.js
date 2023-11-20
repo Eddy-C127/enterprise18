@@ -11,7 +11,7 @@ patch(PartnerEditor.prototype, {
     },
     isMexicoSelected() {
         return (
-            this.pos.countries.find((country) => country.code === "MX").id ===
+            this.pos.models["res.country"].find((country) => country.code === "MX").id ===
             parseInt(this.changes.country_id)
         );
     },

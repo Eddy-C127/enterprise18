@@ -9,25 +9,6 @@ class RestaurantTable(models.Model):
 
     appointment_resource_id = fields.Many2one('appointment.resource', string='Appointment resource')
 
-    def _get_appointments(self):
-        appointments_by_table_id = defaultdict(dict)
-        now = fields.Datetime.now()
-        today = fields.Date.today()
-        appointments = self.env['calendar.event'].search([
-            ('booking_line_ids.appointment_resource_id', 'in', self.appointment_resource_id.ids),
-            ('appointment_type_id', 'in', self.floor_id.pos_config_ids.appointment_type_ids.ids),
-            ('start', '>=', now), ('stop', '<=', today),
-        ])
-
-        fields_to_read = self.env['calendar.event']._fields_for_restaurant_table()
-        for appointment in appointments:
-            appointment_dict = appointment.read(fields_to_read)[0]
-            for table in appointment.booking_line_ids.appointment_resource_id.sudo().pos_table_ids:
-                appointments_by_table_id[table.id][appointment.id] = appointment_dict
-
-        return dict(appointments_by_table_id)
-
-
     @api.model_create_multi
     def create(self, vals_list):
         tables = super().create(vals_list)

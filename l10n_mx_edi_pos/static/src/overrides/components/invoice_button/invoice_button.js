@@ -7,7 +7,7 @@ import { patch } from "@web/core/utils/patch";
 
 patch(InvoiceButton.prototype, {
     async onWillInvoiceOrder(order) {
-        if (this.pos.company.country?.code !== "MX") {
+        if (this.pos.company.country_id?.code !== "MX") {
             return true;
         }
         const payload = await makeAwaitable(this.dialog, AddInfoPopup, { order });
@@ -16,7 +16,7 @@ patch(InvoiceButton.prototype, {
                 payload.l10n_mx_edi_cfdi_to_public === true ||
                 payload.l10n_mx_edi_cfdi_to_public === "1";
             order.l10n_mx_edi_usage = payload.l10n_mx_edi_usage;
-            this.orm.write("pos.order", [order.backendId], {
+            this.pos.data.ormWrite("pos.order", [order.backendId], {
                 l10n_mx_edi_cfdi_to_public: order.l10n_mx_edi_cfdi_to_public,
                 l10n_mx_edi_usage: order.l10n_mx_edi_usage,
             });

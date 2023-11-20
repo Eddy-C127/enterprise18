@@ -133,7 +133,7 @@ export class PaymentIngenico extends PaymentInterface {
      */
     _onValueChange(resolve, order, data) {
         var line = order.get_paymentline(data.cid);
-        var terminal_proxy = this.pos.payment_methods_by_id[line.payment_method.id].terminal_proxy;
+        var terminal_proxy = this.pos.models["pos.payment.method"].get(line.payment_method.id).terminal_proxy;
         if (
             line &&
             terminal_proxy &&

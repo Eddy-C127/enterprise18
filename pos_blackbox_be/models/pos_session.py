@@ -31,40 +31,23 @@ class pos_session(models.Model):
         help="This is a technical field used for tracking the status of the session for each employees.",
     )
 
-    def _pos_data_process(self, loaded_data):
-        super()._pos_data_process(loaded_data)
-        loaded_data["product_product_work_in"] = self.env.ref(
-            "pos_blackbox_be.product_product_work_in"
-        ).id
-        loaded_data["product_product_work_out"] = self.env.ref(
-            "pos_blackbox_be.product_product_work_out"
-        ).id
+    def load_data(self, models_to_load, only_data=False):
+        response = super().load_data(models_to_load, only_data)
 
-    def _loader_params_res_users(self):
-        result = super()._loader_params_res_users()
-        result["search_params"]["fields"].append("insz_or_bis_number")
-        return result
+        if not only_data:
+            response['custom']["product_product_work_in"] = self.env.ref("pos_blackbox_be.product_product_work_in").id
+            response['custom']["product_product_work_out"] = self.env.ref("pos_blackbox_be.product_product_work_out").id
 
-    def _loader_params_pos_session(self):
-        result = super()._loader_params_pos_session()
-        result["search_params"]["fields"].append("users_clocked_ids")
-        result["search_params"]["fields"].append("employees_clocked_ids")
-        return result
+        return response
 
-    def _loader_params_res_company(self):
-        result = super()._loader_params_res_company()
-        result["search_params"]["fields"].append("street")
-        return result
-
-    def _loader_params_hr_employee(self):
-        result = super()._loader_params_hr_employee()
-        result["search_params"]["fields"].append("insz_or_bis_number")
-        return result
-
-    def _loader_params_account_tax(self):
-        result = super()._loader_params_account_tax()
-        result["search_params"]["fields"].append("identification_letter")
-        return result
+    def _load_data_params(self, config_id):
+        params = super()._load_data_params(config_id)
+        params["res.users"]["fields"].append("insz_or_bis_number")
+        params["pos.session"]["fields"].extend(["users_clocked_ids", "employees_clocked_ids"])
+        if params.get('hr.employee'):
+            params["hr.employee"]["fields"].append("insz_or_bis_number")
+        params["account.tax"]["fields"].append("identification_letter")
+        return params
 
     @api.depends("order_ids")
     def _compute_total_tax(self):

@@ -14,7 +14,6 @@ patch(hardwareProxyService, {
 patch(HardwareProxy.prototype, {
     setup({ orm }) {
         super.setup(...arguments);
-        this.orm = orm;
         this.deviceControllers = {};
         this.iotBoxes = [];
     },
@@ -67,7 +66,7 @@ patch(HardwareProxy.prototype, {
      */
     async statusLoop() {
         this.statusLoopRunning = true;
-        const devices = await this.orm.searchRead(
+        const devices = await this.pos.data.searchRead(
             "iot.device",
             [
                 ["id", "in", this.pos.config.iot_device_ids],

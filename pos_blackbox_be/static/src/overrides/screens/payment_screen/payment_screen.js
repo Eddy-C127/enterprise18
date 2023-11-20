@@ -21,7 +21,7 @@ patch(PaymentScreen.prototype, {
         rpc({
             model: "pos.session",
             method: "increase_cash_box_opening_counter",
-            args: [this.env.pos.pos_session.id],
+            args: [this.env.pos.session.id],
         });
         super.openCashbox(...arguments);
     },

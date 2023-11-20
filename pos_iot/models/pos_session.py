@@ -7,52 +7,26 @@ from odoo import models
 class PosSession(models.Model):
     _inherit = 'pos.session'
 
-    def _pos_data_process(self, loaded_data):
-        super()._pos_data_process(loaded_data)
-        if len(loaded_data['iot.device']) > 0:
-            loaded_data['pos.config']['use_proxy'] = True
+    def _load_data_params(self, config_id):
+        params = super()._load_data_params(config_id)
 
-    def _pos_ui_models_to_load(self):
-        result = super()._pos_ui_models_to_load()
-        new_models_to_load = [model for model in ['iot.device', 'iot.box'] if model not in result]
-        result.extend(new_models_to_load)
-        return result
-
-    def _loader_params_iot_device(self):
-        device_ids = self.config_id.iot_device_ids.ids
-        for payment in self.config_id.payment_method_ids:
-            if payment.iot_device_id:
-                device_ids.append(payment.iot_device_id.id)
-
-        return {
-            'search_params': {
-                'domain': [('id', 'in', device_ids)],
-                'fields': ['iot_ip', 'iot_id', 'identifier', 'type', 'manual_measurement'],
-            },
+        params['pos.payment.method']['fields'] += ['iot_device_id']
+        params['pos.printer']['fields'] += ['device_identifier']
+        params['iot.device'] = {
+            'domain': [('id', 'in', self.config_id.iot_device_ids.ids + [payment.iot_device_id.id for payment in self.config_id.payment_method_ids if payment.iot_device_id])],
+            'fields': ['iot_ip', 'iot_id', 'identifier', 'type', 'manual_measurement'],
+        }
+        params['iot.box'] = {
+            'domain': lambda data: [('id', 'in', [device['iot_id'] for device in data['iot.device'] if device['iot_id']])],
+            'fields': ['ip', 'ip_url', 'name'],
         }
 
-    def _get_pos_ui_iot_device(self, params):
-        return self.env['iot.device'].search_read(**params['search_params'])
+        return params
 
-    def _loader_params_iot_box(self):
-        devices = self._context.get('loaded_data')['iot.device']
-        iot_box_ids = set()
-        for device in devices:
-            iot_box = device['iot_id']
-            if iot_box:
-                iot_box_ids.add(iot_box[0])
+    def load_data(self, models_to_load, only_data=False):
+        response = super().load_data(models_to_load, only_data)
 
-        return {'search_params': {'domain': [('id', 'in', [*iot_box_ids])], 'fields': ['ip', 'ip_url', 'name']}}
+        if len(models_to_load) == 0 or 'iot.device' in models_to_load and len(response['data'].get('iot.device', 0)) > 0:
+            response['data']['pos.config'][0]['use_proxy'] = True
 
-    def _get_pos_ui_iot_box(self, params):
-        return self.env['iot.box'].search_read(**params['search_params'])
-
-    def _loader_params_pos_payment_method(self):
-        result = super()._loader_params_pos_payment_method()
-        result['search_params']['fields'].append('iot_device_id')
-        return result
-
-    def _loader_params_pos_printer(self):
-        result = super()._loader_params_pos_printer()
-        result['search_params']['fields'].append('device_identifier')
-        return result
+        return response

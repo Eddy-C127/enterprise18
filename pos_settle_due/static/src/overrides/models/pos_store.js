@@ -21,7 +21,7 @@ patch(PosStore.prototype, {
         }
 
         if (partner.parent_name) {
-            const parent = this.partners.find((p) => p.name === partner.parent_name);
+            const parent = this.models["res.partner"].find((p) => p.name === partner.parent_name);
 
             if (parent) {
                 partner = parent;
@@ -40,12 +40,11 @@ patch(PosStore.prototype, {
         return partnerInfos;
     },
     async refreshTotalDueOfPartner(partner) {
-        const total_due = await this.orm.call("res.partner", "get_total_due", [
+        const total_due = await this.data.call("res.partner", "get_total_due", [
             partner.id,
-            this.config.currency_id[0],
+            this.config.currency_id.id,
         ]);
-        partner.total_due = total_due;
-        this.db.update_partners([partner]);
+        partner.update({ total_due });
         return [partner];
     },
     async settleCustomerDue(partner) {

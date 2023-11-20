@@ -97,16 +97,13 @@ patch(Order.prototype, {
     },
     check_germany_taxes(product) {
         if (this.pos.isCountryGermanyAndFiskaly()) {
-            if (
-                product.taxes_id.length === 0 ||
-                !(this.pos.taxes_by_id[product.taxes_id[0]].amount in this.pos.vatRateMapping)
-            ) {
+            if (!product.taxes_id[0] || !(product.taxes_id[0].amount in this.pos.vatRateMapping)) {
                 throw new TaxError(product);
             }
         }
     },
     //@Override
-    async add_product(product, options) {
+    add_product(product, options) {
         this.check_germany_taxes(product);
         return super.add_product(...arguments);
     },

@@ -25,18 +25,16 @@ patch(PosStore.prototype, {
     //@Override
     async after_load_server_data() {
         if (this.isCountryGermanyAndFiskaly()) {
-            await this.env.services.orm
-                .call("pos.config", "l10n_de_get_fiskaly_urls_and_keys", [this.config.id])
-                .then((data) => {
-                    this.company.l10n_de_fiskaly_api_key = data["api_key"];
-                    this.company.l10n_de_fiskaly_api_secret = data["api_secret"];
-                    this.useKassensichvVersion2 = this.config.l10n_de_fiskaly_tss_id.includes("|");
-                    this.apiUrl =
-                        data["kassensichv_url"] +
-                        "/api/v" +
-                        (this.useKassensichvVersion2 ? "2" : "1"); // use correct version
-                    return this.initVatRates(data["dsfinvk_url"] + "/api/v0");
-                });
+            const data = await this.data.call("pos.config", "l10n_de_get_fiskaly_urls_and_keys", [
+                this.config.id,
+            ]);
+
+            this.res_company.l10n_de_fiskaly_api_key = data["api_key"];
+            this.res_company.l10n_de_fiskaly_api_secret = data["api_secret"];
+            this.useKassensichvVersion2 = this.config.l10n_de_fiskaly_tss_id.includes("|");
+            this.apiUrl =
+                data["kassensichv_url"] + "/api/v" + (this.useKassensichvVersion2 ? "2" : "1"); // use correct version
+            return this.initVatRates(data["dsfinvk_url"] + "/api/v0");
         }
         return super.after_load_server_data(...arguments);
     },
@@ -50,14 +48,15 @@ patch(PosStore.prototype, {
         return this.apiUrl;
     },
     getApiKey() {
-        return this.company.l10n_de_fiskaly_api_key;
+        return this.res_company.l10n_de_fiskaly_api_key;
     },
     getApiSecret() {
-        return this.company.l10n_de_fiskaly_api_secret;
+        return this.res_company.l10n_de_fiskaly_api_secret;
     },
     getTssId() {
         return (
-            this.config.l10n_de_fiskaly_tss_id && this.config.l10n_de_fiskaly_tss_id.split("|")[0]
+            this.config.l10n_de_fiskaly_tss_id &&
+            this.config.l10n_de_fiskaly_tss_id.split("|")[0]
         );
     },
     getClientId() {
@@ -190,7 +189,6 @@ patch(PosStore.prototype, {
                     result && result.length ? fiskalyFailure : fiskalyFailure.concat(sentToFiskaly);
                 this.db.save("orders", ordersToSave);
             }
-            this.set_synch("disconnected");
             throw odooError || fiskalyError;
         }
     },

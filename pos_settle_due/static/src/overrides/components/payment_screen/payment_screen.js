@@ -20,7 +20,7 @@ patch(PaymentScreen.prototype, {
     async validateOrder(isForceValidate) {
         const order = this.currentOrder;
         const change = order.get_change();
-        const paylaterPaymentMethod = this.pos.payment_methods.filter(
+        const paylaterPaymentMethod = this.pos.models["pos.payment.method"].filter(
             (method) =>
                 this.pos.config.payment_method_ids.includes(method.id) && method.type == "pay_later"
         )[0];
@@ -42,7 +42,7 @@ patch(PaymentScreen.prototype, {
                         this.env.utils.formatCurrency(change),
                         order.get_partner().name
                     ),
-                    confirmText: _t("Yes"),
+                    confirmLabel: _t("Yes"),
                 });
                 if (confirmed) {
                     const paylaterPayment = order.add_paymentline(paylaterPaymentMethod);
@@ -56,7 +56,7 @@ patch(PaymentScreen.prototype, {
                         "Do you want to deposit %s to a specific customer? If so, first select him/her.",
                         this.env.utils.formatCurrency(change)
                     ),
-                    confirmText: _t("Yes"),
+                    confirmLabel: _t("Yes"),
                 });
                 if (confirmed && this.pos.selectPartner()) {
                     const paylaterPayment = order.add_paymentline(paylaterPaymentMethod);

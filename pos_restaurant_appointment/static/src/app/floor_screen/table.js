@@ -6,42 +6,44 @@ import { deserializeDateTime } from "@web/core/l10n/dates";
 const { DateTime } = luxon;
 
 patch(Table.prototype, {
-    _futureAppointments(table) {
-        return Object.entries(table.appointment_ids || {})
-            .map(([_id, appointment]) => {
-                const dateTimeStart = deserializeDateTime(appointment.start);
-                const dateTimeStop = deserializeDateTime(appointment.stop);
+    get appointments() {
+        const table = this.table;
+        if (!table.appointment_resource_id) {
+            return [];
+        }
 
-                return {
-                    ...appointment,
-                    start: dateTimeStart.toFormat("HH:mm"),
-                    start_ts: dateTimeStart.ts,
-                    stop: dateTimeStop.toFormat("HH:mm"),
-                    stop_ts: dateTimeStop.ts,
-                    customer_name: appointment.name,
-                };
+        const appointmentsByRessourceId = this.pos.models["calendar.event"].getAllBy(
+            "appointment_resource_ids"
+        );
+
+        const appointments = appointmentsByRessourceId[table.appointment_resource_id.id] || [];
+        return appointments
+            .filter((appointment) => {
+                const dateTimeStart = deserializeDateTime(appointment.start);
+                return dateTimeStart.ts > DateTime.now() - (appointment.duration / 2) * 3600000;
             })
-            .filter(
-                (appointment) =>
-                    appointment.start_ts > DateTime.now() - (appointment.duration / 2) * 3600000
-            )
-            .sort((a, b) => a.start_ts - b.start_ts);
+            .sort((a, b) => {
+                const startA = deserializeDateTime(a.start);
+                const startB = deserializeDateTime(b.start);
+
+                startA.ts - startB.ts;
+            });
     },
-    get firstAppointment() {
-        const firstAppointment = this._futureAppointments(this.props.table)[0];
-        return firstAppointment;
+    getFormatedDate(date) {
+        const dateTime = deserializeDateTime(date);
+        return dateTime.toFormat("HH:mm");
     },
     get textStyle() {
         let style = "";
-        const table = this.props.table;
+        const table = this.table;
         const dateNow = DateTime.now();
-        const dateStart = this.firstAppointment.start_ts;
-        const rgb = table.floor.background_color
-            .substring(4, table.floor.background_color.length - 1)
+        const dateStart = this.appointments[0]?.start_ts;
+        const rgb = table.floor_id.background_color
+            .substring(4, table.floor_id.background_color.length - 1)
             .replace(/ /g, "")
             .split(",");
         const light = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255 > 0.5 ? false : true;
-        const order = this.pos.orders.find((o) => o.tableId === this.props.table.id);
+        const order = this.pos.orders.find((o) => o.tableId === this.table.id);
 
         if (!order && dateNow > dateStart) {
             style = `color: ${light ? "#FF6767" : "#850000"};`;
@@ -68,7 +70,7 @@ patch(Table.prototype, {
             };
         }
 
-        if (this.firstAppointment) {
+        if (this.appointments[0]) {
             offsetPos.offsetLine[lineIdx + 1] = 50 + offsetPos.offsetLine[lineIdx];
         } else if (!offsetPos.offsetLine[lineIdx + 1]) {
             offsetPos.offsetLine[lineIdx + 1] = offsetPos.offsetLine[lineIdx];
