@@ -114,11 +114,13 @@ class JournalReportCustomHandler(models.AbstractModel):
                     j.currency_id,
                     journal_curr.name as currency_name,
                     cp.currency_id as company_currency
-                FROM {tables}
-                JOIN account_journal j ON j.id = "account_move_line".journal_id
-                JOIN res_company cp ON cp.id = "account_move_line".company_id
+                FROM account_journal j
+                JOIN account_move_line ON j.id = account_move_line.journal_id
+                JOIN res_company cp ON cp.id = j.company_id
                 LEFT JOIN res_currency journal_curr on journal_curr.id = j.currency_id
                 WHERE {where_clause}
+                GROUP BY
+                    j.id, {j_name}, j.code, j.type, j.currency_id, journal_curr.name, cp.currency_id
                 ORDER BY j.id
             """)
 
