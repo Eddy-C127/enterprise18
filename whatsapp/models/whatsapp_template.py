@@ -132,7 +132,7 @@ class WhatsAppTemplate(models.Model):
                 raise ValidationError(_('You may only use one header attachment for each template'))
             if tmpl.header_type not in ['image', 'video', 'document']:
                 raise ValidationError(_("Only templates using media header types may have header documents"))
-            if not any(tmpl.header_attachment_ids.mimetype in mimetypes for mimetypes in self.env['whatsapp.message']._SUPPORTED_ATTACHMENT_TYPE.values()):
+            if not any(tmpl.header_attachment_ids.mimetype in mimetypes for mimetypes in self.env['whatsapp.message']._SUPPORTED_ATTACHMENT_TYPE[tmpl.header_type]):
                 raise ValidationError(_("File type %(file_type)s not supported for header type %(header_type)s",
                                         file_type=tmpl.header_attachment_ids.mimetype, header_type=tmpl.header_type))
         for tmpl in self - templates_with_attachments:

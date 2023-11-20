@@ -132,6 +132,49 @@ Welcome to {{3}} office''',
                 self.assertWATemplate(template)
 
     @users('user_wa_admin')
+    def test_template_header_type_attachment_validation(self):
+        """ Test header type attachment validation """
+        categ_types = [
+            # document
+            [
+                'text/plain', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/msword',
+                'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            ],
+            # image
+            ['image/jpeg', 'image/png'],
+            # video
+            ['video/mp4', 'video/3gp'],
+        ]
+        all_types = [mimetype for categ in categ_types for mimetype in categ]
+        dummy_data = self.image_attachment.datas
+        for header_type, valid_types in zip(
+            ['document', 'image', 'video'],
+            categ_types,
+        ):
+            for mimetype in all_types:
+                with self.subTest(header_type=header_type, mimetype=mimetype):
+                    tpl_vals = {
+                        'body': f'Header {header_type} template',
+                        'header_attachment_ids': [
+                            (0, 0, {
+                                'datas': dummy_data,
+                                'mimetype': mimetype,
+                                'name': f'Dummy {mimetype}',
+                            }),
+                        ],
+                        'header_type': header_type,
+                        'name': f'Header {header_type} {mimetype}',
+                        'wa_account_id': self.whatsapp_account.id,
+                    }
+                    if mimetype in valid_types:
+                        _template = self.env['whatsapp.template'].create(tpl_vals)
+                    else:
+                        with self.assertRaises(exceptions.ValidationError):
+                            _template = self.env['whatsapp.template'].create(tpl_vals)
+
+    @users('user_wa_admin')
     def test_template_header_type_dynamic_text(self):
         """ Test dynamic text header """
         template = self.env['whatsapp.template'].create({
