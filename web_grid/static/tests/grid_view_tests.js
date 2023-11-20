@@ -2145,4 +2145,56 @@ QUnit.module("Views", (hooks) => {
             },
         });
     });
+
+    QUnit.test(
+        "display notification when the update of the grid cell cannot be done",
+        async function (assert) {
+            const grid = await makeView({
+                type: "grid",
+                resModel: "analytic.line",
+                serverData,
+                arch: `<grid editable="1">
+                <field name="project_id" type="row"/>
+                <field name="task_id" type="row"/>
+                <field name="date" type="col">
+                    <range name="week" string="Week" span="week" step="day"/>
+                    <range name="month" string="Month" span="month" step="day"/>
+                </field>
+                <field name="unit_amount" type="measure" widget="float_time"/>
+            </grid>`,
+                async mockRPC(route, args) {
+                    if (args.method === "grid_unavailability") {
+                        return {};
+                    } else if (args.method === "grid_update_cell") {
+                        assert.step("grid_update_cell");
+                        return {
+                            type: "ir.actions.client",
+                            tag: "display_notification",
+                            params: {
+                                message: "test display a notification",
+                                type: "danger",
+                                sticky: false,
+                            },
+                        };
+                    }
+                },
+            });
+            patchWithCleanup(grid.env.services.action, {
+                doAction: (data) => {
+                    if (data.tag === "display_notification") {
+                        assert.step(`notification_${data.params.type}`);
+                    }
+                },
+            });
+
+            const cells = target.querySelectorAll(".o_grid_row .o_grid_cell_readonly");
+            const cell = cells[0];
+            await hoverGridCell(cell);
+            await click(target, ".o_grid_cell");
+            await nextTick();
+            assert.containsOnce(target, ".o_grid_cell input");
+            await editInput(target, ".o_grid_cell input", "2");
+            assert.verifySteps(["grid_update_cell", "notification_danger"]);
+        }
+    );
 });

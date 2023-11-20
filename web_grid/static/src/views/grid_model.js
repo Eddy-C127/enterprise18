@@ -81,12 +81,16 @@ export class GridCell {
 
     async _update(value) {
         const oldValue = this.value;
-        await this.model.orm.call(
+        const result = await this.model.orm.call(
             this.model.resModel,
             "grid_update_cell",
             [this.domain.toList({}), this.model.measureFieldName, value - oldValue],
             { context: this.context }
         );
+        if (result) {
+            this.model.actionService.doAction(result);
+            return;
+        }
         this.row.updateCell(this.column, value);
     }
 }
@@ -966,6 +970,7 @@ export class GridModel extends Model {
 
     setup(params) {
         this.notificationService = useService("notification");
+        this.actionService = useService("action");
         this.keepLast = new KeepLast();
         this.mutex = new Mutex();
         this.defaultSectionField = params.sectionField;
