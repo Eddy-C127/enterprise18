@@ -333,7 +333,16 @@ class AnalyticLine(models.Model):
             field_value = self._context.get(f'default_{field_name}', False)
             if not project_id and field_value:
                 project_id = self.env[model_name].browse(field_value).project_id.id
-
+            if not project_id:
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'message': _("Your timesheet entry is missing a project. Please either group the Grid view by project or enter your timesheets through another view."),
+                        'type': 'danger',
+                        'sticky': False,
+                    }
+                }
             if not self.env['project.project'].browse(project_id).sudo().allow_timesheets:
                 raise UserError(_("You cannot adjust the time of the timesheet for a project with timesheets disabled."))
 
