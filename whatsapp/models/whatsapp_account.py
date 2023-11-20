@@ -139,12 +139,14 @@ class WhatsAppAccount(models.Model):
 
     def _find_active_channel(self, sender_mobile_formatted, sender_name=False, create_if_not_found=False):
         """This method will find the active channel for the given sender mobile number."""
+        self.ensure_one()
         allowed_old_msg_date = fields.Datetime.now() - timedelta(
             days=self.env['whatsapp.message']._ACTIVE_THRESHOLD_DAYS)
         whatsapp_message = self.env['whatsapp.message'].sudo().search(
             [
                 ('mobile_number_formatted', '=', sender_mobile_formatted),
                 ('create_date', '>', allowed_old_msg_date),
+                ('wa_account_id', '=', self.id),
                 ('wa_template_id', '!=', False),
                 ('state', 'not in', ['outgoing', 'error', 'cancel']),
             ], limit=1, order='id desc')

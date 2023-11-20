@@ -185,6 +185,43 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
         self.assertEqual(len(document_whatsapp_messages), 3,
                          'There should only be whatsapp messages in the latest template conversations')
 
+    @users('user_wa_admin')
+    def test_conversation_match_multi_account(self):
+        """When there are 2 business accounts configured with different numbers
+
+          * if account 1 receives a message from a number then it should create
+            a channel with the 1st account;
+          * if account 2 receives a message from the same number then it should
+            create a new, not reuse the one from first account;
+        """
+        test_record = self.test_base_record_nopartner.with_env(self.env)
+        whatsapp_template = self.whatsapp_template.with_env(self.env)
+
+        composer = self._instanciate_wa_composer_from_records(whatsapp_template, test_record)
+        with self.mockWhatsappGateway():
+            composer.action_send_whatsapp_template()
+
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(
+                self.whatsapp_account, "Hello,can you help me?", "32499123456",
+            )
+        channel_1 = self.assertWhatsAppDiscussChannel(
+            "32499123456", wa_account=self.whatsapp_account,
+            msg_count=2,
+        )
+
+        # Receive a message from the same number but for the 2nd account
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(
+                self.whatsapp_account_2, "Hello,can you help me?", "32499123456",
+            )
+        channel_2 = self.assertWhatsAppDiscussChannel(
+            "32499123456", wa_account=self.whatsapp_account_2,
+            msg_count=1,
+        )
+        self.assertNotEqual(channel_1, channel_2)
+        self.assertEqual(len(channel_1.message_ids), 2)
+
     def test_receive_no_document(self):
         """ Receive a message that is not linked to any document. It should
         create a 'standalone' channel with the whatsapp account notified people
