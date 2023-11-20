@@ -1,8 +1,9 @@
 /** @odoo-module */
 
-import { Component, onWillUpdateProps, useState } from "@odoo/owl";
+import { Component, onWillStart, onWillUpdateProps, useState } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
+import { useService } from "@web/core/utils/hooks";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
 import { getWowlFieldWidgets } from "@web_studio/client_action/view_editor/editors/utils";
 import {
@@ -21,6 +22,7 @@ export class TypeWidgetProperties extends Component {
     };
 
     setup() {
+        this.orm = useService("orm");
         this.attributes = useState({
             field: [],
             selection: [],
@@ -30,20 +32,22 @@ export class TypeWidgetProperties extends Component {
             string: [],
         });
 
-        this.attributesForCurrentTypeAndWidget = this.getAttributesForCurrentTypeAndWidget(
-            this.props
-        );
-        this.groupAttributesPerType(this.props);
+        onWillStart(async () => {
+            await this.computeAttributesList(this.props);
+        });
 
-        onWillUpdateProps((nextProps) => {
-            this.attributesForCurrentTypeAndWidget =
-                this.getAttributesForCurrentTypeAndWidget(nextProps);
-            this.groupAttributesPerType(nextProps);
+        onWillUpdateProps(async (nextProps) => {
+            await this.computeAttributesList(nextProps);
         });
     }
 
-    groupAttributesPerType(props) {
-        this.attributes.field = this.getAttributesOfTypeField(props);
+    async computeAttributesList(props) {
+        this.attributesForCurrentTypeAndWidget = this.getAttributesForCurrentTypeAndWidget(props);
+        await this.groupAttributesPerType(props);
+    }
+
+    async groupAttributesPerType(props) {
+        this.attributes.field = await this.getAttributesOfTypeField(props);
         this.attributes.selection = this.getWidgetAttributes("selection", props);
         this.attributes.boolean = this.getWidgetAttributes("boolean", props);
         this.attributes.domain = this.getWidgetAttributes("domain", props);
@@ -51,7 +55,7 @@ export class TypeWidgetProperties extends Component {
         this.attributes.string = this.getWidgetAttributes("string", props);
     }
 
-    getAttributesOfTypeField(props) {
+    async getAttributesOfTypeField(props) {
         const fieldAttributes = this.getWidgetAttributes("field", props);
         if (fieldAttributes.length) {
             const fields = Object.entries(this.env.viewEditorModel.fields).map(([key, value]) => {
@@ -60,9 +64,14 @@ export class TypeWidgetProperties extends Component {
                     name: value.name || key,
                 };
             });
-            fieldAttributes.forEach((attribute) => {
-                attribute.choices = this.getFieldChoices(attribute, fields);
-            });
+            // for each attribute looking for a field, compute the choices to display in the SelectMenu
+            await Promise.all(
+                fieldAttributes.map(async (attribute) => {
+                    const choices = await this.getFieldChoices(attribute, fields);
+                    attribute.choices = choices;
+                    this.getOptionObj(attribute.name).choices = choices;
+                })
+            );
             return fieldAttributes;
         }
         return [];
@@ -116,30 +125,32 @@ export class TypeWidgetProperties extends Component {
         return [
             ...fieldCommonViewsProperties,
             ...fieldSpecificViewProperties,
-            ...this.getSupportedOptions(props),
+            // create a deep copy of the options description to avoid modifying the original objects
+            ...JSON.parse(JSON.stringify(this.getSupportedOptions(props))),
         ];
     }
 
     getAttributesForCurrentTypeAndWidget(props) {
-        const _attributesForCurrentTypeAndWidget =
-            this._getAttributesForCurrentTypeAndWidget(props);
-        _attributesForCurrentTypeAndWidget.forEach((property) => {
+        const _attributes = this._getAttributesForCurrentTypeAndWidget(props);
+        _attributes.forEach((property) => {
             if (COMPUTED_DISPLAY_OPTIONS[property.name]) {
                 const dependentOption = COMPUTED_DISPLAY_OPTIONS[property.name];
-                const superOption = _attributesForCurrentTypeAndWidget.find(
-                    (o) => o.name === dependentOption.superOption
-                );
+                const superOption = _attributes.find((o) => o.name === dependentOption.superOption);
                 property.isSubOption = true;
                 if (!superOption.subOptions) {
                     superOption.subOptions = [];
                 }
-                if (superOption.subOptions.find((o) => o.name === property.name) === undefined) {
+                if (!superOption.subOptions.includes(property.name)) {
                     // only add the subOption if not already present
-                    superOption.subOptions.push(property);
+                    superOption.subOptions.push(property.name);
                 }
             }
         });
-        return _attributesForCurrentTypeAndWidget;
+        return _attributes;
+    }
+
+    getOptionObj(optionName) {
+        return this.attributesForCurrentTypeAndWidget.find((o) => o.name === optionName);
     }
 
     /**
@@ -158,24 +169,37 @@ export class TypeWidgetProperties extends Component {
             .filter((attribute) => attribute !== undefined);
     }
 
-    getFieldChoices(attribute, fields) {
+    async getFieldChoices(attribute, fields) {
+        let availableFields = fields;
+        // Specific code to filter available fields to display is handled here as supportedOptions
+        // is a generic description and don't allow to describe the full spec of an option
+        if (attribute.name === "fold_field") {
+            if (this.env.viewEditorModel.activeNode.field.type === "selection") {
+                // fold_field is only relevant with relational status with its own model
+                attribute.isInvisible = true;
+                return [];
+            }
+            const fields = await this.orm.call(
+                this.env.viewEditorModel.activeNode.field.relation,
+                "fields_get"
+            );
+            availableFields = Object.values(fields);
+        } else if (attribute.name === "currency_field") {
+            availableFields = availableFields.filter((f) => f.relation === "res.currency");
+        }
         if (attribute.availableTypes) {
-            let availableFields = fields.filter(
+            availableFields = availableFields.filter(
                 (f) =>
                     attribute.availableTypes.includes(f.type) &&
                     f.name !== this.env.viewEditorModel.activeNode.attrs.name
             );
-            if (attribute.name === "currency_field") {
-                availableFields = availableFields.filter((f) => f.relation === "res.currency");
-            }
-            return availableFields.map((f) => {
-                return {
-                    label: this.env.debug ? `${f.string} (${f.name})` : f.string,
-                    value: f.name,
-                };
-            });
         }
-        return fields;
+        return availableFields.map((f) => {
+            return {
+                label: this.env.debug ? `${f.string} (${f.name})` : f.string,
+                value: f.name,
+            };
+        });
     }
 
     /**
@@ -206,9 +230,7 @@ export class TypeWidgetProperties extends Component {
         if (COMPUTED_DISPLAY_OPTIONS[property.name]) {
             // The display of this property must be computed from the value of the corresponding super option
             const dependentOption = COMPUTED_DISPLAY_OPTIONS[property.name];
-            const superOption = this.attributesForCurrentTypeAndWidget.find(
-                (o) => o.name === dependentOption.superOption
-            );
+            const superOption = this.getOptionObj(dependentOption.superOption);
             const superValue = this.getPropertyFromOptions(superOption, props).value;
             if (dependentOption.getReadonly) {
                 property.isReadonly = dependentOption.getReadonly(superValue);
@@ -302,7 +324,7 @@ export class TypeWidgetProperties extends Component {
     }
 
     async onChangeProperty(value, name) {
-        const currentProperty = this.attributesForCurrentTypeAndWidget.find((e) => e.name === name);
+        const currentProperty = this.getOptionObj(name);
         if (name === "currency_field" && this.props.node.field.type === "monetary") {
             await this.onChangeCurrency(value);
             if (!this.props.node.attrs.options?.[name]) {
