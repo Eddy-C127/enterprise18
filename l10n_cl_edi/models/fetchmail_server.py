@@ -457,11 +457,11 @@ class FetchmailServer(models.Model):
     def _get_withholding_taxes(self, company_id, dte_line):
         # Get withholding taxes from DTE line
         tax_codes = [int(element.text) for element in dte_line.findall('.//ns0:CodImpAdic', namespaces=XML_NAMESPACES)]
-        return set(self.env['account.tax'].search([
+        return self.env['account.tax'].search([
             *self.env['account.tax']._check_company_domain(company_id),
             ('type_tax_use', '=', 'purchase'),
             ('l10n_cl_sii_code', 'in', tax_codes)
-        ]))
+        ])
 
     def _get_dte_currency(self, dte_xml):
         currency_name = dte_xml.findtext('.//ns0:Moneda', namespaces=XML_NAMESPACES)
@@ -547,7 +547,7 @@ class FetchmailServer(models.Model):
             if (dte_xml.findtext('.//ns0:TasaIVA', namespaces=XML_NAMESPACES) is not None and
                     dte_line.findtext('.//ns0:IndExe', namespaces=XML_NAMESPACES) is None):
                 values['default_tax'] = True
-                values['taxes'] = set(default_purchase_tax) | self._get_withholding_taxes(company_id, dte_line)
+                values['taxes'] = default_purchase_tax | self._get_withholding_taxes(company_id, dte_line)
             if gross_amount:
                 # in case the tag MntBruto is included in the IdDoc section, and there are not
                 # additional taxes (withholdings)
