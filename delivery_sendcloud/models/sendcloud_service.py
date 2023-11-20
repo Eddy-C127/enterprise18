@@ -263,7 +263,7 @@ class SendCloud:
     def _send_request(self, endpoint, method='get', data=None, params=None, route=BASE_URL):
 
         url = url_join(route, endpoint)
-        self.logger(f'{url}\n{method}\n{data}', f'sendcloud request {endpoint}')
+        self.logger(f'{url}\n{method}\n{data}\n{params}', f'sendcloud request {endpoint}')
         if method not in ['get', 'post']:
             raise Exception(f'Unhandled request method {method}')
         try:
