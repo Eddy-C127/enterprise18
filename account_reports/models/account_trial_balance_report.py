@@ -161,7 +161,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
 
         report._init_options_order_column(options, previous_options)
 
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
+    def _custom_line_postprocessor(self, report, options, lines):
         # If the hierarchy is enabled, ensure to add the o_account_coa_column_contrast class to the hierarchy lines
         if options.get('hierarchy'):
             for line in lines:

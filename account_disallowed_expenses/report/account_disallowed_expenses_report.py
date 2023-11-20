@@ -41,10 +41,9 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
         )
         options['multi_rate_in_period'] = bool(rg)
 
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
-        if warnings is not None and options['multi_rate_in_period']:
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        if options['multi_rate_in_period']:
             warnings['account_disallowed_expenses.warning_multi_rate'] = {}
-        return lines
 
     def _caret_options_initializer(self):
         return {

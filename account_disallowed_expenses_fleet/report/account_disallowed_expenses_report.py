@@ -33,26 +33,23 @@ class DisallowedExpensesFleetCustomHandler(models.AbstractModel):
         )
         options['multi_rate_in_period'] = options.get('multi_rate_in_period') or bool(rg)
 
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
-        if warnings is not None:
-            # Check for expense accounts without disallowed expense category
-            accounts = self.env['account.move.line']._read_group(
-                [
-                    ('date', '<=', options['date']['date_to']),
-                    ('date', '>=', options['date']['date_from']),
-                    ('parent_state', '=', 'posted'),
-                    ('account_type', '=', 'expense'),
-                    ('vehicle_id', '!=', None),
-                    ('account_id.disallowed_expenses_category_id', '=', None),
-                ],
-                ['account_id'],
-            )
-            if accounts:
-                warnings['account_disallowed_expenses_fleet.warning_missing_disallowed_category'] = {
-                    'alert_type': 'warning',
-                    'args': [account[0].id for account in accounts],
-                }
-        return lines
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        accounts = self.env['account.move.line']._read_group(
+            [
+                ('date', '<=', options['date']['date_to']),
+                ('date', '>=', options['date']['date_from']),
+                ('parent_state', '=', 'posted'),
+                ('account_type', '=', 'expense'),
+                ('vehicle_id', '!=', None),
+                ('account_id.disallowed_expenses_category_id', '=', None),
+            ],
+            ['account_id'],
+        )
+        if accounts:
+            warnings['account_disallowed_expenses_fleet.warning_missing_disallowed_category'] = {
+                'alert_type': 'warning',
+                'args': [account[0].id for account in accounts],
+            }
 
     def _get_query(self, options, line_dict_id=None):
         # EXTENDS account_disallowed_expenses.

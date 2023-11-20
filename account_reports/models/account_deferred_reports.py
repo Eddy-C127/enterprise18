@@ -275,6 +275,19 @@ class DeferredReportCustomHandler(models.AbstractModel):
             ],
         }
 
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        already_generated = (
+            (
+                self._get_deferred_report_type() == 'expense' and self.env.company.generate_deferred_expense_entries_method == 'manual'
+                or self._get_deferred_report_type() == 'revenue' and self.env.company.generate_deferred_revenue_entries_method == 'manual'
+            )
+            and self.env['account.move'].search_count(
+                report._get_generated_deferral_entries_domain(options)
+            )
+        )
+        if already_generated:
+            warnings['account_reports.deferred_report_warning_already_posted'] = {'alert_type': 'warning'}
+
     def open_journal_items(self, options, params):
         report = self.env['account.report'].browse(options['report_id'])
         action = report.open_journal_items(options=options, params=params)
@@ -300,19 +313,6 @@ class DeferredReportCustomHandler(models.AbstractModel):
                 }
                 for column in options['columns']
             ]
-
-        if warnings is not None:
-            already_generated = (
-                (
-                    self._get_deferred_report_type() == 'expense' and self.env.company.generate_deferred_expense_entries_method == 'manual'
-                    or self._get_deferred_report_type() == 'revenue' and self.env.company.generate_deferred_revenue_entries_method == 'manual'
-                )
-                and self.env['account.move'].search_count(
-                    report._get_generated_deferral_entries_domain(options)
-                )
-            )
-            if already_generated:
-                warnings['account_reports.deferred_report_warning_already_posted'] = {'alert_type': 'warning'}
 
         lines = self._get_lines(report, options)
         periods = [

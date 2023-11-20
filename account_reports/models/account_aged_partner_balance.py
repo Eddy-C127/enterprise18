@@ -40,7 +40,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
 
         options['order_column'] = (previous_options or {}).get('order_column') or default_order_column
 
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
+    def _custom_line_postprocessor(self, report, options, lines):
         partner_lines_map = {}
 
         # Sort line dicts by partner

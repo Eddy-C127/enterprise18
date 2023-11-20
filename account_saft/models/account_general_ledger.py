@@ -13,25 +13,21 @@ from odoo import api, fields, models, release, _
 class GeneralLedgerCustomHandler(models.AbstractModel):
     _inherit = 'account.general.ledger.report.handler'
 
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
-        lines = super()._custom_line_postprocessor(report, options, lines, warnings=warnings)
-        if warnings is not None:
-            company = self.env.company
-            args = []
-            if not company.company_registry:
-                args.append(_('the Company ID'))
-            if not (company.phone or company.mobile):
-                args.append(_('the phone or mobile number'))
-            if not (company.zip or company.city):
-                args.append(_('the city or zip code'))
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        company = self.env.company
+        args = []
+        if not company.company_registry:
+            args.append(_('the Company ID'))
+        if not (company.phone or company.mobile):
+            args.append(_('the phone or mobile number'))
+        if not (company.zip or company.city):
+            args.append(_('the city or zip code'))
 
-            if args:
-                warnings['account_saft.company_data_warning'] = {
-                    'alert_type': 'warning',
-                    'args': _(', ').join(args),
-                }
-
-        return lines
+        if args:
+            warnings['account_saft.company_data_warning'] = {
+                'alert_type': 'warning',
+                'args': _(', ').join(args),
+            }
 
     ####################################################
     # ACTIONS

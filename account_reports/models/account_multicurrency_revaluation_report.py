@@ -64,7 +64,13 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
         options['multi_currency'] = True
         options['buttons'].append({'name': _('Adjustment Entry'), 'sequence': 30, 'action': 'action_multi_currency_revaluation_open_revaluation_wizard', 'always_show': True})
 
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        if len(self.env.companies) > 1:
+            warnings['account_reports.multi_currency_revaluation_report_warning_multicompany'] = {'alert_type': 'warning'}
+        if options['custom_rate']:
+            warnings['account_reports.multi_currency_revaluation_report_warning_custom_rate'] = {'alert_type': 'warning'}
+
+    def _custom_line_postprocessor(self, report, options, lines):
         line_to_adjust_id = self.env.ref('account_reports.multicurrency_revaluation_to_adjust').id
         line_excluded_id = self.env.ref('account_reports.multicurrency_revaluation_excluded').id
 
@@ -95,13 +101,6 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
             line['cur_revaluation_line_model'] = res_model_name
 
             rslt.append(line)
-
-        # Custom warnings
-        if warnings is not None:
-            if len(self.env.companies) > 1:
-                warnings['account_reports.multi_currency_revaluation_report_warning_multicompany'] = {'alert_type': 'warning'}
-            if options['custom_rate']:
-                warnings['account_reports.multi_currency_revaluation_report_warning_custom_rate'] = {'alert_type': 'warning'}
 
         return rslt
 

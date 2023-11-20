@@ -96,11 +96,6 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             },
         }
 
-    def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-        # Add the control lines in the report, with a high sequence to ensure they appear at the end.
-        self._dynamic_check_lines(options, all_column_groups_expression_totals, warnings)
-        return []
-
     def _custom_options_initializer(self, report, options, previous_options=None):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
 
@@ -267,14 +262,13 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             'file_type': 'xml',
         }
 
-    def _dynamic_check_lines(self, options, all_column_groups_expression_totals, warnings):
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
         def _evaluate_check(check_func):
             return all(
                 check_func(expression_totals)
                 for expression_totals in all_column_groups_expression_totals.values()
             )
 
-        report = self.env['account.report'].browse(options['report_id'])
         expr_map = {
             line.code: line.expression_ids.filtered(lambda x: x.label == 'balance')
             for line in report.line_ids
@@ -333,11 +327,11 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             if not _evaluate_check(check_func)
         ]
 
-        if warnings is not None and _evaluate_check(lambda expr_totals: any(
+        if _evaluate_check(lambda expr_totals: any(
             [expr_totals[expr_map[grid]]['value'] for grid in ('c44', 'c46L', 'c46T', 'c48s44', 'c48s46L', 'c48s46T')]
         )):
             # remind user to submit EC Sales Report if any ec sales related taxes
             warnings['l10n_be_reports.tax_report_warning_ec_sales_reminder'] = {}
 
-        if failed_controls and warnings is not None:
+        if failed_controls:
             warnings['l10n_be_reports.tax_report_warning_checks'] = {'failed_controls': failed_controls, 'alert_type': 'danger'}

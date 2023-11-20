@@ -2160,7 +2160,9 @@ class AccountReport(models.Model):
         lines = self._fully_unfold_lines_if_needed(lines, options)
 
         if self.custom_handler_model_id:
-            lines = self.env[self.custom_handler_model_name]._custom_line_postprocessor(self, options, lines, warnings=warnings)
+            lines = self.env[self.custom_handler_model_name]._custom_line_postprocessor(self, options, lines)
+            if warnings is not None:
+                self.env[self.custom_handler_model_name]._customize_warnings(self, options, all_column_groups_expression_totals, warnings)
 
         return lines
 
@@ -6025,7 +6027,7 @@ class AccountReportCustomHandler(models.AbstractModel):
         if report.root_report_id:
             report.root_report_id._init_options_custom(options, previous_options)
 
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
+    def _custom_line_postprocessor(self, report, options, lines):
         """ Postprocesses the result of the report's _get_lines() before returning it. """
         return lines
 
@@ -6059,6 +6061,12 @@ class AccountReportCustomHandler(models.AbstractModel):
         },
         """
         return {}
+
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        """ To be overridden to add report-specific warnings
+        in the warnings dictionary.
+        Should only be used when necessary, _dynamic_lines_generator is preferred
+        """
 
     def _enable_export_buttons_for_common_vat_groups_in_branches(self, options):
         """ Helper function to be called in _custom_options_initializer to change the behavior of the report so that the export
