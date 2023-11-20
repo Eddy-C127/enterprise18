@@ -109,6 +109,11 @@ class ApprovalRequest(models.Model):
         if attachment_ids:
             attachment_ids.unlink()
 
+    def unlink(self):
+        if self.has_product:
+            self.product_line_ids.unlink()
+        return super().unlink()
+
     def action_get_attachment_view(self):
         self.ensure_one()
         res = self.env['ir.actions.act_window']._for_xml_id('base.action_attachment')
