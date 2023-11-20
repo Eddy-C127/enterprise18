@@ -230,8 +230,8 @@ class WhatsAppTemplate(models.Model):
                         {'name': 'latitude', 'line_type': 'location', 'wa_template_id': tmpl.id},
                         {'name': 'longitude', 'line_type': 'location', 'wa_template_id': tmpl.id}
                     ]
-                else:
-                    to_delete += [i.id for i in existing_header_location_variables]
+            else:
+                to_delete += existing_header_location_variables.ids
 
             # body
             existing_body_variables = tmpl.variable_ids.filtered(lambda line: line.line_type == 'body')

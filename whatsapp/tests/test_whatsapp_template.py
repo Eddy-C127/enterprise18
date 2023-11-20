@@ -263,6 +263,49 @@ Welcome to {{3}} office''',
             ],
         )
 
+    @users('user_wa_admin')
+    def test_template_header_variables_update(self):
+        """ Test variable compute method, when updating header_type. """
+        template = self.env['whatsapp.template'].create({
+            'body': 'Super Body',
+            'header_type': 'text',
+            'name': 'Header Variable Update',
+            'wa_account_id': self.whatsapp_account.id,
+        })
+
+        template.header_type = "location"
+        self.assertWATemplate(
+            template,
+            status='draft',
+            template_variables=[
+                ('name', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('address', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('latitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('longitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+            ],
+        )
+
+        template.body = "Feel free to contact {{1}}"
+        self.assertWATemplate(
+            template,
+            status='draft',
+            template_variables=[
+                ('name', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('address', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('latitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('longitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ("{{1}}", "body", "free_text", {'demo_value': 'Sample Value'}),
+            ],
+        )
+
+        template.header_type = "text"
+        self.assertWATemplate(
+            template,
+            status='draft',
+            template_variables=[
+                ("{{1}}", "body", "free_text", {'demo_value': 'Sample Value'}),
+            ],
+        )
 
 @tagged('wa_template')
 class WhatsAppTemplatePreview(WhatsAppTemplateCommon):
