@@ -5,6 +5,9 @@
         <field name="model">spreadsheet.document.to.dashboard</field>
         <field name="arch" type="xml">
             <form >
+                <div class="alert alert-warning" role="alert">
+                    We're sending the original spreadsheet to the trash. No worries, though! You can still make edits by heading over to the Dashboard configuration.
+                </div>
                 <group>
                     <group>
                         <field name="name"/>

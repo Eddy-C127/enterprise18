@@ -133,3 +133,18 @@ class TestSpreadsheetDocumentToDashboard(TransactionCase):
         self.assertEqual(dashboard.spreadsheet_binary_data, dashboard._empty_spreadsheet_data_base64())
         self.assertEqual(action["type"], "ir.actions.client")
         self.assertEqual(action["tag"], "action_edit_dashboard")
+
+    def _test_create_dashboard_and_archive_document(self):
+        group = self.env["spreadsheet.dashboard.group"].create(
+            {"name": "a group"}
+        )
+        document = self.env["documents.document"].create(
+            {
+                "name": "a document",
+                "spreadsheet_data": r'{"sheets": []}',
+                "handler": "spreadsheet",
+                "mimetype": "application/o-spreadsheet",
+            }
+        )
+        self.env["spreadsheet.dashboard"].add_document_spreadsheet_to_dashboard(group.id, document.id)
+        self.assertFalse(document.active, "The original document should be archived")

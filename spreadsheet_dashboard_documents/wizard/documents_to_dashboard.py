@@ -45,6 +45,7 @@ class DocumentsToDashboardWizard(models.TransientModel):
                 "spreadsheet_data": self.document_id.spreadsheet_data,
             }
         )
+        self.document_id.action_archive()
         return {
             "type": "ir.actions.client",
             "tag": "action_spreadsheet_dashboard",
