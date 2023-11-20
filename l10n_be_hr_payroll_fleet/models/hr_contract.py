@@ -239,6 +239,8 @@ class HrContract(models.Model):
             self.new_car = False
             self.new_car_model_id = False
             self.has_bicycle = False
+        if self.car_id:
+            self.transport_mode_private_car = False
 
     @api.onchange('has_bicycle')
     def _onchange_has_bicycle(self):
