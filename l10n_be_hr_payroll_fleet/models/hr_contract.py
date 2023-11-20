@@ -238,6 +238,8 @@ class HrContract(models.Model):
         if self.transport_mode_car:
             self.new_car = False
             self.new_car_model_id = False
+        if self.car_id:
+            self.transport_mode_private_car = False
 
     def _get_fields_that_recompute_payslip(self):
         # Returns the fields that should recompute the payslip
