@@ -28,14 +28,12 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "A bank account is not defined."
 msgstr "Pankkitiliä ei ole määritelty."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_payment_register.py:0
-#, python-format
 msgid "A bank account must be set on the following documents: "
 msgstr "Pankkitili on määritettävä seuraavissa asiakirjoissa: "
 
@@ -47,7 +45,6 @@ msgstr "Itävallan"
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Bank account %s 's bank does not have any BIC number associated. Please define one."
 msgstr "Pankkitilin %s pankkiin ei liity BIC-numeroa. Määrittele sellainen."
 
@@ -117,7 +114,6 @@ msgstr "Päiväkirja"
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Maximum amount is %s for payments in Euros, %s for other currencies."
 msgstr "Enimmäismäärä on %s euromääräisille maksuille ja %s muille valuutoille."
 
@@ -129,14 +125,12 @@ msgstr "Velkojan viiteosapuolen nimi. Käyttösääntö: Rajoitettu 70 merkin pi
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Partner %s has no country code defined."
 msgstr "Kumppanille %s ei ole määritelty maakoodia."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Partner %s has not bank account defined."
 msgstr "Kumppanilla %s ei ole määritetty pankkitiliä."
 
@@ -163,7 +157,6 @@ msgstr "SEPAn kautta lähetettävät maksut"
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Please first set a SEPA identification number in the accounting settings."
 msgstr "Aseta ensin SEPA-tunnistenumero kirjanpitoasetuksissa."
 
@@ -190,7 +183,6 @@ msgstr "SEPA credit-siirto"
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal_dashboard.py:0
-#, python-format
 msgid "SEPA Credit Transfers to Send"
 msgstr "Lähetettävät SEPA-tilisiirrot"
 
@@ -213,28 +205,24 @@ msgstr "Sct Yleinen"
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments are above the maximum amount allowed."
 msgstr "Jotkin maksut ylittävät sallitun enimmäismäärän."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments are not made on an IBAN recipient account. This batch might not be accepted by certain banks because of that."
 msgstr "Joitakin maksuja ei suoriteta IBAN-vastaanottotilille. Tämän vuoksi tietyt pankit eivät välttämättä hyväksy tätä erää."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have no recipient bank account set."
 msgstr "Joillekin maksuille ei ole asetettu vastaanottajan pankkitiliä."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments were instructed in another currency than Euro. This batch might not be accepted by certain banks because of that."
 msgstr "Jotkin maksut suoritettiin muuna valuuttana kuin euroina. Tämän vuoksi tietyt pankit eivät välttämättä hyväksy tätä erää."
 
@@ -256,7 +244,6 @@ msgstr "Tekninen ominaisuus, jota käytetään tiedoston luomisessa. SEPA-sanoma
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid ""
 "The BIC code '%s' associated to the bank '%s' of bank account '%s' of partner '%s' does not respect the required convention.\n"
 "It must contain 8 or 11 characters and match the following structure:\n"
@@ -275,7 +262,6 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid ""
 "The account %s, linked to partner '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
@@ -286,7 +272,6 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid ""
 "The account %s, of journal '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
@@ -297,28 +282,24 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "The amount of the payment '%(payment)s' is too high. The maximum permitted is %(limit)s."
 msgstr "Maksun '%(payment)s' määrä on liian suuri. Suurin sallittu arvo on %(limit)s."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "The bank defined on account %s (from partner %s) has no BIC. Please first set one."
 msgstr "Tilille %s (kumppanilta %s) määritellyllä pankilla ei ole BIC-koodia. Aseta ensin sellainen."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_payment.py:0
-#, python-format
 msgid "The journal '%s' requires a proper IBAN account to pay via SEPA. Please configure it first."
 msgstr "Päiväkirja '%s' edellyttää asianmukaista IBAN-tiliä SEPA-maksua varten. Määritä se ensin."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Too many transactions for a single file."
 msgstr "Liian monta tapahtumaa yhteen tiedostoon."
 

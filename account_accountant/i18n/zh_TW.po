@@ -24,7 +24,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
-#, python-format
 msgid ""
 "\n"
 "                <p class=\"o_view_nocontent_smiling_face\">\n"
@@ -39,14 +38,12 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "%(display_name_html)s with an open amount of %(open_amount)s will be fully reconciled by the transaction."
 msgstr "%(display_name_html)s 目前有 %(open_amount)s 未對賬金額，經此交易後，將全面完成對賬。"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "%(display_name_html)s with an open amount of %(open_amount)s will be reduced by %(amount)s."
 msgstr "%(display_name_html)s 的未對賬金額 %(open_amount)s 將會減少 %(amount)s 。"
 
@@ -68,7 +65,6 @@ msgstr "<b class=\"tip_title\">提示：尋找會計服務，或登記你的會�
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "<br>See how to manage your customer invoices in the <b>Customers/Invoices</b> menu"
 msgstr "<br>請前往<b>「客戶 / 發票」</b>選單，看看如何管理你的客戶發票"
 
@@ -137,14 +133,12 @@ msgstr "<span class=\"tip_button_text\">登記你的會計公司</span>"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "<strong><b>Good job!</b> You went through all steps of this tour.</strong>"
 msgstr "<strong><b>做得好！</b>你已完成本次導覽的所有步驟。</strong>"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "A transfer of %(transfer_amount_currency)s will be transferred from %(from_account)s to %(to_account)s."
 msgstr ""
 
@@ -155,7 +149,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__account_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__account_id
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Account"
 msgstr "賬戶"
 
@@ -249,7 +242,6 @@ msgstr "總額外幣"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Amount in Currency"
 msgstr "金額幣別"
 
@@ -271,7 +263,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
-#, python-format
 msgid "Analytic Account"
 msgstr "分析帳戶"
 
@@ -313,7 +304,6 @@ msgstr "銀行款項及現金流向"
 #. odoo-javascript
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form.js:0
-#, python-format
 msgid "Bank Reconciliation"
 msgstr "銀行對帳"
 
@@ -326,7 +316,6 @@ msgstr "銀行對帳單"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
-#, python-format
 msgid "Bank Statement %s.pdf"
 msgstr "銀行對帳單 %s.pdf"
 
@@ -338,7 +327,6 @@ msgstr "銀行對帳單 明細"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
-#, python-format
 msgid "Bank Statement.pdf"
 msgstr "銀行對帳單.pdf"
 
@@ -362,7 +350,6 @@ msgstr "更改鎖定日期"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Check & validate the bill. If no vendor has been found, add one before validating."
 msgstr "Check & validate the bill. If no vendor has been found, add one before validating."
 
@@ -374,7 +361,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/move_line_list/move_line_list.xml:0
-#, python-format
 msgid "Choose a line to preview its attachments."
 msgstr "Choose a line to preview its attachments."
 
@@ -413,7 +399,6 @@ msgstr "設定"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Connect your bank and get your latest transactions."
 msgstr "Connect your bank and get your latest transactions."
 
@@ -435,7 +420,6 @@ msgstr "建立新的項目組"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Create your first vendor bill.<br/><br/><i>Tip: If you don’t have one on hand, use our sample bill.</i>"
 msgstr "Create your first vendor bill.<br/><br/><i>Tip: If you don’t have one on hand, use our sample bill.</i>"
 
@@ -457,7 +441,6 @@ msgstr "建立於"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__credit
-#, python-format
 msgid "Credit"
 msgstr "貸方"
 
@@ -471,7 +454,6 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__currency_id
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Currency"
 msgstr "幣別"
 
@@ -483,7 +465,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Customer/Vendor"
 msgstr "客戶/供應商"
 
@@ -495,7 +476,6 @@ msgstr "客戶/供應商"
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
-#, python-format
 msgid "Date"
 msgstr "日期"
 
@@ -503,7 +483,6 @@ msgstr "日期"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__debit
-#, python-format
 msgid "Debit"
 msgstr "借方"
 
@@ -554,7 +533,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/digest.py:0
-#, python-format
 msgid "Do not have access, skip this data for user's digest email"
 msgstr "無權存取，跳過使用者摘要電子信件的此筆資料"
 
@@ -577,7 +555,6 @@ msgstr "Every payment and invoice before this date will receive the 'From Invoic
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Exchange Difference: %s"
 msgstr ""
 
@@ -743,21 +720,18 @@ msgstr "From any list view, select multiple records and the list becomes editabl
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Get back to the dashboard using your previous path…"
 msgstr "Get back to the dashboard using your previous path…"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Go to invoicing"
 msgstr "Go to invoicing"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Great! Let’s continue."
 msgstr "Great! Let’s continue."
 
@@ -788,7 +762,6 @@ msgstr "入庫"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/res_config_settings.py:0
-#, python-format
 msgid "Incorrect fiscal year date: day is out of range for month. Month: %s; Day: %s"
 msgstr ""
 "‎未翻譯的字元\n"
@@ -922,35 +895,30 @@ msgstr "最後更新於"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s automate your bills, bank transactions and accounting processes."
 msgstr "Let’s automate your bills, bank transactions and accounting processes."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s go back to the dashboard."
 msgstr "讓我們回到儀表板."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s reconcile the fetched bank transactions."
 msgstr "Let’s reconcile the fetched bank transactions."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s see how a bill looks like in form view."
 msgstr "Let’s see how a bill looks like in form view."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s use AI to fill in the form<br/><br/><i>Tip: If the OCR is not done yet, wait a few more seconds and try again.</i>"
 msgstr "Let’s use AI to fill in the form<br/><br/><i>Tip: If the OCR is not done yet, wait a few more seconds and try again.</i>"
 
@@ -998,7 +966,6 @@ msgstr "手動操作"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_view_switcher.js:0
 #: code:addons/account_accountant/static/src/components/matching_link_widget/matching_link_widget.xml:0
-#, python-format
 msgid "Match"
 msgstr "配對"
 
@@ -1015,7 +982,6 @@ msgstr "已配對"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_payment.py:0
-#, python-format
 msgid "Matched Transactions"
 msgstr "匹配的交易"
 
@@ -1027,7 +993,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Miscellaneous"
 msgstr ""
 
@@ -1055,7 +1020,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/move_line_list/move_line_list.xml:0
-#, python-format
 msgid "No attachments linked."
 msgstr "No attachments linked."
 
@@ -1089,7 +1053,6 @@ msgstr "備註"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
-#, python-format
 msgid "Only Billing Administrators are allowed to change lock dates!"
 msgstr "Only Billing Administrators are allowed to change lock dates!"
 
@@ -1111,7 +1074,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Open balance: %s"
 msgstr ""
 
@@ -1131,7 +1093,6 @@ msgstr "出向"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__partner_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_id
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Partner"
 msgstr "業務夥伴"
 
@@ -1171,7 +1132,6 @@ msgstr "Pick a date to lock"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Please install the 'Accounting Reports' module."
 msgstr ""
 
@@ -1209,7 +1169,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Process this transaction."
 msgstr "Process this transaction."
 
@@ -1412,7 +1371,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Taxes"
 msgstr "稅金"
 
@@ -1424,28 +1382,24 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "The date you set violates the lock date of one of your entry. It will be overriden by the following date : %(replacement_date)s"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid "The ending date must not be prior to the starting date."
 msgstr "結束日期不能在開始日期之前。"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "The invoice %(display_name_html)s with an open amount of %(open_amount)s will be entirely paid by the transaction."
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "The invoice %(display_name_html)s with an open amount of %(open_amount)s will be reduced by %(amount)s."
 msgstr ""
 
@@ -1462,21 +1416,18 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
-#, python-format
 msgid "This bank transaction has been automatically validated using the reconciliation model '%s'."
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "This can only be used on journal items"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_reconcile_model_line.py:0
-#, python-format
 msgid "This reconciliation model can't be used in the manual reconciliation widget because its configuration is not adapted"
 msgstr "此對賬模型無法在手動對賬小工具中使用，因為其設定不適應"
 
@@ -1526,14 +1477,12 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "Transfer from %s"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "Transfer to %s"
 msgstr ""
 
@@ -1545,7 +1494,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/res_company.py:0
-#, python-format
 msgid "Unreconciled statements lines"
 msgstr ""
 
@@ -1564,7 +1512,6 @@ msgstr "核實"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_view_switcher.js:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
-#, python-format
 msgid "View"
 msgstr "檢視"
 
@@ -1582,84 +1529,72 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "Write-Off"
 msgstr "銷帳"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "Write-Off Entry"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid "You can not have an overlap between two fiscal years, please correct the start and/or end dates of your fiscal years."
 msgstr "您不能在兩個會計年度之間有重疊，請改正您的會計年度的開始和/或結束日期。"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "You can only reconcile entries with up to two different accounts: %s"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You can't have maximum one auto balance line at the same time in the bank reconciliation widget"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You can't have multiple liquidity journal item at the same time in the bank reconciliation widget"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You can't have multiple times the same journal item in the bank reconciliation widget"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
-#, python-format
 msgid "You cannot set a lock date in the future."
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You might want to %(btn_start)sfully reconcile%(btn_end)s the document."
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You might want to make a %(btn_start)spartial reconciliation%(btn_end)s instead."
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You might want to record a %(btn_start)spartial payment%(btn_end)s."
 msgstr "你可能想記錄一項 %(btn_start)s未足額付款%(btn_end)s 。"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You might want to set the invoice as %(btn_start)sfully paid%(btn_end)s."
 msgstr ""
 

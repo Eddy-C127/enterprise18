@@ -31,14 +31,12 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid " If you want to set quantity to 0, the Out Of Stock option should be enabled and the listing duration should set to Good 'Til Canceled"
 msgstr " Jos haluat asettaa määrän arvoksi 0, Out Of Stock -vaihtoehto on otettava käyttöön ja listauksen kesto on asetettava arvoon Kelvollinen kunnes peruutettu"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid ""
 " You need to have at least 2 variations selected for a multi-variations listing.\n"
 " Or if you try to delete a variation, you cannot do it by unselecting it. Setting the quantity to 0 is the safest method to make a variation unavailable."
@@ -84,7 +82,6 @@ msgstr "Lisää muita maita"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "All the quantities must be greater than 0 or you need to enable the Out Of Stock option."
 msgstr "Kaikkien määrien on oltava suurempia kuin 0 tai sinun on otettava käyttöön Out Of Stock -vaihtoehto."
 
@@ -150,7 +147,6 @@ msgstr "Asetukset"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "Configure The eBay Integrator Now"
 msgstr "Määritä eBay-integraatio"
 
@@ -238,7 +234,6 @@ msgstr "Kesto"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid ""
 "Ebay Synchronisation could not confirm because of the following error:\n"
 "%s"
@@ -249,7 +244,6 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid ""
 "Ebay could not synchronize order:\n"
 "%s"
@@ -285,7 +279,6 @@ msgstr "Lopeta kohteen luettelointi"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid ""
 "Error Encountered.\n"
 " No Variant Set To Be Listed On eBay."
@@ -296,7 +289,6 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid ""
 "Error Encountered.\n"
 "'%s'"
@@ -357,7 +349,6 @@ msgstr "Tuo eBayn konfigurointitiedot ja synkronoi tapahtumat"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid ""
 "Impossible to revise a listing into a multi-variations listing.\n"
 " Create a new listing."
@@ -462,7 +453,6 @@ msgstr "Nimi"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_ebay.py:0
-#, python-format
 msgid "No Business Policies"
 msgstr "Ei liiketoimintapolitiikkaa"
 
@@ -474,14 +464,12 @@ msgstr "Virallinen eBay-luokka"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "One parameter is missing."
 msgstr "Yksi parametri puuttuu."
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "Or the condition is not compatible with the category."
 msgstr "Tai ehto ei ole yhteensopiva luokan kanssa."
 
@@ -499,7 +487,6 @@ msgstr "Maksupolitiikka"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/res_config_settings.py:0
-#, python-format
 msgid "Please provide your ebay production keys before enabling the account deletion notifications."
 msgstr "Anna ebay-tuotantoavaimesi, ennen kuin otat tilin poistoilmoitukset käyttöön."
 
@@ -537,7 +524,6 @@ msgstr "Tuotevariaatio"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid "Product created from eBay transaction %s"
 msgstr "EBay-tapahtumasta luotu tuote %s"
 
@@ -698,21 +684,18 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid "The Buyer Chose The Following Delivery Method :\n"
 msgstr "Ostaja valitsi seuraavan toimitustavan :\n"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid "The Buyer Posted :\n"
 msgstr "Ostaja lähetti :\n"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/res_config_settings.py:0
-#, python-format
 msgid ""
 "The python 'cryptography' module is not installed on your server.\n"
 "It is necessary to support eBay account deletion notifications, please contact your system administrator to install it."
@@ -741,21 +724,18 @@ msgstr "Toissijaisen luokan käyttö ei ole sallittua kaikilla eBay-sivustoilla.
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "There is no last synchronization date in your System Parameters. Create a System Parameter record with the key \"ebay_last_sync\" and the value set to the date of the oldest order you wish to synchronize in the format \"YYYY-MM-DD\"."
 msgstr "Järjestelmäparametreissa ei ole viimeisintä synkronointipäivämäärää. Luo järjestelmäparametritietue, jonka avain on \"ebay_last_sync\" ja arvo on sen vanhimman tilauksen päivämäärä, jonka haluat synkronoida, muodossa \"VVVV-KK-PP\"."
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "This function should not be called with a range of more than 30 days, as eBay does not handle longer timespans. Instead use synchronize_orders which split in as many calls as needed."
 msgstr "Tätä toimintoa ei saa kutsua yli 30 päivän pituisella alueella, koska eBay ei käsittele pidempiä aikavälejä. Käytä sen sijaan synchronize_orders-toimintoa, joka jaetaan niin moneen kutsuun kuin on tarpeen."
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/res_partner.py:0
-#, python-format
 msgid ""
 "This is an automated notification as a deletion request has been received from eBay concerning the account \"%s (%s)\". The account has been anonymised already and his portal access revoked (if they had any).\n"
 "\n"
@@ -924,7 +904,6 @@ msgstr "eBay-liitin: tilin poistoilmoitus"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_ebay.py:0
-#, python-format
 msgid ""
 "eBay error: Impossible to synchronize the categories. \n"
 "'%s'"
@@ -935,7 +914,6 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "eBay is unreachable. Please try again later."
 msgstr "eBay ei ole tavoitettavissa. Yritä myöhemmin uudelleen."
 

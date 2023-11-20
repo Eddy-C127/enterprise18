@@ -209,7 +209,6 @@ msgstr "补贴"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_advantage.py:0
-#, python-format
 msgid "Advantages that are not linked to a field should always be displayed."
 msgstr "应始终显示未链接至字段的补贴。"
 
@@ -236,7 +235,6 @@ msgstr "年度员工预算"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Annual Employer Cost"
 msgstr "员工年度成本"
 
@@ -370,7 +368,6 @@ msgstr "合同补贴价值"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Contract Information:"
 msgstr "合同信息"
 
@@ -394,7 +391,6 @@ msgstr "合同模板"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Contract Type"
 msgstr "合同类型"
 
@@ -536,7 +532,6 @@ msgstr "日期"
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_advantage__uom__days
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_resume__uom__days
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_advantages
-#, python-format
 msgid "Days"
 msgstr "天"
 
@@ -594,7 +589,6 @@ msgstr "说明"
 #. module: hr_contract_salary
 #. odoo-javascript
 #: code:addons/hr_contract_salary/static/src/xml/resume_sidebar.xml:0
-#, python-format
 msgid "Details"
 msgstr "细节"
 
@@ -700,7 +694,6 @@ msgstr "员工合同"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Employee Name"
 msgstr "员工姓名"
 
@@ -722,7 +715,6 @@ msgstr "员工：合同以及工资包"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid ""
 "Equals to the sum of the following values:\n"
 "\n"
@@ -816,7 +808,6 @@ msgstr "分组"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract.py:0
-#, python-format
 msgid "HR Responsible %s should be a User of Sign and have a valid email address when New Contract Document Template is specified"
 msgstr "当指定新的合同文件模板时，HR负责人%s应该是签名用户，并有一个有效的电子邮件地址"
 
@@ -905,7 +896,6 @@ msgstr ""
 #. module: hr_contract_salary
 #. odoo-javascript
 #: code:addons/hr_contract_salary/static/src/js/hr_contract_salary.js:0
-#, python-format
 msgid ""
 "In order to choose %s, first you need to choose:\n"
 " %s"
@@ -942,7 +932,6 @@ msgstr ""
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #: model:ir.model,name:hr_contract_salary.model_hr_job
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__employee_job_id
-#, python-format
 msgid "Job Position"
 msgstr "工作岗位"
 
@@ -950,7 +939,6 @@ msgstr "工作岗位"
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__job_title
-#, python-format
 msgid "Job Title"
 msgstr "工作头衔"
 
@@ -1033,7 +1021,6 @@ msgstr "主版本"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_personal_info.py:0
-#, python-format
 msgid "Mismatch between res_field_id %(field)s and model %(model)s for info %(personal_info)s"
 msgstr "信息%(personal_info)s的res_field_id %(field)s和模型%(model)s不匹配。"
 
@@ -1056,7 +1043,6 @@ msgstr "每月费用(实际)"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Monthly Gross Salary"
 msgstr "月工资总额"
 
@@ -1113,14 +1099,12 @@ msgstr "新增的合同文档模板"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "No"
 msgstr "否"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "No HR responsible defined on the job position. Please contact an administrator."
 msgstr "在工作岗位中没有定义人力资源主管。请与管理员联系。"
 
@@ -1132,28 +1116,24 @@ msgstr "未找到模板"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract.py:0
-#, python-format
 msgid "No private address defined on the employee!"
 msgstr "该员工没有私人住址信息！"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "No signature template defined on the contract. Please contact the HR responsible."
 msgstr "该合同没有签名模板。请与人力资源主管联系。"
 
 #. module: hr_contract_salary
 #. odoo-javascript
 #: code:addons/hr_contract_salary/static/src/js/hr_contract_salary.js:0
-#, python-format
 msgid "Not a valid e-mail address"
 msgstr "无效的电子邮件地址"
 
 #. module: hr_contract_salary
 #. odoo-javascript
 #: code:addons/hr_contract_salary/static/src/js/hr_contract_salary.js:0
-#, python-format
 msgid "Not a valid input in integer field"
 msgstr "在整数字段不是一个有效的输入"
 
@@ -1175,7 +1155,6 @@ msgstr "Offer链接"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Oops"
 msgstr "哎呀"
 
@@ -1192,7 +1171,6 @@ msgstr "原始合同"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Original Link"
 msgstr "原链接"
 
@@ -1239,7 +1217,6 @@ msgstr "个人信息"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Personal Information"
 msgstr "个人信息"
 
@@ -1324,7 +1301,6 @@ msgstr "单选按钮"
 #. module: hr_contract_salary
 #. odoo-javascript
 #: code:addons/hr_contract_salary/static/src/xml/resume_sidebar.xml:0
-#, python-format
 msgid "Recompute"
 msgstr "重新计算"
 
@@ -1430,7 +1406,6 @@ msgstr "工资包 简历类别"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Salary Package Summary"
 msgstr "工资包摘要"
 
@@ -1526,7 +1501,6 @@ msgstr "在合同文件上签字"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Signature Request - %s"
 msgstr "签名请求 - %s"
 
@@ -1548,7 +1522,6 @@ msgstr "滑动最小值  Slider Min"
 #. module: hr_contract_salary
 #. odoo-javascript
 #: code:addons/hr_contract_salary/static/src/js/hr_contract_salary.js:0
-#, python-format
 msgid "Some required fields are not filled"
 msgstr "一些必要的字段没有填写"
 
@@ -1622,14 +1595,12 @@ msgstr "员工个人信息中未设置有效的电子邮箱地址，无法完成
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "The employee is not linked to an existing user, please contact the administrator.."
 msgstr "该员工没有与现有的用户联系，请联系管理员。"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_advantage.py:0
-#, python-format
 msgid "The minimum value for the slider should be inferior to the maximum value."
 msgstr "滑块的最小值应低于最大值。"
 
@@ -1656,7 +1627,6 @@ msgstr ""
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "This contract has been updated, please request an updated link.."
 msgstr "此合同已被更新，请要求提供更新的链接。"
 
@@ -1668,7 +1638,6 @@ msgstr "这个工作职位没有任何相关的合同模板，其补贴是与当
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "This link is invalid. Please contact the HR Responsible to get a new one..."
 msgstr "这个链接是无效的。请联系人力资源部门负责人，以获得一个新的链接..."
 
@@ -1709,7 +1678,6 @@ msgstr "值类型"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Wage"
 msgstr "工资"
 
@@ -1771,7 +1739,6 @@ msgstr "电镀成本（实际）。"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
-#, python-format
 msgid "Yes"
 msgstr "是"
 

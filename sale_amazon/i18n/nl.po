@@ -256,28 +256,24 @@ msgstr "Amazon accounts komt overeen met Amazon Seller Central."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_marketplace.py:0
-#, python-format
 msgid "Amazon marketplaces cannot be deleted."
 msgstr "Amazon marktplaatsen kunnen niet verwijderd worden."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Amazon move: %s"
 msgstr ""
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "Amazon requires that a tracking reference is provided with each delivery. Since the current carrier doesn't automatically provide a tracking reference, you need to set one manually."
 msgstr "Amazon vereist dat bij elke levering een trackingreferentie wordt verstrekt. Aangezien de huidige vervoerder niet automatisch een trackingreferentie verstrekt, moet je deze handmatig instellen."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "Amazon requires that a tracking reference is provided with each delivery. You need to assign a carrier to this delivery."
 msgstr "Amazon vereist dat bij elke levering een trackingreferentie wordt verstrekt. Je dient een vervoerder toe te wijzen aan deze levering."
 
@@ -450,35 +446,30 @@ msgstr "Contact"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not establish the connection to the API."
 msgstr "Kan geen verbinding maken met de API."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not establish the connection to the feed URL."
 msgstr "Kan geen verbinding maken met de feed-URL."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not establish the connection to the proxy."
 msgstr "Kan geen verbinding maken met de proxy."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/controllers/onboarding.py:0
-#, python-format
 msgid "Could not find Amazon account with id %s"
 msgstr "Kon Amazon-account met id %s niet vinden"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not process the feed document send by Amazon."
 msgstr ""
 
@@ -507,7 +498,6 @@ msgstr "Inloggegevens"
 #. odoo-python
 #: code:addons/sale_amazon/models/res_config_settings.py:0
 #: model_terms:ir.ui.view,arch_db:sale_amazon.res_config_settings_view_form
-#, python-format
 msgid "Default Products"
 msgstr "Standaard producten"
 
@@ -537,7 +527,6 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Error code: %s; description: %s"
 msgstr "Foutcode: %s; omschrijving: %s"
 
@@ -579,7 +568,6 @@ msgstr "Vervulling door handelaar"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid ""
 "Gift message:\n"
 "%s"
@@ -603,7 +591,6 @@ msgstr "Indien inactief gemaakt, wordt dit account niet langer gesynchroniseerd 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid ""
 "If the date is set in the past, orders placed on this Amazon Account before the first synchronization of the module might be synchronized with Odoo.\n"
 "If the date is set in the future, orders placed on this Amazon Account between the previous and the new date will not be synchronized with Odoo."
@@ -715,14 +702,12 @@ msgstr "Offer aantal"
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_product_product_view_form
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_product_template_view_form
-#, python-format
 msgid "Offers"
 msgstr "Aanbod"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Only available marketplaces can be selected"
 msgstr "Alleen beschikbare marktplaatsen kunnen geselecteerd worden"
 
@@ -740,7 +725,6 @@ msgstr "Order opvolging"
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
-#, python-format
 msgid "Orders"
 msgstr "Orders"
 
@@ -773,7 +757,6 @@ msgstr "Productvariant"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "Products delivered to Amazon customers must have their respective parts in the same package. Operations related to the product %s were not all confirmed at once."
 msgstr "Producten die aan Amazon-klanten worden geleverd, moeten hun respectieve onderdelen in hetzelfde pakket hebben. Bewerkingen met betrekking tot het product %s werden niet allemaal tegelijk bevestigd."
 
@@ -787,7 +770,6 @@ msgstr ""
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 #: model_terms:ir.ui.view,arch_db:sale_amazon.recover_order_wizard_form
-#, python-format
 msgid "Recover Order"
 msgstr ""
 
@@ -883,7 +865,6 @@ msgstr "Voorraadlocatie"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Successfully updated the marketplaces available to this account!"
 msgstr "Succesvolle update van de marktplaatsen die beschikbaar zijn voor deze account!"
 
@@ -936,14 +917,12 @@ msgstr "Inclusief BTW"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/wizards/recover_order_wizard.py:0
-#, python-format
 msgid "The Amazon order reference must be in 3-7-7 format."
 msgstr ""
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The Amazon order with reference %(ref)s was not recovered because its status (%(status)s) is not eligible for synchronization for its fulfillment channel (%(channel)s)."
 msgstr ""
 
@@ -980,14 +959,12 @@ msgstr "De voorraadbeheereenheid."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "The communication with the API failed."
 msgstr "De communicatie met de API is mislukt."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid ""
 "The communication with the API failed.\n"
 "Error code: %s; description: %s"
@@ -1050,14 +1027,12 @@ msgstr "Het moment waarop de token ongeldig wordt."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/sale_order.py:0
-#, python-format
 msgid "The order has been canceled by the Amazon customer while someproducts have already been delivered. Please create a return for this order to adjust the stock."
 msgstr "De bestelling is geannuleerd door de Amazon-klant terwijl sommige producten al zijn afgeleverd. Maak een retour aan voor deze bestelling om de voorraad aan te passen."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The order was not found on this account's marketplaces."
 msgstr ""
 
@@ -1069,7 +1044,6 @@ msgstr "De oorspronkelijke marktplaats van deze account. Alleen gebruikt voor au
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The provided reference does not match any Amazon order."
 msgstr ""
 
@@ -1081,7 +1055,6 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "The sales order of this delivery order is not linked to an Amazon account."
 msgstr ""
 
@@ -1128,7 +1101,6 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The synchronization with Amazon failed. Amazon gave us this information about the problem:"
 msgstr ""
 
@@ -1185,7 +1157,6 @@ msgstr "Overzicht op Seller Central"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Warning"
 msgstr "Waarschuwing"
 
@@ -1197,21 +1168,18 @@ msgstr "Of de prijs nu inclusief BTW is of niet."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "You first need to authorize the Amazon account %s."
 msgstr "Je moet eerst het %s Amazon-account autoriseren."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "You first need to set the marketplaces to synchronize for the Amazon account %s."
 msgstr "Je moet eerst de marktplaatsen instellen om te synchroniseren voor het Amazon-account %s."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "You reached the maximum number of requests for this operation; please try again later."
 msgstr "Je hebt het maximum aantal verzoeken voor deze bewerking bereikt; probeer het later opnieuw."
 
@@ -1223,7 +1191,6 @@ msgstr "Je Amazon-account is gekoppeld aan Odoo."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid ""
 "[%s] %s\n"
 "Condition: %s - %s"
@@ -1234,14 +1201,12 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "[%s] Delivery Charges for %s"
 msgstr "[%s] Leveringskosten voor %s"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "[%s] Gift Wrapping Charges for %s"
 msgstr "[%s] Kosten voor cadeauverpakkings %s"
 

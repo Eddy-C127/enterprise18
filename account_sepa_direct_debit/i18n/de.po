@@ -103,7 +103,6 @@ msgstr "<strong>PLZ: </strong>"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "A debtor account is required to validate a SEPA Direct Debit mandate."
 msgstr "Zum Validieren eines SEPA-Lastschriftmandats ist ein Debitorenkonto erforderlich."
 
@@ -155,7 +154,6 @@ msgstr "Aktivitäts-Typ-Icon"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "All the payments in the batch must have the same SDD scheme."
 msgstr "Alle Zahlungen im Batch müssen das gleiche Lastschrift-Schema haben."
 
@@ -452,14 +450,12 @@ msgstr "Das Senden mancher Nachrichten ist fehlgeschlagen wenn dieses Fenster an
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Make sure you made no typo."
 msgstr "Ungültige Kreditoren-ID. Prüfen Sie diese auf Tippfehler."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Wrong format."
 msgstr "Ungültige Kreditoren-ID. Falsches Format."
 
@@ -645,14 +641,12 @@ msgstr "Einmaliges Mandat"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only IBAN account numbers can receive SEPA Direct Debit payments. Please select a journal associated to one."
 msgstr "SEPA-Lastschriftzahlungen sind nur für IBAN-Kontonummern möglich. Bitte wählen Sie ein entsprechend verknüpftes Journal."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only mandates in draft state can be deleted from database when cancelled."
 msgstr "Nur Mandate im Entwurfsstatus können bei Stornierung aus der Datenbank gelöscht werden."
 
@@ -675,7 +669,6 @@ msgstr "Ursprüngliches SEPA-Mandat"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Paid Invoices"
 msgstr "Bezahlte Rechnungen"
 
@@ -713,7 +706,6 @@ msgstr "Dank diesem Mandat generierte Zahlungen."
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Payments to Collect"
 msgstr "Ausstehende Zahlungen"
 
@@ -810,7 +802,6 @@ msgstr "SDD-Kreditoren-ID"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "SDD scheme is set on the customer mandate."
 msgstr "SEPA-Verfahren wird im Kundenauftrag festgelegt."
 
@@ -837,7 +828,6 @@ msgstr "Kreditoren-ID des Unternehmens für SEPA-Lastschrift, ausgestellt von de
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "SEPA Direct Debit scheme only accepts IBAN account numbers. Please select an IBAN-compliant debtor account for this mandate."
 msgstr "SEPA-Lastschriftverfahren sind nur für IBAN-Kontonummern möglich. Bitte wählen Sie ein IBAN-kompatibles Debitorenkonto für dieses Mandat."
 
@@ -870,7 +860,6 @@ msgstr "Signatur"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Some draft payments could not be posted because of the lack of any active mandate."
 msgstr "Einige Zahlungsentwürfe konnten nicht verbucht werden, weil es kein aktives Mandat gibt."
 
@@ -920,28 +909,24 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The SEPA Direct Debit mandate associated to the payment has been revoked and cannot be used anymore."
 msgstr "Das mit der Zahlung verbundene SEPA-Lastschriftmandat wurde widerrufen und kann nicht mehr verwendet werden."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "The creditor identifier exceeds the maximum length of 35 characters."
 msgstr "Die Kreditoren-ID übersteigt die maximale Länge von 35 Zeichen."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The debtor identifier you specified exceeds the limitation of 35 characters imposed by SEPA regulation"
 msgstr "Die von Ihnen angegebene Debitoren-ID übersteigt die maximale Länge der SEPA-Richtlinie von 35 Zeichen."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The end date of the mandate must be posterior or equal to its start date."
 msgstr "Das Enddatum des Mandats muss später als das oder gleich dem Startdatum sein."
 
@@ -959,7 +944,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The payment must be linked to a SEPA Direct Debit mandate in order to generate a Direct Debit XML."
 msgstr "Die Zahlung muss mit einem SEPA-Lastschriftmandat verknüpft sein, um eine XML-Lastschrift zu erzeugen."
 
@@ -999,7 +983,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "To solve that, you should create a mandate for each of the involved customers, valid at the moment of the payment date."
 msgstr "Um dies zu lösen, sollten Sie für jeden involvierten Kunden ein Mandat erstellen, mit Gültigkeit am Zahlungsdatum."
 
@@ -1011,14 +994,12 @@ msgstr "Nur dann zutreffend, wenn dieses Mandat nur für eine Transaktion verwen
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML file containing payments from another company than that file's creditor."
 msgstr "Es wird versucht, eine XML-Lastschriftdatei zu generieren, die Zahlungen eines vom Kreditor der Datei abweichenden Unternehmens enthält."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML for payments coming from another payment method than SEPA Direct Debit."
 msgstr "Es wird versucht, eine Lastschrift-XML für Zahlungen zu registrieren, die von einer anderen Zahlungsmethode als SEPA-Lastschrift kommen."
 
@@ -1026,7 +1007,6 @@ msgstr "Es wird versucht, eine Lastschrift-XML für Zahlungen zu registrieren, d
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Trying to register a payment on a mandate belonging to a different partner."
 msgstr "Es wird versucht, eine Zahlung für ein Mandat zu registrieren, das zu einem anderen Partner gehört."
 
@@ -1038,7 +1018,6 @@ msgstr "Typ der Ausnahmeaktivität im Datensatz."
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_invoice.py:0
-#, python-format
 msgid "Unable to post payment %(payment)r due to no usable mandate being available at date %(date)s for partner %(partner)r. Please create one before encoding a SEPA Direct Debit payment."
 msgstr "Zahlung %(payment)r kann nicht gebucht werden, da kein verwendbares Mandat für Partner %(partner)r für Datum %(date)svorhanden ist. Bitte erstellen Sie ein solches, bevor Sie eine SEPA-Lastschriftzahlung kodieren."
 
@@ -1065,21 +1044,18 @@ msgstr "Website-Kommunikationshistorie"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_partner_bank.py:0
-#, python-format
 msgid "You cannot delete a bank account linked to an active SEPA Direct Debit mandate."
 msgstr "Sie können kein Bankkonto löschen, das mit einem aktiven SEPA-Lastschrift-Mandat verknüpft ist."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot generate a SEPA Direct Debit file with a required collection date in the past."
 msgstr "Sie können in der Vergangenheit keine SEPA-Lastschriftdatei mit einem erforderlichen Einzugsdatum erstellen."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Your company must have a creditor identifier in order to issue SEPA Direct Debit payments requests. It can be defined in accounting module's settings."
 msgstr "Ihr Unternehmen benötigt eine Kreditoren-ID, damit Anfragen für SEPA-Lastschriftzahlungen ausgestellt werden können. Dies kann in den Einstellungen des Buchhaltungsmoduls festgelegt werden."
 

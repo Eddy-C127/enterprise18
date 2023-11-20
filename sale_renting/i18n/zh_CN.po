@@ -25,7 +25,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_renting/models/product_product.py:0
 #: code:addons/sale_renting/models/product_template.py:0
-#, python-format
 msgid "%s (Rental)"
 msgstr "%s（租赁）"
 
@@ -37,14 +36,12 @@ msgstr "(object.rental_status not in ('draft', 'sent') and '发出/退回接收�
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/wizard/rental_configurator.py:0
-#, python-format
 msgid "/day"
 msgstr "/天"
 
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/wizard/rental_configurator.py:0
-#, python-format
 msgid "/hour"
 msgstr "/小时"
 
@@ -134,7 +131,6 @@ msgstr "要求客户现场签字."
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "At first, let's create some products to rent."
 msgstr "首先，让我们创建一些可租赁产品。"
 
@@ -175,28 +171,24 @@ msgstr "已取消"
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Click here to create a new quotation."
 msgstr "点此创建一个新的报价"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Click here to register the pickup."
 msgstr "点此创建一个新的归还单"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Click here to set up your first rental product."
 msgstr "点此设置你的第一个可租赁产品"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Click here to start filling the quotation."
 msgstr "点此开始填写你的租赁订单"
 
@@ -237,14 +229,12 @@ msgstr "设置租赁的产品"
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Confirm the order when the customer agrees with the terms."
 msgstr "客户同意后，确认订单"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Confirm the returned quantities and hit Validate."
 msgstr "验证归还的数量并审核"
 
@@ -277,7 +267,6 @@ msgstr "创建一个可租赁产品"
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Create or select a customer here."
 msgstr "在此创建或选择一个客户"
 
@@ -422,14 +411,12 @@ msgstr "编辑租凭订单行"
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Enter the product name."
 msgstr "输入产品名称"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid ""
 "Enter the requested dates and check the price.\n"
 " Then, click here to add the product."
@@ -440,7 +427,6 @@ msgstr ""
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/models/sale_order_line.py:0
-#, python-format
 msgid "Expected"
 msgstr "预期"
 
@@ -464,7 +450,6 @@ msgstr "额外每小时"
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/wizard/rental_configurator.py:0
-#, python-format
 msgid "Extras:"
 msgstr "其它"
 
@@ -483,14 +468,12 @@ msgstr "逾期一小时滞纳金"
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/wizard/rental_configurator.py:0
-#, python-format
 msgid "Fixed rental price"
 msgstr "固定租金价格"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Go to the orders menu."
 msgstr "转到订单菜单"
 
@@ -608,7 +591,6 @@ msgstr "归还逾时"
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Let's now create an order."
 msgstr "让我们创建一张新订单"
 
@@ -652,7 +634,6 @@ msgstr "还没有数据耶！"
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/wizard/rental_configurator.py:0
-#, python-format
 msgid ""
 "No rental price is defined on the product.\n"
 "The price used is the sales price."
@@ -673,7 +654,6 @@ msgstr "一旦报价被确认，它就变成了租赁订单。<br> 你将能够�
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Once the rental is done, you can register the return."
 msgstr "一旦产品被借出，你可以创建一个归还单。"
 
@@ -1063,7 +1043,6 @@ msgstr "归还"
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_form
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
-#, python-format
 msgid "Returned"
 msgstr "已归还"
 
@@ -1113,14 +1092,12 @@ msgstr "销售员"
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Save the product."
 msgstr "保存产品"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Save the quotation."
 msgstr "保存报价"
 
@@ -1134,14 +1111,12 @@ msgstr "计划"
 #: code:addons/sale_renting/models/product_product.py:0
 #: code:addons/sale_renting/models/product_template.py:0
 #: model:ir.actions.act_window,name:sale_renting.action_rental_order_schedule
-#, python-format
 msgid "Scheduled Rentals"
 msgstr "计划出租"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Select your rental product."
 msgstr "选择你的租赁产品"
 
@@ -1214,7 +1189,6 @@ msgstr "产品没有及时退回。"
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "The rental configuration is available here."
 msgstr "租赁配置不可用"
 
@@ -1297,28 +1271,24 @@ msgstr "验证"
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/models/sale_order.py:0
-#, python-format
 msgid "Validate a pickup"
 msgstr "验证借出"
 
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/models/sale_order.py:0
-#, python-format
 msgid "Validate a return"
 msgstr "验证归还"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "Validate the operation after checking the picked-up quantities."
 msgstr "检查借出数量后，请进行验证操作。"
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid ""
 "Want to <b>rent products</b>? \n"
 " Let's discover Odoo Rental App."
@@ -1356,7 +1326,6 @@ msgstr ""
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/wizard/rental_processing.py:0
-#, python-format
 msgid "You can't return more than what's been picked-up."
 msgstr "归还数量不得大于借出数量。"
 
@@ -1368,7 +1337,6 @@ msgstr "您不能归还高于借出数的产品"
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
-#, python-format
 msgid "You're done with your fist rental. Congratulations!"
 msgstr ""
 
@@ -1380,6 +1348,5 @@ msgstr "小时"
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/models/sale_order_line.py:0
-#, python-format
 msgid "to"
 msgstr "按"

@@ -24,7 +24,6 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "%s can't be inventoried. Only storable products can be inventoried."
 msgstr "%s ne peut pas être inventorié. Seuls les produits stockables peuvent être inventoriés."
 
@@ -127,21 +126,18 @@ msgstr "<i class=\"fa fa-trash-o\"/> Supprimer"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "A product tracked by serial numbers can't have multiple quantities for the same serial number."
 msgstr "Un produit tracké par numéros de série ne peut avoir des quantités multiples pour le même numéro de série"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
-#, python-format
 msgid "Add Product"
 msgstr "Ajouter un produit"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "Add extra product?"
 msgstr "Ajouter un produit supplémentaire ?"
 
@@ -160,7 +156,6 @@ msgstr "Après groupe de produits"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "All products need to be packed"
 msgstr "Tous les produits doivent être emballés"
 
@@ -182,7 +177,6 @@ msgstr "Autoriser la validation d'un transfert même si rien n'a encore été sc
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "An unexisting package type was scanned. This part of the barcode can't be processed."
 msgstr "Un type de colis non existant à été scanné. Cette information ne sera pas interprétée."
 
@@ -190,7 +184,6 @@ msgstr "Un type de colis non existant à été scanné. Cette information ne ser
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
-#, python-format
 msgid "Apply"
 msgstr "Appliquer"
 
@@ -202,7 +195,6 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "Backorder"
 msgstr ""
 
@@ -218,7 +210,6 @@ msgstr "Confirmation de reliquat"
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_scrap__product_barcode
 #: model:ir.ui.menu,name:stock_barcode.stock_barcode_menu
-#, python-format
 msgid "Barcode"
 msgstr "Code-barres"
 
@@ -235,7 +226,6 @@ msgstr "Barcode Inventory Client Action"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/manual_barcode.js:0
-#, python-format
 msgid "Barcode Manual Entry"
 msgstr ""
 
@@ -257,14 +247,12 @@ msgstr "Code-barres scanné"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Barcode Scanning"
 msgstr "Scan du code-barres"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "Barcode scan is ambiguous with several model: %s. Use the most likely."
 msgstr "Scan de code-barres ambigu avec plusieurs modèles:%s. Utilisez le plus probable."
 
@@ -278,7 +266,6 @@ msgstr "Boîtier pour cables"
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
-#, python-format
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -290,7 +277,6 @@ msgstr "Annuler l'opération"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Cancel Transfer"
 msgstr ""
 
@@ -302,7 +288,6 @@ msgstr "Annuler l'opération"
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "Cancel this operation?"
 msgstr ""
 
@@ -315,7 +300,6 @@ msgstr "Vérifier si la quantité faite correspond à la demande"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Close"
 msgstr "Fermer"
 
@@ -386,7 +370,6 @@ msgstr "Données de démonstration activées"
 #: code:addons/stock_barcode/static/src/components/line.xml:0
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__picking_location_dest_id
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
-#, python-format
 msgid "Destination Location"
 msgstr "Emplacement de destination"
 
@@ -398,7 +381,6 @@ msgstr "Colis de destination"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Destination location must be scanned"
 msgstr "L'emplacement de destination doit être scanné"
 
@@ -417,7 +399,6 @@ msgstr "Nom d'affichage"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid ""
 "Do you want to permanently remove this message?\n"
 "                    It won't appear anymore, so make sure you don't need the barcodes sheet or you have a copy."
@@ -441,21 +422,18 @@ msgstr "Ne pas annuler"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid "Don't show this message again"
 msgstr "Ne plus montrer ce message"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "Done /"
 msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Download"
 msgstr "Télécharger"
 
@@ -478,14 +456,12 @@ msgstr "Validation finale"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Following backorder was created:"
 msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Following backorders were created:"
 msgstr ""
 
@@ -537,14 +513,12 @@ msgstr "ID"
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "If the source location must be scanned, then the destination location must either be scanned after each product or not scanned at all."
 msgstr "Si l'emplacement d'origine doit être scanné, l'emplacement de destination doit être scanné après chaque produit ou pas scanné du tout."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "If you validate now, the remaining products will be added to a backorder."
 msgstr ""
 
@@ -556,7 +530,6 @@ msgstr "Dans #{kanban_getcolorname(record.color.raw_value)}"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.js:0
-#, python-format
 msgid "Incomplete Transfer"
 msgstr ""
 
@@ -569,14 +542,12 @@ msgstr "Numéro d'article international (IAN) utilisé pour identifier cet artic
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Inventory Adjustment"
 msgstr "Ajustement d'inventaire"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Inventory Adjustments"
 msgstr "Ajustements d'inventaire"
 
@@ -603,7 +574,6 @@ msgstr "Dernière mise à jour le"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid "Leave it"
 msgstr "Laisser"
 
@@ -631,7 +601,6 @@ msgstr "Lot/Série"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Mandatory Destination Location"
 msgstr "Emplacement de destination obligatoire"
 
@@ -645,7 +614,6 @@ msgstr "Scan obligatoire"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Mandatory Source Location"
 msgstr "Emplacement d'origine obligatoire"
 
@@ -658,7 +626,6 @@ msgstr "Non"
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "No %(picking_type)s ready for this %(barcode_type)s"
 msgstr "Aucun %(picking_type)s prêt(s) pour ce %(barcode_type)s"
 
@@ -670,28 +637,24 @@ msgstr "Aucun scan"
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
-#, python-format
 msgid "No internal operation type. Please configure one in warehouse settings."
 msgstr "Pas de type d'opération interne. Configurez-en un dans les paramètres de l'entrepôt."
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
-#, python-format
 msgid "No picking or location or product corresponding to barcode %(barcode)s"
 msgstr "Aucun transfert, emplacement ou produit correspondant à ce code-barres %(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
-#, python-format
 msgid "No picking or product corresponding to barcode %(barcode)s"
 msgstr "Aucun transfert ou produit correspondant à ce code-barres %(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "No product or package found for barcode %s"
 msgstr "Aucun produit ou colis trouvé pour le code-barres %s"
 
@@ -703,7 +666,6 @@ msgstr "Nomenclature"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Not the expected scan"
 msgstr "Pas le scan attendu"
 
@@ -716,7 +678,6 @@ msgstr "Ouvrir le transfert"
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #: model:ir.actions.act_window,name:stock_barcode.open_picking
-#, python-format
 msgid "Open picking form"
 msgstr "Ouvrir un formulaire de transfert"
 
@@ -725,7 +686,6 @@ msgstr "Ouvrir un formulaire de transfert"
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_kanban
 #: model:ir.actions.act_window,name:stock_barcode.stock_picking_type_action_kanban
-#, python-format
 msgid "Operations"
 msgstr "Opérations"
 
@@ -749,7 +709,6 @@ msgstr "Colis"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Package type %s was correctly applied to the package %s"
 msgstr "Le type de colis %s à été correctement appliqué au colis%s"
 
@@ -791,7 +750,6 @@ msgstr "Type de transfert"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Please scan destination location for %s before scanning other product"
 msgstr "Veuillez scanner l'emplacement de destination pour %s avant de scanner un autre produit"
 
@@ -800,49 +758,42 @@ msgstr "Veuillez scanner l'emplacement de destination pour %s avant de scanner u
 #: code:addons/stock_barcode/static/src/components/main.js:0
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.js:0
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid "Please, Scan again!"
 msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Press Validate or scan another product"
 msgstr "Appuyez sur Valider ou scannez un autre produit"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Print Barcodes PDF"
 msgstr "Imprimer les codes-barres PDF"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Print Delivery Slip"
 msgstr "Imprimer le bon de livraison"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Print Inventory"
 msgstr "Imprimer inventaire"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Print Packages"
 msgstr "Imprimer des colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Print Picking Operations"
 msgstr "Imprimer opérations de transfert"
 
@@ -852,7 +803,6 @@ msgstr "Imprimer opérations de transfert"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
-#, python-format
 msgid "Product"
 msgstr "Produit"
 
@@ -890,7 +840,6 @@ msgstr "Variante de produit"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
-#, python-format
 msgid "Put In Pack"
 msgstr "Mettre en colis"
 
@@ -922,70 +871,60 @@ msgstr "Qtés"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid "Remove it"
 msgstr "Retirer"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Scan a"
 msgstr "Scanner un(e)"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan a location"
 msgstr "Scanner un emplacement"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a lot number"
 msgstr "Scanner un numéro de lot"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a lot number or a packages then the destination location"
 msgstr "Scanner un numéro de lot ou un colis puis l'emplacement de destination"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a lot number then the destination location"
 msgstr "Scanner un numéro de lot puis l'emplacement de destination"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a package"
 msgstr "Scanner un colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a package or put in pack"
 msgstr "Scanner un colis ou mettre en colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a package or the destination location"
 msgstr "Scanner un colis ou l'emplacement de destination"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a package, the destination location or another product"
 msgstr "Scanner un colis, l'emplacement de destination ou un autre produit"
 
@@ -993,231 +932,198 @@ msgstr "Scanner un colis, l'emplacement de destination ou un autre produit"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan a product"
 msgstr "Scanner un produit"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product before scanning a tracking number"
 msgstr "Scanner un produit avant de scanner un numéro de tracking"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product from %s"
 msgstr "Scanner un produit de %s"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan a product in %s or scan another location"
 msgstr "Scanner un produit dans %s ou scanner un autre emplacement"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product or a package"
 msgstr "Scanner un produit ou un colis"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "Scan a product or a package to filter the transfers."
 msgstr "Scanner un produit ou un colis pour filtrer les transferts."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product or another package"
 msgstr "Scanner un produit ou un autre colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product or the destination location."
 msgstr "Scanner un produit ou l'emplacement de destination."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product then the destination location"
 msgstr "Scanner un produit puis l'emplacement de destination"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product, a package or the destination location"
 msgstr "Scanner un produit, un colis ou l'emplacement de destination"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product, a package or the destination location."
 msgstr "Scanner un produit, un colis ou l'emplacement de destination."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a serial number"
 msgstr "Scanner un numéro de série"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a serial number or a package"
 msgstr "Scanner un numéro de série ou un colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a serial number or a package then the destination location"
 msgstr "Scanner un numéro de série ou un colis puis l'emplacement de destination"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a serial number then the destination location"
 msgstr "Scanner un numéro de série puis l'emplacement de destination"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-#, python-format
 msgid "Scan a transfer or a product to filter your records"
 msgstr "Scanner un transfert ou un produit pour filtrer vos enregistrements"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-#, python-format
 msgid "Scan a transfer, a product or a package to filter your records"
 msgstr "Scanner un transfert, un produit ou un colis pour filtrer vos enregistrements"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Scan an"
 msgstr "Scanner un(e)"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan another serial number"
 msgstr "Scanner un autre numéro de série"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan lot numbers for product %s to change their quantity"
 msgstr "Scanner les numéros de lot des produits %s pour modifier leur quantité"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan more lot numbers"
 msgstr "Scanner plus de numéros de lot"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan more lot numbers or a package"
 msgstr "Scanner plus de numéros de lot ou un colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan more products in %s or scan another location"
 msgstr "Scanner plus de produits dans %s ou scanner un autre emplacement"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan more products or a package"
 msgstr "Scanner plus de produits ou un colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan more products, or scan a new source location"
 msgstr "Scanner plus de produits, ou scanner un nouvel emplacement d'origine"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan serial numbers for product %s to change their quantity"
 msgstr "Scanner les numéros de série du produit %s pour modifier leur quantité"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan the destination location"
 msgstr "Scanner l'emplacement de destination"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan the package %s"
 msgstr "Scanner le colis %s"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan the source location"
 msgstr "Scanner l'emplacement d'origine"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan the source location or a package"
 msgstr "Scanner l'emplacement d'origine ou un colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "Scanned product %s is not reserved for this transfer. Are you sure you want to add it?"
 msgstr "Le produit scanné %s n'est pas réservé à ce transfert. Voulez-vous vraiment l'ajouter ?"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "Scanned product [%s] %s is not reserved for this transfer. Are you sure you want to add it?"
 msgstr "Le produit scanné [%s] %s n'est pas réservé à ce transfert. Voulez-vous vraiment l'ajouter ?"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible with the line's one (%s)."
 msgstr "La quantité scannée utilise %s comme unité de mesure, mais cette unité de mesure n'est pas compatible avec celle de la ligne (%s)."
 
@@ -1225,7 +1131,6 @@ msgstr "La quantité scannée utilise %s comme unité de mesure, mais cette unit
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible with the product's one (%s)."
 msgstr "La quantité scannée utilise '%s' comme unité de mesure, non compatible avec celle du produit (%s)"
 
@@ -1233,7 +1138,6 @@ msgstr "La quantité scannée utilise '%s' comme unité de mesure, non compatibl
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: model:ir.model,name:stock_barcode.model_stock_scrap
-#, python-format
 msgid "Scrap"
 msgstr "Rebut"
 
@@ -1264,7 +1168,6 @@ msgstr "Afficher la validation des codes-barres"
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__picking_location_id
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
-#, python-format
 msgid "Source Location"
 msgstr "Emplacement d'origine"
 
@@ -1276,7 +1179,6 @@ msgstr "Colis d'origine"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "Stay on transfer"
 msgstr ""
 
@@ -1288,7 +1190,6 @@ msgstr "Type de colis du stock"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Tap to scan"
 msgstr "Toucher pour scanner"
 
@@ -1300,42 +1201,36 @@ msgstr "Champ technique utilisé pour calculer si le groupe \"Validation finale\
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "The inventory adjustment has been validated"
 msgstr "L'ajustement d'inventaire a été validé"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "The scanned serial number is already used."
 msgstr "Le numéro de série scanné est déjà utilisé."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "The transfer has been cancelled"
 msgstr "Le transfert à été annulé"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "The transfer has been validated"
 msgstr "Le transfert a été validé"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "There is nothing to apply in this page."
 msgstr "Il n'y a rien à appliquer sur cette page."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "There is nothing to print in this page."
 msgstr "Il n'y a rien à imprimer sur cette page."
 
@@ -1343,28 +1238,24 @@ msgstr "Il n'y a rien à imprimer sur cette page."
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "This package is already scanned."
 msgstr "Ce colis est déjà scanné."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "This picking is already done"
 msgstr "Ce transfert est déjà effectué"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "This picking is cancelled"
 msgstr "Ce transfert est annulé"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "This serial number is already used."
 msgstr "Ce numéro de série est déjà utilisé."
 
@@ -1376,14 +1267,12 @@ msgstr "À traiter"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "To do"
 msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "To use packages, enable 'Packages' in the settings"
 msgstr "Pour utiliser les colis, activez 'Colis' dans la configuration"
 
@@ -1406,7 +1295,6 @@ msgstr "Les transferts vous permettent de déplacer des produits d'un emplacemen
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
-#, python-format
 msgid "Type barcode you want to scan here"
 msgstr ""
 
@@ -1424,7 +1312,6 @@ msgstr "UdM"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
-#, python-format
 msgid "Use camera to scan"
 msgstr ""
 
@@ -1432,7 +1319,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 #: code:addons/stock_barcode/static/src/components/main.xml:0
-#, python-format
 msgid "Validate"
 msgstr "Valider"
 
@@ -1449,7 +1335,6 @@ msgstr "Entrepôt"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "We have created a few demo data with barcodes for you to explore the features. Print the"
 msgstr "Nous avons créé des données de démonstration avec des codes-barres pour vous laisser explorer les différentes fonctionnalités. Imprimez la"
 
@@ -1458,35 +1343,30 @@ msgstr "Nous avons créé des données de démonstration avec des codes-barres p
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Wrong Unit of Measure"
 msgstr "Mauvaise unité de mesure"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "You are expected to scan one or more products or a package available at the picking location"
 msgstr "Vous êtes censé scanner un ou plusieurs produits/colis disponibles "
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "You are expected to scan one or more products."
 msgstr "Vous devez scanner un ou plusieurs produits."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "You are supposed to scan %s or another source location"
 msgstr "Vous êtes censé scanner %s ou un autre emplacement d'origine"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "You can't apply a package type. First, scan product or select a line"
 msgstr "Vous ne pouvez pas appliquer de type de colis. Scannez d'abord un produit ou sélectionnez une ligne."
 
@@ -1498,63 +1378,54 @@ msgstr "Vous avez traité moins de produits que la demande initiale :"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "You must scan a package or put in pack"
 msgstr "Vous devez scanner un colis ou mettre en colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "You must scan a product"
 msgstr "Vous devez scanner un produit"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "commands for Inventory"
 msgstr "commandes pour l'inventaire"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "document"
 msgstr "document"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "location"
 msgstr "emplacement "
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/widgets/digipad.xml:0
-#, python-format
 msgid "o_digipad_button btn d-flex justify-content-center align-items-center border w-100 py-2"
 msgstr "o_digipad_button btn d-flex justify-content-center align-items-center border w-100 py-2"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "operation type"
 msgstr "type d'opération"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "package"
 msgstr "colis"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "product"
 msgstr "produit"
 
@@ -1571,48 +1442,41 @@ msgstr "produits ont été partiellement traités."
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "stock barcodes sheet"
 msgstr "feuille de codes-barres de stock"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to check out what this module can do! You can also print the barcode"
 msgstr "pour voir ce que ce module peut faire ! Vous pouvez aussi imprimer le code-barres"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to create a new transfer from this location."
 msgstr "pour créer un nouveau transfert depuis cet emplacement."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to create a new transfer."
 msgstr "pour créer un nouveau transfert."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to know its content."
 msgstr "pour connaitre son contenu."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to open it."
 msgstr "pour l'ouvrir."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to show its location and quantity."
 msgstr "pour montrer son emplacement et sa quantité."

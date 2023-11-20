@@ -226,7 +226,6 @@ msgstr "سيتم إرسال نسخة من التفويض عن طريق البر�
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Both the phone number and the verification code are required."
 msgstr "رقم الهاتف ورمز التحقق كلاهما مطلوبان. "
 
@@ -248,7 +247,6 @@ msgstr "جهة الاتصال"
 #. module: payment_sepa_direct_debit
 #. odoo-javascript
 #: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
-#, python-format
 msgid "Could not send the verification code."
 msgstr "تعذر إرسال رمز التحقق. "
 
@@ -265,21 +263,18 @@ msgstr "IBAN"
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
 msgid "Incorrect phone number."
 msgstr "رقم الهاتف غير صحيح. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
 msgid "Missing or invalid IBAN."
 msgstr "رقم IBAN غير موجود أو غير صالح. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_transaction.py:0
-#, python-format
 msgid "No transaction found matching reference %s."
 msgstr "لم يتم العثور على معاملة تطابق المرجع %s. "
 
@@ -322,14 +317,12 @@ msgstr "التحقق عن طريق الهاتف "
 #. module: payment_sepa_direct_debit
 #. odoo-javascript
 #: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
-#, python-format
 msgid "Re-send SMS"
 msgstr "إعادة إرسال الرسالة النصية القصيرة "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
-#, python-format
 msgid "Restricted to countries in the SEPA zone. Forbidden countries: %s"
 msgstr "يقتصر على الدول في منطقة SEPA. الدول المحظورة: %s "
 
@@ -372,21 +365,18 @@ msgstr "رصيد الرسائل النصية القصيرة "
 #. module: payment_sepa_direct_debit
 #. odoo-javascript
 #: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
-#, python-format
 msgid "SMS Sent"
 msgstr "الرسائل النصية القصيرة المرسلة "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
 msgid "SMS could not be sent due to insufficient credit."
 msgstr "تعذر إرسال الرسالة النصية القصيرة لعدم وجود الرصيد الكافي. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
 msgid "SMS verification is disabled."
 msgstr "تم تعطيل التحقق عن طريق الرسائل النصية القصيرة. "
 
@@ -408,7 +398,6 @@ msgstr "يتم إرساله إلى العميل للإشارة إلى أنه س�
 #. module: payment_sepa_direct_debit
 #. odoo-javascript
 #: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
-#, python-format
 msgid "Server Error"
 msgstr "خطأ في الخادم "
 
@@ -436,7 +425,6 @@ msgstr "تم التوقيع عبر الإنترنت في "
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
-#, python-format
 msgid "The bank account of the journal is not a valid IBAN."
 msgstr "الحساب البنكي لدفتر اليومية ليس رقم IBAN صالحاً. "
 
@@ -448,35 +436,30 @@ msgstr "تاريخ التوقيع "
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_transaction.py:0
-#, python-format
 msgid "The mandate is invalid."
 msgstr "التوكيل غير صالح. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
-#, python-format
 msgid "The mandate owner and customer do not match."
 msgstr "مالك التوكيل والعميل غير متطابقين. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The mandate was signed by %s."
 msgstr "تم التوقيع على التوكيل بواسطة %s. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The mandate was verified with phone number %s."
 msgstr "تم تأكيد التوكيل باستخدام رقم الهاتف %s. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
 msgid "The name and signature must be provided."
 msgstr "يجب كتابة الاسم والتوقيع. "
 
@@ -488,14 +471,12 @@ msgstr "اسم المُوَقّع "
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The phone number does not match."
 msgstr "رقم الهاتف غير مطابق. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
 msgid "The phone number must be provided and verified."
 msgstr "يجب أن تتم كتابة رقم الهاتف والتأكد من صحته. "
 
@@ -503,7 +484,6 @@ msgstr "يجب أن تتم كتابة رقم الهاتف والتأكد من ص
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/controllers/main.py:0
 #: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The phone number should be in international format."
 msgstr "يجب أن يكون رقم الهاتف بالصيغة الدولية. "
 
@@ -520,35 +500,30 @@ msgstr "الكود التقني لمزود الدفع هذا. "
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_transaction.py:0
-#, python-format
 msgid "The token is not linked to a mandate."
 msgstr "الرمز غير مرتبط بتوكيل. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_transaction.py:0
-#, python-format
 msgid "The transaction is not linked to a token."
 msgstr "المعاملة غير مرتبطة برمز. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The verification code does not match."
 msgstr "كود التحقق غير مطابق. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "This mandate has already been verified."
 msgstr "لقد تم التحقق من هذا التوكيل بالفعل. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
 msgid "Unknown mandate ID."
 msgstr "معرف التوكيل غير معروف. "
 
@@ -566,7 +541,6 @@ msgstr "مصدق "
 #. module: payment_sepa_direct_debit
 #. odoo-javascript
 #: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
-#, python-format
 msgid "We are not able to process your payment."
 msgstr "لم نتمكن من معالجة الدفع الخاص بك. "
 
@@ -593,14 +567,12 @@ msgstr "توكيل خصم SEPA الخاص بك مع {{ object.payment_journal_id
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
-#, python-format
 msgid "Your company must have a creditor identifier in order to issue a SEPA Direct Debit payment request. It can be set in Accounting settings."
 msgstr "يجب أن تمتلك شركتك مُعرف دائن لإنشاء طلبات سداد بنظام خصم SEPA المباشر. يمكنك ضبطه من إعدادات المحاسبة. "
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Your confirmation code is %s"
 msgstr "رمز التأكيد هو %s"
 

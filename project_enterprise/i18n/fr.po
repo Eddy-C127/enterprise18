@@ -25,7 +25,6 @@ msgstr ""
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "%s has %s tasks at the same time."
 msgstr ""
 
@@ -81,7 +80,6 @@ msgstr "Assignés"
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "Caution: some tasks have not been scheduled"
 msgstr "Attention : certaines tâches n'ont pas été planifiées"
 
@@ -178,35 +176,30 @@ msgstr "Mobile"
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/wizard/task_confirm_schedule_wizard.py:0
-#, python-format
 msgid "No task has been scheduled in the future."
 msgstr "Aucune tâche n'a été planifiée dans le futur."
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "One parameter is missing to use this method. You should give a start and end dates."
 msgstr "Il manque un paramètre pour utiliser cette méthode. Vous devez donner une date de début et de fin."
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "Operation not supported, you should always compare dependency_warning to True or False."
 msgstr ""
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "Operation not supported, you should always compare planning_overlap to True or False."
 msgstr ""
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "Overlapping Tasks"
 msgstr "Tâches se chevauchant"
 
@@ -215,7 +208,6 @@ msgstr "Tâches se chevauchant"
 #: code:addons/project_enterprise/controllers/portal.py:0
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_sharing_project_task_view_form_inherited
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_form
-#, python-format
 msgid "Planned Date"
 msgstr "Date planifiée"
 
@@ -269,7 +261,6 @@ msgstr "Afficher les avertissements"
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "Some tasks weren't planned because the closest available starting date was too far ahead in the future"
 msgstr "Certaines tâches n'étaient pas planifiées, car la date de début disponible la plus proche était trop éloignée dans le futur"
 
@@ -332,28 +323,24 @@ msgstr "La date de début planifiée doit être antérieure à la date de fin pl
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/wizard/task_confirm_schedule_wizard.py:0
-#, python-format
 msgid "The task has been successfully scheduled."
 msgstr "La tâche a été planifiée avec succès."
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/wizard/task_confirm_schedule_wizard.py:0
-#, python-format
 msgid "The tasks have been successfully scheduled."
 msgstr "Les tâches ont été planifiées avec succès."
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "This Progress Bar is not implemented."
 msgstr "Cette barre de progression n'est pas mise en œuvre."
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid ""
 "This employee does not have a running contract during the selected period.\n"
 "The working hours of the company were used as a reference instead."
@@ -364,14 +351,12 @@ msgstr ""
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "This task cannot be planned before Tasks %s, on which it depends."
 msgstr ""
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-#, python-format
 msgid "This user isn't expected to have any tasks assigned during this period because they don't have any running contract. Planned hours :"
 msgstr ""
 
@@ -383,7 +368,6 @@ msgstr "Feuilles de temps"
 #. module: project_enterprise
 #. odoo-javascript
 #: code:addons/project_enterprise/static/src/task_gantt_model.js:0
-#, python-format
 msgid "Unassigned Tasks"
 msgstr "Tâches non assignées"
 
@@ -407,7 +391,6 @@ msgstr "Noms d'utilisateur"
 #. odoo-javascript
 #: code:addons/project_enterprise/static/src/task_gantt_renderer.js:0
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task_confirm_schedule_line_wizard__warning
-#, python-format
 msgid "Warning"
 msgstr "Avertissement"
 

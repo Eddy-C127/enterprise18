@@ -40,7 +40,6 @@ msgstr "เลือกกล่องนี้หากบัญชีของ
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Company phone number is invalid. Please insert a US phone number."
 msgstr "หมายเลขโทรศัพท์ของบริษัทไม่ถูกต้อง กรุณาใส่หมายเลขโทรศัพท์ในสหรัฐอเมริกา"
 
@@ -67,7 +66,6 @@ msgstr "ภายในประเทศ"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid ""
 "Error:\n"
 "%s"
@@ -234,35 +232,30 @@ msgstr "โปรดตรวจสอบเว็บไซต์ USPS เพื
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please choose another service (maximum weight of this service is 4 pounds)"
 msgstr "กรุณาเลือกบริการอื่น (น้ำหนักสูงสุดของบริการนี้คือ 4 ปอนด์)"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please enter a valid ZIP code in recipient address"
 msgstr "โปรดป้อนรหัสไปรษณีย์ที่ถูกต้องในที่อยู่ผู้รับ"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please enter a valid ZIP code in your Company address"
 msgstr "โปรดป้อนรหัสไปรษณีย์ที่ถูกต้องในที่อยู่บริษัทของคุณ"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please provide at least one item to ship."
 msgstr "โปรดระบุอย่างน้อยหนึ่งรายการเพื่อจัดส่ง"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please set country U.S.A in your company address, Service is only available for U.S.A"
 msgstr "โปรดตั้งค่าประเทศสหรัฐอเมริกาในที่อยู่บริษัทของคุณ บริการใช้ได้เฉพาะในสหรัฐอเมริกา"
 
@@ -284,14 +277,12 @@ msgstr "ผู้ให้บริการ"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Quantity for each move line should be less than 1000."
 msgstr "จำนวนสำหรับแต่ละไลน์การย้ายควรน้อยกว่า 1,000"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Recipient address cannot be found. Please check the address exists."
 msgstr "ไม่พบที่อยู่ผู้รับ กรุณาตรวจสอบที่อยู่ที่มีอยู่"
 
@@ -334,21 +325,18 @@ msgstr "ตัวอย่าง"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment #%s has been cancelled"
 msgstr "การจัดส่ง #%s ถูกยกเลิก"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment created into USPS"
 msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment created into USPS <br/> <b>Tracking Number: </b>%s"
 msgstr ""
 
@@ -375,7 +363,6 @@ msgstr "TIF"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The address of your company is missing or wrong (Missing field(s) :  \n"
 " %s)"
@@ -386,7 +373,6 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
@@ -397,7 +383,6 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The recipient address is missing or wrong (Missing field(s) :  \n"
 " %s)"
@@ -408,14 +393,12 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "The selected USPS service (%s) cannot be used to deliver this package."
 msgstr "บริการ USPS ที่เลือก (%s) ไม่สามารถใช้ส่งพัสดุนี้ได้"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Tracking Number:"
 msgstr ""
 
@@ -453,7 +436,6 @@ msgstr "ซองจดหมายอัตราคงที่ภายใน
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "USPS Domestic is used only to ship inside of the U.S.A. Please change the delivery method into USPS International."
 msgstr "USPS ภายในประเทศใช้สำหรับจัดส่งภายในสหรัฐอเมริกาเท่านั้น โปรดเปลี่ยนวิธีการจัดส่งเป็น USPS ระหว่างประเทศ"
 
@@ -471,7 +453,6 @@ msgstr "กล่องอัตราคงที่ระหว่างปร
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "USPS International is used only to ship outside of the U.S.A. Please change the delivery method into USPS Domestic."
 msgstr "USPS ระหว่างประเทศ ใช้สำหรับจัดส่งนอกสหรัฐอเมริกาเท่านั้น โปรดเปลี่ยนวิธีการจัดส่งเป็น USPS ภายในประเทศ"
 
@@ -509,7 +490,6 @@ msgstr "Usps ขนาดคอนเทนเนอร์"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Your company or recipient ZIP code is incorrect."
 msgstr "รหัสไปรษณีย์ของบริษัทหรือผู้รับของคุณไม่ถูกต้อง"
 

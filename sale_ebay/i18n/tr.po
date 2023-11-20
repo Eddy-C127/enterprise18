@@ -34,14 +34,12 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid " If you want to set quantity to 0, the Out Of Stock option should be enabled and the listing duration should set to Good 'Til Canceled"
 msgstr " Miktarı -0- olarak ayarlamak isterseniz, Tükenmiş seçeneği etkinleştirilmeli ve listeleme süresi 'İptal Olana Kadar İyi' olarak ayarlanmalıdır"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid ""
 " You need to have at least 2 variations selected for a multi-variations listing.\n"
 " Or if you try to delete a variation, you cannot do it by unselecting it. Setting the quantity to 0 is the safest method to make a variation unavailable."
@@ -87,7 +85,6 @@ msgstr "Diğer ülkeleri ekleme"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "All the quantities must be greater than 0 or you need to enable the Out Of Stock option."
 msgstr "Tüm miktarlar 0 dan büyük olmalıdır ya da Tükenmiş seçeneğini etkinleştirmeniz gereklidir."
 
@@ -153,7 +150,6 @@ msgstr "Yapılandırma Ayarları"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "Configure The eBay Integrator Now"
 msgstr "eBay Entegratörünü Şimdi Yapılandır"
 
@@ -241,7 +237,6 @@ msgstr "Süre"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid ""
 "Ebay Synchronisation could not confirm because of the following error:\n"
 "%s"
@@ -252,7 +247,6 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid ""
 "Ebay could not synchronize order:\n"
 "%s"
@@ -288,7 +282,6 @@ msgstr "Son Ürünün Listelenmesi"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid ""
 "Error Encountered.\n"
 " No Variant Set To Be Listed On eBay."
@@ -299,7 +292,6 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid ""
 "Error Encountered.\n"
 "'%s'"
@@ -360,7 +352,6 @@ msgstr "eBay yapılandırma verilerini içe aktar ve işlemleri senkronize et"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid ""
 "Impossible to revise a listing into a multi-variations listing.\n"
 " Create a new listing."
@@ -465,7 +456,6 @@ msgstr "Adı"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_ebay.py:0
-#, python-format
 msgid "No Business Policies"
 msgstr "İş Poliçeleri Yok"
 
@@ -477,14 +467,12 @@ msgstr "Resmi eBay Kategorisi"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "One parameter is missing."
 msgstr "Bir parametre eksik."
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "Or the condition is not compatible with the category."
 msgstr "Veya durum kategori ile uyumlu değil."
 
@@ -502,7 +490,6 @@ msgstr "Ödeme Politikası"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/res_config_settings.py:0
-#, python-format
 msgid "Please provide your ebay production keys before enabling the account deletion notifications."
 msgstr "Hesap silme bildirimlerini etkinleştirmeden önce lütfen ebay üretim anahtarlarınızı sağlayın."
 
@@ -540,7 +527,6 @@ msgstr "Ürün Varyantı"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid "Product created from eBay transaction %s"
 msgstr "EBay işlem %s oluşturulan ürün"
 
@@ -701,21 +687,18 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid "The Buyer Chose The Following Delivery Method :\n"
 msgstr "Alıcı aşağıdaki teslimat yöntemini seçti:\n"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_order.py:0
-#, python-format
 msgid "The Buyer Posted :\n"
 msgstr "Alıcı Postaladı : \n"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/res_config_settings.py:0
-#, python-format
 msgid ""
 "The python 'cryptography' module is not installed on your server.\n"
 "It is necessary to support eBay account deletion notifications, please contact your system administrator to install it."
@@ -744,21 +727,18 @@ msgstr "Her eBay sitesinde ikinci bir kategorinin kullanımına izin verilmez. B
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "There is no last synchronization date in your System Parameters. Create a System Parameter record with the key \"ebay_last_sync\" and the value set to the date of the oldest order you wish to synchronize in the format \"YYYY-MM-DD\"."
 msgstr "Sistem Parametrelerinizde son senkronizasyon tarihi yoktur. \"ebay_last_sync\" anahtarıyla ve \"YYYY-AA-GG\" biçiminde senkronize etmek istediğiniz en eski sıranın tarihine ayarlanmış değerle bir Sistem Parametresi kaydı oluşturun."
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "This function should not be called with a range of more than 30 days, as eBay does not handle longer timespans. Instead use synchronize_orders which split in as many calls as needed."
 msgstr "Bu işlev, eBay daha uzun zaman aralıklarını işlemediğinden, 30 günden fazla bir aralıkta çağrılmamalıdır. Bunun yerine, gerektiği kadar çağrıya bölünen synchronize_orders kullanın."
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/res_partner.py:0
-#, python-format
 msgid ""
 "This is an automated notification as a deletion request has been received from eBay concerning the account \"%s (%s)\". The account has been anonymised already and his portal access revoked (if they had any).\n"
 "\n"
@@ -927,7 +907,6 @@ msgstr "eBay bağlayıcısı: hesap silme bildirimi"
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/sale_ebay.py:0
-#, python-format
 msgid ""
 "eBay error: Impossible to synchronize the categories. \n"
 "'%s'"
@@ -938,7 +917,6 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-#, python-format
 msgid "eBay is unreachable. Please try again later."
 msgstr "eBay ulaşılamaz durumda. Lütfen daha sonra tekrar deneyin."
 

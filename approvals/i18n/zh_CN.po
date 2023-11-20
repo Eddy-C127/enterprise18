@@ -109,7 +109,6 @@ msgstr "应在申请中指定的一个附加参考。"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "An user may not be in the approver list multiple times."
 msgstr "一个用户不得多次出现在审批人名单中。"
 
@@ -180,7 +179,6 @@ msgstr "待复核的审批"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Approve"
 msgstr "批准"
 
@@ -200,7 +198,6 @@ msgstr "审批人"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Approver Sequence can only be activated with at least 1 minimum approver."
 msgstr "审批人序列只能通过至少最小1个审批人激活。"
 
@@ -381,7 +378,6 @@ msgstr "开始日期"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Deadline"
 msgstr "截止日期"
 
@@ -660,7 +656,6 @@ msgstr "位置"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Log"
 msgstr "记录"
 
@@ -693,7 +688,6 @@ msgstr "最小审批"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Minimum Approval must be equal or superior to the sum of required Approvers."
 msgstr "最低限度的批准必须等于或高于所需批准者的总和。"
 
@@ -733,7 +727,6 @@ msgstr "名称"
 #: code:addons/approvals/models/approval_category.py:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__new
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__new
-#, python-format
 msgid "New"
 msgstr "新建"
 
@@ -923,7 +916,6 @@ msgstr "参考序列"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Refuse"
 msgstr "拒绝"
 
@@ -982,7 +974,6 @@ msgstr "负责用户"
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__sequence
-#, python-format
 msgid "Sequence"
 msgstr "单号规则"
 
@@ -1027,21 +1018,18 @@ msgstr "此用户将有权限配置审批。"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no manager linked to your employee profile."
 msgstr "这个请求需要得到你的经理的批准。您的员工档案中没有链接到经理。"
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no user linked to your manager."
 msgstr "这个请求需要得到你的经理的批准。您的员工档案中没有链接到经理。"
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. Your manager is not in the approvers list."
 msgstr "这个请求需要得到你的经理的批准。你的经理不在批准人名单中。"
 
@@ -1051,7 +1039,6 @@ msgstr "这个请求需要得到你的经理的批准。你的经理不在批准
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__pending
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__pending
-#, python-format
 msgid "To Approve"
 msgstr "待批准"
 
@@ -1080,7 +1067,6 @@ msgstr "计量单位"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__user_id
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__user_id
-#, python-format
 msgid "User"
 msgstr "用户"
 
@@ -1104,35 +1090,30 @@ msgstr "提取"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot approve before the previous approver."
 msgstr "您不能在前一个审批人之前批准"
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot assign the same approver multiple times on the same request."
 msgstr ""
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to add at least %s approvers to confirm your request."
 msgstr "你必须添加至少 %s 个审批人来确认你的申请。"
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to attach at lease one document."
 msgstr "你至少要添加一个文档。"
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Your minimum approval exceeds the total of default approvers."
 msgstr "你的最低批准数超过了默认批准人的总数。"
 

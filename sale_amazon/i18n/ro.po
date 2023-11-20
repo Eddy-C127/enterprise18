@@ -243,28 +243,24 @@ msgstr "Conturile Amazon corespund conturilor Amazon Seller Central."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_marketplace.py:0
-#, python-format
 msgid "Amazon marketplaces cannot be deleted."
 msgstr "Piețele Amazon nu pot fi șterse."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Amazon move: %s"
 msgstr ""
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "Amazon requires that a tracking reference is provided with each delivery. Since the current carrier doesn't automatically provide a tracking reference, you need to set one manually."
 msgstr "Amazon necesită ca o referință de urmărire să fie furnizată cu fiecare livrare. Deoarece curierul curent nu furnizează automat o referință de urmărire, trebuie să o setați manual."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "Amazon requires that a tracking reference is provided with each delivery. You need to assign a carrier to this delivery."
 msgstr "Amazon necesită ca o referință de urmărire să fie furnizată cu fiecare livrare. Trebuie să atribuiți un curier acestei livrări."
 
@@ -437,35 +433,30 @@ msgstr "Contact"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not establish the connection to the API."
 msgstr "Nu s-a putut stabili conexiunea cu API-ul."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not establish the connection to the feed URL."
 msgstr "Nu s-a putut stabili conexiunea cu URL-ul feed-ului."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not establish the connection to the proxy."
 msgstr "Nu s-a putut stabili conexiunea cu proxy-ul."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/controllers/onboarding.py:0
-#, python-format
 msgid "Could not find Amazon account with id %s"
 msgstr "Nu s-a putut găsi contul Amazon cu id-ul %s"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not process the feed document send by Amazon."
 msgstr ""
 
@@ -494,7 +485,6 @@ msgstr "Date autentificare"
 #. odoo-python
 #: code:addons/sale_amazon/models/res_config_settings.py:0
 #: model_terms:ir.ui.view,arch_db:sale_amazon.res_config_settings_view_form
-#, python-format
 msgid "Default Products"
 msgstr "Produse Implicite"
 
@@ -524,7 +514,6 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Error code: %s; description: %s"
 msgstr "Cod eroare: %s; descriere: %s"
 
@@ -566,7 +555,6 @@ msgstr "Împlinire de Comerciant"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid ""
 "Gift message:\n"
 "%s"
@@ -590,7 +578,6 @@ msgstr "Dacă este dezactivat, acest cont nu va mai fi sincronizat cu Amazon."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid ""
 "If the date is set in the past, orders placed on this Amazon Account before the first synchronization of the module might be synchronized with Odoo.\n"
 "If the date is set in the future, orders placed on this Amazon Account between the previous and the new date will not be synchronized with Odoo."
@@ -704,14 +691,12 @@ msgstr "Nr. Oferte"
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_product_product_view_form
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_product_template_view_form
-#, python-format
 msgid "Offers"
 msgstr "Oferte"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Only available marketplaces can be selected"
 msgstr "Pot fi selectate doar piețele disponibile"
 
@@ -729,7 +714,6 @@ msgstr "Urmărire comandă"
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
-#, python-format
 msgid "Orders"
 msgstr "Comenzi"
 
@@ -762,7 +746,6 @@ msgstr "Variantă produs"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "Products delivered to Amazon customers must have their respective parts in the same package. Operations related to the product %s were not all confirmed at once."
 msgstr "Produsele livrate clienților Amazon trebuie să aibă părțile lor respective în aceeași pachet. Operațiunile legate de produsul %s nu au fost toate confirmate odată."
 
@@ -776,7 +759,6 @@ msgstr ""
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 #: model_terms:ir.ui.view,arch_db:sale_amazon.recover_order_wizard_form
-#, python-format
 msgid "Recover Order"
 msgstr ""
 
@@ -872,7 +854,6 @@ msgstr "Locație stoc"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Successfully updated the marketplaces available to this account!"
 msgstr "Actualizat cu succes piața disponibilă pentru acest cont!"
 
@@ -925,14 +906,12 @@ msgstr "Taxe incluse"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/wizards/recover_order_wizard.py:0
-#, python-format
 msgid "The Amazon order reference must be in 3-7-7 format."
 msgstr ""
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The Amazon order with reference %(ref)s was not recovered because its status (%(status)s) is not eligible for synchronization for its fulfillment channel (%(channel)s)."
 msgstr ""
 
@@ -969,14 +948,12 @@ msgstr "Unitatea de stocare."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "The communication with the API failed."
 msgstr "Comunicarea cu API a eșuat."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid ""
 "The communication with the API failed.\n"
 "Error code: %s; description: %s"
@@ -1039,14 +1016,12 @@ msgstr "Momentul la care tokenul devine invalid."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/sale_order.py:0
-#, python-format
 msgid "The order has been canceled by the Amazon customer while someproducts have already been delivered. Please create a return for this order to adjust the stock."
 msgstr "Comanda a fost anulată de către clientul Amazon în timp ce unele produse au fost deja livrate. Vă rugăm să creați un retur pentru această comandă pentru "
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The order was not found on this account's marketplaces."
 msgstr ""
 
@@ -1058,7 +1033,6 @@ msgstr "Piața inițială de înscriere a acestui cont. Folosit numai pentru aut
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The provided reference does not match any Amazon order."
 msgstr ""
 
@@ -1070,7 +1044,6 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "The sales order of this delivery order is not linked to an Amazon account."
 msgstr ""
 
@@ -1117,7 +1090,6 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The synchronization with Amazon failed. Amazon gave us this information about the problem:"
 msgstr ""
 
@@ -1174,7 +1146,6 @@ msgstr "Vizualizare în Seller Central"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Warning"
 msgstr "Atenție"
 
@@ -1186,21 +1157,18 @@ msgstr "Dacă prețul include suma taxei sau nu."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "You first need to authorize the Amazon account %s."
 msgstr "În primul rând, trebuie să autorizați contul Amazon %s."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "You first need to set the marketplaces to synchronize for the Amazon account %s."
 msgstr "În primul rând, trebuie să setați piețele pentru a sincroniza pentru contul Amazon %s."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "You reached the maximum number of requests for this operation; please try again later."
 msgstr "Ați atins numărul maxim de cereri pentru această operațiune; vă rugăm să încercați din nou mai târziu."
 
@@ -1212,7 +1180,6 @@ msgstr "Contul dvs. Amazon este conectat cu Odoo."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid ""
 "[%s] %s\n"
 "Condition: %s - %s"
@@ -1223,14 +1190,12 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "[%s] Delivery Charges for %s"
 msgstr "[%s] Taxe Livrare Pentru %s"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "[%s] Gift Wrapping Charges for %s"
 msgstr "[%s] Taxe Ambalare Cadouri pentru %s"
 

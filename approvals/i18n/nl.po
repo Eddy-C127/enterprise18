@@ -110,7 +110,6 @@ msgstr "Een aanvullende referentie die op het verzoek moet worden vermeld."
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "An user may not be in the approver list multiple times."
 msgstr "Een gebruiker mag niet meerdere keren in de lijst met goedkeurders staan."
 
@@ -181,7 +180,6 @@ msgstr "Te controleren"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Approve"
 msgstr "Goedkeuren"
 
@@ -201,7 +199,6 @@ msgstr "Goedkeurder"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Approver Sequence can only be activated with at least 1 minimum approver."
 msgstr "Goedkeurdersvolgorde kan alleen worden geactiveerd met minimaal 1 goedkeurder."
 
@@ -382,7 +379,6 @@ msgstr "Startdatum"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Deadline"
 msgstr "Deadline"
 
@@ -661,7 +657,6 @@ msgstr "Locatie"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Log"
 msgstr "Log"
 
@@ -694,7 +689,6 @@ msgstr "Minimale goedkeuring"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Minimum Approval must be equal or superior to the sum of required Approvers."
 msgstr "Minimale goedkeuring moet gelijk zijn aan of hoger zijn dan de som van de vereiste goedkeurders."
 
@@ -734,7 +728,6 @@ msgstr "Naam"
 #: code:addons/approvals/models/approval_category.py:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__new
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__new
-#, python-format
 msgid "New"
 msgstr "Nieuw"
 
@@ -924,7 +917,6 @@ msgstr "Referentiereeks"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Refuse"
 msgstr "Afwijzen"
 
@@ -983,7 +975,6 @@ msgstr "Verantwoordelijke gebruiker"
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__sequence
-#, python-format
 msgid "Sequence"
 msgstr "Reeks"
 
@@ -1028,21 +1019,18 @@ msgstr "De gebruiker heeft toegang tot de goedkeuringsinstellingen."
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no manager linked to your employee profile."
 msgstr "Dit verzoek moet worden goedgekeurd door je manager. Er is geen manager gekoppeld aan je werknemersprofiel."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no user linked to your manager."
 msgstr "Dit verzoek moet worden goedgekeurd door je manager. Er is geen gebruiker gekoppeld aan je manager."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. Your manager is not in the approvers list."
 msgstr "Dit verzoek moet worden goedgekeurd door je manager. Je manager staat niet in de goedkeurderslijst."
 
@@ -1052,7 +1040,6 @@ msgstr "Dit verzoek moet worden goedgekeurd door je manager. Je manager staat ni
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__pending
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__pending
-#, python-format
 msgid "To Approve"
 msgstr "Goed te keuren"
 
@@ -1081,7 +1068,6 @@ msgstr "Maateenheid"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__user_id
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__user_id
-#, python-format
 msgid "User"
 msgstr "Gebruiker"
 
@@ -1105,35 +1091,30 @@ msgstr "Intrekken"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot approve before the previous approver."
 msgstr "Je kunt pas goedkeuren na de vorige goedkeurder."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot assign the same approver multiple times on the same request."
 msgstr "Je kan dezelfde goedkeurder niet meerdere keren aan hetzelfde verzoek toewijzen."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to add at least %s approvers to confirm your request."
 msgstr "Voeg minimaal %s goedkeurder(s) toe die je aanvraag moeten goedkeuren"
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to attach at lease one document."
 msgstr "Je moet minimaal één document bijvoegen."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Your minimum approval exceeds the total of default approvers."
 msgstr "Je minimale goedkeuring overschrijdt het totaal van standaard goedkeurders."
 

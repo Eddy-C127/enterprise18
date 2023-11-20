@@ -73,14 +73,12 @@ msgstr "Іконка типу дії"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "All payments in the batch must belong to the same company."
 msgstr "Усі групові платежі повинні належати одній компанії."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "All payments in the batch must share the same payment method."
 msgstr "Усі групові платежі повинні мати один і той же спосіб оплати."
 
@@ -150,7 +148,6 @@ msgstr "Звіт групової оплати"
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_payment__batch_payment_id
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
-#, python-format
 msgid "Batch Payment"
 msgstr "Пакетний платіж"
 
@@ -191,7 +188,6 @@ msgstr "Рядок помічника звіту помилки групових
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Cannot validate an empty batch. Please add some payments to it first."
 msgstr "Не можна підтвердити пусті платежі. Додайте спершу платежі."
 
@@ -218,7 +214,6 @@ msgstr "Створити групу"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Create Batch Payment"
 msgstr "Створити груповий платіж"
 
@@ -395,7 +390,6 @@ msgstr "Вхідний"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Inbound Batch Payments Sequence"
 msgstr "Послідовність вхідних групових платежів"
 
@@ -531,7 +525,6 @@ msgstr "Вихідні"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Outbound Batch Payments Sequence"
 msgstr "Послідовність вихідних групових платежів"
 
@@ -566,14 +559,12 @@ msgstr "Платежі"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/wizard/batch_error.py:0
-#, python-format
 msgid "Payments in Error"
 msgstr "Платежі у помилці"
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Payments must be posted to be added to a batch."
 msgstr "Платежі повинні бути опубліковані, щоби додати їх до групового платежу."
 
@@ -635,7 +626,6 @@ msgstr "Надіслано"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Set payments state to \"posted\"."
 msgstr "Встановіть статус платежів як \"опубліковано\"."
 
@@ -657,21 +647,18 @@ msgstr "Показати опції вилучення"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have already been matched with a bank statement."
 msgstr "Деякі платежі вже узгоджені з банківською випискою."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have already been sent."
 msgstr "Деякі платежі вже надіслано."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some recipient accounts do not allow out payments."
 msgstr "Деякі рахунки одержувачів не дозволяють здійснювати платежі."
 
@@ -702,7 +689,6 @@ msgstr "РАЗОМ"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Target another recipient account or allow sending money to the current one."
 msgstr "Виберіть інший рахунок одержувача або дозвольте надсилати гроші на поточний."
 
@@ -719,14 +705,12 @@ msgstr "Груповий платіж не можна було підтверд�
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The batch must have the same payment method as the payments it contains."
 msgstr "Група повинна мати той самий спосіб оплати, що і платежі, які вона містить."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The batch must have the same type as the payments it contains."
 msgstr "Група повинна мати такий самий тип, як і платежі, які вона містить."
 
@@ -738,7 +722,6 @@ msgstr "Груповий платіж, що генерує помилки та �
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The journal of the batch payment and of the payments it contains must be the same."
 msgstr "Журнал групового платежу та платежів, які він містить, повинен бути однаковим."
 
@@ -805,13 +788,11 @@ msgstr "Чи повинен цей груповий платіж відобра�
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot add payments that are not posted."
 msgstr "Ви не можете додати платежі, які не опубліковані."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot add payments with zero amount in a Batch Payment."
 msgstr "Ви не можете додати платежі з нульовою сумою у групових платежах."

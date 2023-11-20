@@ -44,7 +44,6 @@ msgstr "Cumartesi günleri teslimata izin verir (ekstra ücret uygulanır)"
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid ""
 "Authentication error -- wrong credentials\n"
 "(Detailed error: %s)"
@@ -182,7 +181,6 @@ msgstr "PNG"
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid "Packages over 30 Kg are not accepted by bpost."
 msgstr "Bpost için 30 Kg daha fazla olan paketler kabul edilmez."
 
@@ -194,7 +192,6 @@ msgstr "Parola"
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid "Please provide at least one item to ship."
 msgstr "En az bir adet kargolanacak ürün sağlayın."
 
@@ -206,14 +203,12 @@ msgstr "Sağlayıcı"
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/delivery_bpost.py:0
-#, python-format
 msgid "Return labels created into bpost"
 msgstr ""
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/delivery_bpost.py:0
-#, python-format
 msgid "Return shipment created into bpost"
 msgstr ""
 
@@ -235,14 +230,12 @@ msgstr "NUMUNE"
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/delivery_bpost.py:0
-#, python-format
 msgid "Shipment #%s has been cancelled"
 msgstr "%s # numaralı gönderi iptal edildi"
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/delivery_bpost.py:0
-#, python-format
 msgid "Shipment created into bpost"
 msgstr ""
 
@@ -259,14 +252,12 @@ msgstr "Stok Paket Türü"
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid "The BPost shipping service is unresponsive, please retry later."
 msgstr "BPost gönderim hizmeti yanıt vermiyor, lütfen daha sonra tekrar deneyin."
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid ""
 "The address of your company/warehouse is incomplete or wrong (Missing field(s):  \n"
 " %s)"
@@ -277,14 +268,12 @@ msgstr ""
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid "The estimated shipping price cannot be computed because all your products are service."
 msgstr "Tüm ürünleriniz hizmet olduğu için tahmini nakliye fiyatı hesaplanamaz."
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
@@ -295,7 +284,6 @@ msgstr ""
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid ""
 "The recipient address is incomplete or wrong (Missing field(s):  \n"
 " %s)"
@@ -306,35 +294,30 @@ msgstr ""
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/delivery_bpost.py:0
-#, python-format
 msgid "Tracking Links"
 msgstr ""
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/delivery_bpost.py:0
-#, python-format
 msgid "Tracking Number:"
 msgstr ""
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/delivery_bpost.py:0
-#, python-format
 msgid "Tracking Numbers:"
 msgstr ""
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/delivery_bpost.py:0
-#, python-format
 msgid "You cannot compute a passphrase for non-bpost carriers."
 msgstr "Bpost olmayan taşıyıcılar için bir parola hesaplayamazsınız."
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid "Your company/warehouse address must be in Belgium to ship with bpost"
 msgstr "Bpost ile gönderim olması için şirket/depo adresiniz Belçika'da olmalıdır."
 
@@ -387,14 +370,12 @@ msgstr "bpost Varsayılan Paket Türü"
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid "bpost Domestic is used only to ship inside Belgium. Please change the delivery method into bpost International."
 msgstr "bpost Yurtiçi yalnızca Belçika içinde sevkiyat yapmak için kullanılır. Lütfen teslimat yöntemini bpost International olarak değiştirin."
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid "bpost International is used only to ship outside Belgium. Please change the delivery method into bpost Domestic."
 msgstr "bpost International, yalnızca Belçika dışına gönderim yapmak için kullanılır. Lütfen teslimat yöntemini bpost Yurtiçi olarak değiştirin."
 
@@ -407,6 +388,5 @@ msgstr "bpost Nakliye Yöntemleri"
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
-#, python-format
 msgid "bpost did not return prices for this destination country."
 msgstr "bpost, bu hedef ülke için fiyat döndürmedi."

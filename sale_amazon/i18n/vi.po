@@ -255,28 +255,24 @@ msgstr "Tài khoản Amazon tương ứng với tài khoản Amazon Seller Centr
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_marketplace.py:0
-#, python-format
 msgid "Amazon marketplaces cannot be deleted."
 msgstr "Không thể xóa marketplace Amazon. "
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Amazon move: %s"
 msgstr ""
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "Amazon requires that a tracking reference is provided with each delivery. Since the current carrier doesn't automatically provide a tracking reference, you need to set one manually."
 msgstr "Amazon yêu cầu phải cung cấp mã theo dõi cho từng lần giao hàng. Vì đơn vị vận chuyển hiện tại không tự động cung cấp mã theo dõi, bạn cần phải tự đặt mã theo cách thủ công. "
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "Amazon requires that a tracking reference is provided with each delivery. You need to assign a carrier to this delivery."
 msgstr "Amazon yêu cầu phải cung cấp mã theo dõi cho từng lần giao hàng. Bạn cần chỉ định đơn vị vận chuyển cho đơn giao hàng này. "
 
@@ -449,35 +445,30 @@ msgstr "Liên hệ"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not establish the connection to the API."
 msgstr "Không thể thiết lập kết nối với API."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not establish the connection to the feed URL."
 msgstr "Không thể thiết lập kết nối với URL nguồn cấp dữ liệu."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not establish the connection to the proxy."
 msgstr "Không thể thiết lập kết nối với proxy."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/controllers/onboarding.py:0
-#, python-format
 msgid "Could not find Amazon account with id %s"
 msgstr "Không thể tìm kiếm tài khoản Amazon có id %s"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Could not process the feed document send by Amazon."
 msgstr ""
 
@@ -506,7 +497,6 @@ msgstr "Thông tin đăng nhập"
 #. odoo-python
 #: code:addons/sale_amazon/models/res_config_settings.py:0
 #: model_terms:ir.ui.view,arch_db:sale_amazon.res_config_settings_view_form
-#, python-format
 msgid "Default Products"
 msgstr "Sản phẩm mặc định"
 
@@ -536,7 +526,6 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "Error code: %s; description: %s"
 msgstr "Mã lỗi: %s; mô tả: %s"
 
@@ -578,7 +567,6 @@ msgstr "Xử lý đơn hàng bởi người bán"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid ""
 "Gift message:\n"
 "%s"
@@ -602,7 +590,6 @@ msgstr "Nếu đặt là không hoạt động, tài khoản này sẽ không c�
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid ""
 "If the date is set in the past, orders placed on this Amazon Account before the first synchronization of the module might be synchronized with Odoo.\n"
 "If the date is set in the future, orders placed on this Amazon Account between the previous and the new date will not be synchronized with Odoo."
@@ -716,14 +703,12 @@ msgstr "Số lượng ưu đãi"
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_product_product_view_form
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_product_template_view_form
-#, python-format
 msgid "Offers"
 msgstr "Ưu đãi"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Only available marketplaces can be selected"
 msgstr "Chỉ có thể chọn marketplace khả dụng"
 
@@ -741,7 +726,6 @@ msgstr "Follow-up đơn hàng"
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
-#, python-format
 msgid "Orders"
 msgstr "Đơn hàng"
 
@@ -774,7 +758,6 @@ msgstr "Biến thể sản phẩm"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "Products delivered to Amazon customers must have their respective parts in the same package. Operations related to the product %s were not all confirmed at once."
 msgstr "Tất cả các bộ phận của sản phẩm được giao tới khách hàng Amazon phải được đóng trong cùng một kiện hàng. Các hoạt động liên quan tới sản phẩm %s đã không được xác nhận cùng lúc. "
 
@@ -788,7 +771,6 @@ msgstr ""
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 #: model_terms:ir.ui.view,arch_db:sale_amazon.recover_order_wizard_form
-#, python-format
 msgid "Recover Order"
 msgstr ""
 
@@ -884,7 +866,6 @@ msgstr "Địa điểm kho"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Successfully updated the marketplaces available to this account!"
 msgstr "Đã cập nhật thành công các marketplace khả dụng cho tài khoản này!"
 
@@ -937,14 +918,12 @@ msgstr "Bao gồm thuế"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/wizards/recover_order_wizard.py:0
-#, python-format
 msgid "The Amazon order reference must be in 3-7-7 format."
 msgstr ""
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The Amazon order with reference %(ref)s was not recovered because its status (%(status)s) is not eligible for synchronization for its fulfillment channel (%(channel)s)."
 msgstr ""
 
@@ -981,14 +960,12 @@ msgstr "Đơn vị phân loại hàng tồn kho"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "The communication with the API failed."
 msgstr "Giao tiếp với API không thành công."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid ""
 "The communication with the API failed.\n"
 "Error code: %s; description: %s"
@@ -1051,14 +1028,12 @@ msgstr "Thời điểm token trở nên không hợp lệ."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/sale_order.py:0
-#, python-format
 msgid "The order has been canceled by the Amazon customer while someproducts have already been delivered. Please create a return for this order to adjust the stock."
 msgstr "Đơn đặt hàng đã bị hủy bởi khách hàng Amazon trong khi một số sản phẩm đã được giao. Vui lòng tạo một yêu cầu trả hàng cho đơn đặt hàng này để điều chỉnh hàng tồn kho."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The order was not found on this account's marketplaces."
 msgstr ""
 
@@ -1070,7 +1045,6 @@ msgstr "Marketplace đăng ký ban đầu của tài khoản này. Chỉ đượ
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The provided reference does not match any Amazon order."
 msgstr ""
 
@@ -1082,7 +1056,6 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
-#, python-format
 msgid "The sales order of this delivery order is not linked to an Amazon account."
 msgstr ""
 
@@ -1129,7 +1102,6 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "The synchronization with Amazon failed. Amazon gave us this information about the problem:"
 msgstr ""
 
@@ -1186,7 +1158,6 @@ msgstr "Xem trong Seller Central"
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "Warning"
 msgstr "Cảnh báo"
 
@@ -1198,21 +1169,18 @@ msgstr "Liệu giá có bao gồm số tiền thuế hay không."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "You first need to authorize the Amazon account %s."
 msgstr "Trước tiên, bạn cần ủy quyền cho tài khoản Amazon %s."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-#, python-format
 msgid "You first need to set the marketplaces to synchronize for the Amazon account %s."
 msgstr "Trước tiên, bạn cần thiết lập các marketplace để đồng bộ hóa cho tài khoản Amazon %s."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "You reached the maximum number of requests for this operation; please try again later."
 msgstr "Bạn đã đạt đến số lượng yêu cầu tối đa cho thao tác này; vui lòng thử lại sau."
 
@@ -1224,7 +1192,6 @@ msgstr "Tài khoản Amazon của bạn đã được liên kết với Odoo."
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid ""
 "[%s] %s\n"
 "Condition: %s - %s"
@@ -1235,14 +1202,12 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "[%s] Delivery Charges for %s"
 msgstr "[%s] Phí vận chuyển cho %s"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
-#, python-format
 msgid "[%s] Gift Wrapping Charges for %s"
 msgstr "[%s] Phí gói quà cho %s"
 

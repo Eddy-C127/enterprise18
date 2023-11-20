@@ -75,14 +75,12 @@ msgstr "Icône de type d'activité"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "All payments in the batch must belong to the same company."
 msgstr "Tous les paiements dans le lot doivent provenir de la même entreprise. "
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "All payments in the batch must share the same payment method."
 msgstr "Tous les paiements du lot doivent partager le même mode de paiement."
 
@@ -152,7 +150,6 @@ msgstr "Rapport sur les dépôts par lot"
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_payment__batch_payment_id
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
-#, python-format
 msgid "Batch Payment"
 msgstr "Paiement par lot"
 
@@ -193,7 +190,6 @@ msgstr "Ligne d'assistance pour le signalement des erreurs dans les paiements pa
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Cannot validate an empty batch. Please add some payments to it first."
 msgstr "Impossible de valider un lot vide. Veuillez d'abord y ajouter quelques paiements."
 
@@ -220,7 +216,6 @@ msgstr "Créer un lot"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Create Batch Payment"
 msgstr "Créer un paiement par lot"
 
@@ -397,7 +392,6 @@ msgstr "Entrant"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Inbound Batch Payments Sequence"
 msgstr "Séquence des paiements par lot entrants"
 
@@ -533,7 +527,6 @@ msgstr "Sortant"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Outbound Batch Payments Sequence"
 msgstr "Séquence des paiements par lot sortants"
 
@@ -568,14 +561,12 @@ msgstr "Paiements"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/wizard/batch_error.py:0
-#, python-format
 msgid "Payments in Error"
 msgstr "Paiements en erreur"
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Payments must be posted to be added to a batch."
 msgstr "Les paiements doivent être enregistrés pour être ajoutés à un lot."
 
@@ -637,7 +628,6 @@ msgstr "Envoyé"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Set payments state to \"posted\"."
 msgstr "Définissez l'état des paiements sur \"Comptabilisé\"."
 
@@ -659,21 +649,18 @@ msgstr "Afficher les options de suppression"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have already been matched with a bank statement."
 msgstr "Certains paiements ont déjà été réconciliés avec un relevé bancaire."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have already been sent."
 msgstr "Certains paiements ont déjà été envoyés."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some recipient accounts do not allow out payments."
 msgstr "Certains comptes bénéficiaires n'autorisent pas les paiements sortants."
 
@@ -704,7 +691,6 @@ msgstr "TOTAL"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Target another recipient account or allow sending money to the current one."
 msgstr "Choisissez un autre compte destinataire ou autorisez l'envoi d'argent vers le compte actuel."
 
@@ -721,14 +707,12 @@ msgstr "Le lot n'a pas pu être validé"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The batch must have the same payment method as the payments it contains."
 msgstr "Le lot doit avoir le même mode de paiement que les paiements qu'il contient."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The batch must have the same type as the payments it contains."
 msgstr "Le lot doit avoir le même type que les paiements qu'il contient."
 
@@ -740,7 +724,6 @@ msgstr "Le paiement par lot générant les erreurs et les avertissements affich�
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The journal of the batch payment and of the payments it contains must be the same."
 msgstr "Le journal du paiement par lot et des paiements qu'il contient doivent être le même. "
 
@@ -807,13 +790,11 @@ msgstr "Si ce paiement par lot doit ou non afficher le bouton \"Générer un fic
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot add payments that are not posted."
 msgstr "Vous ne pouvez pas ajouter des paiements qui ne sont pas comptabilisés."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot add payments with zero amount in a Batch Payment."
 msgstr "Vous ne pouvez pas ajouter de paiements avec un montant nul dans un paiement par lot."

@@ -91,14 +91,12 @@ msgstr "Toimenpiteen ikoni"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "All payments in the batch must belong to the same company."
 msgstr "Kaikkien eräajon maksujen tulee kuulua samaan yritykseen."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "All payments in the batch must share the same payment method."
 msgstr "Kaikkien eräajon maksujen tulee käyttää samaa maksutapaa."
 
@@ -168,7 +166,6 @@ msgstr "Eräajon talletuksen raportti"
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_payment__batch_payment_id
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
-#, python-format
 msgid "Batch Payment"
 msgstr "Erämaksu"
 
@@ -209,7 +206,6 @@ msgstr "Eräajomaksujen virheiden raportoinnin ohjatun toiminnon rivi"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Cannot validate an empty batch. Please add some payments to it first."
 msgstr "Tyhjää eräajoa ei voi varmistaa. Ole hyvä ja lisää maksu siihen ensin."
 
@@ -236,7 +232,6 @@ msgstr "Luo eräajo"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Create Batch Payment"
 msgstr "Luo eräajomaksu"
 
@@ -413,7 +408,6 @@ msgstr "Saapuva"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Inbound Batch Payments Sequence"
 msgstr "Eräajon saapuvien maksujen järjestys"
 
@@ -549,7 +543,6 @@ msgstr "Lähtevä"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Outbound Batch Payments Sequence"
 msgstr "Eräajon lähtevien maksujen järjestys"
 
@@ -584,14 +577,12 @@ msgstr "Maksut"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/wizard/batch_error.py:0
-#, python-format
 msgid "Payments in Error"
 msgstr "Maksuja virhetilassa"
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Payments must be posted to be added to a batch."
 msgstr "Maksujen tulee olla kirjattuja, jotta ne voidaan lisätä eräajoon."
 
@@ -653,7 +644,6 @@ msgstr "Lähetetty"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Set payments state to \"posted\"."
 msgstr "Aseta maksujen tila \"kirjatuksi\"."
 
@@ -675,21 +665,18 @@ msgstr "Näytä poiston vaihtoehdot"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have already been matched with a bank statement."
 msgstr "Jotkut maksut on jo täsmäytetty pankkitilillä."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have already been sent."
 msgstr "Jotkut maksut on jo lähetetty."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some recipient accounts do not allow out payments."
 msgstr "Jotkut vastaanottajien tileistä eivät hyväksy talletuksien vastaanottoa."
 
@@ -720,7 +707,6 @@ msgstr "YHTEENSÄ"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Target another recipient account or allow sending money to the current one."
 msgstr "Valitse joku toinen vastaanottava tili tai salli enemmän rahan määrän lähettäminen nykyiselle."
 
@@ -737,14 +723,12 @@ msgstr "Eräajoa ei voitu vahvistaa"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The batch must have the same payment method as the payments it contains."
 msgstr "Eräajossa on oltava sama maksutapatyyppi kuin tämän sisältävässä maksussa."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The batch must have the same type as the payments it contains."
 msgstr "Eräajossa on oltava sama tyyppi kuin sen sisältämissä maksuissa."
 
@@ -756,7 +740,6 @@ msgstr "Eräajon luomat virheet ja varoitukset näytetään tässä ohjatussa to
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The journal of the batch payment and of the payments it contains must be the same."
 msgstr "Eräajon päiväkirjan ja sen maksujen on oltava samat."
 
@@ -823,13 +806,11 @@ msgstr "Tuleeko tämän eräajon näyttää lomakenäkymässä 'Luo tiedosto\" -
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot add payments that are not posted."
 msgstr "Et voi lisätä maksutapoja, joita ei ole kirjattu."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot add payments with zero amount in a Batch Payment."
 msgstr "Eräajon maksuihin ei voi lisätä nollasummaisia maksuja."

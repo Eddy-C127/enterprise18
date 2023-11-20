@@ -24,7 +24,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid " You can safely close this window."
 msgstr ""
 
@@ -37,35 +36,30 @@ msgstr "# 서명"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
-#, python-format
 msgid "%s couldn't sign the document due to an insufficient credit error."
 msgstr "%s는 크레딧이 충분하지 않아 서류에 서명하지 못했습니다."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "%s has been edited and signed"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "%s has been signed"
 msgstr "%s이 서명되었습니다"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
-#, python-format
 msgid "%s validated the signature by SMS with the phone number %s."
 msgstr "%s는 %s 전화번호의 SMS로 서명을 확인하였습니다."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "%s: missing credits for extra-authentication"
 msgstr ""
 
@@ -129,7 +123,6 @@ msgstr "<b>문서 ID :</b>"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "<b>Drag & drop “Signature”</b> into the bottom of the document."
 msgstr ""
 
@@ -304,21 +297,18 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "A SMS will be sent to the following phone number. Please update it if it's not relevant."
 msgstr "다음 전화 번호로 SMS가 발송됩니다. 관련이 없는 경우 업데이트하십시오."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "A non-shared sign request's should not have any signer with an empty partner"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "A shared sign request should only have one signer with an empty partner"
 msgstr ""
 
@@ -330,7 +320,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "A valid sign request needs at least one sign request item"
 msgstr ""
 
@@ -392,7 +381,6 @@ msgstr "활동 예외 장식"
 #: code:addons/sign/models/sign_request.py:0
 #: model:ir.actions.report,name:sign.action_sign_request_print_logs
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
-#, python-format
 msgid "Activity Logs"
 msgstr "활동 로그"
 
@@ -419,14 +407,12 @@ msgstr "이 요청에 연결된 활동 로그"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_iframe.js:0
-#, python-format
 msgid "Add Initials"
 msgstr "이니셜 추가"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
-#, python-format
 msgid "Add Once"
 msgstr ""
 
@@ -438,7 +424,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
-#, python-format
 msgid "Add to all pages"
 msgstr ""
 
@@ -450,7 +435,6 @@ msgstr "관리자"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Adopt Your Signature"
 msgstr "서명 채택하기"
 
@@ -463,14 +447,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: model:ir.model.fields,field_description:sign.field_sign_item__alignment
-#, python-format
 msgid "Alignment"
 msgstr "정렬"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "All"
 msgstr "전체"
 
@@ -482,7 +464,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "All signers must have valid email addresses"
 msgstr ""
 
@@ -564,7 +545,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Authorized Groups:"
 msgstr ""
 
@@ -576,7 +556,6 @@ msgstr "인증된 사용자"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Authorized Users:"
 msgstr ""
 
@@ -608,7 +587,6 @@ msgstr "By"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "By clicking Adopt & Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts."
 msgstr ""
 
@@ -630,7 +608,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_duplicate_template_with_pdf_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
-#, python-format
 msgid "Cancel"
 msgstr "취소"
 
@@ -646,7 +623,6 @@ msgstr "취소됨"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.js:0
-#, python-format
 msgid "Center"
 msgstr "중앙"
 
@@ -680,14 +656,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Click on the field to specify who should fill it in, or if it's mandatory or not."
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Click to start"
 msgstr "클릭하여 시작하기"
 
@@ -698,7 +672,6 @@ msgstr "클릭하여 시작하기"
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
-#, python-format
 msgid "Close"
 msgstr "닫기"
 
@@ -737,7 +710,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_request_item__state__completed
-#, python-format
 msgid "Completed"
 msgstr "완료됨"
 
@@ -784,14 +756,12 @@ msgstr "승인"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Congrats, your signature is ready to be submitted!"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Congratulations, you signed your first document!"
 msgstr ""
 
@@ -900,7 +870,6 @@ msgstr "현황판"
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model:sign.item.type,name:sign.sign_item_type_date
 #: model:sign.item.type,placeholder:sign.sign_item_type_date
-#, python-format
 msgid "Date"
 msgstr "일자"
 
@@ -938,7 +907,6 @@ msgstr "삭제"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_items.xml:0
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Delete sign"
 msgstr ""
 
@@ -946,7 +914,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_items.xml:0
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Delete sign item"
 msgstr ""
 
@@ -1074,14 +1041,12 @@ msgstr ""
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model_terms:ir.ui.view,arch_db:sign._doc_sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
-#, python-format
 msgid "Download Document"
 msgstr "문서 내려받기"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/PDFIframe.js:0
-#, python-format
 msgid "Download original document"
 msgstr "원본 문서 내려받기"
 
@@ -1089,14 +1054,12 @@ msgstr "원본 문서 내려받기"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_type_buttons.xml:0
 #: code:addons/sign/static/src/xml/sign_backend.xml:0
-#, python-format
 msgid "Drag & Drop a field in the PDF"
 msgstr "PDF에서 필드 끌어서 놓기"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Draw your most beautiful signature!<br>You can also create one automatically or load a signature from your computer."
 msgstr ""
 
@@ -1108,21 +1071,18 @@ msgstr "드롭다운 메뉴"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
-#, python-format
 msgid "Duplicate"
 msgstr "복제"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.js:0
-#, python-format
 msgid "Duplicated Template"
 msgstr "복제한 서식"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "ERROR: Invalid PDF file!"
 msgstr "오류 : 잘못된 PDF 파일!"
 
@@ -1144,7 +1104,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Edit template name"
 msgstr "서식 이름 편집하기"
 
@@ -1180,14 +1139,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Enter the code received through SMS to complete your signature"
 msgstr "서명을 완료하려면 SMS를 통해받은 코드를 입력하십시오"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Error"
 msgstr "오류"
 
@@ -1199,7 +1156,6 @@ msgstr "Error 404"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Existing sign items are not allowed to be changed"
 msgstr ""
 
@@ -1250,7 +1206,6 @@ msgstr "필드 유형"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_type_buttons.xml:0
 #: code:addons/sign/static/src/xml/sign_backend.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
-#, python-format
 msgid "Fields"
 msgstr "필드"
 
@@ -1267,7 +1222,6 @@ msgstr "파일 컨텐츠(base64)"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/hooks.js:0
-#, python-format
 msgid "File Error"
 msgstr ""
 
@@ -1284,21 +1238,18 @@ msgstr "파일명"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
-#, python-format
 msgid "Filled by"
 msgstr "채운 사람"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Final Validation"
 msgstr "마지막 유효성 검사"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Follow the guide to sign the document."
 msgstr ""
 
@@ -1332,7 +1283,6 @@ msgstr ""
 #: code:addons/sign/static/src/backend_components/sign_template/sign_items.xml:0
 #: code:addons/sign/static/src/xml/sign_common.xml:0
 #: code:addons/sign/static/src/xml/sign_modal.xml:0
-#, python-format
 msgid "Frame"
 msgstr ""
 
@@ -1357,7 +1307,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:sign.selection__sign_request__state__signed
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
-#, python-format
 msgid "Fully Signed"
 msgstr "전체 서명됨"
 
@@ -1369,7 +1318,6 @@ msgstr "향후 활동"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Generate PDF"
 msgstr "PDF 생성"
 
@@ -1553,7 +1501,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Ignore"
 msgstr ""
 
@@ -1687,21 +1634,18 @@ msgstr "위도"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.js:0
-#, python-format
 msgid "Left"
 msgstr "왼쪽"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Let's <b>prepare & sign</b> our first document."
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Let's send the request by email."
 msgstr ""
 
@@ -1723,14 +1667,12 @@ msgstr "로그 날짜"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_log.py:0
-#, python-format
 msgid "Log history of sign requests cannot be deleted!"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_log.py:0
-#, python-format
 msgid "Log history of sign requests cannot be modified!"
 msgstr ""
 
@@ -1764,7 +1706,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "Malformed expression: %(exp)s"
 msgstr ""
 
@@ -1777,7 +1718,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
-#, python-format
 msgid "Mandatory field"
 msgstr "필수 필드"
 
@@ -1901,7 +1841,6 @@ msgstr "이름 또는 이메일..."
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Nearly there, keep going!"
 msgstr ""
 
@@ -1914,7 +1853,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_iframe.js:0
 #: code:addons/sign/static/src/js/common/PDFIframe.js:0
-#, python-format
 msgid "Need a valid PDF to add signature fields!"
 msgstr ""
 
@@ -1926,7 +1864,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "Newest"
 msgstr "최신"
 
@@ -1954,28 +1891,24 @@ msgstr "다음 활동 유형"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Next Document"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/document_signable.js:0
-#, python-format
 msgid "Next Template"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Next signatory (\"%s\")"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Next signatory is \"%s\""
 msgstr ""
 
@@ -1987,7 +1920,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "No specified reason"
 msgstr ""
 
@@ -1999,7 +1931,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "None"
 msgstr "없음"
 
@@ -2077,21 +2008,18 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "One or more selection items have no associated options"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "One uploaded file cannot be read. Is it a valid PDF?"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/terms.py:0
-#, python-format
 msgid "Oops"
 msgstr "이런"
 
@@ -2139,7 +2067,6 @@ msgstr "버튼 링크에 표시할 선택적 텍스트"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
-#, python-format
 msgid "Options"
 msgstr "옵션"
 
@@ -2152,7 +2079,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model_terms:ir.ui.view,arch_db:sign.encrypted_ask_password
-#, python-format
 msgid "PDF is encrypted"
 msgstr "PDF는 암호화됨"
 
@@ -2169,7 +2095,6 @@ msgstr "파트너"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Password is incorrect."
 msgstr "비밀번호가 맞지 않습니다."
 
@@ -2183,7 +2108,6 @@ msgstr "전화번호"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Phone Number"
 msgstr "전화번호"
 
@@ -2191,14 +2115,12 @@ msgstr "전화번호"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__placeholder
-#, python-format
 msgid "Placeholder"
 msgstr "자리 표시자"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Please configure senders'(%s) email addresses"
 msgstr ""
 
@@ -2225,7 +2147,6 @@ msgstr "미리보기"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/PDFIframe.js:0
-#, python-format
 msgid "Print original document"
 msgstr "원본 문서 인쇄"
 
@@ -2242,7 +2163,6 @@ msgstr "진행"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Public User"
 msgstr "일반 사용자"
 
@@ -2254,14 +2174,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Re-send SMS"
 msgstr "SMS 재전송"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Reason"
 msgstr "사유"
 
@@ -2274,7 +2192,6 @@ msgstr "리디렉션 링크"
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__refuse
-#, python-format
 msgid "Refuse"
 msgstr "반려"
 
@@ -2283,7 +2200,6 @@ msgstr "반려"
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model_terms:ir.ui.view,arch_db:sign._doc_sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
-#, python-format
 msgid "Refuse Document"
 msgstr ""
 
@@ -2326,14 +2242,12 @@ msgstr "항목 정보 요청"
 #: code:addons/sign/static/src/activity/activity_patch.xml:0
 #: model:ir.model.fields.selection,name:sign.selection__mail_activity_type__category__sign_request
 #: model:mail.activity.type,name:sign.mail_activity_data_signature_request
-#, python-format
 msgid "Request Signature"
 msgstr "서명 요청"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid "Request expiration date must be set in the future."
 msgstr ""
 
@@ -2352,21 +2266,18 @@ msgstr "요청함"
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_item_view_tree
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
-#, python-format
 msgid "Resend"
 msgstr "재전송"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Resend the invitation"
 msgstr "초대장 재전송"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Resent!"
 msgstr ""
 
@@ -2375,7 +2286,6 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
 #: model:ir.model.fields,field_description:sign.field_sign_item__responsible_id
 #: model:ir.model.fields,field_description:sign.field_sign_template__user_id
-#, python-format
 msgid "Responsible"
 msgstr "담당자"
 
@@ -2398,7 +2308,6 @@ msgstr "복원"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.js:0
-#, python-format
 msgid "Right"
 msgstr "오른쪽"
 
@@ -2421,7 +2330,6 @@ msgstr "역할"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_iframe.js:0
-#, python-format
 msgid "Rotate Clockwise"
 msgstr ""
 
@@ -2433,7 +2341,6 @@ msgstr "SMS 전송 에러"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "SMS Sent"
 msgstr "SMS 전송"
 
@@ -2451,7 +2358,6 @@ msgstr "판매"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__save
-#, python-format
 msgid "Save"
 msgstr "저장"
 
@@ -2459,14 +2365,12 @@ msgstr "저장"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
-#, python-format
 msgid "Saved"
 msgstr "저장됨"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "Search <span class=\"nolabel\"> (in Document)</span>"
 msgstr ""
 
@@ -2484,7 +2388,6 @@ msgstr "선택 사항 선택하기"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Select the contact who should sign, according to their role.<br>In this example, select your own contact to sign the document yourself."
 msgstr ""
 
@@ -2508,14 +2411,12 @@ msgstr "선택된 선택 사항"
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
-#, python-format
 msgid "Send"
 msgstr "보내기"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Send SMS"
 msgstr "SMS 보내기"
 
@@ -2532,7 +2433,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Send the invitation"
 msgstr ""
 
@@ -2550,7 +2450,6 @@ msgstr "요청 전송됨"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Sent by"
 msgstr ""
 
@@ -2565,7 +2464,6 @@ msgstr "설정"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
-#, python-format
 msgid "Share"
 msgstr "공유"
 
@@ -2577,7 +2475,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "Share Document by Link"
 msgstr "링크로 문서 공유"
 
@@ -2592,7 +2489,6 @@ msgstr "공유 링크"
 #: code:addons/sign/models/sign_template.py:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__request_state__shared
 #: model:ir.model.fields.selection,name:sign.selection__sign_request__state__shared
-#, python-format
 msgid "Shared"
 msgstr "공유됨"
 
@@ -2614,7 +2510,6 @@ msgstr ""
 #: model:ir.ui.menu,name:sign.menu_document
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
-#, python-format
 msgid "Sign"
 msgstr "서명"
 
@@ -2636,7 +2531,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Sign Document"
 msgstr "문서 서명"
 
@@ -2648,7 +2542,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sign Next Document"
 msgstr ""
 
@@ -2659,7 +2552,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
-#, python-format
 msgid "Sign Now"
 msgstr "지금 서명하기"
 
@@ -2712,14 +2604,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sign Up for free"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sign all"
 msgstr ""
 
@@ -2731,7 +2621,6 @@ msgstr "서명 문서"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "Sign requests"
 msgstr "서명 요청"
 
@@ -2759,7 +2648,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Sign up for Odoo Sign to manage your own documents and signature requests."
 msgstr ""
 
@@ -2792,7 +2680,6 @@ msgstr ""
 #: model:sign.item.type,placeholder:sign.sign_item_type_signature
 #: model_terms:ir.ui.view,arch_db:sign._doc_sign
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
-#, python-format
 msgid "Signature"
 msgstr "서명"
 
@@ -2845,21 +2732,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__sign_request_id
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__sign_request_id
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
-#, python-format
 msgid "Signature Request"
 msgstr "서명 요청"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid "Signature Request - %(file_name)s"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid "Signature Request - %s"
 msgstr "서명 요청 - %s"
 
@@ -2897,14 +2781,12 @@ msgstr "서명 서식"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_items.xml:0
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Signature configuration"
 msgstr "서명 환경 설정"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid ""
 "Signature requested for template: %s\n"
 "Signatories: %s"
@@ -2913,7 +2795,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/res_partner.py:0
-#, python-format
 msgid "Signature(s)"
 msgstr ""
 
@@ -2969,7 +2850,6 @@ msgstr "서명된 날짜"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Signed with Odoo Sign"
 msgstr ""
 
@@ -2993,7 +2873,6 @@ msgstr "서명자 수"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "Signing Date"
 msgstr ""
 
@@ -3005,28 +2884,24 @@ msgstr "서명 이벤트"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Since you're the one signing this document, you can do it directly within Odoo.<br>External users can use the link provided by email."
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Some fields have still to be completed!"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Some required items are not filled"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Some unauthorised items are filled"
 msgstr ""
 
@@ -3035,21 +2910,18 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/models/sign_template.py:0
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
-#, python-format
 msgid "Somebody is already filling a document which uses this template"
 msgstr "누군가 이 서식을 사용하는 문서를 이미 작성 중입니다"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sorry, an error occurred, please try to fill the document again."
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sorry, you cannot refuse this document"
 msgstr ""
 
@@ -3080,7 +2952,6 @@ msgstr "작업 로그에 대한 요청 상태"
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
-#, python-format
 msgid "Status"
 msgstr "상태"
 
@@ -3134,7 +3005,6 @@ msgstr "태그"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Tags:"
 msgstr ""
 
@@ -3155,7 +3025,6 @@ msgstr "템플릿"
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/document_signable.js:0
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Template \"%s\""
 msgstr ""
 
@@ -3163,14 +3032,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.js:0
 #: code:addons/sign/static/src/views/hooks.js:0
-#, python-format
 msgid "Template %s"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Template Properties"
 msgstr ""
 
@@ -3188,7 +3055,6 @@ msgstr "서식 또는 태그"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #: model:ir.actions.act_window,name:sign.sign_template_action
-#, python-format
 msgid "Templates"
 msgstr "템플릿(서식)"
 
@@ -3227,21 +3093,18 @@ msgstr "문자"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Thank You!"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Thank you!"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "That's it, all done!<br>The document is signed, and a copy has been sent by email to all participants, along with a traceability report."
 msgstr ""
 
@@ -3258,7 +3121,6 @@ msgstr "최종 문서를 생성하려면 PDF의 비밀번호가 필요합니다.
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The completed document cannot be created because the sign request is not fully signed"
 msgstr ""
 
@@ -3270,7 +3132,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The contact of %(role)s has been changed from %(old_partner)s to %(new_partner)s."
 msgstr ""
 
@@ -3283,21 +3144,18 @@ msgstr "문서"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The document (%s) has been rejected by one of the signers"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "The document has been refused"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The document has been signed by a signer and cannot be edited"
 msgstr ""
 
@@ -3314,7 +3172,6 @@ msgstr "최종 문서와 이 완료 내역이 이메일로 전송되었습니다
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid "The following roles must be set to create the signature request: %(roles)s"
 msgstr ""
 
@@ -3326,49 +3183,42 @@ msgstr "문서 기록의 무결성을 확인할 수 없습니다. 이는 서명 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/res_partner.py:0
-#, python-format
 msgid "The mail address of %(partner)s has been updated. The request will be automatically resent."
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The mail has been sent to contacts in copy: "
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/terms.py:0
-#, python-format
 msgid "The requested page is invalid, or doesn't exist anymore."
 msgstr "요청하신 페이지는 유효하지 않거나 존재하지 않는 페이지입니다."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "The role %s is required by the Sign application and cannot be deleted."
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The sign request has not been fully signed"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The signature has been refused by %s(%s)"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The signature mail has been sent to: "
 msgstr ""
 
@@ -3380,7 +3230,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The signature request has been edited by: %s."
 msgstr ""
 
@@ -3392,14 +3241,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_action.js:0
-#, python-format
 msgid "The template doesn't exist anymore."
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_duplicate_template_with_pdf.py:0
-#, python-format
 msgid "The template has more pages than the current file, it can't be applied."
 msgstr ""
 
@@ -3416,28 +3263,24 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "There are other documents waiting for your signature:"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/template_alert_dialog/template_alert_dialog.xml:0
-#, python-format
 msgid "These files cannot be read, they may be corrupted or encrypted."
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/template_alert_dialog/template_alert_dialog.xml:0
-#, python-format
 msgid "They will be removed from the uploaded files"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This function can only be called with sudo."
 msgstr ""
 
@@ -3450,42 +3293,36 @@ msgstr "메일에서 문서의 이름을 지정하는 방법입니다."
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request cannot be refused"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request cannot be signed"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request is not valid anymore"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request item cannot be filled"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request item cannot be refused"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request item cannot be signed"
 msgstr ""
 
@@ -3512,7 +3349,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "To sign"
 msgstr ""
 
@@ -3540,7 +3376,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Try out this sample contract."
 msgstr ""
 
@@ -3568,7 +3403,6 @@ msgstr "UTC"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Unable to send the SMS, please contact the sender of the document."
 msgstr "SMS를 보낼 수 없는 경우 문서 발신자에게 문의하십시오."
 
@@ -3585,14 +3419,12 @@ msgstr "갱신"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "Upload a PDF"
 msgstr "PDF 업로드"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
-#, python-format
 msgid "Upload a PDF & Sign"
 msgstr ""
 
@@ -3609,21 +3441,18 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
-#, python-format
 msgid "Upload a PDF file to use as a template."
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
-#, python-format
 msgid "Upload a PDF template"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
-#, python-format
 msgid "Upload a pdf that you want to sign directly"
 msgstr ""
 
@@ -3667,21 +3496,18 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
-#, python-format
 msgid "Validate"
 msgstr "승인"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Validate & Send"
 msgstr "승인 및 전송"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Validate & the next signatory is \"%s\""
 msgstr ""
 
@@ -3693,7 +3519,6 @@ msgstr "승인 &amp; 완료된 문서 보내기"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Validation Code"
 msgstr "검증 코드"
 
@@ -3711,7 +3536,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Verify"
 msgstr "확인"
 
@@ -3757,7 +3581,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_action.js:0
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Warning"
 msgstr "경고"
 
@@ -3774,14 +3597,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "We will send you this document by email once everyone has signed."
 msgstr "모든 사람이 서명하면 이 문서를 이메일로 보내드립니다."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "We'll send an email to warn other contacts in copy & signers with the reason you provided."
 msgstr ""
 
@@ -3798,7 +3619,6 @@ msgstr "웹사이트 대화 이력"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Well done, your document is ready!<br>Let's send it to get our first signature."
 msgstr ""
 
@@ -3815,7 +3635,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Why do you refuse to sign this document?"
 msgstr ""
 
@@ -3832,7 +3651,6 @@ msgstr "이메일 작성 또는 연락처 검색 ..."
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
-#, python-format
 msgid "Wrong password"
 msgstr "잘못된 비밀번호"
 
@@ -3844,28 +3662,24 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "You can only add new items for the current role"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "You can't delete a template for which signature requests exist but you can archive it instead."
 msgstr "서명 요청이 있는 서식은 삭제할 수 없지만 대신 보관할 수 있습니다."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "You cannot reassign this signatory"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "You cannot share this document by link, because it has fields to be filled by different roles. Use Send button instead."
 msgstr ""
 
@@ -3889,14 +3703,12 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "You must specify one signer for each role of your sign template"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "You need to define a signatory"
 msgstr ""
 
@@ -3913,7 +3725,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "You will receive the final signed document by email."
 msgstr ""
 
@@ -3931,49 +3742,42 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Your confirmation code is %s"
 msgstr "확인 코드는 %s"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Your email"
 msgstr "귀하의 이메일"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Your file is encrypted, PDF's password is required to generate final document. The final document will be encrypted with the same password."
 msgstr "파일이 암호화되었습니다. 최종 문서를 생성하려면 PDF의 비밀번호가 필요합니다. 최종 문서는 동일한 비밀번호로 암호화됩니다."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Your name"
 msgstr "귀하의 성명"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Your signature has been saved."
 msgstr "서명이 저장되었습니다."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Your signature has been submitted."
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Your signature was not submitted. Ensure the SMS validation code is correct."
 msgstr ""
 
@@ -3985,7 +3789,6 @@ msgstr "그리고"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/template_alert_dialog/template_alert_dialog.xml:0
-#, python-format
 msgid "and the process will continue"
 msgstr ""
 
@@ -4024,14 +3827,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "e.g. +1 415 555 0100"
 msgstr "예. +1 415 555 0100"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "e.g. 314159"
 msgstr "예. 314159"
 
@@ -4096,14 +3897,12 @@ msgstr "표시"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "next"
 msgstr "다음"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "on"
 msgstr ""
 
@@ -4135,7 +3934,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
-#, python-format
 msgid "this template to modify it."
 msgstr ""
 

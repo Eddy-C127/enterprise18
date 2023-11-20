@@ -103,7 +103,6 @@ msgstr "<strong>Індекс: </strong>"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "A debtor account is required to validate a SEPA Direct Debit mandate."
 msgstr "Рахунок боржника необхідний для підтвердження мандату SEPA Direct Debit."
 
@@ -155,7 +154,6 @@ msgstr "Іконка типу дії"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "All the payments in the batch must have the same SDD scheme."
 msgstr "Усі групові платежі повинні мати одну схему SDD."
 
@@ -452,14 +450,12 @@ msgstr "Якщо позначено, деякі повідомлення маю�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Make sure you made no typo."
 msgstr "Недійсний ідентифікатор кредитора. Переконайтеся, що ви не зробили помилки."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Wrong format."
 msgstr "Недійсний ідентифікатор кредитора. Неправильний формат."
 
@@ -645,14 +641,12 @@ msgstr "Одноразовий мандат"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only IBAN account numbers can receive SEPA Direct Debit payments. Please select a journal associated to one."
 msgstr "Тільки номери рахунків IBAN можуть отримувати платежі SEPA Direct Debit. Будь ласка, виберіть журнал, пов'язаний з ним."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only mandates in draft state can be deleted from database when cancelled."
 msgstr "Тільки мандати в проектному стані можуть бути видалені з бази даних при скасуванні."
 
@@ -675,7 +669,6 @@ msgstr "Оригінальний мандат SEPA"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Paid Invoices"
 msgstr "Оплачені рахунки"
 
@@ -713,7 +706,6 @@ msgstr "Платежі, отримані завдяки цьому мандат�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Payments to Collect"
 msgstr "Платежі для отримання"
 
@@ -810,7 +802,6 @@ msgstr "Ідентифікатор кредитора SDD "
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "SDD scheme is set on the customer mandate."
 msgstr "Схема SDD втсановлена на манадаті клієнта."
 
@@ -837,7 +828,6 @@ msgstr "Ідентифікатор кредитора прямого дебет�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "SEPA Direct Debit scheme only accepts IBAN account numbers. Please select an IBAN-compliant debtor account for this mandate."
 msgstr "Схема прямого дебету SEPA приймає тільки номери рахунків IBAN. Будь ласка, виберіть рахунок дебітора, сумісного з IBAN, для цього мандату."
 
@@ -870,7 +860,6 @@ msgstr "Підпис"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Some draft payments could not be posted because of the lack of any active mandate."
 msgstr "Деякі проекти виплат не можуть бути опубліковані через відсутність активного мандату."
 
@@ -920,28 +909,24 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The SEPA Direct Debit mandate associated to the payment has been revoked and cannot be used anymore."
 msgstr "Мандат прямого дебету SEPA Direct Debit пов’язаний із платежем, був скасований і більше не може бути використаний."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "The creditor identifier exceeds the maximum length of 35 characters."
 msgstr "Ідентифікатор кредитора перевищує максимальну довжину у 35 символів."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The debtor identifier you specified exceeds the limitation of 35 characters imposed by SEPA regulation"
 msgstr "Ідентифікатор боржника, який ви вказали, перевищує обмеження в розмірі 35 символів, що накладаються регулюванням SEPA"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The end date of the mandate must be posterior or equal to its start date."
 msgstr "Дата закінчення мандату повинна бути наступною або рівною даті її початку."
 
@@ -959,7 +944,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The payment must be linked to a SEPA Direct Debit mandate in order to generate a Direct Debit XML."
 msgstr "Платіж має бути пов'язаний з мандатом прямого дебету SEPA, щоб створити XML-файл прямого дебету."
 
@@ -998,7 +982,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "To solve that, you should create a mandate for each of the involved customers, valid at the moment of the payment date."
 msgstr "Для вирішення цієї проблеми слід створити мандат для кожного із залучених клієнтів, дійсне на момент дати платежу."
 
@@ -1010,14 +993,12 @@ msgstr "Правильно, тільки якщо цей мандат може �
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML file containing payments from another company than that file's creditor."
 msgstr "Спроба створити XML-файл прямого дебетування, що містить платежі з іншої компанії, ніж кредитор даного файлу."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML for payments coming from another payment method than SEPA Direct Debit."
 msgstr "Спроба генерувати XML-файл прямого дебетування для платежів, отриманих з іншого способу оплати, ніж прямий дебет SEPA."
 
@@ -1025,7 +1006,6 @@ msgstr "Спроба генерувати XML-файл прямого дебет
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Trying to register a payment on a mandate belonging to a different partner."
 msgstr "Спроба зареєструвати платіж за мандатом, що належить іншому партнеру."
 
@@ -1037,7 +1017,6 @@ msgstr "Тип дії виключення на записі."
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_invoice.py:0
-#, python-format
 msgid "Unable to post payment %(payment)r due to no usable mandate being available at date %(date)s for partner %(partner)r. Please create one before encoding a SEPA Direct Debit payment."
 msgstr "Не можливо опублікувати платіж %(payment)r через відсутність дійсного мандату на сьогодні %(date)s для партнера %(partner)r. Створіть його перед кодуванням платежу прямого дебету SEPA."
 
@@ -1064,21 +1043,18 @@ msgstr "Історія бесіди на сайті"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_partner_bank.py:0
-#, python-format
 msgid "You cannot delete a bank account linked to an active SEPA Direct Debit mandate."
 msgstr "Ви не можете видалити банківський рахунок, пов'язаний з активним прямим дебетом SEPA."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot generate a SEPA Direct Debit file with a required collection date in the past."
 msgstr "Ви не можете створити файл прямого дебетування SEPA з необхідною датою отримання раніше."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Your company must have a creditor identifier in order to issue SEPA Direct Debit payments requests. It can be defined in accounting module's settings."
 msgstr "Ваша компанія повинна мати ідентифікатор кредитора, щоби видати запити на оплату прямого дебетування SEPA. Він може бути визначений в налаштуваннях модуля бухобліку."
 

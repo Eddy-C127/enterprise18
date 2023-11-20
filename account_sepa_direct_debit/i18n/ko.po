@@ -103,7 +103,6 @@ msgstr "<strong>우편번호 : </strong>"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "A debtor account is required to validate a SEPA Direct Debit mandate."
 msgstr "SEPA 자동 이체 위임장을 확인하려면 채무자 계정이 필요합니다."
 
@@ -155,7 +154,6 @@ msgstr "업무 유형 아이콘"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "All the payments in the batch must have the same SDD scheme."
 msgstr "일괄 지불 시 모든 항목의 SDD 체계는 동일해야 합니다."
 
@@ -452,14 +450,12 @@ msgstr "이 옵션을 선택하면 일부 정보가 전달 오류를 생성합�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Make sure you made no typo."
 msgstr "잘못된 채권자 식별자. 오타가 없는지 확인하십시오."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Wrong format."
 msgstr "잘못된 채권자 식별자. 잘못된 형식."
 
@@ -645,14 +641,12 @@ msgstr "일회성 위임"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only IBAN account numbers can receive SEPA Direct Debit payments. Please select a journal associated to one."
 msgstr "IBAN 계좌 번호만 SEPA 자동 이체 결제를 받을 수 있습니다. 하나와 관련된 분개장을 선택하십시오."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only mandates in draft state can be deleted from database when cancelled."
 msgstr "취소되면 임시 상태의 위임만 데이터베이스에서 삭제할 수 있습니다."
 
@@ -675,7 +669,6 @@ msgstr "최초의 SEPA 위임장"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Paid Invoices"
 msgstr "결제 완료된 청구서"
 
@@ -713,7 +706,6 @@ msgstr "이 위임으로 인해 지불이 생성되었습니다."
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Payments to Collect"
 msgstr "징수할 지불"
 
@@ -810,7 +802,6 @@ msgstr "SDD 채권자 식별자"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "SDD scheme is set on the customer mandate."
 msgstr "SDD 기능은 고객의 위임 내용에 따라 설정됩니다."
 
@@ -837,7 +828,6 @@ msgstr "은행에서 제공한 회사의 SEPA 자동 이체 채권자 식별자�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "SEPA Direct Debit scheme only accepts IBAN account numbers. Please select an IBAN-compliant debtor account for this mandate."
 msgstr "SEPA 자동 이체 체계는 IBAN 계좌 번호만 허용합니다. 이 명령에 대해 IBAN 호환 채무자 계정을 선택하십시오."
 
@@ -870,7 +860,6 @@ msgstr "서명"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Some draft payments could not be posted because of the lack of any active mandate."
 msgstr "활성화된 위임 권한이 없기 때문에 지불 항목 초안을 게시할 수 없습니다."
 
@@ -920,28 +909,24 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The SEPA Direct Debit mandate associated to the payment has been revoked and cannot be used anymore."
 msgstr "지불과 관련된 SEPA 직접 직불 의무는 취소되었으며 더 이상 사용할 수 없습니다."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "The creditor identifier exceeds the maximum length of 35 characters."
 msgstr "채권자 식별자가 최대 길이인 35자를 초과합니다."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The debtor identifier you specified exceeds the limitation of 35 characters imposed by SEPA regulation"
 msgstr "지정한 채무자 식별자가 SEPA 규정에 의해 부과된 35자 제한을 초과합니다."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The end date of the mandate must be posterior or equal to its start date."
 msgstr "위임 종료일은 시작일 부터이거나 이후여야 한다."
 
@@ -959,7 +944,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The payment must be linked to a SEPA Direct Debit mandate in order to generate a Direct Debit XML."
 msgstr "자동 이체 XML을 생성하려면 지불이 SEPA 자동 이체 위임장에 연결되어 있어야 합니다."
 
@@ -998,7 +982,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "To solve that, you should create a mandate for each of the involved customers, valid at the moment of the payment date."
 msgstr "이를 해결하려면, 지불일 현재 유효한 위임장을 해당되는 고객별로 생성해야 합니다."
 
@@ -1010,14 +993,12 @@ msgstr "이 권한을 하나의 트랜잭션에만 사용할 수 있는 경우�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML file containing payments from another company than that file's creditor."
 msgstr "해당 파일의 채권자가 아닌 다른 회사의 지급액이 포함된 Direct Debit XML 파일을 생성하려고 합니다."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML for payments coming from another payment method than SEPA Direct Debit."
 msgstr "SEPA Direct Debit이 아닌 다른 지급 방법에서 발생하는 지급에 대해 Direct Debit XML을 생성하려고 합니다."
 
@@ -1025,7 +1006,6 @@ msgstr "SEPA Direct Debit이 아닌 다른 지급 방법에서 발생하는 지�
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Trying to register a payment on a mandate belonging to a different partner."
 msgstr "다른 파트너에 속한 위임장에 대해 지불을 등록하려고 합니다."
 
@@ -1037,7 +1017,6 @@ msgstr "레코드에 있는 예외 활동의 유형입니다."
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_invoice.py:0
-#, python-format
 msgid "Unable to post payment %(payment)r due to no usable mandate being available at date %(date)s for partner %(partner)r. Please create one before encoding a SEPA Direct Debit payment."
 msgstr "%(date)s 현재 협력사 %에 대해 사용 가능한 위임장이 존재하지 않기 때문에 지불 항목 %을 생성할 수 없습니다. SEPA 자동이체결제 (Direct Debit payment) 인코딩 전에 생성하시기 바랍니다."
 
@@ -1064,21 +1043,18 @@ msgstr "웹사이트 대화 이력"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_partner_bank.py:0
-#, python-format
 msgid "You cannot delete a bank account linked to an active SEPA Direct Debit mandate."
 msgstr "활성 SEPA Direct Debit 권한에 연결된 은행 계좌는 삭제할 수 없습니다."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot generate a SEPA Direct Debit file with a required collection date in the past."
 msgstr "과거에 필요한 수집 날짜를 사용하여 SEPA Direct Debit 파일을 생성할 수 없습니다."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Your company must have a creditor identifier in order to issue SEPA Direct Debit payments requests. It can be defined in accounting module's settings."
 msgstr "SEPA 자동 이체 결제 요청을 하려면 회사에 채권자 식별자가 있어야 합니다. 회계 모듈의 설정에서 정의할 수 있습니다."
 

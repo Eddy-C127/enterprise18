@@ -42,7 +42,6 @@ msgstr "Marqueu aquesta casella si el vostre compte està validat per USPS"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Company phone number is invalid. Please insert a US phone number."
 msgstr "El número de telèfon de l'empresa no és vàlid. Introduïu un número de telèfon americà."
 
@@ -69,7 +68,6 @@ msgstr "Domèstic"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid ""
 "Error:\n"
 "%s"
@@ -236,35 +234,30 @@ msgstr "Si us plau, comprovi en la pàgina web de USPS que el seu paquet és mec
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please choose another service (maximum weight of this service is 4 pounds)"
 msgstr "Trieu un altre servei (el pes màxim d'aquest servei és de 4 lliures)"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please enter a valid ZIP code in recipient address"
 msgstr "Introduïu un codi postal vàlid a l'adreça del destinatari"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please enter a valid ZIP code in your Company address"
 msgstr "Introduïu un codi postal vàlid a l'adreça de l'empresa"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please provide at least one item to ship."
 msgstr "Proporcioneu almenys un element per enviar."
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please set country U.S.A in your company address, Service is only available for U.S.A"
 msgstr "Si us plau, estableixi el país de Estats Units en la direcció de la seva empresa, el servei només està disponible per a Estats Units "
 
@@ -286,14 +279,12 @@ msgstr "Proveïdor"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Quantity for each move line should be less than 1000."
 msgstr "La quantitat per a cada línia de moviment ha de ser inferior a 1000."
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Recipient address cannot be found. Please check the address exists."
 msgstr "No s'ha trobat l'adreça del destinatari. Comproveu que l'adreça existeix."
 
@@ -336,21 +327,18 @@ msgstr "Mostra"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment #%s has been cancelled"
 msgstr "Enviament #%s ha estat cancel·lat"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment created into USPS"
 msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment created into USPS <br/> <b>Tracking Number: </b>%s"
 msgstr ""
 
@@ -377,7 +365,6 @@ msgstr "TIF"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The address of your company is missing or wrong (Missing field(s) :  \n"
 " %s)"
@@ -388,7 +375,6 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
@@ -399,7 +385,6 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The recipient address is missing or wrong (Missing field(s) :  \n"
 " %s)"
@@ -410,14 +395,12 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "The selected USPS service (%s) cannot be used to deliver this package."
 msgstr "El servei USPS seleccionat (%s) no es pot utilitzar per a lliurar aquest paquet."
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Tracking Number:"
 msgstr ""
 
@@ -455,7 +438,6 @@ msgstr "Sobre nacional de tarifa plana de USPS"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "USPS Domestic is used only to ship inside of the U.S.A. Please change the delivery method into USPS International."
 msgstr "L'USPS Domestic només s'utilitza per enviar dins dels EUA Si us plau canvieu el mètode de lliurament a l'USPS International."
 
@@ -473,7 +455,6 @@ msgstr "Caixa de tarifa plana internacional de USPS"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "USPS International is used only to ship outside of the U.S.A. Please change the delivery method into USPS Domestic."
 msgstr "L'USPS International només s'utilitza per enviar fora dels EUA Si us plau canvieu el mètode d'entrega a USPS Domestic."
 
@@ -511,7 +492,6 @@ msgstr "Contenidor de la mida de Usps"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Your company or recipient ZIP code is incorrect."
 msgstr "El codi postal de l'empresa o del destinatari és incorrecte."
 

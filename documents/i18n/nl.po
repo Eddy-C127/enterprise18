@@ -25,7 +25,6 @@ msgstr ""
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
-#, python-format
 msgid " + Add a tag"
 msgstr " + Voeg een label toe"
 
@@ -37,21 +36,18 @@ msgstr "#{document_is_url and 'Link to ' or 'Download '}#{document.name}"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
-#, python-format
 msgid "%s Documents"
 msgstr "%s Documenten"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
-#, python-format
 msgid "%s Documents (%s locked)"
 msgstr "%s Documenten (%s geblokeerd)"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "%s file(s) not moved because they are locked by another user"
 msgstr "%s bestand(en) niet verplaatst omdat ze zijn vergrendeld door een andere gebruiker"
 
@@ -88,7 +84,6 @@ msgstr "<b>Bytes</b>"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "<b>Deselect this page</b> as we plan to process all bills first."
 msgstr "<b>Schakel deze pagina uit</b>, aangezien we van plan zijn om eerst alle facturen te verwerken."
 
@@ -413,7 +408,6 @@ msgstr "Een set van condities en acties welke beschikbaar is voor alle bijlagen 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_folder.py:0
-#, python-format
 msgid "A workspace cannot have one of his child defined as Parent Workspace in order to avoid a recursion issue."
 msgstr "Een werkruimte kan niet één van zijn onderliggende werkruimtes als bovenliggende werkruimte hebben om recursieproblemen te vermijden."
 
@@ -431,7 +425,6 @@ msgstr "Toegang"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "Access Error"
 msgstr "Toegangsfout"
 
@@ -454,7 +447,6 @@ msgstr "Toegangstoken"
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_action__action
-#, python-format
 msgid "Action"
 msgstr "Actie"
 
@@ -486,7 +478,6 @@ msgstr "Actie gevraagd"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model:ir.ui.menu,name:documents.workflow_rules_menu
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
-#, python-format
 msgid "Actions"
 msgstr "Acties"
 
@@ -549,7 +540,6 @@ msgstr "Toevoegen"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Add File"
 msgstr "Bestand toevoegen"
 
@@ -561,14 +551,12 @@ msgstr "URL Toevoegen"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
-#, python-format
 msgid "Add a Link"
 msgstr "Link toevoegen"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Add new file"
 msgstr "Nieuw bestand toevoegen"
 
@@ -620,7 +608,6 @@ msgstr "Aliased Model"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
-#, python-format
 msgid "All files uploaded"
 msgstr "Alle bestanden geüpload"
 
@@ -637,7 +624,6 @@ msgstr "Hiermee kun je je documenten beheren."
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_workflow_rule.py:0
-#, python-format
 msgid "Already linked Documents"
 msgstr "Reeds gekoppelde documenten"
 
@@ -654,7 +640,6 @@ msgstr "Een eenvoudige manier om inkomende e-mails te verwerken, is door je scan
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
-#, python-format
 msgid "An error occured while uploading."
 msgstr "Er is een fout opgetreden tijdens het uploaden."
 
@@ -663,14 +648,12 @@ msgstr "Er is een fout opgetreden tijdens het uploaden."
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
-#, python-format
 msgid "Archive"
 msgstr "Archiveren"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Archive original file(s)"
 msgstr "Archiveer originele bestand(en)"
 
@@ -683,7 +666,6 @@ msgstr "Gearchiveerd"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "As this PDF contains multiple documents, let's split and process in bulk."
 msgstr "Omdat deze pdf meerdere documenten bevat, kunnen we deze splitsen en in bulk verwerken."
 
@@ -801,35 +783,30 @@ msgstr "Checksum/SHA1"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_workflow_rule.py:0
-#, python-format
 msgid "Choose a record to link"
 msgstr "Kies een record om te linken"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Click on a card to <b>select the document</b>."
 msgstr "Klik op een kaart om het <b>document te selecteren</b>."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Click on a thumbnail to <b>preview the document</b>."
 msgstr "Klik op een miniatuur om <b>een voorbeeld van het document</b> te zien."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Click on the <b>page separator</b>: we don't want to split these two pages as they belong to the same document."
 msgstr "Klik op het <b>paginascheidingsteken</b>: we willen deze twee pagina's niet splitsen omdat ze tot hetzelfde document behoren."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Close"
 msgstr "Afsluiten"
 
@@ -884,7 +861,6 @@ msgstr "Contracten"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
-#, python-format
 msgid "Control panel buttons"
 msgstr "Controlepaneel knoppen"
 
@@ -976,7 +952,6 @@ msgstr "Standaardwaarden voor geüploade documenten"
 #: model_terms:ir.ui.view,arch_db:documents.documents_folder_deletion_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_tree
-#, python-format
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -1024,7 +999,6 @@ msgstr "Schermnaam"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
-#, python-format
 msgid "Do you really want to unlink this record?"
 msgstr "Wil je deze record echt ontkoppelen?"
 
@@ -1067,7 +1041,6 @@ msgstr "Documentverzoek {{ object.name != False and ': '+ object.name or '' }}"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #: code:addons/documents/models/mail_activity.py:0
-#, python-format
 msgid "Document Request: %s Uploaded by: %s"
 msgstr "Document aanvraag: %s Geüpload door: %s"
 
@@ -1119,7 +1092,6 @@ msgstr "Document: Documentaanvraag"
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 #: model_terms:ir.ui.view,arch_db:documents.documents_view_activity
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
-#, python-format
 msgid "Documents"
 msgstr "Documenten"
 
@@ -1167,7 +1139,6 @@ msgstr "Domein"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_share__action__download
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
-#, python-format
 msgid "Download"
 msgstr "Downloaden"
 
@@ -1184,7 +1155,6 @@ msgstr "Download en upload"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_drop_zone.xml:0
-#, python-format
 msgid "Drop files here to upload"
 msgstr "Drop hier je bestanden op te uploaden"
 
@@ -1206,14 +1176,12 @@ msgstr "Vervalsoort"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
-#, python-format
 msgid "Edit"
 msgstr "Bewerken"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
-#, python-format
 msgid "Edit the linked record"
 msgstr "Bewerk het gekoppelde record"
 
@@ -1232,7 +1200,6 @@ msgstr "E-mail cc"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #: code:addons/documents/static/src/views/hooks.js:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__error
-#, python-format
 msgid "Error"
 msgstr "Fout"
 
@@ -1296,7 +1263,6 @@ msgstr "Helpermodel voor bestandsstreaming voor controllers"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
-#, python-format
 msgid "File uploaded by:"
 msgstr ""
 
@@ -1384,7 +1350,6 @@ msgstr "Heeft bericht"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__previous_attachment_ids
-#, python-format
 msgid "History"
 msgstr "Geschiedenis"
 
@@ -1545,28 +1510,24 @@ msgstr "Juridisch"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter documents and structure your process.</i>"
 msgstr "Laten we documenten in je inbox verwerken.<br/><i> Tip: gebruik labels om documenten te filteren en je proces te structureren.</i>"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Let's process these bills: send to Finance workspace."
 msgstr "Laten we deze leveranciersfacturen verwerken: stuur naar de werkruimte van de boekhouding."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Let's process this document, coming from our scanner."
 msgstr "Laten we dit document, afkomstig van onze scanner, verwerken."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your process, according to the workspace.</i>"
 msgstr "Laten we deze e-mail voorzien van een juridisch label<br/> <i>Tips: acties kunnen worden aangepast aan het proces, afhankelijk van de werkruimte.</i>"
 
@@ -1584,14 +1545,12 @@ msgstr "Beperk schrijfgroepen tot de documenten waarvan ze eigenaar zijn."
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
-#, python-format
 msgid "Link"
 msgstr "Link"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
-#, python-format
 msgid "Link created by:"
 msgstr ""
 
@@ -1609,7 +1568,6 @@ msgstr "Live"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
-#, python-format
 msgid "Lock"
 msgstr "Blokkeer"
 
@@ -1713,7 +1671,6 @@ msgstr "Verplaatsen naar bovenliggende werkruimte"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector_field.js:0
-#, python-format
 msgid "Multiple values"
 msgstr "Meerdere waarden"
 
@@ -1757,35 +1714,30 @@ msgstr "Naam van de deel link"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
-#, python-format
 msgid "New"
 msgstr "Nieuw"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "New File"
 msgstr "Nieuw bestand"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "New Group"
 msgstr "Nieuwe groep"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "New Tag"
 msgstr "Nieuw label"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "New Workspace"
 msgstr "Nieuwe werkruimte"
 
@@ -1812,7 +1764,6 @@ msgstr "Volgende activiteit type"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "No document has been selected"
 msgstr "Er zijn geen documenten geselecteerd"
 
@@ -1829,14 +1780,12 @@ msgstr "Geen gedeelte links"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
-#, python-format
 msgid "Not a file"
 msgstr "Geen bestand"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
-#, python-format
 msgid "Not attached"
 msgstr "Niet gekoppeld"
 
@@ -1888,7 +1837,6 @@ msgstr "Een record limiet"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Open chatter"
 msgstr "Open chatter"
 
@@ -1900,7 +1848,6 @@ msgstr "Optionele ID van een thread (record) waaraan alle inkomende berichten wo
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.xml:0
-#, python-format
 msgid "Or send emails to"
 msgstr "Of verstuur e-mails naar"
 
@@ -1980,7 +1927,6 @@ msgstr ""
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "Partial transfer"
 msgstr "Gedeeltelijke overdracht"
 
@@ -2051,14 +1997,12 @@ msgstr "Gekoppelde werkruimte"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "Remaining Pages"
 msgstr "Resterende pagina's"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/activity/documents_activity_controller.js:0
-#, python-format
 msgid "Reminder emails have been sent."
 msgstr ""
 
@@ -2075,7 +2019,6 @@ msgstr "Verwijderen"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Replace"
 msgstr "Vervangen"
 
@@ -2089,7 +2032,6 @@ msgstr "Vervang door"
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__empty
 #: model_terms:ir.ui.view,arch_db:documents.documents_request_form_view
-#, python-format
 msgid "Request"
 msgstr "Verzoek"
 
@@ -2106,7 +2048,6 @@ msgstr "Verzoek aan"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/web/activity/activity_menu_patch.xml:0
-#, python-format
 msgid "Request a Document"
 msgstr "Documentverzoek"
 
@@ -2194,14 +2135,12 @@ msgstr "Plan activiteit"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Select/Unselect All: Shift + A"
 msgstr "Alles selecteren/deselecteren: Shift + A"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Send this letter to the legal department, by assigning the right tags."
 msgstr "Stuur deze brief naar de juridische afdeling door de juiste labels toe te wijzen."
 
@@ -2265,7 +2204,6 @@ msgstr "Instellingen"
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
-#, python-format
 msgid "Share"
 msgstr "Delen"
 
@@ -2277,7 +2215,6 @@ msgstr "Links delen"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
-#, python-format
 msgid "Share link"
 msgstr "Deel link"
 
@@ -2289,28 +2226,24 @@ msgstr "Links delen"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_share.py:0
-#, python-format
 msgid "Share selected files"
 msgstr "Geselecteerde bestanden delen"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_share.py:0
-#, python-format
 msgid "Share selected workspace"
 msgstr "Geselecteerde werkruimte delen"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
-#, python-format
 msgid "Share this domain"
 msgstr "Deel dit domein"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Share this selection"
 msgstr "Deel deze selectie"
 
@@ -2352,14 +2285,12 @@ msgstr "Toon alle records welke een actiedatum vóór vandaag hebben"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Size"
 msgstr "Grootte"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
-#, python-format
 msgid "Some files could not be uploaded (max size: %s)."
 msgstr ""
 
@@ -2377,14 +2308,12 @@ msgstr "Specifiek model gekoppeld"
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Split"
 msgstr "Splitsen"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/attachments/attachment_viewer_patch.xml:0
-#, python-format
 msgid "Split PDF"
 msgstr "PDF splitsen"
 
@@ -2465,7 +2394,6 @@ msgstr "Label categorieën gedefinieerd voor deze werkruimte"
 #: model_terms:ir.ui.view,arch_db:documents.facet_view_tree
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
-#, python-format
 msgid "Tags"
 msgstr "Labels"
 
@@ -2503,7 +2431,6 @@ msgstr "De eigenaar van de regels welke zijn aangemaakt bij het ontvangen van de
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
-#, python-format
 msgid "The share url has been copied to your clipboard."
 msgstr "De gedeelde url is gekopieerd naar je klembord."
 
@@ -2548,7 +2475,6 @@ msgstr "Miniatuurstatus"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.xml:0
-#, python-format
 msgid "Tip: configure your scanner to send all documents to this address."
 msgstr "Tip: configureer je scanner om alle documenten naar dit adres te sturen."
 
@@ -2576,7 +2502,6 @@ msgstr "Activiteiten van vandaag"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
-#, python-format
 msgid "Toggle Dropdown"
 msgstr ""
 
@@ -2617,7 +2542,6 @@ msgstr "URL"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Un-archive"
 msgstr "De-archiveren"
 
@@ -2629,7 +2553,6 @@ msgstr "Ontgrendel"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
-#, python-format
 msgid "Unnamed"
 msgstr "Naamloos"
 
@@ -2637,7 +2560,6 @@ msgstr "Naamloos"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.share_page
-#, python-format
 msgid "Upload"
 msgstr "Upload"
 
@@ -2649,7 +2571,6 @@ msgstr "Upload <span class=\"fw-normal\">een bestand of</span> sleep <span class
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Upload Document"
 msgstr "Document uploaden"
 
@@ -2666,7 +2587,6 @@ msgstr "Uploaden per e-mail"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/mail_activity.py:0
-#, python-format
 msgid "Upload file request"
 msgstr "Bestandsverzoek uploaden"
 
@@ -2705,7 +2625,6 @@ msgstr "Video's"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
 msgstr "Wil je een <b>papierloos bedrijf</b> worden? Laten we Odoo-documenten ontdekken."
 
@@ -2764,7 +2683,6 @@ msgstr "Werkruimtes"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Wow... 6 documents processed in a few seconds, You're good.<br/>The tour is complete. Try uploading your own documents now."
 msgstr "Wauw ... 6 documenten verwerkt in een paar seconden, je bent goed. <br/>De rondleiding is voltooid. Probeer nu je eigen documenten te uploaden."
 
@@ -2791,42 +2709,36 @@ msgstr "Je kunt een bestand van je computer uploaden of een internet link kopië
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
-#, python-format
 msgid "You don't have the right to move documents to that workspace."
 msgstr "Je hebt niet het recht om documenten naar die werkruimte te verplaatsen."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "You don't have the rights to move documents to that workspace"
 msgstr "Je hebt niet de rechten om documenten naar die werkruimte te verplaatsen"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_drop_zone.xml:0
-#, python-format
 msgid "You must be in a specific workspace to upload files"
 msgstr ""
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Youtube Video"
 msgstr "Youtube video"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "delete"
 msgstr "verwijderen"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "document"
 msgstr "document"
 
@@ -2834,21 +2746,18 @@ msgstr "document"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.share_page
-#, python-format
 msgid "documents"
 msgstr "documenten"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "documents selected"
 msgstr "geselecteerde documenten"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "download"
 msgstr "download"
 
@@ -2892,21 +2801,18 @@ msgstr "Bijv. https://www.youtube.com/watch?v=CP96yVnXNrY"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "fa fa-folder text-odoo"
 msgstr "fa fa-map tekst-odoo"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "file_extension"
 msgstr ""
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "folder_id"
 msgstr "folder_id"
 
@@ -2918,42 +2824,36 @@ msgstr "is_readonly_model"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "name"
 msgstr "naam"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "owner_id"
 msgstr "owner_id"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "partner_id"
 msgstr "partner_id"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "restore"
 msgstr "herstellen"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_page/pdf_page.xml:0
-#, python-format
 msgid "select"
 msgstr "selecteer"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "selected"
 msgstr "geselecteerd"
 
@@ -2966,20 +2866,17 @@ msgstr "gedeeld door"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
-#, python-format
 msgid "status code: %s, message: %s"
 msgstr "statuscode: %s, bericht: %s"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "unnamed"
 msgstr "naamloos"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "url"
 msgstr "url"

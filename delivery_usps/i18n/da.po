@@ -43,7 +43,6 @@ msgstr "Tjek dette felt af hvis din konto er bekræftet af USPS"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Company phone number is invalid. Please insert a US phone number."
 msgstr "Virksomheds telefonnummeret er ikke gyldigt. Indtast venligst et Amerikansk telefonnummer."
 
@@ -70,7 +69,6 @@ msgstr "Indenlandsk"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid ""
 "Error:\n"
 "%s"
@@ -237,35 +235,30 @@ msgstr "Tjek venligst USPS hjemmeside for at sikre dig at din pakke er maskinbea
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please choose another service (maximum weight of this service is 4 pounds)"
 msgstr "Vælg venligst en anden tjeneste (maksimal vægt for denne tjeneste er 4 pund)"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please enter a valid ZIP code in recipient address"
 msgstr "Indtast venligst et gyldigt postnummer på modtageradressen"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please enter a valid ZIP code in your Company address"
 msgstr "Indtast venligst et gyldigt postnummer i din virksomhedsadresse"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please provide at least one item to ship."
 msgstr "Vælg venligst et produkt at sende."
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please set country U.S.A in your company address, Service is only available for U.S.A"
 msgstr "Angiv venligst landet U.S.A. i din firmadresse, tjenesten er kun tilgængelig for U.S.A."
 
@@ -287,14 +280,12 @@ msgstr "Udbyder"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Quantity for each move line should be less than 1000."
 msgstr "Kvantitet for hver bevægelses linjer skal være mindre end 1000."
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Recipient address cannot be found. Please check the address exists."
 msgstr "Modtageradresse kan ikke findes. Kontroller venligst at adresserne findes."
 
@@ -337,21 +328,18 @@ msgstr "Prøve"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment #%s has been cancelled"
 msgstr "Forsendelse #%s er blevet annulleret"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment created into USPS"
 msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment created into USPS <br/> <b>Tracking Number: </b>%s"
 msgstr ""
 
@@ -378,7 +366,6 @@ msgstr "TIF"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The address of your company is missing or wrong (Missing field(s) :  \n"
 " %s)"
@@ -389,7 +376,6 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
@@ -398,7 +384,6 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The recipient address is missing or wrong (Missing field(s) :  \n"
 " %s)"
@@ -409,14 +394,12 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "The selected USPS service (%s) cannot be used to deliver this package."
 msgstr "Den valgte USPS-tjeneste (%s) kan ikke bruges til at levere denne pakke."
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Tracking Number:"
 msgstr ""
 
@@ -454,7 +437,6 @@ msgstr "USPS Indenrigs flad rate konvolut"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "USPS Domestic is used only to ship inside of the U.S.A. Please change the delivery method into USPS International."
 msgstr ""
 "USPS Indenrigs bruges kun til at sende indenfor USA.\n"
@@ -474,7 +456,6 @@ msgstr "USPS International flad rate boks"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "USPS International is used only to ship outside of the U.S.A. Please change the delivery method into USPS Domestic."
 msgstr ""
 "USPS International bruges kun til forsendelser udenfor USA.\n"
@@ -514,7 +495,6 @@ msgstr "USPS størrelse container"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Your company or recipient ZIP code is incorrect."
 msgstr "Din firma- eller modtager-ZIP-kode er ukorrekt."
 

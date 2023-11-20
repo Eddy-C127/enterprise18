@@ -5,7 +5,6 @@ from .sign_request_common import SignRequestCommon
 import odoo.tests
 
 from odoo.tools.misc import mute_logger
-from odoo.tools.translate import WEB_TRANSLATION_COMMENT
 
 
 @odoo.tests.tagged('-at_install', 'post_install')

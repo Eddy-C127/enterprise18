@@ -119,7 +119,6 @@ msgstr "מזהה נוסף שיש לציין בבקשה."
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "An user may not be in the approver list multiple times."
 msgstr "משתמש לא יכול להופיע מספר פעמים ברשימת המאשרים."
 
@@ -190,7 +189,6 @@ msgstr "אישורים לבדיקה"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Approve"
 msgstr "אשר"
 
@@ -210,7 +208,6 @@ msgstr "מאשר"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Approver Sequence can only be activated with at least 1 minimum approver."
 msgstr ""
 
@@ -391,7 +388,6 @@ msgstr "תאריך התחלה"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Deadline"
 msgstr "תאריך יעד"
 
@@ -664,7 +660,6 @@ msgstr "מיקום"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Log"
 msgstr "כתוב"
 
@@ -697,7 +692,6 @@ msgstr "מספר אישורים מינימלי"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Minimum Approval must be equal or superior to the sum of required Approvers."
 msgstr "מינמום מאשרים חייב להיות שווה או יותר ממספר המאשרים המינימלי הדרוש."
 
@@ -737,7 +731,6 @@ msgstr "שם"
 #: code:addons/approvals/models/approval_category.py:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__new
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__new
-#, python-format
 msgid "New"
 msgstr "חדש"
 
@@ -927,7 +920,6 @@ msgstr "רצף מזהה"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Refuse"
 msgstr "דחה"
 
@@ -986,7 +978,6 @@ msgstr "משתמש אחראי"
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__sequence
-#, python-format
 msgid "Sequence"
 msgstr "רצף"
 
@@ -1031,21 +1022,18 @@ msgstr "למשתמש תהיה גישה לתצורת האישורים."
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no manager linked to your employee profile."
 msgstr "הבקשה צריכה לעבור את אישור המנהל שלך. אין מנהל מקושר לפרופיל העובד שלך."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no user linked to your manager."
 msgstr "הבקשה צריכה את אישור המנהל שלך. אין משתמש מקושר למנהל שלך."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. Your manager is not in the approvers list."
 msgstr "הבקשה צריכה לעבור את אישור המנהל. המנהל שלך אינו ברשימת הרשאים לאשר."
 
@@ -1055,7 +1043,6 @@ msgstr "הבקשה צריכה לעבור את אישור המנהל. המנהל 
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__pending
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__pending
-#, python-format
 msgid "To Approve"
 msgstr "ממתין לאישור מנהל"
 
@@ -1084,7 +1071,6 @@ msgstr "יחידת מידה"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__user_id
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__user_id
-#, python-format
 msgid "User"
 msgstr "משתמש"
 
@@ -1108,35 +1094,30 @@ msgstr "הסר"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot approve before the previous approver."
 msgstr ""
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot assign the same approver multiple times on the same request."
 msgstr ""
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to add at least %s approvers to confirm your request."
 msgstr "אתה צריך להוסיף לפחות%s מאשרים לאשר את בקשתך."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to attach at lease one document."
 msgstr "אתה צריך לצרף לפחות מסמך אחד."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Your minimum approval exceeds the total of default approvers."
 msgstr "מספר המאשרים המינימלי הנו יותר מסך המאשרים בברירת המחדל."
 

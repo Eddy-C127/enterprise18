@@ -26,7 +26,6 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "%s can't be inventoried. Only storable products can be inventoried."
 msgstr "%s nu poate fi inventariat. Doar produsele stocabile pot fi inventariate."
 
@@ -129,21 +128,18 @@ msgstr "<i class=\"fa fa-trash-o\"/> Șterge"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "A product tracked by serial numbers can't have multiple quantities for the same serial number."
 msgstr "Un produs urmărit de numere de serie nu poate avea mai multe cantități pentru aceeași serie de numere."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
-#, python-format
 msgid "Add Product"
 msgstr "Adaugă produs"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "Add extra product?"
 msgstr "Adăugați un produs suplimentar?"
 
@@ -162,7 +158,6 @@ msgstr "După grupul de produse"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "All products need to be packed"
 msgstr "Toate produsele trebuie ambalate"
 
@@ -184,7 +179,6 @@ msgstr "Permiteți validarea unei ridicări chiar dacă nimic nu a fost scanat �
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "An unexisting package type was scanned. This part of the barcode can't be processed."
 msgstr "A fost scanat un tip de pachet inexistent. Această parte a codului de bare nu poate fi procesată."
 
@@ -192,7 +186,6 @@ msgstr "A fost scanat un tip de pachet inexistent. Această parte a codului de b
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
-#, python-format
 msgid "Apply"
 msgstr "Aplică"
 
@@ -204,7 +197,6 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "Backorder"
 msgstr ""
 
@@ -220,7 +212,6 @@ msgstr "Confirmare restanță"
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_scrap__product_barcode
 #: model:ir.ui.menu,name:stock_barcode.stock_barcode_menu
-#, python-format
 msgid "Barcode"
 msgstr "Cod de bare"
 
@@ -237,7 +228,6 @@ msgstr "Acțiunea clientului de inventar cod de bare"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/manual_barcode.js:0
-#, python-format
 msgid "Barcode Manual Entry"
 msgstr ""
 
@@ -259,14 +249,12 @@ msgstr "Cod de bare scanat"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Barcode Scanning"
 msgstr "Scanare cod de bare"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "Barcode scan is ambiguous with several model: %s. Use the most likely."
 msgstr "Scanarea codului de bare este ambiguă cu mai multe modele: %s. Utilizați cel mai probabil."
 
@@ -280,7 +268,6 @@ msgstr "Cutie de gestionare a cablurilor"
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
-#, python-format
 msgid "Cancel"
 msgstr "Anulează"
 
@@ -292,7 +279,6 @@ msgstr "Anulează operațiunea"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Cancel Transfer"
 msgstr ""
 
@@ -304,7 +290,6 @@ msgstr "Anulează operațiunea"
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "Cancel this operation?"
 msgstr ""
 
@@ -317,7 +302,6 @@ msgstr "Verificați dacă cantitatea făcută se potrivește cu cererea"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Close"
 msgstr "Închide"
 
@@ -388,7 +372,6 @@ msgstr "Date demo active"
 #: code:addons/stock_barcode/static/src/components/line.xml:0
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__picking_location_dest_id
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
-#, python-format
 msgid "Destination Location"
 msgstr "Locația destinație"
 
@@ -400,7 +383,6 @@ msgstr "Pachet destinație"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Destination location must be scanned"
 msgstr "Locația destinație trebuie scanată"
 
@@ -419,7 +401,6 @@ msgstr "Nume afișat"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid ""
 "Do you want to permanently remove this message?\n"
 "                    It won't appear anymore, so make sure you don't need the barcodes sheet or you have a copy."
@@ -443,21 +424,18 @@ msgstr "Nu anulați"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid "Don't show this message again"
 msgstr "Nu mai afișa acest mesaj"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "Done /"
 msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Download"
 msgstr "Descarcă"
 
@@ -480,14 +458,12 @@ msgstr "Validare finala"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Following backorder was created:"
 msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Following backorders were created:"
 msgstr ""
 
@@ -539,14 +515,12 @@ msgstr "ID"
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "If the source location must be scanned, then the destination location must either be scanned after each product or not scanned at all."
 msgstr "Dacă trebuie scanată locația sursă, atunci locația destinație trebuie sau să fie scanată după fiecare produs sau să nu fie scanată deloc."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "If you validate now, the remaining products will be added to a backorder."
 msgstr ""
 
@@ -558,7 +532,6 @@ msgstr "In #{kanban_getcolorname(record.color.raw_value)}"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.js:0
-#, python-format
 msgid "Incomplete Transfer"
 msgstr ""
 
@@ -571,14 +544,12 @@ msgstr "Număr de articol internațional folosit pentru identificarea produselor
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Inventory Adjustment"
 msgstr "Ajustare inventar"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Inventory Adjustments"
 msgstr "Ajustări inventar"
 
@@ -605,7 +576,6 @@ msgstr "Ultima actualizare pe"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid "Leave it"
 msgstr "Lăsați-l"
 
@@ -633,7 +603,6 @@ msgstr "Lot/Serial"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Mandatory Destination Location"
 msgstr "Locație destinație obligatorie"
 
@@ -647,7 +616,6 @@ msgstr "Scanare obligatorie"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Mandatory Source Location"
 msgstr "Locație sursă obligatorie"
 
@@ -660,7 +628,6 @@ msgstr "Nu"
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "No %(picking_type)s ready for this %(barcode_type)s"
 msgstr "Niciun(o) %(picking_type)s gata pentru acest %(barcode_type)s"
 
@@ -672,28 +639,24 @@ msgstr "Fără scanare"
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
-#, python-format
 msgid "No internal operation type. Please configure one in warehouse settings."
 msgstr "Niciun tip de operație internă. Vă rugăm să configurați una în setările depozitului."
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
-#, python-format
 msgid "No picking or location or product corresponding to barcode %(barcode)s"
 msgstr "Niciun picking sau locație sau produs corespunzător codului de bare %(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
-#, python-format
 msgid "No picking or product corresponding to barcode %(barcode)s"
 msgstr "Niciun picking sau produs corespunzător codului de bare %(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "No product or package found for barcode %s"
 msgstr "Niciun produs sau pachet găsit pentru codul de bare %s"
 
@@ -705,7 +668,6 @@ msgstr "Nomenclator"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Not the expected scan"
 msgstr "Nu este scanarea așteptată"
 
@@ -718,7 +680,6 @@ msgstr "Deschide picking"
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #: model:ir.actions.act_window,name:stock_barcode.open_picking
-#, python-format
 msgid "Open picking form"
 msgstr "Formular de preluare deschis"
 
@@ -727,7 +688,6 @@ msgstr "Formular de preluare deschis"
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_kanban
 #: model:ir.actions.act_window,name:stock_barcode.stock_picking_type_action_kanban
-#, python-format
 msgid "Operations"
 msgstr "Operații"
 
@@ -751,7 +711,6 @@ msgstr "Pachet"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Package type %s was correctly applied to the package %s"
 msgstr "Tipul de pachet %s a fost aplicat corect pachetului %s"
 
@@ -793,7 +752,6 @@ msgstr "Tip ridicare"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Please scan destination location for %s before scanning other product"
 msgstr "Vă rugăm să scanați locația destinație pentru %s înainte de a scana alte produse"
 
@@ -802,49 +760,42 @@ msgstr "Vă rugăm să scanați locația destinație pentru %s înainte de a sca
 #: code:addons/stock_barcode/static/src/components/main.js:0
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.js:0
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid "Please, Scan again!"
 msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Press Validate or scan another product"
 msgstr "Apăsați Validare sau scanati alt produs"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Print Barcodes PDF"
 msgstr "Tipărește coduri de bare PDF"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Print Delivery Slip"
 msgstr "Tipărire livrare"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Print Inventory"
 msgstr "Tipărește inventar"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Print Packages"
 msgstr "Tipărește pachete"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Print Picking Operations"
 msgstr "Tipăriți operațiunile de preluare"
 
@@ -854,7 +805,6 @@ msgstr "Tipăriți operațiunile de preluare"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
-#, python-format
 msgid "Product"
 msgstr "Produs"
 
@@ -892,7 +842,6 @@ msgstr "Variantă produs"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
-#, python-format
 msgid "Put In Pack"
 msgstr "Pune în Pachet"
 
@@ -924,70 +873,60 @@ msgstr "Poziții de stoc"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.js:0
-#, python-format
 msgid "Remove it"
 msgstr "Elimină"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Scan a"
 msgstr "Scanați"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan a location"
 msgstr "Scanați o locație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a lot number"
 msgstr "Scanați un număr lot"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a lot number or a packages then the destination location"
 msgstr "Scanați un număr lot sau un pachet apoi locația destinație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a lot number then the destination location"
 msgstr "Scanați un număr lot apoi locația destinație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a package"
 msgstr "Scanați un pachet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a package or put in pack"
 msgstr "Scanați un pachet sau puneți în pachet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a package or the destination location"
 msgstr "Scanați un pachet sau locația destinație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a package, the destination location or another product"
 msgstr "Scanați un pachet, locația destinație sau alt produs"
 
@@ -995,231 +934,198 @@ msgstr "Scanați un pachet, locația destinație sau alt produs"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan a product"
 msgstr "Scanați un produs"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product before scanning a tracking number"
 msgstr "Scanați un produs înainte de a scana un număr de urmărire"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product from %s"
 msgstr "Scanați un produs de la %s"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan a product in %s or scan another location"
 msgstr "Scanați un produs în %s sau scanați o altă locație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product or a package"
 msgstr "Scanați un produs sau un pachet"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
-#, python-format
 msgid "Scan a product or a package to filter the transfers."
 msgstr "Scanați un produs sau un pachet pentru a filtra transferurile."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product or another package"
 msgstr "Scanați un produs sau un alt pachet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product or the destination location."
 msgstr "Scanați un produs sau locația destinație."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product then the destination location"
 msgstr "Scanați un produs apoi locația destinație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product, a package or the destination location"
 msgstr "Scanați un produs, un pachet sau locația destinație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a product, a package or the destination location."
 msgstr "Scanați un produs, un pachet sau locația destinație."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a serial number"
 msgstr "Scanați un număr de serie"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a serial number or a package"
 msgstr "Scanați un număr de serie sau un pachet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a serial number or a package then the destination location"
 msgstr "Scanați un număr de serie sau un pachet apoi locația destinație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan a serial number then the destination location"
 msgstr "Scanați un număr de serie apoi locația destinație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-#, python-format
 msgid "Scan a transfer or a product to filter your records"
 msgstr "Scanați un transfer sau un produs pentru a filtra înregistrările"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-#, python-format
 msgid "Scan a transfer, a product or a package to filter your records"
 msgstr "Scanați un transfer, un produs sau un pachet pentru a filtra înregistrările"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Scan an"
 msgstr "Scanați un"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan another serial number"
 msgstr "Scanați un alt număr de serie"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan lot numbers for product %s to change their quantity"
 msgstr "Scanați numerele lotului pentru produsul %s pentru a schimba cantitatea"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan more lot numbers"
 msgstr "Scanați mai multe numere de lot"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan more lot numbers or a package"
 msgstr "Scanați mai multe numere de lot sau un pachet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan more products in %s or scan another location"
 msgstr "Scanați mai multe produse în %s sau scanați o altă locație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan more products or a package"
 msgstr "Scanați mai multe produse sau un pachet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan more products, or scan a new source location"
 msgstr "Scanați mai multe produse, sau scanați o nouă locație sursă"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scan serial numbers for product %s to change their quantity"
 msgstr "Scanați numerele de serie pentru produsul %s pentru a schimba cantitatea"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan the destination location"
 msgstr "Scanați locația de destinație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan the package %s"
 msgstr "Scanați pachetul %s"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan the source location"
 msgstr "Scanați locația sursă"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scan the source location or a package"
 msgstr "Scanați locația sursă sau un pachet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "Scanned product %s is not reserved for this transfer. Are you sure you want to add it?"
 msgstr "Produsul scanat %s nu este rezervat pentru acest transfer. Sigur doriți să-l adăugați?"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "Scanned product [%s] %s is not reserved for this transfer. Are you sure you want to add it?"
 msgstr "Produsul scanat [%s] %s nu este rezervat pentru acest transfer. Sigur doriți să-l adăugați?"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible with the line's one (%s)."
 msgstr "Cantitatea scanată folosește %s ca Unitate de Măsură, dar această UM nu este compatibilă cu cea a liniei (%s)."
 
@@ -1227,7 +1133,6 @@ msgstr "Cantitatea scanată folosește %s ca Unitate de Măsură, dar această U
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible with the product's one (%s)."
 msgstr "Cantitatea scanată folosește %s ca unitate de măsură, dar această UM nu este compatibilă cu cea a produsului (%s)."
 
@@ -1235,7 +1140,6 @@ msgstr "Cantitatea scanată folosește %s ca unitate de măsură, dar această U
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: model:ir.model,name:stock_barcode.model_stock_scrap
-#, python-format
 msgid "Scrap"
 msgstr "Rebut"
 
@@ -1266,7 +1170,6 @@ msgstr "Afișează validarea codurilor de bare"
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__picking_location_id
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
-#, python-format
 msgid "Source Location"
 msgstr "Locație sursă"
 
@@ -1278,7 +1181,6 @@ msgstr "Pachet sursă"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "Stay on transfer"
 msgstr ""
 
@@ -1290,7 +1192,6 @@ msgstr "Tip pachet stoc"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "Tap to scan"
 msgstr "Atinge pentru a scana"
 
@@ -1302,42 +1203,36 @@ msgstr "Câmp tehnic utilizat pentru a calcula dacă grupul \"Validare finală\"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "The inventory adjustment has been validated"
 msgstr "Ajustarea inventarului a fost validată"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "The scanned serial number is already used."
 msgstr "Numărul de serie scanat este deja utilizat."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "The transfer has been cancelled"
 msgstr "Transferul a fost anulat."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "The transfer has been validated"
 msgstr "Transferul a fost validat"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "There is nothing to apply in this page."
 msgstr "Nu există nimic de aplicat în această pagină."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "There is nothing to print in this page."
 msgstr "Nu există nimic de tipărit în această pagină."
 
@@ -1345,28 +1240,24 @@ msgstr "Nu există nimic de tipărit în această pagină."
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "This package is already scanned."
 msgstr "Acest pachet a fost deja scanat."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "This picking is already done"
 msgstr "Această ridicare este deja făcută"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "This picking is cancelled"
 msgstr "Această ridicare este anulată"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "This serial number is already used."
 msgstr "Acest număr de serie este deja utilizat."
 
@@ -1378,14 +1269,12 @@ msgstr "Procesare"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
-#, python-format
 msgid "To do"
 msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "To use packages, enable 'Packages' in the settings"
 msgstr "Pentru a utiliza pachete, activați „Pachete” în setări"
 
@@ -1408,7 +1297,6 @@ msgstr "Transferurile vă permit să mutați produsele dintr-o locație în alta
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
-#, python-format
 msgid "Type barcode you want to scan here"
 msgstr ""
 
@@ -1426,7 +1314,6 @@ msgstr "UM"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
-#, python-format
 msgid "Use camera to scan"
 msgstr ""
 
@@ -1434,7 +1321,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 #: code:addons/stock_barcode/static/src/components/main.xml:0
-#, python-format
 msgid "Validate"
 msgstr "Validează"
 
@@ -1451,7 +1337,6 @@ msgstr "Depozit"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "We have created a few demo data with barcodes for you to explore the features. Print the"
 msgstr "Am creat câteva date demo cu coduri de bare pentru dumneavoastră ca să puteți explora caracteristicile. Tipărește"
 
@@ -1460,35 +1345,30 @@ msgstr "Am creat câteva date demo cu coduri de bare pentru dumneavoastră ca s�
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-#, python-format
 msgid "Wrong Unit of Measure"
 msgstr "Unitate de măsură greșită"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "You are expected to scan one or more products or a package available at the picking location"
 msgstr "Așteptăm să scanați unul sau mai multe produse sau un pachet disponibil în locația de ridicare"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
-#, python-format
 msgid "You are expected to scan one or more products."
 msgstr "Trebuie să scanați unu sau mai multe produse."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "You are supposed to scan %s or another source location"
 msgstr "Trebuie să scanați %s sau o altă locație sursă"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "You can't apply a package type. First, scan product or select a line"
 msgstr "Nu puteți aplica un tip de pachet. Începeți prin a scana un produs sau selectați o linie"
 
@@ -1500,63 +1380,54 @@ msgstr "Ați procesat mai puține produse decât cererea inițială:"
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "You must scan a package or put in pack"
 msgstr "Trebuie să scanați un pachet sau să puneți în pachet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "You must scan a product"
 msgstr "Trebuie să scanați un produs"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "commands for Inventory"
 msgstr "comenzi pentru inventar"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "document"
 msgstr "document"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "location"
 msgstr "locație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/widgets/digipad.xml:0
-#, python-format
 msgid "o_digipad_button btn d-flex justify-content-center align-items-center border w-100 py-2"
 msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "operation type"
 msgstr "tip de operație"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "package"
 msgstr "pachet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "product"
 msgstr "produs"
 
@@ -1573,48 +1444,41 @@ msgstr "produsele au fost procesate parțial."
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "stock barcodes sheet"
 msgstr "foaie de coduri de bare stoc"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to check out what this module can do! You can also print the barcode"
 msgstr "pentru a verifica ce face aceste modul! Puteți de asemenea să tipăriți codul de bare"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to create a new transfer from this location."
 msgstr "pentru a crea un nou transfer din această locație."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to create a new transfer."
 msgstr "pentru a crea un nou transfer."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to know its content."
 msgstr "pentru a ști conținutul."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to open it."
 msgstr "pentru a-l deschide."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
-#, python-format
 msgid "to show its location and quantity."
 msgstr "pentru a arăta locația și cantitatea."

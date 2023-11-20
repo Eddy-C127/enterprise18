@@ -122,7 +122,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "A debtor account is required to validate a SEPA Direct Debit mandate."
 msgstr "Konto dłużnika jest wymagane do zatwierdzenia zlecenia polecenia zapłaty SEPA."
 
@@ -174,7 +173,6 @@ msgstr "Ikona typu aktywności"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "All the payments in the batch must have the same SDD scheme."
 msgstr ""
 
@@ -471,14 +469,12 @@ msgstr "Jeśli zaznaczone, niektóre wiadomości napotkały błędy podczas dor�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Make sure you made no typo."
 msgstr "Nieprawidłowy identyfikator wierzyciela. Upewnij się, że nie popełniłeś żadnego błędu."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Wrong format."
 msgstr "Nieprawidłowy identyfikator wierzyciela. Zły format."
 
@@ -659,14 +655,12 @@ msgstr "Jednorazowy mandat"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only IBAN account numbers can receive SEPA Direct Debit payments. Please select a journal associated to one."
 msgstr "Tylko numery kont IBAN mogą otrzymywać płatności polecenia zapłaty SEPA. Wybierz dziennik powiązany z jednym."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only mandates in draft state can be deleted from database when cancelled."
 msgstr "Tylko mandaty w stanie roboczym mogą zostać usunięte z bazy danych po anulowaniu."
 
@@ -689,7 +683,6 @@ msgstr "Początek mandatu SEPA"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Paid Invoices"
 msgstr "Zapłacone faktury"
 
@@ -727,7 +720,6 @@ msgstr "Płatności wygenerowane dzięki temu mandatowi."
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Payments to Collect"
 msgstr "Płatności do pobrania"
 
@@ -824,7 +816,6 @@ msgstr "Identyfikator wierzyciela SDD"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "SDD scheme is set on the customer mandate."
 msgstr ""
 
@@ -851,7 +842,6 @@ msgstr "Identyfikator wierzyciela polecenia zapłaty SEPA, przekazany przez bank
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "SEPA Direct Debit scheme only accepts IBAN account numbers. Please select an IBAN-compliant debtor account for this mandate."
 msgstr "Schemat polecenia zapłaty SEPA akceptuje tylko numery kont IBAN. Wybierz konto dłużnika zgodne z IBAN dla tego mandatu."
 
@@ -884,7 +874,6 @@ msgstr "Podpis"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Some draft payments could not be posted because of the lack of any active mandate."
 msgstr ""
 
@@ -931,28 +920,24 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The SEPA Direct Debit mandate associated to the payment has been revoked and cannot be used anymore."
 msgstr ""
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "The creditor identifier exceeds the maximum length of 35 characters."
 msgstr "Identyfikator wierzyciela przekracza maksymalną długość 35 znaków."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The debtor identifier you specified exceeds the limitation of 35 characters imposed by SEPA regulation"
 msgstr "Określony przez ciebie identyfikator dłużnika przekracza ograniczenie 35 znaków nałożone przez regulację SEPA"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The end date of the mandate must be posterior or equal to its start date."
 msgstr "Data zakończenia mandatu musi być późniejsza lub równa dacie początkowej."
 
@@ -967,7 +952,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The payment must be linked to a SEPA Direct Debit mandate in order to generate a Direct Debit XML."
 msgstr ""
 
@@ -1006,7 +990,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "To solve that, you should create a mandate for each of the involved customers, valid at the moment of the payment date."
 msgstr ""
 
@@ -1018,14 +1001,12 @@ msgstr "Prawda wtedy i tylko wtedy, gdy mandat ten może być użyty tylko dla j
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML file containing payments from another company than that file's creditor."
 msgstr "Próba wygenerowania pliku XML polecenia zapłaty zawierającego płatności z innej firmy niż wierzyciel tego pliku."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML for payments coming from another payment method than SEPA Direct Debit."
 msgstr "Próba wygenerowania kodu XML dla płatności pochodzących z innej metody płatności niż polecenie zapłaty SEPA."
 
@@ -1033,7 +1014,6 @@ msgstr "Próba wygenerowania kodu XML dla płatności pochodzących z innej meto
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Trying to register a payment on a mandate belonging to a different partner."
 msgstr "Próbujesz zarejestrować płatność na mandat należący do innego partnera."
 
@@ -1045,7 +1025,6 @@ msgstr "Typ wyjątku działania na rekordzie."
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_invoice.py:0
-#, python-format
 msgid "Unable to post payment %(payment)r due to no usable mandate being available at date %(date)s for partner %(partner)r. Please create one before encoding a SEPA Direct Debit payment."
 msgstr ""
 
@@ -1072,21 +1051,18 @@ msgstr "Historia komunikacji"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_partner_bank.py:0
-#, python-format
 msgid "You cannot delete a bank account linked to an active SEPA Direct Debit mandate."
 msgstr ""
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot generate a SEPA Direct Debit file with a required collection date in the past."
 msgstr ""
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Your company must have a creditor identifier in order to issue SEPA Direct Debit payments requests. It can be defined in accounting module's settings."
 msgstr "Twoja firma musi mieć identyfikator wierzyciela, aby móc realizować zlecenia płatnicze typu SEPA. Można go zdefiniować w ustawieniach modułu księgowości."
 

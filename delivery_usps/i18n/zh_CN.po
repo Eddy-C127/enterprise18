@@ -38,7 +38,6 @@ msgstr "如果你的账户已被USPS验证，请勾选此复选框。"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Company phone number is invalid. Please insert a US phone number."
 msgstr "公司电话号码是无效的。请输入一个美国电话号码。"
 
@@ -65,7 +64,6 @@ msgstr "国内的"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid ""
 "Error:\n"
 "%s"
@@ -232,35 +230,30 @@ msgstr "请使用USPS网站进行检查并确保你的包裹是可加工的。"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please choose another service (maximum weight of this service is 4 pounds)"
 msgstr "请选择其他服务（此服务的最大重量是 4 磅）"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please enter a valid ZIP code in recipient address"
 msgstr "请为收货地址添加邮编"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please enter a valid ZIP code in your Company address"
 msgstr "请在你公司地址处输入一个有效的ZIP代码"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please provide at least one item to ship."
 msgstr "请至少提供一个发货项目"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Please set country U.S.A in your company address, Service is only available for U.S.A"
 msgstr "请在您的公司地址里将国家设为美国，服务只对美国地区有效"
 
@@ -282,14 +275,12 @@ msgstr "物流商"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Quantity for each move line should be less than 1000."
 msgstr "每条移动线的数量应少于1000。"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Recipient address cannot be found. Please check the address exists."
 msgstr "收件人地址无法找到。请检查地址是否存在。"
 
@@ -332,21 +323,18 @@ msgstr "示例"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment #%s has been cancelled"
 msgstr "运输#%s已取消"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment created into USPS"
 msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Shipment created into USPS <br/> <b>Tracking Number: </b>%s"
 msgstr ""
 
@@ -373,7 +361,6 @@ msgstr "TIF"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The address of your company is missing or wrong (Missing field(s) :  \n"
 " %s)"
@@ -382,7 +369,6 @@ msgstr "公司的地址缺失或者错误(缺失字段(集): %s)"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
@@ -393,7 +379,6 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid ""
 "The recipient address is missing or wrong (Missing field(s) :  \n"
 " %s)"
@@ -404,14 +389,12 @@ msgstr ""
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "The selected USPS service (%s) cannot be used to deliver this package."
 msgstr "选定的 USPS 服务 (%s) 不能用于运输这个包裹。"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
-#, python-format
 msgid "Tracking Number:"
 msgstr ""
 
@@ -449,7 +432,6 @@ msgstr "USPS 国内平价信封"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "USPS Domestic is used only to ship inside of the U.S.A. Please change the delivery method into USPS International."
 msgstr "USPS 国内仅用于在美国境内运送。请将送货方式更改为 USPS 国内。"
 
@@ -467,7 +449,6 @@ msgstr "USPS 国际平价邮包"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "USPS International is used only to ship outside of the U.S.A. Please change the delivery method into USPS Domestic."
 msgstr "USPS 国际仅用于在美国境外运送。请将送货方式更改为 USPS 国内。"
 
@@ -505,7 +486,6 @@ msgstr "USPS 尺寸容器"
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-#, python-format
 msgid "Your company or recipient ZIP code is incorrect."
 msgstr "贵公司邮编填写错误"
 

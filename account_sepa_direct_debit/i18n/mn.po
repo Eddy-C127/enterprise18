@@ -113,7 +113,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "A debtor account is required to validate a SEPA Direct Debit mandate."
 msgstr "SEPA-р итгэмжлэлээр төлбөр хүлээн авахын тулд орлого хүлээн авах данс тодорхойлогдсон байх ёстой."
 
@@ -163,7 +162,6 @@ msgstr "Ажилбарын төрлийн зураг"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "All the payments in the batch must have the same SDD scheme."
 msgstr ""
 
@@ -460,14 +458,12 @@ msgstr "Үүнийг сонговол алдаа үүсэх үед зурвас�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Make sure you made no typo."
 msgstr "Зарлага гаргагчийн таних дугаар буруу байна. Зөв оруулсан эсэхээ магадлана уу."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "Invalid creditor identifier. Wrong format."
 msgstr "Зарлага гаргагчийн таних дугаар буруу байна. Форматыг шалгана уу."
 
@@ -648,14 +644,12 @@ msgstr "Нэг удаагийн итгэмжлэл"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only IBAN account numbers can receive SEPA Direct Debit payments. Please select a journal associated to one."
 msgstr "Зөвхөн IBAN дугаар бүхий банкны дансаар SEPA орлогын төлбөр хүлээн авах боломжтой. Тохирох нэг журнал сонгоно уу."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Only mandates in draft state can be deleted from database when cancelled."
 msgstr "Цуцлагдсан итгэмжлэл ноорог төлөвт шилжсэн үед л баазаас устгах боломжтой болно."
 
@@ -678,7 +672,6 @@ msgstr "SEPA итгэмжлэлийн гарал үүсэл"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Paid Invoices"
 msgstr "Төлөгдсөн нэхэмжлэл"
 
@@ -716,7 +709,6 @@ msgstr "Энэ итгэмжлэлийн ачаар бий болсон төлб�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Payments to Collect"
 msgstr "Хүлээн авах ёстой төлбөр"
 
@@ -811,7 +803,6 @@ msgstr "SEPA зарлага гаргагчийн таних дугаар"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "SDD scheme is set on the customer mandate."
 msgstr ""
 
@@ -838,7 +829,6 @@ msgstr "Компаны SEPA төлбөрийн зарлага гаргагчий
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "SEPA Direct Debit scheme only accepts IBAN account numbers. Please select an IBAN-compliant debtor account for this mandate."
 msgstr "SEPA төлбөр хүлээн авах схем нь зөвхөн IBAN төрөлтэй банкны дансанд хэрэгжинэ. Энэ итгэмжлэлд зориулж IBAN төрлийн банкны данс сонгож ашиглана уу."
 
@@ -871,7 +861,6 @@ msgstr "Гарын үсэг"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Some draft payments could not be posted because of the lack of any active mandate."
 msgstr ""
 
@@ -918,28 +907,24 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The SEPA Direct Debit mandate associated to the payment has been revoked and cannot be used anymore."
 msgstr ""
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_company.py:0
-#, python-format
 msgid "The creditor identifier exceeds the maximum length of 35 characters."
 msgstr "Зарлага гаргагч талын таних дугаар хамгийн ихдээ 35 тэмдэгттэй байх ёстой."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The debtor identifier you specified exceeds the limitation of 35 characters imposed by SEPA regulation"
 msgstr "SEPA-ын дүрмийн дагуу таны төлбөр хүлээн авагчийн таних дугаар 35 тэмдэгтээс хэтрэхгүй байх ёстой."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "The end date of the mandate must be posterior or equal to its start date."
 msgstr "Итгэмжлэлийн дуусах огноо нь эхлэх огнооноос хойшхи эсвэл ижил байх ёстой."
 
@@ -954,7 +939,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "The payment must be linked to a SEPA Direct Debit mandate in order to generate a Direct Debit XML."
 msgstr ""
 
@@ -992,7 +976,6 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "To solve that, you should create a mandate for each of the involved customers, valid at the moment of the payment date."
 msgstr ""
 
@@ -1004,14 +987,12 @@ msgstr "Энэхүү итгэмжлэлийг ердөө нэг л удааги�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML file containing payments from another company than that file's creditor."
 msgstr "SEPA төлбөр хүлээн авах XML файлд зарлага гаргагчаас өөр компаны мэдээлэл багтаахыг оролдож байна."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
-#, python-format
 msgid "Trying to generate a Direct Debit XML for payments coming from another payment method than SEPA Direct Debit."
 msgstr "SEPA төлбөрийн аргаас өөр аргаар тодорхойлогдсон төлбөрийн мэдээллийг SEPA төлбөрийн XML файлд тусгах гэж оролдож байна."
 
@@ -1019,7 +1000,6 @@ msgstr "SEPA төлбөрийн аргаас өөр аргаар тодорхо�
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
 msgid "Trying to register a payment on a mandate belonging to a different partner."
 msgstr "Төлбөрийн бүртгэл дээр өөр харилцагчийн итгэмжлэл ашиглах гэж оролдож байна."
 
@@ -1031,7 +1011,6 @@ msgstr "Бичлэг дээрх асуудал бүхий ажилбарын т�
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_invoice.py:0
-#, python-format
 msgid "Unable to post payment %(payment)r due to no usable mandate being available at date %(date)s for partner %(partner)r. Please create one before encoding a SEPA Direct Debit payment."
 msgstr ""
 
@@ -1058,21 +1037,18 @@ msgstr "Вебсайтын харилцааны түүх"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_partner_bank.py:0
-#, python-format
 msgid "You cannot delete a bank account linked to an active SEPA Direct Debit mandate."
 msgstr "Та идэвхтэй SEPA Direct Debit бүрэн эрх бүхий банкны дансаа устгах боломжгүй."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot generate a SEPA Direct Debit file with a required collection date in the past."
 msgstr "Хүлээн авах огноо нь өнгөрсөн байгаагаар SEPA төлбөрийн XML файл тодорхойлж болохгүй."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-#, python-format
 msgid "Your company must have a creditor identifier in order to issue SEPA Direct Debit payments requests. It can be defined in accounting module's settings."
 msgstr "Танай компани SEPA төлбөр хүлээн авахын тулд хүлээн авагч талын таних тусгай дугаартай байх ёстой. Үүнийг санхүүгийн модулын тохиргоо хэсэгт тохируулах боломжтой."
 

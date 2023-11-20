@@ -72,14 +72,12 @@ msgstr "Biểu tượng kiểu hoạt động"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "All payments in the batch must belong to the same company."
 msgstr "Tất cả các khoản thanh toán trong đợt phải thuộc về cùng một công ty."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "All payments in the batch must share the same payment method."
 msgstr "Tất cả các khoản thanh toán trong đợt phải dùng chung một phương thức thanh toán."
 
@@ -149,7 +147,6 @@ msgstr "Báo cáo tiền gửi hàng loạt"
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_payment__batch_payment_id
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
-#, python-format
 msgid "Batch Payment"
 msgstr "Thanh toán hàng loạt"
 
@@ -190,7 +187,6 @@ msgstr "Tính năng báo cáo lỗi chi tiết khi thanh toán hàng loạt"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Cannot validate an empty batch. Please add some payments to it first."
 msgstr "Không thể xác thực một loạt trống. Vui lòng thêm một số khoản thanh toán vào nó trước."
 
@@ -217,7 +213,6 @@ msgstr ""
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Create Batch Payment"
 msgstr "Tạo thanh toán hàng loạt"
 
@@ -394,7 +389,6 @@ msgstr "Gọi đến"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Inbound Batch Payments Sequence"
 msgstr "Mã thanh toán hàng loạt nhận vào"
 
@@ -530,7 +524,6 @@ msgstr "Gọi đi"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
-#, python-format
 msgid "Outbound Batch Payments Sequence"
 msgstr "Mã thanh toán hàng loạt ra ngoài"
 
@@ -565,14 +558,12 @@ msgstr "Thanh toán"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/wizard/batch_error.py:0
-#, python-format
 msgid "Payments in Error"
 msgstr "Thanh toán bị lỗi"
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Payments must be posted to be added to a batch."
 msgstr ""
 
@@ -634,7 +625,6 @@ msgstr "Đã gửi"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Set payments state to \"posted\"."
 msgstr ""
 
@@ -656,21 +646,18 @@ msgstr "Hiển thị Tùy chọn Xóa"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have already been matched with a bank statement."
 msgstr ""
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have already been sent."
 msgstr ""
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Some recipient accounts do not allow out payments."
 msgstr ""
 
@@ -701,7 +688,6 @@ msgstr "TỔNG"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "Target another recipient account or allow sending money to the current one."
 msgstr ""
 
@@ -718,14 +704,12 @@ msgstr "Loạt thanh toán không thể được xác nhận"
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The batch must have the same payment method as the payments it contains."
 msgstr "Đợt phải có cùng phương thức với các khoản thanh toán trong đó."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The batch must have the same type as the payments it contains."
 msgstr "Đợt phải có cùng loại với các khoản thanh toán trong đó."
 
@@ -737,7 +721,6 @@ msgstr "Thanh toán hàng loạt tạo ra các lỗi và cảnh báo được hi
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "The journal of the batch payment and of the payments it contains must be the same."
 msgstr "Nhật ký thanh toán theo đợt và các khoản thanh toán mà nó chứa phải giống nhau."
 
@@ -804,13 +787,11 @@ msgstr "Liệu thanh toán hàng loạt này có nên hiển thị nút 'Tạo t
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot add payments that are not posted."
 msgstr ""
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
-#, python-format
 msgid "You cannot add payments with zero amount in a Batch Payment."
 msgstr ""

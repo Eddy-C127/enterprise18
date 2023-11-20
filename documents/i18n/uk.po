@@ -23,7 +23,6 @@ msgstr ""
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
-#, python-format
 msgid " + Add a tag"
 msgstr " + Додати тег"
 
@@ -35,21 +34,18 @@ msgstr "#{document_is_url and 'Link to ' or 'Download '}#{document.name}"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
-#, python-format
 msgid "%s Documents"
 msgstr "%s Документи"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
-#, python-format
 msgid "%s Documents (%s locked)"
 msgstr "%s Документи (%s заблоковано)"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "%s file(s) not moved because they are locked by another user"
 msgstr "%s файл(и) не переміщено через те, що вони заблоковані іншим користувачем"
 
@@ -86,7 +82,6 @@ msgstr "<b>Байти</b>"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "<b>Deselect this page</b> as we plan to process all bills first."
 msgstr "<b>Скасуйте вибір цієї сторінки</b> оскільки ми плануємо спочатку обробити всі рахунки."
 
@@ -411,7 +406,6 @@ msgstr "Набір дій та умов, які будуть доступні в
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_folder.py:0
-#, python-format
 msgid "A workspace cannot have one of his child defined as Parent Workspace in order to avoid a recursion issue."
 msgstr ""
 
@@ -429,7 +423,6 @@ msgstr "Доступ"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "Access Error"
 msgstr "Помилка доступу"
 
@@ -452,7 +445,6 @@ msgstr "Токен доступу"
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_action__action
-#, python-format
 msgid "Action"
 msgstr "Дія"
 
@@ -484,7 +476,6 @@ msgstr "Необхідна дія"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model:ir.ui.menu,name:documents.workflow_rules_menu
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
-#, python-format
 msgid "Actions"
 msgstr "Дії"
 
@@ -547,7 +538,6 @@ msgstr "Додати"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Add File"
 msgstr "Додати файл"
 
@@ -559,14 +549,12 @@ msgstr "Додати Url"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
-#, python-format
 msgid "Add a Link"
 msgstr "Додати посилання"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Add new file"
 msgstr "Додати новий файл"
 
@@ -618,7 +606,6 @@ msgstr "Модель псевдоніма"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
-#, python-format
 msgid "All files uploaded"
 msgstr "Усі файли завантажено"
 
@@ -635,7 +622,6 @@ msgstr "Дозволяє вам керувати вашими документа
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_workflow_rule.py:0
-#, python-format
 msgid "Already linked Documents"
 msgstr "Документи вже з посиланням"
 
@@ -652,7 +638,6 @@ msgstr "Простий спосіб для обробки вхідних лис�
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
-#, python-format
 msgid "An error occured while uploading."
 msgstr "Під час завантаження виникла помилка."
 
@@ -661,14 +646,12 @@ msgstr "Під час завантаження виникла помилка."
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
-#, python-format
 msgid "Archive"
 msgstr "Архів"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Archive original file(s)"
 msgstr "Архівувати оригінальний файл(и)"
 
@@ -681,7 +664,6 @@ msgstr "Заархівовано"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "As this PDF contains multiple documents, let's split and process in bulk."
 msgstr "Оскільки цей PDF містить кілька документів, давайте розділимо їх і обробимо групою."
 
@@ -799,35 +781,30 @@ msgstr "Checksum/SHA1"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_workflow_rule.py:0
-#, python-format
 msgid "Choose a record to link"
 msgstr "Оберіть дію для створення посилання"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Click on a card to <b>select the document</b>."
 msgstr "Натисніть на картку, щоб <b>обрати документ</b>."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Click on a thumbnail to <b>preview the document</b>."
 msgstr "Клікніть на мініатюру, щоби <b>переглянути попередньо документ</b>."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Click on the <b>page separator</b>: we don't want to split these two pages as they belong to the same document."
 msgstr "Натисніть на <b>роздільник сторінок</b>: ми не хочемо розділяти ці дві сторінки, оскільки вони належать до одного документу."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Close"
 msgstr "Закрити"
 
@@ -882,7 +859,6 @@ msgstr "Контракти"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
-#, python-format
 msgid "Control panel buttons"
 msgstr "Кнопки панелі приладів"
 
@@ -974,7 +950,6 @@ msgstr "Типові значення для завантажених докум
 #: model_terms:ir.ui.view,arch_db:documents.documents_folder_deletion_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_tree
-#, python-format
 msgid "Delete"
 msgstr "Видалити"
 
@@ -1022,7 +997,6 @@ msgstr "Назва для відображення"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
-#, python-format
 msgid "Do you really want to unlink this record?"
 msgstr "Ви справді хочете відв'язати цей запис?"
 
@@ -1065,7 +1039,6 @@ msgstr "Запит на документ {{ object.name != False and ': '+ objec
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #: code:addons/documents/models/mail_activity.py:0
-#, python-format
 msgid "Document Request: %s Uploaded by: %s"
 msgstr "Запит на документ: %s Завантажив: %s"
 
@@ -1117,7 +1090,6 @@ msgstr "Документ: Запит на документ"
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 #: model_terms:ir.ui.view,arch_db:documents.documents_view_activity
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
-#, python-format
 msgid "Documents"
 msgstr "Документи"
 
@@ -1165,7 +1137,6 @@ msgstr "Домен"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_share__action__download
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
-#, python-format
 msgid "Download"
 msgstr "Завантажити"
 
@@ -1182,7 +1153,6 @@ msgstr "Скачати та званатажити"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_drop_zone.xml:0
-#, python-format
 msgid "Drop files here to upload"
 msgstr "Скиньте файли для завантаження"
 
@@ -1204,14 +1174,12 @@ msgstr "Тип виконання"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
-#, python-format
 msgid "Edit"
 msgstr "Редагувати"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
-#, python-format
 msgid "Edit the linked record"
 msgstr "Редагувати пов'язані записи"
 
@@ -1230,7 +1198,6 @@ msgstr "Email cc"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #: code:addons/documents/static/src/views/hooks.js:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__error
-#, python-format
 msgid "Error"
 msgstr "Помилка"
 
@@ -1294,7 +1261,6 @@ msgstr "Помічна модель потокового передавання 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
-#, python-format
 msgid "File uploaded by:"
 msgstr ""
 
@@ -1382,7 +1348,6 @@ msgstr "Є повідомлення"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__previous_attachment_ids
-#, python-format
 msgid "History"
 msgstr "Історія"
 
@@ -1543,28 +1508,24 @@ msgstr "Юридичні"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter documents and structure your process.</i>"
 msgstr "Давайте обробимо документи у вашій вхідній пошті.<br/><i>Примітка: Використовуйте теги, щоби фільтрувати документи та структурувати ваш процес.</i>"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Let's process these bills: send to Finance workspace."
 msgstr "Давайте обробимо ці рахунки постачальників: надішліть у папку Фінанси."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Let's process this document, coming from our scanner."
 msgstr "Давайте обробимо цей документ, що надійшов з нашого сканера."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your process, according to the workspace.</i>"
 msgstr "Позначте цей лист, як юридичний<br/> <i>Порада: дії можна адаптувати до вашого процесу, відповідно до папки.</i>"
 
@@ -1582,14 +1543,12 @@ msgstr "Обмежте групи запису документами, влас�
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
-#, python-format
 msgid "Link"
 msgstr "Посилання"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
-#, python-format
 msgid "Link created by:"
 msgstr ""
 
@@ -1607,7 +1566,6 @@ msgstr "Онлайн"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
-#, python-format
 msgid "Lock"
 msgstr "Заблокувати"
 
@@ -1711,7 +1669,6 @@ msgstr "Перемістити до батьківської папки"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector_field.js:0
-#, python-format
 msgid "Multiple values"
 msgstr "Кілька значень"
 
@@ -1755,35 +1712,30 @@ msgstr "Назва спільного посилання"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
-#, python-format
 msgid "New"
 msgstr "Новий"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "New File"
 msgstr "Новий файл"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "New Group"
 msgstr "Нова група"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "New Tag"
 msgstr "Новий тег"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "New Workspace"
 msgstr "Нова папка"
 
@@ -1810,7 +1762,6 @@ msgstr "Тип наступної дії"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "No document has been selected"
 msgstr "Не вибрано жодного документу"
 
@@ -1827,14 +1778,12 @@ msgstr "Немає посилань, якими поділилися"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
-#, python-format
 msgid "Not a file"
 msgstr "Не є файлом"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
-#, python-format
 msgid "Not attached"
 msgstr "Не прикріплений"
 
@@ -1886,7 +1835,6 @@ msgstr "Один ліміт запису"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Open chatter"
 msgstr "Відкрити чат"
 
@@ -1898,7 +1846,6 @@ msgstr "Необов'язковий ID потоку (запису), до яко�
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.xml:0
-#, python-format
 msgid "Or send emails to"
 msgstr "Або надсилайте електронні листи на адресу"
 
@@ -1976,7 +1923,6 @@ msgstr "Батьківська модель, що містить псевдон�
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "Partial transfer"
 msgstr "Часткове переміщення"
 
@@ -2047,14 +1993,12 @@ msgstr "Пов'язана папка"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "Remaining Pages"
 msgstr "Сторінки, що залишилися"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/activity/documents_activity_controller.js:0
-#, python-format
 msgid "Reminder emails have been sent."
 msgstr ""
 
@@ -2071,7 +2015,6 @@ msgstr "Вилучити"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Replace"
 msgstr "Замінити"
 
@@ -2085,7 +2028,6 @@ msgstr "Замінити на"
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__empty
 #: model_terms:ir.ui.view,arch_db:documents.documents_request_form_view
-#, python-format
 msgid "Request"
 msgstr "Запит"
 
@@ -2102,7 +2044,6 @@ msgstr "Запит на"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/web/activity/activity_menu_patch.xml:0
-#, python-format
 msgid "Request a Document"
 msgstr "Подати запит на документ"
 
@@ -2190,14 +2131,12 @@ msgstr "Запланувати дію"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
-#, python-format
 msgid "Select/Unselect All: Shift + A"
 msgstr ""
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Send this letter to the legal department, by assigning the right tags."
 msgstr "Надішліть цей лист до юридичного відділу, додавши теги справа."
 
@@ -2261,7 +2200,6 @@ msgstr "Налаштування"
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
-#, python-format
 msgid "Share"
 msgstr "Поділитися"
 
@@ -2273,7 +2211,6 @@ msgstr "Поділитися посиланнями"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
-#, python-format
 msgid "Share link"
 msgstr "Поділіться посиланням"
 
@@ -2285,28 +2222,24 @@ msgstr "Поділитися посиланнями"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_share.py:0
-#, python-format
 msgid "Share selected files"
 msgstr "Поділіться вибраними файлами"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_share.py:0
-#, python-format
 msgid "Share selected workspace"
 msgstr "Поділіться вибраними папками"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
-#, python-format
 msgid "Share this domain"
 msgstr "Поділіться цим доменом"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Share this selection"
 msgstr "Поділіться цим вибором"
 
@@ -2348,14 +2281,12 @@ msgstr "Показати всі записи, які мають дату нас�
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Size"
 msgstr "Розмір"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
-#, python-format
 msgid "Some files could not be uploaded (max size: %s)."
 msgstr ""
 
@@ -2373,14 +2304,12 @@ msgstr "Спеціальна модель пов'язана"
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Split"
 msgstr "Розділити"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/attachments/attachment_viewer_patch.xml:0
-#, python-format
 msgid "Split PDF"
 msgstr "Розділити PDF"
 
@@ -2461,7 +2390,6 @@ msgstr "Категорії тегів визначені для цієї пап�
 #: model_terms:ir.ui.view,arch_db:documents.facet_view_tree
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
-#, python-format
 msgid "Tags"
 msgstr "Мітки"
 
@@ -2499,7 +2427,6 @@ msgstr "Власник записів створений при отриманн
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
-#, python-format
 msgid "The share url has been copied to your clipboard."
 msgstr "URL-адресу спільного доступу скопійовано до буфера обміну."
 
@@ -2544,7 +2471,6 @@ msgstr "Статус ескізу"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.xml:0
-#, python-format
 msgid "Tip: configure your scanner to send all documents to this address."
 msgstr "Примітка: налаштуйте ваш сканер для відправки документів на цю адресу."
 
@@ -2572,7 +2498,6 @@ msgstr "Сьогоднішні дії"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
-#, python-format
 msgid "Toggle Dropdown"
 msgstr ""
 
@@ -2613,7 +2538,6 @@ msgstr "URL"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Un-archive"
 msgstr "Розархівувати"
 
@@ -2625,7 +2549,6 @@ msgstr "Розблокувати"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
-#, python-format
 msgid "Unnamed"
 msgstr "Неназваний"
 
@@ -2633,7 +2556,6 @@ msgstr "Неназваний"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.share_page
-#, python-format
 msgid "Upload"
 msgstr "Завантажити"
 
@@ -2645,7 +2567,6 @@ msgstr "Завантажте <span class=\"fw-normal\">файл або</span> п
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Upload Document"
 msgstr "Завантажити документ"
 
@@ -2662,7 +2583,6 @@ msgstr "Завантажити через email"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/mail_activity.py:0
-#, python-format
 msgid "Upload file request"
 msgstr "Запит на завантаження файлу"
 
@@ -2701,7 +2621,6 @@ msgstr "Відео"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
 msgstr "Хочете стати <b>безпаперовою компанією</b>? Відкрийте для себе Odoo Документи."
 
@@ -2760,7 +2679,6 @@ msgstr "Папки"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
 msgid "Wow... 6 documents processed in a few seconds, You're good.<br/>The tour is complete. Try uploading your own documents now."
 msgstr "Вау... 6 документів оброблені за кілька секунд, Ви молодці.<br/>Тур завершено. Тепер спробуйте завантажити ваші власні документи."
 
@@ -2787,42 +2705,36 @@ msgstr "Ви можете завантажити файл з комп'ютера
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
-#, python-format
 msgid "You don't have the right to move documents to that workspace."
 msgstr "У вас немає прав переміщати документи до тієї папки."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
-#, python-format
 msgid "You don't have the rights to move documents to that workspace"
 msgstr "У вас немає прав переміщати документи до тієї папки"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_drop_zone.xml:0
-#, python-format
 msgid "You must be in a specific workspace to upload files"
 msgstr ""
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "Youtube Video"
 msgstr "Відео Youtube"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "delete"
 msgstr "вилучити"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "document"
 msgstr "документ"
 
@@ -2830,21 +2742,18 @@ msgstr "документ"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.share_page
-#, python-format
 msgid "documents"
 msgstr "документи"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "documents selected"
 msgstr "вибрані документи"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "download"
 msgstr "завантажити"
 
@@ -2888,21 +2797,18 @@ msgstr "напр., https://www.youtube.com/watch?v=CP96yVnXNrY"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "fa fa-folder text-odoo"
 msgstr "fa fa-folder text-odoo"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "file_extension"
 msgstr ""
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "folder_id"
 msgstr "folder_id"
 
@@ -2914,42 +2820,36 @@ msgstr "is_readonly_model"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "name"
 msgstr "назва"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "owner_id"
 msgstr "owner_id"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "partner_id"
 msgstr "partner_id"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "restore"
 msgstr "відновити"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_page/pdf_page.xml:0
-#, python-format
 msgid "select"
 msgstr "обрати"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "selected"
 msgstr "вибраний"
 
@@ -2962,20 +2862,17 @@ msgstr "поділився"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
-#, python-format
 msgid "status code: %s, message: %s"
 msgstr "код статусу: %s, повідомлення: %s"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
 msgid "unnamed"
 msgstr "без назви"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
 msgid "url"
 msgstr "url-адреса"

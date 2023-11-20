@@ -25,7 +25,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
-#, python-format
 msgid ""
 "\n"
 "                <p class=\"o_view_nocontent_smiling_face\">\n"
@@ -48,14 +47,12 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "%(display_name_html)s with an open amount of %(open_amount)s will be fully reconciled by the transaction."
 msgstr "%(display_name_html)s über einen offenen Betrag von %(open_amount)s wird mit der Transaktion vollständig beglichen."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "%(display_name_html)s with an open amount of %(open_amount)s will be reduced by %(amount)s."
 msgstr "%(display_name_html)s über einen offenen Betrag von%(open_amount)s wird um %(amount)s reduziert."
 
@@ -77,7 +74,6 @@ msgstr "<b class=\"tip_title\">Tipp: Finden Sie einen Buchhalter oder hinterlege
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "<br>See how to manage your customer invoices in the <b>Customers/Invoices</b> menu"
 msgstr "<br>Erfahren Sie, wie Sie Ihre Kundenrechnungen im Menü <b>Kunden/Rechnungen</b> verwalten können"
 
@@ -146,14 +142,12 @@ msgstr "<span class=\"tip_button_text\">Hinterlegen sie ihren Steuerberater/Wirt
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "<strong><b>Good job!</b> You went through all steps of this tour.</strong>"
 msgstr "<strong><b>Gut gemacht!</b> Sie haben alle Schritte dieser Tour absolviert.</strong>"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "A transfer of %(transfer_amount_currency)s will be transferred from %(from_account)s to %(to_account)s."
 msgstr ""
 
@@ -164,7 +158,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__account_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__account_id
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Account"
 msgstr "Konto"
 
@@ -258,7 +251,6 @@ msgstr "Währungsbetrag"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Amount in Currency"
 msgstr "Währungsbetrag"
 
@@ -280,7 +272,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
-#, python-format
 msgid "Analytic Account"
 msgstr "Kostenstelle"
 
@@ -322,7 +313,6 @@ msgstr "Bank- und Bargeldtransaktionen"
 #. odoo-javascript
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form.js:0
-#, python-format
 msgid "Bank Reconciliation"
 msgstr "Kontenabgleich"
 
@@ -335,7 +325,6 @@ msgstr "Bankauszug"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
-#, python-format
 msgid "Bank Statement %s.pdf"
 msgstr "Kontoauszug %s.pdf"
 
@@ -347,7 +336,6 @@ msgstr "Kontoauszugszeile"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
-#, python-format
 msgid "Bank Statement.pdf"
 msgstr "Kontoauszug.pdf"
 
@@ -371,7 +359,6 @@ msgstr "Sperrdatum ändern"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Check & validate the bill. If no vendor has been found, add one before validating."
 msgstr "Prüfen und validieren Sie die Rechnung. Wenn kein Lieferant gefunden wurde, fügen Sie vor der Validierung einen hinzu."
 
@@ -383,7 +370,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/move_line_list/move_line_list.xml:0
-#, python-format
 msgid "Choose a line to preview its attachments."
 msgstr "Wählen Sie eine Zeile aus, um eine Vorschau der Anlagen zu erhalten."
 
@@ -422,7 +408,6 @@ msgstr "Konfiguration "
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Connect your bank and get your latest transactions."
 msgstr "Stellen Sie eine Verbindung zu Ihrer Bank her und rufen Sie Ihre letzten Transaktionen ab."
 
@@ -444,7 +429,6 @@ msgstr "Erstellen Sie eine neue Kontengruppe"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Create your first vendor bill.<br/><br/><i>Tip: If you don’t have one on hand, use our sample bill.</i>"
 msgstr "Erstellen Sie Ihre erste Lieferantenrechnung.<br/><br/><i>Tipp: Wenn Sie keine Vorlage zur Hand haben, nutzen Sie unsere Musterrechnung.</i>"
 
@@ -466,7 +450,6 @@ msgstr "Erstellt am"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__credit
-#, python-format
 msgid "Credit"
 msgstr "Haben"
 
@@ -480,7 +463,6 @@ msgstr "Letzte Überprüfung durch eine geplante Aktion"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__currency_id
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Currency"
 msgstr "Währung"
 
@@ -492,7 +474,6 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Customer/Vendor"
 msgstr "Kunde/Lieferant"
 
@@ -504,7 +485,6 @@ msgstr "Kunde/Lieferant"
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
-#, python-format
 msgid "Date"
 msgstr "Datum"
 
@@ -512,7 +492,6 @@ msgstr "Datum"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__debit
-#, python-format
 msgid "Debit"
 msgstr "Soll"
 
@@ -563,7 +542,6 @@ msgstr "Gestrichenes Saldo anzeigen"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/digest.py:0
-#, python-format
 msgid "Do not have access, skip this data for user's digest email"
 msgstr "Kein Zugriff, überspringen Sie diese Daten für die Digest E-Mail des Benutzers"
 
@@ -586,7 +564,6 @@ msgstr "Alle Zahlungen und Rechnungen vor diesem Datum erhalten den Status \"Aus
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Exchange Difference: %s"
 msgstr "Kursdifferenz: %s"
 
@@ -752,21 +729,18 @@ msgstr "Wählen Sie in einer beliebigen Listenansicht mehrere Datensätze aus un
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Get back to the dashboard using your previous path…"
 msgstr "Kehren Sie zum Dashboard zurück, indem Sie den vorherigen Pfad verwenden..."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Go to invoicing"
 msgstr "Zur Rechnungsstellung gehen"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Great! Let’s continue."
 msgstr "Großartig! Weiter geht's."
 
@@ -797,7 +771,6 @@ msgstr "Eingang"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/res_config_settings.py:0
-#, python-format
 msgid "Incorrect fiscal year date: day is out of range for month. Month: %s; Day: %s"
 msgstr "Falsches Datum für Geschäftsjahr: Monat: Tag liegt außerhalb des Bereichs für Monat. Monat: %s; Tag %s"
 
@@ -932,35 +905,30 @@ msgstr "Zuletzt aktualisiert am"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s automate your bills, bank transactions and accounting processes."
 msgstr "Automatisieren Ihre Rechnungen, Bankgeschäfte und Buchhaltungsprozesse."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s go back to the dashboard."
 msgstr "Gehen Sie zurück zum Dashboard."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s reconcile the fetched bank transactions."
 msgstr "Lassen Sie uns die abgerufenen Banktransaktionen abgleichen."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s see how a bill looks like in form view."
 msgstr "Sehen Sie sich an, wie eine Rechnung in der Formularansicht aussieht."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Let’s use AI to fill in the form<br/><br/><i>Tip: If the OCR is not done yet, wait a few more seconds and try again.</i>"
 msgstr "Verwenden Sie KI, um das Formular auszufüllen <br/><br/><i>Tipp: Wenn die Texterkennung noch nicht abgeschlossen ist, warten Sie einige Sekunden und versuchen Sie es erneut.</i>"
 
@@ -1008,7 +976,6 @@ msgstr "Manuelle Bearbeitung"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_view_switcher.js:0
 #: code:addons/account_accountant/static/src/components/matching_link_widget/matching_link_widget.xml:0
-#, python-format
 msgid "Match"
 msgstr "Zuordnung"
 
@@ -1025,7 +992,6 @@ msgstr "Abgestimmt"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_payment.py:0
-#, python-format
 msgid "Matched Transactions"
 msgstr "Abgestimmte Transaktionen"
 
@@ -1037,7 +1003,6 @@ msgstr "Abstimmungsregeln erlauben automatische Abstimmung"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Miscellaneous"
 msgstr ""
 
@@ -1065,7 +1030,6 @@ msgstr "Nächste zu erledigende Aktion"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/move_line_list/move_line_list.xml:0
-#, python-format
 msgid "No attachments linked."
 msgstr "Keine Anlagen verknüpft."
 
@@ -1099,7 +1063,6 @@ msgstr "Notizen"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
-#, python-format
 msgid "Only Billing Administrators are allowed to change lock dates!"
 msgstr "Nur Rechnungsadministratoren ist es möglich die Sperrdaten zu ändern!"
 
@@ -1121,7 +1084,6 @@ msgstr "Offener Betrag in Fremdwährung"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Open balance: %s"
 msgstr "Offener Saldo: %s"
 
@@ -1141,7 +1103,6 @@ msgstr "Ausgang"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__partner_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_id
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Partner"
 msgstr "Partner"
 
@@ -1181,7 +1142,6 @@ msgstr "Wählen Sie ein Datum für den Abschluss"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "Please install the 'Accounting Reports' module."
 msgstr "Bitte installiere das Modul \"Buchhaltungsberichte\"."
 
@@ -1219,7 +1179,6 @@ msgstr "Verhindert die Änderung von Steuererklärungen bis einschließlich zum 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
 msgid "Process this transaction."
 msgstr "Diese Transaktion verarbeiten."
 
@@ -1422,7 +1381,6 @@ msgstr "Steuer-Tag"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_form_lines_widget.js:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_rec_widget_form
-#, python-format
 msgid "Taxes"
 msgstr "Steuern"
 
@@ -1434,28 +1392,24 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "The date you set violates the lock date of one of your entry. It will be overriden by the following date : %(replacement_date)s"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid "The ending date must not be prior to the starting date."
 msgstr "Das Enddatum darf nicht vor dem Startdatum liegen."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "The invoice %(display_name_html)s with an open amount of %(open_amount)s will be entirely paid by the transaction."
 msgstr "Die Rechnung %(display_name_html)s über einen offenen Betrag von %(open_amount)s wird mit der Transaktion vollständig beglichen."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "The invoice %(display_name_html)s with an open amount of %(open_amount)s will be reduced by %(amount)s."
 msgstr "Die Rechnung %(display_name_html)s mit einem offenen Betrag von %(open_amount)s wird um %(amount)s reduziert."
 
@@ -1472,21 +1426,18 @@ msgstr "Das System wird versuchen, das Produkt in den Rechnungszeilen der Liefer
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
-#, python-format
 msgid "This bank transaction has been automatically validated using the reconciliation model '%s'."
 msgstr "Diese Banktransaktion wurde anhand des Abstimmungsmodells „%s“ automatisch validiert."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "This can only be used on journal items"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_reconcile_model_line.py:0
-#, python-format
 msgid "This reconciliation model can't be used in the manual reconciliation widget because its configuration is not adapted"
 msgstr "Dieses Abstimmungsmodell kann nicht im manuellen Abstimmungs-Widget verwendet werden, da seine Konfiguration nicht angepasst ist"
 
@@ -1536,14 +1487,12 @@ msgstr ""
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "Transfer from %s"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "Transfer to %s"
 msgstr ""
 
@@ -1555,7 +1504,6 @@ msgstr "Versuchen Sie, Ihre Abrechnungszeilen automatisch abzugleichen"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/res_company.py:0
-#, python-format
 msgid "Unreconciled statements lines"
 msgstr "Nicht abgeglichene Kontoauszugszeilen"
 
@@ -1574,7 +1522,6 @@ msgstr "Bestätigen"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_widget_view_switcher.js:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
-#, python-format
 msgid "View"
 msgstr "Ansicht"
 
@@ -1592,84 +1539,72 @@ msgstr "Assistent Unternehmen Währung"
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "Write-Off"
 msgstr "Abschreibung"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "Write-Off Entry"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid "You can not have an overlap between two fiscal years, please correct the start and/or end dates of your fiscal years."
 msgstr "Es darf keine Überschneidung zwischen zwei Steuerjahren geben. Bitte korrigieren Sie das Start- und / oder Enddatum Ihrer Steuerjahre."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
 msgid "You can only reconcile entries with up to two different accounts: %s"
 msgstr ""
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You can't have maximum one auto balance line at the same time in the bank reconciliation widget"
 msgstr "Du kannst maximal eine automatische Saldenzeile gleichzeitig im Widget für den Bankabgleich haben."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You can't have multiple liquidity journal item at the same time in the bank reconciliation widget"
 msgstr "Du kannst nicht mehrere Liquiditätsjournalposten gleichzeitig im Bankabstimmungs-Widget haben"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You can't have multiple times the same journal item in the bank reconciliation widget"
 msgstr "Du kannst nicht mehrere Male denselben Journalposten im Bankabstimmungs-Widget haben"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
-#, python-format
 msgid "You cannot set a lock date in the future."
 msgstr "Sie können ein Sperrdatum in der Zukunft festlegen."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You might want to %(btn_start)sfully reconcile%(btn_end)s the document."
 msgstr "Möglicherweise möchten Sie das Dokument %(btn_start)svollständig abstimmen%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You might want to make a %(btn_start)spartial reconciliation%(btn_end)s instead."
 msgstr "Möglicherweise möchten Sie das Dokument %(btn_start)steilweise abstimmen%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You might want to record a %(btn_start)spartial payment%(btn_end)s."
 msgstr "Möglicherweise möchten Sie eine %(btn_start)sTeilzahlung%(btn_end)s erfassen."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
-#, python-format
 msgid "You might want to set the invoice as %(btn_start)sfully paid%(btn_end)s."
 msgstr "Möglicherweise möchten Sie die Rechnung auf %(btn_start)svollständig bezahlt%(btn_end)s setzen."
 

@@ -25,7 +25,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid " You can safely close this window."
 msgstr ""
 
@@ -38,35 +37,30 @@ msgstr "# Unterschriften"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
-#, python-format
 msgid "%s couldn't sign the document due to an insufficient credit error."
 msgstr "%s Das Dokument konnte aufgrund eines unzureichenden Kreditfehlers nicht signiert werden."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "%s has been edited and signed"
 msgstr "%s wurde bearbeitet und unterzeichnet"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "%s has been signed"
 msgstr "%s wurde unterschrieben"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
-#, python-format
 msgid "%s validated the signature by SMS with the phone number %s."
 msgstr "%s bestätigen Sie die Unterschrift per SMS mit der Telefonnummer %s."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "%s: missing credits for extra-authentication"
 msgstr "%s: fehlendes Guthaben für zusätzliche Authentifizierung"
 
@@ -132,7 +126,6 @@ msgstr "<b>Dokument ID:</b>"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "<b>Drag & drop “Signature”</b> into the bottom of the document."
 msgstr "<b>Ziehen Sie „Signatur“ per Drag-and-drop</b> an den unteren Rand des Dokuments."
 
@@ -307,21 +300,18 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "A SMS will be sent to the following phone number. Please update it if it's not relevant."
 msgstr "Eine SMS wird an die folgende Telefonnummer gesendet. Bitte aktualisieren Sie es, wenn es nicht relevant ist."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "A non-shared sign request's should not have any signer with an empty partner"
 msgstr "Eine nichtgeteilte Unterschriftsanfrage sollte keinen Unterzeichner mit einem leeren Partner haben"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "A shared sign request should only have one signer with an empty partner"
 msgstr "Eine geteilte Unterschriftsanfrage sollte nur einen Unterzeichner mit einem leeren Partner haben"
 
@@ -333,7 +323,6 @@ msgstr "Eine Dusche verbraucht etwa 65 l Wasser"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "A valid sign request needs at least one sign request item"
 msgstr "Eine gültige Signaturanfrage benötigt mindestens ein Signaturanfrageelement"
 
@@ -395,7 +384,6 @@ msgstr "Aktivität Ausnahme-Dekoration"
 #: code:addons/sign/models/sign_request.py:0
 #: model:ir.actions.report,name:sign.action_sign_request_print_logs
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
-#, python-format
 msgid "Activity Logs"
 msgstr "Zugriffshistorie"
 
@@ -422,14 +410,12 @@ msgstr "Aktivitätsprotokoll der Anfrage"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_iframe.js:0
-#, python-format
 msgid "Add Initials"
 msgstr "Initialen hinzufügen"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
-#, python-format
 msgid "Add Once"
 msgstr ""
 
@@ -441,7 +427,6 @@ msgstr "Hier Dokumenttags hinzufügen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
-#, python-format
 msgid "Add to all pages"
 msgstr "Zu allen Seiten hinzufügen"
 
@@ -453,7 +438,6 @@ msgstr "Administrator"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Adopt Your Signature"
 msgstr "Unterschrift annehmen"
 
@@ -466,14 +450,12 @@ msgstr "Nach der Signatur"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: model:ir.model.fields,field_description:sign.field_sign_item__alignment
-#, python-format
 msgid "Alignment"
 msgstr "Ausrichtung"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "All"
 msgstr "Alle"
 
@@ -485,7 +467,6 @@ msgstr "Alle Dokumente"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "All signers must have valid email addresses"
 msgstr "Alle Unterzeichner müssen eine gültige E-Mail-Adresse haben"
 
@@ -567,7 +548,6 @@ msgstr "Berechtigte Gruppen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Authorized Groups:"
 msgstr "Berechtigte Gruppen:"
 
@@ -579,7 +559,6 @@ msgstr "Autorisierte Benutzer"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Authorized Users:"
 msgstr "Autorisierte Benutzer"
 
@@ -611,7 +590,6 @@ msgstr "Von"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "By clicking Adopt & Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts."
 msgstr "Durch Anklicken von Annehmen & Unterzeichnen erkläre ich die gewählte Unterschrift als gültige elektronische Repräsentation meiner handschriftlichen Unterschrift für alle Zwecke, wenn sie auf Dokumenten, einschließlich rechtsverbindlicher Verträge, verwendet wird. "
 
@@ -633,7 +611,6 @@ msgstr "Kann abgelehnt werden"
 #: model_terms:ir.ui.view,arch_db:sign.sign_duplicate_template_with_pdf_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
-#, python-format
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -649,7 +626,6 @@ msgstr "Abgebrochen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.js:0
-#, python-format
 msgid "Center"
 msgstr "Zentriert"
 
@@ -683,14 +659,12 @@ msgstr "Angekreuzt, wenn diese Vorlage ein für Sie freigegebenes Dokument erste
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Click on the field to specify who should fill it in, or if it's mandatory or not."
 msgstr "Klicken Sie auf das Feld, um festzulegen, wer es ausfüllen soll, oder ob es obligatorisch ist oder nicht."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Click to start"
 msgstr "Zum Starten klicken"
 
@@ -701,7 +675,6 @@ msgstr "Zum Starten klicken"
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
-#, python-format
 msgid "Close"
 msgstr "Schließen"
 
@@ -740,7 +713,6 @@ msgstr "Für die Kommunikation verwendetes Unternehmen"
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_request_item__state__completed
-#, python-format
 msgid "Completed"
 msgstr "Vollständig"
 
@@ -787,14 +759,12 @@ msgstr "Bestätigen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Congrats, your signature is ready to be submitted!"
 msgstr "Glückwunsch, Ihre Signatur ist bereit zur Einreichung!"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Congratulations, you signed your first document!"
 msgstr "Herzlichen Glückwunsch, Sie haben Ihr erstes Dokument unterschrieben!"
 
@@ -903,7 +873,6 @@ msgstr "Dashboard"
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model:sign.item.type,name:sign.sign_item_type_date
 #: model:sign.item.type,placeholder:sign.sign_item_type_date
-#, python-format
 msgid "Date"
 msgstr "Datum"
 
@@ -941,7 +910,6 @@ msgstr "Löschen"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_items.xml:0
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Delete sign"
 msgstr "Signatur löschen"
 
@@ -949,7 +917,6 @@ msgstr "Signatur löschen"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_items.xml:0
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Delete sign item"
 msgstr "Signaturelemente löschen"
 
@@ -1077,14 +1044,12 @@ msgstr "Protokoll herunterladen"
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model_terms:ir.ui.view,arch_db:sign._doc_sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
-#, python-format
 msgid "Download Document"
 msgstr "Dokument herunterladen"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/PDFIframe.js:0
-#, python-format
 msgid "Download original document"
 msgstr "Originaldokument herunterladen"
 
@@ -1092,14 +1057,12 @@ msgstr "Originaldokument herunterladen"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_type_buttons.xml:0
 #: code:addons/sign/static/src/xml/sign_backend.xml:0
-#, python-format
 msgid "Drag & Drop a field in the PDF"
 msgstr "Ein Feld in das PDF ziehen & ablegen"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Draw your most beautiful signature!<br>You can also create one automatically or load a signature from your computer."
 msgstr "Zeichnen Sie Ihre schönste Signatur!<br>Alternativ können Sie eine Unterschrift automatisch generieren lassen oder ein Bild von Ihrem Computer hochladen."
 
@@ -1111,21 +1074,18 @@ msgstr "Dropdownmenu"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
-#, python-format
 msgid "Duplicate"
 msgstr "Duplizieren"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.js:0
-#, python-format
 msgid "Duplicated Template"
 msgstr "Doppelte Vorlage"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "ERROR: Invalid PDF file!"
 msgstr "FEHLER: Ungültige PDF-Datei!"
 
@@ -1147,7 +1107,6 @@ msgstr "Feldtypen bearbeiten"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Edit template name"
 msgstr "Vorlagenname bearbeiten"
 
@@ -1183,14 +1142,12 @@ msgstr "Signierrreihenfolge aktivieren"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Enter the code received through SMS to complete your signature"
 msgstr "Geben Sie den SMS Code ein, um die Signatur zu bestätigen."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Error"
 msgstr "Fehler"
 
@@ -1202,7 +1159,6 @@ msgstr "Fehler 404"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Existing sign items are not allowed to be changed"
 msgstr "Bestehende Signaturelemente dürfen nicht geändert werden"
 
@@ -1253,7 +1209,6 @@ msgstr "Feldtypen"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_type_buttons.xml:0
 #: code:addons/sign/static/src/xml/sign_backend.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
-#, python-format
 msgid "Fields"
 msgstr "Felder"
 
@@ -1270,7 +1225,6 @@ msgstr "Dateiinhalt (base64)"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/hooks.js:0
-#, python-format
 msgid "File Error"
 msgstr "Dateifehler"
 
@@ -1287,21 +1241,18 @@ msgstr "Dateiname"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
-#, python-format
 msgid "Filled by"
 msgstr "Ausgefüllt von"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Final Validation"
 msgstr "Gesamturteil"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Follow the guide to sign the document."
 msgstr "Folgen Sie dem Leitfaden, um das Dokument zu unterschreiben."
 
@@ -1335,7 +1286,6 @@ msgstr "Zwingen Sie den Unterzeichner, sich mit einer zweiten Authentifizierungs
 #: code:addons/sign/static/src/backend_components/sign_template/sign_items.xml:0
 #: code:addons/sign/static/src/xml/sign_common.xml:0
 #: code:addons/sign/static/src/xml/sign_modal.xml:0
-#, python-format
 msgid "Frame"
 msgstr "Rahmen"
 
@@ -1360,7 +1310,6 @@ msgstr "Rahmenwert"
 #: model:ir.model.fields.selection,name:sign.selection__sign_request__state__signed
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
-#, python-format
 msgid "Fully Signed"
 msgstr "Vollständig signiert"
 
@@ -1372,7 +1321,6 @@ msgstr "Anstehende Aktivitäten"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Generate PDF"
 msgstr "PDF generieren"
 
@@ -1561,7 +1509,6 @@ msgstr "Wenn Sie möchten, können Sie das Dokument erneut anfragen, sobald Sie 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Ignore"
 msgstr ""
 
@@ -1695,21 +1642,18 @@ msgstr "Breitengrad"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.js:0
-#, python-format
 msgid "Left"
 msgstr "Links"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Let's <b>prepare & sign</b> our first document."
 msgstr "Lassen Sie uns unser erstes Dokument <b>vorbereiten und unterzeichnen</b>."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Let's send the request by email."
 msgstr "Senden Sie die Anfrage per E-Mail."
 
@@ -1731,14 +1675,12 @@ msgstr "Protokolldatum"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_log.py:0
-#, python-format
 msgid "Log history of sign requests cannot be deleted!"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_log.py:0
-#, python-format
 msgid "Log history of sign requests cannot be modified!"
 msgstr ""
 
@@ -1772,7 +1714,6 @@ msgstr "E-Mail Update"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "Malformed expression: %(exp)s"
 msgstr "Fehlerhafter Ausdruck: %(exp)s"
 
@@ -1785,7 +1726,6 @@ msgstr "Vorlagenzugriff verwalten"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
-#, python-format
 msgid "Mandatory field"
 msgstr "Obligatorisches Feld"
 
@@ -1909,7 +1849,6 @@ msgstr "Name oder E-Mail"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Nearly there, keep going!"
 msgstr "Bald geschafft, weiter so!"
 
@@ -1922,7 +1861,6 @@ msgstr "Erfordern meine Unterschrift"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_iframe.js:0
 #: code:addons/sign/static/src/js/common/PDFIframe.js:0
-#, python-format
 msgid "Need a valid PDF to add signature fields!"
 msgstr ""
 
@@ -1934,7 +1872,6 @@ msgstr "Name der neuen Vorlage"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "Newest"
 msgstr "Aktuellste"
 
@@ -1962,28 +1899,24 @@ msgstr "Nächster Aktivitätstyp"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Next Document"
 msgstr "Nächstes Dokument"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/document_signable.js:0
-#, python-format
 msgid "Next Template"
 msgstr "Nächste Vorlage"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Next signatory (\"%s\")"
 msgstr "Nächster Unterzeichner („%s“)"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Next signatory is \"%s\""
 msgstr "Nächster Unterzeichner ist „%s“"
 
@@ -1995,7 +1928,6 @@ msgstr "Noch kein Dokument"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "No specified reason"
 msgstr "Kein angegebener Grund"
 
@@ -2007,7 +1939,6 @@ msgstr "Noch keine Vorlage"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "None"
 msgstr "Keine"
 
@@ -2085,21 +2016,18 @@ msgstr "Ein Liter Gasbrennstoff erzeugt 8,9 kg CO²"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "One or more selection items have no associated options"
 msgstr "Ein oder mehrere Auswahlelemente haben keine zugehörigen Optionen"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "One uploaded file cannot be read. Is it a valid PDF?"
 msgstr "Eine hochgeladene Datei kann nicht gelesen werden. Handelt es sich um ein gültiges PDF?"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/terms.py:0
-#, python-format
 msgid "Oops"
 msgstr "Hoppla"
 
@@ -2147,7 +2075,6 @@ msgstr "Optionaler Text für den Link-Button"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
-#, python-format
 msgid "Options"
 msgstr "Optionen"
 
@@ -2160,7 +2087,6 @@ msgstr "Originaldatei"
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model_terms:ir.ui.view,arch_db:sign.encrypted_ask_password
-#, python-format
 msgid "PDF is encrypted"
 msgstr "PDF ist verschlüsselt"
 
@@ -2177,7 +2103,6 @@ msgstr "Partner"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Password is incorrect."
 msgstr "Das Passwort ist falsch."
 
@@ -2191,7 +2116,6 @@ msgstr "Telefon"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
@@ -2199,14 +2123,12 @@ msgstr "Telefonnummer"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__placeholder
-#, python-format
 msgid "Placeholder"
 msgstr "Platzhalter"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Please configure senders'(%s) email addresses"
 msgstr "Konfigurieren Sie bitte die E-Mailadressen der Absender (%s)."
 
@@ -2233,7 +2155,6 @@ msgstr "Vorschau"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/PDFIframe.js:0
-#, python-format
 msgid "Print original document"
 msgstr "Originaldokument drucken"
 
@@ -2250,7 +2171,6 @@ msgstr "Fortschritt"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Public User"
 msgstr "Öffentlicher Benutzer"
 
@@ -2262,14 +2182,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Re-send SMS"
 msgstr "SMS erneut senden"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Reason"
 msgstr "Begründung"
 
@@ -2282,7 +2200,6 @@ msgstr "Weiterleitungs-Link"
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__refuse
-#, python-format
 msgid "Refuse"
 msgstr "Ablehnen"
 
@@ -2291,7 +2208,6 @@ msgstr "Ablehnen"
 #: code:addons/sign/static/src/js/common/document_signable.js:0
 #: model_terms:ir.ui.view,arch_db:sign._doc_sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
-#, python-format
 msgid "Refuse Document"
 msgstr "Dokument ablehnen"
 
@@ -2334,14 +2250,12 @@ msgstr "Artikelinfos anfragen"
 #: code:addons/sign/static/src/activity/activity_patch.xml:0
 #: model:ir.model.fields.selection,name:sign.selection__mail_activity_type__category__sign_request
 #: model:mail.activity.type,name:sign.mail_activity_data_signature_request
-#, python-format
 msgid "Request Signature"
 msgstr "Unterschrift anfordern"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid "Request expiration date must be set in the future."
 msgstr ""
 
@@ -2360,21 +2274,18 @@ msgstr "Erforderlich"
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_item_view_tree
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
-#, python-format
 msgid "Resend"
 msgstr "Erneut Senden"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Resend the invitation"
 msgstr "Einladung erneut senden"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Resent!"
 msgstr ""
 
@@ -2383,7 +2294,6 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
 #: model:ir.model.fields,field_description:sign.field_sign_item__responsible_id
 #: model:ir.model.fields,field_description:sign.field_sign_template__user_id
-#, python-format
 msgid "Responsible"
 msgstr "Verantwortlich"
 
@@ -2406,7 +2316,6 @@ msgstr "Wiederherstellen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.js:0
-#, python-format
 msgid "Right"
 msgstr "Rechts"
 
@@ -2429,7 +2338,6 @@ msgstr "Rollen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_iframe.js:0
-#, python-format
 msgid "Rotate Clockwise"
 msgstr "Im Uhrzeigersinn drehen"
 
@@ -2441,7 +2349,6 @@ msgstr "SMS Zustellungsfehler"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "SMS Sent"
 msgstr "SMS versendet"
 
@@ -2459,7 +2366,6 @@ msgstr "Verkauf"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__save
-#, python-format
 msgid "Save"
 msgstr "Speichern"
 
@@ -2467,14 +2373,12 @@ msgstr "Speichern"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
-#, python-format
 msgid "Saved"
 msgstr "Gespeichert"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "Search <span class=\"nolabel\"> (in Document)</span>"
 msgstr "Suchen <span class=\"nolabel\"> (im Dokument)</span>"
 
@@ -2492,7 +2396,6 @@ msgstr "Option auswählen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Select the contact who should sign, according to their role.<br>In this example, select your own contact to sign the document yourself."
 msgstr "Wählen Sie den Kontakt aus, der unterschreiben soll, je nach seiner Funktion.<br>In diesem Beispiel wählen Sie Ihren eigenen Kontakt aus, um das Dokument selbst zu unterschreiben."
 
@@ -2516,14 +2419,12 @@ msgstr "Auswahloptionen"
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
-#, python-format
 msgid "Send"
 msgstr "Senden"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Send SMS"
 msgstr "SMS versenden"
 
@@ -2540,7 +2441,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Send the invitation"
 msgstr "Einladung versenden"
 
@@ -2558,7 +2458,6 @@ msgstr "Anfragen gesendet"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Sent by"
 msgstr ""
 
@@ -2573,7 +2472,6 @@ msgstr "Einstellungen"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
-#, python-format
 msgid "Share"
 msgstr "Teilen"
 
@@ -2585,7 +2483,6 @@ msgstr "Teilen & Schließen"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "Share Document by Link"
 msgstr "Dokument via Link teilen"
 
@@ -2600,7 +2497,6 @@ msgstr "Link teilen"
 #: code:addons/sign/models/sign_template.py:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__request_state__shared
 #: model:ir.model.fields.selection,name:sign.selection__sign_request__state__shared
-#, python-format
 msgid "Shared"
 msgstr "Freigegeben"
 
@@ -2622,7 +2518,6 @@ msgstr "Allgemeine Geschäftsbedingungen auf Signaturanfragen anzeigen"
 #: model:ir.ui.menu,name:sign.menu_document
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
-#, python-format
 msgid "Sign"
 msgstr "eSignatur"
 
@@ -2644,7 +2539,6 @@ msgstr "Allgemeine Geschäftsbedingungen als Webseite unterzeichnen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Sign Document"
 msgstr "Dokument unterschreiben"
 
@@ -2656,7 +2550,6 @@ msgstr "Duplikatvorlage mit neuem PDF unterzeichenen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sign Next Document"
 msgstr "Nächstes Dokument signieren"
 
@@ -2667,7 +2560,6 @@ msgstr "Nächstes Dokument signieren"
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
-#, python-format
 msgid "Sign Now"
 msgstr "Jetzt signieren"
 
@@ -2720,14 +2612,12 @@ msgstr "Format für Geschäftsbedingungen unterzeichnen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sign Up for free"
 msgstr "Gratis anmelden"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sign all"
 msgstr "Alles unterzeichnen"
 
@@ -2739,7 +2629,6 @@ msgstr "Dokument unterschreiben"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "Sign requests"
 msgstr "Signaturanfragen"
 
@@ -2767,7 +2656,6 @@ msgstr "Melden Sie sich für Odoo E-Signatur an, um Ihre eigenen Dokumente und S
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Sign up for Odoo Sign to manage your own documents and signature requests."
 msgstr "Melden Sie sich für Odoo E-Signatur an, um Ihre eigenen Dokumente und Signaturanfragen zu verwalten."
 
@@ -2800,7 +2688,6 @@ msgstr ""
 #: model:sign.item.type,placeholder:sign.sign_item_type_signature
 #: model_terms:ir.ui.view,arch_db:sign._doc_sign
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
-#, python-format
 msgid "Signature"
 msgstr "Signatur"
 
@@ -2853,21 +2740,18 @@ msgstr "Signaturoptionen"
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__sign_request_id
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__sign_request_id
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
-#, python-format
 msgid "Signature Request"
 msgstr "Signaturanfrage"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid "Signature Request - %(file_name)s"
 msgstr "Signaturanfrage - %(file_name)s"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid "Signature Request - %s"
 msgstr "Signaturanfrage - %s"
 
@@ -2905,14 +2789,12 @@ msgstr "Vorlage für Signaturanfrage"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_items.xml:0
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Signature configuration"
 msgstr "Signaturkonfiguration"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid ""
 "Signature requested for template: %s\n"
 "Signatories: %s"
@@ -2923,7 +2805,6 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/res_partner.py:0
-#, python-format
 msgid "Signature(s)"
 msgstr "Unterschrift (en)"
 
@@ -2979,7 +2860,6 @@ msgstr "Signiert am"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Signed with Odoo Sign"
 msgstr "Mit Odoo E-Signatur unterschrieben"
 
@@ -3003,7 +2883,6 @@ msgstr "Anzahl Unterzeichner"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "Signing Date"
 msgstr "Datum der Signatur"
 
@@ -3015,28 +2894,24 @@ msgstr "Signaturereignisse"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Since you're the one signing this document, you can do it directly within Odoo.<br>External users can use the link provided by email."
 msgstr "Da Sie die Person sind, die dieses Dokument unterschreibt, können Sie dies direkt in Odoo tun.<br>Externe Benutzer können den per E-Mail bereitgestellten Link verwenden."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Some fields have still to be completed!"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Some required items are not filled"
 msgstr "Einige erforderliche Elemente wurden nicht ausgefüllt"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Some unauthorised items are filled"
 msgstr "Einige unberechtigte Elemente wurden nicht ausgefüllt"
 
@@ -3045,21 +2920,18 @@ msgstr "Einige unberechtigte Elemente wurden nicht ausgefüllt"
 #. odoo-javascript
 #: code:addons/sign/models/sign_template.py:0
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
-#, python-format
 msgid "Somebody is already filling a document which uses this template"
 msgstr "Jemand füllt bereits ein Dokument aus, das diese Vorlage verwendet."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sorry, an error occurred, please try to fill the document again."
 msgstr "Entschuldigung, ein Fehler ist aufgetreten. Bitte versuchen Sie erneut, das Dokument auszufüllen."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Sorry, you cannot refuse this document"
 msgstr "Entschuldigen Sie, Sie können dieses Dokument nicht ablehnen"
 
@@ -3090,7 +2962,6 @@ msgstr "Status der Anfrage im Aktivitätenprotokoll"
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
-#, python-format
 msgid "Status"
 msgstr "Status"
 
@@ -3144,7 +3015,6 @@ msgstr "Stichwörter"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Tags:"
 msgstr "Stichwörter:"
 
@@ -3165,7 +3035,6 @@ msgstr "Vorlage"
 #. odoo-javascript
 #: code:addons/sign/static/src/js/backend/document_signable.js:0
 #: code:addons/sign/static/src/js/backend/sign_request.js:0
-#, python-format
 msgid "Template \"%s\""
 msgstr "Vorlage \"%s\""
 
@@ -3173,14 +3042,12 @@ msgstr "Vorlage \"%s\""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.js:0
 #: code:addons/sign/static/src/views/hooks.js:0
-#, python-format
 msgid "Template %s"
 msgstr "Vorlage %s"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
-#, python-format
 msgid "Template Properties"
 msgstr "Vorlageneigenschaften"
 
@@ -3198,7 +3065,6 @@ msgstr "Vorlage oder Stichwort"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #: model:ir.actions.act_window,name:sign.sign_template_action
-#, python-format
 msgid "Templates"
 msgstr "Vorlagen"
 
@@ -3241,21 +3107,18 @@ msgstr "Text"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Thank You!"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Thank you!"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "That's it, all done!<br>The document is signed, and a copy has been sent by email to all participants, along with a traceability report."
 msgstr "Das war's, alles erledigt!<br>Das Dokument ist unterzeichnet und eine Kopie wurde per E-Mail an alle Teilnehmer versandt, zusammen mit einem Bericht über die Rückverfolgbarkeit."
 
@@ -3272,7 +3135,6 @@ msgstr "Das Passwort der PDF-Datei wird benötigt, um das finale Dokument zu ers
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The completed document cannot be created because the sign request is not fully signed"
 msgstr "Das vervollständigte Dokument kann nicht erstellt werden, weil die Signaturanfrage nicht vollständig signiert ist."
 
@@ -3284,7 +3146,6 @@ msgstr "Die Berechnung stützt sich auf die Website"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The contact of %(role)s has been changed from %(old_partner)s to %(new_partner)s."
 msgstr "Der Kontakt von %(role)s wurde von %(old_partner)s in %(new_partner)s geänder."
 
@@ -3297,21 +3158,18 @@ msgstr "Das Dokument"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The document (%s) has been rejected by one of the signers"
 msgstr "Das Dokument (%s) wurde von einem der Unterzeichner abgelehnt"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "The document has been refused"
 msgstr "Das Dokument wurde abgelehnt"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The document has been signed by a signer and cannot be edited"
 msgstr "Das Dokument wurde von einem Unterzeichner unterschrieben und kann nicht bearbeitet werden"
 
@@ -3328,7 +3186,6 @@ msgstr "Das endgültige Dokument und dieser Ablaufplan wurden per E-Mail versand
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
-#, python-format
 msgid "The following roles must be set to create the signature request: %(roles)s"
 msgstr "Die folgenden Rollen müssen definiert werden, damit eine Signaturanfrage erstellt werden kann: %(roles)s"
 
@@ -3340,49 +3197,42 @@ msgstr "Die Integrität der Historie des Dokuments kann nicht überprüft werden
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/res_partner.py:0
-#, python-format
 msgid "The mail address of %(partner)s has been updated. The request will be automatically resent."
 msgstr "Die E-Mailadresse von %(partner)s wurde aktualisiert. Die Anfrage wird automatisch erneut gesendet."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The mail has been sent to contacts in copy: "
 msgstr "Die E-Mail wurde an folgende Kontakte im CC gesendet:"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/terms.py:0
-#, python-format
 msgid "The requested page is invalid, or doesn't exist anymore."
 msgstr "Die angeforderte Seite ist ungültig, oder existiert nicht mehr."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "The role %s is required by the Sign application and cannot be deleted."
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The sign request has not been fully signed"
 msgstr "Die Signaturanfrage wurde nicht vollständig unterzeichnet"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The signature has been refused by %s(%s)"
 msgstr "Die Signatur wurde von %s(%s) abgelehnt"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The signature mail has been sent to: "
 msgstr "Die Signatur-E-Mail wurde gesendet an:"
 
@@ -3394,7 +3244,6 @@ msgstr "Die Signatur-E-Mail wurde gesendet."
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "The signature request has been edited by: %s."
 msgstr "Die Signaturanfrage wurde bearbeitet von: %s."
 
@@ -3406,14 +3255,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_action.js:0
-#, python-format
 msgid "The template doesn't exist anymore."
 msgstr "Die Vorlage existiert nicht mehr."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_duplicate_template_with_pdf.py:0
-#, python-format
 msgid "The template has more pages than the current file, it can't be applied."
 msgstr "Die Vorlage hat mehr Seiten als die aktuelle Datei, sie kann nicht angewendet werden."
 
@@ -3430,28 +3277,24 @@ msgstr "Es gibt keine Signaturanfragen."
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "There are other documents waiting for your signature:"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/template_alert_dialog/template_alert_dialog.xml:0
-#, python-format
 msgid "These files cannot be read, they may be corrupted or encrypted."
 msgstr "Diese Dateien können nicht gelesen werden, sie sind möglicherweise korrupt oder verschlüsselt."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/template_alert_dialog/template_alert_dialog.xml:0
-#, python-format
 msgid "They will be removed from the uploaded files"
 msgstr "Sie werden aus den hochgeladenen Dateien entfernt"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This function can only be called with sudo."
 msgstr "Diese Funktion kann nur mit Sudo aufgerufen werden."
 
@@ -3464,42 +3307,36 @@ msgstr "Dies ist die Dokumentenbezeichnung in der E-Mail"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request cannot be refused"
 msgstr "Die Signaturanfrage kann nicht abgelehnt werden"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request cannot be signed"
 msgstr "Die Signaturanfrage kann nicht unterzeichnet werden"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request is not valid anymore"
 msgstr ""
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request item cannot be filled"
 msgstr "Dieses Element der Signaturanfrage kann nicht ausgefüllt werden"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request item cannot be refused"
 msgstr "Dieses Element der Signaturanfrage kann nicht abgelehnt werden"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "This sign request item cannot be signed"
 msgstr "Dieses Element der Signaturanfrage kann nicht unterzeichnet werden"
 
@@ -3526,7 +3363,6 @@ msgstr "Um 1000 kg Holz zu produzieren, müssen wir 12 Bäume fällen"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
-#, python-format
 msgid "To sign"
 msgstr "Zu unterzeichnen"
 
@@ -3554,7 +3390,6 @@ msgstr "Unser Beispieldokument testen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Try out this sample contract."
 msgstr "Testen Sie diesen Beispielvertrag."
 
@@ -3582,7 +3417,6 @@ msgstr "UTC"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Unable to send the SMS, please contact the sender of the document."
 msgstr "Die SMS kann nicht gesendet werden. Wenden Sie sich an den Absender des Dokuments."
 
@@ -3599,14 +3433,12 @@ msgstr "Aktualisieren"
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "Upload a PDF"
 msgstr "Laden Sie ein PDF hoch"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
-#, python-format
 msgid "Upload a PDF & Sign"
 msgstr ""
 
@@ -3623,21 +3455,18 @@ msgstr "Laden Sie eine PDF-Datei hoch und erstellen Sie Ihre erste Vorlage"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
-#, python-format
 msgid "Upload a PDF file to use as a template."
 msgstr "Eine PDF-Datei hochladen und als Vorlage verwenden."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
-#, python-format
 msgid "Upload a PDF template"
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
-#, python-format
 msgid "Upload a pdf that you want to sign directly"
 msgstr "Eine PDF-Datei hochladen, die Sie sofort unterzeichnen möchten"
 
@@ -3681,21 +3510,18 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
-#, python-format
 msgid "Validate"
 msgstr "Bestätigen"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Validate & Send"
 msgstr "Bestätigen & Senden"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Validate & the next signatory is \"%s\""
 msgstr "Validieren & nächster Unterzeichner ist „%s“"
 
@@ -3707,7 +3533,6 @@ msgstr "Vervollständigtes Dokument validieren und senden"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Validation Code"
 msgstr "Bestätigungscode"
 
@@ -3725,7 +3550,6 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Verify"
 msgstr "Überprüfen"
 
@@ -3771,7 +3595,6 @@ msgstr "Warten auf andere"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_action.js:0
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Warning"
 msgstr "Warnung"
 
@@ -3788,14 +3611,12 @@ msgstr "Wir stellen Ihnen ein Verhältnis dar, das auf dem eingesparten Gewicht 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "We will send you this document by email once everyone has signed."
 msgstr "Sie erhalten dieses Dokument per E-Mail, sobald alle Parteien unterschrieben haben."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "We'll send an email to warn other contacts in copy & signers with the reason you provided."
 msgstr "Wir senden eine E-Mail an andere Kontakte in Kopie & Unterzeichner mit dem von Ihnen angegebenen Grund."
 
@@ -3812,7 +3633,6 @@ msgstr "Website-Kommunikationshistorie"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
-#, python-format
 msgid "Well done, your document is ready!<br>Let's send it to get our first signature."
 msgstr "Gut gemacht, Ihr Dokument ist bereit!<br>Versenden Sie es, um unsere erste Unterschrift zu erhalten."
 
@@ -3829,7 +3649,6 @@ msgstr "Warum wird mir das angezeigt?"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Why do you refuse to sign this document?"
 msgstr "Warum verweigern Sie die Unterzeichnung des Dokuments?"
 
@@ -3846,7 +3665,6 @@ msgstr "E-Mail schreiben oder Kontakt suchen."
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
-#, python-format
 msgid "Wrong password"
 msgstr "Falsches Passwort"
 
@@ -3858,28 +3676,24 @@ msgstr "Sie können die Person, die Sie zur Unterzeichnung des Dokuments eingela
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "You can only add new items for the current role"
 msgstr "Sie können nur Elemente für die aktuelle Rolle hinzufügen"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "You can't delete a template for which signature requests exist but you can archive it instead."
 msgstr "Sie können keine Vorlage löschen, für die aktuell eine Signaturanfrage existiert. Stattdessen kann die Vorlage archiviert werden."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "You cannot reassign this signatory"
 msgstr "Sie können diesen Unterzeichner nicht neu zuordnen"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
-#, python-format
 msgid "You cannot share this document by link, because it has fields to be filled by different roles. Use Send button instead."
 msgstr "Sie können dieses Dokument nicht per Link weitergeben, da es Felder enthält, die von verschiedenen Rollen ausgefüllt werden müssen. Verwenden Sie stattdessen die „Senden“-Schaltfläche."
 
@@ -3905,14 +3719,12 @@ msgstr ""
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "You must specify one signer for each role of your sign template"
 msgstr "Sie müssen für jede Rolle Ihrer Signaturvorlage einen Unterzeichner angeben"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "You need to define a signatory"
 msgstr "Sie müssen einen Unterzeichner festlegen"
 
@@ -3929,7 +3741,6 @@ msgstr "Hier finden Sie Dokumente, die auf Ihre Unterschrift warten."
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "You will receive the final signed document by email."
 msgstr ""
 
@@ -3947,49 +3758,42 @@ msgstr "Sie sind nur einen Klick davon entfernt, Ihren Signaturvorgang zu automa
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
-#, python-format
 msgid "Your confirmation code is %s"
 msgstr "Ihr Bestätigungscode lautet %s"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Your email"
 msgstr "Ihre E-Mail"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Your file is encrypted, PDF's password is required to generate final document. The final document will be encrypted with the same password."
 msgstr "Ihre Datei ist verschlüsselt, das Kennwort für die PDF-Datei ist erforderlich, um das endgültige Dokument zu erstellen. Das endgültige Dokument wird mit demselben Kennwort verschlüsselt."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "Your name"
 msgstr "Ihr Name"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Your signature has been saved."
 msgstr "Ihre Signatur wurde gespeichert."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Your signature has been submitted."
 msgstr ""
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "Your signature was not submitted. Ensure the SMS validation code is correct."
 msgstr "Ihre Signatur wurde nicht eingreicht. Stellen Sie sicher, dass der SMS-Validierungscode korrekt ist."
 
@@ -4001,7 +3805,6 @@ msgstr "und"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/template_alert_dialog/template_alert_dialog.xml:0
-#, python-format
 msgid "and the process will continue"
 msgstr "und der Prozess fährt fort"
 
@@ -4042,14 +3845,12 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "e.g. +1 415 555 0100"
 msgstr "z.B. +1 415 555 0100"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "e.g. 314159"
 msgstr "z.B. 314159"
 
@@ -4114,14 +3915,12 @@ msgstr "es kennzeichnen"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/common/document_signable.js:0
-#, python-format
 msgid "next"
 msgstr "nächste"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/xml/sign_common.xml:0
-#, python-format
 msgid "on"
 msgstr ""
 
@@ -4153,7 +3952,6 @@ msgstr "tags"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
-#, python-format
 msgid "this template to modify it."
 msgstr "diese Vorlage um es zu modifizieren."
 

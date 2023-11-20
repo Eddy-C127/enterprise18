@@ -108,7 +108,6 @@ msgstr "Mã tham chiếu bổ sung cần được chỉ rõ trong đơn yêu c�
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "An user may not be in the approver list multiple times."
 msgstr "Một người dùng không thể xuất hiện nhiều lần trong danh sách người duyệt. "
 
@@ -179,7 +178,6 @@ msgstr "Phê duyệt cần xem xét"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Approve"
 msgstr "Duyệt"
 
@@ -199,7 +197,6 @@ msgstr "Người phê duyệt"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Approver Sequence can only be activated with at least 1 minimum approver."
 msgstr "Trình tự Phê duyệt chỉ có thể được kích hoạt với ít nhất 1 người phê duyệt tối thiểu."
 
@@ -380,7 +377,6 @@ msgstr "Ngày bắt đầu"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Deadline"
 msgstr "Hạn chót"
 
@@ -659,7 +655,6 @@ msgstr "Địa điểm"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Log"
 msgstr "Ghi nhận"
 
@@ -692,7 +687,6 @@ msgstr "Phê duyệt Tối thiểu"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Minimum Approval must be equal or superior to the sum of required Approvers."
 msgstr "Phê duyệt Tối thiểu phải bằng hoặc hơn tổng số Người phê duyệt bắt buộc. "
 
@@ -732,7 +726,6 @@ msgstr "Tên"
 #: code:addons/approvals/models/approval_category.py:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__new
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__new
-#, python-format
 msgid "New"
 msgstr "Mới"
 
@@ -922,7 +915,6 @@ msgstr "Trình tự Tham chiếu"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Refuse"
 msgstr "Từ chối"
 
@@ -981,7 +973,6 @@ msgstr "Người phụ trách"
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__sequence
-#, python-format
 msgid "Sequence"
 msgstr "Trình tự"
 
@@ -1026,21 +1017,18 @@ msgstr "Người dùng sẽ có quyền truy cập cấu hình phê duyệt"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no manager linked to your employee profile."
 msgstr "Yêu cầu này cần phải được quản lý phê duyệt. Không có quản lý nào liên kết với hồ sơ nhân viên của bạn. "
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no user linked to your manager."
 msgstr "Yêu cầu này cần phải được quản lý phê duyệt. Không có người dùng nào liên kết với quản lý của bạn. "
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. Your manager is not in the approvers list."
 msgstr "Yêu cầu này cần phải được quản lý phê duyệt. Quản lý của bạn không nằm trong danh sách người duyệt. "
 
@@ -1050,7 +1038,6 @@ msgstr "Yêu cầu này cần phải được quản lý phê duyệt. Quản l�
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__pending
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__pending
-#, python-format
 msgid "To Approve"
 msgstr "Chờ Phê duyệt"
 
@@ -1079,7 +1066,6 @@ msgstr "Đơn vị tính"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__user_id
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__user_id
-#, python-format
 msgid "User"
 msgstr "Người dùng"
 
@@ -1103,35 +1089,30 @@ msgstr "Rút lại"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot approve before the previous approver."
 msgstr "Bạn không thể phê duyệt trước người phê duyệt trước đó."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot assign the same approver multiple times on the same request."
 msgstr "Bạn không thể giao cùng một yêu cầu cho cùng một người phê duyệt nhiều lần."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to add at least %s approvers to confirm your request."
 msgstr "Bạn phải thêm ít nhất %s người phê duyệt để xác nhận yêu cầu của bạn."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to attach at lease one document."
 msgstr "Bạn phải đính kèm ít nhất một tài liệu."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Your minimum approval exceeds the total of default approvers."
 msgstr "Phê duyệt tối thiểu vượt quá tổng số người phê duyệt mặc định. "
 

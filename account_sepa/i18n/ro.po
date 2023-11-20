@@ -26,14 +26,12 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "A bank account is not defined."
 msgstr "Un cont de bancă nu este definit"
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_payment_register.py:0
-#, python-format
 msgid "A bank account must be set on the following documents: "
 msgstr "Trebuie setat un cont bancar pe următoarele documente:"
 
@@ -45,7 +43,6 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Bank account %s 's bank does not have any BIC number associated. Please define one."
 msgstr ""
 
@@ -115,7 +112,6 @@ msgstr "Jurnal"
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Maximum amount is %s for payments in Euros, %s for other currencies."
 msgstr "Valoare maximă este de %s pentru plățile in Euro, %s pentru alte valute."
 
@@ -127,14 +123,12 @@ msgstr "Numele părții de referință a creditorului. Regula de utilizare: Limi
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Partner %s has no country code defined."
 msgstr ""
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Partner %s has not bank account defined."
 msgstr "Partenerul %s nu are contul de bancă definit."
 
@@ -161,7 +155,6 @@ msgstr "Plăți de trimis prin SEPA"
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Please first set a SEPA identification number in the accounting settings."
 msgstr "Vă rugăm să setați mai întâi un număr de identificare SEPA în setările contabile."
 
@@ -188,7 +181,6 @@ msgstr "Transfer de credite SEPA"
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal_dashboard.py:0
-#, python-format
 msgid "SEPA Credit Transfers to Send"
 msgstr "Transferuri de credite SEPA de trimis"
 
@@ -211,28 +203,24 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments are above the maximum amount allowed."
 msgstr "Unele plăți depășesc suma maximă permisă."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments are not made on an IBAN recipient account. This batch might not be accepted by certain banks because of that."
 msgstr "Unele plăți nu se efectuează pe un cont destinatar IBAN. Acest lot ar putea să nu fie acceptat de anumite bănci din această cauză."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments have no recipient bank account set."
 msgstr "Unele plăți nu au setat un cont bancar destinatar."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid "Some payments were instructed in another currency than Euro. This batch might not be accepted by certain banks because of that."
 msgstr "Unele plăți au fost instruite într-o altă monedă decât euro. Acest lot ar putea să nu fie acceptat de anumite bănci din această cauză."
 
@@ -254,7 +242,6 @@ msgstr "Caracteristică tehnică utilizată în timpul creării fișierului. Se 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid ""
 "The BIC code '%s' associated to the bank '%s' of bank account '%s' of partner '%s' does not respect the required convention.\n"
 "It must contain 8 or 11 characters and match the following structure:\n"
@@ -267,7 +254,6 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid ""
 "The account %s, linked to partner '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
@@ -276,7 +262,6 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
-#, python-format
 msgid ""
 "The account %s, of journal '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
@@ -285,28 +270,24 @@ msgstr ""
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "The amount of the payment '%(payment)s' is too high. The maximum permitted is %(limit)s."
 msgstr ""
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "The bank defined on account %s (from partner %s) has no BIC. Please first set one."
 msgstr ""
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_payment.py:0
-#, python-format
 msgid "The journal '%s' requires a proper IBAN account to pay via SEPA. Please configure it first."
 msgstr ""
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
 msgid "Too many transactions for a single file."
 msgstr "Prea multe tranzacții pentru un singur fișier"
 

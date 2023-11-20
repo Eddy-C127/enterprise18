@@ -49,14 +49,12 @@ msgstr "<span attrs=\"{'invisible': [('package_carrier_type', '!=', 'easypost')]
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "A production key is required in order to load your easypost carriers."
 msgstr "Для завантаження ваших контейнерів easypost потрібен робочий ключ."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "A production key is required in order to load your insurance fees."
 msgstr "Щоб завантажити страхові збори, потрібен робочий ключ."
 
@@ -166,7 +164,6 @@ msgstr "Налаштування Easypost"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "Easypost Documents:"
 msgstr ""
 
@@ -204,7 +201,6 @@ msgstr "Веб-сайт Easypost"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Easypost returned an error: %s"
 msgstr "Помилка від Easypost: %s"
 
@@ -247,7 +243,6 @@ msgstr "Ставка страхового внеску (USD)"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "It seems Easypost do not provide shipments for this order.                We advise you to try with another package type or service level."
 msgstr "Здається Easypost не надає послуги доставки за цим замовленням.                Радимо спробувати інший тип пакунка або рівень обслуговування."
 
@@ -291,14 +286,12 @@ msgstr "PNG"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Package type used in pack %s is not configured for easypost."
 msgstr "Тип пакування, що використовується в упаковці %s не налаштований для easypost."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Please provide at least one item to ship."
 msgstr "Будь ласка, надішліть щонайменше один товар для доставки."
 
@@ -315,14 +308,12 @@ msgstr "Провайдер"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "Return Label<br/>"
 msgstr "Етикетка повернення<br/>"
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Sale Order/Stock Picking is missing."
 msgstr "Відсутнє замовлення на продаж/складське комплектування."
 
@@ -344,7 +335,6 @@ msgstr "Назва рівня обслуговування"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "Shipment created into Easypost<br/><b>Tracking Numbers:</b> %s<br/>"
 msgstr "Доставка створена в Easypost<br/><b>Номер відстеження:</b> %s<br/>"
 
@@ -371,7 +361,6 @@ msgstr "Тестовий API-ключ"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Default Package Type)"
@@ -382,7 +371,6 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Delivery Carrier Type)"
@@ -393,7 +381,6 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Production API Key)"
@@ -404,7 +391,6 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Test API Key)"
@@ -415,14 +401,12 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "The estimated price cannot be computed because the weight of your product is missing."
 msgstr "Оцінювана вартість не може бути обчислена, оскільки вага вашого товару відсутня."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
@@ -433,7 +417,6 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "There is no rate available for the selected service level for one of your package. Please choose another service level."
 msgstr "Для вибраного рівня обслуговування для одного з пакунків немає доступних тарифів. Виберіть інший рівень обслуговування."
 
@@ -445,35 +428,30 @@ msgstr "Переміщення"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "Unable to retrieve your default insurance rates."
 msgstr "Неможливо відновити страхові ставки за замовчуванням."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Unspecified field"
 msgstr "Невизначене поле"
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "You can't cancel Easypost shipping."
 msgstr "Ви не можете скасувати доставку Easypost."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "You have no carrier linked to your Easypost Account.                Please connect to Easypost, link your account to carriers and then retry."
 msgstr "У вас немає прив'язаного перевізника до облікового запису Easypost.                Будь ласка, зв'яжіться з Easypost, прив'яжіть ваш обліковий запис до перевізників та спробуйте ще раз."
 

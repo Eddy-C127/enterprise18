@@ -109,7 +109,6 @@ msgstr "Ein zusätzlicher Verweis welcher in der Anfrage angegeben werden muss."
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "An user may not be in the approver list multiple times."
 msgstr "Ein Benutzer darf nicht mehrfach in der Liste der Genehmigenden stehen."
 
@@ -180,7 +179,6 @@ msgstr "Genehmigungen zur Überprüfung"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Approve"
 msgstr "Genehmigen"
 
@@ -200,7 +198,6 @@ msgstr "Genehmigender"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Approver Sequence can only be activated with at least 1 minimum approver."
 msgstr "Die Genehmigungsreihenfolge kann nur mit mindestens 1 Genehmigenden aktiviert werden."
 
@@ -381,7 +378,6 @@ msgstr "Datum Start"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Deadline"
 msgstr "Frist"
 
@@ -659,7 +655,6 @@ msgstr "Ort"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Log"
 msgstr "Protokoll"
 
@@ -692,7 +687,6 @@ msgstr "Mindestgenehmigung"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Minimum Approval must be equal or superior to the sum of required Approvers."
 msgstr "Die Mindestgenehmigung muss gleich oder höher sein als die Summe der erforderlichen Genehmigenden."
 
@@ -732,7 +726,6 @@ msgstr "Name"
 #: code:addons/approvals/models/approval_category.py:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__new
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__new
-#, python-format
 msgid "New"
 msgstr "Neu"
 
@@ -922,7 +915,6 @@ msgstr "Nummernfolge"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Refuse"
 msgstr "Zurücksetzen"
 
@@ -981,7 +973,6 @@ msgstr "Verantwortlicher Benutzer"
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__sequence
-#, python-format
 msgid "Sequence"
 msgstr "Reihenfolge"
 
@@ -1026,21 +1017,18 @@ msgstr "Der Benutzer hat Zugriff auf die Konfiguration der Genehmigungen."
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no manager linked to your employee profile."
 msgstr "Dieser Antrag muss von Ihrem Vorgesetzten genehmigt werden. Mit Ihrem Mitarbeiterprofil ist kein Vorgesetzter verknüpft."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no user linked to your manager."
 msgstr "Dieser Antrag muss von Ihrem Vorgesetzten genehmigt werden. Es gibt keinen Benutzer, der mit Ihrem Vorgesetzten verknüpft ist."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. Your manager is not in the approvers list."
 msgstr "Dieser Antrag muss von Ihrem Vorgesetzten genehmigt werden. Ihr Vorgesetzter ist nicht in der Liste der Genehmigenden."
 
@@ -1050,7 +1038,6 @@ msgstr "Dieser Antrag muss von Ihrem Vorgesetzten genehmigt werden. Ihr Vorgeset
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__pending
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__pending
-#, python-format
 msgid "To Approve"
 msgstr "Zur Genehmigung"
 
@@ -1079,7 +1066,6 @@ msgstr "Mengeneinheit"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__user_id
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__user_id
-#, python-format
 msgid "User"
 msgstr "Benutzer"
 
@@ -1103,35 +1089,30 @@ msgstr "Zurückziehen"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot approve before the previous approver."
 msgstr "Sie können nicht vor dem vorherigen Genehmigenden genehmigen."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot assign the same approver multiple times on the same request."
 msgstr "Sie können denselben Genehmiger nicht mehrfach für dieselbe Anfrage zuweisen."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to add at least %s approvers to confirm your request."
 msgstr "Sie müssen mindestens %s Genehmigende hinzufügen, um Ihre Anfrage zu bestätigen."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to attach at lease one document."
 msgstr "Sie müssen mindestens ein Dokument anhängen."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Your minimum approval exceeds the total of default approvers."
 msgstr "Ihre Mindestgenehmigung übersteigt die Gesamtzahl der Standardgenehmiger."
 

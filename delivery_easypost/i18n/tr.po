@@ -56,14 +56,12 @@ msgstr "<span attrs=\"{'invisible': [('package_carrier_type', '!=', 'easypost')]
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "A production key is required in order to load your easypost carriers."
 msgstr "Easypost taşıyıcılarınızı yüklemek için bir üretim anahtarı gereklidir."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "A production key is required in order to load your insurance fees."
 msgstr "Sigorta ücretlerinizi yüklemek için bir üretim anahtarı gereklidir."
 
@@ -173,7 +171,6 @@ msgstr "Easypost Yapılandırma"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "Easypost Documents:"
 msgstr ""
 
@@ -211,7 +208,6 @@ msgstr "Easypost Website"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Easypost returned an error: %s"
 msgstr "Easypost bir hata döndürdü: %s"
 
@@ -254,7 +250,6 @@ msgstr "Sigorta ücreti oranı (USD)"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "It seems Easypost do not provide shipments for this order.                We advise you to try with another package type or service level."
 msgstr "Easypost bu sipariş için gönderi sağlamıyor gibi görünüyor. Başka bir paket tipi veya hizmet seviyesi ile denemenizi tavsiye ederiz."
 
@@ -298,14 +293,12 @@ msgstr "PNG"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Package type used in pack %s is not configured for easypost."
 msgstr "Pakette kullanılan %s paket türü, easypost için yapılandırılmamış."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Please provide at least one item to ship."
 msgstr "En az bir adet kargolanacak ürün sağlayın."
 
@@ -322,14 +315,12 @@ msgstr "Sağlayıcı"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "Return Label<br/>"
 msgstr "İade etiketi"
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Sale Order/Stock Picking is missing."
 msgstr "Satış Siparişi/Stok Transferi eksik."
 
@@ -351,7 +342,6 @@ msgstr "Hizmet Düzeyi Adı"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "Shipment created into Easypost<br/><b>Tracking Numbers:</b> %s<br/>"
 msgstr "Easypost <br/><b>Takip Numaralarında</b><br/> oluşturulan gönderi: %s"
 
@@ -378,7 +368,6 @@ msgstr "API Anahtarını Test Et"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Default Package Type)"
@@ -389,7 +378,6 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Delivery Carrier Type)"
@@ -400,7 +388,6 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Production API Key)"
@@ -411,7 +398,6 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Test API Key)"
@@ -422,14 +408,12 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "The estimated price cannot be computed because the weight of your product is missing."
 msgstr "Ürününüzün ağırlığı olmadığı için tahmini fiyat hesaplanamadı."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
@@ -440,7 +424,6 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "There is no rate available for the selected service level for one of your package. Please choose another service level."
 msgstr "Paketlerinizden biri için seçilen hizmet düzeyi için geçerli bir ücret yok. Lütfen başka bir hizmet düzeyi seçin."
 
@@ -452,35 +435,30 @@ msgstr "Transfer"
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "Unable to retrieve your default insurance rates."
 msgstr "Varsayılan sigorta oranlarınız alınamıyor."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Unknown error"
 msgstr "Bilinmeyen hata"
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "Unspecified field"
 msgstr "Belirtilmemiş alan"
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
-#, python-format
 msgid "You can't cancel Easypost shipping."
 msgstr "Easypost gönderimini iptal edemezsiniz."
 
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-#, python-format
 msgid "You have no carrier linked to your Easypost Account.                Please connect to Easypost, link your account to carriers and then retry."
 msgstr "Easypost Hesabınıza bağlı operatörünüz yok. Lütfen Easypost'a bağlanın, hesabınızı operatörlere bağlayın ve ardından yeniden deneyin."
 

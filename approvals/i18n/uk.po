@@ -108,7 +108,6 @@ msgstr "Додаткове посилання, яке повинно бути в
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "An user may not be in the approver list multiple times."
 msgstr "Користувач може не бути в списку затверджувачів кілька разів."
 
@@ -179,7 +178,6 @@ msgstr "Схвалення для перегляду"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Approve"
 msgstr "Затвердити"
 
@@ -199,7 +197,6 @@ msgstr "Підтверджувач"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Approver Sequence can only be activated with at least 1 minimum approver."
 msgstr "Послідовність затверджувачів можна активувати лише за наявності принаймні 1 затверджувача."
 
@@ -380,7 +377,6 @@ msgstr "Початкова дата"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Deadline"
 msgstr "Кінцевий термін"
 
@@ -659,7 +655,6 @@ msgstr "Розташування"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-#, python-format
 msgid "Log"
 msgstr "Примітка"
 
@@ -692,7 +687,6 @@ msgstr "Мінімальне схвалення"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Minimum Approval must be equal or superior to the sum of required Approvers."
 msgstr "Мінімальне схвалення має дорівнювати або перевищувати суму необхідних схвалювачів."
 
@@ -732,7 +726,6 @@ msgstr "Назва"
 #: code:addons/approvals/models/approval_category.py:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__new
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__new
-#, python-format
 msgid "New"
 msgstr "Новий"
 
@@ -922,7 +915,6 @@ msgstr "Послідовність нумерування посилань"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
-#, python-format
 msgid "Refuse"
 msgstr "Відхилити"
 
@@ -981,7 +973,6 @@ msgstr "Відповідальний користувач"
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__sequence
-#, python-format
 msgid "Sequence"
 msgstr "Послідовність"
 
@@ -1026,21 +1017,18 @@ msgstr "Користувач матиме доступ до налаштуван
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no manager linked to your employee profile."
 msgstr "Цей запит має схвалити ваш менеджер. Немає менеджера, пов’язаного з вашим профілем співробітника."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. There is no user linked to your manager."
 msgstr "Цей запит має схвалити ваш менеджер. Немає жодного користувача, пов’язаного з вашим менеджером."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "This request needs to be approved by your manager. Your manager is not in the approvers list."
 msgstr "Цей запит має схвалити ваш менеджер. Вашого менеджера немає у списку затверджувачів."
 
@@ -1050,7 +1038,6 @@ msgstr "Цей запит має схвалити ваш менеджер. Ва�
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__pending
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__pending
-#, python-format
 msgid "To Approve"
 msgstr "Необхідно затвердити"
 
@@ -1079,7 +1066,6 @@ msgstr "Одиниця вимірювання"
 #: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__user_id
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__user_id
-#, python-format
 msgid "User"
 msgstr "Користувач"
 
@@ -1103,35 +1089,30 @@ msgstr "Зняти"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot approve before the previous approver."
 msgstr "Ви не можете схвалити раніше, ніж попередній схвалювач."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You cannot assign the same approver multiple times on the same request."
 msgstr "Ви не можете призначити того самого схвалювача кілька разів для одного запиту."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to add at least %s approvers to confirm your request."
 msgstr "Вам необхідно додати принаймні %s затверджувачів для підтвердження вашого запиту."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-#, python-format
 msgid "You have to attach at lease one document."
 msgstr "Вам необхідно прикріпити принаймні один документ."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-#, python-format
 msgid "Your minimum approval exceeds the total of default approvers."
 msgstr "Ваше мінімальне схвалення перевищує загальну кількість схвалювачів за замовчуванням."
 
