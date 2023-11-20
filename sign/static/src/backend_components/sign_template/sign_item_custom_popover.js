@@ -81,7 +81,7 @@ export class SignItemCustomPopover extends Component {
             activeFields: this.signItemFieldsGet,
             onRecordChanged: async (record, changes) => {
                 if (changes.option_ids) {
-                    const ids = changes.option_ids[0][2];
+                    const ids = changes.option_ids.map((command) => command[1]);
                     this.state.option_ids = ids;
                     return this.props.updateSelectionOptions(ids);
                 }
