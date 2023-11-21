@@ -184,7 +184,7 @@ class AccountBankStatementLine(models.Model):
             account_number_nums = sanitize_account_number(self.account_number)
             if account_number_nums:
                 domain = [('sanitized_acc_number', 'ilike', account_number_nums)]
-                for extra_domain in (self.env['res.partner.bank']._check_company_domain(self.company_id), []):
+                for extra_domain in ([('company_id', 'parent_of', self.company_id.id)], [('company_id', '=', False)]):
                     bank_accounts = self.env['res.partner.bank'].search(extra_domain + domain)
                     if len(bank_accounts.partner_id) == 1:
                         return bank_accounts.partner_id
