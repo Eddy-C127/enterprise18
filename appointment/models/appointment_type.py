@@ -140,6 +140,7 @@ class AppointmentType(models.Model):
         compute="_compute_resource_ids", store=True, readonly=False)
     resource_count = fields.Integer('# Resources', compute='_compute_resource_info')
     resource_manual_confirmation = fields.Boolean("Manual Confirmation",
+        compute="_compute_resource_manual_confirmation", store=True, readonly=False,
         help="""Do not automatically accept meetings created from the appointment once the total capacity
             reserved for a slot exceeds the percentage chosen. The appointment is still considered as reserved for
             the slots availability.""")
@@ -276,6 +277,12 @@ class AppointmentType(models.Model):
         for appointment_type in self:
             if appointment_type.schedule_based_on == 'users':
                 appointment_type.resource_manage_capacity = False
+
+    @api.depends('schedule_based_on')
+    def _compute_resource_manual_confirmation(self):
+        for appointment_type in self:
+            if appointment_type.schedule_based_on == 'users':
+                appointment_type.resource_manual_confirmation = False
 
     @api.depends('staff_user_ids')
     def _compute_staff_user_count(self):
@@ -528,7 +535,7 @@ class AppointmentType(models.Model):
         """
         self.ensure_one()
         default_state = 'accepted'
-        if self.resource_manual_confirmation:
+        if self.schedule_based_on == 'resources' and self.resource_manual_confirmation:
             bookings_data = self.env['appointment.booking.line'].sudo()._read_group([
                 ('appointment_type_id', '=', self.id),
                 ('event_start', '<', datetime.combine(stop_dt, time.max)),
