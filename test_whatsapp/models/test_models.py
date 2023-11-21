@@ -45,6 +45,24 @@ class WhatsAppTestNoThread(models.Model):
             record.phone = record.customer_id.phone
 
 
+class WhatsAppTestNoThreadNoName(models.Model):
+    """ Same as base test model but with no way to get a responsible and that
+    does not have a name. """
+    _description = 'WhatsApp NoThread / NoResponsible /NoName'
+    _name = 'whatsapp.test.nothread.noname'
+    _rec_name = 'customer_id'
+
+    country_id = fields.Many2one('res.country', 'Country')
+    customer_id = fields.Many2one('res.partner', 'Customer')
+    phone = fields.Char('Phone', compute='_compute_phone', readonly=False, store=True)
+    user_id = fields.Many2one('res.users', string="Salesperson")
+
+    @api.depends('customer_id')
+    def _compute_phone(self):
+        for record in self.filtered(lambda rec: not rec.phone):
+            record.phone = record.customer_id.phone
+
+
 class WhatsAppTestResponsible(models.Model):
     """ Same as base test model but with responsible fields """
     _description = 'WhatsApp Responsible Test'

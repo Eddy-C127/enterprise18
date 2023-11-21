@@ -322,17 +322,29 @@ class WhatsAppMessage(models.Model):
         channel = self.wa_account_id._find_active_channel(self.mobile_number_formatted)
         if not channel:
             return
-        model_name = self.env[self.mail_message_id.model].display_name
-        info = _("Template %(template_name)s was sent from another model", template_name=self.wa_template_id.name)
+
+        model_name = False
+        if self.mail_message_id.model:
+            model_name = self.env['ir.model']._get(self.mail_message_id.model).display_name
         if model_name:
             info = _("Template %(template_name)s was sent from %(model_name)s",
                      template_name=self.wa_template_id.name, model_name=model_name)
-        url = Markup("{base_url}/web#model={model}&id={res_id}").format(
-            base_url=self.get_base_url(), model=self.mail_message_id.model, res_id=self.mail_message_id.res_id)
+        else:
+            info = _("Template %(template_name)s was sent from another model",
+                     template_name=self.wa_template_id.name)
+
+        record_name = self.mail_message_id.record_name
+        if not record_name and self.mail_message_id.res_id:
+            record_name = self.env[self.mail_message_id.model].browse(self.mail_message_id.res_id).display_name
+
+        url = f"{self.get_base_url()}/web#model={self.mail_message_id.model}&id={self.mail_message_id.res_id}"
         channel.sudo().message_post(
             message_type='notification',
-            body=Markup('<p>{info}<a target="_blank" href="{url}">{record_name}</a></p>').format(
-                info=info, url=url, record_name=self.mail_message_id.record_name)
+            body=Markup('<p>{info} <a target="_blank" href="{url}">{record_name}</a></p>').format(
+                info=info,
+                url=url,
+                record_name=record_name,
+            ),
         )
 
     @api.model
