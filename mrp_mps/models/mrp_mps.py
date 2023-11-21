@@ -505,11 +505,11 @@ class MrpProductionSchedule(models.Model):
             """
             if not products:
                 return related_products
-            boms = products.bom_ids | products.mapped('product_variant_ids.bom_ids')
-            products = boms.mapped('bom_line_ids.product_id')
-            products -= related_products
-            related_products |= products
-            return _use_boms(products, related_products)
+            components = products.mapped(lambda product: product.bom_ids.bom_line_ids.filtered(lambda line: not line._skip_bom_line(product)).mapped('product_id'))
+
+            components -= related_products
+            related_products |= components
+            return _use_boms(components, related_products)
 
         supplied_mps = self.env['mrp.production.schedule'].search(
             AND([domain, [
