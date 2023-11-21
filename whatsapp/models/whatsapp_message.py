@@ -9,6 +9,7 @@ from datetime import timedelta
 
 from odoo import models, fields, api, _, Command
 from odoo.addons.phone_validation.tools import phone_validation
+from odoo.addons.whatsapp.tools import phone_validation as wa_phone_validation
 from odoo.addons.whatsapp.tools.retryable_codes import WHATSAPP_RETRYABLE_ERROR_CODES
 from odoo.addons.whatsapp.tools.whatsapp_api import WhatsAppApi
 from odoo.addons.whatsapp.tools.whatsapp_exception import WhatsAppError
@@ -39,7 +40,9 @@ class WhatsAppMessage(models.Model):
     _ACTIVE_THRESHOLD_DAYS = 15
 
     mobile_number = fields.Char(string="Sent To")
-    mobile_number_formatted = fields.Char(compute="_compute_mobile_number_formatted", store=True)
+    mobile_number_formatted = fields.Char(
+        string="Mobile Number Formatted",
+        compute="_compute_mobile_number_formatted", readonly=False, store=True)
     message_type = fields.Selection([
         ('outbound', 'Outbound'),
         ('inbound', 'Inbound')], string="Message Type", default='outbound')
@@ -79,8 +82,14 @@ class WhatsAppMessage(models.Model):
         for message in self:
             recipient_partner = message.mail_message_id.partner_ids[0] if message.mail_message_id.partner_ids else self.env['res.partner']
             country = recipient_partner.country_id if recipient_partner.country_id else self.env.company.country_id
-            sanitized_number = message._phone_format(number=message.mobile_number, country=country)
-            message.mobile_number_formatted = '' if not sanitized_number else self._get_formatted_number(sanitized_number, country.code)
+            formatted = wa_phone_validation.wa_phone_format(
+                country,  # could take mail.message record as context but seems overkill
+                number=message.mobile_number,
+                country=country,
+                force_format="WHATSAPP",
+                raise_exception=False,
+            )
+            message.mobile_number_formatted = formatted or ''
 
     # ------------------------------------------------------------
     # CRUD
@@ -134,6 +143,8 @@ class WhatsAppMessage(models.Model):
         :examples:
         '+919999912345' -> '919999912345'
         :return: formatted mobile number
+
+        TDE FIXME: remove in master
         """
         mobile_number_parse = phone_validation.phone_parse(sanitized_number, country_code)
         return f'{mobile_number_parse.country_code}{mobile_number_parse.national_number}'

@@ -8,6 +8,7 @@ from ast import literal_eval
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError, RedirectWarning
 from odoo.addons.phone_validation.tools import phone_validation
+from odoo.addons.whatsapp.tools import phone_validation as wa_phone_validation
 
 _logger = logging.getLogger(__name__)
 
@@ -219,12 +220,22 @@ class WhatsAppComposer(models.TransientModel):
                 )
         free_text_json = self._get_text_free_json()
         message_vals = []
-        company_country_id = self.env.company.country_id
         for rec in records:
-            mobile_number = rec.mapped(self.wa_template_id.phone_field)[0] if self.batch_mode else self.phone
-            formatted_number = phone_validation.phone_format(mobile_number, company_country_id.code, company_country_id.phone_code) if mobile_number else False
-            if not formatted_number:
+            if self.batch_mode:
+                mobile_number = rec[self.wa_template_id.phone_field]
+                formatted_number_wa = wa_phone_validation.wa_phone_format(
+                    rec, fname=self.wa_template_id.phone_field,
+                    force_format="WHATSAPP",
+                )
+            else:
+                mobile_number = self.phone
+                formatted_number_wa = wa_phone_validation.wa_phone_format(
+                    rec, number=self.phone,
+                    force_format="WHATSAPP",
+                )
+            if not formatted_number_wa:
                 continue
+
             body = self._get_html_preview_whatsapp(rec=rec)
             post_values = {
                 'attachment_ids': [self.attachment_id.id] if self.attachment_id else [],
@@ -242,6 +253,7 @@ class WhatsAppComposer(models.TransientModel):
             message_vals.append({
                 'mail_message_id': message.id,
                 'mobile_number': mobile_number,
+                'mobile_number_formatted': formatted_number_wa,
                 'free_text_json': free_text_json,
                 'wa_template_id': self.wa_template_id.id,
                 'wa_account_id': self.wa_template_id.wa_account_id.id,
