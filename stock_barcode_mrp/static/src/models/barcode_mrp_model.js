@@ -13,7 +13,6 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         this.validateContext = {};
         this.backorderModel = 'mrp.production';
         this.actionName = 'stock_barcode_mrp.stock_barcode_mo_client_action';
-        this.needSourceConfirmation = false;
         this.componentLoaded = false;
     }
 
@@ -263,13 +262,13 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         return super._shouldCreateLineOnExceed(line);
     }
 
-    async _createNewLine(params) {
+    async createNewLine(params) {
         const { product_id } = params.fieldsParams;
         if (!this.record.product_id && product_id ) {
             this.record.product_id = product_id;
             return await this.save();
         }
-        return await super._createNewLine(...arguments);
+        return super.createNewLine(...arguments);
     }
 
     updateLine(line, args) {
