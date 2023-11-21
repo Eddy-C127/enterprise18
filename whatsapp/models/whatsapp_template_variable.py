@@ -9,6 +9,7 @@ from odoo.exceptions import UserError, ValidationError
 class WhatsAppTemplateVariable(models.Model):
     _name = 'whatsapp.template.variable'
     _description = 'WhatsApp Template Variable'
+    _order = 'line_type desc, name, id'
 
     name = fields.Char(string="Placeholder", required=True)
     button_id = fields.Many2one('whatsapp.template.button', ondelete='cascade')
