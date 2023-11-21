@@ -504,17 +504,28 @@ registry.category("web_tour.tours").add("test_barcode_production_reserved_from_m
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add('test_barcode_production_reserved_tracked_product', {test: true, steps: () => [
-    // scan the not tracked component
+registry.category("web_tour.tours").add('test_barcode_production_scan_other_than_reserved', {test: true, steps: () => [
     {
-        trigger: '.o_barcode_client_action',
-        run: 'scan compo01'
+        trigger: ".o_barcode_client_action",
+        run: function() { // Check all lines are here (header + 2 compos)
+            const lines = helper.getLines();
+            helper.assert(lines.length, 3, "The final product line + 2 components lines");
+            const [headerLine, line1, line2] = lines;
+            helper.assertLineProduct(headerLine, "Final Product2");
+            helper.assertLineQty(headerLine, "0 / 2");
+            helper.assertLineProduct(line1, "Compo 01");
+            helper.assertLineSourceLocation(line1, "WH/Stock")
+            helper.assertLineQty(line1, "0 / 2");
+            helper.assertLineProduct(line2, "Compo Lot");
+            helper.assertLineQty(line2, "0 / 2");
+            helper.assertLineSourceLocation(line2, "WH/Stock")
+        }
     },
+    // scan the tracked comp and the non-reserved lot in the same loc as reserved ones
     {
-        trigger: '.o_barcode_client_action',
-        run: 'scan compo01'
+        trigger: ".o_scan_message.o_scan_src",
+        run: "scan LOC-01-00-00",
     },
-    // scan the tracked comp and the non-reserved lot
     {
         trigger: '.o_barcode_client_action',
         run: 'scan compo_lot'
@@ -535,13 +546,25 @@ registry.category("web_tour.tours").add('test_barcode_production_reserved_tracke
         run: function() {
             helper.assertLinesCount(3);
             helper.assertSublinesCount(2);
-            helper.assertScanMessage('scan_final_product');
             const [ line1, line2 ] = helper.getSublines();
             helper.assert(line1.querySelector('.o_line_lot_name').innerText, "lot_01");
             helper.assert(line1.querySelector('.qty-done').innerText, "0");
             helper.assert(line2.querySelector('.o_line_lot_name').innerText, "lot_02");
             helper.assert(line2.querySelector('.qty-done').innerText, "2");
         }
+    },
+    // scan the not tracked component from a different location (shelf1) than the reserved
+    {
+        trigger: ".o_barcode_client_action",
+        run: "scan LOC-01-01-00",
+    },
+    {
+        trigger: '.o_barcode_client_action',
+        run: 'scan compo01'
+    },
+    {
+        trigger: '.o_barcode_client_action',
+        run: 'scan compo01'
     },
     // scan the final product + its lot name
     {
