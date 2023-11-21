@@ -24,6 +24,8 @@ function datasetFromElements(elements) {
 }
 
 export class Document extends Component {
+    static template = xml`<t t-slot='default'/>`;
+
     setup() {
         this.rpc = useService("rpc");
         this.orm = useService("orm");
@@ -156,8 +158,6 @@ export class Document extends Component {
     }
 }
 
-Document.template = xml`<t t-slot='default'/>`;
-
 function usePublicRefuseButton() {
     const component = useComponent();
     useEffect(
@@ -174,6 +174,11 @@ function usePublicRefuseButton() {
 }
 
 export class SignableDocument extends Document {
+    static components = {
+        MainComponentsContainer,
+    };
+    static template = xml`<MainComponentsContainer/>`;
+
     setup() {
         super.setup();
         this.coords = {};
@@ -215,10 +220,6 @@ export class SignableDocument extends Document {
     }
 }
 
-SignableDocument.components = {
-    MainComponentsContainer,
-};
-SignableDocument.template = xml`<MainComponentsContainer/>`;
 /**
  * Mounts the SignableComponent
  * @param { HTMLElement } parent

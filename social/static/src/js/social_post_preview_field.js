@@ -7,6 +7,11 @@ import { registry } from "@web/core/registry";
 import { markup } from "@odoo/owl";
 
 export class FieldPostPreview extends SocialPostFormatterMixin(HtmlField) {
+    static props = {
+        ...FieldPostPreview.props,
+        mediaType: { type: String, optional: true },
+    };
+
     get markupValue() {
         const $html = $(this.props.record.data[this.props.name] + '');
         $html.find('.o_social_preview_message').each((index, previewMessage) => {
@@ -16,11 +21,6 @@ export class FieldPostPreview extends SocialPostFormatterMixin(HtmlField) {
         return markup($html[0].outerHTML);
     }
 }
-
-FieldPostPreview.props = {
-    ...FieldPostPreview.props,
-    mediaType: { type: String, optional: true },
-};
 
 export const fieldPostPreview = {
     ...htmlField,

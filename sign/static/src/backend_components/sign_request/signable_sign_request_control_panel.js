@@ -6,6 +6,11 @@ import { Component, markup } from "@odoo/owl";
 import { SignRefusalDialog } from "@sign/dialogs/dialogs";
 
 export class SignableRequestControlPanel extends Component {
+    static template = "sign.SignSignableRequestControlPanel";
+    static components = {
+        ControlPanel,
+    };
+
     setup() {
         this.controlPanelDisplay = {};
         this.action = useService("action");
@@ -27,8 +32,3 @@ export class SignableRequestControlPanel extends Component {
         this.env.editWhileSigningBus.trigger("toggleEditBar");
     }
 }
-
-SignableRequestControlPanel.template = "sign.SignSignableRequestControlPanel";
-SignableRequestControlPanel.components = {
-    ControlPanel,
-};

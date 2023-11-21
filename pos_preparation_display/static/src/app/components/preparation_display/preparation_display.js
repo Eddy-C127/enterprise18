@@ -6,6 +6,8 @@ import { usePreparationDisplay } from "@pos_preparation_display/app/preparation_
 import { Component, onPatched, useState } from "@odoo/owl";
 
 export class PreparationDisplay extends Component {
+    static components = { Category, Stages, Order };
+    static template = `pos_preparation_display.PreparationDisplay`;
     static props = {};
 
     setup() {
@@ -85,6 +87,3 @@ export class PreparationDisplay extends Component {
         this.state.isMenuOpened = true;
     }
 }
-
-PreparationDisplay.components = { Category, Stages, Order };
-PreparationDisplay.template = `pos_preparation_display.PreparationDisplay`;

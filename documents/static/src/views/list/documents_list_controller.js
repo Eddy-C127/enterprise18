@@ -6,6 +6,7 @@ import { preSuperSetup, useDocumentView } from "@documents/views/hooks";
 import { useState } from "@odoo/owl";
 
 export class DocumentsListController extends ListController {
+    static template = "documents.DocumentsListController";
     setup() {
         preSuperSetup();
         super.setup(...arguments);
@@ -84,5 +85,3 @@ export class DocumentsListController extends ListController {
         root.records[0].openDeleteConfirmationDialog(root, callback, false);
     }
 }
-
-DocumentsListController.template = "documents.DocumentsListController";

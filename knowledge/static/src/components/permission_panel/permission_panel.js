@@ -12,6 +12,11 @@ const restrictMessage = _t("Are you sure you want to restrict access to this art
 const loseWriteMessage = _t('Are you sure you want to remove your own "Write" access?');
 
 export class PermissionPanel extends Component {
+    static template = "knowledge.PermissionPanel";
+    static props = {
+        record: Object,
+    };
+
     /**
      * @override
      */
@@ -334,10 +339,5 @@ export class PermissionPanel extends Component {
         await this.props.record.load();
     }
 }
-
-PermissionPanel.template = 'knowledge.PermissionPanel';
-PermissionPanel.props = {
-    record: Object,
-};
 
 export default PermissionPanel;

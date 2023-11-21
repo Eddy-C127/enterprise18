@@ -6,6 +6,8 @@ import { IoTConnectionErrorDialog } from '../iot_connection_error_dialog';
 import { Component } from "@odoo/owl";
 
 export class IoTBoxDownloadLogs extends Component {
+    static template = `iot.IoTBoxDownloadLogs`;
+
     setup() {
         super.setup();
         this.dialog = useService('dialog');
@@ -30,7 +32,6 @@ export class IoTBoxDownloadLogs extends Component {
         this.dialog.add(IoTConnectionErrorDialog, { href: url });
     }
 }
-IoTBoxDownloadLogs.template = `iot.IoTBoxDownloadLogs`;
 
 export const ioTBoxDownloadLogs = {
     component: IoTBoxDownloadLogs,

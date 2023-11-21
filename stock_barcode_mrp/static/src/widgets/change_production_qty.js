@@ -5,6 +5,7 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart } from "@odoo/owl";
 
 export class ChangeProductionQty extends Component {
+    static template = "stock_barcode_mrp.ChangeProductionQty";
     setup() {
         this.actionService = useService("action");
         const user = useService('user');
@@ -31,7 +32,6 @@ export class ChangeProductionQty extends Component {
     }
 }
 
-ChangeProductionQty.template = 'stock_barcode_mrp.ChangeProductionQty';
 export const ChangeProductionQtyButton = {
     component: ChangeProductionQty,
 };

@@ -11,6 +11,16 @@ import { CogMenu } from "@web/search/cog_menu/cog_menu";
 import { Component, toRaw, useRef } from "@odoo/owl";
 
 export class CohortController extends Component {
+    static template = "web_cohort.CohortView";
+    static components = { Layout, SearchBar, CogMenu };
+    static props = {
+        ...standardViewProps,
+        Model: Function,
+        modelParams: Object,
+        Renderer: Function,
+        buttonTemplate: String,
+    };
+
     setup() {
         this.actionService = useService("action");
         this.model = useModelWithSampleData(this.props.Model, toRaw(this.props.modelParams));
@@ -59,13 +69,3 @@ export class CohortController extends Component {
         });
     }
 }
-
-CohortController.template = "web_cohort.CohortView";
-CohortController.components = { Layout, SearchBar, CogMenu };
-CohortController.props = {
-    ...standardViewProps,
-    Model: Function,
-    modelParams: Object,
-    Renderer: Function,
-    buttonTemplate: String,
-};

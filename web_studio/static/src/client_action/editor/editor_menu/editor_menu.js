@@ -39,6 +39,69 @@ class Breadcrumbs extends Component {
 }
 
 export class EditorMenu extends Component {
+    static props = {
+        switchTab: Function,
+        switchView: Function,
+    };
+    static template = "web_studio.EditorMenu";
+    static viewTypes = [
+        {
+            title: _t("Form"),
+            type: "form",
+            iconClasses: "fa fa-address-card",
+        },
+        {
+            title: _t("List"),
+            type: "list",
+            iconClasses: "oi oi-view-list",
+        },
+        {
+            title: _t("Kanban"),
+            type: "kanban",
+            iconClasses: "oi oi-view-kanban",
+        },
+        {
+            title: _t("Map"),
+            type: "map",
+            iconClasses: "fa fa-map-marker",
+        },
+        {
+            title: _t("Calendar"),
+            type: "calendar",
+            iconClasses: "fa fa-calendar",
+        },
+        {
+            title: _t("Graph"),
+            type: "graph",
+            iconClasses: "fa fa-area-chart",
+        },
+        {
+            title: _t("Pivot"),
+            type: "pivot",
+            iconClasses: "oi oi-view-pivot",
+        },
+        {
+            title: _t("Gantt"),
+            type: "gantt",
+            iconClasses: "fa fa-tasks",
+        },
+        {
+            title: _t("Cohort"),
+            type: "cohort",
+            iconClasses: "oi oi-view-cohort",
+        },
+        {
+            title: _t("Activity"),
+            type: "activity",
+            iconClasses: "fa fa-clock-o",
+        },
+        {
+            title: _t("Search"),
+            type: "search",
+            iconClasses: "oi oi-search",
+        },
+    ];
+
     static components = { Breadcrumbs };
     setup() {
         this.l10n = localization;
@@ -66,68 +129,6 @@ export class EditorMenu extends Component {
         this.props.switchTab({ tab });
     }
 }
-EditorMenu.props = {
-    switchTab: Function,
-    switchView: Function,
-};
-EditorMenu.template = "web_studio.EditorMenu";
-EditorMenu.viewTypes = [
-    {
-        title: _t("Form"),
-        type: "form",
-        iconClasses: "fa fa-address-card",
-    },
-    {
-        title: _t("List"),
-        type: "list",
-        iconClasses: "oi oi-view-list",
-    },
-    {
-        title: _t("Kanban"),
-        type: "kanban",
-        iconClasses: "oi oi-view-kanban",
-    },
-    {
-        title: _t("Map"),
-        type: "map",
-        iconClasses: "fa fa-map-marker",
-    },
-    {
-        title: _t("Calendar"),
-        type: "calendar",
-        iconClasses: "fa fa-calendar",
-    },
-    {
-        title: _t("Graph"),
-        type: "graph",
-        iconClasses: "fa fa-area-chart",
-    },
-    {
-        title: _t("Pivot"),
-        type: "pivot",
-        iconClasses: "oi oi-view-pivot",
-    },
-    {
-        title: _t("Gantt"),
-        type: "gantt",
-        iconClasses: "fa fa-tasks",
-    },
-    {
-        title: _t("Cohort"),
-        type: "cohort",
-        iconClasses: "oi oi-view-cohort",
-    },
-    {
-        title: _t("Activity"),
-        type: "activity",
-        iconClasses: "fa fa-clock-o",
-    },
-    {
-        title: _t("Search"),
-        type: "search",
-        iconClasses: "oi oi-search",
-    },
-];
 
 editorTabRegistry
     .add("views", { name: _t("Views"), action: "web_studio.action_editor" })

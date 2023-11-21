@@ -6,6 +6,8 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart, useEffect, useState, useRef } from "@odoo/owl";
 
 export class HrReferralWelcome extends Component {
+    static template = "hr_referral.Welcome";
+
     setup() {
         super.setup();
 
@@ -109,7 +111,5 @@ export class HrReferralWelcome extends Component {
     }
 
 }
-
-HrReferralWelcome.template = 'hr_referral.Welcome';
 
 registry.category('actions').add('hr_referral_welcome', HrReferralWelcome);

@@ -7,6 +7,11 @@ import { useRecordObserver } from "@web/model/relational_model/utils";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
 export class TimerStartField extends Component {
+    static props = {
+        ...standardFieldProps,
+    };
+    static template = "timer.TimerStartField";
+
     setup() {
         super.setup(...arguments);
         this.timerService = useService("timer");
@@ -63,11 +68,6 @@ export class TimerStartField extends Component {
         }
     }
 }
-
-TimerStartField.props = {
-    ...standardFieldProps,
-};
-TimerStartField.template = "timer.TimerStartField";
 
 export const timerStartField = {
     component: TimerStartField,

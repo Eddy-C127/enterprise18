@@ -14,6 +14,22 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, useState, onWillStart, markup } from "@odoo/owl";
 
 export class Frontdesk extends Component {
+    static template = "frontdesk.Frontdesk";
+    static components = {
+        WelcomePage,
+        Navbar,
+        VisitorForm,
+        QuickCheckIn,
+        HostPage,
+        RegisterPage,
+        DrinkPage,
+        EndPage,
+    };
+    static props = {
+        id: Number,
+        isMobile: Boolean,
+        currentLang: String,
+    };
     setup() {
         this.state = useState({
             currentComponent: !this.props.isMobile ? WelcomePage : VisitorForm,
@@ -256,22 +272,5 @@ export class Frontdesk extends Component {
         return markup(this.station.description);
     }
 }
-
-Frontdesk.template = "frontdesk.Frontdesk";
-Frontdesk.components = {
-    WelcomePage,
-    Navbar,
-    VisitorForm,
-    QuickCheckIn,
-    HostPage,
-    RegisterPage,
-    DrinkPage,
-    EndPage,
-};
-Frontdesk.props = {
-    id: Number,
-    isMobile: Boolean,
-    currentLang: String,
-};
 
 registry.category("public_components").add("frontdesk", Frontdesk);

@@ -8,6 +8,8 @@ import { KanbanRenderer } from '@web/views/kanban/kanban_renderer';
 import { onWillStart } from "@odoo/owl";
 
 export class ReferralKanbanRenderer extends KanbanRenderer {
+    static template = "hr_referral.KanbanRenderer";
+
     setup() {
         super.setup();
 
@@ -25,7 +27,6 @@ export class ReferralKanbanRenderer extends KanbanRenderer {
         return this.company.activeCompanyIds[0];
     }
 }
-ReferralKanbanRenderer.template = 'hr_referral.KanbanRenderer';
 
 registry.category('views').add('referral_kanban', {
     ...kanbanView,

@@ -6,6 +6,17 @@ import { useService } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
 
 export class PublicSignerDialog extends Component {
+    static template = "sign.PublicSignerDialog";
+    static components = {
+        Dialog,
+    };
+    static props = {
+        name: String,
+        mail: String,
+        postValidation: Function,
+        close: Function,
+    };
+
     setup() {
         this.nameInput = useRef("name");
         this.mailInput = useRef("mail");
@@ -54,15 +65,3 @@ export class PublicSignerDialog extends Component {
         return true;
     }
 }
-
-PublicSignerDialog.template = "sign.PublicSignerDialog";
-PublicSignerDialog.components = {
-    Dialog,
-};
-
-PublicSignerDialog.props = {
-    name: String,
-    mail: String,
-    postValidation: Function,
-    close: Function,
-};

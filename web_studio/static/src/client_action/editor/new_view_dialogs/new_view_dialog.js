@@ -7,6 +7,14 @@ import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_d
 import { onWillStart } from "@odoo/owl";
 
 export class NewViewDialog extends ConfirmationDialog {
+    static template = "web_studio.NewViewDialog";
+    static GROUPABLE_TYPES = ["many2one", "char", "boolean", "selection", "date", "datetime"];
+    static MEASURABLE_TYPES = ["integer", "float"];
+    static props = {
+        ...ConfirmationDialog.props,
+        viewType: String,
+    };
+
     setup() {
         super.setup();
         this.orm = useService("orm");
@@ -89,11 +97,4 @@ export class NewViewDialog extends ConfirmationDialog {
         super._confirm();
     }
 }
-NewViewDialog.template = "web_studio.NewViewDialog";
-NewViewDialog.GROUPABLE_TYPES = ["many2one", "char", "boolean", "selection", "date", "datetime"];
-NewViewDialog.MEASURABLE_TYPES = ["integer", "float"];
-NewViewDialog.props = {
-    ...ConfirmationDialog.props,
-    viewType: String,
-};
 delete NewViewDialog.props.body;

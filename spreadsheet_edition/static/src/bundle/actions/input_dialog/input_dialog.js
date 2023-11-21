@@ -5,6 +5,17 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { _t } from "@web/core/l10n/translation";
 
 export class InputDialog extends Component {
+    static components = { Dialog };
+    static props = {
+        close: Function, // injected by the dialog service
+        body: String,
+        inputType: { type: String, optional: true },
+        inputValue: { type: [String, Number], optional: true },
+        confirm: { type: Function, optional: true },
+        title: { type: String, optional: true },
+    };
+    static template = "spreadsheet_edition.InputDialog";
+
     setup() {
         this.state = useState({
             inputValue: this.props.inputValue,
@@ -20,15 +31,3 @@ export class InputDialog extends Component {
         this.props.confirm?.(this.state.inputValue);
     }
 }
-
-InputDialog.components = { Dialog };
-
-InputDialog.props = {
-    close: Function, // injected by the dialog service
-    body: String,
-    inputType: { type: String, optional: true },
-    inputValue: { type: [String, Number], optional: true },
-    confirm: { type: Function, optional: true },
-    title: { type: String, optional: true },
-};
-InputDialog.template = "spreadsheet_edition.InputDialog";

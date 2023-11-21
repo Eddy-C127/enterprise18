@@ -5,6 +5,8 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, useRef } from "@odoo/owl";
 
 class StudioSystray extends Component {
+    static template = "web_studio.SystrayItem";
+    static props = {};
     setup() {
         this.hm = useService("home_menu");
         this.studio = useService("studio");
@@ -23,8 +25,6 @@ class StudioSystray extends Component {
         this.studio.open();
     }
 }
-StudioSystray.template = "web_studio.SystrayItem";
-StudioSystray.props = {};
 
 export const systrayItem = {
     Component: StudioSystray,

@@ -3570,8 +3570,9 @@ QUnit.module("View Editors", (hooks) => {
     );
 
     QUnit.test("entering x2many with view widget", async (assert) => {
-        class MyWidget extends Component {}
-        MyWidget.template = xml`<div class="myWidget" />`;
+        class MyWidget extends Component {
+            static template = xml`<div class="myWidget" />`;
+        }
         const myWidget = {
             component: MyWidget,
         };

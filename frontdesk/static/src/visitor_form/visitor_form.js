@@ -4,6 +4,23 @@ import { registry } from "@web/core/registry";
 import { Component, onMounted, onWillUnmount, useRef } from "@odoo/owl";
 
 export class VisitorForm extends Component {
+    static template = "frontdesk.VisitorForm";
+    static props = {
+        clearUpdatePlannedVisitors: Function,
+        currentComponent: String,
+        currentLang: String,
+        isMobile: Boolean,
+        isPlannedVisitors: Boolean,
+        langs: [Object, Boolean],
+        onChangeLang: Function,
+        setVisitorData: Function,
+        showScreen: Function,
+        stationInfo: Object,
+        updatePlannedVisitors: Function,
+        visitorData: [Object, Boolean],
+        theme: String,
+    };
+
     setup() {
         this.inputNameRef = useRef("inputName");
         this.inputPhoneRef = useRef("inputPhone");
@@ -34,22 +51,5 @@ export class VisitorForm extends Component {
             : this.props.showScreen("RegisterPage");
     }
 }
-
-VisitorForm.template = "frontdesk.VisitorForm";
-VisitorForm.props = {
-    clearUpdatePlannedVisitors: Function,
-    currentComponent: String,
-    currentLang: String,
-    isMobile: Boolean,
-    isPlannedVisitors: Boolean,
-    langs: [Object, Boolean],
-    onChangeLang: Function,
-    setVisitorData: Function,
-    showScreen: Function,
-    stationInfo: Object,
-    updatePlannedVisitors: Function,
-    visitorData: [Object, Boolean],
-    theme: String,
-};
 
 registry.category("frontdesk_screens").add("VisitorForm", VisitorForm);

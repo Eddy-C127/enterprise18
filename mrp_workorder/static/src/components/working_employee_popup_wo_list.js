@@ -6,6 +6,17 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, useState, onWillStart } from "@odoo/owl";
 
 export class WorkingEmployeePopupWOList extends Component {
+    static template = "mrp_workorder.WorkingEmployeePopupWOList";
+    static components = { MrpTimer };
+    static props = {
+        popupData: Object,
+        onAddEmployee: Function,
+        onStartEmployee: Function,
+        onStopEmployee: Function,
+        onClosePopup: Function,
+        becomeAdmin: Function,
+    };
+    
     setup() {
         const { origin } = browser.location;
         this.imageBaseURL = `${origin}/web/image?model=hr.employee&field=avatar_128&id=`;
@@ -103,14 +114,3 @@ export class WorkingEmployeePopupWOList extends Component {
         this.close();
     }
 }
-
-WorkingEmployeePopupWOList.components = { MrpTimer };
-WorkingEmployeePopupWOList.props = {
-    popupData: Object,
-    onAddEmployee: Function,
-    onStartEmployee: Function,
-    onStopEmployee: Function,
-    onClosePopup: Function,
-    becomeAdmin: Function,
-};
-WorkingEmployeePopupWOList.template = 'mrp_workorder.WorkingEmployeePopupWOList';

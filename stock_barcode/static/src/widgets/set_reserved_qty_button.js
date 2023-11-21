@@ -6,6 +6,12 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart } from "@odoo/owl";
 
 export class SetReservedQuantityButton extends Component {
+    static props = {
+        ...standardFieldProps,
+        fieldToSet: { type: String },
+    };
+    static template = "stock_barcode.SetReservedQuantityButtonTemplate";
+
     setup() {
         const user = useService('user');
         onWillStart(async () => {
@@ -23,11 +29,6 @@ export class SetReservedQuantityButton extends Component {
         this.props.record.update({ [this.props.fieldToSet]: this.props.record.data[this.props.name] });
     }
 }
-SetReservedQuantityButton.props = {
-    ...standardFieldProps,
-    fieldToSet: { type: String },
-};
-SetReservedQuantityButton.template = 'stock_barcode.SetReservedQuantityButtonTemplate';
 
 export const setReservedQuantityButton = {
     component: SetReservedQuantityButton,

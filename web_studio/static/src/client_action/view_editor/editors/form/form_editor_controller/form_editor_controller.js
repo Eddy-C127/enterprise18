@@ -18,6 +18,11 @@ function useExternalParentInModel(model, parentRecord) {
 }
 
 export class FormEditorController extends formView.Controller {
+    static props = {
+        ...formView.Controller.props,
+        parentRecord: { type: [Object, { value: null }], optional: true },
+    };
+
     setup() {
         super.setup();
         useModelConfigFetchInvisible(this.model);
@@ -71,7 +76,3 @@ export class FormEditorController extends formView.Controller {
 
     beforeUnload() {}
 }
-FormEditorController.props = {
-    ...formView.Controller.props,
-    parentRecord: { type: [Object, { value: null }], optional: true },
-};

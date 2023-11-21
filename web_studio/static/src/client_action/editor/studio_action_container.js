@@ -11,13 +11,17 @@ import { resetViewCompilerCache } from "@web/views/view_compiler";
 const editorTabRegistry = registry.category("web_studio.editor_tabs");
 
 export class StudioActionContainer extends Component {
+    static props = {
+        ...ActionContainer.props,
+        reloadId: { type: Number },
+    };
+
     static template = xml`
         <t t-name="web.ActionContainer">
         <div class="o_action_manager">
             <t t-if="info.Component" t-component="info.Component" className="'o_action'" t-props="info.componentProps" t-key="info.id"/>
         </div>
         </t>`;
-    static props = {};
 
     setup() {
         this.actionService = useService("action");
@@ -100,7 +104,3 @@ export class StudioActionContainer extends Component {
         }
     }
 }
-StudioActionContainer.props = {
-    ...ActionContainer.props,
-    reloadId: { type: Number },
-};

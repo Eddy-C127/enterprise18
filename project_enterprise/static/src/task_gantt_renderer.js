@@ -13,6 +13,16 @@ import { TaskGanttPopover } from "./task_gantt_popover";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 
 export class TaskGanttRenderer extends GanttRenderer {
+    static components = {
+        ...GanttRenderer.components,
+        Avatar,
+        Popover: TaskGanttPopover,
+    };
+    static headerTemplate = "project_enterprise.TaskGanttRenderer.Header";
+    static rowHeaderTemplate = "project_enterprise.TaskGanttRenderer.RowHeader";
+    static rowContentTemplate = "project_enterprise.TaskGanttRenderer.RowContent";
+    static totalRowTemplate = "project_enterprise.TaskGanttRenderer.TotalRow";
+    static pillTemplate = "project_enterprise.TaskGanttRenderer.Pill";
     setup() {
         super.setup(...arguments);
         this.notificationService = useService("notification");
@@ -37,7 +47,7 @@ export class TaskGanttRenderer extends GanttRenderer {
         let index = 0;
         for (const m of this.model.data.milestones) {
             const { is_deadline_exceeded, is_reached } = m;
-            for (let i = index; i < this.columns.length ; i++) {
+            for (let i = index; i < this.columns.length; i++) {
                 const column = this.columns[i];
                 if (column.stop < m.deadline) {
                     index++;
@@ -79,7 +89,7 @@ export class TaskGanttRenderer extends GanttRenderer {
         }
         props.unschedule = async () => {
             await this.model.unscheduleTask(record.id);
-        }
+        };
 
         return props;
     }
@@ -167,7 +177,6 @@ export class TaskGanttRenderer extends GanttRenderer {
         return super.highlightPill(pillId, highlighted);
     }
 
-
     //--------------------------------------------------------------------------
     // Handlers
     //--------------------------------------------------------------------------
@@ -184,13 +193,3 @@ export class TaskGanttRenderer extends GanttRenderer {
         this.milestonePopover.close();
     }
 }
-TaskGanttRenderer.components = {
-    ...GanttRenderer.components,
-    Avatar,
-    Popover: TaskGanttPopover,
-};
-TaskGanttRenderer.headerTemplate = "project_enterprise.TaskGanttRenderer.Header";
-TaskGanttRenderer.rowHeaderTemplate = "project_enterprise.TaskGanttRenderer.RowHeader";
-TaskGanttRenderer.rowContentTemplate = "project_enterprise.TaskGanttRenderer.RowContent";
-TaskGanttRenderer.totalRowTemplate = "project_enterprise.TaskGanttRenderer.TotalRow";
-TaskGanttRenderer.pillTemplate = "project_enterprise.TaskGanttRenderer.Pill";

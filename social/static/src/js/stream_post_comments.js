@@ -11,6 +11,8 @@ import { useService } from '@web/core/utils/hooks';
 import { Component, markup, useSubEnv, useState } from "@odoo/owl";
 
 export class StreamPostComments extends SocialPostFormatterMixin(Component) {
+    static template = "social.StreamPostComments";
+    static components = { Dialog };
 
     setup() {
         super.setup();
@@ -88,6 +90,3 @@ export class StreamPostComments extends SocialPostFormatterMixin(Component) {
         return this.originalPost.is_author && this.originalPost.is_author.raw_value;
     }
 }
-
-StreamPostComments.template = 'social.StreamPostComments';
-StreamPostComments.components = { Dialog };

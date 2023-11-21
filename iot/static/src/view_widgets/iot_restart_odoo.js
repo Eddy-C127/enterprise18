@@ -11,6 +11,13 @@ import { Component } from "@odoo/owl";
 let restarting = false;
 
 export class IoTRestartOdooOrReboot extends Component {
+    static template = `iot.IoTRestartOdooOrReboot`;
+    static props = {
+        ...standardWidgetProps,
+        btn_name: { type: String },
+        action: { type: String },
+    };
+
     setup() {
         super.setup();
         this.dialog = useService("dialog");
@@ -142,14 +149,6 @@ export class IoTRestartOdooOrReboot extends Component {
         this.dialog.add(IoTConnectionErrorDialog, { href: url });
     }
 }
-
-IoTRestartOdooOrReboot.template = `iot.IoTRestartOdooOrReboot`;
-
-IoTRestartOdooOrReboot.props = {
-    ...standardWidgetProps,
-    btn_name: { type: String },
-    action: { type: String },
-};
 
 export const ioTRestartOdooOrReboot = {
     component: IoTRestartOdooOrReboot,

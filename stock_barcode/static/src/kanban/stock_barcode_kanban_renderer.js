@@ -7,6 +7,7 @@ import * as BarcodeScanner from '@web/webclient/barcode/barcode_scanner';
 import { onWillStart } from "@odoo/owl";
 
 export class StockBarcodeKanbanRenderer extends KanbanRenderer {
+    static template = "stock_barcode.KanbanRenderer";
     setup() {
         super.setup(...arguments);
         const user = useService('user');
@@ -34,4 +35,3 @@ export class StockBarcodeKanbanRenderer extends KanbanRenderer {
     }
 
 }
-StockBarcodeKanbanRenderer.template = 'stock_barcode.KanbanRenderer';

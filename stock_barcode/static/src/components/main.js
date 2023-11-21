@@ -46,6 +46,16 @@ registry.category("view_widgets").add("stock_barcode_unlink_button", {
  */
 
 class MainComponent extends Component {
+    static props = ["action", "actionId?", "className?", "globalState?", "resId?"];
+    static template = "stock_barcode.MainComponent";
+    static components = {
+        Chatter,
+        View,
+        GroupedLineComponent,
+        LineComponent,
+        PackageLineComponent,
+    };
+
     //--------------------------------------------------------------------------
     // Lifecycle
     //--------------------------------------------------------------------------
@@ -384,15 +394,6 @@ class MainComponent extends Component {
         this.env.services.dialog.add(ConfirmationDialog, { title, body: message });
     }
 }
-MainComponent.props = ["action", "actionId?", "className?", "globalState?", "resId?"];
-MainComponent.template = 'stock_barcode.MainComponent';
-MainComponent.components = {
-    Chatter,
-    View,
-    GroupedLineComponent,
-    LineComponent,
-    PackageLineComponent,
-};
 
 registry.category("actions").add("stock_barcode_client_action", MainComponent);
 

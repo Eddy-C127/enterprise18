@@ -14,6 +14,10 @@ import { Component, useState, useRef } from "@odoo/owl";
  * @extends Component
  */
 export class ExpirationPanel extends Component {
+    static template = "DatabaseExpirationPanel";
+    static props = {};
+    static components = { Transition };
+
     setup() {
         this.subscription = useState(useService("enterprise_subscription"));
 
@@ -70,7 +74,3 @@ export class ExpirationPanel extends Component {
         }
     }
 }
-
-ExpirationPanel.template = "DatabaseExpirationPanel";
-ExpirationPanel.props = {};
-ExpirationPanel.components = { Transition };

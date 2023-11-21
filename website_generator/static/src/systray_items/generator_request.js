@@ -6,6 +6,7 @@ import {useService} from "@web/core/utils/hooks";
 import {session} from "@web/session";
 
 export class GeneratorRequest extends Component {
+    static template = "website_generator.GeneratorRequest";
     setup() {
         this.actionService = useService("action");
         this.orm = useService("orm");
@@ -48,7 +49,6 @@ export class GeneratorRequest extends Component {
         clearInterval(this.interval);
     }
 }
-GeneratorRequest.template = "website_generator.GeneratorRequest";
 
 const systrayItem = {
     Component: GeneratorRequest,

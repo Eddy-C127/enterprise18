@@ -5,6 +5,10 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart, onWillUpdateProps, useState } from "@odoo/owl";
 
 export class SendcloudFunctionalitiesField extends Component {
+    static template = "delivery_sendcloud.functionalities";
+    static props = {
+        "*": true,
+    };
     setup() {
         const { data } = this.props.record;
         this.actionService = useService("action");
@@ -79,10 +83,6 @@ export class SendcloudFunctionalitiesField extends Component {
     }
 
 }
-SendcloudFunctionalitiesField.template = "delivery_sendcloud.functionalities";
-SendcloudFunctionalitiesField.props = {
-    "*": true,
-};
 
 export const sendcloudFunctionalitiesField = {
     component: SendcloudFunctionalitiesField,

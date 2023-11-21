@@ -6,6 +6,11 @@ import { useService } from '@web/core/utils/hooks';
 import { Component, onMounted, onWillUnmount, useRef } from "@odoo/owl";
 
 export class StreamPostDashboard extends Component {
+    static template = "social.KanbanDashboard";
+    static props = {
+        accounts: Array,
+        isSocialManager: Boolean,
+    };
 
     setup() {
         super.setup();
@@ -65,9 +70,3 @@ export class StreamPostDashboard extends Component {
     }
 
 }
-
-StreamPostDashboard.template = 'social.KanbanDashboard';
-StreamPostDashboard.props = {
-    accounts: Array,
-    isSocialManager: Boolean,
-};

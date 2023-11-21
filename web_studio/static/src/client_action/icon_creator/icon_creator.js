@@ -21,6 +21,20 @@ const DEFAULT_ICON = {
  * @extends Component
  */
 export class IconCreator extends Component {
+    static defaultProps = DEFAULT_ICON;
+    static props = {
+        backgroundColor: { type: String, optional: 1 },
+        color: { type: String, optional: 1 },
+        editable: { type: Boolean, optional: 1 },
+        iconClass: { type: String, optional: 1 },
+        type: { validate: (t) => ["base64", "custom_icon"].includes(t) },
+        uploaded_attachment_id: { type: Number, optional: 1 },
+        webIconData: { type: String, optional: 1 },
+        onIconChange: Function,
+    };
+    static template = "web_studio.IconCreator";
+    static enableTransitions = true;
+
     /**
      * @param {Object} [props]
      * @param {string} [props.backgroundColor] Background color of the custom
@@ -150,17 +164,3 @@ export class IconCreator extends Component {
         }
     }
 }
-
-IconCreator.defaultProps = DEFAULT_ICON;
-IconCreator.props = {
-    backgroundColor: { type: String, optional: 1 },
-    color: { type: String, optional: 1 },
-    editable: { type: Boolean, optional: 1 },
-    iconClass: { type: String, optional: 1 },
-    type: { validate: (t) => ["base64", "custom_icon"].includes(t) },
-    uploaded_attachment_id: { type: Number, optional: 1 },
-    webIconData: { type: String, optional: 1 },
-    onIconChange: Function,
-};
-IconCreator.template = "web_studio.IconCreator";
-IconCreator.enableTransitions = true;

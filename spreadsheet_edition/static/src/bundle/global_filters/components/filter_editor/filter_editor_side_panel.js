@@ -28,6 +28,15 @@ const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
  * It can be of 3 different type: text, date and relation.
  */
 export class AbstractFilterEditorSidePanel extends Component {
+    static components = {
+        FilterEditorLabel,
+        SidePanelCollapsible,
+    };
+    static props = {
+        id: { type: String, optional: true },
+        onCloseSidePanel: { type: Function, optional: true },
+    };
+
     setup() {
         this.id = undefined;
         this.type = "";
@@ -241,11 +250,3 @@ export class AbstractFilterEditorSidePanel extends Component {
         this.env.openSidePanel("GLOBAL_FILTERS_SIDE_PANEL", {});
     }
 }
-AbstractFilterEditorSidePanel.components = {
-    FilterEditorLabel,
-    SidePanelCollapsible,
-};
-AbstractFilterEditorSidePanel.props = {
-    id: { type: String, optional: true },
-    onCloseSidePanel: { type: Function, optional: true },
-};

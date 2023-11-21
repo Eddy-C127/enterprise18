@@ -18,6 +18,11 @@ class EditWhileSigningDocument extends Document {
 }
 
 export class SignableSignRequest extends SignRequest {
+    static components = {
+        ...SignableSignRequest.components,
+        Document: EditWhileSigningDocument,
+        SignRequestControlPanel: SignableRequestControlPanel,
+    };
     setup() {
         super.setup();
         this.signInfo.set({
@@ -45,11 +50,5 @@ export class SignableSignRequest extends SignRequest {
         };
     }
 }
-
-SignableSignRequest.components = {
-    ...SignableSignRequest.components,
-    Document: EditWhileSigningDocument,
-    SignRequestControlPanel: SignableRequestControlPanel,
-};
 
 registry.category("actions").add("sign.SignableDocument", SignableSignRequest);

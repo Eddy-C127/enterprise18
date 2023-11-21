@@ -7,6 +7,11 @@ import { formatFloatTime } from "@web/views/fields/formatters";
 import { formatFloat } from "@web/core/utils/numbers";
 
 export class PlanningCalendarCommonPopover extends CalendarCommonPopover {
+    static subTemplates = {
+        ...CalendarCommonPopover.subTemplates,
+        body: "planning.PlanningCalendarCommonPopover.body",
+        footer: "planning.PlanningCalendarCommonPopover.footer",
+    };
     setup() {
         super.setup(...arguments);
         this.user = useService("user");
@@ -34,8 +39,3 @@ export class PlanningCalendarCommonPopover extends CalendarCommonPopover {
         return this.data[fieldName];
     }
 }
-PlanningCalendarCommonPopover.subTemplates = {
-    ...CalendarCommonPopover.subTemplates,
-    body: "planning.PlanningCalendarCommonPopover.body",
-    footer: "planning.PlanningCalendarCommonPopover.footer",
-};

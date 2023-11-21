@@ -6,6 +6,7 @@ import { preSuperSetup, useDocumentView } from "@documents/views/hooks";
 import { useState } from "@odoo/owl";
 
 export class DocumentsKanbanController extends KanbanController {
+    static template = "documents.DocumentsKanbanView";
     setup() {
         preSuperSetup();
         super.setup(...arguments);
@@ -40,4 +41,3 @@ export class DocumentsKanbanController extends KanbanController {
         };
     }
 }
-DocumentsKanbanController.template = "documents.DocumentsKanbanView";

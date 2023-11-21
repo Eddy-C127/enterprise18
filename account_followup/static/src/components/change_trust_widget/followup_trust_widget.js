@@ -5,10 +5,12 @@ import { usePopover } from "@web/core/popover/popover_hook";
 import { localization } from "@web/core/l10n/localization";
 import { Component } from "@odoo/owl";
 
-class FollowupTrustPopOver extends Component {}
-FollowupTrustPopOver.template = "account_followup.FollowupTrustPopOver";
+class FollowupTrustPopOver extends Component {
+    static template = "account_followup.FollowupTrustPopOver";
+}
 
 class FollowupTrustWidget extends Component {
+    static template = "account_followup.FollowupTrustWidget";
     setup() {
         super.setup();
         const position = localization.direction === "rtl" ? "bottom" : "right";
@@ -38,7 +40,6 @@ class FollowupTrustWidget extends Component {
     }
 }
 
-FollowupTrustWidget.template = "account_followup.FollowupTrustWidget";
 registry.category("fields").add("followup_trust_widget", {
     component: FollowupTrustWidget,
 });

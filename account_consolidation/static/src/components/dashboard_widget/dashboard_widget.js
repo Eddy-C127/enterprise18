@@ -5,6 +5,7 @@ import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
 class ConsolidationDashboard extends Component {
+    static template = "account_consolidation.ConsolidatedDashboardTemplate";
     setup() {
         this.orm = useService("orm");
         this.action = useService("action");
@@ -16,12 +17,11 @@ class ConsolidationDashboard extends Component {
 
 
     async onUnmappedAccountClick(company_id) {
-        const action = await this.orm.call('consolidation.period', 'action_open_mapping', 
+        const action = await this.orm.call('consolidation.period', 'action_open_mapping',
             [this.props.record.resId], {context: {company_id: company_id}});
         this.action.doAction(action);
-    }    
+    }
 }
-ConsolidationDashboard.template = "account_consolidation.ConsolidatedDashboardTemplate";
 
 registry.category("fields").add("consolidation_dashboard_field", {
     component: ConsolidationDashboard,

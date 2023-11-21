@@ -6,6 +6,12 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart } from "@odoo/owl";
 
 export class Digipad extends Component {
+    static template = "stock_barcode.DigipadTemplate";
+    static props = {
+        ...standardWidgetProps,
+        quantityField: { type: String },
+    };
+
     setup() {
         this.orm = useService('orm');
         const user = useService('user');
@@ -96,11 +102,6 @@ export class Digipad extends Component {
         this.props.record.update(this.changes);
     }
 }
-Digipad.template = 'stock_barcode.DigipadTemplate';
-Digipad.props = {
-    ...standardWidgetProps,
-    quantityField: { type: String }
-};
 
 export const digipad = {
     component: Digipad,

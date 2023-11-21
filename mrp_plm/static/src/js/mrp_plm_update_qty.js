@@ -3,9 +3,9 @@
 import { FloatField, floatField } from '@web/views/fields/float/float_field';
 import { registry } from '@web/core/registry';
 
-export class MrpPlmUpdateQty extends FloatField {}
-
-MrpPlmUpdateQty.template = "mrp_plm.UpdateQty"
+export class MrpPlmUpdateQty extends FloatField {
+    static template = "mrp_plm.UpdateQty";
+}
 
 export const mrpPlmUpdateQty = {
     ...floatField,

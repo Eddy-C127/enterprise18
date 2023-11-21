@@ -6,6 +6,15 @@ import { AutoComplete } from "@web/core/autocomplete/autocomplete";
 import { Component } from "@odoo/owl";
 
 export class Many2One extends Component {
+    static template = "frontdesk.Many2One";
+    static components = { AutoComplete };
+    static props = {
+        disableButton: Function,
+        stationId: Number,
+        token: String,
+        update: Function,
+    };
+
     setup() {
         this.rpc = useService("rpc");
     }
@@ -63,12 +72,3 @@ export class Many2One extends Component {
         };
     }
 }
-
-Many2One.template = "frontdesk.Many2One";
-Many2One.components = { AutoComplete };
-Many2One.props = {
-    disableButton: Function,
-    stationId: Number,
-    token: String,
-    update: Function,
-};

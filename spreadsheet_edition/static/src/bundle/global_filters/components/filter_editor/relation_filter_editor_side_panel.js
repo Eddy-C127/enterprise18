@@ -23,6 +23,13 @@ import { useState } from "@odoo/owl";
  * This is the side panel to define/edit a global filter of type "relation".
  */
 export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
+    static template = "spreadsheet_edition.RelationFilterEditorSidePanel";
+    static components = {
+        ...AbstractFilterEditorSidePanel.components,
+        ModelSelector,
+        MultiRecordSelector,
+        FilterEditorFieldMatching,
+    };
     setup() {
         super.setup();
 
@@ -174,11 +181,3 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
         this.relationState.defaultValue = ev.target.checked ? "current_user" : undefined;
     }
 }
-
-RelationFilterEditorSidePanel.template = "spreadsheet_edition.RelationFilterEditorSidePanel";
-RelationFilterEditorSidePanel.components = {
-    ...AbstractFilterEditorSidePanel.components,
-    ModelSelector,
-    MultiRecordSelector,
-    FilterEditorFieldMatching,
-};

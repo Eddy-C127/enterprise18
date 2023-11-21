@@ -6,6 +6,17 @@ import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
 
 export class ItsmeDialog extends Component {
+    static template = "sign_itsme.ItsmeDialog";
+    static components = {
+        Dialog,
+    };
+    static props = {
+        route: String,
+        params: Object,
+        onSuccess: Function,
+        close: Function,
+    };
+
     setup() {
         this.rpc = useService("rpc");
         this.dialog = useService("dialog");
@@ -35,15 +46,3 @@ export class ItsmeDialog extends Component {
         }
     }
 }
-
-ItsmeDialog.template = "sign_itsme.ItsmeDialog";
-ItsmeDialog.components = {
-    Dialog,
-};
-
-ItsmeDialog.props = {
-    route: String,
-    params: Object,
-    onSuccess: Function,
-    close: Function,
-};

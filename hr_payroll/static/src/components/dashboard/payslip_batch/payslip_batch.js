@@ -5,6 +5,8 @@ import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
 export class PayrollDashboardPayslipBatch extends Component {
+    static template = "hr_payroll.PayslipBatch";
+
     setup() {
         this.actionService = useService("action");
     }
@@ -42,5 +44,3 @@ export class PayrollDashboardPayslipBatch extends Component {
         });
     }
 }
-
-PayrollDashboardPayslipBatch.template = 'hr_payroll.PayslipBatch';

@@ -255,6 +255,9 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             let doVeryFastClick = false;
 
             class DelayedClientAction extends Component {
+                static template = xml`<div class='delayed_client_action'>
+                    <button t-on-click="resolve">RESOLVE</button>
+                </div>`;
                 setup() {
                     onMounted(() => {
                         if (doVeryFastClick) {
@@ -264,9 +267,6 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                     });
                 }
             }
-            DelayedClientAction.template = xml`<div class='delayed_client_action'>
-                <button t-on-click="resolve">RESOLVE</button>
-            </div>`;
 
             registry.category("actions").add("DelayedClientAction", DelayedClientAction);
             const webClient = await createEnterpriseWebClient({ fixture, serverData });

@@ -5,6 +5,12 @@ import { FloatField, floatField } from '@web/views/fields/float/float_field';
 import { useIotDevice } from '@iot/iot_device_hook';
 
 class IoTMeasureRealTimeValue extends FloatField {
+    static props = {
+        ...FloatField.props,
+        ip_field: { type: String },
+        identifier_field: { type: String },
+    };
+
     setup() {
         super.setup();
         useIotDevice({
@@ -27,11 +33,6 @@ class IoTMeasureRealTimeValue extends FloatField {
         });
     }
 }
-IoTMeasureRealTimeValue.props = {
-    ...FloatField.props,
-    ip_field: { type: String },
-    identifier_field: { type: String },
-};
 
 registry.category("fields").add("iot_measure", {
     ...floatField,

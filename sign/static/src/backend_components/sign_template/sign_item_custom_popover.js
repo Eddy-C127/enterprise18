@@ -36,6 +36,13 @@ function getActionActiveFields() {
 }
 
 export class SignItemCustomPopover extends Component {
+    static template = "sign.SignItemCustomPopover";
+    static components = {
+        Record,
+        Many2ManyTagsField,
+        Many2OneField,
+    };
+
     setup() {
         this.alignmentOptions = [
             { title: _t("Left"), key: "left" },
@@ -110,10 +117,3 @@ export class SignItemCustomPopover extends Component {
         return this.typesWithAlignment.has(this.props.type);
     }
 }
-
-SignItemCustomPopover.template = "sign.SignItemCustomPopover";
-SignItemCustomPopover.components = {
-    Record,
-    Many2ManyTagsField,
-    Many2OneField,
-};

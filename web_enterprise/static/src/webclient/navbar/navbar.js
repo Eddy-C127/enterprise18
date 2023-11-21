@@ -6,6 +6,7 @@ import { _t } from "@web/core/l10n/translation";
 import { useEffect, useRef } from "@odoo/owl";
 
 export class EnterpriseNavBar extends NavBar {
+    static template = "web_enterprise.EnterpriseNavBar";
     setup() {
         super.setup();
         this.hm = useService("home_menu");
@@ -49,4 +50,3 @@ export class EnterpriseNavBar extends NavBar {
         }
     }
 }
-EnterpriseNavBar.template = "web_enterprise.EnterpriseNavBar";

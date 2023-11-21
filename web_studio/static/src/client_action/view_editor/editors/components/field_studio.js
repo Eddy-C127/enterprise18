@@ -12,6 +12,8 @@ import { useState } from "@odoo/owl";
  * - handles invisible
  */
 export class FieldStudio extends Field {
+    static components = { ...Field.components, FieldContentOverlay };
+    static template = "web_studio.Field";
     setup() {
         super.setup();
         this.state = useState({
@@ -84,5 +86,3 @@ export class FieldStudio extends Field {
         this.state.displayOverlay = !this.state.displayOverlay;
     }
 }
-FieldStudio.components = { ...Field.components, FieldContentOverlay };
-FieldStudio.template = "web_studio.Field";

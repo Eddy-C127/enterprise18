@@ -9,6 +9,10 @@ import {
 import { registry } from "@web/core/registry";
 
 export class AppraisalSkillsListRenderer extends SkillsListRenderer {
+    static template = "hr_appraisal_skills.AppraisalSkillsListRenderer";
+    static rowsTemplate = "hr_appraisal_skills.AppraisalSkillsListRenderer.Rows";
+    static props = [...AppraisalSkillsListRenderer.props, "showSampleData"];
+
     calculateColumnWidth(column) {
         const columnSizes = {
             justification: '600px',
@@ -54,7 +58,7 @@ export class AppraisalSkillsListRenderer extends SkillsListRenderer {
 
     get fields() {
         const fields = this.props.list.fields;
-        
+
         Object.values(fields).forEach((k) => {
             if (k.sortable) {
                 k.sortable = false;
@@ -63,24 +67,19 @@ export class AppraisalSkillsListRenderer extends SkillsListRenderer {
         return fields;
     }
 }
-AppraisalSkillsListRenderer.template = 'hr_appraisal_skills.AppraisalSkillsListRenderer';
-AppraisalSkillsListRenderer.rowsTemplate = "hr_appraisal_skills.AppraisalSkillsListRenderer.Rows";
-AppraisalSkillsListRenderer.props = [
-    ...AppraisalSkillsListRenderer.props,
-    'showSampleData'
-];
 
 export class AppraisalSkillsX2ManyField extends SkillsX2ManyField {
+    static components = {
+        ...SkillsX2ManyField.components,
+        ListRenderer: AppraisalSkillsListRenderer,
+    };
+
     get rendererProps() {
         const props = super.rendererProps;
         props.showSampleData = this.props.record.data.state == 'new';
         return props;
     }
 }
-AppraisalSkillsX2ManyField.components = {
-    ...SkillsX2ManyField.components,
-    ListRenderer: AppraisalSkillsListRenderer,
-};
 
 export const appraisalSkillsX2ManyField = {
     ...skillsX2ManyField,

@@ -12,9 +12,27 @@ import { ViewButtonStudio } from "@web_studio/client_action/view_editor/editors/
 import { InnerGroup, OuterGroup } from "./form_editor_groups";
 import { AddButtonAction } from "@web_studio/client_action/view_editor/interactive_editor/action_button/action_button";
 
-const components = formView.Renderer.components;
-
+class Setting extends formView.Renderer.components.Setting {
+    static props = {
+        ...formView.Renderer.components.Setting.props,
+        studioXpath: { type: String, optional: true },
+        studioIsVisible: { type: Boolean, optional: true },
+    };
+}
 export class FormEditorRenderer extends formView.Renderer {
+    static components = {
+        ...formView.Renderer.components,
+        ...formEditorRendererComponents,
+        Field: FieldStudio,
+        Widget: WidgetStudio,
+        ViewButton: ViewButtonStudio,
+        ChatterContainerHook,
+        InnerGroup,
+        OuterGroup,
+        StudioHook,
+        Setting,
+        AddButtonAction,
+    };
     setup() {
         super.setup();
         const rootRef = useRef("compiled_view_root");
@@ -63,25 +81,3 @@ export class FormEditorRenderer extends formView.Renderer {
         );
     }
 }
-
-class Setting extends formView.Renderer.components.Setting {
-    static props = {
-        ...formView.Renderer.components.Setting.props,
-        studioXpath: { type: String, optional: true },
-        studioIsVisible: { type: Boolean, optional: true },
-    };
-}
-
-FormEditorRenderer.components = {
-    ...components,
-    ...formEditorRendererComponents,
-    Field: FieldStudio,
-    Widget: WidgetStudio,
-    ViewButton: ViewButtonStudio,
-    ChatterContainerHook,
-    InnerGroup,
-    OuterGroup,
-    StudioHook,
-    Setting,
-    AddButtonAction,
-};

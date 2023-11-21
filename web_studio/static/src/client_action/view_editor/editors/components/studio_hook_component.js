@@ -25,14 +25,15 @@ const defaultTemplate = xml`
 `;
 
 export class StudioHook extends Component {
+    static template = xml`<t t-call="{{ getTemplate(props.subTemplate) }}" />`;
+    static props = ["xpath?", "position?", "type?", "colSpan?", "subTemplate?", "width?", "infos?"];
+    static subTemplates = {
+        formGrid,
+        defaultTemplate,
+        kanbanRecord,
+    };
+
     getTemplate(templateName) {
         return this.constructor.subTemplates[templateName || "defaultTemplate"];
     }
 }
-StudioHook.template = xml`<t t-call="{{ getTemplate(props.subTemplate) }}" />`;
-StudioHook.props = ["xpath?", "position?", "type?", "colSpan?", "subTemplate?", "width?", "infos?"];
-StudioHook.subTemplates = {
-    formGrid,
-    defaultTemplate,
-    kanbanRecord,
-};

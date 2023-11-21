@@ -3,6 +3,7 @@
 import { Component, useEffect, useState } from "@odoo/owl";
 
 export class DocumentsDropZone extends Component {
+    static template = "documents.DocumentsDropZone";
     static props = [
         "parentRoot", // Parent's root element, used to know the zone to use.
     ];
@@ -87,4 +88,3 @@ export class DocumentsDropZone extends Component {
         }
     }
 }
-DocumentsDropZone.template = "documents.DocumentsDropZone";

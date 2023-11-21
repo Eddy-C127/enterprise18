@@ -7,6 +7,16 @@ import { standardFieldProps } from "@web/views/fields/standard_field_props";
 import { Component, useState, onWillStart, onWillDestroy, onWillUpdateProps } from "@odoo/owl";
 
 export class TimesheetTimerFloatTimerField extends FloatTimeField {
+    static template = "timesheet_grid.TimesheetTimerFloatTimeField";
+    static props = {
+        ...FloatTimeField.props,
+        timerRunning: { type: Boolean },
+        displayRed: { type: Boolean },
+        value: true,
+        name: { optional: true },
+        context: { type: Object, optional: true },
+    };
+
     get formattedValue() {
         return formatFloatTime(this.value, { displaySeconds: this.props.timerRunning });
     }
@@ -15,16 +25,6 @@ export class TimesheetTimerFloatTimerField extends FloatTimeField {
         return this.props.value;
     }
 }
-
-TimesheetTimerFloatTimerField.template = "timesheet_grid.TimesheetTimerFloatTimeField";
-TimesheetTimerFloatTimerField.props = {
-    ...FloatTimeField.props,
-    timerRunning: { type: Boolean },
-    displayRed: { type: Boolean },
-    value: true,
-    name: { optional: true },
-    context: { type: Object, optional: true },
-};
 
 export class TimesheetDisplayTimer extends Component {
     static template = "timesheet_grid.TimesheetDisplayTimer";

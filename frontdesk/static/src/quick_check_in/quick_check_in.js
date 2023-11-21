@@ -4,6 +4,16 @@ import { Component } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 
 export class QuickCheckIn extends Component {
+    static template = "frontdesk.QuickCheckIn";
+    static props = {
+        plannedVisitors: { type: Object, optional: true },
+        setPlannedVisitorData: Function,
+        showScreen: Function,
+        token: String,
+        stationId: Number,
+        theme: String,
+    };
+
     setup() {
         this.rpc = useService("rpc");
     }
@@ -25,13 +35,3 @@ export class QuickCheckIn extends Component {
         this.props.showScreen("RegisterPage");
     }
 }
-
-QuickCheckIn.template = "frontdesk.QuickCheckIn";
-QuickCheckIn.props = {
-    plannedVisitors: { type: Object, optional: true },
-    setPlannedVisitorData: Function,
-    showScreen: Function,
-    token: String,
-    stationId: Number,
-    theme: String,
-};

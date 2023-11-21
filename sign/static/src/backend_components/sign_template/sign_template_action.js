@@ -8,6 +8,12 @@ import { SignTemplateBody } from "./sign_template_body";
 import { Component, onWillStart } from "@odoo/owl";
 
 export class SignTemplate extends Component {
+    static template = "sign.Template";
+    static components = {
+        SignTemplateControlPanel,
+        SignTemplateBody,
+    };
+
     setup() {
         this.orm = useService("orm");
         this.notification = useService("notification");
@@ -101,11 +107,5 @@ export class SignTemplate extends Component {
         return this.action.doAction("sign.sign_template_action", { clearBreadcrumbs: true });
     }
 }
-
-SignTemplate.template = "sign.Template";
-SignTemplate.components = {
-    SignTemplateControlPanel,
-    SignTemplateBody,
-};
 
 registry.category("actions").add("sign.Template", SignTemplate);

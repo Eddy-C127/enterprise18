@@ -7,15 +7,16 @@ import { useOpenChat } from "@mail/core/web/open_chat_hook";
 import { Component } from "@odoo/owl";
 
 export class AppraisalManagerChat extends Component {
+    static template = "hr_appraisal.ManagerChat";
+    static props = {
+        ...standardWidgetProps,
+    };
+
     setup() {
         super.setup();
         this.openChat = useOpenChat('hr.employee');
     }
 }
-AppraisalManagerChat.props = {
-    ...standardWidgetProps,
-};
-AppraisalManagerChat.template = 'hr_appraisal.ManagerChat';
 
 export const appraisalManagerChat = {
     component: AppraisalManagerChat,

@@ -10,6 +10,8 @@ import { useService } from '@web/core/utils/hooks';
 import { Component, markup } from "@odoo/owl";
 
 export class StreamPostTwitterQuote extends SocialPostFormatterMixin(Component) {
+    static template = "social_twitter.TwitterQuoteDialog";
+    static components = { Dialog, StreamPostCommentsReplyTwitterQuote };
 
     setup() {
         super.setup();
@@ -58,6 +60,3 @@ export class StreamPostTwitterQuote extends SocialPostFormatterMixin(Component) 
         return JSON;
     }
 }
-
-StreamPostTwitterQuote.template = "social_twitter.TwitterQuoteDialog";
-StreamPostTwitterQuote.components = { Dialog, StreamPostCommentsReplyTwitterQuote };

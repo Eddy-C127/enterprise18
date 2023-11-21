@@ -69,6 +69,13 @@ const routerService = {
 
 const menuButtonsRegistry = registry.category("studio_navbar_menubuttons");
 export class Editor extends Component {
+    static template = "web_studio.Editor";
+    static props = {};
+    static components = {
+        EditorMenu,
+        StudioActionContainer,
+    };
+
     static menuButtonsId = 1;
     setup() {
         const globalBus = this.env.bus;
@@ -139,9 +146,3 @@ export class Editor extends Component {
         this.studio.setParams({ editorTab: tab });
     }
 }
-Editor.template = "web_studio.Editor";
-Editor.props = {};
-Editor.components = {
-    EditorMenu,
-    StudioActionContainer,
-};

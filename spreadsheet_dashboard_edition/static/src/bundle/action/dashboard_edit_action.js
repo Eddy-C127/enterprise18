@@ -9,6 +9,12 @@ import { _t } from "@web/core/l10n/translation";
 import { useSubEnv } from "@odoo/owl";
 
 export class DashboardEditAction extends AbstractSpreadsheetAction {
+    static template = "spreadsheet_dashboard_edition.DashboardEditAction";
+    static components = {
+        SpreadsheetControlPanel,
+        SpreadsheetComponent,
+    };
+
     resModel = "spreadsheet.dashboard";
     notificationMessage = _t("New dashboard created");
 
@@ -38,11 +44,5 @@ export class DashboardEditAction extends AbstractSpreadsheetAction {
         return url;
     }
 }
-
-DashboardEditAction.template = "spreadsheet_dashboard_edition.DashboardEditAction";
-DashboardEditAction.components = {
-    SpreadsheetControlPanel,
-    SpreadsheetComponent,
-};
 
 registry.category("actions").add("action_edit_dashboard", DashboardEditAction, { force: true });

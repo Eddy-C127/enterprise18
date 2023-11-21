@@ -21,6 +21,14 @@ const { SelectionInput } = components;
  * This is the side panel to define/edit a global filter of type "text".
  */
 export class TextFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
+    static template = "spreadsheet_edition.TextFilterEditorSidePanel";
+    static components = {
+        ...AbstractFilterEditorSidePanel.components,
+        FilterEditorFieldMatching,
+        TextFilterValue,
+        SelectionInput,
+    };
+
     setup() {
         super.setup();
 
@@ -103,11 +111,3 @@ export class TextFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
 
     onRangeConfirmed() {}
 }
-
-TextFilterEditorSidePanel.template = "spreadsheet_edition.TextFilterEditorSidePanel";
-TextFilterEditorSidePanel.components = {
-    ...AbstractFilterEditorSidePanel.components,
-    FilterEditorFieldMatching,
-    TextFilterValue,
-    SelectionInput,
-};

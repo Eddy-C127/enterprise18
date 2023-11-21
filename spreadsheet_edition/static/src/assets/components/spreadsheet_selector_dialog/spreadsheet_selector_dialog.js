@@ -32,6 +32,17 @@ const PAGE_LABELS = {
  */
 
 export class SpreadsheetSelectorDialog extends Component {
+    static template = "spreadsheet_edition.SpreadsheetSelectorDialog";
+    static components = { Dialog, Notebook };
+    static props = {
+        actionOptions: Object,
+        type: String,
+        threshold: { type: Number, optional: true },
+        maxThreshold: { type: Number, optional: true },
+        name: String,
+        close: Function,
+    };
+
     setup() {
         /** @type {State} */
         this.state = useState({
@@ -110,14 +121,3 @@ export class SpreadsheetSelectorDialog extends Component {
         this.props.close();
     }
 }
-
-SpreadsheetSelectorDialog.template = "spreadsheet_edition.SpreadsheetSelectorDialog";
-SpreadsheetSelectorDialog.components = { Dialog, Notebook };
-SpreadsheetSelectorDialog.props = {
-    actionOptions: Object,
-    type: String,
-    threshold: { type: Number, optional: true },
-    maxThreshold: { type: Number, optional: true },
-    name: String,
-    close: Function,
-};

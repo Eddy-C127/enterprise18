@@ -3,6 +3,13 @@
 import { Component, useState } from "@odoo/owl";
 
 export class EditableName extends Component {
+    static template = "spreadsheet_edition.EditableName";
+    static props = {
+        name: String,
+        displayName: String,
+        onChanged: Function,
+    };
+
     setup() {
         super.setup();
         this.state = useState({
@@ -21,10 +28,3 @@ export class EditableName extends Component {
         this.state.isEditing = false;
     }
 }
-
-EditableName.template = "spreadsheet_edition.EditableName";
-EditableName.props = {
-    name: String,
-    displayName: String,
-    onChanged: Function,
-};

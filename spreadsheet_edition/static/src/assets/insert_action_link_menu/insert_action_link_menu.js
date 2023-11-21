@@ -11,6 +11,10 @@ import { Component } from "@odoo/owl";
  * @extends Component
  */
 export class InsertViewSpreadsheet extends Component {
+    static props = {};
+    static template = "spreadsheet_edition.InsertActionSpreadsheet";
+    static components = { DropdownItem };
+
     setup() {
         this.notification = useService("notification");
         this.actionService = useService("action");
@@ -52,7 +56,3 @@ export class InsertViewSpreadsheet extends Component {
         };
     }
 }
-
-InsertViewSpreadsheet.props = {};
-InsertViewSpreadsheet.template = "spreadsheet_edition.InsertActionSpreadsheet";
-InsertViewSpreadsheet.components = { DropdownItem };

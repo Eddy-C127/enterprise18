@@ -5,6 +5,15 @@ import { Component, useRef } from "@odoo/owl";
 import { Many2One } from "./many2one/many2one";
 
 export class HostPage extends Component {
+    static template = "frontdesk.HostPage";
+    static components = { Many2One };
+    static props = {
+        setHostData: Function,
+        showScreen: Function,
+        stationId: Number,
+        token: String,
+    };
+
     setup() {
         this.buttonRef = useRef("button");
     }
@@ -37,14 +46,5 @@ export class HostPage extends Component {
         this.host = host;
     }
 }
-
-HostPage.template = "frontdesk.HostPage";
-HostPage.components = { Many2One };
-HostPage.props = {
-    setHostData: Function,
-    showScreen: Function,
-    stationId: Number,
-    token: String,
-};
 
 registry.category("frontdesk_screens").add("HostPage", HostPage);

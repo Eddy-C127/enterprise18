@@ -6,13 +6,14 @@ import { ListRenderer } from "@web/views/list/list_renderer";
 import { listView } from "@web/views/list/list_view";
 
 class PayslipListRenderer extends ListRenderer {
+    static template = "hr_payroll_holidays.PayslipListRenderer";
+    static components = { ...ListRenderer.components, TimeOffToDeferWarning };
+
     setup() {
         super.setup();
         this.timeOff = useTimeOffToDefer();
     }
 }
-PayslipListRenderer.template = "hr_payroll_holidays.PayslipListRenderer";
-PayslipListRenderer.components = { ...ListRenderer.components, TimeOffToDeferWarning };
 const PayslipListView = {
     ...listView,
     Renderer: PayslipListRenderer,

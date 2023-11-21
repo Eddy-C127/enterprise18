@@ -7,6 +7,7 @@ import { Component } from "@odoo/owl";
 
 class MatchingLink extends Component {
     static props = { ...standardFieldProps };
+    static template = "account_accountant.MatchingLink";
 
     setup() {
         this.orm = useService("orm");
@@ -52,7 +53,6 @@ class MatchingLink extends Component {
     }
 }
 
-MatchingLink.template = "account_accountant.MatchingLink";
 registry.category("fields").add("matching_link_widget", {
     component: MatchingLink,
 });

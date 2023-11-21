@@ -4,6 +4,7 @@ import { usePreparationDisplay } from "@pos_preparation_display/app/preparation_
 import { useService } from "@web/core/utils/hooks";
 
 export class Orderline extends Component {
+    static template = "pos_preparation_display.Orderline";
     static props = {
         orderline: Object,
     };
@@ -48,5 +49,3 @@ export class Orderline extends Component {
         }
     }
 }
-
-Orderline.template = "pos_preparation_display.Orderline";

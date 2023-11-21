@@ -85,6 +85,8 @@ QUnit.test('Process domain for plan dialog', async function (assert) {
     });
 
     class Parent extends Component {
+        static template = xml`<View t-props="state"/>`;
+        static components = { View };
         setup() {
             this.state = useState({
                 arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week"/>`,
@@ -95,8 +97,6 @@ QUnit.test('Process domain for plan dialog', async function (assert) {
             });
         }
     }
-    Parent.template = xml`<View t-props="state"/>`;
-    Parent.components = { View };
 
     const parent = await mount(Parent, target, { env });
 

@@ -6,6 +6,8 @@ import { localization } from "@web/core/l10n/localization";
 import { registry } from "@web/core/registry";
 
 class FsmDateWidget extends DateTimeField {
+    static template = "industry_fsm.FsmDateWidget";
+
     /**
      * @override
      */
@@ -24,7 +26,6 @@ class FsmDateWidget extends DateTimeField {
     }
 }
 
-FsmDateWidget.template = 'industry_fsm.FsmDateWidget';
 export const fsmDateWidget = {
     ...dateTimeField,
     component: FsmDateWidget,

@@ -4,6 +4,12 @@ import { KanbanEditorRecord } from "@web_studio/client_action/view_editor/editor
 import { useRef, useEffect } from "@odoo/owl";
 
 export class KanbanEditorRenderer extends kanbanView.Renderer {
+    static template = "web_studio.KanbanEditorRenderer";
+    static components = {
+        ...kanbanView.Renderer.components,
+        KanbanRecord: KanbanEditorRecord,
+    };
+
     setup() {
         super.setup();
         const rootRef = useRef("root");
@@ -44,8 +50,3 @@ export class KanbanEditorRenderer extends kanbanView.Renderer {
         return 0;
     }
 }
-KanbanEditorRenderer.template = "web_studio.KanbanEditorRenderer";
-KanbanEditorRenderer.components = {
-    ...kanbanView.Renderer.components,
-    KanbanRecord: KanbanEditorRecord,
-};

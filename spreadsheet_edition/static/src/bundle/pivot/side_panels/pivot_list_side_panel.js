@@ -6,6 +6,10 @@ import { PivotDetailsSidePanel } from "./pivot_details_side_panel";
 import { Component } from "@odoo/owl";
 
 export class PivotSidePanel extends Component {
+    static template = "spreadsheet_edition.PivotSidePanel";
+    static components = { PivotDetailsSidePanel };
+    static props = { onCloseSidePanel: Function, pivot: { type: String, optional: true } };
+
     selectPivot(pivotId) {
         this.env.model.dispatch("SELECT_PIVOT", { pivotId });
     }
@@ -21,6 +25,3 @@ export class PivotSidePanel extends Component {
         });
     }
 }
-PivotSidePanel.template = "spreadsheet_edition.PivotSidePanel";
-PivotSidePanel.components = { PivotDetailsSidePanel };
-PivotSidePanel.props = { onCloseSidePanel: Function, pivot: { type: String, optional: true } };

@@ -62,6 +62,9 @@ export const inspectorFields = [
 ];
 
 export class DocumentsInspector extends Component {
+    static template = uiUtils.isSmall()
+        ? "documents.DocumentsInspectorMobile"
+        : "documents.DocumentsInspector";
     static props = [
         "archInfo", // Archinfo of the view
         "count", // Current number of records displayed in the view
@@ -671,10 +674,4 @@ export class DocumentsInspector extends Component {
         await func();
         this.previewLockCount--;
     }
-}
-
-if (uiUtils.isSmall()) {
-    DocumentsInspector.template = "documents.DocumentsInspectorMobile";
-} else {
-    DocumentsInspector.template = "documents.DocumentsInspector";
 }

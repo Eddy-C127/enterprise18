@@ -64,17 +64,17 @@ const genericHomeMenuProps = {
 
 const createStudioHomeMenu = async () => {
     class Parent extends Component {
+        static components = { StudioHomeMenu };
+        static template = xml`
+            <div>
+                <StudioHomeMenu t-props="props.homeMenuProps" />
+                <div class="o_dialog_container" />
+                <t t-component="OverlayContainer.Component" t-props="OverlayContainer.props" />
+            </div>`;
         get OverlayContainer() {
             return registry.category("main_components").get("OverlayContainer");
         }
     }
-    Parent.components = { StudioHomeMenu };
-    Parent.template = xml`
-        <div>
-            <StudioHomeMenu t-props="props.homeMenuProps" />
-            <div class="o_dialog_container" />
-            <t t-component="OverlayContainer.Component" t-props="OverlayContainer.props" />
-        </div>`;
 
     const env = await makeTestEnv();
     const target = getFixture();

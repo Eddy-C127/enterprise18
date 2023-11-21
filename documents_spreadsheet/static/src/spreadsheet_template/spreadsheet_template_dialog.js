@@ -14,6 +14,14 @@ import { _t } from "@web/core/l10n/translation";
 import { Component, useState, useSubEnv, useChildSubEnv, onWillStart } from "@odoo/owl";
 
 export class TemplateDialog extends Component {
+    static components = { Dialog, SearchBar, Pager };
+    static template = "documents_spreadsheet.TemplateDialog";
+    static props = {
+        context: Object,
+        folderId: { type: Number, optional: true },
+        close: Function, // prop added by the Dialog service
+        folders: Array,
+    };
     setup() {
         this.orm = useService("orm");
         this.viewService = useService("view");
@@ -129,7 +137,10 @@ export class TemplateDialog extends Component {
             return this.orm.call(
                 "spreadsheet.template",
                 "action_create_spreadsheet",
-                [templateId, { folder_id: this.props.folderId || this.documentsSpreadsheetFolderId }],
+                [
+                    templateId,
+                    { folder_id: this.props.folderId || this.documentsSpreadsheetFolderId },
+                ],
                 { context }
             );
         }
@@ -194,11 +205,3 @@ export class TemplateDialog extends Component {
         return this.state.isCreating || !this._hasSelection();
     }
 }
-TemplateDialog.components = { Dialog, SearchBar, Pager };
-TemplateDialog.template = "documents_spreadsheet.TemplateDialog";
-TemplateDialog.props = {
-    context: Object,
-    folderId: { type: Number, optional: true },
-    close: Function, // prop added by the Dialog service
-    folders: Array,
-};

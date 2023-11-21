@@ -6,6 +6,16 @@ import { useService } from "@web/core/utils/hooks";
 import { useInactivity } from "../use_inactivity";
 
 export class DrinkPage extends Component {
+    static template = "frontdesk.DrinkPage";
+    static props = {
+        drinkInfo: { type: Object, optional: true },
+        setDrink: Function,
+        showScreen: Function,
+        stationId: Number,
+        theme: String,
+        token: String,
+        visitorId: Number,
+    };
     setup() {
         this.rpc = useService("rpc");
         useInactivity(() => this.props.showScreen("EndPage"), 15000);
@@ -28,16 +38,5 @@ export class DrinkPage extends Component {
         this.props.showScreen("EndPage");
     }
 }
-
-DrinkPage.template = "frontdesk.DrinkPage";
-DrinkPage.props = {
-    drinkInfo: { type: Object, optional: true },
-    setDrink: Function,
-    showScreen: Function,
-    stationId: Number,
-    theme: String,
-    token: String,
-    visitorId: Number,
-};
 
 registry.category("frontdesk_screens").add("DrinkPage", DrinkPage);

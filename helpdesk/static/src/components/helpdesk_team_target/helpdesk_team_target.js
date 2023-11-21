@@ -8,6 +8,21 @@ import { formatPercentage } from "@web/views/fields/formatters";
 import { Component, useRef, useState } from "@odoo/owl";
 
 export class HelpdeskTeamTarget extends Component {
+    static template = "helpdesk.HelpdeskTeamTarget";
+    static props = {
+        showDemo: { type: Boolean, optional: true },
+        demoClass: { type: String, optional: true },
+        update: Function,
+        percentage: { type: Boolean, optional: true },
+        value: Number,
+        hotkey: { type: String, optional: true },
+    };
+    static defaultProps = {
+        showDemo: false,
+        demoClass: "",
+        percentage: false,
+    };
+
     setup() {
         useAutofocus({ refName: 'inputRef', selectAll: true });
         this.inputRef = useRef("inputRef");
@@ -65,19 +80,3 @@ export class HelpdeskTeamTarget extends Component {
         await this.props.update(targetValue);
     }
 }
-
-HelpdeskTeamTarget.props = {
-    showDemo: { type: Boolean, optional: true },
-    demoClass: { type: String, optional: true},
-    update: Function,
-    percentage: { type: Boolean, optional: true },
-    value: Number,
-    hotkey: { type: String, optional: true },
-};
-HelpdeskTeamTarget.defaultProps = {
-    showDemo: false,
-    demoClass: '',
-    percentage: false,
-};
-
-HelpdeskTeamTarget.template = 'helpdesk.HelpdeskTeamTarget';

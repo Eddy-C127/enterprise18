@@ -5,6 +5,8 @@ import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
 class OpenBankRecWidget extends Component {
+    static template = "account.OpenBankRecWidget";
+
     setup() {
         this.action = useService("action");
     }
@@ -19,7 +21,6 @@ class OpenBankRecWidget extends Component {
     }
 }
 
-OpenBankRecWidget.template = "account.OpenBankRecWidget";
 registry.category("fields").add("bank_rec_widget_open", {
     component: OpenBankRecWidget,
 });

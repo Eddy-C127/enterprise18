@@ -9,6 +9,12 @@ import { FormController } from "@web/views/form/form_controller";
 import { useRef } from "@odoo/owl";
 
 export class WorkorderFormController extends FormController {
+    static props = {
+        ...FormController.props,
+        workorderBus: Object,
+        onRecordChanged: { optional: true, type: Function },
+    };
+
     setup() {
         super.setup();
         this.workorderBus = this.props.workorderBus;
@@ -70,11 +76,6 @@ export class WorkorderFormController extends FormController {
     }
 }
 
-WorkorderFormController.props = {
-    ...FormController.props,
-    workorderBus: Object,
-    onRecordChanged: {"optional": true, "type": Function},
-};
 registry.category("views").add("workorder_form", {
     ...formView,
     Controller: WorkorderFormController,

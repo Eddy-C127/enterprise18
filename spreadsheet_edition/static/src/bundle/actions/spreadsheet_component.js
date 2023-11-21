@@ -23,6 +23,13 @@ import { useSubEnv, Component } from "@odoo/owl";
  * error dialogs, etc.
  */
 export class SpreadsheetComponent extends Component {
+    static template = "spreadsheet_edition.SpreadsheetComponent";
+    static components = { Spreadsheet };
+    static _t = _t;
+    static props = {
+        model: Model,
+    };
+
     get model() {
         return this.props.model;
     }
@@ -89,10 +96,3 @@ export class SpreadsheetComponent extends Component {
         });
     }
 }
-
-SpreadsheetComponent.template = "spreadsheet_edition.SpreadsheetComponent";
-SpreadsheetComponent.components = { Spreadsheet };
-Spreadsheet._t = _t;
-SpreadsheetComponent.props = {
-    model: Model,
-};

@@ -7,6 +7,18 @@ import { Component, useState, onWillUnmount } from "@odoo/owl";
 const { DateTime } = luxon;
 
 export class WelcomePage extends Component {
+    static template = "frontdesk.WelcomePage";
+    static props = {
+        companyName: String,
+        currentLang: String,
+        langs: [Object, Boolean],
+        onChangeLang: Function,
+        token: String,
+        resetData: Function,
+        showScreen: Function,
+        stationInfo: Object,
+    };
+
     setup() {
         this.rpc = useService("rpc");
         this.state = useState({ today: this.getCurrentTime(), qrCode: false });
@@ -51,17 +63,5 @@ export class WelcomePage extends Component {
         return "data:image/svg+xml;base64," + window.btoa(qrCodeSVG);
     }
 }
-
-WelcomePage.template = "frontdesk.WelcomePage";
-WelcomePage.props = {
-    companyName: String,
-    currentLang: String,
-    langs: [Object, Boolean],
-    onChangeLang: Function,
-    token: String,
-    resetData: Function,
-    showScreen: Function,
-    stationInfo: Object,
-};
 
 registry.category("frontdesk_screens").add("WelcomePage", WelcomePage);

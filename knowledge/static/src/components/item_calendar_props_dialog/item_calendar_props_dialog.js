@@ -16,6 +16,25 @@ import { Component, onWillStart, useExternalListener, useState } from "@odoo/owl
  * embedded view manager.
  */
 export class ItemCalendarPropsDialog extends Component {
+    static template = "knowledge.ItemCalendarPropsDialog";
+    static components = {
+        DropdownItem,
+        Dialog,
+        SelectMenu,
+    };
+    static props = {
+        knowledgeArticleId: { type: Number, optional: true },
+        close: { type: Function, optional: true },
+        colorPropertyId: { type: String, optional: true },
+        dateStartPropertyId: { type: String, optional: true },
+        dateStopPropertyId: { type: String, optional: true },
+        dateType: { type: String, optional: true },
+        isNew: { type: Boolean, optional: true },
+        name: { type: String, optional: true },
+        saveItemCalendarProps: { type: Function },
+        scale: { type: String, optional: true },
+    };
+
     setup() {
         super.setup();
         useAutofocus();
@@ -80,7 +99,7 @@ export class ItemCalendarPropsDialog extends Component {
                     } else {
                         this.selectDateStart(this.dateChoices[0].value);
                     }
-                    
+
                 }
             } else {
                 // Use props only if the related property still exists
@@ -257,23 +276,3 @@ export class ItemCalendarPropsDialog extends Component {
         }
     }
 }
-
-ItemCalendarPropsDialog.template = "knowledge.ItemCalendarPropsDialog";
-ItemCalendarPropsDialog.components = {
-    DropdownItem,
-    Dialog,
-    SelectMenu,
-};
-
-ItemCalendarPropsDialog.props = {
-    knowledgeArticleId: { type: Number, optional: true },
-    close: { type: Function, optional: true },
-    colorPropertyId: { type: String, optional: true },
-    dateStartPropertyId: { type: String, optional: true },
-    dateStopPropertyId: { type: String, optional: true },
-    dateType: { type: String, optional: true },
-    isNew: { type: Boolean, optional: true },
-    name: { type: String, optional: true },
-    saveItemCalendarProps: { type: Function },
-    scale: { type: String, optional: true },
-};

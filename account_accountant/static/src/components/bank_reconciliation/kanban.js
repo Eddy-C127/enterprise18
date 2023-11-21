@@ -60,10 +60,26 @@ export class BankRecKanbanRecord extends KanbanRecord {
 
 
 export class BankRecKanbanController extends KanbanController {
+    static template = "account.BankRecoKanbanController";
+    static props = {
+        ...KanbanController.props,
+        skipRestore: { optional: true },
+    };
     static components = {
         ...KanbanController.components,
         Dropdown,
         DropdownItem,
+        Many2OneField,
+        Many2ManyTagsField,
+        DateTimeField,
+        CharField,
+        AnalyticDistribution,
+        Chatter,
+        TagsList,
+        HtmlField,
+        BankRecMonetaryField,
+        Notebook,
+        BankRecViewEmbedder,
     };
 
     async setup() {
@@ -1076,25 +1092,6 @@ export class BankRecKanbanController extends KanbanController {
         }
     }
 
-}
-BankRecKanbanController.template = "account.BankRecoKanbanController";
-BankRecKanbanController.props = {
-    ...KanbanController.props,
-    skipRestore: { optional: true },
-}
-BankRecKanbanController.components = {
-    ...BankRecKanbanController.components,
-    Many2OneField,
-    Many2ManyTagsField,
-    DateTimeField,
-    CharField,
-    AnalyticDistribution,
-    Chatter,
-    TagsList,
-    HtmlField,
-    BankRecMonetaryField,
-    Notebook,
-    BankRecViewEmbedder,
 }
 
 export class BankRecKanbanRenderer extends KanbanRenderer {

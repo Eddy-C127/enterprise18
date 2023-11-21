@@ -12,6 +12,11 @@ import { useState } from "@odoo/owl";
 import { makeActiveField } from "@web/model/relational_model/utils";
 
 export class AccountMoveLineListController extends ListController {
+    static template = "account_accountant.MoveLineListView";
+    static components = {
+        ...ListController.components,
+        AttachmentView,
+    };
     setup() {
         super.setup();
         /** @type {import("@mail/core/common/store_service").Store} */
@@ -73,13 +78,9 @@ export class AccountMoveLineListController extends ListController {
         this.attachmentPreviewState.thread = thread;
     }
 }
-AccountMoveLineListController.template = 'account_accountant.MoveLineListView';
-AccountMoveLineListController.components = {
-    ...ListController.components,
-    AttachmentView,
-};
 
 export class AccountMoveLineListRenderer extends ListRenderer {
+    static props = [...ListRenderer.props, "setSelectedRecord?"];
     onCellClicked(record, column, ev) {
         this.props.setSelectedRecord(record);
         super.onCellClicked(record, column, ev);
@@ -95,7 +96,6 @@ export class AccountMoveLineListRenderer extends ListRenderer {
         return futureCell;
     }
 }
-AccountMoveLineListRenderer.props = [...ListRenderer.props, "setSelectedRecord?"];
 export const AccountMoveLineListView = {
     ...listView,
     Renderer: AccountMoveLineListRenderer,

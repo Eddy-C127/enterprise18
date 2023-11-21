@@ -29,6 +29,8 @@ const { Model } = spreadsheet;
  */
 
 export class AbstractSpreadsheetAction extends Component {
+    static props = { ...standardActionServiceProps };
+
     setup() {
         if (!this.props.action.params) {
             // the action is coming from a this.trigger("do-action", ... ) of owl (not wowl and not legacy)
@@ -367,4 +369,3 @@ export class AbstractSpreadsheetAction extends Component {
         };
     }
 }
-AbstractSpreadsheetAction.props = { ...standardActionServiceProps };

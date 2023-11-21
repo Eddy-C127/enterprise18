@@ -8,6 +8,10 @@ import { SelectionField, selectionField } from "@web/views/fields/selection/sele
  * based on the value of the tax category field, as defined by the ATO.
  */
 export class TaxOptionSelectionField extends SelectionField {
+    static props = {
+        ...SelectionField.props,
+    };
+
     /**
      * @override
      */
@@ -47,10 +51,6 @@ export class TaxOptionSelectionField extends SelectionField {
         }
         return value;
     }
-};
-
-TaxOptionSelectionField.props = {
-    ...SelectionField.props,
 };
 
 export const taxOptionSelectionField = {

@@ -9,6 +9,14 @@ import { _t } from "@web/core/l10n/translation";
 const HEIGHT = "height: 100%;";
 
 export class StudioView extends Component {
+    static components = { WithSearch };
+    static template = xml`
+        <div t-att-style="style" class="w-100" t-ref="viewRenderer">
+            <WithSearch t-props="withSearchProps" t-slot-scope="search">
+                <t t-component="viewEditorModel.editorInfo.editor.Controller" t-props="Object.assign(controllerProps, search)" />
+            </WithSearch>
+        </div>
+    `;
     static props = { autoClick: { type: Function, optional: true }, "*": true }; // Same as View.js. This is just a wrapper
     setup() {
         this.notification = useService("notification");
@@ -111,11 +119,3 @@ export class StudioView extends Component {
         return true;
     }
 }
-StudioView.components = { WithSearch };
-StudioView.template = xml`
-    <div t-att-style="style" class="w-100" t-ref="viewRenderer">
-        <WithSearch t-props="withSearchProps" t-slot-scope="search">
-            <t t-component="viewEditorModel.editorInfo.editor.Controller" t-props="Object.assign(controllerProps, search)" />
-        </WithSearch>
-    </div>
-`;

@@ -4,12 +4,12 @@ import { AccountMoveLineListController, AccountMoveLineListView } from "@account
 import { registry } from "@web/core/registry";
 
 class ConsolidationMoveLineListController extends AccountMoveLineListController {
+    static template = "account_consolidation.MoveLineListView";
     setup() {
         super.setup();
         this.context = this.props.context;
     }
 }
-ConsolidationMoveLineListController.template = 'account_consolidation.MoveLineListView';
 
 const ConsolidationMoveLineListView = {
     ...AccountMoveLineListView,

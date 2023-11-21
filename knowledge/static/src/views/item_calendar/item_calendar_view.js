@@ -115,26 +115,29 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
     }
 }
 
-class KnowledgeArticleItemsCommonPopover extends CalendarCommonPopover {}
-KnowledgeArticleItemsCommonPopover.subTemplates = {
-    ...CalendarCommonPopover.subTemplates,
-    body: "knowledge.ArticleItemsCalendarCommonPopover.body",
-    footer: "knowledge.ArticleItemsCalendarCommonPopover.footer",
-};
+class KnowledgeArticleItemsCommonPopover extends CalendarCommonPopover {
+    static subTemplates = {
+        ...CalendarCommonPopover.subTemplates,
+        body: "knowledge.ArticleItemsCalendarCommonPopover.body",
+        footer: "knowledge.ArticleItemsCalendarCommonPopover.footer",
+    };
+}
 
-class KnowledgeArticleItemsCommonRenderer extends CalendarCommonRenderer {}
-KnowledgeArticleItemsCommonRenderer.components = {
-    ...CalendarCommonRenderer.components,
-    Popover: KnowledgeArticleItemsCommonPopover,
-};
+class KnowledgeArticleItemsCommonRenderer extends CalendarCommonRenderer {
+    static components = {
+        ...CalendarCommonRenderer.components,
+        Popover: KnowledgeArticleItemsCommonPopover,
+    };
+}
 
-class KnowledgeArticleItemsCalendarRenderer extends CalendarRenderer {}
-KnowledgeArticleItemsCalendarRenderer.components = {
-    ...CalendarRenderer.components,
-    day: KnowledgeArticleItemsCommonRenderer,
-    week: KnowledgeArticleItemsCommonRenderer,
-    month: KnowledgeArticleItemsCommonRenderer,
-};
+class KnowledgeArticleItemsCalendarRenderer extends CalendarRenderer {
+    static components = {
+        ...CalendarRenderer.components,
+        day: KnowledgeArticleItemsCommonRenderer,
+        week: KnowledgeArticleItemsCommonRenderer,
+        month: KnowledgeArticleItemsCommonRenderer,
+    };
+}
 
 registry.category("views").add('knowledge_article_view_calendar_embedded', {
     ...calendarView,

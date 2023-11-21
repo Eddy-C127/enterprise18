@@ -8,6 +8,11 @@ import { DocumentsSpreadsheetControlPanel } from "@documents_spreadsheet/bundle/
 import { useSubEnv } from "@odoo/owl";
 
 export class SpreadsheetTemplateAction extends AbstractSpreadsheetAction {
+    static template = "documents_spreadsheet.SpreadsheetTemplateAction";
+    static components = {
+        SpreadsheetComponent,
+        DocumentsSpreadsheetControlPanel,
+    };
     resModel = "spreadsheet.template";
 
     setup() {
@@ -50,12 +55,6 @@ export class SpreadsheetTemplateAction extends AbstractSpreadsheetAction {
         });
     }
 }
-
-SpreadsheetTemplateAction.template = "documents_spreadsheet.SpreadsheetTemplateAction";
-SpreadsheetTemplateAction.components = {
-    SpreadsheetComponent,
-    DocumentsSpreadsheetControlPanel,
-};
 
 registry
     .category("actions")

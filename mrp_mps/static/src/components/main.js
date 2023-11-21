@@ -17,6 +17,16 @@ import { ExportDataDialog } from "@web/views/view_dialogs/export_data_dialog";
 import { Component, onWillStart, useSubEnv } from "@odoo/owl";
 
 class MainComponent extends Component {
+    static template = "mrp_mps.mrp_mps";
+    static components = {
+        MrpMpsControlPanel,
+        WithSearch,
+        MpsLineComponent,
+        CheckBox,
+        MrpMpsSearchBar,
+        ActionMenus,
+    };
+
     //--------------------------------------------------------------------------
     // Lifecycle
     //--------------------------------------------------------------------------
@@ -223,16 +233,6 @@ class MainComponent extends Component {
         this.dialog.add(ExportDataDialog, dialogProps);
     }
 }
-
-MainComponent.template = 'mrp_mps.mrp_mps';
-MainComponent.components = {
-    MrpMpsControlPanel,
-    WithSearch,
-    MpsLineComponent,
-    CheckBox,
-    MrpMpsSearchBar,
-    ActionMenus,
-};
 
 registry.category("actions").add("mrp_mps_client_action", MainComponent);
 

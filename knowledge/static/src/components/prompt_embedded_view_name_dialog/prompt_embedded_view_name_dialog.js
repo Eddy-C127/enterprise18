@@ -8,6 +8,16 @@ import {
     useRef } from "@odoo/owl";
 
 export class PromptEmbeddedViewNameDialog extends Component {
+    static template = "knowledge.PromptEmbeddedViewNameDialog";
+    static components = { Dialog };
+    static props = {
+        defaultName: { type: String, optional: true },
+        isNew: { type: Boolean, optional: true },
+        viewType: { type: String },
+        save: { type: Function },
+        close: { type: Function, optional: true }
+    };
+
     /**
      * @override
      */
@@ -56,13 +66,3 @@ export class PromptEmbeddedViewNameDialog extends Component {
         }
     }
 }
-
-PromptEmbeddedViewNameDialog.template = 'knowledge.PromptEmbeddedViewNameDialog';
-PromptEmbeddedViewNameDialog.components = { Dialog };
-PromptEmbeddedViewNameDialog.props = {
-    defaultName: { type: String, optional: true },
-    isNew: { type: Boolean, optional: true },
-    viewType: { type: String },
-    save: { type: Function },
-    close: { type: Function, optional: true }
-};

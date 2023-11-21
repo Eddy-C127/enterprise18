@@ -18,15 +18,16 @@ import {
 } from "@odoo/owl";
 
 class FooterComponent extends Component {
+    static template = "web_enterprise.HomeMenu.CommandPalette.Footer";
+    static props = {
+        //prop added by the command palette
+        switchNamespace: { type: Function, optional: true },
+    };
+
     setup() {
         this.controlKey = isMacOS() ? "COMMAND" : "CONTROL";
     }
 }
-FooterComponent.template = "web_enterprise.HomeMenu.CommandPalette.Footer";
-FooterComponent.props = {
-    //prop added by the command palette
-    switchNamespace: { type: Function, optional: true },
-};
 /**
  * Home menu
  *
@@ -35,6 +36,42 @@ FooterComponent.props = {
  * @extends Component
  */
 export class HomeMenu extends Component {
+    static template = "web_enterprise.HomeMenu";
+    static components = { ExpirationPanel };
+    static props = {
+        apps: {
+            type: Array,
+            element: {
+                type: Object,
+                shape: {
+                    actionID: Number,
+                    appID: Number,
+                    id: Number,
+                    label: String,
+                    parents: String,
+                    webIcon: {
+                        type: [
+                            Boolean,
+                            String,
+                            {
+                                type: Object,
+                                optional: 1,
+                                shape: {
+                                    iconClass: String,
+                                    color: String,
+                                    backgroundColor: String,
+                                },
+                            },
+                        ],
+                        optional: true,
+                    },
+                    webIconData: { type: String, optional: 1 },
+                    xmlid: String,
+                },
+            },
+        },
+    };
+
     /**
      * @param {Object} props
      * @param {Object[]} props.apps application icons
@@ -337,38 +374,3 @@ export class HomeMenu extends Component {
         this.compositionStart = true;
     }
 }
-HomeMenu.components = { ExpirationPanel };
-HomeMenu.props = {
-    apps: {
-        type: Array,
-        element: {
-            type: Object,
-            shape: {
-                actionID: Number,
-                appID: Number,
-                id: Number,
-                label: String,
-                parents: String,
-                webIcon: {
-                    type: [
-                        Boolean,
-                        String,
-                        {
-                            type: Object,
-                            optional: 1,
-                            shape: {
-                                iconClass: String,
-                                color: String,
-                                backgroundColor: String,
-                            },
-                        },
-                    ],
-                    optional: true,
-                },
-                webIconData: { type: String, optional: 1 },
-                xmlid: String,
-            },
-        },
-    },
-};
-HomeMenu.template = "web_enterprise.HomeMenu";

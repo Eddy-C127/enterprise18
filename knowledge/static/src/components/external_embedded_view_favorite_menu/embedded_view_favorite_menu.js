@@ -9,6 +9,10 @@ import { Component } from "@odoo/owl";
 const cogMenuRegistry = registry.category("cogMenu");
 
 export class InsertEmbeddedViewMenu extends Component {
+    static props = {};
+    static template = "knowledge.InsertEmbeddedViewMenu";
+    static components = { Dropdown, DropdownItem };
+
     _onInsertEmbeddedViewInArticle () {
         this.env.searchModel.trigger('insert-embedded-view');
     }
@@ -16,10 +20,6 @@ export class InsertEmbeddedViewMenu extends Component {
         this.env.searchModel.trigger('insert-view-link');
     }
 }
-
-InsertEmbeddedViewMenu.props = {};
-InsertEmbeddedViewMenu.template = 'knowledge.InsertEmbeddedViewMenu';
-InsertEmbeddedViewMenu.components = { Dropdown, DropdownItem };
 
 cogMenuRegistry.add(
     'insert-embedded-view-menu',

@@ -5,6 +5,13 @@ import { TimesheetTimerHeader } from "@timesheet_grid/components/timesheet_timer
 import { useTimesheetTimerRendererHook } from "@timesheet_grid/hooks/timesheet_timer_hooks";
 
 export class TimesheetTimerListRenderer extends ListRenderer {
+    static template = "timesheet_grid.TimesheetTimerListRenderer";
+    static components = {
+        ...ListRenderer.components,
+        TimesheetTimerHeader: TimesheetTimerHeader,
+    };
+    static props = [...ListRenderer.props, "timerState"];
+
     setup() {
         super.setup();
         this.timesheetTimerRendererHook = useTimesheetTimerRendererHook();
@@ -17,15 +24,3 @@ export class TimesheetTimerListRenderer extends ListRenderer {
         super.onGlobalClick(ev);
     }
 }
-
-TimesheetTimerListRenderer.template = "timesheet_grid.TimesheetTimerListRenderer";
-
-TimesheetTimerListRenderer.components = {
-    ...ListRenderer.components,
-    TimesheetTimerHeader: TimesheetTimerHeader,
-};
-
-TimesheetTimerListRenderer.props = [
-    ...ListRenderer.props,
-    "timerState",
-];

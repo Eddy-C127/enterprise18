@@ -3,6 +3,9 @@
 import { Component } from "@odoo/owl";
 
 export default class LineComponent extends Component {
+    static props = ["displayUOM", "line", "subline?", "editLine"];
+    static template = "stock_barcode.LineComponent";
+
     get destinationLocationPath () {
         return this._getLocationPath(this.env.model._defaultDestLocation(), this.line.location_dest_id);
     }
@@ -113,5 +116,3 @@ export default class LineComponent extends Component {
         this.env.model.setOnHandQuantity(this.line);
     }
 }
-LineComponent.props = ["displayUOM", "line", "subline?", "editLine"];
-LineComponent.template = 'stock_barcode.LineComponent';

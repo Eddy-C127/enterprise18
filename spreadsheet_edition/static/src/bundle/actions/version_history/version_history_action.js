@@ -26,6 +26,14 @@ import { formatToLocaleString } from "../../helpers";
 const { Model } = spreadsheet;
 
 export class VersionHistoryAction extends Component {
+    static template = "spreadsheet_edition.VersionHistoryAction";
+    static components = {
+        SpreadsheetComponent,
+        SpreadsheetControlPanel,
+        SpreadsheetName,
+    };
+    static props = { ...standardActionServiceProps };
+
     setup() {
         this.params = this.props.action.params;
         this.orm = useService("orm");
@@ -266,13 +274,6 @@ Would you like to load the more recent modifications?"
     }
 }
 
-VersionHistoryAction.template = "spreadsheet_edition.VersionHistoryAction";
-VersionHistoryAction.components = {
-    SpreadsheetComponent,
-    SpreadsheetControlPanel,
-    SpreadsheetName,
-};
-VersionHistoryAction.props = { ...standardActionServiceProps };
 registry.category("actions").add("action_open_spreadsheet_history", VersionHistoryAction, {
     force: true,
 });

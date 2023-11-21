@@ -24,6 +24,13 @@ class FieldStudioKanbanRecord extends FieldStudio {
 
 const OriginDropdown = kanbanView.Renderer.components.KanbanRecord.components.Dropdown;
 class Dropdown extends OriginDropdown {
+    static template = "web_studio.KanbanEditorRecord.Dropdown";
+    static props = {
+        ...OriginDropdown.props,
+        studioXpath: { type: String, optional: 1 },
+        hasCoverSetter: { type: Boolean, optional: 1 },
+    };
+
     setup() {
         super.setup();
         const rootRef = useRef("root");
@@ -47,12 +54,6 @@ class Dropdown extends OriginDropdown {
         this.env.config.onNodeClicked(this.props.studioXpath);
     }
 }
-Dropdown.template = "web_studio.KanbanEditorRecord.Dropdown";
-Dropdown.props = {
-    ...OriginDropdown.props,
-    studioXpath: { type: String, optional: 1 },
-    hasCoverSetter: { type: Boolean, optional: 1 },
-};
 
 const KanbanRecord = kanbanView.Renderer.components.KanbanRecord;
 
@@ -70,14 +71,24 @@ function useSafeKanban() {
 }
 
 class SafeKanbanRecord extends KanbanRecord {
+    static template = "web_studio.SafeKanbanRecord";
     setup() {
         super.setup();
         this.safe = useSafeKanban();
     }
 }
-SafeKanbanRecord.template = "web_studio.SafeKanbanRecord";
 
 class _KanbanEditorRecord extends KanbanRecord {
+    static template = "web_studio.SafeKanbanRecord";
+    static menuTemplate = "web_studio.SafeKanbanRecordMenu";
+    static components = {
+        ...KanbanRecord.components,
+        Dropdown,
+        Field: FieldStudioKanbanRecord,
+        Widget: WidgetStudio,
+        StudioHook,
+        ViewButton: ViewButtonStudio,
+    };
     setup() {
         super.setup();
         this.viewEditorModel = useState(this.env.viewEditorModel);
@@ -203,19 +214,11 @@ class _KanbanEditorRecord extends KanbanRecord {
         });
     }
 }
-_KanbanEditorRecord.components = {
-    ...KanbanRecord.components,
-    Dropdown,
-    Field: FieldStudioKanbanRecord,
-    Widget: WidgetStudio,
-    StudioHook,
-    ViewButton: ViewButtonStudio,
-};
-_KanbanEditorRecord.menuTemplate = "web_studio.SafeKanbanRecordMenu";
-_KanbanEditorRecord.template = "web_studio.SafeKanbanRecord";
 
 export class KanbanEditorRecord extends Component {
     static props = [...KanbanRecord.props];
+    static template = xml`<t t-component="KanbanRecord" t-props="kanbanRecordProps" />`;
+
     get KanbanRecord() {
         if (this.env.viewEditorModel.mode !== "interactive") {
             return SafeKanbanRecord;
@@ -231,4 +234,3 @@ export class KanbanEditorRecord extends Component {
         return props;
     }
 }
-KanbanEditorRecord.template = xml`<t t-component="KanbanRecord" t-props="kanbanRecordProps" />`;

@@ -9,6 +9,17 @@ import { Deferred } from "@web/core/utils/concurrency";
 import { onMounted, onWillStart, useChildSubEnv, useExternalListener, useRef } from "@odoo/owl";
 
 export class KnowledgeArticleFormController extends FormController {
+    static template = "knowledge.ArticleFormView";
+    // Open articles in edit mode by default
+    static defaultProps = {
+        ...FormController.defaultProps,
+        mode: "edit",
+    };
+    static components = {
+        ...FormController.components,
+        KnowledgeSidebar,
+    };
+
     setup() {
         super.setup();
         this.root = useRef('root');
@@ -77,13 +88,13 @@ export class KnowledgeArticleFormController extends FormController {
      * save the whole article, if the current article exists (it does
      * not exist if there are no articles to show, in which case the no
      * content helper is displayed).
-     * @override 
+     * @override
      */
     async beforeUnload(ev) {
         if (this.model.root.resId) {
             this.ensureArticleName();
         }
-        await super.beforeUnload(ev); 
+        await super.beforeUnload(ev);
     }
 
     /**
@@ -156,7 +167,7 @@ export class KnowledgeArticleFormController extends FormController {
 
         // blur to remove focus on the active element
         document.activeElement.blur();
-        
+
         if (!this.model.root.isNew) {
             await this.model.root.save();
         }
@@ -219,15 +230,3 @@ export class KnowledgeArticleFormController extends FormController {
         container.classList.toggle('o_toggle_aside', force);
     }
 }
-
-// Open articles in edit mode by default
-KnowledgeArticleFormController.defaultProps = {
-    ...FormController.defaultProps,
-    mode: 'edit',
-};
-
-KnowledgeArticleFormController.template = "knowledge.ArticleFormView";
-KnowledgeArticleFormController.components = {
-    ...FormController.components,
-    KnowledgeSidebar,
-};

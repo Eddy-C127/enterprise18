@@ -5,6 +5,7 @@ import { useIotDevice } from '../iot_device_hook';
 import { Component, useState } from "@odoo/owl";
 
 export class IoTDeviceValueDisplay extends Component {
+    static template = `iot.IoTDeviceValueDisplay`;
     setup() {
         super.setup();
         this.state = useState({ value: '' });
@@ -17,7 +18,6 @@ export class IoTDeviceValueDisplay extends Component {
         });
     }
 }
-IoTDeviceValueDisplay.template = `iot.IoTDeviceValueDisplay`;
 
 export const ioTDeviceValueDisplay = {
     component: IoTDeviceValueDisplay,

@@ -44,6 +44,17 @@ function useResendButtons() {
 }
 
 export class SignRequestControlPanel extends Component {
+    static template = "sign.SignRequestControlPanel";
+    static components = {
+        ControlPanel,
+    };
+    static props = {
+        signerStatus: {
+            type: Object,
+            optional: true,
+        },
+    };
+
     setup() {
         this.controlPanelDisplay = {};
         this.action = useService("action");
@@ -82,14 +93,3 @@ export class SignRequestControlPanel extends Component {
         );
     }
 }
-
-SignRequestControlPanel.template = "sign.SignRequestControlPanel";
-SignRequestControlPanel.components = {
-    ControlPanel,
-};
-SignRequestControlPanel.props = {
-    signerStatus: {
-        type: Object,
-        optional: true,
-    },
-};

@@ -6,6 +6,8 @@ import { useChildRef, useService } from "@web/core/utils/hooks";
 import { Component, useExternalListener } from "@odoo/owl";
 
 export class PromoteStudioDialog extends Component {
+    static template = "web_enterprise.PromoteStudioDialog";
+    static components = { Dialog };
     setup() {
         this.ormService = useService("orm");
         this.uiService = useService("ui");
@@ -43,8 +45,7 @@ export class PromoteStudioDialog extends Component {
         }
     }
 }
-PromoteStudioDialog.template = "web_enterprise.PromoteStudioDialog";
-PromoteStudioDialog.components = { Dialog };
 
-export class PromoteStudioAutomationDialog extends PromoteStudioDialog {}
-PromoteStudioAutomationDialog.template = "web_enterprise.PromoteStudioAutomationDialog";
+export class PromoteStudioAutomationDialog extends PromoteStudioDialog {
+    static template = "web_enterprise.PromoteStudioAutomationDialog";
+}

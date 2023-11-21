@@ -21,6 +21,9 @@ const NEW_APP_BUTTON = {
  * @extends HomeMenu
  */
 export class StudioHomeMenu extends HomeMenu {
+    static props = { apps: HomeMenu.props.apps };
+    static template = "web_studio.StudioHomeMenu";
+
     /**
      * @param {Object} props
      * @param {Object[]} props.apps application icons
@@ -129,6 +132,3 @@ export class StudioHomeMenu extends HomeMenu {
         this.dialog.add(IconCreatorDialog, dialogProps);
     }
 }
-
-StudioHomeMenu.props = { apps: HomeMenu.props.apps };
-StudioHomeMenu.template = "web_studio.StudioHomeMenu";

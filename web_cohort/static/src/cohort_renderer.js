@@ -13,6 +13,10 @@ import { download } from "@web/core/network/download";
 const formatters = registry.category("formatters");
 
 export class CohortRenderer extends Component {
+    static components = { Dropdown, DropdownItem, ViewScaleSelector };
+    static template = "web_cohort.CohortRenderer";
+    static props = ["class", "model", "onRowClicked"];
+
     setup() {
         this.model = this.props.model;
     }
@@ -104,7 +108,3 @@ export class CohortRenderer extends Component {
         }
     }
 }
-
-CohortRenderer.components = { Dropdown, DropdownItem, ViewScaleSelector };
-CohortRenderer.template = "web_cohort.CohortRenderer";
-CohortRenderer.props = ["class", "model", "onRowClicked"];

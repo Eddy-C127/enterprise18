@@ -5,6 +5,14 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { Component, onMounted, useRef, useState } from "@odoo/owl";
 
 export class ManualBarcodeScanner extends Component {
+    static components = { Dialog };
+    static props = {
+        onApply: { type: Function },
+        openMobileScanner: { type: Function },
+        close: Function,
+    };
+    static template = "stock_barcode.ManualBarcodeScanner";
+
     setup() {
         this.title = _t("Barcode Manual Entry");
         this.state = useState({
@@ -53,11 +61,3 @@ export class ManualBarcodeScanner extends Component {
         }
     }
 }
-
-ManualBarcodeScanner.components = { Dialog };
-ManualBarcodeScanner.props = {
-    onApply: { type: Function },
-    openMobileScanner: { type: Function },
-    close: Function
-};
-ManualBarcodeScanner.template = "stock_barcode.ManualBarcodeScanner";

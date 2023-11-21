@@ -4,6 +4,10 @@ import { CalendarCommonRenderer } from "@web/views/calendar/calendar_common/cale
 import { PlanningCalendarCommonPopover } from "@planning/views/planning_calendar/common/planning_calendar_common_popover";
 
 export class PlanningCalendarCommonRenderer extends CalendarCommonRenderer {
+    static components = {
+        ...CalendarCommonRenderer.components,
+        Popover: PlanningCalendarCommonPopover,
+    };
     /**
      * @override
      */
@@ -18,7 +22,3 @@ export class PlanningCalendarCommonRenderer extends CalendarCommonRenderer {
         }
     }
 }
-PlanningCalendarCommonRenderer.components = {
-    ...CalendarCommonRenderer.components,
-    Popover: PlanningCalendarCommonPopover,
-};

@@ -7,6 +7,13 @@ import { useEmojiPicker } from "@web/core/emoji_picker/emoji_picker";
 import { Component, useState, useRef } from "@odoo/owl";
 
 export class StreamPostCommentsReply extends Component {
+    static template = "social.StreamPostCommentsReply";
+    static components = { FileUploader };
+    static defaultProps = {
+        isCommentReply: false,
+        isCommentEdit: false,
+    };
+
     setup() {
         super.setup();
         this.state = useState({
@@ -188,9 +195,3 @@ export class StreamPostCommentsReply extends Component {
         return true;
     }
 }
-StreamPostCommentsReply.template = "social.StreamPostCommentsReply";
-StreamPostCommentsReply.components = { FileUploader };
-StreamPostCommentsReply.defaultProps = {
-    isCommentReply: false,
-    isCommentEdit: false,
-};

@@ -14,6 +14,12 @@ import { useSetupAction } from "@web/webclient/actions/action_hook";
  */
 
 export class PayrollDashboardTodo extends Component {
+    static template = "hr_payroll.TodoList";
+    static components = {
+        Field,
+        Record,
+    };
+
     setup() {
         this.company = useService("company");
         this.user = useService("user");
@@ -185,9 +191,3 @@ export class PayrollDashboardTodo extends Component {
         }
     }
 }
-
-PayrollDashboardTodo.template = "hr_payroll.TodoList";
-PayrollDashboardTodo.components = {
-    Field,
-    Record,
-};

@@ -11,6 +11,16 @@ import { localization } from "@web/core/l10n/localization";
 import { NameAndSignature } from "@web/core/signature/name_and_signature";
 
 export class SignNameAndSignature extends NameAndSignature {
+    static template = "sign.NameAndSignature";
+    static props = {
+        ...NameAndSignature.props,
+        activeFrame: Boolean,
+        defaultFrame: String,
+        frame: { type: Object, optional: true },
+        hash: String,
+        onNameChange: Function,
+    };
+
     setup() {
         super.setup();
         this.user = useService("user");
@@ -95,17 +105,27 @@ export class SignNameAndSignature extends NameAndSignature {
     }
 }
 
-SignNameAndSignature.template = "sign.NameAndSignature";
-SignNameAndSignature.props = {
-    ...NameAndSignature.props,
-    activeFrame: Boolean,
-    defaultFrame: String,
-    frame: { type: Object, optional: true },
-    hash: String,
-    onNameChange: Function,
-};
-
 export class SignNameAndSignatureDialog extends Component {
+    static props = {
+        signature: Object,
+        frame: { type: Object, optional: true },
+        signatureType: { type: String, optional: true },
+        displaySignatureRatio: Number,
+        activeFrame: Boolean,
+        defaultFrame: { type: String, optional: true },
+        mode: { type: String, optional: true },
+        hash: String,
+        onConfirm: Function,
+        onConfirmAll: Function,
+        onCancel: Function,
+        close: Function,
+    };
+    static template = "sign.SignNameAndSignatureDialog";
+    static components = {
+        Dialog,
+        SignNameAndSignature,
+    };
+
     setup() {
         this.footerState = useState({
             buttonsDisabled: !this.props.signature.name,
@@ -139,25 +159,3 @@ export class SignNameAndSignatureDialog extends Component {
         }
     }
 }
-
-SignNameAndSignatureDialog.props = {
-    signature: Object,
-    frame: { type: Object, optional: true },
-    signatureType: { type: String, optional: true },
-    displaySignatureRatio: Number,
-    activeFrame: Boolean,
-    defaultFrame: { type: String, optional: true },
-    mode: { type: String, optional: true },
-    hash: String,
-    onConfirm: Function,
-    onConfirmAll: Function,
-    onCancel: Function,
-    close: Function,
-};
-
-SignNameAndSignatureDialog.components = {
-    Dialog,
-    SignNameAndSignature,
-};
-
-SignNameAndSignatureDialog.template = "sign.SignNameAndSignatureDialog";

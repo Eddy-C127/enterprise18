@@ -6,6 +6,14 @@ import { useService } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
 
 export class NextDirectSignDialog extends Component {
+    static template = "sign.NextDirectSignDialog";
+    static components = {
+        Dialog,
+    };
+    static props = {
+        close: Function,
+    };
+
     setup() {
         this.action = useService("action");
         this.signInfo = useService("signInfo");
@@ -48,12 +56,3 @@ export class NextDirectSignDialog extends Component {
         };
     }
 }
-
-NextDirectSignDialog.template = "sign.NextDirectSignDialog";
-NextDirectSignDialog.components = {
-    Dialog,
-};
-
-NextDirectSignDialog.props = {
-    close: Function,
-};

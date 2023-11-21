@@ -3,6 +3,9 @@
 import LineComponent from './line';
 
 export default class PackageLineComponent extends LineComponent {
+    static props = ["displayUOM", "line", "openPackage"];
+    static template = "stock_barcode.PackageLineComponent";
+
     get isComplete() {
         return this.qtyDone == this.qtyDemand;
     }
@@ -30,5 +33,3 @@ export default class PackageLineComponent extends LineComponent {
         this.env.model.trigger('update');
     }
 }
-PackageLineComponent.props = ["displayUOM", "line", "openPackage"];
-PackageLineComponent.template = 'stock_barcode.PackageLineComponent';

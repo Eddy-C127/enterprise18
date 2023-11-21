@@ -8,6 +8,12 @@ import { TimesheetUOM, timesheetUOM } from "@hr_timesheet/components/timesheet_u
 import { TimesheetUOMHourTimer } from "../timesheet_uom_hour_timer/timesheet_uom_hour_timer";
 
 class TimesheetUOMTimer extends TimesheetUOM {
+    static components = {
+        ...TimesheetUOM.components,
+        FloatFactorField,
+        FloatToggleField,
+        TimesheetUOMHourTimer,
+    };
     get timesheetComponent() {
         if (this.timesheetUOMService.timesheetWidget === "float_time") {
             return this.timesheetUOMService.getTimesheetComponent("timesheet_uom_hour_timer");
@@ -15,13 +21,6 @@ class TimesheetUOMTimer extends TimesheetUOM {
         return super.timesheetComponent;
     }
 }
-
-TimesheetUOMTimer.components = {
-    ...TimesheetUOM.components,
-    FloatFactorField,
-    FloatToggleField,
-    TimesheetUOMHourTimer,
-};
 
 // As we replace FloatTimeField by TimesheetUOMHourTimer, we remove it from the components that we get from TimesheetUOM.
 delete TimesheetUOMTimer.components.FloatTimeField;

@@ -5,6 +5,7 @@ import { useService } from '@web/core/utils/hooks';
 import { Component } from "@odoo/owl";
 
 export class StreamPostCommentList extends Component {
+    static template = "social.StreamPostCommentsWrapper";
 
     setup() {
         super.setup();
@@ -46,5 +47,3 @@ export class StreamPostCommentList extends Component {
     }
 
 }
-
-StreamPostCommentList.template = 'social.StreamPostCommentsWrapper';

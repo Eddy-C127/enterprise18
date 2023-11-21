@@ -7,6 +7,7 @@ import { escape } from "@web/core/utils/strings";
 import { _t } from "@web/core/l10n/translation";
 
 export class DocumentsActionHelper extends Component {
+    static template = "documents.DocumentsActionHelper";
     static props = [
         "noContentHelp", // Markup Object
     ];
@@ -81,4 +82,3 @@ export class DocumentsActionHelper extends Component {
         }
     }
 }
-DocumentsActionHelper.template = "documents.DocumentsActionHelper";

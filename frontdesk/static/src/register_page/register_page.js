@@ -5,6 +5,18 @@ import { Component, markup, onWillUnmount } from "@odoo/owl";
 import { useInactivity } from "../use_inactivity";
 
 export class RegisterPage extends Component {
+    static template = "frontdesk.RegisterPage";
+    static props = {
+        createVisitor: Function,
+        hostData: { optional: true },
+        isDrinkVisible: Boolean,
+        isMobile: Boolean,
+        onClose: Function,
+        plannedVisitorData: { optional: true },
+        showScreen: Function,
+        theme: String,
+    };
+
     setup() {
         if (!this.props.isMobile) {
             useInactivity(() => this.props.onClose(), 15000);
@@ -34,17 +46,5 @@ export class RegisterPage extends Component {
         return markup(this.props.plannedVisitorData.plannedVisitorMessage);
     }
 }
-
-RegisterPage.template = "frontdesk.RegisterPage";
-RegisterPage.props = {
-    createVisitor: Function,
-    hostData: { optional: true },
-    isDrinkVisible: Boolean,
-    isMobile: Boolean,
-    onClose: Function,
-    plannedVisitorData: { optional: true },
-    showScreen: Function,
-    theme: String,
-};
 
 registry.category("frontdesk_screens").add("RegisterPage", RegisterPage);

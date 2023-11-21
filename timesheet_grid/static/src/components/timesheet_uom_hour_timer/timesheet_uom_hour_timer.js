@@ -8,6 +8,9 @@ import { TimesheetDisplayTimer } from "../timesheet_display_timer/timesheet_disp
 import { Component, useState } from "@odoo/owl";
 
 export class TimesheetUOMHourTimer extends Component {
+    static components = { TimesheetDisplayTimer };
+    static template = "timesheet_grid.TimesheetUOMHourTimer";
+
     setup() {
         this.ormService = useService("orm");
         this.state = useState(this.env.timerState || {});
@@ -47,10 +50,6 @@ export class TimesheetUOMHourTimer extends Component {
         await this.props.record.model.load();
     }
 }
-
-TimesheetUOMHourTimer.components = { TimesheetDisplayTimer };
-
-TimesheetUOMHourTimer.template = "timesheet_grid.TimesheetUOMHourTimer";
 
 export const timesheetUOMHourTimer = {
     component: TimesheetUOMHourTimer,

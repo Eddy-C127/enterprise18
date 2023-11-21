@@ -8,6 +8,12 @@ import { Component, } from "@odoo/owl";
 import { useAddPayslips } from '../../views/add_payslips_hook';
 
 export class AddPayslips extends Component {
+    static template = "hr_payroll.AddPayslips";
+    static props = {
+        ...standardWidgetProps,
+        string: { type: String },
+    };
+
     setup() {
         super.setup();
         this.addPayslips = useAddPayslips();
@@ -17,11 +23,6 @@ export class AddPayslips extends Component {
         await this.addPayslips(this.props.record);
     }
 }
-AddPayslips.template = "hr_payroll.AddPayslips";
-AddPayslips.props = {
-    ...standardWidgetProps,
-    string: { type: String },
-};
 
 export const addPayslips = {
     component: AddPayslips,

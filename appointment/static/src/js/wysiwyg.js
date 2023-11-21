@@ -58,13 +58,13 @@ patch(Wysiwyg.prototype, {
 });
 
 class AppointmentFormViewDialog extends FormViewDialog {
+    static props = {
+        ...FormViewDialog.props,
+        insertLink: { type: Function },
+    };
     setup() {
         super.setup();
         this.viewProps.insertLink = this.props.insertLink;
         this.viewProps.closeDialog = this.props.close;
     }
 }
-AppointmentFormViewDialog.props = {
-    ...FormViewDialog.props,
-    insertLink: { type: Function },
-};

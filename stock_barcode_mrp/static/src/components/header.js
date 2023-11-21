@@ -3,6 +3,8 @@
 import { Component } from "@odoo/owl";
 
 export default class HeaderComponent extends Component {
+    static props = ["displayUOM", "openDetails", "line"];
+    static template = "stock_barcode_mrp.HeaderComponent";
 
     get order() {
         return this.env.model.record;
@@ -47,6 +49,3 @@ export default class HeaderComponent extends Component {
         return true;
     }
 }
-
-HeaderComponent.props = ["displayUOM", "openDetails", "line"];
-HeaderComponent.template = 'stock_barcode_mrp.HeaderComponent';

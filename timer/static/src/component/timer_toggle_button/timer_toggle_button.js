@@ -6,6 +6,12 @@ import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
 export class TimerToggleButton extends Component {
+    static props = {
+        ...standardFieldProps,
+        context: { type: Object },
+    };
+    static template = "timer.ToggleButton";
+
     setup() {
         this.orm = useService("orm");
     }
@@ -35,9 +41,3 @@ export class TimerToggleButton extends Component {
         await this.props.record.model.load();
     }
 }
-
-TimerToggleButton.props = {
-    ...standardFieldProps,
-    context: { type: Object },
-};
-TimerToggleButton.template = "timer.ToggleButton";

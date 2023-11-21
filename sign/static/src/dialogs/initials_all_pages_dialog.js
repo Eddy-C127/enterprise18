@@ -5,6 +5,17 @@ import { Component, useRef } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
 
 export class InitialsAllPagesDialog extends Component {
+    static template = "sign.InitialsAllPagesDialog";
+    static components = {
+        Dialog,
+    };
+    static props = {
+        addInitial: Function,
+        close: Function,
+        roles: Object,
+        responsible: Number,
+    };
+
     setup() {
         this.selectRef = useRef("role_select");
     }
@@ -30,15 +41,3 @@ export class InitialsAllPagesDialog extends Component {
         };
     }
 }
-
-InitialsAllPagesDialog.template = "sign.InitialsAllPagesDialog";
-InitialsAllPagesDialog.components = {
-    Dialog,
-};
-
-InitialsAllPagesDialog.props = {
-    addInitial: Function,
-    close: Function,
-    roles: Object,
-    responsible: Number,
-};

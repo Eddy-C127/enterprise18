@@ -14,7 +14,11 @@ class StreamPostKanbanHeader extends KanbanHeader {
 }
 
 export class StreamPostKanbanRenderer extends KanbanRenderer {
-
+    static components = {
+        ...KanbanRenderer.components,
+        KanbanRecord: StreamPostKanbanRecord,
+        KanbanHeader: StreamPostKanbanHeader,
+    };
     setup() {
         super.setup();
 
@@ -52,9 +56,3 @@ export class StreamPostKanbanRenderer extends KanbanRenderer {
     }
 
 }
-
-StreamPostKanbanRenderer.components = {
-    ...KanbanRenderer.components,
-    KanbanRecord: StreamPostKanbanRecord,
-    KanbanHeader: StreamPostKanbanHeader,
-};

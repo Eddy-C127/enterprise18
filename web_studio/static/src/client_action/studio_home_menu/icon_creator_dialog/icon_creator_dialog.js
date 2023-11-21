@@ -8,6 +8,15 @@ import { IconCreator } from "@web_studio/client_action/icon_creator/icon_creator
 import { Component, useState } from "@odoo/owl";
 
 export class IconCreatorDialog extends Component {
+    static title = _t("Edit Application Icon");
+    static props = {
+        editedAppData: Object,
+        appId: Number,
+        close: Function,
+    };
+    static template = "web_studio.IconCreatorDialog";
+    static components = { Dialog, IconCreator };
+
     setup() {
         this.user = useService("user");
         this.rpc = useService("rpc");
@@ -66,11 +75,3 @@ export class IconCreatorDialog extends Component {
         this.props.close();
     }
 }
-IconCreatorDialog.title = _t("Edit Application Icon");
-IconCreatorDialog.props = {
-    editedAppData: Object,
-    appId: Number,
-    close: Function,
-};
-IconCreatorDialog.template = "web_studio.IconCreatorDialog";
-IconCreatorDialog.components = { Dialog, IconCreator };

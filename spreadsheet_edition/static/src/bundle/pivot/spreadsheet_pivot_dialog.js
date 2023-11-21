@@ -38,6 +38,16 @@ const formatValue = spreadsheet.helpers.formatValue;
  */
 
 export class PivotDialog extends Component {
+    static template = "spreadsheet_edition.PivotDialog";
+    static components = { Dialog, PivotDialogTable };
+    static props = {
+        title: String,
+        pivotId: String,
+        insertPivotValueCallback: Function,
+        getters: Object,
+        close: Function, // prop added by Dialog service
+    };
+
     setup() {
         this.state = useState({
             showMissingValuesOnly: false,
@@ -373,13 +383,3 @@ export class PivotDialog extends Component {
         return values;
     }
 }
-
-PivotDialog.template = "spreadsheet_edition.PivotDialog";
-PivotDialog.components = { Dialog, PivotDialogTable };
-PivotDialog.props = {
-    title: String,
-    pivotId: String,
-    insertPivotValueCallback: Function,
-    getters: Object,
-    close: Function, // prop added by Dialog service
-};

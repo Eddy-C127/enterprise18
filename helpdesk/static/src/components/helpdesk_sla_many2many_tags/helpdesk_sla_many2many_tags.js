@@ -10,12 +10,11 @@ import { HelpdeskSLATagsList } from "../helpdesk_sla_tags_list/helpdesk_sla_tags
 
 
 class HelpdeskSLAMany2ManyTags extends Many2ManyTagsField {
+    static components = { ...Many2ManyTagsField.components, TagsList: HelpdeskSLATagsList };
     getTagProps(record) {
         return { ...super.getTagProps(record), slaStatus: record.data.status };
     }
 }
-
-HelpdeskSLAMany2ManyTags.components = { ...Many2ManyTagsField.components, TagsList: HelpdeskSLATagsList };
 
 export const helpdeskSLAMany2ManyTags = {
     ...many2ManyTagsField,

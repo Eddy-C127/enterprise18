@@ -8,6 +8,8 @@ import { fileTypeMagicWordMap } from "@web/views/fields/image/image_field";
 import { Component, useEffect, useRef } from "@odoo/owl";
 
 class DocumentViewer extends Component {
+    static template = "mrp_workorder.DocumentViewer";
+    static props = ["resField", "resModel", "resId", "value", "page"];
 
     setup() {
         this.notification = useService("notification");
@@ -79,8 +81,5 @@ class DocumentViewer extends Component {
         });
     }
 }
-
-DocumentViewer.template = "mrp_workorder.DocumentViewer";
-DocumentViewer.props = ["resField", "resModel", "resId", "value", "page"];
 
 export default DocumentViewer;

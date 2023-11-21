@@ -8,6 +8,11 @@ import { MRPWorkorderGanttRowProgressBar } from "./mrp_workorder_gantt_row_progr
 const { Duration } = luxon;
 
 export class MRPWorkorderGanttRenderer extends GanttRenderer {
+    static components = {
+        ...GanttRenderer.components,
+        GanttRowProgressBar: MRPWorkorderGanttRowProgressBar,
+    };
+
     computeDerivedParams() {
         this.unavailabilities = this.model.workcentersUnavailabilities || {};
         super.computeDerivedParams();
@@ -57,8 +62,3 @@ export class MRPWorkorderGanttRenderer extends GanttRenderer {
         return false;
     }
 }
-
-MRPWorkorderGanttRenderer.components = {
-    ...GanttRenderer.components,
-    GanttRowProgressBar: MRPWorkorderGanttRowProgressBar,
-};

@@ -9,6 +9,12 @@ import { usePlanningControllerActions } from "../planning_hooks";
 import { _t } from "@web/core/l10n/translation";
 
 export class PlanningCalendarController extends CalendarController {
+    static template = "planning.PlanningCalendarController";
+    static components = {
+        ...CalendarController.components,
+        FilterPanel: PlanningCalendarFilterPanel,
+    };
+
     setup() {
         super.setup(...arguments);
         this.user = useService("user");
@@ -40,10 +46,4 @@ export class PlanningCalendarController extends CalendarController {
     async onWillStart() {
         this.isManager = await this.user.hasGroup("planning.group_planning_manager");
     }
-};
-
-PlanningCalendarController.template = "planning.PlanningCalendarController";
-PlanningCalendarController.components = {
-    ...CalendarController.components,
-    FilterPanel: PlanningCalendarFilterPanel,
 };

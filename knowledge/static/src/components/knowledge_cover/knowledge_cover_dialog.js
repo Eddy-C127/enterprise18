@@ -34,6 +34,16 @@ export class AutoResizeCover extends AutoResizeImage {
 }
 
 export class KnowledgeCoverSelector extends ImageSelector {
+    static defaultProps = {
+        resModel: "knowledge.cover",
+        orientation: "landscape",
+    };
+    static attachmentsListTemplate = "knowledge.CoversListTemplate";
+    static components = {
+        ...ImageSelector.components,
+        AutoResizeCover,
+        UnsplashError,
+    };
     setup() {
         super.setup();
         // Search for images matching the article name when opening the dialog.
@@ -115,18 +125,13 @@ export class KnowledgeCoverSelector extends ImageSelector {
     }
 }
 
-KnowledgeCoverSelector.defaultProps = {
-    resModel: 'knowledge.cover',
-    orientation: 'landscape',
-};
-KnowledgeCoverSelector.attachmentsListTemplate = 'knowledge.CoversListTemplate';
-KnowledgeCoverSelector.components = {
-    ...ImageSelector.components,
-    AutoResizeCover,
-    UnsplashError,
-};
-
 export class KnowledgeCoverDialog extends Component {
+    static template = 'knowledge.KnowledgeCoverDialog';
+    static components = {
+        KnowledgeCoverSelector,
+        Dialog
+    };
+
     setup() {
         this.size = 'xl';
         this.contentClass = 'o_select_media_dialog h-100';
@@ -142,8 +147,3 @@ export class KnowledgeCoverDialog extends Component {
         this.props.close();
     }
 }
-KnowledgeCoverDialog.template = 'knowledge.KnowledgeCoverDialog';
-KnowledgeCoverDialog.components = {
-    KnowledgeCoverSelector,
-    Dialog
-};

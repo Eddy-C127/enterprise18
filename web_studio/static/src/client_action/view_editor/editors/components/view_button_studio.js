@@ -9,6 +9,9 @@ import { useBus } from "@web/core/utils/hooks";
  * - Click is overriden not to trigger the bound action
  */
 export class ViewButtonStudio extends ViewButton {
+    static template = "web_studio.ViewButton";
+    static props = [...ViewButton.props, "studioIsVisible?", "studioXpath?"];
+
     setup() {
         super.setup();
         useStudioRef("rootRef");
@@ -40,5 +43,3 @@ export class ViewButtonStudio extends ViewButton {
         this.env.config.onNodeClicked(this.props.studioXpath);
     }
 }
-ViewButtonStudio.template = "web_studio.ViewButton";
-ViewButtonStudio.props = [...ViewButton.props, "studioIsVisible?", "studioXpath?"];

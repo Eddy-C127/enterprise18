@@ -7,6 +7,7 @@ import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
 export class SendHmrcButton extends Component {
+    static template = "l10n_uk_reports.SendHmrcButton";
 
     setup() {
         this.orm = useService("orm");
@@ -44,5 +45,4 @@ export const sendHmrcButton = {
     component: SendHmrcButton,
 }
 
-SendHmrcButton.template = "l10n_uk_reports.SendHmrcButton";
 registry.category('view_widgets').add('send_hmrc_button', sendHmrcButton);

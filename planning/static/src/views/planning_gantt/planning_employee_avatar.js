@@ -4,6 +4,8 @@ import { Avatar } from "@mail/views/web/fields/avatar/avatar";
 import { useEffect, useRef } from "@odoo/owl";
 
 export class PlanningEmployeeAvatar extends Avatar {
+    static template = "planning.PlanningEmployeeAvatar";
+
     setup() {
         super.setup();
         const displayNameRef = useRef("displayName");
@@ -24,4 +26,3 @@ export class PlanningEmployeeAvatar extends Avatar {
         );
     }
 }
-PlanningEmployeeAvatar.template = "planning.PlanningEmployeeAvatar";

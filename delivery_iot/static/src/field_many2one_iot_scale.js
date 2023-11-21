@@ -5,6 +5,14 @@ import { Many2OneField, many2OneField } from '@web/views/fields/many2one/many2on
 import { useIotDevice } from '@iot/iot_device_hook';
 
 export class FieldMany2OneIoTScale extends Many2OneField {
+    static template = `delivery_iot.FieldMany2OneIoTScale`;
+    static props = {
+        ...Many2OneField.props,
+        manual_measurement_field: { type: String },
+        ip_field: { type: String },
+        identifier_field: { type: String },
+        value_field: { type: String },
+    };
     setup() {
         super.setup();
         this.getIotDevice = useIotDevice({
@@ -33,14 +41,6 @@ export class FieldMany2OneIoTScale extends Many2OneField {
         return this.getIotDevice().action({ action: 'read_once' });
     }
 }
-FieldMany2OneIoTScale.template = `delivery_iot.FieldMany2OneIoTScale`;
-FieldMany2OneIoTScale.props = {
-    ...Many2OneField.props,
-    manual_measurement_field: { type: String },
-    ip_field: { type: String },
-    identifier_field: { type: String },
-    value_field: { type: String },
-};
 
 export const fieldMany2OneIoTScale = {
     ...many2OneField,

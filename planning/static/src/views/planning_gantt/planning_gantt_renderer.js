@@ -13,6 +13,13 @@ import { serializeDateTime } from "@web/core/l10n/dates";
 const { Duration, DateTime } = luxon;
 
 export class PlanningGanttRenderer extends GanttRenderer {
+    static rowHeaderTemplate = "planning.PlanningGanttRenderer.RowHeader";
+    static pillTemplate = "planning.PlanningGanttRenderer.Pill";
+    static components = {
+        ...GanttRenderer.components,
+        Avatar: PlanningEmployeeAvatar,
+        GanttRowProgressBar: PlanningGanttRowProgressBar,
+    };
     setup() {
         super.setup();
         useEffect(() => {
@@ -306,10 +313,3 @@ export class PlanningGanttRenderer extends GanttRenderer {
 
 
 }
-PlanningGanttRenderer.rowHeaderTemplate = "planning.PlanningGanttRenderer.RowHeader";
-PlanningGanttRenderer.pillTemplate = "planning.PlanningGanttRenderer.Pill";
-PlanningGanttRenderer.components = {
-    ...GanttRenderer.components,
-    Avatar: PlanningEmployeeAvatar,
-    GanttRowProgressBar: PlanningGanttRowProgressBar,
-};

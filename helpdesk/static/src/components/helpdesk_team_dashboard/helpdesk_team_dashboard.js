@@ -8,6 +8,11 @@ import { HelpdeskTeamTarget } from "../helpdesk_team_target/helpdesk_team_target
 import { Component, useState, onWillStart } from "@odoo/owl";
 
 export class HelpdeskTeamDashboard extends Component {
+    static template = "helpdesk.HelpdeskTeamDashboard";
+    static components = {
+        HelpdeskTeamTarget,
+    };
+
     setup() {
         this.action = useService('action');
         this.orm = useService('orm');
@@ -96,8 +101,3 @@ export class HelpdeskTeamDashboard extends Component {
         return parseInt(value);
     }
 }
-
-HelpdeskTeamDashboard.components = {
-    HelpdeskTeamTarget,
-};
-HelpdeskTeamDashboard.template = 'helpdesk.HelpdeskTeamDashboard';

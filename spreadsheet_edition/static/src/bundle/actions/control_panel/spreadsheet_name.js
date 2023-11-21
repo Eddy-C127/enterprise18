@@ -9,6 +9,16 @@ const PADDING_RIGHT = 5;
 const PADDING_LEFT = PADDING_RIGHT - WIDTH_MARGIN;
 
 export class SpreadsheetName extends Component {
+    static template = "spreadsheet_edition.SpreadsheetName";
+    static props = {
+        name: String,
+        isReadonly: Boolean,
+        onSpreadsheetNameChanged: { type: Function, optional: true },
+    };
+    static defaultProps = {
+        onSpreadsheetNameChanged: () => {},
+    };
+
     setup() {
         this.placeholder = UNTITLED_SPREADSHEET_NAME;
         this.state = useState({
@@ -105,13 +115,3 @@ export class SpreadsheetName extends Component {
         ev.target.blur();
     }
 }
-
-SpreadsheetName.template = "spreadsheet_edition.SpreadsheetName";
-SpreadsheetName.props = {
-    name: String,
-    isReadonly: Boolean,
-    onSpreadsheetNameChanged: { type: Function, optional: true },
-};
-SpreadsheetName.defaultProps = {
-    onSpreadsheetNameChanged: () => {},
-};

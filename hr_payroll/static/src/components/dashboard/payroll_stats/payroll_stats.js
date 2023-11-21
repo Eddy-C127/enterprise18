@@ -7,6 +7,8 @@ import { cookie } from "@web/core/browser/cookie";
 import { Component, onWillUnmount, useEffect, useRef, useState, onWillStart } from "@odoo/owl";
 
 export class PayrollDashboardStats extends Component {
+    static template = "hr_payroll.DashboardStats";
+
     setup() {
         this.actionService = useService("action");
         this.canvasRef = useRef('canvas');
@@ -257,5 +259,3 @@ export class PayrollDashboardStats extends Component {
 
 
 }
-
-PayrollDashboardStats.template = 'hr_payroll.DashboardStats';

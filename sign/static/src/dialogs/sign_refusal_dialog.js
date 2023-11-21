@@ -8,6 +8,14 @@ import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { ThankYouDialog } from "./thank_you_dialog";
 
 export class SignRefusalDialog extends Component {
+    static template = "sign.SignRefusalDialog";
+    static components = {
+        Dialog,
+    };
+    static props = {
+        close: Function,
+    };
+
     setup() {
         this.refuseReasonEl = useRef("refuse-reason");
         this.refuseButton = useRef("refuse-button");
@@ -58,13 +66,3 @@ export class SignRefusalDialog extends Component {
         this.props.close();
     }
 }
-
-SignRefusalDialog.template = "sign.SignRefusalDialog";
-
-SignRefusalDialog.components = {
-    Dialog,
-};
-
-SignRefusalDialog.props = {
-    close: Function,
-};

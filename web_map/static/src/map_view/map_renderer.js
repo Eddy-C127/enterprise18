@@ -42,6 +42,12 @@ const mapTileAttribution = `
     </strong>`;
 
 export class MapRenderer extends Component {
+    static template = "web_map.MapRenderer";
+    static props = {
+        model: Object,
+        onMarkerClick: Function,
+    };
+
     setup() {
         this.leafletMap = null;
         this.markers = [];
@@ -442,9 +448,3 @@ export class MapRenderer extends Component {
         return !this.env.isSmall || this.expendedPinList;
     }
 }
-
-MapRenderer.template = "web_map.MapRenderer";
-MapRenderer.props = {
-    model: Object,
-    onMarkerClick: Function,
-};

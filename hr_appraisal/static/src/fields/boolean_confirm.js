@@ -25,6 +25,9 @@ export class ConfirmCheckBox extends CheckBox {
 }
 
 export class BooleanToggleConfirm extends BooleanToggleField {
+    static template = "hr_appraisal.BooleanToggleConfirm";
+    static components = { ConfirmCheckBox };
+
     setup() {
         super.setup();
         this.dialogService = useService('dialog');
@@ -50,8 +53,6 @@ export class BooleanToggleConfirm extends BooleanToggleField {
         }
     }
 }
-BooleanToggleConfirm.template = 'hr_appraisal.BooleanToggleConfirm';
-BooleanToggleConfirm.components = { ConfirmCheckBox };
 
 export const booleanToggleConfirm = {
     ...booleanToggleField,

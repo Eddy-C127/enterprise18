@@ -6,7 +6,13 @@ import { Component, useState, useExternalListener } from "@odoo/owl";
 const INPUT_KEYS = new Set(['Delete', 'Backspace'].concat('0123456789,'.split('')));
 
 export class PinPopup extends Component {
+    static template = "mrp_workorder.PinPopup";
     static components = { Dialog };
+    static props = {
+        popupData: Object,
+        onClosePopup: Function,
+        onPinValidate: Function,
+    };
 
     setup() {
         super.setup();
@@ -55,9 +61,3 @@ export class PinPopup extends Component {
     }
 
 }
-PinPopup.props = {
-    popupData: Object,
-    onClosePopup: Function,
-    onPinValidate: Function,
-};
-PinPopup.template = 'mrp_workorder.PinPopup';

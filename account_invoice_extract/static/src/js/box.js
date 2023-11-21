@@ -3,6 +3,7 @@
 import { Component } from "@odoo/owl";
 
 export class Box extends Component {
+    static template = "account_invoice_extract.Box";
     /**
      * @override
      */
@@ -32,5 +33,3 @@ export class Box extends Component {
         this.props.onClickBoxCallback(this.state.id, this.state.page);
     }
 };
-
-Box.template = 'account_invoice_extract.Box';

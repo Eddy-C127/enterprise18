@@ -15,6 +15,12 @@ import { _t } from "@web/core/l10n/translation";
 import { useState, useSubEnv } from "@odoo/owl";
 
 export class SpreadsheetAction extends AbstractSpreadsheetAction {
+    static template = "documents_spreadsheet.SpreadsheetAction";
+    static components = {
+        SpreadsheetComponent,
+        DocumentsSpreadsheetControlPanel,
+        SpreadsheetName,
+    };
     resModel = "documents.document";
     setup() {
         super.setup();
@@ -145,12 +151,5 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
         return url;
     }
 }
-
-SpreadsheetAction.template = "documents_spreadsheet.SpreadsheetAction";
-SpreadsheetAction.components = {
-    SpreadsheetComponent,
-    DocumentsSpreadsheetControlPanel,
-    SpreadsheetName,
-};
 
 registry.category("actions").add("action_open_spreadsheet", SpreadsheetAction, { force: true });

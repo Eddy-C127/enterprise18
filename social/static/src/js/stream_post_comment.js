@@ -10,6 +10,7 @@ import { useService } from '@web/core/utils/hooks';
 import { Component, markup, useState } from "@odoo/owl";
 
 export class StreamPostComment extends SocialPostFormatterMixin(Component) {
+    static template = "social.StreamPostComment";
 
     setup() {
         super.setup();
@@ -151,5 +152,3 @@ export class StreamPostComment extends SocialPostFormatterMixin(Component) {
         return luxon.DateTime.fromISO(this.comment.created_time);
     }
 }
-
-StreamPostComment.template = 'social.StreamPostComment';

@@ -6,6 +6,13 @@ import { ListingDetailsSidePanel } from "./listing_details_side_panel";
 import { Component } from "@odoo/owl";
 
 export class ListingAllSidePanel extends Component {
+    static template = "spreadsheet_edition.ListingAllSidePanel";
+    static components = { ListingDetailsSidePanel };
+    static props = {
+        onCloseSidePanel: Function,
+        listId: { type: String, optional: true },
+    };
+
     constructor() {
         super(...arguments);
         this.getters = this.env.model.getters;
@@ -26,9 +33,3 @@ export class ListingAllSidePanel extends Component {
         });
     }
 }
-ListingAllSidePanel.template = "spreadsheet_edition.ListingAllSidePanel";
-ListingAllSidePanel.components = { ListingDetailsSidePanel };
-ListingAllSidePanel.props = {
-    onCloseSidePanel: Function,
-    listId: { type: String, optional: true },
-};

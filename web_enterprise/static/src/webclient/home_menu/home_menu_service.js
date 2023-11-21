@@ -19,6 +19,11 @@ export const homeMenuService = {
         let hasBackgroundAction = false; // true iff there is an action behind the HomeMenu
         const mutex = new Mutex(); // used to protect against concurrent toggling requests
         class HomeMenuAction extends Component {
+            static components = { HomeMenu };
+            static target = "current";
+            static props = { ...standardActionServiceProps };
+            static template = xml`<HomeMenu t-props="homeMenuProps"/>`;
+
             setup() {
                 this.router = useService("router");
                 this.menus = useService("menu");
@@ -51,10 +56,6 @@ export const homeMenuService = {
                 this.env.bus.trigger("HOME-MENU:TOGGLED");
             }
         }
-        HomeMenuAction.components = { HomeMenu };
-        HomeMenuAction.target = "current";
-        HomeMenuAction.props = { ...standardActionServiceProps };
-        HomeMenuAction.template = xml`<HomeMenu t-props="homeMenuProps"/>`;
 
         registry.category("actions").add("menu", HomeMenuAction);
 

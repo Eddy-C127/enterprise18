@@ -4,6 +4,7 @@ import { TagsList } from "@web/core/tags_list/tags_list";
 
 
 export class HelpdeskSLATagsList extends TagsList {
+    static template = "helpdesk.SLATagsList";
 
     getSLAStatusIcon(tag) {
         let iconType = "";
@@ -16,5 +17,3 @@ export class HelpdeskSLATagsList extends TagsList {
     }
 
 }
-
-HelpdeskSLATagsList.template = "helpdesk.SLATagsList";

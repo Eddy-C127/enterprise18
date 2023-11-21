@@ -4,6 +4,9 @@ import { CheckboxItem } from "@web/core/dropdown/checkbox_item";
 import { Component } from "@odoo/owl";
 
 export class GroupMenu extends Component {
+    static template = "mrp_mps.GroupMenu";
+    static components = { CheckboxItem };
+
     get items() {
         return this.props.items;
     }
@@ -15,6 +18,3 @@ export class GroupMenu extends Component {
     }
 
 }
-
-GroupMenu.template = "mrp_mps.GroupMenu";
-GroupMenu.components = { CheckboxItem };

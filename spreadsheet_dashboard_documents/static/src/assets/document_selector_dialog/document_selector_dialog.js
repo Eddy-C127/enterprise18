@@ -8,6 +8,13 @@ import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
 export class DocumentSelectorDialog extends Component {
+    static template = "spreadsheet_dashboard_documents.DocumentSelectorDialog";
+    static components = { Dialog, DocumentsSelectorPanel };
+    static props = {
+        close: Function,
+        dashboardGroupId: Number,
+    };
+
     setup() {
         this.selectedSpreadsheet = null;
         this.orm = useService("orm");
@@ -45,10 +52,3 @@ export class DocumentSelectorDialog extends Component {
         this.props.close();
     }
 }
-
-DocumentSelectorDialog.template = "spreadsheet_dashboard_documents.DocumentSelectorDialog";
-DocumentSelectorDialog.components = { Dialog, DocumentsSelectorPanel };
-DocumentSelectorDialog.props = {
-    close: Function,
-    dashboardGroupId: Number,
-};

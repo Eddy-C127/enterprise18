@@ -88,6 +88,15 @@ function getModelOptions() {
 }
 
 export class ModelConfigurator extends Component {
+    static template = "web_studio.ModelConfigurator";
+    static components = {};
+    static props = {
+        embed: { type: Boolean, optional: true },
+        label: { type: String },
+        onConfirmOptions: Function,
+        onPrevious: Function,
+    };
+
     setup() {
         this.state = useState({ saving: false });
         this.options = useState(getModelOptions());
@@ -111,15 +120,6 @@ export class ModelConfigurator extends Component {
         }
     }
 }
-
-ModelConfigurator.template = "web_studio.ModelConfigurator";
-ModelConfigurator.components = {};
-ModelConfigurator.props = {
-    embed: { type: Boolean, optional: true },
-    label: { type: String },
-    onConfirmOptions: Function,
-    onPrevious: Function,
-};
 
 export class ModelConfiguratorDialog extends Component {
     static components = { Dialog, ModelConfigurator };

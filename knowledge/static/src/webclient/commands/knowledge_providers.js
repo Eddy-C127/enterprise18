@@ -8,16 +8,19 @@ import { splitCommandName } from "@web/core/commands/command_palette";
 import { Component } from "@odoo/owl";
 
 // Articles command
-class KnowledgeCommand extends Component {}
-KnowledgeCommand.template = 'KnowledgeCommandTemplate';
+class KnowledgeCommand extends Component {
+    static template = "KnowledgeCommandTemplate";
+}
 
 // "Not found, create one" command
-class Knowledge404Command extends Component {}
-Knowledge404Command.template = 'Knowledge404CommandTemplate';
+class Knowledge404Command extends Component {
+    static template = "Knowledge404CommandTemplate";
+}
 
 // Advanced search command
-class KnowledgeExtraCommand extends HotkeyCommandItem {}
-KnowledgeExtraCommand.template = 'KnowledgeExtraCommandTemplate';
+class KnowledgeExtraCommand extends HotkeyCommandItem {
+    static template = "KnowledgeExtraCommandTemplate";
+}
 
 const commandSetupRegistry = registry.category("command_setup");
 commandSetupRegistry.add("?", {

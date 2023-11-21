@@ -10,6 +10,15 @@ import { _t } from "@web/core/l10n/translation";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 
 export class CommonOdooChartConfigPanel extends Component {
+    static template = "spreadsheet_edition.CommonOdooChartConfigPanel";
+    static components = { IrMenuSelector, DomainSelector };
+    static props = {
+        figureId: String,
+        definition: Object,
+        updateChart: Function,
+        canUpdateChart: Function,
+    };
+
     setup() {
         this.dialog = useService("dialog");
         const loadData = async (figureId) => {
@@ -108,12 +117,3 @@ export class CommonOdooChartConfigPanel extends Component {
         });
     }
 }
-
-CommonOdooChartConfigPanel.template = "spreadsheet_edition.CommonOdooChartConfigPanel";
-CommonOdooChartConfigPanel.components = { IrMenuSelector, DomainSelector };
-CommonOdooChartConfigPanel.props = {
-    figureId: String,
-    definition: Object,
-    updateChart: Function,
-    canUpdateChart: Function,
-};

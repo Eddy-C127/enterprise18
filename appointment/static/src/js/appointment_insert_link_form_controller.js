@@ -5,6 +5,11 @@ import { formView } from "@web/views/form/form_view";
 import { FormController } from "@web/views/form/form_controller";
 
 class AppointmentInsertLinkFormController extends FormController {
+    static props = {
+        ...FormController.props,
+        insertLink: { type: Function },
+        closeDialog: { type: Function },
+    };
     async beforeExecuteActionButton(clickParams) {
         if (clickParams.special) {
             if (clickParams.special === "save") { // Insert Link button
@@ -21,11 +26,6 @@ class AppointmentInsertLinkFormController extends FormController {
         return super.beforeExecuteActionButton(...arguments);
     }
 }
-AppointmentInsertLinkFormController.props = {
-    ...FormController.props,
-    insertLink: { type: Function },
-    closeDialog: { type: Function },
-};
 registry.category("views").add("appointment_insert_link_form", {
     ...formView,
     Controller: AppointmentInsertLinkFormController,

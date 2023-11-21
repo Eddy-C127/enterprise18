@@ -6,6 +6,11 @@ import { formatFloat } from "@web/core/utils/numbers";
 import { Component, useRef, onPatched } from "@odoo/owl";
 
 export default class MpsLineComponent extends Component {
+    static template = "mrp_mps.MpsLineComponent";
+    static components = {
+        CheckBox,
+    };
+
 
     setup() {
         this.actionService = useService("action");
@@ -194,8 +199,3 @@ export default class MpsLineComponent extends Component {
     }
 
 }
-
-MpsLineComponent.template = 'mrp_mps.MpsLineComponent';
-MpsLineComponent.components = {
-    CheckBox,
-};

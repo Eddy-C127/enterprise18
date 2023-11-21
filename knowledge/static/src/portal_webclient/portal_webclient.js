@@ -8,6 +8,10 @@ import { session } from '@web/session';
 import { Component, onMounted, useExternalListener, useState } from "@odoo/owl";
 
 export class KnowledgePortalWebClient extends Component {
+    static props = {};
+    static components = { ActionContainer, MainComponentsContainer };
+    static template = "knowledge.KnowledgePortalWebClient";
+
     setup() {
         window.parent.document.body.style.margin = "0"; // remove the margin in the parent body
         this.actionService = useService("action");
@@ -45,7 +49,3 @@ export class KnowledgePortalWebClient extends Component {
         }
     }
 }
-
-KnowledgePortalWebClient.props = {};
-KnowledgePortalWebClient.components = { ActionContainer, MainComponentsContainer };
-KnowledgePortalWebClient.template = 'knowledge.KnowledgePortalWebClient';

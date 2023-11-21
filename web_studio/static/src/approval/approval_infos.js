@@ -7,6 +7,8 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { useState, Component } from "@odoo/owl";
 
 export class StudioApprovalInfos extends Component {
+    static template = "StudioApprovalInfos";
+    static components = { Dialog };
     setup() {
         this.user = useService("user");
         const approval = this.props.approval;
@@ -30,5 +32,3 @@ export class StudioApprovalInfos extends Component {
         return this.approval.cancelApproval(ruleId);
     }
 }
-StudioApprovalInfos.template = "StudioApprovalInfos";
-StudioApprovalInfos.components = { Dialog };

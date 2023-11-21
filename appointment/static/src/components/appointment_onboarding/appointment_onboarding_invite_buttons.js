@@ -8,6 +8,10 @@ import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
 export class AppointmentOnboardingInviteButtons extends Component {
+    static props = {
+        ...standardWidgetProps,
+    };
+    static template = "appointment.AppointmentOnboardingInviteButtons";
     setup() {
         super.setup();
         this.notification = useService("notification");
@@ -60,10 +64,6 @@ export class AppointmentOnboardingInviteButtons extends Component {
         );
     }
 }
-AppointmentOnboardingInviteButtons.props = {
-    ...standardWidgetProps,
-};
-AppointmentOnboardingInviteButtons.template = 'appointment.AppointmentOnboardingInviteButtons';
 
 export const appointmentOnboardingInviteButtons = {
     component: AppointmentOnboardingInviteButtons,

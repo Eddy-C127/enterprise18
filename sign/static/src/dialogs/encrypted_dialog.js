@@ -7,6 +7,14 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { Component, useRef } from "@odoo/owl";
 
 export class EncryptedDialog extends Component {
+    static template = "sign.EncryptedDialog";
+    static components = {
+        Dialog,
+    };
+    static props = {
+        close: Function,
+    };
+
     setup() {
         this.passwordInput = useRef("password");
         this.rpc = useService("rpc");
@@ -44,12 +52,3 @@ export class EncryptedDialog extends Component {
         }
     }
 }
-
-EncryptedDialog.template = "sign.EncryptedDialog";
-EncryptedDialog.components = {
-    Dialog,
-};
-
-EncryptedDialog.props = {
-    close: Function,
-};

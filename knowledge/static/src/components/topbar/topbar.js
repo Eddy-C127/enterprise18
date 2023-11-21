@@ -19,6 +19,15 @@ import HistoryDialog from '@web_editor/components/history_dialog/history_dialog'
 
 
 class KnowledgeTopbar extends Component {
+    static template = "knowledge.KnowledgeTopbar";
+    static props = {
+        ...standardWidgetProps,
+    };
+    static components = {
+        KnowledgeIcon,
+        PermissionPanel,
+    };
+
     setup() {
         super.setup();
         this.actionService = useService('action');
@@ -317,14 +326,7 @@ class KnowledgeTopbar extends Component {
     }
 
 }
-KnowledgeTopbar.template = 'knowledge.KnowledgeTopbar';
-KnowledgeTopbar.props = {
-    ...standardWidgetProps,
-};
-KnowledgeTopbar.components = {
-    KnowledgeIcon,
-    PermissionPanel,
-};
+
 export const knowledgeTopbar = {
     component: KnowledgeTopbar,
     fieldDependencies: [

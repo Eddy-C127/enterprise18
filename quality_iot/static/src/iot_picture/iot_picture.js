@@ -9,6 +9,13 @@ import { WarningDialog } from '@web/core/errors/error_dialogs';
 import { IoTConnectionErrorDialog } from '@iot/iot_connection_error_dialog';
 
 export class TabletImageIoTField extends TabletImageField {
+    static template = "quality_iot.TabletImageIoTField";
+    static props = {
+        ...TabletImageField.props,
+        ip_field: { type: String },
+        identifier_field: { type: String },
+    };
+
     setup() {
         super.setup();
         this.dialog = useService('dialog');
@@ -55,12 +62,6 @@ export class TabletImageIoTField extends TabletImageField {
         }
     }
 }
-TabletImageIoTField.props = {
-    ...TabletImageField.props,
-    ip_field: { type: String },
-    identifier_field: { type: String },
-};
-TabletImageIoTField.template = 'quality_iot.TabletImageIoTField';
 
 export const tabletImageIoTField = {
     ...tabletImageField,

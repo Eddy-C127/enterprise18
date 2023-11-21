@@ -7,6 +7,8 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart, onWillRender } from "@odoo/owl";
 
 export class AccountImportGuide extends Component {
+    static template = "account_base_import.accountImportTemplate";
+    static components = { ControlPanel };
     setup() {
         this.actionService = useService("action");
         this.orm = useService("orm");
@@ -38,7 +40,5 @@ export class AccountImportGuide extends Component {
         });
     }
 };
-AccountImportGuide.template = "account_base_import.accountImportTemplate";
-AccountImportGuide.components = { ControlPanel };
 
 registry.category("actions").add("account_import_guide", AccountImportGuide);

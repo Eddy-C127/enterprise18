@@ -29,6 +29,16 @@ const studioUserService = {
 };
 
 export class StudioClientAction extends Component {
+    static template = "web_studio.StudioClientAction";
+    static target = "fullscreen";
+    static props = { ...standardActionServiceProps };
+    static components = {
+        StudioNavbar,
+        StudioHomeMenu,
+        Editor,
+        AppCreator,
+    };
+
     setup() {
         // Reinstanciate the ORM service with a custom user service.
         // The ORM calls down the line will be done with the studio context key
@@ -104,15 +114,6 @@ export class StudioClientAction extends Component {
         });
     }
 }
-StudioClientAction.template = "web_studio.StudioClientAction";
-StudioClientAction.props = { ...standardActionServiceProps };
-StudioClientAction.components = {
-    StudioNavbar,
-    StudioHomeMenu,
-    Editor,
-    AppCreator,
-};
-StudioClientAction.target = "fullscreen";
 
 registry.category("lazy_components").add("StudioClientAction", StudioClientAction);
 // force: true to bypass the studio lazy loading action next time and just use this one directly

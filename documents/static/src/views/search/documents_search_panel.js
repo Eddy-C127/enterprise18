@@ -20,6 +20,7 @@ const LONG_TOUCH_THRESHOLD = 400;
  */
 
 export class DocumentsSearchPanelItemSettingsPopover extends Component {
+    static template = "documents.DocumentsSearchPanelItemSettingsPopover";
     static props = [
         "close", // Function, close the popover
         "createChildEnabled", // Whether we have the option to create a new child or not
@@ -27,10 +28,19 @@ export class DocumentsSearchPanelItemSettingsPopover extends Component {
         "onEdit", // Function, edit element
     ];
 }
-DocumentsSearchPanelItemSettingsPopover.template =
-    "documents.DocumentsSearchPanelItemSettingsPopover";
 
 export class DocumentsSearchPanel extends SearchPanel {
+    static modelExtension = "DocumentsSearchPanel";
+    static template = !uiUtils.isSmall() ? "documents.SearchPanel" : "web.SearchPanel";
+    static subTemplates = !uiUtils.isSmall()
+        ? {
+              category: "documents.SearchPanel.Category",
+              filtersGroup: "documents.SearchPanel.FiltersGroup",
+          }
+        : {
+              category: "documents.SearchPanel.Category.Small",
+              filtersGroup: "documents.SearchPanel.FiltersGroup.Small",
+          };
     setup() {
         super.setup(...arguments);
         const { uploads } = useService("file_upload");
@@ -448,19 +458,4 @@ export class DocumentsSearchPanel extends SearchPanel {
             document.addEventListener(stoppingEvent, stopResize, true);
         });
     }
-}
-
-DocumentsSearchPanel.modelExtension = "DocumentsSearchPanel";
-
-if (!uiUtils.isSmall()) {
-    DocumentsSearchPanel.template = "documents.SearchPanel";
-    DocumentsSearchPanel.subTemplates = {
-        category: "documents.SearchPanel.Category",
-        filtersGroup: "documents.SearchPanel.FiltersGroup",
-    };
-} else {
-    DocumentsSearchPanel.subTemplates = {
-        category: "documents.SearchPanel.Category.Small",
-        filtersGroup: "documents.SearchPanel.FiltersGroup.Small",
-    };
 }

@@ -41,13 +41,18 @@ export class WorkedDaysField extends Field {
     }
 }
 
-export class WorkedDaysRenderer extends ListRenderer {}
-WorkedDaysRenderer.components = {
-    ...ListRenderer.components,
-    Field: WorkedDaysField,
+export class WorkedDaysRenderer extends ListRenderer {
+    static components = {
+        ...ListRenderer.components,
+        Field: WorkedDaysField,
+    };
 }
 
 export class WorkedDaysLineOne2Many extends X2ManyField {
+    static components = {
+        ...X2ManyField.components,
+        ListRenderer: WorkedDaysRenderer,
+    };
     async onAdd ({ context, editable }) {
         const wizardId = this.props.record.resId;
         return super.onAdd({
@@ -59,10 +64,6 @@ export class WorkedDaysLineOne2Many extends X2ManyField {
         });
     }
 }
-WorkedDaysLineOne2Many.components = {
-    ...X2ManyField.components,
-    ListRenderer: WorkedDaysRenderer
-};
 
 export const workedDaysLineOne2Many = {
     ...x2ManyField,
@@ -103,13 +104,18 @@ export class PayslipLineField extends Field {
         return props;
     }
 }
-export class PayslipLineRenderer extends ListRenderer {}
-PayslipLineRenderer.components = {
-    ...ListRenderer.components,
-    Field: PayslipLineField
+export class PayslipLineRenderer extends ListRenderer {
+    static components = {
+        ...ListRenderer.components,
+        Field: PayslipLineField
+    }
 }
 
 export class PayslipLineOne2Many extends X2ManyField {
+    static components = {
+        ...X2ManyField.components,
+        ListRenderer: PayslipLineRenderer
+    };
     async onAdd ({ context, editable }) {
         const wizardId = this.props.record.resId;
         return super.onAdd({
@@ -122,10 +128,6 @@ export class PayslipLineOne2Many extends X2ManyField {
     }
 }
 
-PayslipLineOne2Many.components = {
-    ...X2ManyField.components,
-    ListRenderer: PayslipLineRenderer
-};
 
 export const payslipLineOne2Many = {
     ...x2ManyField,

@@ -4,7 +4,13 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { Component } from "@odoo/owl";
 
 export class SelectionPopup extends Component {
+    static template = "mrp_workorder.SelectionPopup";
     static components = { Dialog };
+    static props = {
+        popupData: Object,
+        onClosePopup: Function,
+        onSelectEmployee: Function,
+    };
 
     get title() {
         return this.props.popupData.title;
@@ -22,9 +28,3 @@ export class SelectionPopup extends Component {
         await this.props.onSelectEmployee(id);
     }
 }
-SelectionPopup.props = {
-    popupData: Object,
-    onClosePopup: Function,
-    onSelectEmployee: Function,
-};
-SelectionPopup.template = 'mrp_workorder.SelectionPopup';

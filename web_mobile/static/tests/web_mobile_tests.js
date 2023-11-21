@@ -106,6 +106,7 @@ QUnit.module("web_mobile", {
         });
 
         class DummyComponent extends Component {
+            static template = xml`<div/>`;
             setup() {
                 this._backButtonHandler = useBackButton(this._onBackButton);
             }
@@ -114,7 +115,6 @@ QUnit.module("web_mobile", {
                 assert.step(`${ev.type} event`);
             }
         }
-        DummyComponent.template = xml`<div/>`;
 
         const target = getFixture();
         const env = makeTestEnv();
@@ -142,6 +142,7 @@ QUnit.module("web_mobile", {
         });
 
         class DummyComponent extends Component {
+            static template = xml`<div/>`;
             setup() {
                 this._backButtonHandler = useBackButton(this._onBackButton);
             }
@@ -155,7 +156,6 @@ QUnit.module("web_mobile", {
                 destroy(this);
             }
         }
-        DummyComponent.template = xml`<div/>`;
 
         const props1 = { name: "dummy1" };
         const props2 = { name: "dummy2" };
@@ -192,6 +192,7 @@ QUnit.module("web_mobile", {
         });
 
         class DummyComponent extends Component {
+            static template = xml`<button class="dummy" t-esc="state.show" t-on-click="toggle"/>`;
             setup() {
                 this._backButtonHandler = useBackButton(
                     this._onBackButton,
@@ -214,7 +215,6 @@ QUnit.module("web_mobile", {
                 assert.step(`${ev.type} event`);
             }
         }
-        DummyComponent.template = xml`<button class="dummy" t-esc="state.show" t-on-click="toggle"/>`;
 
         const target = getFixture();
         const env = makeTestEnv();
@@ -258,22 +258,22 @@ QUnit.module("web_mobile", {
         const mainComponents = registry.category("main_components");
 
         class PseudoWebClient extends Component {
+            static template = xml`
+                <div>
+                    <div id="anchor">Anchor</div>
+                    <div id="close">Close</div>
+                    <div id="sibling">Sibling</div>
+                    <div>
+                        <t t-foreach="Components" t-as="C" t-key="C[0]">
+                            <t t-component="C[1].Component" t-props="C[1].props"/>
+                        </t>
+                    </div>
+                </div>
+            `;
             setup() {
                 this.Components = mainComponents.getEntries();
             }
         }
-        PseudoWebClient.template = xml`
-            <div>
-                <div id="anchor">Anchor</div>
-                <div id="close">Close</div>
-                <div id="sibling">Sibling</div>
-                <div>
-                    <t t-foreach="Components" t-as="C" t-key="C[0]">
-                        <t t-component="C[1].Component" t-props="C[1].props"/>
-                    </t>
-                </div>
-            </div>
-        `;
         
         const fixture = getFixture();
         const env = await makeTestEnv();
@@ -286,8 +286,9 @@ QUnit.module("web_mobile", {
             },
         });
 
-        class Comp extends Component {}
-        Comp.template = xml`<div id="comp">in popover</div>`;
+        class Comp extends Component {
+            static template = xml`<div id="comp">in popover</div>`;
+        }
 
         env.services.popover.add(popoverTarget, Comp, {});
         await nextTick();

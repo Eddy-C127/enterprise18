@@ -8,6 +8,17 @@ import { Component, onWillStart } from "@odoo/owl";
 const { DateTime } = luxon;
 
 export class WorkingEmployeePopup extends Component {
+    static template = "mrp_workorder.WorkingEmployeePopup";
+    static components = { MrpTimer };
+    static props = {
+        popupData: Object,
+        onAddEmployee: Function,
+        onSetAdmin: Function,
+        onStartEmployee: Function,
+        onStopEmployee: Function,
+        onClosePopup: Function,
+    };
+
     setup() {
         super.setup();
         this.orm = useService('orm');
@@ -80,14 +91,3 @@ export class WorkingEmployeePopup extends Component {
         });
     }
 }
-
-WorkingEmployeePopup.components = { MrpTimer };
-WorkingEmployeePopup.props = {
-    popupData: Object,
-    onAddEmployee: Function,
-    onSetAdmin: Function,
-    onStartEmployee: Function,
-    onStopEmployee: Function,
-    onClosePopup: Function,
-};
-WorkingEmployeePopup.template = 'mrp_workorder.WorkingEmployeePopup';

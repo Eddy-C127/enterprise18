@@ -4,6 +4,8 @@ import { Avatar } from "@mail/views/web/fields/avatar/avatar";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";
 
 export class HrGanttRenderer extends GanttRenderer {
+    static rowHeaderTemplate = "hr.HrGanttRenderer.RowHeader";
+    static components = { ...GanttRenderer.components, Avatar };
     computeDerivedParams() {
         this.rowsWithAvatar = {};
         super.computeDerivedParams();
@@ -28,5 +30,3 @@ export class HrGanttRenderer extends GanttRenderer {
         return super.processRow(...arguments);
     }
 }
-HrGanttRenderer.rowHeaderTemplate = "hr.HrGanttRenderer.RowHeader";
-HrGanttRenderer.components = { ...GanttRenderer.components, Avatar };

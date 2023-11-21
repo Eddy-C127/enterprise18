@@ -4,6 +4,8 @@ import { Box } from '@account_invoice_extract/js/box';
 import { Component } from "@odoo/owl";
 
 export class BoxLayer extends Component {
+    static components = { Box };
+    static template = "account_invoice_extract.BoxLayer";
     /**
      * @override
      */
@@ -46,6 +48,3 @@ export class BoxLayer extends Component {
         return this.props.mode === 'pdf';
     }
 };
-
-BoxLayer.components = { Box };
-BoxLayer.template = 'account_invoice_extract.BoxLayer';

@@ -10,6 +10,19 @@ import { Component } from "@odoo/owl";
  */
 
 export class FilterEditorFieldMatching extends Component {
+    static template = "spreadsheet_edition.FilterEditorFieldMatching";
+    static components = {
+        ModelFieldSelector,
+    };
+
+    static props = {
+        // See AbstractFilterEditorSidePanel fieldMatchings
+        fieldMatchings: Array,
+        wrongFieldMatchings: Array,
+        selectField: Function,
+        filterModelFieldSelectorField: Function,
+    };
+
     /**
      *
      * @param {FieldMatching} fieldMatch
@@ -22,16 +35,3 @@ export class FilterEditorFieldMatching extends Component {
         return fieldMatch.chain;
     }
 }
-FilterEditorFieldMatching.template = "spreadsheet_edition.FilterEditorFieldMatching";
-
-FilterEditorFieldMatching.components = {
-    ModelFieldSelector,
-};
-
-FilterEditorFieldMatching.props = {
-    // See AbstractFilterEditorSidePanel fieldMatchings
-    fieldMatchings: Array,
-    wrongFieldMatchings: Array,
-    selectField: Function,
-    filterModelFieldSelectorField: Function,
-};

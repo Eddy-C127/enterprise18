@@ -9,6 +9,14 @@ import { computeAppsAndMenuItems } from "@web/webclient/menus/menu_helpers";
 import { Component, useState, useExternalListener, useRef, onMounted } from "@odoo/owl";
 
 export class IrMenuSelector extends Component {
+    static components = { Many2XAutocomplete };
+    static template = "spreadsheet_edition.IrMenuSelector";
+    static props = {
+        menuId: { type: Number, optional: true },
+        onValueChanged: Function,
+        autoFocus: { type: Boolean, optional: true },
+    };
+
     setup() {
         super.setup();
         this.ref = useRef("menuSelectorRef");
@@ -83,15 +91,16 @@ export class IrMenuSelector extends Component {
         return path + "/" + menu.label;
     }
 }
-IrMenuSelector.components = { Many2XAutocomplete };
-IrMenuSelector.template = "spreadsheet_edition.IrMenuSelector";
-IrMenuSelector.props = {
-    menuId: { type: Number, optional: true },
-    onValueChanged: Function,
-    autoFocus: { type: Boolean, optional: true },
-};
 
 export class IrMenuSelectorDialog extends Component {
+    static components = { Dialog, IrMenuSelector };
+    static title = _t("Select an Odoo menu to link in your spreadsheet");
+    static template = "spreadsheet_edition.IrMenuSelectorDialog";
+    static props = {
+        onMenuSelected: Function,
+        close: Function, // prop added by Dialog service
+    };
+
     setup() {
         this.selectedMenu = useState({
             id: undefined,
@@ -115,10 +124,3 @@ export class IrMenuSelectorDialog extends Component {
         this.selectedMenu.id = value;
     }
 }
-IrMenuSelectorDialog.components = { Dialog, IrMenuSelector };
-IrMenuSelectorDialog.title = _t("Select an Odoo menu to link in your spreadsheet");
-IrMenuSelectorDialog.template = "spreadsheet_edition.IrMenuSelectorDialog";
-IrMenuSelectorDialog.props = {
-    onMenuSelected: Function,
-    close: Function, // prop added by Dialog service
-};

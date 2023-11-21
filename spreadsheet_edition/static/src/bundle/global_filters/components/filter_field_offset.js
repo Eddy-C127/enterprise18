@@ -12,6 +12,13 @@ const FIELD_OFFSETS = [
 ];
 
 export class FilterFieldOffset extends Component {
+    static template = "spreadsheet_edition.FilterFieldOffset";
+    static props = {
+        onOffsetSelected: Function,
+        selectedOffset: Number,
+        active: Boolean,
+    };
+
     setup() {
         this.fieldsOffsets = FIELD_OFFSETS;
     }
@@ -29,10 +36,3 @@ export class FilterFieldOffset extends Component {
             : _t("Requires a selected field");
     }
 }
-
-FilterFieldOffset.template = "spreadsheet_edition.FilterFieldOffset";
-FilterFieldOffset.props = {
-    onOffsetSelected: Function,
-    selectedOffset: Number,
-    active: Boolean,
-};

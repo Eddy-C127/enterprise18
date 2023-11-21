@@ -7,6 +7,8 @@ import { useChildRef, useService } from '@web/core/utils/hooks';
 import { Component } from "@odoo/owl";
 
 export class AddSocialStreamDialog extends Component {
+    static components = { Dialog };
+    static template = "social.AddSocialStreamDialog";
 
     setup() {
         super.setup();
@@ -43,6 +45,3 @@ export class AddSocialStreamDialog extends Component {
     }
 
 }
-
-AddSocialStreamDialog.components = { Dialog };
-AddSocialStreamDialog.template = "social.AddSocialStreamDialog";

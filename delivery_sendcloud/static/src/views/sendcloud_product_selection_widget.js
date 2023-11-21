@@ -6,6 +6,14 @@ import { registry } from "@web/core/registry";
 import { Component, useState } from "@odoo/owl";
 
 export class SendcloudProductSelectionWidget extends Component {
+    static template = "delivery_sendcloud.SendcloudProductWidget";
+    static components = {
+        Dropdown,
+        DropdownItem,
+    };
+    static props = {
+        "*": true,
+    };
     setup() {
         const { data } = this.props.record;
         this.isReturn = this.props.name == "return_products";
@@ -138,15 +146,6 @@ export class SendcloudProductSelectionWidget extends Component {
         this.activeCode = code;
     }
 }
-
-SendcloudProductSelectionWidget.template = "delivery_sendcloud.SendcloudProductWidget";
-SendcloudProductSelectionWidget.components = {
-    Dropdown,
-    DropdownItem,
-};
-SendcloudProductSelectionWidget.props = {
-    "*": true,
-};
 
 export const sendcloudProductSelectionWidget = {
     component: SendcloudProductSelectionWidget,

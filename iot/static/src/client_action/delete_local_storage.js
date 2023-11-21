@@ -6,6 +6,8 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart } from "@odoo/owl";
 
 class MainComponent extends Component {
+    static template = "iot.delete_printer";
+
 	setup() {
 		let report_list = []
 		for (let i = 0; i < browser.localStorage.length; i++)
@@ -32,8 +34,6 @@ class MainComponent extends Component {
         window.location.reload();
 	}
 }
-
-MainComponent.template = 'iot.delete_printer';
 
 registry.category("actions").add("iot_delete_linked_devices_action", MainComponent);
 

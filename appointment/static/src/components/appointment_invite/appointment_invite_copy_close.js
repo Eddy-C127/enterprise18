@@ -8,6 +8,10 @@ import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
 export class AppointmentInviteCopyClose extends Component {
+    static props = {
+        ...standardWidgetProps,
+    };
+    static template = "appointment.AppointmentInviteCopyClose";
     /**
      * We want to disable the "Save & Copy" button if there is a warning that could
      * result to have an incorrect/empty link.
@@ -36,10 +40,6 @@ export class AppointmentInviteCopyClose extends Component {
         }
     }
 }
-AppointmentInviteCopyClose.props = {
-    ...standardWidgetProps,
-};
-AppointmentInviteCopyClose.template = 'appointment.AppointmentInviteCopyClose';
 
 export const appointmentInviteCopyClose = {
     component: AppointmentInviteCopyClose,

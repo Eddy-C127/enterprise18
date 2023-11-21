@@ -3,12 +3,17 @@
 import { Component, useRef, onMounted } from "@odoo/owl";
 
 export class SidePanelCollapsible extends Component {
+    static template = "spreadsheet_edition.SidePanelCollapsible";
+    static props = {
+        slots: Object,
+        collapsedAtInit: { type: Boolean, optional: true },
+    };
+
     setup() {
         const collapsibleRef = useRef("collapsible");
         const collapsibleButtonRef = useRef("collapsibleButton");
         onMounted(() => {
-
-            if(!this.props.collapsedAtInit) {
+            if (!this.props.collapsedAtInit) {
                 collapsibleRef.el.classList.add("show");
             }
 
@@ -17,9 +22,3 @@ export class SidePanelCollapsible extends Component {
         });
     }
 }
-
-SidePanelCollapsible.template = "spreadsheet_edition.SidePanelCollapsible";
-SidePanelCollapsible.props = {
-    slots: Object,
-    collapsedAtInit: { type: Boolean, optional: true },
-};

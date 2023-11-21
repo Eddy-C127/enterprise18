@@ -8,6 +8,12 @@ import { Document } from "@sign/components/sign_request/document_signable";
 import { PDFIframe } from "@sign/components/sign_request/PDF_iframe";
 
 export class SignRequest extends Component {
+    static template = "sign.SignRequest";
+    static components = {
+        SignRequestControlPanel,
+        Document,
+    };
+
     get markupHtml() {
         return markup(this.html);
     }
@@ -85,11 +91,5 @@ export class SignRequest extends Component {
         };
     }
 }
-
-SignRequest.template = "sign.SignRequest";
-SignRequest.components = {
-    SignRequestControlPanel,
-    Document,
-};
 
 registry.category("actions").add("sign.Document", SignRequest);

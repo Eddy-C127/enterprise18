@@ -5,6 +5,8 @@ import { Orderline } from "@pos_preparation_display/app/components/orderline/ord
 import { computeFontColor } from "@pos_preparation_display/app/utils";
 
 export class Order extends Component {
+    static components = { Orderline };
+    static template = "pos_preparation_display.Order";
     static props = {
         order: Object,
     };
@@ -69,6 +71,3 @@ export class Order extends Component {
         }
     }
 }
-
-Order.components = { Orderline };
-Order.template = "pos_preparation_display.Order";

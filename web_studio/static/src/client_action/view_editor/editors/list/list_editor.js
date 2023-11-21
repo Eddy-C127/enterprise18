@@ -76,6 +76,10 @@ function useParentedStaticList(model, parentRecord, resIds) {
 }
 
 class ListEditorController extends listView.Controller {
+    static props = {
+        ...listView.Controller.props,
+        parentRecord: { type: Object, optional: true },
+    };
     setup() {
         super.setup();
         useModelConfigFetchInvisible(this.model);
@@ -84,13 +88,10 @@ class ListEditorController extends listView.Controller {
         }
     }
 }
-ListEditorController.props = {
-    ...listView.Controller.props,
-    parentRecord: { type: Object, optional: true },
-};
 
 class ControllerShadow extends Component {
     static props = { ...ListEditorController.props };
+    static template = xml`<t t-component="Component" t-props="componentProps" />`;
     get Component() {
         return ListEditorController;
     }
@@ -101,7 +102,6 @@ class ControllerShadow extends Component {
         return props;
     }
 }
-ControllerShadow.template = xml`<t t-component="Component" t-props="componentProps" />`;
 
 const listEditor = {
     ...listView,

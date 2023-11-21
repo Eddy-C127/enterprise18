@@ -8,6 +8,19 @@ import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { browser } from "@web/core/browser/browser";
 
 export class SMSSignerDialog extends Component {
+    static template = "sign.SMSSignerDialog";
+    static components = {
+        Dialog,
+    };
+    static props = {
+        signerPhone: {
+            type: String,
+            optional: true,
+        },
+        postValidation: Function,
+        close: Function,
+    };
+
     setup() {
         this.validationCodeInput = useRef("code");
         this.phoneInput = useRef("phone");
@@ -95,17 +108,3 @@ export class SMSSignerDialog extends Component {
         };
     }
 }
-
-SMSSignerDialog.template = "sign.SMSSignerDialog";
-SMSSignerDialog.components = {
-    Dialog,
-};
-
-SMSSignerDialog.props = {
-    signerPhone: {
-        type: String,
-        optional: true,
-    },
-    postValidation: Function,
-    close: Function,
-};

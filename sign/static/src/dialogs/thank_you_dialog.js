@@ -8,6 +8,30 @@ import { EncryptedDialog } from "./encrypted_dialog";
 import { Component, onWillStart, useState } from "@odoo/owl";
 
 export class ThankYouDialog extends Component {
+    static template = "sign.ThankYouDialog";
+    static components = {
+        Dialog,
+    };
+    static props = {
+        message: {
+            type: String,
+            optional: true,
+        },
+        subtitle: {
+            type: String,
+            optional: true,
+        },
+        redirectURL: {
+            type: String,
+            optional: true,
+        },
+        redirectURLText: {
+            type: String,
+            optional: true,
+        },
+        close: Function,
+    };
+
     setup() {
         this.user = useService("user");
         this.rpc = useService("rpc");
@@ -199,27 +223,3 @@ export class ThankYouDialog extends Component {
         return `${baseUrl}/${requestID}/${token}${suffix}${params}`;
     }
 }
-
-ThankYouDialog.template = "sign.ThankYouDialog";
-ThankYouDialog.components = {
-    Dialog,
-};
-ThankYouDialog.props = {
-    message: {
-        type: String,
-        optional: true,
-    },
-    subtitle: {
-        type: String,
-        optional: true,
-    },
-    redirectURL: {
-        type: String,
-        optional: true,
-    },
-    redirectURLText: {
-        type: String,
-        optional: true,
-    },
-    close: Function,
-};

@@ -5,6 +5,10 @@ import { useService } from "@web/core/utils/hooks";
 import { EnterpriseNavBar } from "./navbar/navbar";
 
 export class WebClientEnterprise extends WebClient {
+    static components = {
+        ...WebClient.components,
+        NavBar: EnterpriseNavBar,
+    };
     setup() {
         super.setup();
         this.hm = useService("home_menu");
@@ -13,4 +17,3 @@ export class WebClientEnterprise extends WebClient {
         return this.hm.toggle(true);
     }
 }
-WebClientEnterprise.components = { ...WebClient.components, NavBar: EnterpriseNavBar };

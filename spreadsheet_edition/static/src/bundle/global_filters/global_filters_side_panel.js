@@ -10,6 +10,12 @@ import { hooks } from "@odoo/o-spreadsheet";
  * It can be of 3 different type: text, date and relation.
  */
 export class GlobalFiltersSidePanel extends Component {
+    static template = "spreadsheet_edition.GlobalFiltersSidePanel";
+    static components = { FilterValue };
+    static props = {
+        onCloseSidePanel: { type: Function, optional: true },
+    };
+
     dnd = hooks.useDragAndDropListItems();
     filtersListRef = useRef("filtersList");
 
@@ -111,9 +117,3 @@ export class GlobalFiltersSidePanel extends Component {
         }
     }
 }
-
-GlobalFiltersSidePanel.template = "spreadsheet_edition.GlobalFiltersSidePanel";
-GlobalFiltersSidePanel.components = { FilterValue };
-GlobalFiltersSidePanel.props = {
-    onCloseSidePanel: { type: Function, optional: true },
-};

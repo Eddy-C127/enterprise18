@@ -10,6 +10,14 @@ import { serializeDate, today } from "@web/core/l10n/dates";
 import { Component, onWillStart, useState } from "@odoo/owl";
 
 export class MainMenu extends Component {
+    static props = {
+        action: { Object },
+        actionId: { type: Number, optional: true },
+        className: String,
+        globalState: { type: Object, optional: true },
+    };
+    static template = "stock_barcode.MainMenu";
+
     setup() {
         const displayDemoMessage = this.props.action.params.message_demo_barcodes;
         const user = useService('user');
@@ -74,13 +82,5 @@ export class MainMenu extends Component {
         this.notificationService.add(res.warning, { type: 'danger' });
     }
 }
-MainMenu.props = ["action", "actionId", "className"];
-MainMenu.props = {
-    action: { Object },
-    actionId: { type: Number, optional: true },
-    className: String,
-    globalState: { type: Object, optional: true },
-};
-MainMenu.template = 'stock_barcode.MainMenu';
 
 registry.category('actions').add('stock_barcode_main_menu', MainMenu);

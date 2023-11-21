@@ -15,6 +15,17 @@ const fieldRegistry = registry.category("fields");
 
 
 export class HierarchyKanbanRecord extends KanbanRecord {
+    static components = {
+        ...KanbanRecord.components,
+        HierarchyKanbanRecord,
+    };
+
+    static defaultProps = {
+        ...KanbanRecord.defaultProps,
+    };
+
+    static props = KanbanRecord.props.concat(["is_readonly?", "getRecordDepth"]);
+
     setup() {
         super.setup();
 
@@ -75,7 +86,7 @@ export class HierarchyKanbanRecord extends KanbanRecord {
         const { type } = params;
         const directChildren = list.records.filter(
             (listRecord) => listRecord.data.parent_id && listRecord.data.parent_id[0] == record.resId
-        ); 
+        );
 
         if (type === "delete" && !listOrGroup.deleteRecords &&
             directChildren && directChildren.length !== 0) {
@@ -157,25 +168,11 @@ export class HierarchyKanbanRecord extends KanbanRecord {
     }
 }
 
-HierarchyKanbanRecord.components = {
-    ...KanbanRecord.components,
-    HierarchyKanbanRecord
-};
-
-HierarchyKanbanRecord.defaultProps = {
-    ...KanbanRecord.defaultProps,
-};
-
-HierarchyKanbanRecord.props = KanbanRecord.props.concat([
-    'is_readonly?',
-    'getRecordDepth',
-]);
-
 
 export class HierarchyKanbanRenderer extends KanbanRenderer {
     /**
      * Overrides the base setup to enable "parent/children" relationship display.
-     * 
+     *
      * If we have a records list containing (in that order):
      * - Child 1 of Parent 1
      * - Child 2 of Parent 1
@@ -183,7 +180,7 @@ export class HierarchyKanbanRenderer extends KanbanRenderer {
      * - Child 1 of Parent 2
      * - Parent 1
      * - Grand-Child 1 (Parent 1 + Child 1)
-     * 
+     *
      * We want it displayed as follows:
      * Parent 1
      * --- Child 1 of Parent 1
@@ -191,37 +188,44 @@ export class HierarchyKanbanRenderer extends KanbanRenderer {
      * --- Child 2 of Parent 1
      * Parent 2
      * --- Child 1 of Parent 2
-     * 
+     *
      * This involves 3 necessary operations.
-     * 
+     *
      * 1. Adapt the template
      * Which is done to introduce the notion of "depth" and wrap children elements X (=depth) times.
      * This allows to give left padding to the children and display a dotted left-border on those
      * wrappers to give a sense of 'timeline' to the end user.
      * Essentially, for every ancestor this element has, we wrap it into one additional DIV.
-     * 
+     *
      * This is done by recursively calling a wrapper DIV until we reach the depth of the record.
      * (See point 3 for depth explanation).
-     * 
+     *
      * This can NOT be defined in the base XML arch, as the arch definition should be agnostic of
      * this JS class implementation details.
      * (In order to work in studio, be easily extended / migrated, ...)
-     * 
+     *
      * 2. Sort records
-     * 
+     *
      * Records come sorted based on the "interval_standardized" field only.
      * We need to sort them from the first ancestor to its children and the children of its children
      * etc until we reach the appropriate sorting (see example).
      * This is important as records are going to be displayed "on top of each other", as children
      * cannot be wrapped within their parent element.
-     * 
+     *
      * 3. Compute the record "depth"
-     * 
+     *
      * As explained earlier, we need to compute the record depth, which is the number of ancestors
      * this record has.
      * For example, our "Grand-Child 1 (Parent 1 / Child 1)" has a depth of 2.
-     *  
+     *
      */
+
+    static template = "marketing_automation.HierarchyKanbanRenderer";
+    static components = {
+        ...KanbanRenderer.components,
+        KanbanRecord: HierarchyKanbanRecord,
+    };
+
     setup() {
         super.setup();
 
@@ -299,12 +303,6 @@ export class HierarchyKanbanRenderer extends KanbanRenderer {
     };
 }
 
-HierarchyKanbanRenderer.components = {
-    ...KanbanRenderer.components,
-    KanbanRecord: HierarchyKanbanRecord,
-};
-HierarchyKanbanRenderer.template = "marketing_automation.HierarchyKanbanRenderer";
-
 export class HierarchyKanban extends X2ManyField {
     /**
      * Overrides the "openRecord" method to overload the save.
@@ -315,6 +313,12 @@ export class HierarchyKanban extends X2ManyField {
      * This allows the end-user to easily chain activities, otherwise he would have to save the
      * enclosing form view in-between each activity addition.
      */
+
+    static components = {
+        ...X2ManyField.components,
+        KanbanRenderer: HierarchyKanbanRenderer
+    };
+
     setup() {
         super.setup();
 
@@ -349,8 +353,3 @@ export const hierarchyKanban = {
 };
 
 fieldRegistry.add("hierarchy_kanban", hierarchyKanban);
-
-HierarchyKanban.components = {
-    ...X2ManyField.components,
-    KanbanRenderer: HierarchyKanbanRenderer
-};

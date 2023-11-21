@@ -17,6 +17,38 @@ import { helpers } from "@odoo/o-spreadsheet";
  */
 
 export class SpreadsheetControlPanel extends Component {
+    static template = "spreadsheet_edition.SpreadsheetControlPanel";
+    static components = {
+        ControlPanel,
+        Dropdown,
+        DropdownItem,
+        SpreadsheetName,
+        SpreadsheetShareButton,
+    };
+    static props = {
+        spreadsheetName: String,
+        model: {
+            type: Object,
+            optional: true,
+        },
+        isReadonly: {
+            type: Boolean,
+            optional: true,
+        },
+        onSpreadsheetNameChanged: {
+            type: Function,
+            optional: true,
+        },
+        onSpreadsheetShared: {
+            type: Function,
+            optional: true,
+        },
+        userLocale: {
+            type: Object,
+            optional: true,
+        },
+    };
+
     setup() {
         this.controlPanelDisplay = {};
         this.actionService = useService("action");
@@ -121,35 +153,3 @@ export class SpreadsheetControlPanel extends Component {
         return differences.join("\n");
     }
 }
-
-SpreadsheetControlPanel.template = "spreadsheet_edition.SpreadsheetControlPanel";
-SpreadsheetControlPanel.components = {
-    ControlPanel,
-    Dropdown,
-    DropdownItem,
-    SpreadsheetName,
-    SpreadsheetShareButton,
-};
-SpreadsheetControlPanel.props = {
-    spreadsheetName: String,
-    model: {
-        type: Object,
-        optional: true,
-    },
-    isReadonly: {
-        type: Boolean,
-        optional: true,
-    },
-    onSpreadsheetNameChanged: {
-        type: Function,
-        optional: true,
-    },
-    onSpreadsheetShared: {
-        type: Function,
-        optional: true,
-    },
-    userLocale: {
-        type: Object,
-        optional: true,
-    },
-};

@@ -6,6 +6,10 @@ import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
 
 export class NewReportDialog extends Component {
+    static template = "web_studio.NewReportDialog";
+    static components = { Dialog };
+    static props = ["resModel", "onReportCreated", "close"];
+
     setup() {
         this.rpc = useService("rpc");
         this.user = useService("user");
@@ -38,6 +42,3 @@ export class NewReportDialog extends Component {
         this.props.close();
     }
 }
-NewReportDialog.template = "web_studio.NewReportDialog";
-NewReportDialog.components = { Dialog };
-NewReportDialog.props = ["resModel", "onReportCreated", "close"];

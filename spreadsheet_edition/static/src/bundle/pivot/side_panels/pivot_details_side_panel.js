@@ -10,6 +10,15 @@ import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 
 export class PivotDetailsSidePanel extends Component {
+    static template = "spreadsheet_edition.PivotDetailsSidePanel";
+    static components = { DomainSelector, EditableName };
+    static props = {
+        pivotId: {
+            type: String,
+            optional: true,
+        },
+    };
+
     setup() {
         this.dialog = useService("dialog");
         this.notification = useService("notification");
@@ -107,11 +116,3 @@ export class PivotDetailsSidePanel extends Component {
         }
     }
 }
-PivotDetailsSidePanel.template = "spreadsheet_edition.PivotDetailsSidePanel";
-PivotDetailsSidePanel.components = { DomainSelector, EditableName };
-PivotDetailsSidePanel.props = {
-    pivotId: {
-        type: String,
-        optional: true,
-    },
-};

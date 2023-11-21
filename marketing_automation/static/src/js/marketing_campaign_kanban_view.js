@@ -11,6 +11,8 @@ import { ListRenderer } from '@web/views/list/list_renderer';
 import { Component, onWillStart } from "@odoo/owl";
 
 export class CampaignActionHelper extends Component {
+    static template = "marketing.CampaignActionHelper";
+
     setup() {
         this.orm = useService("orm");
         this.action = useService("action");
@@ -36,13 +38,13 @@ export class CampaignActionHelper extends Component {
         this.action.doAction(action);
     }
 };
-CampaignActionHelper.template = "marketing.CampaignActionHelper";
 
-export class CampaignKanbanRenderer extends KanbanRenderer {};
-CampaignKanbanRenderer.template = "marketing.CampaignKanbanRenderer";
-CampaignKanbanRenderer.components = {
-    ...CampaignKanbanRenderer.components,
-    CampaignActionHelper,
+export class CampaignKanbanRenderer extends KanbanRenderer {
+    static template = "marketing.CampaignKanbanRenderer";
+    static components = {
+        ...CampaignKanbanRenderer.components,
+        CampaignActionHelper,
+    };
 };
 
 export const CampaignKanbanView = {
@@ -53,11 +55,12 @@ export const CampaignKanbanView = {
 registry.category("views").add("marketing_campaign_kanban_view", CampaignKanbanView);
 
 
-export class CampaignListRenderer extends ListRenderer {};
-CampaignListRenderer.template = "marketing.CampaignListRenderer";
-CampaignListRenderer.components = {
-    ...CampaignListRenderer.components,
-    CampaignActionHelper,
+export class CampaignListRenderer extends ListRenderer {
+    static template = "marketing.CampaignListRenderer";
+    static components = {
+        ...CampaignListRenderer.components,
+        CampaignActionHelper,
+    };
 };
 
 export const CampaignListView = {

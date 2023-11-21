@@ -20,6 +20,11 @@ function useOpenExternal() {
 }
 
 export class StudioApproval extends Component {
+    static props = {
+        approval: Object,
+    };
+    static template = "StudioApproval";
+
     setup() {
         this.dialog = useService("dialog");
         this.popover = usePopover(StudioApprovalInfos);
@@ -57,7 +62,3 @@ export class StudioApproval extends Component {
         return this.state.entries.find((e) => e.rule_id[0] === ruleId);
     }
 }
-StudioApproval.props = {
-    approval: Object,
-};
-StudioApproval.template = "StudioApproval";

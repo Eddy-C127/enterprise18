@@ -5,6 +5,8 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { Component, useRef } from "@odoo/owl";
 
 export class FieldSelectorDialog extends Component {
+    static template = "web_studio.FieldSelectorDialog";
+    static components = { Dialog };
     static props = {
         close: { type: Function },
         onConfirm: { type: Function },
@@ -26,5 +28,3 @@ export class FieldSelectorDialog extends Component {
         this.props.close();
     }
 }
-FieldSelectorDialog.template = "web_studio.FieldSelectorDialog";
-FieldSelectorDialog.components = { Dialog };

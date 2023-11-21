@@ -3,6 +3,8 @@
 import LineComponent from "@stock_barcode/components/line";
 
 export default class GroupedLineComponent extends LineComponent {
+    static components = { LineComponent };
+    static template = "stock_barcode.GroupedLineComponent";
 
     get isSelected() {
         return this.line.virtual_ids.indexOf(this.env.model.selectedLineVirtualId) !== -1;
@@ -17,5 +19,3 @@ export default class GroupedLineComponent extends LineComponent {
         this.env.model.toggleSublines(this.line);
     }
 }
-GroupedLineComponent.components = { LineComponent };
-GroupedLineComponent.template = 'stock_barcode.GroupedLineComponent';

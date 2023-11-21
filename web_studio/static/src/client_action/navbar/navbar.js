@@ -11,6 +11,11 @@ import { useStudioServiceAsReactive, NotEditableActionError } from "@web_studio/
 
 const menuButtonsRegistry = registry.category("studio_navbar_menubuttons");
 export class StudioNavbar extends EnterpriseNavBar {
+    static template = "web_studio.StudioNavbar";
+    static components = {
+        ...EnterpriseNavBar.components,
+        HomeMenuCustomizer,
+    };
     setup() {
         super.setup();
         this.studio = useStudioServiceAsReactive();
@@ -57,5 +62,3 @@ export class StudioNavbar extends EnterpriseNavBar {
         return Object.fromEntries(menuButtonsRegistry.getEntries());
     }
 }
-StudioNavbar.template = "web_studio.StudioNavbar";
-StudioNavbar.components.HomeMenuCustomizer = HomeMenuCustomizer;

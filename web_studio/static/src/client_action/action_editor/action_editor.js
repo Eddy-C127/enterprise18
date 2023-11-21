@@ -72,6 +72,17 @@ function getActionValues(action) {
 }
 
 class ActionEditor extends Component {
+    static template = "web_studio.ActionEditor";
+    static props = { ...standardActionServiceProps };
+    static components = {
+        Dropdown,
+        DropdownItem,
+        Record,
+        CharField,
+        TextField,
+        Many2ManyTagsField,
+    };
+
     setup() {
         this.studio = useStudioServiceAsReactive();
         this.action = useService("action");
@@ -245,15 +256,5 @@ class ActionEditor extends Component {
         return this.studio.reload({}, false);
     }
 }
-ActionEditor.template = "web_studio.ActionEditor";
-ActionEditor.components = {
-    Dropdown,
-    DropdownItem,
-    Record,
-    CharField,
-    TextField,
-    Many2ManyTagsField,
-};
-ActionEditor.props = { ...standardActionServiceProps };
 
 registry.category("actions").add("web_studio.action_editor", ActionEditor);

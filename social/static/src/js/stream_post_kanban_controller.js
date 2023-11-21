@@ -11,6 +11,12 @@ import { useService } from '@web/core/utils/hooks';
 import { onWillStart, useEffect, useSubEnv, useState } from "@odoo/owl";
 
 export class StreamPostKanbanController extends KanbanController {
+    static template = "social.SocialKanbanView";
+    static components = {
+        ...KanbanController.components,
+        NewContentRefreshBanner,
+        StreamPostDashboard,
+    };
 
     setup() {
         super.setup();
@@ -143,10 +149,3 @@ export class StreamPostKanbanController extends KanbanController {
     }
 
 }
-
-StreamPostKanbanController.components = {
-    ...KanbanController.components,
-    NewContentRefreshBanner,
-    StreamPostDashboard,
-};
-StreamPostKanbanController.template = 'social.SocialKanbanView';

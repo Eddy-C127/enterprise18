@@ -24,6 +24,20 @@ const DEFAULT_LIMIT = 9;
  */
 
 export class SpreadsheetSelectorPanel extends Component {
+    static template = "spreadsheet_edition.SpreadsheetSelectorPanel";
+    static components = { Pager };
+    static defaultProps = {
+        displayBlank: true,
+    };
+    static props = {
+        onSpreadsheetSelected: Function,
+        onSpreadsheetDblClicked: Function,
+        displayBlank: {
+            type: Boolean,
+            optional: true,
+        },
+    };
+
     setup() {
         /** @type {State} */
         this.state = useState({
@@ -119,17 +133,3 @@ export class SpreadsheetSelectorPanel extends Component {
         });
     }
 }
-
-SpreadsheetSelectorPanel.template = "spreadsheet_edition.SpreadsheetSelectorPanel";
-SpreadsheetSelectorPanel.components = { Pager };
-SpreadsheetSelectorPanel.defaultProps = {
-    displayBlank: true,
-};
-SpreadsheetSelectorPanel.props = {
-    onSpreadsheetSelected: Function,
-    onSpreadsheetDblClicked: Function,
-    displayBlank: {
-        type: Boolean,
-        optional: true,
-    },
-};

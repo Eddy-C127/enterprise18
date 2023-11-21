@@ -7,14 +7,15 @@ import { SocialPostFormatterMixin } from "../social_post_formatter_mixin";
 import { Component, markup } from "@odoo/owl";
 
 export class PostFormatterField extends SocialPostFormatterMixin(Component) {
+    static template = "social.PostFormatterField";
+    static props = {
+        ...standardFieldProps,
+    };
+
     get formattedPost() {
         return markup(this._formatPost(this.props.record.data[this.props.name] || ''));
     }
 }
-PostFormatterField.template = 'social.PostFormatterField';
-PostFormatterField.props = {
-    ...standardFieldProps,
-};
 
 export const postFormatterField = {
     component: PostFormatterField,

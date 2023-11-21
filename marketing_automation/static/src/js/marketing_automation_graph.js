@@ -10,6 +10,8 @@ const fieldRegistry = registry.category("fields");
  * Inspired from the GraphView
  */
 export class MarketingActivityGraph extends Component {
+    static template = "marketing_automation.MarketingActivityGraph";
+
     setup() {
         this.chart = null;
         this.canvasRef = useRef("canvas");
@@ -146,8 +148,6 @@ export class MarketingActivityGraph extends Component {
         return 'rgba(' + rgb + ',' + opacity + ')';
     }
 }
-
-MarketingActivityGraph.template = "marketing_automation.MarketingActivityGraph";
 
 export const marketingActivityGraph = {
     component: MarketingActivityGraph,

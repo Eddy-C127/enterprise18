@@ -31,6 +31,7 @@ import { _t } from "@web/core/l10n/translation";
  *
  */
 export class YoutubeUploadField extends CharField {
+    static template = "social_youtube.YoutubeUploadField";
     setup() {
         super.setup();
         this.fileInputRef = useRef('fileInput');
@@ -317,7 +318,6 @@ export class YoutubeUploadField extends CharField {
         });
     }
 }
-YoutubeUploadField.template = 'social_youtube.YoutubeUploadField';
 
 export const youtubeUploadField = {
     ...charField,

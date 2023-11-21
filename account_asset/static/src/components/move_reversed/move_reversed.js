@@ -3,8 +3,9 @@
 import { registry } from "@web/core/registry";
 import { Component } from "@odoo/owl";
 
-export class MoveReversed extends Component {}
-MoveReversed.template = "account_asset.moveReversed";
+export class MoveReversed extends Component {
+    static template = "account_asset.moveReversed";
+}
 
 export const moveReversed = {
     component: MoveReversed,

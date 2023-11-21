@@ -6,6 +6,11 @@ import { useService } from "@web/core/utils/hooks";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
 export class MapNewViewDialog extends NewViewDialog {
+    static template = "web_studio.MapNewViewDialog";
+    static props = {
+        ...NewViewDialog.props,
+    };
+
     setup() {
         super.setup();
         this.dialog = useService("dialog");
@@ -33,8 +38,5 @@ export class MapNewViewDialog extends NewViewDialog {
         }
     }
 }
-MapNewViewDialog.template = "web_studio.MapNewViewDialog";
-MapNewViewDialog.props = {
-    ...NewViewDialog.props,
-};
+
 delete MapNewViewDialog.props.viewType;

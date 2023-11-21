@@ -3,6 +3,7 @@
 import { CommonOdooChartConfigPanel } from "../common/config_panel";
 
 export class OdooLineChartConfigPanel extends CommonOdooChartConfigPanel {
+    static template = "spreadsheet_edition.OdooLineChartConfigPanel";
     onUpdateStacked(ev) {
         this.props.updateChart(this.props.figureId, {
             stacked: ev.target.checked,
@@ -14,5 +15,3 @@ export class OdooLineChartConfigPanel extends CommonOdooChartConfigPanel {
         });
     }
 }
-
-OdooLineChartConfigPanel.template = "spreadsheet_edition.OdooLineChartConfigPanel";

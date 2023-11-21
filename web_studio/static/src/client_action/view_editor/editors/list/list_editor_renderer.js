@@ -28,6 +28,13 @@ function getSelectableCol(target, colSelector) {
 }
 
 export class ListEditorRenderer extends listView.Renderer {
+    static template = "web_studio.ListEditorRenderer";
+    static recordRowTemplate = "web_studio.ListEditorRenderer.RecordRow";
+    static components = {
+        ...listView.Renderer.components,
+        AddButtonAction,
+    };
+
     setup() {
         const viewEditorModel = useState(this.env.viewEditorModel);
         this.viewEditorModel = reactive(viewEditorModel, () => {
@@ -192,9 +199,3 @@ export class ListEditorRenderer extends listView.Renderer {
         });
     }
 }
-ListEditorRenderer.template = "web_studio.ListEditorRenderer";
-ListEditorRenderer.recordRowTemplate = "web_studio.ListEditorRenderer.RecordRow";
-ListEditorRenderer.components = {
-    ...listView.Renderer.components,
-    AddButtonAction,
-};

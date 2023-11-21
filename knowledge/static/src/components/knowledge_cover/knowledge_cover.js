@@ -7,6 +7,9 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, onWillUpdateProps, onWillStart, useRef, useState } from "@odoo/owl";
 
 class KnowledgeCover extends Component {
+    static props = standardWidgetProps;
+    static template = "knowledge.KnowledgeCover";
+
     setup() {
         super.setup();
         this.rpc = useService("rpc");
@@ -67,7 +70,7 @@ class KnowledgeCover extends Component {
         const moveCover = throttleForAnimation(ev => {
             if (prevPos !== ev.y) {
                 // Add offset proportional to the distance traveled by the cursor.
-                // (dividing by 5 to not move the cover too fast). 
+                // (dividing by 5 to not move the cover too fast).
                 const verticalPosition = this.state.verticalPosition + (prevPos - ev.y) / 5;
                 // Make sure we are between 0.01 and 100% (not 0 since it's the
                 // default value when the cover has never been repositioned).
@@ -107,8 +110,6 @@ class KnowledgeCover extends Component {
     }
 
 }
-KnowledgeCover.props = standardWidgetProps;
-KnowledgeCover.template = "knowledge.KnowledgeCover";
 
 export const knowledgeCover = {
     component: KnowledgeCover,

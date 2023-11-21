@@ -5,6 +5,7 @@ import { stockBarcodeKanbanView } from '@stock_barcode/kanban/stock_barcode_kanb
 import { StockBarcodeKanbanController } from '@stock_barcode/kanban/stock_barcode_kanban_controller';
 
 export class StockBarcodeMRPKanbanRenderer extends StockBarcodeKanbanRenderer {
+    static template = "stock_barcode_mrp.KanbanRenderer";
     setup(){
         super.setup(...arguments);
         this.display_protip = ['stock.picking', 'mrp.production'].includes(this.props.list.resModel);
@@ -44,6 +45,5 @@ export class StockBarcodeMRPKanbanController extends StockBarcodeKanbanControlle
     }
 }
 
-StockBarcodeMRPKanbanRenderer.template = 'stock_barcode_mrp.KanbanRenderer';
 stockBarcodeKanbanView.Renderer = StockBarcodeMRPKanbanRenderer;
 stockBarcodeKanbanView.Controller = StockBarcodeMRPKanbanController;

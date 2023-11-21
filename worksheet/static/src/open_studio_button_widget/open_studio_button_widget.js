@@ -6,6 +6,11 @@ import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 import { Component } from "@odoo/owl";
 
 class OpenStudioWidget extends Component {
+    static template = "worksheet.OpenStudioWidget";
+    static props = {
+        ...standardWidgetProps,
+    };
+
     setup() {
         this.action = useService("action");
         this.orm = useService("orm");
@@ -25,11 +30,6 @@ class OpenStudioWidget extends Component {
         this.ui.unblock();
     }
 }
-
-OpenStudioWidget.template = "worksheet.OpenStudioWidget";
-OpenStudioWidget.props = {
-    ...standardWidgetProps,
-};
 
 export const openStudioWidget = {
     component: OpenStudioWidget,

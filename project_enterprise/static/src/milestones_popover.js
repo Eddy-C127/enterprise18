@@ -4,6 +4,9 @@ import { Component } from "@odoo/owl";
 import { formatDate } from "@web/core/l10n/dates";
 
 export class MilestonesPopover extends Component {
+    static template = "project_enterprise.MilestonesPopover";
+    static props = ["close", "displayMilestoneDates", "displayProjectName", "milestones"];
+
     getDeadline(milestone) {
         if (!milestone.deadline) {
             return;
@@ -11,6 +14,3 @@ export class MilestonesPopover extends Component {
         return formatDate(milestone.deadline);
     }
 }
-
-MilestonesPopover.template = "project_enterprise.MilestonesPopover";
-MilestonesPopover.props = ["close", "displayMilestoneDates", "displayProjectName", "milestones"];

@@ -8,12 +8,12 @@ import { Orders } from "@pos_order_tracking_display/app/components/orders/orders
 import { OdooLogo } from "@point_of_sale/app/generic_components/odoo_logo/odoo_logo";
 import { useOrderStatusDisplay } from "./order_tracking_display_service";
 class OrderStatusDisplay extends Component {
+    static template = "pos_order_tracking_display.OrderStatusDisplay";
     static components = { Orders, OdooLogo };
     setup() {
         this.orders = useOrderStatusDisplay();
     }
 }
-OrderStatusDisplay.template = "pos_order_tracking_display.OrderStatusDisplay";
 export async function createPublicRoot() {
     await whenReady();
     const wowlEnv = makeEnv();

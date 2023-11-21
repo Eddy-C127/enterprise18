@@ -17,6 +17,8 @@ const components = formView.Renderer.components;
 // An utility function that extends the common API parts of groups
 function extendGroup(GroupClass) {
     class Group extends GroupClass {
+        static props = [...GroupClass.props, "studioXpath?", "studioIsVisible?"];
+        static components = { ...GroupClass.components, StudioHook };
         setup() {
             super.setup();
             this.viewEditorModel = useState(this.env.viewEditorModel);
@@ -53,8 +55,6 @@ function extendGroup(GroupClass) {
             this.env.config.onNodeClicked(this.props.studioXpath);
         }
     }
-    Group.props = [...GroupClass.props, "studioXpath?", "studioIsVisible?"];
-    Group.components = { ...GroupClass.components, StudioHook };
     return Group;
 }
 
@@ -62,6 +62,7 @@ function extendGroup(GroupClass) {
 // Those are the only ones (for now), to be draggable internally
 // It should shadow the Field and its Label below
 class InnerGroupItemComponent extends Component {
+    static template = "web_studio.Form.InnerGroup.ItemComponent";
     static props = {
         cell: { type: Object },
         slots: { type: Object },
@@ -123,10 +124,10 @@ class InnerGroupItemComponent extends Component {
         this.env.config.onNodeClicked(this.cell.studioXpath);
     }
 }
-InnerGroupItemComponent.template = "web_studio.Form.InnerGroup.ItemComponent";
 
 const _InnerGroup = extendGroup(components.InnerGroup);
 export class InnerGroup extends _InnerGroup {
+    static template = "web_studio.Form.InnerGroup";
     getRows() {
         const rows = super.getRows();
         if (!this.viewEditorModel.showInvisible) {
@@ -186,7 +187,6 @@ export class InnerGroup extends _InnerGroup {
 }
 
 InnerGroup.components.InnerGroupItemComponent = InnerGroupItemComponent;
-InnerGroup.template = "web_studio.Form.InnerGroup";
 
 // Simple override for OuterGroups
 export const OuterGroup = extendGroup(components.OuterGroup);

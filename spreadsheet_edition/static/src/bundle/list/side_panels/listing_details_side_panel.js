@@ -11,6 +11,15 @@ import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 
 export class ListingDetailsSidePanel extends Component {
+    static template = "spreadsheet_edition.ListingDetailsSidePanel";
+    static components = { DomainSelector, EditableName };
+    static props = {
+        listId: {
+            type: String,
+            optional: true,
+        },
+    };
+
     setup() {
         this.getters = this.env.model.getters;
         this.dialog = useService("dialog");
@@ -91,11 +100,3 @@ export class ListingDetailsSidePanel extends Component {
         }
     }
 }
-ListingDetailsSidePanel.template = "spreadsheet_edition.ListingDetailsSidePanel";
-ListingDetailsSidePanel.components = { DomainSelector, EditableName };
-ListingDetailsSidePanel.props = {
-    listId: {
-        type: String,
-        optional: true,
-    },
-};

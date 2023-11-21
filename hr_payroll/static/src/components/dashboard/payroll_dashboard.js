@@ -10,6 +10,14 @@ import { PayrollDashboardStats } from '@hr_payroll/components/dashboard/payroll_
 import { Component, onWillStart } from "@odoo/owl";
 
 class PayrollDashboardComponent extends Component {
+    static template = "hr_payroll.Dashboard";
+    static components = {
+        PayrollDashboardActionBox,
+        PayrollDashboardPayslipBatch,
+        PayrollDashboardTodo,
+        PayrollDashboardStats,
+    };
+
     setup() {
         this.orm = useService('orm');
         onWillStart(async () => {
@@ -35,14 +43,6 @@ class PayrollDashboardComponent extends Component {
         this.render();
     }
 }
-
-PayrollDashboardComponent.template = 'hr_payroll.Dashboard';
-PayrollDashboardComponent.components = {
-    PayrollDashboardActionBox,
-    PayrollDashboardPayslipBatch,
-    PayrollDashboardTodo,
-    PayrollDashboardStats,
-};
 
 registry.category('actions').add('hr_payroll_dashboard', PayrollDashboardComponent);
 

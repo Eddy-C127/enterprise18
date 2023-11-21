@@ -9,6 +9,25 @@ import { xml } from "@odoo/owl";
 const CANCEL_GLOBAL_CLICK = ["a", ".dropdown", ".oe_kanban_action"].join(",");
 
 export class DocumentsKanbanRecord extends KanbanRecord {
+    static components = {
+        ...KanbanRecord.components,
+        FileUploadProgressBar,
+    };
+    static defaultProps = {
+        ...KanbanRecord.defaultProps,
+        Compiler: DocumentsKanbanCompiler,
+    };
+    static template = xml`
+        <div
+            role="article"
+            t-att-class="getRecordClasses()"
+            t-att-data-id="props.canResequence and props.record.id"
+            t-att-tabindex="props.record.model.useSampleModel ? -1 : 0"
+            t-on-click.synthetic="onGlobalClick"
+            t-on-keydown.synthetic="onKeydown"
+            t-ref="root">
+            <t t-call="{{ templates[this.constructor.KANBAN_BOX_ATTRIBUTE] }}" t-call-context="this.renderingContext"/>
+        </div>`;
     setup() {
         super.setup();
         // File upload
@@ -81,23 +100,3 @@ export class DocumentsKanbanRecord extends KanbanRecord {
         return this.props.record.onRecordClick(ev, options);
     }
 }
-DocumentsKanbanRecord.components = {
-    ...KanbanRecord.components,
-    FileUploadProgressBar,
-};
-DocumentsKanbanRecord.defaultProps = {
-    ...KanbanRecord.defaultProps,
-    Compiler: DocumentsKanbanCompiler,
-};
-
-DocumentsKanbanRecord.template = xml`
-    <div
-        role="article"
-        t-att-class="getRecordClasses()"
-        t-att-data-id="props.canResequence and props.record.id"
-        t-att-tabindex="props.record.model.useSampleModel ? -1 : 0"
-        t-on-click.synthetic="onGlobalClick"
-        t-on-keydown.synthetic="onKeydown"
-        t-ref="root">
-        <t t-call="{{ templates[this.constructor.KANBAN_BOX_ATTRIBUTE] }}" t-call-context="this.renderingContext"/>
-    </div>`;

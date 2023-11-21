@@ -15,6 +15,20 @@ import { CogMenu } from "@web/search/cog_menu/cog_menu";
 import { Component, onWillUnmount, onWillStart } from "@odoo/owl";
 
 export class MapController extends Component {
+    static template = "web_map.MapView";
+    static components = {
+        Layout,
+        SearchBar,
+        CogMenu,
+    };
+    static props = {
+        ...standardViewProps,
+        Model: Function,
+        modelParams: Object,
+        Renderer: Function,
+        buttonTemplate: String,
+    };
+
     setup() {
         this.action = useService("action");
 
@@ -83,19 +97,3 @@ export class MapController extends Component {
         }
     }
 }
-
-MapController.template = "web_map.MapView";
-
-MapController.components = {
-    Layout,
-    SearchBar,
-    CogMenu,
-};
-
-MapController.props = {
-    ...standardViewProps,
-    Model: Function,
-    modelParams: Object,
-    Renderer: Function,
-    buttonTemplate: String,
-};

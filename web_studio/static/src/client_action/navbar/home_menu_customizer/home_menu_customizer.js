@@ -12,6 +12,10 @@ import { FileInput } from "@web/core/file_input/file_input";
 import { Component } from "@odoo/owl";
 
 export class HomeMenuCustomizer extends Component {
+    static template = "web_studio.HomeMenuCustomizer";
+    static props = {};
+    static components = { Dropdown, DropdownItem, FileInput };
+
     setup() {
         this.rpc = useService("rpc");
         this.ui = useService("ui");
@@ -94,6 +98,3 @@ export class HomeMenuCustomizer extends Component {
         }
     }
 }
-HomeMenuCustomizer.template = "web_studio.HomeMenuCustomizer";
-HomeMenuCustomizer.props = {};
-HomeMenuCustomizer.components = { Dropdown, DropdownItem, FileInput };

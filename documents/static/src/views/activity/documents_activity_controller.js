@@ -7,6 +7,7 @@ import { preSuperSetup, useDocumentView } from "@documents/views/hooks";
 import { useState } from "@odoo/owl";
 
 export class DocumentsActivityController extends ActivityController {
+    static template = "documents.DocumentsActivityController";
     setup() {
         preSuperSetup();
         super.setup(...arguments);
@@ -74,4 +75,3 @@ export class DocumentsActivityController extends ActivityController {
         });
     }
 }
-DocumentsActivityController.template = "documents.DocumentsActivityController";

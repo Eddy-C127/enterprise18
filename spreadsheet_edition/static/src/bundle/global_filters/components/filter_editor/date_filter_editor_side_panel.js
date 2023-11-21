@@ -25,24 +25,28 @@ const RANGE_TYPES = [
  * @property {"fixedPeriod" | "relative" | "from_to"} type type of the filter
  */
 
-class DateFilterEditorFieldMatching extends FilterEditorFieldMatching {}
-
-DateFilterEditorFieldMatching.components = {
-    ...FilterEditorFieldMatching.components,
-    FilterFieldOffset,
-};
-
-DateFilterEditorFieldMatching.template = "spreadsheet_edition.DateFilterEditorFieldMatching";
-
-DateFilterEditorFieldMatching.props = {
-    ...FilterEditorFieldMatching.props,
-    onOffsetSelected: Function,
-};
+class DateFilterEditorFieldMatching extends FilterEditorFieldMatching {
+    static components = {
+        ...FilterEditorFieldMatching.components,
+        FilterFieldOffset,
+    };
+    static template = "spreadsheet_edition.DateFilterEditorFieldMatching";
+    static props = {
+        ...FilterEditorFieldMatching.props,
+        onOffsetSelected: Function,
+    };
+}
 
 /**
  * This is the side panel to define/edit a global filter of type "date".
  */
 export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
+    static template = "spreadsheet_edition.DateFilterEditorSidePanel";
+    static components = {
+        ...AbstractFilterEditorSidePanel.components,
+        DateFilterEditorFieldMatching,
+    };
+
     /**
      * @constructor
      */
@@ -125,9 +129,3 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
         this.dateState.defaultValue = ev.target.checked ? "this_month" : undefined;
     }
 }
-
-DateFilterEditorSidePanel.template = "spreadsheet_edition.DateFilterEditorSidePanel";
-DateFilterEditorSidePanel.components = {
-    ...AbstractFilterEditorSidePanel.components,
-    DateFilterEditorFieldMatching,
-};

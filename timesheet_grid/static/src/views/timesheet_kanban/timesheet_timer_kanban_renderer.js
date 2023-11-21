@@ -5,15 +5,13 @@ import { TimesheetTimerHeader } from "@timesheet_grid/components/timesheet_timer
 import { useTimesheetTimerRendererHook } from "@timesheet_grid/hooks/timesheet_timer_hooks";
 
 export class TimesheetTimerKanbanRenderer extends KanbanRenderer {
+    static template = "timesheet_grid.TimesheetTimerKanbanRenderer";
+    static components = {
+        ...KanbanRenderer.components,
+        TimesheetTimerHeader: TimesheetTimerHeader,
+    };
     setup() {
         super.setup();
         this.timesheetTimerRendererHook = useTimesheetTimerRendererHook();
     }
 }
-
-TimesheetTimerKanbanRenderer.template = "timesheet_grid.TimesheetTimerKanbanRenderer";
-
-TimesheetTimerKanbanRenderer.components = {
-    ...KanbanRenderer.components,
-    TimesheetTimerHeader: TimesheetTimerHeader,
-};

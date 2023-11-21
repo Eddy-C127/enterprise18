@@ -4,6 +4,10 @@ import { FileViewer } from "@documents/attachments/document_file_viewer";
 import { Component, useEffect, useRef, useState } from "@odoo/owl";
 
 export class DocumentsFileViewer extends Component {
+    static template = "documents.DocumentsFileViewer";
+    static components = {
+        FileViewer,
+    };
     static props = [
         "parentRoot", // Parent's root element, used to know the zone to use.
         "previewStore",
@@ -73,7 +77,3 @@ export class DocumentsFileViewer extends Component {
         }
     }
 }
-DocumentsFileViewer.components = {
-    FileViewer,
-};
-DocumentsFileViewer.template = "documents.DocumentsFileViewer";

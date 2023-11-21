@@ -9,6 +9,11 @@ import { buildPDFViewerURL } from "@sign/components/sign_request/utils";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
 export class SignTemplateBody extends Component {
+    static template = "sign.SignTemplateBody";
+    static components = {
+        SignTemplateTopBar,
+    };
+
     setup() {
         this.rpc = useService("rpc");
         this.orm = useService("orm");
@@ -161,8 +166,3 @@ export class SignTemplateBody extends Component {
         });
     }
 }
-
-SignTemplateBody.template = "sign.SignTemplateBody";
-SignTemplateBody.components = {
-    SignTemplateTopBar,
-};
