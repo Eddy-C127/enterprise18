@@ -146,7 +146,6 @@ class DiscussChannel(models.Model):
         """
         related_record = False
         responsible_partners = self.env['res.partner']
-        IrModel = self.env['ir.model']
         channel_domain = [
             ('whatsapp_number', '=', whatsapp_number),
             ('wa_account_id', '=', wa_account_id.id)
@@ -177,7 +176,7 @@ class DiscussChannel(models.Model):
         partners_to_notify = responsible_partners
         record_name = related_message.record_name
         if not record_name and related_message.res_id:
-            record_name = self.env[related_message.model].browse(related_message.res_id).name
+            record_name = self.env[related_message.model].browse(related_message.res_id).display_name
         if not channel and create_if_not_found:
             channel = self.sudo().with_context(tools.clean_context(self.env.context)).create({
                 'name': f"{whatsapp_number} ({record_name})" if record_name else whatsapp_number,
@@ -190,7 +189,7 @@ class DiscussChannel(models.Model):
             partners_to_notify += channel.whatsapp_partner_id
             if related_message:
                 # Add message in channel about the related document
-                info = _("Related %(model_name)s:", model_name=IrModel._get(related_message.model).display_name)
+                info = _("Related %(model_name)s: ", model_name=self.env['ir.model']._get(related_message.model).display_name)
                 url = Markup('{base_url}/web#model={model}&id={res_id}').format(
                     base_url=self.get_base_url(), model=related_message.model, res_id=related_message.res_id)
                 related_record_name = related_message.record_name
