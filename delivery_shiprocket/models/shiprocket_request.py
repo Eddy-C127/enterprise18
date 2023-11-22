@@ -420,26 +420,27 @@ class ShipRocket:
                 picking.message_post(body=self._shiprocket_get_error_message(order_response))
                 continue
             payload = order_response.get('payload')
+            if not payload:
+                picking.message_post(body=_('AWB assignment was unsuccessful: %s') % (self._shiprocket_get_error_message(order_response)))
+                continue
             res['all_pack'][delivery_package]['response'] = payload
-            if payload and payload.get('shipment_id') and payload.get('error_message') and \
-                    'Oops! Cannot reassign courier' in payload['error_message']:
+            if payload.get('shipment_id') and payload.get('error_message') and 'Oops! Cannot reassign courier' in payload['error_message']:
                 payload.pop('error_message')
                 res['all_pack'][delivery_package]['response']['warning_message'] = \
                     _("Same order is available in Shiprocket so label provided is the copy of existing one.")
-                label_response = self._generate_label(payload.get('shipment_id'))
+                label_response = self._generate_label(payload['shipment_id'])
                 res['all_pack'][delivery_package]['response']['label_url'] = label_response.get('label_url')
-            if order_response and payload and not payload.get('error_message') and not payload.get('awb_assign_error'):
+            if payload.get('shipment_id') and not payload.get('error_message') and not payload.get('awb_assign_error'):
                 res['tracking_numbers'].append(payload.get('awb_code'))
                 # To get exact_price
-                order_details = self._make_api_request('external/shipments/{}'.format(payload.get('shipment_id')),
-                                                       token=self._get_token())
+                order_details = self._make_api_request('external/shipments/{}'.format(payload['shipment_id']), token=self._get_token())
                 order_id = order_details.get('data').get('order_id')
                 if order_id:
                     res['order_ids'].append(str(order_id))
                 res['all_pack'][delivery_package]['order_details'] = order_details
                 res['exact_price'] += float(order_details.get('data', {}).get('charges', {}).get('freight_charges', '0.00'))
             else:
-                picking.message_post(body=('AWB assignment was unsuccessful: %s') % (self._shiprocket_get_error_message(order_response)))
+                picking.message_post(body=_('AWB assignment was unsuccessful: %s') % (self._shiprocket_get_error_message(order_response)))
         return res
 
     def _generate_label(self, shipment_id):
