@@ -11,24 +11,12 @@ from werkzeug.urls import url_join
 
 from odoo import _
 from odoo.exceptions import ValidationError
+from odoo.tools import float_repr
 
 TEST_BASE_URL = "https://wwwcie.ups.com"
 PROD_BASE_URL = "https://onlinetools.ups.com"
 API_VERSION = "v1"
 TOKEN_TYPE = "Bearer"
-
-
-class Package():
-    def __init__(self, carrier, weight, quant_pack=False, name=''):
-        self.weight = carrier._ups_convert_weight(weight, carrier.ups_package_weight_unit)
-        self.weight_unit = carrier.ups_package_weight_unit
-        self.name = name
-        self.dimension_unit = carrier.ups_package_dimension_unit
-        if quant_pack:
-            self.dimension = {'length': quant_pack.packaging_length, 'width': quant_pack.width, 'height': quant_pack.height}
-        else:
-            self.dimension = {'length': carrier.ups_default_packaging_id.packaging_length, 'width': carrier.ups_default_packaging_id.width, 'height': carrier.ups_default_packaging_id.height}
-        self.packaging_type = quant_pack and quant_pack.shipper_package_code or False
 
 
 class UPSRequest:
@@ -189,47 +177,54 @@ class UPSRequest:
             return _("Recipient Phone must be at least 10 alphanumeric characters."),
         return False
 
-    def _set_package_details(self, packages, packaging_type, ship_from, ship_to, cod_info, ship=False, is_return=False):
+    def _set_package_details(self, packages, carrier, ship_from, ship_to, cod_info, ship=False, is_return=False):
         # Package Type key in ship request and rate request are different
         package_type_key = 'Packaging' if ship else 'PackagingType'
         res_packages = []
         for p in packages:
             package = {
                 package_type_key: {
-                    'Code': p.packaging_type or packaging_type or '00',
+                    'Code': p.packaging_type or '00',
                 },
                 'Description': 'Return of package' if is_return else None,
                 'PackageWeight': {
                     'UnitOfMeasurement': {
-                        'Code': p.weight_unit,
+                        'Code': carrier.ups_package_weight_unit,
                     },
-                    'Weight': str(p.weight),
-                }
-            }
-            if p.dimension_unit and any(p.dimension.values()):
-                package['Dimensions'] = {
+                    'Weight': str(carrier._ups_convert_weight(p.weight, carrier.ups_package_weight_unit)),
+                },
+                'Dimensions': {
                     'UnitOfMeasurement': {
-                        'Code': p.dimension_unit or '',
+                        'Code': carrier.ups_package_dimension_unit or '',
                     },
                     'Length': str(p.dimension['length']) or '',
                     'Width': str(p.dimension['width']) or '',
                     'Height': str(p.dimension['height']) or '',
                 }
+            }
+
+            package_service_options = {}
 
             if cod_info:
-                package['PackageServiceOptions'] = {
-                    'COD': {
-                        'CODFundsCode': cod_info['funds_code'],
-                        'CODAmount': {
-                            'MonetaryValue': cod_info['monetary_value'],
-                            'CurrencyCode': cod_info['currency'],
-                        }
+                package_service_options['COD'] = {
+                    'CODFundsCode': cod_info['funds_code'],
+                    'CODAmount': {
+                        'MonetaryValue': cod_info['monetary_value'],
+                        'CurrencyCode': cod_info['currency'],
                     }
                 }
+            if p.currency_id:
+                package_service_options['DeclaredValue'] = {
+                    'CurrencyCode': p.currency_id.name,
+                    'MonetaryValue': float_repr(p.total_cost * carrier.shipping_insurance / 100, 2),
+                }
+
+            if package_service_options:
+                package['PackageServiceOptions'] = package_service_options
 
             # Package and shipment reference text is only allowed for shipments within
             # the USA and within Puerto Rico. This is a UPS limitation.
-            if (p.name and ship_from.country_id.code in ('US') and ship_to.country_id.code in ('US')):
+            if (p.name and ' ' not in p.name and ship_from.country_id.code in ('US') and ship_to.country_id.code in ('US')):
                 package.update({
                     'ReferenceNumber': {
                         'Code': 'PM',
@@ -242,8 +237,12 @@ class UPSRequest:
 
     def _get_ship_data_from_partner(self, partner, shipper_no=None):
         return {
-            'Name': partner.name,
+            'AttentionName': (partner.name or '')[:35],
+            'Name': (partner.parent_id.name or partner.name or '')[:35],
             'ShipperNumber': shipper_no or '',
+            'Phone': {
+                'Number': partner.phone or partner.mobile or '',
+            },
             'Address': {
                 'AddressLine': partner.street or '' + partner.street2 or '',
                 'City': partner.city or '',
@@ -253,9 +252,9 @@ class UPSRequest:
             },
         }
 
-    def _get_shipping_price(self, shipper, ship_from, ship_to, total_qty, packages, packaging_type, service_type, saturday_delivery=False,
-                           cod_info=None):
-
+    def _get_shipping_price(self, shipper, ship_from, ship_to, total_qty, packages, carrier, cod_info=None):
+        service_type = carrier.ups_default_service_type
+        saturday_delivery = carrier.ups_saturday_delivery
         url = f'/api/rating/{API_VERSION}/Rate'
         data = {
             'RateRequest': {
@@ -263,7 +262,7 @@ class UPSRequest:
                     'RequestOption': 'Rate',
                 },
                 'Shipment': {
-                    'Package': self._set_package_details(packages, packaging_type, ship_from, ship_to, cod_info),
+                    'Package': self._set_package_details(packages, carrier, ship_from, ship_to, cod_info),
                     'Shipper': self._get_ship_data_from_partner(shipper, self.shipper_number),
                     'ShipFrom': self._get_ship_data_from_partner(ship_from),
                     'ShipTo': self._get_ship_data_from_partner(ship_to),
@@ -296,8 +295,50 @@ class UPSRequest:
             'alert_message': self._process_alerts(res['RateResponse']['Response']),
         }
 
-    def _send_shipping(self, shipment_info, packages, shipper, ship_from, ship_to, packaging_type, service_type, duty_payment,
-                      saturday_delivery=False, cod_info=None, label_file_type='GIF', ups_carrier_account=False, is_return=False):
+    def _set_invoice(self, shipment_info, commodities, ship_to, is_return):
+        invoice_products = []
+        for commodity in commodities:
+            # split the name of the product to maximum 3 substrings of length 35
+            name = commodity.product_id.name
+            product = {
+                'Description': [line for line in [name[35 * i:35 * (i + 1)] for i in range(3)] if line],
+                'Unit': {
+                    'Number': str(int(commodity.qty)),
+                    'UnitOfMeasurement': {
+                        'Code': 'PC' if commodity.qty == 1 else 'PCS',
+                    },
+                    'Value': float_repr(commodity.monetary_value, 2)
+                },
+                'OriginCountryCode': commodity.country_of_origin,
+                'CommodityCode': commodity.product_id.hs_code or '',
+            }
+            invoice_products.append(product)
+        if len(ship_to.commercial_partner_id.name) > 35:
+            raise ValidationError(_('The name of the customer should be no more than 35 characters.'))
+        contacts = {
+            'SoldTo': {
+                'Name': ship_to.commercial_partner_id.name,
+                'AttentionName': ship_to.name,
+                'Address': {
+                    'AddressLine': [line for line in (ship_to.street, ship_to.street2) if line],
+                    'City': ship_to.city,
+                    'PostalCode': ship_to.zip,
+                    'CountryCode': ship_to.country_id.code,
+                    'StateProvinceCode': ship_to.state_id.code or '' if ship_to.country_id.code in ('US', 'CA', 'IE') else None
+                }
+            }
+        }
+        return {
+            'FormType': '01',
+            'Product': invoice_products,
+            'CurrencyCode': shipment_info.get('itl_currency_code'),
+            'InvoiceDate': shipment_info.get('invoice_date'),
+            'ReasonForExport': 'RETURN' if is_return else 'SALE',
+            'Contacts': contacts,
+        }
+
+    def _send_shipping(self, shipment_info, packages, carrier, shipper, ship_from, ship_to, service_type, duty_payment,
+                       saturday_delivery=False, cod_info=None, label_file_type='GIF', ups_carrier_account=False, is_return=False):
         url = f'/api/shipments/{API_VERSION}/ship'
         # Payment Info
         shipment_charge = {
@@ -320,6 +361,12 @@ class UPSRequest:
                 'Type': '02',
                 'BillShipper': {'AccountNumber': self.shipper_number},
             })
+        shipment_service_options = {}
+        if shipment_info.get('require_invoice'):
+            shipment_service_options['InternationalForms'] = self._set_invoice(shipment_info, [c for pkg in packages for c in pkg.commodities],
+                                                                               ship_to, is_return)
+        if saturday_delivery:
+            shipment_service_options['SaturdayDeliveryIndicator'] = saturday_delivery
 
         request = {
             'ShipmentRequest': {
@@ -335,7 +382,7 @@ class UPSRequest:
                 'Shipment': {
                     'Description': shipment_info.get('description'),
                     'ReturnService': {'Code': '9'}if is_return else None,
-                    'Package': self._set_package_details(packages, packaging_type, ship_from, ship_to, cod_info, ship=True, is_return=is_return),
+                    'Package': self._set_package_details(packages, carrier, ship_from, ship_to, cod_info, ship=True, is_return=is_return),
                     'Shipper': self._get_ship_data_from_partner(shipper, self.shipper_number),
                     'ShipFrom': self._get_ship_data_from_partner(ship_from),
                     'ShipTo': self._get_ship_data_from_partner(ship_to),
@@ -343,7 +390,7 @@ class UPSRequest:
                         'Code': service_type,
                     },
                     'NumOfPiecesInShipment': int(shipment_info.get('total_qty')) if service_type == '96' else None,
-                    'ShipmentServiceOptions': {'SaturdayDeliveryIndicator': saturday_delivery} if saturday_delivery else None,
+                    'ShipmentServiceOptions': shipment_service_options if shipment_service_options else None,
                     'ShipmentRatingOptions': {
                         'NegotiatedRatesIndicator': '1',
                     },
@@ -369,16 +416,19 @@ class UPSRequest:
             raise ValidationError(_('Could not decode response'))
         if not res.ok:
             raise ValidationError(self._process_errors(res.json()))
-        labels_binary = {}
         result = {}
         shipment_result = res_body['ShipmentResponse']['ShipmentResults']
         packs = shipment_result.get('PackageResults', [])
+        # get package labels
         if not isinstance(packs, list):
             packs = [packs]
-        for pack in packs:
-            labels_binary[pack['TrackingNumber']] = self._save_label(pack['ShippingLabel']['GraphicImage'], label_file_type=label_file_type)
         result['tracking_ref'] = shipment_result['ShipmentIdentificationNumber']
+        labels_binary = [(pack['TrackingNumber'], self._save_label(pack['ShippingLabel']['GraphicImage'], label_file_type=label_file_type)) for pack in packs]
         result['label_binary_data'] = labels_binary
+        # save international form if in response
+        international_form = shipment_result.get('Form', False)
+        if international_form:
+            result['invoice_binary_data'] = self._save_label(international_form['Image']['GraphicImage'], label_file_type='pdf')
         # Some users are qualified to receive negotiated rates
         if shipment_result.get('NegotiatedRateCharges'):
             charge = shipment_result['NegotiatedRateCharges']['TotalCharge']
