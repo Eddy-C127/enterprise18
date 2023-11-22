@@ -30,7 +30,7 @@ class TestAccountReportsTaxReminder(TestAccountReportsCommon):
     def test_posting_adds_a_reminder(self):
         ''' Test that posting the tax report move adds a reminder activity
         '''
-        reminder_mat_id = self.env.ref('account_reports_tax_reminder.mail_activity_type_tax_report_to_be_sent')
+        reminder_mat_id = self.env.ref('account_reports.mail_activity_type_tax_report_to_be_sent')
         reminder_ma_domain = [
             ('res_model', '=', self.tax_return_move._name),
             ('res_id', '=', self.tax_return_move.id),
