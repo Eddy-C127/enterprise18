@@ -121,7 +121,10 @@ class WhatsAppTemplate(models.Model):
     @api.constrains('phone_field')
     def _check_phone_field(self):
         for tmpl in self.filtered('phone_field'):
-            if tmpl.phone_field not in COMMON_WHATSAPP_PHONE_SAFE_FIELDS:
+            safe_fields = set(COMMON_WHATSAPP_PHONE_SAFE_FIELDS)
+            if hasattr(self.env[tmpl.model], '_wa_get_safe_phone_fields'):
+                safe_fields |= set(self.env[tmpl.model]._wa_get_safe_phone_fields())
+            if tmpl.phone_field not in safe_fields:
                 raise AccessError(_("You are not allowed to use %r in Phone Field, contact your administrator to configure it.", tmpl.phone_field))
 
     @api.constrains('header_attachment_ids', 'header_type')
