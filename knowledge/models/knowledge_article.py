@@ -38,7 +38,7 @@ class Article(models.Model):
 
     active = fields.Boolean(default=True)
     name = fields.Char(string="Title", tracking=20, default_export_compatible=True)
-    body = fields.Html(string="Body")
+    body = fields.Html(string="Body", prefetch=False)
     icon = fields.Char(string='Emoji')
     cover_image_id = fields.Many2one("knowledge.cover", string='Article cover')
     cover_image_url = fields.Char(related="cover_image_id.attachment_url", string="Cover url")
