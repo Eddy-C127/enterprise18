@@ -393,7 +393,10 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
     });
 
     QUnit.test("list with a contextual domain", async (assert) => {
-        patchDate(2016, 4, 14, 0, 0, 0);
+        // TODO: the date is coded at 12PM so the test won't fail if the timezone is not UTC. It will still fail on some
+        // timezones (GMT +13). The good way to do the test would be to patch the time zone and the date correctly.
+        // But PyDate uses new Date() instead of luxon, which cannot be correctly patched.
+        patchDate(2016, 4, 14, 12, 0, 0);
         const serverData = getBasicServerData();
         serverData.models.partner.records = [
             {
@@ -419,7 +422,7 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
                 if (args.method === "search_read") {
                     assert.deepEqual(
                         args.kwargs.domain,
-                        [["date", "=", "2016-05-13"]],
+                        [["date", "=", "2016-05-14"]],
                         "data should be fetched with the evaluated the domain"
                     );
                     assert.step("search_read");
