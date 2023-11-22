@@ -80,7 +80,7 @@ class VoipCall(models.Model):
         domain = [("user_id", "=", self.env.uid)]
         if search_terms:
             search_fields = ["phone_number", "partner_id.name", "activity_name"]
-            search_domain = expression.OR([(field, "ilike", search_terms) for field in search_fields])
+            search_domain = expression.OR([[(field, "ilike", search_terms)] for field in search_fields])
             domain += search_domain
         return self.search(domain, offset=offset, limit=limit, order="create_date DESC")._format_calls()
 
