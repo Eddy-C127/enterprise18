@@ -27,6 +27,9 @@ class WhatsAppTestBaseModel(models.Model):
     def _mail_get_partner_fields(self, introspect_fields=False):
         return ['customer_id']
 
+    def _wa_get_safe_phone_fields(self):
+        return ['customer_id.phone']
+
 
 class WhatsAppTestNoThread(models.Model):
     """ Same as base test model but with no way to get a responsible. """
