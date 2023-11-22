@@ -4,7 +4,7 @@ from odoo import api, models, fields, _
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import pdf
 
-from .ups_request import UPSRequest, Package
+from .ups_request import UPSRequest
 
 
 class ProviderUPS(models.Model):
@@ -66,20 +66,7 @@ class ProviderUPS(models.Model):
 
     def ups_rest_rate_shipment(self, order):
         ups = UPSRequest(self)
-        max_weight = self.ups_default_packaging_id.max_weight
-        total_qty = 0
-        total_weight = order._get_estimated_weight()
-        for line in order.order_line.filtered(lambda line: not line.is_delivery and not line.display_type):
-            total_qty += line.product_uom_qty
-
-        packages = []
-        if max_weight and total_weight > max_weight:
-            last_package_weight = total_weight % max_weight
-            packages = [Package(self, max_weight)] * int(total_weight / max_weight)
-            if last_package_weight:
-                packages.append(Package(self, last_package_weight))
-        else:
-            packages.append(Package(self, total_weight))
+        packages = self._get_packages_from_order(order, self.ups_default_packaging_id)
 
         if self.ups_cod:
             cod_info = {
@@ -100,8 +87,7 @@ class ProviderUPS(models.Model):
         total_qty = sum([line.product_uom_qty for line in order.order_line.filtered(lambda line: not line.is_delivery and not line.display_type)])
 
         result = ups._get_shipping_price(order.company_id.partner_id, order.warehouse_id.partner_id,
-                                        order.partner_shipping_id, total_qty, packages, self.ups_default_packaging_id.shipper_package_code,
-                                        self.ups_default_service_type, saturday_delivery=self.ups_saturday_delivery, cod_info=cod_info)
+                                         order.partner_shipping_id, total_qty, packages, self, cod_info=cod_info)
 
         if result.get('error_message'):
             return {'success': False,
@@ -126,18 +112,11 @@ class ProviderUPS(models.Model):
                 'warning_message': result.get('alert_message', False)}
 
     def _prepare_shipping_data(self, picking):
-        packages = []
-        package_names = []
-        if picking.package_ids:
-            # Create all packages
-            for package in picking.package_ids:
-                packages.append(Package(self, package.shipping_weight, quant_pack=package.packaging_id, name=package.name))
-                package_names.append(package.name)
-        # Create one package with the rest (the content that is not in a package)
-        if picking.weight_bulk:
-            packages.append(Package(self, picking.weight_bulk))
+        packages = self._get_packages_from_picking(picking, self.ups_default_packaging_id)
 
         shipment_info = {
+            'require_invoice': picking._should_generate_commercial_invoice(),
+            'invoice_date': fields.Date.today().strftime('%Y%m%d'),
             'description': picking.origin,
             'total_qty': sum(sml.qty_done for sml in picking.move_line_ids),
             'ilt_monetary_value': '%d' % sum(sml.sale_price for sml in picking.move_line_ids),
@@ -160,23 +139,21 @@ class ProviderUPS(models.Model):
             }
         else:
             cod_info = None
-        return packages, package_names, shipment_info, ups_service_type, ups_carrier_account, cod_info
+        return packages, shipment_info, ups_service_type, ups_carrier_account, cod_info
 
     def ups_rest_send_shipping(self, pickings):
         res = []
         ups = UPSRequest(self)
         for picking in pickings:
-            packages, package_names, shipment_info, ups_service_type, ups_carrier_account, cod_info = self._prepare_shipping_data(picking)
+            packages, shipment_info, ups_service_type, ups_carrier_account, cod_info = self._prepare_shipping_data(picking)
 
             check_value = ups._check_required_value(picking=picking)
             if check_value:
                 raise UserError(check_value)
 
-            package_type = picking.package_ids and picking.package_ids[0].packaging_id.shipper_package_code or \
-                self.ups_default_packaging_id.shipper_package_code
             result = ups._send_shipping(
-                shipment_info, packages, picking.company_id.partner_id, picking.picking_type_id.warehouse_id.partner_id,
-                picking.partner_id, package_type, ups_service_type, picking.carrier_id.ups_duty_payment,
+                shipment_info, packages, self, picking.company_id.partner_id, picking.picking_type_id.warehouse_id.partner_id,
+                picking.partner_id, ups_service_type, picking.carrier_id.ups_duty_payment,
                 saturday_delivery=picking.carrier_id.ups_saturday_delivery, cod_info=cod_info,
                 label_file_type=self.ups_label_file_type, ups_carrier_account=ups_carrier_account)
 
@@ -193,18 +170,18 @@ class ProviderUPS(models.Model):
                 price = quote_currency._convert(
                     float(result['price']), currency_order, company, order.date_order or fields.Date.today())
 
-            package_labels = []
-            for track_number, label_binary_data in result.get('label_binary_data').items():
-                package_labels = package_labels + [(track_number, label_binary_data)]
+            package_labels = result.get('label_binary_data', [])
 
             carrier_tracking_ref = "+".join([pl[0] for pl in package_labels])
             logmessage = _("Shipment created into UPS<br/>"
                            "<b>Tracking Numbers:</b> %s<br/>"
-                           "<b>Packages:</b> %s") % (carrier_tracking_ref, ','.join(package_names))
+                           "<b>Packages:</b> %s") % (carrier_tracking_ref, ','.join([p.name for p in packages if p.name]))
             if self.ups_label_file_type != 'GIF':
                 attachments = [('LabelUPS-%s.%s' % (pl[0], self.ups_label_file_type), pl[1]) for pl in package_labels]
             else:
                 attachments = [('LabelUPS.pdf', pdf.merge_pdf([pl[1] for pl in package_labels]))]
+            if result.get('invoice_binary_data'):
+                attachments.append(('UPSCommercialInvoice.pdf', result['invoice_binary_data']))
             picking.message_post(body=logmessage, attachments=attachments)
             shipping_data = {
                 'exact_price': price,
@@ -230,10 +207,9 @@ class ProviderUPS(models.Model):
         if check_value:
             raise UserError(check_value)
 
-        package_type = picking.package_ids and picking.package_ids[0].packaging_id.shipper_package_code or self.ups_default_packaging_id.shipper_package_code
         result = ups._send_shipping(
-            shipment_info, packages, picking.company_id.partner_id, picking.picking_type_id.warehouse_id.partner_id,
-            picking.partner_id, package_type, ups_service_type, 'RECIPIENT', saturday_delivery=picking.carrier_id.ups_saturday_delivery,
+            shipment_info, packages, self, picking.company_id.partner_id, picking.picking_type_id.warehouse_id.partner_id,
+            picking.partner_id, ups_service_type, 'RECIPIENT', saturday_delivery=picking.carrier_id.ups_saturday_delivery,
             cod_info=cod_info, label_file_type=self.ups_label_file_type, ups_carrier_account=ups_carrier_account, is_return=True)
 
         order = picking.sale_id
