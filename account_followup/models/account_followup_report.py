@@ -358,6 +358,7 @@ Best Regards,
         partner = self.env['res.partner'].browse(options.get('partner_id'))
         followup_contacts = partner._get_all_followup_contacts() or partner
         followup_recipients = options.get('email_recipient_ids', followup_contacts)
+        followup_line = options.get('followup_line', partner.followup_line_id)
         sent_at_least_once = False
         for to_send_partner in followup_recipients:
             email = to_send_partner.email
@@ -379,6 +380,10 @@ Best Regards,
                     subtype_id=self.env['ir.model.data']._xmlid_to_res_id('mail.mt_note'),
                 )
                 sent_at_least_once = True
+
+                # add additional followers to the partner's chatter
+                if followup_line and followup_line.additional_follower_ids:
+                    partner.message_subscribe(followup_line.additional_follower_ids.partner_id.ids)
         if not sent_at_least_once:
             raise UserError(_("You are trying to send an Email, but no follow-up contact has any email address set for customer '%s'", partner.name))
 

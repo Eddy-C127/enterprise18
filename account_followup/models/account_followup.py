@@ -20,6 +20,8 @@ class FollowupLine(models.Model):
     mail_template_id = fields.Many2one(comodel_name='mail.template', domain="[('model', '=', 'res.partner')]")
     send_email = fields.Boolean('Send Email', default=True)
     join_invoices = fields.Boolean(string="Attach Invoices", default=True)
+    additional_follower_ids = fields.Many2many(string="Add followers", comodel_name='res.users',
+                                               help="If set, those users will be added as followers on the partner and receive notifications about any email reply made by the partner on the reminder email.")
 
     sms_template_id = fields.Many2one(comodel_name='sms.template', domain="[('model', '=', 'res.partner')]")
     send_sms = fields.Boolean('Send SMS Message')
