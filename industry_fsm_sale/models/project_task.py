@@ -261,7 +261,7 @@ class Task(models.Model):
                 'fsm_mode': True,
                 'default_partner_id': self.partner_id.id,
                 'default_task_id': self.id,
-                'default_company_id': self.company_id.id,
+                'default_company_id': self.company_id.id or self.env.company.id,
                 'default_origin': f'{self.project_id.name} - {self.name}',
             },
         })
