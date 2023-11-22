@@ -179,7 +179,7 @@ class Task(models.Model):
     def _compute_partner_id(self):
         if self.user_has_groups('account.group_delivery_invoice_address'):
             for task in self:
-                if task.is_fsm:
+                if task.is_fsm and task.sale_order_id:
                     task.partner_id = task.sale_order_id.partner_shipping_id
         return super()._compute_partner_id() # Call to super will reset partner_id for non-billable tasks
 
