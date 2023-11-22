@@ -367,6 +367,9 @@ class WhatsAppTemplate(models.Model):
             return None
         return {'type': 'FOOTER', 'text': self.footer_text}
 
+    def _get_sample_record(self):
+        return self.env[self.model].search([], limit=1)
+
     def button_submit_template(self):
         """Register template to WhatsApp Business Account """
         self.ensure_one()
@@ -374,7 +377,7 @@ class WhatsAppTemplate(models.Model):
         attachment = False
         if self.header_type in ('image', 'video', 'document'):
             if self.header_type == 'document' and self.report_id:
-                record = self.env[self.model].search([], limit=1)
+                record = self._get_sample_record()
                 if not record:
                     raise ValidationError(_("There is no record for preparing demo pdf in model %(model)s", model=self.model_id.name))
                 attachment = self._generate_attachment_from_report(record)
