@@ -643,3 +643,10 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         with freeze_time("2023-05-16 19:00"):
             self.env["documents.document"]._gc_spreadsheet()
         self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
+
+    def test_join_session_name_is_a_string(self):
+        spreadsheet = self.create_spreadsheet(name="")
+        self.assertEqual(spreadsheet.name, "")
+        self.assertEqual(spreadsheet.display_name, False)
+        session_data = spreadsheet.join_spreadsheet_session()
+        self.assertEqual(session_data["name"], "")
