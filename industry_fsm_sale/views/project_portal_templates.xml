@@ -138,7 +138,7 @@
                             <tr>
                                 <td><strong>Total</strong></td>
                                 <td class="text-end">
-                                    <span t-esc="final_total" t-options='{"widget": "monetary", "display_currency": doc.sale_order_id.currency_id}'/>
+                                    <span t-esc="final_subtotal + final_tax" t-options='{"widget": "monetary", "display_currency": doc.sale_order_id.currency_id}'/>
                                 </td>
                             </tr>
                             <tr>
