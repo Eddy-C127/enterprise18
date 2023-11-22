@@ -74,7 +74,7 @@ class SpreadsheetMixin(models.AbstractModel):
         spreadsheet_sudo = self.sudo()
         return {
             "id": spreadsheet_sudo.id,
-            "name": spreadsheet_sudo.display_name,
+            "name": spreadsheet_sudo.display_name or "",
             "data": spreadsheet_sudo._get_spreadsheet_snapshot(),
             "revisions": spreadsheet_sudo._build_spreadsheet_messages(),
             "snapshot_requested": can_write and spreadsheet_sudo._should_be_snapshotted(),
