@@ -41,11 +41,10 @@ class TestTaxReport(TestAccountReportsCommon):
 
         # Setup fiscal data
         cls.company_data['company'].write({
-            'country_id': cls.fiscal_country.id,
-            'account_fiscal_country_id': cls.fiscal_country.id,
             'state_id': cls. country_state_1.id, # Not necessary at the moment; put there for consistency and robustness with possible future changes
             'account_tax_periodicity': 'trimester',
         })
+        cls.change_company_country(cls.company_data['company'], cls.fiscal_country)
 
         # Prepare tax groups
         cls.tax_group_1 = cls._instantiate_basic_test_tax_group()
@@ -1758,7 +1757,7 @@ class TestTaxReport(TestAccountReportsCommon):
         invoice_date = fields.Date.from_string('2018-01-01')
         for index, company in enumerate(all_companies):
             # Make sure the fiscal country is what we want
-            company.account_fiscal_country_id = self.fiscal_country
+            self.change_company_country(company, self.fiscal_country)
 
             # Create a tax for this report
             tax_account = self.env['account.account'].create({
