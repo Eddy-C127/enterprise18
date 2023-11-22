@@ -209,7 +209,7 @@ class CalendarEvent(models.Model):
             if self.active:
                 return _('Appointment re-booked')
             else:
-                return _("Appointment canceled")
+                return _("Appointment cancelled")
         return super()._track_get_default_log_message(tracked_fields)
 
     def _generate_access_token(self):
@@ -225,7 +225,7 @@ class CalendarEvent(models.Model):
         attendees = self.env['calendar.attendee'].search([('event_id', '=', self.id), ('partner_id', 'in', partner_ids)])
         if attendees:
             cancelling_attendees = ", ".join([attendee.display_name for attendee in attendees])
-            message_body = _("Appointment canceled by: %(partners)s", partners=cancelling_attendees)
+            message_body = _("Appointment cancelled by: %(partners)s", partners=cancelling_attendees)
             self.partner_ids -= attendees.partner_id
             if self.appointment_booker_id.id == partner_ids[0]:
                 self._track_set_log_message(message_body)

@@ -446,7 +446,7 @@ class MarketingActivity(models.Model):
                 canceled_traces.write({
                     'state': 'canceled',
                     'schedule_date': Datetime.now(),
-                    'state_msg': _('Email canceled')
+                    'state_msg': _('Email cancelled')
                 })
                 processed_traces = processed_traces - canceled_traces
             if error_traces:

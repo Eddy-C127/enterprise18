@@ -28,7 +28,7 @@ class MarketingTrace(models.Model):
         ('scheduled', 'Scheduled'),
         ('processed', 'Processed'),
         ('rejected', 'Rejected'),
-        ('canceled', 'Canceled'),
+        ('canceled', 'Cancelled'),
         ('error', 'Error')
         ], default='scheduled', index=True, required=True)
     schedule_date = fields.Datetime()

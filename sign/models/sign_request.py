@@ -82,7 +82,7 @@ class SignRequest(models.Model):
         ("sent", "Sent"),
         ("signed", "Fully Signed"),
         ("refused", "Refused"),
-        ("canceled", "Canceled"),
+        ("canceled", "Cancelled"),
         ("expired", "Expired"),
     ], default='sent', tracking=True, group_expand='_expand_states', copy=False, index=True)
 
@@ -782,7 +782,7 @@ class SignRequestItem(models.Model):
         ("sent", "To Sign"),
         ("refused", "Refused"),
         ("completed", "Completed"),
-        ("canceled", "Canceled"),
+        ("canceled", "Cancelled"),
     ], readonly=True, default="sent", copy=False, index=True)
     color = fields.Integer(compute='_compute_color')
     ignored = fields.Boolean(required=True, default=False, copy=False)

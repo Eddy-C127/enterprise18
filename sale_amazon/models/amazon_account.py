@@ -578,7 +578,7 @@ class AmazonAccount(models.Model):
             if amazon_status == 'Canceled' and order.state != 'cancel':
                 order._action_cancel()
                 _logger.info(
-                    "Canceled sales order with amazon_order_ref %(ref)s for Amazon account with id"
+                    "Cancelled sales order with amazon_order_ref %(ref)s for Amazon account with id"
                     " %(id)s.", {'ref': amazon_order_ref, 'id': self.id}
                 )
             elif amazon_status == 'Shipped' and fulfillment_channel == 'MFN' and unsynced_pickings:
@@ -1280,13 +1280,13 @@ class AmazonAccount(models.Model):
                 feed_records.amazon_sync_status = 'pending'
                 if flow == 'inventory_sync':
                     _logger.info(
-                        "Re-scheduling a synchronization of inventory for offers of canceled"
+                        "Re-scheduling a synchronization of inventory for offers of cancelled"
                         " feed %(feed_ref)s for Amazon account with id %(account_id)s.",
                         {'feed_ref': feed_ref, 'account_id': self.id},
                     )
                 elif flow == 'picking_sync':
                     _logger.info(
-                        "Re-scheduling a synchronization for pickings of canceled feed %(feed_ref)s"
+                        "Re-scheduling a synchronization for pickings of cancelled feed %(feed_ref)s"
                         " for Amazon account with id %(account_id)s.",
                         {'feed_ref': feed_ref, 'account_id': self.id},
                     )

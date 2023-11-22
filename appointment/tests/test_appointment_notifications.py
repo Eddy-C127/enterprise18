@@ -87,9 +87,9 @@ class AppointmentTestTracking(AppointmentCommon, MailCase):
                          permanent_followers + self.appointment_attendee_ids[1],
                          'Only one attendee should be following anymore')
 
-        self.assertEqual(len(self._new_msgs), 1, 'Should be a single message for the cancelation')
+        self.assertEqual(len(self._new_msgs), 1, 'Should be a single message for the cancellation')
         self.assertMessageFields(self._new_msgs, {
-            'body': f'<p>Appointment canceled by: {self.appointment_attendee_ids[0].display_name}</p>',
+            'body': f'<p>Appointment cancelled by: {self.appointment_attendee_ids[0].display_name}</p>',
             'notification_ids': self.env['mail.notification'],
             'subtype_id': self.env.ref('mail.mt_note'),
         })
@@ -101,9 +101,9 @@ class AppointmentTestTracking(AppointmentCommon, MailCase):
         self.assertEqual(meeting.message_partner_ids, permanent_followers,
                          'None of the attendees should be following anymore')
 
-        self.assertEqual(len(self._new_msgs), 1, 'Should be a message saying who canceled')
+        self.assertEqual(len(self._new_msgs), 1, 'Should be a message saying who cancelled')
         self.assertMessageFields(self._new_msgs[0], {
-            'body': f'<p>Appointment canceled by: {self.appointment_attendee_ids[1].display_name}</p>',
+            'body': f'<p>Appointment cancelled by: {self.appointment_attendee_ids[1].display_name}</p>',
             'notification_ids': self.env['mail.notification'],
             'subtype_id': self.env.ref('mail.mt_note'),
         })

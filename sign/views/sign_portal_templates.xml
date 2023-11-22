@@ -122,7 +122,7 @@
                                             </t>
                                             <t t-if="sign.state == 'canceled'">
                                                 <b><t t-esc="sign.partner_id.name"/></b>
-                                                <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>Canceled</em>
+                                                <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>Cancelled</em>
                                             </t>
                                             <t t-if="sign.state == 'refused'">
                                                 <b><t t-esc="sign.partner_id.name"/></b>

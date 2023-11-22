@@ -100,7 +100,7 @@ class AccountEdiFormat(models.Model):
                         "invoices it's only valid to use RUC as identity document."),
             '2801': _lt("The VAT you use for the customer is a DNI type, to be a valid DNI it must be the exact length "
                         "of 8 digits."),
-            '2315': _lt("The cancellation reason field should not be empty when canceling the invoice, you must return "
+            '2315': _lt("The cancellation reason field should not be empty when cancelling the invoice, you must return "
                         "this invoice to Draft, edit the document and enter a cancellation reason."),
             '3105': _lt("One or more lines of this document do not have taxes assigned, to solve this you must return "
                         "the document to the Draft state and place taxes on the lines that do not have them."),
@@ -116,11 +116,11 @@ class AccountEdiFormat(models.Model):
             '156': _lt("The zip file is corrupted, check again if the file trying to access is not damaged."),
             '2119': _lt("The invoice related to this Credit Note has not been reported, go to the invoice related and "
                         "sign it in order to generate this Credit Note."),
-            '2120': _lt("The invoice related to this Credit Note has been canceled, set this document to draft and "
+            '2120': _lt("The invoice related to this Credit Note has been cancelled, set this document to draft and "
                         "cancel it."),
             '2209': _lt("The invoice related to this Debit Note has not been reported, go to the invoice related and "
                         "sign it in order to generate this Debit Note"),
-            '2207': _lt("The invoice related to this Debit Note has been canceled, set this document to draft and "
+            '2207': _lt("The invoice related to this Debit Note has been cancelled, set this document to draft and "
                         "cancel it."),
             '001': _lt("This invoice has been validated by the OSE and we can not allow set it to draft, please try "
                        "to revert it with a credit not or cancel it and create a new one instead."),

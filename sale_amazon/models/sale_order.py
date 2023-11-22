@@ -31,7 +31,7 @@ class SaleOrder(models.Model):
                     # The picking was processed on Odoo while Amazon canceled it.
                     order.message_post(
                         body=_(
-                            "The order has been canceled by the Amazon customer while some"
+                            "The order has been cancelled by the Amazon customer while some"
                             "products have already been delivered. Please create a return for this "
                             "order to adjust the stock."
                         )

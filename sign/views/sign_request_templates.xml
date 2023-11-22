@@ -107,7 +107,7 @@
                     <div class="text-start"><b><t t-esc="current_request_item.partner_id.name if current_request_item.partner_id else 'Public user'"/></b></div>
                     <div class="text-start"><small><i>
                         <t t-if="current_request_item.state == 'sent'"> Is Signing </t>
-                        <t t-if="current_request_item.state == 'canceled'"> Canceled </t>
+                        <t t-if="current_request_item.state == 'canceled'"> Cancelled </t>
                         <t t-if="current_request_item.state == 'refused'"> Refused on <t t-esc="current_request_item.signing_date"/></t>
                         <t t-if="current_request_item.state == 'completed'"> Signed on <t t-esc="current_request_item.signing_date"/></t>
                     </i></small></div>
@@ -126,7 +126,7 @@
                     <div t-if="sign.access_token != token" class="o_sign_signer_status o_sign_signer_waiting" t-att-data-id="sign.id">
                         <div class="o_sign_signer_status_info flex-column ps-4">
                             <div class="text-start"><b><t t-esc="sign.partner_id.name if sign.partner_id else 'Public user'"/></b></div>
-                            <div class="text-start"><small><i> Canceled </i></small></div>
+                            <div class="text-start"><small><i> Cancelled </i></small></div>
                         </div>
                     </div>
                 </t>

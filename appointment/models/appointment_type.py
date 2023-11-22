@@ -71,10 +71,10 @@ class AppointmentType(models.Model):
         default=_default_booked_mail_template_id,
         help="If set an email will be sent to the customer when the appointment is confirmed.")
     canceled_mail_template_id = fields.Many2one(
-        'mail.template', string='Cancelation Email', ondelete='restrict',
+        'mail.template', string='Cancellation Email', ondelete='restrict',
         domain=[('model', '=', 'calendar.event')],
         default=_default_canceled_mail_template_id,
-        help="If set an email will be sent to the customer when the appointment is canceled.")
+        help="If set an email will be sent to the customer when the appointment is cancelled.")
 
     # Assign Configuration
     assign_method = fields.Selection([
@@ -161,7 +161,7 @@ class AppointmentType(models.Model):
     is_published = fields.Boolean('Is Published')
     # override mail.thread for better string/help
     message_partner_ids = fields.Many2many(string='CC to',
-                                           help="Contacts that need to be notified whenever a new appointment is booked or canceled, \
+                                           help="Contacts that need to be notified whenever a new appointment is booked or cancelled, \
                                                  regardless of whether they attend or not")
 
     _sql_constraints = [

@@ -372,7 +372,7 @@ class ProductTemplate(models.Model):
                 error_message = _('Impossible to revise a listing into a multi-variations listing.\n Create a new listing.')
             if error['ErrorCode'] == '942':
                 error_message += _(" If you want to set quantity to 0, the Out Of Stock option should be enabled"
-                                   " and the listing duration should set to Good 'Til Canceled")
+                                   " and the listing duration should set to Good 'Til Cancelled")
             if error['ErrorCode'] == '21916626':
                 error_message = _(" You need to have at least 2 variations selected for a multi-variations listing.\n"
                                   " Or if you try to delete a variation, you cannot do it by unselecting it."

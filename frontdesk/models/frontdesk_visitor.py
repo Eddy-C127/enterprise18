@@ -26,7 +26,7 @@ class FrontdeskVisitor(models.Model):
         selection=[('planned', 'Planned'),
                    ('checked_in', 'Checked-In'),
                    ('checked_out', 'Checked-Out'),
-                   ('canceled', 'Canceled')],
+                   ('canceled', 'Cancelled')],
         default='planned'
     )
     station_id = fields.Many2one('frontdesk.frontdesk', required=True)

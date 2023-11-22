@@ -198,7 +198,7 @@
                 <separator/>
                 <filter name="sent" string="Sent" domain="[('state', '=', 'sent')]"/>
                 <filter name="signed" string="Fully Signed" domain="[('state', '=', 'signed')]"/>
-                <filter name="canceled" string="Canceled" domain="[('state', '=', 'canceled')]"/>
+                <filter name="canceled" string="Cancelled" domain="[('state', '=', 'canceled')]"/>
                 <filter invisible="1" string="Late Activities" name="activities_overdue"
                     domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
                     help="Show all records which has next action date is before today"/>

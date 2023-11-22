@@ -179,7 +179,7 @@ class SaleOrder(models.Model):
         for so in self:
             if so.state == 'cancel' and so.subscription_state in incompatible_states:
                 raise ValidationError(_(
-                    'A canceled SO cannot be in progress. You should close %s before canceling it.',
+                    'A cancelled SO cannot be in progress. You should close %s before cancelling it.',
                     so.name))
 
     @api.depends('plan_id')
@@ -618,16 +618,16 @@ class SaleOrder(models.Model):
     def action_draft(self):
         if any(order.state == 'cancel' and order.is_subscription and order.invoice_ids for order in self):
             raise UserError(
-                _('You cannot set to draft a canceled quotation linked to invoiced subscriptions. Please create a new quotation.'))
+                _('You cannot set to draft a cancelled quotation linked to invoiced subscriptions. Please create a new quotation.'))
         return super(SaleOrder, self).action_draft()
 
     def _action_cancel(self):
         for order in self:
             if order.subscription_state == '7_upsell':
-                cancel_message_body = _("The upsell %s has been canceled.", order._get_html_link())
+                cancel_message_body = _("The upsell %s has been cancelled.", order._get_html_link())
                 order.subscription_id.message_post(body=cancel_message_body)
             elif order.subscription_state == '2_renewal':
-                cancel_message_body = _("The renewal %s has been canceled.", order._get_html_link())
+                cancel_message_body = _("The renewal %s has been cancelled.", order._get_html_link())
                 order.subscription_id.message_post(body=cancel_message_body)
             elif order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + SUBSCRIPTION_DRAFT_STATE and not self.invoice_ids:
                 order.order_log_ids.sudo().unlink()

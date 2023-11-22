@@ -63,7 +63,7 @@
             <value model="project.task.type" eval="obj().search([('name', '=', 'Done')], order='id desc', limit=1).id"/>
         </function>
         <function model="project.task.type" name="unlink">
-            <value model="project.task.type" eval="obj().search([('name', '=', 'Canceled')], order='id desc', limit=1).id"/>
+            <value model="project.task.type" eval="obj().search([('name', '=', 'Cancelled')], order='id desc', limit=1).id"/>
         </function>
 
         <record id="sale_order_1_project_document_1" model="documents.document">

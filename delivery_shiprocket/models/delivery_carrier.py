@@ -291,7 +291,7 @@ class DeliverCarrier(models.Model):
             for order, response in cancel_order.items():
                 if response.get('status') == 200 or response.get('message'):
                     msg = 'Order #' if pickup_request else 'AWB #'
-                    msg += order + ' - ' + response.get('message') or _('Order canceled successfully!')
+                    msg += order + ' - ' + response.get('message') or _('Order cancelled successfully!')
                     picking.message_post(body=msg)
         # To avoid the duplicates values in Tracking Reference
         if not self.prod_environment:
