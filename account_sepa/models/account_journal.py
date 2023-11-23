@@ -162,6 +162,7 @@ class AccountJournal(models.Model):
                 Othr = etree.SubElement(FinInstnId, "Othr")
                 Id = etree.SubElement(Othr, "Id")
                 Id.text = "NOTPROVIDED"
+            PmtInf.append(self._get_ChrgBr(sct_generic))
 
             # One CdtTrfTxInf per transaction
             for payment in payments_list:
@@ -364,7 +365,6 @@ class AccountJournal(models.Model):
             ))
         InstdAmt = etree.SubElement(Amt, "InstdAmt", Ccy=val_Ccy)
         InstdAmt.text = val_InstdAmt
-        CdtTrfTxInf.append(self._get_ChrgBr(sct_generic))
 
         partner = self.env['res.partner'].sudo().browse(payment['partner_id'])
 
