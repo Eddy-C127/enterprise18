@@ -1759,6 +1759,62 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_picking_type_mandatory_scan_settings_pick_int_2', login='admin', timeout=180)
         self.assertEqual(picking_internal_2.state, 'done')
 
+    def test_receipt_scan_package_and_location_after_group_of_product(self):
+        """ This test ensures when a package or a destination is scanned after a group of product,
+        if picking type's destination/package destination is on "After group of product" (optional)
+        then all and only previously scanned line will be packed/go to this location.
+        """
+        # Enables packages and multi-locations.
+        self.clean_access_rights()
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
+        grp_lot = self.env.ref('stock.group_production_lot')
+        self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
+        grp_pack = self.env.ref('stock.group_tracking_lot')
+        self.env.user.write({'groups_id': [(4, grp_pack.id, 0)]})
+        # Creates a product without barcode to check it will count even if not
+        # scanned but processed through the button.
+        product_without_barcode = self.env['product.product'].create({
+            'name': 'Barcodeless Product',
+            'type': 'product',
+            'categ_id': self.env.ref('product.product_category_all').id,
+        })
+        # Create an empty package.
+        package = self.env['stock.quant.package'].create({'name': 'pack-128'})
+
+        picking_form = Form(self.env['stock.picking'])
+        picking_form.picking_type_id = self.picking_type_in
+        with picking_form.move_ids_without_package.new() as move:
+            move.product_id = self.product1
+            move.product_uom_qty = 4
+        with picking_form.move_ids_without_package.new() as move:
+            move.product_id = product_without_barcode
+            move.product_uom_qty = 4
+        with picking_form.move_ids_without_package.new() as move:
+            move.product_id = self.productlot1
+            move.product_uom_qty = 6
+
+        picking_receipt = picking_form.save()
+        picking_receipt.action_confirm()
+        picking_receipt.action_assign()
+
+        url = self._get_client_action_url(picking_receipt.id)
+        self.start_tour(url, 'test_receipt_scan_package_and_location_after_group_of_product', login='admin', timeout=180)
+        self.assertEqual(picking_receipt.state, 'done')
+        (lot1, lot2, lot3) = self.env['stock.lot'].search([
+            ('product_id', '=', self.productlot1.id), ('name', 'in', ['lot-01', 'lot-02', 'lot-03'])
+        ])
+        move_lines = picking_receipt.move_line_ids.sorted(lambda ml: (ml.product_id.id, ml.location_dest_id.id))
+        self.assertRecordValues(move_lines, [
+            {'product_id': self.product1.id, 'location_dest_id': self.shelf3.id, 'qty_done': 2, 'lot_id': False, 'result_package_id': package.id},
+            {'product_id': self.product1.id, 'location_dest_id': self.shelf1.id, 'qty_done': 2, 'lot_id': False, 'result_package_id': False},
+            {'product_id': self.productlot1.id, 'location_dest_id': self.shelf3.id, 'qty_done': 2, 'lot_id': lot3.id, 'result_package_id': package.id},
+            {'product_id': self.productlot1.id, 'location_dest_id': self.shelf1.id, 'qty_done': 2, 'lot_id': lot1.id, 'result_package_id': False},
+            {'product_id': self.productlot1.id, 'location_dest_id': self.shelf1.id, 'qty_done': 1, 'lot_id': lot2.id, 'result_package_id': False},
+            {'product_id': self.productlot1.id, 'location_dest_id': self.shelf2.id, 'qty_done': 1, 'lot_id': lot2.id, 'result_package_id': False},
+            {'product_id': product_without_barcode.id, 'location_dest_id': self.shelf1.id, 'qty_done': 4, 'lot_id': False, 'result_package_id': False},
+        ])
+
     def test_picking_type_mandatory_scan_complete_flux(self):
         """ From the receipt to the delivery, make a complete flux with each
         picking types having their own barcode's settings:

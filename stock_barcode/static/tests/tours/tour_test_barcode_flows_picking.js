@@ -2116,6 +2116,147 @@ registry.category("web_tour.tours").add('test_picking_type_mandatory_scan_settin
     { trigger: '.o_notification.border-success', isCheck: true },
 ]});
 
+registry.category("web_tour.tours").add('test_receipt_scan_package_and_location_after_group_of_product', {test: true, steps: () => [
+    {
+        trigger: ".o_barcode_client_action",
+        run: function () {
+            helper.assertLinesCount(3);
+            helper.assertLineProduct(0, "Barcodeless Product");
+            helper.assertLineProduct(1, "product1");
+            helper.assertLineProduct(2, "productlot1");
+        }
+    },
+    // Scans 2x product1...
+    { trigger: ".o_barcode_line", run: "scan product1" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan product1" },
+    // ... process all the products with no barcode and 3 productlot1 (2 differents lots).
+    {
+        extra_trigger: ".o_barcode_line.o_selected .qty-done:contains(2)",
+        trigger: ".o_barcode_line:not([data-barcode]) .o_line_button.o_add_quantity",
+    },
+    // ... and scans 3 productlot1 from 2 differents lots.
+    { trigger: ".o_barcode_line.o_selected.o_line_completed", run: "scan productlot1" },
+    { trigger: ".o_barcode_line[data-barcode='productlot1']", run: "scan lot-01" },
+    { trigger: ".o_barcode_line[data-barcode='productlot1']", run: "scan lot-01" },
+    { trigger: ".o_barcode_line[data-barcode='productlot1']", run: "scan lot-02" },
+
+    // Scans Section 1, the destination should be applied to all previous scanned lines and
+    // the edited line. For the uncompleted lines, they should be split in two:
+    // - one line with the processed quantity going to the scanned location;
+    // - one line with the remaining quantity going to the picking's location.
+    { trigger: ".o_barcode_line.o_selected .o_toggle_sublines", run: "scan LOC-01-01-00" },
+    {
+        trigger: ".o_barcode_line:nth-child(5)",
+        run: function () {
+            helper.assertLinesCount(5);
+
+            helper.assertLineProduct(0, "Barcodeless Product");
+            helper.assertLineQty(0, "4 / 4");
+            helper.assertLineDestinationLocation(0, ".../Section 1");
+
+            helper.assertLineProduct(1, "product1");
+            helper.assertLineQty(1, "2 / 2");
+            helper.assertLineDestinationLocation(1, ".../Section 1");
+
+            helper.assertLineProduct(2, "product1");
+            helper.assertLineQty(2, "0 / 2");
+            helper.assertLineDestinationLocation(2, "WH/Stock");
+
+            helper.assertLineProduct(3, "productlot1");
+            helper.assertLineQty(3, "3 / 3");
+            helper.assertLineDestinationLocation(3, ".../Section 1");
+
+            helper.assertLineProduct(4, "productlot1");
+            helper.assertLineQty(4, "0 / 3");
+            helper.assertLineDestinationLocation(4, "WH/Stock");
+        }
+    },
+
+    // Scan only one lot then another destination. Only this lot should be moved to this location.
+    { trigger: ".o_barcode_client_action", run: "scan productlot1" },
+    { trigger: ".o_scan_message.o_scan_lot", run: "scan lot-02" },
+    {
+        trigger: ".o_barcode_line.o_selected .o_line_lot_name:contains('lot-02')",
+        run: "scan LOC-01-02-00",
+    },
+
+    {
+        trigger: ".o_scan_message.o_scan_product",
+        run: function () {
+            helper.assertLinesCount(6);
+
+            helper.assertLineProduct(0, "Barcodeless Product");
+            helper.assertLineQty(0, "4 / 4");
+            helper.assertLineDestinationLocation(0, ".../Section 1");
+
+            helper.assertLineProduct(1, "product1");
+            helper.assertLineQty(1, "2 / 2");
+            helper.assertLineDestinationLocation(1, ".../Section 1");
+
+            helper.assertLineProduct(2, "product1");
+            helper.assertLineQty(2, "0 / 2");
+            helper.assertLineDestinationLocation(2, "WH/Stock");
+
+            helper.assertLineProduct(3, "productlot1");
+            helper.assertLineQty(3, "3 / 3");
+            helper.assertLineDestinationLocation(3, ".../Section 1");
+
+            helper.assertLineProduct(4, "productlot1");
+            helper.assertLineQty(4, "1 / 1");
+            helper.assertLineDestinationLocation(4, ".../Section 2");
+
+            helper.assertLineProduct(5, "productlot1");
+            helper.assertLineQty(5, "0 / 2");
+            helper.assertLineDestinationLocation(5, "WH/Stock");
+        }
+    },
+
+    // Process the remaining quantity then scans an existing package: only those lines should be packed.
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan product1" },
+    { trigger: ".o_barcode_line.o_selected.o_line_completed", run: "scan productlot1" },
+    { trigger: ".o_barcode_line.o_selected:not(.o_line_completed)", run: "scan lot-03" },
+    { trigger: ".o_barcode_line.o_selected:not(.o_line_completed)", run: "scan lot-03" },
+    { trigger: ".o_barcode_line.o_selected.o_line_completed", run: "scan pack-128" },
+    // Scans another destination: only the packaged lines should go to this location.
+    { trigger: ".o_barcode_line [name='package']", run: "scan shelf3" },
+    {
+        trigger: ".o_scan_message.o_scan_validate",
+        run: function () {
+            helper.assertLinesCount(6);
+
+            helper.assertLineProduct(0, "Barcodeless Product");
+            helper.assertLineQty(0, "4 / 4");
+            helper.assertLineDestinationLocation(0, ".../Section 1");
+
+            helper.assertLineProduct(1, "product1");
+            helper.assertLineQty(1, "2 / 2");
+            helper.assertLineDestinationLocation(1, ".../Section 1");
+
+            let line = helper.getLine({ index: 2 });
+            helper.assertLineProduct(line, "product1");
+            helper.assertLineQty(line, "2 / 2");
+            helper.assertLineDestinationLocation(line, ".../Section 3");
+            helper.assert(line.querySelector('[name="package"]').innerText, "pack-128");
+
+            helper.assertLineProduct(3, "productlot1");
+            helper.assertLineQty(3, "3 / 3");
+            helper.assertLineDestinationLocation(3, ".../Section 1");
+
+            helper.assertLineProduct(4, "productlot1");
+            helper.assertLineQty(4, "1 / 1");
+            helper.assertLineDestinationLocation(4, ".../Section 2");
+
+            line = helper.getLine({ index: 5 });
+            helper.assertLineProduct(5, "productlot1");
+            helper.assertLineQty(5, "2 / 2");
+            helper.assertLineDestinationLocation(5, ".../Section 3");
+            helper.assert(line.querySelector('[name="package"]').innerText, "pack-128");
+        }
+    },
+    ...stepUtils.validateBarcodeOperation(),
+]});
+
 registry.category("web_tour.tours").add('test_picking_type_mandatory_scan_complete_flux_receipt', {test: true, steps: () => [
     {
         trigger: '.o_barcode_client_action',
