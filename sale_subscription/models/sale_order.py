@@ -1436,6 +1436,7 @@ class SaleOrder(models.Model):
 
         # We mark current batch as having been seen by the cron
         all_invoiceable_lines = self.env['sale.order.line']
+        order_to_remove_ids = []
         for subscription in all_subscriptions:
             subscription.is_invoice_cron = True
             # Don't spam sale with assigned emails.
@@ -1444,8 +1445,14 @@ class SaleOrder(models.Model):
             auto_close_subscription = subscription.filtered_domain([('end_date', '!=', False)])
             closed_contract = auto_close_subscription._subscription_auto_close()
             subscription -= closed_contract
+            order_to_remove_ids += closed_contract.ids
             all_invoiceable_lines += subscription.with_context(recurring_automatic=True)._get_invoiceable_lines()
 
+        if not isinstance(all_subscriptions, list):
+            # when all_subscription is a recordset, we remove the closed contracts from it here.
+            # When it is a list, we are creating consolidated invoices and they are removed in the
+            # `subscription -= closed_contract`` instruction above.
+            all_subscriptions -= self.env['sale.order'].browse(order_to_remove_ids)
         lines_to_reset_qty = self.env['sale.order.line']
         account_moves = self.env['account.move']
         move_to_send_ids = []

@@ -2,6 +2,7 @@
 
 from unittest.mock import patch
 from freezegun import freeze_time
+from datetime import datetime
 
 from odoo.addons.mail.tests.common import MockEmail
 from odoo.addons.account_payment.tests.common import AccountPaymentCommon
