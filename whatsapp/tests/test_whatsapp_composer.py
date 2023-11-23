@@ -118,7 +118,7 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
             template_1, from_records=self.customers[0],
             with_user=self.env.user,
         )
-        self.assertEqual(composer_2.phone, self.customers[0].phone,
+        self.assertTrue(not(composer_2.phone) and not(self.customers[0].phone),  # '' != False
                          "Phone should be taken from record, phone_field of template 1")
         composer_2.wa_template_id = template_2
         self.assertEqual(composer_2.phone, self.customers[0].mobile,

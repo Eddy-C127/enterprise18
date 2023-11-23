@@ -21,8 +21,18 @@ class WhatsAppTemplate(WhatsAppFullCase):
         })
 
         # record with a partner set
-        for test_record in (self.test_base_record_nopartner, self.test_base_record_partner):
-            test_record = test_record.with_env(self.env)
-            composer = self._instanciate_wa_composer_from_records(template, test_record)
-            with self.mockWhatsappGateway():
-                composer.action_send_whatsapp_template()
+        for test_record in self.test_base_record_nopartner + self.test_base_record_partner:
+            with self.subTest(test_record=test_record):
+                test_record = test_record.with_env(self.env)
+                composer = self._instanciate_wa_composer_from_records(template, test_record)
+                with self.mockWhatsappGateway():
+                    composer.action_send_whatsapp_template()
+                if test_record == self.test_base_record_partner:
+                    self.assertWAMessage(
+                        fields_values={
+                            'mobile_number': "0485221100",
+                        },
+                    )
+                # no number found -> no message produced
+                else:
+                    self.assertFalse(self._new_wa_msg)

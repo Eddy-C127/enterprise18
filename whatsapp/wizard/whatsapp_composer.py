@@ -6,7 +6,7 @@ import logging
 from ast import literal_eval
 
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError, RedirectWarning
+from odoo.exceptions import ValidationError, RedirectWarning, UserError
 from odoo.addons.whatsapp.tools import phone_validation as wa_phone_validation
 
 _logger = logging.getLogger(__name__)
@@ -81,12 +81,15 @@ class WhatsAppComposer(models.TransientModel):
         for composer in self:
             records = self.env[composer.res_model].browse(literal_eval(composer.res_ids))
             numbers = []
-            for rec in records[:12]:
+            for record in records[:12]:
                 if composer.wa_template_id.phone_field:
                     try:
-                        numbers.append(rec.mapped(composer.wa_template_id.phone_field)[0])
-                    except ValidationError as err:
-                        error_msg = _("There is wrong configration in template %s \n %s", composer.wa_template_id.name, e.args[0])
+                        numbers.append(record._find_value_from_field_path(composer.wa_template_id.phone_field))
+                    except UserError as err:
+                        error_msg = _("Template %(template_name)s holds a wrong configuration for 'phone field'\n%(error_msg)s",
+                                      template_name=composer.wa_template_id.name,
+                                      error_msg=err.args[0]
+                                     )
                         raise ValidationError(error_msg) from err
             if not composer.batch_mode:
                 phone = self.env.context.get('default_phone')
@@ -108,7 +111,7 @@ class WhatsAppComposer(models.TransientModel):
             if composer.batch_mode:
                 invalid_phone_number_count = 0
                 for rec in records:
-                    mobile_number = rec[composer.wa_template_id.phone_field]
+                    mobile_number = rec._find_value_from_field_path(composer.wa_template_id.phone_field)
                     mobile_number = wa_phone_validation.wa_phone_format(
                         rec, number=mobile_number or '',
                         raise_exception=False,
@@ -227,16 +230,16 @@ class WhatsAppComposer(models.TransientModel):
         message_vals = []
         for rec in records:
             if self.batch_mode:
-                mobile_number = rec[self.wa_template_id.phone_field]
+                mobile_number = rec._find_value_from_field_path(self.wa_template_id.phone_field)
                 formatted_number_wa = wa_phone_validation.wa_phone_format(
-                    rec, fname=self.wa_template_id.phone_field,
+                    rec, number=mobile_number,
                     force_format="WHATSAPP",
                     raise_exception=False,
                 )
             else:
                 mobile_number = self.phone
                 formatted_number_wa = wa_phone_validation.wa_phone_format(
-                    rec, number=self.phone,
+                    rec, number=mobile_number,
                     force_format="WHATSAPP",
                 )
             if not formatted_number_wa:
