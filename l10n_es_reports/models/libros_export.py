@@ -136,7 +136,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
             'invoice_type': {
                 'out_invoice': 'F2' if line.move_id.l10n_es_is_simplified else 'F1',
                 'out_refund': 'R5' if line.move_id.l10n_es_is_simplified else 'R1',
-                'in_invoice': 'F1',
+                'in_invoice': 'F5' if tax.l10n_es_type == 'dua' else 'F1',
                 'in_refund': 'R4',
             }[line.move_type],
             'date_expedition': format_date(self.env, line.date.isoformat(), date_format='MM/dd/yyyy'),
@@ -246,7 +246,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
 
             move = line.move_id
             sheet_line_vals.setdefault(move.id, {})
-            for tax in line.tax_ids:
+            for tax in line.tax_ids.flatten_taxes_hierarchy():
                 if tax.l10n_es_type == 'recargo':
                     for other_tax in line.tax_ids:
                         if other_tax.amount in SURCHARGE_TAX_EQUIVALENT[tax.amount]:
@@ -256,6 +256,8 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                     else:
                         raise UserError(_('Unable to find matching surcharge tax in %s', move.name))
 
+                elif tax.l10n_es_type == 'ignore':
+                    pass
                 elif tax.id in sheet_line_vals[move.id]:
                     self._merge_base_line(sheet_line_vals[move.id][tax.id], line)
                 else:
@@ -267,6 +269,8 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                     other_tax_id = surcharge_line_vals[move.id][line.tax_line_id.id]
                     line_vals = sheet_line_vals[move.id][other_tax_id]
                     self._merge_surcharge_line(line_vals, line)
+                elif line.tax_line_id.l10n_es_type == 'ignore':
+                    pass
                 else:
                     line_vals = sheet_line_vals[move.id][line.tax_line_id.id]
                     self._merge_tax_line(line_vals, line)
