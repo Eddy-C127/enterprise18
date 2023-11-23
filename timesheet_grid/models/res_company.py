@@ -85,15 +85,8 @@ class Company(models.Model):
         """ Send an email reminder to the user having at least one timesheet since the last 3 month. From those ones, we exclude
             ones having complete their timesheet (meaning timesheeted the same hours amount than their working calendar).
         """
-        today_min = fields.Datetime.to_string(datetime.combine(date.today(), time.min))
         today_max = fields.Datetime.to_string(datetime.combine(date.today(), time.max))
-        companies = self.search([
-            ('timesheet_mail_employee_allow', '=', True),
-                '|',
-                    '&',
-                        ('timesheet_mail_employee_nextdate', '<', today_max), ('timesheet_mail_employee_nextdate', '>=', today_min),
-                        ('timesheet_mail_employee_nextdate', '<', today_min)
-        ])
+        companies = self.search([('timesheet_mail_employee_allow', '=', True), ('timesheet_mail_employee_nextdate', '<', today_max)])
         for company in companies:
             if company.timesheet_mail_employee_nextdate < fields.Datetime.today():
                 _logger.warning('The cron "Timesheet: Employees Email Reminder" should have run on %s' % company.timesheet_mail_employee_nextdate)
@@ -136,10 +129,11 @@ class Company(models.Model):
     @api.model
     def _cron_timesheet_reminder(self):
         """ Send a email reminder to all users having the group 'timesheet approver'. """
-        today_min = fields.Datetime.to_string(datetime.combine(date.today(), time.min))
         today_max = fields.Datetime.to_string(datetime.combine(date.today(), time.max))
-        companies = self.search([('timesheet_mail_allow', '=', True), ('timesheet_mail_nextdate', '<', today_max), ('timesheet_mail_nextdate', '>=', today_min)])
+        companies = self.search([('timesheet_mail_allow', '=', True), ('timesheet_mail_nextdate', '<', today_max)])
         for company in companies:
+            if company.timesheet_mail_nextdate < fields.Datetime.today():
+                _logger.warning('The cron "Timesheet: Approver Email Reminder" should have run on %s', company.timesheet_mail_nextdate)
             # calculate the period
             if company.timesheet_mail_interval == 'months':
                 date_start = (date.today() - timedelta(days=company.timesheet_mail_delay)) + relativedelta(day=1)
