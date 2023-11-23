@@ -1692,16 +1692,22 @@ Content-Disposition: form-data; name="xml"; filename="xml"
 
         cancelled = response_json['status'] == 'success'
         if cancelled:
-            return {}
-
-        code = response_json.get('message')
-        msg = response_json.get('messageDetail')
+            data_codes = response_json.get('data', {}).get('uuid', {}).values()
+            data_code = next(iter(data_codes)) if data_codes else ''
+            code = '' if data_code in ('201', '202') else data_code
+            msg = '' if data_code in ('201', '202') else _("Cancelling got an error")
+        else:
+            code = response_json.get('message')
+            msg = response_json.get('messageDetail')
         errors = []
         if code:
             errors.append(_("Code : %s", code))
         if msg:
-            errors.append(_("Message : %s", msg))
-        return {'errors': errors}
+            errors.append(_("Message : %s") % msg)
+        if errors:
+            return {'errors': errors}
+
+        return {}
 
     # -------------------------------------------------------------------------
     # BUSINESS METHODS
