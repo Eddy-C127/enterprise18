@@ -59,3 +59,34 @@ class TestHelpdeskForum(HelpdeskCommon, TestForumCommon):
         self.test_team.website_forum_ids = forums[1]
         forums[1].privacy = 'private'
         self.assertFalse(test_team_public.show_knowledge_base_forum, 'User does not have access to any of the help forums')
+
+    def test_top_forum_posts(self):
+        # We first create a new nice, interesting forum for our helpdesk team
+        forum = self.env['forum.forum'].create({
+            'name': 'Discussions on Mushrooms',
+        })
+        self.test_team['website_forum_ids'] = forum
+
+        # Then we create 7 different forum posts for our forum
+        forum_posts = self.env['forum.post'].create([{
+            'name': f'This is forum post number {post_record}',
+            'forum_id': forum.id,
+        } for post_record in range(1, 8)])
+
+        # Then we need to create some users which will vote the forum posts
+        # We create 28 users because we need one for each vote.
+        forum_users = self.env['res.users'].create([{
+            'name': f"Theodore the {index}'th",
+            'login': f'usr{index}',
+            'email': f'user{index}@example.com',
+        } for index in range(0, 28)])
+
+        # Finally it's time to create the votes for each of the forum posts
+        forum_user_ids = forum_users.ids
+        self.env['forum.post.vote'].create([{
+            'post_id': forum_value.id,
+            'user_id': forum_user_ids.pop(),
+            'vote': '1',
+        } for index, forum_value in enumerate(forum_posts) for _ in range(index+1)])
+
+        self.assertEqual(self.test_team.top_forum_posts, forum_posts[6:1:-1], 'The top posts should be the ones with the most votes, in this case the last 5 from last to first')

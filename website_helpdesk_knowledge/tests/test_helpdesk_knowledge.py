@@ -37,3 +37,27 @@ class TestHelpdeskKnowledgeTour(HttpCase, HelpdeskCommon):
             help_article.write({
                 'active': False,
             })
+
+    def test_latest_articles(self):
+        # We first create 7 different articles for our knowledge centre
+        knowledge_articles = self.env['knowledge.article'].create([{
+            'name': f'This is article number {article_record}',
+            'is_published': True,
+            'body': f'Believe it or not, this is the body of article number {article_record}',
+        } for article_record in range(1, 8)])
+
+        # Then we need to create some users which will favorite the knowledge articles (28 users because we need one for each favorite)
+        forum_users = self.env['res.users'].create([{
+            'name': f"Theodore the {index}'th",
+            'login': f'usr{index}',
+            'email': f'user{index}@example.com',
+        } for index in range(0, 28)])
+
+        # Finally it's time to create the favorite records for each of the knowledge articles
+        forum_user_ids = forum_users.ids
+        self.env['knowledge.article.favorite'].create([{
+            'article_id': article_value.id,
+            'user_id': forum_user_ids.pop(),
+        } for index, article_value in enumerate(knowledge_articles) for _ in range(index+1)])
+
+        self.assertEqual(self.test_team.website_latest_articles, knowledge_articles[6:1:-1], 'The latest articles should be the ones with the most favourites, in this case the last 5 from last to first')
