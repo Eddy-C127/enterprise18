@@ -30,11 +30,11 @@ registry.category("web_tour.tours").add('industry_fsm_report_worksheet_test_tour
     },
     {
         content: 'Save changes',
-        trigger: 'button.o_form_button_save',
+        trigger: 'button.o_list_button_save',
     },
     {
         content: 'Open worksheet template form',
-        trigger: 'button:contains("Design Template")',
+        trigger: 'button:contains("Design Template"):last',
     },
     {
         content: 'Close studio',
