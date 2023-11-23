@@ -842,6 +842,8 @@ class MrpProductionSchedule(models.Model):
             if product not in bom_by_product and not product_bom:
                 product_bom = self.env['mrp.bom']._bom_find(product)[product]
             for line in product_bom.bom_line_ids:
+                if line._skip_bom_line(product):
+                    continue
                 line_qty = line.product_uom_id._compute_quantity(line.product_qty, line.product_id.uom_id)
                 bom_qty = line.bom_id.product_uom_id._compute_quantity(line.bom_id.product_qty, line.bom_id.product_tmpl_id.uom_id)
                 ratio = line_qty / bom_qty
