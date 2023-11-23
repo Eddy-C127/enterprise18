@@ -153,8 +153,7 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     },
     {
         content: 'Open the second product (lot) SN assignation wizard by inputing a quantity',
-        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity input[type="number"]',
-        run: 'text 4',
+        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity .text-bg-light',
     },
     {
         content: 'Check that inputing a quantity opened the Serial number assignation wizard',

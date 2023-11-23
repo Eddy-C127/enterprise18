@@ -1585,3 +1585,41 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         warehouse = self.env['stock.warehouse'].with_company(self.task.company_id.id).search([], limit=1, order='sequence')
         product_forecast_report_action = self.product_lot.with_context(fsm_task_id=self.task.id).action_product_forecast_report()
         self.assertEqual(product_forecast_report_action['context']['warehouse'], warehouse.id, "The warehouse set should be the first one found")
+
+    def test_tracking_product_route_order_line_info(self):
+        """
+        This test ensures that the tracked products are marked as such in the dict sent to the productCatalogData.
+
+            1. Creates a fsm task.
+            2. Adds non tracked and tracked product to the task.
+            3. Ensure the product_catalog_get_order_lines_info returns the correct values for each product.
+        """
+        # creates sale order
+        self.task.write({'partner_id': self.partner_1.id})
+        self.task.with_user(self.project_user)._fsm_ensure_sale_order()
+        sale_order = self.task.sale_order_id
+        # adds storable_product_ordered (non-tracked) and product_lot_no_stock (tracked) to the task
+        self._add_lot_product(self.product_lot_no_stock, [{'lot_id': self.lot_plns_1.id, 'qty': 3}])
+        self.env['sale.order.line'].create({
+            'product_id': self.storable_product_ordered.id,
+            'order_id': sale_order.id,
+            'name': 'sales order line 0',
+            'product_uom_qty': 4,
+            'task_id': self.task.id,
+        })
+        products = self.storable_product_ordered | self.storable_product_delivered | self.product_lot_no_stock | self.product_sn_no_stock
+        # Due to how price are rounded, it is possible to have a value like 1,0000000001, which doesn't make a lot of sense money wise.
+        # We're updating the value of the price to a meaningfull rounded value to ensure that the price of the catalog is close enough to the expected price.
+        products_catalog = sale_order.with_context(fsm_task_id=self.task.id)._get_product_catalog_order_line_info(products.ids)
+        for product_id in products_catalog:
+            products_catalog[product_id]['price'] = round(products_catalog[product_id]['price'], 3)
+        self.assertDictEqual(
+            products_catalog,
+            {
+                self.product_lot_no_stock.id: {'quantity': 3.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': True, 'minimumQuantityOnProduct': 0.0, 'price': 60},
+                self.storable_product_ordered.id: {'quantity': 4.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': False, 'minimumQuantityOnProduct': 0.0, 'price': 60},
+                self.storable_product_delivered.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': False, 'minimumQuantityOnProduct': 0, 'price': 75.6},
+                self.product_sn_no_stock.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': True, 'minimumQuantityOnProduct': 0, 'price': 60}
+            },
+            "The tracked product should have the 'tracking' key set to True, even if the product was not added to the task."
+        )
