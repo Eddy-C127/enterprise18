@@ -279,9 +279,9 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     continue
 
                 # reference
-                receipt1 = aml.move_id.name
+                receipt1 = ref = aml.move_id.name
                 if aml.move_id.journal_id.type == 'purchase' and aml.move_id.ref:
-                    receipt1 = aml.move_id.ref
+                    ref = aml.move_id.ref
 
                 # on receivable/payable aml of sales/purchases
                 receipt2 = ''
@@ -301,7 +301,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     'datum': datetime.strftime(aml.move_id.date, '%-d%m'),
                     'konto': account_code,
                     'kurs': str(aml.currency_id.rate).replace('.', ','),
-                    'buchungstext': receipt1,
+                    'buchungstext': ref,
                     'line_amount': line_amount
                 }
 
