@@ -8,6 +8,7 @@ import { SignItemCustomPopover } from "@sign/backend_components/sign_template/si
 import { PDFIframe } from "@sign/components/sign_request/PDF_iframe";
 import { EditablePDFIframeMixin } from "@sign/backend_components/editable_pdf_iframe_mixin";
 import { Deferred } from "@web/core/utils/concurrency";
+import { isMobileOS } from "@web/core/browser/feature_detection";
 
 export class SignTemplateIframe extends EditablePDFIframeMixin(PDFIframe) {
     /**
@@ -49,7 +50,7 @@ export class SignTemplateIframe extends EditablePDFIframeMixin(PDFIframe) {
 
     renderSidebar() {
         super.renderSidebar();
-        if (this.allowEdit) {
+        if (this.allowEdit && !isMobileOS()) {
             const sideBar = renderToString("sign.signItemTypesSidebar", {
                 signItemTypes: this.props.signItemTypes,
             });
@@ -178,7 +179,7 @@ export class SignTemplateIframe extends EditablePDFIframeMixin(PDFIframe) {
      * @param {SignItem} signItem
      */
     enableCustom(signItem) {
-        if(this.allowEdit){
+        if (this.allowEdit) {
             startResize(signItem, this.onResizeItem.bind(this));
             this.registerDragEventsForSignItem(signItem);
         }
@@ -220,7 +221,7 @@ export class SignTemplateIframe extends EditablePDFIframeMixin(PDFIframe) {
      */
     preRender() {
         super.preRender();
-        if (this.allowEdit) {
+        if (this.allowEdit && !isMobileOS()) {
             const outerContainer = this.root.querySelector("#outerContainer");
             Object.assign(outerContainer.style, {
                 width: "auto",
@@ -228,7 +229,7 @@ export class SignTemplateIframe extends EditablePDFIframeMixin(PDFIframe) {
             });
             outerContainer.classList.add("o_sign_field_type_toolbar_visible");
             this.root.dispatchEvent(new Event("resize"));
-        } else {
+        } else if (!this.allowEdit) {
             const div = this.root.createElement("div");
             Object.assign(div.style, {
                 position: "absolute",
