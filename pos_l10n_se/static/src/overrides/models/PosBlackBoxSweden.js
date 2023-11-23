@@ -204,7 +204,7 @@ patch(Order.prototype, {
         const order = this.pos.get_order();
         result.orderlines = result.orderlines.map((l) => ({
             ...l,
-            price: l.price + " " + l.taxLetter,
+            price: l.price === "free" ? l.price : l.price + " " + l.taxLetter,
         }));
         result.tax_details = result.tax_details.map((t) => ({
             ...t,
