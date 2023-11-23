@@ -218,6 +218,79 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
 
                 self.assertWAMessage()
 
+    def test_composer_variable_evaluation(self):
+        """ Test various field paths to check corner cases of evaluation """
+        variable = self.template_dynamic_cplx.variable_ids.filtered(lambda v: v.field_name == 'country_id.name')
+        template = self.env['whatsapp.template'].create({
+            'body': "Please evaluate {{1}}.",
+            'name': 'Test-various-field-path',
+            'status': 'approved',
+            'variable_ids': [
+                (5, 0, 0),
+                (0, 0, {'name': "{{1}}", 'line_type': "body", 'field_type': "field", 'demo_value': "sample country", 'field_name': 'country_id.name'}),
+            ],
+            'wa_account_id': self.whatsapp_account.id,
+        })
+
+        test_tags = self.env['res.partner.category'].create([
+            {'color': idx, 'name': f'Tag{idx}'} for idx in range(3)
+        ])
+        test_partner = self.env['res.partner'].create({
+            'category_id': test_tags.ids,
+            'color': False,
+            'country_id': self.env.ref('base.be').id,
+            'mobile': '+32455001122',
+            'name': 'Test Partner',
+            'title': False,
+        })
+
+        for (field_path, expected_value) in zip(
+            [
+                # many2one with value
+                'country_id', 'country_id.name',
+                # many2one without value
+                'title', 'title.name',
+                # many2many
+                'category_id', 'category_id.color', 'category_id.partner_ids',
+                # integer without value
+                'color',
+                # void seems be supported
+                '', False, None,
+            ], [
+                'Belgium', 'Belgium',
+                '', '',
+                'Tag0 Tag1 Tag2', '0 1 2', 'Test Partner',
+                '0',
+                '', '', '',
+            ]
+        ):
+            with self.subTest(field_path=field_path):
+                template.variable_ids.write({
+                    'field_name': field_path
+                })
+
+                composer = self._instanciate_wa_composer_from_records(template, from_records=test_partner, with_user=self.user_employee)
+                with self.mockWhatsappGateway():
+                    composer.action_send_whatsapp_template()
+                self.assertWAMessage(
+                    mail_message_values={
+                        'body': f'<p>Please evaluate {expected_value}.</p>',
+                    }
+                )
+
+        # should crash
+        for field_path in [
+            # does not exist on distant model
+            'country_id.wrong',
+            # does not exist
+            'wrong',
+        ]:
+            with self.subTest(field_path=field_path):
+                with self.assertRaises(exceptions.ValidationError):
+                    variable.write({
+                        'field_name': field_path
+                    })
+
 
 @tagged('wa_composer')
 class WhatsAppComposerPreview(WhatsAppComposerCase):
