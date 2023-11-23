@@ -49,6 +49,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
             'partner_id': self.env['res.partner'].create({'name': 'Res Partner 12'}).id,
             'invoice_date': fields.Date.to_date('2020-12-01'),
             'date': fields.Date.to_date('2020-12-01'),
+            'ref': 'Brocken123',
             'invoice_line_ids': [
                 (0, None, {
                     'price_unit': 100,
@@ -77,9 +78,9 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
         self.assertIn(['238,00', 's', 'EUR', '34000000', str(move.partner_id.id + 700000000),
-                       self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
+                       self.tax_19.l10n_de_datev_code, '112', move.name, move.ref], data)
         self.assertIn(['119,00', 's', 'EUR', '49800000', str(move.partner_id.id + 700000000),
-                       self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
+                       self.tax_19.l10n_de_datev_code, '112', move.name, move.ref], data)
 
     def test_datev_out_invoice(self):
         report = self.env.ref('account_reports.general_ledger_report')
