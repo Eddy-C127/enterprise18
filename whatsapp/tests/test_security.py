@@ -227,7 +227,7 @@ class WhatsAppMessageSecurity(WhatsAppSecurityCase):
         # Invalidate the cache of the whatsapp message, to force fetching the new values,
         # as the cron wrote on the message using another cursor
         whatsapp_message.invalidate_recordset()
-        self.assertEqual(whatsapp_message.failure_reason, "Not able to get the value of field 'signup_url'")
+        self.assertEqual(whatsapp_message.failure_reason, "We were not able to fetch value of field 'signup_url'")
 
 
 @tagged('wa_template', 'security')

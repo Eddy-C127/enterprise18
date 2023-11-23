@@ -1,11 +1,36 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models
+from odoo import exceptions, models, _
 
 
 class BaseModel(models.AbstractModel):
     _inherit = 'base'
+
+    def _find_value_from_field_path(self, field_path):
+        """ Get the value of field, returning display_name(s) if the field is a
+        model. Can be called on a void recordset, in which case it mainly serves
+        as a field path validation. """
+        if self:
+            self.ensure_one()
+
+        # as we use mapped(False) returns record, better return a void string
+        if not field_path:
+            return ''
+
+        try:
+            field_value = self.mapped(field_path)
+        except KeyError as err:
+            raise exceptions.UserError(
+                _("'%(field)s' does not seem to be a valid field path", field=field_path)
+            ) from err
+        except Exception as err:  # noqa: BLE001
+            raise exceptions.UserError(
+                _("We were not able to fetch value of field '%(field)s'", field=field_path)
+            ) from err
+        if isinstance(field_value, models.Model):
+            return ' '.join((value.display_name or '') for value in field_value)
+        return ' '.join(str(value if value is not False and value is not None else '') for value in field_value)
 
     def _whatsapp_get_portal_url(self):
         """ List is defined here else we need to create bridge modules. """
