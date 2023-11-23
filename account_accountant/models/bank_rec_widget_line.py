@@ -259,13 +259,21 @@ class BankRecWidgetLine(models.Model):
             line.source_debit = line.source_balance if line.source_balance > 0.0 else 0.0
             line.source_credit = -line.source_balance if line.source_balance < 0.0 else 0.0
 
-    @api.depends('source_aml_id')
+    @api.depends('source_aml_id', 'account_id', 'partner_id')
     def _compute_analytic_distribution(self):
         for line in self:
-            if line.flag in ('aml', 'new_aml'):
+            if line.flag in ('liquidity', 'aml'):
                 line.analytic_distribution = line.source_aml_id.analytic_distribution
-            else:
+            elif line.flag in ('tax_line', 'early_payment'):
                 line.analytic_distribution = line.analytic_distribution
+            else:
+                model_distribution = self.env['account.analytic.distribution.model']._get_distribution({
+                    "partner_id": line.partner_id.id,
+                    "partner_category_id": line.partner_id.category_id.ids,
+                    "account_prefix": line.account_id.code,
+                    "company_id": line.company_id.id,
+                })
+                line.analytic_distribution = model_distribution or line.analytic_distribution
 
     @api.depends('source_aml_id')
     def _compute_tax_repartition_line_id(self):
