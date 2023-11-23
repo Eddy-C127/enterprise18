@@ -75,7 +75,7 @@
                 <span>Unit code</span>
             </th>
         </xpath>
-        <xpath expr="//table[@name='invoice_line_table']//td[@name='td_discount']" position="before">
+        <xpath expr="//table[@name='invoice_line_table']//td[@name='td_discount']" position="after">
             <td t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                 <span t-field="line.product_uom_id.unspsc_code_id.code">01010101</span>
             </td>
