@@ -2,7 +2,13 @@
 
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { downloadFile } from "@web/core/network/download";
-import { getFixture, nextTick, click, patchWithCleanup } from "@web/../tests/helpers/utils";
+import {
+    getFixture,
+    nextTick,
+    click,
+    patchWithCleanup,
+    triggerEvent,
+} from "@web/../tests/helpers/utils";
 import { contains } from "@web/../tests/utils";
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
 
@@ -361,6 +367,25 @@ QUnit.module(
             }
 
             assert.deepEqual(loadedLocales, ["en_US", "fr_FR", "od_OO"]);
+        });
+
+        QUnit.test("sheetName should not be left empty", async function (assert) {
+            const fixture = getFixture();
+            await createSpreadsheet();
+
+            const sheetName = fixture.querySelector(".o-sheet-list .o-sheet-name");
+            await triggerEvent(fixture, ".o-sheet-list .o-sheet-name", "dblclick");
+            await nextTick();
+            assert.ok(fixture.querySelector(".o-sheet-name-editable"));
+
+            sheetName.innerText = "";
+            await triggerEvent(fixture, ".o-sheet-list .o-sheet-name", "keydown", { key: "Enter" });
+            await nextTick();
+            const dialog = document.querySelector(".o_dialog");
+            assert.ok(dialog, "dialog should be visible");
+
+            await click(document, ".o_dialog .btn-primary");
+            assert.ok(fixture.querySelector(".o-sheet-name-editable"));
         });
     }
 );
