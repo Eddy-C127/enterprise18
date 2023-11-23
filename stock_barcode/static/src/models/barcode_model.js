@@ -597,6 +597,7 @@ export default class BarcodeModel extends EventBus {
             id: (fieldsParams && fieldsParams.id) || false,
             virtual_id: this._uniqueVirtualId,
             location_id: this._defaultLocation(),
+            package_id: false,
         };
     }
 
