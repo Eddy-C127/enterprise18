@@ -87,6 +87,7 @@ class FollowupManualReminder(models.TransientModel):
         return {
             'partner_id': self.partner_id,
             'email': self.email,
+            'email_from': self.template_id.email_from,
             'email_subject': self.subject,
             'email_recipient_ids': self.email_recipient_ids,
             'body': self.body,

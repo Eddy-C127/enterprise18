@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from contextlib import contextmanager
 from freezegun import freeze_time
 from unittest.mock import patch
 
@@ -289,3 +290,53 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
         }).action_post()
         self.assertEqual(self.partner_a.total_due, -200)
         self.assertEqual(self.partner_a.followup_status, 'no_action_needed')
+
+    def test_followup_send_email(self):
+        """ Tests that the email address in the mail.template is used to send the followup email."""
+        self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'invoice_date': '2016-01-01',
+            'partner_id': self.partner_a.id,
+            'invoice_line_ids': [Command.create({
+                'quantity': 1,
+                'price_unit': 500,
+                'tax_ids': [],
+            })]
+        }).action_post()
+
+        @contextmanager
+        def create_and_send_email(email_from, subject):
+            """ Create a mail.template, open the followup wizard and send the followup email."""
+            mail_template = self.env['mail.template'].create({
+                'name': "Payment Reminder",
+                'model_id': self.env.ref('base.model_res_partner').id,
+                'email_from': email_from,
+                'partner_to': '{{ object.id }}',
+                'subject': subject,
+            })
+            wizard = self.env['account_followup.manual_reminder'].with_context(
+                active_model='res.partner',
+                active_ids=self.partner_a.ids,
+            ).create({})
+            wizard.email = True  # tick the 'email' checkbox
+            wizard.template_id = mail_template
+            wizard.process_followup()
+            yield
+            self.assertEqual(len(message), 1)
+            self.assertEqual(message.author_id, self.env.user.partner_id)
+
+        # case 1: the email_from is dynamically set
+        with create_and_send_email(
+            email_from="{{ object._get_followup_responsible().email_formatted }}",
+            subject="{{ (object.company_id or object._get_followup_responsible().company_id).name }} Pay me now !",
+        ):
+            message = self.env['mail.message'].search([('subject', 'like', "Pay me now !")])
+            self.assertEqual(message.email_from, self.env.user.partner_id.email_formatted)
+
+        # case 2: the email_from is hardcoded in the template
+        with create_and_send_email(
+            email_from="test@odoo.com",
+            subject="{{ (object.company_id or object._get_followup_responsible().company_id).name }} Pay me noooow !",
+        ):
+            message = self.env['mail.message'].search([('subject', 'like', "Pay me noooow !")])
+            self.assertEqual(message.email_from, "test@odoo.com")
