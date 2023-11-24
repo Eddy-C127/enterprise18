@@ -30,7 +30,7 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
 // Adding a rental product
 {
     trigger: 'a:contains("Add a product")',
-    extra_trigger: '[name="name"][data-tooltip*="floor protection"]',
+    extra_trigger: 'td[name="product_template_id"][data-tooltip*="floor protection"],td[name="product_id"][data-tooltip*="floor protection"]',
 }, {
     trigger: 'div[name="product_template_id"] input',
     run: 'text Projector',
@@ -40,7 +40,7 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
 // Adding a sale product with a matrix
 {
     trigger: 'a:contains("Add a product")',
-    extra_trigger: '[name="name"][data-tooltip*="Projector"]',
+    extra_trigger: 'td[name="product_template_id"][data-tooltip*="Projector"],td[name="product_id"][data-tooltip*="Projector"]',
 }, {
     trigger: 'div[name="product_template_id"] input',
     run: 'text Matrix',
