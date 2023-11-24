@@ -6538,6 +6538,40 @@ QUnit.test("groups_limit attribute in sample mode (two groupBys)", async (assert
     assert.verifySteps(["get_views", "get_gantt_data", "with limit 2", "with offset 0"]);
 });
 
+QUnit.test(
+    "context in action should not override context added by the gantt view",
+    async (assert) => {
+        serverData.views["tasks,false,form"] = `
+            <form>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="start"/>
+                <field name="stop"/>
+            </form>
+        `;
+        await makeView({
+            type: "gantt",
+            resModel: "tasks",
+            serverData,
+            arch: `<gantt date_start="start" date_stop="stop" default_group_by="user_id" plan="false"/>`,
+            context: {
+                gantt_date: "2018-11-30",
+                gantt_scale: "month",
+                default_user_id: false,
+            },
+        });
+
+        await hoverGridCell(1, 1, { ignoreHoverableClass: true });
+        await clickCell(1, 1);
+        assert.containsOnce(target, ".modal .o_field_many2one[name=user_id]");
+        assert.strictEqual(
+            target.querySelector(".modal .o_field_many2one[name=user_id] input").value,
+            "User 1",
+            "The user set should be the one in the row contained the cell clicked to add a record"
+        );
+    }
+);
+
 // MANUAL TESTING
 
 QUnit.skip("[FOR MANUAL TESTING] large amount of records (ungrouped)", async (assert) => {
