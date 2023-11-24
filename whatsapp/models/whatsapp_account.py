@@ -104,6 +104,7 @@ class WhatsAppAccount(models.Model):
                     Template Created count %d
                     Template Updated count %d
                     """, template_create_count, template_update_count),
+                'next': {'type': 'ir.actions.act_window_close'},
             }
         }
 
