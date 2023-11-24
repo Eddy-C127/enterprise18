@@ -150,6 +150,7 @@ CURRENCY_PROVIDER_SELECTION = [
     (['PL'], 'nbp', '[PL] National Bank of Poland'),
     (['RO'], 'bnr', '[RO] National Bank of Romania'),
     (['TR'], 'tcmb', '[TR] Central Bank of the Republic of Turkey'),
+    (['UK'], 'hmrc', '[UK] HM Revenue & Customs')
 ]
 
 class ResCompany(models.Model):
@@ -427,6 +428,33 @@ class ResCompany(models.Model):
             if rate:
                 rate = 1.0 / float(rate)
                 rslt['USD'] = (rate, date_rate)
+        return rslt
+
+    def _parse_hmrc_data(self, available_currencies):
+        ''' This method is used to update the currencies by using HMRC service provider.
+            Rates are given against GBP.
+        '''
+        # Date is the first of the current month since rates are given monthly.
+        first_of_month = fields.Date.context_today(self.with_context(tz='Europe/London')).replace(day=1)
+        formatted_date = first_of_month.strftime("%Y-%m")
+
+        request_url = f"https://www.trade-tariff.service.gov.uk/api/v2/exchange_rates/files/monthly_xml_{formatted_date}.xml"
+        response = requests.get(request_url, timeout=10)
+        response.raise_for_status()
+
+        xml_tree = etree.fromstring(response.content)
+        available_currency_names = available_currencies.mapped('name')
+        rslt = {
+            node.find('currencyCode').text: (
+                float(node.find('rateNew').text),
+                first_of_month,
+            )
+            for node in xml_tree.iterfind('exchangeRate')
+            if node.find('currencyCode').text in available_currency_names}
+
+        if rslt and 'GBP' in available_currency_names:
+            rslt['GBP'] = (1.0, first_of_month)
+
         return rslt
 
     def _parse_bbr_data(self, available_currencies):
