@@ -47,10 +47,10 @@ patch(ThreadService.prototype, {
         } else if (!thread.is_pinned) {
             this.pin(thread);
         }
-        this.sortChannels();
         this.open(thread);
     },
 
+    /** @deprecated */
     sortChannels() {
         super.sortChannels();
         // WhatsApp Channels are sorted by most recent interest date time in the sidebar.
