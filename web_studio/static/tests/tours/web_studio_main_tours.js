@@ -766,22 +766,22 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
             run() {},
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page",
+            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
             run($anchor) {
                 const element = this.$anchor[0];
                 element.ownerDocument.getSelection().setPosition(element);
-                assertEqual(element.innerHTML, "<br>");
+                assertEqual(element.outerHTML, `<div class="oe_structure"></div>`);
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page",
+            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
             run() {
                 const element = this.$anchor[0];
                 assertEqual(element.classList.contains("oe-command-temporary-hint"), true);
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page",
+            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
             run: "text some new text",
         },
         {
@@ -827,7 +827,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe div.page",
+            trigger: ".o-web-studio-report-editor-wysiwyg iframe div.page div",
             run() {
                 assertEqual(this.$anchor[0].textContent, "some new text");
             },

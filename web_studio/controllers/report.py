@@ -263,14 +263,14 @@ class WebStudioReportController(main.WebStudioController):
         if layout == 'web.basic_layout':
             arch_document = etree.fromstring("""
                 <t t-name="studio_report_document">
-                    <div class="page"><br/></div>
+                    <div class="page"><div class="oe_structure" /></div>
                 </t>
                 """)
         else:
             arch_document = etree.fromstring("""
                 <t t-name="studio_report_document">
                     <t t-call="%(layout)s">
-                        <div class="page"><br/></div>
+                        <div class="page"><div class="oe_structure" /></div>
                     </t>
                 </t>
                 """ % {'layout': layout})
