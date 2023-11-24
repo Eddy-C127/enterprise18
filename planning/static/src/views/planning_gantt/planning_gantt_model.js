@@ -171,6 +171,10 @@ export class PlanningGanttModel extends GanttModel {
             this.getHighlightIds(),
             super._fetchData(...arguments),
         ])
+        const firstRow = this.data?.rows?.[0];
+        if (firstRow.isGroup && this.orm.isSample && !this.isClosed(firstRow.id)) {
+            this.closedRows.add(firstRow.id);
+        }
         this.highlightIds = highlightIds;
     }
 
