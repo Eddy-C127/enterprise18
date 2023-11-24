@@ -68,6 +68,7 @@ import {
     getGridContent,
     hoverGridCell,
     SELECTORS,
+    getTexts,
 } from "@web_gantt/../tests/helpers";
 
 async function ganttResourceWorkIntervalRPC(_, args) {
@@ -98,14 +99,7 @@ async function ganttResourceWorkIntervalRPC(_, args) {
                     ["2022-10-14 11:00:00", "2022-10-14 15:00:00"],
                 ],
             },
-            {
-                1: false,
-                false: false,
-            },
-            {
-                1: 6,
-                false: 8,
-            },
+            { false: true },
         ];
     } else if (args.method === "gantt_unavailability") {
         const rows = args.args[4];
@@ -617,4 +611,55 @@ QUnit.module("Views", (hooks) => {
         assert.containsOnce(target, '.bg-danger.border-danger', "One of the grouped pills should be red because the resource is over planned");
 
     });
+    QUnit.test(
+        "Gantt Planning : pill name should not display allocated hours if allocated_percentage is 100%",
+        async (assert) => {
+            patchDate(2022, 9, 13, 0, 0, 0);
+            serverData.models.task.fields.allocated_hours = {
+                string: "Allocated hours",
+                type: "float",
+            };
+            serverData.models.task.fields.allocated_percentage = {
+                string: "Allocated percentage",
+                type: "float",
+            };
+            serverData.models.task.records = [
+                {
+                    id: 1,
+                    name: "Task 1",
+                    start_datetime: "2022-10-09 08:30:00",
+                    end_datetime: "2022-10-09 17:30:00", // span only one day
+                    allocated_hours: 4,
+                    allocated_percentage: 50,
+                },
+                {
+                    id: 2,
+                    name: "Task 2",
+                    start_datetime: "2022-10-09 08:30:00",
+                    end_datetime: "2022-10-09 17:30:00", // span only one day
+                    allocated_hours: 8,
+                    allocated_percentage: 100,
+                },
+            ];
+
+            await makeView({
+                type: "gantt",
+                resModel: "task",
+                serverData,
+                arch: `
+                    <gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week" pill_label="True">
+                        <field name="allocated_hours"/>
+                        <field name="allocated_percentage"/>
+                    </gantt>
+                `,
+                groupBy: ["resource_id"],
+                mockRPC: ganttResourceWorkIntervalRPC,
+            });
+
+            assert.deepEqual(
+                getTexts(".o_gantt_pill").map((t) => t.replace(/\s*/g, "")),
+                ["9:30AM-6:30PM(4h)-Task1", "9:30AM-6:30PM-Task2"]
+            );
+        }
+    );
 });

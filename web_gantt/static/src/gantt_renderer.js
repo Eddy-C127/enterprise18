@@ -1001,13 +1001,8 @@ export class GanttRenderer extends Component {
 
         // Start & End Times
         if (record.allocated_hours && !spanAccrossDays && ["week", "month"].includes(scaleId)) {
-            const durationStr = formatFloatTime(record.allocated_hours, {
-                noLeadingZeroHour: true,
-            }).replace(/(:00|:)/g, "h");
-            labelElements.push(
-                startDate.toFormat("t"),
-                `${stopDate.toFormat("t")} (${durationStr})`
-            );
+            const durationStr = this.getDurationStr(record);
+            labelElements.push(startDate.toFormat("t"), `${stopDate.toFormat("t")}${durationStr}`);
         }
 
         // Original Display Name
@@ -1016,6 +1011,16 @@ export class GanttRenderer extends Component {
         }
 
         return labelElements.filter((el) => !!el).join(" - ");
+    }
+
+    /**
+     * @param {RelationalRecord} record
+     */
+    getDurationStr(record) {
+        const durationStr = formatFloatTime(record.allocated_hours, {
+            noLeadingZeroHour: true,
+        }).replace(/(:00|:)/g, "h");
+        return ` (${durationStr})`;
     }
 
     /**
