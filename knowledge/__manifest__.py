@@ -13,7 +13,8 @@
         'mail',
         'portal',
         'web_unsplash',
-        'web_hierarchy'
+        'web_hierarchy',
+        'web_map',
     ],
     'data': [
         'data/article_templates.xml',
