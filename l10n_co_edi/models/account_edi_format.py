@@ -78,8 +78,8 @@ class AccountEdiFormat(models.Model):
             if tax_type.code == '05':
                 imp_2 = abs(tax_detail['tax_amount_currency'] * 100 / 15)
             elif tax_type.code == '34':
-                imp_2 = sum(line.product_id.volume * line.quantity
-                            for line in tax_detail['records'])  # Volume
+                imp_2 = sum(line.product_id.l10n_co_edi_ref_nominal_tax * line.quantity
+                            for line in tax_detail['records'])
             else:
                 imp_2 = abs(tax_detail['base_amount_currency'])
             imp = {
@@ -469,8 +469,8 @@ class AccountEdiFormat(models.Model):
 
         # Sugar taxes
         for line in move.invoice_line_ids:
-            if "IBUA" in line.tax_ids.l10n_co_edi_type.mapped('name') and line.product_id.volume == 0:
-                edi_result.append(_("You should set a volume on product: %s when using IBUA taxes.", line.product_id.name))
+            if "IBUA" in line.tax_ids.l10n_co_edi_type.mapped('name') and line.product_id.l10n_co_edi_ref_nominal_tax == 0:
+                edi_result.append(_("You should set 'Volume in milliliters' on product: %s when using IBUA taxes.", line.product_id.name))
 
         return edi_result
 

@@ -128,7 +128,7 @@ class TestCoEdiCommon(AccountEdiTestCommon):
         cls.product_a.write({
             'default_code': 'P0000',
             'uom_id': uom,
-            'volume': 500.0,
+            'l10n_co_edi_ref_nominal_tax': 500.0,
         })
         invoice_data = {
             'partner_id': cls.company_data_2['company'].partner_id.id,
@@ -170,7 +170,7 @@ class TestCoEdiCommon(AccountEdiTestCommon):
         cls.product_sugar = cls.env['product.product'].create({
             'name': 'Ice Cream',
             'uom_id': uom.id,
-            'volume': 50.0,  # this should be the volume in milliliters
+            'l10n_co_edi_ref_nominal_tax': 50.0,
             'property_account_income_id': cls.company_data['default_account_revenue'].id,
             'property_account_expense_id': cls.company_data['default_account_expense'].id,
             'default_code': 'P0000',

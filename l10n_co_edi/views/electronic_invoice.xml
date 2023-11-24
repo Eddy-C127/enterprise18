@@ -30,7 +30,7 @@
                 <TII t-foreach="tax['group_tax_details']" t-as="group_tax_details">
                     <t t-set="IIM_2" t-value="abs(group_tax_details['tax_amount_currency'])"/>
                     <t t-set="IIM_4" t-if="tax['l10n_co_edi_type'].code == '05'" t-value="abs(group_tax_details['tax_amount_currency'] * 100 / 15)"/>
-                    <t t-set="IIM_4" t-elif="tax['l10n_co_edi_type'].code == '34'" t-value="sum(line.product_id.volume * line.quantity for line in tax['records'])"/>
+                    <t t-set="IIM_4" t-elif="tax['l10n_co_edi_type'].code == '34'" t-value="sum(line.product_id.l10n_co_edi_ref_nominal_tax * line.quantity for line in tax['records'])"/>
                     <t t-set="IIM_4" t-else="" t-value="abs(group_tax_details['base_amount_currency'])"/>
                     <t t-set="IIM_6" t-value="'15' if tax['l10n_co_edi_type'].code == '05' else tax['tax'].amount"/>
                     <t t-set="IIM_9" t-value="tax['tax'].amount if (tax['l10n_co_edi_type'].code != '34' or not IIM_2) else IIM_2 * 100 / IIM_4"/>

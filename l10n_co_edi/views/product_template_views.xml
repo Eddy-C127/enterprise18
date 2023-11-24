@@ -9,6 +9,7 @@
                 <xpath expr="//group[@name='group_standard_price']" position="inside">
                     <field name="l10n_co_edi_brand" invisible="'CO' not in fiscal_country_codes"/>
                     <field name="l10n_co_edi_customs_code" invisible="'CO' not in fiscal_country_codes"/>
+                    <field name="l10n_co_edi_ref_nominal_tax" invisible="'CO' not in fiscal_country_codes"/>
                 </xpath>
             </field>
         </record>

@@ -11,13 +11,4 @@ class AccountChartTemplate(models.AbstractModel):
 
     @template('co', 'account.tax.group')
     def _get_co_edi_account_tax_group(self):
-        return {
-            'l10n_co_tax_group_iva': {'name': "IVA 19%"},
-            'l10n_co_tax_group_ic': {'name': "IC"},
-            'l10n_co_tax_group_ica': {'name': "ICA"},
-            'l10n_co_tax_group_inc': {'name': "INC"},
-            'l10n_co_tax_group_rtefuente': {'name': "RteFuente"},
-            'l10n_co_tax_group_rteiva': {'name': "RteIVA"},
-            'l10n_co_tax_group_rteica': {'name': "RteICA"},
-            'l10n_co_tax_group_auto_rentencion': {'name': "Autorentencion"},
-        }
+        return self._parse_csv('co', 'account.tax.group', module='l10n_co_edi')
