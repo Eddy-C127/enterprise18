@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo import api, fields, models, tools, _
+from odoo import api, Command, fields, models, tools
 from odoo.exceptions import UserError
 from odoo.tools import html_sanitize, is_html_empty
 
@@ -36,7 +36,7 @@ class RequestAppraisal(models.TransientModel):
 
             result.update({
                 'template_id': template.id,
-                'recipient_ids': recipients.ids,
+                'recipient_ids': [Command.set(recipients.ids)],
                 'employee_id': employee.id,
                 'appraisal_id': appraisal.id,
             })
