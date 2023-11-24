@@ -1385,6 +1385,8 @@ QUnit.test("select cells to plan a task", async (assert) => {
                 add(_, props) {
                     assert.step(`[dialog] ${props.title}`);
                     assert.deepEqual(props.context, {
+                        default_start: "2018-11-30 23:00:00",
+                        default_stop: "2018-12-02 22:59:59",
                         lang: "en",
                         start: "2018-11-30 23:00:00",
                         stop: "2018-12-02 22:59:59",
@@ -1439,6 +1441,9 @@ QUnit.test("select cells to plan a task: 1-level grouped", async (assert) => {
                 add(_, props) {
                     assert.step(`[dialog] ${props.title}`);
                     assert.deepEqual(props.context, {
+                        default_start: "2018-11-30 23:00:00",
+                        default_stop: "2018-12-02 22:59:59",
+                        default_user_id: 1,
                         lang: "en",
                         start: "2018-11-30 23:00:00",
                         stop: "2018-12-02 22:59:59",
@@ -1472,6 +1477,10 @@ QUnit.test("select cells to plan a task: 2-level grouped", async (assert) => {
                 add(_, props) {
                     assert.step(`[dialog] ${props.title}`);
                     assert.deepEqual(props.context, {
+                        default_project_id: 1,
+                        default_start: "2018-11-30 23:00:00",
+                        default_stop: "2018-12-02 22:59:59",
+                        default_user_id: 1,
                         lang: "en",
                         project_id: 1,
                         start: "2018-11-30 23:00:00",
