@@ -385,7 +385,9 @@ class WebStudioReportController(main.WebStudioController):
         report_name = report.report_name
         IrQweb = request.env["ir.qweb"].with_context(studio=True, inherit_branding=True, lang=None)
 
-        def inline_t_call(tree, variables):
+        def inline_t_call(tree, variables, recursive_set):
+            if recursive_set is None:
+                recursive_set = set()
             if variables:
                 touts = tree.xpath("//t[@t-out='0']")
                 for node in touts:
@@ -407,7 +409,8 @@ class WebStudioReportController(main.WebStudioController):
                     # this template won't be returned to the Editor so it won't
                     # be customizable
                     continue
-
+                if tcall in recursive_set:
+                    continue
                 _vars = dict(variables)
                 z = etree.Element("t", {'process_zero': "1"})
                 for child in node:
@@ -416,10 +419,12 @@ class WebStudioReportController(main.WebStudioController):
                 if len(z) > 0:
                     _vars["__zero__"] = etree.tostring(z)
 
-                sub_element = load_arch(tcall, _vars)
+                new_recursive_set = set(recursive_set)
+                new_recursive_set.add(tcall)
+                sub_element = load_arch(tcall, _vars, new_recursive_set)
                 node.append(sub_element)
 
-        def load_arch(view_name, variables=None):
+        def load_arch(view_name, variables=None, recursive_set=None):
             if not variables:
                 variables = dict()
             if view_name in loaded:
@@ -428,12 +433,11 @@ class WebStudioReportController(main.WebStudioController):
                 external_layout = "web.external_layout_standard"
                 if request.env.company.external_report_layout_id:
                     external_layout = request.env.company.external_report_layout_id.sudo().key
-                tree = load_arch(external_layout, variables)
+                return load_arch(external_layout, variables, recursive_set)
             else:
                 tree = IrQweb._get_template(view_name)[0]
                 loaded[view_name] = etree.tostring(tree)
-
-            inline_t_call(tree, variables)
+            inline_t_call(tree, variables, recursive_set)
             return tree
 
         main_qweb = _html_to_client_compliant(load_arch(report_name))

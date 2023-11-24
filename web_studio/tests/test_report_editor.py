@@ -1,5 +1,6 @@
 import json
 from psycopg2.extras import Json
+from lxml import etree
 
 from odoo import Command
 from odoo.addons.base.models.ir_actions_report import IrActionsReport
@@ -10,6 +11,15 @@ from odoo.http import _request_stack, route
 from odoo.tests.common import HttpCase, TransactionCase
 from odoo.tests import tagged
 from odoo.tools import DotDict, mute_logger
+
+parserXML = etree.XMLParser(remove_blank_text=False)
+parserHTML = etree.HTMLParser(remove_blank_text=False)
+def html_to_xml_tree(stringHTML, body=True):
+    temp = etree.fromstring(stringHTML, parser=parserHTML)
+    if body:
+        temp = temp.getroottree().find("body")[0]
+    temp = etree.tostring(temp)
+    return etree.fromstring(temp, parser=parserXML)
 
 class TestReportEditor(TransactionCase):
 
@@ -772,3 +782,84 @@ class TestReportEditorUIUnit(HttpCase):
         self.report.model = dummy.model
         self.report.name = "dummy test"
         self.start_tour(f"/web#action=studio&mode=editor&_action={self.testAction.id}&_tab=reports&menu_id={self.testMenu.id}", "web_studio.test_record_model_differs_from_action", login="admin")
+
+    def test_recursive_t_calls(self):
+        self.authenticate("admin", "admin")
+        self.main_view_document.arch = """
+             <t t-name="web_studio.test_report_document">
+                <div><p t-field="doc.name" /></div>
+                <p><br/></p>
+                <t t-call="web_studio.test_report_document"><div /></t>
+            </t>
+        """
+
+        response = self.url_open(
+            "/web_studio/get_report_qweb",
+            data=json.dumps({"params": {"report_id": self.report.id}}),
+            headers={"Content-Type": "application/json"}
+        )
+
+        qweb_html = response.json()["result"]
+        tree = html_to_xml_tree(qweb_html)
+        tcall = tree.xpath("//t[@t-call='web_studio.test_report_document']")[0]
+        self.assertXMLEqual(etree.tostring(tcall), f"""
+           <t t-call="web_studio.test_report_document">
+             <t t-name="web_studio.test_report_document">
+               <div data-oe-model="ir.ui.view" data-oe-id="{self.main_view_document.id}" data-oe-field="arch" data-oe-xpath="/t[1]/div[1]">
+                 <p t-field="doc.name" oe-expression-readable="Name"/>
+               </div>
+               <p data-oe-model="ir.ui.view" data-oe-id="{self.main_view_document.id}" data-oe-field="arch" data-oe-xpath="/t[1]/p[1]">
+                 <br/>
+               </p>
+               <t t-call="web_studio.test_report_document">
+                    <div data-oe-model="ir.ui.view" data-oe-id="{self.main_view_document.id}" data-oe-field="arch" data-oe-xpath="/t[1]/t[1]/div[1]"/>
+               </t>
+             </t>
+           </t>
+        """)
+
+    def test_can_have_multiple_times_same_t_call(self):
+        self.authenticate("admin", "admin")
+        self.main_view.arch = """
+            <t t-name="web_studio.test_report">
+                <t t-call="web.html_container">
+                    <div>
+                    <t t-call="web_studio.test_report_document">
+                        <h1/>
+                    </t>
+                    <t t-call="web_studio.test_report_document">
+                        <h2/>
+                    </t>
+                    </div>
+                </t>
+            </t>
+        """
+        self.main_view_document.arch = """<t t-name="web_studio.test_report_document"><t t-out="0" /></t> """
+        response = self.url_open(
+            "/web_studio/get_report_qweb",
+            data=json.dumps({"params": {"report_id": self.report.id}}),
+            headers={"Content-Type": "application/json"}
+        )
+        qweb_html = response.json()["result"]
+        tree = html_to_xml_tree(qweb_html)
+        tcall = tree.xpath("//t[@t-call='web_studio.test_report_document']")
+        self.assertEqual(len(tcall), 2)
+
+        self.assertXMLEqual(etree.tostring(tcall[0]), f"""
+         <t t-call="web_studio.test_report_document">
+           <t t-name="web_studio.test_report_document">
+             <t>
+               <h1 data-oe-model="ir.ui.view" data-oe-id="{self.main_view.id}" data-oe-field="arch" data-oe-xpath="/t[1]/t[1]/div[1]/t[1]/h1[1]"/>
+             </t>
+           </t>
+         </t>
+        """)
+        self.assertXMLEqual(etree.tostring(tcall[1]), f"""
+        <t t-call="web_studio.test_report_document">
+           <t t-name="web_studio.test_report_document">
+             <t>
+               <h2 data-oe-model="ir.ui.view" data-oe-id="{self.main_view.id}" data-oe-field="arch" data-oe-xpath="/t[1]/t[1]/div[1]/t[2]/h2[1]"/>
+             </t>
+           </t>
+         </t>
+        """)
