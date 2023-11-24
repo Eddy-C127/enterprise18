@@ -132,7 +132,9 @@ export class PlanningGanttModel extends GanttModel {
         super._addProgressBarInfo(...arguments);
         rows.forEach(row => {
             if (row.progressBar?.max_value_formatted) {
-                row.progressBar.percentage = formatPercentage(Math.round(row.progressBar.ratio / 100));
+                row.progressBar.percentage = formatPercentage(
+                    Math.round(row.progressBar.ratio) / 100
+                );
             }
         });
     }
