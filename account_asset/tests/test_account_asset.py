@@ -314,7 +314,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         closing_move.action_post()
         self.assertRecordValues(CEO_car, [{
             'original_value': 12000,
-            'book_value': 2000,
+            'book_value': 0,
             'value_residual': 0,
             'salvage_value': 2000,
         }])
@@ -410,7 +410,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         CEO_car.depreciation_move_ids.action_post()
         self.assertRecordValues(CEO_car, [{
             'original_value': 12000,
-            'book_value': 2000,
+            'book_value': 0,
             'value_residual': 0,
             'salvage_value': 2000,
             'state': 'close',
@@ -521,7 +521,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         closing_move.action_post()
         self.assertRecordValues(CEO_car, [{
             'original_value': 12000,
-            'book_value': 2000,
+            'book_value': 0,
             'value_residual': 0,
             'salvage_value': 2000,
         }])
