@@ -3,6 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { GanttController } from "@web_gantt/gantt_controller";
 import { usePlanningControllerActions } from "../planning_hooks";
+import { serializeDateTime } from "@web/core/l10n/dates";
 
 const { DateTime } = luxon;
 
@@ -56,6 +57,12 @@ export class PlanningGanttController extends GanttController {
     openDialog(props, options) {
         const record = this.model.data.records.find((r) => r.id === props.resId);
         const title = record ? record.display_name : _t("Add Shift");
-        super.openDialog({ ...props, title }, options);
+        const context = {
+            ...props.context,
+            is_record_created: !record,
+            view_start_date: serializeDateTime(this.model.metaData.startDate),
+            view_end_date: serializeDateTime(this.model.metaData.stopDate),
+        };
+        super.openDialog({ ...props, title, context }, options);
     }
 }

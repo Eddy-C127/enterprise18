@@ -7,6 +7,8 @@ import { CalendarController } from "@web/views/calendar/calendar_controller";
 import { PlanningCalendarFilterPanel } from "./planning_filter_panel/planning_calendar_filter_panel";
 import { usePlanningControllerActions } from "../planning_hooks";
 import { _t } from "@web/core/l10n/translation";
+import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
+import { sprintf } from "@web/core/utils/strings";
 
 export class PlanningCalendarController extends CalendarController {
     static template = "planning.PlanningCalendarController";
@@ -45,4 +47,34 @@ export class PlanningCalendarController extends CalendarController {
     async onWillStart() {
         this.isManager = await user.hasGroup("planning.group_planning_manager");
     }
-};
+
+    /**
+     * @override
+     */
+    async editRecord(record, context = {}) {
+        const newContext = {
+            ...context,
+            is_record_created: !record.id,
+            view_start_date: serializeDateTime(this.model.rangeStart),
+            view_end_date: serializeDateTime(this.model.rangeEnd),
+        };
+        return new Promise((resolve) => {
+            this.displayDialog(
+                FormViewDialog,
+                {
+                    resModel: this.model.resModel,
+                    resId: record.id || false,
+                    context: newContext,
+                    title: record.id ? sprintf(_t("Open: %s"), record.title) : _t("New Event"),
+                    viewId: this.model.formViewId,
+                },
+                {
+                    onClose: () => {
+                        this.model.load();
+                        resolve();
+                    },
+                }
+            );
+        });
+    }
+}

@@ -10,6 +10,7 @@ import { formView } from "@web/views/form/form_view";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { AddressRecurrencyConfirmationDialog } from "@planning/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog";
+import { deserializeDateTime } from "@web/core/l10n/dates";
 
 export class PlanningFormController extends FormController {
     setup() {
@@ -46,6 +47,15 @@ export class PlanningFormController extends FormController {
                 ),
                 { type: "success" }
             );
+        }
+        if (
+            record.context.is_record_created &&
+            (deserializeDateTime(record.context.view_start_date) > record.data.start_datetime ||
+                deserializeDateTime(record.context.view_end_date) < record.data.end_datetime)
+        ) {
+            this.notification.add(_t("The shift has successfully been created."), {
+                type: "success",
+            });
         }
     }
 
