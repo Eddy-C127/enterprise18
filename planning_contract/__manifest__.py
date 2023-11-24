@@ -19,4 +19,13 @@ slots planification and allocated hours.
     ],
     'auto_install': True,
     'license': 'OEEL-1',
+    'assets': {
+        'web.assets_backend': [
+            'planning_contract/static/src/views/**/*',
+            'planning_contract/static/src/scss/planning_contract_gantt.scss',
+        ],
+        'web.qunit_suite_tests': [
+            'planning_contract/static/tests/*',
+        ],
+    }
 }

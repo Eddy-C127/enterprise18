@@ -182,13 +182,7 @@
         <t t-foreach="columns" t-as="column" t-key="column.id">
             <div
                 class="o_gantt_cell"
-                t-att-class="{
-                    o_sample_data_disabled: isDisabled(row),
-                    o_gantt_today: column.isToday,
-                    o_gantt_group: row.isGroup,
-                    o_gantt_hoverable: isHoverable(row),
-                    o_group_open: !model.isClosed(row.id),
-                }"
+                t-att-class="ganttCellAttClass(row, column)"
                 t-attf-style="{{ getGridPosition({ column: column.grid.column, row: row.grid.row }) }};{{ row.cellColors[column.id] || '' }}"
                 t-att-data-row-id="row.id"
                 t-att-data-column-index="column_index"

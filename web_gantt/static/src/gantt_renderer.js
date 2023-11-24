@@ -942,6 +942,21 @@ export class GanttRenderer extends Component {
     }
 
     /**
+     * @param {Row} row
+     * @param {Column} column
+     * @return {Object}
+     */
+    ganttCellAttClass(row, column) {
+        return {
+            o_sample_data_disabled: this.isDisabled(row),
+            o_gantt_today: column.isToday,
+            o_gantt_group: row.isGroup,
+            o_gantt_hoverable: this.isHoverable(row),
+            o_group_open: !this.model.isClosed(row.id),
+        };
+    }
+
+    /**
      * This function will add a 'label' property to each
      * non-consolidated pill included in the pills list.
      * This new property is a string meant to replace
