@@ -1,11 +1,12 @@
-# coding: utf-8
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 from odoo import _
 from odoo.exceptions import UserError
 
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.website_sale.controllers import delivery, main
 
 
-class WebsiteSaleExternalTaxCalculation(WebsiteSale):
+class WebsiteSaleExternalTaxCalculation(main.WebsiteSale):
 
     def _get_shop_payment_values(self, order, **kwargs):
         res = super(WebsiteSaleExternalTaxCalculation, self)._get_shop_payment_values(order, **kwargs)
@@ -20,6 +21,8 @@ class WebsiteSaleExternalTaxCalculation(WebsiteSale):
             )
 
         return res
+
+class WebsiteSaleDelivery(delivery.WebsiteSaleDelivery):
 
     def _update_website_sale_delivery_return(self, order, **post):
         order._get_and_set_external_taxes_on_eligible_records()

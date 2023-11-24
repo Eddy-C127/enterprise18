@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, http
-from odoo.addons.website_sale.controllers import main
+from odoo import _
+from odoo.http import route
 from odoo.exceptions import AccessError, MissingError, ValidationError
+
+from odoo.addons.website_sale.controllers import delivery, main, payment
 
 
 class WebsiteSale(main.WebsiteSale):
@@ -17,8 +19,11 @@ class WebsiteSale(main.WebsiteSale):
             except ValidationError:
                 res.setdefault('errors', []).append((_("Validation Error"), _("This address does not appear to be valid. Please make sure it has been filled in correctly.")))
 
-        res.update(super(WebsiteSale, self)._get_shop_payment_values(order, **kwargs))
+        res.update(super()._get_shop_payment_values(order, **kwargs))
         return res
+
+
+class WebsiteSaleDelivery(delivery.WebsiteSaleDelivery):
 
     def _update_website_sale_delivery_return(self, order, **post):
         if order and order.fiscal_position_id.is_taxcloud:
@@ -26,9 +31,9 @@ class WebsiteSale(main.WebsiteSale):
         return super()._update_website_sale_delivery_return(order, **post)
 
 
-class PaymentPortal(main.PaymentPortal):
+class PaymentPortal(payment.PaymentPortal):
 
-    @http.route()
+    @route()
     def shop_payment_transaction(self, order_id, access_token, **kwargs):
         """
         Recompute taxcloud sales before payment
