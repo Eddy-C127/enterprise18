@@ -355,8 +355,9 @@
                             </div>
                         </t>
                         <t t-if="resource">
-                            <div t-if="appointment_type.avatars_display == 'show'" t-attf-style="background-image: url('/web/image/appointment.resource/#{resource.id}/avatar_512');"
-                            class="rounded-circle o_appointment_avatar_background o_appointment_user_avatar"/>
+                            <div t-if="appointment_type.avatars_display == 'show'"
+                                t-attf-style="background-image: url('/appointment/#{appointment_type.id}/resource_avatar?resource_id=#{resource.id}');"
+                                class="rounded-circle o_appointment_avatar_background o_appointment_user_avatar"/>
                             <i t-else="" class="fa fa-fw fa-cubes mt-1 text-muted"/>
                             <div class="ms-2">
                                 <strong class="mb-1" t-out="resource.name"/>
