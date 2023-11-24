@@ -32,6 +32,7 @@ class TestUi(TestUiCommon):
                                     groups='planning.group_planning_user',
                                     name='Joseph User',
                                     email='juser@example.com')
+        test_role = self.env["planning.role"].create([{'name': 'test_role'}])
         employee_bert, employee_joseph = self.env['hr.employee'].create([
             {
                 'name': 'bert',
@@ -40,6 +41,7 @@ class TestUi(TestUiCommon):
                 'employee_type': 'freelance',
                 'create_date': '2015-01-01 00:00:00',
                 'user_id': bert_user.id,
+                'planning_role_ids': test_role,
             },
             {
                 'name': 'joseph',
@@ -48,6 +50,7 @@ class TestUi(TestUiCommon):
                 'employee_type': 'freelance',
                 'create_date': '2015-01-01 00:00:00',
                 'user_id': joseph_user.id,
+                'planning_role_ids': test_role,
             }
         ])
         test_slot = self.env['planning.slot'].create({

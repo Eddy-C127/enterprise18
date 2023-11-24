@@ -764,9 +764,9 @@ class Planning(models.Model):
             name_values = [
                 self._fields[fname].convert_to_display_name(slot[fname], slot) if fname != 'resource_id' else slot.resource_id.name
                 for fname in field_list
-                if slot[fname]
+                if slot[fname] and not (fname == 'resource_id' and slot.resource_type != 'material')
             ][:4]  # limit to 4 labels
-            name = ' - '.join(name_values) or slot.resource_id.name
+            name = ' - '.join(name_values)
 
             # add unicode bubble to tell there is a note
             if slot.name:

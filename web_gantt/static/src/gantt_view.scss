@@ -353,6 +353,11 @@
             max-width: calc((100% - 50px) * 9999);
         }
 
+        .o_gantt_pill_avatar {
+            // Prevent displaying pill's avatar when size is smaller than 100px
+            max-width: calc((100% - 100px) * 9999);
+        }
+
         &.decoration-info {
             @include o-gantt-gradient-decorations(nth($o-colors-complete, 1));
         }

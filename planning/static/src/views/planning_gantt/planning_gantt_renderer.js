@@ -59,6 +59,19 @@ export class PlanningGanttRenderer extends GanttRenderer {
         const pill = super.enrichPill(...arguments);
         const { record } = pill;
 
+        if (record.employee_id && !this.model.metaData.groupedBy.includes("resource_id")) {
+            const [resId, displayName] = record.employee_id;
+            pill.hasAvatar = true;
+            pill.avatarProps = {
+                resModel: this.model.metaData.fields.employee_id.relation,
+                resId,
+                displayName,
+            };
+        } else {
+            pill.hasAvatar = false;
+            pill.avatarProps = {};
+        }
+
         const model = this.props.model;
         if (model.highlightIds && !model.highlightIds.includes(record.id)) {
             pill.className += " opacity-25";

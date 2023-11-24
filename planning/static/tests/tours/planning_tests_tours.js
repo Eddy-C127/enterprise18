@@ -68,7 +68,7 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     auto: true,
     run: function () {
         if (this.$anchor.length) {
-            const expected = "8:00 AM - 11:59 AM (4h)";
+            const expected = "8:00 AM - 11:59 AM";
             // Without the replace below, this step could break since luxon
             // (via Intl) uses sometimes U+202f instead of a simple space.
             // Note: U+202f is a narrow non-break space.
@@ -132,7 +132,7 @@ registry.category("web_tour.tours").add('planning_shift_switching_backend', {
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
     content: "Get in the planning app",
 }, {
-    trigger: '.o_gantt_pill :contains("bert")',
+    trigger: '.o_gantt_pill :contains("test_role")',
     content: "Click on one of your shifts in the gantt view",
 },
 {
@@ -151,7 +151,7 @@ registry.category("web_tour.tours").add('planning_shift_switching_backend', {
     content: 'Click on the dropdown button to change the scale of the gantt view',
     extra_trigger: 'div.o_view_scale_selector .o_scale_button_day',
 }, {
-    trigger: '.o_gantt_pill :contains("bert")',
+    trigger: '.o_gantt_pill :contains("test_role")',
     content: "Click on the unwanted shift in the gantt view again",
 },
 {
@@ -177,7 +177,7 @@ registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backe
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
     content: "Get in the planning app",
 }, {
-    trigger: '.o_gantt_pill :contains("bert")',
+    trigger: '.o_gantt_pill :contains("test_role")',
     content: "Click on the unwanted shift of the employee",
 },
 {
@@ -197,7 +197,7 @@ registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backe
     trigger: "button[special='save']",
     content: "Save this shift once it is ready.",
 }, {
-    trigger: '.o_gantt_pill :contains("joseph")',
+    trigger: '.o_gantt_pill :contains("test_role")',
     content: "Click again on the newly assigned shift",
 }, {
     trigger: '.o_popover',

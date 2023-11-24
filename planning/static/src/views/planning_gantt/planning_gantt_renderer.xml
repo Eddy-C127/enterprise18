@@ -24,6 +24,13 @@
                 </t>
             </t>
         </xpath>
+        <xpath expr="//span[hasclass('o_gantt_pill_title')]" position="after">
+            <t t-if="pill.hasAvatar">
+                <div class="ms-auto o_gantt_pill_avatar" t-att-title="pill.record.employee_id[1]">
+                    <Avatar t-props="pill.avatarProps"/>
+                </div>
+            </t>
+        </xpath>
     </t>
 
     <t t-name="planning.PlanningGanttRenderer.RowContent" t-inherit="web_gantt.GanttRenderer.RowContent" owl="1">
