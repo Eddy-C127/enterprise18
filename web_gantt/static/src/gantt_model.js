@@ -272,9 +272,7 @@ export class GanttModel extends Model {
             }
         }
 
-        Object.assign(context, this.searchParams.context);
-
-        return context;
+        return Object.assign({}, this.searchParams.context, context);
     }
 
     /**

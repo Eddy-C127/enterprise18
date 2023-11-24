@@ -1938,7 +1938,7 @@ export class GanttRenderer extends Component {
         const { start, stop } = this.getColumnStartStop(columnStart, columnStop);
         this.dialogService.add(
             SelectCreateDialog,
-            this.getSelectCreateDialogProps({ rowId, start, stop })
+            this.getSelectCreateDialogProps({ rowId, start, stop, withDefault: true })
         );
     }
 
