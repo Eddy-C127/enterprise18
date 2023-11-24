@@ -566,7 +566,9 @@ class TestReportEditorUIUnit(HttpCase):
         new_view = self.env["ir.ui.view"].search([("key", "=ilike", "studio_customization.%"), ("id", "not in", studio_views.ids), ("name", "like", "document")])
         self.assertXMLEqual(new_view.arch, """
             <t t-name="studio_report_document" class="">
-                <div class="page"><span t-field="doc.function">some default value</span><br/>Custo</div>
+                <div class="page">
+                    <div class="oe_structure"><span t-field="doc.function">some default value</span>Custo</div>
+                </div>
             </t>
         """)
 

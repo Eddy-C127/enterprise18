@@ -558,7 +558,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
             trigger: '.o_web_studio_report_layout_dialog div[data-layout="web.basic_layout"]',
         },
         {
-            trigger: "iframe .page",
+            trigger: "iframe .page div",
             async run(helpers) {
                 const el = this.$anchor[0];
                 openEditorPowerBox(el);
@@ -611,10 +611,10 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         },
         {
             // check that field was added successfully
-            trigger: "iframe .page > span:contains(some default value)",
+            trigger: "iframe .page div > span:contains(some default value)",
         },
         {
-            trigger: "iframe .page",
+            trigger: "iframe .page div",
             run() {
                 insertText(this.$anchor[0], "Custo");
             },
