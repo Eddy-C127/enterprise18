@@ -96,7 +96,8 @@ class AccountMove(models.Model):
         self.ensure_one()
         if (
             self.extract_state != "no_extract_requested" or
-            not self._check_digitalization_mode(self.company_id, self.move_type, 'auto_send')
+            not self._check_digitalization_mode(self.company_id, self.move_type, 'auto_send') or
+            not self.is_in_extractable_state
         ):
             return False
 
