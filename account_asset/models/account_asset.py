@@ -296,6 +296,8 @@ class AccountAsset(models.Model):
     def _compute_book_value(self):
         for record in self:
             record.book_value = record.value_residual + record.salvage_value + sum(record.children_ids.mapped('book_value'))
+            if record.state == 'close' and all(move.state == 'posted' for move in record.depreciation_move_ids):
+                record.book_value -= record.salvage_value
 
     @api.depends('children_ids.original_value')
     def _compute_gross_increase_value(self):
