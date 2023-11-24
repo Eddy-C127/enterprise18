@@ -12,6 +12,7 @@
         'hr_work_entry_holidays',
         'hr_payroll_holidays',
     ],
+    'auto_install': ['hr_payroll'],
     'data': [
         'views/report_payslip_templates.xml',
         'views/hr_payroll_report.xml',

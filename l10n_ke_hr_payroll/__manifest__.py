@@ -5,6 +5,7 @@
     'countries': ['ke'],
     'category': 'Human Resources/Payroll',
     'depends': ['l10n_ke', 'hr_payroll', 'hr_contract_reports', 'hr_work_entry_holidays', 'hr_payroll_holidays'],
+    'auto_install': True,
     'version': '1.0',
     'description': """
 Kenyan Payroll Rules.

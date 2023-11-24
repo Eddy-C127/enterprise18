@@ -6,6 +6,7 @@
     'countries': ['ma'],
     'category': 'Human Resources/Payroll',
     'depends': ['hr_payroll', 'l10n_ma'],
+    'auto_install': True,
     'version': '1.0',
     'description': """
 Morocco Payroll Rules.
