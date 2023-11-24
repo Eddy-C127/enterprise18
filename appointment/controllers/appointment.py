@@ -358,6 +358,24 @@ class AppointmentController(http.Controller):
             return appointment_type.staff_user_ids
         return appointment_type.staff_user_ids.filtered(lambda staff_user: staff_user.id in filter_staff_user_ids)
 
+    # Resource tools
+    # ------------------------------------------------------------
+
+    @http.route('/appointment/<int:appointment_type_id>/resource_avatar', type='http', auth="public")
+    def appointment_resource_avatar(self, appointment_type_id, resource_id=False, avatar_size=512):
+        """
+        Route used to bypass access rights on the appointment resource for public user.
+        Equivalent of ``appointment_staff_user_avatar()`` for appointment resource.
+        """
+        resource = request.env['appointment.resource'].sudo().browse(int(resource_id))
+        appointment_type = request.env['appointment.type'].sudo().browse(appointment_type_id)
+
+        resource = resource if appointment_type.avatars_display == 'show' and resource in appointment_type.resource_ids else request.env['appointment.resource']
+        return request.env['ir.binary']._get_image_stream_from(
+            resource,
+            field_name='avatar_%s' % (avatar_size if int(avatar_size) in [128, 256, 512, 1024, 1920] else 512),
+        ).get_response()
+
     # Tools / Data preparation
     # ------------------------------------------------------------
 
