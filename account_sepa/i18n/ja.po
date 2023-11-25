@@ -123,14 +123,14 @@ msgstr "仕訳帳"
 #: model:ir.model.fields,field_description:account_sepa.field_res_partner__account_sepa_lei
 #: model:ir.model.fields,field_description:account_sepa.field_res_users__account_sepa_lei
 msgid "LEI"
-msgstr ""
+msgstr "LEI(法人識別子)"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_res_company__account_sepa_lei
 #: model:ir.model.fields,help:account_sepa.field_res_partner__account_sepa_lei
 #: model:ir.model.fields,help:account_sepa.field_res_users__account_sepa_lei
 msgid "Legal Entity Identifier"
-msgstr ""
+msgstr "法人識別子"
 
 #. module: account_sepa
 #. odoo-python
@@ -154,7 +154,7 @@ msgstr "債権者参照当事者の名前。使用規則：70文字以内"
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_09
 msgid "New generic version (09)"
-msgstr ""
+msgstr "新ジェネリック版(09)"
 
 #. module: account_sepa
 #. odoo-python
@@ -328,6 +328,9 @@ msgid ""
 "- 18 alphanumeric characters with capital letters\n"
 "- 2 digits in the end\n"
 msgstr ""
+"LEI 番号は 20 文字で構成され、以下の構成と一致している必要があります: \n"
+"- 大文字の英数字 18 文字\n"
+"- 末尾に 2 桁の数字\n"
 
 #. module: account_sepa
 #. odoo-python

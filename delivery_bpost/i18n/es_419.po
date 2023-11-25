@@ -43,7 +43,7 @@ msgid ""
 "Authentication error -- wrong credentials\n"
 "(Detailed error: %s)"
 msgstr ""
-"Error de autenticación -- credenciales incorrectas\n"
+"Error de autenticación: las credenciales no son correctas \n"
 "(Detalles: %s)"
 
 #. module: delivery_bpost
@@ -266,7 +266,7 @@ msgid ""
 "The address of your company/warehouse is incomplete or wrong (Missing field(s):  \n"
 " %s)"
 msgstr ""
-"La dirección de su empresa/almacén no está completa o es errónea (Campos faltantes:\n"
+"La dirección de su empresa o almacén no está completa o es errónea (Campos faltantes:\n"
 "%s)"
 
 #. module: delivery_bpost
@@ -277,8 +277,8 @@ msgid ""
 "The estimated shipping price cannot be computed because all your products "
 "are service."
 msgstr ""
-"No se puede calcular el precio estimado del envío porque todos sus productos"
-" son servicios."
+"No se puede calcular el precio estimado del envío, todos los productos son "
+"servicios."
 
 #. module: delivery_bpost
 #. odoo-python
@@ -288,7 +288,7 @@ msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
 msgstr ""
-"El precio estimado de envío no puede ser calculado porque falta el peso para los siguientes productos: \n"
+"No se puede calcular el precio estimado de envío, falta el peso correspondiente a los siguientes productos: \n"
 " %s"
 
 #. module: delivery_bpost
@@ -299,7 +299,7 @@ msgid ""
 "The recipient address is incomplete or wrong (Missing field(s):  \n"
 " %s)"
 msgstr ""
-"La dirección de recepción está incompleta o es incorrecta (Campos faltantes:  \n"
+"La dirección de recepción no está completa o no es correcta (Campos faltantes:  \n"
 " %s)"
 
 #. module: delivery_bpost
@@ -329,7 +329,7 @@ msgstr "Números de rastreo:"
 #, python-format
 msgid "You cannot compute a passphrase for non-bpost carriers."
 msgstr ""
-"No puede calcular una frase de contraseña para transportistas que no sean "
+"No puede calcular una frase de contraseña para transportistas que no son "
 "bpost."
 
 #. module: delivery_bpost

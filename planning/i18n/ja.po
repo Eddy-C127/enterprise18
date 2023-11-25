@@ -3,8 +3,8 @@
 # 	* planning
 # 
 # Translators:
-# Junko Augias, 2023
 # Wil Odoo, 2023
+# Junko Augias, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Junko Augias, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,12 +47,12 @@ msgstr ".&amp;nbsp;"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "01/01/2023 5:00 PM"
-msgstr ""
+msgstr "01/01/2023 5:00 PM"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "01/01/2023 9:00 AM"
-msgstr ""
+msgstr "01/01/2023 9:00 AM"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -82,7 +82,7 @@ msgstr "16:00"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "8 hours"
-msgstr ""
+msgstr "8時間"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -498,13 +498,15 @@ msgid ""
 "<span class=\"align-middle\" invisible=\"overlap_slot_count == 0\">Prepare "
 "for the ultimate multi-tasking challenge:</span>"
 msgstr ""
+"<span class=\"align-middle\" invisible=\"overlap_slot_count == "
+"0\">究極のマルチタスクへの挑戦:</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid ""
 "<span class=\"align-middle\" invisible=\"overlap_slot_count == "
 "0\">conflict.</span>"
-msgstr ""
+msgstr "<span class=\"align-middle\" invisible=\"overlap_slot_count == 0\">不一致</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -1623,7 +1625,7 @@ msgstr "名称"
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
 #, python-format
 msgid "New Shift"
-msgstr ""
+msgstr "新しいシフト"
 
 #. module: planning
 #. odoo-python
@@ -1788,7 +1790,7 @@ msgstr "計画分析レポート"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Planning Meeting"
-msgstr ""
+msgstr "ミーティング計画"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_recurrency
@@ -1819,7 +1821,7 @@ msgstr "計画スロット"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__slot_properties_definition
 msgid "Planning Slot Properties"
-msgstr ""
+msgstr "スロットプロパティ計画"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -2025,7 +2027,7 @@ msgstr "リソース"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_color
 msgid "Resource color"
-msgstr ""
+msgstr "リソース色"
 
 #. module: planning
 #: model:ir.model,name:planning.model_resource_resource
@@ -2388,8 +2390,8 @@ msgid "The shift has successfully been sent."
 msgstr "シフトは無事送信されました。"
 
 #. module: planning
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 #: code:addons/planning/wizard/planning_send.py:0
 #, python-format

@@ -28,12 +28,12 @@ msgstr "(時間帯:"
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
 msgid "<i class=\"fa fa-check me-2\"/>Booked"
-msgstr ""
+msgstr "<i class=\"fa fa-check me-2\"/>予約済"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
 msgid "Awaiting Payment"
-msgstr ""
+msgstr "支払待ち"
 
 #. module: website_appointment_sale
 #: model:ir.model.fields,field_description:website_appointment_sale.field_sale_order_line__calendar_booking_ids
@@ -58,12 +58,12 @@ msgstr "打ち合わせ"
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.website_sale_confirmation_appointment
 msgid "Oops, it looks like the following Meeting(s) were not booked smoothly:"
-msgstr ""
+msgstr "以下のミーティングはスムーズに予約できなかったようです:"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
 msgid "Please Contact Us"
-msgstr ""
+msgstr "ご連絡下さい"
 
 #. module: website_appointment_sale
 #: model:ir.model.fields,field_description:website_appointment_sale.field_calendar_booking__order_line_id
@@ -87,7 +87,7 @@ msgstr "販売オーダ明細"
 msgid ""
 "The following bookings are not available anymore during the selected period "
 "and your cart must be updated. We are sorry for the inconvenience."
-msgstr ""
+msgstr "以下の予約は選択された期間中に利用できなくなり、カートを更新する必要があります。ご迷惑をおかけして申し訳ございません。"
 
 #. module: website_appointment_sale
 #. odoo-python
@@ -96,7 +96,7 @@ msgstr ""
 msgid ""
 "The following bookings were not confirmed due to insufficient availability "
 "or configuration changes: %s"
-msgstr ""
+msgstr "以下の予約は、空席が十分でなかったため、または構成が変更されたため、確定されませんでした:%s"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
@@ -106,7 +106,7 @@ msgstr "詳細を見る"
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.website_sale_confirmation_appointment
 msgid "We are looking forward to seeing you at the following Meeting(s):"
-msgstr ""
+msgstr "以下のミーティングにてお会いできることを楽しみにしております:"
 
 #. module: website_appointment_sale
 #: model:ir.model,name:website_appointment_sale.model_website
@@ -118,4 +118,4 @@ msgstr "サイト"
 #: code:addons/website_appointment_sale/models/sale_order.py:0
 #, python-format
 msgid "You cannot manually change the quantity of a Booking Fees product."
-msgstr ""
+msgstr "予約料金プロダクトの数量を手動で変更することはできません。"

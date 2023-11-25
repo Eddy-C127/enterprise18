@@ -32,7 +32,7 @@ msgstr "%(field name)s โดย %(order)s"
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 #, python-format
 msgid "%(name)s (restored from %(timestamp)s)"
-msgstr ""
+msgstr "%(name)s (เรียกคืนจาก %(timestamp)s)"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -67,14 +67,14 @@ msgstr "%(sortName)s (จากมากไปน้อย)"
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_control_panel.js:0
 #, python-format
 msgid "- dates: %s"
-msgstr ""
+msgstr "- วันที่: %s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_control_panel.js:0
 #, python-format
 msgid "- numbers: %s"
-msgstr ""
+msgstr "- หมายเลข: %s"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__active
@@ -121,7 +121,7 @@ msgstr "กรองงวดปัจจุบันโดยอัตโนม
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
 #, python-format
 msgid "Automatically filter on the current user"
-msgstr ""
+msgstr "กรองผู้ใช้ปัจจุบันโดยอัตโนมัติ"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -191,7 +191,7 @@ msgstr "สร้างเมื่อ"
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_line/odoo_line_config_panel.xml:0
 #, python-format
 msgid "Cumulative data"
-msgstr ""
+msgstr "ข้อมูลสะสม"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -205,14 +205,14 @@ msgstr "สกุลเงิน"
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 #, python-format
 msgid "Current Version"
-msgstr ""
+msgstr "เวอร์ชันปัจจุบัน"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog.js:0
 #, python-format
 msgid "Dashboards"
-msgstr "Dashboards"
+msgstr "แดชบอร์ด"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -260,6 +260,8 @@ msgid ""
 "Difference between user locale (%(user_locale)s) and spreadsheet locale "
 "(%(spreadsheet_locale)s). This spreadsheet is using the formats below:"
 msgstr ""
+"ความแตกต่างระหว่างภาษาของผู้ใช้ (%(user_locale)s) และภาษาของสเปรดชีต "
+"(%(spreadsheet_locale)s) สเปรดชีตนี้ใช้รูปแบบด้านล่าง:"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -357,7 +359,7 @@ msgstr "ตัวกรอง"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 #, python-format
 msgid "From / To"
-msgstr ""
+msgstr "จาก / ถึง"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__id
@@ -507,21 +509,21 @@ msgstr "รายการเมนู"
 #: code:addons/spreadsheet_edition/static/src/bundle/list/plugins/list_autofill_plugin.js:0
 #, python-format
 msgid "Missing list #%s"
-msgstr ""
+msgstr "รายการที่ขาดหายไป #%s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/plugins/pivot_autofill_plugin.js:0
 #, python-format
 msgid "Missing pivot"
-msgstr ""
+msgstr "Pivot ที่ขาดหายไป"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/plugins/pivot_autofill_plugin.js:0
 #, python-format
 msgid "Missing pivot #%s"
-msgstr ""
+msgstr "Pivot ที่ขาดหายไป #%s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -546,7 +548,7 @@ msgstr "เดือน"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 #, python-format
 msgid "Month / Quarter"
-msgstr ""
+msgstr "เดือน / ไตรมาส"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -560,7 +562,7 @@ msgstr "ชื่อของ %s:"
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 #, python-format
 msgid "Name this version"
-msgstr ""
+msgstr "ตั้งชื่อเวอร์ชันนี้"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -606,7 +608,7 @@ msgstr "ไม่มีการดูตัวอย่าง"
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 #, python-format
 msgid "Odoo Spreadsheet"
-msgstr ""
+msgstr "สเปรดชีต Odoo"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__parent_revision_id
@@ -661,7 +663,7 @@ msgstr "ก่อนหน้า"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
 #, python-format
 msgid "Quarter"
-msgstr "ควอเตอร์"
+msgstr "ไตรมาส"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -755,7 +757,7 @@ msgstr "ต้องมีฟิลด์ที่เลือก"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/text_filter_editor_side_panel.xml:0
 #, python-format
 msgid "Restrict values to a range"
-msgstr ""
+msgstr "จำกัดค่าให้อยู่ในช่วง"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__revision_id
@@ -765,7 +767,7 @@ msgstr "การแก้ไข"
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__name
 msgid "Revision name"
-msgstr ""
+msgstr "ชื่อการแก้ไข"
 
 #. module: spreadsheet_edition
 #: model:ir.actions.act_window,name:spreadsheet_edition.spreadsheet_revision_action
@@ -830,7 +832,7 @@ msgstr "ดูคุณสมบัติของ pivot"
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/index.js:0
 #, python-format
 msgid "See version history"
-msgstr ""
+msgstr "ดูประวัติเวอร์ชัน"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -865,7 +867,7 @@ msgstr "เลือกจำนวนเรคคอร์ดที่จะแ
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__server_revision_id
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__server_revision_id
 msgid "Server Revision"
-msgstr ""
+msgstr "การแก้ไขเซิร์ฟเวอร์"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -879,7 +881,7 @@ msgstr "ตั้งเป็นตัวกรอง"
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 #, python-format
 msgid "Snapshot"
-msgstr ""
+msgstr "ภาพรวม"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -959,6 +961,8 @@ msgid ""
 "The history of your spreadsheet is corrupted and you are likely missing "
 "recent revisions. This feature cannot be used."
 msgstr ""
+"ประวัติสเปรดชีตของคุณเสียหาย และคุณอาจพลาดการแก้ไขล่าสุด "
+"ไม่สามารถใช้ฟีเจอร์นี้ได้"
 
 #. module: spreadsheet_edition
 #. odoo-python
@@ -968,6 +972,7 @@ msgid ""
 "The operation could not be applied because of a concurrent update. Please "
 "try again."
 msgstr ""
+"ไม่สามารถใช้การดำเนินการได้เนื่องจากมีการอัปเดตพร้อมกัน กรุณาลองอีกครั้ง"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -978,13 +983,16 @@ msgid ""
 "\n"
 "Would you like to load the more recent modifications?"
 msgstr ""
+"มีการแก้ไขที่ขาดหายไปซึ่งทำให้ไม่สามารถกู้คืนประวัติฉบับทั้งหมดได้\n"
+"\n"
+"คุณต้องการที่จะโหลดการแก้ไขล่าสุดหรือไม่?"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 #, python-format
 msgid "There are no prior revisions for this spreadsheet."
-msgstr ""
+msgstr "ไม่มีการแก้ไขก่อนหน้านี้สำหรับสเปรดชีตนี้"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1007,7 +1015,7 @@ msgstr "รวม"
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/index.js:0
 #, python-format
 msgid "Version History"
-msgstr ""
+msgstr "ประวัติเวอร์ชัน"
 
 #. module: spreadsheet_edition
 #. odoo-javascript

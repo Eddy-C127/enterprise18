@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "<i class=\"fa fa-warning\"/>\n"
 "                        <span>\n"
-"                            일부 품목은 픽업할 수 있는 요청 수량이 없습니다.\n"
+"                            요청 수량만큼 수령할 수 없는 품목이 있습니다.\n"
 "                        </span>"
 
 #. module: sale_stock_renting
@@ -305,7 +305,7 @@ msgstr "재고 규칙"
 #: model:ir.model.fields,help:sale_stock_renting.field_product_product__preparation_time
 #: model:ir.model.fields,help:sale_stock_renting.field_product_template__preparation_time
 msgid "Temporarily make this product unavailable before pickup."
-msgstr "수령하기 전에 이 제품을 일시적으로 사용할 수 없도록 하십시오."
+msgstr "수령 전에 해당 품목을 일시 품절로 설정합니다."
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id

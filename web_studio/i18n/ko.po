@@ -228,7 +228,7 @@ msgstr "승인할 작업:"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Action to run"
-msgstr ""
+msgstr "실행할 작업"
 
 #. module: web_studio
 #. odoo-javascript
@@ -424,20 +424,20 @@ msgstr "보고서 형식에 대한 모든 변경 사항은 삭제되고 공장 �
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__group_id
 #, python-format
 msgid "Allowed Group"
-msgstr ""
+msgstr "허용 그룹"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__responsible_id
 msgid ""
 "An activity will be assigned to this user when an approval is requested"
-msgstr ""
+msgstr "승인이 요청되면 사용자에게 활동이 할당됩니다."
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "An approval for '%(rule_name)s' has been requested on %(record_name)s"
-msgstr ""
+msgstr "'%(rule_name)s'에 대해 %(record_name)s에 대한 승인이 요청되었습니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -482,7 +482,7 @@ msgstr "메서드 또는 작업 중 하나만 승인할 수 있으며, 둘 다 �
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Approvals missing"
-msgstr ""
+msgstr "결재 누락"
 
 #. module: web_studio
 #. odoo-javascript
@@ -691,7 +691,7 @@ msgstr "비즈니스 머리글/바닥글"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.js:0
 #, python-format
 msgid "Buttons Properties"
-msgstr ""
+msgstr "버튼 속성"
 
 #. module: web_studio
 #. odoo-javascript
@@ -706,7 +706,7 @@ msgstr "캘린더"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Call a method"
-msgstr ""
+msgstr "메서드 호출"
 
 #. module: web_studio
 #. odoo-javascript
@@ -745,14 +745,14 @@ msgstr "승인 가능"
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Can't patch 'create', 'write' and 'unlink'."
-msgstr ""
+msgstr "'만들기', '쓰기', '연결 해제' 패치를 적용할 수 없습니다."
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Can't patch private methods."
-msgstr ""
+msgstr "비공개 메서드에는 패치를 적용할 수 없습니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -823,7 +823,7 @@ msgstr "앱 이름을 선택하십시오"
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.xml:0
 #, python-format
 msgid "Choose the name of the menu"
-msgstr ""
+msgstr "메뉴의 이름을 선택합니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -936,7 +936,7 @@ msgstr "모델 설정"
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.xml:0
 #, python-format
 msgid "Configure model"
-msgstr ""
+msgstr "모델 설정"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1084,7 +1084,7 @@ msgstr "통화"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Current model:"
-msgstr ""
+msgstr "현재 모델:"
 
 #. module: web_studio
 #. odoo-python
@@ -1164,7 +1164,7 @@ msgstr "커스터마이징"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_xml/report_editor_xml.xml:0
 #, python-format
 msgid "DIFF"
-msgstr ""
+msgstr "DIFF"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1411,7 +1411,7 @@ msgstr "복사"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Dynamic Table"
-msgstr ""
+msgstr "동적 테이블"
 
 #. module: web_studio
 #. odoo-python
@@ -1552,12 +1552,12 @@ msgstr "오류"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #, python-format
 msgid "Exclusive Approval"
-msgstr ""
+msgstr "단독 승인"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__exclusive_user
 msgid "Exclusive approval"
-msgstr ""
+msgstr "단독 승인"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1702,7 +1702,7 @@ msgstr "1차원"
 msgid ""
 "For compatibility purpose with base_automation,approvals on 'create', "
 "'write' and 'unlink' methods are forbidden."
-msgstr ""
+msgstr "base_automation과의 호환성을 위해 '만들기', '쓰기', '연결 해제' 메서드에 대한 승인은 금지되어 있습니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1855,7 +1855,7 @@ msgstr "30분"
 msgid ""
 "Header and footer are shared with other reports which may be impacted by the"
 " reset."
-msgstr ""
+msgstr "머리글 및 바닥글은 다른 보고서와 공유되므로 이를 재설정하면 해당 보고서에도 영향을 미칠 수 있습니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1981,7 +1981,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Include header and footer"
-msgstr ""
+msgstr "머리글 및 바닥글 포함"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_ir_ui_menu__is_studio_configuration
@@ -2002,14 +2002,14 @@ msgstr "필드 삽입"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Insert a field..."
-msgstr ""
+msgstr "필드 삽입..."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Insert a table based on a relational field."
-msgstr ""
+msgstr "관계형 필드를 기반으로 테이블을 삽입합니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2064,7 +2064,7 @@ msgstr "기본 화면 여부"
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "It lacks a method to check."
-msgstr ""
+msgstr "확인할 수 있는 방법이 없습니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2100,7 +2100,7 @@ msgstr "라벨"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Label of the button"
-msgstr ""
+msgstr "버튼 라벨"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__write_uid
@@ -2121,7 +2121,7 @@ msgstr "최근 갱신 일자"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_xml/report_editor_xml.xml:0
 #, python-format
 msgid "Leave DIFF"
-msgstr ""
+msgstr "DIFF 나가기"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2243,7 +2243,7 @@ msgstr "방법"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Method to run"
-msgstr ""
+msgstr "실행 방법"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2302,7 +2302,7 @@ msgstr "모델"
 #: code:addons/web_studio/static/src/client_action/xml_resource_editor/xml_resource_editor.xml:0
 #, python-format
 msgid "Modified by:"
-msgstr ""
+msgstr "수정자:"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_module_module
@@ -2533,7 +2533,7 @@ msgstr "메모"
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__notification_order
 #, python-format
 msgid "Notification Order"
-msgstr ""
+msgstr "알림 순서"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__entries_count
@@ -2892,7 +2892,7 @@ msgstr "보고서 이름"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Report preview not available"
-msgstr ""
+msgstr "보고서 미리 보기를 사용할 수 없습니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3035,7 +3035,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Run a Server Action"
-msgstr ""
+msgstr "서버 작업 실행"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3250,7 +3250,7 @@ msgstr "천천히"
 msgid ""
 "Some records were skipped because approvals were missing to"
 "                                    proceed with your request: "
-msgstr ""
+msgstr "요청을 진행하기 위한 승인이 누락되어 일부 기록은 처리되지 않았습니다:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3374,7 +3374,7 @@ msgstr "스튜디오 승인 규칙"
 #: model:ir.actions.act_window,name:web_studio.studio_approval_rule_action
 #: model:ir.ui.menu,name:web_studio.menu_studio_approval_rule
 msgid "Studio Approval Rules"
-msgstr ""
+msgstr "스튜디오 승인 규칙"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_ui_menu__is_studio_configuration
@@ -3503,14 +3503,14 @@ msgstr "아이콘이 첨부 파일에 연결되어 있지 않습니다"
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The method %s does not exist on the model %s."
-msgstr ""
+msgstr "%s 매서드가 %s 모델에 존재하지 않습니다."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.js:0
 #, python-format
 msgid "The method %s is private."
-msgstr ""
+msgstr "매서드 %s는 비공개입니다."
 
 #. module: web_studio
 #. odoo-python
@@ -3527,7 +3527,7 @@ msgstr "%s 모델이 존재하지 않습니다"
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The model %s doesn't exist."
-msgstr ""
+msgstr "모델 %s이 존재하지 않습니다."
 
 #. module: web_studio
 #. odoo-python
@@ -3555,7 +3555,7 @@ msgstr "버튼의 관련 필드는 %s에 대한 many2one여야 합니다."
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 #, python-format
 msgid "The report is in error. Only editing the XML sources is permitted"
-msgstr ""
+msgstr "보고서에 오류가 있습니다. XML 소스만 편집할 수 있습니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3592,21 +3592,21 @@ msgstr "메서드%s가 모델 %s (%s)에 존재하지 않습니다"
 msgid ""
 "There is no record on which this report can be previewed. Create at least "
 "one record to preview the report."
-msgstr ""
+msgstr "이 보고서를 미리 볼 수 있는 레코드가 없습니다. 보고서를 미리 확인하려면 레코드를 하나 이상 생성하세요."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "There is no record to preview"
-msgstr ""
+msgstr "미리보기 할 레코드가 없습니다."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__users_to_notify
 msgid ""
 "These users will receive a notification via internal note when an approval "
 "is requested"
-msgstr ""
+msgstr "사용자는 승인 요청이 있을 때 내부 메모를 통해 알림을 받게 됩니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3656,7 +3656,7 @@ msgstr "편집한 부분의 구문이 잘못되었을 수 있습니다."
 msgid ""
 "This message will be displayed to users that cannot proceed without this "
 "approval"
-msgstr ""
+msgstr "이 메시지는 승인이 없이 작업을 진행할 수 없는 사용자에게 표시됩니다."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3737,6 +3737,8 @@ msgid ""
 "notifications for an approval request will only be sent once rules from "
 "previous levels have been validated"
 msgstr ""
+"이 필드를 사용하여 다단계 유효성 검사를 설정합니다. 승인 요청에 대한 후속 활동 및 알림은 이전 단계의 규칙이 유효성을 검사한 후에만 "
+"전송됩니다."
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_entry_search_view
@@ -3770,14 +3772,14 @@ msgstr "사용자가 선택한 그룹의 구성원이 아닙니다."
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__users_to_notify
 #, python-format
 msgid "Users to notify"
-msgstr ""
+msgstr "알림 대상 사용자"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/xml_resource_editor/xml_resource_editor.xml:0
 #, python-format
 msgid "Uses:"
-msgstr ""
+msgstr "사용:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3823,14 +3825,14 @@ msgstr "승인 대기 중"
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "Webhook Automations"
-msgstr ""
+msgstr "웹훅 자동화"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/editor_menu/editor_menu.js:0
 #, python-format
 msgid "Webhooks"
-msgstr ""
+msgstr "웹훅"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3858,7 +3860,7 @@ msgstr "환영합니다"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "What should the button do"
-msgstr ""
+msgstr "버튼의 기능은 무엇인가요?"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4029,4 +4031,4 @@ msgstr "x_studio_"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
 #, python-format
 msgid "{{ item.isInEdition ? 'Add selection' : 'Edit selection' }}"
-msgstr ""
+msgstr "{{ item.isInEdition ? 'Add selection' : 'Edit selection' }}"

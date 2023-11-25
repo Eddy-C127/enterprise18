@@ -4,6 +4,8 @@
 # 
 # Translators:
 # Milan Bojovic, 2023
+# Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
+# Martin Trigaux, 2023
 # 
 msgid ""
 msgstr ""
@@ -11,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Milan Bojovic, 2023\n"
+"Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +47,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_project_view_gantt
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_gantt
 msgid "<i class=\"fa fa-long-arrow-right\" title=\"Arrow\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-long-arrow-right\" title=\"Arrow\"/>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_form
@@ -56,17 +58,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_gantt
 msgid "<span class=\"fst-italic text-muted\"><i class=\"fa fa-lock\"/> Private</span>"
 msgstr ""
+"<span class=\"fst-italic text-muted\"><i class=\"fa fa-lock\"/> "
+"Privatni</span>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_gantt
 msgid "<strong>Assignees — </strong>"
-msgstr ""
+msgstr "<strong>Zaduženi — </strong>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_project_view_gantt
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_gantt
 msgid "<strong>Customer — </strong>"
-msgstr ""
+msgstr "<strong>Klijent — </strong>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.portal_my_task
@@ -86,19 +90,19 @@ msgstr ""
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_project_view_gantt
 msgid "<strong>Project Manager — </strong>"
-msgstr ""
+msgstr "<strong>Projekni menadžer — </strong>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_gantt
 msgid "<strong>Project — </strong>"
-msgstr ""
+msgstr "<strong>Projekat — </strong>"
 
 #. module: project_enterprise
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task__user_ids
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_map_view
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_map_view_no_title
 msgid "Assignees"
-msgstr ""
+msgstr "Zaduženi"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_form
@@ -125,7 +129,7 @@ msgstr ""
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_form_in_gantt
 msgid "Discard"
-msgstr ""
+msgstr "Poništi"
 
 #. module: project_enterprise
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task__display_warning_dependency_in_gantt
@@ -151,6 +155,8 @@ msgid ""
 "One parameter is missing to use this method. You should give a start and end"
 " dates."
 msgstr ""
+"Jedan parametar nedostaje za korišćenje ove metode. Trebalo bi da navedete "
+"datum početka i završetka."
 
 #. module: project_enterprise
 #. odoo-python
@@ -175,7 +181,7 @@ msgstr ""
 #: code:addons/project_enterprise/models/project_task.py:0
 #, python-format
 msgid "Overlapping Tasks"
-msgstr ""
+msgstr "Zadaci koji se preklapaju"
 
 #. module: project_enterprise
 #. odoo-python
@@ -184,7 +190,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_form
 #, python-format
 msgid "Planned Date"
-msgstr ""
+msgstr "Planirani Datum"
 
 #. module: project_enterprise
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task__planned_date_start
@@ -207,7 +213,7 @@ msgstr ""
 #: code:addons/project_enterprise/static/src/views/project_task_map/project_task_map_model.js:0
 #, python-format
 msgid "Private"
-msgstr ""
+msgstr "Privatno"
 
 #. module: project_enterprise
 #: model:ir.model,name:project_enterprise.model_project_project
@@ -224,7 +230,7 @@ msgstr ""
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_form_in_gantt
 msgid "Save"
-msgstr ""
+msgstr "Sačuvaj"
 
 #. module: project_enterprise
 #. odoo-python
@@ -239,12 +245,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task__planned_date_begin
 #: model:ir.model.fields,field_description:project_enterprise.field_report_project_task_user__planned_date_begin
 msgid "Start date"
-msgstr ""
+msgstr "Datum početka"
 
 #. module: project_enterprise
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task__partner_street
 msgid "Street"
-msgstr ""
+msgstr "Ulica"
 
 #. module: project_enterprise
 #: model:ir.model,name:project_enterprise.model_project_task
@@ -259,7 +265,7 @@ msgstr ""
 #. module: project_enterprise
 #: model:ir.model,name:project_enterprise.model_report_project_task_user
 msgid "Tasks Analysis"
-msgstr ""
+msgstr "Analiza zadataka"
 
 #. module: project_enterprise
 #. odoo-python
@@ -308,14 +314,14 @@ msgstr ""
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.res_config_settings_view_form
 msgid "Timesheets"
-msgstr ""
+msgstr "Karneti"
 
 #. module: project_enterprise
 #. odoo-javascript
 #: code:addons/project_enterprise/static/src/views/project_task_map/project_task_map_model.js:0
 #, python-format
 msgid "Unassigned"
-msgstr ""
+msgstr "Nedodeljeno"
 
 #. module: project_enterprise
 #. odoo-javascript
@@ -323,7 +329,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_form_in_gantt
 #, python-format
 msgid "Unschedule"
-msgstr ""
+msgstr "Otkaži"
 
 #. module: project_enterprise
 #: model:ir.model,name:project_enterprise.model_res_users
@@ -333,19 +339,19 @@ msgstr "Korisnik"
 #. module: project_enterprise
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task__user_names
 msgid "User Names"
-msgstr ""
+msgstr "Korisnička imena"
 
 #. module: project_enterprise
 #. odoo-javascript
 #: code:addons/project_enterprise/static/src/task_gantt_renderer.js:0
 #, python-format
 msgid "Warning"
-msgstr ""
+msgstr "Pažnja"
 
 #. module: project_enterprise
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task__partner_zip
 msgid "Zip"
-msgstr ""
+msgstr "Poštanski broj"
 
 #. module: project_enterprise
 #. odoo-javascript

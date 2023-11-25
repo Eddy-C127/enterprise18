@@ -5,6 +5,7 @@
 # Translators:
 # Noma Yuki, 2023
 # Wil Odoo, 2023
+# Junko Augias, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Junko Augias, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,6 +44,8 @@ msgid ""
 "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\" "
 "invisible=\"tracking not in ['serial', 'lot']\"/>"
 msgstr ""
+"<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\" "
+"invisible=\"tracking not in ['serial', 'lot']\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -642,7 +645,7 @@ msgstr "在庫ロケーション"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__is_barcode_picking_type
 msgid "Is Barcode Picking Type"
-msgstr ""
+msgstr "バーコードピッキングタイプ"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__write_uid
@@ -748,7 +751,7 @@ msgstr "バーコード%(barcode)sに対応するピッキングまたはプロ�
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "No product, lot or package found for barcode %s"
-msgstr ""
+msgstr "バーコード%s用にプロダクト、ロットおよび梱包が見つかりません。"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_nomenclature_id
@@ -881,7 +884,7 @@ msgstr "検証を押すか、他のプロダクトをスキャン"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Print Barcodes"
-msgstr ""
+msgstr "バーコード印刷"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -941,7 +944,7 @@ msgstr "プロダクト梱包"
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_reference_code
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_quant__product_reference_code
 msgid "Product Reference Code"
-msgstr ""
+msgstr "プロダクト参照コード"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_stock_quant_ids
@@ -1148,7 +1151,7 @@ msgstr "プロダクトをスキャン、次に移動先をスキャン"
 #, python-format
 msgid ""
 "Scan a product, a lot/serial number or a package to filter the transfers."
-msgstr ""
+msgstr "プロダクト、ロット/シリアル番号、または梱包をスキャンして転送をフィルタ"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1383,7 +1386,7 @@ msgstr "タップしてスキャン"
 msgid ""
 "Technical field indicating if should be used in barcode app and used to "
 "control visibility in the related UI."
-msgstr ""
+msgstr "バーコードアプリで使用されるべきかどうかを示す技術的なフィールドで、関連するUIで可視性を制御するために使用されます。"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__show_barcode_validation
@@ -1576,6 +1579,8 @@ msgid ""
 "You are about to take the product %(productName)s from the location %(locationName)s but this product isn't reserved in this location.\n"
 "Scan the current location to confirm that."
 msgstr ""
+"プロダクト%(productName)sをロケーション%(locationName)sから持ち出そうとしていますが、このプロダクトはこの場所に予約されていません。\n"
+"確認するには現在のロケーションをスキャンして下さい。"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1638,7 +1643,7 @@ msgstr "プロダクトをスキャンして下さい。"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "[${product.code}] "
-msgstr ""
+msgstr "[${product.code}] "
 
 #. module: stock_barcode
 #. odoo-javascript

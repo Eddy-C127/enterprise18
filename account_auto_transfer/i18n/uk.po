@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
 # Martin Trigaux, 2023
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,12 +34,12 @@ msgstr "Шаблон плану рахунків"
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_transfer_model
 msgid "Account Transfer Model"
-msgstr "Модель переміщення рахунку"
+msgstr "Модель проводки"
 
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_transfer_model_line
 msgid "Account Transfer Model Line"
-msgstr "Рядок моделі переміщення рахунку"
+msgstr "Рядок моделі проводки"
 
 #. module: account_auto_transfer
 #: model:ir.actions.server,name:account_auto_transfer.ir_cron_auto_transfer_ir_actions_server
@@ -77,21 +77,21 @@ msgstr "Фільтр аналітики"
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Automated Transfer"
-msgstr "Автоматичне переміщення"
+msgstr "Автоматична проводка"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (%s%% from account %s)"
-msgstr "Автоматичне переміщення (%s%% з рахунку %s)"
+msgstr "Автоматична проводка (%s%% з рахунку %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (-%s%%)"
-msgstr "Автоматичне переміщення (-%s%%)"
+msgstr "Автоматична проводка (-%s%%)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -100,22 +100,21 @@ msgstr "Автоматичне переміщення (-%s%%)"
 msgid ""
 "Automatic Transfer (entries with analytic account(s): %s and partner(s): %s)"
 msgstr ""
-"Автоматичне переміщення (записи з аналітичними рахунками: %s та партнерами: "
-"%s)"
+"Автоматична проводка (записи з аналітичними рахунками: %s та партнерами: %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (entries with analytic account(s): %s)"
-msgstr "Автоматичне переміщення (записи з аналітичним рахунком(и): %s)"
+msgstr "Автоматична проводка (записи з аналітичним рахунком(и): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (entries with partner(s): %s)"
-msgstr "Автоматичні переміщення (записи з партнерами: %s)"
+msgstr "Автоматичні проводки (записи з партнерами: %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -125,35 +124,35 @@ msgid ""
 "Automatic Transfer (from account %s with analytic account(s): %s and "
 "partner(s): %s)"
 msgstr ""
-"Автоматичне переміщення (з рахунку %s з аналітичним рахунком: %s та "
-"партнером: %s)"
+"Автоматична проводка (з рахунку %s з аналітичним рахунком: %s та партнером: "
+"%s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (from account %s with analytic account(s): %s)"
-msgstr "Автоматичне переміщення (з рахунку %s з аналітичним рахунком(и): %s)"
+msgstr "Автоматична проводка (з рахунку %s з аналітичним рахунком(и): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (from account %s with partner(s): %s)"
-msgstr "Автомтаичне переміщення (з рахунку %s з партнером: %s)"
+msgstr "Автомтаична проводка (з рахунку %s з партнером: %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (to account %s)"
-msgstr "Автоматичне переміщення (в рахунок %s)"
+msgstr "Автоматична проводка (на рахунок %s)"
 
 #. module: account_auto_transfer
 #: model:ir.actions.act_window,name:account_auto_transfer.transfer_model_action
 #: model:ir.ui.menu,name:account_auto_transfer.menu_auto_transfer
 msgid "Automatic Transfers"
-msgstr "Автоматичні переміщення"
+msgstr "АвтоматичнІ проводки"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__company_id
@@ -168,7 +167,7 @@ msgstr "Компанія-власник цього журналу"
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Compute Transfer"
-msgstr "Розрахувати переміщення"
+msgstr "Підрахунок проведень"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__create_uid
@@ -293,22 +292,22 @@ msgstr "Підрахунок Id переміщень"
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Move Model"
-msgstr "Модель переміщення"
+msgstr "Модель проводки"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_tree
 msgid "Move Models"
-msgstr "Моделі переміщення"
+msgstr "Моделі проводок"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__name
 msgid "Name"
-msgstr "Ім'я"
+msgstr "Назва"
 
 #. module: account_auto_transfer
 #: model:ir.model.constraint,message:account_auto_transfer.constraint_account_transfer_model_line_unique_account_by_transfer_model
 msgid "Only one account occurrence by transfer model"
-msgstr "Лише одне виникнення рахунку за моделлю переказу"
+msgstr "Лише одне виникнення рахунку за моделлю проводки"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__account_ids
@@ -425,12 +424,12 @@ msgstr "Всього відсотків"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__transfer_model_id
 msgid "Transfer Model"
-msgstr "Модель переміщення"
+msgstr "Модель проведення"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Transfers"
-msgstr "Переміщення"
+msgstr "Проведення"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields.selection,name:account_auto_transfer.selection__account_transfer_model__frequency__year

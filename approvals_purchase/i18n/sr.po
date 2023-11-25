@@ -2,12 +2,17 @@
 # This file contains the translation of the following modules:
 # 	* approvals_purchase
 # 
+# Translators:
+# Martin Trigaux, 2023
+# Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,21 +26,23 @@ msgid ""
 "Allows you to define which documents you would like to create once the "
 "request has been approved"
 msgstr ""
+"Omogućava vam da definišete koje dokumente želite da kreirate kada zahtev "
+"bude odobren"
 
 #. module: approvals_purchase
 #: model:ir.model,name:approvals_purchase.model_approval_category
 msgid "Approval Category"
-msgstr ""
+msgstr "Kategorija odobrenja"
 
 #. module: approvals_purchase
 #: model:ir.model,name:approvals_purchase.model_approval_request
 msgid "Approval Request"
-msgstr ""
+msgstr "Zahtev za odobrenje"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_category__approval_type
 msgid "Approval Type"
-msgstr ""
+msgstr "Vrsta odobrenja"
 
 #. module: approvals_purchase
 #: model:approval.category,name:approvals_purchase.approval_category_data_rfq
@@ -47,39 +54,39 @@ msgstr ""
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
 msgid "Exception occurred: the Approval Request"
-msgstr ""
+msgstr "Došlo je do izuzetka: Zahtev za odobrenje"
 
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
 msgid "Exception(s):"
-msgstr ""
+msgstr "Izuzetak(ci):"
 
 #. module: approvals_purchase
 #. odoo-python
 #: code:addons/approvals_purchase/models/approval_product_line.py:0
 #, python-format
 msgid "Please set a vendor on product(s) %s."
-msgstr ""
+msgstr "Podesite dobavljača za proizvod(e) %s."
 
 #. module: approvals_purchase
 #: model:ir.model,name:approvals_purchase.model_approval_product_line
 msgid "Product Line"
-msgstr ""
+msgstr "Linija proizvoda"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__product_id
 msgid "Products"
-msgstr ""
+msgstr "Proizvod"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_request__purchase_order_count
 msgid "Purchase Order Count"
-msgstr ""
+msgstr "Brojač naloga za nabavku"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__purchase_order_line_id
 msgid "Purchase Order Line"
-msgstr ""
+msgstr "Linija naloga za nabavku"
 
 #. module: approvals_purchase
 #. odoo-python
@@ -87,7 +94,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.approval_purchase_request_view_form_inherit
 #, python-format
 msgid "Purchase Orders"
-msgstr ""
+msgstr "Nalozi za nabavku"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__po_uom_qty
@@ -98,26 +105,26 @@ msgstr ""
 #: model:ir.model.fields,help:approvals_purchase.field_approval_product_line__po_uom_qty
 msgid ""
 "The quantity converted into the UoM used by the product in Purchase Order."
-msgstr ""
+msgstr "Količina pretvorena u JM koju koristi proizvod u Nalogu za nabavku."
 
 #. module: approvals_purchase
 #. odoo-python
 #: code:addons/approvals_purchase/models/approval_request.py:0
 #, python-format
 msgid "You cannot create an empty purchase request."
-msgstr ""
+msgstr "Ne možete kreirati prazan zahtev za nabavku."
 
 #. module: approvals_purchase
 #. odoo-python
 #: code:addons/approvals_purchase/models/approval_request.py:0
 #, python-format
 msgid "You must select a product for each line of requested products."
-msgstr ""
+msgstr "Morate odabrati proizvod za svaku liniju traženih proizvoda."
 
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
 msgid "cancelled"
-msgstr ""
+msgstr "otkazano"
 
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
@@ -125,8 +132,10 @@ msgid ""
 "has been canceled.\n"
 "            Manual actions may be needed."
 msgstr ""
+"je otkazan.\n"
+"            Ručna akcija će možda biti neophodna."
 
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
 msgid "of"
-msgstr ""
+msgstr "od"

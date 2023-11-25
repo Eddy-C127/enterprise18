@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -242,6 +243,8 @@ msgid ""
 "After the data extraction, check and validate the bill. If no vendor has "
 "been found, add one before validating."
 msgstr ""
+"Na de gegevensextractie controleert en bevestig je de factuur. Als er geen "
+"leverancier is gevonden, voeg er dan een toe voordat je bevestigt."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -350,7 +353,7 @@ msgstr "Weet je zeker dat je dit afschrift wilt verwijderen?"
 #: code:addons/account_accountant/static/src/components/move_line_list_reconcile/move_line_list_reconcile.xml:0
 #, python-format
 msgid "Auto-reconcile"
-msgstr ""
+msgstr "Automatisch afstemmen"
 
 #. module: account_accountant
 #. odoo-python
@@ -478,6 +481,7 @@ msgstr ""
 msgid ""
 "Click on a fetched bank transaction to start the reconciliation process."
 msgstr ""
+"Klik op een opgehaalde banktransactie om het afstemmingsproces te starten."
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_res_company
@@ -886,23 +890,23 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Generate Deferred Expense Entries Method"
-msgstr ""
+msgstr "Methode voor het genereren van uitgestelde uitgavenposten"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_revenue_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Generate Deferred Revenue Entries Method"
-msgstr ""
+msgstr "Methode voor uitgestelde omzetinvoer genereren"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Generate Expense Entries"
-msgstr ""
+msgstr "Genereer onkostenposten"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Generate Revenue Entries"
-msgstr ""
+msgstr "Genereer omzetgegevens"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -921,6 +925,8 @@ msgid ""
 "Great! Let’s continue.<br/><br/><i>Tip: If you choose to upload your bill, "
 "don’t forget to attach it.</i>"
 msgstr ""
+"Geweldig! Laten we doorgaan.<br/><br/> <i>Tip: Als u ervoor kiest uw factuur"
+" te uploaden, vergeet deze dan niet toe te voegen.</i>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1090,7 +1096,7 @@ msgstr "Boekingsregels"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_move_line_posted_unreconciled
 msgid "Journal Items to reconcile"
-msgstr ""
+msgstr "Journaalposten die moeten worden afgestemd"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1251,12 +1257,12 @@ msgstr "Methode gebruikt om het bedrag van uitgestelde boekingen te berekenen"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Method used to generate deferred expense entries"
-msgstr ""
+msgstr "Methode die wordt gebruikt om uitgestelde onkostenposten te genereren"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Method used to generate deferred revenue entries"
-msgstr ""
+msgstr "Methode die wordt gebruikt om uitgestelde omzetboekingen te genereren"
 
 #. module: account_accountant
 #. odoo-python
@@ -1365,12 +1371,12 @@ msgstr "Niets te doen hier!"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__on_validation
 msgid "On bill validation"
-msgstr ""
+msgstr "Bij factuurvalidatie"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__on_validation
 msgid "On invoice validation"
-msgstr ""
+msgstr "Bij factuurvalidatie"
 
 #. module: account_accountant
 #. odoo-python
@@ -1652,12 +1658,12 @@ msgstr "Registreer de kostprijs van goederen in je boekingen"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Purchase(s)"
-msgstr ""
+msgstr "Gerelateerde aankoop(en)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Sale(s)"
-msgstr ""
+msgstr "Gerelateerde verkoop(en)"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1705,7 +1711,7 @@ msgstr "Opslaan & Nieuw"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Search Journal Items to Reconcile"
-msgstr ""
+msgstr "Zoek journaalitems om af te stemmen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_aml_ids
@@ -1788,7 +1794,7 @@ msgstr "Startdatum, in dit boekjaar inbegrepen."
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__state
 msgid "State"
-msgstr "Staat"
+msgstr "Status"
 
 #. module: account_accountant
 #: model:ir.actions.server,name:account_accountant.action_bank_statement_attachment
@@ -2174,6 +2180,8 @@ msgid ""
 "You cannot change the account for a deferred line in %(move_name)s if it has"
 " already been deferred."
 msgstr ""
+"U kunt de rekening voor een uitgestelde lijn in %(move_name)s niet wijzigen "
+"als deze al is uitgesteld."
 
 #. module: account_accountant
 #. odoo-python

@@ -3,8 +3,8 @@
 # 	* account_reports
 # 
 # Translators:
-# Junko Augias, 2023
 # Wil Odoo, 2023
+# Junko Augias, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Junko Augias, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +46,7 @@ msgstr "%sは数値ではありません"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "%s selected"
-msgstr ""
+msgstr "%s選択済 "
 
 #. module: account_reports
 #. odoo-python
@@ -133,7 +133,7 @@ msgstr "91-120"
 msgid ""
 "<i>Errors marked with <i class=\"fa fa-warning\"/> are critical and prevent "
 "the file generation.</i>"
-msgstr ""
+msgstr "<i> <i class=\"fa fa-warning\"/>と記されたエラーは重大でファイル生成を妨げます</i>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.partner_view_buttons
@@ -143,7 +143,7 @@ msgstr "<span class=\"o_stat_text\">仕入先元帳</span>"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "<span>One or more error(s) occurred during file generation:</span>"
-msgstr ""
+msgstr "<span>ファイル生成中に1つ以上のエラーが発生しました:</span>"
 
 #. module: account_reports
 #: model:ir.model.constraint,message:account_reports.constraint_account_report_horizontal_group_name_uniq
@@ -155,7 +155,7 @@ msgstr "同じ名称を持つ水平方向グループはすでに存在してい
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.js:0
 #, python-format
 msgid "A line with a 'Group By' value cannot have children."
-msgstr ""
+msgstr "'以下でグループ化'値を持つ行は子を持つことができません。"
 
 #. module: account_reports
 #. odoo-python
@@ -431,7 +431,7 @@ msgstr "全売掛金"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Report Variants"
-msgstr ""
+msgstr "全てのレポートバリアント"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -999,7 +999,7 @@ msgstr "為替レート (%s)"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Currency:"
-msgstr ""
+msgstr "通貨:"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.deferred_expense_current
@@ -1146,7 +1146,7 @@ msgstr "減価償却"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
 msgid "Display Custom Groupby Warning"
-msgstr ""
+msgstr "カスタムグループ化警告を表示"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__display_name
@@ -1180,7 +1180,7 @@ msgstr "国内"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "Download Anyway"
-msgstr ""
+msgstr "いずれにしてもダウンロードする"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1252,7 +1252,7 @@ msgstr "セクションを有効にする"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_variant.xml:0
 #, python-format
 msgid "Enable more ..."
-msgstr ""
+msgstr "さらに有効化..."
 
 #. module: account_reports
 #. odoo-python
@@ -1356,7 +1356,7 @@ msgstr "顧客明細書経由で手動で設定された支払予定日（例：
 msgid ""
 "Expected payment date for journal item %r has been changed from %s to %s on "
 "journal entry %r"
-msgstr ""
+msgstr "仕訳項目 %r の支払予定日が、仕訳%r で%sから%sに変更されました。"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__expense_provision_account_id
@@ -1443,17 +1443,17 @@ msgstr "フィールド「カスタムハンドラーモデル」は[%s]から�
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_content
 msgid "File Content"
-msgstr ""
+msgstr "ファイルコンテンツ"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "File Download Errors"
-msgstr ""
+msgstr "ファイルダウンロードエラー"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_generation_errors
 msgid "File Generation Errors"
-msgstr ""
+msgstr "ファイル生成エラー"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_name
@@ -1471,7 +1471,7 @@ msgstr "フィルタ"
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 #, python-format
 msgid "Filters:"
-msgstr ""
+msgstr "フィルタ:"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1650,7 +1650,7 @@ msgstr "グループ名"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Group by:"
-msgstr ""
+msgstr "グループ化:"
 
 #. module: account_reports
 #. odoo-python
@@ -1705,7 +1705,7 @@ msgstr "レポート用水平グループ規則"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Horizontal:"
-msgstr ""
+msgstr "水平:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1835,21 +1835,21 @@ msgstr "域内税は、以下のものに適用されます："
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Partners"
-msgstr ""
+msgstr "無効な取引先"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Products"
-msgstr ""
+msgstr "無効なプロダクト"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Taxes"
-msgstr ""
+msgstr "無効な税"
 
 #. module: account_reports
 #. odoo-python
@@ -2105,7 +2105,7 @@ msgstr "消込のエントリを作成します。"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_file_download_error_wizard
 msgid "Manage the file generation errors from report exports."
-msgstr ""
+msgstr "レポートエクスポートからファイル生成エラーを管理します。"
 
 #. module: account_reports
 #. odoo-python
@@ -2144,7 +2144,7 @@ msgstr "メソッド「%s」はプレフィックス'%s' で始まる必要が�
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Missing Company Data"
-msgstr ""
+msgstr "不明な会社データ"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__res_model_name
@@ -2227,7 +2227,9 @@ msgid "Net profit margin (net profit / income)"
 msgstr "純利益率 (純利益 ÷ 収益)"
 
 #. module: account_reports
+#. odoo-python
 #. odoo-javascript
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "No"
@@ -2465,7 +2467,7 @@ msgstr "取引先"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Partners Categories:"
-msgstr ""
+msgstr "取引先カテゴリ:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
@@ -2700,7 +2702,7 @@ msgstr "レポート"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "Reset to Standard"
-msgstr ""
+msgstr "標準に再設定"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings0
@@ -2863,7 +2865,7 @@ msgstr "税額"
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_alert
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_alert
 msgid "Tax Closing Alert"
-msgstr ""
+msgstr "税クロージング警告"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_end_date
@@ -3164,17 +3166,17 @@ msgstr "この会社は税ユニットの一部です。現在、全ユニット
 msgid ""
 "This line and all its children will be deleted. Are you sure you want to "
 "proceed?"
-msgstr ""
+msgstr "この行とその子行はすべて削除されます。本当に続けますか？"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "This line uses a custom user-defined 'Group By' value."
-msgstr ""
+msgstr "この行では、ユーザ定義のカスタム'グループ化'値を使用します。"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "This option hides lines with a value of 0"
-msgstr ""
+msgstr "このオプションは、値が0の行を非表示にします。"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3182,6 +3184,8 @@ msgid ""
 "This report is linked to a custom handler.\n"
 "                        You can customize it manually, but make sure your changes don't clash with what the handler does."
 msgstr ""
+"このレポートはカスタムハンドラにリンクされています。\n"
+"手動でカスタマイズすることもできますが、ハンドラが行うことと変更が衝突しないようにして下さい。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3198,6 +3202,7 @@ msgid ""
 "its content, in case other entries using taxes have been posted in the "
 "meantime."
 msgstr ""
+"この税クロージング仕訳は計上されていますが、税ロック日が対象期間の最終日よりも早いです。その間に税金を使用した他の仕訳が記帳された場合、この仕訳をドラフトにリセットし、内容を更新する必要があるかもしれません。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3455,7 +3460,9 @@ msgid "XLSX"
 msgstr "XLSX"
 
 #. module: account_reports
+#. odoo-python
 #. odoo-javascript
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "Yes"
@@ -3480,7 +3487,7 @@ msgstr "VAT締切日のない仕訳から会計報告書を開くことはでき
 #: code:addons/account_reports/models/account_move_line.py:0
 #, python-format
 msgid "You cannot add taxes on a tax closing move line."
-msgstr ""
+msgstr "税クロージング仕訳明細で税金を追加することはできません。"
 
 #. module: account_reports
 #. odoo-python
