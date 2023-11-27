@@ -139,6 +139,7 @@ class AccountMove(models.Model):
         comodel_name='account.move',
         string="Substituted By",
         compute='_compute_l10n_mx_edi_cfdi_cancel_id',
+        index='btree_not_null',
     )
 
     # ==== CFDI certificate fields ====
