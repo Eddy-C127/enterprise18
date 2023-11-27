@@ -367,3 +367,38 @@ class TestSalePlanning(TestCommonSalePlanning):
         self.assertIn('sale_line_planned', shifts_data)
         self.assertEqual(len(shifts_data['open_shift_assigned']), 0)
         self.assertEqual(len(shifts_data['sale_line_planned']), 0)
+
+    def test_auto_planning_of_shift_on_canceled_sale_order_line(self):
+        so_form = Form(self.env['sale.order'])
+        so_form.partner_id = self.planning_partner
+        with so_form.order_line.new() as sol_form:
+            sol_form.product_id = self.plannable_product
+            sol_form.product_uom_qty = 120
+        so = so_form.save()
+        so.action_confirm()
+
+        slot = self.env['planning.slot'].with_context(
+            default_start_datetime='2021-07-25 00:00:00',
+            default_end_datetime='2021-07-31 23:59:59',
+            scale='week',
+            focus_date='2021-07-31 00:00:00',
+            planning_gantt_active_sale_order_id=so.id,
+        )
+        self.employee_wout.write({'default_planning_role_id': self.planning_role_junior})
+        with freeze_time('2021-07-26'):
+            slot.auto_plan_ids(view_domain=[('start_datetime', '=', '2021-07-25 00:00:00'), ('end_datetime', '=', '2021-07-31 23:59:59')])
+
+        # Hours to plan should be 80 as 40 hours of shift is planned
+        self.assertEqual(so.planning_hours_to_plan, 80)
+
+        # Create a sale order cancel wizard, and cancel the sale order
+        return_form = Form(self.env['sale.order.cancel'].with_context({'default_order_id': so.id}))
+        return_wizard = return_form.save()
+        return_wizard.action_cancel()
+
+        with freeze_time('2021-08-02'):
+            slot.auto_plan_ids(view_domain=[('start_datetime', '=', '2021-08-01 00:00:00'), ('end_datetime', '=', '2021-08-07 23:59:59')])
+
+        # Assert that planning hours to plan on the sale order are still correct after auto-planning, even after cancellation
+        unplanned_shift = self.env['planning.slot'].search([('sale_order_id', 'in', so.ids), '|', ('start_datetime', '=', False), ('resource_id', '=', False)])
+        self.assertFalse(unplanned_shift.exists())

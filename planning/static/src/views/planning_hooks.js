@@ -113,7 +113,7 @@ export class PlanningControllerActions {
 
     async autoPlan() {
         const additionalContext = this.getAdditionalContext();
-        const res = await this.orm.call(this.getResModel(), "auto_plan_ids", [this.getDomain()], {
+        const res = await this.orm.call(this.getResModel(), "auto_plan_ids", [this.autoPlanDomain()], {
             context: additionalContext,
         });
         const { open_shift_assigned = [], sale_line_planned = [] } = res;
@@ -165,6 +165,10 @@ export class PlanningControllerActions {
             }
         );
         this.toggleHighlightPlannedFilter([...open_shift_assigned, ...sale_line_planned]);
+    }
+
+    autoPlanDomain() {
+        return this.getDomain();
     }
 
     autoPlanSuccessNotification() {

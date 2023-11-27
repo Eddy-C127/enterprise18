@@ -58,6 +58,11 @@ class SaleOrder(models.Model):
     # Action methods
     # -----------------------------------------------------------------
 
+    def _action_cancel(self):
+        result = super()._action_cancel()
+        self.sudo()._unplanned_shift_deletion()
+        return result
+
     def _action_confirm(self):
         """ On SO confirmation, some lines should generate a planning slot. """
         result = super()._action_confirm()
@@ -78,3 +83,7 @@ class SaleOrder(models.Model):
                 'planning_gantt_active_sale_order_id': self.id}
         })
         return action
+
+    def _unplanned_shift_deletion(self):
+        unplanned_shift = self.env['planning.slot'].search([('sale_order_id', 'in', self.ids), '|', ('start_datetime', '=', False), ('resource_id', '=', False)])
+        unplanned_shift.unlink()

@@ -20,7 +20,11 @@ patch(PlanningGanttRenderer.prototype, {
         if (this.roleIds.length) {
             domain = Domain.and([domain, [['role_id', 'in', this.roleIds]]]);
         }
-        return Domain.and([domain, [["sale_line_id", "!=", false]]]).toList({});
+        return Domain.and([
+            domain,
+            [['sale_line_id.state', '!=', 'cancel']],
+            [["sale_line_id", "!=", false]]
+        ]).toList({});
     },
     getSelectCreateDialogProps() {
         const props = super.getSelectCreateDialogProps(...arguments);

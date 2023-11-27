@@ -106,6 +106,7 @@ QUnit.test('Process domain for plan dialog', async function (assert) {
             new Domain(['&', ...Domain.TRUE.toList({}), ...Domain.TRUE.toList({})]),
             ['|', ['start_datetime', '=', false], ['end_datetime', '=', false]],
         ]),
+        [["sale_line_id.state", "!=", "cancel"]],
         [['sale_line_id', '!=', false]],
     ]);
     assert.deepEqual(
@@ -124,6 +125,7 @@ QUnit.test('Process domain for plan dialog', async function (assert) {
             ]),
             ['|', ['start_datetime', '=', false], ['end_datetime', '=', false]],
         ]),
+        [["sale_line_id.state", "!=", "cancel"]],
         [['sale_line_id', '!=', false]],
     ]);
     assert.deepEqual(
@@ -139,6 +141,7 @@ QUnit.test('Process domain for plan dialog', async function (assert) {
             Domain.TRUE,
             ['|', ['start_datetime', '=', false], ['end_datetime', '=', false]],
         ]),
+        [["sale_line_id.state", "!=", "cancel"]],
         [['sale_line_id', '!=', false]],
     ]);
     assert.deepEqual(

@@ -962,8 +962,11 @@ class Planning(models.Model):
     def auto_plan_id(self):
         """ Used in the form view to auto plan a single shift.
         """
+        self.ensure_one()
         if not self.with_context(planning_slot_id=self.id).auto_plan_ids([('id', '=', self.id)]):
             return self._get_notification_action("danger", _("There are no resources available for this open shift."))
+        elif self.sale_order_id.state == 'cancel':
+            return self._get_notification_action("danger", _("You are attempting to create a slot for a cancelled sales order."))
 
     @api.model
     def auto_plan_ids(self, view_domain):

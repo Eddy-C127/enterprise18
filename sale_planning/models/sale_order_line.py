@@ -128,7 +128,7 @@ class SaleOrderLine(models.Model):
         for so_line in self:
             if (so_line.product_id.type == 'service'
                and so_line.product_id.planning_enabled
-               and not so_line.planning_slot_ids
+               and not so_line.planning_slot_ids.filtered(lambda shift: not shift.start_datetime)
                and float_compare(
                     so_line.planning_hours_to_plan,
                     so_line.planning_hours_planned,
