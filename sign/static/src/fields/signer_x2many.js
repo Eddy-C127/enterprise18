@@ -2,7 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
-import { X2ManyField } from "@web/views/fields/x2many/x2many_field";
+import { X2ManyField, x2ManyField } from "@web/views/fields/x2many/x2many_field";
 import { Many2OneField } from "@web/views/fields/many2one/many2one_field";
 import { IntegerField } from "@web/views/fields/integer/integer_field";
 
@@ -16,7 +16,6 @@ export class SignerX2Many extends X2ManyField {
 
     static props = {
         ...X2ManyField.props,
-        context: { type: Object, optional: true },
     };
 
     get partnerIdFieldInfo() {
@@ -25,7 +24,7 @@ export class SignerX2Many extends X2ManyField {
             additionalProps: {
                 readonly: false,
                 placeholder: _t("Type a name or email..."),
-                context: "{'force_email': True, 'show_email': True}",
+                context: { force_email: true, show_email: true },
             },
         };
     }
@@ -48,6 +47,7 @@ const signerX2Many = {
         ];
     },
     fieldDependencies: [{ name: "set_sign_order", type: "boolean" }],
+    extractProps: x2ManyField.extractProps,
 };
 
 registry.category("fields").add("signer_x2many", signerX2Many);
