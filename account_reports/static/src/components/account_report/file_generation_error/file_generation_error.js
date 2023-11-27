@@ -16,7 +16,7 @@ export class FileGenerationErrorWidget extends Component {
         const reportAction = await this.env.model.orm.call(
             wizard.resModel,
             error.action_name,
-            [wizard.resId, ...error.action_params],
+            [wizard.resId, error.action_params],
         );
         this.env.model.action.doAction(reportAction);
     }
