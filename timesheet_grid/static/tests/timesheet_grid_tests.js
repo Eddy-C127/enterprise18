@@ -94,7 +94,7 @@ QUnit.module("Views", (hooks) => {
             6,
             "should have 6 rows displayed in the grid"
         );
-        assertOutOfRangeCells(target, assert, ["25:00", "-3:30"]);
+        assertOutOfRangeCells(target, assert, ["-3:30", "25:00"]);
     });
 
     QUnit.test("basic timesheet - groupby employees", async function (assert) {
@@ -159,7 +159,7 @@ QUnit.module("Views", (hooks) => {
             "should have 5 many2one widgets in total"
         );
         assert.containsN(target, ".o_grid_component", 11, "should have 11 widgets in total");
-        assertOutOfRangeCells(target, assert, ["25:00", "-3:30"]);
+        assertOutOfRangeCells(target, assert, ["-3:30", "25:00"]);
     });
 
     QUnit.test("basic timesheet - groupby task>employees", async function (assert) {

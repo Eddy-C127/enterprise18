@@ -891,13 +891,13 @@ QUnit.module("Views", (hooks) => {
         assert.deepEqual(getRowWithTimerRunningOrNot(), [false, true, false, false, false]);
         assert.strictEqual(
             target.querySelector(".timesheet-timer .o_field_widget[name=project_id] input").value,
-            "P1",
+            "Webocalypse Now",
             "project_id in the timer header should be the one in the first row"
         );
         assert.strictEqual(
             target.querySelector(".timesheet-timer .o_field_widget[name=task_id] input").value,
-            "BS task",
-            "task_id in the timer header should be the one in the first row (BS task is expected)"
+            "Another BS task",
+            "task_id in the timer header should be the one in the first row (Another BS task is expected)"
         );
         assert.strictEqual(
             target.querySelector(".timesheet-timer .o_field_widget[name=name] input").value,
