@@ -30,6 +30,8 @@ export class KnowledgeArticleFormController extends FormController {
             renameArticle: this.renameArticle.bind(this),
             toggleAsideMobile: this.toggleAsideMobile.bind(this),
             topbarMountedPromise: this.topbarMountedPromise,
+            save: this.save.bind(this),
+            discard: this.discard.bind(this),
         });
         // Unregister the current candidate recordInfo for Knowledge macros in
         // case of breadcrumbs mismatch.

@@ -15,6 +15,7 @@ import { getRandomIcon } from '@knowledge/js/knowledge_utils';
 import KnowledgeIcon from '@knowledge/components/knowledge_icon/knowledge_icon';
 import MoveArticleDialog from '@knowledge/components/move_article_dialog/move_article_dialog';
 import PermissionPanel from '@knowledge/components/permission_panel/permission_panel';
+import { KnowledgeFormStatusIndicator } from "@knowledge/components/form_status_indicator/form_status_indicator";
 import HistoryDialog from '@web_editor/components/history_dialog/history_dialog';
 
 
@@ -313,6 +314,7 @@ KnowledgeTopbar.props = {
     ...standardWidgetProps,
 };
 KnowledgeTopbar.components = {
+    KnowledgeFormStatusIndicator,
     KnowledgeIcon,
     PermissionPanel,
 };
