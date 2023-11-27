@@ -764,11 +764,16 @@ class AppointmentType(models.Model):
             return []
         if filter_resources and not valid_resources:
             return []
+        # Used to check availabilities for the whole last day as _slot_generate will return all slots on that date.
+        last_day_end_of_day = datetime.combine(
+            last_day.astimezone(pytz.timezone(self.appointment_tz)),
+            time.max
+        )
         if self.schedule_based_on == 'users':
             self._slots_fill_users_availability(
                 slots,
                 first_day.astimezone(pytz.UTC),
-                last_day.astimezone(pytz.UTC),
+                last_day_end_of_day.astimezone(pytz.UTC),
                 valid_users,
             )
             slot_field_label = 'staff_user_id'
@@ -776,7 +781,7 @@ class AppointmentType(models.Model):
             self._slots_fill_resources_availability(
                 slots,
                 first_day.astimezone(pytz.UTC),
-                last_day.astimezone(pytz.UTC),
+                last_day_end_of_day.astimezone(pytz.UTC),
                 valid_resources,
                 asked_capacity,
             )
