@@ -14,5 +14,10 @@
         'views/res_config_settings_views.xml',
         'wizard/carrier_type_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'delivery_easypost/static/src/components/**/*',
+        ],
+    },
     'license': 'OEEL-1',
 }
