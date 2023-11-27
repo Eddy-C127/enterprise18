@@ -437,6 +437,9 @@ class AnalyticLine(models.Model):
                  ['date', '>=', '1970-01-01'],
                  ['date', '<=', '2250-01-01']
         """
+        if not self.env.context.get('group_expand', False):
+            return employees
+
         grid_anchor, last_week = self._get_last_week()
         domain_search = expression.AND([
             [('project_id.allow_timesheets', '=', True),
