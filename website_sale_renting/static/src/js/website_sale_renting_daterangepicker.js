@@ -191,11 +191,11 @@ publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(Re
         const message = this._getInvalidMessage(this.startDate, this.endDate, this._getProductId());
         if (message) {
             this.el.parentElement.querySelector('span[name=renting_warning_message]').innerText = message;
-            this.el.parentElement.querySelector('.o_renting_warning').classList.remove('d-none');
+            this.el.parentElement.querySelector('.o_renting_warning').classList.add('d-block');
             // only disable when there is a message. Hence, it doesn't override other disabling.
             $('.oe_website_sale').trigger('toggle_disable', [this._getParentElement(), !message]);
         } else {
-            this.el.parentElement.querySelector('.o_renting_warning').classList.add('d-none');
+            this.el.parentElement.querySelector('.o_renting_warning').classList.remove('d-block');
         }
         this.el.dispatchEvent(new CustomEvent('toggle_search_btn', { bubbles: true, detail: message }));
         return !message;

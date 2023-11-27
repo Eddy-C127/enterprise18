@@ -52,6 +52,10 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
+                        <div class="o_renting_warning invalid-feedback">
+                            <i class="fa fa-warning" role="img" aria-label="Warning"/>
+                            <span name="renting_warning_message"/>
+                        </div>
                     </div>
                 </div>
                 <div class="h4 o_renting_details my-2 col-md-8 ps-0 d-flex justify-content-between">
@@ -69,12 +73,6 @@
                                   t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
                         </strong>
                     </div>
-                </div>
-                <div class="o_renting_warning d-none my-2">
-                    <span class="text-warning">
-                        <i class="fa fa-warning"/>
-                        <span name="renting_warning_message"/>
-                    </span>
                 </div>
             </div>
         </xpath>
@@ -180,11 +178,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="o_renting_warning alert alert-warning d-none my-2" role="alert">
-                    <span class="small">
-                        <i class="fa fa-warning"/>
-                        <span name="renting_warning_message"/>
-                    </span>
+                <div class="o_renting_warning invalid-feedback" role="alert">
+                    <i class="fa fa-warning" role="img" aria-label="Warning"/>
+                    <span name="renting_warning_message"/>
                 </div>
             </div>
         </xpath>
@@ -227,11 +223,9 @@
                 <button class="input-group-text fa fa-calendar alert-info"/>
                 <button t-if="request.params.get('start_date') and request.params.get('end_date')" class="input-group-text fa fa-times alert-danger clear-daterange"/>
             </div>
-            <div class="o_renting_warning d-none">
-                <span class="text-warning">
-                    <i class="fa fa-warning"/>
-                    <span name="renting_warning_message"/>
-                </span>
+            <div class="o_renting_warning invalid-feedback">
+                <i class="fa fa-warning" role="img" aria-label="Warning"/>
+                <span name="renting_warning_message"/>
             </div>
         </div>
     </template>
