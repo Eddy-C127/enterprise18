@@ -6,7 +6,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     auto_generated = fields.Boolean(string='Auto Generated Document', copy=False, default=False)
-    auto_invoice_id = fields.Many2one('account.move', string='Source Invoice', readonly=True, copy=False)
+    auto_invoice_id = fields.Many2one('account.move', string='Source Invoice', readonly=True, copy=False, index='btree_not_null')
 
     def _post(self, soft=True):
         # OVERRIDE to generate cross invoice based on company rules.

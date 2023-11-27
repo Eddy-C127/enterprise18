@@ -61,7 +61,7 @@ class AccountArVatLine(models.Model):
         'l10n_ar.afip.responsibility.type', string='AFIP Responsibility Type', readonly=True, auto_join=True)
     company_id = fields.Many2one('res.company', 'Company', readonly=True, auto_join=True)
     company_currency_id = fields.Many2one(related='company_id.currency_id', readonly=True)
-    move_id = fields.Many2one('account.move', string='Entry', auto_join=True)
+    move_id = fields.Many2one('account.move', string='Entry', auto_join=True, index='btree_not_null')
 
     def open_journal_entry(self):
         self.ensure_one()
