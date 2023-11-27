@@ -3,7 +3,6 @@
 
 import logging
 from dateutil.relativedelta import relativedelta
-from markupsafe import Markup
 from psycopg2.extensions import TransactionRollbackError
 from ast import literal_eval
 from collections import defaultdict
@@ -633,7 +632,7 @@ class SaleOrder(models.Model):
                 and order.is_subscription
                 and any(state in ['draft', 'posted'] for state in order.order_line.invoice_lines.move_id.mapped('state'))):
                 raise UserError(
-                    _('You cannot set to draft a canceled quotation linked to invoiced subscriptions. Please create a new quotation.'))
+                    _('You cannot set to draft a canceled quotation linked to invoiced subscriptions. Please create a new quotatdefion.'))
         return super(SaleOrder, self).action_draft()
 
     def _action_cancel(self):
@@ -790,6 +789,15 @@ class SaleOrder(models.Model):
                                     ('subscription_state', 'in', SUBSCRIPTION_PROGRESS_STATE),
                                     ('id', 'not in', [parent.id, renew.id])], limit=1):
                 raise ValidationError(_("You cannot renew a contract that already has an active subscription. "))
+            elif parent.state in ['sale', 'done'] and parent.subscription_state == '6_churn' and parent.next_invoice_date == renew.start_date:
+                parent.reopen_order()
+                auto_commit = not bool(config['test_enable'] or config['test_file'])
+                # Force the creation of the reopen logs.
+                self._subscription_commit_cursor(auto_commit=auto_commit)
+                # Make sure to delete the churn log as it won't be cleaned by mail-track
+                churn_logs = parent.order_log_ids.filtered(lambda log: log.event_type == '2_churn')
+                churn_log = churn_logs and churn_logs[-1]
+                churn_log.sudo().unlink()
             other_renew_so_ids = parent.subscription_child_ids.filtered(lambda so: so.subscription_state == '2_renewal' and so.state != 'cancel') - renew
             if other_renew_so_ids:
                 other_renew_so_ids._action_cancel()
@@ -987,6 +995,7 @@ class SaleOrder(models.Model):
             raise UserError(_("You cannot reopen a subscription that isn't closed."))
         self.close_reason_id = False
         self.subscription_state = '3_progress'
+        self.locked = False
 
     def pause_subscription(self):
         self.filtered(lambda so: so.subscription_state == '3_progress').write({'subscription_state': '4_paused'})
@@ -1061,7 +1070,7 @@ class SaleOrder(models.Model):
         return True
 
     def set_open(self):
-        self.filtered('is_subscription').update({'subscription_state': '3_progress', 'state': 'sale'})
+        self.filtered('is_subscription').update({'subscription_state': '3_progress', 'state': 'sale', 'locked': False})
 
     @api.model
     def _cron_update_kpi(self):
@@ -1154,7 +1163,6 @@ class SaleOrder(models.Model):
         invoiceable_line_ids = []
         downpayment_line_ids = []
         pending_section = None
-
         for line in self.order_line:
             if line.display_type == 'line_section':
                 # Only add section if one of its lines is invoiceable
@@ -1403,6 +1411,9 @@ class SaleOrder(models.Model):
     def _subscription_commit_cursor(self, auto_commit):
         if auto_commit:
             self.env.cr.commit()
+        else:
+            self.env.flush_all()
+            self.env.cr.flush()
 
     def _subscription_rollback_cursor(self, auto_commit):
         if auto_commit:

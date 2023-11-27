@@ -2744,14 +2744,15 @@ class TestSubscription(TestSubscriptionCommon):
             self.flush_tracking()
 
             order_log_ids = sub.order_log_ids.sorted('id')
-            sub_data = [(log.event_type, log.event_date, log.amount_signed, log.recurring_monthly)
+            sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
                         for log in order_log_ids]
             self.assertEqual(sub_data,
-                             [('0_creation', datetime.date(2021, 1, 1), 21.0, 21.0),
-                              ('2_churn', datetime.date(2021, 1, 1), -21.0, 0.0)])
+                             [('0_creation', datetime.date(2021, 1, 1), '3_progress', 21.0, 21.0),
+                              ('3_transfer', datetime.date(2021, 1, 1), '5_renewed', -21.0, 0.0)])
             order_log_ids = renewal_so.order_log_ids.sorted('id')
-            renew_data = [(log.event_type, log.event_date, log.amount_signed, log.recurring_monthly) for log in order_log_ids]
-            self.assertEqual(renew_data, [('0_creation', datetime.date(2021, 1, 1), 63, 63)])
+            renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log in order_log_ids]
+            self.assertEqual(renew_data, [('3_transfer', datetime.date(2021, 1, 1), '3_progress', 21, 21),
+                                          ('1_expansion', datetime.date(2021, 1, 1), '3_progress', 42.0, 63)])
 
     def test_subscription_pricelist_discount(self):
         context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True, }
@@ -2774,6 +2775,8 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(sub.order_line.mapped('discount'), [20, 20], "The discount should not be reset on confirmation")
 
     def test_churn_log_renew(self):
+        """ Test the behavior of the logs when we confirm a renewal quote after the parent has been closed.
+        """
         self.flush_tracking()
         today = datetime.date.today()
         context_mail = {'tracking_disable': False}
@@ -2815,11 +2818,12 @@ class TestSubscription(TestSubscriptionCommon):
                     order_log_ids]
         self.assertEqual(sub_data, [('0_creation', today, '3_progress', 21, 21),
                                     ('1_expansion', today, '3_progress', 21.0, 42.0),
-                                    ('2_churn', today, '6_churn', -42, 0)])
-        renew_logs = renewal_so.order_log_ids.sorted('event_date')
+                                    ('3_transfer', today, '5_renewed', -42, 0)])
+        renew_logs = renewal_so.order_log_ids.sorted('id')
         renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log
                       in renew_logs]
-        self.assertEqual(renew_data, [('0_creation', today, '3_progress', 63, 63)])
+        self.assertEqual(renew_data, [('3_transfer', today, '3_progress', 42, 42),
+                                      ('1_expansion', today, '3_progress', 21.0, 63.0)])
 
     def test_paused_resume_logs(self):
         self.flush_tracking()
@@ -3254,3 +3258,54 @@ class TestSubscription(TestSubscriptionCommon):
                                      ('3_transfer', datetime.date(2023, 2, 15), '5_renewed', 0, 0)])
         self.assertEqual(renewal_so1.recurring_monthly, -480, "The MRR field is negative but it does not produce logs")
         self.assertEqual(renewal_so2.recurring_monthly, -140, "The MRR field is negative but it does not produce logs")
+
+    def test_reopen_parent_child_canceled(self):
+        """ Renew a contract a few time, invoice it, check the computed amount of invoices
+        Then cancel a non invoiced renewal and see if it restart the parent
+        """
+        with freeze_time("2023-11-03"):
+            self.flush_tracking()
+            self.subscription.write({
+                    'start_date': False,
+                    'next_invoice_date': False,
+                    'partner_invoice_id': self.partner_a_invoice.id,
+                    'partner_shipping_id': self.partner_a_shipping.id,
+                })
+            self.subscription.action_confirm()
+            self.flush_tracking()
+            self.subscription._create_recurring_invoice()
+            self.assertEqual(self.subscription.invoice_count, 1)
+            self.flush_tracking()
+
+        with freeze_time("2023-12-03"):
+            action = self.subscription.prepare_renewal_order()
+            renewal_so = self.env['sale.order'].browse(action['res_id'])
+            self.flush_tracking()
+            renewal_so.action_confirm()
+            self.flush_tracking()
+            renewal_so._create_recurring_invoice()
+            self.assertEqual(renewal_so.invoice_count, 2)
+            self.flush_tracking()
+        with freeze_time("2024-01-03"):
+            action = renewal_so.prepare_renewal_order()
+            renewal_so2 = self.env['sale.order'].browse(action['res_id'])
+            self.flush_tracking()
+            renewal_so2.action_confirm()
+            self.flush_tracking()
+
+            self.assertEqual(renewal_so.subscription_state, '5_renewed')
+            self.assertEqual(renewal_so2.subscription_state, '3_progress')
+
+            renewal_so2._action_cancel()
+            renewal_so.end_date = False
+
+            self.flush_tracking()
+            self.assertEqual(renewal_so.subscription_state, '3_progress')
+            self.assertFalse(renewal_so2.subscription_state)
+        with freeze_time("2024-02-03"):
+            renewal_so._create_recurring_invoice()
+            self.flush_tracking()
+            (self.subscription | renewal_so | renewal_so2).invalidate_recordset(['invoice_ids', 'invoice_count'])
+            self.assertEqual(renewal_so.invoice_count, 3, "All contracts have the same count")
+            self.assertEqual(renewal_so2.invoice_count, 3, "All contracts have the same count")
+            self.assertEqual(self.subscription.invoice_count, 3, "All contracts have the same count")
