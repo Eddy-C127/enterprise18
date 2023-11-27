@@ -887,9 +887,19 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
         );
     },
 }, {
-    // Close the move cancelled modal
-    trigger: '.modal-footer .btn-primary',
-    extra_trigger: '.modal-title:contains("Move cancelled")',
+    // Check that the article moved and move it back
+    trigger: 'section[data-section="shared"] .o_article:contains("Moved to Share") + .o_article:contains("Shared Article")',
+    run: () => {
+        dragAndDropArticle(
+            $('section[data-section="shared"] .o_article_name:contains("Moved to Share")'),
+            $('section[data-section="shared"] .o_article_name:contains("Shared Article")'),
+        );
+    },
+}, {
+    // Check that the article has been moved
+    trigger: 'section[data-section="shared"] .o_article .o_article:contains("Moved to Share")',
+    extra_trigger: 'section[data-section="private"]:not(:has(.o_article:contains("Moved to Share")))',
+    run: () => {},
 },
 // Drag and drop article to trash
 {

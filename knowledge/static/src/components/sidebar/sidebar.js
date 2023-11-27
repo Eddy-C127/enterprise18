@@ -181,9 +181,9 @@ export class KnowledgeSidebar extends Component {
                     // Add caret
                     parent.classList.add('o_article_has_children');
                 } else if (newGroup.dataset.section === "shared") {
-                    // Drop in "shared" is not allowed, but resequencing shared articles is
+                    // Private articles cannot be dropped in the shared section
                     const article = this.getArticle(parseInt(element.dataset.articleId));
-                    if (!(article.category === 'shared' && !article.parent_id)) {
+                    if (article.category === "private") {
                         placeholder.classList.add('bg-danger');
                         return;
                     }
@@ -616,17 +616,26 @@ export class KnowledgeSidebar extends Component {
                     name || _t("Untitled")
                 );
                 confirmLabel = _t("Move to Private");
-            } else if (newPosition.category === 'shared' && newPosition.parentId) {
-                const parent = this.getArticle(newPosition.parentId);
-                const parentEmoji = parent.icon || '';
-                const parentName = parent.name || '';
-                message = _t(
-                    'Are you sure you want to move "%s%s" under "%s%s"? It will be shared with the same persons.',
-                    emoji,
-                    name || _t("Untitled"),
-                    parentEmoji,
-                    parentName || _t("Untitled")
-                );
+            } else if (newPosition.category === 'shared') {
+                if (newPosition.parentId) {
+                    const parent = this.getArticle(newPosition.parentId);
+                    const parentEmoji = parent.icon || '';
+                    const parentName = parent.name || '';
+                    message = _t(
+                        'Are you sure you want to move "%s%s" under "%s%s"? It will be shared with the same persons.',
+                        emoji,
+                        name || _t("Untitled"),
+                        parentEmoji,
+                        parentName || _t("Untitled"),
+                    );
+                } else {
+                    message = _t(
+                        'Are you sure you want to move "%s%s" to the Shared section? It will be shared with all listed members.',
+                        emoji,
+                        name || _t("Untitled"),
+                    );
+                }
+                confirmLabel = _t('Move to Shared')
             }
             this.dialog.add(ConfirmationDialog, {
                 body: message,
@@ -705,11 +714,7 @@ export class KnowledgeSidebar extends Component {
                 parent.name
             );
         } else {
-            message = _t(
-                'Could not move "%s%s" in the shared section. Only shared articles can be moved in this section.',
-                article.icon || "",
-                article.name
-            );
+            message = _t('You need at least 2 members for the Article to be shared.');
         }
         this.dialog.add(ConfirmationDialog, {
             confirmLabel: _t("Close"),

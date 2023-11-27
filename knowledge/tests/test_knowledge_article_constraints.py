@@ -205,21 +205,32 @@ class TestKnowledgeArticleConstraints(KnowledgeCommon):
     @users('employee')
     def test_article_move_to_shared_root(self):
         """ Check constraints restricting moving as a shared root.
-        Anything that is not already a shared root can not be moved as a shared
-        root. """
-        shared_child_article = self.shared_child.with_env(self.env)
-        workspace_article = self.article_workspace.with_env(self.env)
+        Only articles that are shared with at least 1 other member (not counting
+        internal permission) can be moved as a shared root"""
+
+        # Add members with permission='none' to make sure they are not counted as members
+        workspace_article = self.env['knowledge.article'].sudo().create({
+            'article_member_ids': [
+                (0, 0, {'partner_id': self.env.user.partner_id.id, 'permission': 'write'}),
+                (0, 0, {'partner_id': self.partner_employee2.id, 'permission': 'none'}),
+                (0, 0, {'partner_id': self.partner_employee_manager.id, 'permission': 'none'}),
+            ],
+            'internal_permission': 'write',
+            'name': 'Workspace Article without other read members',
+        })
         private_article = self.article_private_employee.with_env(self.env)
+        no_member_article = self.items_parent.with_env(self.env)
 
         with self.assertRaises(exceptions.ValidationError,
-                               msg='Cannot move a shared child article as a shared root'):
-            shared_child_article[0].move_to(category='shared')
-        with self.assertRaises(exceptions.ValidationError,
-                               msg='Cannot move a workspace article as a shared root'):
+                               msg='Cannot move an article that is not shared with another member as a shared root'):
             workspace_article.move_to(category='shared')
         with self.assertRaises(exceptions.ValidationError,
                                msg='Cannot move a private article as a shared root'):
             private_article.move_to(category='shared')
+
+        with self.assertRaises(exceptions.ValidationError,
+                               msg='Cannot move an article that has no member on it'):
+            no_member_article.move_to(category='shared')
 
     @mute_logger('odoo.addons.base.models.ir_rule')
     @users('employee')

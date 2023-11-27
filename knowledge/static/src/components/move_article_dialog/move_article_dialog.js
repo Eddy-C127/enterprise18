@@ -76,6 +76,12 @@ class MoveArticleDialog extends Component {
                 choices: formattedKnowledgeArticles,
             }
         ];
+        if (this.props.knowledgeArticleRecord.data.category !== 'private') {
+            selectionGroups[0].choices.push({
+                value: {parentArticleId: 'shared'},
+                label: _t('Shared'),
+            });
+        }
         this.state.selectionDisplayGroups = selectionGroups;
         this.state.choices = [
             ...selectionGroups[0].choices,

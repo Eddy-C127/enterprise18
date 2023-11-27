@@ -717,6 +717,26 @@ class TestKnowledgeArticleBusiness(KnowledgeCommonBusinessCase):
             'sequence': self._base_sequence - 4,
         })
         article_workspace = self.article_workspace.with_env(self.env)
+        article_workspace2 = self.env['knowledge.article'].sudo().create({
+            'internal_permission': 'write',
+            'name': 'To be shared',
+            'article_member_ids': [
+                (0, 0, {'partner_id': self.user_employee2.partner_id.id, 'permission': 'read'}),
+            ],
+        }).with_env(self.env)
+        a_ws2_child_write, a_ws2_child_read = self.env['knowledge.article'].sudo().create([{
+            'name': 'Employee can write',
+            'article_member_ids': [
+                (0, 0, {'partner_id': self.partner_employee.id, 'permission': 'write'}),
+            ],
+            'parent_id': article_workspace2.id,
+        }, {
+            'name': 'Employee can read',
+            'article_member_ids': [
+                (0, 0, {'partner_id': self.partner_employee.id, 'permission': 'read'}),
+            ],
+            'parent_id': article_workspace2.id,
+        }]).with_env(self.env)
         shared_child = self.shared_children[0].with_env(self.env)
 
         # valid move: shared root -> shared root (resequence)
@@ -742,6 +762,36 @@ class TestKnowledgeArticleBusiness(KnowledgeCommonBusinessCase):
         shared_child.move_to(parent_id=article_shared_employee.id)
         shared_child.flush_model()
         self.assertEqual(shared_child.inherited_permission_parent_id, article_shared_employee)
+
+        # valid move: shared child -> shared root
+        shared_child.move_to(category='shared')
+        shared_child.flush_model()
+        self.assertFalse(shared_child.parent_id)
+        self.assertEqual(shared_child.category, 'shared')
+        # should have added inherited members on the article
+        self.assertMembers(shared_child, 'none', {
+            self.partner_employee: 'write',
+            self.partner_employee2: 'read',
+        })
+
+        # valid move: workspace with 1 partner with read permission -> shared root
+        article_workspace2.move_to(category='shared', before_article_id=article_shared_employee.id)
+        article_workspace2.flush_model()
+        self.assertFalse(article_workspace2.parent_id)
+        self.assertEqual(article_workspace2.category, 'shared')
+        self.assertTrue(article_workspace2.sequence < article_shared_employee.sequence)
+        # should have added user as member on the article
+        self.assertMembers(article_workspace2, 'none', {
+            self.partner_employee: 'write',
+            self.partner_employee2: 'read',
+        })
+        # ensure that a_ws2_child_write is still a child of article_workspace2
+        self.assertEqual(a_ws2_child_write.parent_id, article_workspace2)
+        self.assertEqual(a_ws2_child_write.category, 'shared')
+        # ensure that a_ws2_child_read has become a root since employee did not
+        # have write access on it while moving article_workspace2 to shared
+        self.assertFalse(a_ws2_child_read.parent_id)
+        self.assertEqual(a_ws2_child_read.category, 'workspace')
 
     @users('employee')
     def test_article_sort_for_user(self):

@@ -1337,11 +1337,7 @@ class Article(models.Model):
                   article_name=self.display_name)
             )
         if category == 'shared' and not parent and (self.parent_id or self.category != 'shared'):
-            raise ValidationError(
-                _("Cannot move %(article_name)s as a root of the 'shared' section since access rights can not be inferred without a parent.",
-                  article_name=self.display_name)
-            )
-
+            return self._move_and_make_shared_root(before_article=before_article)
         if category == 'private':
             # making an article private requires a lot of extra-processing, use specific method
             return self._move_and_make_private(parent=parent, before_article=before_article)
@@ -2037,6 +2033,77 @@ class Article(models.Model):
         })
 
         return res
+
+    def _move_and_make_shared_root(self, before_article):
+        """ Set as shared root: add inherited members, ensure current user is a
+        member with write access. Requires a sudo to bypass member ACLs after
+        checking write access on the article.
+
+        Descendants articles to which the user does not have write access are
+        detached (see `_detach_unwritable_descendants` for details).
+
+        :param <knowledge.article> before_article: article before which the article
+          should be moved. Otherwise it is put as last root;
+
+        :return: True
+        """
+        self.ensure_one()
+        try:
+            self.check_access_rights('write')
+            self.check_access_rule('write')
+        except AccessError:
+            raise AccessError(
+                _("You are not allowed to move '%(article_name)s'.",
+                  article_name=self.display_name)
+            )
+
+        article_members = self._get_article_member_permissions()[self.id]
+        members_commands = []
+        nb_members = 0
+        user_is_member = False
+        for partner_id, values in article_members.items():
+            if not partner_id or values['permission'] == 'none':
+                continue
+            nb_members += 1
+            if partner_id == self.env.user.partner_id.id:
+                user_is_member = True
+            if values['based_on'] and values['based_on'] != self.id:
+                members_commands.append(
+                    (0, 0, {
+                        'partner_id': partner_id,
+                        'permission': values['permission']
+                    })
+                )
+
+        # Add the current user as member in case he had write access to the
+        # article through internal permissions
+        if not user_is_member:
+            members_commands.append(
+                (0, 0, {
+                    'partner_id': self.env.user.partner_id.id,
+                    'permission': 'write'
+                })
+            )
+            nb_members += 1
+        if nb_members < 2:
+            raise ValidationError(
+                _("You need at least 2 members for the Article to be shared.")
+            )
+
+        # Since the move is valid, detach unwritable descendants
+        self._detach_unwritable_descendants()
+
+        values = {
+            'article_member_ids': members_commands,
+            'internal_permission': 'none',
+            'is_desynchronized': False,
+            'parent_id': False,
+        }
+        if before_article:
+            values['sequence'] = before_article.sequence
+
+        # Sudo to be able to create new article_members
+        return self.sudo().write(values)
 
     def _has_write_member(self, partners_to_exclude=False, members_to_exclude=False):
         """ Method allowing to check if this article still has at least one member
