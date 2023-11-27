@@ -1,12 +1,9 @@
 /** @odoo-module **/
 /* global Sha1 */
 import { PosStore } from "@point_of_sale/app/store/pos_store";
-import {
-    Order,
-    Orderline
-} from "@point_of_sale/app/store/models";
+import { Order, Orderline } from "@point_of_sale/app/store/models";
 import { patch } from "@web/core/utils/patch";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { NumberPopup } from "@point_of_sale/app/utils/input_popups/number_popup";
 
@@ -59,7 +56,7 @@ patch(PosStore.prototype, {
                 this.pushDataToBlackbox(this.createPinCodeDataForBlackbox(payload));
             } else {
                 // other errors
-                this.env.services.popup.add(ErrorPopup, {
+                this.env.services.dialog.add(AlertDialog, {
                     title: _t("Blackbox error"),
                     body: _t(err.status ? err.status : "Internal blackbox error"),
                 });
@@ -154,37 +151,37 @@ patch(Order.prototype, {
     },
     add_product(product, options) {
         if (this.pos.useBlackBoxBe() && product.get_price() < 0) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.pos.env.services.dialog.add(AlertDialog, {
                 'title': _t("POS error"),
                 'body': _t("It's forbidden to sell product with negative price when using the black box.\nPerform a refund instead."),
             });
             return;
         } else if (this.pos.useBlackBoxBe() && product.taxes_id.length === 0) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.pos.env.services.dialog.add(AlertDialog, {
                 'title': _t("POS error"),
                 'body': _t("Product has no tax associated with it."),
             });
             return;
         } else if (this.pos.useBlackBoxBe() && !this.pos.checkIfUserClocked() && product !== this.pos.workInProduct && !options.force) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.pos.env.services.dialog.add(AlertDialog, {
                 'title': _t("POS error"),
                 'body': _t("User must be clocked in."),
             });
             return;
         } else if (this.pos.useBlackBoxBe() && !this.pos.taxes_by_id[product.taxes_id[0]].identification_letter) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.pos.env.services.dialog.add(AlertDialog, {
                 'title': _t("POS error"),
                 'body': _t("Product has an invalid tax amount. Only 21%, 12%, 6% and 0% are allowed."),
             });
             return;
         } else if (this.pos.useBlackBoxBe() && product.id === this.pos.workInProduct.id && !options.force) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.pos.env.services.dialog.add(AlertDialog, {
                 'title': _t("POS error"),
                 'body': _t("This product is not allowed to be sold"),
             });
             return;
         } else if (this.pos.useBlackBoxBe() && product.id === this.pos.workOutProduct.id && !options.force) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.pos.env.services.dialog.add(AlertDialog, {
                 'title': _t("POS error"),
                 'body': _t("This product is not allowed to be sold"),
             });

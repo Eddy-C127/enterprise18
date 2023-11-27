@@ -5,8 +5,7 @@ import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product
 import { Component,  useState, onWillStart } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
-
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 export class WorkButton extends Component {
     static template = "pos_blackbox_be.WorkButton";
 
@@ -53,7 +52,7 @@ export class WorkButton extends Component {
 
     async click() {
         if (this.pos.get_order().orderlines.length) {
-            this.pos.env.services.popup.add(ErrorPopup, {
+            this.pos.env.services.dialog.add(AlertDialog, {
                 title:_t("Fiscal Data Module error"),
                 body: _t("Cannot clock in/out if the order is not empty"),
             });

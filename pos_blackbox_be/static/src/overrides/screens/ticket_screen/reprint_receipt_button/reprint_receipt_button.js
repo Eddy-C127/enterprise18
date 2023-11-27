@@ -2,7 +2,7 @@
 
 import { ReprintReceiptButton } from "@point_of_sale/app/screens/ticket_screen/reprint_receipt_button/reprint_receipt_button";
 import { patch } from "@web/core/utils/patch";
-import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 
@@ -14,7 +14,7 @@ patch(ReprintReceiptButton.prototype, {
     },
     async _onClick() {
         if (this.pos.useBlackBoxBe()) {
-            await this.popup.add(ErrorPopup, {
+            await this.dialog.add(AlertDialog, {
                 title: _t("Fiscal Data Module Restriction"),
                 body: _t("You are not allowed to reprint a ticket when using the fiscal data module."),
             });
