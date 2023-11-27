@@ -250,7 +250,13 @@ class AccountFollowupReport(models.AbstractModel):
         partner = self.env['res.partner'].browse(options.get('partner_id'))
         followup_line = options.get('followup_line', partner.followup_line_id)
         mail_template = options.get('mail_template', followup_line.mail_template_id)
-        return mail_template.reply_to
+        # if template has no reply-to set, fall back to default reply-to, otherwise
+        # it will be set to False and behave unexpectedly
+        if mail_template.reply_to:
+            followup_reply_to = mail_template.reply_to
+        else:
+            followup_reply_to = self._notify_get_reply_to()[False]
+        return followup_reply_to
 
     @api.model
     def _get_main_body(self, options):
