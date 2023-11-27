@@ -129,7 +129,7 @@ class SaleOrderLog(models.Model):
         if sub.origin_order_id: # Is a confirmed renewal ( origin_order_id and category in progress)
             existing_transfer_log = sub.order_log_ids.filtered(lambda ev: ev.event_type == '3_transfer')
             if not existing_transfer_log:
-                return sub._create_starting_transfer_log(sub, values.copy())
+                return self._create_starting_transfer_log(values.copy())
 
         if not float_is_zero(mrr_difference, precision_rounding=sub.currency_id.rounding):
             values.update({'amount_signed': mrr_difference,
