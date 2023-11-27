@@ -616,9 +616,12 @@ class SaleOrder(models.Model):
         return action
 
     def action_draft(self):
-        if any(order.state == 'cancel' and order.is_subscription and order.invoice_ids for order in self):
-            raise UserError(
-                _('You cannot set to draft a canceled quotation linked to invoiced subscriptions. Please create a new quotation.'))
+        for order in self:
+            if (order.state == 'cancel'
+                and order.is_subscription
+                and any(state in ['draft', 'posted'] for state in order.order_line.invoice_lines.move_id.mapped('state'))):
+                raise UserError(
+                    _('You cannot set to draft a canceled quotation linked to invoiced subscriptions. Please create a new quotation.'))
         return super(SaleOrder, self).action_draft()
 
     def _action_cancel(self):
@@ -629,7 +632,8 @@ class SaleOrder(models.Model):
             elif order.subscription_state == '2_renewal':
                 cancel_message_body = _("The renewal %s has been canceled.", order._get_html_link())
                 order.subscription_id.message_post(body=cancel_message_body)
-            elif order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + SUBSCRIPTION_DRAFT_STATE and not self.invoice_ids:
+            elif (order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + SUBSCRIPTION_DRAFT_STATE
+                  and not any(state in ['draft', 'posted'] for state in order.order_line.invoice_lines.move_id.mapped('state'))):
                 order.order_log_ids.sudo().unlink()
                 order.subscription_state = False
             elif order.subscription_state in SUBSCRIPTION_PROGRESS_STATE:
