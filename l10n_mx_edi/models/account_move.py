@@ -209,6 +209,13 @@ class AccountMove(models.Model):
         readonly=False,
         help="Send the CFDI with recipient 'publico en general'",
     )
+    l10n_mx_edi_addenda_id = fields.Many2one(
+        comodel_name='l10n_mx_edi.addenda',
+        string='Addenda',
+        compute='_compute_l10n_mx_edi_addenda_id',
+        store=True,
+        readonly=False,
+    )
 
     # -------------------------------------------------------------------------
     # HELPERS
@@ -232,12 +239,12 @@ class AccountMove(models.Model):
         self.ensure_one()
         addenda_values = {'record': self, 'cfdi': cfdi}
 
-        addenda = self.env['ir.qweb']._render(addenda.id, values=addenda_values).strip()
-        if not addenda:
+        addenda_arch = self.env['ir.qweb']._render(etree.fromstring(addenda.arch), values=addenda_values).strip()
+        if not addenda_arch:
             return cfdi
 
         cfdi_node = etree.fromstring(cfdi)
-        addenda_node = etree.fromstring(addenda)
+        addenda_node = etree.fromstring(addenda_arch)
         version = cfdi_node.get('Version')
 
         # Add a root node Addenda if not specified explicitly by the user.
@@ -598,6 +605,15 @@ class AccountMove(models.Model):
                 move.l10n_mx_edi_cfdi_to_public = cfdi_values['receptor']['rfc'] == 'XAXX010101000'
             else:
                 move.l10n_mx_edi_cfdi_to_public = move.l10n_mx_edi_cfdi_to_public
+
+    @api.depends('partner_id', 'commercial_partner_id')
+    def _compute_l10n_mx_edi_addenda_id(self):
+        for move in self:
+            partner = move.partner_id or move.commercial_partner_id
+            if move.l10n_mx_edi_is_cfdi_needed:
+                move.l10n_mx_edi_addenda_id = partner.l10n_mx_edi_addenda_id
+            else:
+                move.l10n_mx_edi_addenda_id = None
 
     @api.depends('journal_id', 'statement_line_id', 'partner_id')
     def _compute_l10n_mx_edi_payment_method_id(self):
@@ -1418,9 +1434,8 @@ class AccountMove(models.Model):
             self._l10n_mx_edi_cfdi_invoice_document_sent_failed(error, cfdi_filename=cfdi_filename, cfdi_str=cfdi_str)
 
         def on_success(_cfdi_values, cfdi_filename, cfdi_str, populate_return=None):
-            addenda = self.partner_id.l10n_mx_edi_addenda or self.commercial_partner_id.l10n_mx_edi_addenda
-            if addenda:
-                cfdi_str = self._l10n_mx_edi_cfdi_invoice_append_addenda(cfdi_str, addenda)
+            if self.l10n_mx_edi_addenda_id:
+                cfdi_str = self._l10n_mx_edi_cfdi_invoice_append_addenda(cfdi_str, self.l10n_mx_edi_addenda_id)
 
             document = self._l10n_mx_edi_cfdi_invoice_document_sent(cfdi_filename, cfdi_str)
             self \

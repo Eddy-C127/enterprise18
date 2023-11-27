@@ -129,17 +129,18 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
     @freeze_time('2017-01-01')
     def test_invoice_addenda(self):
-        self.partner_mx.l10n_mx_edi_addenda = self.env['ir.ui.view'].create({
+        addenda = self.env['l10n_mx_edi.addenda'].create({
             'name': 'test_invoice_cfdi_addenda',
-            'type': 'qweb',
             'arch': """
                 <t t-name="l10n_mx_edi.test_invoice_cfdi_addenda">
                     <test info="this is an addenda"/>
                 </t>
             """
         })
+        self.partner_mx.l10n_mx_edi_addenda_id = addenda
 
         invoice = self._create_invoice()
+        self.assertEqual(invoice.l10n_mx_edi_addenda_id, addenda)
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_invoice_try_send()
         self._assert_invoice_cfdi(invoice, 'test_invoice_addenda')

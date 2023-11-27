@@ -51,6 +51,10 @@
                            readonly="state != 'draft'"/>
                 </xpath>
 
+                <xpath expr="//page[@id='other_tab']//group[@name='sale_info_group']" position="inside">
+                    <field name="l10n_mx_edi_addenda_id" invisible="not l10n_mx_edi_is_cfdi_needed"/>
+                </xpath>
+
                 <!-- Publico General -->
                 <xpath expr="//label[@for='invoice_date']" position="before">
                     <field name="l10n_mx_edi_cfdi_to_public"

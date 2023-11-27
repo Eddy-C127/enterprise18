@@ -32,13 +32,14 @@ This module allows the creation of the EDI documents and the communication with 
         'data/ir_cron.xml',
         'data/res_currency_data.xml',
         'data/l10n_mx_uom_unspsc.xml',
+        'data/addenda.xml',
 
         'views/account_journal_view.xml',
         'views/account_move_view.xml',
         'views/account_payment_views.xml',
         'views/account_payment_register_views.xml',
         'views/account_tax_view.xml',
-        'views/ir_ui_view.xml',
+        'views/l10n_mx_edi_addenda_views.xml',
         'views/l10n_mx_edi_certificate_view.xml',
         'views/l10n_mx_edi_payment_method_view.xml',
         "views/report_invoice.xml",
@@ -56,7 +57,6 @@ This module allows the creation of the EDI documents and the communication with 
     ],
     'demo': [
         'demo/demo_cfdi.xml',
-        'demo/demo_addenda.xml',
     ],
     'post_init_hook': 'post_init_hook',
     'installable': True,
