@@ -606,6 +606,7 @@ class AccountReport(models.Model):
         previous_comparison = (previous_options or {}).get('comparison', {})
         previous_filter = previous_comparison.get('filter')
 
+        period_order = previous_comparison.get('period_order') or 'descending'
         if previous_filter == 'custom':
             # Try to adapt the previous 'custom' filter.
             date_from = previous_comparison.get('date_from')
@@ -625,6 +626,7 @@ class AccountReport(models.Model):
             'date_from': date_from,
             'date_to': date_to,
             'periods': [],
+            'period_order': period_order,
         }
 
         date_from_obj = fields.Date.from_string(date_from)
@@ -1279,8 +1281,11 @@ class AccountReport(models.Model):
     ####################################################
 
     def _init_options_column_headers(self, options, previous_options=None):
-        # Prepare column headers
-        all_comparison_date_vals = [options['date']] + options.get('comparison', {}).get('periods', [])
+        # Prepare column headers, in case the order of the comparison is ascending we reverse the order of the columns
+        all_comparison_date_vals = ([options['date']] + options.get('comparison', {}).get('periods', []))
+        if options.get('comparison') and options['comparison']['period_order'] == 'ascending':
+            all_comparison_date_vals = all_comparison_date_vals[::-1]
+
         column_headers = [
             [
                 {

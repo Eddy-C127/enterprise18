@@ -118,7 +118,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
             new_columns_order += current_column
 
             options['columns'] = new_columns_order
-            options['column_headers'][0][:] = reversed(options['column_headers'][0])
+            options['comparison']['period_order'] = 'ascending'
 
         # Initial balance
         initial_balance_options = self.env['account.general.ledger.report.handler']._get_options_initial_balance(options)

@@ -116,6 +116,14 @@ export class AccountReportFilters extends Component {
             return _t("%s selected", selected.length)
     }
 
+    get availablePeriodOrder() {
+        return {"descending": _t("Descending"), "ascending": _t("Ascending")}
+    }
+
+    get periodOrder(){
+        return this.controller.options.comparison.period_order === "descending" ? "Descending" : "Ascending"
+    }
+
     //------------------------------------------------------------------------------------------------------------------
     // Helpers
     //------------------------------------------------------------------------------------------------------------------

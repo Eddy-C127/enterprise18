@@ -1323,3 +1323,34 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
             branch_2_1 + branch_2,
             "When no VAT exists in the hierarchy; all companies should be considered as sharing the same VAT, and active companies should be kept.",
         )
+
+    @freeze_time('2017-12-31')
+    def test_period_order(self):
+        report = self.date_range_report
+        previous_options = {'date': {'filter': 'this_year', 'mode': 'range'}, 'comparison': {'filter': 'same_last_year', 'number_period': 1, 'period_order': 'descending'}}
+        options = report.get_options(previous_options)
+
+        expected_values = [
+            {
+                'name': '2017',
+                 'forced_options': {
+                    'date': {'string': '2017', 'period_type': 'fiscalyear', 'mode': 'range', 'date_from': '2017-01-01', 'date_to': '2017-12-31', 'filter': 'this_year'}
+                 }
+            },
+            {
+                'name': '2016',
+                'forced_options': {
+                    'date': {'string': '2016', 'period_type': 'fiscalyear', 'mode': 'range', 'date_from': '2016-01-01', 'date_to': '2016-12-31'}
+                }
+            },
+        ]
+
+        for i, val in enumerate(expected_values):
+            self.assertDictEqual(options['column_headers'][0][i], val)
+
+        previous_options['comparison']['period_order'] = 'ascending'
+        new_options = report.get_options(previous_options)
+        new_expected_values = expected_values[::-1]
+
+        for i, val in enumerate(new_expected_values):
+            self.assertDictEqual(new_options['column_headers'][0][i], val)
