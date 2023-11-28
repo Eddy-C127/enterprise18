@@ -571,6 +571,7 @@ class SendCloud:
 
         parcel_common = {
             'name': to_partner_id.name,
+            'company_name': to_partner_id.commercial_company_name or '',
             'address': to_partner_id.street,
             'address_2': to_partner_id.street2 or '',
             'house_number': self._get_house_number(to_partner_id.street),
@@ -601,6 +602,7 @@ class SendCloud:
             self._validate_partner_details(from_partner_id)
             parcel_common.update({
                 'from_name': from_partner_id.name,
+                'from_company_name': from_partner_id.commercial_company_name or '',
                 'from_house_number': self._get_house_number(from_partner_id.street),
                 'from_address_1': from_partner_id.street or '',
                 'from_address_2': from_partner_id.street2 or '',
