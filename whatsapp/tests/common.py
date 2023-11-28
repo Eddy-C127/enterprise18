@@ -75,6 +75,11 @@ class MockOutgoingWhatsApp(common.BaseCase):
                 }
             raise WhatsAppError("Please ensure you are using the correct file type and try again.")
 
+        def _get_header_data_from_handle(url):
+            if url == 'demo_image_url':
+                return b'R0lGODlhAQABAIAAANvf7wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==', 'image/jpeg'
+            raise WhatsAppError("Please ensure you are using the correct file type and try again.")
+
         # ------------------------------------------------------------
         # Whatsapp Models
         # ------------------------------------------------------------
@@ -97,6 +102,7 @@ class MockOutgoingWhatsApp(common.BaseCase):
                  patch.object(WhatsAppApi, '_upload_whatsapp_document', side_effect=_upload_whatsapp_document), \
                  patch.object(WhatsAppApi, '_send_whatsapp', side_effect=_send_whatsapp), \
                  patch.object(WhatsAppApi, '_submit_template_new', side_effect=_submit_template_new), \
+                 patch.object(WhatsAppApi, '_get_header_data_from_handle', side_effect=_get_header_data_from_handle), \
                  patch.object(WhatsAppMessage, 'create', autospec=True, wraps=WhatsAppMessage, side_effect=_wa_message_create):
                 yield
         finally:
@@ -520,7 +526,7 @@ class WhatsAppCase(MockOutgoingWhatsApp):
 
         if attachment_values:
             # check attachment values
-            attachment = template.attachment_ids
+            attachment = template.header_attachment_ids
             # only support one attachment for whatsapp templates
             self.assertEqual(len(attachment), 1, 'whatsapp.template: should have only one attachment')
 

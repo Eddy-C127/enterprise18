@@ -2,6 +2,7 @@
 
 import json
 import re
+import mimetypes
 
 from markupsafe import Markup
 
@@ -592,15 +593,25 @@ class WhatsAppTemplate(models.Model):
                             'line_type': 'location',
                         })
                 elif component['format'] in ('IMAGE', 'VIDEO', 'DOCUMENT'):
-                    # TODO RETH fetch remote example if set
-                    extension, mimetype = {
-                        'IMAGE': ('jpg', 'image/jpeg'),
-                        'VIDEO': ('mp4', 'video/mp4'),
-                        'DOCUMENT': ('pdf', 'application/pdf')
-                    }[component['format']]
+                    document_url = component.get('example', {}).get('header_handle', [False])[0]
+                    if document_url:
+                        wa_api = WhatsAppApi(wa_account)
+                        data, mimetype = wa_api._get_header_data_from_handle(document_url)
+                        extension = mimetypes.guess_extension(mimetype)
+                    else:
+                        data = b'AAAA'
+                        extension, mimetype = {
+                            'IMAGE': ('jpg', 'image/jpeg'),
+                            'VIDEO': ('mp4', 'video/mp4'),
+                            'DOCUMENT': ('pdf', 'application/pdf')
+                        }[component['format']]
                     template_vals['header_attachment_ids'] = [{
-                        'name': f'Missing.{extension}', 'res_model': self._name, 'res_id': self.ids[0] if self else False,
-                        'datas': "AAAA", 'mimetype': mimetype}]
+                        'name': f'{template_vals["template_name"]}{extension}',
+                        'res_model': self._name,
+                        'res_id': self.ids[0] if self else False,
+                        'raw': data,
+                        'mimetype': mimetype,
+                    }]
             elif component_type == 'BODY':
                 template_vals['body'] = component['text']
                 if 'example' in component:

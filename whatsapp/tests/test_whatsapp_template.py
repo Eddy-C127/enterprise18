@@ -578,6 +578,23 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
             }
         )
 
+        # Check template with image header
+        self.assertTrue(templates["test_image_header"])
+        self.assertWATemplate(
+            templates["test_image_header"],
+            status='approved',
+            attachment_values={
+                'raw': b'R0lGODlhAQABAIAAANvf7wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==',
+                'name': 'test_image_header.jpg',
+                'mimetype': 'image/jpeg',
+            },
+            fields_values={
+                'template_type': 'utility',
+                'header_type': 'image',
+                'wa_template_uid': '948089559314656'
+            },
+        )
+
         # Check template with dynamic header and dynamic body
         self.assertTrue(templates["test_dynamic_header_with_dynamic_body"])
         self.assertWATemplate(
@@ -713,12 +730,10 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
         templates = self.env['whatsapp.template'].search([('wa_account_id', '=', self.whatsapp_account.id)])
         templates = templates.grouped('template_name')
         # Now modify existing template and sync template one by one
-        templates["test_simple_text"].write(
-            {
-                'body': 'Hello, how are you? Thank you for reaching out to us. Modified',
-                'template_type': 'utility'
-            }
-        )
+        templates["test_simple_text"].write({
+            'body': 'Hello, how are you? Thank you for reaching out to us. Modified',
+            'template_type': 'utility',
+        })
         with self.mockWhatsappGateway():
             templates["test_simple_text"].button_sync_template()
         self.assertWATemplate(
@@ -729,6 +744,28 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 'body': 'Hello, how are you? Thank you for reaching out to us.',
                 'wa_template_uid': '972203162638803',
 
+            }
+        )
+
+        templates["test_image_header"].write({
+            'header_attachment_ids': [(5, 0, 0)],
+            'header_type': 'none',
+        })
+        self.assertFalse(templates["test_image_header"].header_attachment_ids)
+        with self.mockWhatsappGateway():
+            templates["test_image_header"].button_sync_template()
+        self.assertWATemplate(
+            templates["test_image_header"],
+            status='approved',
+            attachment_values={
+                'raw': b'R0lGODlhAQABAIAAANvf7wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==',
+                'name': 'test_image_header.jpg',
+                'mimetype': 'image/jpeg',
+            },
+            fields_values={
+                'template_type': 'utility',
+                'header_type': 'image',
+                'wa_template_uid': '948089559314656',
             }
         )
 
