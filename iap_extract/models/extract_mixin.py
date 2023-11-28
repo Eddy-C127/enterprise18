@@ -325,7 +325,10 @@ class ExtractMixin(models.AbstractModel):
             self.extract_state = 'waiting_validation'
             # Set OdooBot as the author of the tracking message
             self._track_set_author(self.env.ref('base.partner_root'))
-            self._fill_document_with_results(result['results'][0], force_write=force_write)
+            ocr_results = result['results'][0]
+            self._fill_document_with_results(ocr_results, force_write=force_write)
+            if 'full_text_annotation' in ocr_results:
+                self.message_main_attachment_id.index_content = ocr_results['full_text_annotation']
 
         elif result['status'] == 'processing':
             self.extract_state = 'extract_not_ready'
