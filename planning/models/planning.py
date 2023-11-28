@@ -1787,12 +1787,24 @@ class Planning(models.Model):
         if resource_ids:
             return self.env['resource.resource'].search([('id', 'in', resource_ids)], order=order)
         if self.env.context.get('planning_expand_resource') and ('start_datetime', '<=') in dom_tuples and ('end_datetime', '>=') in dom_tuples:
+            # Search on the roles and resources
+            search_on_role_domain = []
+            search_on_ressource_domain = []
+            if ('role_id', '=') in dom_tuples or ('role_id', 'ilike') in dom_tuples or ('role_id', 'in') in dom_tuples:
+                role_search_domain = self._expand_domain_m2o_groupby(domain, 'role_id')
+                role_ids = self.env["planning.role"].search(role_search_domain).ids
+                search_on_role_domain = [('role_ids', 'in', role_ids)]
             if ('resource_id', '=') in dom_tuples or ('resource_id', 'ilike') in dom_tuples or ('resource_id', 'in') in dom_tuples:
-                filter_domain = self._expand_domain_m2o_groupby(domain, 'resource_id')
-                return self.env['resource.resource'].search(filter_domain, order=order)
+                search_on_ressource_domain = self._expand_domain_m2o_groupby(domain, 'resource_id')
+            # Search on the slots
             filters = self._expand_domain_dates(domain)
             resources = self.env['planning.slot'].search(filters).mapped('resource_id')
-            return resources.search([('id', 'in', resources.ids)], order=order)
+            search_on_expanded_dates = [('id', 'in', resources.ids)]
+            # Merge the search domains
+            if search_on_role_domain or search_on_ressource_domain:
+                search_domain = expression.AND([search_on_role_domain, search_on_ressource_domain])
+                return self.env["resource.resource"].search(expression.OR([search_domain, search_on_expanded_dates]))
+            return self.env["resource.resource"].search(search_on_expanded_dates)
         return resources
 
     def _read_group_role_id(self, roles, domain, order):

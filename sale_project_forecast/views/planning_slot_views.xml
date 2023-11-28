@@ -17,7 +17,7 @@
         <field name="context">{
             'search_default_my_shifts': 1, 'search_default_open_shifts': 1, 'search_default_unwanted_shifts': 1,
             'planning_expand_employee': 1, 'planning_expand_role': 1, 'planning_expand_sale_line_id': 1,
-            'planning_expand_project': 1,
+            'planning_expand_project': 1, 'planning_expand_resource': 1,
         }</field>
     </record>
 
@@ -31,7 +31,7 @@
     <record id="planning.planning_action_schedule_by_role" model="ir.actions.act_window">
         <field name="context">{
             'search_default_group_by_employee': 2, 'planning_groupby_role': True,
-            'planning_expand_sale_line_id': 1, 'planning_expand_project': 1,
+            'planning_expand_sale_line_id': 1, 'planning_expand_project': 1, 'planning_expand_resource': 1,
         }</field>
     </record>
 
@@ -47,7 +47,7 @@
         <field name="context">{
             'planning_groupby_sale_order': True,
             'planning_expand_employee': 1, 'planning_expand_role': 1, 'planning_expand_sale_line_id': 1,
-            'planning_expand_project': 1,
+            'planning_expand_project': 1, 'planning_expand_resource': 1,
         }</field>
     </record>
 </odoo>

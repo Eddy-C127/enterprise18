@@ -153,7 +153,7 @@
         <field name="domain">[('start_datetime', '!=', False), ('end_datetime', '!=', False)]</field>
         <field name="context">{
             'search_default_my_shifts': 1, 'search_default_open_shifts': 1, 'search_default_unwanted_shifts': 1,
-            'planning_expand_employee': 1, 'planning_expand_role': 1, 'planning_expand_sale_line_id': 1,
+            'planning_expand_employee': 1, 'planning_expand_role': 1, 'planning_expand_sale_line_id': 1, 'planning_expand_resource': 1,
         }</field>
     </record>
 
@@ -161,7 +161,7 @@
         <field name="domain">[('start_datetime', '!=', False), ('end_datetime', '!=', False)]</field>
         <field name="context">{
             'search_default_group_by_employee': 1, 'planning_expand_employee': 1, 'planning_expand_role': 1,
-            'planning_expand_sale_line_id': 1, 'planning_expand_resource': 1,
+            'planning_expand_sale_line_id': 1, 'planning_expand_resource': 1, 'planning_expand_resource': 1
         }</field>
     </record>
 
@@ -169,7 +169,7 @@
         <field name="domain">[('start_datetime', '!=', False), ('end_datetime', '!=', False)]</field>
         <field name="context">{
             'search_default_group_by_employee': 2, 'planning_groupby_role': True,
-            'planning_expand_sale_line_id': 1,
+            'planning_expand_sale_line_id': 1, 'planning_expand_resource': 1,
         }</field>
     </record>
 
@@ -218,7 +218,7 @@
         <field name="view_mode">gantt,calendar,tree,form,kanban,pivot,graph</field>
         <field name="domain">[('start_datetime', '!=', False), ('end_datetime', '!=', False)]</field>
         <field name="context">{
-            'planning_groupby_sale_order': True, 'with_price_unit': True,
+            'planning_groupby_sale_order': True, 'with_price_unit': True, 'planning_expand_resource': 1,
             'planning_expand_employee': 1, 'planning_expand_role': 1, 'planning_expand_sale_line_id': 1,
         }</field>
         <field name="groups_id" eval="[(4, ref('planning.group_planning_manager'))]"/>
