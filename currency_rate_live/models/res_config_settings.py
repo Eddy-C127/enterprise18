@@ -136,7 +136,7 @@ def xml2json_from_elementtree(el, preserve_whitespaces=False):
 # countries, provider_code, description
 CURRENCY_PROVIDER_SELECTION = [
     ([], 'ecb', 'European Central Bank'),
-    ([], 'xe_com', 'xe.com'),
+    (['IN'], 'xe_com', 'xe.com'),
     (['AE'], 'cbuae', 'UAE Central Bank'),
     (['CA'], 'boc', 'Bank Of Canada'),
     (['CH'], 'fta', 'Federal Tax Administration (Switzerland)'),
