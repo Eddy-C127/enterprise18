@@ -25,10 +25,6 @@ export class DocumentsListController extends ListController {
         return modelParams;
     }
 
-    onWillSaveMultiRecords() {}
-
-    onSavedMultiRecords() {}
-
     /**
      * Override this to add view options.
      */
