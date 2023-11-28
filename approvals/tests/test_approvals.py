@@ -135,6 +135,7 @@ class TestRequest(common.TransactionCase):
     def test_unlink_approval(self):
         """
         There is no error when unlinking a draft request with a document attached
+        or a binary field filled.
         """
         approval = self.env['approval.request'].create({
             'name': 'test request',
@@ -148,4 +149,11 @@ class TestRequest(common.TransactionCase):
             'res_id': approval.id,
             'res_model': 'approval.request',
         })
+
+        self.env['ir.model.fields'].create({
+            'name': 'x_test_field',
+            'model_id': self.env.ref('approvals.model_approval_request').id,
+            'ttype': 'binary',
+        })
+        approval.x_test_field = 'test'
         approval.unlink()
