@@ -729,6 +729,8 @@ class SaleOrder(models.Model):
             # We set the start date and invoice date at the date of confirmation
             if not sub.start_date:
                 sub.start_date = today
+            if sub.plan_id.billing_period_value <= 0:
+                raise UserError(_("Recurring period must be a positive number. Please ensure the input is a valid positive numeric value."))
             sub._set_deferred_end_date_from_template()
             sub.order_line._reset_subscription_qty_to_invoice()
             last_transaction = sub.transaction_ids.sudo()._get_last()
