@@ -598,8 +598,6 @@ class AccountMove(models.Model):
         if self.state != 'draft' or ocr_results is None:
             return
 
-        if 'full_text_annotation' in ocr_results:
-            self.message_main_attachment_id.index_content = ocr_results['full_text_annotation']
         if 'detected_layout_id' in ocr_results:
             self.extract_detected_layout = ocr_results['detected_layout_id']
 
