@@ -103,10 +103,10 @@
         <!-- Horizontal -->
         <t t-if="options.get('selected_horizontal_group_id')">
             <div class="row">
-                <t t-set="horizontal_group" t-value="options.get('available_horizontal_groups')[options.get('selected_horizontal_group_id')]['name']"/>
+                <t t-set="horizontal_group" t-value="[hg['name'] for hg in options['available_horizontal_groups'] if hg['id'] == options.get('selected_horizontal_group_id')]"/>
                 <t t-if="horizontal_group">
                     <div class="col-3">Horizontal:</div>
-                    <div class="col-9 o_text_muted" t-out="horizontal_group"/>
+                    <div class="col-9 o_text_muted" t-out="horizontal_group[0]"/>
                 </t>
             </div>
         </t>
