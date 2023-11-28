@@ -39,4 +39,13 @@
         </xpath>
     </t>
 
+    <t t-name="planning.PlanningGanttRenderer.Header" t-inherit="web_gantt.GanttRenderer.Header">
+        <xpath expr="//div[@t-if='displayExpandCollapseButtons']" position="before">
+            <strong t-ref="duplicateToolHelper" class="invisible text-success d-flex justify-content-center align-items-center">
+                <i class="fa fa-lightbulb-o me-2"/>
+                Press Ctrl to duplicate the shift
+            </strong>
+        </xpath>
+    </t>
+
 </templates>

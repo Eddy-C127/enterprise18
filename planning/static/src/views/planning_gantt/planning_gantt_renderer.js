@@ -7,7 +7,7 @@ import { GanttRenderer } from "@web_gantt/gantt_renderer";
 import { getUnionOfIntersections } from "@web_gantt/gantt_helpers";
 import { PlanningEmployeeAvatar } from "./planning_employee_avatar";
 import { PlanningGanttRowProgressBar } from "./planning_gantt_row_progress_bar";
-import { useEffect, onWillStart } from "@odoo/owl";
+import { useEffect, onWillStart, useRef } from "@odoo/owl";
 import { serializeDateTime } from "@web/core/l10n/dates";
 
 const { Duration, DateTime } = luxon;
@@ -16,12 +16,14 @@ export class PlanningGanttRenderer extends GanttRenderer {
     static rowHeaderTemplate = "planning.PlanningGanttRenderer.RowHeader";
     static pillTemplate = "planning.PlanningGanttRenderer.Pill";
     static rowContentTemplate = "planning.PlanningGanttRenderer.RowContent";
+    static headerTemplate = "planning.PlanningGanttRenderer.Header";
     static components = {
         ...GanttRenderer.components,
         Avatar: PlanningEmployeeAvatar,
         GanttRowProgressBar: PlanningGanttRowProgressBar,
     };
     setup() {
+        this.duplicateToolHelperRef = useRef("duplicateToolHelper");
         super.setup();
         useEffect(() => {
             this.rootRef.el.classList.add("o_planning_gantt");
@@ -424,5 +426,15 @@ export class PlanningGanttRenderer extends GanttRenderer {
         return { start, stop };
     }
 
-
+    onInteractionChange() {
+        super.onInteractionChange();
+        const { mode } = this.interaction;
+        if (this.duplicateToolHelperRef.el) {
+            if (mode === "drag") {
+                this.duplicateToolHelperRef.el.classList.remove("invisible");
+            } else {
+                this.duplicateToolHelperRef.el.classList.add("invisible");
+            }
+        }
+    }
 }
