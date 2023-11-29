@@ -20,7 +20,7 @@
       <div t-if="state.loaded &lt; revisions.length"
         class="d-flex justify-content-center o-version-history-load-more-container">
         <div class="o-sidePanelButtons">
-          <button t-on-click="onLoadMoreClicked" class="o-sidePanelButton o-version-history-load-more">
+          <button t-on-click="onLoadMoreClicked" class="o-button o-version-history-load-more">
             Load More
           </button>
         </div>
@@ -31,7 +31,7 @@
           There are no prior revisions for this spreadsheet.
         </Section>
         <div class="o-sidePanelButtons">
-          <button t-on-click="props.onCloseSidePanel" class="o-sidePanelButton">Back</button>
+          <button t-on-click="props.onCloseSidePanel" class="o-button">Back</button>
         </div>
       </t>
     </div>
