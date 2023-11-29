@@ -999,9 +999,7 @@ class SaleOrder(models.Model):
     def reopen_order(self):
         if self and set(self.mapped('subscription_state')) != {'6_churn'}:
             raise UserError(_("You cannot reopen a subscription that isn't closed."))
-        self.close_reason_id = False
-        self.subscription_state = '3_progress'
-        self.locked = False
+        self.set_open()
 
     def pause_subscription(self):
         self.filtered(lambda so: so.subscription_state == '3_progress').write({'subscription_state': '4_paused'})
@@ -1076,7 +1074,17 @@ class SaleOrder(models.Model):
         return True
 
     def set_open(self):
-        self.filtered('is_subscription').update({'subscription_state': '3_progress', 'state': 'sale', 'locked': False})
+        for order in self:
+            if order.subscription_state == '6_churn' and order.end_date:
+                order.end_date = False
+                reopen_activity_body = _("Subscription %s has been reopened. The end date has been removed", order._get_html_link())
+                order.activity_schedule(
+                    'mail.mail_activity_data_todo',
+                    summary=_("Check reopened subscription"),
+                    note=reopen_activity_body,
+                    user_id=order.user_id.id
+                )
+        self.filtered('is_subscription').update({'subscription_state': '3_progress', 'state': 'sale', 'close_reason_id': False, 'locked': False})
 
     @api.model
     def _cron_update_kpi(self):
