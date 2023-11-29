@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="appointment.CalendarController" t-inherit="calendar.AttendeeCalendarController" t-inherit-mode="extension">
-        <xpath expr="//t[@t-set-slot='control-panel-additional-actions']" position="inside">
-            <div id="scheduling_box" class="position-fixed position-md-static start-0 bottom-0 w-100 px-3">
-                <div t-if="env.calendarState.mode === 'slots-creation' || appointmentState.lastAppointment.url" class="o_appointment_scheduling_message_box alert-primary d-flex flex-wrap p-1 rounded-1">
-                    <div class="d-flex align-items-center pe-2 py-0 lh-1">
-                        <button t-attf-class="btn btn-link o_appointment_get_link ${this.appointmentState.lastAppointment.url || this.hasSlotEvents() ? '' : 'disabled pe-none'}" title="Get Share Link" aria-label="Get Share Link"
-                            t-on-click="onClickGetShareLink" t-ref="copyLinkRef">
-                            <i class="fa fa-link"/>
+        <xpath expr="//div[hasclass('o_calendar_header')]" position="after">
+            <div class="o_appointment_scheduling_box position-sticky start-0 bottom-0 d-flex align-items-center justify-content-center gap-2 order-last order-lg-0 border-bottom py-2"
+                 t-att-class="{ 'flex-lg-row flex-column' : this.appointmentState.lastAppointment.id || this.hasSlotEvents() }">
+                <t t-if="env.calendarState.mode === 'slots-creation' || appointmentState.lastAppointment.url">
+                    <span t-if="appointmentState.lastAppointment.url" class="text-center">
+                        <i class="fa fa-check text-success" role="img" aria-label="Link copied to your clipboard!"/> Link copied to your clipboard!
+                    </span>
+                    <b t-else="">
+                        Pick your availabilities
+                    </b>
+                    <div class="d-flex align-items-center gap-1 flex-wrap">
+                        <button class="o_appointment_open_form btn btn-primary flex-fill text-nowrap"
+                                t-att-class="{ 'd-none': !this.appointmentState.lastAppointment.id and !this.hasSlotEvents() }"
+                                aria-label="Open"
+                                t-on-click="onClickOpenForm">
+                            <i class="fa fa-external-link me-1" role="img" aria-label="Open"/>Open
                         </button>
-                        <t t-if="appointmentState.lastAppointment.url">
-                            Link Copied in your clipboard!
-                        </t>
-                        <b t-else="">
-                            Pick your availabilities
-                        </b>
+                        <button class="o_appointment_get_link btn btn-secondary flex-fill text-nowrap"
+                                t-att-class="{ 'd-none': !this.appointmentState.lastAppointment.id and !this.hasSlotEvents() }"
+                                title="Get Share Link"
+                                aria-label="Get Share Link"
+                                t-on-click="onClickGetShareLink"
+                                t-ref="copyLinkRef">
+                            <i class="fa fa-copy me-1" role="img" aria-label="Copy Link"/>Copy Link
+                        </button>
+                        <button class="o_appointment_discard_slots btn btn-secondary flex-fill"
+                                aria-label="Discard"
+                                t-on-click="onClickDiscard">
+                            Discard
+                        </button>
                     </div>
-                    <div class="d-flex gap-1 flex-grow-1">
-                        <button t-attf-class="btn btn-sm btn-primary px-2 flex-grow-1 text-nowrap o_appointment_open_form ${this.appointmentState.lastAppointment.id || this.hasSlotEvents() ? '' : 'disabled pe-none'}"
-                                aria-label="Open" t-on-click="onClickOpenForm">
-                            <i class="fa fa-external-link"/> Open
-                        </button>
-                        <button class="btn btn-link o_appointment_discard_slots" aria-label="Discard"
-                            t-on-click="onClickDiscard">
-                            <i class="fa fa-times"/>
-                        </button>
-                    </div>
-                </div>
-                <div t-else="" class="btn-group px-0 o_appointment_calendar_group_buttons w-100">
+                </t>
+                <div t-else="" class="btn-group w-100 w-sm-auto mx-2 mx-sm-0 px-0">
                     <button t-on-click="onClickSelectAvailabilities" class="btn btn-secondary o_appointment_select_slots" aria-label="Share Availabilities" title="Share Availabilities">
                         Share Availabilities
                     </button>
@@ -36,7 +42,7 @@
                         <Dropdown>
                             <button class="btn btn-secondary dropdownAppointmentLink o-dropdown-caret"></button>
                             <t t-set-slot="content">
-                                <button t-on-click="onClickSelectAvailabilities" id="select_availabilities" class="o_appointment_select_slots dropdown-item">
+                                <button t-on-click="onClickSelectAvailabilities" class="o_appointment_select_slots dropdown-item">
                                     <span class="align-bottom">Select Dates</span>
                                 </button>
                                 <button t-on-click="onClickSearchCreateAnytimeAppointment"

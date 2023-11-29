@@ -6,7 +6,7 @@
                 <button t-if="model.canCreate" class="btn btn-primary" t-on-click="() => this.createRecord()">New</button>
             </t>
         </xpath>
-        <xpath expr="//div[hasclass('o_calendar_header')]//button[hasclass('oi-panel-right')]" position="replace"/>
+        <xpath expr="//div[hasclass('o_calendar_container')]//div[hasclass('o_sidebar_toggler')]" position="replace"/>
         <xpath expr="//div[hasclass('o_calendar_container')]" position="inside">
             <div t-if="state.missingConfiguration" class="o_view_nocontent o_knowledge_item_calendar_nocontent">
                 <div class="o_nocontent_help">
