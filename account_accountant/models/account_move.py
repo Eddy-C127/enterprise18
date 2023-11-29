@@ -667,6 +667,19 @@ class AccountMoveLine(models.Model):
             return predicted_tax_ids
         return False
 
+    def _predict_specific_tax(self, amount_type, amount, type_tax_use):
+        field = 'array_agg(account_move_line__tax_rel__tax_ids.id ORDER BY account_move_line__tax_rel__tax_ids.id)'
+        query = self._build_predictive_query()
+        query.left_join('account_move_line', 'id', 'account_move_line_account_tax_rel', 'account_move_line_id', 'tax_rel')
+        query.left_join('account_move_line__tax_rel', 'account_tax_id', 'account_tax', 'id', 'tax_ids')
+        query.add_where("""
+            account_move_line__tax_rel__tax_ids.active IS NOT FALSE
+            AND account_move_line__tax_rel__tax_ids.amount_type = %s
+            AND account_move_line__tax_rel__tax_ids.type_tax_use = %s
+            AND account_move_line__tax_rel__tax_ids.amount = %s
+        """, (amount_type, type_tax_use, amount))
+        return self._predicted_field(field, query)
+
     def _predict_product(self):
         predict_product = int(self.env['ir.config_parameter'].sudo().get_param('account_predictive_bills.predict_product', '1'))
         if predict_product and self.company_id.predict_bill_product:
