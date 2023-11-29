@@ -435,6 +435,7 @@ export class AccountReportController {
                 this.lines[lineIndex].expand_function,
                 this.lines[lineIndex].progress,
                 0,
+                this.lines[lineIndex].horizontal_split_side,
             ],
         );
 

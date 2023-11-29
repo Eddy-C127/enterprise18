@@ -242,4 +242,9 @@ export class AccountReportFilters extends Component {
         await this.controller.toggleOption('hide_0_lines', false);
         this.controller.assignLinesVisibility(this.controller.lines);
     }
+
+    async toggleHorizontalSplit() {
+        await this.controller.toggleOption('horizontal_split', false);
+        this.controller.saveSessionOptions(this.controller.options);
+    }
 }

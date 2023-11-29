@@ -101,6 +101,9 @@ export class AccountReport extends Component {
         if (this.controller.options.columns.length > 1)
             classes += " striped";
 
+        if (this.controller.options['horizontal_split'])
+            classes += " w-50 mx-2";
+
         return classes;
     }
 }

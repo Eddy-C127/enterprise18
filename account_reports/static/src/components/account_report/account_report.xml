@@ -58,25 +58,35 @@
                 <t t-if="controller.lines.length">
                     <!-- Table -->
                     <div class="mx-auto fit-content">
-                        <table
-                            class="table table-borderless table-hover"
-                            t-att-class="tableClasses"
-                        >
-                            <t t-component="env.component('AccountReportHeader')"/>
-                            <tbody>
-                                <t t-foreach="controller.lines" t-as="line" t-key="line.id">
-                                    <t t-if="controller.areLinesOrdered()">
-                                        <t t-set="orderedIndex" t-value="controller.linesOrder[line_index]"/>
-                                        <t t-set="orderedLine" t-value="controller.lines[orderedIndex]"/>
+                        <div class="d-flex align-items-start">
+                            <t t-foreach="controller.options['horizontal_split'] ? ['left', 'right'] : [null]" t-as="splitSide" t-key="splitSide">
+                                <table
+                                    class="table table-borderless table-hover"
+                                    t-att-class="tableClasses"
+                                >
+                                    <t t-component="env.component('AccountReportHeader')"/>
+                                    <tbody>
+                                        <t t-foreach="controller.lines" t-as="line" t-key="line.id">
+                                            <t t-if="!splitSide || splitSide === (line.horizontal_split_side || 'left')">
+                                                <!--
+                                                    We filter lines directly in the template so that the indices passed to AccountReportLine component
+                                                    correspond to indices in the global lines list ; for genericity of the code.
+                                                -->
+                                                <t t-if="controller.areLinesOrdered()">
+                                                    <t t-set="orderedIndex" t-value="controller.linesOrder[line_index]"/>
+                                                    <t t-set="orderedLine" t-value="controller.lines[orderedIndex]"/>
 
-                                        <t t-component="env.component('AccountReportLine')" t-props="{ lineIndex: orderedIndex, line: orderedLine }"/>
-                                    </t>
-                                    <t t-else="">
-                                        <t t-component="env.component('AccountReportLine')" t-props="{ lineIndex: line_index, line: line }"/>
-                                    </t>
-                                </t>
-                            </tbody>
-                        </table>
+                                                    <t t-component="env.component('AccountReportLine')" t-props="{ lineIndex: orderedIndex, line: orderedLine }"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-component="env.component('AccountReportLine')" t-props="{ lineIndex: line_index, line: line }"/>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </div>
 
                         <!-- Footnotes -->
                         <t t-if="controller.hasVisibleFootnotes">

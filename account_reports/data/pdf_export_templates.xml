@@ -26,17 +26,23 @@
                          </div>
                      </header>
 
-                     <table class="o_table">
-                         <!-- Header -->
-                         <t t-call="{{custom_templates.get('pdf_export_main_table_header', 'account_reports.pdf_export_main_table_header')}}"/>
+                     <div class="d-flex align-items-start">
+                         <t t-foreach="options.get('horizontal_split') and ['left', 'right'] or [None]" t-as="split_side">
+                             <table t-attf-class="o_table  #{options.get('horizontal_split') and 'horizontal_split_page'}">
+                                 <!-- Header -->
+                                 <t t-call="{{custom_templates.get('pdf_export_main_table_header', 'account_reports.pdf_export_main_table_header')}}"/>
 
-                         <!-- Body -->
-                         <tbody>
-                            <t t-if="lines">
-                                <t t-call="{{custom_templates.get('pdf_export_main_table_body', 'account_reports.pdf_export_main_table_body')}}"/>
-                            </t>
-                        </tbody>
-                     </table>
+                                 <!-- Body -->
+                                 <tbody>
+                                     <t t-if="lines">
+                                         <t t-call="{{custom_templates.get('pdf_export_main_table_body', 'account_reports.pdf_export_main_table_body')}}">
+                                             <t t-set="lines" t-value="filter(lambda x: not split_side or split_side == x.get('horizontal_split_side', 'left'), lines)"/>
+                                         </t>
+                                     </t>
+                                 </tbody>
+                             </table>
+                         </t>
+                     </div>
 
                      <!-- Footnotes -->
                      <ul class="o_footnote">
@@ -210,7 +216,7 @@
         <t t-foreach="lines" t-as="line">
             <t t-set="o_line_level" t-value="'o_line_level_' + str(line['level'])"/>
 
-            <t t-if="line.get('page_break')">
+            <t t-if="line.get('page_break') and not options.get('horizontal_split')">
                 <!-- End current table -->
                 <t t-out="table_end"/>
 

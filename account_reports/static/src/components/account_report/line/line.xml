@@ -6,7 +6,7 @@
 
     <t t-name="account_reports.AccountReportLineCustomizable">
         <!-- Adds an empty row above line with level 0 to add some spacing (it is the easiest and cleanest way) -->
-        <t t-if="props.lineIndex != 0 and props.line.level === 0">
+        <t t-if="props.line.level === 0">
             <tr class="empty">
                 <td/>
                 <t t-foreach="props.line.columns" t-as="cell" t-key="cell_index">

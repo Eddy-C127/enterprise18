@@ -80,6 +80,7 @@
                     .clickable { color: $o-enterprise-action-color }
                     &.muted { color: $o-gray-300 }
                     &:empty::after{ content: "\00a0" } //!\\ Prevents the collapse of empty table rows
+                    &:empty { line-height: 1 }
                 }
 
                 &:not(.empty) > td { border-bottom: 1px solid $o-gray-200 }

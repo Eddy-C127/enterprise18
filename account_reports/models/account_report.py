@@ -1570,6 +1570,13 @@ class AccountReport(models.Model):
         options['export_mode'] = (previous_options or {}).get('export_mode')
 
     ####################################################
+    # OPTIONS: HORIZONTAL SPLIT
+    ####################################################
+    def _init_options_horizontal_split(self, options, previous_options=None):
+        if any(line.horizontal_split_side for line in self.line_ids):
+            options['horizontal_split'] = (previous_options or {}).get('horizontal_split', False)
+
+    ####################################################
     # OPTIONS: CUSTOM
     ####################################################
     def _init_options_custom(self, options, previous_options=None):
@@ -2187,8 +2194,10 @@ class AccountReport(models.Model):
             if line_need_expansion(line_dict):
                 groupby = line_dict.get('groupby')
                 progress = line_dict.get('progress')
-                to_insert = self._expand_unfoldable_line(line_dict['expand_function'], line_dict['id'], groupby, options, progress, 0,
-                                                         unfold_all_batch_data=custom_unfold_all_batch_data)
+                to_insert = self._expand_unfoldable_line(
+                    line_dict['expand_function'], line_dict['id'], groupby, options, progress, 0, line_dict.get('horizontal_split_side'),
+                    unfold_all_batch_data=custom_unfold_all_batch_data,
+                )
                 lines = lines[:i+1] + to_insert + lines[i+1:]
             i += 1
 
@@ -2226,6 +2235,9 @@ class AccountReport(models.Model):
             'action_id': line.action_id.id,
             'expand_function': groupby and '_report_expand_unfoldable_line_with_groupby' or None,
         }
+
+        if line.horizontal_split_side:
+            rslt['horizontal_split_side'] = line.horizontal_split_side
 
         if parent_id:
             rslt['parent_id'] = parent_id
@@ -4328,15 +4340,16 @@ class AccountReport(models.Model):
         """
         return lines
 
-    def get_expanded_lines(self, options, line_dict_id, groupby, expand_function_name, progress, offset):
-        lines = self._expand_unfoldable_line(expand_function_name, line_dict_id, groupby, options, progress, offset)
+    def get_expanded_lines(self, options, line_dict_id, groupby, expand_function_name, progress, offset, horizontal_split_side):
+        lines = self._expand_unfoldable_line(expand_function_name, line_dict_id, groupby, options, progress, offset, horizontal_split_side)
         lines = self._fully_unfold_lines_if_needed(lines, options)
 
         if self.custom_handler_model_id:
             lines = self.env[self.custom_handler_model_name]._custom_line_postprocessor(self, options, lines)
 
         return lines
-    def _expand_unfoldable_line(self, expand_function_name, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
+
+    def _expand_unfoldable_line(self, expand_function_name, line_dict_id, groupby, options, progress, offset, horizontal_split_side, unfold_all_batch_data=None):
         if not expand_function_name:
             raise UserError(_("Trying to expand a line without an expansion function."))
 
@@ -4347,6 +4360,11 @@ class AccountReport(models.Model):
         expansion_result = expand_function(line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=unfold_all_batch_data)
 
         rslt = expansion_result['lines']
+
+        if horizontal_split_side:
+            for line in rslt:
+                line['horizontal_split_side'] = horizontal_split_side
+
         if expansion_result.get('has_more'):
             # We only add load_more line for groupby
             next_offset = offset + expansion_result['offset_increment']
@@ -4701,7 +4719,7 @@ class AccountReport(models.Model):
 
         grouped_reports_by_format = groupby(
             zip(reports_to_print, reports_options),
-            key=lambda report: len(report[1]['columns']) > 5
+            key=lambda report: len(report[1]['columns']) > 5 or report[1].get('horizontal_split')
         )
 
         footer = self.env['ir.actions.report']._render_template("account_reports.internal_layout", values=rcontext)
@@ -4760,9 +4778,10 @@ class AccountReport(models.Model):
             'options': options,
             'table_start': markupsafe.Markup('<tbody>'),
             'table_end': markupsafe.Markup('''
-                </tbody></table>
+                </tbody></table></div>
                 <div style="page-break-after: always"></div>
-                <table class="o_table table-hover">
+                <div class="d-flex align-items-start">
+                <table class="o_table">
             '''),
             'column_headers_render_data': self._get_column_headers_render_data(options),
             'custom_templates': custom_print_templates,

@@ -107,6 +107,7 @@ export class AccountReportLineName extends Component {
                 this.props.line.expand_function,
                 this.props.line.progress,
                 this.props.line.offset,
+                this.props.line.horizontal_split_side,
             ],
         );
 

@@ -22,7 +22,7 @@
     .o_table {
         width: 100%;
         font-size: 0.8rem;
-        margin: 0 auto 24px;
+        margin: 0 0 24px;
         padding: 24px;
 
         // Define direction attribute here so when rtlcss preprocessor run, it converts it to rtl
@@ -32,6 +32,12 @@
 
         // Override bootstrap in the account reports
         thead, tbody, tfoot, tr, td, th { border-style: none }
+
+        &.horizontal_split_page {
+            width: 48%;
+            margin-left: 1%;
+            margin-right: 1%;
+        }
 
         /*****************
             Header of the main table
