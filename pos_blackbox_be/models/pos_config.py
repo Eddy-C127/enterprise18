@@ -68,8 +68,8 @@ class PosConfig(models.Model):
             self._check_work_product_taxes()
             self._check_employee_insz_or_bis_number()
             self._check_pos_category()
-            # self._check_cash_rounding()
-            # self._check_printer_connected()
+            self._check_cash_rounding()
+            self._check_printer_connected()
         return super(PosConfig, self)._check_before_creating_new_session()
 
     def _check_work_product_taxes(self):
