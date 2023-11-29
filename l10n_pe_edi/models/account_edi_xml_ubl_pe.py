@@ -225,9 +225,8 @@ class AccountEdiXmlUBLPE(models.AbstractModel):
     def _get_invoice_monetary_total_vals(self, invoice, taxes_vals, line_extension_amount, allowance_total_amount, charge_total_amount):
         # EXTENDS account.edi.xml.ubl_21
         vals = super()._get_invoice_monetary_total_vals(invoice, taxes_vals, line_extension_amount, allowance_total_amount, charge_total_amount)
-        if invoice.move_type == 'out_refund':
-            vals['payable_amount'] += vals['prepaid_amount']
-            vals['prepaid_amount'] = 0.0
+        vals['payable_amount'] += vals['prepaid_amount']
+        vals['prepaid_amount'] = 0.0
         return vals
 
     def _export_invoice_vals(self, invoice):
