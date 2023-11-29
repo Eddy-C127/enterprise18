@@ -11,7 +11,7 @@ from odoo.tools.float_utils import float_compare
 
 from odoo.addons.mail.tests.common import MockEmail
 from odoo.addons.hr_timesheet.tests.test_timesheet import TestCommonTimesheet
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, UserError
 
 try:
     from unittest.mock import patch
@@ -568,3 +568,48 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
         timesheet.with_user(self.user_employee).action_timer_stop()
         count = self.env['account.analytic.line'].search_count([('name', '=', 'My_timesheet')])
         self.assertEqual(count, 2, "There should be two entries for timesheet, one for existing future entry and another one for today's entry!")
+
+    def test_timesheet_entry_with_multiple_projects(self):
+        Timesheet = self.env['account.analytic.line']
+
+        # Create project
+        project_customer2 = self.env['project.project'].create({
+            'name': 'Project Y',
+            'allow_timesheets': True,
+            'partner_id': self.partner.id,
+            'analytic_account_id': self.analytic_account.id,
+        })
+
+        # Create two timesheet entries for the same employee, one for each project, with different unit amounts
+        Timesheet.create([
+            {
+                'name': 'Timesheet 1',
+                'project_id': self.project_customer.id,
+                'employee_id': self.empl_employee.id,
+                'unit_amount': 5.0,
+                'date': '2024-01-02',
+            },
+            {
+                'name': 'Timesheet 2',
+                'project_id': project_customer2.id,
+                'employee_id': self.empl_employee.id,
+                'unit_amount': 10.0,
+                'date': '2024-01-02',
+            },
+        ])
+
+        timesheet_count = Timesheet.search_count([('employee_id', '=', self.empl_employee.id), ('date', '=', '2024-01-02')])
+        Timesheet.grid_update_cell([('employee_id', '=', self.empl_employee.id), ('date', '=', '2024-01-02')], 'unit_amount', 3.0)
+        self.assertEqual(
+            Timesheet.search_count([('employee_id', '=', self.empl_employee.id), ('date', '=', '2024-01-02')]),
+            timesheet_count + 1,
+            "Grid update cell should create new timesheet if cell contains multiple timesheets"
+        )
+
+        # Disable timesheet feature for projects
+        self.project_customer.allow_timesheets = False
+        project_customer2.allow_timesheets = False
+
+        # Raise user error if timesheet is disabled in both projects
+        with self.assertRaises(UserError):
+            Timesheet.grid_update_cell([('employee_id', '=', self.empl_employee.id), ('date', '=', '2024-01-02')], 'unit_amount', 5.0)
