@@ -82,6 +82,11 @@ registry.category("web_tour.tours").add('planning_test_tour', {
         }
     }
 }, {
+    trigger: ".o_control_panel .dropdown-toggle",
+    content: "Share the schedule with your team by publishing and sending it. Open the menu to access this option.",
+    position: "top",
+    mobile: true,
+}, {
     trigger: ".o_gantt_button_send_all",
     content: markup("If you are happy with your planning, you can now <b>send</b> it to your employees."),
 }, {
@@ -105,8 +110,13 @@ registry.category("web_tour.tours").add('planning_test_tour', {
         }
     }
 }, {
+    trigger: ".o_control_panel .dropdown-toggle",
+    content: "Plan your shifts in one click by copying the schedule from the previous week. Open the menu to access this option.",
+    position: "top",
+}, {
     trigger: ".o_gantt_button_copy_previous_week",
     content: "Copy previous week if you want to follow previous week planning schedule",
+    position: "right",
     run: 'click',
 }, {
     id: "planning_check_format_step",
@@ -115,8 +125,13 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     auto: true,
     run: function () {}
 }, {
+    trigger: ".o_control_panel .dropdown-toggle",
+    content: "Automatically match open shifts and sales orders to the right people, taking into account their working hours, roles, availability, and time off. Open the menu to access this option.",
+    position: "top",
+}, {
     trigger: ".o_gantt_button_auto_plan",
     content: "Click on Auto Plan button to assign open shifts to employees",
+    position: "right",
     run: 'click',
 }, {
     id: "planning_check_format_step",

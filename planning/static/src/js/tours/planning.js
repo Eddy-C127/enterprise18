@@ -36,9 +36,20 @@ registry.category("web_tour.tours").add('planning_tour', {
         position: "bottom",
         run: "drag_and_drop_native .o_gantt_cell:nth-child(6)",
     }, {
+        trigger: ".o_control_panel .dropdown-toggle",
+        content: _t("Share the schedule with your team by publishing and sending it. Open the menu to access this option."),
+        mobile: true,
+        position: "bottom",
+    }, {
+        trigger: ".o_gantt_button_send_all",
+        content: markup(_t("If you are happy with your planning, you can now <b>send</b> it to your employees.")),
+        position: "right",
+        mobile: true,
+    }, {
         trigger: ".o_gantt_button_send_all",
         content: markup(_t("If you are happy with your planning, you can now <b>send</b> it to your employees.")),
         position: "bottom",
+        mobile: false,
     }, {
         trigger: "button[name='action_check_emails']",
         content: markup(_t("<b>Publish & send</b> your employee's planning.")),
@@ -49,8 +60,12 @@ registry.category("web_tour.tours").add('planning_tour', {
         content: markup(_t("Now that this week is ready, let's get started on <b>next week's schedule</b>.")),
         position: "bottom",
     }, {
-        trigger: "button.o_gantt_button_copy_previous_week",
-        content: markup(_t("Plan all of your shifts in one click by <b>copying the previous week's schedule</b>.")),
+        trigger: ".o_control_panel .dropdown-toggle",
+        content: markup(_t("Plan your shifts in one click by <b>copying the schedule from the previous week</b>. Open the menu to access this option.")),
         position: "bottom",
+    }, {
+        trigger: ".o_gantt_button_copy_previous_week",
+        content: markup(_t("Plan your shifts in one click by <b>copying the schedule from the previous week</b>.")),
+        position: "right",
     },
 ]});
