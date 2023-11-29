@@ -37,7 +37,7 @@ patch(PosStore.prototype, {
     async pushProFormaOrder(order) {
         order.receipt_type = order.get_total_with_tax() >= 0 ? "PS" : "PR";
         await this.sendDraftToServer();
-        this.pushToBlackbox(order);
+        await this.pushToBlackbox(order);
     },
     async pushToBlackbox(order) {
         try {
@@ -121,8 +121,10 @@ patch(PosStore.prototype, {
         order.blackbox_date = data.value.date.replace(/(\d{4})(\d{2})(\d{2})/g, '$3-$2-$1');
     },
     async _syncTableOrdersToServer() {
-        for (const order of this.ordersToUpdateSet) {
-            await this.pushProFormaOrder(order);
+        if (this.useBlackBoxBe()) {
+            for (const order of this.ordersToUpdateSet) {
+                await this.pushProFormaOrder(order);
+            }
         }
         super._syncTableOrdersToServer();
     },
