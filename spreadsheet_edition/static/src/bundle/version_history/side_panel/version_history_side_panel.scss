@@ -78,22 +78,21 @@
   margin-bottom: 8px;
 }
 
-button.o-sidePanelButton {
-  &.o-version-history-load-more {
-    cursor: pointer;
-    color: #334155;
-    font-size: 0.8rem;
-    background-color: #f1f5f9;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-    &:hover {
-      color: #0f172a;
-      background-color: #cbd5e1;
-    }
+button.o-button.o-version-history-load-more {
+  cursor: pointer;
+  color: #334155;
+  font-size: 0.8rem;
+  background-color: #f1f5f9;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  &:hover {
+    color: #0f172a;
+    background-color: #cbd5e1;
   }
 }
+
 
 .o-version-history {
   width:100%;
