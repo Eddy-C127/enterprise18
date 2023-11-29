@@ -29,9 +29,6 @@ class Task(models.Model):
     planned_date_begin = fields.Datetime("Start date", tracking=True)
     # planned_date_start is added to be able to display tasks in calendar view because both start and end date are mandatory
     planned_date_start = fields.Datetime(compute="_compute_planned_date_start", search="_search_planned_date_start")
-    partner_mobile = fields.Char(related='partner_id.mobile', readonly=False)
-    partner_zip = fields.Char(related='partner_id.zip', readonly=False)
-    partner_street = fields.Char(related='partner_id.street', readonly=False)
 
     # Task Dependencies fields
     display_warning_dependency_in_gantt = fields.Boolean(compute="_compute_display_warning_dependency_in_gantt")

@@ -51,7 +51,6 @@ class Planning(models.Model):
     resource_roles = fields.Many2many(related='resource_id.role_ids')
     employee_id = fields.Many2one('hr.employee', 'Employee', compute='_compute_employee_id', store=True)
     work_email = fields.Char("Work Email", related='employee_id.work_email')
-    work_address_id = fields.Many2one(related='employee_id.address_id', store=True)
     work_location_id = fields.Many2one(related='employee_id.work_location_id')
     department_id = fields.Many2one(related='employee_id.department_id', store=True)
     user_id = fields.Many2one('res.users', string="User", related='resource_id.user_id', store=True, readonly=True)

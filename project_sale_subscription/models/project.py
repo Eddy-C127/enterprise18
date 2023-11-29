@@ -4,27 +4,12 @@
 import json
 from collections import defaultdict
 
-from odoo import api, fields, models, _lt
+from odoo import fields, models, _lt
 from odoo.osv import expression
 
 
 class Project(models.Model):
     _inherit = 'project.project'
-
-    subscriptions_count = fields.Integer('# Subscriptions', compute='_compute_subscriptions_count', groups='sales_team.group_sale_salesman')
-
-    @api.depends('analytic_account_id')
-    def _compute_subscriptions_count(self):
-        if not self.analytic_account_id:
-            self.subscriptions_count = 0
-            return
-        subscriptions_data = self.env['sale.order']._read_group([
-            ('analytic_account_id', 'in', self.analytic_account_id.ids),
-            ('is_subscription', '=', True),
-        ], ['analytic_account_id'], ['__count'])
-        mapped_data = {analytic_account.id: count for analytic_account, count in subscriptions_data}
-        for project in self:
-            project.subscriptions_count = mapped_data.get(project.analytic_account_id.id, 0)
 
     # -------------------------------------------
     # Actions

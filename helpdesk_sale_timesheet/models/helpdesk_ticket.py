@@ -21,7 +21,6 @@ class HelpdeskTicket(models.Model):
              "By default the last prepaid sales order item that has time remaining will be selected.\n"
              "Remove the sales order item in order to make this ticket non-billable.\n"
              "You can also change or remove the sales order item of each timesheet entry individually.")
-    project_sale_order_id = fields.Many2one('sale.order', string="Project's Sales Order", related='project_id.sale_order_id')
     remaining_hours_available = fields.Boolean(related="sale_line_id.remaining_hours_available")
     remaining_hours_so = fields.Float('Remaining Hours on SO', compute='_compute_remaining_hours_so', search='_search_remaining_hours_so')
 
@@ -75,8 +74,8 @@ class HelpdeskTicket(models.Model):
         if not self.commercial_partner_id or not self.project_id.allow_billable or not self.use_helpdesk_sale_timesheet:
             return False
         domain = [('company_id', '=', self.company_id.id), ('is_service', '=', True), ('order_partner_id', 'child_of', self.commercial_partner_id.id), ('is_expense', '=', False), ('state', 'in', ['sale', 'done']), ('remaining_hours', '>', 0), ('is_downpayment', '=', False)]
-        if self.project_id.pricing_type != 'task_rate' and self.project_sale_order_id and self.commercial_partner_id == self.project_id.partner_id.commercial_partner_id:
-            domain.append(('order_id', '=?', self.project_sale_order_id.id))
+        if self.project_id.pricing_type != 'task_rate' and (order_id := self.project_id.sale_order_id) and self.commercial_partner_id == self.project_id.partner_id.commercial_partner_id:
+            domain.append(('order_id', '=?', order_id.id))
         return self.env['sale.order.line'].search(domain, limit=1)
 
     def write(self, values):
