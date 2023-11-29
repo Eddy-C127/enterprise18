@@ -806,8 +806,7 @@ class Planning(models.Model):
                 or ('end_datetime' in values and slot.end_datetime != datetime.strptime(values['end_datetime'], '%Y-%m-%d %H:%M:%S'))
             ):
                 values['request_to_switch'] = False
-        # update other slots in recurrency
-        slots = self
+
         recurrence_update = values.pop('recurrence_update', 'this')
         if recurrence_update != 'this':
             recurrence_domain = []
@@ -816,11 +815,33 @@ class Planning(models.Model):
                     recurrence_domain = expression.OR([recurrence_domain,
                         ['&', ('recurrency_id', '=', slot.recurrency_id.id), ('start_datetime', '>=', slot.start_datetime)]
                     ])
+                    recurrence_slots = self.search(recurrence_domain)
+                    if any(
+                        field_name in values
+                        for field_name in ('start_datetime', 'end_datetime')
+                    ):
+                        recurrence_slots -= slot
+                        values["repeat_type"] = slot.repeat_type
+                        self -= recurrence_slots
+                        recurrence_slots.unlink()
+                    else:
+                        self |= recurrence_slots
             else:
-                recurrence_domain = [('recurrency_id', 'in', self.recurrency_id.ids)]
-            slots |= self.search(recurrence_domain)
+                recurrence_slots = self.search([('recurrency_id', 'in', self.recurrency_id.ids)])
+                if any(
+                    field_name in values
+                    for field_name in ('start_datetime', 'end_datetime')
+                ):
+                    slot = recurrence_slots[-1]
+                    values["repeat_type"] = slot.repeat_type    # this is to ensure that the subsequent slots are recreated
+                    recurrence_slots -= slot
+                    recurrence_slots.unlink()
+                    self -= recurrence_slots
+                    self |= slot
+                else:
+                    self |= recurrence_slots
 
-        result = super(Planning, slots).write(values)
+        result = super().write(values)
         # recurrence
         if any(key in ('repeat', 'repeat_unit', 'repeat_type', 'repeat_until', 'repeat_interval', 'repeat_number') for key in values):
             # User is trying to change this record's recurrence so we delete future slots belonging to recurrence A

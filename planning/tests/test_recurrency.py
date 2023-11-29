@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from .common import TestCommonPlanning
 
@@ -744,4 +744,54 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
         self.assertFalse(
             slot.recurrency_id.slot_ids[1].resource_id,
             'The second slot should be an open shift as the resource has a concurrent shift'
+        )
+
+    def test_recurrency_date_change_week(self):
+        first_slot_dt = datetime(2020, 11, 27)
+        first_slot = self.env['planning.slot'].create({
+            'start_datetime': first_slot_dt + timedelta(hours=8),
+            'end_datetime': first_slot_dt + timedelta(hours=9),
+            'repeat': True,
+            'repeat_type': 'x_times',
+            'repeat_number': 3,
+            'repeat_interval': 1,
+            'repeat_unit': 'week',
+        })
+        first_slot.recurrency_id.slot_ids[1].write({
+            'start_datetime': first_slot_dt + timedelta(days=9, hours=8),
+            'end_datetime': first_slot_dt + timedelta(days=9, hours=9),
+        })
+        first_slot.write({
+            'start_datetime': first_slot_dt + timedelta(days=-1, hours=8),
+            'end_datetime': first_slot_dt + timedelta(days=-1, hours=9),
+            'recurrence_update': 'all',
+        })
+        self.assertTrue(
+            slot.start_datetime.weekday() == 1
+            for slot in first_slot.recurrency_id.slot_ids
+        )
+
+    def test_recurrency_date_change_month(self):
+        first_slot_dt = datetime(2020, 11, 27)
+        first_slot = self.env['planning.slot'].create({
+            'start_datetime': first_slot_dt + timedelta(hours=8),
+            'end_datetime': first_slot_dt + timedelta(hours=9),
+            'repeat': True,
+            'repeat_type': 'x_times',
+            'repeat_number': 3,
+            'repeat_interval': 1,
+            'repeat_unit': 'month',
+        })
+        first_slot.recurrency_id.slot_ids[1].write({
+            'start_datetime': first_slot_dt + timedelta(days=2, hours=8),
+            'end_datetime': first_slot_dt + timedelta(days=2, hours=9),
+        })
+        first_slot.write({
+            'start_datetime': first_slot_dt + timedelta(days=-10, hours=8),
+            'end_datetime': first_slot_dt + timedelta(days=-10, hours=9),
+            'recurrence_update': 'all',
+        })
+        self.assertTrue(
+            slot.start_datetime.day == 17 and slot._get_slot_duration() == 1
+            for slot in first_slot.recurrency_id.slot_ids
         )
