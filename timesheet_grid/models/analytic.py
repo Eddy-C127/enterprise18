@@ -317,7 +317,7 @@ class AnalyticLine(models.Model):
         timesheets = self.search(domain, limit=2)
 
         # sudo in case of timesheeting a task belonging to a private project
-        if timesheets.project_id and not timesheets.project_id.sudo().allow_timesheets:
+        if timesheets.project_id and not all(timesheets.project_id.sudo().mapped("allow_timesheets")):
             raise UserError(_("You cannot adjust the time of the timesheet for a project with timesheets disabled."))
 
         non_validated_timesheets = timesheets.filtered(lambda timesheet: not timesheet.validated)
