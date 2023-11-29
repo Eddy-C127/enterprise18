@@ -12,7 +12,6 @@ import { EmbeddedViewBehavior } from "@knowledge/components/behaviors/embedded_v
 import { EmbeddedViewManager } from "@knowledge/components/behaviors/embedded_view_behavior/embedded_view_manager";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { HtmlField } from "@web_editor/js/backend/html_field";
-import { encodeDataBehaviorProps } from "@knowledge/js/knowledge_utils";
 
 import { onMounted } from "@odoo/owl";
 
@@ -22,21 +21,13 @@ let embedMountedPromise;
 /**
  * Insert an embedded kanban view inside a Knowledge article
  * @param {HTMLElement} htmlField - Object HtmlField of Knowledge
- * @param {HTMLElement} target - Target node
+ * @param {HTMLElement} action - Server action used for the embed
  */
-const insertKanbanEmbed = async (htmlField, target) => {
+const insertKanbanEmbed = async (htmlField, action) => {
     const wysiwyg = htmlField.wysiwyg;
-    const behaviorProps = encodeDataBehaviorProps({
-        act_window: serverData.actions.actionExternalKanban,
-        name: 'External Embed',
-        view_type: 'kanban',
-        context: {}
-    });
+
     wysiwyg.odooEditor.observerUnactive();
-    const embedDiv = document.createElement('div');
-    embedDiv.className = "o_knowledge_behavior_anchor o_knowledge_behavior_type_embedded_view";
-    embedDiv.setAttribute('data-behavior-props', behaviorProps);
-    target.replaceWith(embedDiv);
+    await wysiwyg._insertEmbeddedView(null, action, 'kanban', 'External Kanban');
     await htmlFieldReadyPromise;
     await htmlField.mountBehaviors();
     wysiwyg.odooEditor.observerActive();
@@ -52,7 +43,7 @@ const insertKanbanEmbed = async (htmlField, target) => {
  * would need to change its use for embedded views.
  */
 
-QUnit.module("Knowledge External Embeds Hotkeys", (hooks) => {
+QUnit.module("Knowledge External Embeds Tests", (hooks) => {
     hooks.beforeEach(() => {
         htmlFieldReadyPromise = makeDeferred();
         embedMountedPromise = makeDeferred();
@@ -87,13 +78,15 @@ QUnit.module("Knowledge External Embeds Hotkeys", (hooks) => {
                 knowledge_article: {
                     fields: {
                         display_name: {string: "Displayed name", type: "char"},
+                        full_width: {string: "Is Full Width ?", type: "boolean"},
                         body: {string: "Body", type: 'html'},
                     },
                     records: [{
                         id: 1,
                         display_name: "My Article",
                         body: `<p class="embedded_view_target"><br/></p>
-                            <p class="regular_html_field_node"><br/></p>`
+                            <p class="regular_html_field_node"><br/></p>`,
+                        full_width: false
                     }]
                 },
                 quick_create: {
@@ -148,7 +141,7 @@ QUnit.module("Knowledge External Embeds Hotkeys", (hooks) => {
         setupViewRegistries();
     });
     QUnit.test('Testing normal hotkey behavior: kanban embed', async function (assert) {
-        assert.expect(2);
+        assert.expect(3);
         await makeView({
             type: "form",
             resModel: "knowledge_article",
@@ -156,6 +149,7 @@ QUnit.module("Knowledge External Embeds Hotkeys", (hooks) => {
             arch: `<form js_class="knowledge_article_view_form">
             <sheet>
                 <div>
+                    <field name="full_width" readonly="1"/>
                     <div class="o_knowledge_editor d-flex flex-grow-1">
                         <field name="body" widget="knowledge_article_html_field"/>
                     </div>
@@ -172,14 +166,14 @@ QUnit.module("Knowledge External Embeds Hotkeys", (hooks) => {
                 }
             }
         });
-
         const htmlField = await htmlFieldReadyPromise;
 
-        const editable = htmlField.wysiwyg.odooEditor.editable;
-        const embedViewTargetNode = editable.querySelector('.embedded_view_target');
-        const regularHtmlFieldNode = editable.querySelector('.regular_html_field_node');
+        await insertKanbanEmbed(htmlField, serverData.actions.actionExternalKanban);
+        // Embedded views trigger full width
+        assert.equal(document.querySelector('.o_field_boolean[name="full_width"] input').value, 'on');
 
-        await insertKanbanEmbed(htmlField, embedViewTargetNode);
+        const editable = htmlField.wysiwyg.odooEditor.editable;
+        const regularHtmlFieldNode = editable.querySelector('.regular_html_field_node');
         await embedMountedPromise;
         const embedViewWrapperNode = editable.querySelector('.o_knowledge_behavior_anchor.o_knowledge_behavior_type_embedded_view')
         await click(editable, '.o_kanban_group:nth-of-type(1) .o_kanban_quick_add');
