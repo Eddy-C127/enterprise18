@@ -419,7 +419,7 @@ class SaleOrder(models.Model):
             return
         result = self.env['sale.order']._read_group([
                 ('subscription_state', '=', '2_renewal'),
-                ('state', '=', 'draft'),
+                ('state', 'in', ['draft', 'sent']),
                 ('subscription_id', 'in', self.ids)
             ],
             ['subscription_id'],
@@ -488,7 +488,7 @@ class SaleOrder(models.Model):
         renew_order_ids = self.env['sale.order'].search([
             ('id', 'in', self.subscription_child_ids.ids),
             ('subscription_state', '=', '2_renewal'),
-            ('state', '=', 'draft'),
+            ('state', 'in', ['draft', 'sent']),
         ]).subscription_id
         renew_order_ids.is_renewing = True
 
@@ -878,7 +878,7 @@ class SaleOrder(models.Model):
             action['res_id'] = renewal.id
             action['views'] = [(self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
         else:
-            action['domain'] = [('subscription_id', '=', self.id), ('subscription_state', '=', '2_renewal'), ('state', '=', 'draft')]
+            action['domain'] = [('subscription_id', '=', self.id), ('subscription_state', '=', '2_renewal'), ('state', 'in', ['draft', 'sent'])]
             action['views'] = [(self.env.ref('sale.view_quotation_tree').id, 'tree'),
                                (self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
 
