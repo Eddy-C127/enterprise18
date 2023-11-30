@@ -620,6 +620,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Liquidity line displays debit '$ 100.00'",
+            extra_trigger: ".o_bank_rec_selected_st_line:contains('line2'):not(:has(div.badge))",
             trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 100.00')",
             run: () => {},
         },
