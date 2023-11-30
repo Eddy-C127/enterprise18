@@ -372,3 +372,21 @@ class TestDeferredManagement(AccountTestInvoicingCommon):
         move.action_post()
 
         self.assert_invoice_lines(move, expected_line_values, self.expense_accounts[0], self.company_data['default_account_deferred_expense'])
+
+    def test_deferred_tax_key(self):
+        """
+        Test that the deferred tax key is correctly computed.
+        and is the same between _compute_tax_key and _compute_all_tax
+        """
+        lines = [
+            [self.expense_accounts[0], 1000, '2023-01-01', '2023-04-30'],
+            [self.expense_accounts[0], 1000, False, False],
+        ]
+        move = self.create_invoice('in_invoice', self.company_data['default_journal_purchase'], self.partner_a, lines, post=True)
+        original_amount_total = move.amount_total
+        self.assertEqual(len(move.line_ids.filtered(lambda l: l.display_type == 'tax')), 1)
+        move.button_draft()
+        move.action_post()
+        # The number of tax lines shouldn't change, nor the total amount
+        self.assertEqual(len(move.line_ids.filtered(lambda l: l.display_type == 'tax')), 1)
+        self.assertEqual(move.amount_total, original_amount_total)

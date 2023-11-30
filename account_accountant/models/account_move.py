@@ -450,28 +450,36 @@ class AccountMoveLine(models.Model):
             elif line.deferred_start_date and line.deferred_end_date and line.deferred_start_date > line.deferred_end_date:
                 raise UserError(_("You cannot create a deferred entry with a start date later than the end date."))
 
+    @api.model
+    def _get_deferred_tax_key(self, line, tax_key, tax_repartition_line_id):
+        if (
+            line.deferred_start_date
+            and line.deferred_end_date
+            and line._is_compatible_account()
+            and tax_repartition_line_id
+            and not tax_repartition_line_id.use_in_tax_closing
+        ):
+            return frozendict(
+                **tax_key,
+                deferred_start_date=line.deferred_start_date,
+                deferred_end_date=line.deferred_end_date,
+            )
+        return tax_key
+
     @api.depends('deferred_start_date', 'deferred_end_date')
     def _compute_tax_key(self):
         super()._compute_tax_key()
         for line in self:
-            if line.deferred_start_date and line.deferred_end_date and line._is_compatible_account():
-                line.tax_key = frozendict(
-                    **line.tax_key,
-                    deferred_start_date=line.deferred_start_date,
-                    deferred_end_date=line.deferred_end_date
-                )
+            line.tax_key = self._get_deferred_tax_key(line, line.tax_key, line.tax_repartition_line_id)
 
     @api.depends('deferred_start_date', 'deferred_end_date')
     def _compute_all_tax(self):
         super()._compute_all_tax()
         for line in self:
-            if line.deferred_start_date and line.deferred_end_date and line._is_compatible_account():
-                for key in list(line.compute_all_tax.keys()):
-                    rep_line = self.env['account.tax.repartition.line'].browse(key.get('tax_repartition_line_id'))
-                    deferred_start_date = line.deferred_start_date if not rep_line.use_in_tax_closing else False
-                    deferred_end_date = line.deferred_end_date if not rep_line.use_in_tax_closing else False
-                    new_key = frozendict(**key, deferred_start_date=deferred_start_date, deferred_end_date=deferred_end_date)
-                    line.compute_all_tax[new_key] = line.compute_all_tax.pop(key)
+            for key in list(line.compute_all_tax.keys()):
+                tax_repartition_line_id = self.env['account.tax.repartition.line'].browse(key.get('tax_repartition_line_id'))
+                new_key = self._get_deferred_tax_key(line, key, tax_repartition_line_id)
+                line.compute_all_tax[new_key] = line.compute_all_tax.pop(key)
 
     @api.model
     def _get_deferred_ends_of_month(self, start_date, end_date):
