@@ -507,7 +507,7 @@ class AccountReconcileWizard(models.TransientModel):
 
         if do_write_off:
             write_off_move = self.create_write_off()
-            write_off_line_to_reconcile = write_off_move.line_ids.filtered(lambda line: line.account_id == self.reco_account_id)
+            write_off_line_to_reconcile = write_off_move.line_ids[0]
             move_lines_to_reconcile += write_off_line_to_reconcile
             amls_plan = [[move_lines_to_reconcile, write_off_line_to_reconcile]]
         else:
