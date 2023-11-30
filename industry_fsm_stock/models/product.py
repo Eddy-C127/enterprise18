@@ -10,9 +10,9 @@ from odoo.exceptions import UserError, AccessError
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    serial_missing = fields.Boolean(compute='_compute_serial_missing')
-    quantity_decreasable = fields.Boolean(compute='_compute_quantity_decreasable')
-    quantity_decreasable_sum = fields.Integer(compute='_compute_quantity_decreasable')
+    serial_missing = fields.Boolean(compute='_compute_serial_missing', export_string_translation=False)
+    quantity_decreasable = fields.Boolean(compute='_compute_quantity_decreasable', export_string_translation=False)
+    quantity_decreasable_sum = fields.Integer(compute='_compute_quantity_decreasable', export_string_translation=False)
 
     @api.depends('fsm_quantity')
     @api.depends_context('fsm_task_id')

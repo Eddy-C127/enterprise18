@@ -13,22 +13,22 @@ class Company(models.Model):
     _inherit = 'res.company'
 
     # reminder for employees
-    timesheet_mail_employee_allow = fields.Boolean("Employee Reminder", default=True)
-    timesheet_mail_employee_delay = fields.Integer("Employee Reminder Days", default=1)
+    timesheet_mail_employee_allow = fields.Boolean("Employee Reminder", default=True, export_string_translation=False)
+    timesheet_mail_employee_delay = fields.Integer("Employee Reminder Days", default=1, export_string_translation=False)
     timesheet_mail_employee_interval = fields.Selection([
         ('weeks', 'after the end of the week'),
         ('months', 'after the end of the month')
-    ], string='Employee Frequency', required=True, default="weeks")
-    timesheet_mail_employee_nextdate = fields.Datetime('Next scheduled date for employee reminder', readonly=True)
+    ], string='Employee Frequency', required=True, default="weeks", export_string_translation=False)
+    timesheet_mail_employee_nextdate = fields.Datetime('Next scheduled date for employee reminder', readonly=True, export_string_translation=False)
 
     # reminder for approver
-    timesheet_mail_allow = fields.Boolean("Approver Reminder", default=True)
-    timesheet_mail_delay = fields.Integer("Approver Reminder Days", default=3)
+    timesheet_mail_allow = fields.Boolean("Approver Reminder", default=True, export_string_translation=False)
+    timesheet_mail_delay = fields.Integer("Approver Reminder Days", default=3, export_string_translation=False)
     timesheet_mail_interval = fields.Selection([
         ('weeks', 'after the end of the week'),
         ('months', 'after the end of the month')
-    ], string='Approver Reminder Frequency', required=True, default="weeks")
-    timesheet_mail_nextdate = fields.Datetime('Next scheduled date for approver reminder', readonly=True)
+    ], string='Approver Reminder Frequency', required=True, default="weeks", export_string_translation=False)
+    timesheet_mail_nextdate = fields.Datetime('Next scheduled date for approver reminder', readonly=True, export_string_translation=False)
 
     @api.model_create_multi
     def create(self, vals_list):

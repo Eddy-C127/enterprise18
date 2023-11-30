@@ -15,7 +15,7 @@ class DocumentFolder(models.Model):
             res['parent_folder_id'] = self.env.ref('documents_project.documents_project_folder').id
         return res
 
-    project_ids = fields.One2many('project.project', 'documents_folder_id')
+    project_ids = fields.One2many('project.project', 'documents_folder_id', export_string_translation=False)
 
     @api.model
     def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):

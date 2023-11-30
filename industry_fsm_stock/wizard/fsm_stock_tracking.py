@@ -14,10 +14,10 @@ class FsmStockTracking(models.TransientModel):
     product_id = fields.Many2one('product.product')
     tracking = fields.Selection(related='product_id.tracking')
 
-    tracking_line_ids = fields.One2many('fsm.stock.tracking.line', 'wizard_tracking_line')
-    tracking_validated_line_ids = fields.One2many('fsm.stock.tracking.line', 'wizard_tracking_line_validated')
-    company_id = fields.Many2one('res.company', 'Company')
-    is_same_warehouse = fields.Boolean('Same warehouse', compute="_compute_is_same_warehouse")
+    tracking_line_ids = fields.One2many('fsm.stock.tracking.line', 'wizard_tracking_line', export_string_translation=False)
+    tracking_validated_line_ids = fields.One2many('fsm.stock.tracking.line', 'wizard_tracking_line_validated', export_string_translation=False)
+    company_id = fields.Many2one('res.company', export_string_translation=False)
+    is_same_warehouse = fields.Boolean(compute="_compute_is_same_warehouse", export_string_translation=False)
 
     @api.depends('tracking_line_ids.is_same_warehouse')
     def _compute_is_same_warehouse(self):
@@ -190,13 +190,13 @@ class FsmStockTrackingLine(models.TransientModel):
 
     lot_id = fields.Many2one('stock.lot', string='Lot/Serial Number', domain="[('product_id', '=', product_id)]", check_company=True)
     quantity = fields.Float(required=True, default=1)
-    product_id = fields.Many2one('product.product')
-    sale_order_line_id = fields.Many2one('sale.order.line')
-    company_id = fields.Many2one('res.company', 'Company')
-    wizard_tracking_line = fields.Many2one('fsm.stock.tracking', string="Tracking Line")
-    wizard_tracking_line_validated = fields.Many2one('fsm.stock.tracking', string="Validated Tracking Line")
-    is_same_warehouse = fields.Boolean('Same warehouse', compute="_compute_warehouse", default=True)
-    warehouse_id = fields.Many2one("stock.warehouse", compute="_compute_warehouse", default=_default_warehouse_id)
+    product_id = fields.Many2one('product.product', export_string_translation=False)
+    sale_order_line_id = fields.Many2one('sale.order.line', export_string_translation=False)
+    company_id = fields.Many2one('res.company', export_string_translation=False)
+    wizard_tracking_line = fields.Many2one('fsm.stock.tracking', export_string_translation=False)
+    wizard_tracking_line_validated = fields.Many2one('fsm.stock.tracking', export_string_translation=False)
+    is_same_warehouse = fields.Boolean(compute="_compute_warehouse", default=True, export_string_translation=False)
+    warehouse_id = fields.Many2one("stock.warehouse", compute="_compute_warehouse", default=_default_warehouse_id, export_string_translation=False)
 
     @api.depends_context('uid')
     def _compute_warehouse(self):

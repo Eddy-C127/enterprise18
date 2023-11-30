@@ -7,7 +7,7 @@ from odoo import models, fields
 class ChatbotScript(models.Model):
     _inherit = 'chatbot.script'
 
-    ticket_count = fields.Integer(string='Generated Ticket Count', compute='_compute_ticket_count')
+    ticket_count = fields.Integer(string='Generated Ticket Count', compute='_compute_ticket_count', export_string_translation=False)
 
     def _compute_ticket_count(self):
         tickets_data = self.env['helpdesk.ticket'].with_context(active_test=False).sudo()._read_group(

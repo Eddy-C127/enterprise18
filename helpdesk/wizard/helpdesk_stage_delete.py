@@ -13,7 +13,7 @@ class HelpdeskStageDelete(models.TransientModel):
     team_ids = fields.Many2many('helpdesk.team', domain="['|', ('active', '=', False), ('active', '=', True)]", string='Helpdesk Teams')
     stage_ids = fields.Many2many('helpdesk.stage', string='Stages To Delete')
     ticket_count = fields.Integer('Number of Tickets', compute='_compute_ticket_count')
-    stages_active = fields.Boolean(compute='_compute_stages_active')
+    stages_active = fields.Boolean(compute='_compute_stages_active', export_string_translation=False)
 
     def _compute_ticket_count(self):
         HelpdeskTicket = self.with_context(active_test=False).env['helpdesk.ticket']

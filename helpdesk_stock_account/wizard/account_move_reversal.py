@@ -11,7 +11,7 @@ class AccountMoveReversal(models.TransientModel):
     product_id = fields.Many2one(related='helpdesk_ticket_id.product_id', readonly=False)
     lot_id = fields.Many2one(related='helpdesk_ticket_id.lot_id', readonly=False)
     tracking = fields.Selection(related='product_id.tracking')
-    suitable_product_ids = fields.Many2many(related='helpdesk_ticket_id.suitable_product_ids')
+    suitable_product_ids = fields.Many2many(related='helpdesk_ticket_id.suitable_product_ids', export_string_translation=False)
 
     def _get_default_so_domain(self, ticket):
         domain = super()._get_default_so_domain(ticket)

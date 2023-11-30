@@ -12,18 +12,18 @@ from odoo.osv import expression
 class Task(models.Model):
     _inherit = "project.task"
 
-    allow_material = fields.Boolean(related='project_id.allow_material')
-    allow_quotations = fields.Boolean(related='project_id.allow_quotations')
+    allow_material = fields.Boolean(related='project_id.allow_material', export_string_translation=False)
+    allow_quotations = fields.Boolean(related='project_id.allow_quotations', export_string_translation=False)
     quotation_count = fields.Integer(compute='_compute_quotation_count')
-    material_line_product_count = fields.Integer(compute='_compute_material_line_totals')
+    material_line_product_count = fields.Integer(compute='_compute_material_line_totals', export_string_translation=False)
     material_line_total_price = fields.Float(compute='_compute_material_line_totals')
     currency_id = fields.Many2one('res.currency', compute='_compute_currency_id', compute_sudo=True)
-    display_create_invoice_primary = fields.Boolean(compute='_compute_display_create_invoice_buttons')
-    display_create_invoice_secondary = fields.Boolean(compute='_compute_display_create_invoice_buttons')
-    invoice_status = fields.Selection(related='sale_order_id.invoice_status')
-    warning_message = fields.Char('Warning Message', compute='_compute_warning_message')
+    display_create_invoice_primary = fields.Boolean(compute='_compute_display_create_invoice_buttons', export_string_translation=False)
+    display_create_invoice_secondary = fields.Boolean(compute='_compute_display_create_invoice_buttons', export_string_translation=False)
+    invoice_status = fields.Selection(related='sale_order_id.invoice_status', export_string_translation=False)
+    warning_message = fields.Char('Warning Message', compute='_compute_warning_message', export_string_translation=False)
     invoice_count = fields.Integer("Number of invoices", related='sale_order_id.invoice_count')
-    pricelist_id = fields.Many2one('product.pricelist', compute="_compute_pricelist_id")
+    pricelist_id = fields.Many2one('product.pricelist', compute="_compute_pricelist_id", export_string_translation=False)
 
     # Project Sharing fields
     portal_quotation_count = fields.Integer(compute='_compute_portal_quotation_count')

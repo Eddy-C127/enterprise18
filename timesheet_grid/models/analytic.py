@@ -35,12 +35,12 @@ class AnalyticLine(models.Model):
         compute='_compute_is_timesheet', search='_search_is_timesheet',
         help="Set if this analytic line represents a line of timesheet.")
 
-    duration_unit_amount = fields.Float(related="unit_amount", readonly=True, string="Timesheet Init Amount")
-    unit_amount_validate = fields.Float(related="unit_amount", readonly=True, string="Timesheet Unit Time")
+    duration_unit_amount = fields.Float(related="unit_amount", readonly=True, string="Timesheet Init Amount", export_string_translation=False)
+    unit_amount_validate = fields.Float(related="unit_amount", readonly=True, string="Timesheet Unit Time", export_string_translation=False)
 
     display_timer = fields.Boolean(
-        compute='_compute_display_timer',
-        help="Technical field used to display the timer if the encoding unit is 'Hours'.")
+        "Technical field used to display the timer if the encoding unit is 'Hours'.",
+        compute='_compute_display_timer', export_string_translation=False)
 
     def _is_readonly(self):
         return super()._is_readonly() or self.validated

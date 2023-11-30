@@ -18,8 +18,8 @@ class ResourceResource(models.Model):
             res['calendar_id'] = False
         return res
 
-    color = fields.Integer(default=_default_color)
-    avatar_128 = fields.Image(compute='_compute_avatar_128')
+    color = fields.Integer(default=_default_color, export_string_translation=False)
+    avatar_128 = fields.Image(compute='_compute_avatar_128', export_string_translation=False)
     role_ids = fields.Many2many('planning.role', 'resource_resource_planning_role_rel',
                                 'resource_resource_id', 'planning_role_id', 'Roles',
                                 compute='_compute_role_ids', store=True, readonly=False)

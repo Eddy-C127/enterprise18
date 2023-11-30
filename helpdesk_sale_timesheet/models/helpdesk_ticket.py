@@ -11,8 +11,8 @@ class HelpdeskTicket(models.Model):
 
     use_helpdesk_sale_timesheet = fields.Boolean('Reinvoicing Timesheet activated on Team', related='team_id.use_helpdesk_sale_timesheet', readonly=True)
     sale_order_id = fields.Many2one('sale.order', compute="_compute_helpdesk_sale_order", compute_sudo=True, store=True, readonly=False)
-    invoice_count = fields.Integer(related='sale_order_id.invoice_count')
-    display_invoice_button = fields.Boolean(compute='_compute_display_invoice_button', compute_sudo=True)
+    invoice_count = fields.Integer(related='sale_order_id.invoice_count', export_string_translation=False)
+    display_invoice_button = fields.Boolean(compute='_compute_display_invoice_button', compute_sudo=True, export_string_translation=False)
     sale_line_id = fields.Many2one(
         'sale.order.line', string="Sales Order Item", tracking=True,
         compute="_compute_sale_line_id", store=True, readonly=False,
@@ -23,7 +23,7 @@ class HelpdeskTicket(models.Model):
              "By default the last prepaid sales order item that has time remaining will be selected.\n"
              "Remove the sales order item in order to make this ticket non-billable.\n"
              "You can also change or remove the sales order item of each timesheet entry individually.")
-    remaining_hours_available = fields.Boolean(related="sale_line_id.remaining_hours_available")
+    remaining_hours_available = fields.Boolean(related="sale_line_id.remaining_hours_available", export_string_translation=False)
     remaining_hours_so = fields.Float('Time Remaining on SO', compute='_compute_remaining_hours_so', search='_search_remaining_hours_so')
 
     @api.depends('sale_line_id', 'timesheet_ids', 'timesheet_ids.unit_amount')

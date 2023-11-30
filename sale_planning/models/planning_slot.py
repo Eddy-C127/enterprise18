@@ -24,8 +24,8 @@ class PlanningSlot(models.Model):
     sale_order_id = fields.Many2one('sale.order', string='Sales Order', related='sale_line_id.order_id', store=True)
     sale_order_state = fields.Selection(string="Sales Order State", related='sale_order_id.state')
     partner_id = fields.Many2one('res.partner', related='sale_order_id.partner_id')
-    role_product_ids = fields.One2many('product.template', related='role_id.product_ids')
-    sale_line_plannable = fields.Boolean(related='sale_line_id.product_id.planning_enabled')
+    role_product_ids = fields.One2many('product.template', related='role_id.product_ids', export_string_translation=False)
+    sale_line_plannable = fields.Boolean(related='sale_line_id.product_id.planning_enabled', export_string_translation=False)
     allocated_hours = fields.Float(compute_sudo=True)
 
     _sql_constraints = [

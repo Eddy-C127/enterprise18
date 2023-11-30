@@ -15,9 +15,9 @@ class HelpdeskTicket(models.Model):
     use_helpdesk_timesheet = fields.Boolean('Timesheet activated on Team', related='team_id.use_helpdesk_timesheet', readonly=True)
     display_timesheet_timer = fields.Boolean("Display Timesheet Time", compute='_compute_display_timesheet_timer')
     total_hours_spent = fields.Float("Time Spent", compute='_compute_total_hours_spent', default=0, compute_sudo=True, store=True)
-    display_timer_start_secondary = fields.Boolean(compute='_compute_display_timer_buttons')
-    display_timer = fields.Boolean(compute='_compute_display_timer')
-    encode_uom_in_days = fields.Boolean(compute='_compute_encode_uom_in_days')
+    display_timer_start_secondary = fields.Boolean(compute='_compute_display_timer_buttons', export_string_translation=False)
+    display_timer = fields.Boolean(compute='_compute_display_timer', export_string_translation=False)
+    encode_uom_in_days = fields.Boolean(compute='_compute_encode_uom_in_days', export_string_translation=False)
     analytic_account_id = fields.Many2one('account.analytic.account',
         compute='_compute_analytic_account_id', store=True, readonly=False,
         string='Analytic Account', domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]")

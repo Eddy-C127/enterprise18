@@ -24,7 +24,7 @@ class PlanningRecurrency(models.Model):
     repeat_type = fields.Selection([('forever', 'Forever'), ('until', 'Until'), ('x_times', 'Number of Repetitions')], string='Weeks', default='forever')
     repeat_until = fields.Datetime(string="Repeat Until", help="Up to which date should the plannings be repeated")
     repeat_number = fields.Integer(string="Repetitions", help="No Of Repetitions of the plannings")
-    last_generated_end_datetime = fields.Datetime("Last Generated End Date", readonly=True)
+    last_generated_end_datetime = fields.Datetime(readonly=True, export_string_translation=False)
     company_id = fields.Many2one('res.company', string="Company", readonly=True, required=True, default=lambda self: self.env.company)
 
     _sql_constraints = [

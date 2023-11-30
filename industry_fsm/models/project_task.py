@@ -36,10 +36,10 @@ class Task(models.Model):
     # Use to count conditions between : time, worksheet and materials
     # If 2 over 3 are enabled for the project, the required count = 2
     # If 1 over 3 is met (enabled + encoded), the satisfied count = 2
-    display_enabled_conditions_count = fields.Integer(compute='_compute_display_conditions_count')
-    display_satisfied_conditions_count = fields.Integer(compute='_compute_display_conditions_count')
-    display_mark_as_done_primary = fields.Boolean(compute='_compute_mark_as_done_buttons')
-    display_mark_as_done_secondary = fields.Boolean(compute='_compute_mark_as_done_buttons')
+    display_enabled_conditions_count = fields.Integer(compute='_compute_display_conditions_count', export_string_translation=False)
+    display_satisfied_conditions_count = fields.Integer(compute='_compute_display_conditions_count', export_string_translation=False)
+    display_mark_as_done_primary = fields.Boolean(compute='_compute_mark_as_done_buttons', export_string_translation=False)
+    display_mark_as_done_secondary = fields.Boolean(compute='_compute_mark_as_done_buttons', export_string_translation=False)
     partner_phone = fields.Char(
         compute='_compute_partner_phone', inverse='_inverse_partner_phone',
         string="Phone", readonly=False, store=True, copy=False)
@@ -49,7 +49,7 @@ class Task(models.Model):
     partner_street2 = fields.Char(related='partner_id.street2')
     partner_country_id = fields.Many2one('res.country', related='partner_id.country_id')
     partner_state_id = fields.Many2one('res.country.state', string='Customer State', related='partner_id.state_id')
-    is_task_phone_update = fields.Boolean(compute='_compute_is_task_phone_update')
+    is_task_phone_update = fields.Boolean(compute='_compute_is_task_phone_update', export_string_translation=False)
 
     @api.depends('planned_date_begin', 'date_deadline', 'user_ids')
     def _compute_planning_overlap(self):

@@ -11,7 +11,7 @@ class HelpdeskTicketSelectForumWizard(models.TransientModel):
     _name = "helpdesk.ticket.select.forum.wizard"
     _description = 'Share on Forum'
 
-    ticket_id = fields.Many2one('helpdesk.ticket', default=lambda self: self.env.context.get('active_id'))
+    ticket_id = fields.Many2one('helpdesk.ticket', default=lambda self: self.env.context.get('active_id'), export_string_translation=False)
     forum_id = fields.Many2one('forum.forum', required=True, domain="[('filter_for_helpdesk_wizard', '=', True)]")
 
     title = fields.Char(compute='_compute_post', store=True, readonly=False, required=True)

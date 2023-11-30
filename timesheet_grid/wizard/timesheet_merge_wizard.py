@@ -10,11 +10,11 @@ class MergeTimesheets(models.TransientModel):
     _description = 'Merge Timesheets'
 
     name = fields.Char('Description', compute='_compute_name', readonly=False, store=True)
-    timesheet_ids = fields.Many2many('account.analytic.line', string='Timesheets', domain="[('is_timesheet', '=', True), ('validated', '=', False)]")
+    timesheet_ids = fields.Many2many('account.analytic.line', string='Timesheets', domain="[('is_timesheet', '=', True), ('validated', '=', False)]", export_string_translation=False)
 
     date = fields.Date('Date')
     unit_amount = fields.Float('Quantity', compute='_compute_unit_amount', readonly=False, store=True)
-    encoding_uom_id = fields.Many2one('uom.uom', readonly=True)
+    encoding_uom_id = fields.Many2one('uom.uom', readonly=True, export_string_translation=False)
 
     project_id = fields.Many2one('project.project', string='Project')
     task_id = fields.Many2one('project.task', string='Task', domain="[('project_id.allow_timesheets', '=', True), ('project_id', '=?', project_id)]", compute='_compute_task_id', readonly=False, store=True)

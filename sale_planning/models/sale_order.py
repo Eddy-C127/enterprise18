@@ -8,10 +8,10 @@ from odoo import api, models, fields, _
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    planning_hours_planned = fields.Float(compute='_compute_planning_hours')
-    planning_hours_to_plan = fields.Float(compute='_compute_planning_hours')
-    planning_first_sale_line_id = fields.Many2one('sale.order.line', compute='_compute_planning_first_sale_line_id')
-    planning_initial_date = fields.Date(compute='_compute_planning_initial_date')
+    planning_hours_planned = fields.Float(compute='_compute_planning_hours', export_string_translation=False)
+    planning_hours_to_plan = fields.Float(compute='_compute_planning_hours', export_string_translation=False)
+    planning_first_sale_line_id = fields.Many2one('sale.order.line', compute='_compute_planning_first_sale_line_id', export_string_translation=False)
+    planning_initial_date = fields.Date(compute='_compute_planning_initial_date', export_string_translation=False)
 
     @api.depends('order_line.planning_hours_to_plan', 'order_line.planning_hours_planned')
     def _compute_planning_hours(self):

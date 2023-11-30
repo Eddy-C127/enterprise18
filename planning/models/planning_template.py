@@ -37,7 +37,7 @@ class PlanningTemplate(models.Model):
 
     active = fields.Boolean('Active', default=True)
     name = fields.Char('Hours', compute="_compute_name")
-    sequence = fields.Integer('Sequence', index=True)
+    sequence = fields.Integer(export_string_translation=False, index=True)
     role_id = fields.Many2one('planning.role', string="Role")
     start_time = fields.Float('Planned Hours', default=_default_start_time, aggregator=None, default_export_compatible=True)
     duration = fields.Float('Duration', default=_default_duration, aggregator=None, default_export_compatible=True)

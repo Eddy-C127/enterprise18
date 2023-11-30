@@ -62,7 +62,7 @@ class HelpdeskTicket(models.Model):
     name = fields.Char(string='Subject', required=True, index=True, tracking=True)
     team_id = fields.Many2one('helpdesk.team', string='Helpdesk Team', default=_default_team_id, index=True, tracking=True)
     use_sla = fields.Boolean(related='team_id.use_sla')
-    team_privacy_visibility = fields.Selection(related='team_id.privacy_visibility', string="Team Visibility")
+    team_privacy_visibility = fields.Selection(related='team_id.privacy_visibility', export_string_translation=False)
     description = fields.Html(sanitize_attributes=False)
     active = fields.Boolean(default=True)
     tag_ids = fields.Many2many('helpdesk.tag', string='Tags')
@@ -77,7 +77,7 @@ class HelpdeskTicket(models.Model):
     legend_blocked = fields.Char(related='stage_id.legend_blocked', string='Kanban Blocked Explanation', readonly=True, related_sudo=False)
     legend_done = fields.Char(related='stage_id.legend_done', string='Kanban Valid Explanation', readonly=True, related_sudo=False)
     legend_normal = fields.Char(related='stage_id.legend_normal', string='Kanban Ongoing Explanation', readonly=True, related_sudo=False)
-    domain_user_ids = fields.Many2many('res.users', compute='_compute_domain_user_ids')
+    domain_user_ids = fields.Many2many('res.users', compute='_compute_domain_user_ids', export_string_translation=False)
     user_id = fields.Many2one(
         'res.users', string='Assigned to', compute='_compute_user_and_stage_ids', store=True,
         readonly=False, tracking=True,
@@ -100,7 +100,7 @@ class HelpdeskTicket(models.Model):
         'helpdesk.stage', string='Stage', compute='_compute_user_and_stage_ids', store=True,
         readonly=False, ondelete='restrict', tracking=1, group_expand='_read_group_stage_ids',
         copy=False, index=True, domain="[('team_ids', '=', team_id)]")
-    fold = fields.Boolean(related="stage_id.fold")
+    fold = fields.Boolean(related="stage_id.fold", export_string_translation=False)
     date_last_stage_update = fields.Datetime("Last Stage Update", copy=False, readonly=True)
     ticket_ref = fields.Char(string='Ticket IDs Sequence', copy=False, readonly=True, index=True)
     # next 4 fields are computed in write (or create)
@@ -119,23 +119,23 @@ class HelpdeskTicket(models.Model):
     sla_fail = fields.Boolean("Failed SLA Policy", compute='_compute_sla_fail', search='_search_sla_fail')
     sla_success = fields.Boolean("Success SLA Policy", compute='_compute_sla_success', search='_search_sla_success')
 
-    use_credit_notes = fields.Boolean(related='team_id.use_credit_notes', string='Use Credit Notes')
+    use_credit_notes = fields.Boolean(related='team_id.use_credit_notes', export_string_translation=False)
     use_coupons = fields.Boolean(related='team_id.use_coupons', string='Use Coupons')
-    use_product_returns = fields.Boolean(related='team_id.use_product_returns', string='Use Returns')
-    use_product_repairs = fields.Boolean(related='team_id.use_product_repairs', string='Use Repairs')
-    use_rating = fields.Boolean(related='team_id.use_rating', string='Use Customer Ratings')
+    use_product_returns = fields.Boolean(related='team_id.use_product_returns', export_string_translation=False)
+    use_product_repairs = fields.Boolean(related='team_id.use_product_repairs', export_string_translation=False)
+    use_rating = fields.Boolean(related='team_id.use_rating', export_string_translation=False)
 
-    is_partner_email_update = fields.Boolean('Partner Email will Update', compute='_compute_is_partner_email_update')
-    is_partner_phone_update = fields.Boolean('Partner Phone will Update', compute='_compute_is_partner_phone_update')
+    is_partner_email_update = fields.Boolean(compute='_compute_is_partner_email_update', export_string_translation=False)
+    is_partner_phone_update = fields.Boolean(compute='_compute_is_partner_phone_update', export_string_translation=False)
     # customer portal: include comment and (incoming/outgoing) emails in communication history
-    website_message_ids = fields.One2many(domain=lambda self: [('model', '=', self._name), ('message_type', 'in', ['email', 'comment', 'email_outgoing'])])
+    website_message_ids = fields.One2many(domain=lambda self: [('model', '=', self._name), ('message_type', 'in', ['email', 'comment', 'email_outgoing'])], export_string_translation=False)
 
     first_response_hours = fields.Float("Hours to First Response")
     avg_response_hours = fields.Float("Hours to Respond")
-    oldest_unanswered_customer_message_date = fields.Datetime("Oldest Unanswered Customer Message Date")
+    oldest_unanswered_customer_message_date = fields.Datetime("Oldest Unanswered Customer Message Date", export_string_translation=False)
     answered_customer_message_count = fields.Integer('# Exchanges')
     total_response_hours = fields.Float("Total Exchange Time in Hours")
-    display_extra_info = fields.Boolean(compute="_compute_display_extra_info")
+    display_extra_info = fields.Boolean(compute="_compute_display_extra_info", export_string_translation=False)
 
     @api.depends('stage_id', 'kanban_state')
     def _compute_kanban_state_label(self):

@@ -7,7 +7,7 @@ from odoo.exceptions import UserError
 class DocumentsFolder(models.Model):
     _inherit = 'documents.folder'
 
-    product_template_ids = fields.One2many('product.template', 'template_folder_id')
+    product_template_ids = fields.One2many('product.template', 'template_folder_id', export_string_translation=False)
 
     @api.constrains('company_id')
     def _check_company_is_products_company(self):

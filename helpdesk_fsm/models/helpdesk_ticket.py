@@ -7,9 +7,9 @@ from odoo import models, api, fields, _
 class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
-    use_fsm = fields.Boolean(related='team_id.use_fsm')
+    use_fsm = fields.Boolean(related='team_id.use_fsm', export_string_translation=False)
     fsm_task_ids = fields.One2many('project.task', 'helpdesk_ticket_id', string='Tasks', help='Tasks generated from this ticket', domain=[('is_fsm', '=', True)], copy=False)
-    fsm_task_count = fields.Integer(compute='_compute_fsm_task_count')
+    fsm_task_count = fields.Integer(compute='_compute_fsm_task_count', export_string_translation=False)
 
     @api.depends('fsm_task_ids')
     def _compute_fsm_task_count(self):

@@ -30,12 +30,12 @@ class Task(models.Model):
     planned_date_start = fields.Datetime(compute="_compute_planned_date_start", inverse='_inverse_planned_date_start', search="_search_planned_date_start")
     allocated_hours = fields.Float(compute='_compute_allocated_hours', store=True, readonly=False)
     # Task Dependencies fields
-    display_warning_dependency_in_gantt = fields.Boolean(compute="_compute_display_warning_dependency_in_gantt")
-    planning_overlap = fields.Html(compute='_compute_planning_overlap', search='_search_planning_overlap')
-    dependency_warning = fields.Html(compute='_compute_dependency_warning', search='_search_dependency_warning')
+    display_warning_dependency_in_gantt = fields.Boolean(compute="_compute_display_warning_dependency_in_gantt", export_string_translation=False)
+    planning_overlap = fields.Html(compute='_compute_planning_overlap', search='_search_planning_overlap', export_string_translation=False)
+    dependency_warning = fields.Html(compute='_compute_dependency_warning', search='_search_dependency_warning', export_string_translation=False)
 
     # User names in popovers
-    user_names = fields.Char(compute='_compute_user_names')
+    user_names = fields.Char(compute='_compute_user_names', export_string_translation=False)
     user_ids = fields.Many2many(group_expand="_group_expand_user_ids")
     partner_id = fields.Many2one(group_expand="_group_expand_partner_ids")
     project_id = fields.Many2one(group_expand="_group_expand_project_ids")

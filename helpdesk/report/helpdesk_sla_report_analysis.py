@@ -47,7 +47,7 @@ class HelpdeskSLAReport(models.Model):
     rating_avg = fields.Float('Average Rating', readonly=True, aggregator='avg')
     team_id = fields.Many2one('helpdesk.team', string='Helpdesk Team', readonly=True)
     company_id = fields.Many2one('res.company', string='Company', readonly=True)
-    message_is_follower = fields.Boolean(related='ticket_id.message_is_follower')
+    message_is_follower = fields.Boolean(related='ticket_id.message_is_follower', export_string_translation=False)
     kanban_state = fields.Selection([
         ('normal', 'Grey'),
         ('done', 'Green'),

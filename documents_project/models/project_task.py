@@ -11,12 +11,12 @@ class ProjectTask(models.Model):
     _name = 'project.task'
     _inherit = ['project.task', 'documents.mixin']
 
-    project_use_documents = fields.Boolean("Use Documents", related='project_id.use_documents')
-    documents_folder_id = fields.Many2one('documents.folder', related='project_id.documents_folder_id')
+    project_use_documents = fields.Boolean("Use Documents", related='project_id.use_documents', export_string_translation=False)
+    documents_folder_id = fields.Many2one(related='project_id.documents_folder_id', export_string_translation=False)
     document_ids = fields.One2many('documents.document', 'res_id', string='Documents', domain=[('res_model', '=', 'project.task')])
-    shared_document_ids = fields.One2many('documents.document', string='Shared Documents', compute='_compute_shared_document_ids')
-    document_count = fields.Integer(compute='_compute_attached_document_count', string="Number of documents in Task", groups='documents.group_documents_user')
-    shared_document_count = fields.Integer("Shared Documents Count", compute='_compute_shared_document_ids')
+    shared_document_ids = fields.One2many('documents.document', compute='_compute_shared_document_ids', export_string_translation=False)
+    document_count = fields.Integer(compute='_compute_attached_document_count', groups='documents.group_documents_user', export_string_translation=False)
+    shared_document_count = fields.Integer(compute='_compute_shared_document_ids', export_string_translation=False)
 
     def _get_task_document_data(self):
         domain = [('res_model', '=', 'project.task'), ('res_id', 'in', self.ids)]

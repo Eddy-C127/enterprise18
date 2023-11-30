@@ -8,7 +8,7 @@ from odoo.exceptions import UserError
 class HelpdeskTeam(models.Model):
     _inherit = "helpdesk.team"
 
-    show_knowledge_base_forum = fields.Boolean(compute="_compute_show_knowledge_base_forum")
+    show_knowledge_base_forum = fields.Boolean(compute="_compute_show_knowledge_base_forum", export_string_translation=False)
     website_forum_ids = fields.Many2many('forum.forum', string='Forums', help="In the help center, customers will only be able to see posts from the selected forums.")
     top_forum_posts = fields.Many2many('forum.post', string='Top Posts', help="These are the top posts in the forums associated with this helpdesk team", compute="_compute_top_forum_posts")
 
@@ -69,10 +69,10 @@ class HelpdeskTeam(models.Model):
 class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
-    forum_post_ids = fields.Many2many('forum.post', string="Forum Posts", copy=False)
-    forum_post_count = fields.Integer(compute='_compute_forum_post_count')
-    use_website_helpdesk_forum = fields.Boolean(related='team_id.use_website_helpdesk_forum', string='Help Center Active', readonly=True)
-    can_share_forum = fields.Boolean(compute='_compute_can_share_forum')
+    forum_post_ids = fields.Many2many('forum.post', string="Forum Posts", copy=False, export_string_translation=False)
+    forum_post_count = fields.Integer(compute='_compute_forum_post_count', export_string_translation=False)
+    use_website_helpdesk_forum = fields.Boolean(related='team_id.use_website_helpdesk_forum', string='Help Center Active', readonly=True, export_string_translation=False)
+    can_share_forum = fields.Boolean(compute='_compute_can_share_forum', export_string_translation=False)
 
     @api.depends_context('uid')
     @api.depends('use_website_helpdesk_forum')

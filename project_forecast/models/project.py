@@ -12,8 +12,7 @@ from odoo.osv import expression
 class Project(models.Model):
     _inherit = 'project.project'
 
-    total_forecast_time = fields.Integer(compute='_compute_total_forecast_time',
-                                         help="Total number of forecast hours in the project rounded to the unit.", compute_sudo=True)
+    total_forecast_time = fields.Integer(compute='_compute_total_forecast_time', export_string_translation=False, compute_sudo=True)
 
     def _compute_total_forecast_time(self):
         shifts_read_group = self.env['planning.slot']._read_group(

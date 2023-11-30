@@ -10,10 +10,10 @@ from odoo.tools import format_list
 class Task(models.Model):
     _inherit = 'project.task'
 
-    leave_warning = fields.Char(compute='_compute_leave_warning', compute_sudo=True)
+    leave_warning = fields.Char(compute='_compute_leave_warning', compute_sudo=True, export_string_translation=False)
     is_absent = fields.Boolean(
         'Employees on Time Off', compute='_compute_leave_warning', search='_search_is_absent',
-        compute_sudo=True, readonly=True)
+        compute_sudo=True, readonly=True, export_string_translation=False)
 
     @api.depends_context('lang')
     @api.depends('planned_date_begin', 'date_deadline', 'user_ids')

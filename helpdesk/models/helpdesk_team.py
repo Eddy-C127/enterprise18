@@ -43,7 +43,7 @@ class HelpdeskTeam(models.Model):
     description = fields.Html('About Team', translate=True)
     active = fields.Boolean(default=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
-    sequence = fields.Integer("Sequence", default=10)
+    sequence = fields.Integer(export_string_translation=False, default=10)
     color = fields.Integer('Color Index', default=0)
     ticket_properties = fields.PropertiesDefinition('Ticket Properties')
 
@@ -73,12 +73,12 @@ class HelpdeskTeam(models.Model):
             "- Invited portal users and all internal users: all internal users can access the team and all of its tickets without distinction.\n"
             "Portal users can only access the tickets they are following. "
             "This access can be modified on each ticket individually by adding or removing the portal user as follower.")
-    privacy_visibility_warning = fields.Char('Privacy Visibility Warning', compute='_compute_privacy_visibility_warning')
-    access_instruction_message = fields.Char('Access Instruction Message', compute='_compute_access_instruction_message')
+    privacy_visibility_warning = fields.Char(compute='_compute_privacy_visibility_warning', export_string_translation=False)
+    access_instruction_message = fields.Char(compute='_compute_access_instruction_message', export_string_translation=False)
     ticket_ids = fields.One2many('helpdesk.ticket', 'team_id', string='Tickets')
 
     use_alias = fields.Boolean('Use Alias', default=True)
-    has_external_mail_server = fields.Boolean(compute='_compute_has_external_mail_server')
+    has_external_mail_server = fields.Boolean(compute='_compute_has_external_mail_server', export_string_translation=False)
     allow_portal_ticket_closing = fields.Boolean('Closure by Customers')
     use_website_helpdesk_form = fields.Boolean('Website Form', compute='_compute_use_website_helpdesk_form', readonly=False, store=True)
     use_website_helpdesk_livechat = fields.Boolean('Live Chat')
@@ -88,7 +88,7 @@ class HelpdeskTeam(models.Model):
     use_helpdesk_timesheet = fields.Boolean(
         'Timesheets', compute='_compute_use_helpdesk_timesheet',
         store=True, readonly=False)
-    show_knowledge_base = fields.Boolean(compute='_compute_show_knowledge_base')
+    show_knowledge_base = fields.Boolean(compute='_compute_show_knowledge_base', export_string_translation=False)
     use_helpdesk_sale_timesheet = fields.Boolean(
         'Time Billing', compute='_compute_use_helpdesk_sale_timesheet', store=True,
         readonly=False)
@@ -126,7 +126,7 @@ class HelpdeskTeam(models.Model):
         string='Move to Stage',
         compute="_compute_assign_stage_id", readonly=False, store=True,
         domain="[('id', 'in', stage_ids)]")
-    alias_email_from = fields.Char(compute='_compute_alias_email_from')
+    alias_email_from = fields.Char(compute='_compute_alias_email_from', export_string_translation=False)
 
     @api.constrains('use_website_helpdesk_form', 'privacy_visibility')
     def _check_website_privacy(self):

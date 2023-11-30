@@ -6,10 +6,10 @@ from odoo import api, models, fields, _
 class HelpdeskTeam(models.Model):
     _inherit = "helpdesk.team"
 
-    show_knowledge_base_article = fields.Boolean(compute="_compute_show_knowledge_base_article")
+    show_knowledge_base_article = fields.Boolean(compute="_compute_show_knowledge_base_article", export_string_translation=False)
     website_article_id = fields.Many2one('knowledge.article', string='Article',
         help="Article on which customers will land by default, and to which the search will be restricted.")
-    website_latest_articles = fields.Many2many('knowledge.article', string="Latest Articles", compute="_compute_latest_articles")
+    website_latest_articles = fields.Many2many('knowledge.article', string="Latest Articles", compute="_compute_latest_articles", export_string_translation=False)
 
     @api.depends('website_article_id')
     def _compute_show_knowledge_base_article(self):

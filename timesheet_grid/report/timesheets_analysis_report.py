@@ -9,7 +9,7 @@ class TimesheetsAnalysisReport(models.Model):
 
     validated = fields.Boolean("Validated line", aggregator="bool_and", readonly=True)
     is_timesheet = fields.Boolean(string="Timesheet Line", readonly=True)
-    is_timer_running = fields.Boolean(compute='_compute_is_timer_running', search='_search_is_timer_running')
+    is_timer_running = fields.Boolean(compute='_compute_is_timer_running', search='_search_is_timer_running', export_string_translation=False)
 
     def _compute_is_timer_running(self):
         timer_timesheet_ids = set(self.env['account.analytic.line']._search([('id', 'in', self.ids), ('is_timer_running', '=', True)]))

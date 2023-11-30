@@ -8,12 +8,12 @@ class TimerTimer(models.Model):
     _name = 'timer.timer'
     _description = 'Timer Module'
 
-    timer_start = fields.Datetime("Timer Start")
-    timer_pause = fields.Datetime("Timer Last Pause")
-    is_timer_running = fields.Boolean(compute="_compute_is_timer_running")
-    res_model = fields.Char(required=True)
-    res_id = fields.Integer(required=True)
-    user_id = fields.Many2one('res.users')
+    timer_start = fields.Datetime("Timer Start", export_string_translation=False)
+    timer_pause = fields.Datetime("Timer Last Pause", export_string_translation=False)
+    is_timer_running = fields.Boolean(compute="_compute_is_timer_running", export_string_translation=False)
+    res_model = fields.Char(required=True, export_string_translation=False)
+    res_id = fields.Integer(required=True, export_string_translation=False)
+    user_id = fields.Many2one('res.users', export_string_translation=False)
 
     _sql_constraints = [(
         'unique_timer', 'UNIQUE(res_model, res_id, user_id)',

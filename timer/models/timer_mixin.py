@@ -8,15 +8,15 @@ class TimerMixin(models.AbstractModel):
     _name = 'timer.mixin'
     _description = 'Timer Mixin'
 
-    timer_start = fields.Datetime(related='user_timer_id.timer_start')
-    timer_pause = fields.Datetime(related='user_timer_id.timer_pause')
-    is_timer_running = fields.Boolean(related='user_timer_id.is_timer_running', search="_search_is_timer_running")
-    user_timer_id = fields.One2many('timer.timer', compute='_compute_user_timer_id', search='_search_user_timer_id')
+    timer_start = fields.Datetime(related='user_timer_id.timer_start', export_string_translation=False)
+    timer_pause = fields.Datetime(related='user_timer_id.timer_pause', export_string_translation=False)
+    is_timer_running = fields.Boolean(related='user_timer_id.is_timer_running', search="_search_is_timer_running", export_string_translation=False)
+    user_timer_id = fields.One2many('timer.timer', compute='_compute_user_timer_id', search='_search_user_timer_id', export_string_translation=False)
 
-    display_timer_start_primary = fields.Boolean(compute='_compute_display_timer_buttons')
-    display_timer_stop = fields.Boolean(compute='_compute_display_timer_buttons')
-    display_timer_pause = fields.Boolean(compute='_compute_display_timer_buttons')
-    display_timer_resume = fields.Boolean(compute='_compute_display_timer_buttons')
+    display_timer_start_primary = fields.Boolean(compute='_compute_display_timer_buttons', export_string_translation=False)
+    display_timer_stop = fields.Boolean(compute='_compute_display_timer_buttons', export_string_translation=False)
+    display_timer_pause = fields.Boolean(compute='_compute_display_timer_buttons', export_string_translation=False)
+    display_timer_resume = fields.Boolean(compute='_compute_display_timer_buttons', export_string_translation=False)
 
     def _search_is_timer_running(self, operator, value):
         if operator not in ['=', '!='] or not isinstance(value, bool):

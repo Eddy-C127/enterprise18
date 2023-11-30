@@ -7,10 +7,10 @@ from odoo import api, fields, models, _
 class Slot(models.Model):
     _inherit = 'planning.slot'
 
-    leave_warning = fields.Char(compute='_compute_leave_warning', compute_sudo=True)
+    leave_warning = fields.Char(compute='_compute_leave_warning', compute_sudo=True, export_string_translation=False)
     is_absent = fields.Boolean(
-        'Employees on Time Off', compute='_compute_leave_warning', search='_search_is_absent',
-        compute_sudo=True, readonly=True)
+        compute='_compute_leave_warning', search='_search_is_absent',
+        compute_sudo=True, readonly=True, export_string_translation=False)
 
     @api.depends_context('lang')
     @api.depends('start_datetime', 'end_datetime', 'employee_id')

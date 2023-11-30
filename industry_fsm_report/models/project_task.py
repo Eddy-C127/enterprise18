@@ -15,14 +15,14 @@ class ProjectTask(models.Model):
         domain="[('res_model', '=', 'project.task'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
         group_expand='_group_expand_worksheet_template_id',
         help="Create templates for each type of intervention you have and customize their content with your own custom fields.")
-    worksheet_count = fields.Integer(compute='_compute_worksheet_count', compute_sudo=True)
-    display_sign_report_primary = fields.Boolean(compute='_compute_display_sign_report_buttons')
-    display_sign_report_secondary = fields.Boolean(compute='_compute_display_sign_report_buttons')
-    display_send_report_primary = fields.Boolean(compute='_compute_display_send_report_buttons')
-    display_send_report_secondary = fields.Boolean(compute='_compute_display_send_report_buttons')
+    worksheet_count = fields.Integer(compute='_compute_worksheet_count', compute_sudo=True, export_string_translation=False)
+    display_sign_report_primary = fields.Boolean(compute='_compute_display_sign_report_buttons', export_string_translation=False)
+    display_sign_report_secondary = fields.Boolean(compute='_compute_display_sign_report_buttons', export_string_translation=False)
+    display_send_report_primary = fields.Boolean(compute='_compute_display_send_report_buttons', export_string_translation=False)
+    display_send_report_secondary = fields.Boolean(compute='_compute_display_send_report_buttons', export_string_translation=False)
     worksheet_signature = fields.Binary('Signature', copy=False, attachment=True)
     worksheet_signed_by = fields.Char('Signed By', copy=False)
-    fsm_is_sent = fields.Boolean('Is Worksheet sent', readonly=True, copy=False)
+    fsm_is_sent = fields.Boolean(readonly=True, copy=False, export_string_translation=False)
 
     @property
     def SELF_READABLE_FIELDS(self):

@@ -23,9 +23,9 @@ class PlanningSend(models.TransientModel):
     note = fields.Text("Extra Message", help="Additional message displayed in the email sent to employees")
     employee_ids = fields.Many2many('hr.employee', string="Employees",
                                     compute='_compute_slots_data', inverse='_inverse_employee_ids', store=True)
-    slot_ids = fields.Many2many('planning.slot', compute='_compute_slots_data', store=True)
+    slot_ids = fields.Many2many('planning.slot', compute='_compute_slots_data', store=True, export_string_translation=False)
     employees_no_email = fields.Many2many('hr.employee', string="Employees without email",
-                                    compute="_compute_employees_no_email", inverse="_inverse_employees_no_email")
+                                    compute="_compute_employees_no_email", inverse="_inverse_employees_no_email", export_string_translation=False)
 
     def _get_slot_domain(self):
         self.ensure_one()

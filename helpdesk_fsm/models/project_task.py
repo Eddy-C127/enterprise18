@@ -10,7 +10,7 @@ class Task(models.Model):
     helpdesk_ticket_id = fields.Many2one('helpdesk.ticket', string='Original Ticket', index='btree_not_null', readonly=True)
 
     # Project Sharing fields
-    display_helpdesk_ticket_button = fields.Boolean('Display Ticket', compute='_compute_display_helpdesk_ticket_button')
+    display_helpdesk_ticket_button = fields.Boolean(compute='_compute_display_helpdesk_ticket_button', export_string_translation=False)
 
     @property
     def SELF_READABLE_FIELDS(self):

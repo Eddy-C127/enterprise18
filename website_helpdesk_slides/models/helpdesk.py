@@ -6,10 +6,10 @@ from odoo import api, models, fields, _
 class HelpdeskTeam(models.Model):
     _inherit = "helpdesk.team"
 
-    show_knowledge_base_slide_channel = fields.Boolean(compute="_compute_show_knowledge_base_slide_channel")
+    show_knowledge_base_slide_channel = fields.Boolean(compute="_compute_show_knowledge_base_slide_channel", export_string_translation=False)
     website_slide_channel_ids = fields.Many2many('slide.channel', string='Courses',
         help="Customers will see only the content from chosen courses in the help center. If you want all courses to be accessible, just leave the field empty. Alternatively, you can make courses private to restrict this feature to internal users.")
-    website_top_channels = fields.Many2many('slide.channel', string='Most Popular Courses', compute="_compute_website_top_channels")
+    website_top_channels = fields.Many2many('slide.channel', string='Most Popular Courses', compute="_compute_website_top_channels", export_string_translation=False)
 
     @api.depends('website_slide_channel_ids')
     def _compute_show_knowledge_base_slide_channel(self):

@@ -8,7 +8,7 @@ from odoo.addons.sale_timesheet_enterprise.models.sale import DEFAULT_INVOICED_T
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
 
-    display_sol = fields.Boolean(compute="_compute_display_sol")
+    display_sol = fields.Boolean(compute="_compute_display_sol", export_string_translation=False)
 
     @api.depends('helpdesk_ticket_id')
     def _compute_commercial_partner(self):

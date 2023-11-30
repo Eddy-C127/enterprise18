@@ -8,9 +8,9 @@ class Task(models.Model):
     _name = "project.task"
     _inherit = ["project.task", "timer.mixin", "timesheet.grid.mixin"]
 
-    display_timesheet_timer = fields.Boolean("Display Timesheet Time", compute='_compute_display_timesheet_timer')
+    display_timesheet_timer = fields.Boolean("Display Timesheet Time", compute='_compute_display_timesheet_timer', export_string_translation=False)
 
-    display_timer_start_secondary = fields.Boolean(compute='_compute_display_timer_buttons')
+    display_timer_start_secondary = fields.Boolean(compute='_compute_display_timer_buttons', export_string_translation=False)
 
     @api.depends_context('uid')
     @api.depends('display_timesheet_timer', 'timer_start', 'timer_pause', 'total_hours_spent')

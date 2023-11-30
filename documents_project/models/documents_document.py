@@ -11,9 +11,9 @@ from odoo.tools import SQL
 class Document(models.Model):
     _inherit = 'documents.document'
 
-    is_shared = fields.Boolean(compute='_compute_is_shared', search='_search_is_shared')
-    project_id = fields.Many2one('project.project', compute='_compute_project_id', search='_search_project_id')
-    task_id = fields.Many2one('project.task', compute='_compute_task_id', search='_search_task_id')
+    is_shared = fields.Boolean(compute='_compute_is_shared', search='_search_is_shared', export_string_translation=False)
+    project_id = fields.Many2one('project.project', compute='_compute_project_id', search='_search_project_id', export_string_translation=False)
+    task_id = fields.Many2one('project.task', compute='_compute_task_id', search='_search_task_id', export_string_translation=False)
 
     def _compute_is_shared(self):
         search_domain = [

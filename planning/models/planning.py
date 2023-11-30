@@ -63,7 +63,7 @@ class Planning(models.Model):
         help="Define the roles your resources perform (e.g. Chef, Bartender, Waiter...). Create open shifts for the roles you need to complete a mission. Then, assign those open shifts to the resources that are available.")
     color = fields.Integer("Color", compute='_compute_color')
     was_copied = fields.Boolean("This Shift Was Copied From Previous Week", default=False, readonly=True)
-    access_token = fields.Char("Security Token", default=lambda self: str(uuid.uuid4()), required=True, copy=False, readonly=True)
+    access_token = fields.Char(default=lambda self: str(uuid.uuid4()), required=True, copy=False, readonly=True, export_string_translation=False)
 
     start_datetime = fields.Datetime(
         "Start Date", compute='_compute_datetime', store=True, readonly=False, required=True,
@@ -77,14 +77,14 @@ class Planning(models.Model):
         "Days before shift for unassignment",
         related="company_id.planning_self_unassign_days_before"
     )
-    unassign_deadline = fields.Datetime('Deadline for unassignment', compute="_compute_unassign_deadline")
-    is_unassign_deadline_passed = fields.Boolean('Is unassignement deadline not past', compute="_compute_is_unassign_deadline_passed")
-    is_assigned_to_me = fields.Boolean('Is This Shift Assigned To The Current User', compute='_compute_is_assigned_to_me')
-    conflicting_slot_ids = fields.Many2many('planning.slot', compute='_compute_overlap_slot_count')
-    overlap_slot_count = fields.Integer('Overlapping Slots', compute='_compute_overlap_slot_count', search='_search_overlap_slot_count')
-    is_past = fields.Boolean('Is This Shift In The Past?', compute='_compute_past_shift')
-    is_users_role = fields.Boolean('Is the shifts role one of the current user roles', compute='_compute_is_users_role')
-    request_to_switch = fields.Boolean('Has there been a request to switch on this shift slot?', default=False, readonly=True)
+    unassign_deadline = fields.Datetime('Deadline for unassignment', compute="_compute_unassign_deadline", export_string_translation=False)
+    is_unassign_deadline_passed = fields.Boolean(compute="_compute_is_unassign_deadline_passed", export_string_translation=False)
+    is_assigned_to_me = fields.Boolean(compute='_compute_is_assigned_to_me', export_string_translation=False)
+    conflicting_slot_ids = fields.Many2many('planning.slot', compute='_compute_overlap_slot_count', export_string_translation=False)
+    overlap_slot_count = fields.Integer(compute='_compute_overlap_slot_count', search='_search_overlap_slot_count', export_string_translation=False)
+    is_past = fields.Boolean('Is This Shift In The Past?', compute='_compute_past_shift', export_string_translation=False)
+    is_users_role = fields.Boolean('Is the shifts role one of the current user roles', compute='_compute_is_users_role', export_string_translation=False)
+    request_to_switch = fields.Boolean('Has there been a request to switch on this shift slot?', default=False, readonly=True, export_string_translation=False)
 
     # time allocation
     allocation_type = fields.Selection([
@@ -108,14 +108,14 @@ class Planning(models.Model):
     ], string='Status', default='draft')
     # template dummy fields (only for UI purpose)
     template_creation = fields.Boolean("Save as Template", store=False, inverse='_inverse_template_creation')
-    template_autocomplete_ids = fields.Many2many('planning.slot.template', store=False, compute='_compute_template_autocomplete_ids')
+    template_autocomplete_ids = fields.Many2many('planning.slot.template', store=False, compute='_compute_template_autocomplete_ids', export_string_translation=False)
     template_id = fields.Many2one('planning.slot.template', string='Shift Templates', compute='_compute_template_id', readonly=False, store=True)
-    template_reset = fields.Boolean()
-    previous_template_id = fields.Many2one('planning.slot.template')
-    allow_template_creation = fields.Boolean(string='Allow Template Creation', compute='_compute_allow_template_creation')
+    template_reset = fields.Boolean(export_string_translation=False)
+    previous_template_id = fields.Many2one('planning.slot.template', export_string_translation=False)
+    allow_template_creation = fields.Boolean(string='Allow Template Creation', compute='_compute_allow_template_creation', export_string_translation=False)
 
     # Recurring (`repeat_` fields are none stored, only used for UI purpose)
-    recurrency_id = fields.Many2one('planning.recurrency', readonly=True, index=True, ondelete="set null", copy=False)
+    recurrency_id = fields.Many2one('planning.recurrency', readonly=True, index=True, ondelete="set null", copy=False, export_string_translation=False)
     repeat = fields.Boolean("Repeat", compute='_compute_repeat', inverse='_inverse_repeat',
         help="To avoid polluting your database and performance issues, shifts are only created for the next 6 months. They are then gradually created as time passes by in order to always get shifts 6 months ahead. This value can be modified from the settings of Planning, in debug mode.")
     repeat_interval = fields.Integer("Repeat every", default=1, compute='_compute_repeat_interval', inverse='_inverse_repeat')
@@ -134,9 +134,9 @@ class Planning(models.Model):
         ('subsequent', 'This and following shifts'),
         ('all', 'All shifts'),
     ], default='this', store=False)
-    confirm_delete = fields.Boolean('Confirm Slots Deletion', compute='_compute_confirm_delete')
+    confirm_delete = fields.Boolean(compute='_compute_confirm_delete', export_string_translation=False)
 
-    is_hatched = fields.Boolean(compute='_compute_is_hatched')
+    is_hatched = fields.Boolean(compute='_compute_is_hatched', export_string_translation=False)
 
     slot_properties = fields.Properties('Properties', definition='role_id.slot_properties_definition', precompute=False)
 
@@ -2233,7 +2233,7 @@ class PlanningRole(models.Model):
     color = fields.Integer("Color", default=_get_default_color)
     resource_ids = fields.Many2many('resource.resource', 'resource_resource_planning_role_rel',
                                     'planning_role_id', 'resource_resource_id', 'Resources')
-    sequence = fields.Integer()
+    sequence = fields.Integer(export_string_translation=False)
     slot_properties_definition = fields.PropertiesDefinition('Planning Slot Properties')
 
     def copy_data(self, default=None):
@@ -2258,7 +2258,7 @@ class PlanningPlanning(models.Model):
     date_start = fields.Date('Date Start', compute='_compute_dates')
     date_end = fields.Date('Date End', compute='_compute_dates')
     allow_self_unassign = fields.Boolean('Let Employee Unassign Themselves', compute='_compute_allow_self_unassign')
-    self_unassign_days_before = fields.Integer("Days before shift for unassignment", related="company_id.planning_self_unassign_days_before", help="Deadline in days for shift unassignment")
+    self_unassign_days_before = fields.Integer("Days before shift for unassignment", related="company_id.planning_self_unassign_days_before", export_string_translation=False)
 
     @api.depends('start_datetime', 'end_datetime')
     @api.depends_context('uid')

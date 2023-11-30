@@ -6,8 +6,8 @@ from odoo.addons.http_routing.models.ir_http import slug, unslug
 class ForumPost(models.Model):
     _inherit = 'forum.post'
 
-    ticket_id = fields.Many2one('helpdesk.ticket')
-    show_ticket = fields.Boolean(compute='_compute_show_ticket')
+    ticket_id = fields.Many2one('helpdesk.ticket', export_string_translation=False)
+    show_ticket = fields.Boolean(compute='_compute_show_ticket', export_string_translation=False)
 
     @api.depends_context('uid')
     @api.depends('ticket_id')

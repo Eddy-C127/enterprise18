@@ -12,10 +12,10 @@ class HelpdeskTeam(models.Model):
     _name = "helpdesk.team"
     _inherit = ['helpdesk.team', 'website.published.mixin', 'website.seo.metadata']
 
-    feature_form_url = fields.Char('URL to Submit Issue', readonly=True, compute='_compute_form_url')
+    feature_form_url = fields.Char('URL to Submit Issue', readonly=True, compute='_compute_form_url', export_string_translation=False)
     website_id = fields.Many2one('website', domain="[('company_id', '=?', company_id)]", compute='_compute_website_id', store=True, readonly=False)
-    website_menu_id = fields.Many2one('website.menu')
-    website_form_view_id = fields.Many2one('ir.ui.view', string="Form")
+    website_menu_id = fields.Many2one('website.menu', export_string_translation=False)
+    website_form_view_id = fields.Many2one('ir.ui.view', export_string_translation=False)
 
     @api.constrains('use_website_helpdesk_form', 'website_id', 'company_id')
     def _check_website_company(self):

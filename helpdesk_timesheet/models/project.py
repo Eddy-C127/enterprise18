@@ -10,7 +10,7 @@ class Project(models.Model):
     ticket_count = fields.Integer('# Tickets', compute='_compute_ticket_count')
 
     helpdesk_team = fields.One2many('helpdesk.team', 'project_id')
-    has_helpdesk_team = fields.Boolean('Has Helpdesk Teams', compute='_compute_has_helpdesk_team', search='_search_has_helpdesk_team', compute_sudo=True)
+    has_helpdesk_team = fields.Boolean('Has Helpdesk Teams', compute='_compute_has_helpdesk_team', search='_search_has_helpdesk_team', compute_sudo=True, export_string_translation=False)
 
     @api.depends('ticket_ids.project_id')
     def _compute_ticket_count(self):

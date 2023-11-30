@@ -16,9 +16,9 @@ class ProjectProject(models.Model):
     documents_folder_id = fields.Many2one('documents.folder', string="Workspace", domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]", copy=False,
         help="Workspace in which all of the documents of this project will be categorized. All of the attachments of your tasks will be automatically added as documents in this workspace as well.")
     documents_tag_ids = fields.Many2many('documents.tag', 'project_documents_tag_rel', string="Default Tags", domain="[('folder_id', 'parent_of', documents_folder_id)]", copy=True)
-    document_count = fields.Integer(compute='_compute_attached_document_count', string="Number of documents in Project", groups='documents.group_documents_user')
-    shared_document_ids = fields.One2many('documents.document', string='Shared Documents', compute='_compute_shared_document_ids')
-    shared_document_count = fields.Integer("Shared Documents Count", compute='_compute_shared_document_ids')
+    document_count = fields.Integer(compute='_compute_attached_document_count', groups='documents.group_documents_user', export_string_translation=False)
+    shared_document_ids = fields.One2many('documents.document', compute='_compute_shared_document_ids', export_string_translation=False)
+    shared_document_count = fields.Integer(compute='_compute_shared_document_ids', export_string_translation=False)
 
     @api.constrains('documents_folder_id')
     def _check_company_is_folder_company(self):

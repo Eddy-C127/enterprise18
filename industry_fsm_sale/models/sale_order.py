@@ -55,9 +55,9 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = ['sale.order.line']
 
-    delivered_price_subtotal = fields.Monetary(compute='_compute_delivered_amount', string='Delivered Subtotal')
-    delivered_price_tax = fields.Float(compute='_compute_delivered_amount', string='Delivered Total Tax')
-    delivered_price_total = fields.Monetary(compute='_compute_delivered_amount', string='Delivered Total')
+    delivered_price_subtotal = fields.Monetary(compute='_compute_delivered_amount', string='Delivered Subtotal', export_string_translation=False)
+    delivered_price_tax = fields.Float(compute='_compute_delivered_amount', string='Delivered Total Tax', export_string_translation=False)
+    delivered_price_total = fields.Monetary(compute='_compute_delivered_amount', string='Delivered Total', export_string_translation=False)
 
     @api.depends('qty_delivered', 'discount', 'price_unit', 'tax_id')
     def _compute_delivered_amount(self):

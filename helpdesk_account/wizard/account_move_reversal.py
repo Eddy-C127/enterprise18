@@ -37,10 +37,10 @@ class AccountMoveReversal(models.TransientModel):
     # Add compute method
     move_ids = fields.Many2many('account.move', 'account_move_reversal_move', 'reversal_id', 'move_id',
         compute="_compute_move_ids", readonly=False, store=True, required=True)
-    helpdesk_ticket_id = fields.Many2one('helpdesk.ticket')
+    helpdesk_ticket_id = fields.Many2one('helpdesk.ticket', export_string_translation=False)
     helpdesk_sale_order_id = fields.Many2one('sale.order', string='Sales Order', domain="[('id', 'in', suitable_sale_order_ids)]")
-    suitable_move_ids = fields.Many2many('account.move', compute='_compute_suitable_moves')
-    suitable_sale_order_ids = fields.Many2many('sale.order', compute='_compute_suitable_sale_orders')
+    suitable_move_ids = fields.Many2many('account.move', compute='_compute_suitable_moves', export_string_translation=False)
+    suitable_sale_order_ids = fields.Many2many('sale.order', compute='_compute_suitable_sale_orders', export_string_translation=False)
 
     @api.depends('helpdesk_sale_order_id')
     def _compute_move_ids(self):

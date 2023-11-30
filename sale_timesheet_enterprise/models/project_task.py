@@ -18,11 +18,11 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     # Project Sharing fields
-    portal_remaining_hours = fields.Float(compute='_compute_project_sharing_timesheets', help="Total remaining time, can be re-estimated periodically by the assignee of the task.")
-    portal_effective_hours = fields.Float(compute='_compute_project_sharing_timesheets', help="Time spent on this task, excluding its sub-tasks.")
-    portal_total_hours_spent = fields.Float(compute='_compute_project_sharing_timesheets', help="Time spent on this task, including its sub-tasks.")
-    portal_subtask_effective_hours = fields.Float(compute='_compute_project_sharing_timesheets', help="Time spent on the sub-tasks (and their own sub-tasks) of this task.")
-    portal_progress = fields.Float(compute='_compute_project_sharing_timesheets', aggregator="avg", help="Display progress of current task.")
+    portal_remaining_hours = fields.Float(compute='_compute_project_sharing_timesheets', help="Total remaining time, can be re-estimated periodically by the assignee of the task.", export_string_translation=False)
+    portal_effective_hours = fields.Float(compute='_compute_project_sharing_timesheets', help="Time spent on this task, excluding its sub-tasks.", export_string_translation=False)
+    portal_total_hours_spent = fields.Float(compute='_compute_project_sharing_timesheets', help="Time spent on this task, including its sub-tasks.", export_string_translation=False)
+    portal_subtask_effective_hours = fields.Float(compute='_compute_project_sharing_timesheets', help="Time spent on the sub-tasks (and their own sub-tasks) of this task.", export_string_translation=False)
+    portal_progress = fields.Float(compute='_compute_project_sharing_timesheets', aggregator="avg", help="Display progress of current task.", export_string_translation=False)
 
     @property
     def SELF_READABLE_FIELDS(self):

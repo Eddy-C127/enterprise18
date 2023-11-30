@@ -11,7 +11,7 @@ class SlideChannel(models.Model):
     _inherit = 'slide.channel'
 
     helpdesk_team_ids = fields.Many2many('helpdesk.team', 'helpdesk_team_slide_channel_rel', 'slide_channel_id', 'helpdesk_team_id')
-    helpdesk_team_count = fields.Integer('Helpdesk Team Count', compute='_compute_helpdesk_team_count')
+    helpdesk_team_count = fields.Integer('Helpdesk Team Count', compute='_compute_helpdesk_team_count', export_string_translation=False)
 
     @api.depends('helpdesk_team_ids')
     def _compute_helpdesk_team_count(self):

@@ -9,10 +9,10 @@ from odoo.osv import expression
 class Project(models.Model):
     _inherit = "project.project"
 
-    total_planned_amount = fields.Monetary(compute="_compute_total_planned_amount")
-    total_practical_amount = fields.Monetary(related='analytic_account_id.total_practical_amount')
-    total_budget_progress = fields.Monetary("Budget Spent", compute="_compute_total_budget_progress")
-    budget = fields.Integer('Total planned amount', compute='_compute_budget', default=0)
+    total_planned_amount = fields.Monetary(compute="_compute_total_planned_amount", export_string_translation=False)
+    total_practical_amount = fields.Monetary(related='analytic_account_id.total_practical_amount', export_string_translation=False)
+    total_budget_progress = fields.Monetary("Budget Spent", compute="_compute_total_budget_progress", export_string_translation=False)
+    budget = fields.Integer('Total planned amount', compute='_compute_budget', default=0, export_string_translation=False)
 
     @api.depends('analytic_account_id')
     def _compute_budget(self):

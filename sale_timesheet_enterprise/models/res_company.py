@@ -6,7 +6,7 @@ from odoo import _, api, fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    billing_rate_target = fields.Integer(default=80)
+    billing_rate_target = fields.Integer(default=80, export_string_translation=False)
     timesheet_show_rates = fields.Boolean(export_string_translation=False)
     timesheet_show_leaderboard = fields.Boolean(export_string_translation=False)
 

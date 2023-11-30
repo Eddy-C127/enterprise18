@@ -15,7 +15,7 @@ class HelpdeskSLAStatus(models.Model):
 
     ticket_id = fields.Many2one('helpdesk.ticket', string='Ticket', required=True, ondelete='cascade', index=True)
     sla_id = fields.Many2one('helpdesk.sla', required=True, ondelete='cascade')
-    sla_stage_id = fields.Many2one('helpdesk.stage', related='sla_id.stage_id', store=True)  # need to be stored for the search in `_sla_reach`
+    sla_stage_id = fields.Many2one('helpdesk.stage', related='sla_id.stage_id', store=True, export_string_translation=False)  # need to be stored for the search in `_sla_reach`
     deadline = fields.Datetime("Deadline", compute='_compute_deadline', compute_sudo=True, store=True)
     reached_datetime = fields.Datetime("Reached Date", help="Datetime at which the SLA stage was reached for the first time")
     status = fields.Selection([('failed', 'Failed'), ('reached', 'Reached'), ('ongoing', 'Ongoing')], string="Status", compute='_compute_status', compute_sudo=True, search='_search_status')

@@ -17,7 +17,7 @@ class HelpdeskStage(models.Model):
     active = fields.Boolean(default=True)
     name = fields.Char(required=True, translate=True)
     description = fields.Text(translate=True)
-    sequence = fields.Integer('Sequence', default=10)
+    sequence = fields.Integer(export_string_translation=False, default=10)
     fold = fields.Boolean(
         'Folded in Kanban',
         help='Tickets in a folded stage are considered as closed.')
@@ -36,7 +36,7 @@ class HelpdeskStage(models.Model):
         'Green Kanban Label', default=lambda s: _('Ready'), translate=True, required=True)
     legend_normal = fields.Char(
         'Grey Kanban Label', default=lambda s: _('In Progress'), translate=True, required=True)
-    ticket_count = fields.Integer(compute='_compute_ticket_count')
+    ticket_count = fields.Integer(compute='_compute_ticket_count', export_string_translation=False)
 
     def _compute_ticket_count(self):
         res = self.env['helpdesk.ticket']._read_group(

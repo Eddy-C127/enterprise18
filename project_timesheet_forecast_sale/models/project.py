@@ -8,7 +8,7 @@ from odoo import api, fields, models, _, _lt
 class Project(models.Model):
     _inherit = 'project.project'
 
-    display_planning_timesheet_analysis = fields.Boolean(compute='_compute_display_planning_timesheet_analysis', help='Should we display the planning and timesheet analysis button?')
+    display_planning_timesheet_analysis = fields.Boolean(compute='_compute_display_planning_timesheet_analysis', export_string_translation=False)
 
     @api.depends('allow_timesheets')
     @api.depends_context('uid')

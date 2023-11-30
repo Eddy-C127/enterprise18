@@ -15,10 +15,10 @@ class Forecast(models.Model):
     allow_timesheets = fields.Boolean("Allow timesheets", related='project_id.allow_timesheets', help="Timesheets can be logged on this slot.", readonly=True)
     effective_hours = fields.Float("Effective Time", compute='_compute_effective_hours', compute_sudo=True, store=True,
         help="Number of time recorded on the employee's Timesheets for this task (and its sub-tasks) during the timeframe of the shift.")
-    timesheet_ids = fields.Many2many('account.analytic.line', compute='_compute_timesheet_ids', compute_sudo=True)
-    can_open_timesheets = fields.Boolean(compute='_compute_can_open_timesheet')
+    timesheet_ids = fields.Many2many('account.analytic.line', compute='_compute_timesheet_ids', compute_sudo=True, export_string_translation=False)
+    can_open_timesheets = fields.Boolean(compute='_compute_can_open_timesheet', export_string_translation=False)
     percentage_hours = fields.Float("Progress", compute='_compute_percentage_hours', compute_sudo=True, store=True)
-    encode_uom_in_days = fields.Boolean(compute='_compute_encode_uom_in_days')
+    encode_uom_in_days = fields.Boolean(compute='_compute_encode_uom_in_days', export_string_translation=False)
 
     def _compute_encode_uom_in_days(self):
         self.encode_uom_in_days = self.env.company.timesheet_encode_uom_id == self.env.ref('uom.product_uom_day')

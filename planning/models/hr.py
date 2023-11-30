@@ -24,7 +24,7 @@ class Employee(models.Model):
              "Additionally, the employee will only be assigned orders for these roles (with the default planning role having precedence over the other ones).\n"
              "Leave empty for the employee to be assigned shifts regardless of the role.")
     employee_token = fields.Char('Security Token', default=_default_employee_token, groups='hr.group_hr_user',
-                                 copy=False, readonly=True)
+                                 copy=False, readonly=True, export_string_translation=False)
 
     _sql_constraints = [
         ('employee_token_unique', 'unique(employee_token)', 'Error: each employee token must be unique')

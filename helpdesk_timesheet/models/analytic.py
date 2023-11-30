@@ -15,8 +15,8 @@ class AccountAnalyticLine(models.Model):
         compute='_compute_helpdesk_ticket_id', store=True, readonly=False,
         domain="[('company_id', '=', company_id), ('project_id', '=?', project_id)]")
     project_id = fields.Many2one(inverse="_inverse_project_id")
-    has_helpdesk_team = fields.Boolean(related='project_id.has_helpdesk_team')
-    display_task = fields.Boolean(compute="_compute_display_task")
+    has_helpdesk_team = fields.Boolean(related='project_id.has_helpdesk_team', export_string_translation=False)
+    display_task = fields.Boolean(compute="_compute_display_task", export_string_translation=False)
 
     @api.depends('has_helpdesk_team', 'project_id', 'task_id', 'helpdesk_ticket_id')
     def _compute_display_task(self):
