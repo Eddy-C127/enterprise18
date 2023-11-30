@@ -61,6 +61,7 @@ class AccountReconcileWizard(models.TransientModel):
         compute='_compute_reco_wizard_data')
     single_currency_mode = fields.Boolean(compute='_compute_single_currency_mode')
     allow_partials = fields.Boolean(string="Allow partials", default=False)
+    display_allow_partials = fields.Boolean(compute='_compute_display_allow_partials')
     date = fields.Date(string='Date', compute='_compute_date', store=True, readonly=False)
     journal_id = fields.Many2one(
         comodel_name='account.journal',
@@ -123,6 +124,19 @@ class AccountReconcileWizard(models.TransientModel):
     def _compute_single_currency_mode(self):
         for wizard in self:
             wizard.single_currency_mode = wizard.reco_currency_id == wizard.company_currency_id
+
+    @api.depends('move_line_ids')
+    def _compute_display_allow_partials(self):
+        for wizard in self:
+            wizard.display_allow_partials = has_debit_line = has_credit_line = False
+            for aml in wizard.move_line_ids:
+                if aml.balance > 0.0 or aml.amount_currency > 0.0:
+                    has_debit_line = True
+                elif aml.balance < 0.0 or aml.amount_currency < 0.0:
+                    has_credit_line = True
+                if has_debit_line and has_credit_line:
+                    wizard.display_allow_partials = True
+                    break
 
     @api.depends('move_line_ids', 'journal_id', 'tax_id')
     def _compute_date(self):
