@@ -103,17 +103,21 @@ class WhatsAppComposer(models.TransientModel):
         for composer in self:
             invalid_phone_number_count = 0
             records = self._get_active_records()
-            company_country_id = self.env.company.country_id
             if composer.batch_mode:
                 for rec in records:
                     mobile_number = rec[composer.wa_template_id.phone_field]
-                    country_id = company_country_id
                     if mobile_number:
-                        mobile_number = phone_validation.phone_format(mobile_number or '', country_id.code, country_id.phone_code) or mobile_number
+                        mobile_number = wa_phone_validation.wa_phone_format(
+                            rec, number=mobile_number or '',
+                            raise_exception=False,
+                        ) or mobile_number
                     if not mobile_number:
                         invalid_phone_number_count += 1
             elif composer.phone:
-                sanitize_number = phone_validation.phone_format(composer.phone, company_country_id.code, company_country_id.phone_code)
+                sanitize_number = wa_phone_validation.wa_phone_format(
+                    records, number=composer.phone,
+                    raise_exception=False,
+                )
                 if not sanitize_number:
                     invalid_phone_number_count += 1
             else:
@@ -226,6 +230,7 @@ class WhatsAppComposer(models.TransientModel):
                 formatted_number_wa = wa_phone_validation.wa_phone_format(
                     rec, fname=self.wa_template_id.phone_field,
                     force_format="WHATSAPP",
+                    raise_exception=False,
                 )
             else:
                 mobile_number = self.phone
