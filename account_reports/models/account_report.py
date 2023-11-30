@@ -5345,6 +5345,51 @@ class AccountReport(models.Model):
 
     # ============ Accounts Coverage Debugging Tool - END ================
 
+    def _generate_file_data_with_error_check(self, options, content_generator, generator_params, errors):
+        """ Checks for critical errors (i.e. errors that would cause the rendering to fail) in the generator values.
+            If at least one error is critical, the 'account.report.file.download.error.wizard' wizard is opened
+            before rendering the file, so they can be fixed.
+            If there are only non-critical errors, the wizard is opened after the file has been generated,
+            allowing the user to download it anyway.
+
+            :param dict options: The report options.
+            :param def content_generator: The function used to generate the exported content.
+            :param dict generator_params: The parameters passed to the 'content_generator' method (List).
+            :param list errors: A list of errors in the following format:
+                [
+                    {
+                        'message': The error message to be displayed in the wizard,
+                        'action_text': The text of the action button,
+                        'action_name': The name of the method called to handle the issue,
+                        'action_params': Dictionary containing the parameters (as kwargs) passed to the 'action_name' method,
+                        'critical': Whether the error will cause the file generation to crash (Boolean).
+                    },
+                    {...},
+                ]
+            :returns: The data that will be used by the file generator.
+            :rtype: dict
+        """
+        if errors is None:
+            errors = []
+        self.ensure_one()
+        if any(error.get('critical') for error in errors):
+            # Errors are sorted in order to show the critical ones first.
+            sorted_errors = sorted(errors, key=lambda error: not error.get('critical'))
+            raise AccountReportFileDownloadException(sorted_errors)
+
+        content = content_generator(**generator_params)
+
+        file_data = {
+            'file_name': self.get_default_report_filename(options, generator_params['file_type']),
+            'file_content': re.sub(r'\n\s*\n', '\n', content).encode(),
+            'file_type': generator_params['file_type'],
+        }
+
+        if errors:
+            raise AccountReportFileDownloadException(errors, file_data)
+
+        return file_data
+
 
 class AccountReportLine(models.Model):
     _inherit = 'account.report.line'

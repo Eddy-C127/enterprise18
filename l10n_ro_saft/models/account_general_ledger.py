@@ -26,8 +26,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def l10n_ro_export_saft_to_xml(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         values = self._l10n_ro_saft_prepare_report_values(report, options)
-        file_data = self._saft_generate_file_data_with_error_check(
-            report, options, values, 'l10n_ro_saft.saft_template'
+        file_data = report._generate_file_data_with_error_check(
+            options,
+            self.env['ir.qweb']._render,
+            {'values': values, 'template': 'l10n_ro_saft.saft_template', 'file_type': 'xml'},
+            values['errors'],
         )
         return file_data
 
@@ -64,7 +67,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'message': message,
                 'action_text': _('View Company'),
                 'action_name': 'saft_action_open_company',
-                'action_params': values['company'].id,
+                'action_params': {'company_id': values['company'].id},
             }
 
         errors = []
@@ -75,7 +78,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'message': _('Please set the company Tax Accounting Basis.'),
                 'action_text': _('View Settings'),
                 'action_name': 'action_open_settings',
-                'action_params': values['company'].id,
+                'action_params': {'company_id': values['company'].id},
             })
 
         # The company must have a bank account defined.
@@ -84,7 +87,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'message': _('Please define a `Bank Account` for your company.'),
                 'action_text': _('Set Bank Account'),
                 'action_name': 'action_open_partner_company',
-                'action_params': values['company'].partner_id.id,
+                'action_params': {'company_id': values['company'].partner_id.id},
             })
 
         # The company must have a telephone number defined.
@@ -182,7 +185,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     faulty_partners[_('The VAT numbers for the following partners failed the VIES check:')] |= partner
 
         return [
-            {'message': message, 'action_text': _('View Partners'), 'action_name': 'action_open_partners', 'action_params': partners.ids}
+            {'message': message, 'action_text': _('View Partners'), 'action_name': 'action_open_partners', 'action_params': {'partner_ids': partners.ids}}
             for message, partners in faulty_partners.items()
         ]
 
@@ -259,7 +262,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                              'and/or "Romanian SAF-T Tax Code" field(s).'),
                 'action_text': _('View Taxes'),
                 'action_name': 'action_open_taxes',
-                'action_params': faulty_taxes.ids,
+                'action_params': {'tax_ids': faulty_taxes.ids},
             })
         return errors
 
@@ -321,7 +324,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'message': message,
                 'action_text': _('View Products'),
                 'action_name': 'action_open_products',
-                'action_params': product_ids,
+                'action_params': {'product_ids': product_ids},
                 'critical': critical,
             }
 

@@ -28,7 +28,7 @@ class AccountGeneralLedger(models.AbstractModel):
                 'message': message,
                 'action_text': _('View Products'),
                 'action_name': 'action_open_products',
-                'action_params': product_ids,
+                'action_params': {'product_ids': product_ids},
                 'critical': critical,
             }
 
@@ -166,8 +166,11 @@ class AccountGeneralLedger(models.AbstractModel):
     def l10n_lu_export_saft_to_xml(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         template_vals = self._l10n_lu_prepare_saft_report_values(report, options)
-        file_data = self._saft_generate_file_data_with_error_check(
-            report, options, template_vals, 'l10n_lu_reports.saft_template_inherit_l10n_lu_saft'
+        file_data = report._generate_file_data_with_error_check(
+            options,
+            self.env['ir.qweb']._render,
+            {'values': template_vals, 'template': 'l10n_lu_reports.saft_template_inherit_l10n_lu_saft', 'file_type': 'xml'},
+            template_vals['errors'],
         )
         self.env['ir.attachment'].l10n_lu_reports_validate_xml_from_attachment(file_data['file_content'], 'saft')
         return file_data

@@ -88,7 +88,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'message': _('Some accounts can not be mapped to an account from the chart of accounts given in the SAF-T specification (see the documentation for more information):'),
                 'action_text': _('Check Accounts'),
                 'action_name': 'l10n_at_saft_action_open_unmapped_accounts',
-                'action_params': accounts_with_mapping_problem.ids,
+                'action_params': {'ids': accounts_with_mapping_problem.ids},
             })
 
         taxtype_dict = defaultdict(lambda: {
@@ -111,7 +111,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'message': _('Taxes that are not percentages are not supported.'),
                 'action_text': _('Check Taxes'),
                 'action_name': 'l10n_at_saft_action_open_unsupported_taxes',
-                'action_params': unsupported_tax_ids,
+                'action_params': {'ids': unsupported_tax_ids},
                 'critical': True,
             })
 
@@ -141,7 +141,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'message': _('Please define the %s in the accounting settings:', ', '.join(missing_company_settings)),
                 'action_text': _('Go to Settings'),
                 'action_name': 'action_open_settings',
-                'action_params': self.env.company.id,
+                'action_params': {'company_id': self.env.company.id},
             })
 
         company_contact = template_vals['partner_detail_map'][self.env.company.partner_id.id]['contacts'][0]
@@ -150,7 +150,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'message': _('Please define a phone or mobile phone number for your company contact:'),
                 'action_text': _('Check Company'),
                 'action_name': 'action_open_partner_company',
-                'action_params': company_contact.id,
+                'action_params': {'company_id': company_contact.id},
             })
 
         partner_without_complete_address_ids = []
@@ -164,7 +164,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'message': _('The addresses (street, city, postal code, country) of some partners are incomplete:'),
                 'action_text': _('Check Partners'),
                 'action_name': 'action_open_partners',
-                'action_params': partner_without_complete_address_ids,
+                'action_params': {'partner_ids': partner_without_complete_address_ids},
             })
 
         return template_vals
@@ -173,8 +173,10 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def l10n_at_export_saft_to_xml(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         template_values = self._l10n_at_prepare_saft_report_values(report, options)
-
-        file_data = self._saft_generate_file_data_with_error_check(
-            report, options, template_values, 'l10n_at_saft.saft_template_inherit_l10n_at_saft'
+        file_data = report._generate_file_data_with_error_check(
+            options,
+            self.env['ir.qweb']._render,
+            {'values': template_values, 'template': 'l10n_at_saft.saft_template_inherit_l10n_at_saft', 'file_type': 'xml'},
+            template_values['errors'],
         )
         return file_data

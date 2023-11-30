@@ -33,8 +33,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def l10n_dk_export_saft_to_xml(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         template_vals = self._l10n_dk_saft_prepare_report_values(report, options)
-        file_data = self._saft_generate_file_data_with_error_check(
-            report, options, template_vals, 'l10n_dk_reports.saft_template'
+        file_data = report._generate_file_data_with_error_check(
+            options,
+            self.env['ir.qweb']._render,
+            {'values': template_vals, 'template': 'l10n_dk_reports.saft_template', 'file_type': 'xml'},
+            template_vals['errors'],
         )
         self.env['ir.attachment'].l10n_dk_saft_validate_xml_from_attachment(file_data['file_content'])
         return file_data
