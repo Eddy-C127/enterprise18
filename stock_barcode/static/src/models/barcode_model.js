@@ -692,6 +692,7 @@ export default class BarcodeModel extends EventBus {
      * @param {Object} line
      */
     _markLineAsDirty(line) {
+        this.scannedLinesVirtualId.push(line.virtual_id);
         if (!this.linesToSave.includes(line.virtual_id)) {
             this.linesToSave.push(line.virtual_id);
         }
@@ -1229,7 +1230,6 @@ export default class BarcodeModel extends EventBus {
             return; // Don't select the line if it's already selected.
         }
         this.selectedLineVirtualId = virtualId;
-        this.scannedLinesVirtualId.push(virtualId);
         this.lastScanned.destLocation = false;
     }
 
