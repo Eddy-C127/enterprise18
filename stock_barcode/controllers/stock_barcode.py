@@ -49,10 +49,11 @@ class StockBarcodeController(http.Controller):
             if ret_open_product_location:
                 return ret_open_product_location
 
-        if not barcode_type or barcode_type == 'lot':
-            ret_open_lot_location = self._try_open_lot_location(barcode)
-            if ret_open_lot_location:
-                return ret_open_lot_location
+        if request.env.user.has_group('stock.group_production_lot') and \
+           (not barcode_type or barcode_type == 'lot'):
+            ret_open_lot = self._try_open_lot(barcode)
+            if ret_open_lot:
+                return ret_open_lot
 
         if request.env.user.has_group('stock.group_tracking_lot') and \
            (not barcode_type or barcode_type == 'package'):
@@ -165,28 +166,24 @@ class StockBarcodeController(http.Controller):
 
         return request.make_response(merged_pdf, headers=pdfhttpheaders)
 
-    def _try_open_lot_location(self, barcode):
-        """ If barcode represent a lot, open a list/kanban view to show all
-        the locations of this lot.
+    def _try_open_lot(self, barcode):
+        """ If barcode represent a lot, open a form view to show all
+        the details of this lot.
         """
         result = request.env['stock.lot'].search_read([
             ('name', '=', barcode),
         ], ['id', 'display_name'], limit=1)
         if result:
-            tree_view_id = request.env.ref('stock.view_stock_quant_tree').id
-            kanban_view_id = request.env.ref('stock_barcode.stock_quant_barcode_kanban_2').id
             return {
                 'action': {
-                    'name': result[0]['display_name'],
-                    'res_model': 'stock.quant',
-                    'views': [(tree_view_id, 'list'), (kanban_view_id, 'kanban')],
+                    'name': 'Open lot',
+                    'res_model': 'stock.lot',
+                    'views': [(request.env.ref('stock.view_production_lot_form').id, 'form')],
                     'type': 'ir.actions.act_window',
-                    'domain': [('lot_id', '=', result[0]['id'])],
-                    'context': {
-                        'search_default_internal_loc': True,
-                    },
-                },
+                    'res_id': result[0]['id'],
+                }
             }
+        return False
 
     def _try_open_product_location(self, barcode):
         """ If barcode represent a product, open a list/kanban view to show all

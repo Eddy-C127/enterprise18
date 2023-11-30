@@ -32,6 +32,7 @@
                 <li>Scan a <b>document</b> to open it.</li>
                 <li>Scan a <b>product</b> to show its location and quantity.</li>
                 <li t-if="packagesEnabled">Scan a <b>package</b> to know its content.</li>
+                <li t-if="trackingEnabled">Scan a <b>Lot/SN</b> to know its details.</li>
             </ul>
 
             <hr class="mb-4 d-none d-sm-block"/>

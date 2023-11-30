@@ -29,6 +29,7 @@ export class MainMenu extends Component {
         onWillStart(async () => {
             this.locationsEnabled = await user.hasGroup('stock.group_stock_multi_locations');
             this.packagesEnabled = await user.hasGroup('stock.group_tracking_lot');
+            this.trackingEnabled = await user.hasGroup('stock.group_production_lot');
             const args = [
                 ["user_id", "=?", user.userId],
                 ["location_id.usage", "in", ["internal", "transit"]],
