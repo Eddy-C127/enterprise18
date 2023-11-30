@@ -202,7 +202,8 @@ result = average_monthly_salary * prorata_rate
         <field name="condition_select">python</field>
         <field name="condition_python">
 first_mpf_date = employee.first_contract_date + relativedelta(days=30)
-result = result_rules['MPF_GROSS']['total'] &gt; payslip._rule_parameter('l10n_hk_mpf_threshold') and first_mpf_date &lt;= payslip.date_from
+is_above_mpf_threshold = result_rules['MPF_GROSS']['total'] &gt; payslip._rule_parameter('l10n_hk_mpf_threshold')
+result = is_above_mpf_threshold and first_mpf_date &lt;= payslip.date_from
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
@@ -218,13 +219,24 @@ result = -min(0.05 * result_rules['MPF_GROSS']['total'], payslip._rule_parameter
         <field name="code">ERMC</field>
         <field name="sequence">111</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = result_rules['EEMC']['total']</field>
+        <field name="condition_python">
+first_mpf_date = employee.first_contract_date + relativedelta(days=30)
+if first_mpf_date.day != 1:
+    first_mpf_date = first_mpf_date + relativedelta(months=1, day=payslip.date_from.day)
+    if (first_mpf_date - employee.first_contract_date).days + 1 &gt; 60:
+        first_mpf_date = first_mpf_date - relativedelta(months=1)
+is_above_mpf_threshold = result_rules['MPF_GROSS']['total'] &gt; payslip._rule_parameter('l10n_hk_mpf_threshold')
+result = is_above_mpf_threshold and first_mpf_date &lt;= payslip.date_from
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -min(0.05 * result_rules['MPF_GROSS']['total'], payslip._rule_parameter('l10n_hk_mpf_maximum'))
 first_mpf_date = employee.first_contract_date + relativedelta(days=30)
-last_payslip_date = payslip.date_from - relativedelta(months=1)
-if first_mpf_date == payslip.date_from or (first_mpf_date.day != 1 and first_mpf_date.month == last_payslip_date.month and first_mpf_date.year == last_payslip_date.year):
+if first_mpf_date.day != 1:
+    first_mpf_date = first_mpf_date + relativedelta(months=1, day=payslip.date_from.day)
+    if (first_mpf_date - employee.first_contract_date).days + 1 &gt; 60:
+        first_mpf_date = first_mpf_date - relativedelta(months=1)
+if first_mpf_date == payslip.date_from:
     past_payslip_ids = payslip.env['hr.payslip'].search([
         ('state', 'in', ['paid', 'done']),
         ('date_to', '&gt;=', employee.first_contract_date),

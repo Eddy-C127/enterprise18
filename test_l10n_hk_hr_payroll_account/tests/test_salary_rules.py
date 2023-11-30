@@ -390,43 +390,39 @@ class TestSalaryRules(TestL10NHkHrPayrollAccountCommon):
 
     def test_004_b_mpf_first_contribution(self):
         self.contract.write({
-            'date_start': date(2023, 7, 3),
+            'date_start': date(2023, 2, 1),
         })
         payslip_results = {
-            7: {
-                'BASIC': 18709.68,
-                'ALW.INT': 187.1,
-                '713_GROSS': 18896.78,
-                'MPF_GROSS': 18896.78,
-                'GROSS': 18896.78,
-                'EEMC': 0.0,
-                'ERMC': 0.0,
-                'NET': 18896.78,
-                'MEA': 18896.78,
-            },
-            8: {
+            2: {
                 'BASIC': 20000.0,
                 'ALW.INT': 200.0,
                 '713_GROSS': 20200.0,
                 'MPF_GROSS': 20200.0,
-                'EEMC': 0.0,
-                'ERMC': 0.0,
                 'GROSS': 20200.0,
                 'NET': 20200.0,
                 'MEA': 20200.0,
             },
-            9: {
+            3: {
+                'BASIC': 20000.0,
+                'ALW.INT': 200.0,
+                '713_GROSS': 20200.0,
+                'MPF_GROSS': 20200.0,
+                'GROSS': 20200.0,
+                'NET': 20200.0,
+                'MEA': 20200.0,
+            },
+            4: {
                 'BASIC': 20000.0,
                 'ALW.INT': 200.0,
                 '713_GROSS': 20200.0,
                 'MPF_GROSS': 20200.0,
                 'EEMC': -1010.0,
-                'ERMC': -2964.84,
-                'GROSS': 23164.84,
+                'ERMC': -3030.0,
+                'GROSS': 23230.0,
                 'NET': 19190.0,
                 'MEA': 19190.0,
             },
-            10: {
+            5: {
                 'BASIC': 20000.0,
                 'ALW.INT': 200.0,
                 '713_GROSS': 20200.0,
@@ -438,7 +434,7 @@ class TestSalaryRules(TestL10NHkHrPayrollAccountCommon):
                 'MEA': 19190.0,
             },
         }
-        for month in range(7, 11):
+        for month in range(2, 6):
             payslip = self._generate_payslip(
                 date(2023, month, 1),
                 date(2023, month, 1) + relativedelta(day=31),
@@ -661,6 +657,62 @@ class TestSalaryRules(TestL10NHkHrPayrollAccountCommon):
                 date(2023, month, 1),
                 date(2023, month, 1) + relativedelta(day=31),
                 input_line_ids=[(0, 0, {'input_type_id': self.env.ref('l10n_hk_hr_payroll.input_commission').id, 'amount': inputs[month]['commission']})] if inputs[month]['commission'] else False,
+            )
+            self._validate_payslip(payslip, payslip_results[month])
+            payslip.action_payslip_done()
+            payslip.action_payslip_paid()
+
+    def test_004_e_mpf_first_contribution_special_case(self):
+        self.contract.write({
+            'date_start': date(2023, 7, 3),
+        })
+        payslip_results = {
+            7: {
+                'BASIC': 18709.68,
+                'ALW.INT': 187.1,
+                '713_GROSS': 18896.78,
+                'MPF_GROSS': 18896.78,
+                'GROSS': 18896.78,
+                'NET': 18896.78,
+                'MEA': 18896.78,
+            },
+            8: {
+                'BASIC': 20000.0,
+                'ALW.INT': 200.0,
+                '713_GROSS': 20200.0,
+                'MPF_GROSS': 20200.0,
+                'ERMC': -1954.84,
+                'GROSS': 22154.84,
+                'NET': 20200.0,
+                'MEA': 20200.0,
+            },
+            9: {
+                'BASIC': 20000.0,
+                'ALW.INT': 200.0,
+                '713_GROSS': 20200.0,
+                'MPF_GROSS': 20200.0,
+                'EEMC': -1010.0,
+                'ERMC': -1010.0,
+                'GROSS': 21210.0,
+                'NET': 19190.0,
+                'MEA': 19190.0,
+            },
+            10: {
+                'BASIC': 20000.0,
+                'ALW.INT': 200.0,
+                '713_GROSS': 20200.0,
+                'MPF_GROSS': 20200.0,
+                'EEMC': -1010.0,
+                'ERMC': -1010.0,
+                'GROSS': 21210.0,
+                'NET': 19190.0,
+                'MEA': 19190.0,
+            },
+        }
+        for month in range(7, 11):
+            payslip = self._generate_payslip(
+                date(2023, month, 1),
+                date(2023, month, 1) + relativedelta(day=31),
             )
             self._validate_payslip(payslip, payslip_results[month])
             payslip.action_payslip_done()
