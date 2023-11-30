@@ -36,17 +36,15 @@ class SocialStreamLinkedIn(models.Model):
         if self.stream_type_id.stream_type != 'linkedin_company_post':
             raise UserError(_('Wrong stream type for "%s"', self.name))
 
-        projection = '(paging,elements*(%s))' % self.env['social.media']._LINKEDIN_STREAM_POST_PROJECTION
-        posts_endpoint = url_join(
-            self.env['social.media']._LINKEDIN_ENDPOINT,
-            'posts?author=%s' % quote(self.account_id.linkedin_account_urn))
-
-        posts_response = requests.get(
-            posts_endpoint,
-            params={'q': 'author', 'projection': projection, 'count': 100},
-            headers=self.account_id._linkedin_bearer_headers(),
-            timeout=5)
-
+        posts_response = self.account_id._linkedin_request(
+            "posts",
+            params={
+                'q': 'author',
+                'count': 100,
+                'author': self.account_id.linkedin_account_urn,
+            },
+            fields=('id', 'createdAt', 'author', 'content', 'commentary')
+        )
         if posts_response.status_code != 200 or 'elements' not in posts_response.json():
             self.sudo().account_id._action_disconnect_accounts(posts_response.json())
             return False
@@ -98,12 +96,7 @@ class SocialStreamLinkedIn(models.Model):
         return json_data.get('localizedName', user_name)
 
     def _prepare_linkedin_stream_post_images(self, posts_data):
-        """Fetch the images URLs and insert their URL in posts_data.
-
-        On the 4 January 2023, the projection in the /posts API doesn't work for image.
-        But the projection on the /images work... So for now we need to fetch the images
-        in a second request.
-        """
+        """Fetch the images URLs and insert their URL in posts_data."""
         all_image_urns = set()
         for post in posts_data:
             # multi-images post
@@ -155,15 +148,14 @@ class SocialStreamLinkedIn(models.Model):
 
     def _prepare_linkedin_stream_post_values(self, post_data):
         article = post_data.get('content', {}).get('article', {})
-        author_image = self.account_id._extract_linkedin_picture_url(post_data.get('author~'))
-
+        author_image = f"/web/image?model=social.account&id={self.account_id.id}&field=image"
         return {
             'stream_id': self.id,
-            'author_name': self._format_linkedin_name(post_data.get('author~', {})),
+            'author_name': self.account_id.name,
             'published_date': datetime.fromtimestamp(post_data.get('createdAt', 0) / 1000),
             'linkedin_post_urn': post_data.get('id'),
             'linkedin_author_urn': post_data.get('author'),
-            'linkedin_author_image_url': self._enforce_url_scheme(author_image),
+            'linkedin_author_image_url': author_image,
             'message': self._format_from_linkedin_little_text(post_data.get('commentary', '')),
             'stream_post_image_ids': [(5, 0)] + [(0, 0, image_value) for image_value in self._extract_linkedin_image(post_data)],
             **self._extract_linkedin_article(article),
