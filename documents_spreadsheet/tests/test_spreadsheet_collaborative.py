@@ -227,7 +227,6 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
                     "res_id": self.spreadsheet.id,
                     "res_model": "documents.document",
                     "revision_id": "a revision id",
-                    "parent_revision_id": uuid4().hex,
                 }
             )
         )

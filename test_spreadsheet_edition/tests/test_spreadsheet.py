@@ -2,6 +2,9 @@
 
 from datetime import datetime
 from freezegun import freeze_time
+import psycopg2
+
+from odoo.tools import mute_logger
 
 from odoo.tests.common import new_test_user
 from odoo.addons.spreadsheet_edition.tests.spreadsheet_test_case import SpreadsheetTestCase
@@ -18,6 +21,24 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
             copy.spreadsheet_revision_ids.commands,
             spreadsheet.spreadsheet_revision_ids.commands,
         )
+
+    def test_copy_parent_revisions(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        copy = spreadsheet.copy()
+        revisions = copy.spreadsheet_revision_ids
+        self.assertEqual(len(revisions), 3)
+        self.assertEqual(
+            revisions[2].parent_revision_id,
+            revisions[1],
+        )
+        self.assertEqual(
+            revisions[1].parent_revision_id,
+            revisions[0],
+        )
+        self.assertFalse(revisions[0].parent_revision_id)
 
     def test_dont_copy_revisions_if_provided(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
@@ -40,6 +61,26 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         self.assertFalse(
             spreadsheet.with_context(active_test=True).spreadsheet_revision_ids,
         )
+
+    def test_cannot_dispatch_with_invalid_parent_revision(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+
+        revision_payload = self.new_revision_data(spreadsheet)
+        is_accepted = spreadsheet.dispatch_spreadsheet_message(revision_payload)
+        self.assertTrue(is_accepted, "the first revision should be accepted")
+
+        revision_payload = self.new_revision_data(spreadsheet, serverRevisionId="something")
+        is_accepted = spreadsheet.dispatch_spreadsheet_message(revision_payload)
+        self.assertFalse(is_accepted)
+
+    def test_cannot_delete_revision_in_a_chain(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        revision = spreadsheet.spreadsheet_revision_ids[1]
+        with self.assertRaises(psycopg2.errors.UniqueViolation), mute_logger("odoo.sql_db"):
+            revision.unlink()
 
     def test_company_currency(self):
         spreadsheet = self.env["spreadsheet.test"].create({})

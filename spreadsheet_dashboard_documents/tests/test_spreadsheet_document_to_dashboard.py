@@ -106,7 +106,6 @@ class TestSpreadsheetDocumentToDashboard(TransactionCase):
                 "res_id": document.id,
                 "res_model": "documents.document",
                 "revision_id": "a revision id",
-                "parent_revision_id": uuid4().hex
             }
         )
         self.env["spreadsheet.dashboard"].add_document_spreadsheet_to_dashboard(group.id, document.id)

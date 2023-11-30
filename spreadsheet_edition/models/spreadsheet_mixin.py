@@ -140,21 +140,23 @@ class SpreadsheetMixin(models.AbstractModel):
 
     def _copy_revisions_to(self, spreadsheet, up_to_revision_id=False):
         self._check_collaborative_spreadsheet_access("read")
-        revisions_data = []
         if up_to_revision_id:
             revisions = self.sudo().spreadsheet_revision_ids.filtered(
                 lambda r: r.id <= up_to_revision_id
             )
         else:
             revisions = self.sudo().spreadsheet_revision_ids
+        copied_revisions = self.env["spreadsheet.revision"]
+        parent_revision = self.env["spreadsheet.revision"]
         for revision in revisions:
-            revisions_data += revision.copy_data({
+            parent_revision = revision.copy({
                 "res_model": spreadsheet._name,
                 "res_id": spreadsheet.id,
+                "parent_revision_id": parent_revision.id,
             })
+            copied_revisions |= parent_revision
         spreadsheet._check_collaborative_spreadsheet_access("write")
-        revisions = self.env["spreadsheet.revision"].sudo().create(revisions_data)
-        spreadsheet.sudo().spreadsheet_revision_ids = revisions
+        spreadsheet.sudo().spreadsheet_revision_ids = copied_revisions
 
     def _snapshot_spreadsheet(
         self, revision_id: str, snapshot_revision_id, spreadsheet_snapshot: dict
@@ -204,15 +206,16 @@ class SpreadsheetMixin(models.AbstractModel):
         last_activity = max(self.spreadsheet_revision_ids.mapped("create_date"))
         return last_activity < fields.Datetime.now() - timedelta(hours=12)
 
-    def _save_concurrent_revision(self, next_revision_id, parent_revision_id, commands):
+    def _save_concurrent_revision(self, next_revision_id, parent_revision_uuid, commands):
         """Save the given revision if no concurrency issue is found.
-        i.e. if no other revision was saved based on the same `parent_revision_id`
+        i.e. if no other revision was saved based on the same `parent_revision_uuid`
         :param next_revision_id: the new revision id
-        :param parent_revision_id: the revision on which the commands are based
+        :param parent_revision_uuid: the revision on which the commands are based
         :param commands: revisions commands
         :return: True if the revision was saved, False otherwise
         """
         self.ensure_one()
+        parent_revision_id = self._get_revision_by_uuid(parent_revision_uuid)
         try:
             with mute_logger("odoo.sql_db"):
                 self.env["spreadsheet.revision"].create(
@@ -220,7 +223,7 @@ class SpreadsheetMixin(models.AbstractModel):
                         "res_model": self._name,
                         "res_id": self.id,
                         "commands": json.dumps(commands),
-                        "parent_revision_id": parent_revision_id,
+                        "parent_revision_id": parent_revision_id.id,
                         "revision_id": next_revision_id,
                         "create_date": fields.Datetime.now(),
                     }
@@ -252,7 +255,7 @@ class SpreadsheetMixin(models.AbstractModel):
         return [
             dict(
                 json.loads(rev.commands),
-                serverRevisionId=rev.parent_revision_id,
+                serverRevisionId=rev.parent_revision_id.revision_id or self._get_initial_revision_uuid(),
                 nextRevisionId=rev.revision_id,
             )
             for rev in self.spreadsheet_revision_ids
@@ -333,7 +336,7 @@ class SpreadsheetMixin(models.AbstractModel):
                     id=rev.id,
                     name=rev.name,
                     user=(rev.create_uid.id, rev.create_uid.name),
-                    serverRevisionId=rev.parent_revision_id,
+                    serverRevisionId=rev.parent_revision_id.revision_id or self._get_initial_revision_uuid(),
                     nextRevisionId=rev.revision_id,
                     timestamp=rev.create_date,
                 )
@@ -377,3 +380,21 @@ class SpreadsheetMixin(models.AbstractModel):
             "nextRevisionId": str(uuid.uuid4()),
             "commands": [command],
         }
+
+    def _get_revision_by_uuid(self, revision_uuid):
+        return (
+            self.env["spreadsheet.revision"]
+            .with_context(active_test=False)
+            .search(
+                [
+                    ("revision_id", "=", revision_uuid),
+                    ("res_id", "=", self.id),
+                    ("res_model", "=", self._name),
+                ],
+                limit=1,
+            )
+        )
+
+    def _get_initial_revision_uuid(self):
+        data = json.loads(self.spreadsheet_data)
+        return data.get("revisionId", "START_REVISION")
