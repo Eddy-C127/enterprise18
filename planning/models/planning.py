@@ -2175,7 +2175,7 @@ class Planning(models.Model):
             start, stop = pytz.utc.localize(start), pytz.utc.localize(stop)
             return dict(
                 self._gantt_progress_bar_resource_id(res_ids, start, stop),
-                warning=_("As there is no running contract during this period, this resource is not expected to work a shift.")
+                warning=_("This employee is not expected to work during this period, either because they do not have a current contract or because they are on leave.")
             )
         raise NotImplementedError(_("This Progress Bar is not implemented."))
 
