@@ -12,19 +12,30 @@ class ResPartner(models.Model):
         """ Number should come currently from whatsapp and contain country info. """
         number_with_sign = '+' + number
         format_number = phone_validation.phone_format(number_with_sign, False, False)
-        number_country_code = int(phone_validation.phone_parse(format_number, None).country_code)
-        country = self.env['res.country'].search([('phone_code', '=', number_country_code)])
         if not number and not format_number:
             return self.env['res.partner']
+
         partner = self.env['res.partner'].search(
             ['|', ('mobile', '=', format_number), ('phone', '=', format_number)],
             limit=1
         )
         if not partner:
+            # find country / local number based on formatted number to ease future searches
+            region_data = phone_validation.phone_get_region_data_for_number(format_number)
+            number_country_code = region_data['code']
+            number_phone_code = int(region_data['phone_code'])
+
+            # in case of duplicate country phone code, use region (country) code
+            # as additional filter (not sure there is a 1 to 1 mapping hence doing
+            # it in two steps)
+            country = self.env['res.country'].search([('phone_code', '=', number_phone_code)])
+            if len(country) > 1:
+                country = country.filtered(lambda c: c.code.lower() == number_country_code.lower())
+
             partner = self.env['res.partner'].create({
-                'name': name or format_number,
+                'country_id': country.id if country and len(country) == 1 else False,
                 'mobile': format_number,
-                'country_id': country.id if country else False,
+                'name': name or format_number,
             })
             partner._message_log(
                 body=_("Partner created by incoming WhatsApp message.")
