@@ -660,11 +660,21 @@ class AccountMoveLine(models.Model):
         query.left_join('account_move_line', 'id', 'account_move_line_account_tax_rel', 'account_move_line_id', 'tax_rel')
         query.left_join('account_move_line__tax_rel', 'account_tax_id', 'account_tax', 'id', 'tax_ids')
         query.add_where('account_move_line__tax_rel__tax_ids.active IS NOT FALSE')
-        return self._predicted_field(field, query)
+        predicted_tax_ids = self._predicted_field(field, query)
+        if predicted_tax_ids == [None]:
+            return False
+        if predicted_tax_ids is not False and set(predicted_tax_ids) != set(self.tax_ids.ids):
+            return predicted_tax_ids
+        return False
 
     def _predict_product(self):
-        query = self._build_predictive_query(['|', ('product_id', '=', False), ('product_id.active', '=', True)])
-        return self._predicted_field('account_move_line.product_id', query)
+        predict_product = int(self.env['ir.config_parameter'].sudo().get_param('account_predictive_bills.predict_product', '1'))
+        if predict_product and self.company_id.predict_bill_product:
+            query = self._build_predictive_query(['|', ('product_id', '=', False), ('product_id.active', '=', True)])
+            predicted_product_id = self._predicted_field('account_move_line.product_id', query)
+            if predicted_product_id and predicted_product_id != self.product_id.id:
+                return predicted_product_id
+        return False
 
     def _predict_account(self):
         field = 'account_move_line.account_id'
@@ -683,34 +693,36 @@ class AccountMoveLine(models.Model):
             SQL("setweight(to_tsvector(%s, name), 'B') AS document", psql_lang),
         )).decode()]
         query = self._build_predictive_query([('account_id', 'in', account_query)])
-        return self._predicted_field(field, query, additional_queries)
+
+        predicted_account_id = self._predicted_field(field, query, additional_queries)
+        if predicted_account_id and predicted_account_id != self.account_id.id:
+            return predicted_account_id
+        return False
 
     @api.onchange('name')
     def _onchange_name_predictive(self):
-        if (self.move_id.quick_edit_mode or self.move_id.move_type == 'in_invoice')and self.name and self.display_type == 'product':
-            predict_product = int(self.env['ir.config_parameter'].sudo().get_param('account_predictive_bills.predict_product', '1'))
+        if ((self.move_id.quick_edit_mode or self.move_id.move_type == 'in_invoice') and self.name and self.display_type == 'product'
+            and not self.env.context.get('disable_onchange_name_predictive', False)):
 
-            if predict_product and not self.product_id and self.company_id.predict_bill_product:
+            if not self.product_id:
                 predicted_product_id = self._predict_product()
-                if predicted_product_id and predicted_product_id != self.product_id.id:
+                if predicted_product_id:
                     name = self.name
                     self.product_id = predicted_product_id
                     self.name = name
 
-            # Product may or may not have been set above, if it has been set, account and taxes are set too
+            # In case no product has been set, the account and taxes
+            # will not depend on any product and can thus be predicted
             if not self.product_id:
                 # Predict account.
                 predicted_account_id = self._predict_account()
-                if predicted_account_id and predicted_account_id != self.account_id.id:
+                if predicted_account_id:
                     self.account_id = predicted_account_id
 
-                if not self.tax_ids:
-                    # Predict taxes
-                    predicted_tax_ids = self._predict_taxes()
-                    if predicted_tax_ids == [None]:
-                        predicted_tax_ids = []
-                    if predicted_tax_ids is not False and set(predicted_tax_ids) != set(self.tax_ids.ids):
-                        self.tax_ids = self.env['account.tax'].browse(predicted_tax_ids)
+                # Predict taxes
+                predicted_tax_ids = self._predict_taxes()
+                if predicted_tax_ids:
+                    self.tax_ids = [Command.set(predicted_tax_ids)]
 
     def _read_group_groupby(self, groupby_spec, query):
         # enable grouping by :abs_rounded on fields, which is useful when trying
