@@ -13,6 +13,7 @@ try:
 except ImportError:
     from PyPDF2.utils import PdfReadError
 from dateutil.relativedelta import relativedelta
+from werkzeug.urls import url_encode
 
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -722,3 +723,20 @@ class Document(models.Model):
             ('active', '=', False),
             ('write_date', '<=', fields.Datetime.now() - relativedelta(days=deletion_delay)),
         ], limit=1000).unlink()
+
+    def _get_access_action(self, access_uid=None, force_website=False):
+        self.ensure_one()
+        if access_uid and not force_website and self.active:
+            url_params = url_encode({
+                'model': 'documents.document',
+                'action_id': self.env.ref("documents.document_action").id,
+                'view_id': self.env.ref("documents.document_view_kanban").id,
+                'menu_id': self.env.ref("documents.menu_root").id,
+                'folder_id': self.folder_id.id,
+            })
+
+            return {
+                "type": "ir.actions.act_url",
+                "url": f"/web?preview_id={self.id}#{url_params}"
+            }
+        return super()._get_access_action(access_uid=access_uid, force_website=force_website)
