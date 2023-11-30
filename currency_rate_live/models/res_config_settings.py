@@ -36,7 +36,7 @@ MAP_CURRENCIES = {
     'Canadian Dollar': 'CAD',
     'Swiss Franc': 'CHF',
     'Chilean Peso': 'CLP',
-    'Chinese Yuan - Offshore': 'CNY',
+    'Chinese Yuan - Offshore': 'CNH',
     'Chinese Yuan': 'CNY',
     'Colombian Peso': 'COP',
     'Czech Koruna': 'CZK',
