@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import json
+
 from datetime import datetime
+from lxml import html
 from unittest.mock import patch
+from urllib import parse
 
 from odoo import exceptions
 from odoo.addons.knowledge.tests.common import KnowledgeCommonWData
@@ -969,6 +973,121 @@ class TestKnowledgeArticleCopy(KnowledgeCommonBusinessCase):
         )
         self.assertFalse(new_article.child_ids)
         self.assertFalse(new_article.parent_id)
+
+    def test_article_make_private_copy_having_embedded_views_of_article_items(self):
+        """ When the user copies an article, the system should copy the body
+            of the original article and update the ID references stored within
+            it so that the embedded views listing the article items of the original
+            article now list the article items of the copy. This test will check
+            that the ID references have been updated in the body of the new article. """
+        article = self.env['knowledge.article'].create({
+            'name': 'Hello'
+        })
+
+        def render_embedded_view(behavior_props):
+            return '''
+                <div class="o_knowledge_behavior_anchor o_knowledge_behavior_type_embedded_view"
+                    data-oe-protected="true"
+                    data-behavior-props="%s"/>
+            ''' % (parse.quote(json.dumps(behavior_props)))
+
+        article.write({
+            'body': (
+                '<p>Hello world</p>' +
+                render_embedded_view({
+                    'action_xml_id': 'knowledge.knowledge_article_item_action',
+                    'display_name': 'Kanban',
+                    'view_type': 'kanban',
+                    'context': {
+                        'active_id': article.id,
+                        'default_parent_id': article.id,
+                        'default_icon': '📄',
+                        'default_is_article_item': True,
+                    }
+                }) +
+                render_embedded_view({
+                    'action_xml_id': 'knowledge.knowledge_article_item_action',
+                    'display_name': 'List',
+                    'view_type': 'list',
+                    'context': {
+                        'active_id': article.id,
+                        'default_parent_id': article.id,
+                        'default_icon': '📄',
+                        'default_is_article_item': True,
+                    }
+                }) +
+                render_embedded_view({
+                    'action_xml_id': 'knowledge.knowledge_article_action',
+                    'display_name': 'Articles',
+                    'view_type': 'list',
+                    'context': {
+                        'search_default_filter_trashed': 1,
+                    }
+                })
+            )
+        })
+
+        expected_view_types = [
+            'kanban',
+            'list',
+            'list'
+        ]
+        expected_contexts = [{
+            'active_id': article.id,
+            'default_parent_id': article.id,
+            'default_icon': '📄',
+            'default_is_article_item': True,
+        }, {
+            'active_id': article.id,
+            'default_parent_id': article.id,
+            'default_icon': '📄',
+            'default_is_article_item': True,
+        }, {
+            'search_default_filter_trashed': 1,
+        }]
+
+        fragment = html.fragment_fromstring(article.body, create_parent=True)
+        embedded_views = [embedded_view for embedded_view in fragment.findall('.//*[@data-behavior-props]') \
+            if 'o_knowledge_behavior_type_embedded_view' in embedded_view.get('class')]
+
+        # Check that the original article contains the embedded views we want
+        self.assertEqual(len(embedded_views), 3)
+        for (embedded_view, expected_view_type, expected_context) in zip(embedded_views, expected_view_types, expected_contexts):
+            behavior_props = json.loads(parse.unquote(embedded_view.get('data-behavior-props', {})))
+            self.assertEqual(behavior_props['view_type'], expected_view_type)
+            self.assertEqual(behavior_props['context'], expected_context)
+
+        # Copy the article
+        new_article = article.action_make_private_copy()
+
+        expected_contexts = [{
+            'active_id': new_article.id,
+            'default_parent_id': new_article.id,
+            'default_icon': '📄',
+            'default_is_article_item': True,
+        }, {
+            'active_id': new_article.id,
+            'default_parent_id': new_article.id,
+            'default_icon': '📄',
+            'default_is_article_item': True,
+        }, {
+            'search_default_filter_trashed': 1,
+        }]
+
+        fragment = html.fragment_fromstring(new_article.body, create_parent=True)
+        embedded_views = [embedded_view for embedded_view in fragment.findall('.//*[@data-behavior-props]') \
+            if 'o_knowledge_behavior_type_embedded_view' in embedded_view.get('class')]
+
+        # Check that the context of the embedded views stored in the body of the
+        # newly created article have properly been updated: The embedded views
+        # listing the article items of the original article should now list the
+        # article items of the copy.
+
+        self.assertEqual(len(embedded_views), 3)
+        for (embedded_view, expected_view_type, expected_context) in zip(embedded_views, expected_view_types, expected_contexts):
+            behavior_props = json.loads(parse.unquote(embedded_view.get('data-behavior-props', {})))
+            self.assertEqual(behavior_props['view_type'], expected_view_type)
+            self.assertEqual(behavior_props['context'], expected_context)
 
     @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
     @users('employee')
