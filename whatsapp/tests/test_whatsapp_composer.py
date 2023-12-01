@@ -89,6 +89,45 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
                         composer.action_send_whatsapp_template()
 
     @users('employee')
+    def test_composer_number_on_template_change(self):
+        """ Test composer behavior when templates changes, also test contextual
+        value that forces the value on top of template phone field path. """
+        template_1 = self.template_basic
+        template_1.write({'phone_field': 'phone'})
+        template_2 = self.env['whatsapp.template'].sudo().create({
+            'body': 'Hello world',
+            'model_id': self.env['ir.model']._get_id('res.partner'),
+            'name': 'Template 1',
+            'phone_field' : 'mobile',
+            'wa_account_id': self.whatsapp_account.id,
+        })
+
+        # verify phone doesn't change with default phone context key in single mode
+        composer_1 = self._wa_composer_form(
+            template_1, from_records=self.customers[0],
+            with_user=self.env.user, add_context={'default_phone': '+32455998877'},
+        )
+        self.assertEqual(composer_1.phone, '+32455998877', "Default context value should be used")
+        composer_1.wa_template_id = template_2
+        self.assertEqual(composer_1.phone, '+32455998877', "Default context value should be kept")
+        composer_1.wa_template_id = self.env['whatsapp.template']
+        self.assertEqual(composer_1.phone, '+32455998877', "Default context value should be kept")
+
+        # Verify phone change according to template with no default phone
+        composer_2 = self._wa_composer_form(
+            template_1, from_records=self.customers[0],
+            with_user=self.env.user,
+        )
+        self.assertEqual(composer_2.phone, self.customers[0].phone,
+                         "Phone should be taken from record, phone_field of template 1")
+        composer_2.wa_template_id = template_2
+        self.assertEqual(composer_2.phone, self.customers[0].mobile,
+                         "Phone should be taken from record, phone_field of template 2")
+        composer_2.wa_template_id = self.env['whatsapp.template']
+        self.assertEqual(composer_2.phone, self.customers[0].mobile,
+                         "Phone should not be reset when there is one")
+
+    @users('employee')
     def test_composer_number_validation(self):
         """ Test number computation and validation in single / batch mode. Also
         test direct send by cron / delegate behavior. """
@@ -99,19 +138,39 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
             'mobile': "12321",
             'name': 'Customer-IN',
         })
+        default_phone_number = "+32455112233"
         all_test_records = invalid_customer + self.customers
 
-        for test_records, force_cron, exp_crash, exp_batch, exp_cron_trigger in [
-            (all_test_records[0], False, True, False, False),  # no need to force cron in single mode
-            (all_test_records, False, False, True, True),  # batch mode always force cron
-            (all_test_records, True, False, True, True),
+        for test_records, use_default, force_cron, exp_phone, exp_invalid_count, exp_crash, exp_batch, exp_cron_trigger in [
+            (
+                all_test_records[0], False, False,
+                '12321', 1, True, False, False,  # no need to force cron in single mode
+            ), (
+                all_test_records[0], True, False,
+                '+32455112233', 0, False, False, False,  # no need to force cron in single mode / won't crash as default context value
+            ), (
+                all_test_records, False, False,
+                '12321, 911234567891, 0456001122', 1, False, True, True,  # batch mode always force cron
+            ), (
+                all_test_records, True, False,
+                '+32455112233', 1, False, True, True,  # batch mode always force cron
+            ), (
+                all_test_records, False, True,
+                '12321, 911234567891, 0456001122', 1, False, True, True
+            ),
         ]:
-            with self.subTest(test_records=test_records, force_cron=force_cron):
+            with self.subTest(test_records=test_records, use_default=use_default, force_cron=force_cron):
                 test_records = test_records.with_env(self.env)
-                composer_form = self._wa_composer_form(template, from_records=test_records)
+                add_context = {'default_phone': default_phone_number} if use_default else {}
+                composer_form = self._wa_composer_form(
+                    template, from_records=test_records,
+                    add_context=add_context,
+                )
                 self.assertEqual(composer_form.batch_mode, exp_batch)
-                self.assertEqual(composer_form.invalid_phone_number_count, 1)
+                self.assertEqual(composer_form.invalid_phone_number_count, exp_invalid_count)
+                self.assertEqual(composer_form.phone, exp_phone)
                 composer = composer_form.save()
+                self.assertEqual(composer.phone, exp_phone)
 
                 # Test that the WhatsApp composer fails validation when there is invalid number.
                 with freeze_time(date_reference), \
