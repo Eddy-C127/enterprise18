@@ -18,7 +18,7 @@ class Applicant(models.Model):
     referral_points_ids = fields.One2many('hr.referral.points', 'applicant_id', copy=False)
     earned_points = fields.Integer(compute='_compute_earned_points')
     referral_state = fields.Selection([
-        ('progress', 'In Progress'),
+        ('progress', 'Ongoing'),
         ('hired', 'Hired'),
         ('closed', 'Not Hired')], required=True, default='progress')
     shared_item_infos = fields.Text(compute="_compute_shared_item_infos")
