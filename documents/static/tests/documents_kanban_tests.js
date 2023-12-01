@@ -5347,6 +5347,27 @@ QUnit.module("documents", {}, function () {
                     assert.verifySteps(["global click"]);
                 }
             );
+
+            QUnit.test(
+                "documents Kanban : preview automatically close while restoring a document",
+                async function (assert) {
+                    await createDocumentsView({
+                        type: "kanban",
+                        resModel: "documents.document",
+                        arch: `
+                            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
+                                <div name="document_preview">
+                                    <field name="name"/>
+                                </div>
+                            </t></templates></kanban>`,
+                    });
+                    await legacyClick(target, ".o_search_panel_label_title[data-tooltip='Trash']");
+                    await legacyClick(target, ".o_kanban_record:nth-of-type(2) [name='document_preview']");
+                    assert.containsOnce(target, ".o-FileViewer-view");
+                    await legacyClick(target, ".o_archived");
+                    assert.containsNone(target, ".o-FileViewer-view");
+                }
+            );
         }
     );
 });
