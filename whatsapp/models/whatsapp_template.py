@@ -47,7 +47,9 @@ class WhatsAppTemplate(models.Model):
     sequence = fields.Integer(required=True, default=0)
     active = fields.Boolean(default=True)
 
-    wa_account_id = fields.Many2one(comodel_name='whatsapp.account', string="Account", default=_get_default_wa_account_id)
+    wa_account_id = fields.Many2one(
+        comodel_name='whatsapp.account', string="Account", default=_get_default_wa_account_id,
+        ondelete="cascade")
     wa_template_uid = fields.Char(string="WhatsApp Template ID", copy=False)
     error_msg = fields.Char(string="Error Message")
 
