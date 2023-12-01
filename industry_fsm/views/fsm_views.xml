@@ -231,10 +231,26 @@
         </field>
     </record>
 
+    <record id="project_task_view_gantt_fsm" model="ir.ui.view">
+        <field name="name">project.task.view.gantt.fsm</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_enterprise.project_task_view_gantt"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="partner_phone"/>
+            </field>
+            <xpath expr="//div[@t-if='partner_id']" position="after">
+                <div t-if="partner_phone">
+                    <strong>Phone — </strong> <t t-out="partner_phone"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
     <record id="project_task_gantt_view_grouped_by_project_and_users" model="ir.ui.view">
         <field name="name">project.task.gantt.fsm</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="project_enterprise.project_task_view_gantt"/>
+        <field name="inherit_id" ref="project_task_view_gantt_fsm"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <xpath expr="//gantt" position="attributes">
