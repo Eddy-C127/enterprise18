@@ -110,7 +110,7 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
                 test_records = test_records.with_env(self.env)
                 composer_form = self._wa_composer_form(template, from_records=test_records)
                 self.assertEqual(composer_form.batch_mode, exp_batch)
-                self.assertEqual(composer_form.invalid_phone_number_count, 0)
+                self.assertEqual(composer_form.invalid_phone_number_count, 1)
                 composer = composer_form.save()
 
                 # Test that the WhatsApp composer fails validation when there is invalid number.

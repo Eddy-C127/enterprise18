@@ -101,16 +101,15 @@ class WhatsAppComposer(models.TransientModel):
     @api.depends('phone', 'batch_mode')
     def _compute_invalid_phone_number_count(self):
         for composer in self:
-            invalid_phone_number_count = 0
             records = self._get_active_records()
             if composer.batch_mode:
+                invalid_phone_number_count = 0
                 for rec in records:
                     mobile_number = rec[composer.wa_template_id.phone_field]
-                    if mobile_number:
-                        mobile_number = wa_phone_validation.wa_phone_format(
-                            rec, number=mobile_number or '',
-                            raise_exception=False,
-                        ) or mobile_number
+                    mobile_number = wa_phone_validation.wa_phone_format(
+                        rec, number=mobile_number or '',
+                        raise_exception=False,
+                    ) if mobile_number else False
                     if not mobile_number:
                         invalid_phone_number_count += 1
             elif composer.phone:
@@ -118,10 +117,9 @@ class WhatsAppComposer(models.TransientModel):
                     records, number=composer.phone,
                     raise_exception=False,
                 )
-                if not sanitize_number:
-                    invalid_phone_number_count += 1
+                invalid_phone_number_count = 1 if not sanitize_number else 0
             else:
-                invalid_phone_number_count += 1
+                invalid_phone_number_count = 1
             composer.invalid_phone_number_count = invalid_phone_number_count
 
     @api.depends(lambda self: self._get_free_text_fields())
