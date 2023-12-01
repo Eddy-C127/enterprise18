@@ -120,12 +120,29 @@ class WhatsAppTemplate(models.Model):
 
     @api.constrains('phone_field')
     def _check_phone_field(self):
+        is_system = self.user_has_groups('base.group_system')
         for tmpl in self.filtered('phone_field'):
-            safe_fields = set(COMMON_WHATSAPP_PHONE_SAFE_FIELDS)
-            if hasattr(self.env[tmpl.model], '_wa_get_safe_phone_fields'):
-                safe_fields |= set(self.env[tmpl.model]._wa_get_safe_phone_fields())
-            if tmpl.phone_field not in safe_fields:
-                raise AccessError(_("You are not allowed to use %r in Phone Field, contact your administrator to configure it.", tmpl.phone_field))
+            model = self.env[tmpl.model]
+            if not is_system:
+                if not model.check_access_rights('read', raise_exception=False):
+                    model_description = self.env['ir.model']._get(tmpl.model).display_name
+                    raise AccessError(
+                        _("You can not select field of %(model)s.", model=model_description)
+                    )
+                safe_fields = set(COMMON_WHATSAPP_PHONE_SAFE_FIELDS)
+                if hasattr(model, '_wa_get_safe_phone_fields'):
+                    safe_fields |= set(model._wa_get_safe_phone_fields())
+                if tmpl.phone_field not in safe_fields:
+                    raise AccessError(
+                        _("You are not allowed to use %(field)s in phone field, contact your administrator to configure it.",
+                          field=tmpl.phone_field)
+                    )
+            try:
+                model._find_value_from_field_path(tmpl.phone_field)
+            except UserError as err:
+                raise ValidationError(
+                    _("'%(field)s' does not seem to be a valid field path", field=tmpl.phone_field)
+                ) from err
 
     @api.constrains('header_attachment_ids', 'header_type')
     def _check_header_attachment_ids(self):

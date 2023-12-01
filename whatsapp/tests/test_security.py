@@ -1,5 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from itertools import product
+
 from odoo import exceptions
 from odoo.addons.mail.tests.common import mail_new_test_user
 from odoo.addons.whatsapp.tests.common import WhatsAppCommon, MockIncomingWhatsApp
@@ -262,6 +264,59 @@ class WhatsAppTemplateSecurity(WhatsAppSecurityCase):
         self.assertEqual(template.with_user(self.user_employee).name, 'Test')
         with self.assertRaises(exceptions.AccessError):
             self.assertEqual(template.with_user(self.user_employee2).name, 'Test')
+
+    @mute_logger('odoo.addons.base.models.ir_model')
+    def test_tpl_phone_field_update(self):
+        """ Check 'phone_field' update is done using the same rules as dynamic
+        fields: either limited to allowed fields, either user is a sysadmin. """
+        template = self.env['whatsapp.template'].create({
+            'body': 'Hello Phone Field Chain',
+            'model_id': self.env['ir.model']._get_id('res.partner'),
+            'name': 'WhatsApp Template',
+            'template_name': 'Phone Field Chain',
+            'status': 'approved',
+            'wa_account_id': self.whatsapp_account.id,
+        })
+        test_partner = self.env['res.partner'].create({
+            'country_id': self.env.ref('base.be').id,
+            'mobile': '0455001122',
+            'name': 'Test Partner',
+            'phone': '0455334455',
+            })
+
+        field_paths_allowed = ['mobile', 'phone', 'phone_sanitized']
+        field_paths_allowed_ko = ['x_studio_phone']  # allowed but does not exist
+        field_paths_disallowed = ['name']  # not allowed
+        field_paths_disallowed_ko = ['my_custom_phone_field']  # not allowed and does not exist
+        for field_paths, invalid, admin_only in [
+            (field_paths_allowed, False, False),
+            (field_paths_allowed_ko, True, False),
+            (field_paths_disallowed, False, True),
+            (field_paths_disallowed_ko, True, True),
+        ]:
+            for field_path, test_user in product(field_paths, (self.user_employee, self.user_wa_admin, self.user_admin)):
+                with self.subTest(field_path=field_path, test_user_name=test_user.name):
+                    template.sudo().write({'phone_field': 'mobile'})
+                    template = template.with_user(test_user)
+                    # employee can never updates templates; wa_admin allowed fields only
+                    if test_user == self.user_employee or (admin_only and test_user == self.user_wa_admin):
+                        with self.assertRaises(exceptions.AccessError):
+                            template.write({'phone_field': field_path})
+                        continue
+                    if invalid:
+                        with self.assertRaises(exceptions.ValidationError):
+                            template.write({'phone_field': field_path})
+                        continue
+                    template.write({'phone_field': field_path})
+                    test_partner = test_partner.with_user(test_user)
+                    composer = self._instanciate_wa_composer_from_records(template, test_partner, with_user=test_user)
+                    with self.mockWhatsappGateway():
+                        # name does not hold a valid number, in single mode it should crash
+                        if field_path == 'name':
+                            with self.assertRaises(exceptions.UserError):
+                                composer.action_send_whatsapp_template()
+                        else:
+                            composer.action_send_whatsapp_template()
 
     def test_tpl_safe_field_access(self):
         """ Check field access security """
