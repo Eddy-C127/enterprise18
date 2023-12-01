@@ -619,7 +619,20 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                     "event": "APPROVED",
                     "message_template_id": basic_template.wa_template_uid,
                     "message_template_name": "basic_template",
-                }
+                    "other_info": {
+                        "description": "<b>Super Description</b>",
+                    },
+                },
+            ), (
+                "message_template_status_update",
+                {'status': 'pending'},
+                {'status': 'rejected'},
+                {
+                    "event": "REJECTED",
+                    "message_template_id": basic_template.wa_template_uid,
+                    "message_template_name": "basic_template",
+                    "reason": "<b>Super Reason</b>",
+                },
             ), (
                 "template_category_update",
                 {},
@@ -639,13 +652,25 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                     "message_template_name": "message_template_quality_update",
                     "previous_quality_score": "GREEN",
                     "new_quality_score": "RED"
-                }
+                },
             ),
         ]
 
         for field, update_values, expected_values, data in update_scenarios:
             with self.subTest(field=field):
                 basic_template.write(update_values)
-                self._receive_template_update(field=field, account=self.whatsapp_account, data=data)
+                basic_template.flush_recordset()
+                with self.mock_mail_app():
+                    self._receive_template_update(field=field, account=self.whatsapp_account, data=data)
+                    basic_template.flush_recordset()
                 for fname, fvalue in expected_values.items():
                     self.assertEqual(basic_template[fname], fvalue)
+
+                # remove value tracking messages
+                log = self._new_msgs.filtered(lambda msg: msg.body)
+                if field == "message_template_status_update" and expected_values['status'] == 'rejected':
+                    self.assertEqual(log.body, "<p>Your Template has been rejected.<br>Reason : &lt;b&gt;Super Reason&lt;/b&gt;</p>")
+                else:
+                    # remove tracking messages
+                    log = self._new_msgs.filtered(lambda msg: msg.body)
+                    self.assertFalse(log)
