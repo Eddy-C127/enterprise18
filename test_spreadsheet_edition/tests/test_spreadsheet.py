@@ -73,6 +73,27 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         self.assertEqual(len(spreadsheet_copy.spreadsheet_revision_ids), 1)
         self.assertEqual(spreadsheet_copy.spreadsheet_revision_ids[0].commands, rev1.commands)
 
+    def test_fork_history_before_snapshot(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        self.snapshot(
+            spreadsheet,
+            spreadsheet.server_revision_id,
+            "snapshot-revision-id",
+             {"sheets": [], "revisionId": "snapshot-revision-id"}
+        )
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        rev1 = spreadsheet.with_context(active_test=False).spreadsheet_revision_ids[0]
+        fork_snapshot = {"test": "snapshot"}
+        action = spreadsheet.fork_history(rev1.id, fork_snapshot)
+        fork_id = action["params"]["next"]["params"]["spreadsheet_id"]
+        spreadsheet_fork = self.env["spreadsheet.test"].browse(fork_id)
+        self.assertEqual(spreadsheet_fork._get_spreadsheet_snapshot(), fork_snapshot)
+        self.assertEqual(
+            spreadsheet_fork.with_context(active_test=False).spreadsheet_revision_ids.active,
+            False
+        )
+
     def test_rename_revision(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
         spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
