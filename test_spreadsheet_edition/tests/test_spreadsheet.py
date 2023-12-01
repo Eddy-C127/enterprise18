@@ -70,8 +70,10 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         copy_id = next_action["params"]["spreadsheet_id"]
         spreadsheet_copy = self.env["spreadsheet.test"].browse(copy_id)
         self.assertTrue(spreadsheet_copy.exists())
-        self.assertEqual(len(spreadsheet_copy.spreadsheet_revision_ids), 1)
-        self.assertEqual(spreadsheet_copy.spreadsheet_revision_ids[0].commands, rev1.commands)
+        fork_revision = spreadsheet_copy.with_context(active_test=False).spreadsheet_revision_ids
+        self.assertEqual(len(fork_revision), 1)
+        self.assertEqual(fork_revision.commands, rev1.commands)
+        self.assertEqual(fork_revision.active, False)
 
     def test_fork_history_before_snapshot(self):
         spreadsheet = self.env["spreadsheet.test"].create({})

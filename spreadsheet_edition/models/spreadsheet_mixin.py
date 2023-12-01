@@ -354,6 +354,7 @@ class SpreadsheetMixin(models.AbstractModel):
         new_spreadsheet = self.copy(default)
         self.with_context(active_test=False)._copy_revisions_to(new_spreadsheet, revision_id)
         new_spreadsheet.spreadsheet_snapshot = base64.b64encode(json.dumps(spreadsheet_snapshot).encode())
+        new_spreadsheet.spreadsheet_revision_ids.active = False
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
