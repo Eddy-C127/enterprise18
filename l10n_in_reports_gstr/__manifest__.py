@@ -24,8 +24,6 @@ GST return filing using IAP
     ],
     "demo": [
         "demo/demo_company.xml",
-        "demo/res_partner_demo.xml",
-        "demo/account_invoice_demo.xml",
     ],
     "auto_install": ['l10n_in_reports'],
     "installable": True,
