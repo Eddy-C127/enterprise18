@@ -50,10 +50,12 @@ class Webhook(http.Controller):
                     if template:
                         if changes['field'] == 'message_template_status_update':
                             template.write({'status': value['event'].lower()})
-                            description = value.get('other_info', {}).get('description', {}) or value.get('reason', {})
-                            if description:
-                                template.message_post(
-                                    body=_("Your Template has been rejected.") + Markup("<br/>") + _("Reason : %s", description))
+                            if value['event'].lower() == 'rejected':
+                                body = _("Your Template has been rejected.")
+                                description = value.get('other_info', {}).get('description') or value.get('reason')
+                                if description:
+                                    body += Markup("<br/>") + _("Reason : %s", description)
+                                template.message_post(body=body)
                             continue
                         if changes['field'] == 'message_template_quality_update':
                             template.write({'quality': value['new_quality_score'].lower()})
