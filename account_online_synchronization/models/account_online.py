@@ -553,6 +553,7 @@ class AccountOnlineLink(models.Model):
                 odoo_help_summary = f'Bank sync error ref: {error_reference} - Provider: {provider} - Client ID: {self.client_id}'
                 url_params = urllib.parse.urlencode({'stage': 'bank_sync', 'summary': odoo_help_summary, 'description': odoo_help_description[:1500]})
                 url = f'https://www.odoo.com/help?{url_params}'
+                message += _(" If you've already opened this issue don't report it again.")
             # if state is disconnected, and new state is error: ignore it
             if state == 'error' and self.state == 'disconnected':
                 state = 'disconnected'
