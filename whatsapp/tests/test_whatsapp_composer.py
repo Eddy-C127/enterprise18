@@ -298,10 +298,12 @@ class WhatsAppComposerPreview(WhatsAppComposerCase):
     @users('user_wa_admin')
     def test_composer_preview(self):
         """ Test preview feature from composer """
+        body_var = 'Nishant'
+        header_var = 'Jigar'
         template = self.env['whatsapp.template'].create({
-            'body': 'feel free to contact {{1}}',
-            'footer_text': 'Thanks you',
-            'header_text': 'Header {{1}}',
+            'body': 'Feel *free* to *contact* {{1}}; he is ~great~ ~super~ super great !',
+            'footer_text': 'Thank *you*',
+            'header_text': 'Header ```Code Content``` {{1}}',
             'header_type': 'text',
             'variable_ids': [
                 (5, 0, 0),
@@ -309,17 +311,22 @@ class WhatsAppComposerPreview(WhatsAppComposerCase):
                 'name': "{{1}}",
                 'line_type': 'body',
                 'field_type': "free_text",
-                'demo_value': "Nishant",
+                'demo_value': body_var,
                 }),
                 (0, 0, {
                 'name': "{{1}}",
                 'line_type': 'header',
                 'field_type': "free_text",
-                'demo_value': "Jigar",
+                'demo_value': header_var,
                 }),
             ],
             'wa_account_id': self.whatsapp_account.id,
         })
         composer = self._instanciate_wa_composer_from_records(template, from_records=self.customers[0])
-        for expected_var in ['Nishant', 'Jigar']:
-            self.assertIn(expected_var, composer.preview_whatsapp)
+
+        for expected_str in [
+            f'Header <code>Code Content</code> {header_var}',
+            f'Feel <b>free</b> to <b>contact</b> {body_var}; he is <s>great</s> <s>super</s> super great !',
+            'Thank *you*',
+        ]:
+            self.assertIn(expected_str, composer.preview_whatsapp)
