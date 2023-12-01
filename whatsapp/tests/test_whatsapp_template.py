@@ -111,6 +111,29 @@ Welcome to {{3}} office''',
         )
 
     @users('user_wa_admin')
+    def test_template_content_validation(self):
+        """ Test body variables validation and usage """
+        template = self.env['whatsapp.template'].create({
+            'body' : '{{3}} {{2}} {{1}} {{3}} {{4}}',
+            'name': 'Test body variables',
+            'wa_account_id': self.whatsapp_account.id,
+        })
+        self.assertWATemplateVariables(
+            template,
+            [('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+             ('{{2}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+             ('{{3}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+             ('{{4}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+            ]
+        )
+
+        # those changes should raise a ValidationError, not other errors
+        with self.assertRaises(exceptions.ValidationError):
+            template.body = "{{2}} {{5}} {{1}} {{3}} {{2}}"
+        with self.assertRaises(exceptions.ValidationError):
+            template.body = "{{2}} {{3}} {{4}} {{5}}"
+
+    @users('user_wa_admin')
     def test_template_header_type_attachment(self):
         """ Test header type attachment """
         for header_type, header_attachment in zip(
