@@ -357,26 +357,33 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
         self.assertEqual(wizard.time_spent, 0.5)
 
     def test_grid_update_cell(self):
-        today_date = fields.Date.today()
-        company = self.env['res.company'].create({'name': 'My_Company'})
-        self.user_manager.company_ids = self.env.companies
-        employee = self.env['hr.employee'].with_company(company).create({
-            'name': 'coucou',
-            'timesheet_manager_id': self.user_manager.id,
-        })
+        """ Test updating timesheet grid cells.
 
+            - A user can update cells belonging to tasks assigned to them,
+              even if they're part of private projects.
+            - A user cannot update their own timesheets after validation.
+            - Updating validated timesheets as timesheet manager should create
+              additional timesheets instead of modifying existing ones.
+        """
         Timesheet = self.env['account.analytic.line']
-        timesheet = Timesheet.with_user(self.user_manager).create({
-            'employee_id': employee.id,
-            'project_id': self.project_customer.id,
-            'date': today_date - timedelta(days=1),
-            'unit_amount': 2,
-        })
-        timesheet.with_user(self.user_manager).action_validate_timesheet()
+        self.empl_employee.timesheet_manager_id = self.user_manager
+        self.project_customer.privacy_visibility = 'followers'
+        self.task1.user_ids += self.user_employee
 
-        Timesheet.grid_update_cell([('id', '=', timesheet.id)], 'unit_amount', 3.0)
+        self.assertNotIn(self.user_employee.partner_id, self.project_customer.message_follower_ids.partner_id,
+                         "Employee shouldn't have to follow a project to update a timesheetable task")
+        Timesheet.with_user(self.user_employee).grid_update_cell([('id', '=', self.timesheet1.id)], 'unit_amount', 2.0)
 
-        self.assertEqual(Timesheet.search_count([('employee_id', '=', employee.id)]), 2, "Should create new timesheet instead of updating validated timesheet in cell")
+        sheet_count = Timesheet.search_count([('employee_id', '=', self.empl_employee.id)])
+        self.timesheet1.with_user(self.user_manager).action_validate_timesheet()
+
+        # employee cannot update cell after validation
+        with self.assertRaises(AccessError):
+            Timesheet.with_user(self.user_employee).grid_update_cell([('id', '=', self.timesheet1.id)], 'unit_amount', 2.0)
+        Timesheet.with_user(self.user_manager).grid_update_cell([('id', '=', self.timesheet1.id)], 'unit_amount', 2.0)
+
+        self.assertEqual(Timesheet.search_count([('employee_id', '=', self.empl_employee.id)]), sheet_count + 1,
+                         "Should create new timesheet instead of updating validated timesheet in cell")
 
     def test_get_last_week(self):
         """Test the get_last_week method. It should return grid_anchor (GA), last_week (LW),
