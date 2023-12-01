@@ -98,6 +98,13 @@ export class VersionHistoryItem extends Component {
                 },
                 isReadonlyAllowed: true,
             },
+            {
+                name: _t("Restore this version"),
+                execute: (env) => {
+                    env.historyManager.restoreRevision(this.revision.id);
+                },
+                isReadonlyAllowed: true,
+            },
         ]);
     }
 

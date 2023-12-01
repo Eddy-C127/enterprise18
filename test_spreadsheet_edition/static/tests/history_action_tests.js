@@ -3,6 +3,7 @@
 import { registries, helpers } from "@odoo/o-spreadsheet";
 import { createSpreadsheetTestAction } from "./utils/helpers";
 import {
+    getFixture,
     editInput,
     click,
     patchWithCleanup,
@@ -412,6 +413,136 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
         await click(nameInput);
         await editInput(nameInput, null, "test 11");
         await triggerEvent(nameInput, null, "focusout");
+    });
+
+    QUnit.test("Side panel > restore revision and confirm", async function (assert) {
+        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+            mockRPC: async function (route, args) {
+                switch (args.method) {
+                    case "get_spreadsheet_history":
+                        const revisions = [];
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION")
+                        );
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION")
+                        );
+                        return {
+                            data: {},
+                            name: "test",
+                            revisions,
+                        };
+                    case "restore_spreadsheet_version":
+                        assert.step("restored");
+                        assert.strictEqual(args.kwargs.revision_id, 1);
+                        // placeholder return
+                        return {
+                            type: "ir.actions.client",
+                            tag: "reload",
+                        };
+                    default:
+                        break;
+                }
+            },
+        });
+        const fixture = getFixture();
+        const revisions = fixture.querySelectorAll(
+            ".o-sidePanel .o-version-history-item"
+        );
+        await click(revisions[1], null);
+        await click(revisions[1], ".o-version-history-menu");
+
+        const menuItems = fixture.querySelectorAll(".o-menu .o-menu-item");
+        await click(menuItems[2], null);
+
+        let dialog = document.querySelector(".o_dialog");
+        await click(dialog, ".btn-primary");
+        assert.verifySteps(["restored"]);
+    });
+
+    QUnit.test("Side panel > restore revision and cancel", async function (assert) {
+        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+            mockRPC: async function (route, args) {
+                switch (args.method) {
+                    case "get_spreadsheet_history":
+                        const revisions = [];
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION")
+                        );
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION")
+                        );
+                        return {
+                            data: {},
+                            name: "test",
+                            revisions,
+                        };
+                    case "restore_spreadsheet_version":
+                        throw new Error("should not be called");
+                    default:
+                        break;
+                }
+            },
+        });
+        const fixture = getFixture();
+        const revisions = fixture.querySelectorAll(
+            ".o-sidePanel .o-version-history-item"
+        );
+        await click(revisions[1], null);
+        await click(revisions[1], ".o-version-history-menu");
+
+        const menuItems = fixture.querySelectorAll(".o-menu .o-menu-item");
+        await click(menuItems[2], null);
+
+        const buttons = document.querySelectorAll(".o_dialog footer .btn");
+        await click(buttons[2], null);
+        assert.containsNone(document.body, ".o_dialog");
+    });
+
+    QUnit.test("Side panel > restore revision but copy instead", async function (assert) {
+        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+            mockRPC: async function (route, args) {
+                switch (args.method) {
+                    case "get_spreadsheet_history":
+                        const revisions = [];
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION")
+                        );
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION")
+                        );
+                        return {
+                            data: {},
+                            name: "test",
+                            revisions,
+                        };
+                    case "fork_history":
+                        assert.step("forking");
+                        // placeholder return
+                        return {
+                            type: "ir.actions.client",
+                            tag: "reload",
+                        };
+                    case "restore_spreadsheet_version":
+                        throw new Error("should not be called");
+                    default:
+                        break;
+                }
+            },
+        });
+        const fixture = getFixture();
+        const revisions = fixture.querySelectorAll(
+            ".o-sidePanel .o-version-history-item"
+        );
+        await click(revisions[1], null);
+        await click(revisions[1], ".o-version-history-menu");
+
+        const menuItems = fixture.querySelectorAll(".o-menu .o-menu-item");
+        await click(menuItems[2], null);
+
+        const buttons = document.querySelectorAll(".o_dialog footer .btn");
+        await click(buttons[1], null);
+        assert.verifySteps(["forking"]);
     });
 
     QUnit.test(

@@ -23,6 +23,7 @@ import {
 } from "../../hooks";
 import { formatToLocaleString } from "../../helpers";
 import { router } from "@web/core/browser/router";
+import { RestoreVersionConfirmationDialog } from "../../version_history/restore_version_dialog/restore_version_dialog";
 
 const { Model } = spreadsheet;
 
@@ -52,6 +53,7 @@ export class VersionHistoryAction extends Component {
             historyManager: {
                 getRevisions: this.getRevisions.bind(this),
                 forkHistory: this.forkHistory.bind(this),
+                restoreRevision: this.restoreRevision.bind(this),
                 renameRevision: this.renameRevision.bind(this),
             },
         });
@@ -129,6 +131,34 @@ export class VersionHistoryAction extends Component {
         });
         // Redirect to the forked spreadsheet
         this.actionService.doAction(action, { clearBreadcrumbs: true });
+    }
+
+    async restoreRevision(revisionId) {
+        const revision = this.state.revisions.find((rev) => rev.id === revisionId);
+        const code = this.model.getters.getLocale().code.replace("_", "-");
+        const timestamp = formatToLocaleString(revision.timestamp, code);
+        this.dialog.add(RestoreVersionConfirmationDialog, {
+            title: _t("Heads up!"),
+            body: _t(
+                "If you go ahead, your document will go back to the version from %s.\nAny changes you've made after that time will disappear. Ready to proceed?",
+                timestamp
+            ),
+            makeACopy: () => this.forkHistory(revisionId),
+            confirm: async () => {
+                const data = this.model.exportData();
+                const action = await this.orm.call(
+                    this.resModel,
+                    "restore_spreadsheet_version",
+                    [this.resId],
+                    {
+                        revision_id: revisionId,
+                        spreadsheet_snapshot: data,
+                    }
+                );
+                this.actionService.doAction(action, { clearBreadcrumbs: true });
+            },
+            cancel: () => {},
+        });
     }
 
     async fetchData() {

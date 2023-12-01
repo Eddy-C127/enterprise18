@@ -138,6 +138,50 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
             False
         )
 
+    def test_restore_version(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        revisions = spreadsheet.spreadsheet_revision_ids
+        rev1 = revisions[0]
+        rev2 = revisions[1]
+
+        spreadsheet.restore_spreadsheet_version(
+            rev1.id,
+            {"test": "snapshot", "revisionId": rev1.revision_uuid}
+        )
+        self.assertFalse(rev1.active)
+        self.assertFalse(rev2.exists())
+
+        self.assertEqual(
+            spreadsheet._get_spreadsheet_snapshot(),
+            {"test": "snapshot", "revisionId": spreadsheet.current_revision_uuid}
+        )
+
+    def test_restore_version_before_snapshot(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        self.snapshot(
+            spreadsheet,
+            spreadsheet.current_revision_uuid,
+            "snapshot-revision-id",
+            {"sheets": [], "revisionId": "snapshot-revision-id"},
+        )
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+
+        revisions = spreadsheet.with_context(active_test=False).spreadsheet_revision_ids
+        rev1 = revisions[0]
+        snapshot_rev = revisions[1]
+        rev3 = revisions[2]
+
+        spreadsheet.restore_spreadsheet_version(
+            rev1.id,
+            {"test": "snapshot", "revisionId": rev1.revision_uuid}
+        )
+        self.assertFalse(rev1.active)
+        self.assertFalse((snapshot_rev | rev3).exists())
+
     def test_rename_revision(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
         spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))

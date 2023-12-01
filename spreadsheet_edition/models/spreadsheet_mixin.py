@@ -368,6 +368,35 @@ class SpreadsheetMixin(models.AbstractModel):
             }
         }
 
+    def restore_spreadsheet_version(self, revision_id: int, spreadsheet_snapshot: dict):
+        self.ensure_one()
+        self._check_collaborative_spreadsheet_access("write")
+        all_revisions = self.sudo().with_context(active_test=False).spreadsheet_revision_ids
+        revisions_after = all_revisions.filtered(lambda r: r.id > revision_id)
+        revisions_after.unlink()
+
+        current_revision_uuid = self.env["spreadsheet.revision"].browse(revision_id).revision_uuid
+        snapshot_revision_uuid = str(uuid.uuid4())
+        spreadsheet_snapshot["revisionId"] = snapshot_revision_uuid
+        # other collaborative users will receive the snapshot message based on
+        # a server revision id they do not expect. This will cause them to reload.
+        is_accepted = self._snapshot_spreadsheet(
+            current_revision_uuid,
+            snapshot_revision_uuid,
+            spreadsheet_snapshot,
+        )
+        if not is_accepted:
+            raise UserError(_("The operation could not be applied because of a concurrent update. Please try again."))
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'info',
+                'message': _("Version restored"),
+                'next': self.action_edit(),
+            }
+        }
+
     def _dispatch_command(self, command):
         is_accepted = self.dispatch_spreadsheet_message(self._build_new_revision_data(command))
         if not is_accepted:
