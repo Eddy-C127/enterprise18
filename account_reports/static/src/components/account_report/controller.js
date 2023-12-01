@@ -96,10 +96,6 @@ export class AccountReportController {
     }
 
     async loadReport(reportId, preloading=false) {
-        const busEventPayload = { data: {id: `_account_reports_load_report_${reportId}`, params: {}}, settings: {} };
-        if (!preloading)
-            this.env.bus.trigger("RPC:REQUEST", busEventPayload); // Block UI; see comment in loadReportOptions for explanation
-
         const options = await this.loadReportOptions(reportId, preloading); // This also sets the promise in the cache
         const reportToDisplayId = options['report_id']; // Might be different from reportId, in case the report to open uses sections
 
@@ -121,7 +117,6 @@ export class AccountReportController {
         await this.reportInformationMap[cacheKey];
 
         if (!preloading) {
-            this.env.bus.trigger("RPC:RESPONSE", busEventPayload); // Unblock UI
             if (options['sections'].length)
                 this.lastOpenedSectionByReport[options['sections_source_id']] = options['selected_section_id'];
         }
@@ -136,17 +131,9 @@ export class AccountReportController {
         if (!this.reportOptionsMap[cacheKey]) {
             // The options for this section are not loaded nor loading. Let's load them !
 
-            const busEventPayload = { data: {id: `_account_reports_load_report_options_${reportId}`, params: {}}, settings: {} };
             if (preloading)
                 loadOptions['selected_section_id'] = reportId;
             else {
-                /* This event will block the UI. We have to do this manually like that, calling orm.silent.call instead of relying directly
-                on orm.call, because it is possible that a call starts as a silent preloading, and then needs to become a regular blocking
-                call because the user tries to access the section before the call has resolved.
-                The only way to do that is to explicitly send RPC:REQUEST and RPC:RESPONSE events like this.
-                */
-                this.env.bus.trigger("RPC:REQUEST", busEventPayload);
-
                 /* Reopen the last opened section by default (cannot be done through regular caching, because composite reports' options are not
                 cached (since they always reroute). */
                 if (this.lastOpenedSectionByReport[reportId])
@@ -167,9 +154,6 @@ export class AccountReportController {
 
             // Wait for the result, and check the report hasn't been rerouted to a section or variant; fix the cache if it has
             let reportOptions = await this.reportOptionsMap[cacheKey];
-
-            if (!preloading)
-                this.env.bus.trigger("RPC:RESPONSE", busEventPayload); // Unblock the UI
 
             // In case of a reroute, also set the cached options into the reroute target's key
             const loadedOptionsCacheKey = this.getCacheKey(reportOptions['sections_source_id'], reportOptions['report_id']);
