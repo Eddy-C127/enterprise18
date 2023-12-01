@@ -331,7 +331,7 @@ class Task(models.Model):
 
         return {
             'type': 'ir.actions.act_window',
-            'name': _('Choose Products'),
+            'name': _('Add Products'),
             'res_model': 'product.product',
             'views': [(kanban_view.id, 'kanban'), (False, 'form')],
             'search_view_id': [search_view.id, 'search'],
@@ -345,6 +345,7 @@ class Task(models.Model):
                 **self.sale_order_id.sudo()._get_action_add_from_catalog_extra_context(),
                 'hide_qty_buttons': self.sale_order_id.sudo().locked,
                 'default_invoice_policy': 'delivery',
+                'search_default_fsm_quantity': self.state == '1_done',
             },
             'help': _("""<p class="o_view_nocontent_smiling_face">
                             No products found. Let's create one!

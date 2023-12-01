@@ -31,15 +31,15 @@ class TestFsmStockUI(HttpCase):
         })
         # We ensure that the products we are creating for the test are displayed first
         # so that the test is not affected by the paging and the presence of demo data.
-        exiting_products = cls.env['product.product'].search([('priority', '!=', '0')])
-        exiting_products.write({'priority': '0'})
+        exiting_products = cls.env['product.product'].search([('is_favorite', '!=', False)])
+        exiting_products.write({'is_favorite': False})
         cls.product_not_lot, cls.product_lot = cls.env['product.product'].create([
             {
                 'name': 'Product A',
                 'invoice_policy': 'delivery',
                 'list_price': 885.0,
                 'type': 'product',
-                'priority': '1',
+                'is_favorite': True,
             }, {
                 'name': 'Product B',
                 'list_price': 2950.0,
@@ -47,7 +47,7 @@ class TestFsmStockUI(HttpCase):
                 'invoice_policy': 'delivery',
                 'taxes_id': False,
                 'tracking': 'lot',
-                'priority': '1',
+                'is_favorite': True,
             },
         ])
         cls.lot_id1 = cls.env['stock.lot'].create({

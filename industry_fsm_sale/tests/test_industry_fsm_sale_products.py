@@ -22,7 +22,7 @@ class TestFsmSaleProducts(HttpCase, TestFsmFlowCommon):
             'planned_date_begin': fields.Datetime.today() + timedelta(days=1),
             'date_deadline': fields.Datetime.today() + timedelta(days=2),
         })
-        cls.consu_product_ordered.priority = '1'
+        cls.consu_product_ordered.is_favorite = True
         cls.my_custom_price_list = cls.env['product.pricelist'].create({
             'name': 'TKPriceList',
             'currency_id': cls.my_custom_currency.id,
