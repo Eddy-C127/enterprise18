@@ -50,7 +50,7 @@ class Task(models.Model):
         pricelist_active = self.user_has_groups('product.group_product_pricelist')
         for task in self:
             task.pricelist_id = pricelist_active and \
-                                (task.sale_order_id.pricelist_id or task.partner_id.property_product_pricelist)
+                                (task.sale_order_id.sudo().pricelist_id or task.partner_id.property_product_pricelist)
 
     @api.depends('pricelist_id', 'company_id')
     def _compute_currency_id(self):

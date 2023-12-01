@@ -3,6 +3,7 @@
 from datetime import datetime
 from odoo.addons.industry_fsm_sale.tests.common import TestFsmFlowCommon
 from odoo.exceptions import UserError
+from odoo.tests import new_test_user
 
 
 class TestFsmFlowSaleAtInstall(TestFsmFlowCommon):
@@ -113,3 +114,11 @@ class TestFsmFlowSaleAtInstall(TestFsmFlowCommon):
         self.task._compute_quotation_count()  # it means we return to the form view of the task, So the compute will be trigger again.
         self.assertEqual(self.task.quotation_count, 1, '1 quotation should be linked to the task since we create a quotation via the Create Quotation button.')
         self.assertEqual(self.task.action_fsm_view_quotations()['res_id'], quotation.id, "Created quotation id should be in the action")
+        self.env['res.config.settings'].create({'group_product_pricelist': True}).execute()
+        # The salesperson is accessing the pricelist_id.
+        user_salesperson = new_test_user(self.env, 'salesperson', 'sales_team.group_sale_salesman,industry_fsm.group_fsm_user')
+        task = self.task.with_user(user_salesperson)
+        self.assertEqual(task.pricelist_id, self.task.sale_order_id.pricelist_id,
+            'The task and sale order pricelists should be the same.')
+        self.assertEqual(task.currency_id, self.task.sale_order_id.currency_id,
+            'The task and sale order currency should be the same.')
