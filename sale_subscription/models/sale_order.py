@@ -581,16 +581,6 @@ class SaleOrder(models.Model):
                 order.subscription_state = vals.get('subscription_state', '1_draft')
         return orders
 
-    def write(self, vals):
-        subscriptions = self.filtered('is_subscription')
-        old_partners = {s.id: s.partner_id.id for s in subscriptions}
-        res = super().write(vals)
-        for subscription in subscriptions:
-            if subscription.partner_id.id != old_partners[subscription.id]:
-                subscription.message_unsubscribe([old_partners[subscription.id]])
-                subscription.message_subscribe(subscription.partner_id.ids)
-        return res
-
     @api.ondelete(at_uninstall=False)
     def _unlink_except_draft_or_cancel(self):
         for order in self:
