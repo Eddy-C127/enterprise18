@@ -431,6 +431,7 @@ export class DocumentsInspector extends Component {
     async onUnarchive() {
         const record = this.props.documents[0];
         await toggleArchive(record.model, record.resModel, this.resIds, false);
+        this.env.documentsView.bus.trigger("documents-close-preview");
         await this._reloadSearchModel();
     }
 
