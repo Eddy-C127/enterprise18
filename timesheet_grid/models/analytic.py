@@ -133,7 +133,7 @@ class AnalyticLine(models.Model):
                 line.employee_id.timesheet_manager_id.id == self.env.user.id or
                 line.employee_id.parent_id.user_id.id == self.env.user.id or
                 line.project_id.user_id.id == self.env.user.id or
-                line.user_id == self.env.user.id)):
+                line.user_id.id == self.env.user.id)):
                 line.user_can_validate = True
             else:
                 line.user_can_validate = False
@@ -316,7 +316,8 @@ class AnalyticLine(models.Model):
             return
         timesheets = self.search(domain, limit=2)
 
-        if timesheets.project_id and not timesheets.project_id.allow_timesheets:
+        # sudo in case of timesheeting a task belonging to a private project
+        if timesheets.project_id and not timesheets.project_id.sudo().allow_timesheets:
             raise UserError(_("You cannot adjust the time of the timesheet for a project with timesheets disabled."))
 
         if len(timesheets) > 1 or (len(timesheets) == 1 and timesheets.validated):
@@ -333,7 +334,7 @@ class AnalyticLine(models.Model):
             if not project_id and field_value:
                 project_id = self.env[model_name].browse(field_value).project_id.id
 
-            if not self.env['project.project'].browse(project_id).allow_timesheets:
+            if not self.env['project.project'].browse(project_id).sudo().allow_timesheets:
                 raise UserError(_("You cannot adjust the time of the timesheet for a project with timesheets disabled."))
 
             self.create({
