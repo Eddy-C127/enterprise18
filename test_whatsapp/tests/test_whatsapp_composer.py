@@ -133,13 +133,31 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
         """ Test sending with rendering, including header """
         sample_text = 'Header Free Text'
 
+        base_variable_ids = [
+            (0, 0, {'name': '{{1}}', 'line_type': 'body', 'field_type': 'field', 'demo_value': 'Customer', 'field_name': 'name'}),
+        ]
+
         for header_type, template_upd_values, check_values in zip(
-            ('text', 'text', 'image', 'video', 'document', 'location'),
+            ('text', 'text', 'text', 'text', 'image', 'video', 'document', 'location'),
             (
                 {'header_text': 'Hello World'},
                 {'header_text': 'Header {{1}}',
                  'variable_ids': [
-                     (0, 0, {'name': '{{1}}', 'line_type': 'header', 'field_type': 'free_text', 'demo_value': sample_text})],
+                    (5, 0),
+                    (0, 0, {'name': '{{1}}', 'line_type': 'header', 'field_type': 'free_text', 'demo_value': sample_text})
+                 ] + base_variable_ids,
+                 },
+                {'header_text': 'Header {{1}}',
+                 'variable_ids': [
+                    (5, 0),
+                    (0, 0, {'name': '{{1}}', 'line_type': 'header', 'field_type': 'user_name', 'demo_value': sample_text})
+                 ] + base_variable_ids,
+                 },
+                {'header_text': 'Header {{1}}',
+                 'variable_ids': [
+                    (5, 0),
+                    (0, 0, {'name': '{{1}}', 'line_type': 'header', 'field_type': 'user_mobile', 'demo_value': sample_text})
+                 ] + base_variable_ids,
                  },
                 {'header_attachment_ids': [(6, 0, self.image_attachment.ids)]},
                 {'header_attachment_ids': [(6, 0, self.video_attachment.ids)]},
@@ -153,6 +171,8 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
             ), (
                 {},
                 {'body': f'<p>Header {sample_text}<br>Hello {self.test_base_records[0].name}</p>'},
+                {'body': f'<p>Header {self.env.user.name}<br>Hello {self.test_base_records[0].name}</p>'},
+                {'body': f'<p>Header {self.env.user.mobile}<br>Hello {self.test_base_records[0].name}</p>'},
                 {},
                 {},
                 {},

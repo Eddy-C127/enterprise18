@@ -585,7 +585,7 @@ class WhatsAppTemplate(models.Model):
         header = []
         header_type = self.header_type
         if header_type == 'text' and template_variables_value.get('header-{{1}}'):
-            value = free_text_json.get('header_text') or template_variables_value.get('header-{{1}}') or ' '
+            value = (free_text_json or {}).get('header_text') or template_variables_value.get('header-{{1}}') or ' '
             header = {
                 'type': 'header',
                 'parameters': [{'type': 'text', 'text': value}]
