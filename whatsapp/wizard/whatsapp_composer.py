@@ -7,7 +7,6 @@ from ast import literal_eval
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError, RedirectWarning
-from odoo.addons.phone_validation.tools import phone_validation
 from odoo.addons.whatsapp.tools import phone_validation as wa_phone_validation
 
 _logger = logging.getLogger(__name__)
@@ -74,28 +73,32 @@ class WhatsAppComposer(models.TransientModel):
     # ------------------------------------------------------------
 
     @api.depends('wa_template_id')
+    @api.depends_context('default_phone')
     def _compute_number(self):
+        """ In single mode, 'phone' is the number to contact (can be set through
+        context, for example when forced through UI). In multi mode it is more
+        an informational field, holding the first record found numbers. """
         for composer in self:
-            phone = None
-            if not self.env.context.get('default_phone'):
-                records = self.env[composer.res_model].browse(literal_eval(composer.res_ids))
-                numbers = []
-                numbers_count = len(records)
-                for rec in records[:12]:
-                    if composer.wa_template_id.phone_field:
-                        try:
-                            numbers.append(rec.mapped(composer.wa_template_id.phone_field)[0])
-                        except ValidationError as e:
-                            error_msg = _("There is wrong configration in template %s \n %s", composer.wa_template_id.name, e.args[0])
-                            raise ValidationError(error_msg)
-                if not composer.batch_mode:
-                    phone = numbers[0]
-                elif numbers and composer.batch_mode:
-                    numbers_list = [self._extract_digits(num) for num in numbers if num]
-                    numbers_count = len([num for num in numbers_list if num])
-                    phone = ', '.join(numbers_list)
-                    if numbers_count:
-                        phone += _(", ... (%s Others)", numbers_count)
+            records = self.env[composer.res_model].browse(literal_eval(composer.res_ids))
+            numbers = []
+            for rec in records[:12]:
+                if composer.wa_template_id.phone_field:
+                    try:
+                        numbers.append(rec.mapped(composer.wa_template_id.phone_field)[0])
+                    except ValidationError as err:
+                        error_msg = _("There is wrong configration in template %s \n %s", composer.wa_template_id.name, e.args[0])
+                        raise ValidationError(error_msg) from err
+            if not composer.batch_mode:
+                phone = self.env.context.get('default_phone')
+                if not phone:
+                    phone = numbers[0] if numbers and numbers[0] else composer.phone
+            elif not numbers:
+                phone = False
+            else:
+                other_count = len(records) - len(numbers)
+                phone = ', '.join(self._extract_digits(num) for num in numbers if num)
+                if other_count:
+                    phone += _(", ... (%s Others)", other_count)
             composer.phone = phone
 
     @api.depends('phone', 'batch_mode')
