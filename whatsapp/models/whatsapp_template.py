@@ -178,12 +178,12 @@ class WhatsAppTemplate(models.Model):
             free_text_variables = variables.filtered(lambda variable: variable.field_type == 'free_text')
             if len(free_text_variables) > 10:
                 raise ValidationError(_('Only 10 free text is allowed in body of template'))
+
             variable_indices = sorted(var._extract_variable_index() for var in variables)
             if len(variable_indices) > 0 and (variable_indices[0] != 1 or variable_indices[-1] != len(variables)):
-                missing = 1
-                if len(variables) > 1:
-                    missing = next(index for index in range(1, len(variables))
-                                   if variable_indices[index - 1] + 1 != variable_indices[index]) + 1
+                missing = next(
+                    (index for index in range(1, len(variables)) if variable_indices[index - 1] + 1 != variable_indices[index]),
+                    0) + 1
                 raise ValidationError(_('Body variables should start at 1 and not skip any number, missing %d', missing))
 
     @api.constrains('header_type', 'variable_ids')
