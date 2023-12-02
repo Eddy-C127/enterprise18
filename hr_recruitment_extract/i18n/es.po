@@ -51,6 +51,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Retry"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Volver a intentar"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__message_needaction
@@ -99,7 +101,7 @@ msgstr "Opciones de configuración"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields.selection,name:hr_recruitment_extract.selection__res_company__recruitment_extract_show_ocr_option_selection__auto_send
 msgid "Digitize automatically"
-msgstr ""
+msgstr "Digitalizar automáticamente"
 
 #. module: hr_recruitment_extract
 #: model:ir.actions.server,name:hr_recruitment_extract.ir_actions_server_digitize_cv
@@ -155,7 +157,7 @@ msgstr "Tiene un mensaje"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "ID de la solicitud a IAP-OCR"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,help:hr_recruitment_extract.field_hr_applicant__message_needaction
@@ -176,7 +178,7 @@ msgstr "Es un seguidor"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "Está en estado extraíble"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__message_main_attachment_id
@@ -221,17 +223,17 @@ msgstr "Valoraciones"
 #. module: hr_recruitment_extract
 #: model:ir.actions.server,name:hr_recruitment_extract.ir_cron_update_ocr_status_ir_actions_server
 msgid "Recruitment OCR: Update All Status"
-msgstr ""
+msgstr "OCR de reclutamiento: actualizar todos los estados"
 
 #. module: hr_recruitment_extract
 #: model:ir.actions.server,name:hr_recruitment_extract.ir_cron_ocr_validate_ir_actions_server
 msgid "Recruitment OCR: Validate CV"
-msgstr ""
+msgstr "OCR de reclutamiento: validar CV"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_res_config_settings__recruitment_extract_show_ocr_option_selection
 msgid "Recruitment processing option"
-msgstr ""
+msgstr "Opción de procesamiento de reclutamiento"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__message_has_sms_error
@@ -241,7 +243,7 @@ msgstr "Error de entrega del SMS"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_res_company__recruitment_extract_show_ocr_option_selection
 msgid "Send mode on applicant attachments"
-msgstr ""
+msgstr "Modo de envío en archivos adjuntos de candidatos"
 
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.hr_recruitment_extract_view_form
@@ -268,8 +270,11 @@ msgstr "Historial de comunicaciones del sitio web"
 #, python-format
 msgid "You cannot send a CV for an applicant who's not in first stage!"
 msgstr ""
+"No puede enviar un CV de un candidato que no se encuentre en la primera "
+"etapa"
 
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.hr_recruitment_extract_view_form
 msgid "You don't have enough credit to extract data from your Resume."
 msgstr ""
+"No cuenta con suficientes créditos para extraer datos de su currículum."

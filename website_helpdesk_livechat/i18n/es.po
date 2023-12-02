@@ -29,23 +29,26 @@ msgid ""
 "                    Create a new helpdesk ticket by typing <b>/ticket <i>ticket title</i></b><br>\n"
 "                    "
 msgstr ""
+"\n"
+"                    Cree un nuevo ticket de servicio de asistencia, escriba <b>/ticket <i>título del ticket</i></b><br>\n"
+"                    "
 
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/chatbot_script_step.py:0
 #, python-format
 msgid "%(name)s's Ticket"
-msgstr ""
+msgstr "Ticket de %(name)s"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_done
 msgid "Alright, we should have everything we need"
-msgstr ""
+msgstr "Muy bien, ya deberíamos tener todo lo necesario"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_technical_serial_misc
 msgid "Anything else to add?"
-msgstr ""
+msgstr "¿Hace falta algo más?"
 
 #. module: website_helpdesk_livechat
 #: model:ir.ui.menu,name:website_helpdesk_livechat.helpdesk_team_canned_response_menu
@@ -70,7 +73,7 @@ msgstr "Configurar respuestas automáticas"
 #. module: website_helpdesk_livechat
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.helpdesk_team_view_form_inherit_website_helpdesk_livechat
 msgid "Configure Live Chat Channel"
-msgstr ""
+msgstr "Configurar canal de chat en vivo"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model.fields.selection,name:website_helpdesk_livechat.selection__chatbot_script_step__step_type__create_ticket
@@ -83,13 +86,14 @@ msgstr "Crear ticket"
 #, python-format
 msgid "Create a new helpdesk ticket (/ticket ticket title)"
 msgstr ""
+"Crear un nuevo ticket de servicio de asistencia (/ticket título del ticket)"
 
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
 #, python-format
 msgid "Created a new ticket: %s"
-msgstr ""
+msgstr "Creó un nuevo ticket: %s"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model,name:website_helpdesk_livechat.model_discuss_channel
@@ -104,7 +108,7 @@ msgstr "Primero, ¿qué problema presenta?"
 #. module: website_helpdesk_livechat
 #: model:ir.model.fields,field_description:website_helpdesk_livechat.field_chatbot_script__ticket_count
 msgid "Generated Ticket Count"
-msgstr ""
+msgstr "Número de tickets generados"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_yes
@@ -114,7 +118,7 @@ msgstr "Muy bien, esto nos ayudará mucho."
 #. module: website_helpdesk_livechat
 #: model:chatbot.script,title:website_helpdesk_livechat.chatbot_script_helpdesk_bot
 msgid "Helpdesk Bot"
-msgstr ""
+msgstr "Bot de servicio de asistencia"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model,name:website_helpdesk_livechat.model_helpdesk_team
@@ -125,27 +129,27 @@ msgstr "Equipo de soporte"
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_welcome
 msgid "Here we go, help is on the way!"
-msgstr ""
+msgstr "¡Listo! La ayuda está en camino."
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.answer,name:website_helpdesk_livechat.chatbot_script_helpdesk_step_dispatch_answer_technical
 msgid "I have a technical issue"
-msgstr ""
+msgstr "Tengo un problema técnico"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.answer,name:website_helpdesk_livechat.chatbot_script_helpdesk_step_dispatch_answer_administrative
 msgid "I have an administrative question"
-msgstr ""
+msgstr "Tengo una pregunta administrativa"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_no
 msgid "It's OK, we can also find your contract by other means."
-msgstr ""
+msgstr "No se preocupe, podemos encontrar su contrato de otra manera."
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_email
 msgid "Just a last thing, can we please have your email address?"
-msgstr ""
+msgstr "Una última cosa, ¿podría darnos su dirección de correo electrónico?"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model.fields,field_description:website_helpdesk_livechat.field_helpdesk_team__use_website_helpdesk_livechat
@@ -242,7 +246,7 @@ msgstr "Entradas"
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
 #, python-format
 msgid "Tickets search results for %s: "
-msgstr ""
+msgstr "Resultados de la búsqueda de tickets para %s: "
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref
@@ -259,7 +263,7 @@ msgstr "Usuario"
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_issue
 msgid "We're all set. Now, what is your issue?"
-msgstr ""
+msgstr "Ya está todo listo. Ahora, ¿qué problema presenta?"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.answer,name:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_answer_yes

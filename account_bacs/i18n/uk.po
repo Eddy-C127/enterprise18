@@ -95,6 +95,9 @@ msgid ""
 "bank or building society. Written confirmation may be required. Please also "
 "notify us.</span>"
 msgstr ""
+"<span>Ви можете будь-коли скасувати прямий дебет, просто зв’язавшись зі "
+"своїм банком. Може знадобитися письмове підтвердження. Будь ласка, також "
+"повідомте нас про це.</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -126,6 +129,8 @@ msgid ""
 "<span>will notify you (insert number of) working days in advance of your "
 "account being debited or as otherwise agreed. If you request</span>"
 msgstr ""
+"<span>повідомить вас (вказана кількість) робочих днів до списання коштів з "
+"вашого рахунку або за іншою домовленістю. Якщо ви просите</span>"
 
 #. module: account_bacs
 #: model_terms:ir.actions.act_window,help:account_bacs.account_bacs_direct_debit_instruction_tree_act
@@ -134,6 +139,9 @@ msgid ""
 "                    the authorization you receive from a customer\n"
 "                    to automatically collect money on their account."
 msgstr ""
+"Інструкція щодо прямого дебету являє собою дозвіл, \n"
+"який ви отримуєте від клієнта, щоб автоматично \n"
+"стягувати гроші з його рахунку."
 
 #. module: account_bacs
 #. odoo-python
@@ -149,6 +157,7 @@ msgstr "Банківський рахунок не визначено."
 msgid ""
 "A debtor account is required to validate a BACS Direct Debit Instruction."
 msgstr ""
+"Для підтвердження доручення прямого дебету BACS потрібен рахунок дебітора."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__partner_bank_id
@@ -194,24 +203,24 @@ msgstr "Підрахунок прикріплення"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.res_config_settings_view_form
 msgid "BACS"
-msgstr ""
+msgstr "BACS"
 
 #. module: account_bacs
 #: model:account.payment.method,name:account_bacs.payment_method_bacs_dc
 msgid "BACS Direct Credit"
-msgstr ""
+msgstr "Прямий кредит BACS"
 
 #. module: account_bacs
 #: model:ir.actions.act_window,name:account_bacs.account_bacs_direct_debit_instruction_tree_act
 #: model:ir.model,name:account_bacs.model_bacs_ddi
 msgid "BACS Direct Debit Instruction"
-msgstr ""
+msgstr "Інструкція прямого дебету BACS"
 
 #. module: account_bacs
 #: model:ir.ui.menu,name:account_bacs.account_bacs_direct_debit_customer_mandates_menu
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "BACS Direct Debit Instructions"
-msgstr ""
+msgstr "Інструкції прямого дебету BACS"
 
 #. module: account_bacs
 #. odoo-python
@@ -222,6 +231,9 @@ msgid ""
 "BACS Direct Debit scheme only accepts IBAN account numbers. Please select an"
 " IBAN-compliant debtor account for this BACS Direct Debit Instruction."
 msgstr ""
+"Схема прямого дебету BACS приймає лише номери рахунків IBAN. Будь ласка, "
+"виберіть дебетовий рахунок, сумісний із IBAN, для цієї Інструкції прямого "
+"дебету BACS."
 
 #. module: account_bacs
 #. odoo-python
@@ -232,6 +244,9 @@ msgid ""
 "BACS Direct Debit scheme only accepts UK bank accounts. Please select a UK "
 "bank account for this BACS Direct Debit Instruction."
 msgstr ""
+"Схема прямого дебету BACS приймає лише банківські рахунки Великобританії. "
+"Будь ласка, виберіть банківський рахунок Великобританії для цієї Інструкції "
+"прямого дебету BACS."
 
 #. module: account_bacs
 #. odoo-python
@@ -241,58 +256,60 @@ msgid ""
 "BACS Direct Debit scheme only accepts UK bank accounts. Please select a "
 "journal associated to one."
 msgstr ""
+"Схема прямого дебету BACS приймає лише банківські рахунки Великобританії. "
+"Будь ласка, виберіть журнал, пов’язаний з рахунком."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_expiry_date
 msgid "BACS Expiry Date"
-msgstr ""
+msgstr "Термін дії BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_multi_mode
 #: model_terms:ir.ui.view,arch_db:account_bacs.view_batch_payment_form_inherit
 msgid "BACS Multi Mode"
-msgstr ""
+msgstr "Мульти режим BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_payment_type
 msgid "BACS Payment Type"
-msgstr ""
+msgstr "Тип оплати BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_processing_date
 msgid "BACS Processing Date"
-msgstr ""
+msgstr "Дата обробки BACS"
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/bacs_direct_debit_instruction.py:0
 #, python-format
 msgid "BACS Service User Number is not set on the company."
-msgstr ""
+msgstr "Номер користувача послуги BACS не встановлено в компанії."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_submission_serial
 msgid "BACS Submission Serial"
-msgstr ""
+msgstr "Серійний номер подання BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_bank_statement_line__bacs_ddi_id
 #: model:ir.model.fields,field_description:account_bacs.field_account_move__bacs_ddi_id
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_ddi_id
 msgid "Bacs Ddi"
-msgstr ""
+msgstr "Bacs Ddi"
 
 #. module: account_bacs
 #: model:account.payment.method,name:account_bacs.payment_method_bacs_dd
 msgid "Bacs Direct Debit"
-msgstr ""
+msgstr "Прямий дебет Bacs"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_bank_statement_line__bacs_has_usable_ddi
 #: model:ir.model.fields,field_description:account_bacs.field_account_move__bacs_has_usable_ddi
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_has_usable_ddi
 msgid "Bacs Has Usable Ddi"
-msgstr ""
+msgstr "Bacs має доступний Ddi"
 
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_res_partner_bank
@@ -302,7 +319,7 @@ msgstr "Банківські рахунки"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Bank/Building Society account number"
-msgstr ""
+msgstr "Номер рахунку в банку"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -310,6 +327,8 @@ msgid ""
 "Banks and Building Societies may not accept Direct Debit Instructions for "
 "some types of account"
 msgstr ""
+"Банки можуть не приймати інструкції щодо прямого дебету для деяких типів "
+"рахунків"
 
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_account_batch_payment
@@ -319,7 +338,7 @@ msgstr "Груповий платіж"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Branch Sort Code"
-msgstr ""
+msgstr "Код сортування філії"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -340,7 +359,7 @@ msgstr "Закрито"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.res_config_settings_view_form
 msgid "Collect and send payments using UK BACS Service"
-msgstr ""
+msgstr "Збирайте та надсилайте платежі за допомогою UK BACS Service"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -360,7 +379,7 @@ msgstr "Компанія"
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__company_id
 msgid "Company for whose invoices the DDI can be used."
-msgstr ""
+msgstr "Компанія, для рахунків-фактур якої можна використовувати DDI."
 
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_res_config_settings
@@ -373,7 +392,7 @@ msgstr "Налаштування"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Contra total for batch is greater than 999,999,999.99."
-msgstr ""
+msgstr "Сума контракції для партії перевищує 999 999 999,99."
 
 #. module: account_bacs
 #. odoo-python
@@ -381,17 +400,17 @@ msgstr ""
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Contra total for date %s is greater than 999,999,999.99."
-msgstr ""
+msgstr "Контр сума на дату %s більша ніж 999,999,999.99."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_ddi_usable
 msgid "Could a SDD ddi be used?"
-msgstr ""
+msgstr "Чи може використовуватися SDD ddi?"
 
 #. module: account_bacs
 #: model_terms:ir.actions.act_window,help:account_bacs.account_bacs_direct_debit_instruction_tree_act
 msgid "Create a new BACS Direct Debit Instruction."
-msgstr ""
+msgstr "Створіть нову інструкцію прямого дебету BACS."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
@@ -413,7 +432,7 @@ msgstr "Створено"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Credit total for batch is greater than 99,999,999,999.99."
-msgstr ""
+msgstr "Сума кредиту для групового платежу більше ніж 99,999,999,999.99."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__partner_id
@@ -423,12 +442,12 @@ msgstr "Клієнт"
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__partner_id
 msgid "Customer whose payments are to be managed by this DDI."
-msgstr ""
+msgstr "Клієнт, чиїми платежами має керувати цей DDI."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "DDI 2 5/15"
-msgstr ""
+msgstr "DDI 2 5/15"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__start_date
@@ -440,12 +459,12 @@ msgstr "Дата"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Debit total for batch is greater than 99,999,999,999.99."
-msgstr ""
+msgstr "Сума дебету для групового платежу більше ніж 99,999,999,999.99."
 
 #. module: account_bacs
 #: model:ir.actions.report,name:account_bacs.ddi_form_report_main
 msgid "Direct Debit Instruction form"
-msgstr ""
+msgstr "Форма інструкції прямого дебету"
 
 #. module: account_bacs
 #: model:ir.model.constraint,message:account_bacs.constraint_bacs_ddi_name_unique
@@ -453,6 +472,7 @@ msgid ""
 "Direct Debit Instruction identifier must be unique! Please choose another "
 "one."
 msgstr ""
+"Ідентифікатор доручення прямого дебету має бути унікальним! Виберіть інший."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -462,26 +482,30 @@ msgid ""
 "                            the Direct Debit Guarantee. I understand that this Instruction\n"
 "                            may remain with"
 msgstr ""
+"Прямі дебети з рахунку, описаного в цій Інструкції, \n"
+"підлягають гарантіям, гарантованим \n"
+"Гарантією прямого дебету.\n"
+" Я розумію, що ця Інструкція може залишатися в силі"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_rep
 msgid "Direct debit repeating collection in a series"
-msgstr ""
+msgstr "Пряме дебетування повторюваного збору в серії"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_regular
 msgid "Direct debit single collection"
-msgstr ""
+msgstr "Пряме дебетування єдиного збору"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_fin
 msgid "Direct debit-final collection of a series"
-msgstr ""
+msgstr "Пряме дебетування остаточне стягнення серії"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_init
 msgid "Direct debit-first collection of a series"
-msgstr ""
+msgstr "Прямий дебет - перший збір із серії"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__display_name
@@ -513,6 +537,7 @@ msgstr "Іконка з чудовим шрифтом, напр. fa-tasks"
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Good news! A valid BACS Direct Debit Instruction is available."
 msgstr ""
+"Гарні новини! Доступна дійсна інструкція Прямого Дебету BACS Direct Debit."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__has_message
@@ -558,12 +583,12 @@ msgstr "Якщо позначено, деякі повідомлення маю�
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Instruction to your Bank or Building Society"
-msgstr ""
+msgstr "Інструкція до вашого банку"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Instruction to your Bank or Building Society to pay by Direct Debit"
-msgstr ""
+msgstr "Інструкція для вашого банку щодо оплати прямим дебетом"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__paid_invoice_ids
@@ -579,7 +604,7 @@ msgstr "Рахунки, виплачені за допомогою цього м
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Invoices paid with this DDI."
-msgstr ""
+msgstr "Рахунки оплачено через цей DDI."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_is_follower
@@ -605,7 +630,7 @@ msgstr "Елемент журналу"
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__payment_journal_id
 msgid "Journal to use to receive BACS Direct Debit payments from this DDI."
-msgstr ""
+msgstr "Журнал для отримання платежів прямого дебету BACS від цього DDI."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__write_uid
@@ -622,7 +647,7 @@ msgstr "Останнє оновлення"
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Maximum amount is %.2f."
-msgstr ""
+msgstr "Максимальна сума становить %.2f."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_has_error
@@ -642,12 +667,12 @@ msgstr "Дедлайн моєї дії"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Name and full postal address of your Bank or Building Society"
-msgstr ""
+msgstr "Назва та повна поштова адреса вашого банку"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Name(s) of Account Holder(s)"
-msgstr ""
+msgstr "Ім'я (імена) власника (ів) рахунку"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__activity_calendar_event_id
@@ -698,6 +723,11 @@ msgid ""
 "                    then only have to generate a BACS Direct Debit file containing this operation\n"
 "                    and send it to your bank to effectively get paid."
 msgstr ""
+"Після того, як в Odoo буде створено \n"
+"рахунок-фактуру для клієнта, який має активну Інструкцію прямого дебету на дату виставлення рахунку, його перевірка\n"
+" запустить його автоматичний платіж, і тоді вам потрібно буде\n"
+" лише створити файл прямого дебету BACS, що містить цю \n"
+"операцію, і надіслати його на ваш банк, щоб ефективно отримувати гроші."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_bank_statement_line__bacs_ddi_id
@@ -707,6 +737,8 @@ msgid ""
 "Once this invoice has been paid with BACS Direct Debit, contains the DDI "
 "that allowed the payment."
 msgstr ""
+"Після того, як цей рахунок-фактуру було сплачено за допомогою прямого дебету"
+" BACS, він містить DDI, який дозволив платіж."
 
 #. module: account_bacs
 #. odoo-python
@@ -716,13 +748,15 @@ msgid ""
 "Only IBAN account numbers can receive BACS Direct Debit payments. Please "
 "select a journal associated to one."
 msgstr ""
+"Лише номери рахунків IBAN можуть отримувати платежі прямого дебету BACS. "
+"Будь ласка, виберіть журнал, пов’язаний з цим рахунком."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/bacs_direct_debit_instruction.py:0
 #, python-format
 msgid "Only mandates in draft state can be cancelled."
-msgstr ""
+msgstr "Скасувати можна лише доручення у статусі проекту."
 
 #. module: account_bacs
 #. odoo-python
@@ -738,11 +772,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Oops! No valid BACS Direct Debit Instruction for this customer."
 msgstr ""
+"От халепа! Немає дійсної інструкції прямого дебету BACS для цього клієнта."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Originating BACS Direct Debit Instruction"
-msgstr ""
+msgstr "Вихідна інструкція прямого дебету BACS"
 
 #. module: account_bacs
 #. odoo-python
@@ -754,7 +789,7 @@ msgstr "Оплачені рахунки"
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__paid_invoices_len
 msgid "Paid Invoices Len"
-msgstr ""
+msgstr "Оплачені рахунки Len"
 
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_account_payment_method
@@ -770,12 +805,12 @@ msgstr "Платежі"
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__payments_len
 msgid "Payments Len"
-msgstr ""
+msgstr "Платежі Len"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Payments generated for this DDI that have not yet been collected."
-msgstr ""
+msgstr "Платежі, згенеровані для цього DDI, які ще не зібрані."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__payment_ids
@@ -785,7 +820,7 @@ msgstr "Платежі, отримані завдяки цьому мандат�
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_multi_mode
 msgid "Payments in batch get processed on their individual date."
-msgstr ""
+msgstr "Групові платежі обробляються на окрему дату."
 
 #. module: account_bacs
 #. odoo-python
@@ -798,11 +833,12 @@ msgstr "Платежі для отримання"
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Please fill in the whole form using a ball point pen and send it to:"
 msgstr ""
+"Будь ласка, заповніть всю форму кульковою ручкою та надішліть її на адресу:"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Please pay"
-msgstr ""
+msgstr "Будь ласка, оплатіть"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -843,22 +879,22 @@ msgstr "Помилка доставки SMS"
 #: model:ir.model.fields,field_description:account_bacs.field_res_company__bacs_sun
 #: model:ir.model.fields,field_description:account_bacs.field_res_config_settings__bacs_sun
 msgid "Service User Number"
-msgstr ""
+msgstr "Сервісний номер користувача"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Service user number"
-msgstr ""
+msgstr "Сервісний користувача"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
 msgid "Service user number of your company within BACS"
-msgstr ""
+msgstr "Сервісний номер користувача вашої компанії в BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
 msgid "Service user number of your company within BACS, given by the bank."
-msgstr ""
+msgstr "Сервісний номер користувача вашої компанії в BACS, наданий банком."
 
 #. module: account_bacs
 #. odoo-python
@@ -872,7 +908,7 @@ msgstr "Деякі платежі перевищують гранично доз
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments are not in GBP."
-msgstr ""
+msgstr "Деякі платежі не в GBP."
 
 #. module: account_bacs
 #. odoo-python
@@ -912,6 +948,8 @@ msgid ""
 "The BACS Direct Debit Instruction associated to the payment has been revoked"
 " and cannot be used anymore."
 msgstr ""
+"Інструкцію прямого дебету BACS, пов’язану з платежем, було відкликано, і її "
+"більше не можна використовувати."
 
 #. module: account_bacs
 #. odoo-python
@@ -921,6 +959,8 @@ msgid ""
 "The account %s, of journal '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use BACS features."
 msgstr ""
+"Рахунок %s, журналу '%s', не є типом IBAN.\n"
+"Дійсний рахунок IBAN необхідний для використання функцій BACS."
 
 #. module: account_bacs
 #. odoo-python
@@ -930,11 +970,12 @@ msgid ""
 "The company '%s' requires a SUN to generate BACS files. Please configure it "
 "first."
 msgstr ""
+"Компанія '%s' вимагає SUN для створення файлів BACS. Спершу налаштуйте його."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_expiry_date
 msgid "The date on which the file will expire."
-msgstr ""
+msgstr "Дата, коли дію файлу буде протерміновано."
 
 #. module: account_bacs
 #. odoo-python
@@ -944,6 +985,8 @@ msgid ""
 "The journal '%s' requires a proper IBAN account to initiate a BACS Payment. "
 "Please configure it first."
 msgstr ""
+"Журнал '%s' вимагає відповідний рахунок IBAN для ініціювання платежу BACS. "
+"Спочатку налаштуйте його."
 
 #. module: account_bacs
 #. odoo-python
@@ -951,7 +994,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The maximum number of BACS submissions (999) for the day has been reached."
-msgstr ""
+msgstr "Максимальну кількість подання BACS (999) на день досягнуто."
 
 #. module: account_bacs
 #. odoo-python
@@ -961,39 +1004,41 @@ msgid ""
 "The payment must be linked to a BACS Direct Debit Instruction in order to "
 "generate a Direct Debit File."
 msgstr ""
+"Щоб створити файл прямого дебету, платіж має бути пов’язано з Інструкцією "
+"прямого дебету BACS."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "The processing date cannot be in the past."
-msgstr ""
+msgstr "Дата обробки не може бути в минулому."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_processing_date
 msgid "The processing day of the BACS transaction."
-msgstr ""
+msgstr "Дата обробки транзакції BACS."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/account_payment.py:0
 #, python-format
 msgid "The selected vendor account needs to be a valid UK IBAN"
-msgstr ""
+msgstr "Вибраний рахунок постачальника має бути дійсним IBAN у Великобританії"
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/res_company.py:0
 #, python-format
 msgid "The service user number must be 6 characters long."
-msgstr ""
+msgstr "Сервісний номер користувача має містити 6 символів."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/res_company.py:0
 #, python-format
 msgid "The service user number must be numeric."
-msgstr ""
+msgstr "Сервісний номер користувача має бути числовим."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__state
@@ -1003,16 +1048,21 @@ msgid ""
 "- 'active' means that this DDI can be used to pay invoices. \n"
 "- 'closed' designates a DDI that has been marked as not to use anymore without invalidating the previous transactions done with it.- 'revoked' means the DDI has been signaled as fraudulent by the customer. It cannot be used anymore, and should not ever have been. You will probably need to refund the related invoices, if any.\n"
 msgstr ""
+"Статус, у якому знаходиться цей DDI.\n"
+"- «чернетка» означає, що цей DDI все ще потребує підтвердження перед використанням.\n"
+"- «активний» означає, що цей DDI можна використовувати для оплати рахунків.\n"
+"- «закритий» позначає DDI, який було позначено як такий, що більше не використовуватиметься без анулювання попередніх транзакцій, здійснених з ним.\n"
+"- «відкликаний» означає, що клієнт позначив DDI як шахрайський. Його більше не можна використовувати та ніколи не слід було використовувати. Ймовірно, вам доведеться відшкодувати відповідні рахунки-фактури, якщо такі є.\n"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__name
 msgid "The unique identifier of this DDI."
-msgstr ""
+msgstr "Унікальний ідентифікатор для цього DDI."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "This guarantee should be detached and retained by the payer."
-msgstr ""
+msgstr "Ця гарантія повинна бути відокремлена та збережена платником."
 
 #. module: account_bacs
 #. odoo-python
@@ -1020,7 +1070,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Trying to register a payment on a DDI belonging to a different partner."
-msgstr ""
+msgstr "Спроба зареєструвати платіж на DDI, що належить іншому партнеру."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__activity_exception_decoration
@@ -1036,6 +1086,9 @@ msgid ""
 "date %(date)s for partner %(partner)r. Please create one before encoding a "
 "BACS Direct Debit payment."
 msgstr ""
+"Не вдається опублікувати платіж %(payment)r через те, що на даний момент "
+"немає доступного DDI %(date)s для партнера %(partner)r. Будь ласка, створіть"
+" його перед кодуванням платежу прямого дебету BACS."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -1060,6 +1113,8 @@ msgid ""
 "You cannot delete a bank account linked to an active BACS Direct Debit "
 "Instruction."
 msgstr ""
+"Ви не можете видалити банківський рахунок, пов’язаний з активною інструкцією"
+" прямого дебету BACS."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -1067,3 +1122,5 @@ msgid ""
 "and, if so, details will be passed\n"
 "                            electronically to my Bank/Building Society."
 msgstr ""
+"і, якщо так, деталі будуть передані електронним \n"
+"способом до мого банку."

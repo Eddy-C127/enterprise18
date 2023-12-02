@@ -75,6 +75,13 @@ msgid ""
 "            </p>\n"
 "        "
 msgstr ""
+"<p>\n"
+"                Apreciable <t t-out=\"object.partner_id.name or 'Customer'\">Cliente</t>,<br><br>\n"
+"                Encontrará adjunto el informe del servicio externo de nuestra operación en sus instalaciones. <br><br>\n"
+"                No dude en contactarnos si tiene alguna pregunta.<br><br>\n"
+"                Saludos cordiales,<br><br>\n"
+"            </p>\n"
+"        "
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_project_kanban_inherit_industry_fsm_report
@@ -140,7 +147,7 @@ msgstr "<strong>Trabajador: </strong>"
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.x_project_task_worksheet_template_3_ir_ui_view_1
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.x_project_task_worksheet_template_4_ir_ui_view_1
 msgid "Add details about your intervention..."
-msgstr ""
+msgstr "Agregue detalles sobre su intervención..."
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_project_task_burndown_chart_report
@@ -250,6 +257,8 @@ msgstr "Mostrar firmar reporte secundario"
 #: model:mail.template,description:industry_fsm_report.mail_template_data_task_report
 msgid "Email sent when clicking on \"send report\" in a task"
 msgstr ""
+"Correo electrónico que se envía al hacer clic en \"enviar informe\" en una "
+"tarea"
 
 #. module: industry_fsm_report
 #: model:ir.actions.report,name:industry_fsm_report.task_custom_report
@@ -329,12 +338,12 @@ msgstr "¿Se envía la hoja de trabajo?"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "Jane Worker"
-msgstr ""
+msgstr "Jane Worker"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "Jane smith"
-msgstr ""
+msgstr "Jane smith"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
@@ -374,11 +383,13 @@ msgid ""
 "Open your <b>worksheet</b> in order to fill it in with the details of your "
 "intervention."
 msgstr ""
+"Abra su<b>hoja de trabajo</b> para completar los detalles de su "
+"intervención."
 
 #. module: industry_fsm_report
 #: model:ir.actions.act_window,name:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet
 msgid "Planning by Worksheet Template"
-msgstr ""
+msgstr "Planeación por plantilla de hoja de trabajo"
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_project_project
@@ -390,7 +401,7 @@ msgstr "Proyecto"
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 #, python-format
 msgid "Save time by automatically generating a <b>signature</b>."
-msgstr ""
+msgstr "Ahorre tiempo generando una<b>firma</b>."
 
 #. module: industry_fsm_report
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet
@@ -493,6 +504,8 @@ msgstr "Partes de horas"
 #, python-format
 msgid "To send the report, you need to select a worksheet template"
 msgstr ""
+"Debe seleccionar una plantilla de hoja de trabajo para poder enviar el "
+"informe."
 
 #. module: industry_fsm_report
 #. odoo-javascript

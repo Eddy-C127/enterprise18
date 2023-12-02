@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Jolien De Paepe, 2023
 # Wil Odoo, 2023
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
+# Jolien De Paepe, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2023\n"
+"Last-Translator: Jolien De Paepe, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -424,7 +424,7 @@ msgid ""
 "'7_upsell'\">until</span>"
 msgstr ""
 "<span invisible=\"not plan_id or subscription_state == "
-"'7_upsell'\">tot</span>"
+"'7_upsell'\">t/m</span>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -1196,7 +1196,7 @@ msgstr "Kostenplaats"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__recurring_yearly
 msgid "Annual Recurring Revenue"
-msgstr "Jaarlijks terugkerende inkomsten"
+msgstr "Jaarlijks terugkerende omzet"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -2006,6 +2006,13 @@ msgstr "Einde van het contract"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
+msgid "Error during renewal of contract %s %s %s"
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
 msgid "Error during renewal of contract %s (Payment not recorded)"
 msgstr "Fout tijdens verlenging van contract %s (betaling niet geregistreerd)"
 
@@ -2014,12 +2021,12 @@ msgstr "Fout tijdens verlenging van contract %s (betaling niet geregistreerd)"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__event_date
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_log_report_search
 msgid "Event Date"
-msgstr "Datum evenement"
+msgstr "Datum gebeurtenis"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_log_report_search
 msgid "Event Type"
-msgstr "Soort evenement"
+msgstr "Soort gebeurtenis"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log__event_type__1_expansion
@@ -2518,7 +2525,7 @@ msgstr "MRR tussen"
 #: model:ir.actions.act_window,name:sale_subscription.sale_order_log_growth_action
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_growth_report
 msgid "MRR Breakdown"
-msgstr "Uitsplitsing MRR"
+msgstr "MRR-uitsplitsing"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__amount_signed
@@ -2704,7 +2711,7 @@ msgstr "Maandelijks terugkerend"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_line__recurring_monthly
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__recurring_monthly
 msgid "Monthly Recurring Revenue"
-msgstr "Maandelijks terugkerende inkomsten"
+msgstr "Maandelijks terugkerende omzet"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_template__duration_unit__month
@@ -3045,6 +3052,20 @@ msgid "Payment method:"
 msgstr "Betaalmethode:"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Payment not recorded"
+msgstr "Betaling niet geregistreerd"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Payment recorded: %s"
+msgstr "Betaling geregistreerd: %s"
+
+#. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
 msgid ""
 "Payment reminder for subscription {{ object.client_order_ref or object.name "
@@ -3357,7 +3378,7 @@ msgstr "Herhalend plan:"
 #: model:ir.actions.act_window,name:sale_subscription.sale_subscription_plan_action
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_plans
 msgid "Recurring Plans"
-msgstr "Herhalende plannen"
+msgstr "Herhaalplannen"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_pricing__price
@@ -3390,7 +3411,7 @@ msgid ""
 "to %s"
 msgstr ""
 "Terugkerende producten worden verdisconteerd volgende de pro rata periode "
-"van %s tot %s"
+"van %s t/m %s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4119,7 +4140,7 @@ msgstr "Som van maandelijks terugkerend"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_analysis_view_tree
 msgid "Sum of Yearly Recurring Revenue"
-msgstr "Som van jaarlijks terugkerende inkomsten"
+msgstr "Som van jaarlijks terugkerende omzet"
 
 #. module: sale_subscription
 #: model:base.automation,name:sale_subscription.subscription_alert_percent_revenue_base_automation
@@ -4195,6 +4216,17 @@ msgstr ""
 msgid "The company of the plan is different from the company of the pricelist"
 msgstr ""
 "Het bedrijf van het plan is verschillend van het bedrijf op de prijslijst"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"The deferred settings are not properly set. Please complete them to generate"
+" subscription deferred revenues"
+msgstr ""
+"De instellingen voor uitgestelde inkomsten zijn niet goed ingesteld. Vul ze "
+"in om uitgestelde inkomsten uit abonnementen te genereren"
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
@@ -4461,7 +4493,7 @@ msgstr "Totaal"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__non_recurring_total
 msgid "Total Non Recurring Revenue"
-msgstr "Totaal niet terugkerende inkomsten"
+msgstr "Totaal niet herhalende omzet"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_portal_content_inherit
@@ -4471,7 +4503,7 @@ msgstr "Totale hoeveelheid"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__recurring_total
 msgid "Total Recurring"
-msgstr "Totaal terugkerend"
+msgstr "Totaal herhalend"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log__event_type__3_transfer
@@ -4546,7 +4578,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log__event_type
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__event_type
 msgid "Type of event"
-msgstr "Type evenement"
+msgstr "Soort gebeurtenis"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -4600,7 +4632,7 @@ msgstr "Totaal excl. BTW"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_digest
 msgid "Untaxed Total:"
-msgstr "Totaal onbelast:"
+msgstr "Totaal excl. BTW:"
 
 #. module: sale_subscription
 #: model:base.automation,name:sale_subscription.subscription_alert_bad_health_base_automation
@@ -4814,7 +4846,7 @@ msgstr "Jaar"
 msgid "You are about to permanently close a subscription that is valid until"
 msgstr ""
 "Je staat op het punt een abonnement definitief af te sluiten dat geldig is "
-"tot"
+"t/m"
 
 #. module: sale_subscription
 #. odoo-python
@@ -5213,7 +5245,7 @@ msgstr "verlenging"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "to this day) will be automatically processed."
-msgstr "tot vandaag) wordt automatisch verwerkt."
+msgstr "t/m vandaag) wordt automatisch verwerkt."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template

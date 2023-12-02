@@ -50,6 +50,8 @@ msgid ""
 "\"%(article_name)s\" is a template and can not be a child of an article "
 "(\"%(parent_article_name)s\")."
 msgstr ""
+"\"%(article_name)s\" es una plantilla y no puede ser elemento secundario de "
+"un artículo (\"%(parent_article_name)s\")."
 
 #. module: knowledge
 #. odoo-python
@@ -59,11 +61,13 @@ msgid ""
 "\"%(article_name)s\" is an article and can not be a child of a template "
 "(\"%(parent_article_name)s\").\""
 msgstr ""
+"\"%(article_name)s\" es un artículo y no puede ser elemento secundario de "
+"una plantilla (\"%(parent_article_name)s\").\""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "\"About Us\" Template"
-msgstr ""
+msgstr "Plantilla para la sección \"Sobre nosotros\""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -89,7 +93,7 @@ msgstr "%(article_name)s (copia)"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "%s has been sent to Trash"
-msgstr ""
+msgstr "%s ha sido enviado a la papelera"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_mail_invite
@@ -183,6 +187,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        ¿De qué está tratando de convencer a la gente involucrada?\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -193,6 +202,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        ¿Cuál es su audiencia objetivo?\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -234,6 +248,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain in a single sentence what has been changed.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Explique en una sola frase qué se ha cambiado.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -242,6 +259,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain the consequences of this issue.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Explique las consecuencias de este problema.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -250,6 +270,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain what went wrong in just a few words.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Explique de forma resumida los errores que ocurrieron.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -258,6 +281,9 @@ msgid ""
 "                    <font class=\"text-600\">How did it get to happen?</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">¿Cómo es que ocurrió?</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -266,6 +292,9 @@ msgid ""
 "                    <font class=\"text-600\">How was it solved?</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">¿Cómo se resolvió?</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -274,6 +303,9 @@ msgid ""
 "                    <font class=\"text-600\">Lay here any remaining question or doubt.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Escriba aquí cualquier otra pregunta o duda que pueda llegar a tener.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -301,6 +333,9 @@ msgid ""
 "                    <font class=\"text-600\">List here all the text you could not do this week. These shall be postponed in the next weekly schedule.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Escriba aquí todas las actividades que no pudo realizar esta semana, se pospondrán para la planificación de su próxima semana.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -309,6 +344,9 @@ msgid ""
 "                            <em>How to best reach this customer type.</em>\n"
 "                        </font>"
 msgstr ""
+"<font class=\"text-400\">\n"
+"                            <em>¿Cuál es la mejor forma de comunicarse con este tipo de cliente?</em>\n"
+"                        </font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
@@ -318,6 +356,10 @@ msgid ""
 "                </font>\n"
 "                Abigail works a lot and never watches TV. Better reach her on her phone or on her to work."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>¿Cuál es la mejor forma de comunicarse con este tipo de cliente?<br></em>\n"
+"                </font>\n"
+"                Abigail trabaja mucho y nunca ve la televisión, la mejor forma de comunicarse con ella es por teléfono o en su trabajo."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -327,6 +369,10 @@ msgid ""
 "                </font>\n"
 "                As a classic Gen Z member, Vittorio never watches TV and never listens to the radio. For him to see our message, we need to get to his Instagram feed."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>¿Cuál es la mejor forma de comunicarse con este tipo de cliente?<br></em>\n"
+"                </font>\n"
+"                Como es común con las personas que forman parte de la generación Z, Vittorio nunca ve la televisión y tampoco escucha el radio. Para que vea nuestro mensaje, necesitamos aparecer en su feed de Instagram."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -336,6 +382,10 @@ msgid ""
 "                </font>\n"
 "                As an avid music listener, the best way to reach Sonya is through the radio since hers is always on."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>¿Cuál es la mejor forma de comunicarse con este tipo de cliente?<br></em>\n"
+"                </font>\n"
+"                Como a Sonya le encanta la música, la mejor manera de que escuche nuestros mensajes es a través de la radio, ya que la suya siempre está encendida."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
@@ -345,6 +395,10 @@ msgid ""
 "                </font>\n"
 "                Julius follows politics very tightly, and can best be reached with TV ads."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>¿Cuál es la mejor forma de comunicarse con este tipo de cliente?<br></em>\n"
+"                </font>\n"
+"                Julius se enfoca mucho en la política, así que la mejor forma es mediante anuncios de televisión."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
@@ -374,17 +428,17 @@ msgstr "<font class=\"text-600\">Acción C</font>"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Backlog 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Actividad pendiente 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Backlog 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Actividad pendiente 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Backlog 3</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Actividad pendiente 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -443,12 +497,12 @@ msgstr "<font class=\"text-600\">Correo electrónico</font>"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "<font class=\"text-600\">Fixed a bug where...</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Solucionamos un error que...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "<font class=\"text-600\">From now on, ...</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">A partir de ahora, ...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -557,17 +611,17 @@ msgstr "<font class=\"text-600\">Prioridad C</font>"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Reminder 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Recordatorio 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Reminder 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Recordatorio 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Reminder 3</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Recordatorio 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -592,7 +646,7 @@ msgstr "<font class=\"text-600\">Tarea D</font>"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">What is their buyer's journey?</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">¿Cuál es su ciclo de compra?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -607,6 +661,8 @@ msgid ""
 "<font class=\"text-600\">What is your action plan to move forward with this account?</font><br>\n"
 "                <font class=\"text-600\">Which KPI will be used to measure this progress?</font>"
 msgstr ""
+"<font class=\"text-600\">¿Cuál es su plan de acción para trabajar con esta cuenta?</font><br>\n"
+"                <font class=\"text-600\">¿Qué KPI se utilizarán para medir este progreso?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -663,6 +719,15 @@ msgid ""
 "                        </strong>\n"
 "                    </i>"
 msgstr ""
+"<i>\n"
+"                        <font style=\"color: rgb(0, 255, 0);\"><strong>Verde: lo que más valoran es la confianza.</strong></font><br>\n"
+"                        <font style=\"color: rgb(255, 0, 0);\"><strong>Rojo: lo que más valoran son los resultados.</strong></font><br>\n"
+"                        <strong>\n"
+"                            <font style=\"color: rgb(239, 198, 49);\">\n"
+"                                Amarillo: lo que más valoran es la creatividad y el entusiasmo, más que los resultados.\n"
+"                            </font>\n"
+"                        </strong>\n"
+"                    </i>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -673,6 +738,11 @@ msgid ""
 "                    </font>\n"
 "                </i>"
 msgstr ""
+"<i>\n"
+"                    <font style=\"color: rgb(8, 82, 148);\">\n"
+"                        <strong>Azul: esperan resultados precisos y rigurosos.</strong>\n"
+"                    </font>\n"
+"                </i>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
@@ -775,6 +845,10 @@ msgid ""
 "                    (/<span style=\"font-style: italic;\">checklist</span>)\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"                    Agregar una lista de verificación\n"
+"                    (/<span style=\"font-style: italic;\">lista de verificación</span>)\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -784,6 +858,10 @@ msgid ""
 "                    (/<span style=\"font-style: italic;\">separator</span>)\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"                    Agregar un separador\n"
+"                    (/<span style=\"font-style: italic;\">separador</span>)\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -794,6 +872,11 @@ msgid ""
 "                    to convert a text into a title\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"                    Utilicar \n"
+"                    /<span style=\"font-style: italic;\">título</span>\n"
+"                    para convertir el texto a título\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -858,6 +941,17 @@ msgid ""
 "        </span>\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"            <span style=\"font-weight: bolder;\">\n"
+"                <font class=\"text-o-color-2\">Espacio de trabajo</font>\n"
+"            </span>\n"
+"        </span>\n"
+"        <span style=\"font-size: 14px;\">\n"
+"            — \n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">su equipo</font> puede acceder a los artículos que se encuentran aquí\n"
+"        </span>\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -872,6 +966,15 @@ msgid ""
 "            \"<span style=\"font-weight: bolder;\">/</span>\"\n"
 "        </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"            Debajo de esta lista, pruebe los\n"
+"            <span style=\"font-weight: bolder;\">comandos</span>\n"
+"            ,\n"
+"            <span style=\"font-weight: bolder;\">\n"
+"                <font class=\"text-o-color-2\">escribiendo</font>\n"
+"            </span>\n"
+"            \"<span style=\"font-weight: bolder;\">/</span>\"\n"
+"        </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -884,6 +987,13 @@ msgid ""
 "            (<span style=\"font-style: italic;\">documentation, tips, reports, ...</span>)\n"
 "        </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"            Contenido — solo haga clic y\n"
+"            <span style=\"font-weight: bolder;\">\n"
+"                <font class=\"text-o-color-2\">comience a escribir</font>\n"
+"            </span>\n"
+"            (<span style=\"font-style: italic;\">documentación, consejos, informes...</span>)\n"
+"        </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -912,6 +1022,14 @@ msgid ""
 "            <span style=\"font-style: italic; text-decoration-line: underline;\">it</span>\n"
 "        </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"            Seleccionar el texto para\n"
+"            <font class=\"bg-o-color-2\">resaltarlo</font>,\n"
+"            <span style=\"text-decoration-line: line-through;\">tacharlo</span>\n"
+"            o\n"
+"            <span style=\"font-weight: bolder;\">darle</span>\n"
+"            <span style=\"font-style: italic; text-decoration-line: underline;\">estilo</span>\n"
+"        </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -926,6 +1044,15 @@ msgid ""
 "            box. Need to re-use its content?\n"
 "        </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"            Utilice\n"
+"            /<span style=\"font-weight: bolder;\"><font class=\"text-o-color-2\">portapapeles</font></span>\n"
+"            para insertar un cuadro de\n"
+"            <span style=\"font-weight: bolder;\">\n"
+"                <font class=\"text-o-color-2\">portapapeles</font>\n"
+"            </span>\n"
+"            ¿Necesita reutilizar su contenido?\n"
+"        </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -936,6 +1063,11 @@ msgid ""
 "            to share documents that are frequently needed\n"
 "        </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"            Utilice\n"
+"            /<span style=\"font-weight: bolder;\"><font class=\"text-o-color-2\">archivo</font></span>\n"
+"            para compartir los documentos que se necesitan con frecuencia\n"
+"        </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -948,6 +1080,13 @@ msgid ""
 "        <span style=\"font-weight: bolder;\"><font class=\"text-o-color-2\">Sections</font></span>:\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            Los <font class=\"text-o-color-2\">artículos</font>\n"
+"        </span>\n"
+"        se almacenan en distintas\n"
+"        <span style=\"font-weight: bolder;\"><font class=\"text-o-color-2\">secciones</font></span>:\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -968,6 +1107,21 @@ msgid ""
 "        to share it with everyone.\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        Un buen flujo de trabajo es escribir sus borradores en\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">privado</font>\n"
+"        </span>\n"
+"        y, una vez que estén listos, moverlos de\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">privado</font>\n"
+"        </span>\n"
+"        al\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">espacio de trabajo</font>\n"
+"        </span>\n"
+"        para compartirlos con todos.\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -988,6 +1142,21 @@ msgid ""
 "        it.\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        De nuevo, para mover un\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">artículo</font>\n"
+"        </span>\n"
+"        de una\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">sección</font>\n"
+"        </span>\n"
+"        a otra solo debe\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">arrastrarlo y soltarlo</font>\n"
+"        </span>\n"
+"        .\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -998,6 +1167,11 @@ msgid ""
 "        and best practices! 🚀\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        Aquí, usted y su equipo podrán centralizar su \n"
+"        <font class=\"text-o-color-2\" style=\"font-weight: bolder;\">información </font>\n"
+"        y sus buenas prácticas. 🚀\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1007,6 +1181,10 @@ msgid ""
 "        <span style=\"font-weight: bolder;\"><font class=\"text-o-color-2\">Articles</font></span>.\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        Esos son sus\n"
+"        <span style=\"font-weight: bolder;\"><font class=\"text-o-color-2\">artículos</font></span>.\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1023,6 +1201,17 @@ msgid ""
 "        them\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        Para cambiar la organización de los\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">artículos</font>\n"
+"        </span>\n"
+"        solo debe\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">arrastrarlos y soltarlos</font>\n"
+"        </span>\n"
+"       \n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1046,6 +1235,24 @@ msgid ""
 "        \"<span style=\"font-weight: bolder;\">?</span>\".\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        ¿Desea ir\n"
+"        <span style=\"font-style: italic;\">aún más</span>\n"
+"        rápido? ⚡️\n"
+"    </span>\n"
+"    <br/>\n"
+"    <span style=\"font-size: 14px;\">\n"
+"        Acceda a los\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">artículos</font>\n"
+"        </span>\n"
+"        a través de la \n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">paleta de comandos</font>\n"
+"        </span>\n"
+"        (Ctrl + k/⌘ + k) y luego busque entre los artículos, inicie su consulta con \n"
+"        \"<span style=\"font-weight: bolder;\">?</span>\".\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1058,17 +1265,26 @@ msgid ""
 "        there, on the left?\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        👈 ¿Puede ver el \n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">menú</font>\n"
+"        </span>\n"
+"        que se encuentra a la izquierda?\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "<span style=\"font-size: 14px;\">And voilà, it is that simple.</span>"
-msgstr ""
+msgstr "<span style=\"font-size: 14px;\">Y listo, así de simple.</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid ""
 "<span style=\"font-size: 14px;\">Check this box to indicate it's done</span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">Marque esta casilla para indicar que está "
+"hecha</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1076,6 +1292,8 @@ msgid ""
 "<span style=\"font-size: 14px;\">Click anywhere, and just start "
 "typing</span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">Haga clic en cualquier parte y solo "
+"comience a escribir</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1190,6 +1408,9 @@ msgid ""
 "                    2. What is your budget?\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                    2. ¿Cuál es su presupuesto?\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -1233,6 +1454,9 @@ msgid ""
 "                    To add more, use the clipboard below 👇🏼\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                    Para agregar más, utilice el siguiente portapapeles 👇🏼\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -1361,6 +1585,11 @@ msgid ""
 "                                </span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">\n"
+"                                    <font class=\"text-o-color-1\">Recordatorios</font>\n"
+"                                </span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1455,6 +1684,9 @@ msgid ""
 "                                <span style=\"font-size: 18px;\">Strengths</span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">Fortalezas</span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -1463,6 +1695,9 @@ msgid ""
 "                                <span style=\"font-size: 18px;\">Weaknesses</span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">Debilidades</span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -1483,7 +1718,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "<strong><font style=\"color: rgb(231, 99, 99);\">Do Not</font></strong>"
-msgstr ""
+msgstr "<strong><font style=\"color: rgb(231, 99, 99);\">No puede</font></strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -1498,7 +1733,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<strong>Actions Taken:</strong>"
-msgstr ""
+msgstr "<strong>Acciones realizadas:</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -1514,6 +1749,8 @@ msgstr "<strong>Contacto</strong>"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "<strong>Do not recreate the Logo from scratch, use these ones</strong>"
 msgstr ""
+"<strong>No vuelva a crear el logo, utilice los que están "
+"disponibles.</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1547,7 +1784,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<strong>Main Point of Contact:</strong>"
-msgstr ""
+msgstr "<strong>Punto de contacto principal:</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2005,6 +2242,8 @@ msgid ""
 "Are you sure you want to move \"%s%s\" to private? Only you will be able to "
 "access it."
 msgstr ""
+"¿Está seguro de que desea mover \"%s%s\" a privado? Solo usted podrá "
+"acceder."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2014,6 +2253,8 @@ msgid ""
 "Are you sure you want to move \"%s%s\" to the Workspace? It will be shared "
 "with all internal users."
 msgstr ""
+"¿Está seguro de que desea mover \"%s%s\" al espacio de trabajo? Se "
+"compartirá con todos los usuarios internos."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2023,6 +2264,8 @@ msgid ""
 "Are you sure you want to move \"%s%s\" under \"%s%s\"? It will be shared "
 "with the same persons."
 msgstr ""
+"¿Está seguro de que desea mover \"%s%s\" a \"%s%s\"? Se compartirá con las "
+"mismas personas."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2032,13 +2275,15 @@ msgid ""
 "Are you sure you want to remove your member? By leaving an article, you may "
 "lose access to it."
 msgstr ""
+"¿Está seguro de que desea eliminar su miembro? Al abandonar un artículo, "
+"puede perder el acceso al mismo."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Are you sure you want to remove your own \"Write\" access?"
-msgstr ""
+msgstr "¿Está seguro de que desea eliminar su propio acceso a \"Editar\"?"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2109,7 +2354,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_thread
 msgid "Article Discussion Thread"
-msgstr ""
+msgstr "Hilo de conversación del artículo"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__article_properties_definition
@@ -2151,7 +2396,7 @@ msgstr "URL del artículo"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__cover_image_id
 msgid "Article cover"
-msgstr ""
+msgstr "Portada del artículo"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2161,6 +2406,8 @@ msgid ""
 "Article items are not showed in the left-side menu\n"
 "but are shown in inserted kanban/list views"
 msgstr ""
+"Los elementos de los artículos no se muestran en el menú a la izquierda\n"
+"pero se muestran en las vistas de kanban o de lista insertadas"
 
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_article_item_parent
@@ -2172,7 +2419,7 @@ msgstr ""
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Article shared with you: %s"
-msgstr ""
+msgstr "Artículo compartido con usted: %s"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2195,11 +2442,13 @@ msgstr "Artículos"
 msgid ""
 "Articles %s cannot be updated as this would create a recursive hierarchy."
 msgstr ""
+"Los artículos %s no se pueden actualizar ya que esto crearía una jerarquía "
+"recursiva."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__article_ids
 msgid "Articles using cover"
-msgstr ""
+msgstr "Artículos que usan portada"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2231,7 +2480,7 @@ msgstr "Modelos disponibles ✅"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "BOOK NOW"
-msgstr ""
+msgstr "COMPRAR AHORA"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2266,7 +2515,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action
 msgid "Be the first one to unleash the power of Knowledge!"
-msgstr ""
+msgstr "¡Sea el primero en liberar el poder de la información!"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__body
@@ -2323,7 +2572,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Brand Name Rules"
-msgstr ""
+msgstr "Reglas del nombre de la marca"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2524,7 +2773,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Challenges &amp; Competitive Landscape<br>"
-msgstr ""
+msgstr "Desafíos y panorama competitivo<br>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -2553,12 +2802,12 @@ msgstr "Cambiar permiso"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Change cover"
-msgstr ""
+msgstr "Cambiar portada"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__child_ids
 msgid "Child Articles and Items"
-msgstr ""
+msgstr "Artículos y elementos secundarios"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2573,7 +2822,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
 #, python-format
 msgid "Choose an Article..."
-msgstr ""
+msgstr "Elija un artículo..."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2637,7 +2886,7 @@ msgstr ""
 #. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_company_organization
 msgid "Company Organization"
-msgstr ""
+msgstr "Organización empresarial"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -2650,6 +2899,9 @@ msgid ""
 "Compiled below are tips &amp; tricks collected among our veterans to help "
 "newcomers get started. We hope it will help you sign deals."
 msgstr ""
+"En esta sección encontrará algunos de los recursos y recomendaciones que nos"
+" compartieron nuestros miembros más experimentados. Esperamos que le sean "
+"útiles al momento de cerrar un trato."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2695,7 +2947,7 @@ msgstr "Contenido copiado al portapapeles."
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Contract Due Date:"
-msgstr ""
+msgstr "Fecha de vencimiento del contrato:"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2765,22 +3017,22 @@ msgstr "Cubrir"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__attachment_url
 msgid "Cover URL"
-msgstr ""
+msgstr "URL de la portada"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__attachment_id
 msgid "Cover attachment"
-msgstr ""
+msgstr "Archivo adjunto de la portada"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__cover_image_url
 msgid "Cover url"
-msgstr ""
+msgstr "URL de la portada"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__cover_image_position
 msgid "Cover vertical offset"
-msgstr ""
+msgstr "Desplazamiento vertical de la portada"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2791,7 +3043,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/xml/knowledge_command_palette.xml:0
 #, python-format
 msgid "Create \""
-msgstr ""
+msgstr "Crear \""
 
 #. module: knowledge
 #. odoo-javascript
@@ -2833,6 +3085,8 @@ msgstr "Crear un nuevo elemento de artículo"
 msgid ""
 "Create a simple catalog to provide technical details about your products."
 msgstr ""
+"Cree un catálogo sencillo para proporcionar detalles técnicos sobre sus "
+"productos."
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action
@@ -4193,7 +4447,7 @@ msgstr "Marketing"
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_marketing_campaign_brief
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "Marketing Campaign Brief"
-msgstr ""
+msgstr "Campaña de marketing (corto)"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4651,7 +4905,7 @@ msgstr "En proceso"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Only internal users are allowed to alter memberships."
-msgstr ""
+msgstr "Solo los usuarios internos pueden alterar las afiliaciones."
 
 #. module: knowledge
 #. odoo-python
@@ -4672,7 +4926,7 @@ msgstr ""
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Only internal users are allowed to remove memberships."
-msgstr ""
+msgstr "Solo los usuarios internos pueden eliminar afiliaciones."
 
 #. module: knowledge
 #. odoo-python
@@ -4720,7 +4974,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Open history"
-msgstr ""
+msgstr "Abrir historial"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4732,7 +4986,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "OpenERP becomes Odoo"
-msgstr ""
+msgstr "OpenERP ahora es Odoo"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5024,7 +5278,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_mail_invite
 msgid "READ"
-msgstr ""
+msgstr "LEER"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__rating_ids
@@ -5809,7 +6063,7 @@ msgstr ""
 #: code:addons/knowledge/controllers/main.py:0
 #, python-format
 msgid "The selected member does not exists or has been already deleted."
-msgstr ""
+msgstr "El miembro seleccionado no existe o ya ha sido eliminado."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__sequence
@@ -5842,7 +6096,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
 #, python-format
 msgid "The view does not exist or you are not allowed to access to it."
-msgstr ""
+msgstr "La vista no existe o no tiene permiso para acceder a ella."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6648,7 +6902,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__none
 msgid "none"
-msgstr ""
+msgstr "ninguno"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -6668,7 +6922,7 @@ msgstr "png"
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__read
 msgid "read"
-msgstr ""
+msgstr "leer"
 
 #. module: knowledge
 #. odoo-javascript

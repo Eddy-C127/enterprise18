@@ -38,6 +38,19 @@ msgid ""
 "</table>\n"
 "        "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"    <tr>\n"
+"        <td valign=\"top\">\n"
+"            <h2>¡Felicidades!</h2>\n"
+"            <div style=\"font-size: 13px;\">\n"
+"                Su solicitud es realmente interesante y nos gustaría planificar una entrevista con usted.<br>\n"
+"                Si le interesa, haga clic en el botón de abajo para programar una entrevista con uno de nuestros reclutadores.\n"
+"                <br><br>\n"
+"            </div>\n"
+"            <a t-att-href=\"env['ir.config_parameter'].sudo().get_param('web.base.url') + '/book/interview'\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Planificar mi entrevista</a>\n"
+"        </td>\n"
+"    </tr>\n"
+"</table>"
 
 #. module: appointment_hr_recruitment
 #: model:ir.model.fields,field_description:appointment_hr_recruitment.field_appointment_invite__applicant_id
@@ -66,6 +79,8 @@ msgid ""
 "Can we plan an interview together for your {{ (object.job_id.name + ' ') or "
 "'' }}application?"
 msgstr ""
+"¿Podemos planificar una entrevista para su solicitud {{ (object.job_id.name "
+"+ ' ') or '' }}?"
 
 #. module: appointment_hr_recruitment
 #: model:appointment.type,name:appointment_hr_recruitment.appointment_type_interviews
@@ -79,14 +94,18 @@ msgid ""
 "Link an applicant to the appointment invite created.\n"
 "Used when creating an invitation from the Meeting action in the applicant form view."
 msgstr ""
+"Vincule a un candidato a la cita creada.\n"
+"Se utiliza al crear una invitación desde la acción Reunión en la vista de formulario del candidato."
 
 #. module: appointment_hr_recruitment
 #: model:mail.template,name:appointment_hr_recruitment.email_template_data_applicant_schedule_interview
 msgid "Recruitment: Schedule interview"
-msgstr ""
+msgstr "Reclutamiento: Programar entrevista"
 
 #. module: appointment_hr_recruitment
 #: model:mail.template,description:appointment_hr_recruitment.email_template_data_applicant_schedule_interview
 msgid ""
 "Send this email when you want to schedule an interview with a candidate"
 msgstr ""
+"Envíe este correo electrónico cuando desee programar una entrevista con un "
+"candidato"

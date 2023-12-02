@@ -1697,7 +1697,7 @@ msgstr "Gegroepeerde uitstelboeking van%s"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Hide lines at 0"
-msgstr "Regels verbergen op 0"
+msgstr "Regels verbergen met 0 waarde"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1865,7 +1865,7 @@ msgstr "Hier voetnoot toevoegen"
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "Intra-community taxes are applied on"
-msgstr "Intracommunautaire belastingen zijn toegepast op"
+msgstr "Intracommunautaire BTW zijn toegepast op"
 
 #. module: account_reports
 #. odoo-python
@@ -1886,7 +1886,7 @@ msgstr "Ongeldige producten"
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Taxes"
-msgstr "Ongeldige belastingen"
+msgstr "Ongeldige BTW"
 
 #. module: account_reports
 #. odoo-python
@@ -3024,7 +3024,7 @@ msgstr "BTW teruggave van %s t/m %s%s"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Taxes"
-msgstr "Belastingen"
+msgstr "BTW"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3272,11 +3272,11 @@ msgid ""
 "its content, in case other entries using taxes have been posted in the "
 "meantime."
 msgstr ""
-"Deze BTWafsluitingsboeking is geboekt, maar de belastingvergrendelingsdatum "
-"ligt eerder dan de laatste dag van de gedekte periode. Mogelijk moet je het "
+"Deze BTW-afsluitingsboeking is geboekt, maar de BTW-vergrendelingsdatum ligt"
+" eerder dan de laatste dag van de gedekte periode. Mogelijk moet je het "
 "opnieuw instellen om de inhoud op te stellen en te vernieuwen, voor het "
-"geval er in de tussentijd andere vermeldingen zijn geplaatst waarin "
-"belastingen worden gebruikt."
+"geval er in de tussentijd andere vermeldingen zijn geplaatst waarin BTW "
+"worden gebruikt."
 
 #. module: account_reports
 #. odoo-javascript

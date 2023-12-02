@@ -28,6 +28,8 @@ msgid ""
 "%(user_names)s did not synchronize their Google Calendar account yet, Google"
 " Meeting links won't be added to their meetings."
 msgstr ""
+"%(user_names)s todavía no ha sincronizado su cuenta de Google Calendar, los "
+"enlaces de Google Meet no se agregarán a sus reuniones."
 
 #. module: appointment_google_calendar
 #: model:ir.model,name:appointment_google_calendar.model_appointment_type
@@ -45,6 +47,8 @@ msgid ""
 "Defines the type of video call link that will be used for the generated "
 "events. Keep it empty to prevent generating meeting url."
 msgstr ""
+"Define el tipo de enlace de videollamada que se utilizará para los eventos "
+"generados. Déjelo en blanco para prevenir que se genere una URL de reunión."
 
 #. module: appointment_google_calendar
 #: model:ir.model.fields.selection,name:appointment_google_calendar.selection__appointment_type__event_videocall_source__google_meet
@@ -64,4 +68,4 @@ msgstr "Usuarios sin sincronización con Google Calendar"
 #. module: appointment_google_calendar
 #: model:ir.model.fields,field_description:appointment_google_calendar.field_appointment_type__event_videocall_source
 msgid "Videoconference Link"
-msgstr ""
+msgstr "Enlace de videconferencia"

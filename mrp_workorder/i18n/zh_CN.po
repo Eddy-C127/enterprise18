@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
+# Jeffery CHEN <jeffery9@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023\n"
+"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,8 +95,8 @@ msgid "Add By-product"
 msgstr "添加副产品"
 
 #. module: mrp_workorder
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
@@ -127,8 +128,8 @@ msgid "Add Workorder"
 msgstr "添加工单"
 
 #. module: mrp_workorder
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
@@ -620,7 +621,7 @@ msgstr "指示异常活动的图标。"
 msgid ""
 "If this checkbox is ticked, the serial numbers lines for this operation type"
 " will be pre-filled in the shop floor."
-msgstr "如果勾选该复选框，则该操作类型的序列号行将预先填入车间现场。"
+msgstr "如果勾选该复选框，则该作业类型的序列号行将预先填入车间现场。"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__worksheet_document
@@ -743,17 +744,17 @@ msgstr "管理车间现场的工单计时器"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Manage your manufacturing orders from the shop floor app"
-msgstr "从车间现场应用程序管理生产订单"
+msgstr "从车间现场应用程序管理制造订单"
 
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_shop_floor
 msgid "Manage your manufacturing orders from the shop floor display app"
-msgstr "通过车间现场显示屏应用程序管理生产订单"
+msgstr "通过车间现场显示屏应用程序管理制造订单"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_tree_view_planning
 msgid "Manufacturing Orders"
-msgstr "生产订单"
+msgstr "制造订单"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -889,7 +890,7 @@ msgstr "无已连接员工"
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.action_mrp_workorder_show_steps
 msgid "No manufacturing steps defined yet!"
-msgstr "尚未定义生产步骤！"
+msgstr "尚未定义制造步骤！"
 
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.mrp_workorder_action_tablet
@@ -906,7 +907,7 @@ msgstr "无工单"
 #. module: mrp_workorder
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_routing_workcenter__employee_ratio
 msgid "Number of employees needed to complete operation."
-msgstr "完成操作所需的员工人数。"
+msgstr "完成作业所需的员工人数。"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_inherit_workorder
@@ -924,17 +925,17 @@ msgstr "打开后台制造订单"
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_alert__workorder_id
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__workorder_id
 msgid "Operation"
-msgstr "操作"
+msgstr "作业"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__name
 msgid "Operation name"
-msgstr "操作名称"
+msgstr "作业名称"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workcenter_form_view_inherit
 msgid "Operations"
-msgstr "操作"
+msgstr "作业"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_inherit_workorder
@@ -1376,7 +1377,7 @@ msgstr "小木凳"
 #. module: mrp_workorder
 #: model:ir.model.fields.selection,name:mrp_workorder.selection__quality_point__source_document__operation
 msgid "Specific Page of Operation Worksheet"
-msgstr "操作工作表的特定页面"
+msgstr "作业工作表的特定页面"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__date_start
@@ -1477,9 +1478,9 @@ msgid ""
 "            On the operation type you could e.g. specify if packing is needed by default,\n"
 "            if it should show the customer."
 msgstr ""
-"操作类型系统允许您分配每个库存\n"
-"            操作一个特定类型，该类型将相应地改变其视图。\n"
-"            在操作类型上，你可以指定默认情况下是否需要包装，\n"
+"作业类型系统允许您分配每个库存\n"
+"            作业一个特定类型，该类型将相应地改变其视图。\n"
+"            在作业类型上，你可以指定默认情况下是否需要包装，\n"
 "            如果它应该显示给客户。"
 
 #. module: mrp_workorder
@@ -1541,7 +1542,7 @@ msgstr "总数量"
 msgid ""
 "Track work orders, show instructions and record operations: quality control,"
 " serial numbers, quantities consumed, etc. from here"
-msgstr "从这里跟踪工单、显示说明和记录操作：质量控制、序列号、消耗数量等"
+msgstr "从这里跟踪工单、显示说明和记录作业：质量控制、序列号、消耗数量等"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1643,7 +1644,7 @@ msgid ""
 "            The tablet provides worksheets for your workers and allow them to scrap products, track time,\n"
 "            launch a maintenance request, perform quality tests, etc."
 msgstr ""
-"使用工作台工作中心控制面板直接登记车间内的操作。\n"
+"使用工作台工作中心控制面板直接登记车间内的作业。\n"
 "            平板电脑为工人提供工作表，允许他们报废产品、跟踪时间、\n"
 "            启动维护请求、执行质量测试等。"
 
@@ -1683,7 +1684,7 @@ msgstr "工单"
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.quality_point_view_form_inherit_mrp
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.quality_point_view_tree
 msgid "Work Order Operation"
-msgstr "工单操作"
+msgstr "工单作业"
 
 #. module: mrp_workorder
 #: model:ir.actions.act_window,name:mrp_workorder.mrp_workorder_action_tablet
@@ -1708,8 +1709,8 @@ msgid ""
 "Work orders are operations to do as part of a manufacturing order.\n"
 "            Operations are defined in the bill of materials or added in the manufacturing order directly."
 msgstr ""
-"工单是作为生产订单一部分、要执行的操作。\n"
-"            操作在物料清单中规定，或直接添加至生产订单。"
+"工单是作为制造订单一部分、要执行的作业。\n"
+"            作业在物料清单中规定，或直接添加至制造订单。"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__workcenter_id
@@ -1790,7 +1791,7 @@ msgstr "不允许您处理该工单"
 msgid ""
 "You cannot update the quantity to do of an ongoing manufacturing order for "
 "which quality checks have been performed."
-msgstr "不能更新正在进行的、已完成质量检查的生产订单的待生产数量。"
+msgstr "不能更新正在进行的、已完成质量检查的制造订单的待制造数量。"
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1823,7 +1824,7 @@ msgid ""
 "You need to define at least one productivity loss in the category "
 "'Productive'. Create one from the Manufacturing app, menu: Configuration / "
 "Productivity Losses."
-msgstr "需要在“生产”类别中定义至少一个生产力损失。在制造应用程序中创建，转到菜单：配置/生产力损失。"
+msgstr "需要在“制造”类别中定义至少一个制造力损失。在制造应用程序中创建，转到菜单：配置/制造力损失。"
 
 #. module: mrp_workorder
 #. odoo-python

@@ -3,8 +3,9 @@
 # 	* stock_barcode_mrp
 # 
 # Translators:
-# 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Wil Odoo, 2023
+# 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
+# Jeffery CHEN <jeffery9@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,7 +73,7 @@ msgstr "<i class=\"fa fa-fw fa-lg fa-tags me-3\" title=\"Product\"/>"
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode commands and operation types"
-msgstr "<i class=\"fa fa-print\"/>打印条码命令和操作类型"
+msgstr "<i class=\"fa fa-print\"/>打印条码命令和作业类型"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -202,7 +203,7 @@ msgstr "新建"
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "No Manufacturing Order ready for this %(barcode_type)s"
-msgstr "此%(barcode_type)s没有生产订单"
+msgstr "此%(barcode_type)s没有制造订单"
 
 #. module: stock_barcode_mrp
 #. odoo-python
@@ -214,7 +215,7 @@ msgstr "未找到条码%s的产品或订单"
 #. module: stock_barcode_mrp
 #: model:ir.actions.act_window,name:stock_barcode_mrp.mrp_action_kanban
 msgid "Operations"
-msgstr "操作"
+msgstr "作业"
 
 #. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_stock_picking_type
@@ -395,4 +396,4 @@ msgid ""
 "If not activated, and any of the components consumption is edited manually on the manufacturing order, Odoo assumes manual consumption also."
 msgstr ""
 "如果启用，则专门手动记录该组件的消耗登记。\n"
-"如果未启用，且任何组件消耗量在生产订单中手动编辑，Odoo会假定手动消耗。"
+"如果未启用，且任何组件消耗量在制造订单中手动编辑，Odoo会假定手动消耗。"

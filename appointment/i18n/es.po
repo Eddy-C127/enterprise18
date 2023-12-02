@@ -86,7 +86,7 @@ msgstr "%(appointment_name)s con %(partner_name)s"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "%(attendee_name)s - %(appointment_name)s Booking"
-msgstr ""
+msgstr "%(attendee_name)s - reserva %(appointment_name)s "
 
 #. module: appointment
 #. odoo-python
@@ -469,7 +469,7 @@ msgstr "<i class=\"fa fa-plus me-1\"/> Agregar invitados"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-plus me-1\"/>Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/>Agregar invitados"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
@@ -515,7 +515,7 @@ msgstr "<small class=\"text-uppercase text-muted\">Detalles de la reunión</smal
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"d-block\">Scheduled</span>"
-msgstr ""
+msgstr "<span class=\"d-block\">Programado</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -580,7 +580,7 @@ msgid ""
 "                                            You can schedule another appointment from here."
 msgstr ""
 "<strong>Cita cancelada.</strong>\n"
-"                                            Puede agendar otra cita desde aquí."
+"                                            Puede programar otra cita desde aquí."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -1209,7 +1209,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__booking_line_ids
 msgid "Booking Lines"
-msgstr ""
+msgstr "Líneas de reserva"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_start
@@ -1261,7 +1261,7 @@ msgstr "Cancelar antes (horas)"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Cancel/Reschedule"
-msgstr ""
+msgstr "Cancelar/Programar"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__canceled_mail_template_id
@@ -1541,6 +1541,8 @@ msgid ""
 "Defines the type of video call link that will be used for the generated "
 "events. Keep it empty to prevent generating meeting url."
 msgstr ""
+"Define el tipo de enlace de videollamada que se utilizará para los eventos "
+"generados. Déjelo en blanco para prevenir que se genere una URL de reunión."
 
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_dental_care
@@ -1679,7 +1681,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_appointment
 msgid "Follow, reschedule or cancel your appointments"
-msgstr ""
+msgstr "Siga, vuelva a programar o cancele sus citas"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_follower_ids
@@ -1690,7 +1692,7 @@ msgstr "Seguidores"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "For"
-msgstr ""
+msgstr "Para"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__5
@@ -2304,7 +2306,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model,name:appointment.model_onboarding_onboarding_step
 msgid "Onboarding Step"
-msgstr ""
+msgstr "Paso de incorporación"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__slot_type__unique
@@ -2417,12 +2419,14 @@ msgstr "Seleccione un usuario/recurso y luego el tiempo"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Pick a Work Schedule..."
-msgstr ""
+msgstr "Seleccione un horario de trabajo..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Pick a work schedule to further restrict opening hours."
 msgstr ""
+"Elija un horario de trabajo para restringir aún más futuras horas de "
+"apertura."
 
 #. module: appointment
 #. odoo-javascript
@@ -2569,7 +2573,7 @@ msgstr "Recursos"
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_resource_booking
 msgid "Resources Bookings"
-msgstr ""
+msgstr "Reserva de recursos"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resources_on_leave
@@ -2627,35 +2631,35 @@ msgstr "Sábado"
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_resources
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Schedule"
-msgstr "Planificación"
+msgstr "Programar"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__schedule_based_on
 msgid "Schedule Based On"
-msgstr ""
+msgstr "Programar basado en "
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Schedule an Appointment"
-msgstr "Concertar una cita"
+msgstr "Programar una cita"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_appointment_reporting
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_report_all
 msgid "Schedule appointments to get statistics"
-msgstr "Agendar cita para obtener estadísticas"
+msgstr "Programar citas para obtener estadísticas"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__min_schedule_hours
 msgid "Schedule before (hours)"
-msgstr "Concertar antes (horas)"
+msgstr "Programar antes (horas)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__max_schedule_days
 msgid "Schedule not after (days)"
-msgstr "No concertar después (días)"
+msgstr "No programar después (días)"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -2700,24 +2704,24 @@ msgstr "Seleccionar fechas"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_resource
 msgid "Select Time then User/Resource"
-msgstr ""
+msgstr "Seleccionar hora y luego usuario/recurso "
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_auto_assign
 msgid "Select Time then auto-assign"
-msgstr ""
+msgstr "Seleccionar hora y luego asignación automática"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Select a date &amp; time"
-msgstr ""
+msgstr "Seleccionar fecha y hora"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_slots.xml:0
 #, python-format
 msgid "Select a time"
-msgstr ""
+msgstr "Seleccionar una hora"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -2826,12 +2830,12 @@ msgstr "Código corto"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__short_code_format_warning
 msgid "Short Code Format Warning"
-msgstr ""
+msgstr "Advertencia sobre el formato del código corto"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__short_code_unique_warning
 msgid "Short Code Unique Warning"
-msgstr ""
+msgstr "Advertencia de código corto único"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__show
@@ -2859,14 +2863,14 @@ msgstr "Descripción pequeña del tipo de cita."
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Sorry,"
-msgstr ""
+msgstr "Lo sentimos,"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Sorry, it is no longer possible to schedule an appointment."
-msgstr ""
+msgstr "Lo sentimos, ya no es posible programar una cita"
 
 #. module: appointment
 #. odoo-javascript
@@ -2909,7 +2913,7 @@ msgstr "Usuarios/recursos específicos"
 #: model:ir.actions.server,name:appointment.calendar_event_action_all_users_appointments
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_staff_appointment
 msgid "Staff Bookings"
-msgstr ""
+msgstr "Reservas de personal"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__leave_start_dt
@@ -2919,7 +2923,7 @@ msgstr "Fecha de inicio"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__start_datetime
 msgid "Start Datetime"
-msgstr ""
+msgstr "Fecha y hora de inicio"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__event_start
@@ -3116,6 +3120,7 @@ msgstr ""
 msgid ""
 "This appointment type has no availabilities because it has no staff assigned"
 msgstr ""
+"Este tipo de cita no tiene fechas libres porque no tiene personal asignado"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3123,6 +3128,8 @@ msgid ""
 "This appointment type has no availabilities because it has no staff assigned"
 " and does not have any opening hours configured"
 msgstr ""
+"Este tipo de citas no tiene fechas disponibles porque no tiene personal "
+"asignado y no tiene horas libres configuradas"
 
 #. module: appointment
 #. odoo-python
@@ -3131,6 +3138,8 @@ msgstr ""
 msgid ""
 "This category of appointment type should only have one user but got %s users"
 msgstr ""
+"Esta categoría de tipo de cita solo debería de tener un usuario pero tiene "
+"%s usuarios."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__tz
@@ -3152,6 +3161,8 @@ msgid ""
 "This option toggles the display of avatars of the staff members or resources during the frontend appointment process.\n"
 "        When choosing amongst several possibilities, a selection screen will also be used, if website is installed."
 msgstr ""
+"Esta opción activa la visualización de los avatares de los miembros del personal o recursos durante el proceso de programar la cita en el frontend.\n"
+"        Al elegir entre varias posibilidades, también se usará una pantalla de selección si tiene instalado Sitio web."
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
@@ -3196,26 +3207,26 @@ msgstr "Total"
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_total_capacity
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_tree
 msgid "Total Capacity"
-msgstr ""
+msgstr "Capacidad total"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resource_total_capacity_reserved
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
 msgid "Total Capacity Reserved"
-msgstr ""
+msgstr "Capacidad total reservada "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resource_total_capacity_used
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
 msgid "Total Capacity Used"
-msgstr ""
+msgstr "Capacidad total usada "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Total Reserved"
-msgstr ""
+msgstr "Total reservado"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
@@ -3297,7 +3308,7 @@ msgstr "Usuarios"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__event_videocall_source
 msgid "Videoconference Link"
-msgstr ""
+msgstr "Enlace de videconferencia"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__website_message_ids
@@ -3325,6 +3336,8 @@ msgid ""
 "When set, only the time slots that match both the appointment type configuration and the work schedule\n"
 "        will appear as available"
 msgstr ""
+"Al activar esta opción, solo los espacios de tiempo que correspondan tanto con la configuración del tipo de cita como con el horario de trabajo\n"
+"        aparecerán como disponibles"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select
@@ -3363,7 +3376,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Your appointment has successfully been booked!"
-msgstr ""
+msgstr "¡Su cita ha sido reservada con éxito!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3413,7 +3426,7 @@ msgstr "p. ej. +1(605)691-3277"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "e.g. Booking for Mark"
-msgstr ""
+msgstr "por ejemplo, reserva para Mark"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
@@ -3474,7 +3487,7 @@ msgstr "no tiene disponibilidad para una cita."
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "has no more slots available for this month."
-msgstr ""
+msgstr "ya no tiene espacios disponibles para este mes."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3502,7 +3515,7 @@ msgstr "personas)"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "somebody"
-msgstr ""
+msgstr "alguien"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,description:appointment.appointment_onboarding_create_appointment_type_step
@@ -3512,7 +3525,7 @@ msgstr "para automatizar citas"
 #. module: appointment
 #: model:onboarding.onboarding.step,description:appointment.appointment_onboarding_preview_invite_step
 msgid "to schedule appointments"
-msgstr ""
+msgstr "para programar citas"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

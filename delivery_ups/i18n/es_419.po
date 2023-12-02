@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Fernanda Alvarez, 2023
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Fernanda Alvarez, 2023\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +28,7 @@ msgid ""
 "A shipment cannot have a KGS/IN or LBS/CM as its unit of measurements. "
 "Configure it from the delivery method."
 msgstr ""
-"Un envío no puede tener KGS/IN o LBS/CM como sus unidades de medida. "
+"Un envío no puede tener KGS/IN o LBS/CM como unidades de medida. "
 "Configúrelas desde el método de envío."
 
 #. module: delivery_ups
@@ -38,7 +39,7 @@ msgid ""
 "Access License number is Invalid. Provide a valid number (Length should be "
 "0-35 alphanumeric characters)"
 msgstr ""
-"El número de licencia de acceso es inválido. Proporcione un número válido "
+"El número de licencia de acceso no es válido. Proporcione un número válido "
 "(la longitud debe estar entre 0-35 caracteres alfanuméricos)"
 
 #. module: delivery_ups
@@ -47,7 +48,7 @@ msgstr ""
 #, python-format
 msgid "Access License number is invalid for this delivery provider."
 msgstr ""
-"El número de licencia de acceso es inválido para este proveedor de entrega."
+"El número de licencia de acceso no es válido para este proveedor de entrega."
 
 #. module: delivery_ups
 #. odoo-python
@@ -55,8 +56,8 @@ msgstr ""
 #, python-format
 msgid "Access License number is invalid for this provider.Please re-license."
 msgstr ""
-"El número de licencia de acceso es inválido para este proveedor. Por favor, "
-"renueve su licencia."
+"El número de licencia de acceso no es válido para este proveedor. Renueve su"
+" licencia."
 
 #. module: delivery_ups
 #. odoo-python
@@ -531,8 +532,7 @@ msgstr ""
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Shipper number must contain alphanumeric characters only."
-msgstr ""
-"El número del remitente debe contener solamente caracteres alfanuméricos."
+msgstr "El número del remitente solo debe contener caracteres alfanuméricos."
 
 #. module: delivery_ups
 #. odoo-python
@@ -547,8 +547,7 @@ msgstr ""
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Shipper phone extension must contain only numbers."
-msgstr ""
-"La extensión de teléfono del remitente debe contener solamente números."
+msgstr "La extensión de teléfono del remitente solo debe contener números."
 
 #. module: delivery_ups
 #: model:ir.model,name:delivery_ups.model_delivery_carrier
@@ -566,8 +565,7 @@ msgstr "Tipo de paquete de existencias"
 #, python-format
 msgid "The UserId is currently locked out; please try again in 24 hours."
 msgstr ""
-"El UserId actualmente está bloqueado. Por favor, inténtelo otra vez en 24 "
-"horas."
+"Por el momento, el UserId está bloqueado. Inténtelo otra vez en 24 horas."
 
 #. module: delivery_ups
 #. odoo-python
@@ -873,7 +871,7 @@ msgstr ""
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Warehouse Phone must contain only numbers."
-msgstr "El teléfono del almacén debe contener solamente números."
+msgstr "El teléfono del almacén solo debe contener números."
 
 #. module: delivery_ups
 #. odoo-python
