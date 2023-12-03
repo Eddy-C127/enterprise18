@@ -331,12 +331,14 @@
                         <div class="o_cell flex-grow-1 flex-sm-grow-0" style="width: 100%;">
                             <div class="d-flex" style="align-items: center; font-size: 0.9rem">
                                 <button class="btn btn-link"
+                                        style="white-space: nowrap"
                                         t-on-click="() => this.actionSetPartnerReceivableAccount()">Receivable:</button>
                                 <div class="o_field_widget o_readonly_modifier o_field_monetary ml4 mb0">
                                     <span t-out="formatMonetaryField(line.data.partner_receivable_amount, line.data.partner_currency_id[0])"/>
                                 </div>
                                 <span class="ml4 mr4">-</span>
                                 <button class="btn btn-link"
+                                        style="white-space: nowrap"
                                         t-on-click="() => this.actionSetPartnerPayableAccount()">Payable:</button>
                                 <div class="o_field_widget o_readonly_modifier o_field_monetary ml4 mb0">
                                     <span t-out="formatMonetaryField(line.data.partner_payable_amount, line.data.partner_currency_id[0])"/>
