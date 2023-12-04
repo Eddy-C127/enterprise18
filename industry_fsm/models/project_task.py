@@ -16,7 +16,7 @@ class Task(models.Model):
     def default_get(self, fields_list):
         result = super(Task, self).default_get(fields_list)
         is_fsm_mode = self._context.get('fsm_mode')
-        if 'project_id' in fields_list and not result.get('project_id') and is_fsm_mode:
+        if 'project_id' in fields_list and not result.get('project_id') and is_fsm_mode and not (result.get('parent_id') or self._context.get('default_parent_id')):
             company_id = self.env.context.get('default_company_id') or self.env.company.id
             fsm_project = self.env['project.project'].search([('is_fsm', '=', True), ('company_id', '=', company_id)], order='sequence', limit=1)
             if fsm_project:
