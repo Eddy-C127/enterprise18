@@ -270,26 +270,23 @@ class TransferModel(models.Model):
         :rtype: list
         """
         self.ensure_one()
-        domain = self._get_move_lines_base_domain(start_date, end_date)
-        domain = expression.AND([domain, [('partner_id', 'not in', self.line_ids.partner_ids.ids), ]])
-        query = self.env['account.move.line']._search(domain)
-        if self.line_ids.analytic_account_ids.ids:
-            query.add_where(
-                '(NOT analytic_distribution ?| array[%s] OR analytic_distribution IS NULL)',
-                [[str(account_id) for account_id in self.line_ids.analytic_account_ids.ids]],
-            )
-        query_string, query_param = query.select('SUM(balance) AS balance', 'account_id')
-        query_string = f"{query_string} GROUP BY account_id ORDER BY account_id"
-        self._cr.execute(query_string, query_param)
+        domain = expression.AND([
+            self._get_move_lines_base_domain(start_date, end_date),
+            [('partner_id', 'not in', self.line_ids.partner_ids.ids)],
+            [('analytic_distribution', 'not in', self.line_ids.analytic_account_ids.ids)],
+        ])
+        total_balance_account = self.env['account.move.line']._read_group(
+            domain,
+            ['account_id'],
+            ['balance:sum'],
+        )
         # balance = debit - credit
         # --> balance > 0 means a debit so it should be credited on the source account
         # --> balance < 0 means a credit so it should be debited on the source account
         values_list = []
-        for total_balance_account in self._cr.dictfetchall():
-            initial_amount = abs(total_balance_account['balance'])
-            source_account_is_debit = total_balance_account['balance'] >= 0
-            account_id = total_balance_account['account_id']
-            account = self.env['account.account'].browse(account_id)
+        for account, balance in total_balance_account:
+            initial_amount = abs(balance)
+            source_account_is_debit = balance >= 0
             if not float_is_zero(initial_amount, precision_digits=9):
                 move_lines_values, amount_left = self._get_non_analytic_transfer_values(account, lines, end_date,
                                                                                         initial_amount,
@@ -299,7 +296,7 @@ class TransferModel(models.Model):
                 substracted_amount = initial_amount - amount_left
                 source_move_line = {
                     'name': _('Automatic Transfer (-%s%%)', self.total_percent),
-                    'account_id': account_id,
+                    'account_id': account.id,
                     'date_maturity': end_date,
                     'credit' if source_account_is_debit else 'debit': substracted_amount
                 }
@@ -391,25 +388,22 @@ class TransferModelLine(models.Model):
         for transfer_model_line in self:
             domain = transfer_model_line._get_move_lines_domain(start_date, end_date, already_handled_move_line_ids)
 
-            query = self.env['account.move.line']._search(domain)
             if transfer_model_line.analytic_account_ids:
-                query.add_where(
-                    'account_move_line.analytic_distribution ?| array[%s]',
-                    [[str(account_id) for account_id in transfer_model_line.analytic_account_ids.ids]],
-                )
-            query_string, query_param = query.select('array_agg("account_move_line".id) AS ids', 'SUM(balance) AS balance', 'account_id')
-            query_string = f"{query_string} GROUP BY account_id ORDER BY account_id"
-            self._cr.execute(query_string, query_param)
-            total_balances_by_account = [expense for expense in self._cr.dictfetchall()]
+                domain = expression.AND([
+                    domain,
+                    [('analytic_distribution', 'in', transfer_model_line.analytic_account_ids.ids)],
+                ])
 
-            for total_balance_account in total_balances_by_account:
-                already_handled_move_line_ids += total_balance_account['ids']
-                balance = total_balance_account['balance']
+            total_balances = self.env['account.move.line']._read_group(
+                domain,
+                ['account_id'],
+                ['id:array_agg', 'balance:sum'],
+            )
+            for account, ids, balance in total_balances:
+                already_handled_move_line_ids += ids
                 if not float_is_zero(balance, precision_digits=9):
                     amount = abs(balance)
                     source_account_is_debit = balance > 0
-                    account_id = total_balance_account['account_id']
-                    account = self.env['account.account'].browse(account_id)
                     transfer_values += transfer_model_line._get_transfer_values(account, amount, source_account_is_debit,
                                                                             end_date)
         return transfer_values
