@@ -82,3 +82,7 @@ class TestAccountBankStatementImportCSV(AccountTestInvoicingCommon):
     def test_csv_file_import_non_ordered(self):
         with self.assertRaises(UserError):
             self._import_file('account_bank_statement_import_csv/test_csv_file/test_csv_non_sorted.csv')
+
+    def test_csv_file_empty_date(self):
+        with self.assertRaises(UserError):
+            self._import_file('account_bank_statement_import_csv/test_csv_file/test_csv_empty_date.csv')
