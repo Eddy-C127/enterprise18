@@ -722,7 +722,10 @@ class AppointmentType(models.Model):
         if not reference_date:
             reference_date = now
 
-        requested_tz = pytz.timezone(timezone)
+        try:
+            requested_tz = pytz.timezone(timezone)
+        except pytz.UnknownTimeZoneError:
+            requested_tz = self.appointment_tz
 
         appointment_duration_days = self.max_schedule_days
         unique_slots = self.slot_ids.filtered(lambda slot: slot.slot_type == 'unique')
