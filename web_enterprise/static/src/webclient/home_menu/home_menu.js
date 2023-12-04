@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { isIosApp, isMobileOS, isMacOS } from "@web/core/browser/feature_detection";
+import { hasTouch, isIosApp, isMacOS } from "@web/core/browser/feature_detection";
 import { useHotkey } from "@web/core/hotkeys/hotkey_hook";
 import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
@@ -125,7 +125,7 @@ export class HomeMenu extends Component {
         });
 
         onMounted(() => {
-            if (!isMobileOS()) {
+            if (!hasTouch()) {
                 this._focusInput();
             }
         });
@@ -358,7 +358,7 @@ export class HomeMenu extends Component {
     }
 
     _onInputBlur() {
-        if (isMobileOS()) {
+        if (hasTouch()) {
             return;
         }
         // if we blur search input to focus on body (eg. click on any
