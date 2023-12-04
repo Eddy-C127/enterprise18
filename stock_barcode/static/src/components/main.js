@@ -70,6 +70,7 @@ class MainComponent extends Component {
         this.resModel = this.props.action.res_model;
         this.resId = this.props.action.context.active_id || false;
         const model = this._getModel();
+        model.newScrapProduct = this.newScrapProduct.bind(this);
         useSubEnv({model});
         this._scrollBehavior = 'smooth';
         this.isMobile = uiUtils.isSmall();

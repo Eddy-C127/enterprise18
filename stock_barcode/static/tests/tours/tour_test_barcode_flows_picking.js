@@ -3462,7 +3462,7 @@ registry.category("web_tour.tours").add("test_scrap", {test: true, steps: () => 
         run: "scan O-BTN.scrap",
     },
     {
-        extra_trigger: ".modal-title:contains('Scrap')",
+        extra_trigger: ".o_field_widget[name='scrap_qty']",
         trigger: ".btn[special='cancel']",
     },
     { trigger: ".o_barcode_actions" },
@@ -3489,7 +3489,7 @@ registry.category("web_tour.tours").add("test_scrap", {test: true, steps: () => 
     { trigger: "button.o_close" },
     { trigger: ".o_barcode_lines", run: "scan O-BTN.scrap" },
     {
-        extra_trigger: ".modal-title:contains('Scrap')",
+        extra_trigger: ".o_field_widget[name='scrap_qty']",
         trigger: ".btn[special='cancel']",
     },
     // Process the delivery then re-opens it again.

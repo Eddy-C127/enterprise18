@@ -12,6 +12,9 @@
             <div t-elif="state.view === 'headerProductPage'"> <!-- MRP Header Edit Form View -->
                 <View t-props="headerFormViewProps"/>
             </div>
+            <div t-elif="state.view === 'scrapProductPage'"> <!-- Scrap Create Form View -->
+                <View t-props="scrapViewProps"/>
+            </div>
         </xpath>
         <xpath expr="//button[hasclass('o_add_line')]" position="before">
             <t t-if="env.model.resModel=='mrp.production' and env.model.record.product_id">

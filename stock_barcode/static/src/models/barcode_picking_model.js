@@ -1485,8 +1485,7 @@ export default class BarcodePickingModel extends BarcodeModel {
             const message = _t("You can't register scrap at this state of the operation");
             return this.notification(message, { type: "warning" });
         }
-        const action = await this.orm.call(this.resModel, "button_scrap", [[this.resId]]);
-        this.action.doAction(action);
+        await this.newScrapProduct();
     }
 
     /**
