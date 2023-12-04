@@ -14,8 +14,6 @@ import timeit
 import logging
 import re
 
-from odoo.osv.expression import get_unaccent_wrapper
-
 _logger = logging.getLogger(__name__)
 
 # Merge list of list based on their common element
@@ -182,7 +180,7 @@ class DataMergeModel(models.Model):
 
         :param bool batch_commits: If set, will automatically commit every X records
         """
-        unaccent = get_unaccent_wrapper(self.env.cr)
+        unaccent = self.env.registry.unaccent
         self.env.flush_all()
         for dm_model in self:
             t1 = timeit.default_timer()
