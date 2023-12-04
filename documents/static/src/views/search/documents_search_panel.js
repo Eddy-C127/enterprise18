@@ -265,7 +265,6 @@ export class DocumentsSearchPanel extends SearchPanel {
                 views: [[false, "form"]],
                 context: {
                     create: false,
-                    form_view_ref: "documents.folder_view_form",
                 },
             },
             {

@@ -4133,7 +4133,6 @@ QUnit.module("documents", {}, function () {
                             views: [[false, "form"]],
                             context: {
                                 create: false,
-                                form_view_ref: "documents.folder_view_form",
                             },
                         });
                     },
@@ -4165,6 +4164,71 @@ QUnit.module("documents", {}, function () {
                 await nextTick();
                 assert.ok($(targetFolder).find(".o_search_panel_label_title:contains(Workspace3)"));
             });
+
+            QUnit.test(
+                "SearchPanel: editing facet and tag opens correct view",
+                async function (assert) {
+                    assert.expect(4);
+
+                    const views = {
+                        "documents.facet,false,form": '<form class="facet">facet</form>',
+                        "documents.tag,false,form": '<form class="tag">tag</form>',
+                        "documents.facet,documents.folder_view_form,form":
+                            '<form class="folder">folder</form>',
+                        "documents.tag,documents.folder_view_form,form":
+                            '<form class="folder">folder</form>',
+                        "documents.folder,documents.folder_view_form,form":
+                            '<form class="folder">folder</form>',
+                    };
+
+                    patchUserWithCleanup({
+                        hasGroup: (group) => group === "documents.group_documents_manager",
+                    });
+
+                    await createDocumentsView({
+                        type: "kanban",
+                        resModel: "documents.document",
+                        arch: `
+                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
+                    <div draggable="true" class="oe_kanban_global_area">
+                        <i class="fa fa-circle-thin o_record_selector"/>
+                        <field name="name"/>
+                    </div>
+                </t></templates></kanban>`,
+                        serverData: { views },
+                    });
+
+                    // Edition of facet opens correct view
+                    triggerEvent(
+                        target,
+                        ".o_search_panel_filter_group:nth-of-type(1) .o_search_panel_group_header .o_documents_search_panel_section_edit",
+                        "click",
+                        {},
+                        { skipVisibilityCheck: true }
+                    );
+                    await nextTick();
+                    assert.containsOnce(target, ".o_search_panel_item_settings_popover");
+                    triggerEvent(target, ".o_search_panel_value_edit_edit", "click", {});
+                    await nextTick();
+                    assert.containsOnce(target, ".o_form_view.facet");
+
+                    triggerEvent(target, ".modal-dialog .btn-close", "click", {});
+
+                    // Edition of tag opens correct view
+                    triggerEvent(
+                        target,
+                        ".o_search_panel_filter_group:nth-of-type(1) .o_search_panel_filter_value .o_documents_search_panel_section_edit",
+                        "click",
+                        {},
+                        { skipVisibilityCheck: true }
+                    );
+                    await nextTick();
+                    assert.containsOnce(target, ".o_search_panel_item_settings_popover");
+                    triggerEvent(target, ".o_search_panel_value_edit_edit", "click", {});
+                    await nextTick();
+                    assert.containsOnce(target, ".o_form_view.tag");
+                }
+            );
 
             QUnit.test("SearchPanel: can edit attributes", async function (assert) {
                 assert.expect(2);
