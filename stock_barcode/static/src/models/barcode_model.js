@@ -411,6 +411,9 @@ export default class BarcodeModel extends EventBus {
         }
         if (!location_id && this.lastScanned.sourceLocation) {
             line.location_id = this.lastScanned.sourceLocation;
+            if(line.package_id && line.package_id.location_id != line.location_id.id) {
+                line.package_id = false;
+            }
         }
         if (lot_id) {
             if (typeof lot_id === 'number') {

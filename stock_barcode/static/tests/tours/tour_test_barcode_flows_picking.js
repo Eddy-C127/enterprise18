@@ -2787,6 +2787,26 @@ registry.category("web_tour.tours").add('test_pack_multiple_location_02', {test:
     },
 ]});
 
+registry.category("web_tour.tours").add('test_pack_multiple_location_03', {test: true, steps: () => [
+    {trigger: '.o_barcode_client_action', run: 'scan shelf3'},
+    {
+        trigger: '.o_barcode_line',
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assert($('.o_barcode_line .package').text(), "PACK000666");
+        }
+    },
+    {trigger: '.o_barcode_client_action', run: 'scan product1'},
+    {
+        trigger: '.qty-done:contains(1)',
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assert($('.o_barcode_lines .o_barcode_line .package').length, 0);
+        }
+    },
+    ...stepUtils.validateBarcodeOperation(),
+]});
+
 registry.category("web_tour.tours").add('test_put_in_pack_from_multiple_pages', {test: true, steps: () => [
     {
         trigger: '.o_barcode_client_action',
