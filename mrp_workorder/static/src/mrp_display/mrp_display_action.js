@@ -40,6 +40,7 @@ export class MrpDisplayAction extends Component {
                 "state",
                 "workorder_ids",
                 "date_start",
+                "product_description_variants",
             ],
             "mrp.workorder": [
                 "id",
@@ -69,6 +70,7 @@ export class MrpDisplayAction extends Component {
                 "all_employees_allowed",
                 "qty_remaining",
                 "employee_assigned_ids",
+                "product_description_variants",
             ],
             "stock.move": [
                 "id",

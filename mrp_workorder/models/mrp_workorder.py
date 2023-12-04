@@ -50,6 +50,7 @@ class MrpProductionWorkcenterLine(models.Model):
     worksheet_page = fields.Integer('Worksheet page')
     picture = fields.Binary(related='current_quality_check_id.picture', readonly=False)
     additional = fields.Boolean(related='current_quality_check_id.additional')
+    product_description_variants = fields.Char(related='production_id.product_description_variants')
 
     # used to display the connected employee that will start a workorder on the tablet view
     employee_id = fields.Many2one('hr.employee', string="Employee", compute='_compute_employee_id')

@@ -30,6 +30,9 @@
                         </t>
                     </div>
                 </div>
+                <div class="o_finished_product mt-auto mb-0">
+                    <span><t t-esc="record.product_description_variants"/></span>
+                </div>
             </div>
             <ul class="list-group list-group-flush">
                 <MrpWorksheet t-if="showWorksheetCheck" record="props.record" clickable="true"/>
