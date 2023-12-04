@@ -575,7 +575,7 @@ class L10nMxEdiDocument(models.Model):
         if len(splitted) == 2:
             try:
                 code = int(splitted[0])
-                if 1 <= code <= 6:
+                if 1 <= code <= 7:
                     origin_type = splitted[0]
                     origin_uuids = [uuid.strip() for uuid in splitted[1].split(',')]
             except ValueError:
