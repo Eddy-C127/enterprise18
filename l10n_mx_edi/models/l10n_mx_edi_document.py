@@ -829,9 +829,9 @@ class L10nMxEdiDocument(models.Model):
                             base = tax_values['base']
                             tax = tax_values['importe']
                         else:
-                            distribute_ratio = abs(discount_to_distribute / remaining_to_distribute)
+                            distribute_ratio = abs(discount_to_distribute / net_price_subtotal)
                             base = currency.round(tax_values['base'] * distribute_ratio)
-                            tax = currency.round(tax_values['tax'] * distribute_ratio)
+                            tax = currency.round(tax_values['importe'] * distribute_ratio)
 
                         tax_key = get_tax_key(tax_values)
                         other_tax_values = next(x for x in other_line_values[key] if get_tax_key(x) == tax_key)
@@ -843,6 +843,11 @@ class L10nMxEdiDocument(models.Model):
                 if is_zero:
                     distributed_lines.add(line['record'])
                     break
+
+                # Check if there is something left on the other line.
+                remaining_amount = other_line_values['discount'] - other_line_values['gross_price_subtotal']
+                if other_line['record'].currency_id.is_zero(remaining_amount):
+                    distributed_lines.add(other_line['record'])
 
         return [x for x in prepared_line_values_list if x['line']['record'] not in distributed_lines]
 
