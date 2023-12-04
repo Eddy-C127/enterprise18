@@ -1,14 +1,10 @@
 /** @odoo-module **/
 
 import options from '@web_editor/js/editor/snippets.options';
+import { rpc } from "@web/core/network/rpc";
 
 options.registry.OnlineAppointmentOptions = options.Class.extend({
     allAppointmentTypesById: {},
-
-    init() {
-        this._super(...arguments);
-        this.rpc = this.bindService("rpc");
-    },
 
     /**
      * Load available appointment types and update obsolete snippet data if necessary.
@@ -17,7 +13,7 @@ options.registry.OnlineAppointmentOptions = options.Class.extend({
      */
     async willStart() {
         await this._super(...arguments);
-        this.allAppointmentTypesById = await this.rpc('/appointment/get_snippet_data');
+        this.allAppointmentTypesById = await rpc('/appointment/get_snippet_data');
         // If no appointments are available as opposed to when the button was created.
         if (!Object.keys(this.allAppointmentTypesById).length) {
             this._setDatasetProperty('targetTypes', 'all');
@@ -213,7 +209,7 @@ options.registry.OnlineAppointmentOptions = options.Class.extend({
      */
     async _syncAppointmentTypesData(apptId) {
         if (apptId) {
-            const record = await this.rpc('/appointment/get_snippet_data', {
+            const record = await rpc('/appointment/get_snippet_data', {
                 appointment_type_id: apptId,
             });
             if (Object.keys(record).length) {
@@ -222,7 +218,7 @@ options.registry.OnlineAppointmentOptions = options.Class.extend({
                 this.allAppointmentTypesById.remove(apptId);
             }
         } else {
-            this.allAppointmentTypesById = await this.rpc('/appointment/get_snippet_data');
+            this.allAppointmentTypesById = await rpc('/appointment/get_snippet_data');
         }
     },
 });

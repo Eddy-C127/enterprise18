@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { rpc } from "@web/core/network/rpc";
 import { _t } from "@web/core/l10n/translation";
 import { StreamPostKanbanRecord } from '@social/js/stream_post_kanban_record';
 import { StreamPostCommentsInstagram } from './stream_post_comments';
@@ -25,7 +26,7 @@ patch(StreamPostKanbanRecord.prototype, {
     _onInstagramCommentsClick(ev) {
         ev.stopPropagation();
         const postId = this.record.id.raw_value;
-        this.rpc('/social_instagram/get_comments', {
+        rpc('/social_instagram/get_comments', {
             stream_post_id: postId,
             comments_count: this.commentsCount,
         }).then((result) => {

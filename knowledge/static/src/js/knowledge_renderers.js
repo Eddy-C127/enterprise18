@@ -16,7 +16,6 @@ export class KnowledgeArticleFormRenderer extends FormRenderer {
         this.actionService = useService("action");
         this.dialog = useService("dialog");
         this.orm = useService("orm");
-        this.rpc = useService("rpc");
         this.userService = useService("user");
 
         this.root = useRef('compiled_view_root');

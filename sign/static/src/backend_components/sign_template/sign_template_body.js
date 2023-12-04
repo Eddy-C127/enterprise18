@@ -15,7 +15,6 @@ export class SignTemplateBody extends Component {
     };
 
     setup() {
-        this.rpc = useService("rpc");
         this.orm = useService("orm");
         this.notification = useService("notification");
         this.popover = useService("popover");
@@ -48,7 +47,6 @@ export class SignTemplateBody extends Component {
             this.PDFIframe.el.contentDocument,
             this.env,
             {
-                rpc: this.rpc,
                 orm: this.orm,
                 popover: this.popover,
                 dialog: this.dialog,

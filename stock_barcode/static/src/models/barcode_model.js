@@ -4,6 +4,7 @@ import { BarcodeParser } from "@barcodes/js/barcode_parser";
 import { Mutex } from "@web/core/utils/concurrency";
 import LazyBarcodeCache from '@stock_barcode/lazy_barcode_cache';
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { FNC1_CHAR } from "@barcodes_gs1_nomenclature/js/barcode_parser";
 import { EventBus } from "@odoo/owl";
@@ -13,7 +14,6 @@ export default class BarcodeModel extends EventBus {
         super();
         this.dialogService = useService('dialog');
         this.orm = services.orm;
-        this.rpc = services.rpc;
         this.notificationService = services.notification;
         this.action = services.action;
         this.resId = resId;
@@ -31,7 +31,7 @@ export default class BarcodeModel extends EventBus {
 
     setData(data) {
         this.actionId = data.actionId;
-        this.cache = new LazyBarcodeCache(data.data.records, { rpc: this.rpc });
+        this.cache = new LazyBarcodeCache(data.data.records);
         const nomenclature = this.cache.getRecord('barcode.nomenclature', data.data.nomenclature_id);
         nomenclature.rules = [];
         for (const ruleId of nomenclature.rule_ids) {
@@ -367,7 +367,7 @@ export default class BarcodeModel extends EventBus {
     async save() {
         const { route, params } = this._getSaveCommand();
         if (route) {
-            const res = await this.rpc(route, params);
+            const res = await rpc(route, params);
             await this.refreshCache(res.records);
         }
         this.linesToSave = [];

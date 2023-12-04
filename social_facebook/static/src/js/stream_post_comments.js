@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { rpc } from "@web/core/network/rpc";
 import { StreamPostComments } from '@social/js/stream_post_comments';
 import { StreamPostCommentListFacebook } from './stream_post_comment_list';
 import { StreamPostCommentsReplyFacebook } from './stream_post_comments_reply';
@@ -28,7 +29,7 @@ export class StreamPostCommentsFacebook extends StreamPostComments {
     }
 
     async loadMoreComments() {
-        const nextComments = await this.rpc('/social_facebook/get_comments', {
+        const nextComments = await rpc('/social_facebook/get_comments', {
             stream_post_id: this.originalPost.id.raw_value,
             next_records_token: this.nextRecordsToken,
             comments_count: this.commentsCount

@@ -9,6 +9,7 @@ import { SignRefusalDialog } from "@sign/dialogs/dialogs";
 import { SignablePDFIframe } from "./signable_PDF_iframe";
 import { buildPDFViewerURL } from "@sign/components/sign_request/utils";
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 
 function datasetFromElements(elements) {
     return Array.from(elements).map((el) => {
@@ -27,7 +28,6 @@ export class Document extends Component {
     static template = xml`<t t-slot='default'/>`;
 
     setup() {
-        this.rpc = useService("rpc");
         this.orm = useService("orm");
         this.dialog = useService("dialog");
         this.user = useService("user");
@@ -119,7 +119,7 @@ export class Document extends Component {
             this.PDFIframe.contentDocument,
             this.env,
             {
-                rpc: this.rpc,
+                rpc,
                 orm: this.orm,
                 dialog: this.dialog,
                 user: this.user,
@@ -198,7 +198,7 @@ export class SignableDocument extends Document {
                                     longitude,
                                 });
                                 if (this.requestState !== "shared") {
-                                    this.rpc(
+                                    rpc(
                                         `/sign/save_location/${this.requestID}/${this.accessToken}`,
                                         this.coords
                                     );

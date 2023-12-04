@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { rpc } from "@web/core/network/rpc";
 import { _t } from "@web/core/l10n/translation";
 import { PDFIframe } from "./PDF_iframe";
 import { startSignItemNavigator } from "./sign_item_navigator";
@@ -393,7 +394,7 @@ export class SignablePDFIframe extends PDFIframe {
      * @param { Object } type
      */
     updateUserSignature(type) {
-        return this.rpc("/sign/update_user_signature", {
+        return rpc("/sign/update_user_signature", {
             sign_request_id: this.props.requestID,
             role: this.currentRole,
             signature_type: type.item_type === "signature" ? "sign_signature" : "sign_initials",
@@ -527,7 +528,7 @@ export class SignablePDFIframe extends PDFIframe {
                         this.props.requestToken = requestToken;
                         this.props.accessToken = accessToken;
                         if (this.props.coords) {
-                            await this.rpc(
+                            await rpc(
                                 `/sign/save_location/${requestID}/${accessToken}`,
                                 this.props.coords
                             );
@@ -570,7 +571,7 @@ export class SignablePDFIframe extends PDFIframe {
     async _sign() {
         const [route, params] = this._getRouteAndParams();
         this.ui.block();
-        const response = await this.rpc(route, params).finally(() => this.ui.unblock());
+        const response = await rpc(route, params).finally(() => this.ui.unblock());
         this.props.validateButton.textContent = this.props.validateButtonText;
         this.props.validateButton.removeAttribute("disabled");
         if (response.success) {
@@ -757,7 +758,7 @@ export class SignablePDFIframe extends PDFIframe {
 
     async getAuthDialog() {
         if (this.props.authMethod === "sms" && !this.signatureInfo.smsToken) {
-            const credits = await this.rpc("/sign/has_sms_credits");
+            const credits = await rpc("/sign/has_sms_credits");
             if (credits) {
                 return {
                     component: SMSSignerDialog,

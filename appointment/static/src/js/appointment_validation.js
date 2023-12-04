@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { jsonrpc } from "@web/core/network/rpc_service";
+import { rpc } from "@web/core/network/rpc";
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { findInvalidEmailFromText } from  "./utils.js"
 import { _t } from "@web/core/l10n/translation";
@@ -28,7 +28,7 @@ publicWidget.registry.appointmentValidation = publicWidget.Widget.extend({
             this._showErrorMsg(_t('Invalid Email'));
         } else {
             this._hideErrorMsg();
-            jsonrpc(`/calendar/${accessToken}/add_attendees_from_emails`, {
+            rpc(`/calendar/${accessToken}/add_attendees_from_emails`, {
                 access_token: accessToken,
                 emails_str: guestEmails,
             }).then(() => location.reload());

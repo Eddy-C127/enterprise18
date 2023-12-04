@@ -5,6 +5,7 @@ import BarcodeMRPModel from "../models/barcode_mrp_model";
 import HeaderComponent from "./header";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { patch } from "@web/core/utils/patch";
 import { useState } from "@odoo/owl";
 
@@ -135,7 +136,7 @@ patch(MainComponent.prototype, {
 
     async _onRefreshByProducts() {
         const { route, params } = this.env.model.getActionRefresh(this.resId);
-        const result = await this.rpc(route, params);
+        const result = await rpc(route, params);
         await this.env.model.refreshCache(result.data.records);
         this.openByProductLines();
     },

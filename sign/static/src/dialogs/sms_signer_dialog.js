@@ -2,6 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { Component, useState, useRef, useEffect } from "@odoo/owl";
+import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
@@ -24,7 +25,6 @@ export class SMSSignerDialog extends Component {
     setup() {
         this.validationCodeInput = useRef("code");
         this.phoneInput = useRef("phone");
-        this.rpc = useService("rpc");
         this.dialog = useService("dialog");
         this.signInfo = useService("signInfo");
         this.SMSInfo = { phoneNumber: this.props.signerPhone || "" };
@@ -48,7 +48,7 @@ export class SMSSignerDialog extends Component {
         const route = `/sign/send-sms/${this.signInfo.get("documentId")}/${this.signInfo.get(
             "signRequestItemToken"
         )}/${phoneNumber}`;
-        this.rpc(route)
+        rpc(route)
             .then((success) => {
                 if (success) {
                     this.handleSendSMSSuccess();

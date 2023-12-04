@@ -2,6 +2,7 @@
 
 import { Dialog } from "@web/core/dialog/dialog";
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { IconCreator } from "@web_studio/client_action/icon_creator/icon_creator";
 
@@ -19,7 +20,6 @@ export class IconCreatorDialog extends Component {
 
     setup() {
         this.user = useService("user");
-        this.rpc = useService("rpc");
         this.menus = useService("menu");
         this.initialAppData = { ...this.props.editedAppData };
         this.editedAppData = useState(this.props.editedAppData);
@@ -65,7 +65,7 @@ export class IconCreatorDialog extends Component {
         }
 
         if (iconValue) {
-            await this.rpc("/web_studio/edit_menu_icon", {
+            await rpc("/web_studio/edit_menu_icon", {
                 context: this.user.context,
                 icon: iconValue,
                 menu_id: appId,

@@ -10,6 +10,7 @@ import {
     formatDate,
     formatDateTime,
 } from "@web/core/l10n/dates";
+import { rpc } from "@web/core/network/rpc";
 
 WebsiteSale.include(RentingMixin);
 WebsiteSale.include({
@@ -22,7 +23,7 @@ WebsiteSale.include({
     }),
 
     async _check_new_dates_on_cart(){
-        const { start_date, end_date, values } = await this.rpc(
+        const { start_date, end_date, values } = await rpc(
             '/shop/cart/update_renting',
             this._getSerializedRentingDates()
         );

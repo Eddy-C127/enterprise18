@@ -30,7 +30,7 @@ import { registry } from "@web/core/registry";
 import { makeArchChanger } from "./view_editor_tests_utils";
 import { start } from "@mail/../tests/helpers/test_utils";
 import { registerCleanup } from "@web/../tests/helpers/cleanup";
-import { RPCError } from "@web/core/network/rpc_service";
+import { RPCError } from "@web/core/network/rpc";
 import { setupManager } from "@mail/../tests/helpers/webclient_setup";
 import { Component, EventBus, onMounted, xml } from "@odoo/owl";
 import { fieldService } from "@web/core/field_service";
@@ -3802,8 +3802,8 @@ QUnit.module("View Editors", (hooks) => {
             });
 
             assert.verifySteps([
-                "/mail/init_messaging",
                 "/web/webclient/load_menus",
+                "/mail/init_messaging",
                 "/mail/load_message_failures",
                 "/web/dataset/call_kw/res.users/systray_get_activities",
             ]);

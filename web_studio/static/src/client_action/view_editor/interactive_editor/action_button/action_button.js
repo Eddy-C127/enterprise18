@@ -5,7 +5,8 @@ import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { AutoComplete } from "@web/core/autocomplete/autocomplete";
 import { Component, useState } from "@odoo/owl";
-import { useOwnedDialogs, useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
+import { useOwnedDialogs } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { RecordSelector } from "@web/core/record_selectors/record_selector";
 
@@ -24,7 +25,6 @@ export class DialogAddNewButton extends Component {
         close: { type: Function },
     };
     setup() {
-        this.rpc = useService("rpc");
         this.state = useState({
             action: "",
             button_type: "",
@@ -88,7 +88,7 @@ export class DialogAddNewButton extends Component {
                 this.state.error = _t("The method %s is private.", this.state.methodId);
             } else {
                 try {
-                    await this.rpc("/web_studio/check_method", {
+                    await rpc("/web_studio/check_method", {
                         model_name: this.props.model,
                         method_name: this.state.methodId,
                     });

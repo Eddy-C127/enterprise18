@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import * as BarcodeScanner from '@web/webclient/barcode/barcode_scanner';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { registry } from "@web/core/registry";
@@ -25,7 +26,6 @@ export class MainMenu extends Component {
         this.dialogService = useService('dialog');
         this.home = useService("home_menu");
         this.notificationService = useService("notification");
-        this.rpc = useService('rpc');
         this.state = useState({ displayDemoMessage });
         this.barcodeService = useService('barcode');
         useBus(this.barcodeService.bus, "barcode_scanned", (ev) => this._onBarcodeScanned(ev.detail.barcode));
@@ -64,7 +64,7 @@ export class MainMenu extends Component {
             body: _t("Do you want to permanently remove this message?\
                     It won't appear anymore, so make sure you don't need the barcodes sheet or you have a copy."),
             confirm: () => {
-                this.rpc('/stock_barcode/rid_of_message_demo_barcodes');
+                rpc('/stock_barcode/rid_of_message_demo_barcodes');
                 location.reload();
             },
             cancel: () => {},
@@ -75,7 +75,7 @@ export class MainMenu extends Component {
     }
 
     async _onBarcodeScanned(barcode) {
-        const res = await this.rpc('/stock_barcode/scan_from_main_menu', { barcode });
+        const res = await rpc('/stock_barcode/scan_from_main_menu', { barcode });
         if (res.action) {
             return this.actionService.doAction(res.action);
         }

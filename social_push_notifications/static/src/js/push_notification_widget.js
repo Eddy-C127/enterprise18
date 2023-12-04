@@ -3,6 +3,7 @@
 
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { browser } from "@web/core/browser/browser";
+import { rpc } from "@web/core/network/rpc";
 import NotificationRequestPopup from "@social_push_notifications/js/push_notification_request_popup";
 import { Component } from "@odoo/owl";
 
@@ -11,7 +12,6 @@ publicWidget.registry.NotificationWidget =  publicWidget.Widget.extend({
 
     init() {
         this._super(...arguments);
-        this.rpc = this.bindService("rpc");
         this.notification = this.bindService("notification");
     },
 
@@ -197,7 +197,7 @@ publicWidget.registry.NotificationWidget =  publicWidget.Widget.extend({
      * @private
      */
     _fetchPushConfiguration: function () {
-        return this.rpc('/social_push_notifications/fetch_push_configuration').then(function (config) {
+        return rpc('/social_push_notifications/fetch_push_configuration').then(function (config) {
             const expirationDate = new Date();
             expirationDate.setDate(expirationDate.getDate() + 7);
             Object.assign(config, {'expirationDate': expirationDate});
@@ -225,12 +225,12 @@ publicWidget.registry.NotificationWidget =  publicWidget.Widget.extend({
 
         var pushConfiguration = this._getPushConfiguration();
         if (pushConfiguration && pushConfiguration.token !== token) {
-            this.rpc('/social_push_notifications/unregister', {
+            rpc('/social_push_notifications/unregister', {
                 token: pushConfiguration.token
             });
         }
 
-        this.rpc('/social_push_notifications/register', {
+        rpc('/social_push_notifications/register', {
             token: token
         }).then(function () {
             browser.localStorage.setItem('social_push_notifications.configuration', JSON.stringify({

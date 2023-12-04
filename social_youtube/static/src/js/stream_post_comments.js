@@ -3,6 +3,9 @@
 import { StreamPostComments } from '@social/js/stream_post_comments';
 import { StreamPostCommentListYoutube } from './stream_post_comment_list';
 import { StreamPostCommentsReplyYoutube } from './stream_post_comments_reply';
+
+import { rpc } from "@web/core/network/rpc";
+
 import { onWillStart } from "@odoo/owl";
 
 export class StreamPostCommentsYoutube extends StreamPostComments {
@@ -27,7 +30,7 @@ export class StreamPostCommentsYoutube extends StreamPostComments {
     }
 
     async loadMoreComments() {
-        const nextComments = await this.rpc('/social_youtube/get_comments', {
+        const nextComments = await rpc('/social_youtube/get_comments', {
             stream_post_id: this.originalPost.id.raw_value,
             next_page_token: this.nextPageToken,
             comments_count: this.commentsCount

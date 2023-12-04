@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { toRaw, useState, useEnv, reactive, onMounted, onWillUnmount, markRaw } from "@odoo/owl";
 import { Reactive } from "@web_studio/client_action/utils";
 
@@ -71,7 +72,7 @@ export class EditionFlow extends Reactive {
                     const result = await this.loadViews();
                     viewId = result.views[viewType].id;
                 }
-                const res = await this.rpc("/web_studio/restore_default_view", {
+                const res = await rpc("/web_studio/restore_default_view", {
                     view_id: viewId,
                 });
                 this.env.bus.trigger("CLEAR-CACHES");

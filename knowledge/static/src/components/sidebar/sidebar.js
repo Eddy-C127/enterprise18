@@ -53,7 +53,6 @@ export class KnowledgeSidebar extends Component {
         this.actionService = useService("action");
         this.dialog = useService("dialog");
         this.orm = useService("orm");
-        this.rpc = useService("rpc");
         this.userService = useService("user");
 
         this.favoriteTree = useRef("favoriteTree");

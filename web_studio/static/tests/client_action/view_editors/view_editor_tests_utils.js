@@ -126,7 +126,6 @@ class ViewEditorHoc extends Component {
     static components = { ViewEditor };
     setup() {
         const editionFlow = new EditionFlow(this.env, {
-            rpc: useService("rpc"),
             dialog: useService("dialog"),
             studio: useStudioServiceAsReactive(),
             view: useService("view"),

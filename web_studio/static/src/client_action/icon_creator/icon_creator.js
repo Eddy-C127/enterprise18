@@ -60,7 +60,6 @@ export class IconCreator extends Component {
         this.iconRef = useRef("app-icon");
 
         this.orm = useService("orm");
-        this.rpc = useService("rpc");
         const user = useService("user");
 
         this.FileInput = FileInput;

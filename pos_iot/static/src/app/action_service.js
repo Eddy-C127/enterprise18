@@ -1,11 +1,12 @@
 /** @odoo-module */
 
+import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { reportService } from "@point_of_sale/app/utils/report_service";
 import { patch } from "@web/core/utils/patch";
 
 patch(reportService, {
-    async start(env, { rpc, user, ui }) {
+    async start(env) {
         const superReportService = await super.start(...arguments);
         return {
             async doAction(action, options) {
@@ -21,7 +22,7 @@ patch(reportService, {
                     }
                 }
                 return superReportService.doAction(action, options);
-            }
+            },
         };
     },
 });

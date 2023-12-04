@@ -44,7 +44,6 @@ export class ViewEditor extends Component {
         /* Services */
         this.studio = useService("studio");
         this.user = useService("user");
-        this.rpc = useService("rpc");
         this.orm = useService("orm");
         /* MISC */
         // Avoid pollution from the real actionService's env

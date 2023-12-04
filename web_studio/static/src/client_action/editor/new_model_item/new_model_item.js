@@ -1,6 +1,7 @@
 /** @odoo-module */
 import { Component, useState } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { useBus, useService, useOwnedDialogs } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
 import { ModelConfiguratorDialog } from "../../model_configurator/model_configurator";
@@ -13,7 +14,6 @@ class SimpleNewModelDialog extends Component {
 
     setup() {
         this.addDialog = useOwnedDialogs();
-        this.rpc = useService("rpc");
         this.menus = useService("menu");
         this.user = useService("user");
         this.action = useService("action");
@@ -21,7 +21,7 @@ class SimpleNewModelDialog extends Component {
         this.state = useState({ modelName: "", showValidation: false });
         const { confirm, cancel } = useDialogConfirmation({
             confirm: async (data) => {
-                const { menu_id, action_id } = await this.rpc("/web_studio/create_new_menu", {
+                const { menu_id, action_id } = await rpc("/web_studio/create_new_menu", {
                     menu_name: this.state.modelName,
                     model_id: false,
                     model_choice: "new",

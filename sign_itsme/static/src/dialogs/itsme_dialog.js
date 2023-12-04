@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { Component } from "@odoo/owl";
+import { rpc } from "@web/core/network/rpc";
 import { Dialog } from "@web/core/dialog/dialog";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
@@ -18,12 +19,11 @@ export class ItsmeDialog extends Component {
     };
 
     setup() {
-        this.rpc = useService("rpc");
         this.dialog = useService("dialog");
     }
 
     async onItsmeClick() {
-        const { success, authorization_url, message } = await this.rpc(
+        const { success, authorization_url, message } = await rpc(
             this.props.route,
             this.props.params
         );

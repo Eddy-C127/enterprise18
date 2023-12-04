@@ -94,7 +94,6 @@ export class Editor extends Component {
         this.studio = useService("studio");
 
         const editionFlow = new EditionFlow(this.env, {
-            rpc: useService("rpc"),
             dialog: useService("dialog"),
             studio: useStudioServiceAsReactive(),
             view: useService("view"),
@@ -104,7 +103,6 @@ export class Editor extends Component {
         });
 
         this.actionService = useService("action");
-        this.rpc = useService("rpc");
 
         this.state = useState({ actionContainerId: 1 });
         useBus(this.studio.bus, "UPDATE", async () => {

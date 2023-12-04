@@ -8,7 +8,6 @@ export class DocumentService {
 
     constructor(env, services) {
         this.env = env;
-        this.rpc = services.rpc;
         /** @type {import("@mail/core/common/store_service").Store} */
         this.store = services["mail.store"];
         /** @type {import("@mail/core/common/attachment_service").AttachmentService} */
@@ -55,7 +54,7 @@ export class DocumentService {
 }
 
 export const documentService = {
-    dependencies: ["rpc", "mail.store", "mail.attachment"],
+    dependencies: ["mail.store", "mail.attachment"],
     start(env, services) {
         return new DocumentService(env, services);
     },

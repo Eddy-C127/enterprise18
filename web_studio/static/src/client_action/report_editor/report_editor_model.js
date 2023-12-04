@@ -10,6 +10,7 @@ import {
     useState,
     useSubEnv,
 } from "@odoo/owl";
+import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { omit, pick } from "@web/core/utils/objects";
 import { _t } from "@web/core/l10n/translation";
@@ -165,7 +166,8 @@ export class ReportEditorModel extends Reactive {
     }
 
     async loadReportData() {
-        const data = await this._services.rpc("/web_studio/load_report_editor", {
+        // FIXME introduce alive?
+        const data = await rpc("/web_studio/load_report_editor", {
             report_id: this.editedReportId,
             fields: Object.keys(omit(this.reportActiveFields, "display_in_print_menu")),
             context: this.routesContext,
@@ -188,7 +190,7 @@ export class ReportEditorModel extends Reactive {
 
         try {
             const reportQweb = await this.loadHtmlKeepLast.add(
-                this._services.rpc("/web_studio/get_report_qweb", {
+                rpc("/web_studio/get_report_qweb", {
                     report_id: this.editedReportId,
                     context: this.routesContext,
                 })
@@ -211,7 +213,7 @@ export class ReportEditorModel extends Reactive {
         this.reportEnv.currentId = resId !== undefined ? resId : this.reportEnv.currentId;
         try {
             const reportHtml = await this.loadHtmlKeepLast.add(
-                this._services.rpc("/web_studio/get_report_html", {
+                rpc("/web_studio/get_report_html", {
                     report_id: this.editedReportId,
                     record_id: this.reportEnv.currentId || 0,
                     context: this.routesContext,
@@ -246,7 +248,7 @@ export class ReportEditorModel extends Reactive {
 
         let result;
         try {
-            result = await this._services.unProtectedRpc(
+            result = await rpc(
                 "/web_studio/save_report",
                 {
                     report_id: this.editedReportId,
@@ -339,7 +341,7 @@ export class ReportEditorModel extends Reactive {
 
     async resetReport(includeHeaderFooter = true) {
         this.setInEdition(true);
-        await this._services.rpc("/web_studio/reset_report_archs", {
+        await rpc("/web_studio/reset_report_archs", {
             report_id: this.editedReportId,
             include_web_layout: includeHeaderFooter,
         });
@@ -356,13 +358,12 @@ export class ReportEditorModel extends Reactive {
 
 export function useReportEditorModel() {
     const services = Object.fromEntries(
-        ["orm", "user", "rpc", "ui"].map((name) => {
+        ["orm", "user", "ui"].map((name) => {
             return [name, useService(name)];
         })
     );
     const env = useEnv();
     services.studio = { ...env.services.studio };
-    services.unProtectedRpc = env.services.rpc;
     services.unProtectedNotification = env.services.notification;
     const reportEditorModel = new ReportEditorModel({ services });
     useSubEnv({ reportEditorModel });

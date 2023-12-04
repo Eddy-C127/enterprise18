@@ -4,6 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { StreamPostKanbanRecord } from '@social/js/stream_post_kanban_record';
 import { StreamPostCommentsLinkedin } from './stream_post_comments';
 
+import { rpc } from "@web/core/network/rpc";
 import { patch } from "@web/core/utils/patch";
 import { useEffect } from "@odoo/owl";
 
@@ -25,7 +26,7 @@ patch(StreamPostKanbanRecord.prototype, {
     _onLinkedInCommentsClick(ev) {
         ev.stopPropagation();
         const postId = this.record.id.raw_value;
-        this.rpc('/social_linkedin/get_comments', {
+        rpc('/social_linkedin/get_comments', {
             stream_post_id: postId,
             comments_count: this.commentsCount
         }).then((result) => {

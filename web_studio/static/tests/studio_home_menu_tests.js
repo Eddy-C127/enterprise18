@@ -7,7 +7,7 @@ import { MODES } from "@web_studio/studio_service";
 import { ormService } from "@web/core/orm_service";
 import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_menu/enterprise_subscription_service";
 
-import { fakeCommandService, makeFakeRPCService } from "@web/../tests/helpers/mock_services";
+import { fakeCommandService, patchRPCWithCleanup } from "@web/../tests/helpers/mock_services";
 import { userService } from "@web/core/user_service";
 import { uiService } from "@web/core/ui/ui_service";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
@@ -306,7 +306,7 @@ QUnit.module("Studio", (hooks) => {
                 });
             }
         };
-        registry.category("services").add("rpc", makeFakeRPCService(mockRPC), { force: true });
+        patchRPCWithCleanup(mockRPC);
 
         const target = await createStudioHomeMenu();
 

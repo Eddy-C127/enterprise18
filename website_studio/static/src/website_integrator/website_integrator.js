@@ -3,6 +3,7 @@ import { Component, onWillStart, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 
@@ -15,7 +16,6 @@ class WebsiteIntegrator extends Component {
 
     setup() {
         this.studio = useService("studio");
-        this.rpc = useService("rpc");
         this.orm = useService("orm");
         this.action = useService("action");
         this.user = useService("user");
@@ -66,7 +66,7 @@ class WebsiteIntegrator extends Component {
     }
 
     async loadWebsitePages() {
-        const res = await this.rpc("/website_studio/get_website_pages", {
+        const res = await rpc("/website_studio/get_website_pages", {
             res_model: this.resModel,
         });
 
@@ -86,7 +86,7 @@ class WebsiteIntegrator extends Component {
     }
 
     async loadExistingForms() {
-        const forms = await this.rpc("/website_studio/get_forms", {
+        const forms = await rpc("/website_studio/get_forms", {
             res_model: this.resModel,
         });
         this.state.forms = forms;
@@ -94,7 +94,7 @@ class WebsiteIntegrator extends Component {
 
     async onNewForm() {
         if (this.isDesigner) {
-            const url = await this.rpc("/website_studio/create_form", {
+            const url = await rpc("/website_studio/create_form", {
                 res_model: this.resModel,
             });
             this.loadExistingForms(); // don't wait

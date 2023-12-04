@@ -3,6 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { session } from "@web/session";
 import { Dialog } from "@web/core/dialog/dialog";
+import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { EncryptedDialog } from "./encrypted_dialog";
 import { Component, onWillStart, useState } from "@odoo/owl";
@@ -34,7 +35,6 @@ export class ThankYouDialog extends Component {
 
     setup() {
         this.user = useService("user");
-        this.rpc = useService("rpc");
         this.dialog = useService("dialog");
         this.signInfo = useService("signInfo");
         this.state = useState({
@@ -59,7 +59,7 @@ export class ThankYouDialog extends Component {
 
     async checkIfEncryptedDialog() {
         const route = `/sign/encrypted/${this.signInfo.get("documentId")}`;
-        return this.rpc(route);
+        return rpc(route);
     }
 
     async willStart() {
@@ -67,13 +67,13 @@ export class ThankYouDialog extends Component {
         if (isEncrypted) {
             this.dialog.add(EncryptedDialog);
         }
-        this.signRequestState = await this.rpc(
+        this.signRequestState = await rpc(
             `/sign/sign_request_state/${this.signInfo.get("documentId")}/${this.signInfo.get(
                 "signRequestToken"
             )}`
         );
         if (!this.suggestSignUp && !session.is_website_user) {
-            const result = await this.rpc("/sign/sign_request_items", {
+            const result = await rpc("/sign/sign_request_items", {
                 request_id: this.signInfo.get("documentId"),
                 token: this.signInfo.get("signRequestToken"),
             });
@@ -178,9 +178,7 @@ export class ThankYouDialog extends Component {
     }
 
     async clickNextIgnore(doc) {
-        const result = await this.rpc(
-            `/sign/ignore_sign_request_item/${doc.id}/${doc.accessToken}`
-        );
+        const result = await rpc(`/sign/ignore_sign_request_item/${doc.id}/${doc.accessToken}`);
         if (result) {
             this.state.nextDocuments = this.state.nextDocuments.map((nextDoc) => {
                 if (nextDoc.id === doc.id) {

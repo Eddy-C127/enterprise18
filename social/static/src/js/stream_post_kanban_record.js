@@ -1,18 +1,11 @@
 /** @odoo-module **/
 
 import { KanbanRecord } from '@web/views/kanban/kanban_record';
-import { useService } from '@web/core/utils/hooks';
 
 export const CANCEL_GLOBAL_CLICK = ["a", ".o_social_subtle_btn", "img"].join(",");
 const DEFAULT_COMMENT_COUNT = 20;
 
 export class StreamPostKanbanRecord extends KanbanRecord {
-
-    setup() {
-        super.setup();
-        this.rpc = useService('rpc');
-    }
-
     //---------------------------------------
     // Handlers
     //---------------------------------------

@@ -1,8 +1,9 @@
 /** @odoo-module **/
 
+import { rpc } from "@web/core/network/rpc";
+
 export default class LazyBarcodeCache {
-    constructor(cacheData, params) {
-        this.rpc = params.rpc;
+    constructor(cacheData) {
         this.dbIdCache = {}; // Cache by model + id
         this.dbBarcodeCache = {}; // Cache by model + barcode
         this.missingBarcode = new Set(); // Used as a cache by `_getMissingRecord`
@@ -181,7 +182,7 @@ export default class LazyBarcodeCache {
             }
         }
         params.domains_by_model = domainsByModel;
-        const result = await this.rpc('/stock_barcode/get_specific_barcode_data', params);
+        const result = await rpc('/stock_barcode/get_specific_barcode_data', params);
         this.setCache(result);
         // Set the missing cache if no filters (the barcode's result can vary if there is filter)
         if (!Object.keys(filters).length) {

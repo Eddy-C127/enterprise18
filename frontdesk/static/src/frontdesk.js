@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { VisitorForm } from "@frontdesk/visitor_form/visitor_form";
 import { WelcomePage } from "@frontdesk/welcome_page/welcome_page";
@@ -9,7 +10,6 @@ import { Navbar } from "@frontdesk/navbar/navbar";
 import { HostPage } from "@frontdesk/host_page/host_page";
 import { EndPage } from "@frontdesk/end_page/end_page";
 import { QuickCheckIn } from "@frontdesk/quick_check_in/quick_check_in";
-import { useService } from "@web/core/utils/hooks";
 
 import { Component, useState, onWillStart, markup } from "@odoo/owl";
 
@@ -38,7 +38,6 @@ export class Frontdesk extends Component {
         const urlToken = window.location.href.split("/").findLast((s) => s);
         this.token = urlToken.includes("?") ? urlToken.split("?")[0] : urlToken;
         this.frontdeskUrl = `/frontdesk/${this.props.id}/${this.token}`;
-        this.rpc = useService("rpc");
         onWillStart(this.onWillStart);
         if (this.props.isMobile) {
             // Retrieve the saved component from sessionStorage
@@ -55,7 +54,7 @@ export class Frontdesk extends Component {
     }
 
     async onWillStart() {
-        this.frontdeskData = await this.rpc(`${this.frontdeskUrl}/get_frontdesk_data`);
+        this.frontdeskData = await rpc(`${this.frontdeskUrl}/get_frontdesk_data`);
         this.station = this.frontdeskData.station[0];
     }
 
@@ -71,12 +70,12 @@ export class Frontdesk extends Component {
      * @private
      */
     async _getPlannedVisitors() {
-        this.state.plannedVisitors = await this.rpc(`${this.frontdeskUrl}/get_planned_visitors`);
+        this.state.plannedVisitors = await rpc(`${this.frontdeskUrl}/get_planned_visitors`);
     }
 
     /* This method creates the visitor in the backend through rpc call */
     async createVisitor() {
-        const result = await this.rpc(`${this.frontdeskUrl}/prepare_visitor_data`, {
+        const result = await rpc(`${this.frontdeskUrl}/prepare_visitor_data`, {
             name: this.visitorData.visitorName,
             phone: this.visitorData.visitorPhone,
             email: this.visitorData.visitorEmail,

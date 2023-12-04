@@ -19,7 +19,6 @@ class MoveArticleDialog extends Component {
     setup() {
         this.size = 'md';
         this.title = _t("Move an Article");
-        this.rpc = useService("rpc");
         this.orm = useService("orm");
         this.userService = useService("user");
         this.state = useState({selectedParentArticle: false, selectionDisplayGroups: []});

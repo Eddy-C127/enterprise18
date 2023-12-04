@@ -8,6 +8,7 @@ import BarcodeQuantModel from '@stock_barcode/models/barcode_quant_model';
 import GroupedLineComponent from '@stock_barcode/components/grouped_line';
 import LineComponent from '@stock_barcode/components/line';
 import PackageLineComponent from '@stock_barcode/components/package_line';
+import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { useService, useBus } from "@web/core/utils/hooks";
 import * as BarcodeScanner from '@web/webclient/barcode/barcode_scanner';
@@ -61,7 +62,6 @@ class MainComponent extends Component {
     //--------------------------------------------------------------------------
 
     setup() {
-        this.rpc = useService('rpc');
         this.orm = useService('orm');
         this.notification = useService('notification');
         this.dialog = useService('dialog');
@@ -84,7 +84,7 @@ class MainComponent extends Component {
         useBus(bus, "refresh", (ev) => this._onRefreshState(ev.detail));
 
         onWillStart(async () => {
-            const barcodeData = await this.rpc(
+            const barcodeData = await rpc(
                 '/stock_barcode/get_barcode_data',
                 { model: this.resModel, res_id: this.resId }
             );
@@ -172,7 +172,7 @@ class MainComponent extends Component {
     //--------------------------------------------------------------------------
 
     _getModel() {
-        const services = { rpc: this.rpc, orm: this.orm, notification: this.notification, action: this.action };
+        const services = { rpc: rpc, orm: this.orm, notification: this.notification, action: this.action };
         if (this.resModel === 'stock.picking') {
             services.dialog = this.dialog;
             return new BarcodePickingModel(this.resModel, this.resId, services);
@@ -397,7 +397,7 @@ class MainComponent extends Component {
     async _onRefreshState(paramsRefresh) {
         const { recordId, lineId } = paramsRefresh || {}
         const { route, params } = this.env.model.getActionRefresh(recordId);
-        const result = await this.rpc(route, params);
+        const result = await rpc(route, params);
         await this.env.model.refreshCache(result.data.records);
         await this.toggleBarcodeLines(lineId);
         this.render();

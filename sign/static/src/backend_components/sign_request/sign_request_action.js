@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart, useEffect, useRef, useState, markup } from "@odoo/owl";
@@ -30,7 +31,6 @@ export class SignRequest extends Component {
         this.notification = useService("notification");
         this.user = useService("user");
         this.action = useService("action");
-        this.rpc = useService("rpc");
         this.signInfo = useService("signInfo");
         const action = this.props.action;
         const context = action?.context;
@@ -62,7 +62,7 @@ export class SignRequest extends Component {
         if (!this.signInfo.get("documentId")) {
             return this.goBackToKanban();
         }
-        const { html, context } = await this.rpc(
+        const { html, context } = await rpc(
             `/sign/get_document/${this.signInfo.get("documentId")}/${this.signInfo.get(
                 "signRequestToken"
             )}`

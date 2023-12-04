@@ -6,7 +6,7 @@ import { Stage } from "@pos_preparation_display/app/models/stage";
 import { Category } from "@pos_preparation_display/app/models/category";
 import { deserializeDateTime } from "@web/core/l10n/dates";
 import { Product } from "@pos_preparation_display/app/models/product";
-import { ConnectionLostError } from "@web/core/network/rpc_service";
+import { ConnectionLostError } from "@web/core/network/rpc";
 
 // in the furur, maybe just set "filterOrders" as a getter and directly call the function.
 export class PreparationDisplay extends Reactive {

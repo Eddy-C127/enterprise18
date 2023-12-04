@@ -5,8 +5,8 @@ import { session } from "@web/session";
 import { useService } from "@web/core/utils/hooks";
 
 const orderTrackingDisplayService = {
-    dependencies: ["bus_service", "rpc"],
-    async start(env, { bus_service, rpc }) {
+    dependencies: ["bus_service"],
+    async start(env, { bus_service }) {
         const orders = reactive(session.initial_data);
         bus_service.addChannel(`pos_tracking_display-${session.preparation_display.access_token}`);
         bus_service.subscribe("NEW_ORDERS", (newOrders) => {

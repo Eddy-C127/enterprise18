@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { RPCError } from "@web/core/network/rpc_service";
+import { rpc, RPCError } from "@web/core/network/rpc";
 import { renderToElement } from "@web/core/utils/render";
 import Widget from "@web/legacy/js/core/widget";
 import publicWidget from "@web/legacy/js/public/public_widget";
@@ -32,7 +32,6 @@ var TweetWall = Widget.extend({
         }, this.timeout);
         var zoomLevel = 1 / (window.devicePixelRatio * 0.80);
         this._zoom(zoomLevel);
-        this.rpc = this.bindService("rpc");
     },
 
     //--------------------------------------------------------------------------
@@ -74,7 +73,7 @@ var TweetWall = Widget.extend({
     _getData: function () {
         var self = this;
         if (!this.fetchPromise) {
-            self.fetchPromise = this.rpc('/twitter_wall/get_tweet/' + self.wall_id, {
+            self.fetchPromise = rpc('/twitter_wall/get_tweet/' + self.wall_id, {
                 'last_tweet_id': self.last_tweet_id,
             }).then(function (res) {
                 self.fetchPromise = undefined;

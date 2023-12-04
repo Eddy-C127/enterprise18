@@ -2,6 +2,7 @@
 
 import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
 import WebsiteSaleDaterangePicker from '@website_sale_renting/js/website_sale_renting_daterangepicker';
+import { rpc } from "@web/core/network/rpc";
 
 WebsiteSaleDaterangePicker.include({
     events: Object.assign({}, WebsiteSaleDaterangePicker.prototype.events, {
@@ -50,7 +51,7 @@ WebsiteSaleDaterangePicker.include({
         if (!productId || this.rentingAvailabilities[productId]) {
             return;
         }
-        return this.rpc("/rental/product/availabilities", {
+        return rpc("/rental/product/availabilities", {
             product_id: productId,
             min_date: serializeDateTime(luxon.DateTime.now()),
             max_date: serializeDateTime(luxon.DateTime.now().plus({years: 3})),

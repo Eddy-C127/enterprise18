@@ -4,7 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { AttendeeCalendarController } from "@calendar/views/attendee_calendar/attendee_calendar_controller";
 import { patch } from "@web/core/utils/patch";
 import { usePopover } from "@web/core/popover/popover_hook";
-import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
 import { Tooltip } from "@web/core/tooltip/tooltip";
 import { browser } from "@web/core/browser/browser";
 import { serializeDateTime } from "@web/core/l10n/dates";
@@ -18,7 +18,6 @@ patch(AttendeeCalendarController, {
 patch(AttendeeCalendarController.prototype, {
     setup() {
         super.setup(...arguments);
-        this.rpc = useService("rpc");
         this.popover = usePopover(Tooltip, { position: "bottom" });
         this.copyLinkRef = useRef("copyLinkRef");
 
@@ -34,7 +33,7 @@ patch(AttendeeCalendarController.prototype, {
         });
 
         onWillStart(async () => {
-            this.appointmentState.data = await this.rpc(
+            this.appointmentState.data = await rpc(
                 "/appointment/appointment_type/get_staff_user_appointment_types"
             );
         });
@@ -46,7 +45,7 @@ patch(AttendeeCalendarController.prototype, {
             end: serializeDateTime(slot.start === slot.end ? slot.end.plus({ days: 1 }) : slot.end), //TODO: check if necessary
             allday: slot.isAllDay,
         }));
-        const customAppointment = await this.rpc(
+        const customAppointment = await rpc(
             "/appointment/appointment_type/create_custom",
             {
                 slots: slots,
@@ -129,7 +128,7 @@ patch(AttendeeCalendarController.prototype, {
     },
 
     async onClickSearchCreateAnytimeAppointment() {
-        const anytimeAppointment = await this.rpc("/appointment/appointment_type/search_create_anytime", {
+        const anytimeAppointment = await rpc("/appointment/appointment_type/search_create_anytime", {
             context: this.props.context,
         });
         if (anytimeAppointment.appointment_type_id) {
@@ -142,7 +141,7 @@ patch(AttendeeCalendarController.prototype, {
     },
 
     async onClickGetAppointmentUrl(appointmentTypeId) {
-        const appointment = await this.rpc("/appointment/appointment_type/get_book_url", {
+        const appointment = await rpc("/appointment/appointment_type/get_book_url", {
             appointment_type_id: appointmentTypeId,
             context: this.props.context,
         });

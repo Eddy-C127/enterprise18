@@ -4,6 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { SocialPostFormatterMixin } from './social_post_formatter_mixin';
 import { StreamPostCommentsReply } from './stream_post_comments_reply';
 
+import { rpc } from "@web/core/network/rpc";
 import { ConfirmationDialog } from '@web/core/confirmation_dialog/confirmation_dialog';
 import { escape } from '@web/core/utils/strings';
 import { useService } from '@web/core/utils/hooks';
@@ -15,7 +16,6 @@ export class StreamPostComment extends SocialPostFormatterMixin(Component) {
     setup() {
         super.setup();
         this.dialog = useService('dialog');
-        this.rpc = useService('rpc');
         this.action = useState({
             showSubComment: false,
             showReplyComment: false,
@@ -57,7 +57,7 @@ export class StreamPostComment extends SocialPostFormatterMixin(Component) {
     //---------
 
     async _confirmDeleteComment() {
-        await this.rpc(this.deleteCommentEndpoint, {
+        await rpc(this.deleteCommentEndpoint, {
             stream_post_id: this.originalPost.id.raw_value,
             comment_id: this.comment.id,
         });

@@ -2,9 +2,9 @@
 import { Component, onWillStart, onWillUpdateProps, toRaw, useState } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { CodeEditor } from "@web/core/code_editor/code_editor";
+import { rpc } from "@web/core/network/rpc";
 import { ResizablePanel } from "@web/core/resizable_panel/resizable_panel";
 import { SelectMenu } from "@web/core/select_menu/select_menu";
-import { useService } from "@web/core/utils/hooks";
 
 class ViewSelector extends SelectMenu {
     static template = "web_studio.ViewSelector";
@@ -96,7 +96,6 @@ export class XmlResourceEditor extends Component {
     };
 
     setup() {
-        this.rpc = useService("rpc");
         this.state = useState({
             resourcesOptions: [],
             currentResourceId: null,
@@ -201,7 +200,7 @@ export class XmlResourceEditor extends Component {
     }
 
     async loadResources(resourceId) {
-        const resources = await this.rpc("/web_studio/get_xml_editor_resources", {
+        const resources = await rpc("/web_studio/get_xml_editor_resources", {
             key: resourceId,
         });
 

@@ -3,6 +3,7 @@
 import { Component, onWillStart, onWillUpdateProps, useState, toRaw } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
+import { rpc } from "@web/core/network/rpc";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
 import { SelectionContentDialog } from "@web_studio/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog";
 import { useService } from "@web/core/utils/hooks";
@@ -61,7 +62,6 @@ export class FieldProperties extends Component {
 
     setup() {
         this.dialog = useService("dialog");
-        this.rpc = useService("rpc");
         this.state = useState({});
         this.editNodeAttributes = useEditNodeAttributes();
         onWillStart(async () => {
@@ -104,7 +104,7 @@ export class FieldProperties extends Component {
     }
 
     onChangeDefaultValue(value) {
-        this.rpc("/web_studio/set_default_value", {
+        rpc("/web_studio/set_default_value", {
             model_name: this.env.viewEditorModel.resModel,
             field_name: this.props.node.field.name,
             value,
@@ -112,7 +112,7 @@ export class FieldProperties extends Component {
     }
 
     async getDefaultValue(node) {
-        const defaultValueObj = await this.rpc("/web_studio/get_default_value", {
+        const defaultValueObj = await rpc("/web_studio/get_default_value", {
             model_name: this.env.viewEditorModel.resModel,
             field_name: node.field.name,
         });
@@ -174,7 +174,7 @@ export class FieldProperties extends Component {
         this.dialog.add(SelectionContentDialog, {
             defaultChoices: toRaw(field).selection.map((s) => [...s]),
             onConfirm: async (choices) => {
-                const result = await this.rpc("/web_studio/edit_field", {
+                const result = await rpc("/web_studio/edit_field", {
                     model_name: this.env.viewEditorModel.resModel,
                     field_name: field.name,
                     values: { selection: JSON.stringify(choices) },
@@ -189,7 +189,7 @@ export class FieldProperties extends Component {
                                 result.message ||
                                 _t("Are you sure you want to remove the selection values?"),
                             confirm: async () => {
-                                await this.rpc("/web_studio/edit_field", {
+                                await rpc("/web_studio/edit_field", {
                                     model_name: this.env.viewEditorModel.resModel,
                                     field_name: field.name,
                                     values: { selection: JSON.stringify(choices) },

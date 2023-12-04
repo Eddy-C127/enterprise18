@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
@@ -18,7 +19,6 @@ export class NewViewDialog extends ConfirmationDialog {
     setup() {
         super.setup();
         this.orm = useService("orm");
-        this.rpc = useService("rpc");
         this.studio = useService("studio");
         this.user = useService("user");
         this.mandatoryStopDate = ["gantt", "cohort"].includes(this.viewType);
@@ -88,7 +88,7 @@ export class NewViewDialog extends ConfirmationDialog {
     }
 
     async _confirm() {
-        await this.rpc("/web_studio/create_default_view", {
+        await rpc("/web_studio/create_default_view", {
             model: this.studio.editedAction.res_model,
             view_type: this.viewType,
             attrs: this.fieldsChoice,

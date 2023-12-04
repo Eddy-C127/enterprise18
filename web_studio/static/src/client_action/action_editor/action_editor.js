@@ -1,6 +1,7 @@
 /** @odoo-module */
 import { Component } from "@odoo/owl";
 import { useOwnedDialogs, useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
 import { sortBy } from "@web/core/utils/arrays";
@@ -87,7 +88,6 @@ class ActionEditor extends Component {
         this.studio = useStudioServiceAsReactive();
         this.action = useService("action");
         this.notification = useService("notification");
-        this.rpc = useService("rpc");
         this.user = useService("user");
         this.viewCategories = getViewCategories();
         this.addDialog = useOwnedDialogs();
@@ -167,7 +167,7 @@ class ActionEditor extends Component {
         const action = this.studio.editedAction;
         const viewMode = action.view_mode.split(",");
         viewMode.push(viewType);
-        let viewAdded = await this.rpc("/web_studio/add_view_type", {
+        let viewAdded = await rpc("/web_studio/add_view_type", {
             action_type: action.type,
             action_id: action.id,
             res_model: action.res_model,
@@ -248,7 +248,7 @@ class ActionEditor extends Component {
     }
 
     async editAction(changes) {
-        await this.rpc("/web_studio/edit_action", {
+        await rpc("/web_studio/edit_action", {
             action_id: this.studio.editedAction.id,
             action_type: "ir.actions.act_window",
             args: changes,

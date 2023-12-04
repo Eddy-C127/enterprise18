@@ -8,6 +8,7 @@ import { debounce, throttleForAnimation } from "@web/core/utils/timing";
 import { registry } from "@web/core/registry";
 import { FileViewer } from "@web/core/file_viewer/file_viewer";
 import { FileModel } from "@web/core/file_viewer/file_model";
+import { rpc } from "@web/core/network/rpc";
 import { uniqueId } from "@web/core/utils/functions";
 
 
@@ -20,11 +21,6 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
         'click .o_knowledge_article_load_more': '_loadMoreArticles',
         'click .o_knowledge_file_image a.o_image': 'onFileImageClick',
         'click .o_knowledge_behavior_type_file button[name="download"]': 'onFileDownloadClick',
-    },
-
-    init() {
-        this._super(...arguments);
-        this.rpc = this.bindService("rpc");
     },
 
     /**
@@ -58,7 +54,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
             offset: ev.target.dataset['offset'] || 0,
         };
 
-        addedArticles = await this.rpc('/knowledge/public_sidebar/load_more', rpcParams);
+        addedArticles = await rpc('/knowledge/public_sidebar/load_more', rpcParams);
 
         const listRoot = ev.target.closest('ul');
         // remove existing "Load more" link
@@ -87,7 +83,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
         // Renders articles based on search term in a flatenned tree (no sections nor child articles)
         const container = this.el.querySelector('.o_knowledge_tree');
         try {
-            const htmlTree = await this.rpc('/knowledge/public_sidebar/', {
+            const htmlTree = await rpc('/knowledge/public_sidebar/', {
                 search_term: searchTerm,
                 active_article_id: this.$id,
             });
@@ -168,7 +164,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
             this.unfoldedArticlesIds.push(this.$id);
         }
         try {
-            const htmlTree = await this.rpc('/knowledge/public_sidebar', {
+            const htmlTree = await rpc('/knowledge/public_sidebar', {
                 active_article_id: this.$id,
                 unfolded_articles_ids: this.unfoldedArticlesIds,
             });
@@ -195,7 +191,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
     },
 
     _fetchChildrenArticles: function (parentId) {
-        return this.rpc('/knowledge/public_sidebar/children', { parent_id: parentId });
+        return rpc('/knowledge/public_sidebar/children', { parent_id: parentId });
     },
 
     /**

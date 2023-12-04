@@ -12,7 +12,6 @@ class KnowledgeCover extends Component {
 
     setup() {
         super.setup();
-        this.rpc = useService("rpc");
         this.userService = useService("user");
         this.root = useRef("root");
         this.image = useRef("image");

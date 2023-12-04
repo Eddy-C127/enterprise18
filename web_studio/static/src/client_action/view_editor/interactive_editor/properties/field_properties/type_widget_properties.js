@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { Component, onWillUpdateProps, useState } from "@odoo/owl";
+import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
 import { getWowlFieldWidgets } from "@web_studio/client_action/view_editor/editors/utils";
@@ -9,7 +10,6 @@ import {
     FIELD_TYPE_ATTRIBUTES,
     COMPUTED_DISPLAY_OPTIONS,
 } from "./field_type_properties";
-import { useService } from "@web/core/utils/hooks";
 
 export class TypeWidgetProperties extends Component {
     static template =
@@ -21,7 +21,6 @@ export class TypeWidgetProperties extends Component {
     };
 
     setup() {
-        this.rpc = useService("rpc");
         this.attributes = useState({
             field: [],
             selection: [],
@@ -248,7 +247,7 @@ export class TypeWidgetProperties extends Component {
     async onChangeCurrency(value) {
         const proms = [];
         proms.push(
-            this.rpc("/web_studio/set_currency", {
+            rpc("/web_studio/set_currency", {
                 model_name: this.env.viewEditorModel.resModel,
                 field_name: this.props.node.field.name,
                 value,

@@ -3,6 +3,7 @@
 import { ActionContainer } from "@web/webclient/actions/action_container";
 import { useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";
+import { rpc } from "@web/core/network/rpc";
 import { KeepLast } from "@web/core/utils/concurrency";
 import { Component, markup, onWillStart, onWillUnmount, onWillUpdateProps, xml } from "@odoo/owl";
 import { useStudioServiceAsReactive } from "@web_studio/studio_service";
@@ -26,7 +27,6 @@ export class StudioActionContainer extends Component {
     setup() {
         this.actionService = useService("action");
         this.studio = useStudioServiceAsReactive();
-        this.rpc = useService("rpc");
         this.info = {};
 
         let actionKey = 1;
@@ -94,7 +94,7 @@ export class StudioActionContainer extends Component {
         } else if (editorTab === "reports" && editedReport) {
             return "web_studio.report_editor";
         } else {
-            const action = await this.rpc("/web_studio/get_studio_action", {
+            const action = await rpc("/web_studio/get_studio_action", {
                 action_name: editorTab,
                 model: editedAction.res_model,
                 view_id: editedAction.view_id && editedAction.view_id[0], // Not sure it is correct or desirable

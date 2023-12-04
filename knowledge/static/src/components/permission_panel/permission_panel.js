@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { session } from "@web/session";
+import { rpc } from "@web/core/network/rpc";
 import { ConfirmationDialog, AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { useService } from '@web/core/utils/hooks';
@@ -24,7 +25,6 @@ export class PermissionPanel extends Component {
         this.actionService = useService('action');
         this.dialog = useService('dialog');
         this.orm = useService('orm');
-        this.rpc = useService('rpc');
         /** @type {import("@mail/core/common/thread_service").ThreadService} */
         this.threadService = useService("mail.thread");
         this.userService = useService('user');
@@ -50,7 +50,7 @@ export class PermissionPanel extends Component {
      * @returns {Object}
      */
     loadData () {
-        return this.rpc("/knowledge/get_article_permission_panel_data",
+        return rpc("/knowledge/get_article_permission_panel_data",
             {
                 article_id: this.props.record.resId
             }
@@ -101,7 +101,7 @@ export class PermissionPanel extends Component {
                                 && permissionLevel[newPermission] < permissionLevel[this.state.parent_permission];
         const willLoseAccess = $select.val() === 'none' && (index >= 0 && this.state.members[index].permission === 'none');
         const confirm = async () => {
-            const res = await this.rpc('/knowledge/article/set_internal_permission',
+            const res = await rpc('/knowledge/article/set_internal_permission',
                 {
                     article_id: this.props.record.resId,
                     permission: newPermission,
@@ -145,7 +145,7 @@ export class PermissionPanel extends Component {
         const willLoseWrite = this.isLoggedUser(member) && newPermission !== 'write' && oldPermission === 'write';
         const willGainWrite = this.isLoggedUser(member) && newPermission === 'write' && oldPermission !== 'write';
         const confirm = async () => {
-            const res = await this.rpc('/knowledge/article/set_member_permission',
+            const res = await rpc('/knowledge/article/set_member_permission',
                 {
                     article_id: this.props.record.resId,
                     permission: newPermission,
@@ -192,7 +192,7 @@ export class PermissionPanel extends Component {
         const willRestrict = member.based_on ? true : false;
         const willLoseAccess = this.isLoggedUser(member) && member.permission !== "none";
         const confirm = async () => {
-            const res = await this.rpc('/knowledge/article/remove_member',
+            const res = await rpc('/knowledge/article/remove_member',
                 {
                     article_id: this.props.record.resId,
                     member_id: member.based_on ? false : member.id,

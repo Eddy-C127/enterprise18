@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
 import { Component, useState, onWillUnmount } from "@odoo/owl";
 
 const { DateTime } = luxon;
@@ -20,7 +20,6 @@ export class WelcomePage extends Component {
     };
 
     setup() {
-        this.rpc = useService("rpc");
         this.state = useState({ today: this.getCurrentTime(), qrCode: false });
         this.timeInterval = setInterval(() => (this.state.today = this.getCurrentTime()), 1000);
         this.props.resetData();
@@ -45,7 +44,7 @@ export class WelcomePage extends Component {
      * @private
      */
     async _getQrCodeData() {
-        const response = await this.rpc(
+        const response = await rpc(
             `/kiosk/${this.props.stationInfo.id}/get_tmp_code/${this.props.token}`
         );
         const token = encodeURIComponent(response[0] + response[1]);

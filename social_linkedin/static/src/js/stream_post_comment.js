@@ -3,12 +3,13 @@
 import { StreamPostComment } from '@social/js/stream_post_comment';
 import { StreamPostCommentsReplyLinkedin } from './stream_post_comments_reply';
 
+import { rpc } from "@web/core/network/rpc";
 import { sprintf } from '@web/core/utils/strings';
 
 export class StreamPostCommentLinkedin extends StreamPostComment {
 
     async _onLoadReplies() {
-        const innerComments = await this.rpc('/social_linkedin/get_comments', {
+        const innerComments = await rpc('/social_linkedin/get_comments', {
             stream_post_id: this.originalPost.id.raw_value,
             comment_urn: this.comment.id,
             comments_count: this.commentsCount

@@ -57,7 +57,6 @@ export class KnowledgeCommentsHandler extends Component {
         this.threadService = useService('mail.thread');
         this.userService = useService('user');
         this.orm = useService('orm');
-        this.rpc = useService('rpc');
 
         useRecordObserver(async (record) => {
             const allCommentsThread = (record.resId || this.props.record.resId) ? await this.orm.searchRead(

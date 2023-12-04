@@ -1,4 +1,6 @@
 /** @odoo-module **/
+
+import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { resetViewCompilerCache } from "@web/views/view_compiler";
 import { _t } from "@web/core/l10n/translation";
@@ -40,8 +42,8 @@ export function viewTypeToString(vType) {
 }
 
 export const studioService = {
-    dependencies: ["action", "color_scheme", "home_menu", "router", "rpc", "menu", "notification"],
-    async start(env, { color_scheme, rpc, menu, notification }) {
+    dependencies: ["action", "color_scheme", "home_menu", "router", "menu", "notification"],
+    async start(env, { color_scheme, menu, notification }) {
         const supportedViewTypes = Object.keys(SUPPORTED_VIEW_TYPES);
 
         function _getCurrentAction() {
@@ -99,7 +101,9 @@ export const studioService = {
                     menu.setCurrentMenu(argMenu);
                 } catch (e) {
                     if (e instanceof NotEditableActionError) {
-                        notification.add(_t("This action is not editable by Studio"), { type: "danger" });
+                        notification.add(_t("This action is not editable by Studio"), {
+                            type: "danger",
+                        });
                         return;
                     }
                     throw e;

@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from '@web/core/l10n/translation';
-import { RPCError } from "@web/core/network/rpc_service";
+import { rpc, RPCError } from "@web/core/network/rpc";
 
 import paymentForm from '@payment/js/payment_form';
 
@@ -83,7 +83,7 @@ paymentForm.include({
 
         // Assign the SDD mandate corresponding to the IBAN to the transaction.
         const ibanInput = this._getIbanInput();
-        this.rpc('/payment/sepa_direct_debit/set_mandate', {
+        rpc('/payment/sepa_direct_debit/set_mandate', {
             'reference': processingValues.reference,
             'iban': ibanInput.value,
             'access_token': processingValues.access_token,

@@ -1,7 +1,7 @@
 /** @odoo-module */
 
 import { Component, useState, onWillStart, onWillUpdateProps } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
 import { SidebarPropertiesToolbox } from "@web_studio/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox";
 
@@ -10,7 +10,6 @@ export class ChatterProperties extends Component {
     static components = { Property, SidebarPropertiesToolbox };
 
     setup() {
-        this.rpc = useService("rpc");
         this.state = useState({});
 
         onWillStart(async () => {
@@ -27,14 +26,14 @@ export class ChatterProperties extends Component {
     }
 
     async getMailAlias(node) {
-        const mailAliasObj = await this.rpc("/web_studio/get_email_alias", {
+        const mailAliasObj = await rpc("/web_studio/get_email_alias", {
             model_name: this.env.viewEditorModel.resModel,
         });
         return mailAliasObj;
     }
 
     onChangeMailAlias(value) {
-        this.rpc("/web_studio/set_email_alias", {
+        rpc("/web_studio/set_email_alias", {
             model_name: this.env.viewEditorModel.resModel,
             value,
         });

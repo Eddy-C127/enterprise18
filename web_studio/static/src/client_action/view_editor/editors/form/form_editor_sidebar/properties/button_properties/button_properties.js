@@ -3,6 +3,7 @@
 import { Component, onWillStart, onWillUpdateProps, useState } from "@odoo/owl";
 import { CheckBox } from "@web/core/checkbox/checkbox";
 import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_selector_dialog";
+import { rpc } from "@web/core/network/rpc";
 import { SelectMenu } from "@web/core/select_menu/select_menu";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
 import { useService } from "@web/core/utils/hooks";
@@ -38,7 +39,6 @@ export class ButtonProperties extends Component {
     setup() {
         this.dialog = useService("dialog");
         this.orm = useService("orm");
-        this.rpc = useService("rpc");
         this.state = useState({});
         this.editNodeAttributes = useEditNodeAttributes();
 
@@ -146,7 +146,7 @@ export class ButtonProperties extends Component {
 
     async onApprovalEdit(name, id, value) {
         const isMethod = this.props.node.attrs.type === "object";
-        await this.rpc("/web_studio/edit_approval", {
+        await rpc("/web_studio/edit_approval", {
             model: this.env.viewEditorModel.resModel,
             method: isMethod ? this.props.node.attrs.name : false,
             action: isMethod ? false : this.props.node.attrs.name,

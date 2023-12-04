@@ -17,7 +17,6 @@ export class StreamPostComments extends SocialPostFormatterMixin(Component) {
     setup() {
         super.setup();
         this.orm = useService('orm');
-        this.rpc = useService('rpc');
         this.dialog = useService('dialog');
         this.comments = useState(this.props.comments);
         this.postId = this.props.postId;

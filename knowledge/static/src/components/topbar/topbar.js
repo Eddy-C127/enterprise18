@@ -2,6 +2,7 @@
 
 import { loadBundle } from "@web/core/assets";
 import { formatDateTime } from '@web/core/l10n/dates';
+import { rpc } from "@web/core/network/rpc";
 import { registry } from '@web/core/registry';
 import { standardWidgetProps } from '@web/views/widgets/standard_widget_props';
 import { useBus, useService } from '@web/core/utils/hooks';
@@ -33,7 +34,6 @@ class KnowledgeTopbar extends Component {
         this.actionService = useService('action');
         this.dialog = useService('dialog');
         this.orm = useService('orm');
-        this.rpc = useService('rpc');
         this.uiService = useService('ui');
         this.userService = useService('user');
 
@@ -128,7 +128,7 @@ class KnowledgeTopbar extends Component {
         this.env.ensureArticleName();
         let res = {};
         try {
-            res = await this.rpc(`/knowledge/article/${this.props.record.resId}/add_random_cover`, {
+            res = await rpc(`/knowledge/article/${this.props.record.resId}/add_random_cover`, {
                 query: this.props.record.data.name,
                 orientation: 'landscape',
             });

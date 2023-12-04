@@ -4,6 +4,7 @@ import { KeepLast } from "@web/core/utils/concurrency";
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { debounce } from "@web/core/utils/timing";
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { renderToElement } from "@web/core/utils/render";
 import { getDataURLFromFile } from "@web/core/utils/urls";
 
@@ -57,8 +58,6 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
 
         // When user use back button, unfold previously unfolded items.
         $('#hr_cs_configurator .hr_cs_control input.folded:checked').closest('div').find('.folded_content').removeClass('d-none')
-
-        this.rpc = this.bindService("rpc");
     },
 
     willStart() {
@@ -425,7 +424,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
 
     async updateAfterChangingBenefit(type, benefitField, newValue) {
         if (type !== 'file') {
-            const result = await this.rpc('/salary_package/onchange_benefit', {
+            const result = await rpc('/salary_package/onchange_benefit', {
                 'benefit_field': benefitField,
                 'new_value': newValue,
                 'contract_id': parseInt($("input[name='contract']").val()),
@@ -470,7 +469,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         $("input[name='NET']").addClass('o_outdated');
 
         return this.keepLast.add(
-            self.rpc('/salary_package/update_salary', {
+            rpc('/salary_package/update_salary', {
                 'contract_id': parseInt($("input[name='contract']").val()),
                 'offer_id': parseInt($("input[name='offer_id']").val()),
                 'benefits': self.getBenefits({includeFiles: false}),
@@ -494,7 +493,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         } else {
             newValue = event.target.value;
         }
-        const data = await this.rpc('/salary_package/onchange_personal_info', {
+        const data = await rpc('/salary_package/onchange_personal_info', {
             'field': event.target.name,
             'value': newValue,
         });
@@ -627,7 +626,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
     async submitSalaryPackage(event) {
         if (this.checkFormValidity()) {
             const formInfo = await this.getFormInfo();
-            const data = await this.rpc('/salary_package/submit', formInfo);
+            const data = await rpc('/salary_package/submit', formInfo);
             if (data['error']) {
                 $("button#hr_cs_submit").parent().append("<div class='alert alert-danger alert-dismissable fade show'>" + data['error_msg'] + "</div>");
             } else {

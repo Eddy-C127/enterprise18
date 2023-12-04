@@ -2,6 +2,7 @@
 
 import BarcodePickingModel from '@stock_barcode/models/barcode_picking_model';
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 
 export default class BarcodeMRPModel extends BarcodePickingModel {
     constructor(params) {
@@ -223,7 +224,7 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         this.resId = recordId;
         await this.orm.call('mrp.production', 'action_confirm', [[this.resId]]);
         const { route, params } = this.getActionRefresh(recordId);
-        const result = await this.rpc(route, params);
+        const result = await rpc(route, params);
         this.setData(result);
     }
 

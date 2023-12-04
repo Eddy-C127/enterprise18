@@ -10,12 +10,13 @@ import {
 } from "@odoo/owl";
 import { loadBundle } from "@web/core/assets";
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { omit } from "@web/core/utils/objects";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { useHotkey } from "@web/core/hotkeys/hotkey_hook";
 import { sortBy } from "@web/core/utils/arrays";
 import { useOwnedDialogs, useService } from "@web/core/utils/hooks";
-import { SelectMenu } from '@web/core/select_menu/select_menu';
+import { SelectMenu } from "@web/core/select_menu/select_menu";
 import { QWebPlugin } from "@web_editor/js/backend/QWebPlugin";
 import { setSelection, startPos, endPos } from "@web_editor/js/editor/odoo-editor/src/utils/utils";
 
@@ -122,9 +123,9 @@ class FieldDynamicPlaceholder extends Component {
                 value: k,
                 label: `${k} (${v.name})`,
                 model: v.model,
-            }
-        }
-        return sortBy(entries, sortFn, "desc").map(e => mapFn(e));
+            };
+        };
+        return sortBy(entries, sortFn, "desc").map((e) => mapFn(e));
     }
 
     validate(...args) {
@@ -146,7 +147,8 @@ class FieldDynamicPlaceholder extends Component {
         let defaultVar = this.sortedVariables.find((v) => {
             return ["doc", "o"].includes(v.value);
         });
-        defaultVar = defaultVar || this.sortedVariables.find((v) => v.model === this.props.resModel);
+        defaultVar =
+            defaultVar || this.sortedVariables.find((v) => v.model === this.props.resModel);
         return defaultVar && defaultVar.value;
     }
 }
@@ -229,7 +231,6 @@ export class ReportEditorWysiwyg extends Component {
     static template = "web_studio.ReportEditorWysiwyg";
 
     setup() {
-        this.rpc = useService("rpc");
         this.action = useService("action");
         this.user = useService("user");
         this.addDialog = useOwnedDialogs();
@@ -575,7 +576,7 @@ export class ReportEditorWysiwyg extends Component {
                             in_foreach: true,
                             name: relationName,
                         },
-                        ...props.availableQwebVariables
+                        ...props.availableQwebVariables,
                     })
                 );
                 tBody.appendChild(tr);
@@ -633,7 +634,7 @@ export class ReportEditorWysiwyg extends Component {
             return;
         }
 
-        const action = await this.rpc("/web_studio/print_report", {
+        const action = await rpc("/web_studio/print_report", {
             record_id: recordId,
             report_id: model.editedReportId,
         });

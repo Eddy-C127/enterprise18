@@ -106,7 +106,6 @@ export class EditorMenu extends Component {
     setup() {
         this.l10n = localization;
         this.studio = useService("studio");
-        this.rpc = useService("rpc");
         this.editionFlow = useState(this.env.editionFlow);
     }
 

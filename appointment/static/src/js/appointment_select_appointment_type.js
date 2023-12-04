@@ -3,6 +3,7 @@
 import { renderToElement } from "@web/core/utils/render";
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { debounce } from "@web/core/utils/timing";
+import { rpc } from "@web/core/network/rpc";
 
 publicWidget.registry.appointmentTypeSelect = publicWidget.Widget.extend({
     selector: '.o_appointment_choice',
@@ -18,7 +19,6 @@ publicWidget.registry.appointmentTypeSelect = publicWidget.Widget.extend({
         // Check if we cannot replace this by a async handler once the related
         // task is merged in master
         this._onAppointmentTypeChange = debounce(this._onAppointmentTypeChange, 250);
-        this.rpc = this.bindService("rpc");
     },
 
     /**
@@ -52,7 +52,7 @@ publicWidget.registry.appointmentTypeSelect = publicWidget.Widget.extend({
         const inviteToken = this.$("input[name='invite_token']").val();
         self.$(".o_appointment_appointments_list_form").attr('action', `/appointment/${appointmentTypeID}${window.location.search}`);
 
-        this.rpc(`/appointment/${appointmentTypeID}/get_message_intro`, {
+        rpc(`/appointment/${appointmentTypeID}/get_message_intro`, {
             invite_token: inviteToken,
             filter_appointment_type_ids: filterAppointmentTypeIds,
             filter_staff_user_ids: filterUserIds,

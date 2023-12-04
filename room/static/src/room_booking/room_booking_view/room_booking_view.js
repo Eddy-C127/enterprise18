@@ -3,6 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
+import { rpc } from "@web/core/network/rpc";
 import { redirect } from "@web/core/utils/urls";
 import { registry } from "@web/core/registry";
 import { RoomBookingForm } from "@room/room_booking/room_booking_form/room_booking_form";
@@ -56,7 +57,6 @@ export class RoomBookingView extends Component {
             bookings.forEach((booking) => this.udpateBooking(booking)),
         );
         this.busService.subscribe("reload", (url) => redirect(url));
-        this.rpc = useService("rpc");
         this.notificationService = useService("notification");
         this.dialogService = useService("dialog");
         onWillStart(this.loadBookings);
@@ -134,7 +134,7 @@ export class RoomBookingView extends Component {
         this.dialogService.add(ConfirmationDialog, {
             body: _t("Are you sure you want to delete this booking?"),
             confirmLabel: _t("Delete"),
-            confirm: () => this.rpc(`${this.manageRoomUrl}/booking/${bookingId}/delete`),
+            confirm: () => rpc(`${this.manageRoomUrl}/booking/${bookingId}/delete`),
             cancel: () => {},
         });
     }
@@ -147,7 +147,7 @@ export class RoomBookingView extends Component {
      * @param {luxon.DateTime} end
      */
     editBooking(bookingId, name, start, end) {
-        this.rpc(`${this.manageRoomUrl}/booking/${bookingId}/update`, {
+        rpc(`${this.manageRoomUrl}/booking/${bookingId}/update`, {
             name,
             start_datetime: serializeDateTime(start),
             stop_datetime: serializeDateTime(end),
@@ -160,7 +160,7 @@ export class RoomBookingView extends Component {
      * New bookings will be received through the busService.
      */
     async loadBookings() {
-        const bookings = await this.rpc(`${this.manageRoomUrl}/get_existing_bookings`);
+        const bookings = await rpc(`${this.manageRoomUrl}/get_existing_bookings`);
         for (const booking of bookings) {
             this.addBooking(booking);
         }
@@ -219,7 +219,7 @@ export class RoomBookingView extends Component {
      */
     scheduleBooking(name, start, end) {
         this.resetBookingForm();
-        this.rpc(`${this.manageRoomUrl}/booking/create`, {
+        rpc(`${this.manageRoomUrl}/booking/create`, {
             name: name || _t("Public Booking"),
             start_datetime: serializeDateTime(start),
             stop_datetime: serializeDateTime(end),

@@ -2,6 +2,7 @@
 
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { renderToElement, renderToFragment } from "@web/core/utils/render";
+import { rpc } from "@web/core/network/rpc";
 const { DateTime } = luxon;
 
 publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
@@ -15,11 +16,6 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         'click .o_slot_button': '_onClickDaySlot',
         'click .o_slot_hours': '_onClickHoursSlot',
         'click button[name="submitSlotInfoSelected"]': '_onClickConfirmSlot',
-    },
-
-    init() {
-        this._super(...arguments);
-        this.rpc = this.bindService("rpc");
     },
 
     /**
@@ -248,7 +244,7 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
             this.$('.o_appointment_no_slot_overall_helper').empty();
             this.$slotsList.empty();
             this.$('#resourceSelection').empty();
-            const updatedAppointmentCalendarHtml = await this.rpc(
+            const updatedAppointmentCalendarHtml = await rpc(
                 `/appointment/${appointmentTypeID}/update_available_slots`,
                 {
                     asked_capacity: resourceCapacity,

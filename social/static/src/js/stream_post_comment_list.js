@@ -1,16 +1,10 @@
 /** @odoo-module **/
 
 import { StreamPostComment } from './stream_post_comment';
-import { useService } from '@web/core/utils/hooks';
 import { Component } from "@odoo/owl";
 
 export class StreamPostCommentList extends Component {
     static template = "social.StreamPostCommentsWrapper";
-
-    setup() {
-        super.setup();
-        this.rpc = useService('rpc');
-    }
 
     /**
      * To override for each specific social StreamPostCommentList class.

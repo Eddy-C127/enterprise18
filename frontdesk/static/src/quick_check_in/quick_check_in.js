@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { Component } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
 
 export class QuickCheckIn extends Component {
     static template = "frontdesk.QuickCheckIn";
@@ -14,10 +14,6 @@ export class QuickCheckIn extends Component {
         theme: String,
     };
 
-    setup() {
-        this.rpc = useService("rpc");
-    }
-
     /**
      * Updates the planned visitor record in the backend
      *
@@ -25,7 +21,7 @@ export class QuickCheckIn extends Component {
      * @param {Object} visitor
      */
     async _onClick(visitor) {
-        await this.rpc(
+        await rpc(
             `/frontdesk/${this.props.stationId}/${this.props.token}/prepare_visitor_data`,
             {
                 visitor_id: visitor.id,

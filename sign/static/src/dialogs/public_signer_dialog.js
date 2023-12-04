@@ -1,7 +1,8 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
 import { Component, useRef } from "@odoo/owl";
+import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
 
@@ -20,7 +21,6 @@ export class PublicSignerDialog extends Component {
     setup() {
         this.nameInput = useRef("name");
         this.mailInput = useRef("mail");
-        this.rpc = useService("rpc");
         this.signInfo = useService("signInfo");
     }
 
@@ -40,7 +40,7 @@ export class PublicSignerDialog extends Component {
             return false;
         }
 
-        const response = await this.rpc(
+        const response = await rpc(
             `/sign/send_public/${this.signInfo.get("documentId")}/${this.signInfo.get(
                 "signRequestToken"
             )}`,

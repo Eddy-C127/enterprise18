@@ -1,6 +1,6 @@
 /** @odoo-module */
 import { _t } from "@web/core/l10n/translation";
-import { RPCError } from "@web/core/network/rpc_service";
+import { RPCError } from "@web/core/network/rpc";
 import { PaymentInterface } from "@point_of_sale/app/payment/payment_interface";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 

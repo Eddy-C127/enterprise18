@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import mobile from "@web_mobile/js/services/core";
-import { jsonrpc } from "@web/core/network/rpc_service";
+import { rpc } from "@web/core/network/rpc";
 import { session } from "@web/session";
 
 //Send info only if client is mobile
@@ -12,7 +12,7 @@ if (mobile.methods.getFCMKey) {
             inbox_action: session.inbox_action,
         }).then(function (response) {
             if (response.success) {
-                jsonrpc('/web/dataset/call_kw/res.config.settings/register_device', {
+                rpc('/web/dataset/call_kw/res.config.settings/register_device', {
                     model: 'res.config.settings',
                     method: 'register_device',
                     args: [response.data.subscription_id, response.data.device_name],
@@ -28,7 +28,7 @@ if (mobile.methods.getFCMKey) {
     if (session.fcm_project_id) {
         registerDevice(session.fcm_project_id);
     } else {
-        jsonrpc('/web/dataset/call_kw/res.config.settings/get_fcm_project_id', {
+        rpc('/web/dataset/call_kw/res.config.settings/get_fcm_project_id', {
             model: 'res.config.settings',
             method: 'get_fcm_project_id',
             args: [],

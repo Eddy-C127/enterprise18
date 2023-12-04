@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { renderToString } from "@web/core/utils/render";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { normalizePosition, pinchService, isVisible } from "./utils";
@@ -67,7 +68,7 @@ export class PDFIframe {
     }
 
     async loadCustomCSS() {
-        const assets = await this.rpc("/sign/render_assets_pdf_iframe", {
+        const assets = await rpc("/sign/render_assets_pdf_iframe", {
             args: [{ debug: this.env.debug }],
         });
         this.root.querySelector("head").insertAdjacentHTML("beforeend", assets);

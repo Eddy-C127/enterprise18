@@ -5,6 +5,7 @@ import { StreamPostKanbanRecord } from '@social/js/stream_post_kanban_record';
 import { StreamPostCommentsTwitter } from './stream_post_comments';
 import { StreamPostTwitterQuote } from './stream_post_twitter_quote';
 
+import { rpc } from "@web/core/network/rpc";
 import { patch } from "@web/core/utils/patch";
 import { sprintf } from '@web/core/utils/strings';
 import { useService } from '@web/core/utils/hooks';
@@ -66,7 +67,7 @@ patch(StreamPostKanbanRecord.prototype, {
             streamId: this.record.stream_id.raw_value,
         };
 
-        this.rpc("/social_twitter/get_comments", { stream_post_id: postId })
+        rpc("/social_twitter/get_comments", { stream_post_id: postId })
             .then((result) => {
                 this.dialog.add(StreamPostCommentsTwitter, {
                     ...modalInfo,
@@ -88,7 +89,7 @@ patch(StreamPostKanbanRecord.prototype, {
 
     _onTwitterTweetLike() {
         const userLikes = this.record.twitter_user_likes.raw_value;
-        this.rpc(sprintf('social_twitter/%s/like_tweet', this.record.stream_id.raw_value), {
+        rpc(sprintf('social_twitter/%s/like_tweet', this.record.stream_id.raw_value), {
             tweet_id: this.record.twitter_tweet_id.raw_value,
             like: !userLikes
         });
@@ -96,7 +97,7 @@ patch(StreamPostKanbanRecord.prototype, {
     },
 
     _onTwitterRetweet(ev) {
-        this.rpc(sprintf('social_twitter/%s/%s', this.record.stream_id.raw_value,
+        rpc(sprintf('social_twitter/%s/%s', this.record.stream_id.raw_value,
                  this.record.twitter_can_retweet.raw_value ? 'retweet' : 'unretweet'), {
             tweet_id: this.record.twitter_tweet_id.raw_value,
             stream_id: this.record.stream_id.raw_value,

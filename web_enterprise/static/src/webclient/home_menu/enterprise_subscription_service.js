@@ -8,6 +8,7 @@ import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { ExpirationPanel } from "./expiration_panel";
 import { cookie } from "@web/core/browser/cookie";
+import { rpc } from "@web/core/network/rpc";
 
 const { DateTime } = luxon;
 import { Component, xml, useState } from "@odoo/owl";
@@ -18,9 +19,8 @@ function daysUntil(datetime) {
 }
 
 export class SubscriptionManager {
-    constructor(env, { rpc, orm, notification }) {
+    constructor(env, { orm, notification }) {
         this.env = env;
-        this.rpc = rpc;
         this.orm = orm;
         this.notification = notification;
         if (session.expiration_date) {
@@ -130,7 +130,7 @@ export class SubscriptionManager {
             "database.already_linked_send_mail_url",
         ]);
         this.mailDeliveryStatus = "ongoing";
-        const { result, reason } = await this.rpc(sendUnlinkInstructionsUrl);
+        const { result, reason } = await rpc(sendUnlinkInstructionsUrl);
         if (result) {
             this.mailDeliveryStatus = "success";
         } else {
@@ -183,12 +183,12 @@ class ExpiredSubscriptionBlockUI extends Component {
 
 export const enterpriseSubscriptionService = {
     name: "enterprise_subscription",
-    dependencies: ["orm", "rpc", "notification"],
-    start(env, { rpc, orm, notification }) {
+    dependencies: ["orm", "notification"],
+    start(env, { orm, notification }) {
         registry
             .category("main_components")
             .add("expired_subscription_block_ui", { Component: ExpiredSubscriptionBlockUI });
-        return new SubscriptionManager(env, { rpc, orm, notification });
+        return new SubscriptionManager(env, { orm, notification });
     },
 };
 

@@ -1,4 +1,6 @@
 /** @odoo-module */
+
+import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { SearchModel } from "@web/search/search_model";
 import {
@@ -127,8 +129,7 @@ export class ViewEditorModel extends Reactive {
             };
         };
 
-        this._rpc = services.rpc;
-        this._decoratedRpc = this._decorateFunction(services.rpc);
+        this._decoratedRpc = this._decorateFunction(rpc);
 
         this._editionFlow = editionFlow;
 
@@ -628,7 +629,7 @@ export class ViewEditorModel extends Reactive {
             return;
         }
         this.isInEdition = true;
-        const prom = this._rpc("/web_studio/rename_field", {
+        const prom = rpc("/web_studio/rename_field", {
             studio_view_id: this.studioViewId,
             studio_view_arch: this.studioViewArch,
             model: this.resModel,
@@ -688,7 +689,7 @@ export class ViewEditorModel extends Reactive {
 
     /** Arch Edition */
     async _editView(operations) {
-        return this._rpc("/web_studio/edit_view", {
+        return rpc("/web_studio/edit_view", {
             view_id: this.mainView.id,
             studio_view_arch: this.studioViewArch,
             operations: operations,
@@ -698,7 +699,7 @@ export class ViewEditorModel extends Reactive {
     }
 
     async _editViewArch(viewId, viewArch) {
-        const result = await this._rpc("/web_studio/edit_view_arch", {
+        const result = await rpc("/web_studio/edit_view_arch", {
             view_id: viewId,
             view_arch: viewArch,
             // We write views in the base language to make sure we do it on the source term field
@@ -769,7 +770,7 @@ export class ViewEditorModel extends Reactive {
     }
 
     async _getStudioViewArch() {
-        const result = await this._rpc("/web_studio/get_studio_view_arch", {
+        const result = await rpc("/web_studio/get_studio_view_arch", {
             model: this.resModel,
             view_type: this.viewType,
             view_id: this.mainView.id,

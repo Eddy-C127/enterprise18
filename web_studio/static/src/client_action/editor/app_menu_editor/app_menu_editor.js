@@ -1,5 +1,6 @@
 /** @odoo-module */
 import { Component, useRef, useState } from "@odoo/owl";
+import { rpc } from "@web/core/network/rpc";
 import { useBus, useService, useOwnedDialogs } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
 import { useNestedSortable } from "@web/core/utils/nested_sortable";
@@ -25,7 +26,6 @@ class EditMenuDialog extends Component {
         this.addDialog = useOwnedDialogs();
         this.orm = useService("orm");
         this.user = useService("user");
-        this.rpc = useService("rpc");
 
         useBus(this.env.bus, "ACTION_MANAGER:UPDATE", () => this.cancel());
 
@@ -161,7 +161,7 @@ class EditMenuDialog extends Component {
     onNewMenu() {
         this.addDialog(MenuCreatorDialog, {
             confirm: async (data) => {
-                await this.rpc("/web_studio/create_new_menu", {
+                await rpc("/web_studio/create_new_menu", {
                     menu_name: data.menuName,
                     model_id: data.modelId[0],
                     model_choice: data.modelChoice,

@@ -13,6 +13,7 @@ import { useSetupAction } from "@web/webclient/actions/action_hook";
 import { WithSearch } from "@web/search/with_search/with_search";
 import { ActionMenus } from "@web/search/action_menus/action_menus";
 import { download } from "@web/core/network/download";
+import { rpc } from "@web/core/network/rpc";
 import { ExportDataDialog } from "@web/views/view_dialogs/export_data_dialog";
 import { Component, onWillStart, useSubEnv } from "@odoo/owl";
 
@@ -35,7 +36,6 @@ class MainComponent extends Component {
         this.dialog = useService("dialog");
         this.orm = useService("orm");
         this.viewService = useService("view");
-        this.rpc = useService("rpc");
 
         const { orm, action, dialog } = this;
         this.model = new MasterProductionScheduleModel(this.props, { orm, action, dialog });
@@ -181,7 +181,7 @@ class MainComponent extends Component {
     }
 
     async getExportedFields(model, import_compat, parentParams) {
-        return await this.rpc("/web/export/get_fields", {
+        return await rpc("/web/export/get_fields", {
             ...parentParams,
             model,
             import_compat,

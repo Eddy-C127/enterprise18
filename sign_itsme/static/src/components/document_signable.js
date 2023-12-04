@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { patch } from "@web/core/utils/patch";
 import { SignablePDFIframe } from "@sign/components/sign_request/signable_PDF_iframe";
 import { Document } from "@sign/components/sign_request/document_signable";
@@ -33,7 +34,7 @@ patch(SignablePDFIframe.prototype, {
 
     async getAuthDialog() {
         if (this.props.authMethod === "itsme") {
-            const credits = await this.rpc("/itsme/has_itsme_credits");
+            const credits = await rpc("/itsme/has_itsme_credits");
             if (credits) {
                 const [route, params] = await this._getRouteAndParams();
                 return {

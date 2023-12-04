@@ -55,7 +55,6 @@ export class FormEditorSidebar extends Component {
     };
 
     setup() {
-        this.rpc = useService("rpc");
         this.dialog = useService("dialog");
         this.viewEditorModel = useState(this.env.viewEditorModel);
         this.editArchAttributes = useEditNodeAttributes({ isRoot: true });

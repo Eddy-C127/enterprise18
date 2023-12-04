@@ -4,6 +4,8 @@ import { StreamPostComments } from '@social/js/stream_post_comments';
 import { StreamPostCommentListLinkedin } from './stream_post_comment_list';
 import { StreamPostCommentsReplyLinkedin } from './stream_post_comments_reply';
 
+import { rpc } from "@web/core/network/rpc";
+
 export class StreamPostCommentsLinkedin extends StreamPostComments {
 
     setup() {
@@ -23,7 +25,7 @@ export class StreamPostCommentsLinkedin extends StreamPostComments {
     }
 
     async loadMoreComments() {
-        const nextComments = await this.rpc('/social_linkedin/get_comments', {
+        const nextComments = await rpc('/social_linkedin/get_comments', {
             stream_post_id: this.originalPost.id.raw_value,
             offset: this.offset,
             comments_count: this.commentsCount

@@ -1,7 +1,8 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
 import { Component, useRef } from "@odoo/owl";
+import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
@@ -19,7 +20,6 @@ export class SignRefusalDialog extends Component {
     setup() {
         this.refuseReasonEl = useRef("refuse-reason");
         this.refuseButton = useRef("refuse-button");
-        this.rpc = useService("rpc");
         this.dialog = useService("dialog");
         this.signInfo = useService("signInfo");
     }
@@ -44,7 +44,7 @@ export class SignRefusalDialog extends Component {
         const params = {
             refusal_reason: reason,
         };
-        const response = await this.rpc(route, params);
+        const response = await rpc(route, params);
         if (!response) {
             this.dialog.add(
                 AlertDialog,

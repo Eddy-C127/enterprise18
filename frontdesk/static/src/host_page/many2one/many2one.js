@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
-import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
 import { AutoComplete } from "@web/core/autocomplete/autocomplete";
 import { Component } from "@odoo/owl";
 
@@ -14,10 +14,6 @@ export class Many2One extends Component {
         token: String,
         update: Function,
     };
-
-    setup() {
-        this.rpc = useService("rpc");
-    }
 
     async loadOptionsSource(request) {
         if (this.lastProm) {
@@ -55,7 +51,7 @@ export class Many2One extends Component {
 
     /* This method triggers when a user types in the input field */
     search(name) {
-        return this.rpc(`/frontdesk/${this.props.stationId}/${this.props.token}/get_hosts`, {
+        return rpc(`/frontdesk/${this.props.stationId}/${this.props.token}/get_hosts`, {
             name: name,
         });
     }

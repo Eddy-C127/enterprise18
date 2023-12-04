@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { downloadFile } from "@web/core/network/download";
 import { getDataURLFromFile, getOrigin } from "@web/core/utils/urls";
 import { FileModel } from "@web/core/file_viewer/file_model";
@@ -53,7 +54,6 @@ export class FileBehavior extends AbstractBehavior {
         super.setup();
         this.actionService = useService('action');
         this.dialogService = useService('dialog');
-        this.rpcService = useService('rpc');
         this.uiService = useService('ui');
         this.macrosServices = {
             action: this.actionService,
@@ -343,7 +343,7 @@ export class FileBehavior extends AbstractBehavior {
             const response = await window.fetch(this.state.fileModel.urlRoute);
             const blob = await response.blob();
             const dataURL = await getDataURLFromFile(blob);
-            attachment = await this.rpcService('/web_editor/attachment/add_data', {
+            attachment = await rpc('/web_editor/attachment/add_data', {
                 name: this.state.fileModel.name,
                 data: dataURL.split(',')[1],
                 is_image: false,

@@ -85,7 +85,7 @@ export async function setupCollaborativeEnv(serverData) {
     setupDataSourceEvaluation(alice);
     setupDataSourceEvaluation(bob);
     setupDataSourceEvaluation(charlie);
-    return { network, alice, bob, charlie, rpc: env.services.rpc };
+    return { network, alice, bob, charlie };
 }
 
 QUnit.assert.spreadsheetIsSynchronized = function (users, callback, expected) {

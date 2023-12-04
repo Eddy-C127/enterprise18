@@ -3,6 +3,7 @@
 import { KeepLast } from "@web/core/utils/concurrency";
 import publicWidget from '@web/legacy/js/public/public_widget';
 
+import { rpc } from "@web/core/network/rpc";
 import { renderToElement } from "@web/core/utils/render";
 import { debounce } from "@web/core/utils/timing";
 
@@ -21,8 +22,6 @@ publicWidget.registry.knowledgeBaseAutocomplete = publicWidget.Widget.extend({
 
         this._onInput = debounce(this._onInput, 400);
         this._onFocusOut = debounce(this._onFocusOut, 100);
-
-        this.rpc = this.bindService("rpc");
     },
 
 
@@ -42,7 +41,7 @@ publicWidget.registry.knowledgeBaseAutocomplete = publicWidget.Widget.extend({
         if (!search || search.length < 3)
             return;
 
-        return this.rpc(this.$url, { 'term': search });
+        return rpc(this.$url, { 'term': search });
     },
 
     /**

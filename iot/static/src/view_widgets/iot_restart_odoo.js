@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
@@ -23,7 +24,6 @@ export class IoTRestartOdooOrReboot extends Component {
         this.dialog = useService("dialog");
         this.http = useService("http");
         this.notification = useService("notification");
-        this.rpc = useService("rpc");
     }
 
     get ip_url() {
@@ -64,7 +64,7 @@ export class IoTRestartOdooOrReboot extends Component {
                 _t("Restarting"),
                 "warning"
             );
-            restartResponse = await this.rpc(this.ip_url + "/iot_restart_odoo_or_reboot", {
+            restartResponse = await rpc(this.ip_url + "/iot_restart_odoo_or_reboot", {
                 action: this.props.action,
             });
         } catch (error) {

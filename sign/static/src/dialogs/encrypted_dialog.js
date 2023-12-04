@@ -4,6 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { Dialog } from "@web/core/dialog/dialog";
+import { rpc } from "@web/core/network/rpc";
 import { Component, useRef } from "@odoo/owl";
 
 export class EncryptedDialog extends Component {
@@ -17,7 +18,6 @@ export class EncryptedDialog extends Component {
 
     setup() {
         this.passwordInput = useRef("password");
-        this.rpc = useService("rpc");
         this.dialog = useService("dialog");
         this.signInfo = useService("signInfo");
     }
@@ -42,7 +42,7 @@ export class EncryptedDialog extends Component {
             password: passwordInput.value,
         };
 
-        const response = await this.rpc(route, params);
+        const response = await rpc(route, params);
         if (!response) {
             return this.dialog.add(AlertDialog, {
                 body: _t("Password is incorrect."),

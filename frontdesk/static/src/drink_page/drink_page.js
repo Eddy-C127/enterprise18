@@ -2,7 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { Component } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
 import { useInactivity } from "../use_inactivity";
 
 export class DrinkPage extends Component {
@@ -17,7 +17,6 @@ export class DrinkPage extends Component {
         visitorId: Number,
     };
     setup() {
-        this.rpc = useService("rpc");
         useInactivity(() => this.props.showScreen("EndPage"), 15000);
     }
 
@@ -27,7 +26,7 @@ export class DrinkPage extends Component {
      * @private
      */
     async _onDrinkSelect(drinkId) {
-        await this.rpc(
+        await rpc(
             `/frontdesk/${this.props.stationId}/${this.props.token}/prepare_visitor_data`,
             {
                 visitor_id: this.props.visitorId,

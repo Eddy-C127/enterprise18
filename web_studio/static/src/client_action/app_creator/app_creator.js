@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { Component, reactive, useExternalListener, useState } from "@odoo/owl";
+import { rpc } from "@web/core/network/rpc";
 import { useAutofocus, useService } from "@web/core/utils/hooks";
 import { BG_COLORS, COLORS, ICONS } from "@web_studio/utils";
 import { ModelConfigurator } from "@web_studio/client_action/model_configurator/model_configurator";
@@ -141,7 +142,6 @@ export class AppCreator extends Component {
         );
 
         this.uiService = useService("ui");
-        this.rpc = useService("rpc");
         this.user = useService("user");
 
         useAutofocus();
@@ -164,7 +164,7 @@ export class AppCreator extends Component {
                   iconData.uploaded_attachment_id;
 
         try {
-            const result = await this.rpc("/web_studio/create_new_app", {
+            const result = await rpc("/web_studio/create_new_app", {
                 app_name: data.appName,
                 menu_name: data.menu.menuName,
                 model_choice: data.menu.modelChoice,
