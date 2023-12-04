@@ -52,7 +52,7 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
         self.snapshot(
             spreadsheet,
-            spreadsheet.server_revision_id, "snapshot-revision-id", {"sheets": [], "revisionId": "snapshot-revision-id"},
+            spreadsheet.current_revision_uuid, "snapshot-revision-id", {"sheets": [], "revisionId": "snapshot-revision-id"},
         )
         # one revision after the snapshot
         spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
@@ -122,7 +122,7 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
         self.snapshot(
             spreadsheet,
-            spreadsheet.server_revision_id,
+            spreadsheet.current_revision_uuid,
             "snapshot-revision-id",
              {"sheets": [], "revisionId": "snapshot-revision-id"}
         )
@@ -153,7 +153,7 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
             spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
             self.snapshot(
                 spreadsheet,
-                spreadsheet.server_revision_id, "snapshot-revision-id", {"sheets": [], "revisionId": "snapshot-revision-id"},
+                spreadsheet.current_revision_uuid, "snapshot-revision-id", {"sheets": [], "revisionId": "snapshot-revision-id"},
             )
             spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
         user = spreadsheet.create_uid
@@ -181,13 +181,13 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
 
     def test_empty_spreadsheet_server_revision_id(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
-        self.assertEqual(spreadsheet.server_revision_id, "START_REVISION")
+        self.assertEqual(spreadsheet.current_revision_uuid, "START_REVISION")
 
     def test_no_data_server_revision_id(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
         spreadsheet.spreadsheet_snapshot = False
         spreadsheet.spreadsheet_data = False
-        self.assertEqual(spreadsheet.server_revision_id, False)
+        self.assertEqual(spreadsheet.current_revision_uuid, False)
 
     def test_last_revision_is_server_revision_id(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
@@ -195,27 +195,27 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         revision_data = self.new_revision_data(spreadsheet)
         next_revision_id = revision_data["nextRevisionId"]
         spreadsheet.dispatch_spreadsheet_message(revision_data)
-        self.assertEqual(spreadsheet.server_revision_id, next_revision_id)
+        self.assertEqual(spreadsheet.current_revision_uuid, next_revision_id)
 
         # dispatch new revision on top
         revision_data = self.new_revision_data(spreadsheet)
         next_revision_id = revision_data["nextRevisionId"]
         spreadsheet.dispatch_spreadsheet_message(revision_data)
-        self.assertEqual(spreadsheet.server_revision_id, next_revision_id)
+        self.assertEqual(spreadsheet.current_revision_uuid, next_revision_id)
 
     def test_snapshotted_server_revision_id(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
         snapshot_revision_id = "snapshot-id"
         self.snapshot(
             spreadsheet,
-            spreadsheet.server_revision_id,
+            spreadsheet.current_revision_uuid,
             snapshot_revision_id,
             {"revisionId": snapshot_revision_id},
         )
-        self.assertEqual(spreadsheet.server_revision_id, snapshot_revision_id)
+        self.assertEqual(spreadsheet.current_revision_uuid, snapshot_revision_id)
 
         # dispatch revision after snapshot
         revision_data = self.new_revision_data(spreadsheet)
         next_revision_id = revision_data["nextRevisionId"]
         spreadsheet.dispatch_spreadsheet_message(revision_data)
-        self.assertEqual(spreadsheet.server_revision_id, next_revision_id)
+        self.assertEqual(spreadsheet.current_revision_uuid, next_revision_id)

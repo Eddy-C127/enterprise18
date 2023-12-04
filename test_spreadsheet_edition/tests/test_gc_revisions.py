@@ -23,7 +23,7 @@ class SpreadsheetRevisionTest(SpreadsheetTestCase):
             )
             snapshot = {"revisionId": "next-revision"}
             self.snapshot(
-                spreadsheet, spreadsheet.server_revision_id, "next-revision", snapshot
+                spreadsheet, spreadsheet.current_revision_uuid, "next-revision", snapshot
             )
             revisions = spreadsheet.with_context(
                 active_test=False
@@ -57,7 +57,7 @@ class SpreadsheetRevisionTest(SpreadsheetTestCase):
             )
             snapshot = {"revisionId": "next-revision"}
             self.snapshot(
-                spreadsheet, spreadsheet.server_revision_id, "next-revision", snapshot
+                spreadsheet, spreadsheet.current_revision_uuid, "next-revision", snapshot
             )
             # revision after the snapshot
             spreadsheet.dispatch_spreadsheet_message(
@@ -88,7 +88,7 @@ class SpreadsheetRevisionTest(SpreadsheetTestCase):
             )
             snapshot = {"revisionId": "next-revision"}
             self.snapshot(
-                spreadsheet, spreadsheet.server_revision_id, "next-revision", snapshot
+                spreadsheet, spreadsheet.current_revision_uuid, "next-revision", snapshot
             )
             revisions = spreadsheet.with_context(
                 active_test=False

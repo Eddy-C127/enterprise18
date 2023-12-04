@@ -150,7 +150,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
             # snapshot without token
             snapshot_revision = {
                 "type": "SNAPSHOT",
-                "serverRevisionId": document.sudo().server_revision_id,
+                "serverRevisionId": document.sudo().current_revision_uuid,
                 "nextRevisionId": "snapshot-revision-id",
                 "data": {"revisionId": "snapshot-revision-id"},
             }
@@ -160,7 +160,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
             # snapshot with wrong token
             snapshot_revision = {
                 "type": "SNAPSHOT",
-                "serverRevisionId": document.sudo().server_revision_id,
+                "serverRevisionId": document.sudo().current_revision_uuid,
                 "nextRevisionId": "snapshot-revision-id",
                 "data": {"revisionId": "snapshot-revision-id"},
             }
@@ -172,7 +172,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
             # snapshot with token
             snapshot_revision = {
                 "type": "SNAPSHOT",
-                "serverRevisionId": document.sudo().server_revision_id,
+                "serverRevisionId": document.sudo().current_revision_uuid,
                 "nextRevisionId": "snapshot-revision-id",
                 "data": {"revisionId": "snapshot-revision-id"},
             }
@@ -221,7 +221,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
             # snapshot without token
             snapshot_revision = {
                 "type": "SNAPSHOT",
-                "serverRevisionId": document.sudo().server_revision_id,
+                "serverRevisionId": document.sudo().current_revision_uuid,
                 "nextRevisionId": "snapshot-revision-id",
                 "data": r"{}",
             }
@@ -231,7 +231,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
             # snapshot with token
             snapshot_revision = {
                 "type": "SNAPSHOT",
-                "serverRevisionId": document.sudo().server_revision_id,
+                "serverRevisionId": document.sudo().current_revision_uuid,
                 "nextRevisionId": "snapshot-revision-id",
                 "data": r"{}",
             }

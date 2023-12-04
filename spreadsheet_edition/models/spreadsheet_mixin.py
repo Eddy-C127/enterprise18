@@ -30,20 +30,20 @@ class SpreadsheetMixin(models.AbstractModel):
     # The last revision id known by the current transaction.
     # Another concurrent transaction can have saved a revision after this one
     # This means it cannot be blindly used to dispatch a new revision.
-    server_revision_id = fields.Char(compute="_compute_server_revision_id", compute_sudo=True)
+    current_revision_uuid = fields.Char(compute="_compute_current_revision_uuid", compute_sudo=True)
 
     @api.depends("spreadsheet_revision_ids", "spreadsheet_snapshot", "spreadsheet_data")
-    def _compute_server_revision_id(self):
+    def _compute_current_revision_uuid(self):
         for spreadsheet in self:
             revisions = spreadsheet.spreadsheet_revision_ids
             if revisions:
-                spreadsheet.server_revision_id = revisions[-1].revision_id
+                spreadsheet.current_revision_uuid = revisions[-1].revision_uuid
             else:
                 snapshot = spreadsheet._get_spreadsheet_snapshot()
                 if snapshot is False:
-                    spreadsheet.server_revision_id = False
+                    spreadsheet.current_revision_uuid = False
                 else:
-                    spreadsheet.server_revision_id = snapshot.get("revisionId", "START_REVISION")
+                    spreadsheet.current_revision_uuid = snapshot.get("revisionId", "START_REVISION")
 
     def write(self, vals):
         if "spreadsheet_binary_data" in vals and not self.env.context.get("preserve_spreadsheet_revisions"):
@@ -159,24 +159,24 @@ class SpreadsheetMixin(models.AbstractModel):
         spreadsheet.sudo().spreadsheet_revision_ids = copied_revisions
 
     def _snapshot_spreadsheet(
-        self, revision_id: str, snapshot_revision_id, spreadsheet_snapshot: dict
+        self, revision_uuid: str, snapshot_revision_uuid, spreadsheet_snapshot: dict
     ):
         """Save the spreadsheet snapshot along the revision id. Delete previous
         revisions which are no longer needed.
-        If the `revision_id` is not the same as the server revision, the snapshot is
+        If the `revision_uuid` is not the same as the server revision, the snapshot is
         not accepted and is ignored.
 
-        :param revision_id: the revision on which the snapshot is based
-        :param snapshot_revision_id: snapshot revision
+        :param revision_uuid: the revision on which the snapshot is based
+        :param snapshot_revision_uuid: snapshot revision
         :param spreadsheet_snapshot: spreadsheet data
         :return: True if the snapshot was saved, False otherwise
         """
-        if snapshot_revision_id != spreadsheet_snapshot.get("revisionId"):
+        if snapshot_revision_uuid != spreadsheet_snapshot.get("revisionId"):
             raise ValueError("The snapshot revision id does not match the revision id")
 
         is_accepted = self._save_concurrent_revision(
-            snapshot_revision_id,
-            revision_id,
+            snapshot_revision_uuid,
+            revision_uuid,
             {"type": "SNAPSHOT_CREATED", "version": 1},
         )
         if is_accepted:
@@ -187,8 +187,8 @@ class SpreadsheetMixin(models.AbstractModel):
             self._broadcast_spreadsheet_message(
                 {
                     "type": "SNAPSHOT_CREATED",
-                    "serverRevisionId": revision_id,
-                    "nextRevisionId": snapshot_revision_id,
+                    "serverRevisionId": revision_uuid,
+                    "nextRevisionId": snapshot_revision_uuid,
                 }
             )
         return is_accepted
@@ -206,10 +206,10 @@ class SpreadsheetMixin(models.AbstractModel):
         last_activity = max(self.spreadsheet_revision_ids.mapped("create_date"))
         return last_activity < fields.Datetime.now() - timedelta(hours=12)
 
-    def _save_concurrent_revision(self, next_revision_id, parent_revision_uuid, commands):
+    def _save_concurrent_revision(self, next_revision_uuid, parent_revision_uuid, commands):
         """Save the given revision if no concurrency issue is found.
         i.e. if no other revision was saved based on the same `parent_revision_uuid`
-        :param next_revision_id: the new revision id
+        :param next_revision_uuid: the new revision id
         :param parent_revision_uuid: the revision on which the commands are based
         :param commands: revisions commands
         :return: True if the revision was saved, False otherwise
@@ -224,7 +224,7 @@ class SpreadsheetMixin(models.AbstractModel):
                         "res_id": self.id,
                         "commands": json.dumps(commands),
                         "parent_revision_id": parent_revision_id.id,
-                        "revision_id": next_revision_id,
+                        "revision_uuid": next_revision_uuid,
                         "create_date": fields.Datetime.now(),
                     }
                 )
@@ -255,8 +255,8 @@ class SpreadsheetMixin(models.AbstractModel):
         return [
             dict(
                 json.loads(rev.commands),
-                serverRevisionId=rev.parent_revision_id.revision_id or self._get_initial_revision_uuid(),
-                nextRevisionId=rev.revision_id,
+                serverRevisionId=rev.parent_revision_id.revision_uuid or self._get_initial_revision_uuid(),
+                nextRevisionId=rev.revision_uuid,
             )
             for rev in self.spreadsheet_revision_ids
         ]
@@ -336,8 +336,8 @@ class SpreadsheetMixin(models.AbstractModel):
                     id=rev.id,
                     name=rev.name,
                     user=(rev.create_uid.id, rev.create_uid.name),
-                    serverRevisionId=rev.parent_revision_id.revision_id or self._get_initial_revision_uuid(),
-                    nextRevisionId=rev.revision_id,
+                    serverRevisionId=rev.parent_revision_id.revision_uuid or self._get_initial_revision_uuid(),
+                    nextRevisionId=rev.revision_uuid,
                     timestamp=rev.create_date,
                 )
                 for rev in revisions
@@ -376,7 +376,7 @@ class SpreadsheetMixin(models.AbstractModel):
     def _build_new_revision_data(self, command):
         return {
             "type": "REMOTE_REVISION",
-            "serverRevisionId": self.server_revision_id,
+            "serverRevisionId": self.current_revision_uuid,
             "nextRevisionId": str(uuid.uuid4()),
             "commands": [command],
         }
@@ -387,7 +387,7 @@ class SpreadsheetMixin(models.AbstractModel):
             .with_context(active_test=False)
             .search(
                 [
-                    ("revision_id", "=", revision_uuid),
+                    ("revision_uuid", "=", revision_uuid),
                     ("res_id", "=", self.id),
                     ("res_model", "=", self._name),
                 ],

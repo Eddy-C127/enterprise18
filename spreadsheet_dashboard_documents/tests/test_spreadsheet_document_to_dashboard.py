@@ -105,7 +105,7 @@ class TestSpreadsheetDocumentToDashboard(TransactionCase):
                 "commands": [],
                 "res_id": document.id,
                 "res_model": "documents.document",
-                "revision_id": "a revision id",
+                "revision_uuid": "a revision id",
             }
         )
         self.env["spreadsheet.dashboard"].add_document_spreadsheet_to_dashboard(group.id, document.id)
@@ -116,7 +116,7 @@ class TestSpreadsheetDocumentToDashboard(TransactionCase):
         self.assertEqual(dashboard.spreadsheet_snapshot, snapshot)
         self.assertEqual(dashboard.spreadsheet_binary_data, document.datas)
         dashboard_revision = dashboard.spreadsheet_revision_ids[0]
-        self.assertEqual(dashboard_revision.revision_id, revision.revision_id)
+        self.assertEqual(dashboard_revision.revision_uuid, revision.revision_uuid)
         self.assertEqual(dashboard_revision.res_id, dashboard.id)
         self.assertEqual(dashboard_revision.res_model, "spreadsheet.dashboard")
 

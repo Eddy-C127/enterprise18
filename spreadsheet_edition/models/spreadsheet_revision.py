@@ -11,15 +11,15 @@ from odoo.tools import SQL
 class SpreadsheetRevision(models.Model):
     _name = "spreadsheet.revision"
     _description = "Collaborative spreadsheet revision"
-    _rec_name = 'revision_id'
-    _rec_names_search = ['name', 'revision_id']
+    _rec_name = 'revision_uuid'
+    _rec_names_search = ['name', 'revision_uuid']
 
     name = fields.Char("Revision name")
     active = fields.Boolean(default=True)
     res_model = fields.Char(string="Model", required=True)
     res_id = fields.Many2oneReference(string="Record id", model_field='res_model', required=True)
     commands = fields.Char(required=True)
-    revision_id = fields.Char(required=True, index=True)
+    revision_uuid = fields.Char(required=True, index=True)
     parent_revision_id = fields.Many2one("spreadsheet.revision", copy=False)
 
     # virtual constraints implemented by a custom index below
@@ -48,10 +48,10 @@ class SpreadsheetRevision(models.Model):
             )
         )
 
-    @api.depends('name', 'revision_id')
+    @api.depends('name', 'revision_uuid')
     def _compute_display_name(self):
         for revision in self:
-            revision.display_name = revision.name or revision.revision_id
+            revision.display_name = revision.name or revision.revision_uuid
 
     @api.autovacuum
     def _gc_revisions(self):
