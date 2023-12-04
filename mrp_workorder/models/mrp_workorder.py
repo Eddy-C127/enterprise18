@@ -433,19 +433,21 @@ class MrpProductionWorkcenterLine(models.Model):
         moves = super(MrpProductionWorkcenterLine, self)._get_byproduct_move_to_update()
         return moves.filtered(lambda m: m.product_id.tracking == 'none')
 
-    def record_production(self):
-        if not self:
-            return True
-
+    def pre_record_production(self):
         self.ensure_one()
         self._check_company()
         if any(x.quality_state == 'none' for x in self.check_ids if x.test_type != 'instructions'):
             raise UserError(_('You still need to do the quality checks!'))
         if float_compare(self.qty_producing, 0, precision_rounding=self.product_uom_id.rounding) <= 0:
             raise UserError(_('Please set the quantity you are currently producing. It should be different from zero.'))
-
         if self.production_id.product_id.tracking != 'none' and not self.finished_lot_id and self.move_raw_ids:
             raise UserError(_('You should provide a lot/serial number for the final product'))
+
+    def record_production(self):
+        if not self:
+            return True
+
+        self.pre_record_production()
 
         backorder = False
         # Trigger the backorder process if we produce less than expected
@@ -553,11 +555,11 @@ class MrpProductionWorkcenterLine(models.Model):
         return action
 
     def do_finish(self):
-        action = True
+        self.end_all()
         if self.state != 'done':
             action = self.record_production()
-        if action is not True:
-            return action
+            if action is not True:
+                return action
         # workorder tree view action should redirect to the same view instead of workorder kanban view when WO mark as done.
         return self.action_back()
 
