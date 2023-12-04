@@ -1222,6 +1222,41 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         # Checks the new package is well transfered.
         self.assertEqual(pack1.location_id, self.shelf2)
 
+    def test_pack_multiple_location_03(self):
+        """ Creates a delivery and reserves a package. Then this test will scan
+         a different location source, the package should be removed.
+        """
+        self.clean_access_rights()
+        grp_pack = self.env.ref('stock.group_tracking_lot')
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.write({'groups_id': [(4, grp_pack.id, 0), (4, grp_multi_loc.id, 0)]})
+
+        # Creates a package with a quant in it.
+        pack1 = self.env['stock.quant.package'].create({
+            'name': 'PACK000666',
+        })
+        self.env['stock.quant']._update_available_quantity(
+            product_id=self.product1,
+            location_id=self.shelf1,
+            quantity=5,
+            package_id=pack1,
+        )
+
+        # Creates a delivery transfer for this package.
+        picking_form = Form(self.env['stock.picking'])
+        picking_form.picking_type_id = self.picking_type_out
+        picking_form.location_id = self.shelf1
+        with picking_form.move_ids_without_package.new() as move:
+            move.product_id = self.product1
+            move.product_uom_qty = 1
+        delivery_picking = picking_form.save()
+        delivery_picking.action_confirm()
+        delivery_picking.action_assign()
+        url = self._get_client_action_url(delivery_picking.id)
+
+        self.start_tour(url, 'test_pack_multiple_location_03', login='admin', timeout=180)
+        self.assertFalse(delivery_picking.move_line_ids.package_id)
+
     def test_put_in_pack_from_multiple_pages(self):
         """ In an internal picking where prod1 and prod2 are reserved in shelf1 and shelf2, processing
         all these products and then hitting put in pack should move them all in the new pack.
