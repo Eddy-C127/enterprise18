@@ -1142,7 +1142,7 @@ class HrPayslip(models.Model):
     @api.model
     def get_views(self, views, options=None):
         res = super().get_views(views, options)
-        if options.get('toolbar'):
+        if options and options.get('toolbar'):
             for view_type in res['views']:
                 res['views'][view_type]['toolbar'].pop('print', None)
         return res
