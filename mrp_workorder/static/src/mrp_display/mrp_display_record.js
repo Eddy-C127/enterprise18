@@ -127,7 +127,7 @@ export class MrpDisplayRecord extends Component {
     get cssClass() {
         const active = this.active ? "o_active" : "";
         const disabled = this.disabled ? "o_disabled" : "";
-        const underValidation = this.state.underValidation ? "o_fadeout_animation" : "";
+        const underValidation = this.state.underValidation && !this.record.is_last_unfinished_wo ? "o_fadeout_animation" : "";
         const finished = this.state.validated ? "d-none" : "";
         return `${active} ${disabled} ${underValidation} ${finished}`;
     }
@@ -456,7 +456,11 @@ export class MrpDisplayRecord extends Component {
                 this.props.record.update({ qty_producing: this.record.qty_production });
             }
             await this.props.record.save();
-            await this.model.orm.call(resModel, "end_all", [resId]);
+            const action = await this.model.orm.call(resModel, "pre_record_production", [resId]);
+            if (action && typeof action === "object") {
+                action.context.skip_redirection = true;
+                return this._doAction(action);
+            }
             await this.props.updateEmployees();
         }
         if (resModel === "mrp.production") {
