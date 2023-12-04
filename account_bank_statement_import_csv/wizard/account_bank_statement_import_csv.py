@@ -64,7 +64,7 @@ class AccountBankStmtImportCSV(models.TransientModel):
         # and we don't have a way to know which one should be first
         if 'date' in import_fields:
             index_date = import_fields.index('date')
-            dates = [fields.Date.from_string(line[index_date]) for line in data]
+            dates = [fields.Date.from_string(line[index_date]) for line in data if line[index_date]]
             if dates != sorted(dates):
                 raise UserError(_('Rows must be sorted by date.'))
 
