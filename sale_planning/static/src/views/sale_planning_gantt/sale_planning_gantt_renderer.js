@@ -5,6 +5,9 @@ import { Domain } from "@web/core/domain";
 import { patch } from "@web/core/utils/patch";
 import { PlanningGanttRenderer } from "@planning/views/planning_gantt/planning_gantt_renderer";
 import { useService } from "@web/core/utils/hooks";
+import { renderToMarkup } from "@web/core/utils/render";
+import { xml } from "@odoo/owl";
+import { escape } from "@web/core/utils/strings";
 
 patch(PlanningGanttRenderer.prototype, {
     setup() {
@@ -33,6 +36,16 @@ patch(PlanningGanttRenderer.prototype, {
             search_default_sale_order_id:
             props.context.planning_gantt_active_sale_order_id || null,
         });
+        this.model.addSpecialKeys(props.context);
+        const template = xml`
+            <p class="o_view_nocontent_smiling_face">${escape(_t("No shifts found!"))}</p>
+            <p>${escape(
+                _t(
+                    "Assign your sales orders to the right people based on their roles and availability."
+                )
+            )}</p>
+        `;
+        props.noContentHelp = renderToMarkup(template);
         return props;
     },
     displayFailedPlanningNotification(message) {
