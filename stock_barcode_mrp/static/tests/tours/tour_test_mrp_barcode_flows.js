@@ -631,3 +631,110 @@ registry.category("web_tour.tours").add("test_barcode_production_component_no_st
         isCheck: true,
     },
 ]});
+
+registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {test: true, steps: () => [
+    // Creates a new production from the Barcode App.
+    { trigger: ".o_kanban_card_header:contains('Manufacturing')" },
+    { trigger: ".o-kanban-button-new" },
+    // Scans a product with BoM, it should add it as the final product and add a line for each components.
+    {
+        trigger: ".o_title.navbar-text:contains('New')",
+        extra_trigger: ".o_scan_message.o_scan_product",
+        run: "scan final",
+    },
+    {
+        trigger: ".o_barcode_line.o_header",
+        run: function() {
+            const lines = helper.getLines();
+            helper.assert(lines.length, 3, "The header line + 2 components lines");
+            const [headerLine, componentLine1, componentLine2] = lines;
+            helper.assertLineProduct(headerLine, "Final Product");
+            helper.assertLineQty(headerLine, "0 / 1");
+            helper.assertLineProduct(componentLine1, "Compo 01");
+            helper.assertLineQty(componentLine1, "0 / 1");
+            helper.assertLineProduct(componentLine2, "Compo 02");
+            helper.assertLineQty(componentLine2, "0 / 1");
+        }
+    },
+    // Add a Scrap product
+    {
+        trigger: ".o_barcode_client_action",
+        run: "scan O-BTN.scrap",
+    },
+    {
+        trigger: "input#product_id_0",
+        run: 'text Compo 01',
+    },
+    { trigger: '.dropdown-item:contains("Compo 01")' },
+    {
+        trigger: 'button[name="action_validate"]',
+        run: "click",
+        // Alternatively, we may have triggered this by scanning O-BTN.VALIDATE (once focus is not on an editable input tag !)
+        // However, there's still a bug such that O-BTN.VALIDATE will also validate the MO in addition to the scrap form...
+    },
+    // Ensure adding Compo 01 as a scrap product didn't add it as an used component
+    {
+        trigger: ".o_barcode_line.o_header",
+        run: function() {
+            const lines = helper.getLines();
+            helper.assert(lines.length, 3, "The header line + 2 components lines");
+            const componentLine1 = lines[1];
+            helper.assertLineProduct(componentLine1, "Compo 01");
+            helper.assertLineQty(componentLine1, "0 / 1");
+        }
+    },
+    // Further assertions are done server-side as scrapped products aren't shown in barcode interface
+]});
+
+registry.category("web_tour.tours").add("test_barcode_production_add_byproduct", {test: true, steps: () => [
+    // Creates a new production from the Barcode App.
+    { trigger: ".o_kanban_card_header:contains('Manufacturing')" },
+    { trigger: ".o-kanban-button-new" },
+    //Add Bom Product
+    {
+        trigger: ".o_title.navbar-text:contains('New')",
+        extra_trigger: ".o_scan_message.o_scan_product",
+        run: "scan final",
+    },
+
+    // Add a By-Product
+    { trigger: "button.o_by_products" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: "scan byproduct",
+    },
+    {
+        trigger: ".o_barcode_line",
+        run: function() {
+            helper.assertLinesCount(1)
+        }
+    },
+    // Try (unsuccesfully) to add the final product as a byproduct through scan
+    {
+        trigger: ".o_barcode_client_action",
+        run: 'scan final'
+    },
+    { trigger: ".o_notification_title:contains('Product not Allowed')" },
+    {
+        trigger: ".o_barcode_line",
+        run: function() {
+            helper.assertLinesCount(1)
+        }
+    },
+    {
+        trigger: ".o_barcode_line",
+        run: function() {
+            const lines = helper.getLines();
+            helper.assert(lines.length, 1, "The 'By Product' Line'");
+            const [byProductLine] = lines;
+            helper.assertLineProduct(byProductLine, "By Product");
+            helper.assertLineQty(byProductLine, "1");
+        }
+    },
+    {
+        trigger: '.o_save_byproduct',
+        run: 'click',
+    },
+    ...stepUtils.validateBarcodeOperation(),
+]});
+
