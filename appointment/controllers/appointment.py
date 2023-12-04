@@ -20,6 +20,7 @@ from odoo.tools import plaintext2html, DEFAULT_SERVER_DATETIME_FORMAT as dtf
 from odoo.tools.mail import is_html_empty
 from odoo.tools.misc import babel_locale_parse, get_lang
 from odoo.addons.base.models.ir_qweb import keep_query
+from odoo.addons.base.models.res_partner import _tz_get
 from odoo.addons.http_routing.models.ir_http import unslug
 
 
@@ -761,7 +762,10 @@ class AppointmentController(http.Controller):
         """
         if appointment_type.location_id:
             return appointment_type.appointment_tz
-        return request.httprequest.cookies.get('tz', appointment_type.appointment_tz)
+        cookie = request.httprequest.cookies.get('tz')
+        if cookie and cookie in dict(_tz_get(self)):
+            return cookie
+        return appointment_type.appointment_tz
 
     # ------------------------------------------------------------
     # APPOINTMENT TYPE JSON DATA
