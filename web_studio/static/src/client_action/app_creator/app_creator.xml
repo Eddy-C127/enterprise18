@@ -65,12 +65,16 @@
                 </div>
             </div>
         </div>
-        <ModelConfigurator
-            t-if="state.step === 'model_configuration'"
-            label="'Create your app'"
-            onConfirmOptions.bind="onConfirmOptions"
-            onPrevious="() => this.state.previous()"
-        />
+        <div t-if="state.step === 'model_configuration'" class="o_web_studio_model_configurator container bg-light p-0 rounded">
+            <header class="modal-header">
+                <h4 class="modal-title text-break">Suggested features for your new model</h4>
+            </header>
+            <ModelConfigurator
+                label="'Create your app'"
+                onConfirmOptions.bind="onConfirmOptions"
+                onPrevious="() => this.state.previous()"
+            />
+        </div>
     </div>
 </t>
 
