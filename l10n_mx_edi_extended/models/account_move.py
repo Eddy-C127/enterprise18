@@ -170,8 +170,8 @@ class AccountMove(models.Model):
             mxn = self.env["res.currency"].search([('name', '=', 'MXN')], limit=1)
             usd = self.env["res.currency"].search([('name', '=', 'USD')], limit=1)
             ext_trade_values['tipo_cambio_usd'] = usd._get_conversion_rate(usd, mxn, self.company_id, self.date)
-            if cfdi_values['tipo_cambio'] and ext_trade_values['tipo_cambio_usd']:
-                to_usd_rate = cfdi_values['tipo_cambio'] / ext_trade_values['tipo_cambio_usd']
+            if ext_trade_values['tipo_cambio_usd']:
+                to_usd_rate = (cfdi_values['tipo_cambio'] or 1.0) / ext_trade_values['tipo_cambio_usd']
             else:
                 to_usd_rate = 0.0
 
