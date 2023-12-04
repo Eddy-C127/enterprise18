@@ -241,11 +241,9 @@ class MrpReport(models.Model):
             fname, *__ = models.parse_read_group_spec(aggregate_spec)
             sql_field = self._field_to_sql(self._table, fname, query)
             sql_qty_produced = self._field_to_sql(self._table, 'qty_produced', query)
-            sql_expr = SQL("SUM(%s * %s) / SUM(%s)", sql_field, sql_qty_produced, sql_qty_produced)
-            return sql_expr, [fname, 'qty_produced']
+            return SQL("SUM(%s * %s) / SUM(%s)", sql_field, sql_qty_produced, sql_qty_produced)
         if aggregate_spec == 'yield_rate:sum':
             sql_qty_produced = self._field_to_sql(self._table, 'qty_produced', query)
             sql_qty_demanded = self._field_to_sql(self._table, 'qty_demanded', query)
-            sql_expr = SQL("SUM(%s) / SUM(%s) * 100", sql_qty_produced, sql_qty_demanded)
-            return sql_expr, ['yield_rate', 'qty_produced', 'qty_demanded']
+            return SQL("SUM(%s) / SUM(%s) * 100", sql_qty_produced, sql_qty_demanded)
         return super()._read_group_select(aggregate_spec, query)
