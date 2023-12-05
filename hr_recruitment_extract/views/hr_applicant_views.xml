@@ -13,7 +13,7 @@
                 <field name="extract_state" invisible="1"/>
                 <field name="extract_can_show_send_button" invisible="1"/>
                 <field name="is_in_extractable_state" invisible="1"/>
-                <div role="status" class="alert alert-danger mb8 text-center"
+                <div role="status" class="alert alert-danger text-center"
                      invisible="not is_in_extractable_state or extract_state != 'not_enough_credit'">
                     You don't have enough credit to extract data from your Resume.
                     <button type="object" name="buy_credits" class="btn btn-link">
@@ -25,7 +25,7 @@
                         Retry
                     </button>
                 </div>
-                <div role="status" class="alert alert-info mb8 text-center"
+                <div role="status" class="alert alert-info text-center"
                      invisible="not is_in_extractable_state or extract_state != 'waiting_extraction'">
                     All fields will be automated by Artificial Intelligence, it might take 5 seconds.
                     <button type="object" name="check_ocr_status" class="btn btn-link">
@@ -34,7 +34,7 @@
                     </button>
                 </div>
                 <field name="extract_status" invisible="1"/>
-                <div role="status" class="alert alert-info mb8 text-center"
+                <div role="status" class="alert alert-info text-center"
                      invisible="not is_in_extractable_state or extract_state != 'extract_not_ready'">
                     The data extraction is not finished yet. The extraction usually takes between 5 and 10 seconds.
                     <button type="object" name="check_ocr_status" class="btn btn-link">
@@ -42,7 +42,7 @@
                         Refresh
                     </button>
                 </div>
-                <div role="status" class="alert alert-danger mb8 text-center"
+                <div role="status" class="alert alert-danger text-center"
                      invisible="not is_in_extractable_state or extract_state != 'error_status'">
                     <field name="extract_error_message" class="oe_inline" style="width:auto !important;"/>
                     <button type="object" name="action_manual_send_for_digitization" class="btn btn-link">

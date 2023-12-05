@@ -7,13 +7,13 @@
             <form string="Send WhatsApp">
                 <field name="invalid_phone_number_count" invisible="1"/>
                 <t invisible="invalid_phone_number_count == 0">
-                    <div colspan="2" class="alert alert-danger text-center mb-0" role="alert" invisible="batch_mode">
+                    <div class="alert alert-danger text-center" role="alert" invisible="batch_mode">
                         <p class="my-0">
                             <strong>Invalid number: </strong>
                             <span>make sure to set a country on the Contact or to specify the country code.</span>
                         </p>
                     </div>
-                    <div colspan="2" class="alert alert-info text-center mb-0" role="alert" invisible="not batch_mode">
+                    <div class="alert alert-info text-center" role="alert" invisible="not batch_mode">
                         <p class="my-0">
                             <field class="oe_inline fw-bold" name="invalid_phone_number_count"/> recipients have an invalid phone number and will be skipped.
                         </p>

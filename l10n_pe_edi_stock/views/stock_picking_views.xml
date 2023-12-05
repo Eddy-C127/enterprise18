@@ -18,7 +18,7 @@
                     readonly="l10n_pe_edi_status == 'sent'"/>
             </xpath>
             <xpath expr="//header" position="after">
-                <div class="alert alert-warning" role="alert" style="margin-bottom:0px;"
+                <div class="alert alert-warning" role="alert"
                     invisible="not l10n_pe_edi_error">
                     <field name="l10n_pe_edi_error" readonly="1"/>
                     <button
