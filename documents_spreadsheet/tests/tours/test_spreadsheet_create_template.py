@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import logging
+
 from ..common import SpreadsheetTestCommon
 
-from odoo.tests import tagged
+from odoo.tests import tagged, loaded_demo_data
 from odoo.tests.common import HttpCase
 from odoo.tools import file_open, misc
+
+_logger = logging.getLogger(__name__)
+
 
 @tagged("post_install", "-at_install")
 class TestSpreadsheetCreateTemplate(SpreadsheetTestCommon, HttpCase):
@@ -23,4 +28,7 @@ class TestSpreadsheetCreateTemplate(SpreadsheetTestCommon, HttpCase):
             })
 
     def test_01_spreadsheet_create_template(self):
+        if not loaded_demo_data(self.env):
+            _logger.warning("This test relies on demo data. To be rewritten independently of demo data for accurate and reliable results.")
+            return
         self.start_tour("/web", "documents_spreadsheet_create_template_tour", login="admin")
