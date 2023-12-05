@@ -1,5 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 # -*- coding: utf-8 -*-
+
+import logging
+
 from lxml import etree
 from lxml.builder import E
 import json
@@ -9,11 +12,16 @@ from odoo import Command, api, http
 from odoo.tools import mute_logger
 from odoo.addons.web_studio.controllers.main import WebStudioController
 
+_logger = logging.getLogger(__name__)
+
 
 @odoo.tests.tagged('post_install', '-at_install')
 class TestUi(odoo.tests.HttpCase):
 
     def test_new_app_and_report(self):
+        if not odoo.tests.loaded_demo_data(self.env):
+            _logger.warning("This test relies on demo data. To be rewritten independently of demo data for accurate and reliable results.")
+            return
         self.start_tour("/web", 'web_studio_new_app_tour', login="admin")
 
         # the report tour is based on the result of the former tour
@@ -118,6 +126,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env.company.country_id = cls.env.ref('base.us')
         cls.testView = cls.env["ir.ui.view"].create({
             "name": "simple partner",
             "model": "res.partner",
