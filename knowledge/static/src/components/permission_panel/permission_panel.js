@@ -4,6 +4,7 @@ import { session } from "@web/session";
 import { rpc } from "@web/core/network/rpc";
 import { ConfirmationDialog, AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 import { useService } from '@web/core/utils/hooks';
 import { Component, onWillStart, useState } from "@odoo/owl";
 
@@ -27,7 +28,6 @@ export class PermissionPanel extends Component {
         this.orm = useService('orm');
         /** @type {import("@mail/core/common/thread_service").ThreadService} */
         this.threadService = useService("mail.thread");
-        this.userService = useService('user');
 
         this.state = useState({
             loading: true,
@@ -35,7 +35,7 @@ export class PermissionPanel extends Component {
         });
         onWillStart(async () => {
             this.loadPanel();
-            this.isInternalUser = await this.userService.hasGroup('base.group_user');
+            this.isInternalUser = await user.hasGroup('base.group_user');
         });
     }
 

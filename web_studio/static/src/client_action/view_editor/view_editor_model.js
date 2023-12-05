@@ -11,6 +11,7 @@ import {
     serializeXmlToString,
 } from "@web_studio/client_action/view_editor/editors/xml_utils";
 import { EventBus, markRaw, useEnv, reactive, toRaw } from "@odoo/owl";
+import { user } from "@web/core/user";
 import { sprintf } from "@web/core/utils/strings";
 import { parseXML } from "@web/core/utils/xml";
 import { viewTypeToString } from "@web_studio/studio_service";
@@ -669,7 +670,7 @@ export class ViewEditorModel extends Reactive {
         // Use specific view if available in context
         // We write views in the base language to make sure we do it on the source term field
         // of ir.ui.view
-        const context = { ...this._services.user.context, lang: false, studio: true };
+        const context = { ...user.context, lang: false, studio: true };
         if (subViewRef) {
             context[`${subViewType}_view_ref`] = subViewRef;
         }
@@ -694,7 +695,7 @@ export class ViewEditorModel extends Reactive {
             studio_view_arch: this.studioViewArch,
             operations: operations,
             model: this.resModel,
-            context: { ...this._services.user.context, lang: false, studio: true },
+            context: { ...user.context, lang: false, studio: true },
         });
     }
 
@@ -704,7 +705,7 @@ export class ViewEditorModel extends Reactive {
             view_arch: viewArch,
             // We write views in the base language to make sure we do it on the source term field
             // of ir.ui.view
-            context: { ...this._services.user.context, lang: false, studio: true },
+            context: { ...user.context, lang: false, studio: true },
         });
         return result;
     }
@@ -774,7 +775,7 @@ export class ViewEditorModel extends Reactive {
             model: this.resModel,
             view_type: this.viewType,
             view_id: this.mainView.id,
-            context: { ...this._services.user.context, lang: false },
+            context: { ...user.context, lang: false },
         });
         return {
             arch: result.studio_view_arch,

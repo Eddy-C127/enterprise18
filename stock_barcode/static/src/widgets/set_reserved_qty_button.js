@@ -2,7 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
-import { useService } from "@web/core/utils/hooks";
+import { user } from "@web/core/user";
 import { Component, onWillStart } from "@odoo/owl";
 
 export class SetReservedQuantityButton extends Component {
@@ -13,7 +13,6 @@ export class SetReservedQuantityButton extends Component {
     static template = "stock_barcode.SetReservedQuantityButtonTemplate";
 
     setup() {
-        const user = useService('user');
         onWillStart(async () => {
             this.displayUOM = await user.hasGroup('uom.group_uom');
         });

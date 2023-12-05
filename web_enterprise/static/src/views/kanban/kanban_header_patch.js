@@ -4,22 +4,17 @@ import { registry } from "@web/core/registry";
 import { patch } from "@web/core/utils/patch";
 import { KanbanHeader } from "@web/views/kanban/kanban_header";
 import { PromoteStudioAutomationDialog } from "@web_enterprise/webclient/promote_studio_dialog/promote_studio_dialog";
-import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 
 patch(KanbanHeader.prototype, {
-    setup() {
-        super.setup();
-        this.user = useService("user");
-    },
-
     /**
      * @override
      */
     get permissions() {
         const permissions = super.permissions;
         Object.defineProperty(permissions, "canEditAutomations", {
-            get: () => this.user.isAdmin,
+            get: () => user.isAdmin,
             configurable: true,
         });
         return permissions;

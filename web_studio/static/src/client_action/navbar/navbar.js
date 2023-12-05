@@ -20,7 +20,6 @@ export class StudioNavbar extends EnterpriseNavBar {
         super.setup();
         this.studio = useStudioServiceAsReactive();
         this.actionManager = useService("action");
-        this.user = useService("user");
         this.dialogManager = useService("dialog");
         this.notification = useService("notification");
         onMounted(() => {

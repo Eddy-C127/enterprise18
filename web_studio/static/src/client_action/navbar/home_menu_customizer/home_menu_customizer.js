@@ -4,6 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { browser } from "@web/core/browser/browser";
 import { download } from "@web/core/network/download";
@@ -21,7 +22,6 @@ export class HomeMenuCustomizer extends Component {
         this.ui = useService("ui");
         this.notification = useService("notification");
         this.company = useService("company");
-        this.user = useService("user");
         this.actionManager = useService("action");
         this.menus = useService("menu");
         this.dialogManager = useService("dialog");
@@ -30,7 +30,7 @@ export class HomeMenuCustomizer extends Component {
     setBackgroundImage(attachment_id) {
         return rpc("/web_studio/set_background_image", {
             attachment_id: attachment_id,
-            context: this.user.context,
+            context: user.context,
         });
     }
     /**
@@ -65,7 +65,7 @@ export class HomeMenuCustomizer extends Component {
         this.ui.block();
         try {
             await rpc("/web_studio/reset_background_image", {
-                context: this.user.context,
+                context: user.context,
             });
             browser.location.reload();
         } finally {

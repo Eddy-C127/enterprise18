@@ -2,6 +2,7 @@
 
 import { contains } from "@web/../tests/utils";
 
+import { makeMockedUser } from "@web/../tests/helpers/mock_services";
 import {
     click,
     getFixture,
@@ -131,6 +132,7 @@ QUnit.module("Studio", (hooks) => {
         assert.expect(2);
 
         patchWithCleanup(session, { is_system: false });
+        makeMockedUser();
         await createEnterpriseWebClient({ serverData });
         assert.containsOnce(target, ".o_main_navbar");
 

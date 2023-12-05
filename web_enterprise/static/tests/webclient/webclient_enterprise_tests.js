@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { makeMockedUser } from "@web/../tests/helpers/mock_services";
 import {
     click,
     editInput,
@@ -574,6 +575,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             patchWithCleanup(session, {
                 user_settings: { id: 1, homemenu_config: '["menu_2","menu_1"]' },
             });
+            makeMockedUser();
             await createEnterpriseWebClient({ fixture, serverData });
 
             const apps = document.querySelectorAll(".o_app");

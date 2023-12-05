@@ -22,7 +22,6 @@ export class PayrollDashboardTodo extends Component {
 
     setup() {
         this.company = useService("company");
-        this.user = useService("user");
         this.orm = useService("orm");
         this.dialog = useService("dialog");
         this.state = useState({

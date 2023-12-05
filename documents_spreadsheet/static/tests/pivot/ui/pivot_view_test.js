@@ -1,5 +1,6 @@
 /** @odoo-module */
 
+import { makeMockedUser, patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import {
     click,
     nextTick,
@@ -31,6 +32,7 @@ import {
     getCells,
     getCellValue,
 } from "@spreadsheet/../tests/utils/getters";
+import { user } from "@web/core/user";
 import { session } from "@web/session";
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
 import { Model } from "@odoo/o-spreadsheet";
@@ -88,6 +90,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.expect(1);
 
         setupControlPanelServiceRegistry();
+        patchUserWithCleanup({ hasGroup: async () => true });
 
         const data = getBasicData();
         data.partner.records = [];
@@ -104,11 +107,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 <pivot>
                     <field name="foo" type="measure"/>
                 </pivot>`,
-            mockRPC: async function (route, args) {
-                if (args.method === "has_group") {
-                    return true;
-                }
-            },
         });
         assert.ok(document.body.querySelector("button.o_pivot_add_spreadsheet").disabled);
     });
@@ -117,6 +115,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.expect(1);
 
         setupControlPanelServiceRegistry();
+        patchUserWithCleanup({ hasGroup: async () => true });
         const serverData = {
             models: getBasicData(),
         };
@@ -128,11 +127,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 <pivot>
                     <field name="foo" type="measure"/>
                 </pivot>`,
-            mockRPC: function (route, args) {
-                if (args.method === "has_group") {
-                    return Promise.resolve(true);
-                }
-            },
         });
 
         const target = getFixture();
@@ -145,6 +139,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         "Insert in spreadsheet is disabled when same groupby occurs in both columns and rows",
         async (assert) => {
             setupControlPanelServiceRegistry();
+            patchUserWithCleanup({ hasGroup: async () => true });
             const serverData = {
                 models: getBasicData(),
             };
@@ -158,11 +153,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 <field name="id" type="row"/>
                 <field name="foo" type="measure"/>
             </pivot>`,
-                mockRPC: function (route, args) {
-                    if (args.method === "has_group") {
-                        return Promise.resolve(true);
-                    }
-                },
             });
 
             const target = getFixture();
@@ -176,6 +166,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         "Insert in spreadsheet is disabled when columns or rows contain duplicate groupbys",
         async (assert) => {
             setupControlPanelServiceRegistry();
+            patchUserWithCleanup({ hasGroup: async () => true });
             const serverData = {
                 models: getBasicData(),
             };
@@ -190,11 +181,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                     <field name="product_id" type="row"/>
                     <field name="probability" type="measure"/>
                 </pivot>`,
-                mockRPC: function (route, args) {
-                    if (args.method === "has_group") {
-                        return Promise.resolve(true);
-                    }
-                },
             });
 
             const target = getFixture();
@@ -208,6 +194,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         "Insert in spreadsheet is disabled when columns and rows both contains same groupby with different aggregator",
         async (assert) => {
             setupControlPanelServiceRegistry();
+            patchUserWithCleanup({ hasGroup: async () => true });
             const serverData = {
                 models: getBasicData(),
             };
@@ -221,11 +208,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                     <field name="date" interval="month" type="row"/>
                     <field name="probability" type="measure"/>
                 </pivot>`,
-                mockRPC: function (route, args) {
-                    if (args.method === "has_group") {
-                        return Promise.resolve(true);
-                    }
-                },
             });
 
             const target = getFixture();
@@ -237,6 +219,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         "Can insert in spreadsheet when group by the same date fields with different aggregates",
         async (assert) => {
             setupControlPanelServiceRegistry();
+            patchUserWithCleanup({ hasGroup: async () => true });
             const serverData = {
                 models: getBasicData(),
             };
@@ -250,11 +233,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                     <field name="date" interval="month" type="col"/>
                     <field name="probability" type="measure"/>
                 </pivot>`,
-                mockRPC: function (route, args) {
-                    if (args.method === "has_group") {
-                        return Promise.resolve(true);
-                    }
-                },
             });
 
             const target = getFixture();
@@ -905,14 +883,11 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             user_context: userContext,
         };
         patchWithCleanup(session, testSession);
-        const { model, env } = await createSpreadsheetFromPivotView({
+        makeMockedUser();
+        const { model } = await createSpreadsheetFromPivotView({
             additionalContext: context,
         });
-        assert.deepEqual(
-            env.services.user.context,
-            userContext,
-            "context is used for spreadsheet action"
-        );
+        assert.deepEqual(user.context, userContext, "context is used for spreadsheet action");
         assert.deepEqual(
             model.exportData().pivots[1].context,
             {

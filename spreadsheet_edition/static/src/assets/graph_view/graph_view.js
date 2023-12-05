@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { GraphRenderer } from "@web/views/graph/graph_renderer";
+import { user } from "@web/core/user";
 import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";
 import { SpreadsheetSelectorDialog } from "@spreadsheet_edition/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog";
@@ -12,7 +13,6 @@ import { onWillStart } from "@odoo/owl";
 export const patchGraphSpreadsheet = () => ({
     setup() {
         super.setup(...arguments);
-        this.userService = useService("user");
         this.notification = useService("notification");
         this.actionService = useService("action");
         this.router = useService("router");
@@ -20,7 +20,7 @@ export const patchGraphSpreadsheet = () => ({
         onWillStart(async () => {
             const insertionGroups = registry.category("spreadsheet_view_insertion_groups").getAll();
             const userGroups = await Promise.all(
-                insertionGroups.map((group) => this.userService.hasGroup(group))
+                insertionGroups.map((group) => user.hasGroup(group))
             );
             this.canInsertChart = userGroups.some((group) => group);
         });
@@ -42,7 +42,7 @@ export const patchGraphSpreadsheet = () => ({
                     domain: this.env.searchModel.domainString,
                     context: omit(
                         this.model.searchParams.context,
-                        ...Object.keys(this.userService.context),
+                        ...Object.keys(user.context),
                         "graph_measure",
                         "graph_order"
                     ),

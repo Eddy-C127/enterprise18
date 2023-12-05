@@ -2,8 +2,8 @@
 
 import { onWillStart } from "@odoo/owl";
 import { DocumentsInspector } from "@documents/views/inspector/documents_inspector";
+import { user } from "@web/core/user";
 import { patch } from '@web/core/utils/patch';
-import { useService } from "@web/core/utils/hooks";
 
 patch(DocumentsInspector.prototype, {
     /**
@@ -11,9 +11,8 @@ patch(DocumentsInspector.prototype, {
      */
     setup() {
         super.setup(...arguments);
-        this.user = useService("user");
         onWillStart(async () => {
-            this.purchaseGroup = await this.user.hasGroup('account.group_purchase_receipts');
+            this.purchaseGroup = await user.hasGroup('account.group_purchase_receipts');
         });
     },
 

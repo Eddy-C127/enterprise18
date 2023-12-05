@@ -4,7 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 /* global html2canvas */
 
 import { Dialog } from "@web/core/dialog/dialog";
-import { useService } from "@web/core/utils/hooks";
+import { user } from "@web/core/user";
 import { loadJS } from "@web/core/assets";
 import { Component, onWillStart, useRef, useState } from "@odoo/owl";
 import { localization } from "@web/core/l10n/localization";
@@ -23,7 +23,6 @@ export class SignNameAndSignature extends NameAndSignature {
 
     setup() {
         super.setup();
-        this.user = useService("user");
         this.props.signature.signatureChanged = this.state.signMode !== "draw";
 
         if (this.props.frame) {
@@ -57,7 +56,7 @@ export class SignNameAndSignature extends NameAndSignature {
         onWillStart(() => {
             if (this.props.frame) {
                 return Promise.all([
-                    this.user.hasGroup("base.group_user").then((isSystemUser) => {
+                    user.hasGroup("base.group_user").then((isSystemUser) => {
                         this.showFrameCheck = isSystemUser;
                     }),
                     loadJS("/web_editor/static/lib/html2canvas.js"),

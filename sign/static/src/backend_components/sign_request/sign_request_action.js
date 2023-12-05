@@ -29,7 +29,6 @@ export class SignRequest extends Component {
     setup() {
         this.orm = useService("orm");
         this.notification = useService("notification");
-        this.user = useService("user");
         this.action = useService("action");
         this.signInfo = useService("signInfo");
         const action = this.props.action;

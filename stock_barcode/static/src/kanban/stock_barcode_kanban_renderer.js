@@ -2,6 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { KanbanRenderer } from '@web/views/kanban/kanban_renderer';
+import { user } from "@web/core/user";
 import { useService } from '@web/core/utils/hooks';
 import * as BarcodeScanner from '@web/webclient/barcode/barcode_scanner';
 import { onWillStart } from "@odoo/owl";
@@ -10,7 +11,6 @@ export class StockBarcodeKanbanRenderer extends KanbanRenderer {
     static template = "stock_barcode.KanbanRenderer";
     setup() {
         super.setup(...arguments);
-        const user = useService('user');
         this.barcodeService = useService('barcode');
         this.display_protip = this.props.list.resModel === 'stock.picking';
         onWillStart(async () => {

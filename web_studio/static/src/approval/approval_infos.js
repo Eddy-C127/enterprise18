@@ -1,8 +1,8 @@
 /** @odoo-module */
 
 import { formatDate, deserializeDate } from "@web/core/l10n/dates";
-import { useService } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
+import { user } from "@web/core/user";
 
 import { useState, Component } from "@odoo/owl";
 
@@ -10,7 +10,7 @@ export class StudioApprovalInfos extends Component {
     static template = "StudioApprovalInfos";
     static components = { Dialog };
     setup() {
-        this.user = useService("user");
+        this.user = user;
         const approval = this.props.approval;
         this.approval = approval;
         this.state = useState(approval.state);

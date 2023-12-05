@@ -6,6 +6,7 @@ import { InsertListSpreadsheetMenu } from "@spreadsheet_edition/assets/list_view
 import { selectCell, setCellContent } from "@spreadsheet/../tests/utils/commands";
 import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import { getCellFormula, getEvaluatedCell, getCellValue } from "@spreadsheet/../tests/utils/getters";
+import { makeMockedUser } from "@web/../tests/helpers/mock_services";
 import { click, getFixture, nextTick, patchWithCleanup, patchDate, editInput, makeDeferred } from "@web/../tests/helpers/utils";
 import { toggleActionMenu, pagerNext } from "@web/../tests/search/helpers";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
@@ -302,6 +303,7 @@ QUnit.module("document_spreadsheet > list view", {
             user_context: userContext,
         };
         patchWithCleanup(session, testSession);
+        makeMockedUser();
         const context = {
             ...userContext,
             default_stage_id: 5,

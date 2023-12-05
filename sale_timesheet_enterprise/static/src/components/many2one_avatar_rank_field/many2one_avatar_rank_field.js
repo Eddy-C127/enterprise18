@@ -1,7 +1,6 @@
 /** @odoo-module **/
 
 import { Component } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
 
 export class Many2OneAvatarRankField extends Component {
     static template = "sale_timesheet_enterprise.Many2OneAvatarRankField";
@@ -16,10 +15,6 @@ export class Many2OneAvatarRankField extends Component {
         size: "small",
         class: "",
     };
-
-    setup() {
-        this.userService = useService("user");
-    }
 
     get imgSrc() {
         return this.props.id === 0 ? "/hr/static/src/img/default_image.png" : `/web/image/hr.employee.public/${this.props.id}/avatar_128`;

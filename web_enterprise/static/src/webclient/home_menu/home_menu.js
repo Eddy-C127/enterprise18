@@ -2,6 +2,7 @@
 
 import { isIosApp, isMobileOS, isMacOS } from "@web/core/browser/feature_detection";
 import { useHotkey } from "@web/core/hotkeys/hotkey_hook";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { ExpirationPanel } from "./expiration_panel";
 import { useSortable } from "@web/core/utils/sortable_owl";
@@ -89,7 +90,6 @@ export class HomeMenu extends Component {
     setup() {
         this.command = useService("command");
         this.menus = useService("menu");
-        this.user = useService("user");
         this.homeMenuService = useService("home_menu");
         this.subscription = useState(useService("enterprise_subscription"));
         this.ui = useService("ui");
@@ -288,7 +288,7 @@ export class HomeMenu extends Component {
         }
         // apply new order
         reorderApps(this.apps, order);
-        this.user.setUserSettings("homemenu_config", JSON.stringify(order));
+        user.setUserSettings("homemenu_config", JSON.stringify(order));
     }
 
     /**

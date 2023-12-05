@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { isMobileOS } from "@web/core/browser/feature_detection";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { patch } from "@web/core/utils/patch";
 import { ListRenderer } from "@web/views/list/list_renderer";
@@ -11,7 +12,6 @@ import { onWillDestroy, useState } from "@odoo/owl";
 export const patchListRendererDesktop = () => ({
     setup() {
         super.setup(...arguments);
-        this.userService = useService("user");
         this.actionService = useService("action");
         const list = this.props.list;
 
@@ -26,7 +26,7 @@ export const patchListRendererDesktop = () => ({
         const isPotentiallyEditable =
             !isMobileOS() &&
             !this.env.inDialog &&
-            this.userService.isSystem &&
+            user.isSystem &&
             list === list.model.root &&
             actionId &&
             actionType === "ir.actions.act_window";

@@ -24,7 +24,6 @@ export class TimesheetLeaderboardDialog extends Component {
 
     setup() {
         this.orm = useService("orm");
-        this.user = useService("user");
         this.timesheetUOMService = useService("timesheet_uom");
         this.state = useState({
             date: this.props.date.startOf("month"),

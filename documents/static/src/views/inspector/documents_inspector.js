@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 import { session } from "@web/session";
 import { KeepLast } from "@web/core/utils/concurrency";
 import { intersection } from "@web/core/utils/arrays";
@@ -557,7 +558,7 @@ export class DocumentsInspector extends Component {
             "get_formview_action",
             [[record.data.res_id]],
             {
-                context: record.model.user.context,
+                context: user.context,
             }
         );
         await this.action.doAction(action);

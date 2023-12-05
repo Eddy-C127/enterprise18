@@ -44,7 +44,6 @@ export class MrpDisplayRecord extends Component {
     static template = "mrp_workorder.MrpDisplayRecord";
 
     setup() {
-        this.user = useService("user");
         this.dialog = useService("dialog");
         this.action = useService("action");
         this.state = useState({

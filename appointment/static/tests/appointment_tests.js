@@ -1,14 +1,13 @@
 /** @odoo-module **/
 
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { click, nextTick, getFixture, patchDate, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { clickAllDaySlot } from "@web/../tests/views/calendar/helpers";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
-import { userService } from "@web/core/user_service";
 import testUtils from '@web/../tests/legacy/helpers/test_utils';
 
 const { DateTime } = luxon;
-const serviceRegistry = registry.category("services");
 const mockRegistry = registry.category("mock_server");
 
 let target;
@@ -175,20 +174,11 @@ QUnit.module('appointment.appointment_link', {
         patchDate(DateTime.now().plus({years:1}).year, 0, 5, 0, 0, 0);
         target = getFixture();
         setupViewRegistries();
-        serviceRegistry.add(
-            "user",
-            {
-                ...userService,
-                start() {
-                    const fakeUserService = userService.start(...arguments);
-                    Object.defineProperty(fakeUserService, "userId", {
-                        get: () => uid,
-                    });
-                    return fakeUserService;
-                },
+        patchUserWithCleanup({
+            get userId() {
+                return uid;
             },
-            { force: true }
-        );
+        });
     },
     after: function () {
         mockRegistry.add("/appointment/appointment_type/get_staff_user_appointment_types", appointmentMock, { force: true });

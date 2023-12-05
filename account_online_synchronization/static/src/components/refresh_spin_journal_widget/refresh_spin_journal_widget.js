@@ -18,7 +18,6 @@ class RefreshSpin extends Component {
 
         this.actionService = useService("action");
         this.busService = this.env.services.bus_service;
-        this.user = useService("user");
         this.orm = useService("orm");
         this.state.fetchingStatus = this.props.record.data.online_sync_fetching_status;
 

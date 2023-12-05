@@ -1030,7 +1030,6 @@ QUnit.module("View Editors", () => {
                 "/web/dataset/call_kw/coucou/get_views",
                 "/web_studio/get_studio_view_arch",
                 "/web/dataset/call_kw/coucou/web_search_read",
-                "/web/dataset/call_kw/res.users/has_group",
             ]);
 
             assert.containsOnce(target, "thead th[data-studio-xpath]");

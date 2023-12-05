@@ -5,6 +5,7 @@ import { rpc } from "@web/core/network/rpc";
 import * as BarcodeScanner from '@web/webclient/barcode/barcode_scanner';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { registry } from "@web/core/registry";
+import { user } from "@web/core/user";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { session } from "@web/session";
 import { serializeDate, today } from "@web/core/l10n/dates";
@@ -21,7 +22,6 @@ export class MainMenu extends Component {
 
     setup() {
         const displayDemoMessage = this.props.action.params.message_demo_barcodes;
-        const user = useService('user');
         this.actionService = useService('action');
         this.dialogService = useService('dialog');
         this.home = useService("home_menu");

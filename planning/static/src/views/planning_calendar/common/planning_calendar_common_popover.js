@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { onWillStart } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
+import { user } from "@web/core/user";
 import { CalendarCommonPopover } from "@web/views/calendar/calendar_common/calendar_common_popover";
 import { formatFloatTime } from "@web/views/fields/formatters";
 import { formatFloat } from "@web/core/utils/numbers";
@@ -14,13 +14,11 @@ export class PlanningCalendarCommonPopover extends CalendarCommonPopover {
     };
     setup() {
         super.setup(...arguments);
-        this.user = useService("user");
-
         onWillStart(this.onWillStart);
     }
 
     async onWillStart() {
-        this.isManager = await this.user.hasGroup("planning.group_planning_manager");
+        this.isManager = await user.hasGroup("planning.group_planning_manager");
     }
 
     get data() {

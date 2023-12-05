@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart } from "@odoo/owl";
 
@@ -14,7 +15,6 @@ export class Digipad extends Component {
 
     setup() {
         this.orm = useService('orm');
-        const user = useService('user');
         this.buttons = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', '0', 'erase'].map((value, index) => {
             return { index, value };
         });

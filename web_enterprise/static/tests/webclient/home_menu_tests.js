@@ -2,7 +2,7 @@
 
 import { registerCleanup } from "@web/../tests/helpers/cleanup";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
-import { makeFakeLocalizationService } from "@web/../tests/helpers/mock_services";
+import { makeFakeLocalizationService, makeMockedUser } from "@web/../tests/helpers/mock_services";
 import {
     getFixture,
     nextTick,
@@ -306,6 +306,7 @@ QUnit.module(
                 },
             });
             patchWithCleanup(session, { user_settings: { id: 1, homemenu_config: "" } });
+            makeMockedUser();
             const mockRPC = (route, args) => {
                 if (args.method === "set_res_users_settings") {
                     assert.step(`set_res_users_settings`);

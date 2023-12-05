@@ -5,6 +5,7 @@ import { browser } from "@web/core/browser/browser";
 import { SearchPanel } from "@web/search/search_panel/search_panel";
 import { useNestedSortable } from "@web/core/utils/nested_sortable";
 import { usePopover } from "@web/core/popover/popover_hook";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { utils as uiUtils } from "@web/core/ui/ui_service";
 import { Component, onWillStart, useState } from "@odoo/owl";
@@ -48,7 +49,6 @@ export class DocumentsSearchPanel extends SearchPanel {
         useState(uploads);
         this.notification = useService("notification");
         this.orm = useService("orm");
-        this.user = useService("user");
         this.action = useService("action");
         this.popover = usePopover(DocumentsSearchPanelItemSettingsPopover, {
             onClose: () => this.onPopoverClose?.(),
@@ -57,7 +57,7 @@ export class DocumentsSearchPanel extends SearchPanel {
         this.dialog = useService("dialog");
 
         onWillStart(async () => {
-            this.isDocumentManager = await this.user.hasGroup("documents.group_documents_manager");
+            this.isDocumentManager = await user.hasGroup("documents.group_documents_manager");
         });
 
         useNestedSortable({

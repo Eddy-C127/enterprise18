@@ -3,9 +3,9 @@
 import { click, getFixture, mount } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
-    makeFakeUserService,
     makeFakeDialogService,
     makeFakeLocalizationService,
+    patchUserWithCleanup,
 } from "@web/../tests/helpers/mock_services";
 import { SignNameAndSignatureDialog } from "@sign/dialogs/dialogs";
 import { registry } from "@web/core/registry";
@@ -60,8 +60,8 @@ QUnit.module("Sign Name and Signature Dialog", function (hooks) {
     });
 
     QUnit.test("sign name and signature dialog renders correctly", async function (assert) {
-        const hasGroup = () => true;
-        serviceRegistry.add("user", makeFakeUserService(hasGroup));
+        const hasGroup = async () => true;
+        patchUserWithCleanup({ hasGroup });
 
         await mountSignNameAndSignatureDialog();
 
@@ -94,9 +94,6 @@ QUnit.module("Sign Name and Signature Dialog", function (hooks) {
     QUnit.test(
         "sign name and signature dialog - frame is hidden when user is not from the sign user group",
         async (assert) => {
-            const hasGroup = () => false;
-            serviceRegistry.add("user", makeFakeUserService(hasGroup));
-
             await mountSignNameAndSignatureDialog();
 
             assert.ok(
@@ -109,8 +106,8 @@ QUnit.module("Sign Name and Signature Dialog", function (hooks) {
     QUnit.test(
         "sign name and signature dialog toggles active class on frame input change",
         async function (assert) {
-            const hasGroup = () => true;
-            serviceRegistry.add("user", makeFakeUserService(hasGroup));
+            const hasGroup = async () => true;
+            patchUserWithCleanup({ hasGroup });
 
             await mountSignNameAndSignatureDialog();
 

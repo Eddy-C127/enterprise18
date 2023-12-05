@@ -52,7 +52,6 @@ export class SpreadsheetControlPanel extends Component {
     setup() {
         this.controlPanelDisplay = {};
         this.actionService = useService("action");
-        this.userService = useService("user");
         this.breadcrumbs = useState(this.env.config.breadcrumbs);
         this.collaborative = useState({
             isSynced: true,

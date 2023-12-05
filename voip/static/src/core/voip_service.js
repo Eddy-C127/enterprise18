@@ -12,6 +12,7 @@ import { browser } from "@web/core/browser/browser";
 import { isMobileOS } from "@web/core/browser/feature_detection";
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
+import { user } from "@web/core/user";
 import { Deferred } from "@web/core/utils/concurrency";
 import { escape } from "@web/core/utils/strings";
 
@@ -289,10 +290,9 @@ export const voipService = {
         "mail.messaging",
         "mail.store",
         "orm",
-        "user",
         "voip.call",
     ],
-    async start(env, { user }) {
+    async start() {
         const isEmployee = await user.hasGroup("base.group_user");
         if (!isEmployee) {
             const isReady = new Deferred();

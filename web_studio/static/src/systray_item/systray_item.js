@@ -1,5 +1,6 @@
 /** @odoo-module **/
 import { registry } from "@web/core/registry";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 
 import { Component, useRef } from "@odoo/owl";
@@ -28,7 +29,7 @@ class StudioSystray extends Component {
 
 export const systrayItem = {
     Component: StudioSystray,
-    isDisplayed: (env) => env.services.user.isSystem,
+    isDisplayed: () => user.isSystem,
 };
 
 registry.category("systray").add("StudioSystrayItem", systrayItem, { sequence: 1 });

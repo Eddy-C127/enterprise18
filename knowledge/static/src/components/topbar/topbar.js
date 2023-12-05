@@ -5,6 +5,7 @@ import { formatDateTime } from '@web/core/l10n/dates';
 import { rpc } from "@web/core/network/rpc";
 import { registry } from '@web/core/registry';
 import { standardWidgetProps } from '@web/views/widgets/standard_widget_props';
+import { user } from "@web/core/user";
 import { useBus, useService } from '@web/core/utils/hooks';
 import { useOpenChat } from "@mail/core/web/open_chat_hook";
 import { utils as uiUtils } from "@web/core/ui/ui_service";
@@ -35,7 +36,6 @@ class KnowledgeTopbar extends Component {
         this.dialog = useService('dialog');
         this.orm = useService('orm');
         this.uiService = useService('ui');
-        this.userService = useService('user');
 
         this.buttonSharePanel = useRef('sharePanel_button');
         this.optionsBtn = useRef('optionsBtn');
@@ -61,7 +61,7 @@ class KnowledgeTopbar extends Component {
         });
 
         onWillStart(async () => {
-            this.isInternalUser = await this.userService.hasGroup('base.group_user');
+            this.isInternalUser = await user.hasGroup('base.group_user');
         });
 
         useEffect((optionsBtn) => {

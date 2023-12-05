@@ -2,7 +2,7 @@
 
 import { onWillStart } from "@odoo/owl";
 import { serializeDateTime } from "@web/core/l10n/dates";
-import { useService } from "@web/core/utils/hooks";
+import { user } from "@web/core/user";
 import { CalendarController } from "@web/views/calendar/calendar_controller";
 import { PlanningCalendarFilterPanel } from "./planning_filter_panel/planning_calendar_filter_panel";
 import { usePlanningControllerActions } from "../planning_hooks";
@@ -17,7 +17,6 @@ export class PlanningCalendarController extends CalendarController {
 
     setup() {
         super.setup(...arguments);
-        this.user = useService("user");
 
         onWillStart(this.onWillStart);
 
@@ -44,6 +43,6 @@ export class PlanningCalendarController extends CalendarController {
     }
 
     async onWillStart() {
-        this.isManager = await this.user.hasGroup("planning.group_planning_manager");
+        this.isManager = await user.hasGroup("planning.group_planning_manager");
     }
 };

@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { KnowledgeSidebarRow } from "./sidebar_row";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 
 import { Component, onWillStart, useChildSubEnv } from "@odoo/owl";
@@ -23,9 +24,8 @@ export class KnowledgeSidebarSection extends Component {
 
     setup() {
         super.setup();
-        this.userService = useService("user");
         onWillStart(async () => {
-            this.isInternalUser = await this.userService.hasGroup('base.group_user');
+            this.isInternalUser = await user.hasGroup('base.group_user');
         });
     }
 }

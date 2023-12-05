@@ -17,6 +17,7 @@ import { formatDateTime, serializeDate, serializeDateTime } from "@web/core/l10n
 import { localization } from "@web/core/l10n/localization";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { evaluateBooleanExpr } from "@web/core/py_js/py";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { omit } from "@web/core/utils/objects";
 import { debounce, throttleForAnimation } from "@web/core/utils/timing";
@@ -187,7 +188,6 @@ export class GanttRenderer extends Component {
 
         this.actionService = useService("action");
         this.dialogService = useService("dialog");
-        this.userService = useService("user");
 
         /** @type {HoveredInfo} */
         this.hovered = {
@@ -805,7 +805,7 @@ export class GanttRenderer extends Component {
         const classes = [];
 
         if (pillDecorations) {
-            const pillContext = Object.assign({}, this.userService.context);
+            const pillContext = Object.assign({}, user.context);
             for (const [fieldName, value] of Object.entries(pill.record)) {
                 const field = fields[fieldName];
                 switch (field.type) {

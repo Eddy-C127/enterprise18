@@ -15,7 +15,6 @@ export class SignableRequestControlPanel extends Component {
         this.controlPanelDisplay = {};
         this.action = useService("action");
         this.orm = useService("orm");
-        this.user = useService("user");
         this.dialog = useService("dialog");
         this.signInfo = useService("signInfo");
     }

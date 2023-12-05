@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
+import { user as originalUser } from "@web/core/user";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { computeAppsAndMenuItems, reorderApps } from "@web/webclient/menus/menu_helpers";
@@ -15,13 +16,11 @@ import { Component, onWillStart, onMounted, onPatched, onWillUnmount } from "@od
 import { ormService } from "@web/core/orm_service";
 
 const studioUserService = {
-    dependencies: ["user"],
-    start(env, { user }) {
-        const originalUserService = user;
-        user = Object.create(user);
+    start() {
+        const user = Object.create(originalUser);
         Object.defineProperty(user, "context", {
             get() {
-                return { ...originalUserService.context, studio: 1 };
+                return { ...originalUser.context, studio: 1 };
             },
         });
         return user;
@@ -44,10 +43,9 @@ export class StudioClientAction extends Component {
         // The ORM calls down the line will be done with the studio context key
         // The ORM calls made from the original ORM service, in particular the viewService:loadViews
         // are not affected and will be made without the studio context key.
-        useServicesOverrides({ orm: ormService, user: studioUserService });
+        useServicesOverrides({ orm: ormService, user: studioUserService }); // FIXME
 
-        const user = useService("user");
-        const homemenuConfig = JSON.parse(user.settings?.homemenu_config || "null");
+        const homemenuConfig = JSON.parse(originalUser.settings?.homemenu_config || "null");
         this.studio = useService("studio");
         useBus(this.studio.bus, "UPDATE", () => {
             this.render();

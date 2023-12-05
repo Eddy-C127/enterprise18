@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { browser } from "@web/core/browser/browser";
+import { makeMockedUser } from "@web/../tests/helpers/mock_services";
 import {
     click,
     editInput,
@@ -1661,6 +1662,7 @@ QUnit.module(
                     tz: "Europe/Brussels",
                 },
             });
+            makeMockedUser();
 
             const changeArch = makeArchChanger();
             const archReturn = `<tree><field name='display_name'/><field name="char_field" /></tree>`;

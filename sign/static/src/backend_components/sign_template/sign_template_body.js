@@ -19,7 +19,6 @@ export class SignTemplateBody extends Component {
         this.notification = useService("notification");
         this.popover = useService("popover");
         this.dialog = useService("dialog");
-        this.user = useService("user");
         this.PDFIframe = useRef("PDFIframe");
         this.PDFViewerURL = buildPDFViewerURL(this.props.attachmentLocation, this.env.isSmall);
         useEffect(
@@ -50,7 +49,6 @@ export class SignTemplateBody extends Component {
                 orm: this.orm,
                 popover: this.popover,
                 dialog: this.dialog,
-                user: this.user,
             },
             {
                 signItemTypes: this.props.signItemTypes,

@@ -2,6 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
@@ -20,7 +21,6 @@ export class NewViewDialog extends ConfirmationDialog {
         super.setup();
         this.orm = useService("orm");
         this.studio = useService("studio");
-        this.user = useService("user");
         this.mandatoryStopDate = ["gantt", "cohort"].includes(this.viewType);
 
         this.title = _t("Generate %s View", this.viewType);
@@ -92,7 +92,7 @@ export class NewViewDialog extends ConfirmationDialog {
             model: this.studio.editedAction.res_model,
             view_type: this.viewType,
             attrs: this.fieldsChoice,
-            context: this.user.context,
+            context: user.context,
         });
         super._confirm();
     }

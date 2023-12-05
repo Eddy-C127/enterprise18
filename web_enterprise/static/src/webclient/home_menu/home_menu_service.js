@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
+import { user } from "@web/core/user";
 import { Mutex } from "@web/core/utils/concurrency";
 import { useService } from "@web/core/utils/hooks";
 import { computeAppsAndMenuItems, reorderApps } from "@web/webclient/menus/menu_helpers";
@@ -13,8 +14,8 @@ import { HomeMenu } from "./home_menu";
 import { Component, onMounted, onWillUnmount, xml } from "@odoo/owl";
 
 export const homeMenuService = {
-    dependencies: ["action", "router", "user"],
-    start(env, { user }) {
+    dependencies: ["action", "router"],
+    start(env) {
         let hasHomeMenu = false; // true iff the HomeMenu is currently displayed
         let hasBackgroundAction = false; // true iff there is an action behind the HomeMenu
         const mutex = new Mutex(); // used to protect against concurrent toggling requests
@@ -27,7 +28,6 @@ export const homeMenuService = {
             setup() {
                 this.router = useService("router");
                 this.menus = useService("menu");
-                const user = useService("user");
                 const homemenuConfig = JSON.parse(user.settings?.homemenu_config || "null");
                 const apps = computeAppsAndMenuItems(this.menus.getMenuAsTree("root")).apps;
                 if (homemenuConfig) {

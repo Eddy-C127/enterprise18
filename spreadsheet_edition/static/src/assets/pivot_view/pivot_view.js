@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { PivotRenderer } from "@web/views/pivot/pivot_renderer";
+import { user } from "@web/core/user";
 import { intersection, unique } from "@web/core/utils/arrays";
 import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";
@@ -16,13 +17,12 @@ import { onWillStart } from "@odoo/owl";
 patch(PivotRenderer.prototype, {
     setup() {
         super.setup(...arguments);
-        this.userService = useService("user");
         this.notification = useService("notification");
         this.actionService = useService("action");
         onWillStart(async () => {
             const insertionGroups = registry.category("spreadsheet_view_insertion_groups").getAll();
             const userGroups = await Promise.all(
-                insertionGroups.map((group) => this.userService.hasGroup(group))
+                insertionGroups.map((group) => user.hasGroup(group))
             );
             this.canInsertPivot = userGroups.some((group) => group);
         });
@@ -58,7 +58,7 @@ patch(PivotRenderer.prototype, {
                     domain: this.env.searchModel.domainString,
                     context: omit(
                         this.model.searchParams.context,
-                        ...Object.keys(this.userService.context),
+                        ...Object.keys(user.context),
                         "pivot_measures",
                         "pivot_row_groupby",
                         "pivot_column_groupby"

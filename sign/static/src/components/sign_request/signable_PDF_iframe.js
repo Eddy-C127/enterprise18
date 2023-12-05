@@ -2,6 +2,7 @@
 
 import { rpc } from "@web/core/network/rpc";
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 import { PDFIframe } from "./PDF_iframe";
 import { startSignItemNavigator } from "./sign_item_navigator";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
@@ -266,7 +267,7 @@ export class SignablePDFIframe extends PDFIframe {
                         const signatureSrc = `data:${signature.getSignatureImage().join(", ")}`;
                         type.auto_value = signatureSrc;
                         type.frame_value = frameData;
-                        if (this.user.userId) {
+                        if (user.userId) {
                             await this.updateUserSignature(type);
                         }
                         this.fillItemWithSignature(signatureItem, signatureSrc, {
@@ -299,7 +300,7 @@ export class SignablePDFIframe extends PDFIframe {
                     const signatureSrc = `data:${signature.getSignatureImage().join(", ")}`;
                     type.auto_value = signatureSrc;
                     type.frame_value = frameData;
-                    if (this.user.userId) {
+                    if (user.userId) {
                         await this.updateUserSignature(type);
                     }
                     for (const page in this.signItems) {

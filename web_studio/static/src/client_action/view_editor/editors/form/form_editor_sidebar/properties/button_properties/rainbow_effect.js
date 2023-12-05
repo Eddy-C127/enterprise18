@@ -1,10 +1,10 @@
 /** @odoo-module */
 
 import { Component } from "@odoo/owl";
+import { user } from "@web/core/user";
 import { FileInput } from "@web/core/file_input/file_input";
 import { SelectMenu } from "@web/core/select_menu/select_menu";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
-import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { evaluateExpr } from "@web/core/py_js/py";
 
@@ -20,7 +20,7 @@ export class RainbowEffect extends Component {
         Property,
     };
     setup() {
-        this.user = useService("user");
+        this.user = user;
     }
     get choices() {
         return [

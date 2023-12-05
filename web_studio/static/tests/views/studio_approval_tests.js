@@ -1,5 +1,6 @@
 /** @odoo-module */
 
+import { makeMockedUser } from "@web/../tests/helpers/mock_services";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import {
     getFixture,
@@ -312,6 +313,7 @@ QUnit.module("Studio Approval", (hooks) => {
         patchWithCleanup(session, {
             uid: 42,
         });
+        makeMockedUser();
 
         let hasValidatedRule;
 

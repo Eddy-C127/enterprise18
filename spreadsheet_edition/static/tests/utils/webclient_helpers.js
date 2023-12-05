@@ -5,7 +5,6 @@ import { busParametersService } from "@bus/bus_parameters_service";
 import { multiTabService } from "@bus/multi_tab_service";
 
 import { InsertListSpreadsheetMenu } from "@spreadsheet_edition/assets/list_view/insert_list_spreadsheet_menu_owl";
-import { makeFakeUserService } from "@web/../tests/helpers/mock_services";
 import { loadJS } from "@web/core/assets";
 import { dialogService } from "@web/core/dialog/dialog_service";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
@@ -13,6 +12,7 @@ import { ormService } from "@web/core/orm_service";
 import { nameService } from "@web/core/name_service";
 import { registry } from "@web/core/registry";
 import { uiService } from "@web/core/ui/ui_service";
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { makeFakeSpreadsheetService } from "@spreadsheet_edition/../tests/utils/collaborative_helpers";
 import { Spreadsheet } from "@odoo/o-spreadsheet";
 import { SpreadsheetComponent } from "@spreadsheet_edition/bundle/actions/spreadsheet_component";
@@ -21,12 +21,8 @@ const serviceRegistry = registry.category("services");
 
 export async function prepareWebClientForSpreadsheet() {
     await loadJS("/web/static/lib/Chart/Chart.js");
+    patchUserWithCleanup({ hasGroup: async () => true });
     serviceRegistry.add("spreadsheet_collaborative", makeFakeSpreadsheetService(), { force: true });
-    serviceRegistry.add(
-        "user",
-        makeFakeUserService(() => true),
-        { force: true }
-    );
     serviceRegistry.add("hotkey", hotkeyService);
     serviceRegistry.add("dialog", dialogService);
     serviceRegistry.add("ui", uiService);

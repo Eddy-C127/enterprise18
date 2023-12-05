@@ -2,8 +2,8 @@
 
 import { registry } from "@web/core/registry";
 import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
+import { user } from "@web/core/user";
 import { throttleForAnimation } from "@web/core/utils/timing";
-import { useService } from "@web/core/utils/hooks";
 import { Component, onWillUpdateProps, onWillStart, useRef, useState } from "@odoo/owl";
 
 class KnowledgeCover extends Component {
@@ -12,7 +12,6 @@ class KnowledgeCover extends Component {
 
     setup() {
         super.setup();
-        this.userService = useService("user");
         this.root = useRef("root");
         this.image = useRef("image");
         this.state = useState({
@@ -23,7 +22,7 @@ class KnowledgeCover extends Component {
         });
 
         onWillStart(async () => {
-            this.isInternalUser = await this.userService.hasGroup('base.group_user');
+            this.isInternalUser = await user.hasGroup('base.group_user');
         });
 
         // Update the state when we open an article (because since we open an

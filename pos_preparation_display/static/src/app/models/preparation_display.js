@@ -1,4 +1,5 @@
 /** @odoo-module **/
+import { user } from "@web/core/user";
 import { Reactive } from "@web/core/utils/reactive";
 import { Order } from "@pos_preparation_display/app/models/order";
 import { Orderline } from "@pos_preparation_display/app/models/orderline";
@@ -315,8 +316,7 @@ export class PreparationDisplay extends Reactive {
     }
 
     saveFilterToLocalStorage() {
-        const userService = this.env.services.user;
-        const localStorageName = `preparation_display_${this.id}.db_${userService.db.name}.user_${userService.userId}`;
+        const localStorageName = `preparation_display_${this.id}.db_${user.db.name}.user_${user.userId}`;
 
         localStorage.setItem(
             localStorageName,
@@ -328,8 +328,7 @@ export class PreparationDisplay extends Reactive {
     }
 
     restoreFilterFromLocalStorage() {
-        const userService = this.env.services.user;
-        const localStorageName = `preparation_display_${this.id}.db_${userService.db.name}.user_${userService.userId}`;
+        const localStorageName = `preparation_display_${this.id}.db_${user.db.name}.user_${user.userId}`;
         const localStorageData = JSON.parse(localStorage.getItem(localStorageName));
 
         if (localStorageData) {

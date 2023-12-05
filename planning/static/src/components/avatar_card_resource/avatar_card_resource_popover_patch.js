@@ -1,17 +1,13 @@
 /* @odoo-module */
 
-import { useService } from "@web/core/utils/hooks";
+import { user } from "@web/core/user";
 import { patch } from "@web/core/utils/patch";
 import { AvatarCardResourcePopover } from "@resource_mail/components/avatar_card_resource/avatar_card_resource_popover";
 
 
 export const patchAvatarCardResourcePopover = {
-    setup() {
-        super.setup();
-        this.user = useService("user");
-    },
     async onWillStart() {
-        this.hr_access = await this.user.hasGroup("hr.group_hr_user");
+        this.hr_access = await user.hasGroup("hr.group_hr_user");
         await super.onWillStart();
     },
     loadAdditionalData() {

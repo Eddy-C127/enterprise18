@@ -2,6 +2,7 @@
 
 import { Component, reactive, useExternalListener, useState } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 import { useAutofocus, useService } from "@web/core/utils/hooks";
 import { BG_COLORS, COLORS, ICONS } from "@web_studio/utils";
 import { ModelConfigurator } from "@web_studio/client_action/model_configurator/model_configurator";
@@ -142,7 +143,6 @@ export class AppCreator extends Component {
         );
 
         this.uiService = useService("ui");
-        this.user = useService("user");
 
         useAutofocus();
         useExternalListener(window, "keydown", this.onKeydown);
@@ -171,7 +171,7 @@ export class AppCreator extends Component {
                 model_id: data.menu.modelChoice && data.menu.modelId && data.menu.modelId[0],
                 model_options: data.modelOptions,
                 icon: iconValue,
-                context: this.user.context,
+                context: user.context,
             });
             await this.props.onNewAppCreated(result);
         } finally {

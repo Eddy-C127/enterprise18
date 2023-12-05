@@ -2,6 +2,7 @@
 
 import { patch } from "@web/core/utils/patch";
 import { ListRenderer } from "@web/views/list/list_renderer";
+import { user } from "@web/core/user";
 import { useService, useBus } from "@web/core/utils/hooks";
 import { omit } from "@web/core/utils/objects";
 import { SpreadsheetSelectorDialog } from "../components/spreadsheet_selector_dialog/spreadsheet_selector_dialog";
@@ -15,7 +16,6 @@ patch(ListRenderer.prototype, {
     setup() {
         super.setup(...arguments);
         this.dialogService = useService("dialog");
-        this.userService = useService("user");
         useBus(this.env.bus, "insert-list-spreadsheet", this.insertListSpreadsheet.bind(this));
     },
 
@@ -73,7 +73,7 @@ patch(ListRenderer.prototype, {
                 model: model.resModel,
                 domain: this.env.searchModel.domainString,
                 orderBy: model.orderBy,
-                context: omit(model.context, ...Object.keys(this.userService.context)),
+                context: omit(model.context, ...Object.keys(user.context)),
                 columns: this.getColumnsForSpreadsheet(),
                 name,
             },

@@ -1,5 +1,6 @@
 /** @odoo-module */
 
+import { makeMockedUser } from "@web/../tests/helpers/mock_services";
 import { getFixture, patchWithCleanup, click, nextTick } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { session } from "@web/session";
@@ -54,6 +55,7 @@ QUnit.module(
                 assert.expect(11);
 
                 patchWithCleanup(session, { is_system: true });
+                makeMockedUser();
 
                 await makeView({
                     serverData,
@@ -115,6 +117,7 @@ QUnit.module(
                 assert.expect(11);
 
                 patchWithCleanup(session, { is_system: true });
+                makeMockedUser();
 
                 await makeView({
                     serverData,
@@ -176,6 +179,7 @@ QUnit.module(
                 assert.expect(3);
 
                 patchWithCleanup(session, { is_system: false });
+                makeMockedUser();
 
                 await makeView({
                     serverData,
@@ -200,9 +204,8 @@ QUnit.module(
         QUnit.test(
             "add custom field button not shown to non-system users (wo opt. col.)",
             async function (assert) {
-                assert.expect(1);
                 patchWithCleanup(session, { is_system: false });
-
+                makeMockedUser();
                 await makeView({
                     serverData,
                     type: "list",
@@ -224,6 +227,7 @@ QUnit.module(
             async function (assert) {
                 assert.expect(1);
                 patchWithCleanup(session, { is_system: false });
+                makeMockedUser();
                 config.actionId = null;
                 await makeView({
                     serverData,
@@ -243,6 +247,7 @@ QUnit.module(
 
         QUnit.test("x2many should not be editable", async (assert) => {
             patchWithCleanup(session, { is_system: true });
+            makeMockedUser();
             serverData.models.bar = {
                 fields: {},
                 records: [],
@@ -276,6 +281,7 @@ QUnit.module(
 
         QUnit.test("upsell studio feature is not polluted by another view", async (assert) => {
             patchWithCleanup(session, { is_system: true });
+            makeMockedUser();
 
             const serviceRegistry = registry.category("services");
             serviceRegistry.add("home_menu", homeMenuService);

@@ -230,7 +230,6 @@ export class ReportEditorWysiwyg extends Component {
 
     setup() {
         this.action = useService("action");
-        this.user = useService("user");
         this.addDialog = useOwnedDialogs();
         this.notification = useService("notification");
 

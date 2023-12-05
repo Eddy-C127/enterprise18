@@ -3,9 +3,9 @@
 import { click, getFixture, mount, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
-    makeFakeUserService,
     makeFakeDialogService,
     makeFakeLocalizationService,
+    patchUserWithCleanup,
 } from "@web/../tests/helpers/mock_services";
 import { ThankYouDialog } from "@sign/dialogs/dialogs";
 import { registry } from "@web/core/registry";
@@ -40,7 +40,6 @@ QUnit.module("thank you dialog", (hooks) => {
 
     hooks.beforeEach(async () => {
         target = getFixture();
-        serviceRegistry.add("user", makeFakeUserService());
         serviceRegistry.add("dialog", makeFakeDialogService());
         serviceRegistry.add("localization", makeFakeLocalizationService());
         serviceRegistry.add("ui", uiService);
@@ -200,7 +199,7 @@ QUnit.module("thank you dialog", (hooks) => {
 
         const env = await createEnv(mockRPC);
 
-        patchWithCleanup(env.services.user, {
+        patchUserWithCleanup({
             get userId() {
                 return false;
             },

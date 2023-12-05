@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 import { renderToElement } from "@web/core/utils/render";
 import { CalendarRenderer } from "@web/views/calendar/calendar_renderer";
 import { CohortRenderer } from "@web_cohort/cohort_renderer";
@@ -33,7 +34,6 @@ const EmbeddedViewRendererPatch = () => ({
             this.orm = useService('orm');
             this.actionService = useService('action');
             this.addDialog = useOwnedDialogs();
-            this.userService = useService('user');
             this.knowledgeCommandsService = useService('knowledgeCommandsService');
         }
     },
@@ -106,7 +106,7 @@ const EmbeddedViewRendererPatch = () => ({
         const context = {};
         if (this.env.searchModel) {
             // Store the context of the search model:
-            Object.assign(context, omit(this.env.searchModel.context, ...Object.keys(this.userService.context)));
+            Object.assign(context, omit(this.env.searchModel.context, ...Object.keys(user.context)));
             // Store the state of the search model:
             Object.assign(context, {
                 knowledge_search_model_state: JSON.stringify(this.env.searchModel.exportState())
