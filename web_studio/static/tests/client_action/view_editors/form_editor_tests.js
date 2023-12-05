@@ -128,6 +128,28 @@ function getFormEditorServerData() {
                     },
                 ],
             },
+            'ir.model.fields': {
+                fields: {
+                    id: { string: "Id", type: "integer" },
+                    display_name: { string: "Name", type:"char" },
+                    relation: { string: "Relation", type:"char" },
+                    ttype: { string: "Type", type:"char" },
+                    store: { string: "Store", type: "boolean" },
+                },
+                records: [
+                    {
+                        id: 1,
+                        display_name: "Select me",
+                        relation: "coucou",
+                        ttype: "many2one",
+                        store: true,
+                    },
+                ],
+            },
+        },
+        views: {
+            "ir.model.fields,false,list": `<tree><field name="display_name"/></tree>`,
+            "ir.model.fields,false,search": `<search><field name="display_name"/></search>`,
         },
     };
 }
@@ -2330,7 +2352,7 @@ QUnit.module("View Editors", (hooks) => {
             arch,
             mockRPC(route, args) {
                 if (args.method === "name_search") {
-                    return [[1, " Test Field (Test)"]];
+                    return [[1, "Test Field (Test)"]];
                 }
                 if (route === "/web_studio/edit_view") {
                     assert.deepEqual(args.operations, [
@@ -2367,7 +2389,6 @@ QUnit.module("View Editors", (hooks) => {
             ".o_dialog .o_input_dropdown .o-autocomplete",
             "there should be a many2one for the related field"
         );
-
         await click(target.querySelector(".modal-footer button:first-child"));
         assert.containsOnce(
             target,
@@ -2378,6 +2399,80 @@ QUnit.module("View Editors", (hooks) => {
 
         await click(target.querySelector(".o-autocomplete--input"));
         await click(target.querySelector(".o-autocomplete .o-autocomplete--dropdown-item"));
+        await click(target.querySelector(".modal-footer button:first-child"));
+        assert.containsNone(target, ".o_dialog .modal", "should not display the create modal");
+    });
+
+
+
+    QUnit.test("new button in buttonbox through 'Search more'", async function (assert) {
+        patchWithCleanup(browser, { setTimeout: () => 1 });
+        const arch = `<form><sheet><field name='display_name'/></sheet></form>`;
+        await createViewEditor({
+            serverData,
+            type: "form",
+            resModel: "coucou",
+            arch,
+            mockRPC(route, args) {
+                if (args.method === "name_search") {
+                    return [
+                        [1, "Test Field (Test)"],
+                        [2, "Test Field (Test)"],
+                        [3, "Test Field (Test)"],
+                        [4, "Test Field (Test)"],
+                        [5, "Test Field (Test)"],
+                        [6, "Test Field (Test)"],
+                        [7, "Test Field (Test)"],
+                        [8, "Test Field (Test)"],
+                    ];
+                }
+                if (route === "/web_studio/edit_view") {
+                    assert.deepEqual(args.operations, [
+                        { type: "buttonbox" },
+                        {
+                            type: "add",
+                            target: {
+                                tag: "div",
+                                attrs: {
+                                    class: "oe_button_box",
+                                },
+                            },
+                            position: "inside",
+                            node: {
+                                tag: "button",
+                                field: 1,
+                                string: "New button",
+                                attrs: {
+                                    class: "oe_stat_button",
+                                    icon: "fa-diamond",
+                                },
+                            },
+                        },
+                    ]);
+                    return createMockViewResult(serverData, "form", arch, "partner");
+                }
+            },
+        });
+
+        await click(target.querySelector(".o_web_studio_button_hook"));
+        assert.containsOnce(target, ".o_dialog .modal", "there should be one modal");
+        assert.containsOnce(
+            target,
+            ".o_dialog .o_input_dropdown .o-autocomplete",
+            "there should be a many2one for the related field"
+        );
+        await click(target.querySelector(".modal-footer button:first-child"));
+        assert.containsOnce(
+            target,
+            ".o_notification",
+            "notification shown at confirm when no field selected"
+        );
+        assert.containsOnce(target, ".o_dialog .modal", "dialog is still present");
+        
+        await click(target.querySelector(".o-autocomplete--input"));
+        await click(target.querySelector(".o_m2o_dropdown_option_search_more"));
+        await click(target.querySelector(".o_list_view .o_data_row .o_data_cell"));
+        assert.strictEqual(target.querySelector(".o-autocomplete--input").value, "Select me");
         await click(target.querySelector(".modal-footer button:first-child"));
         assert.containsNone(target, ".o_dialog .modal", "should not display the create modal");
     });
