@@ -21,7 +21,7 @@ export class KnowledgeCommentCreatorComposer extends Composer {
      */
     async _sendMessage(value, postData) {
         await this.props.onPostCallback(value, postData);
-        this.threadService.clearComposer(this.props.composer);
+        this.props.composer.clear();
         return;
     }
 }

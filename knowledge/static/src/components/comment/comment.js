@@ -447,7 +447,7 @@ export class KnowledgeCommentsThread extends Component {
             this.targetRef.el.querySelector('a[data-type="cancel"]')?.click();
             if (!this.state.thread?.messages.length) {
                 if (!this.props.knowledgeThreadId) {
-                    this.threadService.clearComposer(this.state.thread.composer);
+                    this.state.thread.composer.clear();
                 }
                 this.props.destroyComment(this.state.knowledgeThreadId, this.mainAnchor);
             }
@@ -546,7 +546,7 @@ export class KnowledgeCommentsThread extends Component {
             [{ article_id: this.props.record.resId }],
             {}
         );
-        this.threadService.clearComposer(this.state.thread.composer);
+        this.state.thread.composer.clear();
         this.state.thread = this.threadService.getThread('knowledge.article.thread', id);
         this.threadService.post(this.state.thread, value, postData);
         for (const anchor of this.anchors) {

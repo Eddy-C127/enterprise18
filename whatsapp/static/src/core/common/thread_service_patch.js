@@ -4,24 +4,6 @@ import { ThreadService } from "@mail/core/common/thread_service";
 import { patch } from "@web/core/utils/patch";
 
 patch(ThreadService.prototype, {
-    canLeave(thread) {
-        return thread.type !== "whatsapp" && super.canLeave(thread);
-    },
-
-    canUnpin(thread) {
-        if (thread.type === "whatsapp") {
-            return this.getCounter(thread) === 0;
-        }
-        return super.canUnpin(thread);
-    },
-
-    getCounter(thread) {
-        if (thread.type === "whatsapp") {
-            return thread.message_unread_counter || thread.message_needaction_counter;
-        }
-        return super.getCounter(thread);
-    },
-
     async getMessagePostParams({ thread }) {
         const params = await super.getMessagePostParams(...arguments);
 
