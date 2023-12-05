@@ -337,3 +337,31 @@ class TestPayslipComputation(TestPayslipContractBase):
         payslip.action_payslip_done()
         payslip.action_payslip_paid()
         self.assertEqual(car_accident.state, 'close', 'The salary attachment should be completed.')
+
+    def test_payslip_with_multiple_input_same_type(self):
+        payslip = self.env['hr.payslip'].create({
+            'name': 'Payslip of Richard',
+            'employee_id': self.richard_emp.id,
+            'contract_id': self.contract_cdi.id,
+            'date_from': date(2016, 1, 1),
+            'date_to': date(2016, 1, 31)
+        })
+        self.env['hr.payslip.input'].create([
+            {
+                'payslip_id': payslip.id,
+                'sequence': 1,
+                'input_type_id': self.env.ref("hr_payroll.BASIC").id,
+                'amount': 100,
+                'contract_id': self.contract_cdi.id
+            },
+            {
+                'payslip_id': payslip.id,
+                'sequence': 2,
+                'input_type_id': self.env.ref("hr_payroll.BASIC").id,
+                'amount': 200,
+                'contract_id': self.contract_cdi.id
+            },
+        ])
+        payslip.compute_sheet()
+        lines = payslip.line_ids
+        self.assertEqual(len(lines.filtered(lambda r: r.code == 'BASIC')), 1)
