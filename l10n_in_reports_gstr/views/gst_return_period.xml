@@ -18,15 +18,15 @@
         <field name="model">l10n_in.gst.return.period</field>
         <field name="arch" type="xml">
             <form string="Return Periods">
-                <div class="alert alert-warning mb4" role="alert"
+                <div class="alert alert-warning" role="alert"
                      invisible="gstr1_error in ('', False) or gstr1_blocking_level != 'warning'">
                     GSTR-1:<field name="gstr1_error" readonly="1"/>
                 </div>
-                <div class="alert alert-danger mb4" role="alert"
+                <div class="alert alert-danger" role="alert"
                      invisible="gstr1_error in ('', False) or gstr1_blocking_level != 'error'">
                     GSTR-1:<field name="gstr1_error" readonly="1"/>
                 </div>
-                <div class="alert alert-warning mb4" role="alert"
+                <div class="alert alert-warning" role="alert"
                      invisible="gstr2b_error in ('', False) or gstr2b_blocking_level != 'warning'">
                     GSTR-2B:<field name="gstr2b_error" readonly="1"/>
                 </div>

@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position='after'>
-                 <div role="status" class="alert alert-warning mb8" invisible="l10n_in_exception in ('', False) or move_type not in ('in_invoice', 'in_receipt', 'in_refund')">
+                 <div role="status" class="alert alert-warning" invisible="l10n_in_exception in ('', False) or move_type not in ('in_invoice', 'in_receipt', 'in_refund')">
                     <field name="l10n_in_exception" readonly="1"/>
                 </div>
             </xpath>

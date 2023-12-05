@@ -24,7 +24,7 @@
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="before">
-                <div role="alert" class="alert alert-warning d-flex flex-wrap gap-3 mb-2"
+                <div role="alert" class="alert alert-warning d-flex flex-wrap gap-3"
                     invisible="not planning_overlap">
                     <div class="d-flex align-items-center">
                         <i class="fa fa-random me-2" role="img" title="Planning overlap"/>
@@ -35,7 +35,7 @@
                     </a>
                 </div>
                 <div role="alert"
-                    class="alert alert-warning d-flex align-items-center mb-2"
+                    class="alert alert-warning d-flex align-items-center"
                     invisible="not dependency_warning">
                         <i class="fa fa-exclamation-circle me-2" role="img" title="Dependency warning"/>
                         <field name="dependency_warning" widget="html" class="m-0"/>
