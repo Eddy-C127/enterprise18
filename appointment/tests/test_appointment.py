@@ -10,15 +10,15 @@ from werkzeug.urls import url_encode, url_join
 import odoo
 from odoo.addons.appointment.tests.common import AppointmentCommon
 from odoo.addons.mail.tests.common import mail_new_test_user
+from odoo.addons.base.tests.common import HttpCaseWithUserDemo
 from odoo.exceptions import ValidationError
-from odoo.tests import Form, tagged, users, HttpCase
+from odoo.tests import Form, tagged, users
 from odoo.tools import mute_logger
 from odoo.fields import Command
 
 
-
 @tagged('appointment_slots')
-class AppointmentTest(AppointmentCommon, HttpCase):
+class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
 
     @freeze_time('2023-01-6')
     @users('apt_manager')
