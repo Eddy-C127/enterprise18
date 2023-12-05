@@ -4,13 +4,17 @@
 
 from datetime import date, datetime
 
-from odoo.tests import tagged
-from odoo.tests.common import TransactionCase
-
+from odoo.tests import tagged, loaded_demo_data
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install', 'eco_vouchers')
-class TestEcoVouchers(TransactionCase):
+class TestEcoVouchers(AccountTestInvoicingCommon):
+
+    @classmethod
+    def setUpClass(cls, chart_template_ref='be_comp'):
+        super().setUpClass(chart_template_ref=chart_template_ref)
+        cls.company_data['company'].country_id = cls.env.ref('base.be')
 
     def test_eco_vouchers(self):
         # The reference year is 2021, so the reference period is 01/06/2020 -> 31/05/2021 (12 months)
@@ -20,15 +24,6 @@ class TestEcoVouchers(TransactionCase):
         # Employees is on unpaid time off from the 01/04/2021 to 21/04/2021 (9 working days over 2.5 weeks)
 
         # Expected result = 250*5/12 + 200*(7-1)/12 = 104.67 + 100 = 204.17
-        be_company = self.env['res.company'].sudo().search([
-            ('partner_id.country_id.code', '=', 'BE'),
-        ], limit=1)
-        if be_company:
-            # Use a company with the correct CoA installed if `account` is installed
-            self.env = self.env(context={'allowed_company_ids': be_company.ids})
-        else:
-            self.env.company.country_id = self.env.ref('base.be')
-
         employee = self.env['hr.employee'].create({'name': 'Test Employee'})
 
         full_time_calendar = self.env['resource.calendar'].create([{
@@ -153,4 +148,5 @@ class TestEcoVouchers(TransactionCase):
             'reference_year': '2021',
         })
         employee_line = wizard.line_ids.filtered(lambda l: l.employee_id == employee)
-        self.assertAlmostEqual(employee_line.amount, 215.48)
+        expected_result = 215.48 if loaded_demo_data(self.env) else 217.67
+        self.assertAlmostEqual(employee_line.amount, expected_result)
