@@ -23,6 +23,7 @@ class TestSubscription(TestSubscriptionCommon):
 
     def setUp(self):
         super(TestSubscription, self).setUp()
+        self.env.ref('base.group_user').write({"implied_ids": [(4, self.env.ref('sale_management.group_sale_order_template').id)]})
         self.flush_tracking()
 
     def _get_quantities(self, order_line):
@@ -2098,6 +2099,8 @@ class TestSubscription(TestSubscriptionCommon):
         })
         self.assertFalse(sub_2.subscription_state, )
         sub_2.plan_id = self.plan_month
+        # TODO ARJ: Find a way to remove this compute without demo data
+        sub_2._compute_subscription_state()
         sub_2.order_line = [
             (0, 0, {
                 'name': self.product.name,
