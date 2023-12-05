@@ -14,23 +14,34 @@ class TestDeliveryUPS(TransactionCase):
 
     def setUp(self):
         super(TestDeliveryUPS, self).setUp()
-
-        self.iPadMini = self.env.ref('product.product_product_6')
-        self.large_desk = self.env.ref('product.product_product_8')
+        self.iPadMini = self.env['product.product'].create({
+            'name': 'Ipad Mini',
+            'weight': 0.01,
+        })
+        self.large_desk = self.env['product.product'].create({
+            'name': 'Large Desk',
+            'weight': 0.01,
+        })
         self.uom_unit = self.env.ref('uom.product_uom_unit')
 
         # Add a full address to "Your Company" and "Agrolait"
         self.your_company = self.env.ref('base.main_partner')
-        self.your_company.write({'country_id': self.env.ref('base.us').id,
-                                 'state_id': self.env.ref('base.state_us_5').id,
-                                 'city': 'San Francisco',
-                                 'street': '51 Federal Street',
-                                 'zip': '94107'})
-        self.agrolait = self.env.ref('base.res_partner_2')
-        self.agrolait.write({'country_id': self.env.ref('base.be').id,
-                             'city': 'Auderghem-Ouderghem',
-                             'street': 'Avenue Edmond Van Nieuwenhuyse',
-                             'zip': '1160'})
+        self.your_company.write({
+            'country_id': self.env.ref('base.us').id,
+            'state_id': self.env.ref('base.state_us_5').id,
+            'city': 'San Francisco',
+            'street': '51 Federal Street',
+            'zip': '94107',
+            'phone': '+1 555-555-5555',
+        })
+        self.agrolait = self.env['res.partner'].create({
+            'name': 'Agrolait',
+            'phone': '(603)-996-3829',
+            'country_id': self.env.ref('base.be').id,
+            'city': 'Auderghem-Ouderghem',
+            'street': 'Avenue Edmond Van Nieuwenhuyse',
+            'zip': '1160'
+        })
         self.stock_location = self.env.ref('stock.stock_location_stock')
         self.customer_location = self.env.ref('stock.stock_location_customers')
 
