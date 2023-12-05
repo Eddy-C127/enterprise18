@@ -839,7 +839,7 @@ class HrPayslip(models.Model):
                     context = {'lang': employee_lang}
                     if rule.code in localdict['same_type_input_lines']:
                         for multi_line_rule in localdict['same_type_input_lines'][rule.code]:
-                            localdict['inputs'].dict[rule.code] = multi_line_rule
+                            localdict['inputs'][rule.code] = multi_line_rule
                             amount, qty, rate = rule._compute_rule(localdict)
                             tot_rule = amount * qty * rate / 100.0
                             localdict = rule.category_id._sum_salary_rule_category(localdict,
