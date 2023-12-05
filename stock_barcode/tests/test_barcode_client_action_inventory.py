@@ -1,8 +1,12 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import logging
+
 from odoo import fields
-from odoo.tests import tagged
+from odoo.tests import tagged, loaded_demo_data
 from odoo.addons.stock_barcode.tests.test_barcode_client_action import TestBarcodeClientAction
+
+_logger = logging.getLogger(__name__)
 
 
 @tagged('post_install', '-at_install')
@@ -149,6 +153,9 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
             - Set productlot1 quantity without lot to available
             - Validate
         """
+        if not loaded_demo_data(self.env):
+            _logger.warning("This test relies on demo data. To be rewritten independently of demo data for accurate and reliable results.")
+            return
         self.clean_access_rights()
         grp_lot = self.env.ref('stock.group_production_lot')
         self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
@@ -403,6 +410,9 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         """ Checks tracking numbers and quantites are correctly got from GS1
         barcodes for tracked products.
         Also, this test is an opportunity to ensure custom GS1 separators are used clientside."""
+        if not loaded_demo_data(self.env):
+            _logger.warning("This test relies on demo data. To be rewritten independently of demo data for accurate and reliable results.")
+            return
         self.clean_access_rights()
         self.env.company.nomenclature_id = self.env.ref('barcodes_gs1_nomenclature.default_gs1_nomenclature')
         self.env.company.nomenclature_id.gs1_separator_fnc1 = r'(Alt029|#|\x1D|~)'
