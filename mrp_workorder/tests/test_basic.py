@@ -15,6 +15,7 @@ class TestWorkOrderProcessCommon(TestMrpWorkorderCommon):
     @classmethod
     def setUpClass(cls):
         super(TestWorkOrderProcessCommon, cls).setUpClass()
+        cls.env.company.resource_calendar_id.tz = "Europe/Brussels"
         cls.source_location_id = cls.stock_location_14.id
         cls.warehouse = cls.env.ref('stock.warehouse0')
         # setting up alternative workcenters
@@ -429,6 +430,7 @@ class TestWorkOrderProcessCommon(TestMrpWorkorderCommon):
         result = wo.do_finish()
         wo_backorder = self.env['mrp.workorder'].browse(result['res_id'])
         self.assertEqual(len(wo_backorder.check_ids), len(wo.check_ids))
+
 
 class TestWorkOrderProcess(TestWorkOrderProcessCommon):
     def full_availability(self):
@@ -1720,6 +1722,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
     def test_planning_9(self):
         """ Plan a workorder and edit the scheduled start date, when we start
         the workorder, the scheduled finish date should be updated"""
+        self.env.ref('base.group_user').write({'implied_ids': [(4, self.env.ref('mrp.group_mrp_routings').id)]})
         mo_form = Form(self.env['mrp.production'])
         mo_form.product_id = self.product_4
         mo_form.bom_id = self.planning_bom
