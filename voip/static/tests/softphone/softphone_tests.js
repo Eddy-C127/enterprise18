@@ -129,3 +129,17 @@ QUnit.test("The cursor when hovering over the top bar has “pointer” style", 
     await contains(".o-voip-Softphone-topbar");
     assert.strictEqual(getComputedStyle($(".o-voip-Softphone-topbar")[0]).cursor, "pointer");
 });
+
+QUnit.test("Using VoIP in prod mode without configuring the server shows an error", async () => {
+    const pyEnv = await startServer();
+    const providerId = pyEnv["voip.provider"].create({
+        mode: "prod",
+        name: "Axivox super cool",
+        pbx_ip: "",
+        ws_server: "",
+    });
+    pyEnv["res.users"].write([pyEnv.currentUserId], { voip_provider_id: providerId });
+    await start();
+    await click(".o_menu_systray button[title='Open Softphone']");
+    await contains(".o-voip-Softphone-error");
+});

@@ -4,6 +4,16 @@ from odoo import fields, models
 class ResUsersSettings(models.Model):
     _inherit = "res.users.settings"
 
+    def _get_default_voip_provider(self):
+        return self.env['voip.provider'].search([
+            ('company_id', 'in', [self.env.company.id, False])
+        ], limit=1)
+
+    voip_provider_id = fields.Many2one(
+        "voip.provider", string="VoIP Provider",
+        default=_get_default_voip_provider,
+    )
+
     # Credentials for authentication to the PBX server
     voip_username = fields.Char(
         "VoIP username / Extension number",

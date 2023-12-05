@@ -1,22 +1,22 @@
-from odoo import models, fields
+from odoo import api, models, fields
 
 
 class ResUsers(models.Model):
     _inherit = "res.users"
 
     onsip_auth_username = fields.Char(
-        related="res_users_settings_id.onsip_auth_username", inverse="_inverse_onsip_auth_username", related_sudo=False
+        compute="_compute_onsip_auth_username",
+        inverse="_reflect_change_in_res_users_settings",
+        groups="base.group_user",
     )
 
-    @property
-    def SELF_READABLE_FIELDS(self):
-        return super().SELF_READABLE_FIELDS + ["onsip_auth_username"]
-
-    @property
-    def SELF_WRITEABLE_FIELDS(self):
-        return super().SELF_WRITEABLE_FIELDS + ["onsip_auth_username"]
-
-    def _inverse_onsip_auth_username(self):
+    @api.depends("res_users_settings_id.onsip_auth_username")
+    def _compute_onsip_auth_username(self):
         for user in self:
-            res_users_settings_record = self.env["res.users.settings"]._find_or_create_for_user(user)
-            res_users_settings_record.onsip_auth_username = user.onsip_auth_username
+            user.onsip_auth_username = user.res_users_settings_id.onsip_auth_username
+
+    @api.model
+    def _get_voip_user_configuration_fields(self):
+        return super()._get_voip_user_configuration_fields() + [
+            "onsip_auth_username",
+        ]

@@ -10,17 +10,10 @@
                 <setting help="Schedule &amp; make calls from your database">
                     <field name="module_voip"/>
                     <div class="content-group" invisible="not module_voip">
-                        <div class="row mt16">
-                            <label for="pbx_ip" class="col-4 col-lg-4 o_light_label"/>
-                            <field name="pbx_ip" nolabel="1"/>
-                            <label for="wsServer" class="col-4 col-lg-4 o_light_label"/>
-                            <field name="wsServer" nolabel="1"/>
-                            <label for="mode" class="col-4 col-lg-4 o_light_label"/>
-                            <field name="mode" nolabel="1"/>
-                        </div>
+                        <button name="%(voip.action_voip_provider_view)d" icon="oi-arrow-right" type="action" string="Manage Providers" class="btn-link"/>
                     </div>
                 </setting>
-             </xpath>
+            </xpath>
         </field>
     </record>
 

@@ -4,13 +4,19 @@ import {
     insertRecords,
 } from "@bus/../tests/helpers/model_definitions_helpers";
 
-addModelNamesToFetch(["ir.config_parameter", "voip.call"]);
+addModelNamesToFetch(["res.users", "voip.call", "voip.provider"]);
+
 insertModelFields("voip.call", {
     direction: { default: "outgoing" },
     state: { default: "calling" },
 });
-insertRecords("ir.config_parameter", [
-    { key: "voip.mode", value: "demo" },
-    { key: "voip.pbx_ip", value: "pbx.example.com" },
-    { key: "voip.wsServer", value: "wss://example.com" },
+insertModelFields("res.users", {
+    voip_provider_id: { default: 1 },
+});
+insertRecords("voip.provider", [
+    {
+        id: 1,
+        name: "Default",
+        mode: "demo",
+    },
 ]);

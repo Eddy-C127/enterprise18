@@ -24,6 +24,7 @@ class TestVoipUserConfig(common.TransactionCase):
         form = Form(self.env["res.users"], view="base.view_users_form")
         form.name = "钟离"
         form.login = "摩拉克斯"
+        form.voip_provider_id = self.env.ref("voip.default_voip_provider")
         form.external_device_number = "110"
         user = form.save()
         settings = user.res_users_settings_id

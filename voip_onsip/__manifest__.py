@@ -5,8 +5,8 @@
     "version": "1.0",
     "depends": ["voip"],
     "data": [
-        "views/res_config_settings_views.xml",
         "views/res_users_views.xml",
+        "views/voip_provider_views.xml",
     ],
     "license": "OEEL-1",
     "assets": {

@@ -42,5 +42,5 @@ QUnit.test("SIP.js user agent configuration is set correctly.", async (assert) =
     assert.equal(config.authorizationPassword, "super secret password");
     assert.equal(config.authorizationUsername, expectedValues.authorizationUsername);
     assert.equal(config.uri.raw.user, "1337");
-    assert.equal(config.uri.raw.host, "pbx.example.com");
+    assert.equal(config.uri.raw.host, "localhost");
 });
