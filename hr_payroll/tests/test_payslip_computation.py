@@ -109,8 +109,8 @@ class TestPayslipComputation(TestPayslipContractBase):
         self.assertAlmostEqual(attendance_line.amount, 4524.11, delta=0.01, msg="His attendance must be paid 4524.11")
 
     def test_worked_days_with_unpaid(self):
-        self.contract_cdi.resource_calendar_id = self.env.ref('resource.resource_calendar_std_38h')
-        self.richard_emp.resource_calendar_id = self.env.ref('resource.resource_calendar_std_38h')
+        self.contract_cdi.resource_calendar_id = self.calendar_38h
+        self.richard_emp.resource_calendar_id = self.calendar_38h
 
         # Create 2 hours upaid leave every day during 2 weeks
         for day in rrule(freq=DAILY, byweekday=[0, 1, 2, 3, 4], count=10, dtstart=datetime(2016, 2, 8)):

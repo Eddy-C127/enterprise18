@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import base64
+
 from freezegun import freeze_time
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
 from odoo.tests import HttpCase, tagged, TransactionCase
-
+from odoo.tools import file_open
 from odoo.addons.mail.tests.common import mail_new_test_user
+
 
 @tagged('-at_install', 'post_install', 'payroll_dashboard_ui')
 class TestDashboardUi(HttpCase):
@@ -32,6 +35,18 @@ class TestDashboardUi(HttpCase):
             'company_id': company.id,
             'department_id': department.id,
             'resource_calendar_id': company.resource_calendar_id.id,
+        })
+        with file_open('sign/static/demo/employment.pdf', "rb") as f:
+            pdf_content = base64.b64encode(f.read())
+
+        attachment = self.env['ir.attachment'].create({
+            'type': 'binary',
+            'datas': pdf_content,
+            'name': 'Employment Contract.pdf',
+        })
+        self.env['sign.template'].create({
+            'attachment_id': attachment.id,
+            'sign_item_ids': [(6, 0, [])],
         })
         self.start_tour("/", "payroll_dashboard_ui_tour", login='dashboarder', timeout=300)
 
