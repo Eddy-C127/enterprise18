@@ -499,7 +499,7 @@ class SaleOrder(models.Model):
     def _compute_display_late(self):
         today = fields.Date.today()
         for order in self:
-            order.display_late = order.subscription_state in SUBSCRIPTION_PROGRESS_STATE and order.next_invoice_date < today
+            order.display_late = order.subscription_state in SUBSCRIPTION_PROGRESS_STATE and order.next_invoice_date and order.next_invoice_date < today
 
     @api.depends('order_line')
     def _compute_has_recurring_line(self):
