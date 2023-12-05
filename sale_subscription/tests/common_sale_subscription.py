@@ -23,6 +23,8 @@ class TestSubscriptionCommon(TestSaleCommon):
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass(chart_template_ref=chart_template_ref)
 
+        cls.env.ref('base.main_company').currency_id = cls.env.ref('base.USD')
+
         # disable most emails for speed
         context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True}
         AnalyticPlan = cls.env['account.analytic.plan'].with_context(context_no_mail)
