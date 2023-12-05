@@ -389,6 +389,7 @@ class WhatsAppMessage(models.Model):
         if notification_type:
             self.env['bus.bus']._sendone(channel, notification_type, {
                 'channel_id': channel.id,
+                'id': channel_member.id,
                 'last_message_id': self.mail_message_id.id,
                 'partner_id': channel.whatsapp_partner_id.id,
             })
