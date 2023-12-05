@@ -478,3 +478,12 @@ class TransferModelTestCase(AccountAutoTransferTestCase):
         error_message = "You cannot delete an automatic transfer that has posted moves*"
         with self.assertRaisesRegex(UserError, error_message):
             self.transfer_model.unlink()
+
+    def test_disable_transfer_when_archived(self):
+        """ An automatic transfer in progress should be disabled when archived. """
+
+        self.transfer_model.action_activate()
+        self.assertEqual(self.transfer_model.state, 'in_progress')
+
+        self.transfer_model.action_archive()
+        self.assertEqual(self.transfer_model.state, 'disabled')

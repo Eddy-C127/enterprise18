@@ -27,6 +27,7 @@ class TransferModel(models.Model):
         ], limit=1)
 
     name = fields.Char(required=True)
+    active = fields.Boolean(default=True)
     journal_id = fields.Many2one('account.journal', required=True, string="Destination Journal", default=_get_default_journal)
     company_id = fields.Many2one('res.company', readonly=True, related='journal_id.company_id')
     date_start = fields.Date(string="Start Date", required=True, default=_get_default_date_start)
@@ -60,6 +61,10 @@ class TransferModel(models.Model):
                 if draft_moves:
                     raise UserError(_("You cannot delete an automatic transfer that has draft moves attached ('%s'). "
                                       "Please delete them before deleting this transfer.", transfer.name))
+
+    def action_archive(self):
+        self.action_disable()
+        return super().action_archive()
 
     # COMPUTEDS / CONSTRAINS
     @api.depends('move_ids')
