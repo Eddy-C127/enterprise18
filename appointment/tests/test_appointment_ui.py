@@ -19,6 +19,7 @@ class AppointmentUICommon(AppointmentCommon, common.HttpCase):
     def setUpClass(cls):
         super(AppointmentUICommon, cls).setUpClass()
 
+        cls.env.user.tz = "Europe/Brussels"
         cls.std_user = mail_new_test_user(
             cls.env,
             company_id=cls.company_admin.id,
