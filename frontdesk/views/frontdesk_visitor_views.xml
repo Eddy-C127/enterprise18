@@ -11,7 +11,7 @@
                 <field name="name"/>
                 <field name="company" optional="show"/>
                 <field name="phone" optional="show"/>
-                <field name="drink_ids" optional="show" widget='many2many_tags'/>
+                <field name="drink_ids" optional="hide" widget='many2many_tags'/>
                 <field name="host_ids" string="Host" optional="show" widget="many2many_avatar_user"/>
                 <field name="check_in" string="CheckIn"/>
                 <field name="check_out" string="Checkout" optional="hide"/>
@@ -23,6 +23,7 @@
                     decoration-success="state in ('checked_in')"
                     decoration-warning="state == 'planned'" decoration-muted="state in ('canceled')"/>
                 <field name="email" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
                 <button name="action_check_in" type="object" string="Check in" class="btn-primary"
                     invisible="state not in ('planned','canceled')"/>
                 <button name="action_check_out" type="object" string="Check out" class="btn-secondary"
@@ -66,6 +67,7 @@
                             <field name="host_ids" widget="many2many_avatar_user"/>
                             <field name="check_in"/>
                             <field name="duration" widget="float_time"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
                     <div class="d-flex">

@@ -19,6 +19,7 @@
         <record model="frontdesk.visitor" id="frontdesk_visitor_1">
             <field name="name">John Smith</field>
             <field name="phone">(644)-169-1353</field>
+            <field name="drink_ids" eval="[(4, ref('frontdesk.frontdesk_drink_1'))]"/>
             <field name="email">johnsmith@example.com</field>
             <field name="check_in" eval="datetime.now()"/>
             <field name="host_ids" eval="[(4, ref('hr.employee_admin'))]"/>

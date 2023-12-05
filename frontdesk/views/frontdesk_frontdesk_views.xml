@@ -89,9 +89,11 @@
                 <field name="name"/>
                 <field name="responsible_ids" widget="many2many_avatar_user"/>
                 <field name="drink_offer"/>
+                <field name="self_check_in" optional="hide"/>
                 <field name="notify_email" optional="show"/>
                 <field name="notify_sms" optional="show"/>
                 <field name="notify_discuss" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
             </tree>
         </field>
     </record>
