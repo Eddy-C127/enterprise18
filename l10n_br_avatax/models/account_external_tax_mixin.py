@@ -87,7 +87,10 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
             if not product:
                 errors.append(_('- A product is required on each line when using Avatax.'))
             elif product.detailed_type == 'service':
-                errors.append(_('- Avatax only supports consumable products. %s is a service product.', product.display_name))
+                errors.append(_(
+                    '- Avatax only supports consumable products. %s is a service product. Please change the Fiscal Position or the product.',
+                    product.display_name
+                ))
             elif not product.l10n_br_ncm_code_id:
                 errors.append(_('- Please configure a Mercosul NCM Code on %s.', product.display_name))
             elif line['lineAmount'] < 0:
