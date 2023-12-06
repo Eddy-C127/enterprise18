@@ -28,34 +28,29 @@ class ResUsers(models.Model):
     # their definition in `res.users.settings` for comprehensive documentation.
     # --------------------------------------------------------------------------
     external_device_number = fields.Char(
-        related="res_users_settings_id.external_device_number",
+        compute="_compute_external_device_number",
         inverse="_reflect_change_in_res_users_settings",
-        related_sudo=False,
     )
     how_to_call_on_mobile = fields.Selection(
-        related="res_users_settings_id.how_to_call_on_mobile",
+        [("ask", "Ask"), ("voip", "VoIP"), ("phone", "Device's phone")],
+        compute="_compute_how_to_call_on_mobile",
         inverse="_reflect_change_in_res_users_settings",
-        related_sudo=False,
     )
     should_auto_reject_incoming_calls = fields.Boolean(
-        related="res_users_settings_id.should_auto_reject_incoming_calls",
+        compute="_compute_should_auto_reject_incoming_calls",
         inverse="_reflect_change_in_res_users_settings",
-        related_sudo=False,
     )
     should_call_from_another_device = fields.Boolean(
-        related="res_users_settings_id.should_call_from_another_device",
+        compute="_compute_should_call_from_another_device",
         inverse="_reflect_change_in_res_users_settings",
-        related_sudo=False,
     )
     voip_secret = fields.Char(
-        related="res_users_settings_id.voip_secret",
+        compute="_compute_voip_secret",
         inverse="_reflect_change_in_res_users_settings",
-        related_sudo=False,
     )
     voip_username = fields.Char(
-        related="res_users_settings_id.voip_username",
+        compute="_compute_voip_username",
         inverse="_reflect_change_in_res_users_settings",
-        related_sudo=False,
     )
 
     @property
@@ -65,6 +60,36 @@ class ResUsers(models.Model):
     @property
     def SELF_WRITEABLE_FIELDS(self):
         return super().SELF_WRITEABLE_FIELDS + VOIP_USER_CONFIGURATION_FIELDS
+
+    @api.depends("res_users_settings_id.external_device_number")
+    def _compute_external_device_number(self):
+        for user in self:
+            user.external_device_number = user.res_users_settings_id.external_device_number
+
+    @api.depends("res_users_settings_id.how_to_call_on_mobile")
+    def _compute_how_to_call_on_mobile(self):
+        for user in self:
+            user.how_to_call_on_mobile = user.res_users_settings_id.how_to_call_on_mobile
+
+    @api.depends("res_users_settings_id.should_auto_reject_incoming_calls")
+    def _compute_should_auto_reject_incoming_calls(self):
+        for user in self:
+            user.should_auto_reject_incoming_calls = user.res_users_settings_id.should_auto_reject_incoming_calls
+
+    @api.depends("res_users_settings_id.should_call_from_another_device")
+    def _compute_should_call_from_another_device(self):
+        for user in self:
+            user.should_call_from_another_device = user.res_users_settings_id.should_call_from_another_device
+
+    @api.depends("res_users_settings_id.voip_secret")
+    def _compute_voip_secret(self):
+        for user in self:
+            user.voip_secret = user.res_users_settings_id.voip_secret
+
+    @api.depends("res_users_settings_id.voip_username")
+    def _compute_voip_username(self):
+        for user in self:
+            user.voip_username = user.res_users_settings_id.voip_username
 
     @api.model
     def reset_last_seen_phone_call(self):
@@ -94,11 +119,11 @@ class ResUsers(models.Model):
         This method is intended to be used as an inverse for VoIP Configuration Fields.
         """
         for user in self:
-            res_users_settings_record = self.env["res.users.settings"]._find_or_create_for_user(user)
-            res_users_settings_record.update(
+            settings = self.env["res.users.settings"]._find_or_create_for_user(user)
+            settings.update(
                 {
                     "external_device_number": user.external_device_number,
-                    "how_to_call_on_mobile": user.how_to_call_on_mobile,
+                    "how_to_call_on_mobile": user.how_to_call_on_mobile or settings.how_to_call_on_mobile,
                     "should_auto_reject_incoming_calls": user.should_auto_reject_incoming_calls,
                     "should_call_from_another_device": user.should_call_from_another_device,
                     "voip_secret": user.voip_secret,
