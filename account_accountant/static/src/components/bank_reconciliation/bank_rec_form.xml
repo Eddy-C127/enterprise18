@@ -215,7 +215,7 @@
                                     </t>
                                     <t t-if="column[0] === '__trash'">
                                         <td class="o_list_record_remove">
-                                            <button t-if="['valid', 'invalid'].includes(data.state) and !['liquidity', 'auto_balance', 'tax_line', 'exchange_diff'].includes(line.data.flag)"
+                                            <button t-if="['valid', 'invalid'].includes(data.state) and !['liquidity', 'auto_balance', 'tax_line'].includes(line.data.flag)"
                                                     t-on-click.prevent.stop="(ev) => this.actionRemoveLine(line)"
                                                     class="btn fa fa-trash-o"/>
                                         </td>
