@@ -38,6 +38,7 @@ export class DocumentsActivityRenderer extends ActivityRenderer {
             count: 0,
             fileSize: 0,
             archInfo: this.props.archInfo,
+            fields: this.props.fields,
         };
     }
 }
