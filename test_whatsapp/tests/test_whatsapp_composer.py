@@ -1,5 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from datetime import datetime
+
 from odoo.addons.whatsapp.tests.common import WhatsAppCommon
 from odoo.tests import tagged, users
 
@@ -103,6 +105,61 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
                         f'<br>You are coming from {test_record.country_id.name}.<br>Welcome to {free_text} office</p>',
             },
         )
+
+    @users('employee')
+    def test_composer_tpl_base_rendering_datetime(self):
+
+        #template setup
+        self.template_basic.write({
+            'body' : 'Hello, your dates are here {{1}}',
+            'variable_ids' : [
+                (5, 0, 0),
+                (0, 0, {'name': "{{1}}", 'line_type': "body", 'field_type': "field", 'demo_value': "2023-11-15 19:00:00", 'field_name': 'datetime'})
+            ],
+        })
+        test_template = self.template_basic.with_user(self.env.user)
+
+        #record setup without timezone field
+        self.test_base_records[0].datetime = datetime(2024, 1, 19, 0, 0, 0)
+
+        #record setup with timezone field
+        test_record_with_tz = self.env['whatsapp.test.timezone'].create({
+            'country_id': self.env.ref('base.be').id,
+            'name': 'Recipient-IN',
+            'phone': "+91 12345 67891",
+            'datetime' : datetime(2024, 1, 19, 0, 0, 0),
+            'tz' : 'Europe/Brussels',
+        })
+
+        #model setup
+        wa_base_model_id = self.env['ir.model']._get_id('whatsapp.test.base')
+        wa_tz_model_id = self.env['ir.model']._get_id('whatsapp.test.timezone')
+
+        #record setup with timezone field with false value
+        test_record_with_tz_false = test_record_with_tz.copy({'tz': False})
+        test_record_with_datetime_false = test_record_with_tz.copy({'datetime': False})
+
+        for test_record, user_tz, tmpl_model, expected_formatted_date in [
+            (self.test_base_records[0], 'Asia/Calcutta', wa_base_model_id, 'Jan 19, 2024, 5:30:00 AM Asia/Calcutta'),
+            (self.test_base_records[0], False, wa_base_model_id, 'Jan 19, 2024, 12:00:00 AM UTC'),
+            (test_record_with_tz, 'Asia/Calcutta', wa_tz_model_id, 'Jan 19, 2024, 1:00:00 AM Europe/Brussels'),
+            (test_record_with_tz, False, wa_tz_model_id, 'Jan 19, 2024, 1:00:00 AM Europe/Brussels'),
+            (test_record_with_tz_false, 'Asia/Calcutta', wa_tz_model_id, 'Jan 19, 2024, 5:30:00 AM Asia/Calcutta'),
+            (test_record_with_tz_false, False, wa_tz_model_id, 'Jan 19, 2024, 12:00:00 AM UTC'),
+            (test_record_with_datetime_false, 'Asia/Calcutta', wa_tz_model_id, ''),
+        ]:
+            with self.subTest(test_record=test_record, user_tz=user_tz, tmpl_model=tmpl_model):
+                self.env.user.tz = user_tz
+                test_template.with_user(self.user_admin).model_id = tmpl_model
+                composer = self._instanciate_wa_composer_from_records(test_template, test_record)
+                with self.mockWhatsappGateway():
+                    composer.action_send_whatsapp_template()
+                self.assertWAMessageFromRecord(
+                    test_record,
+                    fields_values={
+                        'body': f'<p>Hello, your dates are here {expected_formatted_date}</p>',
+                    },
+                )
 
     @users('employee')
     def test_composer_tpl_header_attachments(self):
