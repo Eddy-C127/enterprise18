@@ -136,7 +136,7 @@ class AccountMove(models.Model):
     def _get_deferred_amounts_by_line(self, lines, periods):
         """
         :return: a list of dictionaries containing the deferred amounts for each line and each period
-        E.g. (where period1 = (date1, date2), period2 = (date2, date3), ...)
+        E.g. (where period1 = (date1, date2, label1), period2 = (date2, date3, label2), ...)
         [
             {'account_id': 1, period_1: 100, period_2: 200},
             {'account_id': 1, period_1: 100, period_2: 200},
@@ -147,7 +147,6 @@ class AccountMove(models.Model):
         for line in lines:
             line_start = fields.Date.to_date(line['deferred_start_date'])
             line_end = fields.Date.to_date(line['deferred_end_date'])
-            later_date = fields.Date.to_date(DEFERRED_DATE_MAX)
             if line_end < line_start:
                 # This normally shouldn't happen, but if it does, would cause calculation errors later on.
                 # To not make the reports crash, we just set both dates to the same day.
@@ -155,20 +154,24 @@ class AccountMove(models.Model):
                 line_end = line_start
 
             columns = {}
-            for i, period in enumerate(periods):
-                # periods = [Total, Before, ..., Current, ..., Later]
+            for period in periods:
+                if period[2] == 'not_started' and line_start <= period[0]:
+                    # The 'Not Started' column only considers lines starting the deferral after the report end date
+                    columns[period] = 0.0
+                    continue
+                # periods = [Total, Not Started, Before, ..., Current, ..., Later]
                 # The dates to calculate the amount for the current period
                 period_start = max(period[0], line_start)
                 period_end = min(period[1], line_end)
                 if (
-                    period[1] == later_date and period[0] < line_start
+                    period[2] in ('not_started', 'later') and period[0] < line_start
                     or len(periods) <= 1
-                    or i not in (1, len(periods) - 1)
+                    or period[2] not in ('not_started', 'before', 'later')
                 ):
-                    # We are subtracting 1 day to `period_start` because the start date should be included when:
-                    # - in the 'Later' period if the deferral has not started yet (line_start, line_end)
+                    # We are subtracting 1 day from `period_start` because the start date should be included when:
+                    # - in the 'Not Started' or 'Later' period if the deferral has not started yet (line_start, line_end)
                     # - we only have one period
-                    # - not in the 'Before' or 'Later' period
+                    # - not in the 'Not Started', 'Before' or 'Later' period
                     period_start -= relativedelta(days=1)
                 columns[period] = self._get_deferred_period_amount(
                     self.env.company.deferred_amount_computation_method,
@@ -503,7 +506,7 @@ class AccountMoveLine(models.Model):
         """
         self.ensure_one()
         periods = [
-            (max(self.deferred_start_date, date.replace(day=1)), min(date, self.deferred_end_date))
+            (max(self.deferred_start_date, date.replace(day=1)), min(date, self.deferred_end_date), 'current')
             for date in self._get_deferred_ends_of_month(self.deferred_start_date, self.deferred_end_date)
         ]
         if not periods or len(periods) == 1 and periods[0][0].replace(day=1) == self.date.replace(day=1):
