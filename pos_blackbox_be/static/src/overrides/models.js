@@ -132,15 +132,13 @@ patch(PosStore.prototype, {
             return super.cashierHasPriceControlRights();
         }
     },
-    getReceiptHeaderData() {
+    getReceiptHeaderData(order) {
         const result = super.getReceiptHeaderData(...arguments);
-        if(this.useBlackBoxBe()) {
-            const order = this.get_order();
-
-            result.useBlackBoxBe = this.useBlackBoxBe();
+        result.useBlackBoxBe = this.useBlackBoxBe();
+        result.posIdentifier = this.config.name;
+        if (order && this.useBlackBoxBe()) {
             result.receipt_type = order.receipt_type;
             result.blackboxDate = order.blackbox_date;
-            result.posIdentifier = this.config.name;
         }
         return result;
     }
