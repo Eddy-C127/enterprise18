@@ -876,6 +876,30 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         # This shouldn't raise an error like this 'The total of debits equals $1,800.01 and the total of credits equals $1,800.00.'
         self.handler._generate_deferral_entry(self.get_options('2023-04-01', '2023-04-30'))
 
+    def test_deferred_single_rounding(self):
+        """
+        When using the manually & grouped method, we might have some rounding issues
+        due to rounding in different places. This test ensures that the a balance line is created
+        automatically for the difference.
+        """
+        self.company.generate_deferred_expense_entries_method = 'manual'
+        self.company.deferred_amount_computation_method = 'month'
+        self.create_invoice([[self.expense_accounts[0], 4.95, '2023-01-01', '2023-10-31']])
+
+        # This shouldn't raise an error like this 'The total of debits equals $4.96 and the total of credits equals $4.95.'
+        generated_entries = self.handler._generate_deferral_entry(self.get_options('2023-01-01', '2023-01-31'))
+
+        deferral_move = generated_entries[0]
+        expected_values = [
+            # Account                         Debit       Credit
+            [self.expense_accounts[0],           0,         4.95],
+            [self.expense_accounts[0],        0.50,            0],
+            [self.deferral_account,           4.46,            0],
+            [self.deferral_account,              0,         0.01],
+        ]
+        # The balance line was added for the rounding error
+        self.assert_invoice_lines(deferral_move, expected_values)
+
     def test_deferred_fully_inside_report_period(self):
         """
         If the invoice is fully inside the report period, nothing should be generated.

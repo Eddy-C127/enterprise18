@@ -432,23 +432,26 @@ class DeferredReportCustomHandler(models.AbstractModel):
                 anal_dist_by_key[self._group_by_deferred_keys(line, True)][account_id] += distribution * key_ratio
                 deferred_anal_dist[self._group_by_deferral_keys(line)][account_id] += distribution * full_ratio
 
+        remaining_balance = 0
         deferred_lines = []
         original_move_ids = set()
         for key, line in deferred_amounts_by_key.items():
             for balance in (-line['amount_total'], line[period]):
                 if balance != 0 and line[period] != line['amount_total']:
                     original_move_ids |= line['move_ids']
+                    deferred_balance = self.env.company.currency_id.round((1 if is_reverse else -1) * balance)
                     deferred_lines.append(
                         Command.create(
                             self.env['account.move.line']._get_deferred_lines_values(
                                 account_id=line['account_id'],
-                                balance=(1 if is_reverse else -1) * balance,
+                                balance=deferred_balance,
                                 ref=ref,
                                 analytic_distribution=anal_dist_by_key[key] or False,
                                 line=line,
                             )
                         )
                     )
+                    remaining_balance += deferred_balance
 
         grouped_by_key = {
             key: list(value)
@@ -473,6 +476,16 @@ class DeferredReportCustomHandler(models.AbstractModel):
                         line=lines_per_key[0],
                     )
                 )
+            )
+            remaining_balance += balance
+
+        if not self.env.company.currency_id.is_zero(remaining_balance):
+            deferral_lines.append(
+                Command.create({
+                    'account_id': deferred_account.id,
+                    'balance': -remaining_balance,
+                    'name': ref,
+                })
             )
         return deferred_lines + deferral_lines, original_move_ids
 
