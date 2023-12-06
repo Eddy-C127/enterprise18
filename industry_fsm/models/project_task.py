@@ -119,10 +119,10 @@ class Task(models.Model):
         operator_new = operator == "=" and "inselect" or "not inselect"
         return [('project_id', operator_new, (query, ()))]
 
-    @api.onchange('planned_date_begin', 'date_deadline')
-    def _onchange_planned_date(self):
-        if self.is_fsm and self.date_deadline and not self.planned_date_begin:
-            self.date_deadline = False
+    @api.onchange('date_deadline', 'planned_date_begin')
+    def _onchange_planned_dates(self):
+        if not self.is_fsm:
+            return super()._onchange_planned_dates()
 
     def write(self, vals):
         self_fsm = self.filtered('is_fsm')
