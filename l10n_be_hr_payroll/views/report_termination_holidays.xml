@@ -7,7 +7,7 @@
             <t t-call="web.external_layout">
                 <div class="page">
                     <div class="oe_structure"></div>
-                    <h3>Certificate Relating To Annual Holidays For The Civil Year Ending The Contract Of Employment</h3>
+                    <h3>Certificate of Holidays</h3>
 
                     <h4 class="text-center">
                         <span>Holiday exercise </span><span t-out="o.date_to.year">2022</span>
@@ -35,7 +35,7 @@
                         <tr>
                             <td><strong>Name</strong></td>
                             <td><span t-field="o.employee_id">Marc Demo</span></td>
-                            <td><strong>Designation</strong></td>
+                            <td><strong>Job Position</strong></td>
                             <td><span t-field="o.employee_id.job_id">SDE</span></td>
                         </tr>
                         <tr>
@@ -50,16 +50,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Email</strong></td>
-                            <td><span t-field="o.employee_id.private_email">marc@email.com</span></td>
                             <td><strong>Identification No</strong></td>
                             <td><span t-field="o.employee_id.identification_id">567877</span></td>
                         </tr>
                         <tr>
                             <td><strong>Reference</strong></td>
                             <td><span t-field="o.number">0987</span></td>
-                            <td><strong>Registration Number</strong></td>
-                            <td><span t-field="o.employee_id.registration_number">987876</span></td>
                         </tr>
                     </table>
 
@@ -70,7 +66,7 @@
                     <h6>
                         <t t-set="period_from" t-value="o.employee_id.first_contract_in_company if not o.employee_id.end_notice_period else max(o.employee_id.first_contract_in_company, o.employee_id.end_notice_period.replace(month=1, day=1))"/>
                         <t t-set="period_to" t-value="o.employee_id.end_notice_period"/>
-                        <span>Actual and similar remuneration for the period from </span><span t-out="period_from">20-03-2000</span>
+                        <span>Remuneration for the period from </span><span t-out="period_from">20-03-2000</span>
                         <span>to </span><span t-out="period_to">21-04-2001</span> <span>included:</span>
                     </h6>
 
@@ -152,9 +148,9 @@
                         <ul>
                             <li><span>You must return this certificate to your next employer, or failing that, to your allowance payment agency.
                             Social security contributions on holiday pay have already been retained.</span></li>
-                            <li><span>The amount covered by this certificate pre-emptively compensates the vacation days you will take in the
-                            near future in </span><span t-out="o.date_to.year + 1">1999</span>.
-                            <span>Your next employer or payment agency will not pay for these days off. So you are advised to keep this amount
+                            <li><span>The amount covered by this certificate pre-emptively compensates the vacation days you will take with
+                                your next employer in </span><span t-out="o.date_to.year + 1">1999</span>.
+                            <span>Your future holidays won't be paid. So you are advised to keep this amount
                             until you take these days off.</span></li>
                         </ul>
                     </span>
@@ -179,7 +175,7 @@
             <t t-call="web.external_layout">
                 <div class="page">
                     <div class="oe_structure"></div>
-                    <h3>Certificate Relating To Annual Vacations For The Calendar Year Preceding The End Of The Contract Of Employment</h3>
+                    <h3>Certificate of Holidays</h3>
 
                     <h4 class="text-center">
                         <span>Holiday exercise </span><span t-out="o.date_to.year - 1">2022</span>
@@ -207,7 +203,7 @@
                         <tr>
                             <td><strong>Name</strong></td>
                             <td><span t-field="o.employee_id">Marc Demo</span></td>
-                            <td><strong>Designation</strong></td>
+                            <td><strong>Job Position</strong></td>
                             <td><span t-field="o.employee_id.job_id">SDE</span></td>
                         </tr>
                         <tr>
@@ -222,16 +218,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Email</strong></td>
-                            <td><span t-field="o.employee_id.private_email">marc@email.com</span></td>
                             <td><strong>Identification No</strong></td>
                             <td><span t-field="o.employee_id.identification_id">567877</span></td>
                         </tr>
                         <tr>
                             <td><strong>Reference</strong></td>
                             <td><span t-field="o.number">0987</span></td>
-                            <td><strong>Registration Number</strong></td>
-                            <td><span t-field="o.employee_id.registration_number">987876</span></td>
                         </tr>
                     </table>
 
@@ -242,7 +234,7 @@
                     <h6>
                         <t t-set="period_from" t-value="o.employee_id.first_contract_in_company if not o.employee_id.end_notice_period else max(o.employee_id.first_contract_in_company, (o.employee_id.end_notice_period + relativedelta(years=-1)).replace(month=1, day=1))"/>
                         <t t-set="period_to" t-value="o.employee_id.first_contract_in_company if not o.employee_id.end_notice_period else max(o.employee_id.first_contract_in_company, (o.employee_id.end_notice_period + relativedelta(years=-1)).replace(month=12, day=31))"/>
-                        <span>Actual and similar remuneration for the period from </span><span t-out="period_from">20-03-2000</span>
+                        <span>Remuneration for the period from </span><span t-out="period_from">20-03-2000</span>
                         <span>to </span><span t-out="period_to">21-04-2001</span><span> included:</span>
                     </h6>
 
@@ -325,9 +317,9 @@
                         <ul>
                             <li><span>You must return this certificate to your next employer, or failing that, to your allowance payment agency.
                             Social security contributions on holiday pay have already been retained.</span></li>
-                            <li><span>The amount covered by this certificate pre-emptively compensates the vacation days you will take in the near
-                            future in </span><span t-out="o.date_to.year + 1">1999</span>.
-                            <span>Your next employer or payment agency will not pay for these days off. So you are advised to keep this amount
+                            <li><span>The amount covered by this certificate pre-emptively compensates the vacation days you will take with your next
+                            employer in </span><span t-out="o.date_to.year + 1">1999</span>.
+                            <span>Your future holidays won't be paid. So you are advised to keep this amount
                             until you take these days off.</span></li>
                         </ul>
                     </span>
