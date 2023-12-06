@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
@@ -72,7 +71,7 @@ class AppraisalAskFeedback(models.TransientModel):
 
     @api.onchange('employee_ids')
     def _onchange_employee_ids(self):
-        emailless_employees = self.employee_ids.filtered(lambda e: not (e.work_email or e.user_id.partner_id))
+        emailless_employees = self.employee_ids.filtered(lambda e: not (e.work_email or e.user_id.partner_id.email))
         if emailless_employees:
             emailless_employees_all = self.env['hr.employee'].search(['|', ('work_email', '=', False), ('user_id.partner_id', '=', False)])
             warning = {
@@ -93,7 +92,7 @@ class AppraisalAskFeedback(models.TransientModel):
         employees_info = employees.mapped(lambda employee: {
             'id': employee.id,
             'email': employee.work_email or employee.user_id.partner_id.email,
-            'partner_id': employee.user_id.partner_id or employee.work_contact_id
+            'partner_id': employee.work_contact_id or employee.user_id.partner_id,
         })
         emails = [e['email'] for e in employees_info]
         partner_ids = [e['partner_id']['id'] for e in employees_info]
