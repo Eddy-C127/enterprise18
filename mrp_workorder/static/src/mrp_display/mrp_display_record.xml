@@ -82,7 +82,12 @@
 
     <t t-name="mrp_workorder.MrpDisplayProductionHeader">
         <t t-set="displayTrackingNumber" t-value="!['none', 'mass_produce'].includes(this.trackingMode)"/>
-        <span class="h5 mb-0 text-truncate" t-esc="record.display_name"/>
+        <span class="d-flex align-items-center">
+            <span class="o_field_widget o_priority px-1 pt-1">
+                <PriorityField name="'priority'" record="props.record" autosave="true"/>
+            </span>
+            <span class="h5 mb-0 text-truncate" t-esc="record.display_name"/>
+        </span>
         <small class="rounded-pill px-2 text-nowrap"
             t-att-class="{
                 'text-bg-light border border-secondary': record.state === 'confirmed',

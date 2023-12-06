@@ -514,11 +514,16 @@ export class MrpDisplay extends Component {
                 },
                 display_name: "WH/MO/00013",
                 check_ids: {records: []},
-                employee_ids: {records: []}
+                employee_ids: {records: []},
+                priority: "1"
             },
             fields: {
                 state: {
                     selection: [["progress", "In Progress"]],
+                    type: "selection"
+                },
+                priority:{
+                    selection: [['0', 'Normal'],['1', 'Urgent']],
                     type: "selection"
                 },
             },
@@ -553,11 +558,16 @@ export class MrpDisplay extends Component {
                 },
                 display_name: "WH/MO/00015",
                 check_ids: {records: []},
-                employee_ids: {records: []}
+                employee_ids: {records: []},
+                priority: false
             },
             fields: {
                 state: {
                     selection: [["confirmed", "Confirmed"]],
+                    type: "selection"
+                },
+                priority:{
+                    selection: [['0', 'Normal'],['1', 'Urgent']],
                     type: "selection"
                 },
             },

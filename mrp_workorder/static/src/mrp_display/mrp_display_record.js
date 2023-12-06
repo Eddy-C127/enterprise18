@@ -9,6 +9,7 @@ import { StockMove } from "./mrp_record_line/stock_move";
 import { MrpWorkorder } from "./mrp_record_line/mrp_workorder";
 import { QualityCheck } from "./mrp_record_line/quality_check";
 import { mrpTimerField } from "@mrp/widgets/timer";
+import { PriorityField } from "@web/views/fields/priority/priority_field";
 import { useService } from "@web/core/utils/hooks";
 import { MrpQualityCheckConfirmationDialog } from "./dialog/mrp_quality_check_confirmation_dialog";
 import { MrpRegisterProductionDialog } from "./dialog/mrp_register_production_dialog";
@@ -23,6 +24,7 @@ export class MrpDisplayRecord extends Component {
         Many2OneField,
         SelectionField,
         MrpTimerField: mrpTimerField.component,
+        PriorityField,
         StockMove,
         MrpWorksheet,
         MrpWorkorder,

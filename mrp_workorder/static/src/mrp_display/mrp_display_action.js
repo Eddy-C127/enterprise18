@@ -40,6 +40,7 @@ export class MrpDisplayAction extends Component {
                 "workorder_ids",
                 "date_start",
                 "product_description_variants",
+                "priority",
             ],
             "mrp.workorder": [
                 "id",
@@ -163,8 +164,10 @@ export class MrpDisplayAction extends Component {
                 context,
                 domain,
                 orderBy: [
+                    { name: "priority", asc: false },
                     { name: "state", asc: false },
                     { name: "date_start", asc: true },
+                    { name: "id", asc: true },
                 ],
                 SearchModel: MrpDisplaySearchModel,
                 searchModelArgs: context,
