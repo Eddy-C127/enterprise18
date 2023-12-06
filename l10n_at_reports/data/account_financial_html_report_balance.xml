@@ -324,7 +324,7 @@
                                         <field name="name">II. Capital reserves</field>
                                         <field name="code">PAII</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', 'in', [ref('l10n_at.account_tag_l10n_at_PAII1'), ref('l10n_at.account_tag_l10n_at_PAII2')])])</field>
+                                        <field name="aggregation_formula">PAII1.balance + PAII2.balance</field>
                                         <field name="children_ids">
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_121" model="account.report.line">
                                                 <field name="name">1. Tied investments</field>
@@ -346,7 +346,7 @@
                                         <field name="name">III. Retained earnings</field>
                                         <field name="code">PAIII</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', 'in', [ref('l10n_at.account_tag_l10n_at_PAIII1'), ref('l10n_at.account_tag_l10n_at_PAIII2'), ref('l10n_at.account_tag_l10n_at_PAIII3')])])</field>
+                                        <field name="aggregation_formula">PAIII1.balance + PAIII2.balance + PAIII3.balance</field>
                                         <field name="children_ids">
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_131" model="account.report.line">
                                                 <field name="name">1. Legal reserve</field>
