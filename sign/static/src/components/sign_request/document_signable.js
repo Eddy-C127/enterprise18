@@ -26,6 +26,7 @@ function datasetFromElements(elements) {
 
 export class Document extends Component {
     static template = xml`<t t-slot='default'/>`;
+    static props = ["parent", "PDFIframeClass"];
 
     setup() {
         this.orm = useService("orm");

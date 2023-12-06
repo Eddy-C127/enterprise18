@@ -8,6 +8,7 @@ import { useEditNodeAttributes } from "@web_studio/client_action/view_editor/vie
 export class LabelProperties extends Component {
     static template = "web_studio.ViewEditor.InteractiveEditorProperties.Label";
     static components = { Property, SidebarPropertiesToolbox };
+    static props = ["node"];
 
     setup() {
         this.editNodeAttributes = useEditNodeAttributes();

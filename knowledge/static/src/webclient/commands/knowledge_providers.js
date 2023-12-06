@@ -11,11 +11,24 @@ import { Component } from "@odoo/owl";
 // Articles command
 class KnowledgeCommand extends Component {
     static template = "KnowledgeCommandTemplate";
+    static props = {
+        executeCommand: Function,
+        icon_string: String,
+        isFavorite: Boolean,
+        name: String,
+        searchValue: String,
+        slots: Object,
+        splitSubjectName: Array,
+        subjectName: [String, Boolean],
+    };
 }
 
 // "Not found, create one" command
 class Knowledge404Command extends Component {
     static template = "Knowledge404CommandTemplate";
+    static props = {
+        articleName: String,
+    };
 }
 
 // Advanced search command

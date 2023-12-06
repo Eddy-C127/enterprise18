@@ -9,6 +9,21 @@ import { Component, useState, useRef } from "@odoo/owl";
 export class StreamPostCommentsReply extends Component {
     static template = "social.StreamPostCommentsReply";
     static components = { FileUploader };
+    static props = {
+        comment: {type: Object, optional: true},
+        account: {type: Object, optional: true},
+        originalPost: {type: Object, optional: true},
+        bubble_design: {type: Boolean, optional: true},
+        classes: String,
+        initialValue: {type: String, optional: true},
+        attachmentSrc: {type: String, optional: true},
+        isCommentEdit: {type: Boolean, optional: true},
+        isCommentReply: {type: Boolean, optional: true},
+        mediaSpecificProps: Object,
+        onAddComment: Function,
+        preventAddComment: Function,
+        toggleEditMode: {type: Function, optional: true},
+    };
     static defaultProps = {
         isCommentReply: false,
         isCommentEdit: false,

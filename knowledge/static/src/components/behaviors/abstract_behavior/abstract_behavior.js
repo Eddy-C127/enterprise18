@@ -13,6 +13,7 @@ import {
 
 
 export class AbstractBehavior extends Component {
+    static template= "";
     static props = {
         anchor: { type: Element },
         // HtmlElement children of the original anchor, before Component

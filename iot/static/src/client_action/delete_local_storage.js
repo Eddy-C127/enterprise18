@@ -4,9 +4,11 @@ import { browser } from "@web/core/browser/browser";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart } from "@odoo/owl";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 class MainComponent extends Component {
     static template = "iot.delete_printer";
+	static props = {...standardActionServiceProps};
 
 	setup() {
         const links = JSON.parse(browser.localStorage.getItem("odoo-iot-linked_reports"));

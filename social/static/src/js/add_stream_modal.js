@@ -9,6 +9,13 @@ import { Component } from "@odoo/owl";
 export class AddSocialStreamDialog extends Component {
     static components = { Dialog };
     static template = "social.AddSocialStreamDialog";
+    static props = {
+        title: String,
+        socialAccounts: Array,
+        isSocialManager: Boolean,
+        onSaved: Function,
+        close: Function,
+    };
 
     setup() {
         super.setup();

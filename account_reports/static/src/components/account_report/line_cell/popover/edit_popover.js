@@ -6,6 +6,11 @@ import { Component, useRef } from "@odoo/owl";
 
 export class AccountReportEditPopover extends Component {
     static template = "account_reports.AccountReportEditPopover";
+    static props = {
+        cell: Object,
+        controller: Object,
+        onClose: Function,
+    };
 
     setup() {
         this.orm = useService("orm");

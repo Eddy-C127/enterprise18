@@ -87,6 +87,7 @@ QUnit.test('Process domain for plan dialog', async function (assert) {
     class Parent extends Component {
         static template = xml`<View t-props="state"/>`;
         static components = { View };
+        static props = ["*"];
         setup() {
             this.state = useState({
                 arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week"/>`,

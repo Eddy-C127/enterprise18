@@ -3338,6 +3338,7 @@ QUnit.module("View Editors", (hooks) => {
     QUnit.test("X2Many field widgets not using subviews", async function (assert) {
         class NoSubView extends Component {
             static template = xml`<div>nosubview <t t-esc="this.props.record.fields[props.name].type"/></div>`;
+            static props = ["*"];
         }
         registry.category("fields").add("nosubview", {
             component: NoSubView,
@@ -3958,6 +3959,7 @@ QUnit.module("View Editors", (hooks) => {
     QUnit.test("entering x2many with view widget", async (assert) => {
         class MyWidget extends Component {
             static template = xml`<div class="myWidget" />`;
+            static props = ["*"];
         }
         const myWidget = {
             component: MyWidget,

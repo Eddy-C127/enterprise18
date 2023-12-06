@@ -27,6 +27,7 @@ QUnit.module("Report Editor", (hooks) => {
         const env = await makeTestEnv();
         class Child extends Component {
             static template = xml`<div class="child" t-esc="props.rem.isInEdition"/>`;
+            static props = ["*"];
             setup() {
                 onWillRender(() => assert.step("Child rendered"));
             }
@@ -38,6 +39,7 @@ QUnit.module("Report Editor", (hooks) => {
                 <Child rem="rem" />
                 <button class="test-btn" t-on-click="() => rem.setInEdition(false)">btn</button>
             `;
+            static props = ["*"];
 
             setup() {
                 this.rem = useState(

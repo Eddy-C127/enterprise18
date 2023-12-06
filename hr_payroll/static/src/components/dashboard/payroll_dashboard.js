@@ -17,6 +17,11 @@ class PayrollDashboardComponent extends Component {
         PayrollDashboardTodo,
         PayrollDashboardStats,
     };
+    static props = {
+        action: Object,
+        actionId: { type: Number, optional: true },
+        className: { type: String, optional: true },
+    };
 
     setup() {
         this.orm = useService('orm');

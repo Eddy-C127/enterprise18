@@ -2,9 +2,11 @@
 
 import { registry } from "@web/core/registry";
 import { Component } from "@odoo/owl";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
 export class FileGenerationErrorWidget extends Component {
     static template = "account_reports.FileGenerationErrorWidget";
+    static props = {...standardFieldProps};
 
     async setup() {
         super.setup();

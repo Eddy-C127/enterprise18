@@ -107,6 +107,7 @@ QUnit.module("web_mobile", {
 
         class DummyComponent extends Component {
             static template = xml`<div/>`;
+            static props = ["*"];
             setup() {
                 this._backButtonHandler = useBackButton(this._onBackButton);
             }
@@ -143,6 +144,7 @@ QUnit.module("web_mobile", {
 
         class DummyComponent extends Component {
             static template = xml`<div/>`;
+            static props = ["*"];
             setup() {
                 this._backButtonHandler = useBackButton(this._onBackButton);
             }
@@ -193,6 +195,7 @@ QUnit.module("web_mobile", {
 
         class DummyComponent extends Component {
             static template = xml`<button class="dummy" t-esc="state.show" t-on-click="toggle"/>`;
+            static props = ["*"];
             setup() {
                 this._backButtonHandler = useBackButton(
                     this._onBackButton,
@@ -270,6 +273,7 @@ QUnit.module("web_mobile", {
                     </div>
                 </div>
             `;
+            static props = ["*"];
             setup() {
                 this.Components = mainComponents.getEntries();
             }
@@ -288,6 +292,7 @@ QUnit.module("web_mobile", {
 
         class Comp extends Component {
             static template = xml`<div id="comp">in popover</div>`;
+            static props = ["*"];
         }
 
         env.services.popover.add(popoverTarget, Comp, {});

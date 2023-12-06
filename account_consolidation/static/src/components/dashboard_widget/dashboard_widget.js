@@ -3,9 +3,11 @@
 import { registry } from '@web/core/registry';
 import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
 class ConsolidationDashboard extends Component {
     static template = "account_consolidation.ConsolidatedDashboardTemplate";
+    static props = {...standardFieldProps};
     setup() {
         this.orm = useService("orm");
         this.action = useService("action");

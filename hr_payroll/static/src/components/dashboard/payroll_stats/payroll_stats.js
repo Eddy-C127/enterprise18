@@ -8,6 +8,16 @@ import { Component, onWillUnmount, useEffect, useRef, useState, onWillStart } fr
 
 export class PayrollDashboardStats extends Component {
     static template = "hr_payroll.DashboardStats";
+    static props = {
+        title: String,
+        help: {type: String, optional: true},
+        id: {type: String, optional: true},
+        actions: Array,
+        type: String,
+        data: Object,
+        is_sample: Boolean,
+        label: String,
+    };
 
     setup() {
         this.actionService = useService("action");

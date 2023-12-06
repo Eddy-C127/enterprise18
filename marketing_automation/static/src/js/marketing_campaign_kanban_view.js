@@ -12,6 +12,7 @@ import { Component, onWillStart } from "@odoo/owl";
 
 export class CampaignActionHelper extends Component {
     static template = "marketing.CampaignActionHelper";
+    static props = {};
 
     setup() {
         this.orm = useService("orm");

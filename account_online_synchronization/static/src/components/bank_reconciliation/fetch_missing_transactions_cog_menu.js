@@ -21,6 +21,7 @@ const cogMenuRegistry = registry.category("cogMenu");
 export class FetchMissingTransactions extends Component {
     static template = "account_online_synchronization.FetchMissingTransactions";
     static components = { DropdownItem };
+    static props = {};
 
     setup() {
         this.action = useService("action");

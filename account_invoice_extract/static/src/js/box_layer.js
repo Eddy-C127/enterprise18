@@ -6,6 +6,11 @@ import { Component } from "@odoo/owl";
 export class BoxLayer extends Component {
     static components = { Box };
     static template = "account_invoice_extract.BoxLayer";
+    static props = {
+        boxes: Array,
+        pageLayer: Object,
+        mode: String,
+    };
     /**
      * @override
      */

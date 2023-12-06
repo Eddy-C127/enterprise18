@@ -9,6 +9,12 @@ import { useState, Component } from "@odoo/owl";
 export class StudioApprovalInfos extends Component {
     static template = "StudioApprovalInfos";
     static components = { Dialog };
+    static props = {
+        isPopover: Boolean,
+        approval: Object,
+        close: { type: Function, optional: true },
+    };
+
     setup() {
         this.user = user;
         const approval = this.props.approval;

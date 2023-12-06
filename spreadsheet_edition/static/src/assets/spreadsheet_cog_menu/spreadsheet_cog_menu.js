@@ -11,6 +11,7 @@ const cogMenuRegistry = registry.category("cogMenu");
 export class SpreadsheetCogMenu extends Component {
     static template = "spreadsheet_edition.SpreadsheetCogMenu";
     static components = { Dropdown, InsertViewSpreadsheet, InsertListSpreadsheetMenu };
+    static props = {};
 }
 
 cogMenuRegistry.add(

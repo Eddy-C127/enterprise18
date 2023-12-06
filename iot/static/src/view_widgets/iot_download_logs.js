@@ -4,9 +4,11 @@ import { registry } from '@web/core/registry';
 import { useService } from '@web/core/utils/hooks';
 import { IoTConnectionErrorDialog } from '../iot_connection_error_dialog';
 import { Component } from "@odoo/owl";
+import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 
 export class IoTBoxDownloadLogs extends Component {
     static template = `iot.IoTBoxDownloadLogs`;
+    static props = {...standardWidgetProps};
 
     setup() {
         super.setup();

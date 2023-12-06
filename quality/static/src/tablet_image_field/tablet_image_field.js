@@ -9,6 +9,10 @@ import { Component } from "@odoo/owl";
 class ImagePreviewDialog extends Component {
     static components = { Dialog };
     static template = "quality.ImagePreviewDialog";
+    static props = {
+        src: String,
+        close: Function,
+    };
 }
 
 export class TabletImageField extends ImageField {

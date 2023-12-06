@@ -33,6 +33,7 @@ QUnit.module("XmlResourceEditor", (hooks) => {
         class Parent extends Component {
             static components = { XmlResourceEditor };
             static template = xml`<XmlResourceEditor displayAlerts="props.state.displayAlerts" onClose="() => {}" mainResourceId="1" />`;
+            static props = ["*"];
         }
 
         const env = await makeTestEnv({ mockRPC });

@@ -14,6 +14,11 @@ export class SignRequest extends Component {
         SignRequestControlPanel,
         Document,
     };
+    static props = {
+        action: Object,
+        actionId: { type: Number, optional: true },
+        className: { type: String, optional: true },
+    };
 
     get markupHtml() {
         return markup(this.html);

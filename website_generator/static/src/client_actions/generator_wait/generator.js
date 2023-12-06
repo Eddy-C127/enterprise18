@@ -12,6 +12,7 @@ import {useService} from "@web/core/utils/hooks";
 
 class WebsiteGenerator extends Component {
     static template = "website_generator.WebsiteGenerator";
+    static props = {};
     setup() {
         this.orm = useService("orm");
         this.dialog = useService("dialog");

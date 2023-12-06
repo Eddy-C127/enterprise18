@@ -131,6 +131,12 @@ export class KnowledgeCoverDialog extends Component {
         KnowledgeCoverSelector,
         Dialog
     };
+    static props = {
+        articleCoverId: {type: Number, optional: true},
+        articleName: String,
+        save: Function,
+        close: Function,
+    };
 
     setup() {
         this.size = 'xl';

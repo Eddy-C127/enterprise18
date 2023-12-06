@@ -124,6 +124,7 @@ export function registerViewEditorDependencies() {
 class ViewEditorHoc extends Component {
     static template = xml`<ViewEditor action="{}" className="''" />`;
     static components = { ViewEditor };
+    static props = ["*"];
     setup() {
         const editionFlow = new EditionFlow(this.env, {
             dialog: useService("dialog"),

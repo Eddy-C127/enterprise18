@@ -16,6 +16,7 @@ class MockedVideoIframe extends Component {
     static template = xml`
         <div class="o_video_iframe_src" t-out="props.src" />
     `;
+    static props = ["src"];
 };
 
 registry.category("web_tour.tours").add("knowledge_video_command_tour", {

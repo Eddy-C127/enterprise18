@@ -9,6 +9,11 @@ import { Component, onWillStart, onWillRender } from "@odoo/owl";
 export class AccountImportGuide extends Component {
     static template = "account_base_import.accountImportTemplate";
     static components = { ControlPanel };
+    static props = {
+        action: Object,
+        actionId: { type: Number, optional: true },
+        className: { type: String, optional: true },
+    };
     setup() {
         this.actionService = useService("action");
         this.orm = useService("orm");

@@ -31,6 +31,7 @@ const { Model } = spreadsheet;
  */
 
 export class AbstractSpreadsheetAction extends Component {
+    static template = "";
     static props = { ...standardActionServiceProps };
 
     setup() {

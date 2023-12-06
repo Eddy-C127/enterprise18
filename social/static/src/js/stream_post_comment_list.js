@@ -5,6 +5,14 @@ import { Component } from "@odoo/owl";
 
 export class StreamPostCommentList extends Component {
     static template = "social.StreamPostCommentsWrapper";
+    static props = {
+        comments: Array,
+        account: {type: Object, optional: true},
+        error: {type: String, optional: true},
+        mediaSpecificProps: Object,
+        originalPost: Object,
+        preventAddComment: Function,
+    };
 
     /**
      * To override for each specific social StreamPostCommentList class.

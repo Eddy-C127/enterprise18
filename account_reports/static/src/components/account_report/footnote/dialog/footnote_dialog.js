@@ -9,6 +9,7 @@ import { Component, useRef } from "@odoo/owl";
 export class AccountReportFootnoteDialog extends Component {
     static template = "account_reports.AccountReportFootnoteDialog";
     static components = { Dialog };
+    static props = ["text", "footnoteID", "refresh", "close", "reportID", "lineID", "context"];
 
     setup() {
         this.orm = useService("orm");

@@ -10,6 +10,7 @@ import { useService } from "@web/core/utils/hooks";
 
 export class WorkButton extends Component {
     static template = "pos_blackbox_be.WorkButton";
+    static props = {};
 
     setup() {
         this.pos = usePos();

@@ -259,6 +259,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                 static template = xml`<div class='delayed_client_action'>
                     <button t-on-click="resolve">RESOLVE</button>
                 </div>`;
+                static props = ["*"];
                 setup() {
                     onMounted(() => {
                         if (doVeryFastClick) {

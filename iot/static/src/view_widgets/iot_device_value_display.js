@@ -3,9 +3,12 @@
 import { registry } from '@web/core/registry';
 import { useIotDevice } from '../iot_device_hook';
 import { Component, useState } from "@odoo/owl";
+import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 
 export class IoTDeviceValueDisplay extends Component {
     static template = `iot.IoTDeviceValueDisplay`;
+    static props = {...standardWidgetProps};
+
     setup() {
         super.setup();
         this.state = useState({ value: '' });

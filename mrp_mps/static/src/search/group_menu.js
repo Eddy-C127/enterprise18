@@ -6,6 +6,9 @@ import { Component } from "@odoo/owl";
 export class GroupMenu extends Component {
     static template = "mrp_mps.GroupMenu";
     static components = { CheckboxItem };
+    static props = {
+        items: Object,
+    };
 
     get items() {
         return this.props.items;

@@ -4,9 +4,12 @@ import { registry } from "@web/core/registry";
 import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart } from "@odoo/owl";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
 export class ChangeProductionQty extends Component {
     static template = "stock_barcode_mrp.ChangeProductionQty";
+    static props = {...standardFieldProps};
+
     setup() {
         this.actionService = useService("action");
 

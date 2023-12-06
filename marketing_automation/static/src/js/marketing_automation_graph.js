@@ -4,6 +4,7 @@ import { loadJS } from "@web/core/assets";
 import { registry } from "@web/core/registry";
 import { cookie } from "@web/core/browser/cookie";
 import { Component, onWillStart, onWillUnmount, useEffect, useRef } from "@odoo/owl";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
 const fieldRegistry = registry.category("fields");
 
 /**
@@ -11,6 +12,7 @@ const fieldRegistry = registry.category("fields");
  */
 export class MarketingActivityGraph extends Component {
     static template = "marketing_automation.MarketingActivityGraph";
+    static props = {...standardFieldProps};
 
     setup() {
         this.chart = null;

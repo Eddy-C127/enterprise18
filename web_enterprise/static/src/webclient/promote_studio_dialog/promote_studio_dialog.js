@@ -8,6 +8,11 @@ import { Component, useExternalListener } from "@odoo/owl";
 export class PromoteStudioDialog extends Component {
     static template = "web_enterprise.PromoteStudioDialog";
     static components = { Dialog };
+    static props = {
+        title: String,
+        close: Function,
+    };
+
     setup() {
         this.ormService = useService("orm");
         this.uiService = useService("ui");

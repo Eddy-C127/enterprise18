@@ -15,6 +15,7 @@ export class GroupProperties extends Component {
         Property,
         SidebarPropertiesToolbox,
     };
+    static props = ["node"];
 
     setup() {
         this.editNodeAttributes = useEditNodeAttributes();

@@ -12,6 +12,7 @@ export class HelpdeskTeamDashboard extends Component {
     static components = {
         HelpdeskTeamTarget,
     };
+    static props = {};
 
     setup() {
         this.action = useService('action');

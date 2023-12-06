@@ -25,6 +25,7 @@ QUnit.module("Studio Navbar > AppMenuEditor", (hooks) => {
     class Parent extends Component {
         static components = { MainComponentsContainer, AppMenuEditor };
         static template = xml`<MainComponentsContainer /><AppMenuEditor env="env"/>`;
+        static props = ["*"];
     }
 
     async function createAppMenuEditor(config = {}) {

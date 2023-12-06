@@ -10,6 +10,7 @@ import { useOrderStatusDisplay } from "./order_tracking_display_service";
 class OrderStatusDisplay extends Component {
     static template = "pos_order_tracking_display.OrderStatusDisplay";
     static components = { Orders, OdooLogo };
+    static props = {};
     setup() {
         this.orders = useOrderStatusDisplay();
     }

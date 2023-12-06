@@ -6,6 +6,7 @@ import { Component } from "@odoo/owl";
 
 export class PayrollDashboardPayslipBatch extends Component {
     static template = "hr_payroll.PayslipBatch";
+    static props = ["batches"];
 
     setup() {
         this.actionService = useService("action");

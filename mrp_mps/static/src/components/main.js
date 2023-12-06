@@ -15,6 +15,7 @@ import { ActionMenus } from "@web/search/action_menus/action_menus";
 import { download } from "@web/core/network/download";
 import { rpc } from "@web/core/network/rpc";
 import { ExportDataDialog } from "@web/views/view_dialogs/export_data_dialog";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { Component, onWillStart, useSubEnv } from "@odoo/owl";
 
 class MainComponent extends Component {
@@ -27,6 +28,7 @@ class MainComponent extends Component {
         MrpMpsSearchBar,
         ActionMenus,
     };
+    static props = {...standardActionServiceProps};
 
     //--------------------------------------------------------------------------
     // Lifecycle

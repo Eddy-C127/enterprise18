@@ -17,6 +17,7 @@ import { ManualBarcodeScanner } from './manual_barcode';
 import { url } from '@web/core/utils/urls';
 import { utils as uiUtils } from "@web/core/ui/ui_service";
 import { Component, EventBus, onPatched, onWillStart, useState, useSubEnv } from "@odoo/owl";
+import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 
 // Lets `barcodeGenericHandlers` knows those commands exist so it doesn't warn when scanned.
 COMMANDS["O-CMD.MAIN-MENU"] = () => {};
@@ -26,6 +27,7 @@ const bus = new EventBus();
 
 class StockBarcodeUnlinkButton extends Component {
     static template = "stock_barcode.UnlinkButton";
+    static props = {...standardWidgetProps};
     setup() {
         this.orm = useService("orm");
     }

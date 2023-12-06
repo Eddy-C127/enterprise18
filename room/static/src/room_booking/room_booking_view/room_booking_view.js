@@ -32,6 +32,13 @@ export class RoomBookingView extends Component {
         RoomDisplayTime,
     };
     static template = "room.RoomBookingView";
+    static props = {
+        name: String,
+        description: String,
+        accessToken: String,
+        bookedBgColor: String,
+        bookableBgColor: String,
+    };
 
     setup() {
         this.manageRoomUrl = `/room/${this.props.accessToken}`;

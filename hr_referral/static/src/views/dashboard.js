@@ -7,6 +7,11 @@ import { Component, onWillStart, useEffect, useState, useRef } from "@odoo/owl";
 
 export class HrReferralWelcome extends Component {
     static template = "hr_referral.Welcome";
+    static props = {
+        action: Object,
+        actionId: { type: Number, optional: true },
+        className: { type: String, optional: true },
+    };
 
     setup() {
         super.setup();

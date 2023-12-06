@@ -10,6 +10,7 @@ export default class MpsLineComponent extends Component {
     static components = {
         CheckBox,
     };
+    static props = ["data", "groups"];
 
 
     setup() {

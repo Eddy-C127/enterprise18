@@ -14,6 +14,7 @@ import { usePos } from "@point_of_sale/app/store/pos_hook";
  */
 export class LastTransactionStatusButton extends Component {
     static template = "pos_iot.LastTransactionStatusButton";
+    static props = {};
 
     setup() {
         this.state = useState({ pending: false });
@@ -102,4 +103,5 @@ export class LastTransactionStatusButton extends Component {
 export class LastTransactionPopup extends Component {
     static template = "pos_iot.LastTransactionPopup";
     static components = { Dialog };
+    static props = ["error", "action_identifier", "time", "amount"];
 }

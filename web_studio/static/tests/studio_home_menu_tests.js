@@ -68,6 +68,7 @@ const createStudioHomeMenu = async () => {
                 <div class="o_dialog_container" />
                 <t t-component="OverlayContainer.Component" t-props="OverlayContainer.props" />
             </div>`;
+        static props = ["*"];
         get OverlayContainer() {
             return registry.category("main_components").get("OverlayContainer");
         }

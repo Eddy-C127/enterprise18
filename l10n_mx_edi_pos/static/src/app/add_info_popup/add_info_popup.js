@@ -7,6 +7,7 @@ import { Component, useState } from "@odoo/owl";
 export class AddInfoPopup extends Component {
     static template = "l10n_mx_edi_pos.AddInfoPopup";
     static components = { Dialog };
+    static props = ["order", "getPayload", "close"];
 
     setup() {
         this.pos = usePos();

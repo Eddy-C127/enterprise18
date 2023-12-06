@@ -6,10 +6,15 @@ import { useService } from "@web/core/utils/hooks";
 
 import { TimesheetDisplayTimer } from "../timesheet_display_timer/timesheet_display_timer";
 import { Component, useState } from "@odoo/owl";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
 export class TimesheetUOMHourTimer extends Component {
     static components = { TimesheetDisplayTimer };
     static template = "timesheet_grid.TimesheetUOMHourTimer";
+    static props = {
+        ...standardFieldProps,
+        context: { type: Object, optional: true },
+    };
 
     setup() {
         this.ormService = useService("orm");

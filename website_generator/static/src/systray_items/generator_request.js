@@ -7,6 +7,7 @@ import {session} from "@web/session";
 
 export class GeneratorRequest extends Component {
     static template = "website_generator.GeneratorRequest";
+    static props = {};
     setup() {
         this.actionService = useService("action");
         this.orm = useService("orm");

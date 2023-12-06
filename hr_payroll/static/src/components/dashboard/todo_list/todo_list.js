@@ -19,6 +19,7 @@ export class PayrollDashboardTodo extends Component {
         Field,
         Record,
     };
+    static props = ["orderBy"];
 
     setup() {
         this.company = useService("company");

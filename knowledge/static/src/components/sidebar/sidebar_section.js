@@ -13,6 +13,7 @@ import { Component, onWillStart, useChildSubEnv } from "@odoo/owl";
  */
 
 export class KnowledgeSidebarSection extends Component {
+    static template = "";
     static props = {
         rootIds: Array,
         unfoldedIds: Set,

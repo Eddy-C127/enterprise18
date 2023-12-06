@@ -8,6 +8,7 @@ import { SidebarPropertiesToolbox } from "@web_studio/client_action/view_editor/
 export class ChatterProperties extends Component {
     static template = "web_studio.ViewEditor.InteractiveEditorProperties.Chatter";
     static components = { Property, SidebarPropertiesToolbox };
+    static props = ["node"];
 
     setup() {
         this.state = useState({});

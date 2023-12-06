@@ -4,13 +4,19 @@ import { registry } from "@web/core/registry";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { localization } from "@web/core/l10n/localization";
 import { Component } from "@odoo/owl";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
 class FollowupTrustPopOver extends Component {
     static template = "account_followup.FollowupTrustPopOver";
+    static props = {
+        record: Object,
+        widget: Object,
+    };
 }
 
 class FollowupTrustWidget extends Component {
     static template = "account_followup.FollowupTrustWidget";
+    static props = {...standardFieldProps};
     setup() {
         super.setup();
         const position = localization.direction === "rtl" ? "bottom" : "right";

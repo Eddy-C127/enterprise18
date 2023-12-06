@@ -28,6 +28,7 @@ const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
  * It can be of 3 different type: text, date and relation.
  */
 export class AbstractFilterEditorSidePanel extends Component {
+    static template = "";
     static components = {
         FilterEditorLabel,
         SidePanelCollapsible,

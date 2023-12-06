@@ -13,6 +13,7 @@ export class TimeOffToDeferWarning extends Component {
             </p>
         </div>
     `;
+    static props = {};
 
     setup() {
         this.actionService = useService("action");
