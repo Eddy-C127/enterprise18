@@ -54,6 +54,10 @@ export class StreamPostCommentsTwitter extends StreamPostComments {
     }
 
     preventAddComment(textarea, replyToCommentId) {
+        if (!this.props.isReplyLimited) {
+            return false;
+        }
+
         const allCommentsFlatten = this.allComments.reduce((result, currentComment) => {
             if (currentComment.comments) {
                 const subComments = currentComment.comments.data;
