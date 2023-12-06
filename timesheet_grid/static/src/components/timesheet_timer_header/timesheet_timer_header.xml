@@ -58,6 +58,7 @@
                             record="props.timesheet"
                             attrs="props.fields['task_id'].attrs"
                             placeholder="props.fields['task_id'].placeholder"
+                            context="props.fields['task_id'].context"
                             canCreateEdit="false"
                             domain="getDomain('task_id')"
                             type="'task_with_hours'"
