@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
+from odoo.addons.base.models.res_partner import _tz_get
 
 
 class WhatsAppTestBaseModel(models.Model):
@@ -18,6 +19,7 @@ class WhatsAppTestBaseModel(models.Model):
     customer_id = fields.Many2one('res.partner', 'Customer')
     phone = fields.Char('Phone', compute='_compute_phone', readonly=False, store=True)
     user_id = fields.Many2one(comodel_name='res.users', string="Salesperson")
+    datetime = fields.Datetime()
 
     @api.depends('customer_id')
     def _compute_phone(self):
@@ -75,3 +77,20 @@ class WhatsAppTestResponsible(models.Model):
     ]
 
     user_ids = fields.Many2many('res.users', string="Salespersons")
+
+class WhatsAppTestTimezone(models.Model):
+    """ Same as base test model but with timezone fields """
+    _description = 'WhatsApp Timezone Test'
+    _name = 'whatsapp.test.timezone'
+    _inherit = [
+        'whatsapp.test.base',
+    ]
+
+    tz = fields.Selection(_tz_get, string='Timezone')
+
+    def _whatsapp_get_timezone(self):
+        if self:
+            self.ensure_one()
+            if self.tz:
+                return self.tz
+        return super()._whatsapp_get_timezone()

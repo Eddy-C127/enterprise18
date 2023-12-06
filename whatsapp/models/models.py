@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from datetime import datetime
+
 from odoo import exceptions, models, _
+from odoo.tools import format_datetime
 
 
 class BaseModel(models.AbstractModel):
@@ -30,6 +33,10 @@ class BaseModel(models.AbstractModel):
             ) from err
         if isinstance(field_value, models.Model):
             return ' '.join((value.display_name or '') for value in field_value)
+        if any(isinstance(value, datetime) for value in field_value):
+            tz = self._whatsapp_get_timezone()
+            return ' '.join([f"{format_datetime(self.env, value, tz=tz)} {tz}" for value in field_value\
+                if value and isinstance(value, datetime)])
         return ' '.join(str(value if value is not False and value is not None else '') for value in field_value)
 
     def _whatsapp_get_portal_url(self):
@@ -100,3 +107,11 @@ class BaseModel(models.AbstractModel):
             responsible_users = whatsapp_account.notify_user_ids
 
         return responsible_users
+
+    def _whatsapp_get_timezone(self):
+        """To be override to get desired timezone of the model
+        :returns: selected timezone (e.g. 'UTC' or 'Asia/Calcutta')
+        """
+        if self:
+            self.ensure_one()
+        return self.env.user.tz or 'UTC'
