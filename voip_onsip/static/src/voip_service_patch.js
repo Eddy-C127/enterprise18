@@ -6,9 +6,9 @@ import { patch } from "@web/core/utils/patch";
 
 patch(Voip.prototype, {
     get areCredentialsSet() {
-        return Boolean(this.settings.onsip_auth_username) && super.areCredentialsSet;
+        return Boolean(this.store.settings.onsip_auth_username) && super.areCredentialsSet;
     },
     get authorizationUsername() {
-        return this.settings.onsip_auth_username || "";
+        return this.store.settings.onsip_auth_username || "";
     },
 });

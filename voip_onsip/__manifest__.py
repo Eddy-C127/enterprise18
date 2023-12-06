@@ -15,5 +15,8 @@
         "web.assets_backend": [
             "voip_onsip/static/src/**/*",
         ],
+        "web.qunit_suite_tests": [
+            "voip_onsip/static/tests/**/*.js",
+        ],
     },
 }
