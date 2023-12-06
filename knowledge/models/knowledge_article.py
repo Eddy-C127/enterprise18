@@ -1229,7 +1229,7 @@ class Article(models.Model):
         # _detach_unwritable_descendants calls _filter_access_rules_python which returns
         # a sudo-ed recordset
         writable_descendants = self._detach_unwritable_descendants().with_env(self.env)
-        (self + writable_descendants).toggle_active()
+        (self + writable_descendants).filtered('active').toggle_active()
         if send_to_trash:
             (self + writable_descendants).to_delete = True
             (self + writable_descendants)._send_trash_notifications()

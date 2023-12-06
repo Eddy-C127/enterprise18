@@ -1033,6 +1033,20 @@ class TestKnowledgeArticleRemoval(KnowledgeCommonBusinessCase):
         """ Testing archive that should also archive children. """
         self._test_archive(test_trash=False)
 
+    def test_archive_unactive_article(self):
+        """ Checking that an unactive article can be archived. """
+        article = self.env['knowledge.article'].create({'name': 'Article'})
+        self.assertTrue(article.active)
+        self.assertFalse(article.to_delete)
+
+        article.action_archive()
+        self.assertFalse(article.active)
+        self.assertFalse(article.to_delete)
+
+        article.action_send_to_trash()
+        self.assertFalse(article.active)
+        self.assertTrue(article.to_delete)
+
     def _test_archive(self, test_trash=False):
         archive_method_name = 'action_send_to_trash' if test_trash else 'action_archive'
 
