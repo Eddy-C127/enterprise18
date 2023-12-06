@@ -407,6 +407,7 @@ class ResPartner(models.Model):
         return result
 
     def _get_followup_data_query(self, partner_ids=None):
+        self.env['ir.property'].flush_model()
         return f"""
             SELECT partner.id as partner_id,
                    ful.id as followup_line_id,
