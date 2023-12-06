@@ -70,8 +70,10 @@ export class TimesheetGridRenderer extends GridRenderer {
 
         const employeeId = this.row.section.valuePerFieldName.employee_id[0];
         if (employeeId in this.lastValidationDatePerEmployee) {
-            return res && (!this.lastValidationDatePerEmployee[employeeId] || this.lastValidationDatePerEmployee[employeeId].startOf("day") < this.props.model.navigationInfo.periodEnd.startOf("day"));
+            return !this.lastValidationDatePerEmployee[employeeId] || this.lastValidationDatePerEmployee[employeeId].startOf("day") < this.props.model.navigationInfo.periodEnd.startOf("day");
         }
+
+        return res;
     }
 
     getCellColorClass(column) {

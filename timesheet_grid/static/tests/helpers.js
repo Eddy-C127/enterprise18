@@ -92,7 +92,6 @@ export class TimesheetGridSetupHelper {
                 1: false,
                 2: "2017-01-30",
                 3: "2017-01-29",
-                4: "2017-01-01",
             };
         } else if (args.model !== "analytic.line" && args.method === "web_read_group") {
             return {
