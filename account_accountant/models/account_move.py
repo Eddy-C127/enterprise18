@@ -439,7 +439,7 @@ class AccountMoveLine(models.Model):
         if not self._is_compatible_account():
             self.deferred_end_date = False
 
-    @api.depends('deferred_end_date', 'move_id.invoice_date')
+    @api.depends('deferred_end_date', 'move_id.invoice_date', 'move_id.state')
     def _compute_deferred_start_date(self):
         for line in self:
             if not line.deferred_start_date and line.move_id.invoice_date and line.deferred_end_date:
