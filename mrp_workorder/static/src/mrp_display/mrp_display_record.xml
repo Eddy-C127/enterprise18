@@ -100,7 +100,12 @@
     <t t-name="mrp_workorder.MrpDisplayWorkorderHeader">
         <span class="h5 text-truncate" t-esc="record.display_name"/>
         <span class="text-capitalize d-flex flex-column ms-1">
-            <div t-if="record.state !== 'ready'" class="bg-light rounded p-1"><MrpTimerField name="'duration'" record="props.record" readonly="true"/></div>
+            <div t-if="record.state !== 'ready' and record.state !== 'pending'" class="bg-light rounded p-1"><MrpTimerField name="'duration'" record="props.record" readonly="true"/></div>
+            <div t-elif="this.props.record.data.employee_assigned_ids.records.length > 0" class="pt-1">
+                <t t-foreach="this.props.record.data.employee_assigned_ids.records" t-as="employee" t-key="employee.resId">
+                    <img t-attf-src="/web/image/hr.employee/{{employee.resId}}/avatar_128" class="rounded o_avatar_connected me-1"/>
+                </t>
+            </div>
         </span>
     </t>
     <t t-name="mrp_workorder.MrpDisplayProductionFooter">
