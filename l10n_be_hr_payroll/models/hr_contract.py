@@ -169,10 +169,9 @@ class HrContract(models.Model):
             and c.employee_id
             and c._get_contract_wage()
             and c.structure_type_id == student_stucture_type)
-        (self - open_contracts).write({
-            'l10n_be_is_below_scale_warning': False,
-            'l10n_be_is_below_scale': False
-        })
+        closed_contract = (self - open_contracts)
+        closed_contract.l10n_be_is_below_scale_warning = False
+        closed_contract.l10n_be_is_below_scale = False
         category_mapping = {
             'A': 0,
             'B': 1,
