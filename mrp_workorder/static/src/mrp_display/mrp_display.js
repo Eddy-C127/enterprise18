@@ -106,7 +106,7 @@ export class MrpDisplay extends Component {
             this.group_mrp_routings = await user.hasGroup("mrp.group_mrp_routings");
             await this.useEmployee.getConnectedEmployees(true);
             // select the workcenter received in the context
-            if (this.state.activeWorkcenter && (!this.state.workcenters.length || !(this.state.activeWorkcenter in this.state.workcenters.map((wc) => wc.id)))) {
+            if (this.state.activeWorkcenter && (!this.state.workcenters.length || (!(this.state.activeWorkcenter in this.state.workcenters.map((wc) => wc.id)) && this.state.activeWorkcenter != -1))) {
                 const workcenters = await this.orm.searchRead("mrp.workcenter", [["id", "=", this.state.activeWorkcenter]], ["display_name"]);
                 this.toggleWorkcenter(workcenters);
             }

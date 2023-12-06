@@ -62,12 +62,24 @@ export class MrpMenuDialog extends Component {
     }
 
     openMO() {
+        // remove potentially previously set "workcenter_id" key in the action context
+        delete this.action.currentController.action.context['workcenter_id'];
+
+        const id = this.props.record.resModel === 'mrp.production' ?
+            this.props.record.resId : this.props.record.data.production_id[0];
+
+        if (this.props.record.resModel === 'mrp.workorder') {
+            const val = this.props.params.isMyWO ? -1 : this.props.record.data.workcenter_id[0];
+            this.action.currentController.action.context.workcenter_id = val;
+        }
+
         this.action.doAction({
             'type': 'ir.actions.act_window',
-            'res_model': this.props.record.resModel,
+            'res_model': 'mrp.production',
             'views': [[false, 'form']],
-            'res_id': this.props.record.resId,
+            'res_id': id,
         });
+
         this.props.close();
     }
 

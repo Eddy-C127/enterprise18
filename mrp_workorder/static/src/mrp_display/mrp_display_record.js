@@ -37,6 +37,7 @@ export class MrpDisplayRecord extends Component {
         production: { optional: true, type: Object },
         record: Object,
         removeFromValidationStack: Function,
+        isMyWO: {optional: true, type: Boolean},
         selectWorkcenter: { optional: true, type: Function },
         sessionOwner: Object,
         updateEmployees: Function,
@@ -426,6 +427,7 @@ export class MrpDisplayRecord extends Component {
         const params = {
             workcenters: this.props.workcenters,
             checks: this.checks,
+            isMyWO: this.props.isMyWO,
         };
         this.dialog.add(MrpMenuDialog, {
             groups: this.props.groups,

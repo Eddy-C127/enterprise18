@@ -25,8 +25,7 @@
                             t-on-click="() => this.callAction('action_add_byproduct')">
                         Add By-product <i class="oi oi-chevron-right"/>
                     </button>
-                    <button t-if="props.record.resModel == 'mrp.production'"
-                            class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
+                    <button class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
                             t-on-click="openMO" name="openMO">
                         Open backend MO <i class="oi oi-chevron-right"/>
                     </button>

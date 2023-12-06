@@ -59,6 +59,7 @@
                             record="record"
                             production="getproduction(record)"
                             workcenters="state.workcenters"
+                            isMyWO="state.activeWorkcenter == -1 ? true : false"
                             selectWorkcenter.bind="selectWorkcenter"
                             updateEmployees.bind="useEmployee.getConnectedEmployees"
                             sessionOwner="useEmployee.employees.admin"
