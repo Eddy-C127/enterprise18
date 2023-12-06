@@ -243,7 +243,7 @@
                             <div class="ribbon ribbon-top-right" invisible="state != 'done'">
                                 <span class="bg-success">Done</span>
                             </div>
-                            <div class="ribbon ribbon-top-right" invisible="state != 'pending' or waiting_feedback">
+                            <div class="ribbon ribbon-top-right" invisible="state != 'pending' and state != 'waiting_feedback'">
                                 <span class="bg-info">Ready</span>
                             </div>
                             <div class="ribbon ribbon-top-right" invisible="state != 'cancel'">
