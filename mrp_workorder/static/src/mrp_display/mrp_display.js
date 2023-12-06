@@ -503,7 +503,7 @@ export class MrpDisplay extends Component {
                             data: {
                                 id: 1,
                                 name: "Manual Assembly",
-                                workcenter_id: [1, "Assembly Line 1"],
+                                workcenter_id: [1, "Assembly 1"],
                                 check_ids: {
                                     records: []
                                 },
@@ -547,7 +547,7 @@ export class MrpDisplay extends Component {
                             data: {
                                 id: 1,
                                 name: "Assembly  0/6",
-                                workcenter_id: [2, "Assembly Line 2"],
+                                workcenter_id: [2, "Assembly 2"],
                                 check_ids: {
                                     records: []
                                 },
