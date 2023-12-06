@@ -473,6 +473,63 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             {'account_id': income_exchange_account.id,  'amount_currency': 0.0, 'currency_id': foreign_currency.id, 'balance': -100.0,  'reconciled': False},
         ])
 
+    def test_validation_remove_exchange_difference(self):
+        """ Test the case when the foreign currency is missing on the statement line.
+        In that case, the user can remove the exchange difference in order to fully reconcile both items without additional
+        write-off/exchange difference.
+        """
+        # 1200.0 comp_curr = 2400.0 foreign_curr in 2017 (rate 1:2)
+        st_line = self._create_st_line(
+            1200.0,
+            date='2017-01-01',
+        )
+        # 1200.0 comp_curr = 3600.0 foreign_curr in 2016 (rate 1:3)
+        inv_line = self._create_invoice_line(
+            'out_invoice',
+            currency_id=self.currency_data['currency'].id,
+            invoice_date='2016-01-01',
+            invoice_line_ids=[{'price_unit': 3600.0}],
+        )
+
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        wizard._action_add_new_amls(inv_line)
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',       'amount_currency': 1200.0,      'currency_id': self.company_data['currency'].id,    'balance': 1200.0},
+            {'flag': 'new_aml',         'amount_currency': -2400.0,     'currency_id': self.currency_data['currency'].id,   'balance': -800.0},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,         'currency_id': self.currency_data['currency'].id,   'balance': -400.0},
+        ])
+        self.assertRecordValues(wizard, [{'state': 'valid'}])
+
+        # Remove the partial.
+        line_index = wizard.line_ids.filtered(lambda x: x.flag == 'new_aml').index
+        wizard._js_action_mount_line_in_edit(line_index)
+        wizard._js_action_apply_line_suggestion(line_index)
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',       'amount_currency': 1200.0,      'currency_id': self.company_data['currency'].id,    'balance': 1200.0},
+            {'flag': 'new_aml',         'amount_currency': -3600.0,     'currency_id': self.currency_data['currency'].id,   'balance': -1200.0},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,         'currency_id': self.currency_data['currency'].id,   'balance': -600.0},
+            {'flag': 'auto_balance',    'amount_currency': 600.0,       'currency_id': self.company_data['currency'].id,    'balance': 600.0},
+        ])
+
+        exchange_diff_index = wizard.line_ids.filtered(lambda x: x.flag == 'exchange_diff').index
+        wizard._js_action_remove_line(exchange_diff_index)
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',       'amount_currency': 1200.0,      'currency_id': self.company_data['currency'].id,    'balance': 1200.0},
+            {'flag': 'new_aml',         'amount_currency': -3600.0,     'currency_id': self.currency_data['currency'].id,   'balance': -1200.0},
+        ])
+
+        wizard._action_validate()
+        self.assertRecordValues(st_line.line_ids, [
+            # pylint: disable=C0326
+            {'account_id': st_line.journal_id.default_account_id.id,    'amount_currency': 1200.0,      'currency_id': self.company_data['currency'].id,    'balance': 1200.0,   'reconciled': False},
+            {'account_id': inv_line.account_id.id,                      'amount_currency': -3600.0,     'currency_id': self.currency_data['currency'].id,   'balance': -1200.0,  'reconciled': True},
+        ])
+        self.assertRecordValues(st_line, [{'is_reconciled': True}])
+        self.assertRecordValues(inv_line.move_id, [{'payment_state': 'paid'}])
+
     def test_validation_new_aml_one_foreign_currency_on_st_line(self):
         income_exchange_account = self.env.company.income_currency_exchange_account_id
 
