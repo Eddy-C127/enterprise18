@@ -293,7 +293,6 @@
                 <templates>
                     <t t-name="kanban-menu">
                         <t t-if="widget.editable"><a type="edit" class="dropdown-item" role="menuitem">Edit</a></t>
-                        <t t-if="widget.deletable"><a type="delete" class="dropdown-item" role="menuitem">Delete</a></t>
                         <a name="toggle_active" type="object" class="dropdown-item" role="menuitem" t-if="! record.active.value">Restore</a>
                         <ul class="oe_kanban_colorpicker" data-field="color"/>
                     </t>
