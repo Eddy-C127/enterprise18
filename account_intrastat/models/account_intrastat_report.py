@@ -3,6 +3,7 @@
 
 from odoo import api, models, _
 from odoo.tools import get_lang
+from odoo.tools.float_utils import float_repr, float_round
 
 from datetime import datetime
 from collections import defaultdict
@@ -184,12 +185,15 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         """
         report = self.env['account.report'].browse(options['report_id'])
         columns = []
+        uom_precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
         for column in options['columns']:
             expression_label = column['expression_label']
             value = line_vals.get(column['column_group_key'], {}).get(expression_label, False)
 
             if options.get('commodity_flow') != 'code' and column['expression_label'] == 'system':
                 value = f"{value} ({line_vals.get(column['column_group_key'], {}).get('type', False)})"
+            if column['expression_label'] == 'supplementary_units' and value:
+                value = float_repr(float_round(value, precision_digits=uom_precision), precision_digits=uom_precision)
 
             columns.append(report._build_column_dict(value, column, options=options))
 

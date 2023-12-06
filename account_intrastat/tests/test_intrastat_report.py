@@ -292,10 +292,10 @@ class TestIntrastatReport(TestAccountReportsCommon):
             #
             [    0,                1,               2,             5,             11,   ],
             [
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '93012000',    123),
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '93012000',    240),
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '90212110',   1.23),
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '90212110',   2.4 ),
+                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '93012000',    '123.00'),
+                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '93012000',    '240.00'),
+                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '90212110',    '1.23'  ),
+                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '90212110',    '2.40'  ),
             ],
             options,
         )
@@ -331,7 +331,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
             #
             [    0,                1,               2,             5,             11, ],
             [
-                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '37061020',    1230),
+                ('INV/2022/00001', '19 (Dispatch)', 'Belgium',     '37061020',    '1230.00'),
             ],
             options,
         )
