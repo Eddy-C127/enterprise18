@@ -93,7 +93,8 @@ class TestForecastCreationAndEditing(TestCommonForecast):
 
         template_a = PlanningTemplate.create({
             'start_time': 8,
-            'duration': 2.0,
+            'end_time': 10,
+            'duration_days': 1,
             'project_id': project_a.id
         })
         self.assertEqual(template_a.duration_days, 1, "Duration in days should be a 1 day according to resource calendar.")
@@ -101,7 +102,8 @@ class TestForecastCreationAndEditing(TestCommonForecast):
 
         template_b = PlanningTemplate.create({
             'start_time': 8,
-            'duration': 4.0,
+            'end_time': 12,
+            'duration_days': 1,
             'project_id': project_b.id
         })
         slot = self.env['planning.slot'].create({'template_id': template_a.id})

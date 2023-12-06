@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from collections import defaultdict
 from datetime import date, datetime, timedelta, time
@@ -8,12 +7,10 @@ import pytz
 import uuid
 from math import modf
 from random import randint, shuffle
-import itertools
 from werkzeug.urls import url_encode
 
 from odoo import api, fields, models, _
 from odoo.addons.resource.models.utils import Intervals, sum_intervals, string_to_datetime
-from odoo.addons.resource.models.resource_mixin import timezone_datetime
 from odoo.exceptions import UserError, AccessError
 from odoo.osv import expression
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_utils, format_datetime
@@ -383,12 +380,11 @@ class Planning(models.Model):
 
     def _get_domain_template_slots(self):
         domain = []
-        if self.resource_type == 'material':
-            domain += [('role_id', '=', False)]
-        elif self.role_id:
-            domain += ['|', ('role_id', '=', self.role_id.id), ('role_id', '=', False)]
-        elif self.employee_id and self.employee_id.sudo().planning_role_ids:
-            domain += ['|', ('role_id', 'in', self.employee_id.sudo().planning_role_ids.ids), ('role_id', '=', False)]
+        roles = self.resource_id.role_ids
+        if self.role_id:
+            roles |= self.role_id
+        if roles:
+            domain += ['|', ('role_id', 'in', roles.ids), ('role_id', '=', False)]
         return domain
 
     @api.depends('role_id', 'employee_id')
@@ -414,15 +410,19 @@ class Planning(models.Model):
         template_fields = self._get_template_fields().items()
         for template_field, slot_field in template_fields:
             if self.template_id[template_field] or not check_empty:
-                if template_field == 'start_time':
-                    h = int(self.template_id.start_time)
-                    m = round(modf(self.template_id.start_time)[0] * 60.0)
+                if template_field in ('start_time', 'end_time'):
+                    h = int(self.template_id[template_field])
+                    m = round(modf(self.template_id[template_field])[0] * 60.0)
                     slot_time = self[slot_field].astimezone(pytz.timezone(self._get_tz()))
                     if slot_time.hour != h or slot_time.minute != m:
                         return True
-                else:
-                    if self[slot_field] != self.template_id[template_field]:
+                elif template_field == 'duration_days':
+                    if self.start_datetime and self.end_datetime and \
+                            days_span(self.start_datetime, self.end_datetime) != self.template_id[template_field]:
                         return True
+                elif self[slot_field] != self.template_id[template_field]:
+                    return True
+
         return False
 
     @api.depends('template_id', 'role_id', 'allocated_hours', 'start_datetime', 'end_datetime')
@@ -602,11 +602,16 @@ class Planning(models.Model):
             start = pytz.utc.localize(start_datetime).astimezone(pytz.timezone(resource.tz) if
                                                                  resource else user_tz)
             start = start.replace(hour=int(h), minute=int(m))
-            start = start.astimezone(pytz.utc).replace(tzinfo=None)
 
-            h, m = divmod(template_id.duration, 1)
-            delta = timedelta(hours=int(h), minutes=int(round(m * 60)))
-            end = start + delta
+            h = int(template_id.end_time)
+            m = round(modf(template_id.end_time)[0] * 60.0)
+            end = (start + relativedelta(days=(template_id.duration_days - 1), hour=0, minute=0, second=0)).astimezone(pytz.timezone(resource.tz) if resource else user_tz)
+            if template_id.duration_days > 1 and resource_id.calendar_id:
+                end = resource.calendar_id.plan_days(template_id.duration_days, start, compute_leaves=True)
+            end = end.replace(hour=int(h), minute=int(m))
+
+            start = start.astimezone(pytz.utc).replace(tzinfo=None)
+            end = end.astimezone(pytz.utc).replace(tzinfo=None)
 
         # Need to remove the tzinfo in start and end as without these it leads to a traceback
         # when the start time is empty
@@ -1802,7 +1807,7 @@ class Planning(models.Model):
     def _get_template_fields(self):
         # key -> field from template
         # value -> field from slot
-        return {'role_id': 'role_id', 'start_time': 'start_datetime', 'duration': 'duration'}
+        return {'role_id': 'role_id', 'start_time': 'start_datetime', 'end_time': 'end_datetime', 'duration_days': 'working_days_count'}
 
     def _get_tz(self):
         return (self.env.user.tz
@@ -1819,14 +1824,13 @@ class Planning(models.Model):
         start_datetime = pytz.utc.localize(self.start_datetime).astimezone(destination_tz)
         end_datetime = pytz.utc.localize(self.end_datetime).astimezone(destination_tz)
 
-        # convert time delta to hours and minutes
-        total_seconds = (end_datetime - start_datetime).total_seconds()
-        m, s = divmod(total_seconds, 60)
-        h, m = divmod(m, 60)
+        # get days span from slot
+        duration_days = days_span(start_datetime, end_datetime)
 
         return {
             'start_time': start_datetime.hour + start_datetime.minute / 60.0,
-            'duration': h + (m / 60.0),
+            'end_time': end_datetime.hour + end_datetime.minute / 60.0,
+            'duration_days': duration_days,
             'role_id': self.role_id.id
         }
 

@@ -76,37 +76,43 @@
         <record id="planning_template_management_morning" model="planning.slot.template">
             <field name="role_id" ref="planning_role_management"/>
             <field name="start_time" eval="8"/>
-            <field name="duration" eval="4"/>
+            <field name="end_time" eval="12"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">1</field>
         </record>
         <record id="planning_template_developer_morning" model="planning.slot.template">
             <field name="role_id" ref="planning_role_developer"/>
             <field name="start_time" eval="8"/>
-            <field name="duration" eval="4"/>
+            <field name="end_time" eval="12"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">2</field>
         </record>
         <record id="planning_template_cm_morning" model="planning.slot.template">
             <field name="role_id" ref="planning_role_cm"/>
             <field name="start_time" eval="8"/>
-            <field name="duration" eval="4"/>
+            <field name="end_time" eval="12"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">3</field>
         </record>
         <record id="planning_template_crane_morning" model="planning.slot.template">
             <field name="role_id" ref="planning_role_crane"/>
             <field name="start_time">8</field>
-            <field name="duration">4</field>
+            <field name="end_time" eval="12"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">8</field>
         </record>
         <record id="planning_template_projector_morning" model="planning.slot.template">
             <field name="role_id" ref="planning_role_projector"/>
             <field name="start_time">8</field>
-            <field name="duration">4</field>
+            <field name="end_time" eval="12"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">9</field>
         </record>
         <record id="planning_template_scanner_morning" model="planning.slot.template">
             <field name="role_id" ref="planning_role_scanner"/>
             <field name="start_time">8</field>
-            <field name="duration">4</field>
+            <field name="end_time" eval="12"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">10</field>
         </record>
 
@@ -114,37 +120,43 @@
         <record id="planning_template_management_evening" model="planning.slot.template">
             <field name="role_id" ref="planning_role_management"/>
             <field name="start_time" eval="13"/>
-            <field name="duration" eval="4"/>
+            <field name="end_time" eval="17"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">5</field>
         </record>
         <record id="planning_template_developer_evening" model="planning.slot.template">
             <field name="role_id" ref="planning_role_developer"/>
             <field name="start_time" eval="13"/>
-            <field name="duration" eval="4"/>
+            <field name="end_time" eval="17"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">6</field>
         </record>
         <record id="planning_template_cm_evening" model="planning.slot.template">
             <field name="role_id" ref="planning_role_cm"/>
             <field name="start_time" eval="13"/>
-            <field name="duration" eval="4"/>
+            <field name="end_time" eval="17"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">7</field>
         </record>
         <record id="planning_template_crane_evening" model="planning.slot.template">
             <field name="role_id" ref="planning_role_crane"/>
             <field name="start_time">13</field>
-            <field name="duration">4</field>
+            <field name="end_time" eval="17"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">11</field>
         </record>
         <record id="planning_template_projector_evening" model="planning.slot.template">
             <field name="role_id" ref="planning_role_projector"/>
             <field name="start_time">13</field>
-            <field name="duration">4</field>
+            <field name="end_time" eval="17"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">12</field>
         </record>
         <record id="planning_template_scanner_evening" model="planning.slot.template">
             <field name="role_id" ref="planning_role_scanner"/>
             <field name="start_time">13</field>
-            <field name="duration">4</field>
+            <field name="end_time" eval="17"/>
+            <field name="duration_days" eval="1"/>
             <field name="sequence">13</field>
         </record>
 

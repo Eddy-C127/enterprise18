@@ -6,7 +6,6 @@ from freezegun import freeze_time
 from odoo.exceptions import UserError
 
 from odoo import fields
-from odoo.exceptions import ValidationError
 from odoo.tests import Form, new_test_user
 
 from odoo.addons.mail.tests.common import MockEmail
@@ -38,7 +37,7 @@ class TestPlanning(TestCommonPlanning, MockEmail):
                 (0, 0, {'name': 'Thursday Morning', 'dayofweek': '3', 'hour_from': 13, 'hour_to': 17, 'day_period': 'morning'}),
             ],
         })
-        calendar = cls.env['resource.calendar'].create({
+        cls.company_calendar = cls.env['resource.calendar'].create({
             'name': 'Classic 40h/week',
             'tz': 'UTC',
             'hours_per_day': 8.0,
@@ -60,7 +59,7 @@ class TestPlanning(TestCommonPlanning, MockEmail):
                 (0, 0, {'name': 'Friday Afternoon', 'dayofweek': '4', 'hour_from': 13, 'hour_to': 17, 'day_period': 'afternoon'})
             ]
         })
-        cls.env.user.company_id.resource_calendar_id = calendar
+        cls.env.user.company_id.resource_calendar_id = cls.company_calendar
         cls.employee_joseph.resource_calendar_id = calendar_joseph
         cls.employee_bert.resource_calendar_id = calendar_bert
         cls.slot, cls.slot2 = cls.env['planning.slot'].create([
@@ -75,7 +74,8 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         ])
         cls.template = cls.env['planning.slot.template'].create({
             'start_time': 11,
-            'duration': 4,
+            'end_time': 14,
+            'duration_days': 1,
         })
 
     def test_allocated_hours_defaults(self):
@@ -124,6 +124,7 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         self.assertEqual(self.slot.start_datetime, datetime(2019, 6, 27, 9, 0), 'It should set time from template, in user timezone (11am CET -> 9am UTC)')
 
     def test_change_employee_with_template(self):
+        self.env.user.tz = 'UTC'
         self.slot.template_id = self.template
         self.env.flush_all()
 
@@ -244,20 +245,21 @@ class TestPlanning(TestCommonPlanning, MockEmail):
 
             Test Case:
             =========
-            1) Create a planning.slot.template with start_hours = 11 pm and duration = 3 hours.
+            1) Create a planning.slot.template with start_hours = 11 am, end_hours = 2pm and duration_days = 2.
             2) Create a planning.slot for one day and add the template.
             3) Check if the start and end dates are on two days and not one.
-            4) Check if the allocating hours is equal to the duration in the template.
+            4) Check if the allocating hours is equal to the working hours of the resource.
         """
-        self.resource_bert.calendar_id = False
+        self.employee_bert.resource_calendar_id = self.company_calendar
         template_slot = self.env['planning.slot.template'].create({
-            'start_time': 23,
-            'duration': 3,
+            'start_time': 11,
+            'end_time': 14,
+            'duration_days': 2,
         })
 
         slot = self.env['planning.slot'].create({
-            'start_datetime': datetime(2021, 1, 1, 0, 0),
-            'end_datetime': datetime(2021, 1, 1, 23, 59),
+            'start_datetime': datetime(2021, 1, 4, 0, 0),
+            'end_datetime': datetime(2021, 1, 4, 23, 59),
             'resource_id': self.resource_bert.id,
         })
 
@@ -265,9 +267,9 @@ class TestPlanning(TestCommonPlanning, MockEmail):
             'template_id': template_slot.id,
         })
 
-        self.assertEqual(slot.start_datetime, datetime(2021, 1, 1, 23, 0), 'The start datetime should have the same hour and minutes defined in the template in the resource timezone.')
-        self.assertEqual(slot.end_datetime, datetime(2021, 1, 2, 2, 0), 'The end datetime of this slot should be 3 hours after the start datetime as mentionned in the template in the resource timezone.')
-        self.assertEqual(slot.allocated_hours, 3, 'The allocated hours of this slot should be the duration defined in the template in the resource timezone.')
+        self.assertEqual(slot.start_datetime, datetime(2021, 1, 4, 11, 0), 'The start datetime should have the same hour and minutes defined in the template in the resource timezone.')
+        self.assertEqual(slot.end_datetime, datetime(2021, 1, 5, 14, 0), 'The end datetime of this slot should be 3 hours after the start datetime as mentionned in the template in the resource timezone.')
+        self.assertEqual(slot.allocated_hours, 10, 'The allocated hours of this slot should be the duration defined in the template in the resource timezone.')
 
     def test_planning_state(self):
         """ The purpose of this test case is to check the planning state """
@@ -301,7 +303,8 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         planning_role = self.env['planning.role'].create({'name': 'role x'})
         template = self.env['planning.slot.template'].create({
             'start_time': 10,
-            'duration': 5.0,
+            'end_time': 15,
+            'duration_days': 1,
             'role_id': planning_role.id,
         })
         with Form(self.env['planning.slot']) as slot_form:
@@ -368,16 +371,6 @@ class TestPlanning(TestCommonPlanning, MockEmail):
             author=joseph_user.partner_id,
         )
 
-    def test_name_long_duration(self):
-        """ Set an absurdly high duration to ensure we validate it and get an error """
-        template_slot = self.env['planning.slot.template'].create({
-            'start_time': 9,
-            'duration': 100000,
-        })
-        with self.assertRaises(ValidationError):
-            # only try to get the name, this triggers its compute
-            template_slot.name
-
     @freeze_time("2023-11-20")
     def test_shift_creation_from_role(self):
         self.env.user.tz = 'Asia/Kolkata'
@@ -390,7 +383,8 @@ class TestPlanning(TestCommonPlanning, MockEmail):
 
         template_a = PlanningTemplate.create({
             'start_time': 8,
-            'duration': 2.0,
+            'end_time': 10,
+            'duration_days': 1,
             'role_id': role_a.id
         })
         self.assertEqual(template_a.duration_days, 1, "Duration in days should be a 1 day according to resource calendar.")
@@ -398,7 +392,8 @@ class TestPlanning(TestCommonPlanning, MockEmail):
 
         template_b = PlanningTemplate.create({
             'start_time': 8,
-            'duration': 4.0,
+            'end_time': 12,
+            'duration_days': 1,
             'role_id': role_b.id
         })
 
@@ -447,9 +442,9 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         """
         template = self.env['planning.slot.template'].create({
             'start_time': 8,
-            'duration': 5.1,  # corresponds to 5:06
+            'end_time': 13.1,
+            'duration_days': 1,
         })
-        self.assertEqual(template.start_time + template.duration, 13.1, 'Template end time should be the start + duration')
         slot = self.env['planning.slot'].create({
             'start_datetime': datetime(2021, 1, 1, 0, 0),
             'end_datetime': datetime(2021, 1, 1, 23, 59),
