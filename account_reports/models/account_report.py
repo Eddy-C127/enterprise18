@@ -2928,8 +2928,11 @@ class AccountReport(models.Model):
 
         :param limit: The SQL limit to apply when computing these expressions' result.
 
-        :return: Two cases are possible:
-            - if we're not computing a groupby: the result will a dict(formula, expressions)
+        :return: The result might have two different formats depending on the situation:
+            - if we're computing a groupby: {(formula, expressions): [(grouping_key, {'result': value, 'has_sublines': boolean}), ...], ...}
+            - if we're not: {(formula, expressions): {'result': value, 'has_sublines': boolean}, ...}
+            'result' key is the default; different engines might use one or multiple other keys instead, depending of the subformulas they allow
+            (e.g. 'sum', 'sum_if_pos', ...)
         """
         engine_function_name = f'_compute_formula_batch_with_engine_{formula_engine}'
         return getattr(self, engine_function_name)(
