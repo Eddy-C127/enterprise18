@@ -1338,6 +1338,12 @@ class Article(models.Model):
             )
         if category == 'shared' and not parent and (self.parent_id or self.category != 'shared'):
             return self._move_and_make_shared_root(before_article=before_article)
+        if parent.is_article_item:
+            raise ValidationError(
+                _("You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an Article Item. "
+                  "Convert %(item_name)s into an Article first.", article_name=self.display_name, item_name=parent.display_name)
+            )
+
         if category == 'private':
             # making an article private requires a lot of extra-processing, use specific method
             return self._move_and_make_private(parent=parent, before_article=before_article)
@@ -2772,12 +2778,13 @@ class Article(models.Model):
         current article (to avoid recursions) """
         return self.search_read(
             domain=[
-                '&', '&', '&', '&',
+                '&', '&', '&', '&', '&',
                     ('is_template', '=', False),
                     ('name', 'ilike', search_term),
                     ('id', 'not in', self.ids),
                     '!', ('parent_id', 'child_of', self.ids),
                     ('user_has_access', '=', True),
+                    ('is_article_item', '=', False),
             ],
             fields=['id', 'display_name', 'root_article_id'],
             limit=15,

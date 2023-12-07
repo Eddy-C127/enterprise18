@@ -688,6 +688,16 @@ class TestKnowledgeArticleBusiness(KnowledgeCommonBusinessCase):
         self.assertFalse(workspace_children[0].parent_id)
         self.assertEqual(workspace_children.root_article_id, workspace_children[0])
 
+        workspace_child_item = self.env['knowledge.article'].create({
+            'name': 'Article Item Child',
+            'parent_id': article_workspace.id,
+            'is_article_item': True
+        }).with_env(self.env)
+
+        with self.assertRaises(exceptions.ValidationError):
+            workspace_children[0].move_to(parent_id=workspace_child_item.id)
+
+
     @mute_logger('odoo.addons.base.models.ir_rule')
     @users('employee')
     def test_article_move_to_shared(self):
