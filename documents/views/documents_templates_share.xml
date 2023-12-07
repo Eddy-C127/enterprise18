@@ -179,7 +179,7 @@
                 <div>
                     Size: <t t-call="documents.format_file_size"/>
                 </div>
-                <div class="mt16 mb8">
+                <div class="mt16 mb8 d-flex flex-column gap-2">
                     <a t-att-href="downloadUrl or base_url + '/document/download/all/' + share_id + '/' + token" title="Download all files" class="btn btn-primary rounded-pill">
                         <i class="fa fa-download fa-fw"/>
                         <t t-if="len(document_ids) > 1">
@@ -188,6 +188,9 @@
                         <t t-else="">
                             Download file
                         </t>
+                    </a>
+                    <a t-if="len(document_ids) == 1 and document_ids.file_extension in file_extension_list" t-att-href="downloadUrl + '?preview=True'" target="new" title="Preview files" class="btn btn-primary rounded-pill">
+                        <i class="fa fa-eye"/> Preview file
                     </a>
                 </div>
             </div>

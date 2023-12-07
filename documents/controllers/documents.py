@@ -472,6 +472,7 @@ class ShareRoute(http.Controller):
                 'author': share.create_uid.name,
                 'date_deadline': share.date_deadline,
                 'document_ids': shareable_documents,
+                'file_extension_list': ['bmp', 'mp4', 'mp3', 'png', 'jpg', 'jpeg', 'pdf', 'gif', 'txt', 'wav'],
             }
             if len(shareable_documents) == 1 and shareable_documents.type == 'empty':
                 return request.render("documents.document_request_page", options)
