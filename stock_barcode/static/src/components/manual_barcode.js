@@ -44,8 +44,12 @@ export class ManualBarcodeScanner extends Component {
      *
      * @private
      */
-    _onBarcodeScan() {
-        this.props.openMobileScanner();
+    async _onBarcodeScan() {
+        try {
+            await this.props.openMobileScanner();
+        } catch (err) {
+            this.notificationService.add(err.message, { type: "danger" });
+        }
         this.props.close();
     }
 
