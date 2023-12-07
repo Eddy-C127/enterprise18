@@ -1578,6 +1578,20 @@ class AccountReport(models.Model):
             self.env[custom_handler_model]._custom_options_initializer(self, options, previous_options)
 
     ####################################################
+    # OPTIONS: INTEGER ROUNDING
+    ####################################################
+    def _custom_options_add_integer_rounding(self, options, integer_rounding, previous_options=None):
+        """ Helper function to be called in a _custom_options_initializer by reports needing to use the integer_rounding feature.
+        This was introduced as an improvement in stable and will become a proper _init_options in master, together with a new field on the report.
+        """
+        options['integer_rounding'] = integer_rounding
+        if self._context.get('print_mode'):
+            options['integer_rounding_enabled'] = True
+        else:
+            options['integer_rounding_enabled'] = (previous_options or {}).get('integer_rounding_enabled', True)
+        return options
+
+    ####################################################
     # OPTIONS: CORE
     ####################################################
 
@@ -2582,6 +2596,16 @@ class AccountReport(models.Model):
                             raise UserError(subformula_error_format)
                         expression_has_sublines = result.get('has_sublines')
 
+                    if column_group_options.get('integer_rounding_enabled'):
+                        in_monetary_column = any(
+                            col['expression_label'] == expression.label
+                            for col in column_group_options['columns']
+                            if col['figure_type'] in ('monetary', 'monetary_without_symbol')
+                        )
+
+                        if (in_monetary_column and not expression.figure_type) or expression.figure_type in ('monetary', 'monetary_without_symbol'):
+                            expression_value = float_round(expression_value, precision_digits=0, rounding_method=column_group_options['integer_rounding'])
+
                     expression_result = {
                         'value': expression_value,
                         'has_sublines': expression_has_sublines,
@@ -2782,6 +2806,9 @@ class AccountReport(models.Model):
                     else:
                         expression_result = self._aggregation_apply_bounds(column_group_options, expression.subformula, formula_result)
 
+                    if column_group_options.get('integer_rounding_enabled'):
+                        expression_result = float_round(expression_result, precision_digits=0, rounding_method=column_group_options['integer_rounding'])
+
                     # Store result
                     standardized_expression_scope = self._standardize_date_scope_for_date_range(expression.date_scope)
                     if (forced_date_scope == standardized_expression_scope or not forced_date_scope) and expression.report_line_id.report_id == self:
@@ -2903,7 +2930,6 @@ class AccountReport(models.Model):
 
         :return: Two cases are possible:
             - if we're not computing a groupby: the result will a dict(formula, expressions)
-
         """
         engine_function_name = f'_compute_formula_batch_with_engine_{formula_engine}'
         return getattr(self, engine_function_name)(
