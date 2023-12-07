@@ -17,11 +17,12 @@
                         groups="whatsapp.group_whatsapp_admin"/>
                     <button name="button_create_action" string="Allow Multi"
                         class="btn btn-primary" type="object"
-                        invisible="has_action"
+                        invisible="has_action or status != 'approved'"
                         groups="whatsapp.group_whatsapp_admin"/>
                     <button name="button_delete_action" string="Disallow Multi"
-                        type="object" invisible="not has_action"
+                        type="object"
                         groups="whatsapp.group_whatsapp_admin"
+                        invisible="not has_action or status != 'approved'"
                         confirm="There might be other templates that still need the Multi"/>
                     <button name="button_sync_template" string="Sync Template"
                         type="object"
