@@ -26,7 +26,6 @@ class TestPoSRental(TestPointOfSaleHttpCommon):
         self.lot_id1 = self.env['stock.lot'].create({
             'product_id': self.tracked_product_id.id,
             'name': "123456789",
-            'company_id': self.env.company.id,
         })
         warehouse = self.env['stock.warehouse'].search([('company_id', '=', self.env.company.id)], limit=1)
         quants = self.env['stock.quant'].with_context(inventory_mode=True).create({

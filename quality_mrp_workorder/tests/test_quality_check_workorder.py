@@ -74,7 +74,6 @@ class TestQualityCheckWorkorder(TestMrpCommon):
         finished_sn, component_sn = self.env['stock.lot'].create([{
             'name': p.name,
             'product_id': p.id,
-            'company_id': self.env.company.id,
         } for p in (finished, component)])
         self.env['stock.quant']._update_available_quantity(component, warehouse.lot_stock_id, 1, lot_id=component_sn)
 

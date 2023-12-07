@@ -151,7 +151,6 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         lot_id = self.env['stock.lot'].create({
             'name': 'lot01',
             'product_id': self.component_lot.id,
-            'company_id': self.env.company.id,
         })
         self.env['stock.quant'].create({
             'quantity': 4,
@@ -238,12 +237,10 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         lot_01 = self.env['stock.lot'].create({
             'name': 'lot_01',
             'product_id': self.component_lot.id,
-            'company_id': self.env.company.id,
         })
         lot_02 = self.env['stock.lot'].create({
             'name': 'lot_02',
             'product_id': self.component_lot.id,
-            'company_id': self.env.company.id,
         })
         self.env['stock.quant'].create({
             'quantity': 2,

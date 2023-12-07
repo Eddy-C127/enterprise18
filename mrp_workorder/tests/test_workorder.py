@@ -26,17 +26,14 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         cls.sp1 = cls.env['stock.lot'].create({
             'product_id': cls.submarine_pod.id,
             'name': 'sp1',
-            'company_id': cls.env.company.id,
         })
         cls.sp2 = cls.env['stock.lot'].create({
             'product_id': cls.submarine_pod.id,
             'name': 'sp2',
-            'company_id': cls.env.company.id,
         })
         cls.sp3 = cls.env['stock.lot'].create({
             'product_id': cls.submarine_pod.id,
             'name': 'sp3',
-            'company_id': cls.env.company.id,
         })
         cls.elon_musk = cls.env['product.product'].create({
             'name': 'Elon Musk',
@@ -45,17 +42,14 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         cls.elon1 = cls.env['stock.lot'].create({
             'product_id': cls.elon_musk.id,
             'name': 'elon1',
-            'company_id': cls.env.company.id,
         })
         cls.elon2 = cls.env['stock.lot'].create({
             'product_id': cls.elon_musk.id,
             'name': 'elon2',
-            'company_id': cls.env.company.id,
         })
         cls.elon3 = cls.env['stock.lot'].create({
             'product_id': cls.elon_musk.id,
             'name': 'elon3',
-            'company_id': cls.env.company.id,
         })
         cls.metal_cylinder = cls.env['product.product'].create({
             'name': 'Metal cylinder',
@@ -64,7 +58,6 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         cls.mc1 = cls.env['stock.lot'].create({
             'product_id': cls.metal_cylinder.id,
             'name': 'mc1',
-            'company_id': cls.env.company.id,
         })
         cls.trapped_child = cls.env['product.product'].create({
             'name': 'Trapped child',

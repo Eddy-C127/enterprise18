@@ -73,7 +73,6 @@ class TestSubcontractingBarcodeClientAction(TestBarcodeClientAction):
         self.subcontracted_component.tracking = 'lot'
         lot_id = self.env['stock.lot'].create({
             'product_id': self.subcontracted_component.id,
-            'company_id': self.env.ref('base.main_company').id,
             'name': 'C01',
         })
         subcontract_location = self.subcontractor_partner.property_stock_subcontractor

@@ -15,7 +15,7 @@ class TestRepair(HelpdeskCommon):
         product = self.env['product.product'].create({'name': 'Product'})
         product_lot = self.env['stock.lot'].create({
             'product_id': product.id,
-            'company_id': company.id})
+        })
         component = self.env['product.product'].create({'name': 'Component'})
 
         ro_form = Form(self.env['repair.order'].with_context(default_lot_id=product_lot.id))

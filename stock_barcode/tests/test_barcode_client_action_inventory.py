@@ -156,8 +156,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
         self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
         # Adds some quants for the product tracked by lots in two locations.
-        lot_default_values = {'product_id': self.productlot1.id, 'company_id': self.env.company.id}
-        lot_1 = self.env['stock.lot'].create(dict(lot_default_values, name="lot1"))
+        lot_1 = self.env['stock.lot'].create({'product_id': self.productlot1.id, 'name': "lot1"})
         self.env['stock.quant']._update_available_quantity(self.productlot1, self.shelf1, 3, lot_id=lot_1)
         self.env['stock.quant']._update_available_quantity(self.productlot1, self.shelf2, 5, lot_id=lot_1)
         # Marks them as to count by the user.
@@ -168,10 +167,9 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         quants[0].inventory_quantity = 3
         quants[1].inventory_quantity = 0
         # Adds some quants for the product tracked by serial numbers in two locations.
-        serial_default_values = {'product_id': self.productserial1.id, 'company_id': self.env.company.id}
         for location, numbers in [(self.shelf1, [1, 2, 3]), (self.shelf3, [4, 5])]:
             for n in numbers:
-                serial_number = self.env['stock.lot'].create(dict(serial_default_values, name=f'sn{n}'))
+                serial_number = self.env['stock.lot'].create({'product_id': self.productserial1.id, 'name': f'sn{n}'})
                 self.env['stock.quant']._update_available_quantity(self.productserial1, location, 1, lot_id=serial_number)
         # Opens the inventory adjustement and process it.
         action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
@@ -196,7 +194,6 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         self.env["stock.lot"].create({
             'name': 'lot1',
             'product_id': self.productlot1.id,
-            'company_id': self.env.company.id
         })
         self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, 5)
 
@@ -524,7 +521,6 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
             'lot_id': self.env['stock.lot'].create({
                 'name': 'Lot-test',
                 'product_id': product.id,
-                'company_id': self.env.company.id,
             }).id,
         })
         self.assertEqual(product.qty_available, 10)

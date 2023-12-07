@@ -75,7 +75,7 @@
                     <div class="col-12 my-2 d-flex align-items-baseline">
                         <i class="fa fa-fw fa-lg fa-barcode me-3" title="Serial/Lot Number"/>
                         <field name="lot_id" placeholder="Serial/Lot Number" options="{'no_open': True}"
-                               context="{'default_product_id': product_id, 'default_company_id': company_id}"
+                               context="{'default_product_id': product_id}"
                                readonly="state == 'done'"/>
                     </div>
                 </div>

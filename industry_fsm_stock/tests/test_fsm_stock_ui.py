@@ -53,7 +53,6 @@ class TestFsmStockUI(HttpCase):
         cls.lot_id1 = cls.env['stock.lot'].create({
             'product_id': cls.product_lot.id,
             'name': 'Lot_1',
-            'company_id': cls.env.company.id,
         })
         cls.warehouse_A = cls.env['stock.warehouse'].search([('company_id', '=', cls.env.company.id)], limit=1)
         if not cls.warehouse_A:

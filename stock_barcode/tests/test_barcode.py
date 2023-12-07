@@ -196,17 +196,14 @@ class TestBarcodeClientAction(HttpCase):
         lot1 = self.env['stock.lot'].create({
             'name': 'lot1',
             'product_id': product.id,
-            'company_id': self.env.company.id,
         })
         lot2 = self.env['stock.lot'].create({
             'name': 'lot2',
             'product_id': product.id,
-            'company_id': self.env.company.id,
         })
         lot3 = self.env['stock.lot'].create({
             'name': '0000lot2',
             'product_id': product.id,
-            'company_id': self.env.company.id,
         })
 
 

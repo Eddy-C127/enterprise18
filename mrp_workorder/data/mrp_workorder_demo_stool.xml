@@ -250,17 +250,14 @@
         <record id="lot_stool_top_1" model="stock.lot" forcecreate="0">
             <field name="name">SN0012022</field>
             <field name="product_id" ref="product_product_stool_top_1"/>
-            <field name="company_id" ref="base.main_company"/>
         </record>
         <record id="lot_stool_top_2" model="stock.lot" forcecreate="0">
             <field name="name">SN0012022</field>
             <field name="product_id" ref="product_product_stool_top_2"/>
-            <field name="company_id" ref="base.main_company"/>
         </record>
         <record id="lot_stool_top_3" model="stock.lot" forcecreate="0">
             <field name="name">SN0012022</field>
             <field name="product_id" ref="product_product_stool_top_3"/>
-            <field name="company_id" ref="base.main_company"/>
         </record>
         <function model="product.product" name="write">
             <value eval="[ref('product_product_stool_top_1')]"/>

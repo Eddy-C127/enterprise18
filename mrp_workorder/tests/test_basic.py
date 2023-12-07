@@ -279,7 +279,7 @@ class TestWorkOrderProcessCommon(TestMrpWorkorderCommon):
         workorder = mo_laptop.workorder_ids[0]
 
         workorder.button_start()
-        serial = self.env['stock.lot'].create({'product_id': self.laptop.id, 'company_id': self.env.company.id})
+        serial = self.env['stock.lot'].create({'product_id': self.laptop.id})
         workorder.finished_lot_id = serial
         workorder.record_production()
         mo_laptop.button_mark_done()
@@ -477,9 +477,9 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         production_table.action_confirm()
 
         # Initial inventory of product sheet, lags and bolt
-        lot_sheet = self.env['stock.lot'].create({'product_id': product_table_sheet.id, 'company_id': self.env.company.id})
-        lot_leg = self.env['stock.lot'].create({'product_id': product_table_leg.id, 'company_id': self.env.company.id})
-        lot_bolt = self.env['stock.lot'].create({'product_id': product_bolt.id, 'company_id': self.env.company.id})
+        lot_sheet = self.env['stock.lot'].create({'product_id': product_table_sheet.id})
+        lot_leg = self.env['stock.lot'].create({'product_id': product_table_leg.id})
+        lot_bolt = self.env['stock.lot'].create({'product_id': product_bolt.id})
 
         # Initialize inventory
         # --------------------
@@ -522,7 +522,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         # --------------------------------------------------------------
         # Process assembly line
         # ---------------------------------------------------------
-        finished_lot = self.env['stock.lot'].create({'product_id': production_table.product_id.id, 'company_id': self.env.company.id})
+        finished_lot = self.env['stock.lot'].create({'product_id': production_table.product_id.id})
         workorder.write({'finished_lot_id': finished_lot.id})
         workorder.button_start()
         workorder.qty_producing = 1.0
@@ -601,9 +601,9 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         production_table = production_table_form.save()
         production_table.action_confirm()
         # Initial inventory of product sheet, lags and bolt
-        lot_sheet = self.env['stock.lot'].create({'product_id': product_table_sheet.id, 'company_id': self.env.company.id})
-        lot_leg = self.env['stock.lot'].create({'product_id': product_table_leg.id, 'company_id': self.env.company.id})
-        lot_bolt = self.env['stock.lot'].create({'product_id': product_bolt.id, 'company_id': self.env.company.id})
+        lot_sheet = self.env['stock.lot'].create({'product_id': product_table_sheet.id})
+        lot_leg = self.env['stock.lot'].create({'product_id': product_table_leg.id})
+        lot_bolt = self.env['stock.lot'].create({'product_id': product_bolt.id})
 
         # Initialize inventory
         # --------------------
@@ -645,7 +645,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         # ---------------------------------------------------------
         production_table.action_assign()
 
-        finished_lot = self.env['stock.lot'].create({'product_id': production_table.product_id.id, 'company_id': self.env.company.id})
+        finished_lot = self.env['stock.lot'].create({'product_id': production_table.product_id.id})
         workorders[0].write({'finished_lot_id': finished_lot.id, 'qty_producing': 1.0})
         workorders[0].button_start()
         move_table_sheet = production_table.move_raw_ids.filtered(lambda p: p.product_id == product_table_sheet)
@@ -748,8 +748,8 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         self.assertFalse(product_5_consume_moves, "Move should not create for phantom bom")
 
         # create required lots
-        lot_product_2 = self.env['stock.lot'].create({'product_id': self.product_2.id, 'company_id': self.env.company.id})
-        lot_product_4 = self.env['stock.lot'].create({'product_id': self.product_4.id, 'company_id': self.env.company.id})
+        lot_product_2 = self.env['stock.lot'].create({'product_id': self.product_2.id})
+        lot_product_4 = self.env['stock.lot'].create({'product_id': self.product_4.id})
 
         # refuel stock
         self.env['stock.quant'].create({
@@ -800,7 +800,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
 
         # subbom: kit for stone tools
         kit_wo.button_start()
-        finished_lot = self.env['stock.lot'].create({'product_id': man_order.product_id.id, 'company_id': self.env.company.id})
+        finished_lot = self.env['stock.lot'].create({'product_id': man_order.product_id.id})
         kit_wo.write({
             'finished_lot_id': finished_lot.id,
             'qty_producing': 48
@@ -811,7 +811,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         self.assertEqual(kit_wo.state, 'done', "Workorder should be in done state.")
 
         # first operation of main bom
-        finished_lot = self.env['stock.lot'].create({'product_id': man_order.product_id.id, 'company_id': self.env.company.id})
+        finished_lot = self.env['stock.lot'].create({'product_id': man_order.product_id.id})
         door_wo_1.button_start()
         door_wo_1.write({
             'finished_lot_id': finished_lot.id,
@@ -889,8 +889,8 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         # Set inventory for rawmaterial charger and keybord
         # --------------------------------------------------
 
-        lot_charger = self.env['stock.lot'].create({'product_id': product_charger.id, 'company_id': self.env.company.id})
-        lot_keybord = self.env['stock.lot'].create({'product_id': product_keybord.id, 'company_id': self.env.company.id})
+        lot_charger = self.env['stock.lot'].create({'product_id': product_charger.id})
+        lot_keybord = self.env['stock.lot'].create({'product_id': product_keybord.id})
 
         # Initialize Inventory
         # --------------------
@@ -922,7 +922,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         # -----------------
 
         # Produce 6 Unit of custom laptop will consume ( 12 Unit of keybord and 12 Unit of charger)
-        laptop_lot_001 = self.env['stock.lot'].create({'product_id': custom_laptop.id, 'company_id': self.env.company.id})
+        laptop_lot_001 = self.env['stock.lot'].create({'product_id': custom_laptop.id})
         mo_form = Form(mo_custom_laptop)
         mo_form.qty_producing = 6
         mo_form.lot_producing_id = laptop_lot_001
@@ -956,7 +956,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         # ----------------------------
 
         # Produce 4 Unit of custom laptop will consume ( 8 Unit of keybord and 8 Unit of charger).
-        laptop_lot_002 = self.env['stock.lot'].create({'product_id': custom_laptop.id, 'company_id': self.env.company.id})
+        laptop_lot_002 = self.env['stock.lot'].create({'product_id': custom_laptop.id})
         mo_custom_laptop = mo_custom_laptop.procurement_group_id.mrp_production_ids[1]
         mo_form = Form(mo_custom_laptop)
         mo_form.qty_producing = 4
@@ -1028,14 +1028,14 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
 
         workorders[0].open_tablet_view()
         workorder = workorders[0]
-        serial_a = self.env['stock.lot'].create({'product_id': laptop.id, 'company_id': self.env.company.id})
+        serial_a = self.env['stock.lot'].create({'product_id': laptop.id})
         workorder.finished_lot_id = serial_a
         workorder = self.env['mrp.workorder'].browse(workorder.record_production()['res_id'])
         self.assertTrue(workorder)
-        serial_b = self.env['stock.lot'].create({'product_id': laptop.id, 'company_id': self.env.company.id})
+        serial_b = self.env['stock.lot'].create({'product_id': laptop.id})
         workorder.finished_lot_id = serial_b
         workorder = self.env['mrp.workorder'].browse(workorder.record_production()['res_id'])
-        serial_c = self.env['stock.lot'].create({'product_id': laptop.id, 'company_id': self.env.company.id})
+        serial_c = self.env['stock.lot'].create({'product_id': laptop.id})
         workorder.finished_lot_id = serial_c
         workorder.record_production()
         self.assertEqual(workorders[0].state, 'done')
@@ -1109,13 +1109,11 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         drawer_drawer_lot = self.env['stock.lot'].create({
             'product_id': drawer_drawer.id,
             'name': 'dd0001',
-            'company_id': self.env.company.id,
         })
 
         drawer_case_lot = self.env['stock.lot'].create({
             'product_id': drawer_case.id,
             'name': 'dc0001',
-            'company_id': self.env.company.id,
         })
         self.env['stock.quant'].create({
             'product_id': drawer_drawer.id,
@@ -1136,18 +1134,15 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         lot_1 = self.env['stock.lot'].create({
             'product_id': product.id,
             'name': 'LOT000001',
-            'company_id': self.env.company.id,
         })
 
         lot_2 = self.env['stock.lot'].create({
             'product_id': product.id,
             'name': 'LOT000002',
-            'company_id': self.env.company.id,
         })
         self.env['stock.lot'].create({
             'product_id': product.id,
             'name': 'LOT000003',
-            'company_id': self.env.company.id,
         })
 
         mo_form = Form(self.env['mrp.production'])
@@ -2196,7 +2191,6 @@ class TestRoutingAndKits(TransactionCase):
         self.finished1.tracking = 'lot'
         lot1 = self.env['stock.lot'].create({
             'product_id': self.finished1.id,
-            'company_id': self.env.company.id,
         })
         mo_form = Form(self.env['mrp.production'])
         mo_form.product_id = self.finished1

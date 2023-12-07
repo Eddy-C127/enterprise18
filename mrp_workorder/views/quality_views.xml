@@ -77,7 +77,7 @@
                             <div class="o_workorder_lot">
                                 <div class="o_form_label ps-5" invisible="component_tracking != 'serial'">Serial</div>
                                 <div class="o_form_label ps-5" invisible="component_tracking != 'lot'">Lot</div>
-                                <field name="lot_id" class="text-center" context="{'default_product_id': component_id, 'default_company_id': company_id, 'active_mo_id': test_type == 'register_consumed_materials' and production_id or False}" invisible="component_tracking == 'none'" domain="[('product_id', '=', component_id), '|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
+                                <field name="lot_id" class="text-center" context="{'default_product_id': component_id, 'active_mo_id': test_type == 'register_consumed_materials' and production_id or False}" invisible="component_tracking == 'none'" domain="[('product_id', '=', component_id), ('company_id', '=', component_id.company_id)]"/>
                             </div>
                         </div>
                         <div class="d-block">

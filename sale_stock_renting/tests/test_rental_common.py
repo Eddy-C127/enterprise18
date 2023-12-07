@@ -44,19 +44,16 @@ class TestRentalCommon(common.TransactionCase):
         cls.lot_id1 = cls.env['stock.lot'].create({
             'product_id': cls.tracked_product_id.id,
             'name': "RentalLot1",
-            'company_id': cls.env.company.id,
         })
 
         cls.lot_id2 = cls.env['stock.lot'].create({
             'product_id': cls.tracked_product_id.id,
             'name': "RentalLot2",
-            'company_id': cls.env.company.id,
         })
 
         cls.lot_id3 = cls.env['stock.lot'].create({
             'product_id': cls.tracked_product_id.id,
             'name': "RentalLot3",
-            'company_id': cls.env.company.id,
         })
 
         quants = cls.env['stock.quant'].create({

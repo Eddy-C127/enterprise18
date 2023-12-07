@@ -26,19 +26,16 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         cls.lot_id1 = cls.env['stock.lot'].create({
             'product_id': cls.product_lot.id,
             'name': "Lot_1",
-            'company_id': cls.env.company.id,
         })
 
         cls.lot_id2 = cls.env['stock.lot'].create({
             'product_id': cls.product_lot.id,
             'name': "Lot_2",
-            'company_id': cls.env.company.id,
         })
 
         cls.lot_id3 = cls.env['stock.lot'].create({
             'product_id': cls.product_lot.id,
             'name': "Lot_3",
-            'company_id': cls.env.company.id,
         })
 
         cls.warehouse = cls.env['stock.warehouse'].search([('company_id', '=', cls.env.company.id)], limit=1)
@@ -123,35 +120,27 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         cls.lot_pls_1, cls.lot_pls_2, cls.lot_plns_1, cls.lot_plns_2, cls.serial_stock_1, cls.serial_stock_2, cls.serial_no_stock_1, cls.serial_no_stock_2 = cls.env['stock.lot'].create([{
             'product_id': cls.product_lot_stock.id,
             'name': "lot_pls_1",
-            'company_id': cls.env.company.id,
         }, {
             'product_id': cls.product_lot_stock.id,
             'name': "lot_pls_2",
-            'company_id': cls.env.company.id,
         }, {
             'product_id': cls.product_lot_no_stock.id,
             'name': "lot_plns_1",
-            'company_id': cls.env.company.id,
         }, {
             'product_id': cls.product_lot_no_stock.id,
             'name': "lot_plns_2",
-            'company_id': cls.env.company.id,
         }, {
             'name': 'serial_stock_1',
             'product_id': cls.product_sn_stock.id,
-            'company_id': cls.env.company.id,
         }, {
             'name': 'serial_stock_2',
             'product_id': cls.product_sn_stock.id,
-            'company_id': cls.env.company.id,
         }, {
             'name': 'serial_no_stock_1',
             'product_id': cls.product_sn_no_stock.id,
-            'company_id': cls.env.company.id,
         }, {
             'name': 'serial_no_stock_2',
             'product_id': cls.product_sn_no_stock.id,
-            'company_id': cls.env.company.id,
         }])
         # add products in stock
         cls.env['stock.quant'].with_context(inventory_mode=True).create([{
@@ -363,13 +352,11 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         serial1 = self.env['stock.lot'].create({
             'name': 'serial1',
             'product_id': product_tracked_by_sn.id,
-            'company_id': self.env.company.id,
         })
 
         serial2 = self.env['stock.lot'].create({
             'name': 'serial2',
             'product_id': product_tracked_by_sn.id,
-            'company_id': self.env.company.id,
         })
 
         product_tracked_by_sn.with_context({'fsm_task_id': self.task.id}).fsm_add_quantity()
@@ -1152,7 +1139,6 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         sn1 = self.env['stock.lot'].create({
             'name': 'SN0001',
             'product_id': product.id,
-            'company_id': self.env.company.id,
         })
         task_sn = self.env['project.task'].create({
             'name': 'Fsm task cereal',
@@ -1491,7 +1477,6 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         p01sn01, p01sn02, p01sn03, p02sn01, p03lot01, p03lot02 = self.env['stock.lot'].create([{
             'name': str(i),
             'product_id': p.id,
-            'company_id': self.env.company.id,
         } for i, p in enumerate([product_01_sn, product_01_sn, product_01_sn, product_02_sn, product_03_lot, product_03_lot])])
 
         self.env['stock.quant']._update_available_quantity(product_01_sn, self.warehouse.lot_stock_id, 1, lot_id=p01sn01)
