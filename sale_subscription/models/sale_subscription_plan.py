@@ -55,6 +55,12 @@ class SaleSubscriptionPlan(models.Model):
     # UX
     active_subs_count = fields.Integer(compute="_compute_active_subs_count", string="Subscriptions")
 
+    _sql_constraints = [
+        (
+            'check_for_valid_billing_period_value', 'CHECK(billing_period_value > 0)',
+            'Recurring period must be a positive number. Please ensure the input is a valid positive numeric value.')
+    ]
+
     def write(self, values):
         if "related_plan_id" in values:
             old_related = {plan.id: plan.related_plan_id for plan in self}
