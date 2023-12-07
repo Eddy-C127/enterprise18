@@ -2,7 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, Command, models
-from odoo.tools import float_is_zero
 
 
 class StockPicking(models.Model):
@@ -14,7 +13,7 @@ class StockPicking(models.Model):
             if not picking.sale_id or picking.picking_type_code != 'outgoing':
                 continue
             company_rec = self.env['res.company']._find_company_from_partner(picking.partner_id.id)
-            if company_rec and company_rec.rule_type in ('sale', 'sale_purchase') and company_rec.copy_lots_delivery:
+            if company_rec and company_rec.rule_type in ('sale', 'sale_purchase') and company_rec.sync_delivery_receipt:
                 # Fetch linked Sale Order
                 sale_order = picking.sale_id
                 purchase_order = self.env['purchase.order'].sudo().search([('name', '=', sale_order.client_order_ref), ('company_id', '=', company_rec.id)])
@@ -48,6 +47,8 @@ class StockPicking(models.Model):
             ml_vals = receipt_move._prepare_move_line_vals(quantity=0)
             if move_line.lot_id:
                 ml_vals['lot_name'] = move_line.lot_id.name
+                if not move_line.lot_id.company_id:
+                    ml_vals['lot_id'] = move_line.lot_id.id
             ml_vals['quantity'] = move_line.quantity
             ml_vals['picked'] = True
             move_lines_vals.append(ml_vals)

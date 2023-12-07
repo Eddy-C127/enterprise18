@@ -10,13 +10,17 @@
                     <label for="warehouse_id" string="Use Warehouse" class="col-4 col-lg-4 o_light_label"/>
                     <field name="warehouse_id" options="{'no_create_edit': True}"/>
                 </div>
+                <div class="row ml16" invisible="rule_type not in ('sale_purchase', 'sale')">
+                    <label for="intercompany_receipt_type_id" string="Use Operation" class="col-4 col-lg-4 o_light_label"/>
+                    <field name="intercompany_receipt_type_id" options="{'no_create_edit': True}"/>
+                </div>
                 <div class="row ml32" invisible="rule_type not in ('sale', 'purchase', 'sale_purchase')">
                     <field name="auto_validation" class="col-1 col-lg-1"/>
                     <label for="auto_validation" class="col o_light_label"/>
                 </div>
                 <div class="row ml32" invisible="rule_type not in ('sale', 'sale_purchase')">
-                    <field name="copy_lots_delivery" class="col-1 col-lg-1"/>
-                    <label for="copy_lots_delivery" class="col o_light_label"/>
+                    <field name="sync_delivery_receipt" class="col-1 col-lg-1"/>
+                    <label for="sync_delivery_receipt" class="col o_light_label"/>
                 </div>
             </xpath>
         </field>

@@ -45,7 +45,6 @@ class sale_order(models.Model):
             # create the PO and generate its lines from the SO
             # read it as sudo, because inter-compagny user can not have the access right on PO
             po_vals = rec.sudo()._prepare_purchase_order_data(company, company_partner)
-            inter_user = self.env['res.users'].sudo().browse(intercompany_uid)
             for line in rec.order_line.sudo():
                 po_vals['order_line'] += [(0, 0, rec._prepare_purchase_order_line_data(line, rec.date_order, company))]
             purchase_order = self.env['purchase.order'].create(po_vals)
@@ -69,12 +68,14 @@ class sale_order(models.Model):
         """
         self.ensure_one()
         # find location and warehouse, pick warehouse from company object
-        warehouse = company.warehouse_id and company.warehouse_id.company_id.id == company.id and company.warehouse_id or False
+        warehouse = company.warehouse_id if company.warehouse_id.company_id.id == company.id else False
         if not warehouse:
             raise UserError(_('Configure correct warehouse for company(%s) from Menu: Settings/Users/Companies', company.name))
-        picking_type_id = self.env['stock.picking.type'].search([
-            ('code', '=', 'incoming'), ('warehouse_id', '=', warehouse.id)
-        ], limit=1)
+        picking_type_id = company.intercompany_receipt_type_id
+        if not picking_type_id:
+            picking_type_id = self.env['stock.picking.type'].search([
+                ('code', '=', 'incoming'), ('warehouse_id', '=', warehouse.id)
+            ], limit=1)
         if not picking_type_id:
             intercompany_uid = company.intercompany_user_id.id
             picking_type_id = self.env['purchase.order'].with_user(intercompany_uid)._default_picking_type()
