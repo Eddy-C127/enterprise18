@@ -80,9 +80,6 @@ App to upload and manage your documents.
             ('include', 'web._assets_bootstrap_backend'),
             'documents/static/src/scss/documents_public_pages.scss',
         ],
-        'documents.pdf_js_assets': [
-            ('include', 'web.pdf_js_lib'),
-        ],
         'web.tests_assets': [
             'documents/static/tests/helpers/**/*',
         ],

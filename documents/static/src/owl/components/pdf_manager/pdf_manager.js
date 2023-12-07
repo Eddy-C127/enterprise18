@@ -2,7 +2,7 @@
 
 import { PdfGroupName } from "@documents/owl/components/pdf_group_name/pdf_group_name";
 import { PdfPage } from "@documents/owl/components/pdf_page/pdf_page";
-import { loadBundle } from "@web/core/assets";
+import { loadPDFJSAssets } from "@web/libs/pdfjs";
 import { useCommand } from "@web/core/commands/command_hook";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { Dialog } from "@web/core/dialog/dialog";
@@ -608,18 +608,14 @@ export class PdfManager extends Component {
      *        pdf.numPages {number}
      */
     async _getPdf(url) {
-        return window.pdfjsLib.getDocument(url).promise;
+        return globalThis.pdfjsLib.getDocument(url).promise;
     }
     /**
      * To be overwritten in tests.
      * @private
      */
     async _loadAssets() {
-        try {
-            await loadBundle("documents.pdf_js_assets");
-        } catch {
-            await loadBundle("web.pdf_js_lib");
-        }
+        await loadPDFJSAssets();
     }
     /**
      * @private

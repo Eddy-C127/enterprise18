@@ -71,7 +71,7 @@ export function startHelperLines(target) {
 }
 
 export function isVisible(e) {
-    return !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
+    return e && !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
 }
 
 export function offset(el) {

@@ -142,6 +142,7 @@ export class PDFIframe {
         const signItemElement = renderToString("sign.signItem", this.getContext(signItemData));
         target.insertAdjacentHTML("beforeend", signItemElement);
         const signItem = target.lastChild;
+        signItem.classList.add("d-none");
         this.enableCustom({ el: signItem, data: signItemData });
         return signItem;
     }
@@ -197,6 +198,7 @@ export class PDFIframe {
             const pageContainer = this.getPageContainer(page);
             for (const id in this.signItems[page]) {
                 const signItem = this.signItems[page][id].el;
+                signItem.classList.remove("d-none");
                 if (!signItem.parentElement || !signItem.parentElement.classList.contains("page")) {
                     pageContainer.append(signItem);
                 }

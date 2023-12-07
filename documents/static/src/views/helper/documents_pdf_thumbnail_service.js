@@ -3,10 +3,9 @@
 import { registry } from "@web/core/registry";
 import { useBus } from "@web/core/utils/hooks";
 import { Mutex } from "@web/core/utils/concurrency";
-import { loadBundle } from "@web/core/assets";
+import { loadPDFJSAssets } from "@web/libs/pdfjs";
 import { useComponent } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
-
 
 export const documentsPdfThumbnailService = {
     dependencies: ["orm"],
@@ -29,22 +28,18 @@ export const documentsPdfThumbnailService = {
                 return;
             }
             try {
-                try {
-                    await loadBundle("documents.pdf_js_assets");
-                } catch {
-                    await loadBundle("web.pdf_js_lib");
-                }
+                await loadPDFJSAssets();
                 // Force usage of worker to avoid hanging the tab.
-                initialWorkerSrc = window.pdfjsLib.GlobalWorkerOptions.workerSrc;
-                window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-                    "web/static/lib/pdfjs/build/pdf.worker.js";
+                initialWorkerSrc = globalThis.pdfjsLib.GlobalWorkerOptions.workerSrc;
+                globalThis.pdfjsLib.GlobalWorkerOptions.workerSrc =
+                    "/web/static/lib/pdfjs/build/pdf.worker.mjs";
             } catch {
                 enabled = false;
                 return;
             }
             let thumbnail = undefined;
             try {
-                const pdf = await window.pdfjsLib.getDocument(
+                const pdf = await globalThis.pdfjsLib.getDocument(
                     `/documents/content/${record.resId}?is_document_preview=1`
                 ).promise;
                 const page = await pdf.getPage(1);
@@ -80,7 +75,7 @@ export const documentsPdfThumbnailService = {
                     }
                 }
                 // Restore pdfjs's state
-                window.pdfjsLib.GlobalWorkerOptions.workerSrc = initialWorkerSrc;
+                globalThis.pdfjsLib.GlobalWorkerOptions.workerSrc = initialWorkerSrc;
             }
         };
         const enqueueRecord = (record) => {

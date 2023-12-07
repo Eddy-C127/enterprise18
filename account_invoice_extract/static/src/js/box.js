@@ -22,13 +22,16 @@ export class Box extends Component {
     //--------------------------------------------------------------------------
 
     get style() {
-        return 'left: ' + (this.state.box_midX * parseInt(this.props.pageWidth)) + 'px; ' +
-               'top: ' + (this.state.box_midY * parseInt(this.props.pageHeight)) + 'px; ' +
-               'width: ' + (this.state.box_width * parseInt(this.props.pageWidth)) + 'px; ' +
-               'height: ' + (this.state.box_height * parseInt(this.props.pageHeight)) + 'px; ' +
-               'transform: translate(-50%, -50%) rotate(' + this.state.box_angle + 'deg); ' +
-               '-ms-transform: translate(-50%, -50%) rotate(' + this.state.box_angle + 'deg); ' +
-               '-webkit-transform: translate(-50%, -50%) rotate(' + this.state.box_angle + 'deg);';
+        const style = [
+            `left: calc(${this.state.box_midX} * ${this.props.pageWidth})`,
+            `top: calc(${this.state.box_midY} * ${this.props.pageHeight})`,
+            `width: calc(${this.state.box_width} * ${this.props.pageWidth})`,
+            `height: calc(${this.state.box_height} * ${this.props.pageHeight})`,
+            `transform: translate(-50%, -50%) rotate(${this.state.box_angle}deg)`,
+            `-ms-transform: translate(-50%, -50%) rotate(${this.state.box_angle}deg)`,
+            `-webkit-transform: translate(-50%, -50%) rotate(${this.state.box_angle}deg)`,
+        ].join('; ');
+        return style;
     }
 
     //--------------------------------------------------------------------------

@@ -24,8 +24,8 @@ export class BoxLayer extends Component {
             this.pageWidth = this.props.pageLayer.style.width;
             this.pageHeight = this.props.pageLayer.style.height;
         } else if (this.isOnImg) {
-            this.pageWidth = this.props.pageLayer.clientWidth;
-            this.pageHeight = this.props.pageLayer.clientHeight;
+            this.pageWidth = `${this.props.pageLayer.clientWidth}px`;
+            this.pageHeight = `${this.props.pageLayer.clientHeight}px`;
         }
     }
 
