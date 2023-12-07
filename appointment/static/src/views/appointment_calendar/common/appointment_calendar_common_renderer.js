@@ -42,7 +42,6 @@ patch(AttendeeCalendarCommonRenderer.prototype, {
             ...this.convertRecordToEvent(record),
             id: this.maxResId + record.id, // Arbitrary id to avoid duplicated ids.
             slotId: record.id,
-            color: "green",
         };
         result.editable = true; // Keep slots editable
         return result;
@@ -96,9 +95,9 @@ patch(AttendeeCalendarCommonRenderer.prototype, {
                 const domParser = new DOMParser();
                 const injectedContentEl = domParser.parseFromString(
                     /* xml */ `
-                    <div class="fc-bg opacity-75 position-absolute top-0 end-0 bottom-0 start-0">
-                        <button class="close border-0 p-0 m-0 w-100 h-100 disabled o_hidden">
-                            <i class='fa fa-trash text-white m-0 ${iconSize}'></i>
+                    <div class="fc-bg position-absolute top-0 end-0 bottom-0 start-0 o_calendar_slot_delete">
+                        <button class="close btn d-flex align-items-center justify-content-center w-100 h-100 m-0 border-0 p-0 bg-success bg-opacity-50 o_hidden">
+                            <i class='fa fa-trash ${iconSize}'></i>
                         </button>
                     </div>
                 `,
