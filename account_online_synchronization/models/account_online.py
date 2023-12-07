@@ -522,6 +522,8 @@ class AccountOnlineLink(models.Model):
                 # It means that the token is active on the proxy and any further call resulting in an
                 # error would lose the new refresh_token hence blocking the account ad vitam eternam
                 self.env.cr.commit()
+                if self.journal_ids:  # We can't do it unless we already have a journal
+                    self._get_consent_expiring_date()
                 return self._fetch_odoo_fin(url, data, ignore_status)
             elif error.get('code') == 300:  # redirect, not an error
                 raise OdooFinRedirectException(mode=error.get('data', {}).get('mode', 'link'))
@@ -860,8 +862,7 @@ class AccountOnlineLink(models.Model):
             # that provider_data is committed in database as soon as we received it.
             if data.get('provider_data'):
                 self.env.cr.commit()
-            if self.journal_ids:  # We can't do it unless we already have a journal
-                self._get_consent_expiring_date()
+
         # if for some reason we just have to update the record without doing anything else, the mode will be set to 'none'
         if mode == 'none':
             return {'type': 'ir.actions.client', 'tag': 'reload'}
