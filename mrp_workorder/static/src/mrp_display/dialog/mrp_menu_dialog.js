@@ -94,6 +94,19 @@ export class MrpMenuDialog extends Component {
         this.props.close();
     }
 
+    unblock() {
+        this.action.doActionButton({
+            type: "object",
+            resId: this.props.record.data.workcenter_id[0],
+            name: "unblock",
+            resModel: "mrp.workcenter",
+            onClose: async () => {
+                await this.props.reload();
+            }
+        });
+        this.props.close();
+    }
+
     worksheetSuggestion(){
         const modalBodies = document.querySelectorAll('.o_mrp_menu_dialog');
         modalBodies.forEach(el => {
