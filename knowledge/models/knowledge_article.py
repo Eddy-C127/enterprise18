@@ -1351,6 +1351,11 @@ class Article(models.Model):
                 _("Cannot move %(article_name)s as a root of the 'shared' section since access rights can not be inferred without a parent.",
                   article_name=self.display_name)
             )
+        if parent.is_article_item:
+            raise ValidationError(
+                _("You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an Article Item. "
+                  "Convert %(item_name)s into an Article first.", article_name=self.display_name, item_name=parent.display_name)
+            )
 
         if category == 'private':
             # making an article private requires a lot of extra-processing, use specific method
@@ -2714,12 +2719,13 @@ class Article(models.Model):
         current article (to avoid recursions) """
         return self.search_read(
             domain=[
-                '&', '&', '&', '&',
+                '&', '&', '&', '&', '&',
                     ('is_template', '=', False),
                     ('name', 'ilike', search_term),
                     ('id', 'not in', self.ids),
                     '!', ('parent_id', 'child_of', self.ids),
                     ('user_has_access', '=', True),
+                    ('is_article_item', '=', False),
             ],
             fields=['id', 'display_name', 'root_article_id'],
             limit=15,
