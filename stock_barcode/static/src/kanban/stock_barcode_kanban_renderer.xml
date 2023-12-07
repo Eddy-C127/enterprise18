@@ -6,7 +6,7 @@
             <div t-if="display_protip" class="o_kanban_tip_filter h5 w-100 mt-4 mb-2 d-flex align-items-center justify-content-center">
                 <span t-if="packageEnabled">Scan a transfer, a product or a package to filter your records</span>
                 <span t-else="">Scan a transfer or a product to filter your records</span>
-                <button t-if="isMobileScanner" class="o_stock_mobile_barcode btn fa fa-barcode" t-on-click="openMobileScanner"/>
+                <button t-if="isMobileScanner" class="o_stock_mobile_barcode btn fa fa-barcode" t-on-click="openManualBarcodeDialog"/>
             </div>
         </xpath>
     </t>

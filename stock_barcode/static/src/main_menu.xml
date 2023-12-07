@@ -17,13 +17,12 @@
             </div>
 
             <div class="o_stock_barcode_container position-relative d-inline-block mt-4 mb-5">
-                <div t-if='mobileScanner' class="o_stock_mobile_barcode_container">
-                    <button class="btn btn-primary o_stock_mobile_barcode" t-on-click="openMobileScanner">
+                <div class="o_stock_mobile_barcode_container">
+                    <button class="btn btn-primary o_stock_mobile_barcode" t-on-click="openManualBarcodeDialog">
                         <i class="fa fa-camera fa-2x o_mobile_barcode_camera"/> Tap to scan
                     </button>
                     <img src="/barcodes/static/img/barcode.png" alt="Barcode" class="img-fluid mb-1 mt-1"/>
                 </div>
-                <img t-else="" src="/barcodes/static/img/barcode.png" alt="Barcode" class="img-fluid mb-1 mt-1"/>
                 <span class="o_stock_barcode_laser"/>
             </div>
 

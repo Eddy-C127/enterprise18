@@ -9,6 +9,7 @@ import { user } from "@web/core/user";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { serializeDate, today } from "@web/core/l10n/dates";
 import { Component, onWillStart, useState } from "@odoo/owl";
+import { ManualBarcodeScanner } from "./components/manual_barcode";
 
 export class MainMenu extends Component {
     static props = {
@@ -22,7 +23,7 @@ export class MainMenu extends Component {
     setup() {
         const displayDemoMessage = this.props.action.params.message_demo_barcodes;
         this.actionService = useService('action');
-        this.dialogService = useService('dialog');
+        this.dialogService = useService("dialog");
         this.home = useService("home_menu");
         this.notificationService = useService("notification");
         this.state = useState({ displayDemoMessage });
@@ -54,6 +55,18 @@ export class MainMenu extends Component {
         } else {
             this.notificationService.add(_t("Please, Scan again!"), { type: 'warning' });
         }
+    }
+
+    openManualBarcodeDialog() {
+        this.dialogService.add(ManualBarcodeScanner, {
+            openMobileScanner: async () => {
+                await this.openMobileScanner();
+            },
+            onApply: (barcode) => {
+                this._onBarcodeScanned(barcode);
+                return barcode;
+            }
+        });
     }
 
     removeDemoMessage() {
