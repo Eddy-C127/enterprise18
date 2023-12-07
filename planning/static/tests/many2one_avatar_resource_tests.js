@@ -8,6 +8,8 @@ import { setupViewRegistries } from "@web/../tests/views/helpers";
 
 import { patchAvatarCardPopover } from "@hr/components/avatar_card/avatar_card_popover_patch";
 import { AvatarCardPopover } from "@mail/discuss/web/avatar_card/avatar_card_popover";
+import { patchAvatarCardResourcePopover } from "@planning/components/avatar_card_resource/avatar_card_resource_popover_patch";
+import { AvatarCardResourcePopover } from "@resource_mail/components/avatar_card_resource/avatar_card_resource_popover";
 import { patchM2oResourceField } from "@planning/views/fields/many2one_avatar_resource/many2one_avatar_resource_field_patch";
 import {
     many2OneAvatarResourceField,
@@ -27,6 +29,7 @@ QUnit.module("M2OAvatarResourceWidgetTestsPlanning", {
         this.serverData = {};
         setupViewRegistries();
         patchWithCleanup(AvatarCardPopover.prototype, patchAvatarCardPopover);
+        patchWithCleanup(AvatarCardResourcePopover.prototype, patchAvatarCardResourcePopover);
         patchWithCleanup(many2OneAvatarResourceField, patchM2oResourceField);
         patchWithCleanup(kanbanMany2OneAvatarResourceField, patchM2oResourceField);
 

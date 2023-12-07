@@ -6,7 +6,9 @@ import { contains } from "@web/../tests/utils";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
 import { patchWithCleanup, click } from "@web/../tests/helpers/utils";
 import { patchAvatarCardPopover } from "@hr/components/avatar_card/avatar_card_popover_patch";
+import { patchAvatarCardResourcePopover } from "@planning/components/avatar_card_resource/avatar_card_resource_popover_patch";
 import { AvatarCardPopover } from "@mail/discuss/web/avatar_card/avatar_card_popover";
+import { AvatarCardResourcePopover } from "@resource_mail/components/avatar_card_resource/avatar_card_resource_popover";
 
 
 QUnit.module("M2MAvatarResourceWidgetTests", {
@@ -19,6 +21,7 @@ QUnit.module("M2MAvatarResourceWidgetTests", {
         this.serverData = {};
         setupViewRegistries();
         patchWithCleanup(AvatarCardPopover.prototype, patchAvatarCardPopover);
+        patchWithCleanup(AvatarCardResourcePopover.prototype, patchAvatarCardResourcePopover);
 
         /* 1. Create data
            4 type of resources will be tested in the widget:

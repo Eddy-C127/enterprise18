@@ -2,7 +2,6 @@
 
 import { patch } from "@web/core/utils/patch";
 import { AvatarCardResourcePopover } from "@resource_mail/components/avatar_card_resource/avatar_card_resource_popover";
-import { TagsList } from "@web/core/tags_list/tags_list";
 
 
 export const patchAvatarCardResourcePopover = {
@@ -39,9 +38,3 @@ export const patchAvatarCardResourcePopover = {
 };
 
 export const unpatchAvatarCardResourcePopover = patch(AvatarCardResourcePopover.prototype, patchAvatarCardResourcePopover);
-patch(AvatarCardResourcePopover, {
-    components: {
-        ...AvatarCardResourcePopover.components,
-        TagsList,
-    },
-});
