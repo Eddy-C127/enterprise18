@@ -1409,3 +1409,109 @@ class TestReportEngines(TestAccountReportsCommon):
         report.line_ids[0].expression_ids[0].engine = 'tax_tags'
         tags = self.env['account.account.tag']._get_tax_tags(formula, self.fake_country.id)
         self.assertEqual(tags.mapped('name'), ['-' + formula, '+' + formula])
+
+    def test_integer_rounding(self):
+        line_1 = self._prepare_test_report_line(
+            self._prepare_test_expression_domain([('account_id.code', '=', '101001')], 'sum'),
+            code='test_1',
+        )
+        line_2 = self._prepare_test_report_line(
+            self._prepare_test_expression_tax_tags('42'),
+            code='test_2',
+        )
+        line_3 = self._prepare_test_report_line(
+            self._prepare_test_expression_account_codes('1'),
+            code='test_3',
+        )
+        line_4 = self._prepare_test_report_line(
+            self._prepare_test_expression_external('sum', [
+                self._prepare_test_external_values(3.5, '2023-01-01'),
+            ]),
+            code='test_4',
+        )
+        line_5 = self._prepare_test_report_line(
+            self._prepare_test_expression_aggregation('test_1.balance + test_2.balance + test_3.balance + test_4.balance'),
+            code='test_5',
+        )
+        line_6 = self._prepare_test_report_line(
+            self._prepare_test_expression_aggregation('test_5.balance / 10'),
+        )
+
+        report = self._create_report([line_1, line_2, line_3, line_4, line_5, line_6], country_id=self.fake_country.id,)
+
+        self._create_test_account_moves([
+            self._prepare_test_account_move_line(5.4, account_code='101001', tax_tags=['+42'], date='2023-01-01'),
+        ])
+
+        main_options = self._generate_options(report, '2023-01-01', '2023-01-01')
+
+        # Test with a first rounding
+        self.assertLinesValues(
+            # pylint: disable=bad-whitespace
+            report._get_lines(report._custom_options_add_integer_rounding({**main_options}, 'HALF-UP')),
+            [   0,                              1],
+            [
+                ('test_line_1',               5.0),
+                ('test_line_2',               5.0),
+                ('test_line_3',               5.0),
+                ('test_line_4',               4.0),
+                ('test_line_5',              19.0),
+                ('test_line_6',               2.0),
+            ],
+            main_options,
+        )
+
+        # Test with another rounding method
+        up_options = report._custom_options_add_integer_rounding({**main_options}, 'UP', previous_options={'integer_rounding_enabled': True})
+        self.assertLinesValues(
+            # pylint: disable=bad-whitespace
+            report._get_lines(up_options),
+            [   0,                              1],
+            [
+                ('test_line_1',               6.0),
+                ('test_line_2',               6.0),
+                ('test_line_3',               6.0),
+                ('test_line_4',               4.0),
+                ('test_line_5',              22.0),
+                ('test_line_6',               3.0),
+            ],
+            up_options
+        )
+
+        # In print mode, the rounding should always be applied, even if it was previously disabled
+        print_mode_options = report.with_context(print_mode=True)._custom_options_add_integer_rounding(
+            {**main_options},
+            'HALF-UP',
+            previous_options={'integer_rounding_enabled': False},
+        )
+        self.assertLinesValues(
+            # pylint: disable=bad-whitespace
+            report._get_lines(print_mode_options),
+            [   0,                              1],
+            [
+                ('test_line_1',               5.0),
+                ('test_line_2',               5.0),
+                ('test_line_3',               5.0),
+                ('test_line_4',               4.0),
+                ('test_line_5',              19.0),
+                ('test_line_6',               2.0),
+            ],
+            print_mode_options,
+        )
+
+        # Rounding available, but disabled
+        no_rounding_options = report._custom_options_add_integer_rounding({**main_options}, 'UP', previous_options={'integer_rounding_enabled': False})
+        self.assertLinesValues(
+            # pylint: disable=bad-whitespace
+            report._get_lines(no_rounding_options),
+            [   0,                               1],
+            [
+                ('test_line_1',               5.40),
+                ('test_line_2',               5.40),
+                ('test_line_3',               5.40),
+                ('test_line_4',               3.50),
+                ('test_line_5',              19.70),
+                ('test_line_6',               1.97),
+            ],
+            no_rounding_options,
+        )

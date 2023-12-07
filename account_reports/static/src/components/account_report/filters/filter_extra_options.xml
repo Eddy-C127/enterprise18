@@ -71,6 +71,15 @@
                     Hide lines at 0
                 </DropdownItem>
             </t>
+
+            <t t-if="controller.options.integer_rounding">
+                <DropdownItem
+                    class="{ 'selected': controller.options.integer_rounding_enabled }"
+                    onSelected="() => this.toggleFilter('integer_rounding_enabled')"
+                >
+                    Integer Rounding
+                </DropdownItem>
+            </t>
         </Dropdown>
     </t>
 </templates>
