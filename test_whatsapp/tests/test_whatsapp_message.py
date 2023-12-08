@@ -118,7 +118,7 @@ class WhatsAppMessage(WhatsAppFullCase, MockIncomingWhatsApp):
     def test_message_values_from_receive_new_number(self):
         """ Check values produced when receiving a new message from a new
         number. """
-        for mobile_number, exp_mobile_nbr_formatted, exp_mobile_nbr_formatted_intl, exp_country in zip(
+        for mobile_number, exp_mobile_nbr_formatted, _exp_mobile_nbr_formatted_intl, exp_country in zip(
             self.mobile_numbers_formatted_wa,
             self.mobile_numbers_formatted,
             self.mobile_numbers_formatted_intl,
@@ -137,8 +137,8 @@ class WhatsAppMessage(WhatsAppFullCase, MockIncomingWhatsApp):
                     mobile_number,
                     new_partner_values={
                         'country_id': exp_country,
-                        'mobile': exp_mobile_nbr_formatted_intl,
-                        'name': exp_mobile_nbr_formatted_intl,
+                        'mobile': exp_mobile_nbr_formatted,
+                        'name': exp_mobile_nbr_formatted,
                     },
                     channel_values={
                         'channel_type': 'whatsapp',

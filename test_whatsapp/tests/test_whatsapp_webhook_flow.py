@@ -240,8 +240,8 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
         new_partner = self.env['res.partner'].search([('id', 'not in', existing_partners.ids)])
         self.assertEqual(len(new_partner), 1)
         self.assertEqual(discuss_channel.channel_partner_ids, self.user_wa_admin.partner_id + new_partner)
-        self.assertEqual(new_partner.mobile, "+32 499 12 34 56")
-        self.assertEqual(new_partner.name, "+32 499 12 34 56")
+        self.assertEqual(new_partner.mobile, "+32499123456")
+        self.assertEqual(new_partner.name, "+32499123456")
         self.assertFalse(new_partner.phone)
 
     def test_responsible_with_template(self):
@@ -279,6 +279,7 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
             # -> should be the last fallback: 'account.notify_user_ids'
             self._test_responsible_with_template(
                 test_record_no_responsible,
+                '+32497111111',
                 expected_responsible,
                 test_template_no_record)
         self.env['discuss.channel'].search([('channel_type', '=', 'whatsapp')]).unlink()  # reset channels
@@ -290,6 +291,7 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
             # -> should be the last fallback: 'account.notify_user_ids'
             self._test_responsible_with_template(
                 test_record,
+                '+32497999999',
                 expected_responsible,
                 test_template)
         self.env['discuss.channel'].search([('channel_type', '=', 'whatsapp')]).unlink()  # reset channels
@@ -302,6 +304,7 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
             # -> should be the write_uid fallback: 'user_salesperson'
             self._test_responsible_with_template(
                 test_record,
+                '+32497999999',
                 expected_responsible,
                 test_template)
         self.env['discuss.channel'].search([('channel_type', '=', 'whatsapp')]).unlink()  # reset channels
@@ -312,6 +315,7 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
             # -> should be the author fallback: 'user_salesperson_2'
             self._test_responsible_with_template(
                 test_record,
+                '+32497999999',
                 expected_responsible,
                 test_template,
                 context_user=self.user_salesperson_2)
@@ -325,6 +329,7 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
             # -> should be the owner (user_id) fallback: 'user_salesperson_3'
             self._test_responsible_with_template(
                 test_record,
+                '+32497999999',
                 expected_responsible,
                 test_template)
         self.env['discuss.channel'].search([('channel_type', '=', 'whatsapp')]).unlink()  # reset channels
@@ -337,6 +342,7 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
             # -> should be the owner (user_id) + sender: 'user_salesperson_2' + 'user_salesperson_3'
             self._test_responsible_with_template(
                 test_record,
+                '+32497999999',
                 expected_responsible,
                 test_template,
                 context_user=self.user_salesperson_2)
@@ -352,11 +358,12 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
             # 'user_salesperson' + 'user_salesperson_2' + 'user_salesperson_3'
             self._test_responsible_with_template(
                 test_record,
+                '+32497999999',
                 expected_responsible,
                 test_template,
                 context_user=self.user_salesperson_2)
 
-    def _test_responsible_with_template(self, test_record, expected_responsible, template_id, context_user=False):
+    def _test_responsible_with_template(self, test_record, exp_phone, expected_responsible, template_id, context_user=False):
         """ Receive a message that is linked to a template sent on test_record.
         Should create a channel linked to that document, using the 'expected_responsible'
         as members. """
@@ -391,4 +398,4 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
             self.assertIn(user.partner_id, discuss_channel.channel_partner_ids)
         customer_partner = discuss_channel.channel_partner_ids - expected_responsible.partner_id
         self.assertEqual(len(customer_partner), 1)
-        self.assertEqual(customer_partner.name, test_record.phone)
+        self.assertEqual(customer_partner.name, exp_phone)
