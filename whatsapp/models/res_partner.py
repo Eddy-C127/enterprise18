@@ -1,8 +1,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, _
+import logging
 
+from odoo import models, _
 from odoo.addons.phone_validation.tools import phone_validation
+
+_logger = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
@@ -11,8 +14,12 @@ class ResPartner(models.Model):
     def _find_or_create_from_number(self, number, name=False):
         """ Number should come currently from whatsapp and contain country info. """
         number_with_sign = '+' + number
-        format_number = phone_validation.phone_format(number_with_sign, False, False)
-        if not number and not format_number:
+        try:
+            format_number = phone_validation.phone_format(number_with_sign, False, False)
+        except Exception:  # noqa: BLE001 don't want to crash in that point, whatever the issue
+            _logger.warning('WhatsApp: impossible to format incoming number %s, skipping partner creation', number_with_sign)
+            format_number = False
+        if not number or not format_number:
             return self.env['res.partner']
 
         partner = self.env['res.partner'].search(
