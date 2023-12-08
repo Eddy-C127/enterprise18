@@ -38,7 +38,7 @@ import { BankRecRainbowContent } from "./rainbowman_content";
 import { BankRecFinishButtons } from "./finish_buttons";
 import { BankRecGlobalInfo } from "./global_info";
 
-import { useState, useEffect, useRef, useChildSubEnv, markRaw } from "@odoo/owl";
+import { onPatched, useState, useEffect, useRef, useChildSubEnv, markRaw } from "@odoo/owl";
 
 export class BankRecKanbanRecord extends KanbanRecord {
     static template = "account.BankRecKanbanRecord";
@@ -160,6 +160,15 @@ export class BankRecKanbanController extends KanbanController {
                     );
                 }
                 return exportState;
+            }
+        });
+
+        onPatched(() => {
+            if(
+                this.state.bankRecClickedColumn
+                && this.focusManualOperationField(this.state.bankRecClickedColumn)
+            ){
+                this.state.bankRecClickedColumn = null;
             }
         });
 
@@ -362,12 +371,6 @@ export class BankRecKanbanController extends KanbanController {
     onPageUpdate(page) {
         if (this.state.bankRecNotebookPage !== page) {
             this.state.bankRecNotebookPage = page;
-        }
-        if(
-            this.state.bankRecClickedColumn
-            && this.focusManualOperationField(this.state.bankRecClickedColumn)
-        ){
-            this.state.bankRecClickedColumn = null;
         }
     }
 
@@ -1046,6 +1049,7 @@ export class BankRecKanbanController extends KanbanController {
     }
 
     async handleLineClicked(ev, line){
+        const lineIndexBeforeClick = this.state.bankRecRecordData.form_index;
         await this.actionMountLineInEdit(line);
 
         let clickedColumn = null;
@@ -1055,8 +1059,14 @@ export class BankRecKanbanController extends KanbanController {
         }
 
         // Track the clicked column to focus automatically the corresponding field on the manual operations page.
-        if(clickedColumn && !this.focusManualOperationField(clickedColumn)){
-            this.state.bankRecClickedColumn = clickedColumn;
+        // In case we did not change the selected line we directly focus the corresponding field.
+        if(clickedColumn){
+            if(lineIndexBeforeClick === line.data.index) {
+                this.focusManualOperationField(clickedColumn);
+                this.state.bankRecClickedColumn = null;
+            } else {
+                this.state.bankRecClickedColumn = clickedColumn;
+            }
         }
     }
 
