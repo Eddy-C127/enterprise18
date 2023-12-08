@@ -205,16 +205,6 @@ export class PlanningGanttRenderer extends GanttRenderer {
     }
 
     /**
-     * @override
-     */
-    getSelectCreateDialogProps() {
-        return {
-            ...super.getSelectCreateDialogProps(...arguments),
-            noCreate: true,
-        };
-    }
-
-    /**
      * By default in the gantt view we show aggregation info in the columns that have pills inside.
      * In the planning gantt view we colour the group rows based on whether the resource is under/over planned for a day.
      * This requires the aggregation info to remain visible even in the absence of pills.
