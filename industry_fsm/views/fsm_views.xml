@@ -120,7 +120,7 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
-                <field name="partner_phone" string="Phone"/>
+                <field name="partner_phone" string="Contact Number"/>
             </field>
         </field>
     </record>
@@ -241,7 +241,7 @@
             </field>
             <xpath expr="//div[@t-if='partner_id']" position="after">
                 <div t-if="partner_phone">
-                    <strong>Phone — </strong> <t t-out="partner_phone"/>
+                    <strong>Contact Number — </strong> <t t-out="partner_phone"/>
                 </div>
             </xpath>
         </field>

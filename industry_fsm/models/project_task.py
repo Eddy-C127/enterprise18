@@ -42,7 +42,7 @@ class Task(models.Model):
     display_mark_as_done_secondary = fields.Boolean(compute='_compute_mark_as_done_buttons', export_string_translation=False)
     partner_phone = fields.Char(
         compute='_compute_partner_phone', inverse='_inverse_partner_phone',
-        string="Phone", readonly=False, store=True, copy=False)
+        string="Contact Number", readonly=False, store=True, copy=False)
     partner_city = fields.Char(related='partner_id.city', readonly=False)
     partner_zip = fields.Char(string='ZIP', related='partner_id.zip')
     partner_street = fields.Char(related='partner_id.street')
@@ -116,21 +116,26 @@ class Task(models.Model):
                 'display_mark_as_done_secondary': secondary,
             })
 
-    @api.depends('partner_id.phone')
+    @api.depends('partner_id.phone', 'partner_id.mobile')
     def _compute_partner_phone(self):
         for task in self:
-            if task.partner_phone != task.partner_id.phone:
-                task.partner_phone = task.partner_id.phone
+            task.partner_phone = task.partner_id.mobile or task.partner_id.phone or False
 
     def _inverse_partner_phone(self):
         for task in self:
-            if task.partner_id and task.partner_phone != task.partner_id.phone:
-                task.partner_id.phone = task.partner_phone
+            if task.partner_id:
+                if task.partner_id.mobile or not task.partner_id.phone:
+                    task.partner_id.mobile = task.partner_phone
+                else:
+                    task.partner_id.phone = task.partner_phone
 
     @api.depends('partner_phone', 'partner_id.phone')
     def _compute_is_task_phone_update(self):
         for task in self:
-            task.is_task_phone_update = task.partner_phone != task.partner_id.phone
+            if task.partner_id.mobile or not task.partner_id.phone:
+                task.is_task_phone_update = task.partner_phone != task.partner_id.mobile
+            else:
+                task.is_task_phone_update = task.partner_phone != task.partner_id.phone
 
     @api.depends('project_id.allow_timesheets', 'total_hours_spent')
     def _compute_display_conditions_count(self):
