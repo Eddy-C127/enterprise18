@@ -420,7 +420,10 @@ QUnit.module("WebClient Enterprise", (hooks) => {
 
             await click(fixture.querySelector(".o_menu_toggle"));
             await nextTick();
-            assert.deepEqual(webClient.env.services.router.current.hash, { action: "menu" });
+            assert.deepEqual(webClient.env.services.router.current.hash, {
+                action: "menu",
+                menu_id: 2,
+            });
 
             await click(fixture.querySelector(".o_menu_toggle"));
             await nextTick();
@@ -470,6 +473,10 @@ QUnit.module("WebClient Enterprise", (hooks) => {
         await click(fixture.querySelector(".o_apps > .o_draggable:nth-child(2) > .o_app"));
         await nextTick();
         assert.containsOnce(fixture, ".test_client_action");
+        assert.strictEqual(
+            fixture.querySelector(".test_client_action").textContent.trim(),
+            "ClientAction_Id 2"
+        );
         assert.containsNone(fixture, ".o_home_menu");
         const state = webClient.env.services.router.current.hash;
         assert.deepEqual(state, {
@@ -486,8 +493,30 @@ QUnit.module("WebClient Enterprise", (hooks) => {
 
         await loadState(webClient, state);
         assert.containsOnce(fixture, ".test_client_action");
+        assert.strictEqual(
+            fixture.querySelector(".test_client_action").textContent.trim(),
+            "ClientAction_Id 2"
+        );
         assert.containsNone(fixture, ".o_home_menu");
         assert.deepEqual(webClient.env.services.router.current.hash, state);
+
+        await loadState(webClient, {});
+        assert.containsNone(fixture, ".test_client_action");
+        assert.containsOnce(fixture, ".o_home_menu");
+        assert.deepEqual(webClient.env.services.router.current.hash, {
+            action: "menu",
+        });
+
+        // switch to  the first app
+        const app1State = { action: 1001, menu_id: 1 };
+        await loadState(webClient, app1State);
+        assert.containsOnce(fixture, ".test_client_action");
+        assert.strictEqual(
+            fixture.querySelector(".test_client_action").textContent.trim(),
+            "ClientAction_Id 1"
+        );
+        assert.containsNone(fixture, ".o_home_menu");
+        assert.deepEqual(webClient.env.services.router.current.hash, app1State);
     });
 
     QUnit.test(
