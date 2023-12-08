@@ -2165,7 +2165,7 @@ Content-Disposition: form-data; name="xml"; filename="xml"
 
         for counter, document in enumerate(documents):
             if counter == batch_size:
-                self.env('l10n_mx_edi.ir_cron_update_pac_status_invoice')._trigger()
+                self.env.ref('l10n_mx_edi.ir_cron_update_pac_status_invoice')._trigger()
             else:
                 document._update_sat_state()
                 if not tools.config['test_enable'] and not modules.module.current_test:
