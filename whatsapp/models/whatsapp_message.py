@@ -101,14 +101,27 @@ class WhatsAppMessage(models.Model):
         messages = super().create(vals)
         for message in messages:
             body = html2plaintext(message.body)
-            if message.message_type == 'inbound':
-                number = '+' + message['mobile_number']
-                message = re.findall('([a-zA-Z]+)', body)
-                message_string = "".join(i.lower() for i in message)
-                if message_string in self._get_opt_out_message():
-                    self.env['phone.blacklist'].sudo().add(number=number, message=_("User has been opt out of receiving WhatsApp messages"))
-                else:
-                    self.env['phone.blacklist'].sudo().remove(number=number, message=_("User has opted in to receiving WhatsApp messages"))
+            if message.message_type == 'inbound' and message.mobile_number_formatted:
+                body_message = re.findall('([a-zA-Z]+)', body)
+                message_string = "".join(i.lower() for i in body_message)
+                try:
+                    if message_string in self._get_opt_out_message():
+                        self.env['phone.blacklist'].sudo().add(
+                            number=f'+{message.mobile_number_formatted}',  # from WA to E164 format
+                            message=_("User has been opt out of receiving WhatsApp messages"),
+                        )
+                    else:
+                        self.env['phone.blacklist'].sudo().remove(
+                            number=f'+{message.mobile_number_formatted}',  # from WA to E164 format
+                            message=_("User has opted in to receiving WhatsApp messages"),
+                        )
+                except UserError:
+                    # there was something wrong with number formatting that cannot be
+                    # accepted by the blacklist -> simply skip, better be defensive
+                    _logger.warning(
+                        'Whatsapp: impossible to change opt-in status of %s (formatted as %s) as it is not a valid number (whatsapp.message-%s)',
+                        message.mobile_number, message.mobile_number_formatted, message.id
+                    )
         return messages
 
     @api.autovacuum
