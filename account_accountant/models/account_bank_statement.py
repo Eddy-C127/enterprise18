@@ -110,36 +110,24 @@ class AccountBankStatementLine(models.Model):
                 ('create_date', '>', start_time.date() - relativedelta(months=3)),
                 ('company_id', 'in', configured_company.ids),
             ]
-            query_obj = self._search(domain, limit=limit)
-            query_obj.order = '"account_bank_statement_line"."cron_last_check" ASC NULLS FIRST,"account_bank_statement_line"."id"'
-            query_str, query_params = query_obj.select('account_bank_statement_line.id')
-            self._cr.execute(query_str, query_params)
-            st_line_ids = [r[0] for r in self._cr.fetchall()]
-            if batch_size and len(st_line_ids) > batch_size:
-                remaining_line_id = st_line_ids[batch_size]
-                st_line_ids = st_line_ids[:batch_size]
-            st_lines = self.env['account.bank.statement.line'].browse(st_line_ids)
+            st_lines = self.search(domain, limit=limit, order="cron_last_check ASC NULLS FIRST, id")
+            if batch_size and len(st_lines) > batch_size:
+                remaining_line_id = st_lines[batch_size].id
+                st_lines = st_lines[:batch_size]
             return st_lines, remaining_line_id
 
         start_time = fields.Datetime.now()
 
-        self.env['account.reconcile.model'].flush_model()
-
         # Check the companies having at least one reconcile model using the 'auto_reconcile' feature.
-        query_obj = self.env['account.reconcile.model']._search([
+        configured_company = children_company = self.env['account.reconcile.model'].search_fetch([
             ('auto_reconcile', '=', True),
             ('rule_type', 'in', ('writeoff_suggestion', 'invoice_matching')),
-        ])
-        query_obj.order = 'company_id'
-        query_str, query_params = query_obj.select('DISTINCT company_id')
-        self._cr.execute(query_str, query_params)
-        configured_company = children_company = self.env['res.company'].browse([r[0] for r in self._cr.fetchall()])
+        ], ['company_id']).company_id
         if not configured_company:
             return
         while children_company := children_company.child_ids:
             configured_company += children_company
 
-        self.env['account.bank.statement.line'].flush_model()
         # we either already have statement lines to reconcile or compute them
         st_lines, remaining_line_id = (self, None) if self else _compute_st_lines_to_reconcile(configured_company)
 

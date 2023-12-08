@@ -43,23 +43,23 @@ class SaleOrder(models.Model):
             })
             return action
         else:
-            ticket = self.env['helpdesk.ticket']._search(['|', ('sale_order_id', '=', self.id), ('sale_line_id', 'in', self.order_line.ids)], limit=1)
+            ticket = self.env['helpdesk.ticket'].search(['|', ('sale_order_id', '=', self.id), ('sale_line_id', 'in', self.order_line.ids)], limit=1)
             return {
                 'type': 'ir.actions.act_window',
                 'name': _('Ticket'),
                 'res_model': 'helpdesk.ticket',
                 'views': [(self.env.ref('helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet').id, 'form')],
-                'res_id': list(ticket)[0],
+                'res_id': ticket.id,
                 'context': self._get_ticket_action_context(default_sale_line),
             }
 
     def _get_ticket_action_context(self, default_line):
-        default_team_id = self.env['helpdesk.team']._search([('use_helpdesk_sale_timesheet', '=', True)], order='sequence', limit=1)
+        default_team = self.env['helpdesk.team'].search([('use_helpdesk_sale_timesheet', '=', True)], order='sequence', limit=1)
         return {
             **self.env.context,
             'default_sale_line_id': default_line.id,
             'default_partner_id': self.partner_id.id,
             'default_sale_order_id': self.id,
-            'default_team_id': default_team_id,
+            'default_team_id': default_team.id,
             'default_company_id': self.company_id.id,
         }
