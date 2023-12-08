@@ -132,42 +132,6 @@
             <t t-call="sale_subscription.subscription_portal_sidebar"/>
         </t>
 
-        <div id="sale_order_communication" position="before">
-            <!-- ======  Change Payment Method ====== -->
-            <div t-if="sale_order.subscription_state in ['3_progress', '6_churn']" role="dialog" class="modal fade" id="payment_managing">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <header class="modal-header">
-                            <h4 class="modal-title">Manage Payment Method</h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </header>
-                        <main class="modal-body">
-                            <!-- ======  Manage Payment methods ====== -->
-                            <div t-if="providers_sudo" id="payment_method" class="text-start">
-                                <t t-call="payment.form">
-                                    <t t-set="assign_token_route"
-                                       t-value="'/my/subscriptions/assign_token/' + str(sale_order.id)"/>
-                                    <t t-set="landing_route"
-                                       t-value="sale_order.get_portal_url() + '&amp;message=Your payment method has been changed for this subscription.&amp;message_class=alert-success'"/>
-                                </t>
-                            </div>
-                            <div t-else="">
-                                <div class="alert alert-warning">
-                                    <b>No suitable payment method could be found.</b><br/>
-                                    If you believe that is an error, please contact the website administrator.
-                                </div>
-                                <a role="button" class="btn-link"
-                                   groups="base.group_system"
-                                   t-attf-href="/web#action=#{payment_action_id}">
-                                    <i class="oi oi-arrow-right"></i> Add payment providers
-                                </a>
-                            </div>
-                        </main>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div id="portal_sale_content" position="before">
             <t t-set="upsell_url" t-value="sale_order._get_upsell_portal_url()"/>
             <t t-set="renewal_url" t-value="sale_order._get_renewal_portal_url()"/>
