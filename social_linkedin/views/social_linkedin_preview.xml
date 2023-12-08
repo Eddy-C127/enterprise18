@@ -21,7 +21,7 @@
                         <div t-if="image_url_index == 1 and len(image_urls) > 2"
                             class="o_social_stream_post_image_more position-relative d-flex ms-1">
                             <img t-att-src="image_url" alt="Post Image" />
-                            <div class="o_social_stream_post_image_more_overlay d-flex align-items-center h-100 w-100 text-white justify-content-center position-absolute h1 m-0" style="user-select: none;">
+                            <div class="o_social_stream_post_image_more_overlay d-flex align-items-center h-100 w-100 text-white justify-content-center position-absolute h1 m-0 pe-none" style="user-select: none;">
                                 +<t t-esc="len(image_urls) - 2"/>
                             </div>
                         </div>

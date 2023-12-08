@@ -19,15 +19,19 @@ class SocialPostInstagram(models.Model):
 
         for post in self:
             if 'instagram' in post.media_ids.mapped('media_type'):
-                image_error_code = post._get_instagram_image_error()
+                faulty_images, image_error_code = post._get_instagram_image_error()
                 if image_error_code == 'missing':
-                    raise ValidationError(_('An image is required when posting on Instagram.'))
+                    raise ValidationError(_('At least one image is required when posting on Instagram.'))
                 elif image_error_code == 'wrong_extension':
-                    raise ValidationError(_('Only .jpg/.jpeg images can be posted on Instagram.'))
+                    raise ValidationError(_('The following images are not in the correct format (jpg/jpeg).\n\n')
+                                            + '\n'.join('- %s' % faulty_image for faulty_image in faulty_images))
                 elif image_error_code == 'incorrect_ratio':
-                    raise ValidationError(_('Your image has to be within the 4:5 and the 1.91:1 aspect ratio as required by Instagram.'))
+                    raise ValidationError(_('The following images do not meet the required aspect ratio (between 1.91:1 and 4:5).\n\n')
+                                            + '\n'.join('- %s' % faulty_image for faulty_image in faulty_images))
                 elif image_error_code == 'corrupted':
                     raise ValidationError(_('Your image appears to be corrupted, please try loading it again.'))
+                elif image_error_code == 'max_limit':
+                    raise ValidationError(_('You can only post up to 10 images at once.'))
 
     def _get_stream_post_domain(self):
         domain = super(SocialPostInstagram, self)._get_stream_post_domain()

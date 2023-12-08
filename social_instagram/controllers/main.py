@@ -77,19 +77,19 @@ class SocialInstagramController(SocialController):
     # MISC / UTILITY
     # ========================================================
 
-    @http.route(['/social_instagram/<string:instagram_access_token>/get_image'], type='http', auth='public')
-    def social_post_instagram_image(self, instagram_access_token):
+    @http.route(['/social_instagram/<string:instagram_access_token>/get_image/<int:image_id>'], type='http', auth='public')
+    def social_post_instagram_image(self, instagram_access_token, image_id):
         social_post = request.env['social.post'].sudo().search(
             [('instagram_access_token', '=', instagram_access_token)])
 
-        if not social_post:
+        if not social_post or not image_id in social_post.image_ids.ids:
             raise Forbidden()
 
         # called manually to throw a ValidationError if not valid instagram image
         social_post._check_post_access()
 
         return request.env['ir.binary']._get_image_stream_from(
-            social_post.instagram_image_id,
+            social_post.image_ids.filtered(lambda image: image.id == image_id),
             default_mimetype='image/jpeg',
         ).get_response()
 

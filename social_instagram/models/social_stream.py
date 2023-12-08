@@ -4,7 +4,7 @@
 import dateutil.parser
 import requests
 
-from odoo import models
+from odoo import Command, models
 from werkzeug.urls import url_join
 
 
@@ -27,7 +27,7 @@ class SocialStreamInstagram(models.Model):
         response = requests.get(posts_endpoint,
             params={
                 'access_token': self.account_id.instagram_access_token,
-                'fields': 'id,comments_count,like_count,username,permalink,timestamp,caption,media_url'
+                'fields': 'id,comments_count,like_count,username,permalink,timestamp,caption,media_type,media_url,children.fields(media_url)'
             },
             timeout=5
         ).json()
@@ -56,14 +56,16 @@ class SocialStreamInstagram(models.Model):
                 'stream_id': self.id,
             }
 
-            media_url = post.get('media_url')
+            if post.get('media_type') == 'CAROUSEL_ALBUM':
+                media_urls = [{'image_url': media.get('media_url')} for media in post.get('children', {}).get('data', [])]
+            else:
+                media_urls = [{'image_url': post.get('media_url')}]
+
             if values['instagram_post_id'] in existing_posts:
-                if media_url:
-                    values['stream_post_image_ids'] = [(5, 0, 0), (0, 0, {'image_url': media_url})]
+                values['stream_post_image_ids'] = [Command.clear()] + [Command.create(url) for url in media_urls]
                 existing_posts[values['instagram_post_id']].sudo().write(values)
             else:
-                if media_url:
-                    values['stream_post_image_ids'] = [(0, 0, {'image_url': media_url})]
+                values['stream_post_image_ids'] = [Command.create(url) for url in media_urls]
                 posts_to_create.append(values)
 
         if posts_to_create:

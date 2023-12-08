@@ -4,6 +4,7 @@
 import uuid
 
 from odoo import api, fields, models, tools
+from odoo.exceptions import UserError
 
 
 class SocialPostTemplate(models.Model):
@@ -12,7 +13,6 @@ class SocialPostTemplate(models.Model):
     def _get_default_access_token(self):
         return str(uuid.uuid4())
 
-    instagram_image_id = fields.Many2one('ir.attachment', compute='_compute_instagram_image_id')
     instagram_access_token = fields.Char('Access Token', default=lambda self: self._get_default_access_token(), copy=False,
         help="Used to allow access to Instagram to retrieve the post image")
     display_instagram_preview = fields.Boolean('Display Instagram Preview', compute='_compute_display_instagram_preview')
@@ -23,12 +23,6 @@ class SocialPostTemplate(models.Model):
         for post in self:
             post.display_instagram_preview = (post.message or post.image_ids) and ('instagram' in post.account_ids.media_id.mapped('media_type'))
 
-    @api.depends('image_ids')
-    def _compute_instagram_image_id(self):
-        for post in self:
-            jpeg_images = post.image_ids.filtered(lambda image: image.mimetype == 'image/jpeg')
-            post.instagram_image_id = jpeg_images[0] if jpeg_images else False
-
     @api.depends(lambda self: ['message', 'image_ids', 'display_instagram_preview'] + self._get_post_message_modifying_fields())
     def _compute_instagram_preview(self):
         """ We want to display various error messages if the image is not appropriate.
@@ -38,12 +32,15 @@ class SocialPostTemplate(models.Model):
             if not post.display_instagram_preview:
                 post.instagram_preview = False
                 continue
-            image = post.instagram_image_id
+            faulty_images, error_code = post._get_instagram_image_error()
             post.instagram_preview = self.env['ir.qweb']._render('social_instagram.instagram_preview', {
                 **post._prepare_preview_values("instagram"),
-                'error_code': post._get_instagram_image_error(),
-                'image_url': f'/web/image/{image._origin.id or image.id}' if image else False,
-                'image_multiple': len(post.image_ids) > 1,
+                'faulty_images': faulty_images,
+                'error_code': error_code,
+                'image_urls': [
+                    f'/web/image/{image._origin.id or image.id}'
+                    for image in post.image_ids.sorted(lambda image: image._origin.id or image.id, reverse=True)
+                ],
                 'message': post._prepare_post_content(
                     post.message,
                     'instagram',
@@ -53,10 +50,13 @@ class SocialPostTemplate(models.Model):
     def _get_instagram_image_error(self):
         """ Allows verifying that the post within self contains a valid Instagram image.
 
-        Returns:
+        Returns: faulty image names along with error_code
+        Errors:              Causes:
         - 'missing'          If there is no image
         - 'wrong_extension'  If the image in not in the JPEG format
         - 'incorrect_ratio'  If the image in not between 4:5 and 1.91:1 ratio'
+        - 'max_limit'        If the number of images is greater than 10 (Carousels are limited to 10 images)
+        - 'corrupted'        If the image is corrupted
         - False              If everything is correct.
 
         Those various rules are imposed by Instagram.
@@ -68,21 +68,30 @@ class SocialPostTemplate(models.Model):
 
         self.ensure_one()
         error_code = False
+        faulty_images = self.env['ir.attachment']
+        jpeg_images = self.image_ids.filtered(lambda image: image.mimetype == 'image/jpeg')
+        non_jpeg_images = self.image_ids.filtered(lambda image: image.mimetype != 'image/jpeg')
 
         if not self.image_ids:
             error_code = 'missing'
         else:
-            if not self.instagram_image_id:
+            if len(jpeg_images) > 10:
+                error_code = 'max_limit'
+            if non_jpeg_images:
                 error_code = 'wrong_extension'
-            else:
-                try:
-                    image_base64 = self.instagram_image_id.with_context(bin_size=False).datas
-                    image = tools.base64_to_image(image_base64)
+                faulty_images += non_jpeg_images
+            if jpeg_images and not non_jpeg_images:
+                for jpeg_image in jpeg_images:
+                    try:
+                        image = tools.base64_to_image(jpeg_image.with_context(bin_size=False).datas)
+                    except UserError:
+                        # image could not be loaded
+                        error_code = 'corrupted'
+                        return error_code
+
                     image_ratio = image.width / image.height if image.height else 0
                     if image_ratio < 0.8 or image_ratio > 1.91:
                         error_code = 'incorrect_ratio'
-                except Exception:
-                    # image could not be loaded
-                    error_code = 'corrupted'
+                        faulty_images += jpeg_image
 
-        return error_code
+        return faulty_images.mapped('name'), error_code

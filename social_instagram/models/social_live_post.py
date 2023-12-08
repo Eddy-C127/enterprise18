@@ -65,61 +65,100 @@ class SocialLivePostInstagram(models.Model):
             live_post._post_instagram()
 
     def _post_instagram(self):
-        """ Posting on Instagram is done in 2 separate successive steps.
+        """
+        Handles the process of posting images to Instagram, supporting both single and multiple (carousel) posts.
 
-        First create what they call the 'media container', that basically means upload the image and
-        the associated message using a first HTTP call.
+        Steps for Posting Image(s):
+        1. Create Media Container(s):
+            - Upload image(s) and associated data using an initial HTTP request to create media container(s).
 
-        Then mark this 'container' as published using the ID returned by the first call.
-        Without this second step, the content is not visible on the Instagram account.
+        2. Create Carousel Container (if multiple images):
+            - For carousel posts, group the individual media containers into a single carousel container using an additional HTTP request.
+
+        3. Publish the Container:
+            - Mark the media or carousel container as published using the ID returned from the previous request(s).
 
         More information & examples:
         - https://developers.facebook.com/docs/instagram-api/reference/ig-user/media
-        - https://developers.facebook.com/docs/instagram-api/reference/ig-user/media_publish """
+        - https://developers.facebook.com/docs/instagram-api/reference/ig-user/media_publish
+        """
 
         self.ensure_one()
         account = self.account_id
         post = self.post_id
 
         base_url = self.get_base_url()
+        endpoint = self.env['social.media']._INSTAGRAM_ENDPOINT
+        media_url = url_join(endpoint, f"/{account.instagram_account_id}/media")
+        media_publish_url = url_join(endpoint, f"/{account.instagram_account_id}/media_publish")
 
-        media_result = requests.post(
-            url_join(
-                self.env['social.media']._INSTAGRAM_ENDPOINT,
-                "/%s/media" % account.instagram_account_id
-            ),
-            data={
-                'caption': self.message,
+        media_container_ids = []
+        session = requests.Session()
+        # Step 1: Create Media Container(s)
+        for image in post.image_ids:
+            data = {
                 'access_token': account.instagram_access_token,
                 'image_url': url_join(
                     base_url,
-                    f'/social_instagram/{post.instagram_access_token}/get_image'
+                    f'/social_instagram/{post.instagram_access_token}/get_image/{image.id}'
                 )
-            },
-            timeout=10
-        )
+            }
 
-        if media_result.status_code != 200 or not media_result.json().get('id'):
-            self.write({
-                'state': 'failed',
-                'failure_reason': json.loads(media_result.text or '{}').get('error', {}).get('message', '')
-            })
-            return
+            if len(post.image_ids) == 1:
+                data['caption'] = self.message
+            else:
+                data['is_carousel_item'] = True
 
-        publish_result = requests.post(
-            url_join(
-                self.env['social.media']._INSTAGRAM_ENDPOINT,
-                "/%s/media_publish" % account.instagram_account_id
-            ),
-            data={
-                'access_token': account.instagram_access_token,
-                'creation_id': media_result.json()['id'],
-            },
-            timeout=5
-        )
+            media_response = session.post(media_url, data, timeout=5)
+            if not media_response.ok or not media_response.json().get('id'):
+                self.write({
+                    'state': 'failed',
+                    'failure_reason': json.loads(media_response.text or '{}').get('error', {}).get('message', '')
+                })
+                return
 
-        if (publish_result.status_code == 200):
-            self.instagram_post_id = publish_result.json().get('id', False)
+            media_container_ids.append(media_response.json().get('id'))
+
+        if len(media_container_ids) == 1:
+            # Step 3: Publish the Container (single post)
+            publish_response = session.post(
+                media_publish_url,
+                data={
+                    'access_token': account.instagram_access_token,
+                    'creation_id': media_container_ids[0],
+                },
+                timeout=3,
+            )
+        else:
+            # Step 2: Create Carousel Container (if multiple images)
+            media_response = session.post(
+                media_url,
+                json={
+                    'caption': self.message,
+                    'access_token': account.instagram_access_token,
+                    'media_type': 'CAROUSEL',
+                    'children': media_container_ids
+                },
+                timeout=3,
+            )
+            if not media_response.ok or not media_response.json().get('id'):
+                self.write({
+                    'state': 'failed',
+                    'failure_reason': json.loads(media_response.text or '{}').get('error', {}).get('message', '')
+                })
+                return
+            # Step 3: Publish the Container (multi post)
+            publish_response = session.post(
+                media_publish_url,
+                data={
+                    'access_token': account.instagram_access_token,
+                    'creation_id': media_response.json()['id'],
+                },
+                timeout=5,
+            )
+
+        if publish_response.ok:
+            self.instagram_post_id = publish_response.json().get('id', False)
             values = {
                 'state': 'posted',
                 'failure_reason': False
@@ -127,7 +166,6 @@ class SocialLivePostInstagram(models.Model):
         else:
             values = {
                 'state': 'failed',
-                'failure_reason': json.loads(publish_result.text or '{}').get('error', {}).get('message', '')
+                'failure_reason': json.loads(publish_response.text or '{}').get('error', {}).get('message', '')
             }
-
         self.write(values)
