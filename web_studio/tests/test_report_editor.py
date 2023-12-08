@@ -863,3 +863,6 @@ class TestReportEditorUIUnit(HttpCase):
            </t>
          </t>
         """)
+
+    def test_remove_branding_on_copy(self):
+        self.start_tour(self.tour_url, "web_studio.test_remove_branding_on_copy", login="admin")

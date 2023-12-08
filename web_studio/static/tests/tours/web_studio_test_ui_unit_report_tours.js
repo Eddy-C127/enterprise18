@@ -1133,3 +1133,27 @@ registry.category("web_tour.tours").add("web_studio.test_record_model_differs_fr
         ];
     },
 });
+
+registry.category("web_tour.tours").add("web_studio.test_remove_branding_on_copy", {
+    test: true,
+    steps: () => [
+       {
+            trigger: "body iframe #wrapwrap",
+            async run() {
+                const originNode = this.$anchor[0].querySelector(`[data-oe-model="ir.ui.view"]`);
+                const copy = originNode.cloneNode(true);
+                originNode.insertAdjacentElement("afterend", copy);
+                // Wait for a full macrotask tick and a frame to let the mutation observer
+                // of the ReportEditorWysiwyg to catch up on the change and finish its operations
+                await new Promise((resolve) =>
+                    setTimeout(() => requestAnimationFrame(resolve))
+                );
+                const attributeCopy = {}
+                for (const attr of copy.attributes) {
+                    attributeCopy[attr.name] = attr.value;
+                }
+                assertEqual(JSON.stringify(attributeCopy), "{}");
+            }
+        }
+    ]
+})

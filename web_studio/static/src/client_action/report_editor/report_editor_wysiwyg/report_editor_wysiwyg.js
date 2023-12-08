@@ -212,6 +212,16 @@ function computeTableLayout(table) {
     }
 }
 
+const ODOO_BRANDING_ATTR = ["data-oe-model", "data-oe-id", "data-oe-xpath", "data-oe-field"];
+function visitNode(el, callback) {
+    const els = [el];
+    while (els.length) {
+        const el = els.pop();
+        callback(el);
+        els.push(...el.children);
+    }
+}
+
 export class ReportEditorWysiwyg extends Component {
     static components = {
         CharField,
@@ -448,6 +458,20 @@ export class ReportEditorWysiwyg extends Component {
                     continue;
                 }
             }
+            if (record.type === "childList") {
+                Array.from(record.addedNodes).forEach((el) => {
+                    if (el.nodeType !== 1) {
+                        return;
+                    }
+                    visitNode(el, (node) => {
+                        ODOO_BRANDING_ATTR.forEach((attr) => {
+                            node.removeAttribute(attr);
+                        });
+                        node.classList.remove("o_dirty");
+                    });
+                });
+            }
+
             let target = record.target;
             if (!target.isConnected) {
                 continue;
