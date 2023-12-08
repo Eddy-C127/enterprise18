@@ -73,8 +73,10 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
 
         self.assertEqual(self.call_count, 2)
         self.assertEqual(len(internal_picking.move_line_ids), 4)
-        prod1_ml = internal_picking.move_line_ids.filtered(lambda ml: ml.product_id.id == self.product1.id)
-        prod2_ml = internal_picking.move_line_ids.filtered(lambda ml: ml.product_id.id == self.product2.id)
+        prod1_ml = internal_picking.move_line_ids.filtered(lambda ml: ml.product_id.id == self.product1.id).sorted(
+            lambda ml: (ml.location_id.complete_name, ml.location_dest_id.complete_name, ml.id))
+        prod2_ml = internal_picking.move_line_ids.filtered(lambda ml: ml.product_id.id == self.product2.id).sorted(
+            lambda ml: (ml.location_id.complete_name, ml.location_dest_id.complete_name, ml.id))
         self.assertEqual(prod1_ml[0].quantity, 2)
         self.assertTrue(prod1_ml[0].picked)
         self.assertEqual(prod1_ml[0].location_id, self.shelf1)
@@ -1054,7 +1056,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_receipt_reserved_lots_multiloc_1', login='admin', timeout=180)
         self.assertEqual(receipts_picking.user_id.id, self.env.user.id)
         self.env.invalidate_all()
-        lines = receipts_picking.move_line_ids
+        lines = receipts_picking.move_line_ids.sorted(lambda ml: (ml.location_id.complete_name, ml.location_dest_id.complete_name, ml.id))
         self.assertEqual(len(lines), 2)
         self.assertEqual(lines.mapped('qty_done'), [2, 2])
         self.assertEqual(lines.mapped('location_id.name'), ['Vendors'])
