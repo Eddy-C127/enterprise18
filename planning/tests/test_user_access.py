@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import new_test_user, tagged
-from odoo.tests.common import TransactionCase
+from odoo.tests import new_test_user, tagged, HttpCase
+#from odoo.tests.common import TransactionCase
 from odoo.exceptions import AccessError
 from odoo.fields import Command
 
@@ -12,7 +12,7 @@ from dateutil.relativedelta import relativedelta
 
 
 @tagged('post_install', '-at_install')
-class TestUserAccess(TransactionCase):
+class TestUserAccess(HttpCase):
 
     def setUp(self):
         super(TestUserAccess, self).setUp()
@@ -31,7 +31,7 @@ class TestUserAccess(TransactionCase):
 
         # create a planning user
         self.planning_user = new_test_user(self.env,
-                                           login='puser',
+                                           login='planuser',
                                            groups='planning.group_planning_user',
                                            name='Planning User',
                                            email='user@example.com')
@@ -395,3 +395,26 @@ class TestUserAccess(TransactionCase):
 
             self.assertNotEqual(slot_1.end_datetime, initial_end_date, 'End date should be updated')
             self.assertFalse(slot_2.resource_id, 'Resource should be the False for archeived resource shifts')
+
+    def test_avatar_card_access_non_hr_user(self):
+        """
+        The avatar card for resource should be displayed even if the current user has no hr access.
+        The only information missing in that case should be the default_role_id, but no traceback
+        should be raised, even if the resource has roles assigned to it.
+        """
+
+        # 1. creating a material resource with two roles
+        [role_meeting_room, role_fablab_room] = self.env['planning.role'].create([{
+            'name': 'Meeting room',
+        }, {
+            'name': 'FabLab',
+        }])
+        self.env['resource.resource'].create({
+            'name': '3D Printer Room',
+            'resource_type': 'material',
+            'role_ids': [Command.link(role_meeting_room.id), Command.link(role_fablab_room.id)],
+            'default_role_id': role_fablab_room.id,
+        })
+
+        # 2. Launching tour as planning user with no additional hr right
+        self.start_tour("/", 'planning_avatar_card_non_hr_user', login='planuser')

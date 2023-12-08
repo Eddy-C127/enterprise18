@@ -1,10 +1,19 @@
 /* @odoo-module */
 
+import { useService } from "@web/core/utils/hooks";
 import { patch } from "@web/core/utils/patch";
 import { AvatarCardResourcePopover } from "@resource_mail/components/avatar_card_resource/avatar_card_resource_popover";
 
 
 export const patchAvatarCardResourcePopover = {
+    setup() {
+        super.setup();
+        this.user = useService("user");
+    },
+    async onWillStart() {
+        this.hr_access = await this.user.hasGroup("hr.group_hr_user");
+        await super.onWillStart();
+    },
     loadAdditionalData() {
         const promises = super.loadAdditionalData();
         this.roles = [];
@@ -20,10 +29,13 @@ export const patchAvatarCardResourcePopover = {
         return promises;
     },
     get fieldNames() {
+        const additionalFields = ["role_ids"];
+        if (this.hr_access) {
+            additionalFields.push("default_role_id");
+        }
         return [
             ...super.fieldNames,
-            "role_ids",
-            "default_role_id",
+            ...additionalFields,
         ];
     },
     get roleTags() {
