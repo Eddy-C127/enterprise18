@@ -59,6 +59,24 @@ class AccountReconcileWizard(models.TransientModel):
         comodel_name='res.currency',
         string='Currency to use for reconciliation',
         compute='_compute_reco_wizard_data')
+    edit_mode_amount = fields.Monetary(
+        currency_field='company_currency_id',
+        compute='_compute_edit_mode_amount',
+    )
+    edit_mode_amount_currency = fields.Monetary(
+        string='Edit mode amount',
+        currency_field='edit_mode_reco_currency_id',
+        compute='_compute_edit_mode_amount_currency',
+        store=True,
+        readonly=False,
+    )
+    edit_mode_reco_currency_id = fields.Many2one(
+        comodel_name='res.currency',
+        compute='_compute_edit_mode_reco_currency',
+    )
+    edit_mode = fields.Boolean(
+        compute='_compute_edit_mode',
+    )
     single_currency_mode = fields.Boolean(compute='_compute_single_currency_mode')
     allow_partials = fields.Boolean(string="Allow partials", compute='_compute_allow_partials', store=True, readonly=False)
     force_partials = fields.Boolean(compute='_compute_reco_wizard_data')
@@ -130,10 +148,10 @@ class AccountReconcileWizard(models.TransientModel):
         for wizard in self:
             wizard.company_id = wizard.move_line_ids[0].company_id
 
-    @api.depends('reco_currency_id', 'company_currency_id')
+    @api.depends('move_line_ids')
     def _compute_single_currency_mode(self):
         for wizard in self:
-            wizard.single_currency_mode = wizard.reco_currency_id == wizard.company_currency_id
+            wizard.single_currency_mode = len(wizard.move_line_ids.currency_id - wizard.company_currency_id) <= 1
 
     @api.depends('force_partials')
     def _compute_allow_partials(self):
@@ -142,6 +160,7 @@ class AccountReconcileWizard(models.TransientModel):
 
     @api.depends('move_line_ids')
     def _compute_display_allow_partials(self):
+        """ We only display the allow partial checkbox if there is both credit and debit lines involved. """
         for wizard in self:
             wizard.display_allow_partials = has_debit_line = has_credit_line = False
             for aml in wizard.move_line_ids:
@@ -303,7 +322,7 @@ class AccountReconcileWizard(models.TransientModel):
 
             reco_currency = get_reco_currency(amls, aml_values_map)
             if not reco_currency:
-                continue
+                continue  # stop the computation, no possible write-off => force partials
 
             residual_amounts = {
                 aml: aml._prepare_move_line_residual_amounts(aml_values, reco_currency, shadowed_aml_values=shadowed_aml_values)
@@ -316,7 +335,7 @@ class AccountReconcileWizard(models.TransientModel):
                 wizard.reco_currency_id = amls.company_currency_id
                 reco_currency = wizard.reco_currency_id
             else:
-                continue
+                continue  # stop the computation, no possible write-off => force partials
 
             # Compute write-off amounts
             most_recent_line = max(amls, key=lambda aml: aml.date)
@@ -332,6 +351,37 @@ class AccountReconcileWizard(models.TransientModel):
             )
             wizard.amount = amls.company_currency_id.round(wizard.amount_currency / rate) if rate else 0.0
             wizard.force_partials = False
+
+    @api.depends('move_line_ids')
+    def _compute_edit_mode_amount_currency(self):
+        for wizard in self:
+            if wizard.edit_mode:
+                wizard.edit_mode_amount_currency = wizard.amount_currency
+            else:
+                wizard.edit_mode_amount_currency = 0.0
+
+    @api.depends('edit_mode_amount_currency')
+    def _compute_edit_mode_amount(self):
+        for wizard in self:
+            if wizard.edit_mode:
+                single_line = wizard.move_line_ids
+                rate = abs(single_line.amount_currency / single_line.balance) if single_line.balance else 0.0
+                wizard.edit_mode_amount = single_line.company_currency_id.round(wizard.edit_mode_amount_currency / rate) if rate else 0.0
+            else:
+                wizard.edit_mode_amount = 0.0
+
+    @api.depends('move_line_ids')
+    def _compute_edit_mode_reco_currency(self):
+        for wizard in self:
+            if wizard.edit_mode:
+                wizard.edit_mode_reco_currency_id = wizard.move_line_ids.currency_id
+            else:
+                wizard.edit_mode_reco_currency_id = False
+
+    @api.depends('move_line_ids')
+    def _compute_edit_mode(self):
+        for wizard in self:
+            wizard.edit_mode = len(wizard.move_line_ids) == 1
 
     @api.depends('move_line_ids.move_id', 'date')
     def _compute_lock_date_violated_warning_message(self):
@@ -380,6 +430,19 @@ class AccountReconcileWizard(models.TransientModel):
             self.journal_id = self.reco_model_id.line_ids.journal_id  # we limited models to those with one and only one line
             self.account_id = self.reco_model_id.line_ids.account_id
 
+    # ==== Python constrains ====
+    @api.constrains('edit_mode_amount_currency')
+    def _check_min_max_edit_mode_amount_currency(self):
+        for wizard in self:
+            if wizard.edit_mode:
+                if wizard.edit_mode_amount_currency == 0.0:
+                    raise UserError(_('The amount of the write-off of a single line cannot be 0.'))
+                is_debit_line = wizard.move_line_ids.balance > 0.0 or wizard.move_line_ids.amount_currency > 0.0
+                if is_debit_line and wizard.edit_mode_amount_currency < 0.0:
+                    raise UserError(_('The amount of the write-off of a single debit line should be strictly positive.'))
+                elif not is_debit_line and wizard.edit_mode_amount_currency > 0.0:
+                    raise UserError(_('The amount of the write-off of a single credit line should be strictly negative.'))
+
     # ==== Actions methods ====
     def _action_open_wizard(self):
         self.ensure_one()
@@ -413,15 +476,17 @@ class AccountReconcileWizard(models.TransientModel):
                 } * nr of repartition lines of the self.tax_id ],
         }
         """
-        rate = abs(self.amount_currency / self.amount)
+        amount_currency = self.edit_mode_amount_currency or self.amount_currency
+        amount = self.edit_mode_amount or self.amount
+        rate = abs(amount_currency / amount)
         tax_type = self.tax_id.type_tax_use if self.tax_id else None
-        is_refund = (tax_type == 'sale' and self.amount_currency > 0.0) or (tax_type == 'purchase' and self.amount_currency < 0.0)
+        is_refund = (tax_type == 'sale' and amount_currency > 0.0) or (tax_type == 'purchase' and amount_currency < 0.0)
         tax_data = self.env['account.tax']._convert_to_tax_base_line_dict(
             self,
             partner=partner,
             currency=self.reco_currency_id,
             taxes=self.tax_id,
-            price_unit=self.amount_currency,
+            price_unit=amount_currency,
             quantity=1.0,
             account=self.account_id,
             is_refund=is_refund,
@@ -445,7 +510,7 @@ class AccountReconcileWizard(models.TransientModel):
                 'tax_account_id': tax_line_vals['account_id'],
             })
         base_amount_currency = base_to_update['price_subtotal']
-        base_amount = self.amount - sum(entry['tax_amount'] for entry in tax_lines_data)
+        base_amount = amount - sum(entry['tax_amount'] for entry in tax_lines_data)
 
         return {
             'base_amount': base_amount,
@@ -459,14 +524,16 @@ class AccountReconcileWizard(models.TransientModel):
             partner = self.env['res.partner']
         to_partner = self.to_partner_id if self.is_rec_pay_account else partner
         tax_data = self._compute_write_off_taxes_data(to_partner) if self.tax_id else None
+        amount_currency = self.edit_mode_amount_currency or self.amount_currency
+        amount = self.edit_mode_amount or self.amount
         line_ids_commands = [
             Command.create({
                 'name': _('Write-Off'),
                 'account_id': self.reco_account_id.id,
                 'partner_id': partner.id,
                 'currency_id': self.reco_currency_id.id,
-                'amount_currency': -self.amount_currency,
-                'balance': -self.amount,
+                'amount_currency': -amount_currency,
+                'balance': -amount,
             }),
             Command.create({
                 'name': self.label,
@@ -474,8 +541,8 @@ class AccountReconcileWizard(models.TransientModel):
                 'partner_id': to_partner.id,
                 'currency_id': self.reco_currency_id.id,
                 'tax_tag_ids': None if not tax_data else tax_data['base_tax_tag_ids'],
-                'amount_currency': self.amount_currency if not tax_data else tax_data['base_amount_currency'],
-                'balance': self.amount if not tax_data else tax_data['base_amount'],
+                'amount_currency': amount_currency if not tax_data else tax_data['base_amount_currency'],
+                'balance': amount if not tax_data else tax_data['base_amount'],
             }),
         ]
         # Add taxes lines to the write-off lines, one per repartition line
@@ -552,7 +619,7 @@ class AccountReconcileWizard(models.TransientModel):
         self.ensure_one()
         move_lines_to_reconcile = self.move_line_ids._origin
         do_transfer = self.is_transfer_required
-        do_write_off = not self.allow_partials and self.is_write_off_required
+        do_write_off = self.edit_mode or (self.is_write_off_required and not self.allow_partials)
         if do_transfer:
             transfer_move = self.create_transfer()
             lines_to_transfer = move_lines_to_reconcile \
