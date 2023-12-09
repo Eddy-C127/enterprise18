@@ -136,18 +136,18 @@
     </record>
 
     <!-- Quick create for the kanban view in Project when the user selects a project in the main view of project app -->
+    <!-- TODO: Remove me in master -->
     <record id="quick_create_task_in_project" model="ir.ui.view">
         <field name="name">project.task.quick_create_in_project.view.form.inherit</field>
         <field name="model">project.task</field>
         <field name="mode">primary</field>
         <field name="inherit_id" ref="quick_create_task_form_fsm"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='project_id']" position="replace">
-                <field name="project_id" invisible="not is_fsm" domain="[('is_fsm', '=', True)]"/>
-            </xpath>
+            <xpath expr="//form" position="inside"/>
         </field>
     </record>
 
+    <!-- TODO: Remove me in master -->
     <record id="project_task_in_project_view_kanban" model="ir.ui.view">
         <field name="name">project.task.in.project.kanban</field>
         <field name="model">project.task</field>
