@@ -3,12 +3,12 @@
 # 	* helpdesk
 # 
 # Translators:
-# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # Jakub Smolka, 2023
 # Ivana Bartonkova, 2023
 # karolína schusterová <karolina.schusterova@vdp.sk>, 2023
 # Wil Odoo, 2023
 # Tomáš Píšek, 2023
+# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tomáš Píšek, 2023\n"
+"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -197,7 +197,7 @@ msgid ""
 "        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">Table legs are unbalanced</a>\n"
 "    </t>\n"
 "    has been received and is being reviewed by our <t t-out=\"object.team_id.name or ''\">VIP Support</t> team.<br><br>\n"
-"    The reference for your ticket is <strong><t t-out=\"object.id or ''\">15</t></strong>.<br><br>\n"
+"    The reference for your ticket is <strong><t t-out=\"object.ticket_ref or ''\">15</t></strong>.<br><br>\n"
 "\n"
 "    To provide any additional information, simply reply to this email.<br><br>\n"
 "    <t t-if=\"object.team_id.show_knowledge_base\">\n"
@@ -749,7 +749,7 @@ msgstr "Automatické přiřazení"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__auto_close_ticket
 msgid "Automatic Closing"
-msgstr ""
+msgstr "Automatické zavírání"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data

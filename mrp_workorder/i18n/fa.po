@@ -10,17 +10,18 @@
 # Faraz Sadri Alamdari <ifarazir@gmail.com>, 2023
 # Hamid Darabi, 2023
 # Yousef Shadmanesh <y.shadmanesh@gmail.com>, 2023
+# Hamed Mohammadi <hamed@dehongi.com>, 2023
+# Sepehr Khoshnood <sepehr.kho@gmail.com>, 2023
 # Hanna Kheradroosta, 2023
 # Martin Trigaux, 2023
-# Hamed Mohammadi <hamed@dehongi.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-06 08:38+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Hamed Mohammadi <hamed@dehongi.com>, 2023\n"
+"Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,6 +49,13 @@ msgstr ""
 #: code:addons/mrp_workorder/static/src/components/working_employee_popup_wo_list.xml:0
 #, python-format
 msgid "+ New Operator"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
+#, python-format
+msgid "< Back"
 msgstr ""
 
 #. module: mrp_workorder
@@ -574,6 +582,13 @@ msgid "Fill in worksheet"
 msgstr ""
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Finished"
+msgstr "تمام شد"
+
+#. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__finished_lot_id
 msgid "Finished Lot/Serial"
 msgstr ""
@@ -640,12 +655,11 @@ msgid "Image/PDF"
 msgstr ""
 
 #. module: mrp_workorder
-#: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder__move_line_id
-#: model:ir.model.fields,help:mrp_workorder.field_quality_check__move_line_id
-msgid ""
-"In case of Quality Check by Quantity, Move Line on which the Quality Check "
-"applies"
-msgstr ""
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "In Progress"
+msgstr "در جریان"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.add_quality_check_from_tablet
@@ -714,6 +728,13 @@ msgstr "آخرین بروز رسانی توسط"
 #: model:ir.model.fields,field_description:mrp_workorder.field_propose_change__write_date
 msgid "Last Updated on"
 msgstr "آخرین بروز رسانی در"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
+#, python-format
+msgid "Load Samples"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -866,11 +887,6 @@ msgid "Next"
 msgstr "بعدی"
 
 #. module: mrp_workorder
-#: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "رویداد تقویم فعالیت بعدی"
-
-#. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "موعد فعالیت بعدی"
@@ -905,6 +921,15 @@ msgstr ""
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.mrp_workorder_action_tablet
 msgid "No work orders to do!"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_workcenter_dialog.js:0
+#, python-format
+msgid ""
+"No workcenters are available, please create one first to add it to the shop "
+"floor view"
 msgstr ""
 
 #. module: mrp_workorder
@@ -997,6 +1022,13 @@ msgstr ""
 #, python-format
 msgid "Pause"
 msgstr "مکث"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Pending"
+msgstr "معلق"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_stock_picking_type
@@ -1206,6 +1238,13 @@ msgid "Quantity Produced"
 msgstr "تعداد تولید شده"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Ready"
+msgstr "آماده"
+
+#. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
@@ -1370,6 +1409,13 @@ msgstr ""
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Show the timer on the work order screen"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
+#, python-format
+msgid "Skip >"
 msgstr ""
 
 #. module: mrp_workorder
@@ -1546,8 +1592,8 @@ msgstr "تعداد کل"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid ""
-"Track work orders, show instructions and record operations: quality control,"
-" serial numbers, quantities consumed, etc. from here"
+"Track work orders, show instructions and record manufacturing operations from here:\n"
+"                                quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
 
 #. module: mrp_workorder
@@ -1571,6 +1617,14 @@ msgstr ""
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_bom__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "نوع فعالیت استثنایی برای رکورد."
+
+#. module: mrp_workorder
+#. odoo-python
+#: code:addons/mrp_workorder/models/mrp_production.py:0
+#, python-format
+msgid ""
+"Unable to load samples when you already have existing manufacturing orders"
+msgstr ""
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1664,6 +1718,27 @@ msgstr "تایید اعتبار"
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder___barcode_scanned
 msgid "Value of the last barcode scanned."
 msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_bar.xml:0
+#, python-format
+msgid "WO"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
+#, python-format
+msgid "WO Filters"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Waiting"
+msgstr "در انتظار"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workcenter
@@ -1821,6 +1896,7 @@ msgstr ""
 
 #. module: mrp_workorder
 #. odoo-python
+#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid ""

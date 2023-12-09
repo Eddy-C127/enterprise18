@@ -265,7 +265,7 @@ msgid ""
 "        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">Table legs are unbalanced</a>\n"
 "    </t>\n"
 "    has been received and is being reviewed by our <t t-out=\"object.team_id.name or ''\">VIP Support</t> team.<br><br>\n"
-"    The reference for your ticket is <strong><t t-out=\"object.id or ''\">15</t></strong>.<br><br>\n"
+"    The reference for your ticket is <strong><t t-out=\"object.ticket_ref or ''\">15</t></strong>.<br><br>\n"
 "\n"
 "    To provide any additional information, simply reply to this email.<br><br>\n"
 "    <t t-if=\"object.team_id.show_knowledge_base\">\n"
@@ -291,38 +291,6 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
-"<div>\n"
-"    尊敬的<t t-out=\"object.sudo().partner_id.name or object.sudo().partner_name or 'Madam/Sir'\">女士/先生</t>，<br><br>\n"
-"    您的支持请求\n"
-"    <t t-if=\"object.get_portal_url()\">\n"
-"        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">桌腿不平衡</a>\n"
-"    </t>\n"
-"    已收到，现正由我们的<t t-out=\"object.team_id.name or ''\"> VIP 支持</t>团队查阅和跟进。<br><br>\n"
-"    参考编号：<strong><t t-out=\"object.id or ''\">15</t></strong>.<br><br>\n"
-"\n"
-"    如需提供更多信息，请回复本邮件。<br><br>\n"
-"    <t t-if=\"object.team_id.show_knowledge_base\">\n"
-"        欢迎随时访问我们的 <a t-attf-href=\"{{ object.team_id.get_knowledge_base_url() }}\">帮助中心</a>。答疑资料可供您参考。\n"
-"        <br><br>\n"
-"    </t>\n"
-"    <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
-"        如果不再需要我们的帮助，你可以随时关闭支援请求。感谢合作。<br><br>\n"
-"    </t>\n"
-"\n"
-"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
-"        <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.get_portal_url()\" target=\"_blank\">查看请求</a>\n"
-"        <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
-"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"'/my/ticket/close/%s/%s' % (object.id, object.access_token)\" target=\"_blank\">关闭请求</a>\n"
-"        </t>\n"
-"        <t t-if=\"object.team_id.use_website_helpdesk_forum or object.team_id.use_website_helpdesk_knowledge or object.team_id.use_website_helpdesk_slides\">\n"
-"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.team_id.feature_form_url\" target=\"_blank\">访问帮助中心</a>\n"
-"        </t><br><br>\n"
-"    </div>\n"
-"\n"
-"    谨致问候，<br><br>\n"
-"    <t t-out=\"object.team_id.name or 'Helpdesk'\">技术支持</t>团队\n"
-"</div>\n"
-"        "
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -3624,8 +3592,8 @@ msgid "Ticket created"
 msgstr "工单已创建"
 
 #. module: helpdesk
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/helpdesk/models/helpdesk_team.py:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0

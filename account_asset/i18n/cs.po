@@ -157,7 +157,7 @@ msgstr "Dokument spojený s tímto účetním záznamem byl smazán: %s"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "A gross increase has been created: "
-msgstr ""
+msgstr "Byla zvýšená hodnota majetku (technické zhodnocení):"
 
 #. module: account_asset
 #. odoo-python
@@ -450,7 +450,7 @@ msgstr "Majetek vytvořen"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Asset created from invoice: %s"
-msgstr ""
+msgstr "Majetek vytvořen z faktury: %s"
 
 #. module: account_asset
 #. odoo-python
@@ -531,6 +531,8 @@ msgid ""
 "Atleast one asset (%s) couldn't be set as running because it lacks any "
 "required information"
 msgstr ""
+"Minimálně jeden majetek (%s) nemohl být převeden do stavu 'Spuštěno' neboť "
+"nemá požadované informace"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_attachment_count
@@ -653,7 +655,7 @@ msgstr "Pevné období"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__count_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__count_asset
 msgid "Count Asset"
-msgstr ""
+msgstr "Počet majetků"
 
 #. module: account_asset
 #: model:ir.actions.server,name:account_asset.action_account_aml_to_asset
@@ -900,7 +902,7 @@ msgstr "Návrh"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__draft_asset_exists
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__draft_asset_exists
 msgid "Draft Asset Exists"
-msgstr ""
+msgstr "Existuje majetek ve stavu 'Návrh'"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__method_number
@@ -1122,6 +1124,8 @@ msgid ""
 "Journal Items of %(account)s should have a label in order to generate an "
 "asset"
 msgstr ""
+"Aby bylo možné vytvořit majetek, měly by mít účetní položky účtu "
+"%(account)spopis"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__write_uid
@@ -1369,7 +1373,7 @@ msgstr "Nadřazená"
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #, python-format
 msgid "Parent Asset"
-msgstr ""
+msgstr "Nadřízený majetek"
 
 #. module: account_asset
 #. odoo-python
@@ -1519,7 +1523,7 @@ msgstr ""
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Some fields are missing %s"
-msgstr ""
+msgstr "Některá pole chybí %s"
 
 #. module: account_asset
 #. odoo-python
@@ -1567,7 +1571,7 @@ msgstr ""
 msgid ""
 "The account %(exp_acc)s has been credited by %(exp_delta)s, while the "
 "account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to "
-"%(move_count)s cancelled %(word)s:<br>%(entries)s"
+"%(move_count)s cancelled %(word)s:"
 msgstr ""
 
 #. module: account_asset

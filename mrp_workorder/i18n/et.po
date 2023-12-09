@@ -11,9 +11,7 @@
 # Gert Valdek <gert@airobot.ee>, 2023
 # Arma Gedonsky <armagedonsky@hot.ee>, 2023
 # Rivo Zängov <eraser@eraser.ee>, 2023
-# Leaanika Randmets, 2023
 # Eneli Õigus <enelioigus@gmail.com>, 2023
-# Martin Trigaux, 2023
 # Patrick-Jordan Kiudorv, 2023
 # Anna, 2023
 # Piia Paurson <piia@avalah.ee>, 2023
@@ -21,14 +19,17 @@
 # Helen Sulaoja <helen@avalah.ee>, 2023
 # JanaAvalah, 2023
 # Triine Aavik <triine@avalah.ee>, 2023
+# Leaanika Randmets, 2023
+# Katrin Kampura, 2023
+# Martin Trigaux, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-06 08:38+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Triine Aavik <triine@avalah.ee>, 2023\n"
+"Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,6 +58,13 @@ msgstr ""
 #, python-format
 msgid "+ New Operator"
 msgstr "+ Uus operaator"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
+#, python-format
+msgid "< Back"
+msgstr ""
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
@@ -581,6 +589,13 @@ msgid "Fill in worksheet"
 msgstr ""
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Finished"
+msgstr "Lõpetatud"
+
+#. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__finished_lot_id
 msgid "Finished Lot/Serial"
 msgstr "Lõpetatud partii/seeria"
@@ -647,14 +662,11 @@ msgid "Image/PDF"
 msgstr "Pilt/PDF"
 
 #. module: mrp_workorder
-#: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder__move_line_id
-#: model:ir.model.fields,help:mrp_workorder.field_quality_check__move_line_id
-msgid ""
-"In case of Quality Check by Quantity, Move Line on which the Quality Check "
-"applies"
-msgstr ""
-"Kogusetele kehtiva kvaliteedikontrolli puhu teisaldage rida, millele "
-"kvaliteedikontroll rakendub"
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "In Progress"
+msgstr "Töös"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.add_quality_check_from_tablet
@@ -723,6 +735,13 @@ msgstr "Viimati uuendatud"
 #: model:ir.model.fields,field_description:mrp_workorder.field_propose_change__write_date
 msgid "Last Updated on"
 msgstr "Viimati uuendatud"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
+#, python-format
+msgid "Load Samples"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -875,11 +894,6 @@ msgid "Next"
 msgstr "Järgmine"
 
 #. module: mrp_workorder
-#: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Järgmine tegevus kalendris"
-
-#. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Järgmise tegevuse tähtaeg"
@@ -915,6 +929,15 @@ msgstr "Tootmissamme pole veel määratud!"
 #: model_terms:ir.actions.act_window,help:mrp_workorder.mrp_workorder_action_tablet
 msgid "No work orders to do!"
 msgstr "Töökäske pole teha!"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_workcenter_dialog.js:0
+#, python-format
+msgid ""
+"No workcenters are available, please create one first to add it to the shop "
+"floor view"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1006,6 +1029,13 @@ msgstr ""
 #, python-format
 msgid "Pause"
 msgstr "Pane pausile"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Pending"
+msgstr "Töökäsu ootel"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_stock_picking_type
@@ -1216,6 +1246,13 @@ msgid "Quantity Produced"
 msgstr "Toodetud kogus"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Ready"
+msgstr "Valmis"
+
+#. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
@@ -1381,6 +1418,13 @@ msgstr "Näita juhiseid"
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Show the timer on the work order screen"
 msgstr "Näita taimerit töökäsu ekraanil"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
+#, python-format
+msgid "Skip >"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1562,8 +1606,8 @@ msgstr "Kogus kokku"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid ""
-"Track work orders, show instructions and record operations: quality control,"
-" serial numbers, quantities consumed, etc. from here"
+"Track work orders, show instructions and record manufacturing operations from here:\n"
+"                                quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
 
 #. module: mrp_workorder
@@ -1587,6 +1631,14 @@ msgstr "Muudatuse tüüp"
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_bom__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "Kirjel oleva erandtegevuse tüüp."
+
+#. module: mrp_workorder
+#. odoo-python
+#: code:addons/mrp_workorder/models/mrp_production.py:0
+#, python-format
+msgid ""
+"Unable to load samples when you already have existing manufacturing orders"
+msgstr ""
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1685,6 +1737,27 @@ msgstr "Valideeri"
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder___barcode_scanned
 msgid "Value of the last barcode scanned."
 msgstr "Viimase skaneeritud triipkoodi väärtus."
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_bar.xml:0
+#, python-format
+msgid "WO"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
+#, python-format
+msgid "WO Filters"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Waiting"
+msgstr "Komponentide ootel"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workcenter
@@ -1844,6 +1917,7 @@ msgstr ""
 
 #. module: mrp_workorder
 #. odoo-python
+#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid ""

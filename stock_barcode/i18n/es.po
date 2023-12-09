@@ -5,6 +5,7 @@
 # Translators:
 # Martin Trigaux, 2023
 # Wil Odoo, 2023
+# Francisco Santos, 2023
 # Larissa Manderfeld, 2023
 # 
 msgid ""
@@ -194,7 +195,7 @@ msgstr "Ya se han devuelto todos los productos"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "All products need to be packed"
-msgstr ""
+msgstr "Todos los productos deben estar empaquetados."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
@@ -204,7 +205,7 @@ msgstr "Asignación"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_full
 msgid "Allow full picking validation"
-msgstr ""
+msgstr "Permitir validación de recolección completa"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__barcode_validation_full
@@ -212,6 +213,8 @@ msgid ""
 "Allow to validate a picking even if nothing was scanned yet (and so, do an "
 "immediate transfert)"
 msgstr ""
+"Permitir validar una recolección incluso si no se ha escaneado nada aún (y "
+"así, realizar un traslado inmediato)"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -235,14 +238,14 @@ msgstr "Aplicar"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
 msgid "Are you sure you want to cancel this operation?"
-msgstr ""
+msgstr "¿Está seguro de que desea cancelar esta operación?"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 #, python-format
 msgid "Backorder"
-msgstr ""
+msgstr "Pedido pendiente"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_backorder_confirmation
@@ -276,7 +279,7 @@ msgstr "Acción del cliente de código de barras de inventario"
 #: code:addons/stock_barcode/static/src/components/manual_barcode.js:0
 #, python-format
 msgid "Barcode Manual Entry"
-msgstr ""
+msgstr "Ingreso manual del código de barras"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
@@ -340,7 +343,7 @@ msgstr "Cancelar la operación"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Cancel Transfer"
-msgstr ""
+msgstr "Cancelar translado"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
@@ -470,6 +473,8 @@ msgid ""
 "Do you want to permanently remove this message?\n"
 "                    It won't appear anymore, so make sure you don't need the barcodes sheet or you have a copy."
 msgstr ""
+"¿Desea borrar permanentemente este mensaje? \n"
+"                    No volverá a aparecer, así que asegurese de que no necesita la hoja de códigos de barras o de que tiene una copia. "
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_put_in_pack
@@ -477,11 +482,13 @@ msgid ""
 "Does the picker have to put in a package the scanned products? If yes, at "
 "which rate?"
 msgstr ""
+"¿El recolector debe empaquetar los productos escaneados? Si es así, ¿con qué"
+" tarifa?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
 msgid "Does the picker have to scan the destination? If yes, at which rate?"
-msgstr ""
+msgstr "¿El recolector debe escanear el destino? Si es así, ¿con qué tarifa?"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
@@ -500,7 +507,7 @@ msgstr "No mostrar este mensaje de nuevo"
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 #, python-format
 msgid "Done /"
-msgstr ""
+msgstr "Hecho /"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -519,7 +526,7 @@ msgstr "Ficticio"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_backorder_confirmation__empty_move_count
 msgid "Empty Move Count"
-msgstr ""
+msgstr "Número de movimientos vacíos"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
@@ -531,39 +538,39 @@ msgstr "Validación final"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Following backorder was created:"
-msgstr ""
+msgstr "Se creó el siguiente pedido pendiente:"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Following backorders were created:"
-msgstr ""
+msgstr "Se crearon los siguientes pedidos pendientes:"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
 msgid "Force Destination Location scan?"
-msgstr ""
+msgstr "¿Forzar el escaneo de ubicación de destino?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_tracking_number
 msgid "Force Lot/Serial scan?"
-msgstr ""
+msgstr "¿Forzar el escaneo de número de serie o de lote?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_product
 msgid "Force Product scan?"
-msgstr ""
+msgstr "¿Forzar el escaneo del producto?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_source_location
 msgid "Force Source Location scan?"
-msgstr ""
+msgstr "¿Forzar el escaneo de la ubicación de origen?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_after_dest_location
 msgid "Force a destination on all products"
-msgstr ""
+msgstr "Forzar un destino en todos los productos"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_all_product_packed
@@ -573,17 +580,17 @@ msgstr ""
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_put_in_pack
 msgid "Force put in pack?"
-msgstr ""
+msgstr "¿Forzar „Poner en paquete\"?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__hide_lot
 msgid "Hide Lot"
-msgstr ""
+msgstr "Ocultar lote"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__hide_lot_name
 msgid "Hide Lot Name"
-msgstr ""
+msgstr "Ocultar nombre del lote"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__id
@@ -598,6 +605,8 @@ msgid ""
 "If the source location must be scanned, then the destination location must "
 "either be scanned after each product or not scanned at all."
 msgstr ""
+"Si la ubicación de origen se debe escanear, entonces la ubicación de destino"
+" se debe escanear después de cada producto o no se debe escanear."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -606,6 +615,7 @@ msgstr ""
 msgid ""
 "If you validate now, the remaining products will be added to a backorder."
 msgstr ""
+"Si valide ahora, los productos restantes se añadirán al pedido pendiente"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__image_1920
@@ -623,7 +633,7 @@ msgstr "En #{kanban_getcolorname(record.color.raw_value)}"
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.js:0
 #, python-format
 msgid "Incomplete Transfer"
-msgstr ""
+msgstr "Traslado incompleto"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_barcode
@@ -654,7 +664,7 @@ msgstr "Ubicaciones de inventario"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__is_barcode_picking_type
 msgid "Is Barcode Picking Type"
-msgstr ""
+msgstr "Es un tipo de código de barras de recolección"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__write_uid
@@ -677,6 +687,8 @@ msgstr "Déjelo"
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_scan_product
 msgid "Line's product must be scanned before the line can be edited"
 msgstr ""
+"El producto de la línea debe ser escaneado antes de que la línea pueda ser "
+"editada"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -699,21 +711,21 @@ msgstr "Lote/Número de serie"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Mandatory Destination Location"
-msgstr ""
+msgstr "Ubicación de destino obligatoria"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__mandatory
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_tracking_number__mandatory
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 msgid "Mandatory Scan"
-msgstr ""
+msgstr "Escaneo obligatorio"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Mandatory Source Location"
-msgstr ""
+msgstr "Ubicación de origen obligatoria"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_put_in_pack__no
@@ -726,7 +738,7 @@ msgstr "No"
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "No %(picking_type)s ready for this %(barcode_type)s"
-msgstr ""
+msgstr "No hay %(picking_type)s preparado para este %(barcode_type)s"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__no
@@ -804,7 +816,7 @@ msgstr "Operaciones"
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_tracking_number__optional
 msgid "Optional Scan"
-msgstr ""
+msgstr "Escaneo opcional"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -848,12 +860,12 @@ msgstr "Ubicación padre"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__parent_location_dest_id
 msgid "Parent Location Dest"
-msgstr ""
+msgstr "Destino principal de la ubicación "
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_backorder_confirmation__partial_move_count
 msgid "Partial Move Count"
-msgstr ""
+msgstr "Número de movimientos parciales"
 
 #. module: stock_barcode
 #: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_form
@@ -876,6 +888,8 @@ msgstr "Tipo de recolección"
 #, python-format
 msgid "Please scan destination location for %s before scanning other product"
 msgstr ""
+"Por favor, escanee la ubicación de destino de %s antes de escanear otro "
+"producto"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -891,7 +905,7 @@ msgstr "¡Escanee de nuevo!"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Press Validate or scan another product"
-msgstr ""
+msgstr "Presione Validar o escanee otro producto"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1034,6 +1048,8 @@ msgid ""
 "Returns can only be created for pickings that are done, please validate "
 "first."
 msgstr ""
+"Las devoluciones solo se pueden crear para las recolecciones ya hechas, "
+"valídela primero. "
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1654,14 +1670,14 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You must scan a package or put in pack"
-msgstr ""
+msgstr "Debe escanear un paquete o poner en paquete"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You must scan a product"
-msgstr ""
+msgstr "Debe escanear un producto"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1726,12 +1742,12 @@ msgstr "producto"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation
 msgid "products were not processed at all."
-msgstr ""
+msgstr "productos no se procesaron en absoluto."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation
 msgid "products were partially processed."
-msgstr ""
+msgstr "productos se procesaron parcialmente."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1768,7 +1784,7 @@ msgstr "para crear una nueva transferencia."
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "to know its content."
-msgstr ""
+msgstr "para conocer su contenido."
 
 #. module: stock_barcode
 #. odoo-javascript

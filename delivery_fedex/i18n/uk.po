@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
 # Wil Odoo, 2023
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid ", click on \"Get Production Key\" and follow all the steps."
-msgstr ", натисніть на \"Отримати ключ виробництва\" і виконайте всі кроки."
+msgstr ", натисніть на \"Отримати робочий ключ\" і виконайте всі кроки."
 
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
@@ -46,6 +46,8 @@ msgid ""
 "<span invisible=\"fedex_weight_unit != 'KG'\">CM</span>\n"
 "                                <span invisible=\"fedex_weight_unit != 'LB'\">IN</span>"
 msgstr ""
+"<span invisible=\"fedex_weight_unit != 'KG'\">CM</span>\n"
+"                                <span invisible=\"fedex_weight_unit != 'LB'\">IN</span>"
 
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
@@ -80,7 +82,7 @@ msgstr "Процес сертифікації"
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_document_stock_type
 msgid "Commercial Invoice Type"
-msgstr "Тип комерційного рахунку"
+msgstr "Тип комерційного рахунку-фактури"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_droppoff_type__drop_box
@@ -156,7 +158,7 @@ msgstr "FEDEX_3_DAY_FREIGHT"
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_economy_select
 msgid "FEDEX_ECONOMY_SELECT"
-msgstr ""
+msgstr "FEDEX_ECONOMY_SELECT"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_express_saver
@@ -166,7 +168,7 @@ msgstr "FEDEX_EXPRESS_SAVER"
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_first
 msgid "FEDEX_FIRST"
-msgstr ""
+msgstr "FEDEX_FIRST"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_ground
@@ -206,27 +208,27 @@ msgstr "FEDEX_NEXT_DAY_MID_MORNING"
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_priority
 msgid "FEDEX_PRIORITY"
-msgstr ""
+msgstr "FEDEX_PRIORITY"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_priority_express
 msgid "FEDEX_PRIORITY_EXPRESS"
-msgstr ""
+msgstr "FEDEX_PRIORITY_EXPRESS"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_priority_express_freight
 msgid "FEDEX_PRIORITY_EXPRESS_FREIGHT"
-msgstr ""
+msgstr "FEDEX_PRIORITY_EXPRESS_FREIGHT"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_priority_freight
 msgid "FEDEX_PRIORITY_FREIGHT"
-msgstr ""
+msgstr "FEDEX_PRIORITY_FREIGHT"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_regional_economy
 msgid "FEDEX_REGIONAL_ECONOMY"
-msgstr ""
+msgstr "FEDEX_REGIONAL_ECONOMY"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__first_overnight

@@ -265,7 +265,7 @@ msgid ""
 "        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">Table legs are unbalanced</a>\n"
 "    </t>\n"
 "    has been received and is being reviewed by our <t t-out=\"object.team_id.name or ''\">VIP Support</t> team.<br><br>\n"
-"    The reference for your ticket is <strong><t t-out=\"object.id or ''\">15</t></strong>.<br><br>\n"
+"    The reference for your ticket is <strong><t t-out=\"object.ticket_ref or ''\">15</t></strong>.<br><br>\n"
 "\n"
 "    To provide any additional information, simply reply to this email.<br><br>\n"
 "    <t t-if=\"object.team_id.show_knowledge_base\">\n"
@@ -291,38 +291,6 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
-"<div>\n"
-"    <t t-out=\"object.sudo().partner_id.name or object.sudo().partner_name or 'Madam/Sir'\">お客様各位</t>、<br><br>\n"
-"    お客様のリクエスト\n"
-"    <t t-if=\"object.get_portal_url()\">\n"
-"        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">テーブルの脚が不均衡な件</a>\n"
-"    </t>\n"
-"    を受け付けました。現在、当社の<t t-out=\"object.team_id.name or ''\">VIPサポート</t>チームで確認しております。<br><br>\n"
-"    お客様のチケット参照は<strong><t t-out=\"object.id or ''\">15</t></strong>です。<br><br>\n"
-"\n"
-"    何か追加で情報をご提供頂く場合には、本メールにご返信下さい。<br><br>\n"
-"    <t t-if=\"object.team_id.show_knowledge_base\">\n"
-"        宜しければまず<a t-attf-href=\"{{ object.team_id.get_knowledge_base_url() }}\">ヘルプセンター</a>をご確認下さい。お客様のご質問に対する回答が掲載されている場合があります。\n"
-"        <br><br>\n"
-"    </t>\n"
-"    <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
-"        サポートが不要になった場合には、チケットをクローズして下さい。ご協力ありがとうございました。<br><br>\n"
-"    </t>\n"
-"\n"
-"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
-"        <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.get_portal_url()\" target=\"_blank\">チケットを見る</a>\n"
-"        <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
-"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"'/my/ticket/close/%s/%s' % (object.id, object.access_token)\" target=\"_blank\">チケットをクローズする</a>\n"
-"        </t>\n"
-"        <t t-if=\"object.team_id.use_website_helpdesk_forum or object.team_id.use_website_helpdesk_knowledge or object.team_id.use_website_helpdesk_slides\">\n"
-"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.team_id.feature_form_url\" target=\"_blank\">ヘルプセンターを見る</a>\n"
-"        </t><br><br>\n"
-"    </div>\n"
-"\n"
-"    宜しくお願い致します。<br><br>\n"
-"    <t t-out=\"object.team_id.name or 'Helpdesk'\">ヘルプデスク</t>チーム\n"
-"</div>\n"
-"        "
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -3627,8 +3595,8 @@ msgid "Ticket created"
 msgstr "チケット作成"
 
 #. module: helpdesk
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/helpdesk/models/helpdesk_team.py:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0

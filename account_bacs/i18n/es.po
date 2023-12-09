@@ -29,7 +29,7 @@ msgstr ""
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span class=\"float-end font-small postcode\">Postcode</span>"
-msgstr ""
+msgstr "<span class=\"float-end font-small postcode\">Código postal</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -198,7 +198,7 @@ msgstr ""
 #: model:ir.ui.menu,name:account_bacs.account_bacs_direct_debit_customer_mandates_menu
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "BACS Direct Debit Instructions"
-msgstr ""
+msgstr "Instrucciones de domiciliación bancaria BACS"
 
 #. module: account_bacs
 #. odoo-python
@@ -209,6 +209,9 @@ msgid ""
 "BACS Direct Debit scheme only accepts IBAN account numbers. Please select an"
 " IBAN-compliant debtor account for this BACS Direct Debit Instruction."
 msgstr ""
+"El esquema de domiciliación bancaria BACS solo acepta números de cuenta "
+"IBAN. Seleccione una cuenta de deudor compatible con IBAN para esta "
+"instrucción de domiciliación bancaria BACS."
 
 #. module: account_bacs
 #. odoo-python
@@ -219,6 +222,9 @@ msgid ""
 "BACS Direct Debit scheme only accepts UK bank accounts. Please select a UK "
 "bank account for this BACS Direct Debit Instruction."
 msgstr ""
+"El esquema de domiciliación bancaria BACS solo acepta números de cuentas "
+"bancarias del Reino Unido. Seleccione una cuenta bancaria del Reino Unido "
+"para esta instrucción de domiciliación bancaria BACS."
 
 #. module: account_bacs
 #. odoo-python
@@ -228,11 +234,13 @@ msgid ""
 "BACS Direct Debit scheme only accepts UK bank accounts. Please select a "
 "journal associated to one."
 msgstr ""
+"El esquema de domiciliación bancaria BACS solo acepta números de cuentas "
+"bancarias del Reino Unido. Seleccione un diario asociado a una."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_expiry_date
 msgid "BACS Expiry Date"
-msgstr ""
+msgstr "Fecha de vencimiento de BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_multi_mode
@@ -243,12 +251,12 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_payment_type
 msgid "BACS Payment Type"
-msgstr ""
+msgstr "Tipo de pago BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_processing_date
 msgid "BACS Processing Date"
-msgstr ""
+msgstr "Fecha de procesamiento BACS"
 
 #. module: account_bacs
 #. odoo-python
@@ -256,6 +264,7 @@ msgstr ""
 #, python-format
 msgid "BACS Service User Number is not set on the company."
 msgstr ""
+"La empresa no tiene un número de usuario del servicio BACS establecido."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_submission_serial
@@ -272,7 +281,7 @@ msgstr ""
 #. module: account_bacs
 #: model:account.payment.method,name:account_bacs.payment_method_bacs_dd
 msgid "Bacs Direct Debit"
-msgstr ""
+msgstr "Domiciliación bancaria BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_bank_statement_line__bacs_has_usable_ddi
@@ -432,7 +441,7 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.actions.report,name:account_bacs.ddi_form_report_main
 msgid "Direct Debit Instruction form"
-msgstr ""
+msgstr "Formulario de instrucción de domiciliación bancaria"
 
 #. module: account_bacs
 #: model:ir.model.constraint,message:account_bacs.constraint_bacs_ddi_name_unique
@@ -440,6 +449,8 @@ msgid ""
 "Direct Debit Instruction identifier must be unique! Please choose another "
 "one."
 msgstr ""
+"El identificador de la instrucción de domiciliación bancaria debe ser único."
+" Seleccione otro. "
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -630,6 +641,7 @@ msgstr "Mi fecha límite de actividad"
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Name and full postal address of your Bank or Building Society"
 msgstr ""
+"Nombre y dirección postal completa de su banco o cooperativa de crédito"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -954,12 +966,12 @@ msgstr ""
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "The processing date cannot be in the past."
-msgstr ""
+msgstr "La fecha de procesamiento no puede estar en el pasado."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_processing_date
 msgid "The processing day of the BACS transaction."
-msgstr ""
+msgstr "El día de procesamiento de la transacción BACS."
 
 #. module: account_bacs
 #. odoo-python
@@ -967,6 +979,7 @@ msgstr ""
 #, python-format
 msgid "The selected vendor account needs to be a valid UK IBAN"
 msgstr ""
+"La cuenta de proveedor seleccionada debe ser IBAN del Reino Unido válida."
 
 #. module: account_bacs
 #. odoo-python

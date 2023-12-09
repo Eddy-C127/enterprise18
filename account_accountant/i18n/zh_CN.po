@@ -312,12 +312,12 @@ msgstr "分析"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__analytic_distribution
 msgid "Analytic Distribution"
-msgstr "解析分布"
+msgstr "分析分配"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__analytic_distribution_search
 msgid "Analytic Distribution Search"
-msgstr "分析分布搜索"
+msgstr "分析分配搜索"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__analytic_precision
@@ -340,7 +340,7 @@ msgstr "您确定要删除该结单吗？"
 #: code:addons/account_accountant/static/src/components/move_line_list_reconcile/move_line_list_reconcile.xml:0
 #, python-format
 msgid "Auto-reconcile"
-msgstr "自动核销"
+msgstr "自动对账"
 
 #. module: account_accountant
 #. odoo-python
@@ -437,7 +437,7 @@ msgstr "更改锁定日期"
 #: model:ir.model.fields,help:account_accountant.field_account_reconcile_wizard__to_check
 msgid ""
 "Check if you are not certain of all the information of the counterpart."
-msgstr "如果您不确定对方的所有信息，请进行核对规则。"
+msgstr "如果您不确定对方的所有信息，请进行对账规则。"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -994,7 +994,7 @@ msgstr "是已对账"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_write_off_required
 msgid "Is a write-off move required to reconcile"
-msgstr "是对账必须的核销动账"
+msgstr "是对账必须的对账动账"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_transfer_required
@@ -1061,7 +1061,7 @@ msgstr "凭证明细"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_move_line_posted_unreconciled
 msgid "Journal Items to reconcile"
-msgstr "需要核销的日记账项目"
+msgstr "需要对账的日记账项目"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -2096,7 +2096,7 @@ msgstr "两个会计年度不能有重叠日期，请更正会计年度的开始
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
 msgid "You can only reconcile entries with up to two different accounts: %s"
-msgstr "您最多只能核对两个不同账户的账目：%s"
+msgstr "您最多只能对账两个不同账户的账目：%s"
 
 #. module: account_accountant
 #. odoo-python

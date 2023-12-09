@@ -2007,7 +2007,7 @@ msgstr "Fin du contrat"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Error during renewal of contract %s %s %s"
-msgstr ""
+msgstr "Erreur lors du renouvellement du contrat %s %s %s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -5311,3 +5311,12 @@ msgstr ""
 "{{ object.company_id.name }}: Votre abonnement {{ object.name }} requiert "
 "votre attention. Si vous avez des inquiétudes à ce sujet, veuillez contacter"
 " {{ object.user_id.name }}, votre personne de contact."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""

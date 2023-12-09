@@ -91,6 +91,22 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Se ha confirmado una evaluación para <t t-out=\"ctx.get('employee_to_name', 'employee')\">empleado</t>.\n"
+"                        <br><br>\n"
+"                        Programen una fecha de evaluación juntos.\n"
+"                        <br><br>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\"background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    Ver evaluación\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model:mail.template,body_html:hr_appraisal.mail_template_appraisal_request_from_employee
@@ -153,6 +169,10 @@ msgid ""
 "                the company.\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Describa algo que le haya hecho sentir orgulloso, algún trabajo positivo para\n"
+"                la empresa.\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -162,6 +182,10 @@ msgid ""
 "                obstacles?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                ¿Enfrentó nuevas dificultades? ¿Combatió nuevos\n"
+"                obstáculos?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -171,6 +195,10 @@ msgid ""
 "                you enjoy the most/the least?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Cada trabajo tiene puntos fuertes. ¿Cuáles considera que son las tareas que\n"
+"                disfruta más y cuáles las que disfruta menos?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -180,6 +208,10 @@ msgid ""
 "                overcome their weaknesses?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Desde el punto de vista de un gerente, ¿cómo podría ayudar al empleado a\n"
+"                enfrentar sus debilidades?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -211,7 +243,7 @@ msgstr ""
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Autonomy</em>"
-msgstr ""
+msgstr "<em>Autonomía</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -221,11 +253,15 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Cultura/comportamiento:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-1\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Do you need rapid answer to the current situation?</em>"
-msgstr ""
+msgstr "<em>¿Necesita una respuesta rápida a la situación actual?</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -649,7 +685,7 @@ msgstr "Plantillas de tasas"
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Appraisal for %s to fill"
-msgstr ""
+msgstr "Evaluación de %s a completar"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -663,7 +699,7 @@ msgstr "Valoración de %s"
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Appraisal to fill"
-msgstr ""
+msgstr "Evaluación a completar"
 
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.hr_appraisal_action_from_department
@@ -1951,7 +1987,7 @@ msgstr "No publicado"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_employee_view_search
 msgid "Upcoming Appraisals"
-msgstr ""
+msgstr "Próximas evaluaciones"
 
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_res_users
@@ -1984,7 +2020,7 @@ msgstr "Historial de comunicaciones del sitio web"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "What are my best achievement(s) since my last appraisal?"
-msgstr ""
+msgstr "¿Cuáles han sido mis mejores logros desde la última evaluación?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback

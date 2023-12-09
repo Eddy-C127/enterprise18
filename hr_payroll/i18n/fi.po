@@ -1112,7 +1112,7 @@ msgstr "Sopimusalue"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Contract Expiration Notice Period"
-msgstr ""
+msgstr "Sopimuksen päättymisen ilmoitusaika"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_search
@@ -1206,6 +1206,21 @@ msgstr "Luo palkkaliite"
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_hr_contract_repository
 msgid "Create a new contract"
 msgstr "Luo uusi sopimus"
+
+#. module: hr_payroll
+#: model_terms:ir.actions.act_window,help:hr_payroll.action_salary_rule_form
+msgid "Create a new salary rule"
+msgstr "Luo uusi palkkasääntö"
+
+#. module: hr_payroll
+#: model_terms:ir.actions.act_window,help:hr_payroll.hr_rule_parameter_action
+msgid "Create a new salary rule parameter"
+msgstr "Luo uusi palkkasäännön parametri"
+
+#. module: hr_payroll
+#: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_list_form
+msgid "Create a new salary structure"
+msgstr "Luo uusi palkkarakenne"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -2657,6 +2672,8 @@ msgid ""
 "Number of days prior to the contract end date that a contract expiration "
 "warning is triggered."
 msgstr ""
+"Sopimuksen päättymispäivää edeltävien päivien lukumäärä, jolloin sopimuksen "
+"päättymisvaroitus käynnistyy."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -2664,6 +2681,8 @@ msgid ""
 "Number of days prior to the work permit expiration date that a warning is "
 "triggered."
 msgstr ""
+"Niiden päivien lukumäärä ennen työluvan voimassaolon päättymispäivää, "
+"jolloin varoitus käynnistyy."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_has_error_counter
@@ -4536,7 +4555,7 @@ msgstr "Työtunnit"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Work Permit Expiration Notice Period"
-msgstr ""
+msgstr "Työluvan voimassaoloajan päättymisen ilmoitusaika"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_resource_calendar__work_time_rate

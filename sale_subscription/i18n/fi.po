@@ -1038,7 +1038,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_close_reason__retention_button_text
 msgid "Button Text"
-msgstr ""
+msgstr "Painikkeen teksti"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__percentage_satisfaction
@@ -2673,14 +2673,14 @@ msgstr "Maksutapa:"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment not recorded"
-msgstr ""
+msgstr "Maksua ei ole kirjattu"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment recorded: %s"
-msgstr ""
+msgstr "Maksu kirjattu: %s"
 
 #. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
@@ -4862,3 +4862,12 @@ msgstr ""
 "{{ object.company_id.name }}: {{ object.name }} tarvitsee huomiotasi. Jos "
 "sinulla on siihen liittyviä huolenaiheita, ota yhteyttä yhteyshenkilöösi {{ "
 "object.user_id.name }}."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""

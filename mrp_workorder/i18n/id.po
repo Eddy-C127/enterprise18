@@ -3,16 +3,16 @@
 # 	* mrp_workorder
 # 
 # Translators:
-# Wil Odoo, 2023
 # Abe Manyo, 2023
+# Wil Odoo, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-06 08:38+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Abe Manyo, 2023\n"
+"Last-Translator: Wil Odoo, 2023\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,6 +42,13 @@ msgstr ""
 #, python-format
 msgid "+ New Operator"
 msgstr "+ Operator Baru"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
+#, python-format
+msgid "< Back"
+msgstr ""
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
@@ -95,8 +102,8 @@ msgid "Add By-product"
 msgstr "Tambahkan Produk-sampingan"
 
 #. module: mrp_workorder
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
@@ -128,8 +135,8 @@ msgid "Add Workorder"
 msgstr "Tambahkan SPK"
 
 #. module: mrp_workorder
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
@@ -566,6 +573,13 @@ msgid "Fill in worksheet"
 msgstr "Isi worksheet"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Finished"
+msgstr "Selesai"
+
+#. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__finished_lot_id
 msgid "Finished Lot/Serial"
 msgstr "Lot/Seri Selesai"
@@ -634,14 +648,11 @@ msgid "Image/PDF"
 msgstr "Gambar/PDF"
 
 #. module: mrp_workorder
-#: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder__move_line_id
-#: model:ir.model.fields,help:mrp_workorder.field_quality_check__move_line_id
-msgid ""
-"In case of Quality Check by Quantity, Move Line on which the Quality Check "
-"applies"
-msgstr ""
-"Dalam kasus Pemeriksaan Kualitas berdasarkan Kuantitas, Pindahkan Baris di "
-"mana Pemeriksaan Kualitas berlaku"
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "In Progress"
+msgstr "Dalam Proses"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.add_quality_check_from_tablet
@@ -711,6 +722,13 @@ msgstr "Terakhir Diperbarui oleh"
 #: model:ir.model.fields,field_description:mrp_workorder.field_propose_change__write_date
 msgid "Last Updated on"
 msgstr "Terakhir Diperbarui pada"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
+#, python-format
+msgid "Load Samples"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -863,11 +881,6 @@ msgid "Next"
 msgstr "Next"
 
 #. module: mrp_workorder
-#: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Kalender Acara Aktivitas Berikutnya"
-
-#. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Batas Waktu Aktivitas Berikutnya"
@@ -903,6 +916,15 @@ msgstr "Belum ada langkah manufaktur yang didefinisikan!"
 #: model_terms:ir.actions.act_window,help:mrp_workorder.mrp_workorder_action_tablet
 msgid "No work orders to do!"
 msgstr "Tidak ada SPK untuk dilakukan!"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_workcenter_dialog.js:0
+#, python-format
+msgid ""
+"No workcenters are available, please create one first to add it to the shop "
+"floor view"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -994,6 +1016,13 @@ msgstr "Password?"
 #, python-format
 msgid "Pause"
 msgstr "Jeda"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Pending"
+msgstr "Ditunda"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_stock_picking_type
@@ -1203,6 +1232,13 @@ msgid "Quantity Produced"
 msgstr "Kuantitas Yang Diproduksi"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Ready"
+msgstr "Siap"
+
+#. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
@@ -1368,6 +1404,13 @@ msgstr "Tunjukkan Instruksi"
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Show the timer on the work order screen"
 msgstr "Tunjukkan timer pada layar SPK"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
+#, python-format
+msgid "Skip >"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1549,11 +1592,9 @@ msgstr "Total Qty"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid ""
-"Track work orders, show instructions and record operations: quality control,"
-" serial numbers, quantities consumed, etc. from here"
+"Track work orders, show instructions and record manufacturing operations from here:\n"
+"                                quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
-"Lacak spk, tunjukkan instruksi dan catat operasi; quality control, nomor "
-"seri, kuantitas dikonsumsi, dsb. dari sini"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1576,6 +1617,14 @@ msgstr "Tipe Perubahan"
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_bom__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "Jenis dari aktivitas pengecualian pada rekaman data."
+
+#. module: mrp_workorder
+#. odoo-python
+#: code:addons/mrp_workorder/models/mrp_production.py:0
+#, python-format
+msgid ""
+"Unable to load samples when you already have existing manufacturing orders"
+msgstr ""
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1674,6 +1723,27 @@ msgstr "Validasi"
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder___barcode_scanned
 msgid "Value of the last barcode scanned."
 msgstr "Nilai barcode yang terakhir dipindai."
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_bar.xml:0
+#, python-format
+msgid "WO"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
+#, python-format
+msgid "WO Filters"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Waiting"
+msgstr "Menunggu"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workcenter
@@ -1836,6 +1906,7 @@ msgstr ""
 
 #. module: mrp_workorder
 #. odoo-python
+#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid ""

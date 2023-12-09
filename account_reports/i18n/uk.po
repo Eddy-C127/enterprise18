@@ -47,7 +47,7 @@ msgstr "%s не є числовим значенням"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "%s selected"
-msgstr ""
+msgstr "%s вибрано"
 
 #. module: account_reports
 #. odoo-python
@@ -139,6 +139,8 @@ msgid ""
 "<i>Errors marked with <i class=\"fa fa-warning\"/> are critical and prevent "
 "the file generation.</i>"
 msgstr ""
+"<i>Позначені помилки <i class=\"fa fa-warning\"/> є критичними та "
+"запобігають створенню файлів.</i>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.partner_view_buttons
@@ -148,7 +150,7 @@ msgstr "<span class=\"o_stat_text\">Розрахунки з партнерами
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "<span>One or more error(s) occurred during file generation:</span>"
-msgstr ""
+msgstr "<span>Виникла ще одна помилка під час створення файлу:</span>"
 
 #. module: account_reports
 #: model:ir.model.constraint,message:account_reports.constraint_account_report_horizontal_group_name_uniq
@@ -160,7 +162,7 @@ msgstr "Горизонтальна група з такою назвою вже 
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.js:0
 #, python-format
 msgid "A line with a 'Group By' value cannot have children."
-msgstr ""
+msgstr "Рядок зі значення 'Групування' не може мати дочірніх."
 
 #. module: account_reports
 #. odoo-python
@@ -441,7 +443,7 @@ msgstr "Всі кредитори"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Report Variants"
-msgstr ""
+msgstr "Усі варіанти звіту"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -1012,7 +1014,7 @@ msgstr "Курс валют (%s)"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Currency:"
-msgstr ""
+msgstr "Валюта:"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.deferred_expense_current
@@ -1159,7 +1161,7 @@ msgstr "Амортизація"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
 msgid "Display Custom Groupby Warning"
-msgstr ""
+msgstr "Відображати попередження кастомного групування"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__display_name
@@ -1193,7 +1195,7 @@ msgstr "Вітчизняний"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "Download Anyway"
-msgstr ""
+msgstr "Завантажити у будь-якому випадку"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1269,7 +1271,7 @@ msgstr "Увімкнути підрозділи"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_variant.xml:0
 #, python-format
 msgid "Enable more ..."
-msgstr ""
+msgstr "Увімкнути більше ..."
 
 #. module: account_reports
 #. odoo-python
@@ -1377,6 +1379,8 @@ msgid ""
 "Expected payment date for journal item %r has been changed from %s to %s on "
 "journal entry %r"
 msgstr ""
+"Очікувана дата платежу для елемента журналу %r була змінена з %s на %s в "
+"елементі журналу %r"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__expense_provision_account_id
@@ -1467,17 +1471,17 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_content
 msgid "File Content"
-msgstr ""
+msgstr "Вміст файлу"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "File Download Errors"
-msgstr ""
+msgstr "Помики завантаження файлу"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_generation_errors
 msgid "File Generation Errors"
-msgstr ""
+msgstr "Помилки створення файлу"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_name
@@ -1495,7 +1499,7 @@ msgstr "Фільтри"
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 #, python-format
 msgid "Filters:"
-msgstr ""
+msgstr "Фільтри:"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1676,7 +1680,7 @@ msgstr "Назва групи"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Group by:"
-msgstr ""
+msgstr "Групування:"
 
 #. module: account_reports
 #. odoo-python
@@ -1731,7 +1735,7 @@ msgstr "Правило горизонтального групування дл�
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Horizontal:"
-msgstr ""
+msgstr "Горизонтально:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1852,6 +1856,13 @@ msgstr "Включити неопубліковані проведення"
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#, python-format
+msgid "Integer Rounding"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
@@ -1864,21 +1875,21 @@ msgstr "Застосовуються податки всередині спіл�
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Partners"
-msgstr ""
+msgstr "Недійсні партнери"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Products"
-msgstr ""
+msgstr "Недійсні товари"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Taxes"
-msgstr ""
+msgstr "Недійсні податки"
 
 #. module: account_reports
 #. odoo-python
@@ -2135,7 +2146,7 @@ msgstr "Зробити запис корегування"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_file_download_error_wizard
 msgid "Manage the file generation errors from report exports."
-msgstr ""
+msgstr "Керуйте помилками генерації файлів із експортованих звітів."
 
 #. module: account_reports
 #. odoo-python
@@ -2174,7 +2185,7 @@ msgstr "Метод '%s' повинен починатися з префіксу 
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Missing Company Data"
-msgstr ""
+msgstr "Відсутні дані компанії"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__res_model_name
@@ -2257,7 +2268,9 @@ msgid "Net profit margin (net profit / income)"
 msgstr "Коефіцієнт рентабельності чистого прибутку (чистий прибуток / дохід)"
 
 #. module: account_reports
+#. odoo-python
 #. odoo-javascript
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "No"
@@ -2497,7 +2510,7 @@ msgstr "Партнери"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Partners Categories:"
-msgstr ""
+msgstr "Категорії партнерів:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
@@ -2735,7 +2748,7 @@ msgstr "Звіти"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "Reset to Standard"
-msgstr ""
+msgstr "Скинути до стандарту"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings0
@@ -2900,7 +2913,7 @@ msgstr "Сума податків"
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_alert
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_alert
 msgid "Tax Closing Alert"
-msgstr ""
+msgstr "Сповіщення закриття податку"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_end_date
@@ -3217,16 +3230,18 @@ msgid ""
 "This line and all its children will be deleted. Are you sure you want to "
 "proceed?"
 msgstr ""
+"Цей рядок і всі його дочірні елементи буде видалено. Ви впевнені, що бажаєте"
+" продовжити?"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "This line uses a custom user-defined 'Group By' value."
-msgstr ""
+msgstr "Цей рядок використовує визначене користувачем значення «Групування»."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "This option hides lines with a value of 0"
-msgstr ""
+msgstr "Ця опція приховує рядки зі значенням 0"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3234,6 +3249,8 @@ msgid ""
 "This report is linked to a custom handler.\n"
 "                        You can customize it manually, but make sure your changes don't clash with what the handler does."
 msgstr ""
+"Цей звіт пов’язано зі спеціальним обробником.\n"
+"                        Ви можете налаштувати його вручну, але переконайтеся, що ваші зміни не суперечать тому, що робить обробник."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3250,6 +3267,10 @@ msgid ""
 "its content, in case other entries using taxes have been posted in the "
 "meantime."
 msgstr ""
+"Цей запис про закриття податку опубліковано, але дата податкового блокування"
+" передує останньому дню звітного періоду. Можливо, вам знадобиться скинути "
+"його до чернетки та оновити його вміст, якщо тим часом було опубліковано "
+"інші записи з використанням податків."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3517,7 +3538,9 @@ msgid "XLSX"
 msgstr "XLSX"
 
 #. module: account_reports
+#. odoo-python
 #. odoo-javascript
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "Yes"
@@ -3543,7 +3566,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_move_line.py:0
 #, python-format
 msgid "You cannot add taxes on a tax closing move line."
-msgstr ""
+msgstr "Ви не можете додати податки на рядок закриття проводки."
 
 #. module: account_reports
 #. odoo-python

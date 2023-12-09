@@ -6,6 +6,7 @@
 # Lucia Pacheco, 2023
 # Wil Odoo, 2023
 # Fernanda Alvarez, 2023
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2023
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Fernanda Alvarez, 2023\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2023\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,7 +147,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.partner_view_buttons
 msgid "<span class=\"o_stat_text\">Partner Ledger</span>"
-msgstr "<span class=\"o_stat_text\">Libro mayor del partner</span>"
+msgstr "<span class=\"o_stat_text\">Libro mayor de clientes</span>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -1870,6 +1871,13 @@ msgstr "Insertar pie de página aquí"
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#, python-format
+msgid "Integer Rounding"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
@@ -2486,12 +2494,12 @@ msgstr "Contacto"
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_partner_ledger
 #: model_terms:ir.ui.view,arch_db:account_reports.partner_view_buttons
 msgid "Partner Ledger"
-msgstr "Libro mayor del partner"
+msgstr "Libro mayor de clientes"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_partner_ledger_report_handler
 msgid "Partner Ledger Custom Handler"
-msgstr "Gestor personalizado del libro mayor del partner"
+msgstr "Gestor personalizado del libro mayor de clientes"
 
 #. module: account_reports
 #: model:ir.ui.menu,name:account_reports.account_reports_partners_reports_menu
@@ -3546,7 +3554,7 @@ msgstr "ID incorrecto para expandir la línea del libro mayor: %s"
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 #, python-format
 msgid "Wrong ID for partner ledger line to expand: %s"
-msgstr "ID incorrecto para expandir la línea del libro mayor del partner: %s"
+msgstr "ID incorrecto para expandir la línea del libro mayor de clientes: %s"
 
 #. module: account_reports
 #. odoo-python

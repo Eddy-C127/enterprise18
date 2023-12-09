@@ -1867,6 +1867,13 @@ msgstr "Inserisci nota a piè di pagina"
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#, python-format
+msgid "Integer Rounding"
+msgstr "Arrotondamento numero intero"
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
@@ -2275,7 +2282,9 @@ msgid "Net profit margin (net profit / income)"
 msgstr "Margine utile netto (utile netto / ricavi)"
 
 #. module: account_reports
+#. odoo-python
 #. odoo-javascript
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "No"
@@ -3562,7 +3571,9 @@ msgid "XLSX"
 msgstr "XLSX"
 
 #. module: account_reports
+#. odoo-python
 #. odoo-javascript
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "Yes"

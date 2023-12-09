@@ -26,11 +26,12 @@ msgid ""
 "'Maintenance Request Worksheet - %s - %s' % (object.name, "
 "object.user_id.name)"
 msgstr ""
+"'Huoltopyyntöjen työkirja - %s - %s' % (object.name, object.user_id.name)"
 
 #. module: maintenance_worksheet
 #: model_terms:ir.ui.view,arch_db:maintenance_worksheet.maintenance_request_view_form_inherit_worksheet
 msgid "<span class=\"o_stat_text\">Worksheet</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Työkirja</span>"
 
 #. module: maintenance_worksheet
 #: model_terms:ir.ui.view,arch_db:maintenance_worksheet.maintenance_request_view_form_inherit_worksheet
@@ -47,11 +48,13 @@ msgid ""
 "Create templates for each type of request you have and customize their "
 "content with your own custom fields."
 msgstr ""
+"Luo malleja kutakin pyyntöä varten ja muokkaa niiden sisältöä omilla "
+"mukautetuilla kentilläsi."
 
 #. module: maintenance_worksheet
 #: model_terms:ir.actions.act_window,help:maintenance_worksheet.maintenance_worksheet_action_settings
 msgid "Customize worksheet templates for each type of request.<br>"
-msgstr ""
+msgstr "Mukauta työarkkimallit kutakin pyyntöä varten.<br>"
 
 #. module: maintenance_worksheet
 #: model:ir.model,name:maintenance_worksheet.model_maintenance_request
@@ -61,12 +64,12 @@ msgstr "Huoltopyyntö"
 #. module: maintenance_worksheet
 #: model:ir.model,name:maintenance_worksheet.model_report_maintenance_worksheet_maintenance_worksheet
 msgid "Maintenance Request Worksheet Custom Report"
-msgstr ""
+msgstr "Huoltopyyntöjen laskentataulukon mukautettu raportti"
 
 #. module: maintenance_worksheet
 #: model_terms:ir.ui.view,arch_db:maintenance_worksheet.worksheet_page
 msgid "Maintenance Request:"
-msgstr ""
+msgstr "Huoltopyyntö:"
 
 #. module: maintenance_worksheet
 #: model_terms:ir.actions.act_window,help:maintenance_worksheet.maintenance_worksheet_action_settings
@@ -78,7 +81,7 @@ msgstr "Ei löytynyt työkirjoja. Luodaan sellainen!"
 #: code:addons/maintenance_worksheet/models/maintenance_request.py:0
 #, python-format
 msgid "Please select a Worksheet Template."
-msgstr ""
+msgstr "Valitse työkirjamalli."
 
 #. module: maintenance_worksheet
 #: model_terms:ir.ui.view,arch_db:maintenance_worksheet.worksheet_page
@@ -93,7 +96,7 @@ msgstr "Työkirjojen määrä"
 #. module: maintenance_worksheet
 #: model:ir.actions.report,name:maintenance_worksheet.maintenance_request_report
 msgid "Worksheet Report"
-msgstr ""
+msgstr "Työkirjaraportti"
 
 #. module: maintenance_worksheet
 #: model:ir.model,name:maintenance_worksheet.model_worksheet_template

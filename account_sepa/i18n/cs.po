@@ -6,6 +6,7 @@
 # Ivana Bartonkova, 2023
 # Jakub Smolka, 2023
 # Wil Odoo, 2023
+# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +39,7 @@ msgstr "Bankovní účet musí být nastaven na následujících dokumentech:"
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_03_austrian_004
 msgid "Austrian"
-msgstr ""
+msgstr "Rakouský"
 
 #. module: account_sepa
 #. odoo-python
@@ -93,12 +94,12 @@ msgstr "Obecný"
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_03_de
 msgid "German"
-msgstr ""
+msgstr "Německý"
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_journal__has_sepa_ct_payment_method
 msgid "Has Sepa Ct Payment Method"
-msgstr ""
+msgstr "Má platební metodu Sepa Ct"
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_res_company__sepa_orgid_id
@@ -142,7 +143,7 @@ msgstr ""
 #: code:addons/account_sepa/models/account_batch_payment.py:0
 #, python-format
 msgid "Maximum amount is %s for payments in Euros, %s for other currencies."
-msgstr ""
+msgstr "Maximální částka je %spro platby v eurech, %s v jiných měnách."
 
 #. module: account_sepa
 #: model_terms:ir.ui.view,arch_db:account_sepa.res_partner_sepa_inherit_form
@@ -167,14 +168,14 @@ msgstr ""
 #: code:addons/account_sepa/models/account_journal.py:0
 #, python-format
 msgid "Partner %s has no country code defined."
-msgstr ""
+msgstr "Partner %s nemá definovaný kód země."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
 #, python-format
 msgid "Partner %s has not bank account defined."
-msgstr ""
+msgstr "Partner %s nemá definovaný bankovní účet."
 
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_account_payment_method
@@ -248,6 +249,9 @@ msgid ""
 "recommendations made by the EPC (European Payment Council) and thus the XML "
 "created need some tweaking."
 msgstr ""
+"SEPA může být obecným formátem, některé země se liší od doporučení SEPA "
+"vydaných EPC (European Payment Councile) a vytvořený XML tedy vyžaduje "
+"nějaké úpravy."
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_batch_payment__sct_generic
@@ -293,12 +297,12 @@ msgstr ""
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_03_se
 msgid "Swedish"
-msgstr ""
+msgstr "Švédský"
 
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_03_ch_02
 msgid "Swiss"
-msgstr ""
+msgstr "Švýcarský"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_account_batch_payment__sct_generic
@@ -325,6 +329,12 @@ msgid ""
 "- 2 letters or digits: location code\n"
 "- 3 letters or digits: branch code, optional\n"
 msgstr ""
+"BIC kód '%s' spojený s bankou '%s' bankovního účtu '%s' partnera '%s' nerespektuje požadovanou konvenci.\n"
+"Musí obsahovat 8 nebo 11 znaků a odpovídat následující struktuře:\n"
+"- 4 písmena: kód instituce nebo kód banky\n"
+"- 2 písmena: kód země\n"
+"- 2 písmena nebo číslice: kód umístění\n"
+"- 3 písmena nebo číslice: kód pobočky, volitelný\n"
 
 #. module: account_sepa
 #. odoo-python
@@ -344,6 +354,8 @@ msgid ""
 "The account %s, linked to partner '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
+"Účet %s propojený s partnerem '%s' není typu IBAN.\n"
+"K používání funkcí SEPA je vyžadován platný účet IBAN."
 
 #. module: account_sepa
 #. odoo-python
@@ -353,6 +365,8 @@ msgid ""
 "The account %s, of journal '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
+"Účet %s deníku '%s' není typu IBAN.\n"
+"K používání funkcí SEPA je vyžadován platný účet IBAN."
 
 #. module: account_sepa
 #. odoo-python
@@ -373,6 +387,8 @@ msgid ""
 "The bank defined on account %s (from partner %s) has no BIC. Please first "
 "set one."
 msgstr ""
+"Banka definovaná na účtu %s (od partnera %s) nemá BIC. Nejprve prosím "
+"nastavte jednu."
 
 #. module: account_sepa
 #. odoo-python

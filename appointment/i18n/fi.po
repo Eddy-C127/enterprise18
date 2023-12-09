@@ -109,7 +109,7 @@ msgstr ""
 #: code:addons/appointment/models/appointment_resource.py:0
 #, python-format
 msgid "%(original_name)s (copy)"
-msgstr ""
+msgstr "%(original_name)s (kopio)"
 
 #. module: appointment
 #. odoo-python
@@ -1194,7 +1194,7 @@ msgstr "Varaaja"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__calendar_event_id
 msgid "Booking"
-msgstr ""
+msgstr "Varaus"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
@@ -1222,7 +1222,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Bookings"
-msgstr ""
+msgstr "Varaukset"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_partner_ids
@@ -1539,6 +1539,8 @@ msgid ""
 "Defines the type of video call link that will be used for the generated "
 "events. Keep it empty to prevent generating meeting url."
 msgstr ""
+"Määrittää videopuhelulinkin tyypin, jota käytetään luotujen tapahtumien "
+"yhteydessä. Pidä tyhjänä, jos haluat estää kokouksen url-osoitteen luomisen."
 
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_dental_care
@@ -1642,7 +1644,7 @@ msgstr "Päättymispäivä"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__end_datetime
 msgid "End Datetime"
-msgstr ""
+msgstr "Loppupäivämäärä"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__end_datetime
@@ -2908,7 +2910,7 @@ msgstr "Alkupäivä"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__start_datetime
 msgid "Start Datetime"
-msgstr ""
+msgstr "Aloituspäivämäärä"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__event_start
@@ -3292,7 +3294,7 @@ msgstr "Käyttäjät"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__event_videocall_source
 msgid "Videoconference Link"
-msgstr ""
+msgstr "Videokonferenssin linkki"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__website_message_ids
@@ -3479,7 +3481,7 @@ msgstr "tunnin kuluttua!"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "people"
-msgstr ""
+msgstr "ihmiset"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

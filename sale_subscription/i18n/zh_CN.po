@@ -4,10 +4,10 @@
 # 
 # Translators:
 # Chloe Wang, 2023
-# 何彬 <vnsoft.he@gmail.com>, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Wil Odoo, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
+# 何彬 <vnsoft.he@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
+"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1977,7 +1977,7 @@ msgstr "合约终止"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Error during renewal of contract %s %s %s"
-msgstr ""
+msgstr "续订合同期间出错 %s %s %s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -3003,14 +3003,14 @@ msgstr "付款方式："
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment not recorded"
-msgstr ""
+msgstr "未记录付款"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment recorded: %s"
-msgstr ""
+msgstr "已记录付款：%s"
 
 #. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
@@ -4143,7 +4143,7 @@ msgstr "计划公司与价目表公司不同"
 msgid ""
 "The deferred settings are not properly set. Please complete them to generate"
 " subscription deferred revenues"
-msgstr ""
+msgstr "请正确完成续订设置，以便生成的续订收入"
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
@@ -5144,3 +5144,12 @@ msgid ""
 msgstr ""
 "{{ object.company_id.name }}:您的订阅{{ object.name }}需要您的关注。如果你有一些担忧，请联系{{ "
 "object.user_id.name }}，你的联系人。"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""

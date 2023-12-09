@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Ryoko Tsuda <ryoko@quartile.co>, 2023
 # Wil Odoo, 2023
 # Junko Augias, 2023
+# Ryoko Tsuda <ryoko@quartile.co>, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Junko Augias, 2023\n"
+"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1098,7 +1098,7 @@ msgstr "活動"
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.mail_activity_plan_menu_config_subscription
 msgid "Activity Plans"
-msgstr "アクティビティ計画"
+msgstr "活動計画"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__activity_type_id
@@ -5142,3 +5142,12 @@ msgid ""
 msgstr ""
 "{{ object.company_id.name }}:お客様のサブスクリプション {{ object.name }} "
 "についてご確認下さい。もしご不明な点がございましたら、担当 {{ object.user_id.name }}宛にご連絡下さい。"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""

@@ -787,7 +787,7 @@ msgstr ""
 #: code:addons/appointment/models/appointment_slot.py:0
 #, python-format
 msgid "An unique type slot should have a start and end datetime"
-msgstr ""
+msgstr "Slot jedinečného typu by měl mít počáteční a závěrečné datum"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__name
@@ -1056,7 +1056,7 @@ msgstr "Schůzky"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "Appointments by"
-msgstr ""
+msgstr "Schůzky podle"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
@@ -1506,6 +1506,10 @@ msgid ""
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
+"Definuje typ slotu. Opakující se slot je výchozí typ, na který se používá\n"
+"        typ schůzky, který se používá opakovaně v typu jako lékařská schůzka.\n"
+"        Jednorázový typ se používá pouze tehdy, když uživatel vytvoří vlastní typ schůzky pro klienta\n"
+"        definující neopakující se časový úsek (např. 10. dubna 2021 od 10 do 11 hodin) ze svého kalendáře."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -1542,6 +1546,7 @@ msgid ""
 "Determine if the slot englobe the whole day, mainly used for unique slot "
 "type"
 msgstr ""
+"Určete, zda slot zabírá celý den, používá se hlavně pro jedinečný typ slotu"
 
 #. module: appointment
 #. odoo-javascript
@@ -1619,7 +1624,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__end_datetime
 msgid "End datetime for unique slot type management"
-msgstr ""
+msgstr "Závěrečné datum pro správu jedinečného typu slotu"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__end_hour
@@ -1689,7 +1694,7 @@ msgstr ""
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Get Share Link"
-msgstr ""
+msgstr "Získejte odkaz ke sdílení"
 
 #. module: appointment
 #. odoo-python
@@ -1863,7 +1868,7 @@ msgstr "Obrázek 512"
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert Appointment Link"
-msgstr ""
+msgstr "Vložit odkaz na schůzku"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form_insert_link
@@ -1922,6 +1927,8 @@ msgid ""
 "It's too late to cancel online, please contact the attendees another way if "
 "you really can't make it."
 msgstr ""
+"Je příliš pozdě na zrušení online, kontaktujte účastníky jiným způsobem, "
+"pokud opravdu nemůžete schůzku uskutečnit."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -2151,7 +2158,7 @@ msgstr "Název"
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Navigation"
-msgstr ""
+msgstr "Navigace"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_alarm__default_for_new_appointment_type
@@ -2265,7 +2272,7 @@ msgstr "Krok tutoriálu"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__slot_type__unique
 msgid "One Shot"
-msgstr ""
+msgstr "Jednorázový"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -2632,14 +2639,14 @@ msgstr "Hledat v popisu"
 #: code:addons/appointment/controllers/portal.py:0
 #, python-format
 msgid "Search in Name"
-msgstr ""
+msgstr "Hledat v názvu"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/portal.py:0
 #, python-format
 msgid "Search in Responsible"
-msgstr ""
+msgstr "Hledat v odpovědných"
 
 #. module: appointment
 #. odoo-javascript
@@ -2683,7 +2690,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_count
 msgid "Selected Appointments Count"
-msgstr ""
+msgstr "Počet vybraných schůzek"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_search
@@ -2727,7 +2734,7 @@ msgstr "Sdílet"
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Share Availabilities"
-msgstr ""
+msgstr "Sdílet dostupnost"
 
 #. module: appointment
 #. odoo-javascript
@@ -2797,7 +2804,7 @@ msgstr "Jednořádkový text"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__slot_type
 msgid "Slot type"
-msgstr ""
+msgstr "Typ slotu"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_intro
@@ -2880,7 +2887,7 @@ msgstr "Datum zahájení události, bez času pro celodenní události"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__start_datetime
 msgid "Start datetime for unique slot type management"
-msgstr ""
+msgstr "Počáteční čas pro správu jedinečného typu slotu"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__start_hour
@@ -2921,7 +2928,7 @@ msgstr "Neděle"
 #. module: appointment
 #: model:appointment.question,name:appointment.appointment_type_dental_care_question_1
 msgid "Symptoms"
-msgstr ""
+msgstr "Symptomy"
 
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_tennis_court
@@ -2969,7 +2976,7 @@ msgstr ""
 #: code:addons/appointment/controllers/portal.py:0
 #, python-format
 msgid "The field '%s' does not exist in the targeted model"
-msgstr ""
+msgstr "Pole '%s' v cílovém modelu neexistuje"
 
 #. module: appointment
 #. odoo-python
@@ -3028,7 +3035,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "There is no appointment linked to your account."
-msgstr ""
+msgstr "S vaším účtem není spojena žádná schůzka."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__shareable
@@ -3091,7 +3098,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_edit_in_backend
 msgid "This is a preview of the customer appointment form."
-msgstr ""
+msgstr "Toto je náhled formuláře na schůzku se zákazníkem."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
@@ -3199,14 +3206,14 @@ msgstr "Konec"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Until (max)"
-msgstr ""
+msgstr "Do (max.)"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/portal.py:0
 #, python-format
 msgid "Upcoming"
-msgstr ""
+msgstr "Nadcházející"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_calendar_alarm__default_for_new_appointment_type

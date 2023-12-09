@@ -5,6 +5,7 @@
 # Translators:
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Wil Odoo, 2023
+# Jeffery CHEN <jeffery9@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -272,7 +273,7 @@ msgstr "会计报告"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic_groupby.xml:0
 #, python-format
 msgid "Accounts"
-msgstr "科目"
+msgstr "账户"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -1824,6 +1825,13 @@ msgstr "在此处插入脚注"
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#, python-format
+msgid "Integer Rounding"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
@@ -2228,7 +2236,9 @@ msgid "Net profit margin (net profit / income)"
 msgstr "净利润率（净利润/收入）"
 
 #. module: account_reports
+#. odoo-python
 #. odoo-javascript
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "No"
@@ -3458,7 +3468,9 @@ msgid "XLSX"
 msgstr "XLSX"
 
 #. module: account_reports
+#. odoo-python
 #. odoo-javascript
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "Yes"

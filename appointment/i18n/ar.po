@@ -766,21 +766,24 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'users'\">You need to be part of an appointment type to be able to share a personal link.</span>\n"
 "                    <span invisible=\"schedule_based_on != 'resources'\">You can't create a personal link for an appointment type based on resources.</span>"
 msgstr ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                    <span invisible=\"schedule_based_on != 'users'\">يجب أن تكون جزءاً من نوع الموعد حتى تتمكن من مشاركة رابط شخصي.</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">لا يمكنك إنشاء رابط شخصي لنوع موعد بناء على الموارد.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_date
 msgid "<small class=\"text-uppercase text-muted\">Date &amp; time</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">التاريخ والوقت</small> "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">تفاصيل الاجتماع</small> "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"d-block\">Scheduled</span>"
-msgstr ""
+msgstr "<span class=\"d-block\">تمت الجدولة</span> "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -808,6 +811,8 @@ msgid ""
 "<span class=\"px-2\" invisible=\"start_datetime or category == "
 "'anytime'\">or</span>"
 msgstr ""
+"<span class=\"px-2\" invisible=\"start_datetime or category == "
+"'anytime'\">أو</span> "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -829,7 +834,7 @@ msgstr "<span>عبر الإنترنت</span> "
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid ""
 "<span>You are scheduling a booking outside the available hours of</span>"
-msgstr ""
+msgstr "<span>أنت تقوم بجدولة حجز خارج الساعات المتاحة لـ</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -842,6 +847,8 @@ msgid ""
 "<strong>Appointment canceled!</strong>\n"
 "                                            You can schedule another appointment from here."
 msgstr ""
+"<strong>تم إلغاء الموعد!</strong>\n"
+"                                            يمكنك جدولة موعد آخر من هنا. "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -851,6 +858,10 @@ msgid ""
 "                                            Someone has booked the same time slot a few\n"
 "                                            seconds before you."
 msgstr ""
+"<strong>فشل تحديد الموعد!</strong>\n"
+"                                            لم يعد الموعد المحدد متاحاً بعد الآن.\n"
+"                                            قام أحدهم بحجز نفس الموعد\n"
+"                                            قبلك ببضعة ثوانٍ. "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -859,6 +870,9 @@ msgid ""
 "                                            The selected timeslot is not available.\n"
 "                                            It appears you already have another meeting with us at that date."
 msgstr ""
+"<strong>فشل تحديد الموعد!</strong>\n"
+"                                            الموعد المحدد غير متاح.\n"
+"                                            يبدو أنه لديك موعد آخر معنا بالفعل في ذلك التاريخ. "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -873,7 +887,7 @@ msgstr "<strong>معلومات التواصل</strong> "
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Email: </strong>"
-msgstr ""
+msgstr "<strong>البريد الإلكتروني: </strong> "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -905,7 +919,7 @@ msgstr "<strong>النوع: </strong>"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "A %s appointment type shouldn't be limited by datetimes."
-msgstr ""
+msgstr "يجب ألا يكون نوع موعد %s مقيداً بالوقت والتاريخ. "
 
 #. module: appointment
 #. odoo-python
@@ -922,7 +936,7 @@ msgstr "تحتاج إلى قائمة من معلومات الفترات لإنش
 msgid ""
 "A punctual appointment type should be limited between a start and end "
 "datetime."
-msgstr ""
+msgstr "يجب أن يكون نوع الموعد الدقيق محدداً بين وقت وتاريخ البدء والانتهاء. "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__access_token
@@ -951,7 +965,7 @@ msgstr "نشط"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add Guests"
-msgstr ""
+msgstr "إضافة ضيوف "
 
 #. module: appointment
 #. odoo-javascript
@@ -1238,7 +1252,7 @@ msgstr "مَورِد الموعد "
 #. module: appointment
 #: model:ir.actions.server,name:appointment.resource_calendar_leaves_action_show_appointment_resources
 msgid "Appointment Resource Leaves"
-msgstr ""
+msgstr "إجازات موارد المواعيد "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_ids
@@ -1382,7 +1396,7 @@ msgstr "الحاضرين "
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_attended
 msgid "Attendees Arrived"
-msgstr ""
+msgstr "الحاضرين الذين وصلوا "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__slot_ids
@@ -1582,7 +1596,7 @@ msgstr "الشركة "
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__disable_save_button
 msgid "Computes if alert is present"
-msgstr ""
+msgstr "يقوم بحساب ما إذا كان التنبيه حاضراً "
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.appointment_menu_config
@@ -1949,7 +1963,7 @@ msgstr "يتم تقديم معلومات إضافية بمجرد أن يتم ح�
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_appointment
 msgid "Follow, reschedule or cancel your appointments"
-msgstr ""
+msgstr "تابع مواعيدك أو أعد جدولتها أو قم بإلغائها "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_follower_ids
@@ -2035,7 +2049,7 @@ msgstr "تجميع حسب"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Guest usage is limited to 10 customers for performance reason."
-msgstr ""
+msgstr "يقتصر استخدام الضيوف على 10 عملاء لأسباب تتعلق بالأداء. "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -2089,7 +2103,7 @@ msgstr "إذا كان محددًا، فقد حدث خطأ في تسليم بعض
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, Odoo will not send emails"
-msgstr ""
+msgstr "إذا كان فارغاً، لن يقوم أودو بإرسال رسائل البريد الإلكتروني "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__restrict_to_resource_ids
@@ -2308,7 +2322,7 @@ msgstr "أداة إنشاء الروابط "
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__book_url
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "Link URL"
-msgstr "ربط رابط URL "
+msgstr "رابط URL "
 
 #. module: appointment
 #. odoo-javascript
@@ -3663,7 +3677,7 @@ msgstr "موعدك خلال أقل من"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 msgid "Your choice"
-msgstr ""
+msgstr "خيارك "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

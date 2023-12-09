@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Iran Villalobos López, 2023
+# Fernanda Alvarez, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Iran Villalobos López, 2023\n"
+"Last-Translator: Fernanda Alvarez, 2023\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -314,9 +315,24 @@ msgid "Cost"
 msgstr "Costo"
 
 #. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_friend_configuration
+msgid "Create a new friend"
+msgstr ""
+
+#. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_level_configuration
+msgid "Create a new level"
+msgstr ""
+
+#. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_alert_configuration
 msgid "Create new alerts"
 msgstr "Cree nuevas alertas"
+
+#. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_points
+msgid "Create new reward points"
+msgstr ""
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__create_uid
@@ -1044,7 +1060,7 @@ msgstr "Puntos para gastar"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_friend__position
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Position"
-msgstr "Posición"
+msgstr "Puesto"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -1155,7 +1171,7 @@ msgstr "Referido:%s(%s)"
 #: model_terms:ir.ui.view,arch_db:hr_referral.res_config_settings_view__form
 #, python-format
 msgid "Referrals"
-msgstr "Referidos"
+msgstr "Referencias"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_applicant_view_search_bis_inherit_referral

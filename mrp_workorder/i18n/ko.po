@@ -3,17 +3,17 @@
 # 	* mrp_workorder
 # 
 # Translators:
-# Wil Odoo, 2023
 # Daye Jeong, 2023
 # Sarah Park, 2023
+# Wil Odoo, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-06 08:38+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Sarah Park, 2023\n"
+"Last-Translator: Wil Odoo, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,6 +42,13 @@ msgstr "%(user_name)s이 이 문서를 지침으로 사용할 것을 제안합�
 #, python-format
 msgid "+ New Operator"
 msgstr "+ 새 운영자"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
+#, python-format
+msgid "< Back"
+msgstr ""
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
@@ -95,8 +102,8 @@ msgid "Add By-product"
 msgstr "부산물 추가"
 
 #. module: mrp_workorder
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
@@ -128,8 +135,8 @@ msgid "Add Workorder"
 msgstr "작업지시 추가"
 
 #. module: mrp_workorder
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
@@ -564,6 +571,13 @@ msgid "Fill in worksheet"
 msgstr "워크시트 작성"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Finished"
+msgstr "완료됨"
+
+#. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__finished_lot_id
 msgid "Finished Lot/Serial"
 msgstr "완제품 Lot/일련번호"
@@ -630,12 +644,11 @@ msgid "Image/PDF"
 msgstr "이미지/PDF"
 
 #. module: mrp_workorder
-#: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder__move_line_id
-#: model:ir.model.fields,help:mrp_workorder.field_quality_check__move_line_id
-msgid ""
-"In case of Quality Check by Quantity, Move Line on which the Quality Check "
-"applies"
-msgstr "수량별 품질 검사의 경우, 품질 검사가 적용되는 라인으로 이동해야합니다."
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "In Progress"
+msgstr "진행 중"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.add_quality_check_from_tablet
@@ -704,6 +717,13 @@ msgstr "최근 갱신한 사람"
 #: model:ir.model.fields,field_description:mrp_workorder.field_propose_change__write_date
 msgid "Last Updated on"
 msgstr "최근 갱신 일자"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
+#, python-format
+msgid "Load Samples"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -856,11 +876,6 @@ msgid "Next"
 msgstr "다음"
 
 #. module: mrp_workorder
-#: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "다음 활동 캘린더 행사"
-
-#. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "다음 활동 마감일"
@@ -896,6 +911,15 @@ msgstr "아직 제조 단계가 정의되지 않았습니다"
 #: model_terms:ir.actions.act_window,help:mrp_workorder.mrp_workorder_action_tablet
 msgid "No work orders to do!"
 msgstr "작업지시가 없습니다!"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_workcenter_dialog.js:0
+#, python-format
+msgid ""
+"No workcenters are available, please create one first to add it to the shop "
+"floor view"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -987,6 +1011,13 @@ msgstr "비밀번호?"
 #, python-format
 msgid "Pause"
 msgstr "일시 정지"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Pending"
+msgstr "보류 중"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_stock_picking_type
@@ -1196,6 +1227,13 @@ msgid "Quantity Produced"
 msgstr "생산 완료 수량"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Ready"
+msgstr "준비"
+
+#. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
@@ -1361,6 +1399,13 @@ msgstr "지침 보기"
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Show the timer on the work order screen"
 msgstr "작업지시 화면에 타이머를 표시합니다."
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
+#, python-format
+msgid "Skip >"
+msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1540,9 +1585,9 @@ msgstr "총 수량"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid ""
-"Track work orders, show instructions and record operations: quality control,"
-" serial numbers, quantities consumed, etc. from here"
-msgstr "작업지시를 모니터하고, 지침을 표시하고, 작업을 기록하세요: 품질 관리, 일련번호, 소비된 수량 등."
+"Track work orders, show instructions and record manufacturing operations from here:\n"
+"                                quality control, consumed quantities, lot/serial numbers, etc."
+msgstr ""
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1565,6 +1610,14 @@ msgstr "변경 유형"
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_bom__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "레코드에 있는 예외 활동의 유형입니다."
+
+#. module: mrp_workorder
+#. odoo-python
+#: code:addons/mrp_workorder/models/mrp_production.py:0
+#, python-format
+msgid ""
+"Unable to load samples when you already have existing manufacturing orders"
+msgstr ""
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1661,6 +1714,27 @@ msgstr "승인"
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder___barcode_scanned
 msgid "Value of the last barcode scanned."
 msgstr "가장 최근에 스캔한 바코드 값입니다."
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_bar.xml:0
+#, python-format
+msgid "WO"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
+#, python-format
+msgid "WO Filters"
+msgstr ""
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
+#, python-format
+msgid "Waiting"
+msgstr "대기 중"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workcenter
@@ -1818,6 +1892,7 @@ msgstr "작업지시서를 완료로 표시하기 전에 작업 현장에서 품
 
 #. module: mrp_workorder
 #. odoo-python
+#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid ""

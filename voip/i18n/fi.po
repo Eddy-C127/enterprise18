@@ -32,35 +32,35 @@ msgstr ""
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(minutes)s min %(seconds)s sec"
-msgstr ""
+msgstr "%(minutes)s minuuttia %(seconds)s sekuntia"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(minutes)s minutes"
-msgstr ""
+msgstr "%(minutes)s minuuttia"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "%(number)s missed calls"
-msgstr ""
+msgstr "%(number)s vastaamattomat puhelut"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(seconds)s seconds"
-msgstr ""
+msgstr "%(seconds)s sekuntia"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "1 minute"
-msgstr ""
+msgstr "1 minuutti"
 
 #. module: voip
 #. odoo-javascript
@@ -74,14 +74,14 @@ msgstr "1 vastaamaton puhelu"
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "1 second"
-msgstr ""
+msgstr "1 sekunti"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "2 minutes"
-msgstr ""
+msgstr "2 minuuttia"
 
 #. module: voip
 #. odoo-javascript
@@ -95,7 +95,7 @@ msgstr "2 vastaamatonta puhelua"
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "2 seconds"
-msgstr ""
+msgstr "2 sekuntia"
 
 #. module: voip
 #. odoo-javascript
@@ -105,23 +105,25 @@ msgid ""
 "A hardware error has occurred while trying to access the audio recording "
 "device. Please ensure that your drivers are up to date and try again."
 msgstr ""
+"Äänitallennuslaitetta käytettäessä on tapahtunut laitteistovirhe. Varmista, "
+"että ajurit ovat ajan tasalla ja yritä uudelleen."
 
 #. module: voip
 #: model:ir.model,name:voip.model_voip_call
 msgid "A phone call handled using the VoIP application"
-msgstr ""
+msgstr "VoIP-sovelluksella soitettu puhelu"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__aborted
 msgid "Aborted"
-msgstr ""
+msgstr "Keskeytetty"
 
 #. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Aborted call to %(phone_number)s"
-msgstr ""
+msgstr "Keskeytetty kutsu osoitteeseen %(phone_number)s"
 
 #. module: voip
 #. odoo-javascript
@@ -151,6 +153,8 @@ msgid ""
 "An error occured involving the audio recording device (%(errorName)s):\n"
 "%(errorMessage)s"
 msgstr ""
+"Äänitallennuslaitteessa (%(errorName)s) tapahtui virhe:\n"
+"%(errorMessage)s"
 
 #. module: voip
 #. odoo-javascript
@@ -161,6 +165,9 @@ msgid ""
 "\n"
 "%(error)s"
 msgstr ""
+"Käyttäjäagentin instanssin käynnistyksessä tapahtui virhe:\n"
+"\n"
+"%(error)s"
 
 #. module: voip
 #. odoo-javascript
@@ -169,7 +176,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to delete this activity? It will be lost forever, "
 "which is quite a long time 😔"
-msgstr ""
+msgstr "Haluatko varmasti poistaa tämän aktiviteetin? Se katoaa pysyvästi"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__ask
@@ -198,14 +205,14 @@ msgstr "Soitto"
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call from %(correspondent)s"
-msgstr ""
+msgstr "Soita lähteestä %(correspondent)s"
 
 #. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call from %(phone_number)s"
-msgstr ""
+msgstr "Soitto lähteestä %(phone_number)s"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
@@ -218,39 +225,39 @@ msgstr "Puhelu toisesta laitteesta"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Call rejected (reason: “%(reasonPhrase)s”)"
-msgstr ""
+msgstr "Puhelu hylätty (syy: \"%(reasonPhrase)s\")"
 
 #. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call to %(correspondent)s"
-msgstr ""
+msgstr "Soita kohteeseen %(correspondent)s"
 
 #. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call to %(phone_number)s"
-msgstr ""
+msgstr "Soita kohteeseen %(phone_number)s"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__calling
 msgid "Calling"
-msgstr ""
+msgstr "Soitetaan"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Calling %(phone number)s"
-msgstr ""
+msgstr "Soitetaan %(phone number)s"
 
 #. module: voip
 #: model:ir.actions.act_window,name:voip.voip_call_view
 #: model_terms:ir.ui.view,arch_db:voip.voip_call_tree_view
 msgid "Calls"
-msgstr ""
+msgstr "Puhelut"
 
 #. module: voip
 #. odoo-javascript
@@ -277,20 +284,24 @@ msgid ""
 "website is running over HTTPS and that your browser is not set to deny "
 "access to media devices."
 msgstr ""
+"Äänitallennuslaitetta ei voida käyttää. Jos mikrofonin käyttöoikeus on "
+"estetty, salli se ja yritä uudelleen. Muussa tapauksessa varmista, että tämä"
+" verkkosivusto toimii HTTPS:n kautta ja että selaimesi ei ole asetettu "
+"estämään pääsyä medialaitteisiin."
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/correspondence_details.xml:0
 #, python-format
 msgid "Change input device"
-msgstr ""
+msgstr "Vaihda syöttölaite"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/mobile/devise_selection_dialog.xml:0
 #, python-format
 msgid "Choose a device:"
-msgstr ""
+msgstr "Valitse laite:"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__how_to_call_on_mobile
@@ -320,21 +331,21 @@ msgstr "Sulje"
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "Close Numpad"
-msgstr ""
+msgstr "Sulje numeronäppäimistö"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/web/voip_systray_item.js:0
 #, python-format
 msgid "Close Softphone"
-msgstr ""
+msgstr "Sulje Softphone"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/correspondence_details.xml:0
 #, python-format
 msgid "Close details"
-msgstr ""
+msgstr "Sulje tiedot"
 
 #. module: voip
 #: model:ir.model,name:voip.model_res_config_settings
@@ -354,7 +365,7 @@ msgstr "Vahvista"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Connecting…"
-msgstr ""
+msgstr "Yhdistetään…"
 
 #. module: voip
 #: model:ir.model,name:voip.model_res_partner
@@ -374,7 +385,7 @@ msgstr "Yhteystiedot"
 #: code:addons/voip/static/src/softphone/contacts_tab.xml:0
 #, python-format
 msgid "Contacts with a phone number will be shown here."
-msgstr ""
+msgstr "Yhteystiedot, joilla on puhelinnumero, näkyvät tässä."
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__create_uid
@@ -451,7 +462,7 @@ msgstr "Anna numero tai nimi"
 #: code:addons/voip/static/src/softphone/numpad.xml:0
 #, python-format
 msgid "Enter the number…"
-msgstr ""
+msgstr "Syötä numero…"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__external_device_number
@@ -468,6 +479,9 @@ msgid ""
 "\n"
 "%(error)s"
 msgstr ""
+"SIP.js-kirjaston lataaminen epäonnistui:\n"
+"\n"
+"%(error)s"
 
 #. module: voip
 #. odoo-javascript
@@ -481,7 +495,7 @@ msgstr "Lopeta puhelu, mutta pidä puhelu jonossa"
 #: code:addons/voip/static/src/softphone/activities_tab.js:0
 #, python-format
 msgid "Hold on!"
-msgstr ""
+msgstr "Odotahan!"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__how_to_call_on_mobile
@@ -529,7 +543,7 @@ msgstr ""
 #: code:addons/voip/static/src/softphone/correspondence_details.js:0
 #, python-format
 msgid "In call for: %(minutes)s:%(seconds)s"
-msgstr ""
+msgstr "Puhelu käynnissä: %(minutes)s:%(seconds)s"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__direction__incoming
@@ -541,14 +555,14 @@ msgstr "Saapuva"
 #: code:addons/voip/static/src/softphone/call_invitation.xml:0
 #, python-format
 msgid "Incoming call from…"
-msgstr ""
+msgstr "Saapuva puhelu…"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/mobile/device_selection_dialog.js:0
 #, python-format
 msgid "Input device selection"
-msgstr ""
+msgstr "Syöttölaitteen valinta"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_partner__has_call_in_queue
@@ -584,7 +598,7 @@ msgstr "Merkitse tehdyksi"
 #: code:addons/voip/static/src/softphone/activities_tab.js:0
 #, python-format
 msgid "Missclicked, sorry."
-msgstr ""
+msgstr "Väärä klikkaus, pahoittelut."
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__missed
@@ -596,7 +610,7 @@ msgstr "Ei vastattu puhelu"
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Missed call from %(phone_number)s"
-msgstr ""
+msgstr "Vastaamaton puhelu %(phone_number)s"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_mail_activity__mobile
@@ -640,7 +654,7 @@ msgstr ""
 #: code:addons/voip/static/src/softphone/activities_tab.xml:0
 #, python-format
 msgid "No calls scheduled for today 😎"
-msgstr ""
+msgstr "Tänään ei ole puheluita"
 
 #. module: voip
 #. odoo-javascript
@@ -649,7 +663,7 @@ msgstr ""
 #: code:addons/voip/static/src/softphone/recent_tab.xml:0
 #, python-format
 msgid "No search results 💔"
-msgstr ""
+msgstr "Ei hakutuloksia"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__ongoing
@@ -661,14 +675,14 @@ msgstr "Jatkuva"
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "Open Numpad"
-msgstr ""
+msgstr "Avaa numeronäppäimistö"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/web/voip_systray_item.js:0
 #, python-format
 msgid "Open Softphone"
-msgstr ""
+msgstr "Avaa softapuhelin"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__direction__outgoing
@@ -757,21 +771,21 @@ msgstr "Rechazado"
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Rejected call from %(phone_number)s"
-msgstr ""
+msgstr "Hylätty puhelu %(phone_number)s"
 
 #. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Rejected call to %(phone_number)s"
-msgstr ""
+msgstr "Hylätty puhelu osoitteeseen %(phone_number)s"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.xml:0
 #, python-format
 msgid "Remember?"
-msgstr ""
+msgstr "Muista minut?"
 
 #. module: voip
 #. odoo-javascript
@@ -790,12 +804,12 @@ msgstr "Vastuuhenkilö"
 #: code:addons/voip/static/src/softphone/correspondence_details.js:0
 #, python-format
 msgid "Ringing…"
-msgstr ""
+msgstr "Soittaa…"
 
 #. module: voip
 #: model_terms:ir.ui.view,arch_db:voip.res_config_settings_view_form
 msgid "Schedule & make calls from your database"
-msgstr ""
+msgstr "Ajoita ja soita puheluita tietokannastasi"
 
 #. module: voip
 #. odoo-javascript
@@ -816,14 +830,14 @@ msgstr "Hae"
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.js:0
 #, python-format
 msgid "Select a call method"
-msgstr ""
+msgstr "Valitse soittomenetelmä"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/correspondence_details.xml:0
 #, python-format
 msgid "Send e-mail"
-msgstr ""
+msgstr "Lähetä sähköpostia"
 
 #. module: voip
 #. odoo-python
@@ -851,12 +865,12 @@ msgstr "Alue"
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.xml:0
 #, python-format
 msgid "Tell us how to make the call:"
-msgstr ""
+msgstr "Kerro meille, miten soitamme puhelun:"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__terminated
 msgid "Terminated"
-msgstr ""
+msgstr "Päättynyt"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_config_settings__pbx_ip
@@ -884,7 +898,7 @@ msgstr ""
 #. module: voip
 #: model:ir.model.fields,help:voip.field_voip_call__activity_name
 msgid "The name of the activity related to this phone call, if any."
-msgstr ""
+msgstr "Tähän puheluun liittyvän toiminnan nimi, jos sellainen on."
 
 #. module: voip
 #. odoo-javascript
@@ -894,6 +908,8 @@ msgid ""
 "The number is incorrect, the user credentials could be wrong or the connection cannot be made. Please check your configuration.\n"
 "(Reason received: %(reasonPhrase)s)"
 msgstr ""
+"Numero on väärä, käyttäjätunnukset voivat olla väärät tai yhteyttä ei voida muodostaa. Tarkista asetukset.\n"
+"(Saatu syy: %(reasonPhrase)s)"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__voip_secret
@@ -932,6 +948,9 @@ msgid ""
 "incorrect. Please have an administrator check the websocket server URL in "
 "the General Settings."
 msgstr ""
+"Käyttäjäagenttia ei voitu käynnistää. Websocket-palvelimen URL-osoite voi "
+"olla virheellinen. Pyydä järjestelmänvalvojaa tarkistamaan websocket-"
+"palvelimen URL-osoite yleisissä asetuksissa."
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__voip_username
@@ -958,7 +977,7 @@ msgstr "Websocket-yhteys palvelimeen on katkennut. Yritä päivittää sivu."
 #, python-format
 msgid ""
 "There is still a call in progress, are you sure you want to leave the page?"
-msgstr ""
+msgstr "Puhelu on edelleen käynnissä, haluatko varmasti poistua sivulta?"
 
 #. module: voip
 #. odoo-javascript
@@ -980,7 +999,7 @@ msgstr "Siirto kohteeseen"
 #: code:addons/voip/static/src/web/voip_systray_item.js:0
 #, python-format
 msgid "Unfold Softphone"
-msgstr ""
+msgstr "Sulje softapuhelimen laskostus"
 
 #. module: voip
 #. odoo-javascript
@@ -1004,14 +1023,14 @@ msgstr "Käyttäjäasetukset"
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.xml:0
 #, python-format
 msgid "Using VoIP"
-msgstr ""
+msgstr "VoIP:n käyttö"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.xml:0
 #, python-format
 msgid "Using device's phone"
-msgstr ""
+msgstr "Laitteen puhelimen käyttäminen"
 
 #. module: voip
 #: model:ir.model,name:voip.model_voip_queue_mixin
@@ -1053,7 +1072,7 @@ msgstr "VoIP-käyttäjätunnus / Alanumero"
 #. module: voip
 #: model:ir.ui.menu,name:voip.menu_voip_call_view
 msgid "Voip / Calls"
-msgstr ""
+msgstr "Voip / Puhelut"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_config_settings__wsServer
@@ -1065,7 +1084,7 @@ msgstr "WebSocket"
 #: code:addons/voip/static/src/softphone/activities_tab.js:0
 #, python-format
 msgid "Yes, do it."
-msgstr ""
+msgstr "Kyllä, tee näin."
 
 #. module: voip
 #. odoo-javascript
@@ -1075,13 +1094,15 @@ msgid ""
 "Your browser does not support some of the features required for VoIP to "
 "work. Please try updating your browser or using a different one."
 msgstr ""
+"Selaimesi ei tue joitakin VoIP:n toimintaan tarvittavia ominaisuuksia. Yritä"
+" päivittää selaimesi tai käytä toista selainta."
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/recent_tab.xml:0
 #, python-format
 msgid "Your call history is empty! Make a call now and have it listed here 💡"
-msgstr ""
+msgstr "Puheluhistoriasi on tyhjä! Soita nyt ja saat sen kirjattua"
 
 #. module: voip
 #. odoo-javascript
@@ -1090,10 +1111,12 @@ msgstr ""
 msgid ""
 "Your login details are not set correctly. Please contact your administrator."
 msgstr ""
+"Kirjautumistietojasi ei ole asetettu oikein. Ota yhteyttä "
+"järjestelmänvalvojaan."
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "less than a second"
-msgstr ""
+msgstr "alle sekunti"

@@ -535,7 +535,7 @@ msgstr "<span class=\"fa fa-share-alt\"/> Compartir"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-trash\"/> Delete"
-msgstr ""
+msgstr "<span class=\"fa fa-trash\"/> Eliminar"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -567,11 +567,12 @@ msgstr "<span>En línea</span>"
 msgid ""
 "<span>You are scheduling a booking outside the available hours of</span>"
 msgstr ""
+"<span>Está programando una reserva fuera del horario disponible de</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "<span>people</span>"
-msgstr ""
+msgstr "<span>persona(s)</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -590,6 +591,10 @@ msgid ""
 "                                            Someone has booked the same time slot a few\n"
 "                                            seconds before you."
 msgstr ""
+"<strong>Cita fallida!</strong>\n"
+"                                            El espacio de tiempo seleccionado ya no está disponible.\n"
+"                                            Alguien ha reservado el mismo espacio de tiempo unos\n"
+"                                            segundos antes que usted."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -602,7 +607,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Booked for: </strong>"
-msgstr ""
+msgstr "<strong>Reservado para: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -644,7 +649,7 @@ msgstr "<strong>Tipo: </strong>"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "A %s appointment type shouldn't be limited by datetimes."
-msgstr ""
+msgstr "Un tipo de cita %s no debe estar limitado por fechas ni horas."
 
 #. module: appointment
 #. odoo-python
@@ -664,6 +669,8 @@ msgid ""
 "A punctual appointment type should be limited between a start and end "
 "datetime."
 msgstr ""
+"Un tipo de cita puntual debe estar limitada con una fecha y hora de inicio y"
+" de fin."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__access_token
@@ -692,7 +699,7 @@ msgstr "Activo"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add Guests"
-msgstr ""
+msgstr "Agregar invitados"
 
 #. module: appointment
 #. odoo-javascript
@@ -721,7 +728,7 @@ msgstr "Agregar una descripción del recurso aquí..."
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Add a specific appointment"
-msgstr ""
+msgstr "Agregar una cita específica "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -731,7 +738,7 @@ msgstr "Agregar un mensaje de introducción..."
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Add more details about you"
-msgstr ""
+msgstr "Agregar más detalles sobre usted"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_manage_leaves
@@ -887,7 +894,7 @@ msgstr "Cita agendada: {{ object.appointment_type_id.name }}"
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_booking_line
 msgid "Appointment Booking Line"
-msgstr ""
+msgstr "Línea de reserva de cita"
 
 #. module: appointment
 #: model:mail.message.subtype,description:appointment.mt_calendar_event_canceled
@@ -994,6 +1001,8 @@ msgid ""
 "Appointment Resources are the places or equipment people can book\n"
 "                (e.g. Tables, Tennis Courts, Meeting Rooms, ...)"
 msgstr ""
+"Los recursos de la cita son los lugares o el equipo que la gente puede reservar\n"
+"                (por ejemplo, mesas, canchas de tenis, salas de reuniones, ...)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__name
@@ -1038,7 +1047,7 @@ msgstr "Cita cancelada por: %(partners)s"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment re-booked"
-msgstr ""
+msgstr "Cita reservada de nuevo"
 
 #. module: appointment
 #: model:mail.template,name:appointment.appointment_booked_mail_template
@@ -1058,7 +1067,7 @@ msgstr "Cita: Invitación del asistente"
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_slot
 msgid "Appointment: Time Slot"
-msgstr ""
+msgstr "Cita: espacio de tiempo "
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_type_action
@@ -1184,12 +1193,12 @@ msgstr "Volver al modo de edición"
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__base_book_url
 #: model:ir.model.fields,field_description:appointment.field_appointment_onboarding_link__base_book_url
 msgid "Base Link URL"
-msgstr ""
+msgstr "Enlace base de la URL"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_ids
 msgid "Booked Appointments"
-msgstr ""
+msgstr "Citas reservadas"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
@@ -1204,7 +1213,7 @@ msgstr "Reserva"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
 msgid "Booking End"
-msgstr ""
+msgstr "Fin de la reserva"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__booking_line_ids
@@ -1214,14 +1223,14 @@ msgstr "Líneas de reserva"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_start
 msgid "Booking Start"
-msgstr ""
+msgstr "Inicio de la reserva"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Booking for %(resource_name)s"
-msgstr ""
+msgstr "Reserva para %(resource_name)s"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -1321,7 +1330,7 @@ msgstr "Compañía"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__disable_save_button
 msgid "Computes if alert is present"
-msgstr ""
+msgstr "Calcula si se presenta una alerta"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.appointment_menu_config
@@ -1340,6 +1349,8 @@ msgid ""
 "Configure links that allow booking appointments with custom settings<br>\n"
 "                (e.g. a specific user only, a list of appointment types, ...)"
 msgstr ""
+"Configure enlaces que permitan reservar citas con ajustes personalizados<br>\n"
+"                (por ejemplo, solo un usuario específico, una lista de tipos de citas, ...)"
 
 #. module: appointment
 #. odoo-javascript
@@ -1411,6 +1422,9 @@ msgid ""
 "canceled,                                                  regardless of "
 "whether they attend or not"
 msgstr ""
+"Contactos a los que se tiene que notificar al reservar o cancelar una cita,"
+"                                                 sin importar si son "
+"asistentes o no."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
@@ -1676,7 +1690,7 @@ msgstr "Mensaje adicional al confirmar"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_confirmation
 msgid "Extra information provided once the appointment is booked."
-msgstr ""
+msgstr "Información adicional que se muestra una vez que se reserva la cita."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_appointment
@@ -1790,6 +1804,8 @@ msgid ""
 "How users and resources will be assigned to meetings customers book on your "
 "website."
 msgstr ""
+"Cómo los usuarios y los recursos se asignarán a las reuniones que los "
+"clientes reserven en su sitio web. "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__id
@@ -1899,7 +1915,7 @@ msgstr "Imagen 512"
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert Appointment Link"
-msgstr ""
+msgstr "Insertar enlace de la cita"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form_insert_link
@@ -1964,12 +1980,12 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Join at"
-msgstr ""
+msgstr "Unirse en"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Join with Odoo Discuss"
-msgstr ""
+msgstr "Unirse con Conversaciones de Odoo"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__country_ids
@@ -2016,7 +2032,7 @@ msgstr "Última actualización el"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__allow_guests
 msgid "Let attendees invite guests when registering a meeting."
-msgstr ""
+msgstr "Deje que los asistentes inviten invitados al registrar una reunión."
 
 #. module: appointment
 #. odoo-javascript
@@ -2065,12 +2081,12 @@ msgstr "Ubicación"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__location
 msgid "Location formatted"
-msgstr ""
+msgstr "Ubicación formateada"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__location
 msgid "Location formatted for one line uses"
-msgstr ""
+msgstr "Ubicación formateada para usos de una línea"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,done_text:appointment.appointment_onboarding_create_appointment_type_step
@@ -2082,13 +2098,13 @@ msgstr "¡Se ve muy bien!"
 #: code:addons/appointment/static/src/xml/appointment_resources.xml:0
 #, python-format
 msgid "Make your choice"
-msgstr ""
+msgstr "Haga su elección"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manage_capacity
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_type_manage_capacity
 msgid "Manage Capacities"
-msgstr ""
+msgstr "Gestionar habilidades "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__resource_manage_capacity
@@ -2129,7 +2145,7 @@ msgstr "Yo (solo con usuarios) "
 #: code:addons/appointment/models/onboarding_onboarding_step.py:0
 #, python-format
 msgid "Meet With Me"
-msgstr ""
+msgstr "Reunirse conmigo"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__videocall_redirection
@@ -2390,7 +2406,7 @@ msgstr "Anterior"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_booker_id
 msgid "Person who is booking the appointment"
-msgstr ""
+msgstr "Persona que está reservando la cita"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -2752,6 +2768,7 @@ msgstr "Se envía a todos los asistentes cuando se cancela una cita"
 #: model:mail.template,description:appointment.appointment_booked_mail_template
 msgid "Sent to followers of an appointment type when a meeting is booked"
 msgstr ""
+"Enviado a los seguidores de un tipo de cita cuando se reserva una reunión"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__sequence
@@ -2803,6 +2820,8 @@ msgid ""
 "Share calendar link allowing people to book meetings with you, your team or "
 "a resource."
 msgstr ""
+"Comparta el enlace del calendario para que la gente pueda reservar reuniones"
+" con usted, con su equipo o con un recurso."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_onboarding_link_view_form
@@ -2810,6 +2829,8 @@ msgid ""
 "Share this link to let people book meetings with you, your team or a "
 "resource."
 msgstr ""
+"Comparta este enlace para permitir que las personas puedan reservar "
+"reuniones con usted, su equipo o un recurso. "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__shareable
@@ -3017,7 +3038,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_slot_check_start_and_end_hour
 msgid "The end time must be later than the start time."
-msgstr ""
+msgstr "El tiempo de finalización debe ser después del tiempo de inicio."
 
 #. module: appointment
 #. odoo-python
@@ -3057,6 +3078,8 @@ msgid ""
 "The following users are in restricted slots but they are not part of the "
 "available staff: %s"
 msgstr ""
+"Los siguientes usuarios están en espacios restringidos pero no son parte del"
+" personal disponible: %s"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_resource_check_capacity
@@ -3535,7 +3558,7 @@ msgstr "capacidad total"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "when over"
-msgstr ""
+msgstr "cuando termine"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated

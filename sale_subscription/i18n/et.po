@@ -9,7 +9,6 @@
 # Birgit Vijar, 2023
 # Ants Peetsalu <ants@avalah.ee>, 2023
 # Maidu Targama <m.targama@gmail.com>, 2023
-# Katrin Kampura, 2023
 # Piia Paurson <piia@avalah.ee>, 2023
 # Marek Pontus, 2023
 # Aveli Kannel <aveli@avalah.ee>, 2023
@@ -25,6 +24,7 @@
 # Leaanika Randmets, 2023
 # Martin Trigaux, 2023
 # Eneli Õigus <enelioigus@gmail.com>, 2023
+# Katrin Kampura, 2023
 # 
 msgid ""
 msgstr ""
@@ -32,7 +32,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Eneli Õigus <enelioigus@gmail.com>, 2023\n"
+"Last-Translator: Katrin Kampura, 2023\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -740,7 +740,7 @@ msgstr "Tegevus"
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.mail_activity_plan_menu_config_subscription
 msgid "Activity Plans"
-msgstr ""
+msgstr "Tegevusplaanid"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__activity_type_id
@@ -4819,3 +4819,12 @@ msgstr ""
 "{{ object.company_id.name }}: Teie tellimus {{ object.name }} vajab "
 "tähelepanu. Kui Teil on sellega seoses probleeme, võtke ühendust oma "
 "kontaktisikuga {{ object.user_id.name }}."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""

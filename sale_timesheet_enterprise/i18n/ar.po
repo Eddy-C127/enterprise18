@@ -85,28 +85,28 @@ msgstr "الصورة الرمزية"
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__group_use_timesheet_leaderboard
 #, python-format
 msgid "Billing Rate Leaderboard"
-msgstr ""
+msgstr "لوحة تصنيف نسبة الفواتير "
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_company__billing_rate_target
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__group_timesheet_leaderboard_show_rates
 msgid "Billing Rate Target"
-msgstr ""
+msgstr "هدف نسبة الفوترة "
 
 #. module: sale_timesheet_enterprise
 #: model:res.groups,name:sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates
 msgid "Billing Rate/Total Time indicators"
-msgstr ""
+msgstr "مؤشرات نسبة الفوترة/إجمالي الوقت "
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_employee__billable_time_target
 msgid "Billing Time Target"
-msgstr ""
+msgstr "هدف نسبة الفوترة "
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__billing_rate_target
 msgid "Billing rate target for the employees"
-msgstr ""
+msgstr "هدف نسبة الفوترة للموظفين "
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -114,6 +114,7 @@ msgstr ""
 #, python-format
 msgid "Billing: %(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
 msgstr ""
+"الفوترة: %(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
@@ -121,6 +122,8 @@ msgid ""
 "Boost productivity and competitiveness by displaying a leaderboard based on "
 "the billing rates."
 msgstr ""
+"اعمل على تعزيز الإنتاجية والتنافسية من خلال عرض لوحة الصدارة بناءً على نسب "
+"الفوترة. "
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -183,7 +186,7 @@ msgstr "عرض نسبة التقدم في المهمة الحالية."
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__group_timesheet_leaderboard_show_rates
 msgid "Display the Billing Rate on My Timesheets view"
-msgstr ""
+msgstr "عرض نسبة الفوترة في نافذة عرض الجداول الزمنية الخاصة بي "
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_hr_employee
@@ -196,6 +199,8 @@ msgid ""
 "Even small tasks like answering an email should be recorded and rounded up "
 "to a quarter of an hour."
 msgstr ""
+"حتى المهام الصغيرة مثل الرد على رسائل البريد الإلكتروني يجب تسجيلها وتقريبها"
+" إلى ربع ساعة. "
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
@@ -219,6 +224,8 @@ msgid ""
 "If you help a colleague on a project, your time should be recorded on this "
 "project's timesheet as well."
 msgstr ""
+"إذا كنت تساعد زميلاً في مشروع ما، فيجب تسجيل وقتك في الجدول الزمني لهذا "
+"المشروع أيضاً. "
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
@@ -236,6 +243,8 @@ msgid ""
 "It's part of the job to search for information. A customer can't expect you "
 "to know everything on the spot. These hours should also be billable."
 msgstr ""
+"إن البحث عن المعلومات جزء من العمل. لا يمكن للعميل أن يتوقع منك معرفة كل شيء"
+" لحظياً. ويجب أن تكون الساعات المقضية في البحث والعمل قابلة للفوترة أيضاً. "
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_account_move_line
@@ -263,7 +272,7 @@ msgstr "لوحة الصدارة "
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_4
 #, python-format
 msgid "Make it a habit to record timesheets every day."
-msgstr ""
+msgstr "اعتد على تسجيل الجداول الزمنية كل يوم. "
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.timesheet_view_grid_by_invoice_type
@@ -273,12 +282,12 @@ msgstr "الشهر"
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.actions.act_window,help:sale_timesheet_enterprise.hr_timesheet_tip_action
 msgid "Motivate employees to fill timesheets with these tips."
-msgstr ""
+msgstr "قم بتحفيز الموظفين على ملء جداولهم الزمنية باستخدام النصائح. "
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.actions.act_window,help:sale_timesheet_enterprise.hr_timesheet_tip_action
 msgid "No tips found. Let's create one!"
-msgstr ""
+msgstr "لم يتم العثور على أي نصائح. فلنقم بإنشائها! "
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_effective_hours
@@ -321,14 +330,14 @@ msgstr "المشروع"
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 #, python-format
 msgid "Record timesheets to determine your billing rate!"
-msgstr ""
+msgstr "قم بتسجيل الجداول الزمنية لتحدد نسبة الفوترة الخاصة بك! "
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 #, python-format
 msgid "Record timesheets to earn your rank!"
-msgstr ""
+msgstr "قم بتسجيل الجداول الزمنية لتحدد رتبتك! "
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form

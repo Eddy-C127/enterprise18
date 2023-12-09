@@ -4,10 +4,10 @@
 # 
 # Translators:
 # Aleš Fiala <f.ales1@seznam.cz>, 2023
-# Tomáš Píšek, 2023
 # Jakub Smolka, 2023
 # Ivana Bartonkova, 2023
 # Wil Odoo, 2023
+# Tomáš Píšek, 2023
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Tomáš Píšek, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -123,12 +123,12 @@ msgstr "<span class=\"o_form_label oe_inline\">%</span>"
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "<span class=\"o_stat_text\">Consolidated Balance</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Konsolidovaný zůstatek </span>"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "<span class=\"o_stat_text\">Edit</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Upravit</span>"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_kanban
@@ -155,6 +155,8 @@ msgid ""
 "A journal entry should only be linked to a company period OR to a analysis "
 "period of another consolidation!"
 msgstr ""
+"Účetní záznam může být svázán pouze s obdobím společnosti NEBO s analytickým"
+" obdobím jiné konsolidace!"
 
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_account_account
@@ -171,7 +173,7 @@ msgstr "Měna konsolidace účtů je jiná"
 #. module: account_consolidation
 #: model:onboarding.onboarding,name:account_consolidation.onboarding_onboarding_account_consolidation_dashboard
 msgid "Account Consolidation Dashboard Onboarding"
-msgstr ""
+msgstr "Panel počátečního nastavení konsolidace"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_tree
@@ -285,6 +287,7 @@ msgid ""
 "An account group can only have accounts or other groups children but not "
 "both!"
 msgstr ""
+"Skupina účtů může obsahovat buďto účty nebo jiné skupiny, ale ne obojí!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal__period_id
@@ -312,7 +315,7 @@ msgstr "Období analýzy"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Analysis period created!"
-msgstr ""
+msgstr "Analytické období vytvořeno"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_form_onboarding
@@ -485,7 +488,7 @@ msgstr "Počty nezmapovaných účtů společnosti"
 #: code:addons/account_consolidation/static/src/components/consolidation_report/filters/filters.xml:0
 #, python-format
 msgid "Comparison:"
-msgstr ""
+msgstr "Porovnání:"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period_composition__composed_period_id
@@ -705,7 +708,7 @@ msgstr "Vytvořte první období"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Create your first analysis period & set the currency rates."
-msgstr ""
+msgstr "Vytvořte své první analytické období a nastavte směnné kurzy."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__create_uid
@@ -793,6 +796,7 @@ msgstr "Definovat"
 msgid ""
 "Define the companies that should be consolidated & the target currency."
 msgstr ""
+"Vyberte společnosti, které mají být konsolidovány a nastavte cílovou měnu."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal_line__note
@@ -1153,12 +1157,12 @@ msgstr "Tutoriál"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Onboarding Analysis period"
-msgstr ""
+msgstr "Počáteční nastavení Analytického období"
 
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_setup_ccoa
 msgid "Onboarding Chart of Accounts"
-msgstr ""
+msgstr "Počáteční nastavení Účtové onovy"
 
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_onboarding_onboarding_step
@@ -1168,7 +1172,7 @@ msgstr "Krok tutoriálu"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid "Onboarding The Scope of Consolidation"
-msgstr ""
+msgstr "Počáteční nastavení Rozsahu konsolidace"
 
 #. module: account_consolidation
 #. odoo-python
@@ -1177,6 +1181,8 @@ msgstr ""
 msgid ""
 "Only one entry by account should be created for a generated journal entry!"
 msgstr ""
+"Pro vygenerovaný záznam deníku by měl být vytvořen pouze jeden záznam k "
+"účtu."
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_search
@@ -1292,7 +1298,7 @@ msgstr "Chyba doručení SMS"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid "Scope of Consolidation defined!"
-msgstr ""
+msgstr "Rozsah konsolidace byl nastaven!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__sequence
@@ -1567,7 +1573,7 @@ msgstr "Nelze upravovat automaticky generovaný záznam deníku."
 #: code:addons/account_consolidation/models/consolidation_journal.py:0
 #, python-format
 msgid "You cannot add journals to a closed period!"
-msgstr ""
+msgstr "Nemůžete přidat deníky do uzavřeného období!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_form

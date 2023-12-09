@@ -7,6 +7,7 @@
 # Jakub Smolka, 2023
 # Wil Odoo, 2023
 # Tomáš Píšek, 2023
+# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tomáš Píšek, 2023\n"
+"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -217,22 +218,22 @@ msgstr "Instalace a údržba zařízení"
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_send_report_primary
 msgid "Display Send Report Primary"
-msgstr ""
+msgstr "Zobrazit Odeslat výkaz jako primární"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_send_report_secondary
 msgid "Display Send Report Secondary"
-msgstr ""
+msgstr "Zobrazit Odeslat výkaz jako sekundární"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_sign_report_primary
 msgid "Display Sign Report Primary"
-msgstr ""
+msgstr "Zobrazit Podpisy výkazu jako primární"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_sign_report_secondary
 msgid "Display Sign Report Secondary"
-msgstr ""
+msgstr "Zobrazit Podpisy výkazu jako sekundární"
 
 #. module: industry_fsm_report
 #: model:mail.template,description:industry_fsm_report.mail_template_data_task_report
@@ -279,18 +280,20 @@ msgid ""
 "I hereby certify that this device meets the requirements of an acceptable "
 "device at the time of testing."
 msgstr ""
+"Potvrzuji, že toto zařízení splňuje požadavky přijatelného zařízení v době "
+"testování."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Intervention Type"
-msgstr ""
+msgstr "Typ zásahu"
 
 #. module: industry_fsm_report
 #. odoo-python
 #: code:addons/industry_fsm_report/controllers/portal.py:0
 #, python-format
 msgid "Invalid Task."
-msgstr ""
+msgstr "Neplatný úkol."
 
 #. module: industry_fsm_report
 #. odoo-python
@@ -309,7 +312,7 @@ msgstr ""
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__fsm_is_sent
 msgid "Is Worksheet sent"
-msgstr ""
+msgstr "Je pracovní výkaz odeslán"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
@@ -403,7 +406,7 @@ msgstr "Sériové číslo"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
 msgid "Sign Report"
-msgstr ""
+msgstr "Podepsat výkaz"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__worksheet_signature
@@ -449,14 +452,14 @@ msgstr "Analýza úkolů"
 #: code:addons/industry_fsm_report/controllers/portal.py:0
 #, python-format
 msgid "The worksheet has been signed"
-msgstr ""
+msgstr "Pracovní výkaz byl podepsán"
 
 #. module: industry_fsm_report
 #. odoo-python
 #: code:addons/industry_fsm_report/controllers/portal.py:0
 #, python-format
 msgid "The worksheet is not in a state requiring customer signature."
-msgstr ""
+msgstr "Pracovní výkaz není ve stavu vyžadujícím podpis zákazníka."
 
 #. module: industry_fsm_report
 #. odoo-python
@@ -499,7 +502,7 @@ msgstr ""
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Worker Signature"
-msgstr ""
+msgstr "Podpis pracovníka"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.portal_my_task

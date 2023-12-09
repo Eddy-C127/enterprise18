@@ -269,7 +269,7 @@ msgid ""
 "        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">Table legs are unbalanced</a>\n"
 "    </t>\n"
 "    has been received and is being reviewed by our <t t-out=\"object.team_id.name or ''\">VIP Support</t> team.<br><br>\n"
-"    The reference for your ticket is <strong><t t-out=\"object.id or ''\">15</t></strong>.<br><br>\n"
+"    The reference for your ticket is <strong><t t-out=\"object.ticket_ref or ''\">15</t></strong>.<br><br>\n"
 "\n"
 "    To provide any additional information, simply reply to this email.<br><br>\n"
 "    <t t-if=\"object.team_id.show_knowledge_base\">\n"
@@ -295,38 +295,6 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
-"<div>\n"
-"    Caro(a) <t t-out=\"object.sudo().partner_id.name or object.sudo().partner_name or 'Madam/Sir'\">senhora/senhora</t>,<br><br>\n"
-"    Sua solicitação\n"
-"    <t t-if=\"object.get_portal_url()\">\n"
-"        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">As pernas da mesa não estão balanceadas</a>\n"
-"    </t>\n"
-"    foi recebida e está sendo analisada por nossa equipe de <t t-out=\"object.team_id.name or ''\">Suporte VIP</t>.<br><br>\n"
-"     A referência do seu chamado é <strong><t t-out=\"object.id or ''\">15</t></strong>.<br><br>\n"
-"\n"
-"   Para fornecer qualquer informação adicional, basta responder a esse e-mail.<br><br>\n"
-"    <t t-if=\"object.team_id.show_knowledge_base\">\n"
-"        Não hesite em visitar nossa <a t-attf-href=\"{{ object.team_id.get_knowledge_base_url() }}\">Central de Ajuda</a>. Talvez você encontre a resposta para sua pergunta.\n"
-"        <br><br>\n"
-"    </t>\n"
-"    <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
-"        Sinta-se à vontade para fechar seu chamado se nossa ajuda não for mais necessária. Agradecemos por sua colaboração.<br><br>\n"
-"    </t>\n"
-"\n"
-"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
-"        <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.get_portal_url()\" target=\"_blank\">Visualizar chamado</a>\n"
-"        <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
-"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"'/my/ticket/close/%s/%s' % (object.id, object.access_token)\" target=\"_blank\">Fechar chamado</a>\n"
-"        </t>\n"
-"        <t t-if=\"object.team_id.use_website_helpdesk_forum or object.team_id.use_website_helpdesk_knowledge or object.team_id.use_website_helpdesk_slides\">\n"
-"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.team_id.feature_form_url\" target=\"_blank\">Visite a Central de Ajuda</a>\n"
-"        </t><br><br>\n"
-"    </div>\n"
-"\n"
-"    Atenciosamente<br><br>\n"
-"    <t t-out=\"object.team_id.name or 'Helpdesk'\">A Equipe</t> da Central de Ajuda\n"
-"</div>\n"
-"        "
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -3741,8 +3709,8 @@ msgid "Ticket created"
 msgstr "Chamado criado"
 
 #. module: helpdesk
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/helpdesk/models/helpdesk_team.py:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0

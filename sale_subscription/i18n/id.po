@@ -3,8 +3,8 @@
 # 	* sale_subscription
 # 
 # Translators:
-# Abe Manyo, 2023
 # Wil Odoo, 2023
+# Abe Manyo, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Abe Manyo, 2023\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2006,6 +2006,13 @@ msgstr "Akhir kontrak"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
+msgid "Error during renewal of contract %s %s %s"
+msgstr "Error selama pembaruan kontrak %s %s %s"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
 msgid "Error during renewal of contract %s (Payment not recorded)"
 msgstr "Error selama pembaruan kontrak %s (Pembayaran tidak dicatat)"
 
@@ -3040,6 +3047,20 @@ msgstr "Transaksi Tagihan"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "Payment method:"
 msgstr "Metode pembayaran:"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Payment not recorded"
+msgstr "Pembayaran tidak dicatat"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Payment recorded: %s"
+msgstr "Pembayaran dicatat: %s"
 
 #. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
@@ -4192,6 +4213,17 @@ msgid "The company of the plan is different from the company of the pricelist"
 msgstr "Perusahaan paket berbeda dari perusahaan daftar harga"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"The deferred settings are not properly set. Please complete them to generate"
+" subscription deferred revenues"
+msgstr ""
+"Setting yang didefer tidak ditetapkan dengan tepat. Mohon selesaikan mereka "
+"untuk membuat pendapatan langganan yang didefer"
+
+#. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
 msgid "The duration can't be negative or 0."
 msgstr "Durasi tidak boleh negatif atau 0."
@@ -5251,3 +5283,12 @@ msgstr ""
 "{{ object.company_id.name }}: Langganan Anda {{ object.name }} membutuhkan "
 "perhatian Anda. Bila Anda memiliki kekhawatiran mengenai hal tersebut, "
 "silakan hubungi {{ object.user_id.name }}, contact person Anda."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""

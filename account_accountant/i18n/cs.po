@@ -10,11 +10,11 @@
 # Ivana Bartonkova, 2023
 # Martin Trigaux, 2023
 # Rastislav Brencic <rastislav.brencic@azet.sk>, 2023
-# Tomáš Píšek, 2023
 # karolína schusterová <karolina.schusterova@vdp.sk>, 2023
 # Jakub Smolka, 2023
 # Wil Odoo, 2023
 # Jiří Podhorecký, 2023
+# Tomáš Píšek, 2023
 # 
 msgid ""
 msgstr ""
@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Jiří Podhorecký, 2023\n"
+"Last-Translator: Tomáš Píšek, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,28 +57,28 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "'Discuss'"
-msgstr ""
+msgstr "'Diskuse'"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "'Manual Operations'"
-msgstr ""
+msgstr "'Ruční operace'"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "'Match Existing Entries'"
-msgstr ""
+msgstr "'Spárovat existující záznamy'"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "'Transaction Details'"
-msgstr ""
+msgstr "'Detaily transakce'"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_form
@@ -134,12 +134,12 @@ msgstr "<i>Uzamknout specifické účetní záznamy</i>"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "<span class=\"o_stat_text\">1 Bank Transaction</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">1 Bankovní transakce</span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "<span class=\"o_stat_text\">Bank Statement</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Bankovní výpis</span>"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
@@ -192,7 +192,7 @@ msgstr "Štítky účtů"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_from_account_id
 msgid "Account Transfer From"
-msgstr ""
+msgstr "Přeúčtovat z účtu"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_auto_reconcile_wizard
@@ -207,12 +207,12 @@ msgstr "Průvodce spárováním"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_account_id
 msgid "Account used for deferred expenses"
-msgstr ""
+msgstr "Účet použitý pro časové rozlišení nákladů"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
 msgid "Account used for deferred revenues"
-msgstr ""
+msgstr "Účet pro časové rozlišení výnosů"
 
 #. module: account_accountant
 #: model:ir.ui.menu,name:account_accountant.menu_accounting
@@ -239,7 +239,7 @@ msgstr "Účty"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_auto_reconcile_wizard__search_mode__zero_balance
 msgid "Accounts with zero balances"
-msgstr ""
+msgstr "Účty s nulovým zůstatkem"
 
 #. module: account_accountant
 #: model_terms:ir.actions.act_window,help:account_accountant.account_tag_action
@@ -272,12 +272,12 @@ msgstr "Datum uzamčení pro všechny uživatele"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_autocomplete_ids
 msgid "All reconciliation models"
-msgstr ""
+msgstr "Všechny párovací modely"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__allow_partials
 msgid "Allow partials"
-msgstr ""
+msgstr "Povolit částečné"
 
 #. module: account_accountant
 #: model:res.groups,name:account_accountant.group_fiscal_year
@@ -296,7 +296,7 @@ msgstr "Částka"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Amount Computation"
-msgstr ""
+msgstr "Výpočet částky"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_currency
@@ -314,7 +314,7 @@ msgstr "Částka v měně"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__amount
 msgid "Amount in company currency"
-msgstr ""
+msgstr "Částka v měně společnosti"
 
 #. module: account_accountant
 #. odoo-python
@@ -322,7 +322,7 @@ msgstr ""
 #, python-format
 msgid ""
 "An entry will transfer %(amount)s from %(from_account)s to %(to_account)s."
-msgstr ""
+msgstr "Zápis přesune %(amount)s z %(from_account)s na %(to_account)s."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -354,7 +354,7 @@ msgstr "Anglosaské účetnictví"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_form_with_buttons
 msgid "Are you sure you want to delete this statement?"
-msgstr ""
+msgstr "Jste si jisti, že chcete smazat tento výpis?"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -362,19 +362,19 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/move_line_list_reconcile/move_line_list_reconcile.xml:0
 #, python-format
 msgid "Auto-reconcile"
-msgstr ""
+msgstr "Spárovat automaticky"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_auto_reconcile_wizard.py:0
 #, python-format
 msgid "Automatically Reconciled Entries"
-msgstr ""
+msgstr "Automaticky spárované položky"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__available_reco_model_ids
 msgid "Available Reco Model"
-msgstr ""
+msgstr "Dostupný párovací model"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -441,7 +441,7 @@ msgstr "Nástroj párování s bankou pro jednu položku výpisu"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
 msgid "Based on days"
-msgstr ""
+msgstr "Na základě dní"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -459,7 +459,7 @@ msgstr "Změnit datum uzamčení"
 #: model:ir.model.fields,help:account_accountant.field_account_reconcile_wizard__to_check
 msgid ""
 "Check if you are not certain of all the information of the counterpart."
-msgstr ""
+msgstr "Zatrhněte, pokud si nejste jistí všemi informacemi protistrany."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -487,7 +487,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Click on a fetched bank transaction to start the reconciliation process."
-msgstr ""
+msgstr "Abyste spustili párování, klikněte na bankovní transakci."
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_res_company
@@ -506,7 +506,7 @@ msgstr "Společnost"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__company_currency_id
 msgid "Company currency"
-msgstr ""
+msgstr "Měna společnosti"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_res_config_settings
@@ -532,7 +532,7 @@ msgstr "Připojte svou banku a získejte nejnovější transakce."
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
 msgid "Couldn't find an appropriate currency to reconcile selected lines."
-msgstr ""
+msgstr "Pro spárování vybraných řádků nelze nalézt odpovídající měnu."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
@@ -608,7 +608,7 @@ msgstr "Měna"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_currency_id
 msgid "Currency to use for reconciliation"
-msgstr ""
+msgstr "Měna použita pro párování"
 
 #. module: account_accountant
 #. odoo-python
@@ -633,12 +633,12 @@ msgstr "Datum"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_end_date
 msgid "Date at which the deferred expense/revenue ends"
-msgstr ""
+msgstr "Koncové datum pro časové rozlišení nákladů/výnosů"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_start_date
 msgid "Date at which the deferred expense/revenue starts"
-msgstr ""
+msgstr "Počáteční datum pro časové rozlišení nákladů/výnosů"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -653,13 +653,13 @@ msgstr "Má dáti"
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Deferral of %s"
-msgstr ""
+msgstr "Časové rozlišení %s"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_amount_computation_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_amount_computation_method
 msgid "Deferred Amount Computation Method"
-msgstr ""
+msgstr "Způsob výpočtu časového rozlišení"
 
 #. module: account_accountant
 #. odoo-python
@@ -670,19 +670,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 #, python-format
 msgid "Deferred Entries"
-msgstr ""
+msgstr "Záznamy časového rozlišení"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_journal_id
 msgid "Deferred Entries Journal"
-msgstr ""
+msgstr "Deník časového rozlišení"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_entry_type
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_entry_type
 #: model:ir.model.fields,field_description:account_accountant.field_account_payment__deferred_entry_type
 msgid "Deferred Entry Type"
-msgstr ""
+msgstr "Typ časového rozlišení"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_expense_account_id
@@ -694,7 +694,7 @@ msgstr "Náklad příštích období"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_journal_id
 msgid "Deferred Journal"
-msgstr ""
+msgstr "Deník časového rozlišení"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_revenue_account_id
@@ -772,7 +772,7 @@ msgstr "Není přístup, přeskočit tato data pro uživatelský emailový přeh
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #, python-format
 msgid "Edit Statement"
-msgstr ""
+msgstr "Upravit výpis"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__date_to
@@ -788,7 +788,7 @@ msgstr "Datum ukončení, zahrnuto ve fiskálním roce."
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
 msgid "Equal per month"
-msgstr ""
+msgstr "Rovnoměrně po měsících"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
@@ -815,7 +815,7 @@ msgstr "Kurzový rozdíl: %s"
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Find Entries to Reconcile Automatically"
-msgstr ""
+msgstr "Automaticky najít zázanamy pro párování"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_fiscal_year
@@ -859,7 +859,7 @@ msgstr "Vynutit cenu včetně daně"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
 msgid "Form Index"
-msgstr ""
+msgstr "Od indexu"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__from_date
@@ -893,23 +893,23 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Generate Deferred Expense Entries Method"
-msgstr ""
+msgstr "Způsob vytvoření časového rozlišení nákladů"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_revenue_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Generate Deferred Revenue Entries Method"
-msgstr ""
+msgstr "Způsob vytvoření časového rozlišení výnosů"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Generate Expense Entries"
-msgstr ""
+msgstr "Vytvořit časové rozlišení nákladů"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Generate Revenue Entries"
-msgstr ""
+msgstr "Vytvořit časové rozlišení výnosů"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -928,6 +928,8 @@ msgid ""
 "Great! Let’s continue.<br/><br/><i>Tip: If you choose to upload your bill, "
 "don’t forget to attach it.</i>"
 msgstr ""
+"Skvělé! Pokračujme.<br/><br/><i>Tip: Pokud jste zvolili možnost nahrát "
+"fakturu, nezapomeňte ji přiložit.</i>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -942,7 +944,7 @@ msgstr "Seskupit daně"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_deferred_moves
 msgid "Has Deferred Moves"
-msgstr ""
+msgstr "Má záznamy časového rozlišení"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__id
@@ -1029,22 +1031,22 @@ msgstr "Je spárován"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_write_off_required
 msgid "Is a write-off move required to reconcile"
-msgstr ""
+msgstr "Je pro prárování vyžadováno zaúčtování zůstatku"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_transfer_required
 msgid "Is an account transfer required"
-msgstr ""
+msgstr "Je vyžadováno přeúčtování"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_warning_message
 msgid "Is an account transfer required to reconcile"
-msgstr ""
+msgstr "Je pro párování  vyžadováno přeúčtování"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__lock_date_violated_warning_message
 msgid "Is the date violating the lock date of moves"
-msgstr ""
+msgstr "Porušuje datum datum uzamčení účtování"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
@@ -1096,7 +1098,7 @@ msgstr "Účetní položky"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_move_line_posted_unreconciled
 msgid "Journal Items to reconcile"
-msgstr ""
+msgstr "Účetní položky k párování"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1106,7 +1108,7 @@ msgstr "Účetní položky, u kterých není nastaveno párovací číslo"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_journal_id
 msgid "Journal used for deferred entries"
-msgstr ""
+msgstr "Deníky použité pro časové rozlišení"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_digest_digest__kpi_account_bank_cash_value
@@ -1215,12 +1217,12 @@ msgstr "Manažerská uzávěrka"
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__manual
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__manual
 msgid "Manually & Grouped"
-msgstr ""
+msgstr "Ručně & Seskupeno"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__manually_modified
 msgid "Manually Modified"
-msgstr ""
+msgstr "Upraveno ručně"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1251,17 +1253,17 @@ msgstr "Pravidla párování umožňující automatické zaúčtování"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_amount_computation_method
 msgid "Method used to compute the amount of deferred entries"
-msgstr ""
+msgstr "Použitý způsob výpočtu částky časového rozlišení"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Method used to generate deferred expense entries"
-msgstr ""
+msgstr "Použitý způsob výpočtu záznamů časového rozlišení nákladů"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Method used to generate deferred revenue entries"
-msgstr ""
+msgstr "Použitý způsob výpočtu záznamů časového rozlišení výnosů"
 
 #. module: account_accountant
 #. odoo-python
@@ -1285,7 +1287,7 @@ msgstr "Přesunout přílohu"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__move_line_ids
 msgid "Move lines to reconcile"
-msgstr ""
+msgstr "Řádky dokladu k párování"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__name
@@ -1324,7 +1326,7 @@ msgstr "Žádný výpis"
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "No transactions matching your filters were found."
-msgstr ""
+msgstr "Nebyly nalezeny transakce vyhovující vašemu filtru."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__tax_lock_date
@@ -1364,17 +1366,17 @@ msgstr "Poznámky"
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "Nothing to do here!"
-msgstr ""
+msgstr "Není co dělat!"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__on_validation
 msgid "On bill validation"
-msgstr ""
+msgstr "Při zaúčtování faktury"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__on_validation
 msgid "On invoice validation"
-msgstr ""
+msgstr "Při zaúčtování faktury"
 
 #. module: account_accountant
 #. odoo-python
@@ -1414,21 +1416,21 @@ msgstr "Otevřený zůstatek: %s"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_auto_reconcile_wizard__search_mode__one_to_one
 msgid "Opposite balances one by one"
-msgstr ""
+msgstr "Opačné zůstatky, jeden po druhém"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Original Deferred Entries"
-msgstr ""
+msgstr "Původní záznamy časového rozlišení"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,field_description:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "Original Invoices"
-msgstr ""
+msgstr "Původní faktury"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1455,7 +1457,7 @@ msgstr "Partner"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_currency_id
 msgid "Partner Currency"
-msgstr ""
+msgstr "Měna partnera"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__partner_name
@@ -1465,22 +1467,22 @@ msgstr "Název partnera"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_account_id
 msgid "Partner Payable Account"
-msgstr ""
+msgstr "Účet závazků partnera"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_amount
 msgid "Partner Payable Amount"
-msgstr ""
+msgstr "Výše závazku partnera"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_receivable_account_id
 msgid "Partner Receivable Account"
-msgstr ""
+msgstr "Účet pohledávek partnera"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_receivable_amount
 msgid "Partner Receivable Amount"
-msgstr ""
+msgstr "Výše pohledávky partnera"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__partner_ids
@@ -1532,30 +1534,30 @@ msgstr "Vyberte datum uzamčení"
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Please set the deferred accounts in the accounting settings."
-msgstr ""
+msgstr "Prosím nastavte účty časového rozlišení v nastavení účetnictví."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Please set the deferred journal in the accounting settings."
-msgstr ""
+msgstr "Prosím nastavte deník časového rozlišení v nastavení účetnictví."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Post Deferred entries in:"
-msgstr ""
+msgstr "Zaúčtovat časové rozlišení v:"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__predict_bill_product
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__predict_bill_product
 msgid "Predict Bill Product"
-msgstr ""
+msgstr "Předvídat produkt na přijaté faktuře"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Predict vendor bill product"
-msgstr ""
+msgstr "Předvídat produkt na přijaté faktuře"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_model
@@ -1571,6 +1573,8 @@ msgid ""
 "inclusive for all users. As a closed period, all accounting operations are "
 "prohibited."
 msgstr ""
+"Zabrání vytváření nebo úpravě účetních záznamů před definovaným datem pro "
+"všechny uživatele. Pro uzavřené období jsou všechny účetní operace zakázány."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__period_lock_date
@@ -1578,6 +1582,8 @@ msgid ""
 "Prevents Journal entries creation up to the defined date inclusive. Except "
 "for Accountant users."
 msgstr ""
+"Zabrání vytváření účetních pohybů před definovaným datem. S výjimkou "
+"uživatelů účetnictví."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
@@ -1586,6 +1592,9 @@ msgid ""
 "Entries involving taxes). The Tax Return Lock Date is automatically set when"
 " the corresponding Journal Entry is posted."
 msgstr ""
+"Zabrání změnám zúčtování daní před definovaným datem (účetní záznamy "
+"zahrnující daně). Datum uzamčení zúčtování daní je automaticky nastaveno, "
+"jakmile je zaúčtován odpovídající účetní doklad."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_form_with_buttons
@@ -1617,12 +1626,12 @@ msgstr "Vyrovnat"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_wizard
 msgid "Reconcile & open"
-msgstr ""
+msgstr "Spárovat a otevřít"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_account_id
 msgid "Reconcile Account"
-msgstr ""
+msgstr "Spárovat účet"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__reconcile_model_id
@@ -1637,7 +1646,7 @@ msgstr "Spárované"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_id
 msgid "Reconciliation model"
-msgstr ""
+msgstr "Párovací model"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1647,12 +1656,12 @@ msgstr "Zapsat náklady na prodané zboží do vašich vnitřní účetní dokla
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Purchase(s)"
-msgstr ""
+msgstr "Související nákup(y)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Sale(s)"
-msgstr ""
+msgstr "Související prodej(e)"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1674,7 +1683,7 @@ msgstr "Zbytková hodnota v měně"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__return_todo_command
 msgid "Return Todo Command"
-msgstr ""
+msgstr "Příkaz vrácení úkolu"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_model_line
@@ -1700,7 +1709,7 @@ msgstr "Uložit & Nový"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Search Journal Items to Reconcile"
-msgstr ""
+msgstr "Vyhledat účetní položky k párování"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_aml_ids
@@ -1710,7 +1719,7 @@ msgstr "Vybrané účetní položky"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_reco_model_id
 msgid "Selected Reco Model"
-msgstr ""
+msgstr "Vybraný párovací model"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1722,7 +1731,7 @@ msgstr "Nastavit jako zkontrolováno"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__single_currency_mode
 msgid "Single Currency Mode"
-msgstr ""
+msgstr "Režim jediné měny"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_id
@@ -1767,7 +1776,7 @@ msgstr "Řádek výpisu"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_transaction_details
 msgid "St Line Transaction Details"
-msgstr ""
+msgstr "Detaily transakce řádku výpisu"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__date_from
@@ -1800,17 +1809,17 @@ msgstr "Položka výpisu"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_amount_currency
 msgid "Suggestion Amount Currency"
-msgstr ""
+msgstr "Navhnutá částka v měně"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_balance
 msgid "Suggestion Balance"
-msgstr ""
+msgstr "Navržený zůstatek"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_html
 msgid "Suggestion Html"
-msgstr ""
+msgstr "Navržené Html"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
@@ -1881,13 +1890,15 @@ msgid ""
 "The date you set violates the lock date of one of your entry. It will be "
 "overriden by the following date : %(replacement_date)s"
 msgstr ""
+"Datum, které jste zadali, porušuje datum uzamčení některého z vašich "
+"dokladů. Bude změněno na následující datum: %(replacement_date)s"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_move_ids
 msgid "The deferred entries created by this invoice"
-msgstr ""
+msgstr "Záznamy časového rozlišení vytvořené ´touto fakturou"
 
 #. module: account_accountant
 #. odoo-python
@@ -1930,7 +1941,7 @@ msgstr "Faktury do tohoto data nebudou brány v úvahu jako účetní položky"
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "The original invoices that created the deferred entries"
-msgstr ""
+msgstr "Původní faktura, která vytvořila záznamy časového rozlišení"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1938,6 +1949,8 @@ msgid ""
 "The system will try to predict the product on vendor bill lines based on the"
 " label of the line"
 msgstr ""
+"Systém se bude snažit určit produkty na řádcích přijatých faktur na základě "
+"popisku daného řádku"
 
 #. module: account_accountant
 #. odoo-python
@@ -2134,7 +2147,7 @@ msgstr "Odpis"
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
 msgid "Write-Off Entry"
-msgstr ""
+msgstr "Účet odpisu zůstatku"
 
 #. module: account_accountant
 #. odoo-python
@@ -2152,7 +2165,7 @@ msgstr ""
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
 msgid "You can only reconcile entries with up to two different accounts: %s"
-msgstr ""
+msgstr "Párovat lze pouze položky s nejvýše dvěma rozdílnými účty: %s"
 
 #. module: account_accountant
 #. odoo-python
@@ -2162,6 +2175,8 @@ msgid ""
 "You cannot change the account for a deferred line in %(move_name)s if it has"
 " already been deferred."
 msgstr ""
+"Nelze změnit účet položky časového rozlišení v %(move_name)s pokud řádek již"
+" byl využit."
 
 #. module: account_accountant
 #. odoo-python
@@ -2169,6 +2184,8 @@ msgstr ""
 #, python-format
 msgid "You cannot create a deferred entry with a start date but no end date."
 msgstr ""
+"Nemůžete vytvořit záznam časového rozlišení s počátečním datem, ale bez "
+"koncového data."
 
 #. module: account_accountant
 #. odoo-python
@@ -2178,6 +2195,8 @@ msgid ""
 "You cannot create a deferred entry with a start date later than the end "
 "date."
 msgstr ""
+"Nemůžete vytvořit záznam časového rozlišení s počátečním datem pozdějším než"
+" je koncové datum."
 
 #. module: account_accountant
 #. odoo-python
@@ -2185,7 +2204,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
-msgstr ""
+msgstr "Nemůžete vytvořit záznam časového rozlišení pro běžný účetní doklad."
 
 #. module: account_accountant
 #. odoo-python
@@ -2195,6 +2214,8 @@ msgid ""
 "You cannot reset to draft an invoice that is grouped in deferral entry. You "
 "can create a credit note instead."
 msgstr ""
+"Fakturu, která je přiřazena k dokladu časového rozlišení nelze vrátit do "
+"stavu návrh. Místo toho můžete vytvořit dobropis."
 
 #. module: account_accountant
 #. odoo-python

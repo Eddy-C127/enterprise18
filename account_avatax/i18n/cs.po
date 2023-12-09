@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-04 08:55+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Tomáš Píšek, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
@@ -42,6 +42,8 @@ msgid ""
 "<i class=\"oi oi-fw oi-arrow-right\"/>\n"
 "                                How to Get Credentials"
 msgstr ""
+"<i class=\"oi oi-fw oi-arrow-right\"/>\n"
+"                                Jak získat přístup"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -49,6 +51,8 @@ msgid ""
 "<i title=\"Go to Avatax portal\" role=\"img\" aria-label=\"Go to Avatax portal\" class=\"fa fa-external-link-square fa-fw\"/>\n"
 "                                Avatax portal"
 msgstr ""
+"<i title=\"Go to Avatax portal\" role=\"img\" aria-label=\"Go to Avatax portal\" class=\"fa fa-external-link-square fa-fw\"/>\n"
+"                                Avatax portál"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -56,6 +60,8 @@ msgid ""
 "<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-file-text-o\"/>\n"
 "                                Show logs"
 msgstr ""
+"<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-file-text-o\"/>\n"
+"                                Zobrazit logy"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -63,6 +69,8 @@ msgid ""
 "<i title=\"Start logging for 30 minutes\" role=\"img\" aria-label=\"Start logging for 30 minutes\" class=\"fa fa-file-text-o\"/>\n"
 "                                Start logging for 30 minutes"
 msgstr ""
+"<i title=\"Start logging for 30 minutes\" role=\"img\" aria-label=\"Start logging for 30 minutes\" class=\"fa fa-file-text-o\"/>\n"
+"                                Zapnout logování na 30 minut"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -70,6 +78,8 @@ msgid ""
 "<i title=\"Sync Parameters\" role=\"img\" aria-label=\"Sync Parameters\" class=\"fa fa-refresh\"/>\n"
 "                                Sync Parameters"
 msgstr ""
+"<i title=\"Sync Parameters\" role=\"img\" aria-label=\"Sync Parameters\" class=\"fa fa-refresh\"/>\n"
+"                                Synchronizovat parametry"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -77,6 +87,8 @@ msgid ""
 "<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" class=\"fa fa-plug fa-fw\"/>\n"
 "                                Test connection"
 msgstr ""
+"<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                Vyzkoušet spojení"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -111,9 +123,23 @@ msgid "Address validation is only supported for North American addresses."
 msgstr "Kontrola adresy je podporována pouze pro adresy v Severní Americe."
 
 #. module: account_avatax
+#. odoo-python
+#: code:addons/account_avatax/models/res_company.py:0
+#, python-format
+msgid "Authentication failed."
+msgstr ""
+
+#. module: account_avatax
+#. odoo-python
+#: code:addons/account_avatax/models/res_company.py:0
+#, python-format
+msgid "Authentication success."
+msgstr ""
+
+#. module: account_avatax
 #: model:account.fiscal.position,name:account_avatax.account_fiscal_position_avatax_us
 msgid "Automatic Tax Mapping (AvaTax)"
-msgstr ""
+msgstr "Automatické mapování daní (AvaTax)"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__avalara_api_id
@@ -414,7 +440,7 @@ msgstr "Mixin pro generování unikátních ID pro Avatax"
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_account_external_tax_mixin
 msgid "Mixin to manage common parts of external tax calculation"
-msgstr ""
+msgstr "Mixin pro řízení obecných částí externí kalkulace daní"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_exemption__name
@@ -525,7 +551,7 @@ msgstr "Operace vyhledávání není podporována"
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_connection_test_result__server_response
 msgid "Server Response"
-msgstr ""
+msgstr "Odpověď serveru"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_validate_address__state_id
@@ -559,12 +585,12 @@ msgstr "Synchronizovat kódy výjimek z Avatax"
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Test Result"
-msgstr ""
+msgstr "Výsledek zkoušky"
 
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_avatax_connection_test_result
 msgid "Test connection with avatax"
-msgstr ""
+msgstr "Vyzkoušejte spojení s avatax"
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_res_config_settings__avalara_partner_code
@@ -610,7 +636,7 @@ msgstr "Tato adresa již byla ověřena."
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__setting_account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_config_settings__setting_account_avatax
 msgid "Use AvaTax"
-msgstr ""
+msgstr "Používejte AvaTax"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__is_avatax

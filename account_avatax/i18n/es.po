@@ -5,14 +5,15 @@
 # Translators:
 # Wil Odoo, 2023
 # Lucia Pacheco, 2023
+# Larissa Manderfeld, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-04 08:55+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Lucia Pacheco, 2023\n"
+"Last-Translator: Larissa Manderfeld, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,6 +48,8 @@ msgid ""
 "<i title=\"Go to Avatax portal\" role=\"img\" aria-label=\"Go to Avatax portal\" class=\"fa fa-external-link-square fa-fw\"/>\n"
 "                                Avatax portal"
 msgstr ""
+"<i title=\"Go to Avatax portal\" role=\"img\" aria-label=\"Go to Avatax portal\" class=\"fa fa-external-link-square fa-fw\"/>\n"
+"                                Portal de Avatax"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -54,6 +57,8 @@ msgid ""
 "<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-file-text-o\"/>\n"
 "                                Show logs"
 msgstr ""
+"<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-file-text-o\"/>\n"
+"                                Mostrar registros"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -61,6 +66,8 @@ msgid ""
 "<i title=\"Start logging for 30 minutes\" role=\"img\" aria-label=\"Start logging for 30 minutes\" class=\"fa fa-file-text-o\"/>\n"
 "                                Start logging for 30 minutes"
 msgstr ""
+"<i title=\"Start logging for 30 minutes\" role=\"img\" aria-label=\"Start logging for 30 minutes\" class=\"fa fa-file-text-o\"/>\n"
+"                                Iniciar inicio de sesión por 30 minutos"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -68,6 +75,8 @@ msgid ""
 "<i title=\"Sync Parameters\" role=\"img\" aria-label=\"Sync Parameters\" class=\"fa fa-refresh\"/>\n"
 "                                Sync Parameters"
 msgstr ""
+"<i title=\"Sync Parameters\" role=\"img\" aria-label=\"Sync Parameters\" class=\"fa fa-refresh\"/>\n"
+"                                Sincronizar parámetros"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -75,6 +84,8 @@ msgid ""
 "<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" class=\"fa fa-plug fa-fw\"/>\n"
 "                                Test connection"
 msgstr ""
+"<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                Probar conexión"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -110,9 +121,23 @@ msgstr ""
 "La validación de direcciones solo funciona con direcciones de Norteamérica."
 
 #. module: account_avatax
+#. odoo-python
+#: code:addons/account_avatax/models/res_company.py:0
+#, python-format
+msgid "Authentication failed."
+msgstr ""
+
+#. module: account_avatax
+#. odoo-python
+#: code:addons/account_avatax/models/res_company.py:0
+#, python-format
+msgid "Authentication success."
+msgstr ""
+
+#. module: account_avatax
 #: model:account.fiscal.position,name:account_avatax.account_fiscal_position_avatax_us
 msgid "Automatic Tax Mapping (AvaTax)"
-msgstr ""
+msgstr "Mapeo de impuestos automático (AvaTax)"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__avalara_api_id
@@ -413,7 +438,7 @@ msgstr "Mixin para generar identificadores únicos para Avatax"
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_account_external_tax_mixin
 msgid "Mixin to manage common parts of external tax calculation"
-msgstr ""
+msgstr "Mixin para gestionar partes comunes del cálculo del impuesto externo"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_exemption__name
@@ -524,7 +549,7 @@ msgstr "No se admite la operación de búsqueda"
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_connection_test_result__server_response
 msgid "Server Response"
-msgstr ""
+msgstr "Respuesta del servidor"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_validate_address__state_id
@@ -563,7 +588,7 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_avatax_connection_test_result
 msgid "Test connection with avatax"
-msgstr ""
+msgstr "Probar conexión con AvaTax"
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_res_config_settings__avalara_partner_code
@@ -608,7 +633,7 @@ msgstr "Esta ya es una dirección válida."
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__setting_account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_config_settings__setting_account_avatax
 msgid "Use AvaTax"
-msgstr ""
+msgstr "Usar AvaTax"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__is_avatax

@@ -1987,7 +1987,7 @@ msgstr "Mensagem de retenção vazia"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_template__duration_value
 msgid "End After"
-msgstr "Terminar após"
+msgstr "Encerrar após"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__end_date
@@ -2008,7 +2008,7 @@ msgstr "Fim do contrato"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Error during renewal of contract %s %s %s"
-msgstr ""
+msgstr "Erro durante a renovação do contrato %s %s %s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -3053,14 +3053,14 @@ msgstr "Forma de pagamento:"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment not recorded"
-msgstr ""
+msgstr "Pagamento não registrado"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment recorded: %s"
-msgstr ""
+msgstr "Pagamento registrado: %s"
 
 #. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
@@ -4222,6 +4222,8 @@ msgid ""
 "The deferred settings are not properly set. Please complete them to generate"
 " subscription deferred revenues"
 msgstr ""
+"As configurações adiadas não estão devidamente definidas. Complete-as para "
+"gerar receitas adiadas de assinatura."
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
@@ -5287,3 +5289,12 @@ msgstr ""
 "{{ object.company_id.name }}: Sua assinatura {{ object.name }} precisa da "
 "sua atenção. Caso tenha dúvidas sobre isso, entre em contato com {{ "
 "object.user_id.name }}, o seu ponto de contato."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""

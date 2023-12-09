@@ -200,12 +200,12 @@ msgstr "Asistente de conciliación bancaria"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_account_id
 msgid "Account used for deferred expenses"
-msgstr ""
+msgstr "La cuenta usada para gastos diferidos"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
 msgid "Account used for deferred revenues"
-msgstr ""
+msgstr "La cuenta usada para impuestos diferidos"
 
 #. module: account_accountant
 #: model:ir.ui.menu,name:account_accountant.menu_accounting
@@ -316,6 +316,7 @@ msgstr "Importe en la moneda de la empresa"
 msgid ""
 "An entry will transfer %(amount)s from %(from_account)s to %(to_account)s."
 msgstr ""
+"Un asiento transferirá %(amount)s de %(from_account)s a %(to_account)s."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -362,7 +363,7 @@ msgstr "Conciliar automáticamente"
 #: code:addons/account_accountant/wizard/account_auto_reconcile_wizard.py:0
 #, python-format
 msgid "Automatically Reconciled Entries"
-msgstr ""
+msgstr "Conciliación de asientos automática"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__available_reco_model_ids
@@ -530,6 +531,7 @@ msgstr "Conecta con tu banco y obtén tus últimas transacciones."
 #, python-format
 msgid "Couldn't find an appropriate currency to reconcile selected lines."
 msgstr ""
+"No se encontró una moneda apropiada para conciliar las líneas seleccionadas."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
@@ -672,14 +674,14 @@ msgstr "Asiento diferido"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_journal_id
 msgid "Deferred Entries Journal"
-msgstr ""
+msgstr "Diario de asientos diferidos"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_entry_type
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_entry_type
 #: model:ir.model.fields,field_description:account_accountant.field_account_payment__deferred_entry_type
 msgid "Deferred Entry Type"
-msgstr ""
+msgstr "Tipo de asiento diferido"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_expense_account_id
@@ -713,7 +715,7 @@ msgstr "Suprimir"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "Deposits"
-msgstr ""
+msgstr "Depósitos"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_digest_digest
@@ -750,12 +752,12 @@ msgstr "Nombre mostrado"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_amount_currency
 msgid "Display Stroked Amount Currency"
-msgstr ""
+msgstr "Mostrar la moneda del importe trazado"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_balance
 msgid "Display Stroked Balance"
-msgstr ""
+msgstr "Mostrar balance trazado"
 
 #. module: account_accountant
 #. odoo-python
@@ -814,7 +816,7 @@ msgstr "Diferencia de cambio: %s"
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Find Entries to Reconcile Automatically"
-msgstr ""
+msgstr "Encuentrar asientos para conciliar automáticamente"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_fiscal_year
@@ -1098,7 +1100,7 @@ msgstr "Apuntes contables"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_move_line_posted_unreconciled
 msgid "Journal Items to reconcile"
-msgstr ""
+msgstr "Apuntes contables a conciliar"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1108,7 +1110,7 @@ msgstr "Apuntes contables donde el emparejamiento no está configurado"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_journal_id
 msgid "Journal used for deferred entries"
-msgstr ""
+msgstr "Diario usado para asientos diferidos"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_digest_digest__kpi_account_bank_cash_value
@@ -1192,7 +1194,7 @@ msgstr "Línea"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_bank_rec_widget_line
 msgid "Line of the bank reconciliation widget"
-msgstr ""
+msgstr "Widget de línea de la conciliación bancaria"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__fiscalyear_lock_date
@@ -1259,12 +1261,12 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Method used to generate deferred expense entries"
-msgstr ""
+msgstr "Método utilizado para generar asientos de gastos diferidos"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Method used to generate deferred revenue entries"
-msgstr ""
+msgstr "Método utilizado para generar asientos de ingresos diferidos"
 
 #. module: account_accountant
 #. odoo-python
@@ -1288,7 +1290,7 @@ msgstr "Mover adjunto"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__move_line_ids
 msgid "Move lines to reconcile"
-msgstr ""
+msgstr "Líneas de movimiento a conciliar"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__name
@@ -1320,7 +1322,7 @@ msgstr "No hay archivos adjuntos vinculados."
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "No statement"
-msgstr ""
+msgstr "Sin extracto bancario"
 
 #. module: account_accountant
 #. odoo-python
@@ -1426,14 +1428,14 @@ msgstr ""
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Original Deferred Entries"
-msgstr ""
+msgstr "Entradas diferidas originales"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,field_description:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "Original Invoices"
-msgstr ""
+msgstr "Facturas originales"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1470,22 +1472,22 @@ msgstr "Nombre de la empresa"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_account_id
 msgid "Partner Payable Account"
-msgstr ""
+msgstr "Cuenta por pagar del contacto"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_amount
 msgid "Partner Payable Amount"
-msgstr ""
+msgstr "Importe por pagar del contacto"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_receivable_account_id
 msgid "Partner Receivable Account"
-msgstr ""
+msgstr "Cuenta por cobrar del contacto"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_receivable_amount
 msgid "Partner Receivable Amount"
-msgstr ""
+msgstr "Importe por cobrar del contacto"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__partner_ids
@@ -1502,7 +1504,7 @@ msgstr "Por pagar"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Payable:"
-msgstr ""
+msgstr "Por pagar:"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_payment_form_inherit_account_accountant
@@ -1549,7 +1551,7 @@ msgstr "Configure el diario diferido en la configuración contable."
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Post Deferred entries in:"
-msgstr ""
+msgstr "Registrar entradas diferidas en:"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__predict_bill_product
@@ -1560,7 +1562,7 @@ msgstr "Predecir el producto de la factura"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Predict vendor bill product"
-msgstr ""
+msgstr "Predecir el producto en la factura del proveedor"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_model
@@ -1627,12 +1629,12 @@ msgstr "Conciliar y abrir"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_account_id
 msgid "Reconcile Account"
-msgstr ""
+msgstr "Cuenta de conciliación"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__reconcile_model_id
 msgid "Reconcile Model"
-msgstr ""
+msgstr "Modelo de conciliación"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
@@ -1732,37 +1734,37 @@ msgstr "Modo de moneda única"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_id
 msgid "Source Aml"
-msgstr ""
+msgstr "AML de origen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_move_id
 msgid "Source Aml Move"
-msgstr ""
+msgstr "Movimiento de AML de origen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_move_name
 msgid "Source Aml Move Name"
-msgstr ""
+msgstr "Nombre del movimiento de AML de origen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_amount_currency
 msgid "Source Amount Currency"
-msgstr ""
+msgstr "Moneda del importe de origen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_balance
 msgid "Source Balance"
-msgstr ""
+msgstr "Saldo de origen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_credit
 msgid "Source Credit"
-msgstr ""
+msgstr "Crédito de origen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
-msgstr ""
+msgstr "Débito de origen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_id
@@ -1886,13 +1888,15 @@ msgid ""
 "The date you set violates the lock date of one of your entry. It will be "
 "overriden by the following date : %(replacement_date)s"
 msgstr ""
+"La fecha que ha establecido sobrepasa la fecha de cierre de uno de sus "
+"asientos. Será reemplazada por la siguiente fecha: %(replacement_date)s"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_move_ids
 msgid "The deferred entries created by this invoice"
-msgstr ""
+msgstr "Los asientos diferidos creados por esta factura"
 
 #. module: account_accountant
 #. odoo-python
@@ -1909,6 +1913,8 @@ msgid ""
 "The invoice %(display_name_html)s with an open amount of %(open_amount)s "
 "will be entirely paid by the transaction."
 msgstr ""
+"La factura %(display_name_html)s con un importe pendiente de %(open_amount)s"
+" será pagada por completo por la transacción."
 
 #. module: account_accountant
 #. odoo-python
@@ -1918,6 +1924,8 @@ msgid ""
 "The invoice %(display_name_html)s with an open amount of %(open_amount)s "
 "will be reduced by %(amount)s."
 msgstr ""
+"La factura %(display_name_html)s con un importe pendiente de %(open_amount)s"
+" se reducirá en %(amount)s."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1933,7 +1941,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "The original invoices that created the deferred entries"
-msgstr ""
+msgstr "Las facturas originales que crearon las entradas diferidas"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1941,6 +1949,8 @@ msgid ""
 "The system will try to predict the product on vendor bill lines based on the"
 " label of the line"
 msgstr ""
+"El sistema intentará predecir el producto en las líneas de facturas de "
+"proveedores con base en la etiqueta de la línea"
 
 #. module: account_accountant
 #. odoo-python
@@ -1950,6 +1960,8 @@ msgid ""
 "This bank transaction has been automatically validated using the "
 "reconciliation model '%s'."
 msgstr ""
+"Esta transacción bancaria se validó de forma automática mediante el modelo "
+"de conciliación \"%s\"."
 
 #. module: account_accountant
 #. odoo-python
@@ -2200,7 +2212,7 @@ msgstr ""
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 #, python-format
 msgid "You cannot set a lock date in the future."
-msgstr ""
+msgstr "No puede establecer una fecha de bloqueo en el futuro."
 
 #. module: account_accountant
 #. odoo-python
@@ -2209,6 +2221,7 @@ msgstr ""
 msgid ""
 "You might want to %(btn_start)sfully reconcile%(btn_end)s the document."
 msgstr ""
+"Tal vez quiera %(btn_start)sconciliar por completo%(btn_end)s el documento."
 
 #. module: account_accountant
 #. odoo-python
@@ -2218,13 +2231,14 @@ msgid ""
 "You might want to make a %(btn_start)spartial reconciliation%(btn_end)s "
 "instead."
 msgstr ""
+"Tal vez prefiera realizar una %(btn_start)sconciliación parcial%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
 msgid "You might want to record a %(btn_start)spartial payment%(btn_end)s."
-msgstr ""
+msgstr "Tal vez quiera registrar un %(btn_start)spago parcial%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-python
@@ -2233,6 +2247,8 @@ msgstr ""
 msgid ""
 "You might want to set the invoice as %(btn_start)sfully paid%(btn_end)s."
 msgstr ""
+"Tal vez quiera establecer la factura como %(btn_start)stotalmente "
+"pagada%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2277,12 +2293,12 @@ msgstr "en"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__liquidity
 msgid "liquidity"
-msgstr ""
+msgstr "liquidez"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__manual
 msgid "manual"
-msgstr ""
+msgstr "manual"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__new_aml

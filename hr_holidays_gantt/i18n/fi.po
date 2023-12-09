@@ -26,14 +26,14 @@ msgstr ""
 #: code:addons/hr_holidays_gantt/models/hr_leave.py:0
 #, python-format
 msgid "%(name)s is on time off %(leaves)s. \n"
-msgstr ""
+msgstr "%(name)s on vapaalla %(leaves)s.\n"
 
 #. module: hr_holidays_gantt
 #. odoo-python
 #: code:addons/hr_holidays_gantt/models/hr_leave.py:0
 #, python-format
 msgid "%(name)s requested time off %(leaves)s. \n"
-msgstr ""
+msgstr "%(name)s on pyytänyt vapaata %(leaves)s.\n"
 
 #. module: hr_holidays_gantt
 #: model_terms:ir.ui.view,arch_db:hr_holidays_gantt.hr_leave_report_calendar_view_gantt
@@ -63,10 +63,12 @@ msgstr "Vapaa-aikakalenteri"
 #, python-format
 msgid "from %(start_date)s at %(start_time)s to %(end_date)s at %(end_time)s"
 msgstr ""
+"%(start_date)s kohdasta %(start_time)s kohtaan %(end_date)s kohtaan "
+"%(end_time)s"
 
 #. module: hr_holidays_gantt
 #. odoo-python
 #: code:addons/hr_holidays_gantt/models/hr_leave.py:0
 #, python-format
 msgid "from %(start_date)s to %(end_date)s"
-msgstr ""
+msgstr "%(start_date)s-%(end_date)s"

@@ -8,6 +8,7 @@
 # Ivana Bartonkova, 2023
 # Wil Odoo, 2023
 # Jakub Smolka, 2023
+# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jakub Smolka, 2023\n"
+"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,6 +63,10 @@ msgid ""
 "            </p>\n"
 "            "
 msgstr ""
+" <p class=\"o_view_nocontent_empty_report\">\n"
+"                Přidat nový výkaz\n"
+"            </p>\n"
+"            "
 
 #. module: web_studio
 #. odoo-python
@@ -97,7 +102,7 @@ msgstr ""
 #: code:addons/web_studio/controllers/report.py:0
 #, python-format
 msgid "%s Report"
-msgstr ""
+msgstr "%s Výkaz"
 
 #. module: web_studio
 #. odoo-javascript
@@ -146,7 +151,7 @@ msgstr "Na akci nebo metodu musí platit pravidlo."
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_model__abstract
 msgid "Abstract"
-msgstr ""
+msgstr "Abstraktní"
 
 #. module: web_studio
 #. odoo-javascript
@@ -160,7 +165,7 @@ msgstr ""
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "Access Control Lists"
-msgstr ""
+msgstr "Seznamy řízení postupu"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_res_groups
@@ -205,7 +210,7 @@ msgstr "Akce okna zobrazení"
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #, python-format
 msgid "Action to approve:"
-msgstr ""
+msgstr "Akce ke schválení:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -219,7 +224,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Action's title"
-msgstr ""
+msgstr "Název akce"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
@@ -237,7 +242,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/editor/new_view_dialogs/new_view_dialog.xml:0
 #, python-format
 msgid "Activate View"
-msgstr ""
+msgstr "Aktivovat zobrazení"
 
 #. module: web_studio
 #. odoo-python
@@ -386,7 +391,7 @@ msgstr "Další pole"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_type_properties.js:0
 #, python-format
 msgid "Aggregate"
-msgstr ""
+msgstr "Agragát"
 
 #. module: web_studio
 #. odoo-javascript
@@ -783,7 +788,7 @@ msgstr "Změnit obrázek"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Chatter"
-msgstr ""
+msgstr "Chatování"
 
 #. module: web_studio
 #. odoo-javascript
@@ -816,7 +821,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/cohort/cohort_editor.js:0
 #, python-format
 msgid "Churn"
-msgstr ""
+msgstr "Odstoupit"
 
 #. module: web_studio
 #. odoo-javascript
@@ -915,7 +920,7 @@ msgstr "Konfigurace"
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.xml:0
 #, python-format
 msgid "Configure Model"
-msgstr ""
+msgstr "Konfigurovat model"
 
 #. module: web_studio
 #. odoo-javascript
@@ -958,14 +963,14 @@ msgstr "Kontakt"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 #, python-format
 msgid "Contact Field"
-msgstr ""
+msgstr "Kontaktní pole"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/new_view_dialogs/map_new_view_dialog.js:0
 #, python-format
 msgid "Contact Field Required"
-msgstr ""
+msgstr "Vyžaduje se kontaktní pole"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1093,19 +1098,19 @@ msgstr "Vlastní modely"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_base_module_uninstall__custom_reports
 msgid "Custom Reports"
-msgstr ""
+msgstr "Vlastní výkazy"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Custom Sorting"
-msgstr ""
+msgstr "Vlastní řazení"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_base_module_uninstall__custom_views
 msgid "Custom Views"
-msgstr ""
+msgstr "Vlastní zobrazení"
 
 #. module: web_studio
 #. odoo-python
@@ -1122,12 +1127,12 @@ msgstr "Vlastní pole:"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
 msgid "Custom models:"
-msgstr ""
+msgstr "Vlastní modely:"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
 msgid "Custom reports:"
-msgstr ""
+msgstr "Vlastní výkazy:"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
@@ -1197,7 +1202,7 @@ msgstr "Den"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Day Precision"
-msgstr ""
+msgstr "Přesnost dne"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1211,7 +1216,7 @@ msgstr "Desetinný"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/calendar/calendar_editor_sidebar.xml:0
 #, python-format
 msgid "Default Display Mode"
-msgstr ""
+msgstr "Výchozí režim zobrazení"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1233,7 +1238,7 @@ msgstr "Výchozí skupina podle"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Default Scale"
-msgstr ""
+msgstr "Vlastní měřítko"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1273,7 +1278,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/calendar/calendar_editor_sidebar.xml:0
 #, python-format
 msgid "Delay Field"
-msgstr ""
+msgstr "Zpoždění pole"
 
 #. module: web_studio
 #. odoo-python
@@ -1343,7 +1348,7 @@ msgstr "Zobrazovací název"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Display Total row"
-msgstr ""
+msgstr "Zobrazit celkem řádků"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1388,7 +1393,7 @@ msgstr "Přetáhněte menu vpravo a vytvořte podnabídku"
 #: code:addons/web_studio/models/ir_ui_view.py:0
 #, python-format
 msgid "Dropdown Menu"
-msgstr ""
+msgstr "Rozbalovací nabídka"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.act_report_xml_view_kanban
@@ -1499,21 +1504,21 @@ msgstr "Emailové vlákno"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Empty List Message"
-msgstr ""
+msgstr "Prázdný e-mailový seznam"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "Enable Mass Editing"
-msgstr ""
+msgstr "Povolit hromadné úpravy"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 #, python-format
 msgid "Enable Routing"
-msgstr ""
+msgstr "Zapnout trasování"
 
 #. module: web_studio
 #. odoo-python
@@ -1562,7 +1567,7 @@ msgstr "Stávající pole"
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.js:0
 #, python-format
 msgid "Existing Model"
-msgstr ""
+msgstr "Stávající model"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1639,7 +1644,7 @@ msgstr "Soubor"
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "Filename for %s"
-msgstr ""
+msgstr "Název souboru pro %s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1677,7 +1682,7 @@ msgstr "Filtry"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.js:0
 #, python-format
 msgid "First Status"
-msgstr ""
+msgstr "První status"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1737,7 +1742,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/editor/new_view_dialogs/new_view_dialog.js:0
 #, python-format
 msgid "Generate %s View"
-msgstr ""
+msgstr "Generovat %s zobrazení"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2036,7 +2041,7 @@ msgstr "Rozmezí"
 #: code:addons/web_studio/models/ir_ui_view.py:0
 #, python-format
 msgid "Invalid studio_approval %s in button"
-msgstr ""
+msgstr "Neplatný studio_approval %s v tlačítku"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2048,7 +2053,7 @@ msgstr "Neviditelný"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_base_module_uninstall__is_studio
 msgid "Is Studio"
-msgstr ""
+msgstr "Je Studio"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2200,7 +2205,7 @@ msgstr "Opatření"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/cohort/cohort_editor_sidebar.xml:0
 #, python-format
 msgid "Measure Field"
-msgstr ""
+msgstr "Pole měření"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2325,7 +2330,7 @@ msgstr "Měnové"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Monetary value"
-msgstr ""
+msgstr "Peněžní hodnota"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2339,7 +2344,7 @@ msgstr "Měsíc"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Month Precision"
-msgstr ""
+msgstr "Přesnost měsíce"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2652,7 +2657,7 @@ msgstr "Výseč"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Pipeline stages"
-msgstr ""
+msgstr "Fáze obchodní nástěnky"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2745,7 +2750,7 @@ msgstr "Čtvrt hodiny"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
 #, python-format
 msgid "Quick Create"
-msgstr ""
+msgstr "Rychlé vytvoření"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2826,14 +2831,14 @@ msgstr "Odmítnuto"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Rejected as"
-msgstr ""
+msgstr "Odmítnuto jako"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #, python-format
 msgid "Rejected on"
-msgstr ""
+msgstr "Odmítnuto na"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2847,7 +2852,7 @@ msgstr "Související pole"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Reload from attachment"
-msgstr ""
+msgstr "Znovu načíst z přílohy"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2934,7 +2939,7 @@ msgstr "Obnovit výchozí pozadí"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/rainbow_effect.xml:0
 #, python-format
 msgid "Reset Image"
-msgstr ""
+msgstr "Obnovit obrázek"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.reset_view_arch_wizard_view
@@ -2972,7 +2977,7 @@ msgstr "Odpovědný"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 #, python-format
 msgid "Restore Default View"
-msgstr ""
+msgstr "Obnovit výchozí zobrazení"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3115,14 +3120,14 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/new_button_box_dialog.xml:0
 #, python-format
 msgid "Select a related field"
-msgstr ""
+msgstr "Vybrat související pole"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/new_button_box_dialog.js:0
 #, python-format
 msgid "Select a related field."
-msgstr ""
+msgstr "Vybrat související pole."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3158,7 +3163,7 @@ msgstr "Výběr"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/chatter_properties/chatter_properties.xml:0
 #, python-format
 msgid "Send a"
-msgstr ""
+msgstr "Poslat"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3214,7 +3219,7 @@ msgstr "Nastavit cenu nebo cenu záznamů"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #, python-format
 msgid "Set approval rules"
-msgstr ""
+msgstr "Nastavit schvalovací pravidlo"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3228,7 +3233,7 @@ msgstr "Zobrazit neviditelné prvky"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.js:0
 #, python-format
 msgid "Show by default"
-msgstr ""
+msgstr "Zobrazit ve výchozím"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3333,7 +3338,7 @@ msgstr "Počáteční datum"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Start Date Field"
-msgstr ""
+msgstr "Počáteční datum pole"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3343,7 +3348,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Stop Date Field"
-msgstr ""
+msgstr "Datum zastavení pole"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_model_data__studio
@@ -3353,7 +3358,7 @@ msgstr "Studio"
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.action_web_studio_app_creator
 msgid "Studio App Creator"
-msgstr ""
+msgstr "Tvůrce aplikace Studio"
 
 #. module: web_studio
 #: model:ir.actions.act_window,name:web_studio.studio_approval_entry_action
@@ -3387,12 +3392,12 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_ui_menu__is_studio_configuration
 msgid "Studio Configuration Menu"
-msgstr ""
+msgstr "Nabídka nastavení Studia"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_customizations_filter
 msgid "Studio Customizations"
-msgstr ""
+msgstr "Úpravy Studia"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_mixin
@@ -3474,7 +3479,7 @@ msgstr "Nejrychlejší způsob, jak vytvořit webovou aplikaci."
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The field %s does not exist."
-msgstr ""
+msgstr "Pole %s neexistuje."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3528,7 +3533,7 @@ msgstr ""
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The model %s does not exist."
-msgstr ""
+msgstr "Model %s neexistuje."
 
 #. module: web_studio
 #. odoo-python
@@ -3549,7 +3554,7 @@ msgstr ""
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The operation  type \"%s\" is not supported"
-msgstr ""
+msgstr "Operátor typu \"%s\" není podporován"
 
 #. module: web_studio
 #. odoo-python
@@ -3622,7 +3627,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.js:0
 #, python-format
 msgid "Third Status"
-msgstr ""
+msgstr "Třetí status"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3710,7 +3715,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/systray_item/systray_item.xml:0
 #, python-format
 msgid "Toggle Studio"
-msgstr ""
+msgstr "Přepnout Studio"
 
 #. module: web_studio
 #. odoo-python
@@ -3805,7 +3810,7 @@ msgstr "Hodnota"
 #: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #, python-format
 msgid "Value of list"
-msgstr ""
+msgstr "Hodnota seznamu"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4019,7 +4024,7 @@ msgstr "otestovat e-mail"
 #: code:addons/web_studio/static/src/client_action/icon_creator/icon_creator.xml:0
 #, python-format
 msgid "upload it"
-msgstr ""
+msgstr "nahrát to"
 
 #. module: web_studio
 #. odoo-javascript

@@ -6,8 +6,8 @@
 # Martin Trigaux, 2023
 # JH CHOI <hwangtog@gmail.com>, 2023
 # Daye Jeong, 2023
-# Sarah Park, 2023
 # Wil Odoo, 2023
+# Sarah Park, 2023
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Sarah Park, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1982,6 +1982,13 @@ msgstr "계약 종료"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
+msgid "Error during renewal of contract %s %s %s"
+msgstr "계약 갱신 중 오류가 발생했습니다: %s %s %s"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
 msgid "Error during renewal of contract %s (Payment not recorded)"
 msgstr "%s 계약 갱신 중 오류 발생 (결제가 기록되지 않음)"
 
@@ -2998,6 +3005,20 @@ msgstr "지불 거래"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "Payment method:"
 msgstr "결제 방법:"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Payment not recorded"
+msgstr "결제 내역 미기록"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Payment recorded: %s"
+msgstr "결제 기록: %s"
 
 #. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
@@ -4124,6 +4145,15 @@ msgid "The company of the plan is different from the company of the pricelist"
 msgstr "구독한 회사가 가격표에 있는 회사와 다릅니다."
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"The deferred settings are not properly set. Please complete them to generate"
+" subscription deferred revenues"
+msgstr "연기 항목이 알맞게 설정되지 않았습니다. 구독 연기 수익을 생성하려면 설정을 완료하세요."
+
+#. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
 msgid "The duration can't be negative or 0."
 msgstr "기간은 음수 또는 0이 아니어야 합니다."
@@ -5126,3 +5156,12 @@ msgid ""
 msgstr ""
 "{{ object.company_id.name }}: 고객님이 구독 {{ object.name }} 항목에 주의가 필요합니다. 지원이 "
 "필요한 경우 다음의 연락처로 문의해주시기 바랍니다 {{ object.user_id.name }}, 담당자."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""

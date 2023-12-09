@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-01 12:59+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Tomáš Píšek, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
@@ -190,7 +190,7 @@ msgstr "Importujte účtovou osnovu a počáteční stavy pomocí"
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "Initial Setup"
-msgstr ""
+msgstr "Počáteční nastavení"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -210,6 +210,15 @@ msgstr "Účetní položka"
 #, python-format
 msgid "Journal Items"
 msgstr "Účetní položky"
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
+msgid ""
+"Most accounting software in Europe support exporting SAF-T file for audit purposes.\n"
+"                            Use the"
+msgstr ""
 
 #. module: account_base_import
 #. odoo-javascript
@@ -242,15 +251,29 @@ msgstr "Zkontrolovat ručně"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
-msgid "SIE 5"
+msgid "SAF-T"
 msgstr ""
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
-msgid "SIE Import module"
+msgid "SAF-T Import module"
 msgstr ""
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
+msgid "SIE 5"
+msgstr "SIE 5"
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
+msgid "SIE Import module"
+msgstr "SIE importní modul"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -261,6 +284,9 @@ msgid ""
 "such as auditing, importing and exporting data from and to other accounting "
 "softwares."
 msgstr ""
+"Standardní formát souboru SIE je velmi běžný ve Švédsku; používá se pro "
+"různé účely jako je audit, import a export dat z a do jiných účetních "
+"software."
 
 #. module: account_base_import
 #. odoo-python
@@ -307,6 +333,15 @@ msgstr "Pro nastavení účetnictví použijte Excelové nebo CSV šablony."
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
+msgid ""
+"We will setup your charts of accounts and the history of journal entries, "
+"that will stay in draft."
+msgstr ""
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
 msgid "Winbooks"
 msgstr "Winbooks"
 
@@ -330,6 +365,9 @@ msgid ""
 "                            For general SIE, we will setup your charts of accounts balances, journals, partners, and the history of journal entries (journals data must be present in the file).\n"
 "                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
 msgstr ""
+"je vyžadováno importovat SIE a SIE soubory se záznamy.\n"
+"                            Pro obecné SIE, vám nastavíme zůstaky účtů, deníky, partnery a historii účetních záznamů (účetní data musí být přítomna v souboru).\n"
+"                            Pro zápisy SIE, budou vytvořeny pouze zázanmy a  partneři, ostatní již musí v systému existovat."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -367,3 +405,10 @@ msgid ""
 "history of journal entries."
 msgstr ""
 "pro import souboru FEC. Nastavíme účtovou osnovu a historii účeních pohybů."
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
+msgid "to import the SAF-T file."
+msgstr ""
