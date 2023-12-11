@@ -22,6 +22,7 @@
                 <record id="account_financial_report_bs_comp_acon_a" model="account.report.line">
                     <field name="name">ASSETS</field>
                     <field name="hierarchy_level">0</field>
+                    <field name="horizontal_split_side">left</field>
                     <field name="children_ids">
                         <record id="account_financial_report_bs_comp_acon_a_fe" model="account.report.line">
                             <field name="name">20 - Formation Expenses</field>
@@ -225,6 +226,7 @@
                 <record id="account_financial_report_bs_comp_acon_el" model="account.report.line">
                     <field name="name">EQUITY AND LIABILITIES</field>
                     <field name="hierarchy_level">0</field>
+                    <field name="horizontal_split_side">right</field>
                     <field name="print_on_new_page" eval="True"/>
                     <field name="children_ids">
                         <record id="account_financial_report_bs_comp_acon_el_e" model="account.report.line">
