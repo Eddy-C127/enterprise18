@@ -2080,7 +2080,6 @@ class AccountReport(models.Model):
             # Inject all the dynamic lines whose sequence is inferior to the next static line to add
             while dynamic_lines and line.sequence > dynamic_lines[0][0]:
                 lines.append(dynamic_lines.pop(0)[1])
-
             parent_generic_id = line_cache[line.parent_id]['id'] if line.parent_id else None # The parent line has necessarily been treated in a previous iteration
             line_dict = self._get_static_line_dict(options, line, all_column_groups_expression_totals, parent_id=parent_generic_id)
             line_cache[line] = line_dict
