@@ -928,7 +928,14 @@ QUnit.module(
                         </t>
                     </templates>
                 </kanban>`,
+                mockRPC(route, args) {
+                    if (args.method == "web_read_group") {
+                        assert.step("web_read_group");
+                        assert.strictEqual(args.kwargs.limit, 1);
+                    }
+                }
             });
+            assert.verifySteps(["web_read_group"]);
 
             assert.hasClass(
                 target.querySelector(".o_web_studio_kanban_view_editor "),
