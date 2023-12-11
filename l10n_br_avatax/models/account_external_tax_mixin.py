@@ -359,7 +359,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                 record_id = line_result['lineCode']
                 record = self.env[self._l10n_br_line_model_name()].browse(int(record_id))
                 details[record] = {}
-                details[record]['total'] = line_result['lineNetFigure']
+                details[record]['total'] = line_result['lineNetFigure'] - line_result['lineTaxedDiscount']
                 details[record]['tax_amount'] = 0
                 details[record]['tax_ids'] = self.env['account.tax']
                 for detail in line_result['taxDetails']:
