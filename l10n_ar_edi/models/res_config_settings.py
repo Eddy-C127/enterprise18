@@ -42,7 +42,7 @@ class ResConfigSettings(models.TransientModel):
             raise UserError(error)
 
         res = ''
-        for webservice in ['wsfe', 'wsfex', 'wsbfe', 'wscdc']:
+        for webservice in [item[0] for item in self.env['l10n_ar.afipws.connection']._get_l10n_ar_afip_ws()]:
             try:
                 self.company_id._l10n_ar_get_connection(webservice)
                 res += ('\n* %s: ' + _('Connection is available')) % webservice
