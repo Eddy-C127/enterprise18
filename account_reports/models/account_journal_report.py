@@ -51,6 +51,24 @@ class JournalReportCustomHandler(models.AbstractModel):
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         """ Initialize the options for the journal report. """
+        # This dictionnary makes it possible to make options unavailable for the report. The structure of the dictionnary is
+        # { <type: str - Name of the disabled option>: <type: tuple - tuple containing striclty two elements, a and b> }
+        # with a <type: list - list of the keys that must be reached in the options dictionnary to get the value to test>
+        # and b <type: list - list of the values that are authorized for the said option>
+        restricted_options = {
+            _("Analytic Accounts Groupby"): (['analytic_accounts_groupby'], []),
+            _("Analytic Plans Groupby"): (['analytic_plans_groupby'], []),
+            _("Horizontal Grouping"): (['selected_horizontal_group_id'], []),
+            _("Period comparison"): (['comparison', 'filter'], ['no_comparison']),
+        }
+        for name, (path, authorized_value) in restricted_options.items():
+            option = options
+            while path and option:
+                option = option.get(path.pop(0))
+
+            if option and (not authorized_value or option not in authorized_value):
+                raise UserError(name + _(" is not supported by the Journal Report"))
+
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         # Initialise the custom options for this report.
         custom_filters = {
