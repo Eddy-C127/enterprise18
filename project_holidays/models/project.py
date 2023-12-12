@@ -100,7 +100,7 @@ class Task(models.Model):
             ('project_id', '!=', False),
             ('planned_date_begin', '!=', False),
             ('date_deadline', '!=', False),
-            ('state', 'not in', list(CLOSED_STATES)),
+            ('state', 'in', self.OPEN_STATES),
         ])
         if not tasks:
             return []
