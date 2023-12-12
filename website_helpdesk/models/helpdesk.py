@@ -185,3 +185,6 @@ class HelpdeskTeam(models.Model):
             'max_date': self._helpcenter_date_from_search(searches),
             'tag': searches.get('tag', False),
         }
+
+    def open_website_url(self):
+        return self.env['website'].get_client_action(self.website_url, website_id=self.website_id.id)
