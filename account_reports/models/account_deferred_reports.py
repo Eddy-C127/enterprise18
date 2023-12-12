@@ -71,10 +71,18 @@ class DeferredReportCustomHandler(models.AbstractModel):
         ]
 
     def _get_lines(self, report, options, filter_already_generated=False):
-        domain = self._get_domain(report, options, filter_already_generated=filter_already_generated)
-        query = self.env['account.move.line']._search(domain, order="deferred_start_date, id")
-        query_str, params = query.select(*self._get_select())
-        self.env.cr.execute(query_str, params)
+        domain = self._get_domain(report, options, filter_already_generated)
+        tables, where_clause, where_params = report._query_get(options, domain=domain, date_scope='from_beginning')
+        select_clause = ', '.join(self._get_select())
+
+        query = f"""
+        SELECT {select_clause}
+        FROM {tables}
+        WHERE {where_clause}
+        ORDER BY "account_move_line"."deferred_start_date", "account_move_line"."id"
+        """
+
+        self.env.cr.execute(query, where_params)
         res = self.env.cr.dictfetchall()
         return res
 
@@ -376,6 +384,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             raise UserError(_("You cannot generate entries for a period that is locked."))
         options['all_entries'] = False  # We only want to create deferrals for posted moves
         report = self.env["account.report"].browse(options["report_id"])
+        self.env['account.move.line'].flush_model()
         lines = self._get_lines(report, options, filter_already_generated=True)
         deferral_entry_period = self.env['account.report']._get_dates_period(date_from, date_to, 'range', period_type='month')
         ref = _("Grouped Deferral Entry of %s", deferral_entry_period['string'])
