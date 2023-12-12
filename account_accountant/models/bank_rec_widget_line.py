@@ -38,6 +38,8 @@ class BankRecWidgetLine(models.Model):
         compute='_compute_account_id',
         store=True,
         readonly=False,
+        check_company=True,
+        domain=[['deprecated', '=', False], ['account_type', 'not in', ('asset_cash', 'off_balance')]],
     )
     date = fields.Date(
         compute='_compute_date',
