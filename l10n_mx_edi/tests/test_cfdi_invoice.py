@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from .common import TestMxEdiCommon
 from odoo import Command
-from odoo.exceptions import UserError
+from odoo.exceptions import RedirectWarning, UserError
 from odoo.tests import tagged
 
 from freezegun import freeze_time
@@ -448,6 +448,28 @@ class TestCFDIInvoice(TestMxEdiCommon):
         self.assertTrue(new_invoice.need_cancel_request)
         # the "Update SAT" button should appear
         self.assertTrue(new_invoice.l10n_mx_edi_update_sat_needed)
+
+    @freeze_time('2017-01-01')
+    def test_import_duplicate_fiscal_folio(self):
+        invoice = self._create_invoice()
+
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+
+        bill_content = invoice.l10n_mx_edi_document_ids.attachment_id.raw.decode()
+
+        self._upload_document_on_journal(
+            journal=self.company_data['default_journal_purchase'],
+            content=bill_content,
+            filename='new_bill.xml',
+        ).action_post()
+
+        with self.assertRaisesRegex(RedirectWarning, 'Duplicated vendor reference detected. You probably encoded twice the same vendor bill/credit note.'):
+            self._upload_document_on_journal(
+                journal=self.company_data['default_journal_purchase'],
+                content=bill_content,
+                filename='duplicate_bill.xml',
+            ).action_post()
 
     @freeze_time('2017-01-01')
     def test_import_bill_cfdi(self):

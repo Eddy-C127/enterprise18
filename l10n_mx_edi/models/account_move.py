@@ -161,6 +161,7 @@ class AccountMove(models.Model):
         compute='_compute_l10n_mx_edi_cfdi_uuid',
         copy=False,
         store=True,
+        index='btree_not_null',
         help="Folio in electronic invoice, is returned by SAT when send to stamp.",
     )
     l10n_mx_edi_cfdi_supplier_rfc = fields.Char(
@@ -657,6 +658,10 @@ class AccountMove(models.Model):
             else:
                 move.l10n_mx_edi_cfdi_cancel_id = None
 
+    @api.depends('l10n_mx_edi_cfdi_uuid')
+    def _compute_duplicated_ref_ids(self):
+        return super()._compute_duplicated_ref_ids()
+
     # -------------------------------------------------------------------------
     # CONSTRAINTS
     # -------------------------------------------------------------------------
@@ -682,6 +687,11 @@ class AccountMove(models.Model):
             self.env['l10n_mx_edi.document']._add_document_origin_cfdi_values(cfdi_values, move.l10n_mx_edi_cfdi_origin)
             if not cfdi_values['tipo_relacion'] or not cfdi_values['cfdi_relationado_list']:
                 raise ValidationError(error_message % move.l10n_mx_edi_cfdi_origin)
+
+    @api.constrains('state', 'l10n_mx_edi_cfdi_uuid')
+    def _check_duplicate_fiscal_folio(self):
+        """ Assert the move which is about to be posted isn't a duplicated move from another posted entry"""
+        return self.filtered(lambda m: m.state == 'posted')._check_duplicate_supplier_reference()
 
     # -------------------------------------------------------------------------
     # BUSINESS METHODS
@@ -771,6 +781,41 @@ class AccountMove(models.Model):
     def _get_edi_doc_attachments_to_export(self):
         # EXTENDS 'account'
         return super()._get_edi_doc_attachments_to_export() + self.l10n_mx_edi_cfdi_attachment_id
+
+    def _fetch_duplicate_reference(self, matching_states=('draft', 'posted')):
+        # EXTENDS account
+        # We check whether there are moves with the same fiscal folio if we have Mexican bills
+        mx_vendor_bills = self.filtered(lambda m: m.is_purchase_document() and m.l10n_mx_edi_cfdi_uuid and m._origin.id)
+        if not mx_vendor_bills:
+            return super()._fetch_duplicate_reference(matching_states=matching_states)
+
+        self.env['account.move'].flush_model(('company_id', 'move_type', 'l10n_mx_edi_cfdi_uuid'))
+
+        self.env.cr.execute(
+            """
+              SELECT move.id AS move_id,
+                     ARRAY_AGG(duplicate_move.id) AS duplicate_ids
+                FROM account_move AS move
+                JOIN account_move AS duplicate_move
+                  ON move.company_id = duplicate_move.company_id
+                 AND move.move_type = duplicate_move.move_type
+                 AND move.id != duplicate_move.id
+                 AND move.l10n_mx_edi_cfdi_uuid = duplicate_move.l10n_mx_edi_cfdi_uuid
+               WHERE move.id IN %(moves)s
+            GROUP BY move.id
+            """,
+            {
+                'moves': tuple(mx_vendor_bills.ids),
+            },
+        )
+        folio_fiscal_duplicates = {
+            self.env['account.move'].browse(res['move_id']): self.env['account.move'].browse(res['duplicate_ids'])
+            for res in self.env.cr.dictfetchall()
+        }
+        move_duplicates = super()._fetch_duplicate_reference(matching_states=matching_states)
+        for move, duplicates in folio_fiscal_duplicates.items():
+            move_duplicates[move] = move_duplicates.get(move, self.env['account.move']) | duplicates
+        return move_duplicates
 
     # -------------------------------------------------------------------------
     # CFDI Generation: Generic
