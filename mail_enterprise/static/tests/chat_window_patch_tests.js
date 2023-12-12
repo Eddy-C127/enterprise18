@@ -25,7 +25,7 @@ QUnit.test("'backbutton' event should close chat window", async () => {
                 0,
                 0,
                 {
-                    is_minimized: true,
+                    fold_state: "open",
                     partner_id: pyEnv.currentPartnerId,
                 },
             ],
