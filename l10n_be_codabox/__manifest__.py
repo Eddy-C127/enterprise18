@@ -9,6 +9,7 @@
     'depends': [
         'l10n_be_coda',
         'l10n_be_soda',
+        'l10n_be_reports',
     ],
     'auto_install': True,
     'data': [
