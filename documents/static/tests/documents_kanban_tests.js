@@ -3971,7 +3971,7 @@ QUnit.module("documents", {}, function () {
                     );
 
                     // making sure that the documentInspector is already rendered as it is painted after the selection.
-                    await testUtils.nextTick();
+                    await nextTick();
 
                     // starts the drag on a selected record
                     const startEvent = new Event("dragstart", { bubbles: true });
@@ -4043,6 +4043,55 @@ QUnit.module("documents", {}, function () {
                     const dropEvent = new Event("drop", { bubbles: true });
                     dropEvent.dataTransfer = dataTransfer;
                     allSelector.querySelector("header").dispatchEvent(dropEvent);
+                    await nextTick();
+                }
+            );
+
+            QUnit.test(
+                "SearchPanel: should not invoke the write method when drag and drop within same workspace",
+                async function (assert) {
+                    assert.expect(1);
+
+                    await createDocumentsView({
+                        type: "kanban",
+                        resModel: "documents.document",
+                        arch: `
+                        <kanban js_class="documents_kanban">
+                            <templates><t t-name="kanban-box">
+                                <div draggable="true" class="oe_kanban_global_area">
+                                    <i class="fa fa-circle-thin o_record_selector"/>
+                                    <field name="name"/>
+                                </div>
+                            </t></templates>
+                        </kanban>`,
+                        mockRPC: function (route, args) {
+                            if (args.method === "write" && args.model === "documents.document") {
+                                throw new Error(
+                                    "It should not be possible to drop a record into the same/current workspace"
+                                );
+                            }
+                        },
+                    });
+
+                    const yopRecord = $(target).find(".o_kanban_record:contains(yop)")[0];
+                    const yopRecordSelector = yopRecord.querySelector(".o_record_selector");
+                    // selects the record
+                    await legacyClick(yopRecordSelector);
+                    await nextTick();
+                    assert.hasClass(yopRecord, "o_record_selected");
+
+                    // starts the drag on a selected record
+                    const startEvent = new Event("dragstart", { bubbles: true });
+                    const dataTransfer = new DataTransfer();
+                    startEvent.dataTransfer = dataTransfer;
+                    yopRecordSelector.dispatchEvent(startEvent);
+
+                    // drop on the same search panel category (folder)
+                    // it should not add another write step.
+                    const endEvent = new Event("drop", { bubbles: true });
+                    endEvent.dataTransfer = dataTransfer;
+                    target.querySelector("li header.active").dispatchEvent(endEvent);
+                    await nextTick();
                 }
             );
 
