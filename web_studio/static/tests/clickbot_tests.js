@@ -189,7 +189,6 @@ QUnit.module("Studio clickbot", (hooks) => {
             'Clicking on: filter "Not Bar"',
             'Clicking on: filter "Date"',
             'Clicking on: filter option "October"',
-            "Clicking on: home menu toggle button",
             "Successfully tested 2 apps",
             "Successfully tested 2 menus",
             "Successfully tested 0 modals",
