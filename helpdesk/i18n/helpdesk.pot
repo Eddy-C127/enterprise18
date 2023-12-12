@@ -90,9 +90,9 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 msgid ""
-"<b>Log notes</b> for internal communications (you will only notify the persons you specifically tag). \n"
-"    Use <b>@ mentions</b> to ping a colleague \n"
-"    or <b># mentions</b> to contact a group of people."
+"<b>Log notes</b> for internal communications (you will only notify the "
+"persons you specifically tag). Use <b>@ mentions</b> to ping a colleague or "
+"<b># mentions</b> to contact a group of people."
 msgstr ""
 
 #. module: helpdesk
@@ -429,11 +429,6 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.constraint,message:helpdesk.constraint_helpdesk_tag_name_uniq
 msgid "A tag with the same name already exists."
-msgstr ""
-
-#. module: helpdesk
-#: model:ir.model.constraint,message:helpdesk.constraint_helpdesk_ticket_type_name_uniq
-msgid "A type with the same name already exists."
 msgstr ""
 
 #. module: helpdesk
@@ -1048,7 +1043,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_tag__create_uid
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__create_uid
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__create_uid
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__create_uid
 msgid "Created by"
 msgstr ""
 
@@ -1060,7 +1054,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_tag__create_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__create_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__create_date
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__create_date
 msgid "Created on"
 msgstr ""
 
@@ -1261,7 +1254,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__display_name
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__display_name
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__display_name
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -1639,11 +1631,6 @@ msgid "Helpdesk Ticket"
 msgstr ""
 
 #. module: helpdesk
-#: model:ir.model,name:helpdesk.model_helpdesk_ticket_type
-msgid "Helpdesk Ticket Type"
-msgstr ""
-
-#. module: helpdesk
 #: model:ir.actions.server,name:helpdesk.ir_cron_auto_close_ticket_ir_actions_server
 msgid "Helpdesk Ticket: Automatically close the tickets"
 msgstr ""
@@ -1738,7 +1725,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__id
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__id
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__id
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__id
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_tree
 msgid "ID"
 msgstr ""
@@ -1835,11 +1821,6 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: helpdesk
-#: model:helpdesk.ticket.type,name:helpdesk.type_incident
-msgid "Issue"
-msgstr ""
-
-#. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Issue credits notes"
 msgstr ""
@@ -1928,7 +1909,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_tag__write_uid
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__write_uid
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__write_uid
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__write_uid
 msgid "Last Updated by"
 msgstr ""
 
@@ -1940,7 +1920,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_tag__write_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__write_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__write_date
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -2137,7 +2116,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__name
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__name
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_tag__name
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__name
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_tree
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_list_analysis
@@ -2169,11 +2147,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
 msgid "Newest"
-msgstr ""
-
-#. module: helpdesk
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
 msgstr ""
 
 #. module: helpdesk
@@ -2249,11 +2222,6 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_action_team
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_action_unassigned
 msgid "No tickets found. Let's create one!"
-msgstr ""
-
-#. module: helpdesk
-#: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_type_action
-msgid "No types found. Let's create one!"
 msgstr ""
 
 #. module: helpdesk
@@ -2538,11 +2506,6 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Publish this team's ratings on your website"
-msgstr ""
-
-#. module: helpdesk
-#: model:helpdesk.ticket.type,name:helpdesk.type_question
-msgid "Question"
 msgstr ""
 
 #. module: helpdesk
@@ -2941,7 +2904,6 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__sequence
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__sequence
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__sequence
 msgid "Sequence"
 msgstr ""
 
@@ -3122,8 +3084,6 @@ msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tag_view_tree
-#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_type_view_form
-#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_type_view_tree
 msgid "Tag"
 msgstr ""
 
@@ -3400,11 +3360,6 @@ msgid "Ticket Title"
 msgstr ""
 
 #. module: helpdesk
-#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
-msgid "Ticket Type"
-msgstr ""
-
-#. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
 msgid "Ticket closed by the customer"
@@ -3568,28 +3523,8 @@ msgid "Two stars, with a maximum of three"
 msgstr ""
 
 #. module: helpdesk
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_type_id
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__ticket_type_id
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_type_id
-#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
-msgid "Type"
-msgstr ""
-
-#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
-
-#. module: helpdesk
-#: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_type_action
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__ticket_type_ids
-#: model:ir.ui.menu,name:helpdesk.helpdesk_ticket_type_menu
-msgid "Types"
-msgstr ""
-
-#. module: helpdesk
-#: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_type_action
-msgid "Types are perfect for categorizing your tickets."
 msgstr ""
 
 #. module: helpdesk
@@ -3671,8 +3606,9 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 msgid ""
-"Use the chatter to <b>send emails</b> and communicate efficiently with your customers. \n"
-"    Add new people to the followers' list to make them aware of the progress of this ticket."
+"Use the chatter to <b>send emails</b> and communicate efficiently with your "
+"customers. Add new people to the followers' list to make them aware of the "
+"progress of this ticket."
 msgstr ""
 
 #. module: helpdesk
@@ -3842,11 +3778,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 #: model_terms:ir.ui.view,arch_db:helpdesk.quick_create_ticket_form
 msgid "e.g. Product arrived damaged"
-msgstr ""
-
-#. module: helpdesk
-#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_type_view_tree
-msgid "e.g. Question"
 msgstr ""
 
 #. module: helpdesk
