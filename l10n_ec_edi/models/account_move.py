@@ -611,6 +611,11 @@ class AccountMove(models.Model):
             taxsupport_lines[taxsupport]['withhold_lines_count'] += 1
         return list(taxsupport_lines.values())
 
+    def _l10n_ec_get_formas_de_pago(self):
+        """Gets the value for the formasDePago key in the XML."""
+        self.ensure_one()
+        return [self.l10n_ec_sri_payment_id.code]
+
     # ===== HELPER METHODS FOR WIZARD (Calculate amounts from invoice for withholding) =====
 
     def _l10n_ec_get_inv_taxsupports_and_amounts(self):

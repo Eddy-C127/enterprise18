@@ -68,7 +68,7 @@
         <!-- Add a table for payment methods and additional info -->
         <xpath expr="//div[@id='payment_term']" position="after">
             <t t-if="o.l10n_latam_document_type_id and o.l10n_latam_internal_type != 'credit_note'">
-                <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'}">
+                <div id="sri_payment_method" t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'}">
                     <table class="table table-sm table-borderless" style="page-break-inside: avoid">
                         <thead>
                             <tr>

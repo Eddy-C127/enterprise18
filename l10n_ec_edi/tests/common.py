@@ -31,6 +31,7 @@ class TestEcEdiCommon(AccountEdiTestCommon):
             'street': "Avenida Machala 42",
             'zip': "090514",
             'city': "Guayaquil",
+            'country_id': cls.env.ref('base.ec').id,
             'l10n_ec_legal_name': "EC Test Company (official)",
         })
 
