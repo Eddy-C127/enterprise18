@@ -104,7 +104,7 @@ class Task(models.Model):
         INNER JOIN project_task_user_rel U1 ON T.id = U1.task_id
         INNER JOIN project_task T2 ON T.id != T2.id
                AND T2.active = 't'
-               AND T2.state NOT IN ('1_done', '1_canceled')
+               AND T2.state IN ('01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal')
                AND T2.planned_date_begin IS NOT NULL
                AND T2.date_deadline IS NOT NULL
                AND T2.date_deadline > NOW() AT TIME ZONE 'UTC'
@@ -116,7 +116,7 @@ class Task(models.Model):
         %s
              WHERE T.id IN %s
                AND T.active = 't'
-               AND T.state NOT IN ('1_done', '1_canceled')
+               AND T.state IN ('01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal')
                AND T.planned_date_begin IS NOT NULL
                AND T.date_deadline IS NOT NULL
                AND T.date_deadline > NOW() AT TIME ZONE 'UTC'
@@ -170,14 +170,14 @@ class Task(models.Model):
                 AND T1.date_deadline IS NOT NULL
                 AND T1.date_deadline > NOW() AT TIME ZONE 'UTC'
                 AND T1.active = 't'
-                AND T1.state NOT IN ('1_done', '1_canceled')
+                AND T1.state IN ('01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal')
                 AND T1.project_id IS NOT NULL
                 AND T2.planned_date_begin IS NOT NULL
                 AND T2.date_deadline IS NOT NULL
                 AND T2.date_deadline > NOW() AT TIME ZONE 'UTC'
                 AND T2.project_id IS NOT NULL
                 AND T2.active = 't'
-                AND T2.state NOT IN ('1_done', '1_canceled')
+                AND T2.state IN ('01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal')
         """
         operator_new = "inselect" if ((operator == "=" and value) or (operator == "!=" and not value)) else "not inselect"
         return [('id', operator_new, (query, ()))]
@@ -356,7 +356,7 @@ class Task(models.Model):
         if project_id:
             domain_expand = expression.OR([[
                 ('project_id', '=', project_id),
-                ('state', 'not in', list(CLOSED_STATES)),
+                ('state', 'in', self.OPEN_STATES),
                 ('planned_date_begin', '=', False),
                 ('date_deadline', '=', False),
             ], domain_expand])
