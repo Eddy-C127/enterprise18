@@ -7,13 +7,7 @@ from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestUi(TestPointOfSaleHttpCommon, TestMxEdiCommon):
-
-    @classmethod
-    def setUpClass(cls, chart_template_ref="mx"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        # We only want to test the UI, not the EDI itself.
-        cls.env['account.journal'].search([('code', '=', 'TSJ')]).edi_format_ids = [Command.clear()]
+class TestUi(TestMxEdiCommon, TestPointOfSaleHttpCommon):
 
     def test_mx_pos_invoice_order(self):
         self.product.available_in_pos = True
