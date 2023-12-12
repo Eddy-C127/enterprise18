@@ -512,7 +512,7 @@ class L10nMxEdiDocument(models.Model):
         """
         root_company = cfdi_values['root_company']
         certificate = root_company.l10n_mx_edi_certificate_ids._get_valid_certificate()
-        supplier = root_company.partner_id.commercial_partner_id
+        supplier = root_company.partner_id.commercial_partner_id.with_user(self.env.user)
         cfdi_values.update({
             'certificate': certificate,
             'no_certificado': certificate.serial_number,
@@ -2000,6 +2000,14 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         certificate = cfdi_values['certificate']
         self._clean_cfdi_values(cfdi_values)
         cfdi = self.env['ir.qweb']._render(qweb_template, cfdi_values)
+
+        if 'cartaporte_30' in qweb_template:
+            # Since we are inheriting version 2.0 of the Carta Porte template,
+            # we need to update both the namespace prefix and its URI to version 3.0.
+            cfdi = str(cfdi) \
+                .replace('cartaporte20', 'cartaporte30') \
+                .replace('CartaPorte20', 'CartaPorte30')
+
         cfdi_infos = self.env['l10n_mx_edi.document']._decode_cfdi_attachment(cfdi)
         cfdi_cadena_crypted = certificate._get_encrypted_cadena(cfdi_infos['cadena'])
         cfdi_infos['cfdi_node'].attrib['Sello'] = cfdi_cadena_crypted

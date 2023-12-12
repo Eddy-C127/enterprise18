@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from .common import TestMXEdiStockCommon
+from freezegun import freeze_time
+
 from odoo import fields
 from odoo.tests import tagged
+from .common import TestMXEdiStockCommon
 
-from freezegun import freeze_time
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class TestCFDIPickingWorkflow(TestMXEdiStockCommon):

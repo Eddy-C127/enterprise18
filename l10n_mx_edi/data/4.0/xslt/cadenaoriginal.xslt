@@ -71,6 +71,7 @@
   <xsl:include href="IngresosHidrocarburos.xslt"/>
   <xsl:include href="CartaPorte20.xslt"/>
   <xsl:include href="Pagos20.xslt"/>
+  <xsl:include href="CartaPorte30.xslt"/>
 
   <!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
   <xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||</xsl:template>
