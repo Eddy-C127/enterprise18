@@ -1528,4 +1528,32 @@ QUnit.module("Views", (hooks) => {
             "Timer should be running"
         );
     });
+
+    QUnit.test("Total cell bg color", async function (assert) {
+        const { openView } = await start({
+            serverData,
+            async mockRPC(route, args) {
+                if (args.method === "get_running_timer") {
+                    return {
+                        step_timer: 30,
+                    };
+                } else if (args.method === "get_daily_working_hours") {
+                    assert.strictEqual(args.model, "res.users");
+                    return {
+                        "2017-01-24": 4,
+                        "2017-01-25": 4,
+                    };
+                };
+                return timesheetGridSetup.mockTimesheetGridRPC(route, args);
+            },
+        });
+
+        await openView({
+            res_model: "analytic.line",
+            views: [[false, "grid"]],
+            context: { group_by: ["project_id", "task_id"] },
+        });
+
+        assert.containsOnce(target, ".o_grid_highlightable.text-bg-warning", "total should be an overtime (10 > 8)");
+    });
 });
