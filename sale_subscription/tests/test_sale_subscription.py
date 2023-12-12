@@ -3380,3 +3380,16 @@ class TestSubscription(TestSubscriptionCommon):
         action = subscription.with_user(user_sales_salesman).prepare_renewal_order()
         renewal_so = self.env['sale.order'].browse(action['res_id'])
         renewal_so.with_user(user_sales_salesman).action_confirm()
+
+    def test_alert_next_activity(self):
+        ''' Ensure correct functionality of sale order creation. This function validates the process of creating sale orders.
+        Previously, there was an issue of infinite recursion during alert creation.
+        The recursion occurred because calling _configure_alerts led to a call to write, which in turn would call _configure_alerts again.
+        '''
+        self.env['sale.order.alert'].create([{
+            'name': 'Test Alert',
+            'trigger_condition': 'on_create_or_write',
+            'subscription_state_from': '3_progress',
+            'subscription_state': '6_churn',
+            'action': 'next_activity',
+        }])

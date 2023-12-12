@@ -208,7 +208,7 @@ class SaleOrderAlert(models.Model):
             if alert.subscription_state_from:
                 alert_values['filter_pre_domain'] = [('subscription_state', '=', alert.subscription_state_from)]
             if alert_values:
-                alert.write(alert_values)
+                alert.with_context(skip_configure_alerts=True).write(alert_values)
 
             # Configure action
             action_values = {}
@@ -249,7 +249,8 @@ class SaleOrderAlert(models.Model):
         if vals.get('trigger_condition'):
             vals['trigger'] = vals['trigger_condition']
         res = super().write(vals)
-        self._configure_alerts([vals])
+        if not self._context.get('skip_configure_alerts'):
+            self._configure_alerts([vals])
         return res
 
     def unlink(self):
