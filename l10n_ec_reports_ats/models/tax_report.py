@@ -194,7 +194,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             }
             if in_inv.l10n_ec_sri_payment_id.code:
                 inv_values.update({
-                    'formasDePago': [in_inv.l10n_ec_sri_payment_id.code],
+                    'formasDePago': in_inv._l10n_ec_get_formas_de_pago(),
                 })
 
             # 1.2. Provide the partner name if ID is passport/foreign
@@ -471,7 +471,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             }
             if invoice.l10n_ec_sri_payment_id.code:
                 invoice_vals.update({
-                    'formasDePago': [invoice.l10n_ec_sri_payment_id.code],
+                    'formasDePago': invoice._l10n_ec_get_formas_de_pago(),
                 })
             invoices_values.append(invoice_vals)
         return invoices_values, errors
