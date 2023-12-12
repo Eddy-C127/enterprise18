@@ -233,22 +233,12 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
         self.env.company.timesheet_encode_uom_id = current_timesheet_uom
 
     def test_add_time_from_wizard(self):
-        self.env.user.employee_id = self.env['hr.employee'].create({'user_id': self.env.uid})
-        config = self.env["res.config.settings"].create({
-                "timesheet_min_duration": 60,
-                "timesheet_rounding": 15,
-            })
-        config.execute()
-        wizard_min = self.env['project.task.create.timesheet'].create({
-                'time_spent': 0.7,
-                'task_id': self.task1.id,
-            })
-        wizard_round = self.env['project.task.create.timesheet'].create({
-                'time_spent': 1.15,
-                'task_id': self.task1.id,
-            })
-        self.assertEqual(wizard_min.with_user(self.env.user).save_timesheet().unit_amount, 1, "The timesheet's duration should be 1h (Minimum Duration = 60').")
-        self.assertEqual(wizard_round.with_user(self.env.user).save_timesheet().unit_amount, 1.25, "The timesheet's duration should be 1h15 (Rounding = 15').")
+        wizard = self.env['project.task.create.timesheet'].create({
+            'time_spent': 0.15,
+            'task_id': self.task1.id,
+        })
+        wizard.with_user(self.user_employee).save_timesheet()
+        self.assertEqual(self.task1.timesheet_ids[0].unit_amount, 0.15)
 
     def test_action_add_time_to_timer_multi_company(self):
         company = self.env['res.company'].create({'name': 'My_Company'})
