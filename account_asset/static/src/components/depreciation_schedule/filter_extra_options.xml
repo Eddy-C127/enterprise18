@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_asset.DepreciationScheduleFilterExtraOptions" t-inherit="account_reports.AccountReportFilterExtraOptions">
-        <xpath expr="//Dropdown/t[@t-set-slot='content']" position="inside">
+        <xpath expr="//DropdownItem[contains(@class, 'filter_show_all_hook')]" position="after">
             <DropdownItem
                 class="{ 'selected': controller.options.assets_groupby_account }"
-                onSelected="() => this.toggleFilter('assets_groupby_account')"
+                onSelected="() => this.filterClicked('assets_groupby_account')"
+                closingMode="'none'"
             >
                 Group By Account
             </DropdownItem>

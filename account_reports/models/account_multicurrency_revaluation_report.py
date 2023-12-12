@@ -57,7 +57,7 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
 
         options['company_currency'] = options['currency_rates'].pop(str(self.env.company.currency_id.id))
         options['custom_rate'] = any(
-            not float_is_zero(cr['rate'] - rates[cr['currency_id']], 6)
+            not float_is_zero(cr['rate'] - rates[cr['currency_id']], 20)
             for cr in options['currency_rates'].values()
         )
 

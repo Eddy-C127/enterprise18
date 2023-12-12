@@ -4,14 +4,16 @@
         <xpath expr="//DropdownItem[contains(@class, 'filter_show_all_hook')]" position="after">
             <DropdownItem
                 class="{ 'selected': controller.options.consolidation_show_zero_balance_accounts }"
-                onSelected="() => this.toggleFilter('consolidation_show_zero_balance_accounts')"
+                onSelected="() => this.filterClicked('consolidation_show_zero_balance_accounts')"
+                closingMode="'none'"
             >
                 Show Zero Balance Accounts
             </DropdownItem>
 
             <DropdownItem
                 class="{ 'selected': controller.options.consolidation_hierarchy }"
-                onSelected="() => this.toggleFilter('consolidation_hierarchy')"
+                onSelected="() => this.filterClicked('consolidation_hierarchy')"
+                closingMode="'none'"
             >
                Hierarchy and Subtotals
             </DropdownItem>

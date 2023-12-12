@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.AccountReportFilterJournal">
-        <Dropdown >
+        <Dropdown onStateChanged="(isOpen) => this.applyFilters(isOpen, 'journals')">
             <button class="btn btn-secondary">
-                <i class="fa fa-book me-1"/>Journals: <t t-esc="controller.options.name_journal_group"/>
+                <i class="fa fa-book me-1"/><t t-out="controller.options.name_journal_group"/>
             </button>
 
             <t t-set-slot="content">
                 <t t-foreach="controller.options.journals" t-as="journal" t-key="journal_index">
                     <t t-if="journal.id === 'divider'">
-                        <div class="dropdown-header">
+                        <div class="dropdown-header pe-none">
                             <t t-out="journal.name"/>
                         </div>
                     </t>
                     <t t-elif="['account.journal', 'account.journal.group'].includes(journal.model)">
                         <DropdownItem
                             class="{ 'selected': journal.selected, 'ps-4': true }"
-                            onSelected="() => this.filterJournal(journal)"
-                        >
-                            <t t-esc="journal.name"/>
-                        </DropdownItem>
+                            onSelected="() => this.selectJournal(journal)"
+                            closingMode="'none'"
+                            t-out="journal.name"
+                        />
                     </t>
                 </t>
             </t>

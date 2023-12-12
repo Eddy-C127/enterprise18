@@ -23,7 +23,7 @@
 
                 <DropdownItem
                     class="{ 'selected': controller.options.l10n_mx_month_13 }"
-                    onSelected="() => this.toggleFilter('l10n_mx_month_13')"
+                    onSelected="() => this.filterClicked('l10n_mx_month_13', null, true)"
                 >
                     Month 13
                 </DropdownItem>

@@ -95,16 +95,13 @@ class ArgentinianReportCustomHandler(models.AbstractModel):
         }
 
         options['buttons'].append(zip_export_button)
-        options['ar_vat_book_tax_types_available'] = {
-            'sale': _('Sales'),
-            'purchase': _('Purchases'),
-            'all': _('All'),
+        options['ar_vat_book_tax_types_available'] = previous_options.get('ar_vat_book_tax_types_available') or {
+            'sale': {'name': _('Sales'), 'selected': True},
+            'purchase': {'name': _('Purchases'), 'selected': True},
         }
         if options.get('_running_export_test'):
-            # Exporting the file is not allowed for 'all'. When executing the export tests, we hence always select 'sales', to avoid raising.
-            options['ar_vat_book_tax_type_selected'] = 'sale'
-        else:
-            options['ar_vat_book_tax_type_selected'] = previous_options.get('ar_vat_book_tax_type_selected', 'all')
+            # Exporting the file is not allowed for 'purchase'. When executing the export tests, we hence always select 'sales', to avoid raising.
+            options['ar_vat_book_tax_types_available']['purchase']['selected'] = False
 
         options['forced_domain'] = [
              *options.get('forced_domain', []),
@@ -237,8 +234,13 @@ class ArgentinianReportCustomHandler(models.AbstractModel):
 
     def _vat_book_get_selected_tax_types(self, options):
         # If no particular one is selected, then select them all
-        selected = options['ar_vat_book_tax_type_selected']
-        return ['sale', 'purchase'] if selected == 'all' else [selected]
+        selected_types = [
+            selected_type_key
+            for selected_type_key, selected_type_value in options['ar_vat_book_tax_types_available'].items()
+            if selected_type_value['selected']
+        ]
+
+        return selected_types if selected_types else ['sale', 'purchase']
 
     @api.model
     def _vat_book_get_lines_domain(self, options):

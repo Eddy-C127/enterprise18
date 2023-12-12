@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.AccountReportFilterExtraOptions">
-        <Dropdown>
+        <Dropdown onStateChanged="(isOpen) => this.applyFilters(isOpen)">
             <button class="btn btn-secondary">
-                <i class="fa fa-filter me-1"/>Options:
-
-                <t t-if="controller.groups.account_readonly and controller.filters.show_draft">
-                    <t t-if="controller.options.all_entries">With Draft Entries</t>
-                    <t t-else="">Posted Entries Only</t>
+                <i class="fa fa-filter me-1"/>
+                <t t-if="selectedExtraOptions">
+                    <t t-out="selectedExtraOptions"/>
                 </t>
-
-                <t t-if="controller.filters.show_unreconciled and controller.options.unreconciled">
-                    <t t-if="controller.filters.show_draft">, Only Show Unreconciled Entries</t>
-                    <t t-else="">Only Show Unreconciled Entries</t>
-                </t>
-
-                <t t-if="controller.options.include_analytic_without_aml">
-                    <t t-if="controller.filters.show_draft">, Including Analytic Simulations</t>
-                    <t t-else="">Including Analytic Simulations</t>
+                <t t-else="">
+                    Options
                 </t>
             </button>
+
             <t t-set-slot="content">
                 <t t-if="controller.groups.account_readonly and controller.filters.show_draft">
                     <DropdownItem
                         class="{ 'filter_show_draft_hook': true, 'selected': controller.options.all_entries }"
-                        onSelected="() => this.toggleFilter('all_entries')"
+                        onSelected="() => this.filterClicked('all_entries')"
+                        closingMode="'none'"
                     >
                         Include Draft Entries
                     </DropdownItem>
@@ -33,7 +26,8 @@
                 <t t-if="controller.groups.account_readonly and controller.filters.show_analytic_groupby">
                     <DropdownItem
                         class="{ 'selected': controller.options.include_analytic_without_aml }"
-                        onSelected="() => this.toggleFilter('include_analytic_without_aml')"
+                        onSelected="() => this.filterClicked('include_analytic_without_aml')"
+                        closingMode="'none'"
                     >
                         Include Analytic Simulations
                     </DropdownItem>
@@ -42,7 +36,8 @@
                 <t t-if="controller.filters.show_hierarchy">
                     <DropdownItem
                         class="{ 'selected': controller.options.hierarchy }"
-                        onSelected="() => this.toggleFilter('hierarchy')"
+                        onSelected="() => this.filterClicked('hierarchy')"
+                        closingMode="'none'"
                     >
                         Hierarchy and Subtotals
                     </DropdownItem>
@@ -51,7 +46,8 @@
                 <t t-if="controller.filters.show_unreconciled">
                     <DropdownItem
                         class="{ 'selected': controller.options.unreconciled }"
-                        onSelected="() => this.toggleFilter('unreconciled')"
+                        onSelected="() => this.filterClicked('unreconciled')"
+                        closingMode="'none'"
                     >
                         Only Show Unreconciled Entries
                     </DropdownItem>
@@ -60,38 +56,42 @@
                 <t t-if="controller.filters.show_all">
                     <DropdownItem
                         class="{ 'filter_show_all_hook': true, 'selected': controller.options.unfold_all }"
-                        onSelected="() => this.toggleFilter('unfold_all')"
+                        onSelected="() => this.filterClicked('unfold_all')"
+                        closingMode="'none'"
                     >
                         Unfold All
                     </DropdownItem>
                 </t>
-            </t>
 
-            <t t-if="controller.filters.show_hide_0_lines != 'never'">
-                <DropdownItem
-                    class="{ 'selected': controller.options.hide_0_lines }"
-                    onSelected="() => this.toggleHideZeroLines()"
-                >
-                    Hide lines at 0
-                </DropdownItem>
-            </t>
+                <t t-if="controller.options.integer_rounding">
+                    <DropdownItem
+                        class="{ 'selected': controller.options.integer_rounding_enabled }"
+                        onSelected="() => this.filterClicked('integer_rounding_enabled')"
+                        closingMode="'none'"
+                    >
+                        Integer Rounding
+                    </DropdownItem>
+                </t>
 
-            <t t-if="controller.options.integer_rounding">
-                <DropdownItem
-                    class="{ 'selected': controller.options.integer_rounding_enabled }"
-                    onSelected="() => this.toggleFilter('integer_rounding_enabled')"
-                >
-                    Integer Rounding
-                </DropdownItem>
-            </t>
+                <div class="dropdown-divider" t-if="hasUIFilter"/>
 
-            <t t-if="'horizontal_split' in controller.options">
-                <DropdownItem
-                    class="{ 'selected': controller.options.horizontal_split }"
-                    onSelected="() => this.toggleHorizontalSplit()"
-                >
-                    Split Horizontally
-                </DropdownItem>
+                <t t-if="controller.filters.show_hide_0_lines !== 'never'">
+                    <DropdownItem
+                        class="{ 'selected': controller.options.hide_0_lines }"
+                        onSelected="() => this.toggleHideZeroLines()"
+                    >
+                        Hide lines at 0
+                    </DropdownItem>
+                </t>
+
+                <t t-if="'horizontal_split' in controller.options">
+                    <DropdownItem
+                        class="{ 'selected': controller.options.horizontal_split }"
+                        onSelected="() => this.toggleHorizontalSplit()"
+                    >
+                        Split Horizontally
+                    </DropdownItem>
+                </t>
             </t>
         </Dropdown>
     </t>

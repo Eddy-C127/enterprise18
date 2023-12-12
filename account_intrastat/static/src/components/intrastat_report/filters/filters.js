@@ -1,31 +1,34 @@
-/** @odoo-module */
+import { _t } from "@web/core/l10n/translation";
 
-import { AccountReport } from "@account_reports/components/account_report/account_report";
+import { patch } from "@web/core/utils/patch";
 import { AccountReportFilters } from "@account_reports/components/account_report/filters/filters";
 
-export class IntrastatReportFilters extends AccountReportFilters {
-    static template = "account_intrastat.IntrastatReportFilters";
+patch(AccountReportFilters.prototype, {
+    get hasIntrastatOptions() {
+        return (
+            "intrastat_type" in this.controller.options ||
+            "intrastat_extended" in this.controller.options ||
+            "intrastat_with_vat" in this.controller.options
+        );
+    },
 
-    //------------------------------------------------------------------------------------------------------------------
-    // Getters
-    //------------------------------------------------------------------------------------------------------------------
-    get intrastatTypeName() {
-        let name = null;
+    get selectedIntrastatOptions() {
+        const intrastatSelectedType = this.controller.options.intrastat_type
+            .filter((intrastatType) => intrastatType.selected)
+            .map((intrastatType) => intrastatType.name);
 
-        for (const intrastatType of this.controller.options.intrastat_type)
-            if (intrastatType.selected)
-                name = (name) ? `${ name }, ${ intrastatType.name }` : intrastatType.name;
+        const selectedIntrastatOptions = intrastatSelectedType.length
+            ? intrastatSelectedType
+            : [_t("Arrival"), _t("Dispatch")];
 
-        return (name) ? name : "All";
-    }
-
-    get intrastatTypes() {
-        return this.controller.options.intrastat_type.map((intrastatType, i) => ({
-            class: { 'selected': intrastatType.selected },
-            onSelected: () => this.toggleFilter('intrastat_type.' + i + '.selected'),
-            label: intrastatType.name,
-        }));
-    }
-}
-
-AccountReport.registerCustomComponent(IntrastatReportFilters);
+        selectedIntrastatOptions.push(
+            this.controller.options.intrastat_extended ? _t("Extended mode") : _t("Standard mode"),
+        );
+        selectedIntrastatOptions.push(
+            this.controller.options.intrastat_with_vat
+                ? _t("Partners with VAT numbers")
+                : _t("All partners"),
+        );
+        return selectedIntrastatOptions.join(", ");
+    },
+});

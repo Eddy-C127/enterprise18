@@ -340,32 +340,38 @@ class TestReports(TestAr, TestAccountReportsCommon):
         self.assertEqual(out_txt, res_file)
 
     def test_01_sale_vat_book_vouchers(self):
-        self.options['ar_vat_book_tax_type_selected'] = 'sale'
+        self.options['ar_vat_book_tax_types_available']['sale']['selected'] = True
+        self.options['ar_vat_book_tax_types_available']['purchase']['selected'] = False
         self.options['txt_type'] = 'sale'
         self._test_txt_file('Ventas.txt', 'sale')
 
     def test_02_sale_vat_book_aliquots(self):
-        self.options['ar_vat_book_tax_type_selected'] = 'sale'
+        self.options['ar_vat_book_tax_types_available']['sale']['selected'] = True
+        self.options['ar_vat_book_tax_types_available']['purchase']['selected'] = False
         self.options['txt_type'] = 'sale'
         self._test_txt_file('IVA_Ventas.txt', 'sale')
 
     def test_03_purchase_vat_book_purchases_voucher(self):
-        self.options['ar_vat_book_tax_type_selected'] = 'purchase'
+        self.options['ar_vat_book_tax_types_available']['purchase']['selected'] = True
+        self.options['ar_vat_book_tax_types_available']['sale']['selected'] = False
         self.options['txt_type'] = 'purchases'
         self._test_txt_file('Compras.txt', 'purchase')
 
     def test_04_purchase_vat_book_purchases_aliquots(self):
-        self.options['ar_vat_book_tax_type_selected'] = 'purchase'
+        self.options['ar_vat_book_tax_types_available']['purchase']['selected'] = True
+        self.options['ar_vat_book_tax_types_available']['sale']['selected'] = False
         self.options['txt_type'] = 'purchases'
         self._test_txt_file('IVA_Compras.txt', 'purchase')
 
     def test_05_purchase_vat_book_goods_import_voucher(self):
-        self.options['ar_vat_book_tax_type_selected'] = 'purchase'
+        self.options['ar_vat_book_tax_types_available']['purchase']['selected'] = True
+        self.options['ar_vat_book_tax_types_available']['sale']['selected'] = False
         self.options['txt_type'] = 'goods_import'
         self._test_txt_file('Importaciones_de_Bienes.txt', 'purchase')
 
     def test_06_purchase_vat_book_goods_import_aliquots(self):
-        self.options['ar_vat_book_tax_type_selected'] = 'purchase'
+        self.options['ar_vat_book_tax_types_available']['purchase']['selected'] = True
+        self.options['ar_vat_book_tax_types_available']['sale']['selected'] = False
         self.options['txt_type'] = 'goods_import'
         self._test_txt_file('IVA_Importaciones_de_Bienes.txt', 'purchase')
 

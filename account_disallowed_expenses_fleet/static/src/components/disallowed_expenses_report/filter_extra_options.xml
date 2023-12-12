@@ -4,7 +4,8 @@
         <xpath expr="//DropdownItem[contains(@class, 'filter_show_all_hook')]" position="after">
             <DropdownItem
                 class="{ 'selected': controller.options.vehicle_split }"
-                onSelected="() => this.toggleFilter('vehicle_split')"
+                onSelected="() => this.filterClicked('vehicle_split')"
+                closingMode="'none'"
             >
                 Vehicle Split
             </DropdownItem>

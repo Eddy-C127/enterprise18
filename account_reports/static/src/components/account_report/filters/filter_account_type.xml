@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.AccountReportFilterAccountType">
-        <Dropdown items="this.accountTypeItems" >
+        <Dropdown onStateChanged="(isOpen) => this.applyFilters(isOpen, 'account_type')">
             <button class="btn btn-secondary">
                 <i class="fa fa-user me-1"/>Account: <t t-out="selectedAccountType"/>
             </button>
+
+            <t t-set-slot="content">
+                <t t-foreach="controller.options.account_type" t-as="accountTypeItem" t-key="accountTypeItem_index">
+                    <DropdownItem
+                        class="{ selected: accountTypeItem.selected }"
+                        onSelected="() => this.filterClicked('account_type.' + accountTypeItem_index + '.selected')"
+                        closingMode="'none'"
+                        t-out="accountTypeItem.name"
+                    />
+                </t>
+            </t>
         </Dropdown>
     </t>
 </templates>

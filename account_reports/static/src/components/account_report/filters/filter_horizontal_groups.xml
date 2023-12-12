@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.AccountReportFilterHorizontalGroups">
-        <Dropdown>
+        <Dropdown onStateChanged="(isOpen) => this.applyFilters(isOpen, 'selected_horizontal_group_id')">
             <button class="btn btn-secondary">
-                <i class="fa fa-filter me-1"/>Horizontal Group: <t t-esc="selectedHorizontalGroupName"/>
+                <i class="fa fa-filter me-1"/>Horizontal Group: <t t-out="selectedHorizontalGroupName"/>
             </button>
 
             <t t-set-slot="content">
                 <DropdownItem
-                    class="{ 'selected': controller.options.selected_horizontal_group_id === 'none' }"
-                    onSelected="() => this.updateFilter('selected_horizontal_group_id', 'none')"
+                    class="{ 'selected': controller.options.selected_horizontal_group_id === null }"
+                    onSelected="() => this.filterClicked('selected_horizontal_group_id', null)"
+                    closingMode="'none'"
                 >
                     None
                 </DropdownItem>
 
                 <t t-foreach="controller.options.available_horizontal_groups" t-as="horizontalGroup" t-key="horizontalGroup_index">
-                    <t t-if="horizontalGroup_first">
-                        <div class="dropdown-divider"/>
-                    </t>
-
                     <DropdownItem
-                    class="{ 'selected': controller.options.selected_horizontal_group_id === horizontalGroup.id }"
-                    onSelected="() => this.updateFilter('selected_horizontal_group_id', horizontalGroup.id)"
+                        class="{ 'selected': controller.options.selected_horizontal_group_id === horizontalGroup.id }"
+                        onSelected="() => this.filterClicked('selected_horizontal_group_id', horizontalGroup.id)"
+                        closingMode="'none'"
                     >
-                    <t t-esc="horizontalGroup.name"/>
+                        <t t-out="horizontalGroup.name"/>
                     </DropdownItem>
                 </t>
             </t>

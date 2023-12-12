@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { _t } from "@web/core/l10n/translation";
 import { Component, useState } from "@odoo/owl";
 
@@ -27,6 +25,12 @@ export class AccountReportFilters extends Component {
         this.dialog = useService("dialog");
         this.companyService = useService("company");
         this.controller = useState(this.env.controller);
+        this.dirtyFilter = false;
+    }
+
+    focusInnerInput(index, items) {
+        const selectedItem = items[index];
+        selectedItem.el.querySelector(":scope input").focus();
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -35,37 +39,44 @@ export class AccountReportFilters extends Component {
     get selectedFiscalPositionName() {
         switch (this.controller.options.fiscal_position) {
             case "domestic":
-                return "Domestic";
+                return _t("Domestic");
             case "all":
-                return "All";
+                return _t("All");
             default:
-                for (const fiscalPosition of this.controller.options.available_vat_fiscal_positions)
-                    if (fiscalPosition.id === this.controller.options.fiscal_position)
+                for (const fiscalPosition of this.controller.options.available_vat_fiscal_positions) {
+                    if (fiscalPosition.id === this.controller.options.fiscal_position) {
                         return fiscalPosition.name;
+                    }
+                }
         }
+        return _t("None");
     }
 
     get selectedHorizontalGroupName() {
-        for (const horizontalGroup of this.controller.options.available_horizontal_groups)
-            if (horizontalGroup.id === this.controller.options.selected_horizontal_group_id)
+        for (const horizontalGroup of this.controller.options.available_horizontal_groups) {
+            if (horizontalGroup.id === this.controller.options.selected_horizontal_group_id) {
                 return horizontalGroup.name;
-
-        return "None";
+            }
+        }
+        return _t("None");
     }
 
     get selectedTaxUnitName() {
-        if (this.controller.options.tax_unit === "company_only")
-            return "Company Only";
-        else
-            for (const taxUnit of this.controller.options.available_tax_units)
-                if (taxUnit.id === this.controller.options.tax_unit)
-                    return taxUnit.name;
+        for (const taxUnit of this.controller.options.available_tax_units) {
+            if (taxUnit.id === this.controller.options.tax_unit) {
+                return taxUnit.name;
+            }
+        }
+        return _t("Company Only");
     }
 
     get selectedVariantName() {
-        for (const variant of this.controller.options.available_variants)
-            if (variant.id === this.controller.options.selected_variant_id)
+        for (const variant of this.controller.options.available_variants) {
+            if (variant.id === this.controller.options.selected_variant_id) {
                 return variant.name;
+            }
+        }
+        return _t("None");
     }
 
     get selectedSectionName() {
@@ -75,63 +86,98 @@ export class AccountReportFilters extends Component {
     }
 
     get selectedAccountType() {
-        let selectedAccountType = this.controller.options.account_type.filter(accountType => accountType.selected);
-        if (!selectedAccountType.length) { return _t("None"); }
-        if (selectedAccountType.length === 4) { return _t("All"); }
+        let selectedAccountType = this.controller.options.account_type.filter(
+            (accountType) => accountType.selected,
+        );
+        if (
+            !selectedAccountType.length ||
+            selectedAccountType.length === this.controller.options.account_type.length
+        ) {
+            return _t("All");
+        }
 
         const accountTypeMappings = [
-            {list: ['trade_receivable', 'non_trade_receivable'], name: _t('All Receivable')},
-            {list: ['trade_payable', 'non_trade_payable'], name: _t('All Payable')},
-            {list: ['trade_receivable', 'trade_payable'], name: _t('Trade Partners')},
-            {list: ['non_trade_receivable', 'non_trade_payable'], name: _t('Non Trade Partners')},
-        ]
+            { list: ["trade_receivable", "non_trade_receivable"], name: _t("All Receivable") },
+            { list: ["trade_payable", "non_trade_payable"], name: _t("All Payable") },
+            { list: ["trade_receivable", "trade_payable"], name: _t("Trade Partners") },
+            { list: ["non_trade_receivable", "non_trade_payable"], name: _t("Non Trade Partners") },
+        ];
 
-        const listToDisplay = []
+        const listToDisplay = [];
         for (const mapping of accountTypeMappings) {
-            if (mapping.list.every(accountType => selectedAccountType.map(accountType => accountType.id).includes(accountType))) {
+            if (
+                mapping.list.every((accountType) =>
+                    selectedAccountType.map((accountType) => accountType.id).includes(accountType),
+                )
+            ) {
                 listToDisplay.push(mapping.name);
                 // Delete already checked id
-                selectedAccountType = selectedAccountType.filter(accountType => !mapping.list.includes(accountType.id));
+                selectedAccountType = selectedAccountType.filter(
+                    (accountType) => !mapping.list.includes(accountType.id),
+                );
             }
         }
 
-        return listToDisplay.concat(selectedAccountType.map(accountType => accountType.name)).join(', ')
+        return listToDisplay
+            .concat(selectedAccountType.map((accountType) => accountType.name))
+            .join(", ");
     }
 
     get selectedAmlIrFilters() {
-        const selected = [];
+        const selectedFilters = this.controller.options.aml_ir_filters.filter(
+            (irFilter) => irFilter.selected,
+        );
 
-        for (const amlIrFilter of this.controller.options.aml_ir_filters)
-            if (amlIrFilter.selected) {
-                selected.push(amlIrFilter);
-            }
-
-        if (!selected.length)
+        if (selectedFilters.length === 1) {
+            return selectedFilters[0].name;
+        } else if (selectedFilters.length > 1) {
+            return _t("%s selected", selectedFilters.length);
+        } else {
             return _t("None");
-
-        else if (selected.length === 1)
-            return selected[0].name;
-
-        else if (selected.length > 1)
-            return _t("%s selected", selected.length)
+        }
     }
 
     get availablePeriodOrder() {
-        return { "descending": _t("Descending"), "ascending": _t("Ascending") };
+        return { descending: _t("Descending"), ascending: _t("Ascending") };
     }
 
     get periodOrder() {
-        return this.controller.options.comparison.period_order === "descending" ? "Descending" : "Ascending";
+        return this.controller.options.comparison.period_order === "descending"
+            ? _t("Descending")
+            : _t("Ascending");
     }
 
-    get accountTypeItems() {
-        return this.controller.options.account_type.map((accountType, index) => ({
-            class: { selected: accountType.selected },
-            onSelected: () => this.toggleFilter("account_type." + index + ".selected"),
-            label: accountType.name,
-        }));
+    get selectedExtraOptions() {
+        const selectedExtraOptions = [];
+
+        if (this.controller.groups.account_readonly && this.controller.filters.show_draft) {
+            selectedExtraOptions.push(
+                this.controller.options.all_entries
+                    ? _t("With Draft Entries")
+                    : _t("Posted Entries Only"),
+            );
+        }
+        if (this.controller.filters.show_unreconciled && this.controller.options.unreconciled) {
+            selectedExtraOptions.push(_t("Only Show Unreconciled Entries"));
+        }
+        if (this.controller.options.include_analytic_without_aml) {
+            selectedExtraOptions.push(_t("Including Analytic Simulations"));
+        }
+        return selectedExtraOptions.join(", ");
     }
 
+    get dropdownProps() {
+        return {
+            shouldFocusChildInput: false,
+            hotkeys: {
+                arrowright: (index, items) => this.focusInnerInput(index, items),
+            },
+        };
+    }
+
+    get periodLabel() {
+        return this.controller.options.comparison.number_period > 1 ? _t("Periods") : _t("Period");
+    }
     //------------------------------------------------------------------------------------------------------------------
     // Helpers
     //------------------------------------------------------------------------------------------------------------------
@@ -140,11 +186,28 @@ export class AccountReportFilters extends Component {
     }
 
     get hasExtraOptionsFilter() {
-        return "report_cash_basis" in this.controller.options || this.controller.filters.show_draft || this.controller.filters.show_all || this.controller.filters.show_unreconciled || this.controller.filters.show_hide_0_lines;
+        return (
+            "report_cash_basis" in this.controller.options ||
+            this.controller.filters.show_draft ||
+            this.controller.filters.show_all ||
+            this.controller.filters.show_unreconciled ||
+            this.hasUIFilter
+        );
+    }
+
+    get hasUIFilter() {
+        return (
+            this.controller.filters.show_hide_0_lines !== "never" ||
+            "horizontal_split" in this.controller.options
+        );
     }
 
     get hasFiscalPositionFilter() {
-        return this.controller.options.available_vat_fiscal_positions.length > (this.controller.options.allow_domestic ? 0 : 1) && (this.controller.options.companies.length > 1);
+        const isMultiCompany = this.controller.options.companies.length > 1;
+        const minimumFiscalPosition = this.controller.options.allow_domestic ? 0 : 1;
+        const hasFiscalPositions =
+            this.controller.options.available_vat_fiscal_positions.length > minimumFiscalPosition;
+        return hasFiscalPositions && isMultiCompany;
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -157,14 +220,6 @@ export class AccountReportFilters extends Component {
 
     dateTo(optionKey) {
         return DateTime.fromISO(this.controller.options[optionKey].date_to);
-    }
-
-    localeDateFrom(optionKey) {
-        return this.dateFrom(optionKey).toLocaleString(DateTime.DATE_MED);
-    }
-
-    localeDateTo(optionKey) {
-        return this.dateTo(optionKey).toLocaleString(DateTime.DATE_MED);
     }
 
     // Setters
@@ -209,7 +264,7 @@ export class AccountReportFilters extends Component {
             resModel,
             resIds: this.controller.options[optionKey],
             update: (resIds) => {
-                this.updateFilter(optionKey, resIds);
+                this.filterClicked(optionKey, resIds);
             },
         };
     }
@@ -218,42 +273,55 @@ export class AccountReportFilters extends Component {
     // Rounding unit
     //------------------------------------------------------------------------------------------------------------------
     roundingUnitName(roundingUnit) {
-        return _t("In %s", this.controller.options['rounding_unit_names'][roundingUnit]);
+        return _t("In %s", this.controller.options["rounding_unit_names"][roundingUnit]);
     }
 
     //------------------------------------------------------------------------------------------------------------------
     // Generic filters
     //------------------------------------------------------------------------------------------------------------------
-    async updateFilter(optionKey, optionValue) {
-        await this.controller.updateOption(optionKey, optionValue, true);
+    async filterClicked(optionKey, optionValue = undefined, reload = false) {
+        this.dirtyFilter = !reload;
+
+        if (optionValue !== undefined) {
+            await this.controller.updateOption(optionKey, optionValue, reload);
+        } else {
+            await this.controller.toggleOption(optionKey, reload);
+        }
     }
 
-    async toggleFilter(optionKey) {
-        await this.controller.toggleOption(optionKey, true);
+    async applyFilters(isDropDownOpen, optionKey = null) {
+        if (!isDropDownOpen && this.dirtyFilter) {
+            // We only reload the view if the dropdown state changed to close state
+            await this.controller.reload(optionKey, this.controller.options);
+            this.dirtyFilter = false;
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------
     // Custom filters
     //------------------------------------------------------------------------------------------------------------------
-    async filterJournal(journal) {
-        if (journal.model === 'account.journal.group')
+    selectJournal(journal) {
+        this.dirtyFilter = true;
+        if (journal.model === "account.journal.group") {
             this.controller.options.__journal_group_action = {
-                'action': journal.selected ? "remove" : "add",
-                'id': parseInt(journal.id),
+                action: journal.selected ? "remove" : "add",
+                id: parseInt(journal.id),
             };
-
+        }
         journal.selected = !journal.selected;
-
-        await this.controller.reload('journals', this.controller.options);
     }
 
     async filterVariant(reportId) {
-        this.controller.saveSessionOptions({...this.controller.options, 'selected_variant_id': reportId, 'sections_source_id': reportId});
-        this.controller.displayReport(reportId);
+        this.controller.saveSessionOptions({
+            ...this.controller.options,
+            selected_variant_id: reportId,
+            sections_source_id: reportId,
+        });
+        await this.controller.displayReport(reportId);
     }
 
     async filterTaxUnit(taxUnit) {
-        await this.controller.updateOption('tax_unit', taxUnit.id);
+        await this.filterClicked("tax_unit", taxUnit.id, true);
         this.controller.saveSessionOptions(this.controller.options);
 
         // force the company to those impacted by the tax units
@@ -262,14 +330,14 @@ export class AccountReportFilters extends Component {
 
     async toggleHideZeroLines() {
         // Avoid calling the database when this filter is toggled; as the exact same lines would be returned; just reassign visibility.
-        await this.controller.toggleOption('hide_0_lines', false);
+        await this.controller.toggleOption("hide_0_lines", false);
 
         this.controller.saveSessionOptions(this.controller.options);
         this.controller.assignLinesVisibility(this.controller.lines);
     }
 
     async toggleHorizontalSplit() {
-        await this.controller.toggleOption('horizontal_split', false);
+        await this.controller.toggleOption("horizontal_split", false);
         this.controller.saveSessionOptions(this.controller.options);
     }
 

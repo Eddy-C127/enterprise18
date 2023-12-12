@@ -1,4 +1,3 @@
-/** @odoo-module */
 /* global owl:readonly */
 
 import { browser } from "@web/core/browser/browser";
@@ -55,7 +54,7 @@ export class AccountReportController {
     }
 
     async reload(optionPath, newOptions) {
-        const rootOptionKey = optionPath.split('.')[0]
+        const rootOptionKey = optionPath ? optionPath.split(".")[0] : "";
 
         /*
         When reloading the UI after setting an option filter, invalidate the cached options and data of all sections supporting this filter.
@@ -65,7 +64,7 @@ export class AccountReportController {
         for (const [cacheKey, cachedOptionsPromise] of Object.entries(this.reportOptionsMap)) {
             let cachedOptions = await cachedOptionsPromise;
 
-            if (cachedOptions.hasOwnProperty(rootOptionKey)) {
+            if (rootOptionKey === "" || cachedOptions.hasOwnProperty(rootOptionKey)) {
                 delete this.reportOptionsMap[cacheKey];
                 delete this.reportInformationMap[cacheKey];
             }

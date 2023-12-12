@@ -13,7 +13,7 @@
                         <t t-foreach="controller.options.periods" t-as="period" t-key="period_index">
                             <DropdownItem
                                 class="{ 'selected': controller.options.periods[period_index].selected }"
-                                onSelected="() => this.toggleFilter('periods.' + period_index + '.selected')"
+                                onSelected="() => this.filterClicked('periods.' + period_index + '.selected', undefined, true)"
                             >
                                 <t t-esc="period.name"/>
                             </DropdownItem>

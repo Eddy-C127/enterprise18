@@ -39,7 +39,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
     def _get_custom_display_config(self):
         return {
-            'components': {
+            'templates': {
                 'AccountReportFilters': 'account_intrastat.IntrastatReportFilters',
             },
         }

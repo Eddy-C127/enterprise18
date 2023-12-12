@@ -1,10 +1,8 @@
-.account_report {
-    .filter_date, .filter_comparison {
+.account_report_filter {
+    &.date, &.comparison {
         .dropdown-item.date {
             display: flex;
             justify-content: space-between;
-
-            &.focus, &.selected:hover, &.selected:focus { background-color: inherit }
 
             .o_datetime_input {
                 display: inline;
@@ -16,12 +14,16 @@
         }
     }
 
-    .filter_comparison {
+    &.comparison {
         .dropdown-item.period {
             display: flex;
             justify-content: space-between;
 
-            &.focus, &.selected:hover, &.selected:focus { background-color: inherit }
+            &.order:hover {
+                background-color: unset;
+                color: unset;
+                cursor: default;
+            }
 
             input[type=number] {
                 display: inline;
@@ -32,11 +34,11 @@
                 border-right: none;
                 border-bottom: 1px solid var(--o-input-border-color);
                 text-align: center;
+                background-color: inherit;
             }
         }
 
         .dropdown-item.date {
-            &.focus, &.selected:hover, &.selected:focus { background-color: inherit }
             .o_datetime_input {
                 display: inline;
                 width: 86px;
@@ -45,14 +47,20 @@
                 text-align: center;
             }
         }
+
+        .dropdown-item.link {
+            cursor: default;
+
+            &.focus, &.selected:hover, &.selected:focus { background-color: inherit; }
+        }
     }
 
-    .filter_analytic, .filter_analytic_groupby, .filter_partner {
+    &.analytic, &.analytic_groupby, &.partner {
         .dropdown-item {
             display: flex;
             label { width: 60px }
         }
-        .dropdown-item.focus, .dropdown-item.selected:hover, .dropdown-item.selected:focus { background-color: inherit }
+        .dropdown-item.focus, .dropdown-item.selected:hover, .dropdown-item.selected:focus { background-color: inherit; }
         .o_input_dropdown { width: 100% }
         .o_field_tags {
             margin-left: 8px;
