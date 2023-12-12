@@ -33,7 +33,6 @@ class AppointmentCRMTest(TestCrmCommon):
         )
         cls.appointment_type_nocreate = cls._create_appointment_type(name="No Create")
         cls.appointment_type_create = cls._create_appointment_type(name="Create", lead_create=True)
-        cls.categ_id = cls.env.ref('appointment.calendar_event_type_data_online_appointment')
 
     def _prepare_event_value(self, appointment_type, user, contact, **kwargs):
         partner_ids = (user.partner_id | contact).ids
@@ -47,7 +46,6 @@ class AppointmentCRMTest(TestCrmCommon):
             'description': "<p>Test</p>",
             'location': appointment_type.location,
             'partner_ids': [(4, pid, False) for pid in partner_ids],
-            'categ_ids': [(4, self.categ_id.id, False)],
             'appointment_type_id': appointment_type.id,
             'user_id': user.id,
         }

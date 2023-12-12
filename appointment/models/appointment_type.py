@@ -956,7 +956,6 @@ class AppointmentType(models.Model):
             'appointment_type_id': self.id,
             'attendee_ids': attendee_values,
             'booking_line_ids': [Command.create(vals) for vals in booking_line_values],
-            'categ_ids': [Command.set(appointment_invite._get_meeting_categories_for_appointment().ids)],
             'description': description,
             'duration': duration,
             'location': self.location,

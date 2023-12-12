@@ -15,7 +15,6 @@ Allow clients to Schedule Appointments through your Website
 """,
     'depends': ['appointment', 'website_enterprise', 'website_partner'],
     'data': [
-        'data/calendar_data.xml',
         'data/website_data.xml',
         'views/appointment_type_views.xml',
         'views/appointment_invite_views.xml',
