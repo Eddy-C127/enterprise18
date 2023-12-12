@@ -334,19 +334,21 @@ class Task(models.Model):
 
         return res
 
-    def _get_additional_group_expand_user_ids_domain(self, domain):
-        return []
+    def _get_additional_users(self, domain):
+        return self.env['res.users']
 
     def _group_expand_user_ids(self, users, domain, order):
         """ Group expand by user_ids in gantt view :
             all users which have and open task in this project + the current user if not filtered by assignee
         """
-        additional_domain = self._get_additional_group_expand_user_ids_domain(domain)
+        additional_users = self._get_additional_users(domain)
+        if additional_users:
+            return additional_users
         start_date = self._context.get('gantt_start_date')
         scale = self._context.get('gantt_scale')
         if not (start_date and scale) or any(
                 is_leaf(elem) and elem[0] == 'user_ids' for elem in domain):
-            return self.env['res.users']
+            return additional_users
         domain = filter_domain_leaf(domain, lambda field: field not in ['planned_date_begin', 'date_deadline', 'state'])
         search_on_comodel = self._search_on_comodel(domain, "user_ids", "res.users", order)
         if search_on_comodel:
@@ -373,13 +375,7 @@ class Task(models.Model):
             domain_expand,
             domain,
         ])
-        users = self.search(domain_expand).user_ids | self.env.user
-        if additional_domain:
-            users = self.env['res.users'].search(expression.AND([
-                [('id', 'in', users.ids)],
-                additional_domain,
-            ]))
-        return users
+        return self.search(domain_expand).user_ids | self.env.user
 
     @api.model
     def _group_expand_project_ids(self, projects, domain, order):

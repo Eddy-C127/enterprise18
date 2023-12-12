@@ -145,4 +145,4 @@ class TestTaskGanttViewWithSkills(TestTaskGanttView):
 
         self.assertFalse(self.user_gantt_test_1 in displayed_gantt_users, 'There should not be an empty line for test user 1')
         self.assertFalse(self.user_gantt_test_2 in displayed_gantt_users, 'There should not be an empty line for test user 2')
-        self.assertFalse(self.user_gantt_test_3 in displayed_gantt_users, 'There should not be an empty line for test user 3')
+        self.assertTrue(self.user_gantt_test_3 in displayed_gantt_users, 'There should not be an empty line for test user 3')
