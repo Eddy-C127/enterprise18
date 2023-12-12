@@ -296,7 +296,7 @@ class BankRecWidget(models.Model):
             if field.type == 'one2many':
                 initial_values[field_name] = []
             else:
-                initial_values[field_name] = field.convert_to_onchange(self[field_name], self, {})
+                initial_values[field_name] = field.convert_to_read(self[field_name], self, {})
 
         return {
             'initial_values': initial_values,
