@@ -82,17 +82,22 @@ class TestMXEdiStockCommon(TestMxEdiCommon):
             **kwargs,
         })
 
-    def _create_picking(self, warehouse, **kwargs):
+    def _create_picking(self, warehouse, outgoing=True, picking_vals=None, move_vals=None):
+        picking_vals = picking_vals or {}
         picking = self.env['stock.picking'].create({
             'location_id': warehouse.lot_stock_id.id,
             'location_dest_id': self.customer_location.id,
-            'picking_type_id': warehouse.out_type_id.id,
+            'picking_type_id': warehouse.out_type_id.id if outgoing else warehouse.in_type_id.id,
             'partner_id': self.partner_a.id,
             'l10n_mx_edi_transport_type': '01',
             'l10n_mx_edi_vehicle_id': self.vehicle_pedro.id,
+            'l10n_mx_edi_gross_vehicle_weight': 2.0,
             'l10n_mx_edi_distance': 120,
             'state': 'draft',
+            **picking_vals,
         })
+
+        move_vals = move_vals or {}
         self.env['stock.move'].create({
             'name': self.product_c.name,
             'product_id': self.product_c.id,
@@ -104,7 +109,7 @@ class TestMXEdiStockCommon(TestMxEdiCommon):
             'state': 'confirmed',
             'description_picking': self.product_c.name,
             'company_id': warehouse.company_id.id,
-            **kwargs,
+            **move_vals,
         })
 
         self.env['stock.quant']._update_available_quantity(self.product_c, warehouse.lot_stock_id, 10.0)
