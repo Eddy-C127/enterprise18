@@ -46,6 +46,7 @@
                     <t t-set="unique" t-value="record.data.checksum ? record.data.checksum.slice(-8) : ''"/>
                     <img class="o_preview_available o_documents_image_background"
                          t-on-click.stop.prevent="() => this.openPreview(record)"
+                         draggable="false"
                          t-attf-src="/documents/image/{{record.resId}}/{{size}}?field=thumbnail&amp;unique={{unique}}"
                          t-att-title="record.data.name"/>
                 </t>
@@ -53,6 +54,7 @@
                     target="new" t-att-href="record.data.url">
                     <img t-att-src="record.data.url_preview_image"
                         t-att-title="record.data.name"
+                        draggable="false"
                         t-att-href="record.data.url"
                         class="o_documents_inspector_image o_preview_available o_object_fit_contain"/>
                 </a>
