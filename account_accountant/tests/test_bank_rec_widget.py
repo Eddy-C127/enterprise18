@@ -2638,3 +2638,53 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         # Check that context keys are not propagated
         action = amls_list[0].action_open_business_doc()
         self.assertFalse(action['context'].get('preferred_aml_value'))
+
+    @freeze_time('2023-12-25')
+    def test_analtyic_distribution_model_exchange_diff_line(self):
+        """Test that the analytic distribution model is present on the exchange diff line."""
+        expense_exchange_account = self.env.company.expense_currency_exchange_account_id
+        analytic_plan = self.env['account.analytic.plan'].create({
+            'name': 'Plan 1',
+            'default_applicability': 'unavailable',
+        })
+        analytic_account_1 = self.env['account.analytic.account'].create({'name': 'Account 1', 'plan_id': analytic_plan.id})
+        analytic_account_2 = self.env['account.analytic.account'].create({'name': 'Account 1', 'plan_id': analytic_plan.id})
+        distribution_model = self.env['account.analytic.distribution.model'].create({
+            'account_prefix': expense_exchange_account.code,
+            'partner_id': self.partner_a.id,
+            'analytic_distribution': {analytic_account_1.id: 100},
+        })
+
+        # 1200.0 comp_curr = 3600.0 foreign_curr in 2016 (rate 1:3)
+        st_line = self._create_st_line(
+            1200.0,
+            date='2016-01-01',
+        )
+        # 1800.0 comp_curr = 3600.0 foreign_curr in 2017 (rate 1:2)
+        inv_line = self._create_invoice_line(
+            'out_invoice',
+            currency_id=self.currency_data['currency'].id,
+            invoice_date='2017-01-01',
+            invoice_line_ids=[{'price_unit': 3600.0}],
+        )
+
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        wizard._action_add_new_amls(inv_line)
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',     'amount_currency': 1200.0,  'currency_id': self.company_data['currency'].id,  'balance': 1200.0,  'analytic_distribution': False},
+            {'flag': 'new_aml',       'amount_currency': -3600.0, 'currency_id': self.currency_data['currency'].id, 'balance': -1800.0, 'analytic_distribution': False},
+            {'flag': 'exchange_diff', 'amount_currency': 0.0,     'currency_id': self.currency_data['currency'].id, 'balance': 600.0,   'analytic_distribution': distribution_model.analytic_distribution},
+        ])
+
+        # Test that the analytic distribution is kept on the creation of the exchange diff move
+        new_distribution = {**distribution_model.analytic_distribution, str(analytic_account_2.id): 100}
+
+        line = wizard.line_ids.filtered(lambda x: x.flag == 'exchange_diff')
+        line.analytic_distribution = new_distribution
+        wizard._action_validate()
+
+        self.assertRecordValues(inv_line.matched_credit_ids.exchange_move_id.line_ids, [
+            {'analytic_distribution': False},
+            {'analytic_distribution': new_distribution},
+        ])

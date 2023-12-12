@@ -1229,7 +1229,8 @@ class BankRecWidget(models.Model):
                 if exchange_diff:
                     aml_to_exchange_diff_vals[i] = {
                         'amount_residual': exchange_diff.balance,
-                        'amount_residual_currency': exchange_diff.amount_currency
+                        'amount_residual_currency': exchange_diff.amount_currency,
+                        'analytic_distribution': exchange_diff.analytic_distribution,
                     }
                     # Squash amounts of exchange diff into corresponding new_aml
                     amount_currency += exchange_diff.amount_currency
@@ -1267,12 +1268,14 @@ class BankRecWidget(models.Model):
         if aml_to_exchange_diff_vals:
             exchange_diff_vals_list = []
             for line, counterpart in lines:
-                exchange_diff_amounts = aml_to_exchange_diff_vals.get(line.sequence)
+                exchange_diff_amounts = aml_to_exchange_diff_vals.get(line.sequence, {})
+                exchange_analytic_distribution = exchange_diff_amounts.pop('analytic_distribution', False)
                 if exchange_diff_amounts:
                     related_exchange_diff_amls = line if exchange_diff_amounts['amount_residual'] * line.amount_residual > 0 else counterpart
                     exchange_diff_vals_list.append(related_exchange_diff_amls._prepare_exchange_difference_move_vals(
                         [exchange_diff_amounts],
-                        exchange_date=max(line.date, counterpart.date)
+                        exchange_date=max(line.date, counterpart.date),
+                        exchange_analytic_distribution=exchange_analytic_distribution,
                     ))
                     lines_with_exch_diff += line
             exchange_diff_moves = AccountMoveLine._create_exchange_difference_moves(exchange_diff_vals_list)
