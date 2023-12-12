@@ -1070,7 +1070,7 @@ class SaleOrder(models.Model):
                     close_reason_id = end_of_contract_reason_id
                 else:
                     close_reason_id = close_reason_unknown_id
-                sub.update({'close_reason_id': close_reason_id})
+                sub.update(dict(**values, close_reason_id=close_reason_id))
         return True
 
     def set_open(self):
