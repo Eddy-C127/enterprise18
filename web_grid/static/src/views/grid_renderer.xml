@@ -110,10 +110,8 @@
                 </div>
             </div>
             <div t-if="!props.options.hideLineTotal"
-                 class="o_grid_section o_grid_row_total o_grid_highlightable position-relative position-md-sticky end-0 z-index-1 d-flex align-items-center justify-content-center px-3 py-1 border-top fw-bold text-bg-800"
-                 t-att-class="{
-                    'text-opacity-25': section.grandTotal === 0
-                 }"
+                 class="o_grid_section o_grid_row_total o_grid_highlightable position-relative position-md-sticky end-0 z-index-1 d-flex align-items-center justify-content-center px-3 py-1 border-top fw-bold"
+                 t-att-class="getSectionTotalRowClass(section)"
                  t-att-data-grid-row="rowPosition"
                  t-att-data-grid-column="props.columns.length + 1 + columnsGap"
                  t-attf-style="grid-row: {{rowPosition}}; grid-column: {{props.columns.length + 1 + columnsGap}};"

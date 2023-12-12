@@ -21,10 +21,26 @@ function assertSectionsColsOverAndDownTime(target, assert) {
         ["25:00", "10:00"],
         "Mario has overtime 25h > 8h and 10h > 8h"
     );
+    assert.containsOnce(
+        target,
+        ".o_grid_section.o_grid_row_total.text-bg-warning",
+        "Mario has overtime 35 > 16"
+    );
     assert.deepEqual(
         getNodesTextContent(target.querySelectorAll(".o_grid_section.text-danger")),
         ["2:30", "0:00"],
         "Luigi has downtime 2:30h < 6h and 0h < 6h"
+    );
+    assert.containsOnce(
+        target,
+        ".o_grid_section.o_grid_row_total.text-bg-danger",
+        "Luigi has downtime 2.30 < 12"
+    );
+    assert.containsN(
+        target,
+        ".o_grid_section.o_grid_row_total.text-bg-success",
+        2,
+        "Yoshi has no overtime (5.5 = 5.5). Same for Toad (0 = 0)"
     );
 }
 

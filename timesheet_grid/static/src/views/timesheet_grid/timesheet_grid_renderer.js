@@ -101,4 +101,42 @@ export class TimesheetGridRenderer extends GridRenderer {
             params.groupBy[0] === "employee_id"
         ) && (row.cells[column.id].value > 24);
     }
+
+    getWorkingHours(section) {
+        const employee_id = section?.valuePerFieldName?.employee_id?.[0];
+        if (!employee_id) {
+            return null;
+        }
+        return this.props.model.data.workingHours.dailyPerEmployee?.[employee_id];
+    }
+
+    getSectionDailyOvertime(cell, workingHours) {
+        if (workingHours?.hasOwnProperty(cell.column.value)) {
+            return cell.value - workingHours[cell.column.value];
+        }
+        return 0;
+    }
+
+    getSectionOvertime(section) {
+        const workingHours = this.getWorkingHours(section);
+        if (workingHours == null) {
+            return null;
+        }
+
+        return Object.values(section.cells).reduce((overtime, cell) => overtime + this.getSectionDailyOvertime(cell, workingHours), 0);
+    }
+
+    _getSectionTotalCellBgColor(section) {
+        const weeklyOvertime = this.getSectionOvertime(section);
+        const res = super._getSectionTotalCellBgColor(section);
+        if (weeklyOvertime == null) {
+            return res;
+        } else if (weeklyOvertime < 0) {
+            return 'text-bg-danger';
+        } else if (weeklyOvertime === 0) {
+            return 'text-bg-success';
+        } else {
+            return 'text-bg-warning';
+        }
+    }
 }

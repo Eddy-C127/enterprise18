@@ -270,6 +270,17 @@ export class GridRenderer extends Component {
         };
     }
 
+    _getSectionTotalCellBgColor(section) {
+        return 'text-bg-800';
+    }
+
+    getSectionTotalRowClass(section) {
+        return {
+            [this._getSectionTotalCellBgColor(section)]: true,
+            'text-opacity-25': section.grandTotal === 0,
+        };
+    }
+
     getColumnBarChartHeightStyle(column) {
         let heightPercentage = 0;
         if (this.props.model.maxColumnsTotal !== 0) {
