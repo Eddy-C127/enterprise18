@@ -3083,6 +3083,71 @@ QUnit.module("View Editors", (hooks) => {
         );
     });
 
+    QUnit.test("edit the rainbowman effect from the sidebar", async function (assert) {
+        assert.expect(8);
+
+        let count = 0;
+        const fakeHTTPService = {
+            start() {
+                return {};
+            },
+        };
+        registry.category("services").add("http", fakeHTTPService);
+        await createViewEditor({
+            serverData,
+            type: "form",
+            resModel: 'coucou',
+            arch: `
+                <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_confirm" type="object" effect="{'fadeout': 'medium'}"/>
+                    </div>
+                </sheet>
+                </form>`,
+             mockRPC: function(route, args) {
+                 if (route === "/web_studio/edit_view") {
+                    assert.step("edit_view");
+                    if (count === 0) {
+                        assert.deepEqual(args.operations[0].new_attrs, {
+                            "effect": {
+                                "fadeout": "fast"
+                            }
+                        }, "new fadeout value is being set properly");
+                        const newArch = `
+                            <form>
+                                <sheet>
+                                    <div class="oe_button_box" name="button_box">
+                                        <button name="action_confirm" type="object" effect="{'fadeout': 'fast'}"/>
+                                    </div>
+                                </sheet>
+                            </form>`;
+                        return createMockViewResult(serverData, "form", newArch, "coucou");
+                    } else {
+                        assert.deepEqual(args.operations[0].new_attrs, {
+                            "effect": {}
+                        }, "fadeout attribute has been removed from the effect");
+                    }
+                    count++;
+                 }
+             }
+        });
+
+        await click(target.querySelector("button.oe_stat_button[data-studio-xpath]"));
+        assert.strictEqual(target.querySelector(".o_web_studio_sidebar [name='effect']").checked, true);
+        assert.strictEqual(target.querySelector(".o_web_studio_sidebar .o_select_menu .o_select_menu_toggler").textContent, "Medium", "current value is displayed properly");
+
+        await editAnySelect(
+            target,
+            ".o_web_studio_sidebar .o_select_menu",
+            "Fast"
+        );
+        assert.verifySteps(["edit_view"]);
+
+        await click(target.querySelector(".o_select_menu .o_select_menu_toggler_clear"));
+        assert.verifySteps(["edit_view"]);
+    });
+
     QUnit.test("supports multiple occurences of field", async (assert) => {
         await createViewEditor({
             serverData,
