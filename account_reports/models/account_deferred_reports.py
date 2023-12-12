@@ -71,7 +71,9 @@ class DeferredReportCustomHandler(models.AbstractModel):
         ]
 
     def _get_lines(self, report, options, filter_already_generated=False):
-        domain = self._get_domain(report, options, filter_already_generated=filter_already_generated)
+        self.env['account.move.line'].flush_model()
+        self.env['account.move'].flush_model()
+        domain = self._get_domain(report, options, filter_already_generated, filter_not_started=False)
         query = self.env['account.move.line']._search(domain, order="deferred_start_date, id")
         query_str, params = query.select(*self._get_select())
         self.env.cr.execute(query_str, params)

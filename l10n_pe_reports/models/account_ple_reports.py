@@ -338,7 +338,7 @@ GROUP BY
 ORDER BY
     account_move_line__move_id.date, account_move_line__move_id.name
         """
-
+        self.env.flush_all()
         self.env.cr.execute(query, where_params)
         query_res_lines = self.env.cr.dictfetchall()
 

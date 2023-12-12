@@ -124,7 +124,6 @@ class Payslip(models.Model):
             query_str, params = query.select('day', 'benefit_name', 'employee_id')
             self.env.cr.execute(query_str, params)
             work_entries_benefits_rights = self.env.cr.dictfetchall()
-
             work_entries_benefits_rights_by_employee = defaultdict(list)
             for work_entries_benefits_right in work_entries_benefits_rights:
                 employee_id = work_entries_benefits_right['employee_id']

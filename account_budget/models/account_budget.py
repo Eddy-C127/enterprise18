@@ -8,6 +8,7 @@ import itertools
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from odoo.osv.expression import AND
+from odoo.tools import SQL
 
 # ---------------------------------------------------------
 # Budgets
@@ -155,26 +156,30 @@ class CrossoveredBudgetLines(models.Model):
             return 'account.move.line', 'account_id', set(line.general_budget_id.account_ids.ids)
 
         def get_query(model, account_fname, date_from, date_to, account_ids):
+            Model = self.env[model]
             domain = [
                 ('date', '>=', date_from),
                 ('date', '<=', date_to),
                 (account_fname, 'in', list(account_ids)),
             ]
+            account_fname_sql = Model._field_to_sql(Model._table, account_fname)
             if model == 'account.move.line':
-                fname = '-balance'
-                general_account = 'account_id'
+                aggregate = SQL("SUM(-%s)", Model._field_to_sql(Model._table, 'balance'))
+                general_account = Model._field_to_sql(Model._table, 'account_id')
                 domain += [('parent_state', '=', 'posted')]
             else:
-                fname = 'amount'
-                general_account = 'general_account_id'
+                aggregate = SQL("SUM(%s)", Model._field_to_sql(Model._table, 'amount'))
+                general_account = Model._field_to_sql(Model._table, 'general_account_id')
 
-            query = self.env[model]._search(domain)
-            query.order = None
-            query_str, params = query.select('%s', '%s', '%s', '%s', account_fname, general_account, f'SUM({fname})')
-            params = [model, account_fname, date_from, date_to] + params
-            query_str += f" GROUP BY {account_fname}, {general_account}"
-
-            return query_str, params
+            query = Model._search(domain)
+            return SQL(
+                "%s GROUP BY %s, %s",
+                query.select(
+                    SQL("%s, %s, %s, %s", model, account_fname, date_from, date_to),
+                    account_fname_sql, general_account, aggregate,
+                ),
+                account_fname_sql, general_account,
+            )
 
         groups = defaultdict(lambda: defaultdict(set))  # {(model, fname): {(date_from, date_to): account_ids}}
         for line in self:
@@ -182,18 +187,15 @@ class CrossoveredBudgetLines(models.Model):
             groups[(model, fname)][(line.date_from, line.date_to)].update(accounts)
 
         queries = []
-        queries_params = []
         for (model, fname), by_date in groups.items():
             for (date_from, date_to), account_ids in by_date.items():
-                query, params = get_query(model, fname, date_from, date_to, account_ids)
-                queries.append(query)
-                queries_params += params
+                queries.append(get_query(model, fname, date_from, date_to, account_ids))
 
-        self.env.cr.execute(" UNION ALL ".join(queries), queries_params)
+        rows = self.env.execute_query(SQL(" UNION ALL ").join(queries))
 
         agg_general = defaultdict(lambda: defaultdict(float))  # {(model, date_from, date_to): {(analytic, general): amount}}
         agg_analytic = defaultdict(lambda: defaultdict(float))  # {(model, date_from, date_to): {analytic: amount}}
-        for model, fname, date_from, date_to, account_id, general_account_id, amount in self.env.cr.fetchall():
+        for model, fname, date_from, date_to, account_id, general_account_id, amount in rows:
             agg_general[(model, fname, date_from, date_to)][(account_id, general_account_id)] += amount
             agg_analytic[(model, fname, date_from, date_to)][account_id] += amount
 
