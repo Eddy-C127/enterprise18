@@ -255,21 +255,22 @@
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click container">
                             <div class="oe_kanban_content">
-                                <t t-if="record.user_status.raw_value == 'pending'">
-                                    <span class="badge rounded-pill float-end text-bg-warning mt4 mr16"><t t-esc="record.user_status.value"/></span>
-                                </t>
-                                <t t-if="record.user_status.raw_value == 'approved'">
-                                    <span class="badge rounded-pill float-end text-bg-success mt4 mr16"><t t-esc="record.user_status.value"/></span>
-                                </t>
-                                <t t-if="record.user_status.raw_value == 'refused'">
-                                    <span class="badge rounded-pill float-end text-bg-danger mt4 mr16"><t t-esc="record.user_status.value"/></span>
-                                </t>
+                                <div class="ribbon ribbon-top-right" invisible="user_status not in ['pending', 'approved', 'refused', 'cancel']">
+                                    <span t-if="record.user_status.raw_value == 'pending'" class="text-bg-info"><t t-esc="record.user_status.value"/></span>
+                                    <span t-if="record.user_status.raw_value == 'approved'" class="text-bg-success"><t t-esc="record.user_status.value"/></span>
+                                    <span t-if="record.user_status.raw_value == 'refused'" class="text-bg-danger"><t t-esc="record.user_status.value"/></span>
+                                    <span t-if="record.user_status.raw_value == 'cancel'" class="text-bg-warning"><t t-esc="record.user_status.value"/></span>
+                                </div>
                                 <div>
                                     <strong class="o_kanban_record_title"><field name="name"/></strong>
                                 </div>
 
                                 <div class="text-muted o_kanban_record_subtitle">
                                     <field name="category_id"/>
+                                </div>
+
+                                <div class="text-muted o_kanban_record_subtitle">
+                                    <field name="date_start" widget="date"/> - <field name="date_end" widget="date"/>
                                 </div>
 
                                 <div class="o_kanban_record_bottom">

@@ -44,7 +44,7 @@ class ApprovalRequest(models.Model):
         ('pending', 'Submitted'),
         ('approved', 'Approved'),
         ('refused', 'Refused'),
-        ('cancel', 'Cancel'),
+        ('cancel', 'Canceled'),
     ], default="new", compute="_compute_request_status",
         store=True, index=True, tracking=True,
         group_expand='_read_group_request_status')
@@ -56,7 +56,7 @@ class ApprovalRequest(models.Model):
         ('waiting', 'Waiting'),
         ('approved', 'Approved'),
         ('refused', 'Refused'),
-        ('cancel', 'Cancel')], compute="_compute_user_status")
+        ('cancel', 'Canceled')], compute="_compute_user_status")
     has_access_to_request = fields.Boolean(string="Has Access To Request", compute="_compute_has_access_to_request")
     change_request_owner = fields.Boolean(string='Can Change Request Owner', compute='_compute_has_access_to_request')
     attachment_number = fields.Integer('Number of Attachments', compute='_compute_attachment_number')
