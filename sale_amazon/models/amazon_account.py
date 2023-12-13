@@ -45,7 +45,10 @@ class AmazonAccount(models.Model):
         store=False,
     )
     access_token_expiry = fields.Datetime(
-        string="The moment at which the token becomes invalid.", default='1970-01-01', store=False
+        string="LWA Access Token Expiry",
+        help="The moment at which the token becomes invalid.",
+        default='1970-01-01',
+        store=False,
     )
     aws_access_key = fields.Char(
         string="AWS Access Key",
@@ -63,7 +66,8 @@ class AmazonAccount(models.Model):
         store=False,
     )
     aws_credentials_expiry = fields.Datetime(
-        string="The moment at which the AWS credentials become invalid.",
+        string="AWS Credentials Expiry",
+        help="The moment at which the AWS credentials become invalid.",
         default='1970-01-01',
         store=False,
     )
@@ -73,7 +77,8 @@ class AmazonAccount(models.Model):
         store=False,
     )
     restricted_data_token_expiry = fields.Datetime(
-        string="The moment at which the Restricted Data Token becomes invalid.",
+        string="Restricted Data Token Expiry",
+        help="The moment at which the Restricted Data Token becomes invalid.",
         default='1970-01-01',
         store=False,
     )
@@ -156,7 +161,9 @@ class AmazonAccount(models.Model):
 
     def _compute_order_count(self):
         for account in self:
-            account.order_count = self.env['sale.order.line'].search_count([('amazon_offer_id.account_id', '=', account.id)])
+            account.order_count = self.env['sale.order.line'].search_count(
+                [('amazon_offer_id.account_id', '=', account.id)]
+            )
 
     def _compute_offer_count(self):
         offers_data = self.env['amazon.offer']._read_group(
@@ -168,7 +175,7 @@ class AmazonAccount(models.Model):
 
     @api.depends('company_id')  # Trick to compute the field on new records
     def _compute_is_follow_up_displayed(self):
-        """ Return True is the page Order Follow-up should be displayed in the view form. """
+        """ Return True if the page Order Follow-up should be displayed in the view form. """
         for account in self:
             account.is_follow_up_displayed = account._origin.id or self.user_has_groups(
                 'base.group_multi_company,base.group_no_one'
@@ -252,8 +259,8 @@ class AmazonAccount(models.Model):
 
         Note: self.ensure_one()
 
-        :return: An `ir.actions.act_url` action to redirect the user to the OAuth URL.
-        :rtype: dict
+        :return: An action to redirect the user to the OAuth URL.
+        :rtype: ir.actions.act_url action
         """
         self.ensure_one()
 
@@ -1007,9 +1014,7 @@ class AmazonAccount(models.Model):
         self.ensure_one()
         pricelist = self.env['product.pricelist'].with_context(active_test=False).search([
             ('currency_id', '=', currency.id),
-            '|',
-            ('company_id', '=', False),
-            ('company_id', '=', self.company_id.id),
+            '|', ('company_id', '=', False), ('company_id', '=', self.company_id.id),
         ], limit=1)
         if not pricelist:
             pricelist = self.env['product.pricelist'].with_context(tracking_disable=True).create({
@@ -1026,6 +1031,8 @@ class AmazonAccount(models.Model):
 
         If no product is found for the given internal reference, we fall back on the default
         product. If the default product was deleted, we restore it.
+
+        Note: self.ensure_one()
 
         :param str internal_reference: The internal reference of the product to be searched.
         :param str default_xmlid: The xmlid of the default product to use as fallback.
