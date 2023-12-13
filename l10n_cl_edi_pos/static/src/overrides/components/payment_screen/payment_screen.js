@@ -45,6 +45,9 @@ patch(PaymentScreen.prototype, {
                 "l10n_cl_dte_email",
                 "l10n_cl_activity_description",
                 "street",
+                "l10n_latam_identification_type_id",
+                "l10n_cl_sii_taxpayer_type",
+                "vat",
             ];
             const missingFields = [];
             const partner = this.currentOrder.get_partner();
