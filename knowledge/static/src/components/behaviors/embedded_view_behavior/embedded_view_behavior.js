@@ -184,13 +184,7 @@ export class EmbeddedViewBehavior extends AbstractBehavior {
      */
     setTitle (name) {
         const behaviorProps = decodeDataBehaviorProps(this.props.anchor.getAttribute('data-behavior-props'));
-        if (behaviorProps.act_window) {
-            behaviorProps.act_window.name = name;
-            behaviorProps.act_window.display_name = name;
-        }
-        if (behaviorProps.display_name) {
-            behaviorProps.display_name = name;
-        }
+        behaviorProps.display_name = name;
         this.props.anchor.dataset.behaviorProps = encodeDataBehaviorProps(behaviorProps);
         this.embeddedViewManagerProps.action.name = name;
         this.embeddedViewManagerProps.action.display_name = name;
