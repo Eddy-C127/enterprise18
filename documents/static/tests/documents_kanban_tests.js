@@ -3358,7 +3358,7 @@ QUnit.module("documents", {}, function () {
                 );
                 assert.containsOnce(
                     target.querySelector(".o_search_panel"),
-                    '.o_search_panel_section:nth-child(3) .o_search_panel_filter_value:contains("Not attached")',
+                    '.o_search_panel_section:nth-child(4) .o_search_panel_filter_value:contains("Not attached")',
                     "should at least have a no-model element"
                 );
             });
