@@ -220,7 +220,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
         }
 
         // A row not having work intervals could mean that a resource doesn't have a contract or the row is the "Total" row
-        const workIntervals = this.model.data.workIntervals[row.resId];
+        const workIntervals = this.model.data.workIntervals?.[row.resId];
         if (!workIntervals) {
             if (row.groupedByField === "resource_id") {  // If there is no contract, don't show aggregate info
                 return false;
