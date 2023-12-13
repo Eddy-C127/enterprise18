@@ -315,7 +315,6 @@ function useDocumentsViewFilePreviewer({
                         name: rec.data.attachment_id[1],
                         mimetype: rec.data.mimetype,
                         url: rec.data.url,
-                        displayName: rec.data.display_name,
                         documentId: rec.resId,
                     },
                     name: rec.data.name,
