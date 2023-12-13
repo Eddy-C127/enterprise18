@@ -694,26 +694,29 @@ class WhatsAppTemplate(models.Model):
 
     def button_create_action(self):
         """ Create action for sending WhatsApp template message in model defined in template. It will be used in bulk sending"""
-        ActWindow = self.env['ir.actions.act_window']
-        view = self.env.ref('whatsapp.whatsapp_composer_view_form')
-        for tmpl in self:
-            action = ActWindow.sudo().search([('res_model', '=', 'whatsapp.composer'), ('binding_model_id', '=', tmpl.model_id.id)])
-            if not action:
-                ActWindow.create({
-                    'name': _('WhatsApp Message'),
-                    'type': 'ir.actions.act_window',
-                    'res_model': 'whatsapp.composer',
-                    'view_mode': 'form',
-                    'view_id': view.id,
-                    'target': 'new',
-                    'binding_model_id': tmpl.model_id.id,
-                })
+        self.check_access_rule('write')
+        actions = self.env['ir.actions.act_window'].sudo().search([
+            ('res_model', '=', 'whatsapp.composer'),
+            ('binding_model_id', 'in', self.model_id.ids)
+        ])
+        self.env['ir.actions.act_window'].sudo().create([
+            {
+                'binding_model_id': model.id,
+                'name': _('WhatsApp Message'),
+                'res_model': 'whatsapp.composer',
+                'target': 'new',
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+            }
+            for model in (self.model_id - actions.binding_model_id)
+        ])
 
     def button_delete_action(self):
-        ActWindow = self.env['ir.actions.act_window']
-        for tmpl in self:
-            action = ActWindow.sudo().search([('res_model', '=', 'whatsapp.composer'), ('binding_model_id', '=', tmpl.model_id.id)])
-            action.unlink()
+        self.check_access_rule('write')
+        self.env['ir.actions.act_window'].sudo().search([
+            ('res_model', '=', 'whatsapp.composer'),
+            ('binding_model_id', 'in', self.model_id.ids)
+        ]).unlink()
 
     def _generate_attachment_from_report(self, record=False):
         """Create attachment from report if relevant"""
