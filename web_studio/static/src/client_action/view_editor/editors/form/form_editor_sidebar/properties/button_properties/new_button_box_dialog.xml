@@ -9,12 +9,9 @@
         </div>
         <div>
             <label>Icon</label>
-            <div class="d-flex flex-wrap">
-                <t t-foreach="icons" t-as="icon" t-key="icon_index">
-                    <t t-set="icon" t-value="icon.replace('fa ', '')"/>
-                    <div t-attf-class="o_web_studio_icon_selector {{ this.state.icon === icon ? 'bg-primary text-white' : ''}}" t-on-click="() => this.state.icon = icon"><i t-attf-class="fa fa-fw {{icon}} m-2"/></div>
-                </t>
-            </div>
+            <FontAwesomeIconSelector value="this.state.icon" onSelect="(value) => this.state.icon = value">
+                <i t-att-class="this.state.icon"/>
+            </FontAwesomeIconSelector>
         </div>
         <div>
             <label>Select a related field</label>

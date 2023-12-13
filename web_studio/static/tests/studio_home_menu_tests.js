@@ -1,6 +1,5 @@
 /** @odoo-module **/
 
-import { IconCreator } from "@web_studio/client_action/icon_creator/icon_creator";
 import { StudioHomeMenu } from "@web_studio/client_action/studio_home_menu/studio_home_menu";
 import { MODES } from "@web_studio/studio_service";
 
@@ -10,7 +9,6 @@ import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_me
 import { fakeCommandService, patchRPCWithCleanup } from "@web/../tests/helpers/mock_services";
 import { uiService } from "@web/core/ui/ui_service";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
-import { registerCleanup } from "@web/../tests/helpers/cleanup";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { click, getFixture, mount } from "@web/../tests/helpers/utils";
 import { dialogService } from "@web/core/dialog/dialog_service";
@@ -89,10 +87,6 @@ let bus;
 
 QUnit.module("Studio", (hooks) => {
     hooks.beforeEach(() => {
-        IconCreator.enableTransitions = false;
-        registerCleanup(() => {
-            IconCreator.enableTransitions = true;
-        });
         bus = new EventBus();
         const fakeHomeMenuService = {
             start() {
@@ -299,7 +293,7 @@ QUnit.module("Studio", (hooks) => {
                         tz: "taht",
                         uid: 7,
                     },
-                    icon: ["fa fa-balance-scale", "#f1c40f", "#34495e"],
+                    icon: ["fa fa-leaf", "#00CEB3", "#FFFFFF"],
                     menu_id: 1,
                 });
             }
@@ -314,17 +308,14 @@ QUnit.module("Studio", (hooks) => {
 
         assert.doesNotHaveClass(
             dialog.querySelector(".o_web_studio_icon .o_app_icon i"),
-            "fa-balance-scale"
+            "fa-leaf"
         );
 
         // Change the icon's pictogram
-        await click(dialog.querySelectorAll(".o_web_studio_selector")[2]);
-        await click(dialog, ".o_web_studio_selector_value .fa.fa-balance-scale");
+        await click(dialog.querySelector(".o_web_studio_selector_icon > button"));
+        await click(dialog, ".o_font_awesome_icon_selector_value.fa.fa-leaf");
 
-        assert.hasClass(
-            dialog.querySelector(".o_web_studio_icon .o_app_icon i"),
-            "fa-balance-scale"
-        );
+        assert.hasClass(dialog.querySelector(".o_web_studio_icon .o_app_icon i"), "fa-leaf");
 
         await click(dialog.querySelector("footer button")); // trigger save
     });

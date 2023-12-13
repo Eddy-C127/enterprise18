@@ -2,7 +2,6 @@
 
 import { ormService } from "@web/core/orm_service";
 import { registry } from "@web/core/registry";
-import { registerCleanup } from "@web/../tests/helpers/cleanup";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { click, getFixture, mount } from "@web/../tests/helpers/utils";
 import { IconCreator } from "@web_studio/client_action/icon_creator/icon_creator";
@@ -20,10 +19,6 @@ QUnit.module("Studio", (hooks) => {
             },
         };
         registry.category("services").add("http", fakeHTTPService);
-        IconCreator.enableTransitions = false;
-        registerCleanup(() => {
-            IconCreator.enableTransitions = true;
-        });
     });
 
     QUnit.module("IconCreator");
@@ -48,9 +43,9 @@ QUnit.module("Studio", (hooks) => {
                     // default values
                     assert.step("icon-changed");
                     assert.deepEqual(icon, {
-                        backgroundColor: "#34495e",
-                        color: "#f1c40f",
-                        iconClass: "fa fa-diamond",
+                        backgroundColor: "#FFFFFF",
+                        color: "#00CEB3",
+                        iconClass: "fa fa-home",
                         type: "custom_icon",
                     });
                 },

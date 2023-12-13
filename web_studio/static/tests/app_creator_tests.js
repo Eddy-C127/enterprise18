@@ -2,11 +2,9 @@
 
 import { registry } from "@web/core/registry";
 import { browser } from "@web/core/browser/browser";
-import { registerCleanup } from "@web/../tests/helpers/cleanup";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
 import { AppCreator } from "@web_studio/client_action/app_creator/app_creator";
-import { IconCreator } from "@web_studio/client_action/icon_creator/icon_creator";
 import { makeFakeHTTPService } from "@web/../tests/helpers/mock_services";
 import {
     click,
@@ -85,10 +83,6 @@ QUnit.module("AppCreator", (hooks) => {
     let target;
     hooks.beforeEach(() => {
         target = getFixture();
-        IconCreator.enableTransitions = false;
-        registerCleanup(() => {
-            IconCreator.enableTransitions = true;
-        });
 
         patchWithCleanup(browser, {
             setTimeout: (fn) => fn(),
@@ -197,46 +191,48 @@ QUnit.module("AppCreator", (hooks) => {
         );
 
         // Icon creator interactions
-        const icon = target.querySelector(".o_app_icon i");
+        let icon = target.querySelector(".o_app_icon i");
 
         // Initial state: take default values
         assert.strictEqual(
             target.querySelector(".o_app_icon").style.backgroundColor,
-            "rgb(52, 73, 94)",
-            "default background color: #34495e"
+            "rgb(255, 255, 255)",
+            "default background color: #FFFFFF"
         );
-        assert.strictEqual(icon.style.color, "rgb(241, 196, 15)", "default color: #f1c40f");
-        assert.hasClass(icon, "fa fa-diamond", "default icon class: diamond");
+        assert.strictEqual(icon.style.color, "rgb(0, 206, 179)", "default color: #00CEB3");
+        assert.hasClass(icon, "fa fa-home", "default icon class: delicious");
 
-        await click(target.querySelector(".o_web_studio_selector_background"));
-        assert.containsOnce(target, ".o_web_studio_palette", "the first palette should be open");
+        await click(target.querySelector(".o_web_studio_selector_background > button"));
+        assert.containsOnce(target, ".o_select_menu_menu", "the first palette should be open");
 
-        await click(target.querySelector(".o_web_studio_selector_background"));
-        await click(target.querySelector(".o_web_studio_selector_color"));
+        await click(target.querySelector(".o_web_studio_selector_background > button"));
+        await click(target.querySelector(".o_web_studio_selector_color > button"));
 
         assert.containsOnce(
             target,
-            ".o_web_studio_palette",
+            ".o_select_menu_menu",
             "opening another palette should close the first"
         );
 
-        await click(target.querySelectorAll(".o_web_studio_palette div")[2]);
-        await click(target.querySelector(".o_web_studio_selector_icon"));
-        await click(target.querySelectorAll(".o_web_studio_icons_library div")[43]);
+        await click(target.querySelectorAll(".o_select_menu_menu div")[2]);
+        await click(target.querySelector(".o_web_studio_selector_icon > button"));
+        await click(target.querySelector(".o_select_menu_item .fa-heart"));
+
+        icon = target.querySelector(".o_app_icon i");
 
         assert.strictEqual(
-            target.querySelector(".o_web_studio_selector_color > div").style.backgroundColor,
-            "rgb(0, 222, 201)", // translation of #00dec9
+            target.querySelector(".o_web_studio_selector_color .o_select_menu_toggler_slot > div")
+                .style.backgroundColor,
+            "rgb(241, 196, 15)", // translation of #F1C40F
             "color selector should have changed"
         );
         assert.strictEqual(
             icon.style.color,
-            "rgb(0, 222, 201)",
+            "rgb(241, 196, 15)",
             "icon color should also have changed"
         );
-
         assert.hasClass(
-            target.querySelector(".o_web_studio_selector i"),
+            target.querySelector(".o_web_studio_selector_icon i"),
             "fa fa-heart",
             "class selector should have changed"
         );

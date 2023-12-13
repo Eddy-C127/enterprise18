@@ -54,7 +54,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             run: "text " + utils.randomString(6),
         },
         {
-            trigger: ".o_web_studio_selectors .o_web_studio_selector:eq(2)",
+            trigger: ".o_web_studio_selectors .o_web_studio_selector_icon > button",
             content: _t("Now, customize your icon. Make it yours."),
             position: "top",
         },

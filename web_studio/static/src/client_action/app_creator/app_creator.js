@@ -4,9 +4,8 @@ import { Component, reactive, useExternalListener, useState } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
 import { user } from "@web/core/user";
 import { useAutofocus, useService } from "@web/core/utils/hooks";
-import { BG_COLORS, COLORS, ICONS } from "@web_studio/utils";
 import { ModelConfigurator } from "@web_studio/client_action/model_configurator/model_configurator";
-import { IconCreator } from "../icon_creator/icon_creator";
+import { DEFAULT_ICON, IconCreator } from "../icon_creator/icon_creator";
 import { MenuCreator, MenuCreatorModel } from "@web_studio/client_action/menu_creator/menu_creator";
 
 class AppCreatorState {
@@ -27,12 +26,7 @@ class AppCreatorState {
 
         this.data = {
             appName: "",
-            iconData: {
-                backgroundColor: BG_COLORS[5],
-                color: COLORS[4],
-                iconClass: ICONS[0],
-                type: "custom_icon",
-            },
+            iconData: DEFAULT_ICON,
             menu: this.menuCreatorModel.data,
             modelOptions: [],
         };

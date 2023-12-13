@@ -1,16 +1,20 @@
 /** @odoo-module **/
-import { COLORS, BG_COLORS, ICONS } from "@web_studio/utils";
+
+import { COLORS, BG_COLORS } from "@web_studio/utils";
 import { Dropdown } from "@web/core/dropdown/dropdown";
+import { SelectMenu } from "@web/core/select_menu/select_menu";
 import { FileInput } from "@web/core/file_input/file_input";
 import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
+import { FontAwesomeIconSelector } from "@web_studio/client_action/components/font_awesome_icon_selector/font_awesome_icon_selector";
 
-import { Component, onWillUpdateProps, useRef, useState } from "@odoo/owl";
+import { Component } from "@odoo/owl";
 
-const DEFAULT_ICON = {
-    backgroundColor: BG_COLORS[5],
-    color: COLORS[4],
-    iconClass: ICONS[0],
+export const DEFAULT_ICON = {
+    backgroundColor: BG_COLORS[0],
+    color: COLORS[10],
+    iconClass: "fa fa-home",
+    type: "custom_icon",
 };
 
 /**
@@ -25,6 +29,9 @@ const DEFAULT_ICON = {
 export class IconCreator extends Component {
     static components = {
         Dropdown,
+        FileInput,
+        FontAwesomeIconSelector,
+        SelectMenu,
     };
     static defaultProps = DEFAULT_ICON;
     static props = {
@@ -32,13 +39,12 @@ export class IconCreator extends Component {
         color: { type: String, optional: 1 },
         editable: { type: Boolean, optional: 1 },
         iconClass: { type: String, optional: 1 },
-        type: { validate: (t) => ["base64", "custom_icon"].includes(t) },
+        type: { validate: (t) => ["base64", "custom_icon"].includes(t), optional: 1 },
         uploaded_attachment_id: { type: Number, optional: 1 },
         webIconData: { type: String, optional: 1 },
         onIconChange: Function,
     };
     static template = "web_studio.IconCreator";
-    static enableTransitions = true;
 
     /**
      * @param {Object} [props]
@@ -54,59 +60,30 @@ export class IconCreator extends Component {
      *      the icon image.
      */
     setup() {
-        this.COLORS = COLORS;
-        this.BG_COLORS = BG_COLORS;
-        this.ICONS = ICONS;
-
-        this.iconRef = useRef("app-icon");
-
         this.orm = useService("orm");
 
-        this.FileInput = FileInput;
         this.fileInputProps = {
             acceptedFileExtensions: "image/png",
             resModel: "res.users",
             resId: user.userId,
         };
-
-        this.state = useState({ iconClass: this.props.iconClass });
-        this.show = useState({
-            backgroundColor: false,
-            color: false,
-            iconClass: false,
-        });
-
-        onWillUpdateProps((nextProps) => {
-            if (
-                this.constructor.enableTransitions &&
-                nextProps.iconClass !== this.props.iconClass
-            ) {
-                this.applyIconTransition(nextProps.iconClass);
-            } else {
-                this.state.iconClass = nextProps.iconClass;
-            }
-        });
     }
 
-    applyIconTransition(nextIconClass) {
-        const iconEl = this.iconRef.el;
-        if (!iconEl) {
-            return;
-        }
+    get backgroundColorChoices() {
+        return this.getChoices(BG_COLORS);
+    }
 
-        iconEl.classList.remove("o-fading-in");
-        iconEl.classList.remove("o-fading-out");
+    get colorChoices() {
+        return this.getChoices(COLORS);
+    }
 
-        iconEl.onanimationend = () => {
-            this.state.iconClass = nextIconClass;
-            iconEl.onanimationend = () => {
-                iconEl.onanimationend = null;
-                iconEl.classList.remove("o-fading-in");
+    getChoices(object) {
+        return object.map((color) => {
+            return {
+                label: color,
+                value: color,
             };
-            iconEl.classList.remove("o-fading-out");
-            iconEl.classList.add("o-fading-in");
-        };
-        iconEl.classList.add("o-fading-out");
+        });
     }
 
     //--------------------------------------------------------------------------
@@ -114,10 +91,7 @@ export class IconCreator extends Component {
     //--------------------------------------------------------------------------
 
     onDesignIconClick() {
-        this.props.onIconChange({
-            type: "custom_icon",
-            ...DEFAULT_ICON,
-        });
+        this.props.onIconChange(DEFAULT_ICON);
     }
 
     /**
@@ -152,18 +126,5 @@ export class IconCreator extends Component {
             type: "custom_icon",
             [palette]: value,
         });
-    }
-
-    /**
-     * @param {string} palette
-     */
-    onTogglePalette(palette) {
-        for (const pal in this.show) {
-            if (pal === palette) {
-                this.show[pal] = !this.show[pal];
-            } else if (this.show[pal]) {
-                this.show[pal] = false;
-            }
-        }
     }
 }

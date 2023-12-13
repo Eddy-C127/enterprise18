@@ -135,10 +135,10 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             // issue with multiple workers) on runbot prevent us from doing it. It thus have
             // been moved at the beginning of this test to avoid the registry to be reloaded
             // before the write on ir.ui.menu.
-            trigger: ".o_web_studio_selector:eq(0)",
+            trigger: ".o_web_studio_selector_background > button",
         },
         {
-            trigger: ".o_web_studio_palette > .o_web_studio_selector_value:first",
+            trigger: ".o_select_menu_menu .o_web_studio_selector_value",
         },
         {
             trigger: ".modal-footer .btn.btn-primary",
@@ -567,7 +567,7 @@ registry.category("web_tour.tours").add("web_studio_hide_fields_tour", {
             // make another interaction to show "next" button
             trigger: `
         .o_web_studio_selectors
-        .o_web_studio_selector:eq(2)`,
+        .o_web_studio_selector_icon > button`,
         },
         {
             trigger: ".o_web_studio_app_creator_next",
@@ -672,7 +672,7 @@ registry.category("web_tour.tours").add("web_studio_model_option_value_tour", {
         {
             trigger: `
         .o_web_studio_selectors
-        .o_web_studio_selector:eq(2)`,
+        .o_web_studio_selector_icon > button`,
         },
         {
             trigger: ".o_web_studio_app_creator_next",
@@ -1406,24 +1406,22 @@ const addActionButtonModalSteps = (
     },
 ];
 
-const addMethodButtonModalSteps = (
-    ) => [
-        {
-            trigger: ".o-web-studio-editor--add-button-action",
-        },
-        {
-            trigger: ".o-web-studio-editor--modal-add-action input#set_label",
-            run: `text test`,
-        },
-        {
-            trigger: ".o-web-studio-editor--modal-add-action input#set_button_type_to_object",
-        },
-        {
-            trigger: ".o-web-studio-editor--modal-add-action  input#set_method",
-            run: `text demo`,
-        },
-
-    ];
+const addMethodButtonModalSteps = () => [
+    {
+        trigger: ".o-web-studio-editor--add-button-action",
+    },
+    {
+        trigger: ".o-web-studio-editor--modal-add-action input#set_label",
+        run: `text test`,
+    },
+    {
+        trigger: ".o-web-studio-editor--modal-add-action input#set_button_type_to_object",
+    },
+    {
+        trigger: ".o-web-studio-editor--modal-add-action  input#set_method",
+        run: `text demo`,
+    },
+];
 
 registry.category("web_tour.tours").add("web_studio_check_method_in_model", {
     test: true,
@@ -1431,7 +1429,7 @@ registry.category("web_tour.tours").add("web_studio_check_method_in_model", {
         {
             trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
         },
-            {
+        {
             trigger: ".o_form_view .o_form_editable",
         },
         buttonToogleStudio,
@@ -1440,8 +1438,11 @@ registry.category("web_tour.tours").add("web_studio_check_method_in_model", {
             trigger: "div.text-danger",
             run() {
                 const div_error = document.querySelector("div.text-danger");
-                assertEqual(div_error.innerHTML, "The method demo does not exist on the model res.partner().")
-                },
+                assertEqual(
+                    div_error.innerHTML,
+                    "The method demo does not exist on the model res.partner()."
+                );
+            },
         },
     ],
 });

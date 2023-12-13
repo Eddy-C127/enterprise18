@@ -5,12 +5,13 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { Many2XAutocomplete } from "@web/views/fields/relational_utils";
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
-import { ICONS } from "@web_studio/utils";
+import { FontAwesomeIconSelector } from "@web_studio/client_action/components/font_awesome_icon_selector/font_awesome_icon_selector";
 
 export class NewButtonBoxDialog extends Component {
     static template = "web_studio.NewButtonBoxDialog";
     static components = {
         Dialog,
+        FontAwesomeIconSelector,
         Many2XAutocomplete,
     };
     static props = {
@@ -22,13 +23,10 @@ export class NewButtonBoxDialog extends Component {
         this.orm = useService("orm");
         this.notification = useService("notification");
         this.state = useState({
-            icon: "fa-diamond",
+            icon: "fa fa-diamond",
             field: undefined,
         });
         this.text = undefined;
-    }
-    get icons() {
-        return ICONS;
     }
     get title() {
         return _t("Add a Button");
@@ -71,7 +69,8 @@ export class NewButtonBoxDialog extends Component {
                 string: this.text || _t("New button"),
                 attrs: {
                     class: "oe_stat_button",
-                    icon: this.state.icon,
+                    // we don't need the 'fa' class here, but only the icon class
+                    icon: this.state.icon.slice(3),
                 },
             },
         });

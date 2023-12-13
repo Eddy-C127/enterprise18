@@ -2,17 +2,20 @@
 export const COLORS = [
     "#FFFFFF",
     "#262c34",
-    "#00dec9",
-    "#2ecc71",
     "#f1c40f",
-    "#FFAB4A",
+    "#FBB130",
+    "#FC787D",
     "#EB5A46",
     "#9b59b6",
     "#0079BF",
+    "#1BB6F9",
     "#4dd0e1",
+    "#00CEB3",
+    "#2ecc71",
 ];
 
 export const BG_COLORS = [
+    "#FFFFFF",
     "#1abc9c",
     "#58a177",
     "#B4C259",
@@ -27,59 +30,32 @@ export const BG_COLORS = [
     "#606060",
     "#6B6C70",
     "#838383",
-    "#FFFFFF",
 ];
 
-export const ICONS = [
-    "fa fa-diamond",
-    "fa fa-bell",
-    "fa fa-calendar",
-    "fa fa-circle",
-    "fa fa-cube",
-    "fa fa-cubes",
-    "fa fa-flag",
-    "fa fa-folder-open",
-    "fa fa-home",
-    "fa fa-rocket",
-    "fa fa-sitemap",
-    "fa fa-area-chart",
-    "fa fa-balance-scale",
-    "fa fa-database",
-    "fa fa-globe",
-    "fa fa-institution",
-    "fa fa-random",
-    "fa fa-umbrella",
-    "fa fa-bed",
-    "fa fa-bolt",
-    "fa fa-commenting",
-    "fa fa-envelope",
-    "fa fa-flask",
-    "fa fa-magic",
-    "fa fa-pie-chart",
-    "fa fa-retweet",
-    "fa fa-shopping-basket",
-    "fa fa-star",
-    "fa fa-television",
-    "fa fa-tree",
-    "fa fa-thumbs-o-up",
-    "fa fa-file-o",
-    "fa fa-wheelchair",
-    "fa fa-code",
-    "fa fa-spinner",
-    "fa fa-ticket",
-    "fa fa-shield",
-    "fa fa-recycle",
-    "fa fa-phone",
-    "fa fa-microphone",
-    "fa fa-magnet",
-    "fa fa-info",
-    "fa fa-inbox",
-    "fa fa-heart",
-    "fa fa-bullseye",
-    "fa fa-cutlery",
-    "fa fa-credit-card",
-    "fa fa-briefcase",
-];
+/**
+ * This allows to list Font Awesome icon, independently of the library version
+ * Some icons use the same glyph for multiple classes. Those are filtered to only
+ * list the icon once
+ */
+export function getFontAwesomeIcons() {
+    const styleSheet = [...document.styleSheets].find(
+        (s) => s && s.href && s.href.includes("/web/")
+    );
+    const fontAwesomeStyles = [...styleSheet.cssRules]
+        .filter((e) => /\.fa-.*:before/.test(e.selectorText))
+        .filter((e) => e && e.style && e.style.length === 1 && e.style[0] === "content");
+    return fontAwesomeStyles.map((rule) => {
+        const classNames = rule.selectorText.split(/:?:before|,/).filter((e) => e.length > 1);
+        const searchTerms = classNames.map((selector) =>
+            selector.replace(".fa-", "").replace(/-o$/g, " (Outline)").replaceAll("-", " ")
+        );
+        return {
+            className: "fa " + classNames[0].slice(1),
+            searchTerms,
+            tooltip: searchTerms[0].charAt(0).toUpperCase() + searchTerms[0].slice(1),
+        };
+    });
+}
 
 /**
  * @param {Integer} string_length
@@ -98,6 +74,5 @@ export function randomString(string_length) {
 export default {
     BG_COLORS,
     COLORS,
-    ICONS,
     randomString,
 };
