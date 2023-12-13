@@ -11,22 +11,6 @@
     position: relative;
     background-color: $o-webclient-background-color;
 
-    .o_knowledge_toolbar {
-        position: absolute;
-        visibility: hidden;
-        height: 2rem;
-        top: -2rem;
-        right: 0rem;
-
-        > div {
-            height: 2rem;
-        }
-    }
-    &:hover {
-        .o_knowledge_toolbar {
-            visibility: visible;
-        }
-    }
     .o_knowledge_embedded_view {
         .o_content:not(.o_view_sample_data) .o_view_nocontent:not(.o_knowledge_item_calendar_nocontent) {
             display: none !important;
