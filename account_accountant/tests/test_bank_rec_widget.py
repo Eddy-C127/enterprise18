@@ -89,6 +89,29 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         st_line = self._create_st_line(1000.0, partner_id=None, partner_name="Turlututu")
         self.assertEqual(st_line._retrieve_partner(), partner_b)
 
+    def test_retrieve_partner_suggested_account_from_rank(self):
+        """ Ensure a retrieved partner is proposing his receivable/payable according his customer/supplier rank. """
+        partner = self.env['res.partner'].create({'name': "turlututu"})
+        rec_account_id = partner.property_account_receivable_id.id
+        pay_account_id = partner.property_account_payable_id.id
+
+        st_line = self._create_st_line(1000.0, partner_id=None, partner_name="turlututu")
+        liq_account_id = st_line.journal_id.default_account_id.id
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',     'account_id': liq_account_id, 'balance': 1000.0},
+            {'flag': 'auto_balance',  'account_id': rec_account_id, 'balance': -1000.0},
+        ])
+
+        partner._increase_rank('supplier_rank', 1)
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',     'account_id': liq_account_id, 'balance': 1000.0},
+            {'flag': 'auto_balance',  'account_id': pay_account_id, 'balance': -1000.0},
+        ])
+
     def test_res_partner_bank_find_create_when_archived(self):
         """ Test we don't get the "The combination Account Number/Partner must be unique." error with archived
         bank account.
