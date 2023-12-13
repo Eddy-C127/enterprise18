@@ -3,6 +3,7 @@
 
 from odoo.tests import HttpCase, tagged
 from .common import TestWebsiteSaleRentingCommon
+from freezegun import freeze_time
 
 @tagged('-at_install', 'post_install')
 class TestUi(HttpCase, TestWebsiteSaleRentingCommon):
@@ -49,3 +50,7 @@ class TestUi(HttpCase, TestWebsiteSaleRentingCommon):
         ])
         parent_product.accessory_product_ids = accessory_product
         self.start_tour("/web", 'shop_buy_accessory_rental_product', login='admin')
+
+    def test_website_sale_renting_default_range(self):
+        with freeze_time("2023-12-04 08:00"):
+            self.start_tour('/web', 'website_sale_renting_default_duration_from_default_range', login='admin')

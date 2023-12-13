@@ -37,7 +37,7 @@
                 <div t-nocache="The default start and end dates must be up-to-date."
                      class="mb-3 align-middle input-group-lg o_website_sale_daterange_picker variant_attribute">
                     <t t-set="wso" t-value="website.sale_get_order()"/>
-                    <t t-set="combination_info" t-value="product._get_combination_info(combination, add_qty=add_qty or 1)"/>
+                    <t t-set="combination_info" t-value="product.with_context(start_date=start_date, end_date=end_date)._get_combination_info(combination, add_qty=add_qty or 1)"/>
                     <input type="hidden" name="default_start_date" t-att-value="wso.rental_start_date or combination_info['default_start_date']"/>
                     <input type="hidden" name="default_end_date" t-att-value="wso.rental_return_date or combination_info['default_end_date']"/>
                     <input type="hidden" name="rental_duration_unit" t-att-value="combination_info['rental_duration_unit']"/>
@@ -46,8 +46,8 @@
                         <div class="s_website_form_datetime input-group date col-md-8 ps-0 o_daterange_picker"
                              id="rentingDates"
                              title="The period must be the same for all products of your cart.&#10;You must change the period on your cart or create different orders if you want different periods.">
-                            <input type="text" name="renting_start_date" class="form-control" t-att-disabled="wso.has_rented_products and wso.order_line.filtered('is_rental').product_id != product"/>
-                            <input type="text" name="renting_end_date" class="form-control" t-att-disabled="wso.has_rented_products and wso.order_line.filtered('is_rental').product_id != product"/>
+                            <input type="text" name="renting_start_date" t-att-value="wso.rental_start_date or combination_info['default_start_date']" class="form-control" t-att-disabled="wso.has_rented_products and wso.order_line.filtered('is_rental').product_id != product"/>
+                            <input type="text" name="renting_end_date" t-att-value="wso.rental_return_date or combination_info['default_end_date']" class="form-control" t-att-disabled="wso.has_rented_products and wso.order_line.filtered('is_rental').product_id != product"/>
                             <div class="input-group-text">
                                 <i class="fa fa-calendar"></i>
                             </div>

@@ -67,3 +67,11 @@ class WebsiteSaleRenting(WebsiteSale):
             end_date=kwargs.get('end_date'),
         )
         return result
+
+    def _prepare_product_values(self, product, category, search, start_date=None, end_date=None, **kwargs):
+        result = super()._prepare_product_values(product, category, search, **kwargs)
+        result.update(
+            start_date=fields.Datetime.to_datetime(start_date),
+            end_date=fields.Datetime.to_datetime(end_date),
+        )
+        return result
