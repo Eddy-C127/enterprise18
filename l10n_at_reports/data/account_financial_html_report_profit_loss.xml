@@ -82,6 +82,7 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">EBIT4I.balance + EBIT4II.balance + EBIT4III.balance</field>
                                 <field name="date_scope">normal</field>
+                                <field name="green_on_positive" eval="True"/>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -97,6 +98,7 @@
                                         <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT4I)</field>
                                         <field name="subformula">-result</field>
                                         <field name="date_scope">normal</field>
+                                        <field name="green_on_positive" eval="True"/>
                                     </record>
                                 </field>
                             </record>
@@ -112,6 +114,7 @@
                                         <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT4II)</field>
                                         <field name="subformula">-result</field>
                                         <field name="date_scope">normal</field>
+                                        <field name="green_on_positive" eval="True"/>
                                     </record>
                                 </field>
                             </record>
@@ -127,6 +130,7 @@
                                         <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT4III)</field>
                                         <field name="subformula">-result</field>
                                         <field name="date_scope">normal</field>
+                                        <field name="green_on_positive" eval="True"/>
                                     </record>
                                 </field>
                             </record>
@@ -157,6 +161,7 @@
                                         <field name="engine">account_codes</field>
                                         <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT5I)</field>
                                         <field name="date_scope">normal</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -172,6 +177,7 @@
                                         <field name="engine">account_codes</field>
                                         <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT5II)</field>
                                         <field name="date_scope">normal</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -203,6 +209,7 @@
                                         <field name="engine">account_codes</field>
                                         <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT6I)</field>
                                         <field name="date_scope">normal</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -218,6 +225,7 @@
                                         <field name="engine">account_codes</field>
                                         <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT6II)</field>
                                         <field name="date_scope">normal</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -249,6 +257,7 @@
                                         <field name="engine">account_codes</field>
                                         <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT7I)</field>
                                         <field name="date_scope">normal</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -264,6 +273,7 @@
                                         <field name="engine">account_codes</field>
                                         <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT7II)</field>
                                         <field name="date_scope">normal</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -281,6 +291,7 @@
                                 <field name="engine">account_codes</field>
                                 <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT8)</field>
                                 <field name="date_scope">normal</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -369,6 +380,7 @@
                                 <field name="engine">account_codes</field>
                                 <field name="formula">tag(l10n_at.account_tag_l10n_at_FIN14)</field>
                                 <field name="date_scope">normal</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -384,6 +396,7 @@
                                 <field name="engine">account_codes</field>
                                 <field name="formula">tag(l10n_at.account_tag_l10n_at_FIN15)</field>
                                 <field name="date_scope">normal</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -425,6 +438,7 @@
                                 <field name="engine">account_codes</field>
                                 <field name="formula">tag(l10n_at.account_tag_l10n_at_TAX)</field>
                                 <field name="date_scope">normal</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -453,6 +467,7 @@
                                 <field name="engine">account_codes</field>
                                 <field name="formula">tag(l10n_at.account_tag_l10n_at_MTAX)</field>
                                 <field name="date_scope">normal</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
