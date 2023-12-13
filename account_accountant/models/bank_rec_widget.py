@@ -374,18 +374,19 @@ class BankRecWidget(models.Model):
 
         # Create a new auto-balance line.
         account = None
-        if self.partner_id:
+        partner = self.partner_id
+        if partner:
             name = _("Open balance: %s", st_line.payment_ref)
-            partner_is_customer = st_line.partner_id.customer_rank and not st_line.partner_id.supplier_rank
-            partner_is_supplier = st_line.partner_id.supplier_rank and not st_line.partner_id.customer_rank
+            partner_is_customer = partner.customer_rank and not partner.supplier_rank
+            partner_is_supplier = partner.supplier_rank and not partner.customer_rank
             if partner_is_customer:
-                account = st_line.partner_id.with_company(st_line.company_id).property_account_receivable_id
+                account = partner.with_company(st_line.company_id).property_account_receivable_id
             elif partner_is_supplier:
-                account = st_line.partner_id.with_company(st_line.company_id).property_account_payable_id
+                account = partner.with_company(st_line.company_id).property_account_payable_id
             elif st_line.amount > 0:
-                account = st_line.partner_id.with_company(st_line.company_id).property_account_receivable_id
+                account = partner.with_company(st_line.company_id).property_account_receivable_id
             else:
-                account = st_line.partner_id.with_company(st_line.company_id).property_account_payable_id
+                account = partner.with_company(st_line.company_id).property_account_payable_id
 
         if not account:
             name = st_line.payment_ref
