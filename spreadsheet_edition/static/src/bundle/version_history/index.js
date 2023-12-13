@@ -4,8 +4,6 @@ import {
     registries,
     readonlyAllowedCommands,
     invalidateEvaluationCommands,
-    invalidateCFEvaluationCommands,
-    invalidateDependenciesCommands,
 } from "@odoo/o-spreadsheet";
 import { VersionHistorySidePanel } from "./side_panel/version_history_side_panel";
 import { _t } from "@web/core/l10n/translation";
@@ -28,5 +26,3 @@ registries.featurePluginRegistry.add("odooVersionHistory", VersionHistoryPlugin)
 
 readonlyAllowedCommands.add("GO_TO_REVISION");
 invalidateEvaluationCommands.add("GO_TO_REVISION");
-invalidateCFEvaluationCommands.add("GO_TO_REVISION");
-invalidateDependenciesCommands.add("GO_TO_REVISION");
