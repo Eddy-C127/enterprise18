@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
+from dateutil.relativedelta import relativedelta
+
+from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError, ValidationError, RedirectWarning
 
 
@@ -70,7 +72,17 @@ class AccountJournal(models.Model):
             We have to that to avoid having too much logic in the same cron function to do
             2 different things. This cron should only be used for asynchronous fetchs.
         """
-        journals = self.search([('account_online_account_id', '!=', False), ('online_sync_fetching_status', '=', 'waiting')])
+
+        cron_limit_time = tools.config['limit_time_real_cron']  # time after which cron process is killed, default = -1
+        limit_time = (cron_limit_time if cron_limit_time > 0 else tools.config['limit_time_real'])
+        journals = self.search([(
+            'account_online_account_id', '!=', False),
+            '|',
+                ('online_sync_fetching_status', 'in', ('planned', 'waiting')),
+                '&',
+                    ('online_sync_fetching_status', '=', 'processing'),
+                    ('account_online_link_id.last_refresh', '<', fields.Datetime.now() - relativedelta(seconds=limit_time)),
+        ])
         journals.with_context(cron=True)._fetch_online_transactions()
 
     @api.model
