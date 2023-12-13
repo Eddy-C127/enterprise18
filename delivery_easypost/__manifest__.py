@@ -18,6 +18,9 @@
         'web.assets_backend': [
             'delivery_easypost/static/src/components/**/*',
         ],
+        'web.assets_tests': [
+            'delivery_easypost/static/tests/tours/**/*',
+        ],
     },
     'license': 'OEEL-1',
 }
