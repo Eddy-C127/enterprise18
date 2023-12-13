@@ -338,7 +338,7 @@ class AccountMove(models.Model):
     def _get_edi_creation(self):
         with super()._get_edi_creation() as move:
             previous_lines = move.invoice_line_ids
-            yield move
+            yield move.with_context(disable_onchange_name_predictive=True)
             for line in move.invoice_line_ids - previous_lines:
                 line._onchange_name_predictive()
 
@@ -701,7 +701,7 @@ class AccountMoveLine(models.Model):
         account_query = self.env['account.account']._where_calc([
             *self.env['account.account']._check_company_domain(self.move_id.company_id or self.env.company),
             ('deprecated', '=', False),
-            ('internal_group', '!=', excluded_group),
+            ('internal_group', 'not in', (excluded_group, 'off_balance')),
         ])
         psql_lang = self._get_predict_postgres_dictionary()
         additional_queries = [self.env.cr.mogrify(*account_query.select(
