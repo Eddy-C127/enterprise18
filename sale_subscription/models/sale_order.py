@@ -814,7 +814,11 @@ class SaleOrder(models.Model):
             # This can create hole that are not taken into account by progress_sub upselling, it's an assumed choice over more upselling complexity
             start_date = renew.start_date or parent.next_invoice_date
             renew.write({'date_order': today, 'start_date': start_date})
-            renew._save_token_from_payment()
+            # Do not save token when partially paying a renewal subscription.
+            last_transaction = renew.transaction_ids._get_last()
+            last_token = last_transaction.token_id
+            if last_token and last_transaction and self.currency_id.compare_amounts(last_transaction.amount, renew.amount_total) >= 0:
+                renew._save_token_from_payment()
 
     def _save_token_from_payment(self):
         self.ensure_one()

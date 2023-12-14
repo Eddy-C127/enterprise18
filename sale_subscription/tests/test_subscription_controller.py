@@ -351,3 +351,47 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
             self.assertEqual(subscription.state, 'sale')
             self.assertEqual(subscription.invoice_count, 0, "No invoice should be created")
             self.assertFalse(subscription.payment_token_id, "No token should be saved")
+
+            # Renew subscription and set payment amount as half of the total amount (partial).
+            subscription._create_recurring_invoice()
+            action = subscription.prepare_renewal_order()
+            renewal_so = self.env['sale.order'].browse(action['res_id'])
+            self.amount = renewal_so.amount_total / 2.0
+
+            # Prepare renewal subscription's payment values.
+            pay_route_values = self._prepare_pay_values(
+                amount=self.amount,
+                currency=renewal_so.currency_id,
+                partner=renewal_so.partner_id,
+            )
+            pay_route_values['sale_order_id'] = renewal_so.id
+            tx_context = self._get_portal_pay_context(**pay_route_values)
+
+            tx_route_values = {
+                'provider_id': self.provider.id,
+                'payment_method_id': self.payment_method_id,
+                'token_id': None,
+                'amount': tx_context['amount'],
+                'flow': 'direct',
+                'tokenization_requested': False,
+                'landing_route': '/my/subscriptions',
+                'access_token': tx_context['access_token'],
+            }
+            with mute_logger('odoo.addons.payment.models.payment_transaction'):
+                processing_values = self._get_processing_values(tx_route=tx_context['transaction_route'], **tx_route_values)
+
+            # Make sure to have a token on the transaction, it is needed to test the confirmation flow.
+            tx_sudo = self._get_tx(processing_values['reference'])
+            tx_sudo.token_id = self.payment_method.id
+            self.assertEqual(tx_sudo.sale_order_ids, renewal_so)
+            self.assertEqual(tx_sudo.sale_order_ids.transaction_ids, tx_sudo)
+            tx_sudo._set_done()
+            with mute_logger('odoo.addons.sale.models.payment_transaction'):
+                tx_sudo._finalize_post_processing()
+
+            # Confirm renewal. Assert that no token was saved, renewal was sent and only one invoice was registered.
+            renewal_so.action_confirm()
+            self.assertFalse(renewal_so.payment_token_id, "No token should be saved")
+            self.assertEqual(renewal_so.state, 'sale')
+            self.assertEqual(renewal_so.invoice_count, 1, "Only one invoice from previous subscription should be registered")
+            self.assertEqual(renewal_so.next_invoice_date, datetime.date.today() + datetime.timedelta(days=31))
