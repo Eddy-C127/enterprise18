@@ -4,7 +4,6 @@ import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { resetViewCompilerCache } from "@web/views/view_compiler";
 import { _t } from "@web/core/l10n/translation";
-import { cookie } from "@web/core/browser/cookie";
 
 import { EventBus, onWillUnmount, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
@@ -209,10 +208,10 @@ export const studioService = {
                 throw e;
             }
             // force color_scheme light
-            if (cookie.get("color_scheme") === "dark") {
+            if (color_scheme.activeColorScheme === "dark") {
                 // ensure studio is fully loaded
                 await new Promise((resolve) => setTimeout(resolve));
-                color_scheme.switchToColorScheme("light");
+                color_scheme.applyColorScheme();
             }
             return res;
         }
@@ -256,6 +255,12 @@ export const studioService = {
             await env.services.action.doAction(actionId, options);
             // force rendering of the main navbar to allow adaptation of the size
             env.bus.trigger("MENUS:APP-CHANGED");
+            // reset color_scheme
+            if (color_scheme.activeColorScheme === "dark") {
+                // ensure studio is fully unloaded
+                await new Promise((resolve) => setTimeout(resolve));
+                color_scheme.applyColorScheme();
+            }
             state.studioMode = null;
         }
 
