@@ -13,7 +13,7 @@ import odoo.addons.account.tools.structured_reference as sr
 from odoo.addons.account_batch_payment.models.sepa_mapping import _replace_characters_SEPA
 
 
-def sanitize_communication(communication):
+def sanitize_communication(communication, size=140):
     """ Returns a sanitized version of the communication given in parameter,
         so that:
             - it contains only latin characters
@@ -22,14 +22,13 @@ def sanitize_communication(communication):
             - it is maximum 140 characters long
         (these are the SEPA compliance criteria)
     """
-    communication = communication[:140]
     while '//' in communication:
         communication = communication.replace('//', '/')
     if communication.startswith('/'):
         communication = communication[1:]
     if communication.endswith('/'):
         communication = communication[:-1]
-    communication = _replace_characters_SEPA(communication)
+    communication = _replace_characters_SEPA(communication, size)
     return communication
 
 class AccountJournal(models.Model):
@@ -304,7 +303,7 @@ class AccountJournal(models.Model):
         PstlAdr = etree.Element("PstlAdr")
         address_fields = []
         if partner_id.street:
-            partner_text = sanitize_communication(partner_id.street[:70])
+            partner_text = sanitize_communication(partner_id.street, 70)
             address_fields.append(('StrtNm', partner_text))
         if partner_id.zip:
             partner_zip = sanitize_communication(partner_id.zip)
@@ -324,10 +323,10 @@ class AccountJournal(models.Model):
             # Some banks seem allergic to having the zip in a separate tag, so we do as before
             if partner_id.street:
                 AdrLine = etree.SubElement(PstlAdr, "AdrLine")
-                AdrLine.text = sanitize_communication(partner_id.street[:70])
+                AdrLine.text = sanitize_communication(partner_id.street, 70)
             if partner_id.zip and partner_id.city:
                 AdrLine = etree.SubElement(PstlAdr, "AdrLine")
-                AdrLine.text = sanitize_communication((partner_id.zip + " " + partner_id.city)[:70])
+                AdrLine.text = sanitize_communication(partner_id.zip + " " + partner_id.city, 70)
 
         return PstlAdr
 
@@ -347,7 +346,7 @@ class AccountJournal(models.Model):
         PmtId = etree.SubElement(CdtTrfTxInf, "PmtId")
         if payment['name']:
             InstrId = etree.SubElement(PmtId, "InstrId")
-            InstrId.text = sanitize_communication(payment['name'][:35])
+            InstrId.text = sanitize_communication(payment['name'], 35)
         EndToEndId = etree.SubElement(PmtId, "EndToEndId")
         EndToEndId.text = (PmtInfId.text + str(payment['id']))[-30:].strip()
         Amt = etree.SubElement(CdtTrfTxInf, "Amt")
