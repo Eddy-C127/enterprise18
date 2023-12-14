@@ -1,14 +1,18 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { BarcodeScanner } from '@barcodes/components/barcode_scanner';
 import { Dialog } from "@web/core/dialog/dialog";
 import { Component, onMounted, useRef, useState } from "@odoo/owl";
 
+export class StockBarcodeScanner extends BarcodeScanner {
+    static template = "stock_barcode.StockBarcodeScanner";
+}
+
 export class ManualBarcodeScanner extends Component {
-    static components = { Dialog };
+    static components = { Dialog, StockBarcodeScanner };
     static props = {
         onApply: { type: Function },
-        openMobileScanner: { type: Function },
         close: Function,
     };
     static template = "stock_barcode.ManualBarcodeScanner";
@@ -16,7 +20,7 @@ export class ManualBarcodeScanner extends Component {
     setup() {
         this.title = _t("Barcode Manual Entry");
         this.state = useState({
-            'barcode': false,
+            barcode: false,
         });
         this.barcodeManual = useRef('manualBarcode');
         // Autofocus processing was blocked because a document already has a focused element.
@@ -32,23 +36,18 @@ export class ManualBarcodeScanner extends Component {
      */
     _onApply() {
         if (this.state.barcode) {
-            const barcode = this.props.onApply(this.state.barcode);
-            if (barcode) {
-                this.props.close();
-            }
+            this.scanBarcode(this.state.barcode);
         }
     }
 
     /**
-     * Mobile barcode scanner open and process the barcode.
-     *
-     * @private
+     * Called when a barcode is scanned or manually entered.
+     * It will call the parent's method (if a barcode is given) and close the dialog.
+     * @param {string} barcode
      */
-    async _onBarcodeScan() {
-        try {
-            await this.props.openMobileScanner();
-        } catch (err) {
-            this.notificationService.add(err.message, { type: "danger" });
+    scanBarcode(barcode) {
+        if (barcode) {
+            this.props.onApply(barcode);
         }
         this.props.close();
     }

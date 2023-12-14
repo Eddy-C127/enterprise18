@@ -2,7 +2,6 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
-import * as BarcodeScanner from '@web/webclient/barcode/barcode_scanner';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { registry } from "@web/core/registry";
 import { user } from "@web/core/user";
@@ -31,8 +30,6 @@ export class MainMenu extends Component {
         useBus(this.barcodeService.bus, "barcode_scanned", (ev) => this._onBarcodeScanned(ev.detail.barcode));
         const orm = useService('orm');
 
-        this.mobileScanner = BarcodeScanner.isBarcodeScannerSupported();
-
         onWillStart(async () => {
             this.locationsEnabled = await user.hasGroup('stock.group_stock_multi_locations');
             this.packagesEnabled = await user.hasGroup('stock.group_tracking_lot');
@@ -45,27 +42,9 @@ export class MainMenu extends Component {
         });
     }
 
-    async openMobileScanner() {
-        const barcode = await BarcodeScanner.scanBarcode(this.env);
-        if (barcode){
-            this._onBarcodeScanned(barcode);
-            if ('vibrate' in window.navigator) {
-                window.navigator.vibrate(100);
-            }
-        } else {
-            this.notificationService.add(_t("Please, Scan again!"), { type: 'warning' });
-        }
-    }
-
     openManualBarcodeDialog() {
         this.dialogService.add(ManualBarcodeScanner, {
-            openMobileScanner: async () => {
-                await this.openMobileScanner();
-            },
-            onApply: (barcode) => {
-                this._onBarcodeScanned(barcode);
-                return barcode;
-            }
+            onApply: (barcode) => this._onBarcodeScanned(barcode),
         });
     }
 

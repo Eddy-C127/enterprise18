@@ -11,7 +11,6 @@ import PackageLineComponent from '@stock_barcode/components/package_line';
 import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { useService, useBus } from "@web/core/utils/hooks";
-import * as BarcodeScanner from '@web/webclient/barcode/barcode_scanner';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { View } from "@web/views/view";
 import { ManualBarcodeScanner } from './manual_barcode';
@@ -151,10 +150,6 @@ class MainComponent extends Component {
         return this.env.model.groupedLines;
     }
 
-    get mobileScanner() {
-        return BarcodeScanner.isBarcodeScannerSupported();
-    }
-
     get packageLines() {
         return this.env.model.packageLines;
     }
@@ -217,20 +212,11 @@ class MainComponent extends Component {
         }
     }
 
-    async openMobileScanner() {
-        const barcode = await BarcodeScanner.scanBarcode(this.env);
-        this.onBarcodeScanned(barcode);
-    }
-
     openManualScanner() {
         this.dialog.add(ManualBarcodeScanner, {
-            openMobileScanner: async () => {
-                await this.openMobileScanner();
-            },
             onApply: (barcode) => {
                 barcode = this.env.model.cleanBarcode(barcode);
                 this.onBarcodeScanned(barcode);
-                return barcode;
             }
         });
     }
