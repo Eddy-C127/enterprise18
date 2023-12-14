@@ -42,6 +42,15 @@ class WhatsAppTemplate(models.Model):
             ('allowed_company_ids', 'in', self.env.companies.ids)], limit=1)
         return first_account.id if first_account else False
 
+    @api.model
+    def _get_model_selection(self):
+        """ Available models are all models, as even transient models could have
+        templates associated (e.g. payment.link.wizard) """
+        return [
+            (model.model, model.name)
+            for model in self.env['ir.model'].sudo().search([])
+        ]
+
     name = fields.Char(string="Name", tracking=True)
     template_name = fields.Char(string="Template Name", compute='_compute_template_name', readonly=False, store=True)
     sequence = fields.Integer(required=True, default=0)
@@ -53,11 +62,15 @@ class WhatsAppTemplate(models.Model):
     wa_template_uid = fields.Char(string="WhatsApp Template ID", copy=False)
     error_msg = fields.Char(string="Error Message")
 
-    model_id = fields.Many2one(comodel_name='ir.model', string='Applies to', ondelete='cascade', default=lambda self: self.env.ref('base.model_res_partner'),
-                               help="Model on which the Server action for sending WhatsApp will be created.", required=True, tracking=True)
-    model = fields.Char(
-        string='Related Document Model', related='model_id.model',
-        index=True, precompute=True, store=True, readonly=True)
+    model_id = fields.Many2one(
+        string='Applies to', comodel_name='ir.model',
+        compute='_compute_model_id',
+        ondelete='cascade', precompute=True, required=True, store=True,
+        tracking=1)
+    model = fields.Selection(
+        selection=_get_model_selection, string='Related Document Model',
+        default="res.partner",
+        store=True, readonly=False)
     phone_field = fields.Char(
         string='Phone Field', compute='_compute_phone_field',
         precompute=True, readonly=False, required=True, store=True)
@@ -120,7 +133,7 @@ class WhatsAppTemplate(models.Model):
             if len(header_variables) > 1 or (header_variables and header_variables[0] != '{{1}}'):
                 raise ValidationError(_("Header text can only contain a single {{variable}}."))
 
-    @api.constrains('phone_field')
+    @api.constrains('phone_field', 'model')
     def _check_phone_field(self):
         is_system = self.user_has_groups('base.group_system')
         for tmpl in self.filtered('phone_field'):
@@ -143,7 +156,9 @@ class WhatsAppTemplate(models.Model):
                 model._find_value_from_field_path(tmpl.phone_field)
             except UserError as err:
                 raise ValidationError(
-                    _("'%(field)s' does not seem to be a valid field path", field=tmpl.phone_field)
+                    _("'%(field)s' does not seem to be a valid field path on %(model)s",
+                      field=tmpl.phone_field,
+                      model=tmpl.model)
                 ) from err
 
     @api.constrains('header_attachment_ids', 'header_type')
@@ -226,6 +241,12 @@ class WhatsAppTemplate(models.Model):
             if template.status == 'draft' and not template.wa_template_uid:
                 template.template_name = re.sub(r'\W+', '_', slugify(template.name or ''))
 
+    @api.depends('model')
+    def _compute_model_id(self):
+        self.filtered(lambda tpl: not tpl.model).model_id = False
+        for template in self.filtered('model'):
+            template.model_id = self.env['ir.model']._get_id(template.model)
+
     @api.depends('header_type', 'header_text', 'body')
     def _compute_variable_ids(self):
         """compute template variable according to header text, body and buttons"""
@@ -305,6 +326,10 @@ class WhatsAppTemplate(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        for vals in vals_list:
+            # stable backward compatible change  for model fields
+            if vals.get('model_id'):
+                vals['model'] = self.env['ir.model'].sudo().browse(vals[('model_id')]).model
         records = super().create(vals_list)
         # the model of the variable might have been changed with x2many commands
         records.variable_ids._check_field_name()
@@ -313,6 +338,8 @@ class WhatsAppTemplate(models.Model):
         return records
 
     def write(self, vals):
+        if vals.get("model_id"):
+            vals["model"] = self.env['ir.model'].sudo().browse(vals["model_id"]).model
         res = super().write(vals)
         # Model change: explicitly check for field access. Other changes at variable
         # level are checked by '_check_field_name' constraint.
