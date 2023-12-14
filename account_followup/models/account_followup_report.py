@@ -317,7 +317,7 @@ Best Regards,
         Return the name of the columns of the follow-ups report
         """
         return [
-            {'name': _('Invoice No.'), 'style': 'text-align:center; white-space:nowrap;'},
+            {'name': _('Reference'), 'style': 'text-align:center; white-space:nowrap;'},
             {'name': _('Date'), 'class': 'date', 'style': 'text-align:center; white-space:nowrap;'},
             {'name': _('Due Date'), 'class': 'date', 'style': 'text-align:center; white-space:nowrap;'},
             {'name': _('Origin'), 'style': 'text-align:center; white-space:nowrap;'},
