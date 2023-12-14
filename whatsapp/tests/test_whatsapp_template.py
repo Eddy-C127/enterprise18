@@ -3,7 +3,7 @@
 from odoo import Command
 from odoo import exceptions
 from odoo.addons.whatsapp.tests.common import WhatsAppCommon, MockIncomingWhatsApp
-from odoo.tests import tagged, users
+from odoo.tests import Form, tagged, users
 
 
 class WhatsAppTemplateCommon(WhatsAppCommon, MockIncomingWhatsApp):
@@ -329,6 +329,30 @@ Welcome to {{3}} office''',
                 ("{{1}}", "body", "free_text", {'demo_value': 'Sample Value'}),
             ],
         )
+
+
+@tagged('wa_template')
+class WhatsAppTemplateForm(WhatsAppTemplateCommon):
+    """ Form tool based unit tests, to check notably computed fields, live
+    ACLs, ... """
+
+    @users('user_wa_admin')
+    def test_model_update(self):
+        """ WA admins that are not sys admins should be able to chose / change
+        models, even when not having access to the underlying ir.model """
+        template_form = Form(self.env['whatsapp.template'])
+        self.assertEqual(template_form.model, 'res.partner')
+        self.assertEqual(template_form.model_id, self.env['ir.model']._get('res.partner'))
+
+        template_form.body = 'Test Body'
+        template_form.model = 'res.users'
+        template_form.name = 'Test Model Update'
+        self.assertEqual(template_form.model, 'res.users')
+        template = template_form.save()
+
+        self.assertEqual(template.model, 'res.users')
+        self.assertEqual(template.model_id, self.env['ir.model']._get('res.users'))
+
 
 @tagged('wa_template')
 class WhatsAppTemplatePreview(WhatsAppTemplateCommon):
