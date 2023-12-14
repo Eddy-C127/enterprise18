@@ -543,3 +543,12 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         self.assertEqual(self.subscription.state, 'sale')
         self.assertEqual(len(self.subscription.invoice_ids), 1)
         self.assertEqual(self.subscription.invoice_ids.state, 'posted')
+
+    def test_manually_captured_payment_providers_not_allowed(self):
+        self.provider.capture_manually = True
+
+        compatible_providers = self.env['payment.provider'].sudo()._get_compatible_providers(
+            self.company.id, self.partner.id, self.amount, sale_order_id=self.subscription.id
+        )
+
+        self.assertNotIn(self.provider, compatible_providers)
