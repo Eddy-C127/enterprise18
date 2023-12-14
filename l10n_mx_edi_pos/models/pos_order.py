@@ -262,9 +262,16 @@ class PosOrder(models.Model):
 
         base_lines = self._prepare_tax_base_line_values()
 
+        # When creating a global invoice for both orders and refunds, add the refund to the corresponding order in order to deal with
+        # negative lines.
+        if not is_refund_gi:
+            # Find the refund lines targeting this order.
+            refund_order_lines = self.env['pos.order.line'].search([('refunded_orderline_id', 'in', self.lines.ids)])
+            base_lines += refund_order_lines._prepare_tax_base_line_values()
+
         # In case of refund, the base lines need to be declared in positive in the CFDI.
         is_refund = self.amount_total < 0
-        if is_refund:
+        if is_refund and is_refund_gi:
             for base_line in base_lines:
                 base_line['quantity'] *= -1
                 base_line['price_subtotal'] *= -1
@@ -562,20 +569,27 @@ class PosOrder(models.Model):
             raise UserError(_("You can only process orders sharing the same company."))
 
         # == Check the config ==
+        orders = self.filtered(lambda order: not order.refunded_order_ids)
+        orders |= self.env['pos.order.line'].search([('refunded_orderline_id.order_id', 'in', orders.ids)]).order_id
         errors = []
-        for order in self:
+        for order in orders:
             errors += order._l10n_mx_edi_cfdi_check_order_config()
         if errors:
-            self._l10n_mx_edi_cfdi_global_invoice_document_sent_failed("\n".join(set(errors)))
+            orders._l10n_mx_edi_cfdi_global_invoice_document_sent_failed("\n".join(set(errors)))
             return
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(self)
+        self.env['l10n_mx_edi.document']._with_locked_records(orders)
 
         # == Send ==
         def on_populate(cfdi_values):
             inv_cfdi_values_list = []
-            for order in self:
+            for order in orders:
+
+                # The refund are managed by the refunded order.
+                if order.refunded_order_ids:
+                    continue
+
                 inv_cfdi_values = dict(cfdi_values)
                 order._l10n_mx_edi_add_cfdi_values(inv_cfdi_values)
                 inv_cfdi_values_list.append(inv_cfdi_values)
@@ -592,11 +606,11 @@ class PosOrder(models.Model):
             return cfdi_values['sequence']
 
         def on_failure(error, cfdi_filename=None, cfdi_str=None):
-            self._l10n_mx_edi_cfdi_global_invoice_document_sent_failed(error, cfdi_filename=cfdi_filename, cfdi_str=cfdi_str)
+            orders._l10n_mx_edi_cfdi_global_invoice_document_sent_failed(error, cfdi_filename=cfdi_filename, cfdi_str=cfdi_str)
 
         def on_success(cfdi_values, cfdi_filename, cfdi_str, populate_return=None):
             self.env['l10n_mx_edi.document']._consume_global_invoice_cfdi_sequence(populate_return, int(cfdi_values['folio']))
-            self._l10n_mx_edi_cfdi_global_invoice_document_sent(cfdi_filename, cfdi_str)
+            orders._l10n_mx_edi_cfdi_global_invoice_document_sent(cfdi_filename, cfdi_str)
 
         qweb_template, _xsd_attachment_name = self.env['l10n_mx_edi.document']._get_invoice_cfdi_template()
         cfdi_filename = "MX-Global-Invoice-4.0.xml".replace('/', '')
