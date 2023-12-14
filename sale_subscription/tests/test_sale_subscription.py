@@ -1869,8 +1869,8 @@ class TestSubscription(TestSubscriptionCommon):
         self.subscription.plan_id = self.plan_month
         self.product.recurring_invoice = False
         self.product2.recurring_invoice = False
-        sub2 = self.subscription.copy()
         with self.assertRaisesRegex(UserError, 'You cannot save a sale order with a subscription plan and no recurring product.'):
+            sub2 = self.subscription.copy()
             sub2.action_confirm()
 
     def test_multiple_renew(self):
@@ -2099,8 +2099,6 @@ class TestSubscription(TestSubscriptionCommon):
         })
         self.assertFalse(sub_2.subscription_state, )
         sub_2.plan_id = self.plan_month
-        # TODO ARJ: Find a way to remove this compute without demo data
-        sub_2._compute_subscription_state()
         sub_2.order_line = [
             (0, 0, {
                 'name': self.product.name,
