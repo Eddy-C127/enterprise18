@@ -241,6 +241,7 @@ class HrContractSalary(http.Controller):
             'wage': new_gross,
             'final_yearly_costs': values['final_yearly_costs'],
         })
+        refusal_reasons = request.env['hr.contract.salary.offer.refusal.reason'].search([])
         values.update({
             'need_personal_information': not values['redirect_to_job'],
             'submit': not values['redirect_to_job'],
@@ -248,7 +249,8 @@ class HrContractSalary(http.Controller):
             'original_link': get_current_url(request.httprequest.environ),
             'token': kw.get('token'),
             'offer_id': offer.id,
-            'master_department_id': request.env['hr.department'].sudo().browse(int(values['department_id'])).master_department_id.id if values['department_id'] else False
+            'master_department_id': request.env['hr.department'].sudo().browse(int(values['department_id'])).master_department_id.id if values['department_id'] else False,
+            'refusal_reasons': refusal_reasons,
         })
 
         response = request.render("hr_contract_salary.salary_package", values)
@@ -976,3 +978,24 @@ class HrContractSalary(http.Controller):
             'error': 0,
             'new_contract_id': new_contract.id
         }
+
+    @http.route(['/salary_package/post_feedback'], type='json', auth='public')
+    def refuse(self, offer_id, feedback=None, token=None):
+        offer = request.env['hr.contract.salary.offer'].sudo().browse(offer_id).exists()
+        if not offer.applicant_id and not offer.employee_contract_id:
+            raise UserError(_('This link is invalid. Please contact the HR Responsible to get a new one...'))
+
+        contract = self._check_access_rights(offer.employee_contract_id.id) if offer.employee_contract_id else False
+        if not contract and (not token or not consteq(offer.access_token, token)):
+            raise UserError(_('This link is invalid. Please contact the HR Responsible to get a new one...'))
+
+        if feedback:
+            partner = offer.applicant_id.partner_id or offer.employee_id.work_contact_id
+            offer.message_post(
+                body=feedback,
+                author_id=partner.id,
+                message_type='comment',
+                subtype_xmlid='mail.mt_comment',
+            )
+            return True
+        return False

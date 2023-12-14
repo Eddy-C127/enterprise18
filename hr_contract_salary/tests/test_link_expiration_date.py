@@ -25,6 +25,18 @@ class TestLinkExpirationDate(HttpCase):
         cls.job = cls.env['hr.job'].create({
             'name': 'Familiar job',
         })
+        cls.simple_user = mail_new_test_user(
+            cls.env,
+            name='Nandor Relentless',
+            login='Al Qolnidar',
+            email='Nandor@odoo.com',
+            groups='base.group_user',
+        )
+        cls.employee = cls.env['hr.employee'].create({'name': "Nandor", 'user_id': cls.simple_user.id})
+
+        cls.offer_refusal_reason = cls.env['hr.contract.salary.offer.refusal.reason'].create({
+            'name': "Salary too high",
+        })
 
     def test_link_for_applicant(self):
         """
@@ -55,17 +67,9 @@ class TestLinkExpirationDate(HttpCase):
         self.assertTrue(self.fail_text in str(late_res.content), 'The applicant should be redirected to the invalid link page')
 
     def test_link_for_employee(self):
-        simple_user = mail_new_test_user(
-            self.env,
-            name='Nandor Relentless',
-            login='Al Qolnidar',
-            email='Nandor@odoo.com',
-            groups='base.group_user',
-        )
-        employee = self.env['hr.employee'].create({'name': "Nandor", 'user_id': simple_user.id})
         employee_contract = self.env['hr.contract'].create({
             'name': "Contract",
-            'employee_id': employee.id,
+            'employee_id': self.employee.id,
             'wage': 6500,
             'structure_type_id': self.structure_type.id,
             'job_id': self.job.id,
@@ -79,11 +83,11 @@ class TestLinkExpirationDate(HttpCase):
             employee_wizard.action_send_offer()
             offer = employee_contract.salary_offer_ids
             url = f'/salary_package/simulation/offer/{offer.id}'
-            self.authenticate(simple_user.login, simple_user.login)
+            self.authenticate(self.simple_user.login, self.simple_user.login)
             res = self.url_open(url)
         self.assertTrue(self.fail_text not in str(res.content), "The Employee should not be redirected to the invalid link page")
 
         with freeze_time(self.offer_date + relativedelta(days=(self.validity_period + 1))):
-            self.authenticate(simple_user.login, simple_user.login)
+            self.authenticate(self.simple_user.login, self.simple_user.login)
             late_res = self.url_open(url)
         self.assertTrue(self.fail_text in str(late_res.content), 'The Employee should be redirected to the invalid link page')

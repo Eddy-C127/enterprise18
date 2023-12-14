@@ -15,6 +15,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         "change input.folded": "onchangeFolded",
         "change .personal_info": "onchangePersonalInfo",
         "click #hr_cs_submit": "submitSalaryPackage",
+        "click .o_submit_feedback": "submitFeedback",
         "click a[name='recompute']": "recompute",
         "click button[name='toggle_personal_information']": "togglePersonalInformation",
         "change input.bg-danger": "checkFormValidity",
@@ -29,7 +30,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         this._super(parent);
         this.keepLast = new KeepLast();
         $('body').attr('id', 'hr_contract_salary');
-        $("#hr_contract_salary select").select2();
+        $("#hr_contract_salary select:not(.refuse-reason-select)").select2();
 
         $('b[role="presentation"]').hide();
         $('.select2-arrow').append('<i class="oi oi-chevron-down"></i>');
@@ -634,6 +635,29 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
             } else {
                 document.location.pathname = '/sign/document/' + data['request_id'] + '/' + data['token'];
             }
+        }
+    },
+
+    async submitFeedback() {
+        const feedbackEl = $("#feedback-textarea");
+        const offer_id = parseInt($("input[name='offer_id']").val()) || false;
+        const feedbackValue = feedbackEl && feedbackEl.val(); 
+        const token = $("input[name='token']").val();
+        if (!feedbackValue) {
+            return;
+        }
+        const res = await rpc('/salary_package/post_feedback/', {
+            feedback: feedbackValue,
+            offer_id: offer_id,
+            token,
+        })
+        if (res) {
+            $("#feedback-form-success").show();
+            setTimeout(() => {
+                $("#feedback-form-success").hide();
+                feedbackEl.val("");
+                $("#feedback-form").removeClass("show");
+            }, 3000);
         }
     },
 

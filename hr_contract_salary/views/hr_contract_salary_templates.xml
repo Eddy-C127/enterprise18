@@ -223,7 +223,22 @@
             </t>
             <div name="salary_package_resume"/>
             <t t-if="submit">
-                <button type="button" id="hr_cs_submit" class="btn btn-primary hr_cs_btn_submit" name="submit1">Review Contract &amp; Sign</button>
+                <div class="row">
+                    <button type="button" id="hr_cs_submit" class="btn btn-primary hr_cs_btn_submit" name="submit1">Review Contract &amp; Sign</button>
+                    <button type="button" class="btn btn-secondary" name="feedback" data-bs-toggle="collapse" data-bs-target="#feedback-form">
+                        <i class="fa fa-comment"/> Feedback
+                    </button>
+                </div>
+                <div id="feedback-form" class="collapse row">
+                    <textarea class="form-control" id="feedback-textarea" rows="3" placeholder="Write your message here and we will come back to you."></textarea>
+                    <div class="text-success p-0" style="display: none" id="feedback-form-success">
+                        <p><i class="fa fa-check"/> Your message was successfully sent!</p>
+                    </div>
+                    <div class="col mt-2 px-0">
+                        <button type="button" class="btn btn-primary o_submit_feedback">Send</button>
+                        <button type="button" class="btn btn-secondary o_cancel_feedback" data-bs-toggle="collapse" data-bs-target="#feedback-form">Discard</button>
+                    </div>
+                </div>
             </t>
         </div>
     </template>
