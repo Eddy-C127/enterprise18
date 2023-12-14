@@ -185,12 +185,16 @@ class SaleOrder(models.Model):
     def _compute_is_subscription(self):
         for order in self:
             # upsells have recurrence but are not considered subscription. The method don't depend on subscription_state
-            # to avois recomputing the is_subscription value each time the sub_state is updated. it would trigger
+            # to avoid recomputing the is_subscription value each time the sub_state is updated. it would trigger
             # other recompute we want to avoid
             if not order.plan_id or order.subscription_state == '7_upsell':
                 order.is_subscription = False
                 continue
             order.is_subscription = True
+        # is_subscription value is not always updated in this method but subscription_state should always
+        # be recomputed when this method is triggered.
+        # without this call, subscription_state is not updated when it should and
+        self.env.add_to_compute(self.env['sale.order']._fields['subscription_state'], self)
 
     @api.depends('is_subscription')
     def _compute_subscription_state(self):

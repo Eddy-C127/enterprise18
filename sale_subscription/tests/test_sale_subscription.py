@@ -2099,8 +2099,6 @@ class TestSubscription(TestSubscriptionCommon):
         })
         self.assertFalse(sub_2.subscription_state, )
         sub_2.plan_id = self.plan_month
-        # TODO ARJ: Find a way to remove this compute without demo data
-        sub_2._compute_subscription_state()
         sub_2.order_line = [
             (0, 0, {
                 'name': self.product.name,
