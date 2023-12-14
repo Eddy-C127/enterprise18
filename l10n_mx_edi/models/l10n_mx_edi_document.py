@@ -711,10 +711,12 @@ class L10nMxEdiDocument(models.Model):
         or global discounts. This method allows odoo to distribute the negative discount lines to each others making
         such features available even for Mexican people.
 
+        EDIT: Since the introduction of the global invoice, we need to manage pos order refund properly so everyone
+        needs this feature now.
+
         :return: True if odoo needs to distribute the negative discount lines, False otherwise.
         """
-        param_name = 'l10n_mx_edi.manage_invoice_negative_lines'
-        return bool(self.env['ir.config_parameter'].sudo().get_param(param_name))
+        return True
 
     @api.model
     def _preprocess_cfdi_base_lines(self, currency, base_lines, tax_details_transferred, tax_details_withholding):

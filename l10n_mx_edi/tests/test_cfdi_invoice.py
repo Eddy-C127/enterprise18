@@ -146,11 +146,6 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
     @freeze_time('2017-01-01')
     def test_invoice_negative_discount_line(self):
-        self.env['ir.config_parameter'].sudo().create({
-            'key': 'l10n_mx_edi.manage_invoice_negative_lines',
-            'value': 'True',
-        })
-
         discount_product = self.env['product.product'].create({
             'name': "discount_product",
             'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_01010101').id,
@@ -178,11 +173,6 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
     @freeze_time('2017-01-01')
     def test_invoice_negative_discount_line_on_multiple_lines(self):
-        self.env['ir.config_parameter'].sudo().create({
-            'key': 'l10n_mx_edi.manage_invoice_negative_lines',
-            'value': 'True',
-        })
-
         discount_product = self.env['product.product'].create({
             'name': "discount_product",
             'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_01010101').id,
@@ -213,11 +203,6 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
     @freeze_time('2017-01-01')
     def test_invoice_negative_full_discount_lines(self):
-        self.env['ir.config_parameter'].sudo().create({
-            'key': 'l10n_mx_edi.manage_invoice_negative_lines',
-            'value': 'True',
-        })
-
         invoice = self._create_invoice(
             invoice_line_ids=[
                 Command.create({
