@@ -81,14 +81,6 @@
             </td>
         </xpath>
 
-        <xpath expr="//div[@name='comment']" position="after">
-            <t t-if="o.partner_id.l10n_mx_edi_fiscal_regime">
-                <p name="l10n_mx_fiscal_regime_receptor">
-                    Fiscal Regime Receptor: <span t-esc="o.partner_id.l10n_mx_edi_fiscal_regime">601</span>
-                </p>
-            </t>
-        </xpath>
-
         <xpath expr="//div[@name='comment']" position="before">
             <t t-set="cfdi_values" t-value="o._l10n_mx_edi_get_extra_invoice_report_values()"/>
             <div class="row col-12" id='complement'>
