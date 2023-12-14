@@ -35,11 +35,6 @@
         <xpath expr="//div[@id='nav-report']" position="attributes">
             <attribute name="t-if">not task.is_fsm and timesheets and allow_timesheets</attribute>
         </xpath>
-        <xpath expr="//div[@id='nav-report']" position="before">
-            <div t-if="task.is_fsm and (task.display_sign_report_primary or task.display_sign_report_secondary)" class="d-grid flex-grow-1 align-items-center mb-2">
-                <t t-call="industry_fsm.portal_task_sign_button"/>
-            </div>
-        </xpath>
         <xpath expr="//a[@t-field='task.project_id']" position="after">
             <div t-if="task.planned_date_begin">
                 <strong>Planned Date:</strong>
