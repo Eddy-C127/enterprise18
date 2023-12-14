@@ -789,7 +789,7 @@ class L10nMxEdiDocument(models.Model):
             return prepared_line_values_list
 
         to_distribute = []
-        distributed_lines = set()
+        lines_to_exclude = set()
         to_keep = []
         for line_values in prepared_line_values_list:
             if line_values['line']['price_subtotal'] < 0.0:
@@ -797,13 +797,22 @@ class L10nMxEdiDocument(models.Model):
             else:
                 to_keep.append(line_values)
 
-        # Try to distribute on the others lines.
-        # Put the discount on the biggest lines first.
-        to_keep = sorted(to_keep, key=lambda line_values: line_values['line']['price_subtotal'], reverse=True)
-
         for line_values in to_distribute:
             line = line_values['line']
-            for other_line_values in to_keep:
+            net_price_subtotal = line_values['discount'] - line_values['gross_price_subtotal']
+
+            # Try to distribute on the others lines.
+            # Put the discount on the biggest lines first and if possible, on the line having the same amount.
+            candidates = [candidate for candidate in to_keep if candidate['line']['record'] not in lines_to_exclude]
+            candidates = reversed(sorted(
+                candidates,
+                key=lambda candidate: (
+                    currency.compare_amounts(candidate['gross_price_subtotal'] - candidate['discount'], net_price_subtotal) == 0,
+                    candidate['line']['price_subtotal']
+                ),
+            ))
+
+            for other_line_values in candidates:
                 other_line = other_line_values['line']
 
                 # Check if it's a candidate to distribute.
@@ -840,16 +849,16 @@ class L10nMxEdiDocument(models.Model):
                         tax_values['base'] -= base
                         tax_values['importe'] -= tax
 
-                if is_zero:
-                    distributed_lines.add(line['record'])
-                    break
-
                 # Check if there is something left on the other line.
                 remaining_amount = other_line_values['discount'] - other_line_values['gross_price_subtotal']
                 if other_line['record'].currency_id.is_zero(remaining_amount):
-                    distributed_lines.add(other_line['record'])
+                    lines_to_exclude.add(other_line['record'])
 
-        return [x for x in prepared_line_values_list if x['line']['record'] not in distributed_lines]
+                if is_zero:
+                    lines_to_exclude.add(line['record'])
+                    break
+
+        return [x for x in prepared_line_values_list if x['line']['record'] not in lines_to_exclude]
 
     @api.model
     def _add_base_lines_cfdi_values(self, cfdi_values, base_lines, percentage_paid=None):

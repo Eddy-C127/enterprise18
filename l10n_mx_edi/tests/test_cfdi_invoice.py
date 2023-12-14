@@ -212,6 +212,46 @@ class TestCFDIInvoice(TestMxEdiCommon):
         self._assert_invoice_cfdi(invoice, 'test_invoice_negative_discount_line_on_multiple_lines')
 
     @freeze_time('2017-01-01')
+    def test_invoice_negative_full_discount_lines(self):
+        self.env['ir.config_parameter'].sudo().create({
+            'key': 'l10n_mx_edi.manage_invoice_negative_lines',
+            'value': 'True',
+        })
+
+        invoice = self._create_invoice(
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'price_unit': 1000.0,
+                    'tax_ids': [Command.set(self.tax_16.ids)],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'price_unit': -2000.0,
+                    'tax_ids': [Command.set(self.tax_16.ids)],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'price_unit': 3000.0,
+                    'tax_ids': [Command.set(self.tax_16.ids)],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'price_unit': 2000.0,
+                    'tax_ids': [Command.set(self.tax_16.ids)],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'price_unit': -1000.0,
+                    'tax_ids': [Command.set(self.tax_16.ids)],
+                }),
+            ],
+        )
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+        self._assert_invoice_cfdi(invoice, 'test_invoice_negative_full_discount_lines')
+
+    @freeze_time('2017-01-01')
     def test_invoice_tax_rounding(self):
         '''
         To pass validation by the PAC, the tax amounts reported for each invoice
