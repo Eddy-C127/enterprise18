@@ -13,6 +13,7 @@ export function getDashboardBasicServerData() {
                     spreadsheet_data: { string: "Data", type: "text" },
                     thumbnail: { string: "Thumbnail", type: "text" },
                     data: { string: "base64 encoded data", type: "text" },
+                    is_published: { string: "Is published", type: "boolean" },
                 },
                 records: [],
             },

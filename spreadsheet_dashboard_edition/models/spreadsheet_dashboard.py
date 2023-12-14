@@ -7,6 +7,12 @@ class SpreadsheetDashboard(models.Model):
 
     file_name = fields.Char(compute='_compute_file_name')
 
+    def join_spreadsheet_session(self, *args, **kwargs):
+        return dict(
+            super().join_spreadsheet_session(*args, **kwargs),
+            is_published=self.is_published
+        )
+
     def action_edit_dashboard(self):
         self.ensure_one()
         return {

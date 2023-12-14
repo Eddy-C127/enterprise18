@@ -13,6 +13,7 @@
                 </div>
                 <div
                     class="o_control_panel_navigation d-flex flex-wrap flex-md-nowrap align-items-center justify-content-end gap-3 gap-lg-1 gap-xl-3 order-1 order-lg-2 flex-grow-1">
+                    <t t-slot="control-panel-additional"/>
                     <t t-call="spreadsheet_edition.ControlPanel.SpreadsheetInfo" />
                     <SpreadsheetShareButton
                         t-if="props.onSpreadsheetShared"

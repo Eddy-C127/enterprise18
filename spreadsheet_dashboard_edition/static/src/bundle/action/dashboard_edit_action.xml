@@ -4,7 +4,18 @@
     <div t-name="spreadsheet_dashboard_edition.DashboardEditAction" class="o_dashboard_edit_action">
         <SpreadsheetControlPanel
             t-props="controlPanelProps"
-            onSpreadsheetShared.bind="shareSpreadsheet"/>
+            onSpreadsheetShared.bind="shareSpreadsheet">
+            <t t-set-slot="control-panel-additional">
+                <t t-if="state.isPublished">Published</t>
+                <t t-else="">Unpublished</t>
+                <CheckBox
+                    onChange.bind="togglePublished"
+                    disabled="record.isReadonly"
+                    value="state.isPublished"
+                    className="'boolean_toggle form-switch'"
+                />
+            </t>
+        </SpreadsheetControlPanel>
         <SpreadsheetComponent model="model"/>
     </div>
 

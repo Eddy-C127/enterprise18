@@ -49,6 +49,10 @@ export class SpreadsheetControlPanel extends Component {
             type: Object,
             optional: true,
         },
+        slots: {
+            type: Object,
+            optional: true,
+        },
     };
 
     setup() {

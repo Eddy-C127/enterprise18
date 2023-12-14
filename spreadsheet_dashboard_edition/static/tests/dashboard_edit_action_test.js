@@ -128,4 +128,64 @@ QUnit.module("spreadsheet dashboard edition action", {}, function () {
         await click(target, ".fa-clipboard");
         assert.verifySteps(["share url copied"]);
     });
+
+    QUnit.test("publish dashboard from control panel", async function (assert) {
+        const fixture = getFixture();
+        await createDashboardEditAction({
+            mockRPC: async function (route, args) {
+                if (args.model === "spreadsheet.dashboard" && args.method === "write") {
+                    assert.step("dashboard_published");
+                    assert.deepEqual(args.args[1], { is_published: true });
+                }
+            },
+        });
+        const checkbox = fixture.querySelector(".o_spreadsheet_control_panel .o-checkbox input");
+        assert.strictEqual(
+            fixture
+                .querySelector(".o_control_panel_navigation")
+                .textContent.includes("Unpublished"),
+            true
+        );
+        assert.strictEqual(checkbox.checked, false);
+        await click(checkbox);
+        assert.strictEqual(checkbox.checked, true);
+        assert.strictEqual(
+            fixture.querySelector(".o_control_panel_navigation").textContent.includes("Published"),
+            true
+        );
+        assert.verifySteps(["dashboard_published"]);
+    });
+
+    QUnit.test("unpublish dashboard from control panel", async function (assert) {
+        const fixture = getFixture();
+        await createDashboardEditAction({
+            mockRPC: async function (route, args, performRPC) {
+                if (args.model === "spreadsheet.dashboard" && args.method === "write") {
+                    assert.step("dashboard_unpublished");
+                    assert.deepEqual(args.args[1], { is_published: false });
+                }
+                if (
+                    args.model === "spreadsheet.dashboard" &&
+                    args.method === "join_spreadsheet_session"
+                ) {
+                    return { ...(await performRPC(route, args)), is_published: true };
+                }
+            },
+        });
+        const checkbox = fixture.querySelector(".o_spreadsheet_control_panel .o-checkbox input");
+        assert.strictEqual(
+            fixture.querySelector(".o_control_panel_navigation").textContent.includes("Published"),
+            true
+        );
+        assert.strictEqual(checkbox.checked, true);
+        await click(checkbox);
+        assert.strictEqual(checkbox.checked, false);
+        assert.strictEqual(
+            fixture
+                .querySelector(".o_control_panel_navigation")
+                .textContent.includes("Unpublished"),
+            true
+        );
+        assert.verifySteps(["dashboard_unpublished"]);
+    });
 });

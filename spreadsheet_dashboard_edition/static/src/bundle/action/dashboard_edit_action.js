@@ -5,12 +5,14 @@ import { registry } from "@web/core/registry";
 import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
 import { SpreadsheetControlPanel } from "@spreadsheet_edition/bundle/actions/control_panel/spreadsheet_control_panel";
 import { _t } from "@web/core/l10n/translation";
+import { CheckBox } from "@web/core/checkbox/checkbox";
 
 import { useSubEnv } from "@odoo/owl";
 
 export class DashboardEditAction extends AbstractSpreadsheetAction {
     static template = "spreadsheet_dashboard_edition.DashboardEditAction";
     static components = {
+        CheckBox,
         SpreadsheetControlPanel,
         SpreadsheetComponent,
     };
@@ -22,6 +24,18 @@ export class DashboardEditAction extends AbstractSpreadsheetAction {
         super.setup();
         useSubEnv({
             makeCopy: this.makeCopy.bind(this),
+        });
+    }
+
+    _initializeWith(record) {
+        super._initializeWith(record);
+        this.state.isPublished = record.is_published;
+    }
+
+    togglePublished() {
+        this.state.isPublished = !this.state.isPublished;
+        this.orm.write("spreadsheet.dashboard", [this.resId], {
+            is_published: this.state.isPublished,
         });
     }
 

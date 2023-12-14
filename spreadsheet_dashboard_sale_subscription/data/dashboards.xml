@@ -12,6 +12,7 @@
         <field name="dashboard_group_id" ref="spreadsheet_dashboard_group_subscriptions"/>
         <field name="group_ids" eval="[Command.link(ref('sales_team.group_sale_manager'))]"/>
         <field name="sequence">400</field>
+        <field name="is_published">True</field>
     </record>
 
     <record id="spreadsheet_dashboard_mrr_evolution" model="spreadsheet.dashboard">
@@ -20,6 +21,7 @@
         <field name="dashboard_group_id" ref="spreadsheet_dashboard_group_subscriptions"/>
         <field name="group_ids" eval="[Command.link(ref('sales_team.group_sale_manager'))]"/>
         <field name="sequence">500</field>
+        <field name="is_published">True</field>
     </record>
 
     <record id="spreadsheet_dashboard_retention" model="spreadsheet.dashboard">
@@ -28,6 +30,7 @@
         <field name="dashboard_group_id" ref="spreadsheet_dashboard_group_subscriptions"/>
         <field name="group_ids" eval="[Command.link(ref('sales_team.group_sale_manager'))]"/>
         <field name="sequence">600</field>
+        <field name="is_published">True</field>
     </record>
 
     <record id="spreadsheet_dashboard_salesperson" model="spreadsheet.dashboard">
@@ -36,6 +39,7 @@
         <field name="dashboard_group_id" ref="spreadsheet_dashboard_group_subscriptions"/>
         <field name="group_ids" eval="[Command.link(ref('sales_team.group_sale_manager'))]"/>
         <field name="sequence">700</field>
+        <field name="is_published">True</field>
     </record>
 
 </odoo>
