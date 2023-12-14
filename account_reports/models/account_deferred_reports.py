@@ -22,7 +22,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
     # DEFERRED COMMON (DISPLAY AND GENERATION) #
     ############################################
 
-    def _get_domain(self, report, options, filter_already_generated, filter_not_started):
+    def _get_domain(self, report, options, filter_already_generated=False, filter_not_started=False):
         domain = report._get_options_domain(options, "from_beginning")
         account_types = ('expense', 'expense_depreciation', 'expense_direct_cost') if self._get_deferred_report_type() == 'expense' else ('income', 'income_other')
         domain += [
@@ -71,7 +71,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
         ]
 
     def _get_lines(self, report, options, filter_already_generated=False):
-        domain = self._get_domain(report, options, filter_already_generated, filter_not_started=False)
+        domain = self._get_domain(report, options, filter_already_generated=filter_already_generated)
         query = self.env['account.move.line']._search(domain, order="deferred_start_date, id")
         query_str, params = query.select(*self._get_select())
         self.env.cr.execute(query_str, params)
@@ -234,10 +234,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
 
         # Find the original lines to be deferred in the report period
         original_move_lines_domain = self._get_domain(
-            report,
-            options,
-            filter_already_generated=False,
-            filter_not_started=column_values['expression_label'] == 'not_started'
+            report, options, filter_not_started=column_values['expression_label'] == 'not_started'
         )
         if account_id:
             # We're auditing a specific account, so we only want moves containing this account
@@ -280,7 +277,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
         report = self.env['account.report'].browse(options['report_id'])
         action = report.open_journal_items(options=options, params=params)
         action.get('context', {}).pop('search_default_date_between', None)
-        action['domain'] = action.get('domain', []) + self._get_domain(report, options, False)
+        action['domain'] = action.get('domain', []) + self._get_domain(report, options)
         return action
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
