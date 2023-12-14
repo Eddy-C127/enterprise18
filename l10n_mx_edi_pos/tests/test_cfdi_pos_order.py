@@ -215,11 +215,6 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
 
     @freeze_time('2017-01-01')
     def test_global_invoiced_order_with_refund_line_then_refund(self):
-        self.env['ir.config_parameter'].sudo().create({
-            'key': 'l10n_mx_edi.manage_invoice_negative_lines',
-            'value': 'True',
-        })
-
         with self.with_pos_session() as _session:
             # Create an order, then make a global invoice and sign it.
             order = self._create_order({
@@ -264,11 +259,6 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
 
     @freeze_time('2017-01-01')
     def test_orders_partial_refund_then_global_invoice(self):
-        self.env['ir.config_parameter'].sudo().create({
-            'key': 'l10n_mx_edi.manage_invoice_negative_lines',
-            'value': 'True',
-        })
-
         with self.with_pos_session() as _session:
             order1 = self._create_order({
                 'pos_order_lines_ui_args': [(self.product, 5)],
