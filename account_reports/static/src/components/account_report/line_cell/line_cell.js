@@ -92,7 +92,9 @@ export class AccountReportLineCell extends Component {
                 context: this.controller.context,
             }
         );
-        auditAction.help = markup(auditAction.help);
+        if (auditAction.help) {
+            auditAction.help = markup(auditAction.help);
+        }
 
         return this.action.doAction(auditAction);
     }
