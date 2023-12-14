@@ -1309,11 +1309,13 @@ class Article(models.Model):
         category = category or parent.category or before_article.category
         if not category:
             raise ValidationError(
-                _("Move to target of %(article_name)s is ambiguous, you should specify the category.")
+                _("The destination placement of %(article_name)s is ambiguous, you should specify the category.",
+                  article_name=self.display_name)
             )
         if category == 'shared' and not parent and (self.parent_id or self.category != 'shared'):
             raise ValidationError(
-                _("Cannot move %(article_name)s as a root of the 'shared' section since access rights can not be inferred without a parent.")
+                _("Cannot move %(article_name)s as a root of the 'shared' section since access rights can not be inferred without a parent.",
+                  article_name=self.display_name)
             )
 
         if category == 'private':
