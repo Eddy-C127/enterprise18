@@ -1066,3 +1066,35 @@ registry.category("web_tour.tours").add("web_studio_test_new_field_rename_descri
         }
     ]
 });
+
+registry
+    .category("web_tour.tours")
+    .add("web_studio_test_edit_digits_option", {
+        test: true,
+        url: "/web",
+        sequence: 260,
+        steps: () => [
+            {
+                trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+            },
+            {
+                trigger: ".o_form_view .o_form_editable",
+            },
+
+            {
+                trigger: ".o_web_studio_navbar_item button",
+            },
+            {
+                extra_trigger: ".o_web_studio_view_renderer",
+                trigger: "[name=partner_latitude]",
+            },
+            {
+                trigger: "input#digits",
+                run: "text 2",
+            },
+            {
+                trigger: ".o_web_studio_leave",
+                isCheck: true,
+            },
+        ],
+    });
