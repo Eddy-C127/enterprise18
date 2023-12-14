@@ -333,12 +333,6 @@ class CalendarEvent(models.Model):
                      partner_name=self.partner_id.name or _('somebody'))
         return super()._get_customer_summary()
 
-    def booking_gantt_set_partner_id(self, user_id):
-        """Remove the current user's partner and add the new user to attendees."""
-        new_partner_id = self.env['res.users'].browse(user_id).partner_id
-        for event in self:
-            event.write({'partner_ids': [Command.unlink(event.partner_id.id), Command.link(new_partner_id.id)]})
-
     @api.model
     def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
         # skip if not dealing with appointments
