@@ -589,7 +589,10 @@ QUnit.module(
                 assert.ok(target.querySelector(".o-autocomplete--dropdown-menu"));
                 const item1 = target.querySelector(".o-autocomplete--dropdown-item");
                 await click(item1);
-                assert.equal(model.getters.getFilterDisplayValue(label), item1.innerText);
+                assert.equal(
+                    model.getters.getFilterDisplayValue(label)[0][0].value,
+                    item1.innerText
+                );
             }
         );
 
