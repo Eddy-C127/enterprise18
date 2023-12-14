@@ -319,10 +319,10 @@ class SpreadsheetMixin(models.AbstractModel):
 
         if from_snapshot:
             data = spreadsheet_sudo._get_spreadsheet_snapshot()
-            revisions = self.spreadsheet_revision_ids
+            revisions = spreadsheet_sudo.spreadsheet_revision_ids
         else:
             data = json.loads(self.spreadsheet_data)
-            revisions = self.with_context(active_test=False).spreadsheet_revision_ids
+            revisions = spreadsheet_sudo.with_context(active_test=False).spreadsheet_revision_ids
 
         return {
             "name": spreadsheet_sudo.display_name,
