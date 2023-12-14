@@ -21,22 +21,23 @@ class HelpdeskTicket(models.Model):
 
     @api.depends('partner_id')
     def _compute_suitable_product_ids(self):
+        suitable_partner_ids = self.env['res.partner'].search([('commercial_partner_id', 'in', self.commercial_partner_id.ids)]).ids
         sale_data = self.env['sale.order.line']._read_group([
             ('product_id', '!=', False),
             ('order_id.state', '=', 'sale'),
-            ('order_partner_id', 'in', self.mapped('partner_id').ids)
+            ('order_partner_id', 'in', suitable_partner_ids),
         ], ['order_partner_id'], ['product_id:array_agg'])
         order_data = {order_partner.id: product_ids for order_partner, product_ids in sale_data}
 
         picking_data = self.env['stock.picking']._read_group([
             ('state', '=', 'done'),
-            ('partner_id', 'in', self.mapped('partner_id').ids),
+            ('partner_id', 'in', suitable_partner_ids),
             ('picking_type_code', '=', 'outgoing'),
         ], ['partner_id'], ['id:array_agg'])
 
         # it was not correct, it took only products of stock_move_line from the first partner_id of self
         picking_ids = [id_ for __, ids in picking_data for id_ in ids]
-        outoing_product = {}
+        outgoing_product = {}
         if picking_ids:
             move_line_data = self.env['stock.move.line']._read_group([
                 ('state', '=', 'done'),
@@ -47,12 +48,13 @@ class HelpdeskTicket(models.Model):
             if move_lines:
                 for partner, picking_ids in picking_data:
                     product_lists = [move_lines[pick] for pick in picking_ids if pick in move_lines]
-                    outoing_product[partner.id] = list(itertools.chain(*product_lists))
+                    outgoing_product[partner.id] = list(itertools.chain(*product_lists))
+        partners_in_sale = dict(zip(order_data.keys(), self.env['res.partner'].browse(order_data.keys())))
 
         for ticket in self:
-            product_ids = set(order_data.get(ticket.partner_id.id, []) + outoing_product.get(ticket.partner_id.id, []))
+            product_ids = set(order_data.get(ticket.partner_id.id, []) + outgoing_product.get(ticket.partner_id.id, []))
             ticket.suitable_product_ids = [fields.Command.set(product_ids)]
-            ticket.has_partner_picking = outoing_product.get(ticket.partner_id.id, False)
+            ticket.has_partner_picking = any(partner_id in outgoing_product for partner_id in suitable_partner_ids) or any(partner_id in partners_in_sale for partner_id in suitable_partner_ids)
 
     @api.onchange('suitable_product_ids')
     def onchange_product_id(self):
