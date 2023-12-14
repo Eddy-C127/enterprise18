@@ -3665,8 +3665,9 @@ class AccountReport(models.Model):
                     ORDER BY date DESC
                     LIMIT 1
                 """, where_params)
-                record_ids = self._cr.fetchone()[0]
-                external_values_domain = [('id', 'in', record_ids)]
+                record_ids = self._cr.fetchone()
+                if record_ids:
+                    external_values_domain = [('id', 'in', record_ids[0])]
 
             return {
                 'name': _("Manual values"),
