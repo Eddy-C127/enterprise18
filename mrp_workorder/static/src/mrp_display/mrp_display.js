@@ -393,6 +393,7 @@ export class MrpDisplay extends Component {
         }
         const params = {
             config: { resModel, fields, activeFields },
+            limit: Number.MAX_SAFE_INTEGER,
         };
         const workorderFields = this.props.models.find(
             (m) => m.resModel === "mrp.workorder"
