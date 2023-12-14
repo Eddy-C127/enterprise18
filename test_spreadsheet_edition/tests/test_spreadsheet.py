@@ -3,6 +3,7 @@
 from datetime import datetime
 from freezegun import freeze_time
 
+from odoo.tests.common import new_test_user
 from odoo.addons.spreadsheet_edition.tests.spreadsheet_test_case import SpreadsheetTestCase
 
 
@@ -128,6 +129,14 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         self.assertEqual(len(revisions), 1)
         self.assertEqual(revisions[0]["timestamp"], datetime(2020, 2, 2, 0, 0, 0))
         self.assertEqual(revisions[0]["user"], (user.id, user.name))
+
+    def test_get_spreadsheet_base_user_access_right_history(self):
+        user = new_test_user(self.env, login="test", groups="base.group_user")
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+        spreadsheet.invalidate_recordset()
+        data = spreadsheet.with_user(user).get_spreadsheet_history()
+        self.assertEqual(len(data["revisions"]), 1)
 
     def test_empty_spreadsheet_server_revision_id(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
