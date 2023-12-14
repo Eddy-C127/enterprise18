@@ -3,7 +3,7 @@
 
 import { uniqueId } from "@web/core/utils/functions";
 import { browser } from "@web/core/browser/browser";
-import { parseHash } from "@web/core/browser/router";
+import { parseSearchQuery } from "@web/core/browser/router";
 
 var available = typeof OdooDeviceUtility !== 'undefined';
 var DeviceUtility;
@@ -65,13 +65,13 @@ plugins.forEach((plugin) => {
  * Use to notify an uri hash change on native devices (ios / android)
  */
 if (methods.hashChange) {
-    var currentHash;
-    browser.addEventListener('hashchange', function () {
-        const hash = parseHash(browser.location.hash);
-        if (JSON.stringify(currentHash) !== JSON.stringify(hash)) {
-            methods.hashChange(hash);
+    var currentSearch;
+    browser.addEventListener("popstate", function () {
+        const search = parseSearchQuery(browser.location.search);
+        if (JSON.stringify(currentSearch) !== JSON.stringify(search)) {
+            methods.hashChange(search);
         }
-        currentHash = hash;
+        currentSearch = search;
     });
 }
 

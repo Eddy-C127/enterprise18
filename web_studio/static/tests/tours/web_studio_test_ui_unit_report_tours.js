@@ -785,7 +785,7 @@ registry.category("web_tour.tours").add("web_studio.test_render_multicompany", {
             trigger: ".o-web-studio-report-container iframe img",
             run() {
                 const currentUrl = new URL(window.location);
-                const cids = new URLSearchParams(currentUrl.hash.slice(1)).get("cids").split("-");
+                const cids = currentUrl.searchParams.get("cids").split("-");
                 assertEqual(this.$anchor[0].getAttribute("src"), `/logo.png?company=${cids[0]}`);
             },
         },

@@ -1,10 +1,10 @@
 /** @odoo-module **/
 
+import { browser } from "@web/core/browser/browser";
 import {
     createWebClient,
     doAction,
     getActionManagerServerData,
-    loadState,
 } from "@web/../tests/webclient/helpers";
 import { click, getFixture } from "@web/../tests/helpers/utils";
 
@@ -91,12 +91,8 @@ QUnit.test("lazy load mobile-friendly view", async function (assert) {
         assert.step(args.method || route);
     };
 
-    const webClient = await createWebClient({ serverData, mockRPC });
-
-    await loadState(webClient, {
-        action: 1,
-        view_type: "form",
-    });
+    Object.assign(browser.location, { search: "action=1&view_type=form" });
+    await createWebClient({ serverData, mockRPC });
 
     assert.containsNone(target, ".o_list_view");
     assert.containsNone(target, ".o_kanban_view");
@@ -109,8 +105,8 @@ QUnit.test("lazy load mobile-friendly view", async function (assert) {
     assert.containsOnce(target, ".o_kanban_view");
 
     assert.verifySteps([
-        "/web/webclient/load_menus",
         "/web/action/load",
+        "/web/webclient/load_menus",
         "get_views",
         "onchange", // default_get/onchange to open form view
         "web_search_read", // web search read when coming back to Kanban

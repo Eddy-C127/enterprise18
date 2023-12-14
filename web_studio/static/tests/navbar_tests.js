@@ -12,11 +12,10 @@ import { makeFakeDialogService } from "@web/../tests/helpers/mock_services";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { registerStudioDependencies, openStudio, leaveStudio } from "./helpers";
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
-import { getActionManagerServerData, loadState } from "@web/../tests/webclient/helpers";
+import { getActionManagerServerData } from "@web/../tests/webclient/helpers";
 import { companyService } from "@web/webclient/company_service";
 import { AppMenuEditor } from "@web_studio/client_action/editor/app_menu_editor/app_menu_editor";
 import { NewModelItem } from "@web_studio/client_action/editor/new_model_item/new_model_item";
-import { router } from "@web/core/browser/router";
 
 const serviceRegistry = registry.category("services");
 let target;
@@ -300,7 +299,7 @@ QUnit.module("Studio > navbar coordination", (hooks) => {
         assert.containsOnce(target, ".o_menu_sections .o_menu_sections_more");
     });
 
-    QUnit.test("adapt navbar when refreshing studio (loadState)", async (assert) => {
+    QUnit.test("adapt navbar when refreshing studio", async (assert) => {
         assert.expect(7);
 
         target.style.width = "800px";
@@ -362,7 +361,7 @@ QUnit.module("Studio > navbar coordination", (hooks) => {
             },
         });
 
-        const webClient = await createEnterpriseWebClient({ serverData });
+        await createEnterpriseWebClient({ serverData });
 
         window.dispatchEvent(new Event("resize"));
         await Promise.all(adapted);
@@ -387,8 +386,7 @@ QUnit.module("Studio > navbar coordination", (hooks) => {
         assert.containsOnce(target, ".o_studio .o_menu_sections .o_menu_sections_more");
 
         await nextTick();
-        const state = router.current.hash;
-        await loadState(webClient, state);
+        browser.location.reload();
         await Promise.all(adapted);
         await nextTick();
         assert.strictEqual(

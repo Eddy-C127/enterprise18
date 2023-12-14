@@ -10,9 +10,9 @@ export function shortcutItem(env) {
         id: "web_mobile.shortcut",
         description: _t("Add to Home Screen"),
         callback: () => {
-            const { hash } = router.current;
-            if (hash.menu_id) {
-                const menu = env.services.menu.getMenu(hash.menu_id);
+            const { menu_id } = router.current;
+            if (menu_id) {
+                const menu = env.services.menu.getMenu(menu_id);
                 const base64Icon = menu && menu.webIconData;
                 mobile.methods.addHomeShortcut({
                     title: document.title,

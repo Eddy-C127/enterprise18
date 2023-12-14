@@ -6,11 +6,10 @@ import {
     editInput,
     getFixture,
     nextTick,
-    setBrowserLocation,
     patchWithCleanup,
     mount,
 } from "@web/../tests/helpers/utils";
-import { doAction, getActionManagerServerData, loadState } from "@web/../tests/webclient/helpers";
+import { doAction, getActionManagerServerData } from "@web/../tests/webclient/helpers";
 import { registry } from "@web/core/registry";
 import { editView } from "@web/views/debug_items";
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
@@ -411,18 +410,18 @@ QUnit.module("WebClient Enterprise", (hooks) => {
         async function (assert) {
             await createEnterpriseWebClient({ fixture, serverData });
             await nextTick();
-            assert.deepEqual(router.current.hash, { action: "menu" });
+            assert.deepEqual(router.current, { action: "menu" });
 
             await click(fixture.querySelector(".o_apps > .o_draggable:nth-child(2) > .o_app"));
             await nextTick();
-            assert.deepEqual(router.current.hash, {
+            assert.deepEqual(router.current, {
                 action: 1002,
                 menu_id: 2,
             });
 
             await click(fixture.querySelector(".o_menu_toggle"));
             await nextTick();
-            assert.deepEqual(router.current.hash, {
+            assert.deepEqual(router.current, {
                 action: "menu",
                 menu_id: 2,
             });
@@ -431,7 +430,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             await nextTick();
             // if we reload on going back to underlying action
             // end if
-            assert.deepEqual(router.current.hash, {
+            assert.deepEqual(router.current, {
                 action: 1002,
                 menu_id: 2,
             });
@@ -469,81 +468,28 @@ QUnit.module("WebClient Enterprise", (hooks) => {
         }
     );
 
-    QUnit.test("loadState back and forth keeps relevant keys in state", async function (assert) {
-        const webClient = await createEnterpriseWebClient({ fixture, serverData });
+    QUnit.test("go back to home menu using browser back button", async function (assert) {
+        await createEnterpriseWebClient({ fixture, serverData });
+        assert.containsOnce(fixture, ".o_home_menu");
+        assert.isNotVisible(fixture.querySelector(".o_main_navbar .o_menu_toggle"));
 
         await click(fixture.querySelector(".o_apps > .o_draggable:nth-child(2) > .o_app"));
+        assert.containsNone(fixture, ".test_client_action");
         await nextTick();
         assert.containsOnce(fixture, ".test_client_action");
-        assert.strictEqual(
-            fixture.querySelector(".test_client_action").textContent.trim(),
-            "ClientAction_Id 2"
-        );
         assert.containsNone(fixture, ".o_home_menu");
-        const state = router.current.hash;
-        assert.deepEqual(state, {
-            action: 1002,
-            menu_id: 2,
-        });
 
-        await loadState(webClient, {});
+        browser.history.back();
+        await nextTick();
+        await nextTick();
         assert.containsNone(fixture, ".test_client_action");
         assert.containsOnce(fixture, ".o_home_menu");
-        assert.deepEqual(router.current.hash, {
-            action: "menu",
-        });
-
-        await loadState(webClient, state);
-        assert.containsOnce(fixture, ".test_client_action");
-        assert.strictEqual(
-            fixture.querySelector(".test_client_action").textContent.trim(),
-            "ClientAction_Id 2"
-        );
-        assert.containsNone(fixture, ".o_home_menu");
-        assert.deepEqual(router.current.hash, state);
-
-        await loadState(webClient, {});
-        assert.containsNone(fixture, ".test_client_action");
-        assert.containsOnce(fixture, ".o_home_menu");
-        assert.deepEqual(router.current.hash, {
-            action: "menu",
-        });
-
-        // switch to  the first app
-        const app1State = { action: 1001, menu_id: 1 };
-        await loadState(webClient, app1State);
-        assert.containsOnce(fixture, ".test_client_action");
-        assert.strictEqual(
-            fixture.querySelector(".test_client_action").textContent.trim(),
-            "ClientAction_Id 1"
-        );
-        assert.containsNone(fixture, ".o_home_menu");
-        assert.deepEqual(router.current.hash, app1State);
+        assert.isNotVisible(fixture.querySelector(".o_main_navbar .o_menu_toggle"));
     });
-
-    QUnit.test(
-        "go back to home menu using browser back button (i.e. loadState)",
-        async function (assert) {
-            const webClient = await createEnterpriseWebClient({ fixture, serverData });
-            assert.containsOnce(fixture, ".o_home_menu");
-            assert.isNotVisible(fixture.querySelector(".o_main_navbar .o_menu_toggle"));
-
-            await click(fixture.querySelector(".o_apps > .o_draggable:nth-child(2) > .o_app"));
-            assert.containsNone(fixture, ".test_client_action");
-            await nextTick();
-            assert.containsOnce(fixture, ".test_client_action");
-            assert.containsNone(fixture, ".o_home_menu");
-
-            await loadState(webClient, { action: "menu" }); // FIXME: this might need to be changed
-            assert.containsNone(fixture, ".test_client_action");
-            assert.containsOnce(fixture, ".o_home_menu");
-            assert.isNotVisible(fixture.querySelector(".o_main_navbar .o_menu_toggle"));
-        }
-    );
 
     QUnit.test("initial action crashes", async (assert) => {
         assert.expectErrors();
-        await setBrowserLocation({ hash: "#action=__test__client__action__&menu_id=1" });
+        Object.assign(browser.location, { hash: "#action=__test__client__action__&menu_id=1" });
         const ClientAction = registry.category("actions").get("__test__client__action__");
         class Override extends ClientAction {
             setup() {
@@ -561,7 +507,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
         assert.containsOnce(fixture, "nav .o_menu_toggle");
         assert.isVisible(fixture.querySelector("nav .o_menu_toggle"));
         assert.strictEqual(fixture.querySelector(".o_action_manager").innerHTML, "");
-        assert.deepEqual(router.current.hash, {
+        assert.deepEqual(router.current, {
             action: "__test__client__action__",
             menu_id: 1,
         });
@@ -665,7 +611,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                 history: Object.assign({}, browser.history, {
                     pushState(state, title, url) {
                         pushState(...arguments);
-                        assert.step(url.split("#")[1]);
+                        assert.step(url.split("?")[1]);
                     },
                 }),
             });

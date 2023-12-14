@@ -294,7 +294,7 @@ class TestReportEditorUIUnit(HttpCase):
 
     @property
     def tour_url(self):
-        return f"/web#action=studio&mode=editor&_action={self.testAction.id}&_tab=reports&_report_id={self.report.id}&menu_id={self.testMenu.id}"
+        return f"/web?action=studio&mode=editor&_action={self.testAction.id}&_tab=reports&_report_id={self.report.id}&menu_id={self.testMenu.id}"
 
     def _clear_routing(self):
         self.env.registry.clear_cache('routing')
@@ -581,8 +581,7 @@ class TestReportEditorUIUnit(HttpCase):
             </t>
         """
 
-        url = self.tour_url.replace("/web", "/web?debug=assets")
-        self.start_tour(url, "web_studio.test_field_placeholder", login="admin")
+        self.start_tour(self.tour_url + "&debug=assets", "web_studio.test_field_placeholder", login="admin")
 
         arch, _ = get_combined_and_studio_arch(self.main_view)
         self.assertXMLEqual(arch, """
@@ -790,8 +789,7 @@ class TestReportEditorUIUnit(HttpCase):
         """)
 
     def test_report_edition_dynamic_table(self):
-        url = self.tour_url.replace("/web", "/web?debug=assets")
-        self.start_tour(url, "web_studio.test_report_edition_dynamic_table", login="admin")
+        self.start_tour(self.tour_url + "&debug=assets", "web_studio.test_report_edition_dynamic_table", login="admin")
 
         arch, _ = get_combined_and_studio_arch(self.main_view_document)
         self.assertXMLEqual(arch, """
@@ -841,8 +839,7 @@ class TestReportEditorUIUnit(HttpCase):
             self.start_tour(self.tour_url, "web_studio.test_error_at_loading", login="admin")
 
     def test_xml_and_form_diff(self):
-        url = self.tour_url.replace("/web", "/web?debug=1")
-        self.start_tour(url, "web_studio.test_xml_and_form_diff", login="admin")
+        self.start_tour(self.tour_url + "&debug=1", "web_studio.test_xml_and_form_diff", login="admin")
 
     def test_record_model_differs_from_action(self):
         dummy = self.env["ir.model"].create({

@@ -290,11 +290,11 @@ export class PlanningGanttModel extends GanttModel {
         let { focusDate, scaleId } = super._getInitialRangeParams(...arguments);
         // take parameters from url if set https://example.com/web?date_start=2020-11-08
         // this is used by the mail of planning.planning
-        const search = router.current.search;
-        if (search.date_start) {
-            focusDate = deserializeDateTime(search.date_start);
-            if (search.date_end) {
-                const end = deserializeDateTime(search.date_end);
+        const urlState = router.current;
+        if (urlState.date_start) {
+            focusDate = deserializeDateTime(urlState.date_start);
+            if (urlState.date_end) {
+                const end = deserializeDateTime(urlState.date_end);
                 const { start: startOfWeek1 } = computeRange("week", focusDate);
                 const { start: startOfWeek2 } = computeRange("week", end);
                 if (startOfWeek1.equals(startOfWeek2)) {

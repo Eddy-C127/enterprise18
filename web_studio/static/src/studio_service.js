@@ -7,7 +7,7 @@ import { _t } from "@web/core/l10n/translation";
 
 import { EventBus, onWillUnmount, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
-import { routerBus, router } from "@web/core/browser/router";
+import { router } from "@web/core/browser/router";
 
 const URL_VIEW_KEY = "_view_type";
 const URL_ACTION_KEY = "_action";
@@ -126,24 +126,24 @@ export const studioService = {
         };
 
         async function _loadParamsFromURL() {
-            const currentHash = router.current.hash;
-            if (currentHash.action === "studio") {
-                state.studioMode = currentHash[URL_MODE_KEY];
-                state.editedViewType = currentHash[URL_VIEW_KEY] || null;
-                const editorTab = currentHash[URL_TAB_KEY] || null;
+            const urlState = router.current;
+            if (urlState.action === "studio") {
+                state.studioMode = urlState[URL_MODE_KEY];
+                state.editedViewType = urlState[URL_VIEW_KEY] || null;
+                const editorTab = urlState[URL_TAB_KEY] || null;
                 state.editorTab = editorTab;
                 if (editorTab === "reports") {
-                    const reportId = currentHash[URL_REPORT_ID_KEY] || null;
+                    const reportId = urlState[URL_REPORT_ID_KEY] || null;
                     if (reportId) {
                         state.editedReport = { res_id: reportId };
                     }
                 }
 
-                const editedActionId = currentHash[URL_ACTION_KEY];
+                const editedActionId = urlState[URL_ACTION_KEY];
                 const additionalContext = {};
                 if (state.studioMode === MODES.EDITOR) {
-                    if (currentHash.active_id) {
-                        additionalContext.active_id = currentHash.active_id;
+                    if (urlState.active_id) {
+                        additionalContext.active_id = urlState.active_id;
                     }
                     if (editedActionId) {
                         state.editedAction = await env.services.action.loadAction(
@@ -163,10 +163,7 @@ export const studioService = {
             }
         }
 
-        let studioProm = _loadParamsFromURL();
-        routerBus.addEventListener("ROUTE_CHANGE", async () => {
-            studioProm = _loadParamsFromURL();
-        });
+        const studioProm = _loadParamsFromURL();
 
         async function _openStudio(targetMode, action = false, viewType = false) {
             if (!targetMode) {
@@ -309,28 +306,28 @@ export const studioService = {
         }
 
         function pushState() {
-            const hash = { action: "studio" };
-            hash[URL_MODE_KEY] = state.studioMode;
-            hash[URL_ACTION_KEY] = undefined;
-            hash[URL_VIEW_KEY] = undefined;
-            hash[URL_TAB_KEY] = undefined;
+            const search = { action: "studio" };
+            search[URL_MODE_KEY] = state.studioMode;
+            search[URL_ACTION_KEY] = undefined;
+            search[URL_VIEW_KEY] = undefined;
+            search[URL_TAB_KEY] = undefined;
             if (state.studioMode === MODES.EDITOR) {
-                hash[URL_ACTION_KEY] = JSON.stringify(state.editedAction.id);
-                hash[URL_VIEW_KEY] = state.editedViewType || undefined;
-                hash[URL_TAB_KEY] = state.editorTab;
+                search[URL_ACTION_KEY] = JSON.stringify(state.editedAction.id);
+                search[URL_VIEW_KEY] = state.editedViewType || undefined;
+                search[URL_TAB_KEY] = state.editorTab;
             }
             if (
                 state.editedAction &&
                 state.editedAction.context &&
                 state.editedAction.context.active_id
             ) {
-                hash.active_id = state.editedAction.context.active_id;
+                search.active_id = state.editedAction.context.active_id;
             }
 
             if (state.editorTab === "reports" && state.editedReport) {
-                hash[URL_REPORT_ID_KEY] = state.editedReport.res_id;
+                search[URL_REPORT_ID_KEY] = state.editedReport.res_id;
             }
-            router.pushState(hash, { replace: true });
+            router.pushState(search, { replace: true });
         }
 
         function setParams(params = {}, reset = true) {

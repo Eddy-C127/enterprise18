@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { createFile, inputFiles } from "@web/../tests/utils";
+import { redirect } from "@web/core/utils/urls";
 
 registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
     test: true,
@@ -75,7 +76,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
                 const regex = "/salary_package/simulation/.*";
                 const url = simulation_link.match(regex)[0];
                 localStorage.setItem("url", url);
-                window.location.pathname = "/web/session/logout";
+                redirect("/web/session/logout");
             },
         },
         {

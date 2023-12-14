@@ -3,7 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { SearchModel } from "@web/search/search_model";
 import { browser } from "@web/core/browser/browser";
-import { parseHash, router } from "@web/core/browser/router";
+import { router } from "@web/core/browser/router";
 import { useSetupAction } from "@web/webclient/actions/action_hook";
 
 // Helpers
@@ -15,7 +15,7 @@ export class DocumentsSearchModel extends SearchModel {
         super.setup(services);
         useSetupAction({
             beforeLeave: () => {
-                this._updateRouteState({ folder_id: undefined, tag_ids: undefined }, false);
+                this._updateRouteState({ folder_id: undefined, tag_ids: undefined });
             },
         });
     }
@@ -24,9 +24,8 @@ export class DocumentsSearchModel extends SearchModel {
         await super.load(...arguments);
         this.deletionDelay = await this.orm.call("documents.document", "get_deletion_delay", [[]]);
 
-        const urlHash = parseHash(browser.location.hash);
-        const folderId = urlHash.folder_id || this.getSelectedFolderId();
-        const tagIds = urlHash.tag_ids;
+        const folderId = router.current.folder_id || this.getSelectedFolderId();
+        const tagIds = router.current.tag_ids;
 
         if (folderId) {
             const folderSection = this.getSections(isFolderCategory)[0];
@@ -111,7 +110,7 @@ export class DocumentsSearchModel extends SearchModel {
         browser.localStorage.setItem(storageKey, valueId);
 
         if (fieldName === "folder_id") {
-            this._updateRouteState({ folder_id: valueId, tag_ids: undefined }, true);
+            this._updateRouteState({ folder_id: valueId, tag_ids: undefined });
         }
     }
 
@@ -123,7 +122,7 @@ export class DocumentsSearchModel extends SearchModel {
         super.toggleFilterValues(...arguments);
         const { fieldName } = this.sections.get(sectionId);
         if (fieldName === "tag_ids") {
-            this._updateRouteState({ tag_ids: this.getSelectedTagIds() }, true);
+            this._updateRouteState({ tag_ids: this.getSelectedTagIds() });
         }
     }
 
@@ -278,7 +277,7 @@ export class DocumentsSearchModel extends SearchModel {
         return true;
     }
 
-    _updateRouteState(state, lock) {
-        router.pushState(state, { lock: lock });
+    _updateRouteState(state) {
+        router.pushState(state);
     }
 }

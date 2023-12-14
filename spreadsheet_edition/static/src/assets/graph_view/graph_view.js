@@ -28,7 +28,7 @@ export const patchGraphSpreadsheet = () => ({
 
     async onInsertInSpreadsheet() {
         let menuXMLId = undefined;
-        const menuId = router.current.hash.menu_id;
+        const menuId = router.current.menu_id;
         if (menuId) {
             const menu = this.menu.getMenu(menuId);
             menuXMLId = menu ? menu.xmlid || menu.id : undefined;
