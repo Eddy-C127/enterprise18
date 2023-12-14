@@ -30,6 +30,7 @@ export class TypeWidgetProperties extends Component {
             domain: [],
             number: [],
             string: [],
+            digits: [],
         });
 
         onWillStart(async () => {
@@ -53,6 +54,7 @@ export class TypeWidgetProperties extends Component {
         this.attributes.domain = this.getWidgetAttributes("domain", props);
         this.attributes.number = this.getWidgetAttributes("number", props);
         this.attributes.string = this.getWidgetAttributes("string", props);
+        this.attributes.digits = this.getWidgetAttributes("digits", props);
     }
 
     async getAttributesOfTypeField(props) {
@@ -337,7 +339,16 @@ export class TypeWidgetProperties extends Component {
         }
         const options = { ...this.props.node.attrs.options };
         if (value || currentProperty.type === "boolean") {
-            if (["[", "{"].includes(value[0]) || !isNaN(value)) {
+            if (currentProperty.type === "digits") {
+                // The digits options is composed of two integers.
+                // The first one is unused and the second one is passed to `toFixed`
+                // from `formatFloat`. It should be an integer between 0 and 20.
+                value = Number(value);
+                if (!Number.isInteger(value) || value < 0 || value > 20) {
+                    return;
+                }
+                options[name] = [value * 2, value];
+            } else if (["[", "{"].includes(value[0]) || !isNaN(value)) {
                 options[name] = JSON.parse(value);
             } else if (currentProperty.type === "number") {
                 options[name] = Number(value);

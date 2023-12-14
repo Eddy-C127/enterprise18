@@ -1428,3 +1428,17 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 </xpath>
             </data>
         """)
+
+    def test_edit_digits_option(self):
+        self.testView.arch = '''<form class="test-user-list">
+            <field name="partner_latitude" />
+        </form>'''
+        self.start_tour("/web?debug=tests", 'web_studio_test_edit_digits_option', login="admin", timeout=200)
+        studioView = _get_studio_view(self.testView)
+        assertViewArchEqual(self, studioView.arch, """
+            <data>
+                <xpath expr="//field[@name='partner_latitude']" position="attributes">
+                    <attribute name="options">{"digits":[4,2]}</attribute>
+                </xpath>
+             </data>
+            """)
