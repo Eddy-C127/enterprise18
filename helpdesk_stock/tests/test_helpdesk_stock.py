@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from odoo import Command
 from odoo.addons.helpdesk.tests import common
 from odoo.exceptions import UserError
 from odoo.tests import Form, tagged
@@ -128,3 +129,51 @@ class TestHelpdeskStock(common.HelpdeskCommon):
         except UserError:
             self.fail("We should be able to make a return of the already delivered quantities "
                       "even if the so has an open backorder that isn't done")
+
+    def test_helpdesk_ticket_partner_has_picking(self):
+        """
+        This test case verifies that a helpdesk ticket correctly identifies if its associated partner
+        or the partner's commercial entity has related delivery orders after confirming a sale order.
+        """
+        product = self.env['product.product'].create({
+            'name': 'Product 2',
+            'is_storable': True,
+            'invoice_policy': 'order',
+        })
+        commercial_partner = self.env['res.partner'].create({
+            'name': 'Commercial Customer',
+            'is_company': True,
+        })
+        # Create a child partner
+        partner = self.env['res.partner'].create({
+            'name': 'Customer 2',
+            'parent_id': commercial_partner.id,
+        })
+        sale_order = self.env['sale.order'].create({
+            'partner_id': partner.id,
+            'order_line': [Command.create({
+                'product_id': product.id,
+                'price_unit': 10,
+                'product_uom_qty': 5,
+            })],
+        })
+        sale_order.action_confirm()
+        delivery_order = sale_order.picking_ids[0]
+        delivery_order.move_ids[0].quantity = 5
+        delivery_order.button_validate()
+
+        ticket = self.env['helpdesk.ticket'].create({
+            'name': 'Test Ticket',
+            'partner_id': partner.id,
+            'team_id': self.test_team.id,
+            'sale_order_id': sale_order.id,
+        })
+
+        self.assertTrue(ticket.has_partner_picking,
+                        "The ticket should have a related delivery order for the partner.")
+
+        # assign commercial_partner to partner_id in ticket
+        ticket.partner_id = commercial_partner
+
+        self.assertTrue(ticket.has_partner_picking,
+                        "The ticket should have a related delivery order for the commercial partner")

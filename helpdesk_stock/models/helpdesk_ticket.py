@@ -26,7 +26,7 @@ class HelpdeskTicket(models.Model):
 
     @api.depends('partner_id')
     def _compute_suitable_product_ids(self):
-        suitable_partner_ids = self.partner_id.ids + self.partner_id.parent_id.ids
+        suitable_partner_ids = self.env['res.partner'].search([('commercial_partner_id', 'in', self.commercial_partner_id.ids)]).ids
 
         sale_data = self.env['sale.order.line']._read_group([
             ('product_id', '!=', False),
@@ -55,12 +55,13 @@ class HelpdeskTicket(models.Model):
                 for partner, picking_ids in picking_data:
                     product_lists = [move_lines[pick] for pick in picking_ids if pick in move_lines]
                     outgoing_product[partner.id] = list(itertools.chain(*product_lists))
+        partners_in_sale = dict(zip(order_data.keys(), self.env['res.partner'].browse(order_data.keys())))
 
         for ticket in self:
-            ticket_partners_id = ticket.partner_id.ids + ticket.partner_id.parent_id.ids
+            ticket_partners_id = ticket.partner_id.ids + ticket.commercial_partner_id.ids
             product_ids = set(item for partner_id in ticket_partners_id for item in order_data.get(partner_id, []) + outgoing_product.get(partner_id, []))
             ticket.suitable_product_ids = [fields.Command.set(product_ids)]
-            ticket.has_partner_picking = outgoing_product.get(ticket.partner_id.id, False) or outgoing_product.get(ticket.partner_id.parent_id.id, False)
+            ticket.has_partner_picking = any(partner_id in outgoing_product for partner_id in suitable_partner_ids) or any(partner_id in partners_in_sale for partner_id in suitable_partner_ids)
 
     @api.onchange('suitable_product_ids')
     def onchange_product_id(self):
