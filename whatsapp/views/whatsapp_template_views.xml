@@ -17,11 +17,12 @@
                         groups="whatsapp.group_whatsapp_admin"/>
                     <button name="button_create_action" string="Allow Multi"
                         class="btn btn-primary" type="object"
-                        invisible="has_action"
+                        invisible="has_action or status != 'approved'"
                         groups="whatsapp.group_whatsapp_admin"/>
                     <button name="button_delete_action" string="Disallow Multi"
-                        type="object" invisible="not has_action"
+                        type="object"
                         groups="whatsapp.group_whatsapp_admin"
+                        invisible="not has_action or status != 'approved'"
                         confirm="There might be other templates that still need the Multi"/>
                     <button name="button_sync_template" string="Sync Template"
                         type="object"
@@ -46,11 +47,11 @@
                     <group>
                         <group>
                             <field name="active" invisible="1"/>
-                            <field name="model" invisible="1"/>
                             <field name="wa_account_id"
                                 groups="whatsapp.group_whatsapp_admin"
                                 readonly="status != 'draft'"/>
-                            <field name="model_id" required="1"/>
+                            <field name="model" required="1"/>
+                            <field name="model_id" invisible="1"/>
                             <field name="phone_field"
                                 widget="DynamicModelFieldSelectorChar"
                                 options="{'model': 'model' or 'res.partner'}"/>

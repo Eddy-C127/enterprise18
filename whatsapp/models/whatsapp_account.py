@@ -73,13 +73,13 @@ class WhatsAppAccount(models.Model):
             It will create new templates and update existing templates.
         """
         self.ensure_one()
-        wa_api = WhatsAppApi(self)
-        WhatsappTemplate = self.env['whatsapp.template']
         try:
-            response = wa_api._get_all_template()
-        except WhatsAppError as e:
-            raise ValidationError(str(e))
-        existing_tmpls = WhatsappTemplate.search([('wa_account_id', '=', self.id)])
+            response = WhatsAppApi(self)._get_all_template()
+        except WhatsAppError as err:
+            raise ValidationError(str(err)) from err
+
+        WhatsappTemplate = self.env['whatsapp.template']
+        existing_tmpls = WhatsappTemplate.with_context(active_test=False).search([('wa_account_id', '=', self.id)])
         existing_tmpl_by_id = {t.wa_template_uid: t for t in existing_tmpls}
         template_update_count = 0
         template_create_count = 0
@@ -139,12 +139,14 @@ class WhatsAppAccount(models.Model):
 
     def _find_active_channel(self, sender_mobile_formatted, sender_name=False, create_if_not_found=False):
         """This method will find the active channel for the given sender mobile number."""
+        self.ensure_one()
         allowed_old_msg_date = fields.Datetime.now() - timedelta(
             days=self.env['whatsapp.message']._ACTIVE_THRESHOLD_DAYS)
         whatsapp_message = self.env['whatsapp.message'].sudo().search(
             [
                 ('mobile_number_formatted', '=', sender_mobile_formatted),
                 ('create_date', '>', allowed_old_msg_date),
+                ('wa_account_id', '=', self.id),
                 ('wa_template_id', '!=', False),
                 ('state', 'not in', ['outgoing', 'error', 'cancel']),
             ], limit=1, order='id desc')
