@@ -13,11 +13,13 @@ patch(DiscussApp, {
             extraClass: "o-mail-DiscussSidebarCategory-whatsapp",
             id: "whatsapp",
             name: _t("WhatsApp"),
+            hideWhenEmpty: true,
             isOpen: false,
             canView: false,
             canAdd: true,
             addTitle: _t("Search WhatsApp Channel"),
             serverStateKey: "is_discuss_sidebar_category_whatsapp_open",
+            sequence: 20,
         };
         return res;
     },
