@@ -262,14 +262,8 @@ class KnowledgeTopbar extends Component {
     }
 
     async unarchiveArticle() {
-        this.actionService.doAction(
-            await this.orm.call(
-                'knowledge.article',
-                'action_unarchive_article',
-                [this.props.record.resId]
-            ),
-            {stackPosition: 'replaceCurrentAction'}
-        );
+        await this.orm.call('knowledge.article', 'action_unarchive_article', [this.props.record.resId]);
+        await this.props.record.load();
     }
 
     /**
