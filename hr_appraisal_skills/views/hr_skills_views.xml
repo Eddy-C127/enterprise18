@@ -16,7 +16,7 @@
                                 context="{'appraisal_state': state}"
                                 readonly="state != 'pending' or ('uid' not in manager_user_ids and not is_manager)"
                                 class="o_appraisal_skill o_field_appraisal_skills_one2many">
-                            <tree>
+                            <tree editable="bottom">
                                 <field name="skill_type_id" optional="hidden"/>
                                 <field name="skill_id" width="200px"
                                         options="{'no_create_edit': True}"

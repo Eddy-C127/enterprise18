@@ -9,8 +9,11 @@
             <attribute name="style"/>
         </xpath>
 
-        <xpath expr="//div[@name='skills_available']//button" position="replace">
-            <button t-on-click="props.onAdd" class="btn btn-secondary btn-sm" role="button" t-if="isEditable">
+        <xpath expr="//table" position="after">
+            <button role="button"
+                class="btn btn-secondary btn-sm ms-3 mt-2"
+                t-on-click="() => props.onAdd({ editable: false})"
+                t-if="isEditable">
                 Add new skills
             </button>
         </xpath>
