@@ -99,7 +99,7 @@ class TestNlTaxReportSBR(TestAccountReportsCommon):
                 <bd-i:ValueAddedTaxOnSuppliesFromCountriesOutsideTheEC decimals="INF" contextRef="Msg" unitRef="EUR">0</bd-i:ValueAddedTaxOnSuppliesFromCountriesOutsideTheEC>
                 <bd-i:ValueAddedTaxOnSuppliesFromCountriesWithinTheEC decimals="INF" contextRef="Msg" unitRef="EUR">0</bd-i:ValueAddedTaxOnSuppliesFromCountriesWithinTheEC>
                 <bd-i:ValueAddedTaxOwed decimals="INF" contextRef="Msg" unitRef="EUR">294</bd-i:ValueAddedTaxOwed>
-                <bd-i:ValueAddedTaxOwedToBePaidBack decimals="INF" contextRef="Msg" unitRef="EUR">58</bd-i:ValueAddedTaxOwedToBePaidBack>
+                <bd-i:ValueAddedTaxOwedToBePaidBack decimals="INF" contextRef="Msg" unitRef="EUR">59</bd-i:ValueAddedTaxOwedToBePaidBack>
                 <bd-i:ValueAddedTaxPrivateUse decimals="INF" contextRef="Msg" unitRef="EUR">0</bd-i:ValueAddedTaxPrivateUse>
                 <bd-i:ValueAddedTaxSuppliesServicesByWhichVATTaxationIsTransferred decimals="INF" contextRef="Msg" unitRef="EUR">0</bd-i:ValueAddedTaxSuppliesServicesByWhichVATTaxationIsTransferred>
                 <bd-i:ValueAddedTaxSuppliesServicesGeneralTariff decimals="INF" contextRef="Msg" unitRef="EUR">294</bd-i:ValueAddedTaxSuppliesServicesGeneralTariff>
