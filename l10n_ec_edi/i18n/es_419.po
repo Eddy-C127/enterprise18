@@ -1344,6 +1344,13 @@ msgstr "El método de pago SRI debe estar configurado."
 
 #. module: l10n_ec_edi
 #. odoo-python
+#: code:addons/l10n_ec_edi/wizard/l10n_ec_wizard_account_withhold.py:0
+#, python-format
+msgid "The SRI Payment Method must be set."
+msgstr "Se debe configurar el Método de Pago del SRI."
+
+#. module: l10n_ec_edi
+#. odoo-python
 #: code:addons/l10n_ec_edi/models/account_edi_format.py:0
 #, python-format
 msgid "The SRI service failed with the following error: %s"
@@ -1811,7 +1818,7 @@ msgstr "Debe setear el Número de Documento en el documento %s"
 #: code:addons/l10n_ec_edi/models/account_edi_format.py:0
 #, python-format
 msgid "You must set the Payment Method SRI on document %s"
-msgstr "Debe setear el SRI Metodo de Pago en el documento %s"
+msgstr "Debe setear el Método de Pago del SRI en el documento %s"
 
 #. module: l10n_ec_edi
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.ec_edi_signature

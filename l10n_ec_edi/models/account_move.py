@@ -175,6 +175,7 @@ class AccountMove(models.Model):
                 '01',  # Factura compra
                 '02',  # Nota de venta
                 '03',  # Liquidacion compra
+                '05',  # Nota de Débito
                 '08',  # Entradas a espectaculos
                 '09',  # Tiquetes
                 '11',  # Pasajes
@@ -185,7 +186,6 @@ class AccountMove(models.Model):
                 '48',  # Nota de débito de reembolso
             ]
             add_withhold = invoice.country_code == 'EC' and invoice.l10n_latam_document_type_id.code in codes_to_withhold
-            add_withhold = add_withhold and not invoice.l10n_ec_withhold_ids.filtered(lambda w: w.state == 'posted')
             invoice.l10n_ec_show_add_withhold = add_withhold
 
     @api.depends('country_code', 'l10n_ec_withhold_type', 'line_ids.tax_ids', 'line_ids.l10n_ec_withhold_invoice_id')
