@@ -6,7 +6,7 @@ import { InsertListSpreadsheetMenu } from "@spreadsheet_edition/assets/list_view
 import { selectCell, setCellContent } from "@spreadsheet/../tests/utils/commands";
 import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import { getCellFormula, getEvaluatedCell, getCellValue } from "@spreadsheet/../tests/utils/getters";
-import { makeMockedUser } from "@web/../tests/helpers/mock_services";
+import { patchUserContextWithCleanup, patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { click, getFixture, nextTick, patchWithCleanup, patchDate, editInput, makeDeferred } from "@web/../tests/helpers/utils";
 import { toggleActionMenu, pagerNext } from "@web/../tests/search/helpers";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
@@ -16,6 +16,7 @@ import { ListController } from "@web/views/list/list_controller";
 import { createSpreadsheetFromListView, spawnListViewForSpreadsheet, toggleCogMenuSpreadsheet } from "../utils/list_helpers";
 import { createSpreadsheet } from "../spreadsheet_test_utils.js";
 import { doMenuAction } from "@spreadsheet/../tests/utils/ui";
+import { user } from "@web/core/user";
 import { session } from "@web/session";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
 import { insertListInSpreadsheet } from "@spreadsheet/../tests/utils/list";
@@ -286,26 +287,24 @@ QUnit.module("document_spreadsheet > list view", {
             },
         });
 
-        const userContext = {
-            allowed_company_ids: [15],
-            tz: "bx",
-            lang: "FR",
-            uid: 4,
-        };
         const testSession = {
-            uid: 4,
             user_companies: {
                 allowed_companies: {
                     15: { id: 15, name: "Hermit" },
                 },
                 current_company: 15,
             },
-            user_context: userContext,
         };
         patchWithCleanup(session, testSession);
-        makeMockedUser();
+        patchUserContextWithCleanup({
+            allowed_company_ids: [15],
+            tz: "bx",
+            lang: "FR",
+            uid: 4,
+        });
+        patchUserWithCleanup({ userId: 4 });
         const context = {
-            ...userContext,
+            ...user.context,
             default_stage_id: 5,
         };
         const serverData = { models: getBasicData() };

@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { session } from '@web/session';
+import { user } from '@web/core/user';
 import { formatFloatTime } from '@web/views/fields/formatters';
 import { formatFloat } from "@web/core/utils/numbers";
 import { useService } from "@web/core/utils/hooks";
@@ -38,7 +38,7 @@ export class HelpdeskTeamDashboard extends Component {
     async updateHelpdeskTarget(targetName, value) {
         await this.orm.write(
             'res.users',
-            [session.uid],
+            [user.userId],
             { [targetName]: value },
         );
         this.state.dashboardValues[targetName] = value;
@@ -85,7 +85,7 @@ export class HelpdeskTeamDashboard extends Component {
             'helpdesk.team',
             'retrieve_dashboard',
             [],
-            { context: session.user_context },
+            { context: user.context },
         );
     }
 

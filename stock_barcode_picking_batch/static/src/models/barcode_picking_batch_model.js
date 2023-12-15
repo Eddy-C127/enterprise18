@@ -2,7 +2,7 @@
 
 import BarcodePickingModel from '@stock_barcode/models/barcode_picking_model';
 import { _t } from "@web/core/l10n/translation";
-import { session } from '@web/session';
+import { user } from '@web/core/user';
 
 export default class BarcodePickingBatchModel extends BarcodePickingModel {
     constructor(params) {
@@ -302,26 +302,26 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
      */
     async _setUser() {
         if (this._shouldAssignUser()) {
-            this.record.user_id = session.uid;
+            this.record.user_id = user.userId;
             const pickings = [];
             for (const pickingId of this.record.picking_ids) {
                 const picking = this.cache.getRecord('stock.picking', pickingId);
-                picking.user_id = session.uid;
+                picking.user_id = user.userId;
                 pickings.push(picking);
             }
             this.cache.setCache({'stock.picking': pickings});
-            await this.orm.write(this.resModel, [this.record.id], { user_id: session.uid });
+            await this.orm.write(this.resModel, [this.record.id], { user_id: user.userId });
         }
     }
 
     _shouldAssignUser() {
         // First checks if user should be assigned to batch...
-        if (this.record.user_id != session.uid)
+        if (this.record.user_id != user.userId)
             return true;
         // ... then checks if user should be assigned to atleast one picking.
         for (const pickingId of this.record.picking_ids) {
             const picking = this.cache.getRecord('stock.picking', pickingId);
-            if (picking.user_id != session.uid)
+            if (picking.user_id != user.userId)
                 return true;
         }
         return false;

@@ -4,7 +4,7 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { Many2OneAvatarRankField } from "@sale_timesheet_enterprise/components/many2one_avatar_rank_field/many2one_avatar_rank_field";
 
 import { Component, onWillStart, useState } from "@odoo/owl";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 
@@ -47,7 +47,7 @@ export class TimesheetLeaderboardDialog extends Component {
             "res.company",
             "get_timesheet_ranking_data",
             [this.state.date, periodEnd, periodEnd, fetchTip],
-            { context: session.user_context }
+            { context: user.context }
         );
         if (fetchTip) {
             this.tip = data.tip;

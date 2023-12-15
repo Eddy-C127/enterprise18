@@ -1,9 +1,8 @@
 /** @odoo-module **/
 
-import { makeMockedUser } from "@web/../tests/helpers/mock_services";
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { click, getFixture, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { doAction, getActionManagerServerData } from "@web/../tests/webclient/helpers";
-import { session } from "@web/session";
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
 import { patchListRendererDesktop } from "@web_enterprise/views/list/list_renderer_desktop";
@@ -17,8 +16,7 @@ QUnit.module("Studio", (hooks) => {
     hooks.beforeEach(() => {
         serverData = getActionManagerServerData();
         registerStudioDependencies();
-        patchWithCleanup(session, { is_system: true });
-        makeMockedUser();
+        patchUserWithCleanup({ isSystem: true });
         target = getFixture();
         patchWithCleanup(ListRenderer.prototype, patchListRendererDesktop());
         patchWithCleanup(ListRenderer.prototype, patchListRendererStudio());

@@ -2,7 +2,7 @@
 
 import { contains } from "@web/../tests/utils";
 
-import { makeMockedUser } from "@web/../tests/helpers/mock_services";
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import {
     click,
     getFixture,
@@ -26,7 +26,6 @@ import {
     fillActionFieldsDefaults,
 } from "@web_studio/../tests/helpers";
 import { registry } from "@web/core/registry";
-import { session } from "@web/session";
 import { patch } from "@web/core/utils/patch";
 import { StudioView } from "@web_studio/client_action/view_editor/studio_view";
 import { ViewEditor } from "@web_studio/client_action/view_editor/view_editor";
@@ -131,8 +130,7 @@ QUnit.module("Studio", (hooks) => {
     QUnit.test("Studio not available for non system users", async function (assert) {
         assert.expect(2);
 
-        patchWithCleanup(session, { is_system: false });
-        makeMockedUser();
+        patchUserWithCleanup({ isSystem: false });
         await createEnterpriseWebClient({ serverData });
         assert.containsOnce(target, ".o_main_navbar");
 
@@ -855,18 +853,18 @@ QUnit.module("Studio", (hooks) => {
         await nextTick();
         assert.containsOnce(target, ".o_kanban_view");
         assert.verifySteps([
-            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":40,"context":{"lang":"en","uid":7,"tz":"taht","allowed_company_ids":[1],"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[]}`,
+            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":40,"context":{"lang":"en","tz":"taht","allowed_company_ids":[1],"uid":7,"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[]}`,
         ]);
         await toggleSearchBarMenu(target);
         await toggleMenuItem(target, "Apple");
         assert.verifySteps([
-            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":40,"context":{"lang":"en","uid":7,"tz":"taht","allowed_company_ids":[1],"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
+            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":40,"context":{"lang":"en","tz":"taht","allowed_company_ids":[1],"uid":7,"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
         ]);
 
         await openStudio(target);
         assert.containsOnce(target, ".o_web_studio_kanban_view_editor");
         assert.verifySteps([
-            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":1,"context":{"lang":"en","uid":7,"tz":"taht","allowed_company_ids":[1],"bin_size":true,"studio":1,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
+            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":1,"context":{"lang":"en","tz":"taht","allowed_company_ids":[1],"uid":7,"bin_size":true,"studio":1,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
         ]);
         assert.strictEqual(target.querySelector(".o_kanban_record").textContent, "Applejack");
     });

@@ -1,6 +1,5 @@
 /** @odoo-module **/
 
-import { session } from "@web/session";
 import testUtils from "@web/../tests/legacy/helpers/test_utils";
 
 import { useBackButton } from "@web_mobile/js/core/hooks";
@@ -9,6 +8,7 @@ import mobile from "@web_mobile/js/services/core";
 /*import UserPreferencesFormView from "web_mobile.UserPreferencesFormView";*/
 
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { mount, getFixture, destroy, patchWithCleanup, clickSave, nextTick } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
@@ -320,10 +320,7 @@ QUnit.module("web_mobile", {
             }
         });
 
-        patchWithCleanup(session, {
-            username: "demo",
-            name: "Marc Demo",
-        });
+        patchUserWithCleanup({ login: "demo", name: "Marc Demo" });
 
         patchWithCleanup(accountMethodsForMobile, {
             url(path) {
@@ -362,10 +359,7 @@ QUnit.module("web_mobile", {
             }
         });
 
-        patchWithCleanup(session, {
-            username: "demo",
-            name: "Marc Demo",
-        });
+        patchUserWithCleanup({ login: "demo", name: "Marc Demo" });
 
         patchWithCleanup(accountMethodsForMobile, {
             url(path) {
@@ -405,10 +399,7 @@ QUnit.module("web_mobile", {
             }
         });
 
-        patchWithCleanup(session, {
-            username: "demo",
-            name: "Marc Demo",
-        });
+        patchUserWithCleanup({ login: "demo", name: "Marc Demo" });
 
         patchWithCleanup(accountMethodsForMobile, {
             url(path) {

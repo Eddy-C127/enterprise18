@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 import mobile from "@web_mobile/js/services/core";
 import { isIosApp } from "@web/core/browser/feature_detection";
 import { url } from "@web/core/utils/urls";
@@ -21,8 +21,8 @@ export const accountMethodsForMobile = {
         const base64Avatar = await accountMethodsForMobile.fetchAvatar();
         return mobile.methods.updateAccount({
             avatar: base64Avatar.substring(base64Avatar.indexOf(',') + 1),
-            name: session.name,
-            username: session.username,
+            name: user.name,
+            username: user.login,
         });
     },
     /**
@@ -35,7 +35,7 @@ export const accountMethodsForMobile = {
         const avatarUrl = accountMethodsForMobile.url('/web/image', {
             model: 'res.users',
             field: 'image_medium',
-            id: session.uid,
+            id: user.userId,
         });
         return new Promise((resolve, reject) => {
             const canvas = document.createElement('canvas');

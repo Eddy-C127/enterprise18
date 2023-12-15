@@ -1,6 +1,9 @@
 /** @odoo-module */
 
-import { makeMockedUser, patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
+import {
+    patchUserContextWithCleanup,
+    patchUserWithCleanup,
+} from "@web/../tests/helpers/mock_services";
 import {
     click,
     nextTick,
@@ -724,7 +727,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("pivot with a contextual domain", async (assert) => {
-        const uid = session.user_context.uid;
+        const uid = user.userId;
         const serverData = getBasicServerData();
         serverData.models.partner.records = [
             {
@@ -864,30 +867,27 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("user related context is not saved in the spreadsheet", async function (assert) {
-        const userContext = {
-            allowed_company_ids: [15],
-            tz: "bx",
-            lang: "FR",
-            uid: 4,
-        };
-        const context = {
-            ...userContext,
-            default_stage_id: 5,
-        };
         const testSession = {
-            uid: 4,
             user_companies: {
                 allowed_companies: { 15: { id: 15, name: "Hermit" } },
                 current_company: 15,
             },
-            user_context: userContext,
         };
         patchWithCleanup(session, testSession);
-        makeMockedUser();
+        patchUserContextWithCleanup({
+            allowed_company_ids: [15],
+            tz: "bx",
+            lang: "FR",
+            uid: 4,
+        });
+        patchUserWithCleanup({ userId: 4 });
+        const context = {
+            ...user.context,
+            default_stage_id: 5,
+        };
         const { model } = await createSpreadsheetFromPivotView({
             additionalContext: context,
         });
-        assert.deepEqual(user.context, userContext, "context is used for spreadsheet action");
         assert.deepEqual(
             model.exportData().pivots[1].context,
             {

@@ -25,7 +25,7 @@ import {
     createSpreadsheetWithPivot,
     insertPivotInSpreadsheet,
 } from "@spreadsheet/../tests/utils/pivot";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 
 const { toCartesian, toZone } = spreadsheet.helpers;
 const { cellMenuRegistry, topbarMenuRegistry } = spreadsheet.registries;
@@ -56,7 +56,7 @@ QUnit.module(
 
         QUnit.test("Reinsert a pivot with a contextual search domain", async function (assert) {
             const serverData = getBasicServerData();
-            const uid = session.user_context.uid;
+            const uid = user.userId;
             serverData.models.partner.records = [{ id: 1, probability: 0.5, foo: uid }];
             serverData.views["partner,false,search"] = /* xml */ `
                 <search>

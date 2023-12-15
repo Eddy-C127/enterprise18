@@ -1,7 +1,6 @@
 /** @odoo-module **/
 
 import { StudioNavbar } from "@web_studio/client_action/navbar/navbar";
-import { user } from "@web/core/user";
 import { patch } from "@web/core/utils/patch";
 import { resetViewCompilerCache } from "@web/views/view_compiler";
 
@@ -22,7 +21,6 @@ patch(StudioNavbar.prototype, {
                 });
                 resetViewCompilerCache();
                 this.env.bus.trigger("CLEAR-CACHES");
-                user.removeFromContext("studio");
                 return;
             }
         }
