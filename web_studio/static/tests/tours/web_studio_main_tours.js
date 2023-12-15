@@ -715,6 +715,51 @@ registry.category("web_tour.tours").add("web_studio_model_option_value_tour", {
     ],
 });
 
+registry.category("web_tour.tours").add("web_studio_new_submenu_tour", {
+    url: "/web",
+    test: true,
+    steps: () => [
+        {
+            // open studio
+            trigger: ".o_main_navbar .o_web_studio_navbar_item",
+            extra_trigger: ".o_home_menu_background",
+        },
+        {
+            // click on the created app
+            trigger: '.o_app[data-menu-xmlid*="studio"]:first',
+            extra_trigger: "body.o_in_studio",
+        },
+        {
+            // create a new menu
+            trigger: ".o-studio--menu .o_web_create_new_model",
+        },
+        {
+            trigger: "input[name=model_name]",
+            run: "text second menu" + randomString(6),
+        },
+        {
+            trigger: ".confirm_button",
+        },
+        {
+            trigger: ".o_web_studio_model_configurator_next",
+        },
+        {
+            // leave studio
+            trigger: ".o_web_studio_leave > a.btn",
+        },
+        {
+            // open studio again to check the new menu can be edited
+            trigger: ".o_main_navbar .o_web_studio_navbar_item",
+            extra_trigger: ".breadcrumb-item:contains(second menu)",
+        },
+        {
+            // check we are back in studio
+            trigger: ".o_in_studio",
+            run: () => {},
+        },
+    ],
+});
+
 registry.category("web_tour.tours").add("web_studio_new_report_tour", {
     url: "/web",
     test: true,

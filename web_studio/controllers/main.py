@@ -68,6 +68,9 @@ class WebStudioController(http.Controller):
         action = None
         if hasattr(self, '_get_studio_action_' + action_name):
             action = getattr(self, '_get_studio_action_' + action_name)(model, view_id=view_id, view_type=view_type)
+            if action:
+                action["context"] = action.get("context", {})
+                action["context"]["studio"] = 1
 
         return action
 
@@ -163,6 +166,7 @@ class WebStudioController(http.Controller):
         """
         if context:
             request.update_context(**context)
+        request.update_context(studio=1)
         _logger.info('creating new app "%s" with main menu "%s"', app_name, menu_name)
         if model_choice == 'existing' and model_id:
             model = request.env['ir.model'].browse(model_id)
@@ -214,6 +218,7 @@ class WebStudioController(http.Controller):
         """
         if context:
             request.update_context(**context)
+        request.update_context(studio=1)
         sequence = 10
         if parent_menu_id:
             menu = request.env['ir.ui.menu'].search_read([('parent_id', '=', parent_menu_id)], fields=['sequence'], order='sequence desc', limit=1)

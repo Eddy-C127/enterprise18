@@ -6,26 +6,12 @@ import { useBus, useService } from "@web/core/utils/hooks";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { computeAppsAndMenuItems, reorderApps } from "@web/webclient/menus/menu_helpers";
 
-import { useServicesOverrides } from "@web_studio/client_action/utils";
 import { AppCreator } from "./app_creator/app_creator";
 import { Editor } from "./editor/editor";
 import { StudioNavbar } from "./navbar/navbar";
 import { StudioHomeMenu } from "./studio_home_menu/studio_home_menu";
 
 import { Component, onWillStart, onMounted, onPatched, onWillUnmount } from "@odoo/owl";
-import { ormService } from "@web/core/orm_service";
-
-const studioUserService = {
-    start() {
-        const user = Object.create(originalUser);
-        Object.defineProperty(user, "context", {
-            get() {
-                return { ...originalUser.context, studio: 1 };
-            },
-        });
-        return user;
-    },
-};
 
 export class StudioClientAction extends Component {
     static template = "web_studio.StudioClientAction";
@@ -39,12 +25,6 @@ export class StudioClientAction extends Component {
     };
 
     setup() {
-        // Reinstanciate the ORM service with a custom user service.
-        // The ORM calls down the line will be done with the studio context key
-        // The ORM calls made from the original ORM service, in particular the viewService:loadViews
-        // are not affected and will be made without the studio context key.
-        useServicesOverrides({ orm: ormService, user: studioUserService }); // FIXME
-
         const homemenuConfig = JSON.parse(originalUser.settings?.homemenu_config || "null");
         this.studio = useService("studio");
         useBus(this.studio.bus, "UPDATE", () => {

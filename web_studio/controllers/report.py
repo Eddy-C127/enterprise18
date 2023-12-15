@@ -259,6 +259,7 @@ class WebStudioReportController(main.WebStudioController):
     def create_new_report(self, model_name, layout, context=None):
         if context:
             request.update_context(**context)
+        request.update_context(studio=1)
 
         if layout == 'web.basic_layout':
             arch_document = etree.fromstring("""
@@ -342,6 +343,7 @@ class WebStudioReportController(main.WebStudioController):
     def load_report_editor(self, report_id, fields, context=None):
         if context:
             request.update_context(**context)
+        request.update_context(studio=1)
         report = request.env['ir.actions.report'].browse(report_id)
         report_data = report.read(fields)
         paperformat = report._read_paper_format_measures()

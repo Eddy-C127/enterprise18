@@ -24,7 +24,10 @@ class TestUi(odoo.tests.HttpCase):
             return
         self.start_tour("/web", 'web_studio_new_app_tour', login="admin")
 
-        # the report tour is based on the result of the former tour
+        # the new submenu tour is based on the result of the new app tour
+        self.start_tour("/web", 'web_studio_new_submenu_tour', login="admin")
+
+        # the report tour is based on the result of the new app tour
         self.start_tour("/web?debug=tests", 'web_studio_new_report_tour', login="admin")
         self.start_tour("/web?debug=tests", "web_studio_new_report_basic_layout_tour", login="admin")
 

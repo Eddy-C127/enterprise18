@@ -513,6 +513,7 @@ QUnit.module("Studio", (hooks) => {
                     type: "ir.actions.act_window",
                     res_model: "partner",
                     views: [[false, "list"]],
+                    context: { studio: 1 },
                 };
             }
             if (args.method === "web_search_read") {
@@ -865,7 +866,7 @@ QUnit.module("Studio", (hooks) => {
         await openStudio(target);
         assert.containsOnce(target, ".o_web_studio_kanban_view_editor");
         assert.verifySteps([
-            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":1,"context":{"lang":"en","uid":7,"tz":"taht","allowed_company_ids":[1],"studio":1,"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
+            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":1,"context":{"lang":"en","uid":7,"tz":"taht","allowed_company_ids":[1],"bin_size":true,"studio":1,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
         ]);
         assert.strictEqual(target.querySelector(".o_kanban_record").textContent, "Applejack");
     });
@@ -1094,34 +1095,5 @@ QUnit.module("Studio", (hooks) => {
             "/web/dataset/call_kw/pony/get_views",
             "/web/dataset/call_kw/pony/web_read",
         ]);
-    });
-
-    QUnit.test("create new menu uses the studio context key", async (assert) => {
-        serverData.models.pony.fields.selection = {
-            type: "selection",
-            selection: [["1", "1"]],
-            manual: true,
-        };
-        serverData.models.pony.records = [{ id: 1, selection: "1" }];
-
-        serverData.views["pony,false,form"] = `<form><field name="selection" /></form>`;
-        const mockRPC = async (route, args) => {
-            if (route === "/web_studio/create_new_menu") {
-                assert.strictEqual(args.context.studio, 1);
-                return { action_id: 3 };
-            }
-        };
-
-        await createEnterpriseWebClient({ serverData, mockRPC });
-        await click(target.querySelector(".o_app[data-menu-xmlid=app_2]"));
-        await contains(".o_data_cell");
-        await click(target.querySelector(".o_data_cell"));
-        await contains(".o_form_view");
-        await openStudio(target);
-        await contains(".o_studio");
-        await click(target, ".o_web_create_new_model");
-        await editInput(target, '.modal input[name="model_name"]', "ABCD");
-        await click(target, ".modal footer .btn-primary");
-        await click(target, ".modal .o_web_studio_model_configurator_next");
     });
 });
