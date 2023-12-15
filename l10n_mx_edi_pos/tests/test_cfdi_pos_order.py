@@ -93,7 +93,7 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
 
     @freeze_time('2017-01-01')
     def test_invoiced_order_then_refund(self):
-        with self.with_pos_session() as _session:
+        with self.with_pos_session() as _session, self.with_mocked_pac_sign_success():
             # Invoice an order, then sign it.
             order = self._create_order({
                 'pos_order_lines_ui_args': [(self.product, 10)],
@@ -102,12 +102,8 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
                 'is_invoiced': True,
             })
             invoice = order.account_move
-            with self.with_mocked_pac_sign_success():
-                self.env['account.move.send'] \
-                    .with_context(active_model=invoice._name, active_ids=invoice.ids) \
-                    .create({}) \
-                    .action_send_and_print()
-            self._assert_invoice_cfdi(invoice, 'test_invoiced_order_then_refund_1')
+
+        self._assert_invoice_cfdi(invoice, 'test_invoiced_order_then_refund_1')
 
         # You are no longer able to create a global invoice for it.
         with self.assertRaises(UserError):
@@ -119,7 +115,7 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
                 .with_context(invoice.l10n_mx_edi_action_create_global_invoice()['context'])\
                 .create({})
 
-        with self.with_pos_session() as _session:
+        with self.with_pos_session() as _session, self.with_mocked_pac_sign_success():
             # Invoice the refund order, then sign it.
             refund_order = self._create_order({
                 'pos_order_lines_ui_args': [{
