@@ -195,7 +195,7 @@ class AccountMove(models.Model):
             candidate_tax_unit = self.company_id.account_tax_unit_ids.filtered(lambda x: x.country_id == report_country)
             if candidate_tax_unit:
                 options['tax_unit'] = candidate_tax_unit.id
-                company_ids = [company.id for company in candidate_tax_unit.sudo().company_ids]
+                company_ids = candidate_tax_unit.company_ids.ids
             else:
                 same_vat_branches = self.env.company._get_branches_with_same_vat()
                 # Consider the one with the least number of parents (highest in hierarchy) as the active company, coming first
