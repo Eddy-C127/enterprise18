@@ -469,7 +469,7 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
         options['unfold_all'] = True
 
         self.assertLinesValues(
-            self.report._get_lines(options),
+            self.report.with_context(print_mode=True)._get_lines(options),
             #   Name                                    Debit           Credit          Balance
             [   0,                                      4,              5,              6],
             [
@@ -491,7 +491,7 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
         options['filter_search_bar'] = '999'
 
         self.assertLinesValues(
-            self.report._get_lines(options),
+            self.report.with_context(print_mode=True)._get_lines(options),
             #   Name                                          Debit           Credit          Balance
             [   0,                                            4,              5,              6],
             [
