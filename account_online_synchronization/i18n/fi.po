@@ -15,13 +15,13 @@
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2023
 # Joakim Weckman, 2023
 # Eino Mäkitalo <eino.makitalo@netitbe.fi>, 2023
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2023
 # Tommi Rintala <tommi.rintala@gmail.com>, 2023
 # Miku Laitinen <miku.laitinen@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-31 14:34+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023\n"
+"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,18 +45,20 @@ msgid ""
 ").\n"
 "                    This might cause duplicate entries."
 msgstr ""
+").\n"
+"                    Tämä saattaa aiheuttaa päällekkäisiä merkintöjä."
 
 #. module: account_online_synchronization
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "0 transaction fetched"
-msgstr ""
+msgstr "0 tapahtumaa haettu"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_form
 msgid "<i class=\"oi oi-arrow-right me-2\"/> Send Now"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right me-2\"/> Lähetä nyt"
 
 #. module: account_online_synchronization
 #: model:mail.template,body_html:account_online_synchronization.email_template_sync_reminder
@@ -118,6 +120,68 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #FFFFFF; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: #FFFFFF; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <!-- CONTENT -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Hei,<br><br>\n"
+"                                                            Yhteys <b><a t-att-href=\"object.get_base_url()\" t-out=\"object.get_base_url() or ''\">https://yourcompany.odoo.com</a></b> ja <t t-out=\"object.account_online_link_id.name or ''\">Belfius</t> <t t-if=\"not object.expiring_synchronization_due_day\">päättyi.</t><t t-else=\"\">päättyy <t t-out=\"object.expiring_synchronization_due_day or ''\">10</t> päivän kuluttua</t>.<br>\n"
+"                                                            <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                                <a t-attf-href=\"{{ website_url }}/renew_consent/{{ object.id }}?access_token={{object.access_token}}\" style=\"background-color: #4caf50; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                                    Uudista suostumus\n"
+"                                                                </a>\n"
+"                                                            </div>\n"
+"                                                            Turvallisuusvinkki: Tarkista, että verkkotunnus, johon sinut ohjataan, on: <b><a t-att-href=\"object.get_base_url()\" t-out=\"object.get_base_url() or ''\">https://yourcompany.odoo.com</a></b>\n"
+"                                                        </div>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                    <!-- POWERED BY -->\n"
+"                    <tr>\n"
+"                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                                <tr>\n"
+"                                    <td style=\"text-align: center; font-size: 13px;\">\n"
+"                                        Voimaa jakaa <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Odoo</a>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </table>\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                                <tr>\n"
+"                                    <td style=\"text-align: center; font-size: 11px;\">\n"
+"                                        PS: Tämä on automaattinen sähköpostiviesti, jonka Odoo Accounting lähettää muistuttaakseen sinua ennen pankkisynkronoinnin suostumuksen päättymistä.\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
+
+#. module: account_online_synchronization
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid " If you've already opened this issue don't report it again."
+msgstr "Jos olet jo avannut tämän ongelman, älä raportoi sitä uudelleen."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__access_token
@@ -164,7 +228,7 @@ msgstr "Tilin online-linkki"
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_cron_waiting_synchronization_ir_actions_server
 msgid "Account: Journal online Waiting Synchronization"
-msgstr ""
+msgstr "Tili: Odottaa synkronointia"
 
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_cron_ir_actions_server
@@ -174,12 +238,12 @@ msgstr "Tili: Päiväkirjan online-synkronointi"
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_unused_connection_cron_ir_actions_server
 msgid "Account: Journal online sync cleanup unused connections"
-msgstr ""
+msgstr "Tili: Päiväkirjan online sync puhdistaa käyttämättömät yhteydet"
 
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_mail_cron_ir_actions_server
 msgid "Account: Journal online sync reminder"
-msgstr ""
+msgstr "Tili: Päiväkirjan online-synkronoinnin muistutus"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_needaction
@@ -268,7 +332,7 @@ msgstr "Pankkien synkronointi: Päivitä suostumuksesi"
 #. module: account_online_synchronization
 #: model:mail.template,name:account_online_synchronization.email_template_sync_reminder
 msgid "Bank connection expiration reminder"
-msgstr ""
+msgstr "Muistutus pankkiyhteyden vanhenemisesta"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_bank_rec_widget
@@ -284,7 +348,7 @@ msgstr "Peruuta"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Choose a date and a journal from which you want to fetch transactions"
-msgstr ""
+msgstr "Valitse päivämäärä ja päiväkirja, josta haluat hakea tapahtumia"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__client_id
@@ -302,6 +366,9 @@ msgid ""
 "Comma separated list of email addresses to send consent renewal "
 "notifications 15, 3 and 1 days before expiry"
 msgstr ""
+"Pilkulla erotettu luettelo sähköpostiosoitteista, joihin lähetetään "
+"suostumuksen uusimisilmoitukset 15, 3 ja 1 päivää ennen voimassaolon "
+"päättymistä"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_res_company
@@ -323,17 +390,17 @@ msgstr "Yhdistä"
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_dashboard_inherit_online_sync
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
 msgid "Connect Bank"
-msgstr ""
+msgstr "Yhdistä pankkiin"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Connect my Bank"
-msgstr ""
+msgstr "Yhdistä omaan pankkiin"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Connect your bank account to Odoo"
-msgstr ""
+msgstr "Yhdistä oma pankkitilisi Odoon kanssa"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__connected
@@ -345,22 +412,22 @@ msgstr "Yhdistetty"
 #: code:addons/account_online_synchronization/static/src/components/connected_until_widget/connected_until_widget.xml:0
 #, python-format
 msgid "Connected until"
-msgstr ""
+msgstr "Kytketty kunnes"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_journal__renewal_contact_email
 msgid "Connection Requests"
-msgstr ""
+msgstr "Yhteyspyynnöt"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__connection_state_details
 msgid "Connection State Details"
-msgstr ""
+msgstr "Yhteyden tilan tiedot"
 
 #. module: account_online_synchronization
 #: model:mail.message.subtype,name:account_online_synchronization.bank_sync_consent_renewal
 msgid "Consent Renewal"
-msgstr ""
+msgstr "Suostumuksen uusiminen"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_res_partner
@@ -444,7 +511,7 @@ msgstr "Synkronoinnin vanhentumisen eräpäivä"
 #: code:addons/account_online_synchronization/static/src/components/connected_until_widget/connected_until_widget.xml:0
 #, python-format
 msgid "Extend Connection"
-msgstr ""
+msgstr "Laajenna yhteys"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_account__account_data
@@ -454,12 +521,12 @@ msgstr "Kolmannen osapuolen palveluntarjoajan tarvitsemat lisätiedot"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Fetch"
-msgstr ""
+msgstr "Hae"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Fetch Missing Bank Statements Wizard"
-msgstr ""
+msgstr "Hae puuttuvat tiliotteet ohjatulla toiminnolla"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -480,14 +547,14 @@ msgstr "Haetut tapahtumat"
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_journal__online_sync_fetching_status
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_account__fetching_status
 msgid "Fetching Status"
-msgstr ""
+msgstr "Hakemisen tila"
 
 #. module: account_online_synchronization
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "Fetching..."
-msgstr ""
+msgstr "Noutaa..."
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -497,7 +564,7 @@ msgstr ""
 #: model:ir.actions.server,name:account_online_synchronization.account_journal_action_fetch_missing_transactions
 #, python-format
 msgid "Find Missing Transactions"
-msgstr ""
+msgstr "Etsi puuttuvat tapahtumat"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_follower_ids
@@ -522,14 +589,14 @@ msgstr "Sisältää viestin"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__has_unlinked_accounts
 msgid "Has Unlinked Accounts"
-msgstr ""
+msgstr "Sisältää linkittämättömiä tilejä"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Here"
-msgstr ""
+msgstr "Tässä"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_selection__id
@@ -591,7 +658,7 @@ msgstr ""
 #: code:addons/account_online_synchronization/static/src/components/transient_bank_statement_line_list_view/transient_bank_statement_line_list_view.xml:0
 #, python-format
 msgid "Import Transactions"
-msgstr ""
+msgstr "Tuo tapahtumia"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__provider_data
@@ -681,19 +748,19 @@ msgstr "Viimeisin synkronointi"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Latest Balance"
-msgstr ""
+msgstr "Viimeisin saldo"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_bank_selection
 msgid "Link a bank account to the selected journal"
-msgstr ""
+msgstr "Pankkitilin yhdistäminen valittuun päiväkirjaan"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Manual Bank Statement Lines"
-msgstr ""
+msgstr "Manuaaliset tiliotteen rivit"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -717,7 +784,7 @@ msgstr "Viestit"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Missing and Pending Transactions"
-msgstr ""
+msgstr "Puuttuvat ja vireillä olevat tapahtumat"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__my_activity_date_deadline
@@ -852,7 +919,7 @@ msgstr "Odottaa"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Please enter a valid Starting Date to continue."
-msgstr ""
+msgstr "Syötä voimassa oleva alkamispäivä jatkaaksesi."
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -866,7 +933,7 @@ msgstr "Yhdistä verkkotilisi uudelleen."
 #: code:addons/account_online_synchronization/wizard/account_bank_statement_line.py:0
 #, python-format
 msgid "Please select first the transactions you wish to import."
-msgstr ""
+msgstr "Valitse ensin tapahtumat, jotka haluat tuoda."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_bank_statement_line_transient__state__posted
@@ -876,7 +943,7 @@ msgstr "Kirjattu"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.missing_bank_statement_line_search
 msgid "Posted Transactions"
-msgstr ""
+msgstr "Lähetetyt tapahtumat"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_account__fetching_status__processing
@@ -891,7 +958,7 @@ msgstr "Palveluntarjoajan tiedot"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__provider_type
 msgid "Provider Type"
-msgstr ""
+msgstr "Palveluntarjoajan tyyppi"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__rating_ids
@@ -909,7 +976,7 @@ msgstr "Yhdistä uudelleen"
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_dashboard_inherit_online_sync
 #, python-format
 msgid "Reconnect Bank"
-msgstr ""
+msgstr "Yhdistä pankkiin uudestaan"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -935,14 +1002,14 @@ msgstr "Uudista pääsytunniste"
 #: code:addons/account_online_synchronization/models/account_journal.py:0
 #, python-format
 msgid "Report Issue"
-msgstr ""
+msgstr "Raportoi ongelmasta"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Report issue"
-msgstr ""
+msgstr "Raportoi ongelma"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__client_id
@@ -965,13 +1032,15 @@ msgid ""
 "Security Tip: always check the domain name of this page, before clicking on "
 "the button."
 msgstr ""
+"Turvallisuusvinkki: tarkista aina tämän sivun verkkotunnus, ennen kuin "
+"napsautat painiketta."
 
 #. module: account_online_synchronization
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "See error"
-msgstr ""
+msgstr "Katso virhe"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -979,17 +1048,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
 #, python-format
 msgid "Select a Bank Account"
-msgstr ""
+msgstr "Valitse pankkitili"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
 msgid "Select the"
-msgstr ""
+msgstr "Valitse seuraava sivu"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_selection__selected_account
 msgid "Selected Account"
-msgstr ""
+msgstr "Valittu tili"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_statement_line_transient__sequence
@@ -1047,7 +1116,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__provider_type
 msgid "Third Party Provider"
-msgstr ""
+msgstr "Kolmannen osapuolen palveluntarjoaja"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1088,7 +1157,7 @@ msgstr "Maksutapahtuman tiedot"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_bank_statement_line_transient
 msgid "Transient model for bank statement line"
-msgstr ""
+msgstr "Transienttinen malli pankkitilinpäätöstä varten"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__has_unlinked_accounts
@@ -1096,6 +1165,8 @@ msgid ""
 "True if that connection still has accounts that are not linked to an Odoo "
 "journal"
 msgstr ""
+"True, jos kyseisellä yhteydellä on edelleen tilejä, joita ei ole yhdistetty "
+"Odoo-päiväkirjaan"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__activity_exception_decoration
@@ -1125,7 +1196,7 @@ msgstr "Verkkosivun viestihistoria"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_missing_transaction_wizard
 msgid "Wizard for missing transactions"
-msgstr ""
+msgstr "Ohjattu toiminto puuttuvia tapahtumia varten"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1135,13 +1206,15 @@ msgid ""
 "You are importing transactions before the creation of your online synchronization\n"
 "                    ("
 msgstr ""
+"Tuodaan tapahtumia ennen online-synkronoinnin luomista\n"
+"                    ("
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "You can contact Odoo support"
-msgstr ""
+msgstr "Voit olla yhteydessä Odoon tukeen"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1149,6 +1222,7 @@ msgstr ""
 #, python-format
 msgid "You can only execute this action for bank-synchronized journals."
 msgstr ""
+"Voit suorittaa tämän toiminnon vain pankkisynkronoiduille päiväkirjoille."
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1158,6 +1232,7 @@ msgstr ""
 msgid ""
 "You can't find missing transactions for a journal that isn't connected."
 msgstr ""
+"Et voi löytää puuttuvia tapahtumia päiväkirjasta, joka ei ole liitetty."
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1172,7 +1247,7 @@ msgstr "Samaan verkkotiliin ei voi liittää kahta päiväkirjaa."
 #: code:addons/account_online_synchronization/wizard/account_bank_statement_line.py:0
 #, python-format
 msgid "You cannot import pending transactions."
-msgstr ""
+msgstr "Et voi tuoda vireillä olevia tapahtumia."
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1186,17 +1261,17 @@ msgstr "Sinulla on"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "You have to select one journal to continue."
-msgstr ""
+msgstr "Sinun on valittava yksi päiväkirja jatkaaksesi."
 
 #. module: account_online_synchronization
 #: model:mail.template,subject:account_online_synchronization.email_template_sync_reminder
 msgid "Your bank connection is expiring soon"
-msgstr ""
+msgstr "Pankkiyhteytesi päättyy pian"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
 msgid "account to connect:"
-msgstr ""
+msgstr "tili yhteyden muodostamiseksi:"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1220,7 +1295,7 @@ msgstr "verkkopankkitilin edustus"
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "transactions fetched"
-msgstr ""
+msgstr "noudetut tapahtumat"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1230,3 +1305,5 @@ msgid ""
 "within this period that were not created using the online synchronization. "
 "This might cause duplicate entries."
 msgstr ""
+"tämän ajanjakson aikana, joita ei ole luotu online-synkronoinnin avulla. "
+"Tämä saattaa aiheuttaa päällekkäisiä merkintöjä."

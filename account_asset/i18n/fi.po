@@ -166,7 +166,7 @@ msgstr "Tähän siirtoon liittyvä asiakirja on poistettu: %s"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "A gross increase has been created: "
-msgstr ""
+msgstr "On luotu bruttokasvu:"
 
 #. module: account_asset
 #. odoo-python
@@ -463,7 +463,7 @@ msgstr "Omaisuuserä luotu"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Asset created from invoice: %s"
-msgstr ""
+msgstr "Laskusta luotu omaisuuserä: %s"
 
 #. module: account_asset
 #. odoo-python
@@ -496,7 +496,7 @@ msgstr "Omaisuuserän tauko päättynyt. %s"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_move_form_asset_inherit
 msgid "Asset(s)"
-msgstr ""
+msgstr "Omaisuuserät"
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_asset
@@ -519,7 +519,7 @@ msgstr "Varat"
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_asset_report_handler
 msgid "Assets Report Custom Handler"
-msgstr ""
+msgstr "Omaisuuserien raportin mukautettu käsittelijä"
 
 #. module: account_asset
 #: model:ir.ui.menu,name:account_asset.menu_finance_config_assets
@@ -544,6 +544,8 @@ msgid ""
 "Atleast one asset (%s) couldn't be set as running because it lacks any "
 "required information"
 msgstr ""
+"Ainakin yhtä omaisuuserää (%s) ei voitu määrittää käynnissä olevaksi, koska "
+"siitä puuttuu vaaditut tiedot"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_attachment_count
@@ -666,7 +668,7 @@ msgstr "Jatkuvat jaksot"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__count_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__count_asset
 msgid "Count Asset"
-msgstr ""
+msgstr "Laske omaisuuserät"
 
 #. module: account_asset
 #: model:ir.actions.server,name:account_asset.action_account_aml_to_asset
@@ -913,7 +915,7 @@ msgstr "Luonnos"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__draft_asset_exists
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__draft_asset_exists
 msgid "Draft Asset Exists"
-msgstr ""
+msgstr "Luonnos omaisuuseräksi on olemassa"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__method_number
@@ -1135,6 +1137,8 @@ msgid ""
 "Journal Items of %(account)s should have a label in order to generate an "
 "asset"
 msgstr ""
+"Päiväkirjan %(account)s-kohdilla on oltava etiketti, jotta niistä voidaan "
+"luoda omaisuuserä"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__write_uid
@@ -1532,7 +1536,7 @@ msgstr "Näytä kaikki tietueet joissa on toimenpide myöhässä"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Some fields are missing %s"
-msgstr ""
+msgstr "Jotkin kentät puuttuvat %s"
 
 #. module: account_asset
 #. odoo-python
@@ -1581,6 +1585,9 @@ msgid ""
 "account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to "
 "%(move_count)s cancelled %(word)s:"
 msgstr ""
+"Tiliä %(exp_acc)s on hyvitetty tilillä %(exp_delta)s ja tiliä %(dep_acc)s on"
+" veloitettu tilillä %(dep_delta)s. Tämä vastaa sitä, että %(move_count)s "
+"peruutti %(word)s:"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_period

@@ -13,6 +13,7 @@
 # Arma Gedonsky <armagedonsky@hot.ee>, 2023
 # Piia Paurson <piia@avalah.ee>, 2023
 # Anna, 2023
+# Mihkel avalah, 2023
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2023\n"
+"Last-Translator: Mihkel avalah, 2023\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +39,7 @@ msgstr "\"%s\" mallina salvestatud"
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.share_page
 msgid "#{'Download '}#{document.name}"
-msgstr ""
+msgstr "#{'Download '}#{document.name}"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -124,7 +125,7 @@ msgstr "Kaasautorid"
 #. module: documents_spreadsheet
 #: model:ir.model,name:documents_spreadsheet.model_documents_shared_spreadsheet
 msgid "Copy of a shared spreadsheet"
-msgstr ""
+msgstr "Jagatud arvutustabeli koopia"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -138,7 +139,7 @@ msgstr "Loo"
 #: code:addons/documents_spreadsheet/static/src/spreadsheet_template/spreadsheet_template_dialog.js:0
 #, python-format
 msgid "Create a Spreadsheet or select a Template"
-msgstr ""
+msgstr "Looge arvutustabel või valige mall"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_shared_spreadsheet__create_uid
@@ -203,19 +204,19 @@ msgstr "Nautige ühist tööd oma arvutustabelite kallal."
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_shared_spreadsheet__excel_export
 msgid "Excel Export"
-msgstr ""
+msgstr "Excel eksport "
 
 #. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_view/documents_spreadsheet_controller_mixin.js:0
 #, python-format
 msgid "Format issue"
-msgstr ""
+msgstr "Probleem faililaiendiga"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_share__freezed_spreadsheet_ids
 msgid "Freezed Spreadsheet"
-msgstr ""
+msgstr "Lukus arvutustabel"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__handler
@@ -326,14 +327,14 @@ msgstr "Uus arvutustabeli mall loodud"
 #. module: documents_spreadsheet
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_shared_spreadsheet__unique
 msgid "Only one freezed spreadsheet per document share"
-msgstr ""
+msgstr "Ainult üks lukus arvutustabeli jagamine dokumendi kohta"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_view/documents_spreadsheet_controller_mixin.js:0
 #, python-format
 msgid "Open with Odoo Spreadsheet"
-msgstr ""
+msgstr "Ava Odoo tabelarvutuslahendusega"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -347,7 +348,7 @@ msgstr "Taasta"
 #: code:addons/documents_spreadsheet/static/src/documents_view/documents_spreadsheet_controller_mixin.js:0
 #, python-format
 msgid "Restore file?"
-msgstr ""
+msgstr "Taasta dokument? "
 
 #. module: documents_spreadsheet
 #: model:ir.actions.act_window,name:documents_spreadsheet.save_spreadsheet_template_action
@@ -359,7 +360,7 @@ msgstr "Salvesta mallina"
 #: code:addons/documents_spreadsheet/static/src/spreadsheet_clone_xlsx_dialog/spreadsheet_clone_xlsx_dialog.xml:0
 #, python-format
 msgid "Send source file to trash"
-msgstr ""
+msgstr "Saada lähtedokument prügikasti"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__sequence
@@ -372,7 +373,7 @@ msgstr "Jada"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__server_revision_id
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__server_revision_id
 msgid "Server Revision"
-msgstr ""
+msgstr "Serveri versioon"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_shared_spreadsheet__share_id
@@ -397,7 +398,7 @@ msgstr "Arvutustabeli kaastöötaja"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__spreadsheet_data
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__spreadsheet_data
 msgid "Spreadsheet Data"
-msgstr ""
+msgstr "Tabelarvutuse andmed"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.spreadsheet_document_view_kanban
@@ -442,7 +443,7 @@ msgstr "Arvutustabeli mallid"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__spreadsheet_binary_data
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__spreadsheet_binary_data
 msgid "Spreadsheet file"
-msgstr ""
+msgstr "Tabelarvutus dokument"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -452,6 +453,8 @@ msgid ""
 "Spreadsheet files cannot be handled from the Trash. Would you like to "
 "restore this document?"
 msgstr ""
+"Tabelarvutusdokumente  ei saa prügikastist töödelda. Kas soovite selle "
+"dokumendi taastada?"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -461,6 +464,8 @@ msgid ""
 "Spreadsheet files cannot be previewed or edited in Odoo. Opening your file "
 "with Odoo Spreadsheet will allow you to do so."
 msgstr ""
+"Odoos ei saa eelvaadata ega avada arvutustabeleid. Avage enda dokument Odoo "
+"tabelarvutusrakendusega"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.res_config_settings_view_form_inherit_documents_spreadsheet
@@ -495,7 +500,7 @@ msgstr "See fail ei ole xlsx formaadis."
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 #, python-format
 msgid "The spreadsheet you are trying to access does not exist."
-msgstr ""
+msgstr "Arvutustabel, mida proovite avada, pole olemas. "
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -533,7 +538,7 @@ msgstr "Vali lemmik"
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 #, python-format
 msgid "Untitled spreadsheet"
-msgstr ""
+msgstr "Pealkirjata arvutustabel"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -560,7 +565,7 @@ msgstr "Tööala"
 #: code:addons/documents_spreadsheet/controllers/documents.py:0
 #, python-format
 msgid "You cannot upload spreadsheets in a shared folder"
-msgstr ""
+msgstr "Jagatud kausta ei saa arvutustabelit üles laadida."
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -570,7 +575,7 @@ msgstr ""
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 #, python-format
 msgid "You don't have access to this document"
-msgstr ""
+msgstr "Teil puudub ligipääs sellele dokumendile."
 
 #. module: documents_spreadsheet
 #. odoo-javascript

@@ -33,22 +33,22 @@ msgstr ""
 #: code:addons/website_sale_fedex/models/fedex_locations_request.py:0
 #, python-format
 msgid "Fedex Server Not Found"
-msgstr ""
+msgstr "No se encontró el servidor de FedEx"
 
 #. module: website_sale_fedex
 #: model:ir.model.fields,field_description:website_sale_fedex.field_delivery_carrier__fedex_locations_radius_unit
 msgid "Locations Distance Unit"
-msgstr ""
+msgstr "Unidad de distancia de ubicaciones"
 
 #. module: website_sale_fedex
 #: model:ir.model.fields,field_description:website_sale_fedex.field_delivery_carrier__fedex_locations_radius_value
 msgid "Locations Radius"
-msgstr ""
+msgstr "Radio de ubicaciones"
 
 #. module: website_sale_fedex
 #: model:ir.model.fields,help:website_sale_fedex.field_delivery_carrier__fedex_locations_radius_value
 msgid "Maximum locations distance radius."
-msgstr ""
+msgstr "Radio máximo de la distancia de ubicaciones."
 
 #. module: website_sale_fedex
 #. odoo-python
@@ -63,7 +63,7 @@ msgstr ""
 #: code:addons/website_sale_fedex/static/src/xml/fedex_pickup_locations.xml:0
 #, python-format
 msgid "Select this location"
-msgstr ""
+msgstr "Seleccionar esta ubicación"
 
 #. module: website_sale_fedex
 #: model:ir.model,name:website_sale_fedex.model_delivery_carrier
@@ -78,8 +78,10 @@ msgid ""
 "There was an error retrieving Fedex localisations:\n"
 "%s"
 msgstr ""
+"Ocurrió un error al obtener las ubicaciones de FedEx:\n"
+"%s"
 
 #. module: website_sale_fedex
 #: model:ir.model.fields,field_description:website_sale_fedex.field_delivery_carrier__fedex_use_locations
 msgid "Use Fedex Locations"
-msgstr ""
+msgstr "Utilizar ubicaciones de FedEx"

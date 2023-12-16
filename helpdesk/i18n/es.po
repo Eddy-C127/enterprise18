@@ -280,6 +280,12 @@ msgid ""
 "                                    Type <b>:shortcut</b> to insert canned responses in your messages\n"
 "                                </span>"
 msgstr ""
+"<i class=\"fa fa-lightbulb-o\"/>\n"
+"                                <span class=\"ms-2\">\n"
+"                                    Escriba <b>/ticket</b> para crear tickets<br/>\n"
+"                                    Escriba <b>/search_tickets</b> para buscar tickets<br/>\n"
+"                                    Escriba <b>:shortcut</b> para insertar respuestas predefinidas en sus mensajes\n"
+"                                </span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -644,7 +650,7 @@ msgstr "Todos los tickets"
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_team__privacy_visibility__internal
 msgid "All internal users (company)"
-msgstr ""
+msgstr "Todos los usuarios internos (empresa) "
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -890,6 +896,9 @@ msgid ""
 "Centralize, manage, share and grow your knowledge library. Allow customers "
 "to search your articles in the help center for answers to their questions."
 msgstr ""
+"Centralice, gestione, comparta y haga crecer su biblioteca de información. "
+"Permita que los clientes busquen las respuestas a sus preguntas en sus "
+"artículos en el centro de ayuda."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1700,7 +1709,7 @@ msgstr "Equipo de soporte"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_search
 msgid "Helpdesk Team Search"
-msgstr ""
+msgstr "Búsqueda de equipo de servicio de asistencia "
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_team_action
@@ -1745,7 +1754,7 @@ msgstr "Servicio de asistencia: Solicitud de valoración de ticket"
 #. module: helpdesk
 #: model:mail.template,name:helpdesk.new_ticket_request_email_template
 msgid "Helpdesk: Ticket Received"
-msgstr ""
+msgstr "Servicio de asistencia: ticket recibido"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -1969,7 +1978,7 @@ msgstr "Explicación del kanban válido"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_website_helpdesk_knowledge
 msgid "Knowledge"
-msgstr "Conocimiento"
+msgstr "Información"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_digest_digest__kpi_helpdesk_tickets_closed_value
@@ -2045,6 +2054,9 @@ msgid ""
 " to search your forum posts in the help center for answers to their "
 "questions."
 msgstr ""
+"Deje que sus clientes colaboren y respondan sus preguntas en un foro. "
+"Permita que los clientes busquen las respuestas a sus preguntas en sus "
+"publicaciones del foro en el centro de ayuda."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2570,6 +2582,8 @@ msgid ""
 "Percentage of tickets whose SLAs have successfully been reached on time over"
 " the total number of tickets closed within the past 7 days."
 msgstr ""
+"Porcentaje de tickets cuyos SLA se han alcanzado a tiempo con éxito sobre el"
+" total de tickets cerrados en los últimos 7 días. "
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2802,7 +2816,7 @@ msgstr "Referencia"
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_refund_status
 msgid "Refund Status"
-msgstr ""
+msgstr "Estado de reembolso"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_credit_notes
@@ -2817,7 +2831,7 @@ msgstr "Reparar"
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_repair_status
 msgid "Repair Status"
-msgstr ""
+msgstr "Estado de reparación"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_product_repairs
@@ -2847,7 +2861,7 @@ msgstr "Restaurar"
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_return_status
 msgid "Return Status"
-msgstr ""
+msgstr "Estado de devolución"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2946,7 +2960,7 @@ msgstr "Estado SLA fallido"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_success
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__sla_success
 msgid "SLA Status Success"
-msgstr ""
+msgstr "Estado del SLA éxitoso"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__sla_status__reached
@@ -2960,7 +2974,7 @@ msgstr "Éxito SLA"
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "SLA Success Rate"
-msgstr ""
+msgstr "Tasa de éxito del SLA "
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__sla_status__ongoing
@@ -3100,7 +3114,7 @@ msgstr "Servicio"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Set an Alias Domain"
-msgstr ""
+msgstr "Establecer un dominio de alias"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3133,6 +3147,9 @@ msgid ""
 "customers to search your eLearning courses in the help center for answers to"
 " their questions."
 msgstr ""
+"Comparta presentaciones y vídeos, organícelos en cursos. Permita que sus "
+"clientes busquen las respuestas a sus preguntas en sus cursos de eLearning "
+"dentro del centro de ayuda."
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_rating
@@ -3431,6 +3448,8 @@ msgid ""
 "This SLA Policy will apply to tickets matching ALL of the following "
 "criteria:"
 msgstr ""
+"Esta política SLA será aplicable a los tickets que cumplan con TODOS los "
+"siguientes criterios:  "
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__campaign_id
@@ -3535,7 +3554,7 @@ msgstr "Tíquet cerrado"
 #. module: helpdesk
 #: model:mail.template,subject:helpdesk.solved_ticket_request_email_template
 msgid "Ticket Closed - Reference {{ object.id if object.id else 15 }}"
-msgstr ""
+msgstr "Ticket cerrado - Referencia {{ object.id if object.id else 15 }}"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__ticket_count
@@ -3585,7 +3604,7 @@ msgstr "Estado ANS del tíquet"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.quick_create_ticket_form
 msgid "Ticket Title"
-msgstr ""
+msgstr "Título del ticket "
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis

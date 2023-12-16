@@ -186,7 +186,7 @@ msgstr "<strong>Probado el: </strong>"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
 msgid "<strong>Transfer: </strong>"
-msgstr ""
+msgstr "<strong>Traslado:</strong>"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
@@ -232,7 +232,7 @@ msgstr "Todas las revisiones pasaron"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
 msgid "All parameters passed."
-msgstr ""
+msgstr "Todos los parámetros aprobados."
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_search
@@ -464,13 +464,13 @@ msgstr "Cantidad fallida"
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__failure_location_id
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__failure_location_id
 msgid "Failure Location"
-msgstr ""
+msgstr "Ubicación del error"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__potential_failure_location_ids
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__failure_location_ids
 msgid "Failure Locations"
-msgstr ""
+msgstr "Ubicaciones del error"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__failure_message
@@ -507,6 +507,8 @@ msgid ""
 "If a quality check fails, a location is chosen from this list for each "
 "failed quantity."
 msgstr ""
+"Si falla un control de calidad, se elige una ubicación de esta lista por "
+"cada cantidad fallida."
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_dashboard_view_kanban
@@ -945,7 +947,7 @@ msgstr "Comprobación de calidad fracasada"
 #: code:addons/quality_control/wizard/quality_check_wizard.py:0
 #, python-format
 msgid "Quality Check Failed for %(product_name)s"
-msgstr ""
+msgstr "Control de calidad fallido para %(product_name)s"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
@@ -1235,7 +1237,7 @@ msgstr "Albarán"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
 msgid "Transfer-987"
-msgstr ""
+msgstr "Traslado-987"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_form
@@ -1256,12 +1258,12 @@ msgstr "Validar"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
 msgid "Value near threshold."
-msgstr ""
+msgstr "Valor cercano al umbral."
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
 msgid "Visual Check"
-msgstr ""
+msgstr "Control visual"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__warning_message

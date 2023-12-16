@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Larissa Manderfeld, 2023
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Larissa Manderfeld, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -286,7 +287,7 @@ msgstr "Puede editar"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__can_edit_user_id
 msgid "Can Edit User"
-msgstr ""
+msgstr "Puede editar el usuario"
 
 #. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__cancel
@@ -610,6 +611,9 @@ msgid ""
 " If Employee's Manager is selected as approver, they will be the first in "
 "line."
 msgstr ""
+"Si se encuentra seleccionado, los aprobadores tendrán que aprobar de forma "
+"secuencial (uno tras otro). Si se selecciona al gerente del empleado como "
+"aprobador, será el primero. "
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__image
@@ -841,7 +845,7 @@ msgstr "Número de solicitudes por validar"
 #. module: approvals
 #: model:res.groups,name:approvals.group_approval_user
 msgid "Officer: Approve all requests"
-msgstr ""
+msgstr "Encargado: Aprobar todas las solicitudes"
 
 #. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_category__has_amount__optional
@@ -1013,6 +1017,8 @@ msgid ""
 "Simple users should not be able to remove themselves as approvers because "
 "they will lose access to the record if they misclick."
 msgstr ""
+"Los usuarios simples no tienen autorización para eliminar sus permisos como "
+"aprobadores. Perderán el acceso al registro si realizan una acción errónea."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -1162,6 +1168,7 @@ msgstr "No puede aprobarla antes del aprobador anterior."
 msgid ""
 "You cannot assign the same approver multiple times on the same request."
 msgstr ""
+"No puede asignar al mismo aprobador varias veces a la misma solicitud."
 
 #. module: approvals
 #. odoo-python
@@ -1171,6 +1178,8 @@ msgid ""
 "You cannot unlink an attachment which is linked to a validated, refused or "
 "cancelled approval request."
 msgstr ""
+"No puede desvincular un archivo adjunto vinculado a una solicitud de "
+"aprobación validada, rechazada o cancelada."
 
 #. module: approvals
 #. odoo-python

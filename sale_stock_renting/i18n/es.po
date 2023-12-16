@@ -55,6 +55,8 @@ msgid ""
 "A new rental period will not propagate to stock pickings. You may need to "
 "manually change that."
 msgstr ""
+"Un nuevo periodo de alquiler no se propagará a recolecciones de inventario. "
+"Es posible que deba cambiarlo manualmente. "
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__padding_time
@@ -237,7 +239,7 @@ msgstr "Movimiento de alquiler:"
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__group_rental_stock_picking
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.res_config_settings_inherit_view_form
 msgid "Rental pickings"
-msgstr ""
+msgstr "Recolecciones de alquier"
 
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_rental_order_wizard_line
@@ -349,12 +351,12 @@ msgstr "Lote no disponible"
 #. module: sale_stock_renting
 #: model:res.groups,name:sale_stock_renting.group_rental_stock_picking
 msgid "Use pickings for rental orders"
-msgstr ""
+msgstr "Utilice las recolecciones para las órdenes de alquiler"
 
 #. module: sale_stock_renting
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.res_config_settings_inherit_view_form
 msgid "Use stock pickings for rental orders"
-msgstr ""
+msgstr "Utilice las recolecciones de inventario para las órdenes de alquiler"
 
 #. module: sale_stock_renting
 #. odoo-javascript
@@ -375,6 +377,8 @@ msgstr "Almacén"
 #, python-format
 msgid "You cannot change the product of lines linked to stock moves."
 msgstr ""
+"No puede cambiar el producto de las líneas vinculadas a los movimientos de "
+"stock."
 
 #. module: sale_stock_renting
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.res_config_settings_inherit_view_form

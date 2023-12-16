@@ -31,6 +31,13 @@ msgid ""
 "    <p>Odoo S.A.</p>\n"
 "</div>"
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p>Apreciable,<br></p>\n"
+"    <p>No hay más créditos en su cuenta OCR para realizar IAP.<br>\n"
+"    Puede cargar esta cuenta OCR IAP en la página de configuración.</p>\n"
+"    <p>Saludos,<br></p>\n"
+"    <p>Odoo S.A.</p>\n"
+"</div>"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_needaction
@@ -63,7 +70,7 @@ msgstr "Nº de archivos adjuntos"
 #. module: iap_extract
 #: model:ir.model,name:iap_extract.model_extract_mixin
 msgid "Base class to extract data from documents"
-msgstr ""
+msgstr "Clase base para extraer datos de documentos"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_can_show_send_button
@@ -83,21 +90,21 @@ msgstr "Flujo completado"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Document is being digitized"
-msgstr ""
+msgstr "El documento se está digitalizando"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Document sent for digitization"
-msgstr ""
+msgstr "Documento enviado para digitalización"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Documents sent for digitization"
-msgstr ""
+msgstr "Documentos enviados para digitalización"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_error_message
@@ -138,7 +145,7 @@ msgstr "Tiene un mensaje"
 #: model:mail.template,name:iap_extract.iap_extract_no_credit
 #: model:mail.template,subject:iap_extract.iap_extract_no_credit
 msgid "IAP Extract Notification"
-msgstr ""
+msgstr "Notificación del extracto IAP"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_document_uuid
@@ -161,14 +168,14 @@ msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Invalid PDF (Conversion error)"
-msgstr ""
+msgstr "PDF no válido (error de conversión)"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Invalid PDF (Unable to get page count)"
-msgstr ""
+msgstr "PDF no válido (no fue posible obtener el número de páginas)"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_is_follower
@@ -209,14 +216,14 @@ msgstr "No se requiere extracto"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__not_enough_credit
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__not_enough_credit
 msgid "Not enough credits"
-msgstr ""
+msgstr "Créditos insuficientes"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Not enough credits for data extraction"
-msgstr ""
+msgstr "Créditos insuficientes para extraer datos"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_needaction_counter
@@ -269,7 +276,7 @@ msgstr "El servidor no está disponible. Por favor inténtalo más tarde."
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Some documents were skipped as they were already digitized"
-msgstr ""
+msgstr "Algunos documentos se saltaron ya que ya se habían digitalizado"
 
 #. module: iap_extract
 #. odoo-python
@@ -294,14 +301,14 @@ msgstr "No se pudo encontrar el documento."
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The document has been rejected because it is too small"
-msgstr ""
+msgstr "Se rechazó el documento porque es muy pequeño"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The selected documents are already digitized"
-msgstr ""
+msgstr "Los documentos seleccionados ya se digitalizaron"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__to_validate
@@ -359,7 +366,7 @@ msgstr ""
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Your document contains too many pages"
-msgstr ""
+msgstr "Su documento contiene muchas páginas"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__extract_not_ready

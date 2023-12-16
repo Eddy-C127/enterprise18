@@ -33,7 +33,7 @@ msgstr "%(response)s"
 #: code:addons/account_avatax/models/account_external_tax_mixin.py:0
 #, python-format
 msgid "- %s (ID: %s) on %s"
-msgstr ""
+msgstr "- %s (ID: %s) de %s"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -41,6 +41,8 @@ msgid ""
 "<i class=\"oi oi-fw oi-arrow-right\"/>\n"
 "                                How to Get Credentials"
 msgstr ""
+"<i class=\"oi oi-fw oi-arrow-right\"/>\n"
+"                                Cómo obtener las credenciales"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -125,14 +127,14 @@ msgstr ""
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Authentication failed."
-msgstr ""
+msgstr "Autenticación fallida."
 
 #. module: account_avatax
 #. odoo-python
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Authentication success."
-msgstr ""
+msgstr "Autenticación exitosa."
 
 #. module: account_avatax
 #: model:account.fiscal.position,name:account_avatax.account_fiscal_position_avatax_us
@@ -583,7 +585,7 @@ msgstr "Sincronice los códigos de exención de Avatax"
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Test Result"
-msgstr ""
+msgstr "Resultado de la prueba"
 
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_avatax_connection_test_result
@@ -618,6 +620,8 @@ msgid ""
 "The following customer(s) need to have a zip, state and country when using "
 "Avatax:"
 msgstr ""
+"Los siguientes clientes deben tener un código postal, una provincia y un "
+"país cuando utilicen AvaTax:"
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_res_config_settings__avalara_commit

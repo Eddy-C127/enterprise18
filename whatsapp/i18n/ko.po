@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Wil Odoo, 2023
 # Daye Jeong, 2023
 # Sarah Park, 2023
+# Wil Odoo, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Sarah Park, 2023\n"
+"Last-Translator: Wil Odoo, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,6 +44,21 @@ msgstr "%(original_name)s (사본)"
 #, python-format
 msgid "%(template_name)s [%(account_name)s]"
 msgstr "%(template_name)s [%(account_name)s]"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/models.py:0
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid "'%(field)s' does not seem to be a valid field path"
+msgstr "'%(field)s' 항목은 유효한 필드 경로가 아닙니다."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid "'%(field)s' does not seem to be a valid field path on %(model)s"
+msgstr "'%(field)s' 항목은 %(model)s 이동에 유효한 필드 경로가 아닙니다."
 
 #. module: whatsapp
 #. odoo-python
@@ -1485,6 +1500,14 @@ msgid "Please enter a valid URL in the format 'https://www.example.com'."
 msgstr "'https://www.example.com' 형식의 유효한 URL을 입력하세요."
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/res_partner.py:0
+#, python-format
+msgid ""
+"Please enter at least 3 characters when searching a Phone/Mobile number."
+msgstr "전화나 휴대폰 번호 검색 시 3자 이상 입력하세요."
+
+#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__pl
 msgid "Polish"
 msgstr "폴란드어"
@@ -1581,8 +1604,8 @@ msgstr "거부됨"
 #. odoo-python
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
-msgid "Related %(model_name)s:"
-msgstr "관련된 %(model_name)s:"
+msgid "Related %(model_name)s: "
+msgstr "관련 %(model_name)s: "
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__model
@@ -1635,6 +1658,13 @@ msgstr "SMS 전송 오류"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_variable__demo_value
 msgid "Sample Value"
 msgstr "샘플값"
+
+#. module: whatsapp
+#. odoo-javascript
+#: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
+#, python-format
+msgid "Search WhatsApp Channel"
+msgstr "WhatsApp 채널 검색"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.template_message_preview
@@ -1817,6 +1847,17 @@ msgstr "텔루구어"
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_search
 msgid "Template"
 msgstr "서식"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#, python-format
+msgid ""
+"Template %(template_name)s holds a wrong configuration for 'phone field'\n"
+"%(error_msg)s"
+msgstr ""
+"%(template_name)s 서식에 '전화번호 필드' 설정이 잘못되었습니다.\n"
+"%(error_msg)s"
 
 #. module: whatsapp
 #. odoo-python
@@ -2199,6 +2240,13 @@ msgid "Wa Template"
 msgstr "Wa 서식"
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/models.py:0
+#, python-format
+msgid "We were not able to fetch value of field '%(field)s'"
+msgstr "'%(field)s' 필드값을 가져올 수 없습니다."
+
+#. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__webhook_verify_token
 msgid "Webhook Verify Token"
 msgstr "웹훅 인증 토큰"
@@ -2234,13 +2282,6 @@ msgstr "웹사이트 대화 기록"
 #, python-format
 msgid "WhatsApp"
 msgstr "왓츠앱"
-
-#. module: whatsapp
-#. odoo-javascript
-#: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
-#, python-format
-msgid "Search WhatsApp Channel"
-msgstr "WhatsApp 채널 검색"
 
 #. module: whatsapp
 #: model:ir.actions.server,name:whatsapp.ir_actions_server_resend_whatsapp_queue
@@ -2374,10 +2415,27 @@ msgstr "전화번호 필드에 %r 항목을 사용할 수 없습니다. 관리�
 
 #. module: whatsapp
 #. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid ""
+"You are not allowed to use %(field)s in phone field, contact your "
+"administrator to configure it."
+msgstr "%(field)s 필드 사용 권한이 없습니다. 관리자에게 연락하여 전화번호 필드를 설정하세요."
+
+#. module: whatsapp
+#. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "You are not allowed to use this field, contact your administrator."
 msgstr "해당 항목을 사용할 수 없습니다. 관리자에게 문의 후 설정하세요."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"You are not allowed to use field %(field)s, contact your administrator."
+msgstr "%(field)s 필드 사용 권한이 없습니다. 관리자에게 문의하세요."
 
 #. module: whatsapp
 #. odoo-python
@@ -2395,10 +2453,19 @@ msgstr "실패 상태가 아닌 메시지는 재전송할 수 없습니다."
 
 #. module: whatsapp
 #. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "You can not select field of %r."
 msgstr "%r. 필드는 선택할 수 없습니다."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid "You can not select field of %(model)s."
+msgstr "%(model)s 필드는 선택할 수 없습니다."
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action

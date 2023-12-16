@@ -74,14 +74,14 @@ msgstr "Nº de archivos adjuntos"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_journal__alias_auto_extract_pdfs_only
 msgid "Auto extract PDFs only"
-msgstr ""
+msgstr "Extracción automática solo de archivos PDF"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_can_show_banners
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_can_show_banners
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_can_show_banners
 msgid "Can show the ocr banners"
-msgstr ""
+msgstr "Puede mostrar los banner OCR"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_can_show_send_button
@@ -103,7 +103,7 @@ msgstr "Opciones de configuración"
 #: code:addons/account_invoice_extract/models/account_invoice.py:0
 #, python-format
 msgid "Couldn't reload AI data."
-msgstr ""
+msgstr "No se pudieron volver a cargar los datos de IA."
 
 #. module: account_invoice_extract
 #. odoo-javascript
@@ -130,12 +130,12 @@ msgstr "Facturas de cliente"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_out_invoice_digitalization_mode
 msgid "Digitization mode on customer invoices"
-msgstr ""
+msgstr "Modo de digitalización en las facturas de los clientes"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_in_invoice_digitalization_mode
 msgid "Digitization mode on vendor bills"
-msgstr ""
+msgstr "Modo de digitalización en las facturas de los proveedores"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__auto_send
@@ -157,7 +157,7 @@ msgstr "Digitalizar solo bajo demanda"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_journal__display_alias_auto_extract_pdfs_only
 msgid "Display Alias Auto Extract Pdfs Only"
-msgstr ""
+msgstr "Mostrar el alias de la extracción automática solo en los PDF"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__display_name
@@ -185,21 +185,21 @@ msgstr "Mensaje de error"
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_attachment_id
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_attachment_id
 msgid "Extract Attachment"
-msgstr ""
+msgstr "Extraer el archivo adjunto"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_detected_layout
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_detected_layout
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_detected_layout
 msgid "Extract Detected Layout Id"
-msgstr ""
+msgstr "Extraer el ID del diseño detectado"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_partner_name
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_partner_name
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_partner_name
 msgid "Extract Detected Partner Name"
-msgstr ""
+msgstr "Extraer el nombre del contacto detectado"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_state_processed
@@ -287,7 +287,7 @@ msgstr "OCR de facturas: Actualizar todos los estados"
 #. module: account_invoice_extract
 #: model:ir.actions.server,name:account_invoice_extract.ir_cron_ocr_validate_ir_actions_server
 msgid "Invoice OCR: Validate Invoices"
-msgstr ""
+msgstr "OCR de facturas: validar facturas"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_is_follower
@@ -357,7 +357,7 @@ msgstr "Número de mensajes con error de envío"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__ocr_selected
 msgid "Ocr Selected"
-msgstr ""
+msgstr "OCR seleccionado"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,help:account_invoice_extract.field_account_journal__alias_auto_extract_pdfs_only
@@ -375,7 +375,7 @@ msgstr "Valoraciones"
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
 msgid "Reload AI Data"
-msgstr ""
+msgstr "Recargar datos de IA"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_has_sms_error
@@ -385,13 +385,13 @@ msgstr "Error de entrega del SMS"
 #. module: account_invoice_extract
 #: model:ir.actions.server,name:account_invoice_extract.model_account_send_for_digitalization
 msgid "Send Bills for digitization"
-msgstr ""
+msgstr "Enviar facturas para digitalización"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_single_line_per_tax
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_config_settings__extract_single_line_per_tax
 msgid "Single Invoice Line Per Tax"
-msgstr ""
+msgstr "Línea de factura única por impuesto"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr

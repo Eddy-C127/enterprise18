@@ -3,8 +3,9 @@
 # 	* mrp_workorder
 # 
 # Translators:
-# Junko Augias, 2023
 # Wil Odoo, 2023
+# Junko Augias, 2023
+# Ryoko Tsuda <ryoko@quartile.co>, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-06 08:38+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +48,7 @@ msgstr "+ 新規オペレータ"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "< Back"
-msgstr ""
+msgstr "< 戻る"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
@@ -145,7 +146,7 @@ msgstr "ステップを追加"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_workorder_additional_product_wizard
 msgid "Add product"
-msgstr "製品を追加する"
+msgstr "プロダクトを追加"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_additional_workorder_wizard
@@ -722,7 +723,7 @@ msgstr "最終更新日"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Load Samples"
-msgstr ""
+msgstr "サンプルをロード"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -918,7 +919,7 @@ msgstr "作業予定の作業オーダはありません！"
 msgid ""
 "No workcenters are available, please create one first to add it to the shop "
 "floor view"
-msgstr ""
+msgstr "ワークセンターはありません。まずワークセンターを作成し、ショップフロアビューに追加して下さい。"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1099,12 +1100,12 @@ msgstr "ラベル印刷"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_id
 msgid "Product"
-msgstr "製品"
+msgstr "プロダクト"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "製品の移動(在庫移動ライン)"
+msgstr "プロダクトの移動(在庫移動ライン)"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__component_id
@@ -1137,7 +1138,7 @@ msgstr "生産 作業区"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__product_ids
 msgid "Products"
-msgstr "製品"
+msgstr "プロダクト"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.add_quality_check_from_tablet
@@ -1404,7 +1405,7 @@ msgstr "作業オーダ画面にタイマーを表示"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Skip >"
-msgstr ""
+msgstr "スキップ >"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1587,6 +1588,8 @@ msgid ""
 "Track work orders, show instructions and record manufacturing operations from here:\n"
 "                                quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
+"ここから作業オーダ、指示書を追跡し、製造オペレーションを記録します: \n"
+"品質管理、消費量、ロット/シリアル番号など。"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1616,7 +1619,7 @@ msgstr "記録上の例外活動の種類。"
 #, python-format
 msgid ""
 "Unable to load samples when you already have existing manufacturing orders"
-msgstr ""
+msgstr "既存の製造オーダがある場合、サンプルをロードできません。"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1719,14 +1722,14 @@ msgstr "最後にスキャンされたバーコードの値。"
 #: code:addons/mrp_workorder/static/src/mrp_display/search_bar.xml:0
 #, python-format
 msgid "WO"
-msgstr ""
+msgstr "WO"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "WO Filters"
-msgstr ""
+msgstr "WOフィルタ"
 
 #. module: mrp_workorder
 #. odoo-javascript

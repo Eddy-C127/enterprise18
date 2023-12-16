@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Wil Odoo, 2023
 # Junko Augias, 2023
 # Ryoko Tsuda <ryoko@quartile.co>, 2023
+# Wil Odoo, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2023\n"
+"Last-Translator: Wil Odoo, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1452,6 +1452,13 @@ msgid "Change customer"
 msgstr "顧客を変更"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Check reopened subscription"
+msgstr ""
+
+#. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
@@ -1482,7 +1489,7 @@ msgstr "解約済"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Click here to add some products or services to your quotation."
-msgstr "ここをクリックして見積に製品やサービスを追加してください。"
+msgstr "ここをクリックして見積にプロダクトやサービスを追加してください。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
@@ -1641,7 +1648,7 @@ msgstr "新規プランを作成"
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.product_action_subscription
 msgid "Create a new product"
-msgstr "製品新規作成"
+msgstr "プロダクト新規作成"
 
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action
@@ -1977,7 +1984,7 @@ msgstr "契約書の終了"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Error during renewal of contract %s %s %s"
-msgstr ""
+msgstr "契約書更新中にエラーが発生しました %s %s %s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -2220,7 +2227,7 @@ msgstr "事前に設定された場合、サブスクリプションは日付の
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_template_option__recurring_invoice
 msgid ""
 "If set, confirming a sale order with this product will create a subscription"
-msgstr "この項目を選択した場合、この製品を含む受注を確認すると、サブスクリプションが作成されます。"
+msgstr "この項目を選択した場合、このプロダクトを含む販売オーダを確認すると、サブスクリプションが作成されます。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -2468,12 +2475,6 @@ msgid "MRR"
 msgstr "MRR"
 
 #. module: sale_subscription
-#: model:ir.actions.act_window,name:sale_subscription.sale_order_log_analysis_action
-#: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_analysis_report
-msgid "MRR Analysis"
-msgstr "MRR分析"
-
-#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "MRR Between"
 msgstr "MRR範囲"
@@ -2526,6 +2527,11 @@ msgstr "MRR最大"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_min
 msgid "MRR Range Min"
 msgstr "MRR最少"
+
+#. module: sale_subscription
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_analysis_report
+msgid "MRR Timeline"
+msgstr "MRRタイムライン"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_tree
@@ -3002,14 +3008,14 @@ msgstr "支払方法:"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment not recorded"
-msgstr ""
+msgstr "支払が記録されていません"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment recorded: %s"
-msgstr ""
+msgstr "支払が記録されました: %s"
 
 #. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
@@ -3102,12 +3108,12 @@ msgstr "印刷"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "Product"
-msgstr "製品"
+msgstr "プロダクト"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__categ_id
 msgid "Product Category"
-msgstr "製品カテゴリ"
+msgstr "プロダクトカテゴリ"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_product_product
@@ -3127,7 +3133,7 @@ msgstr "プロダクトバリアント"
 #: model:ir.ui.menu,name:sale_subscription.product_menu_catalog
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Products"
-msgstr "製品"
+msgstr "プロダクト"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
@@ -3829,6 +3835,24 @@ msgid "Subscription"
 msgstr "サブスクリプション"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Subscription %s has been canceled. The parent order %s has been reopened.\n"
+"                                                You should close %s if the customer churned, or renew it if the customer continue the service.\n"
+"                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
+"                                                created subscription and renew %s instead"
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Subscription %s has been reopened. The end date has been removed"
+msgstr ""
+
+#. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_payment_transaction__subscription_action
 msgid "Subscription Action"
 msgstr "サブスクリプションアクション"
@@ -4141,7 +4165,7 @@ msgstr "プランの会社は価格表の会社とは異なります"
 msgid ""
 "The deferred settings are not properly set. Please complete them to generate"
 " subscription deferred revenues"
-msgstr ""
+msgstr "繰延設定が正しく設定されていません。サブスクリプションの繰延収益を発生させるには、設定を完了して下さい。"
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
@@ -4661,17 +4685,17 @@ msgstr "Webhook UUID"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
 msgid "Website"
-msgstr "サイト"
+msgstr "ウェブサイト"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids
 msgid "Website Messages"
-msgstr "サイトメッセージ"
+msgstr "ウェブサイトメッセージ"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__website_message_ids
 msgid "Website communication history"
-msgstr "サイト通信履歴"
+msgstr "ウェブサイト通信履歴"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_plan__billing_period_unit__week
@@ -5150,4 +5174,4 @@ msgstr ""
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
 "valid positive numeric value."
-msgstr ""
+msgstr "繰返期間は正の数でなければなりません。入力は有効な正の数値であることを確認して下さい。"

@@ -36,6 +36,7 @@ msgid ""
 "<br/>According to your needs, you will need to contact different "
 "certifications:"
 msgstr ""
+"<br/>Tarpeidesi mukaan sinun on otettava yhteyttä eri sertifiointeihin:"
 
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
@@ -48,6 +49,8 @@ msgid ""
 "<span invisible=\"fedex_weight_unit != 'KG'\">CM</span>\n"
 "                                <span invisible=\"fedex_weight_unit != 'LB'\">IN</span>"
 msgstr ""
+"<span invisible=\"fedex_weight_unit != 'KG'\">CM</span>\n"
+"                                <span invisible=\"fedex_weight_unit != 'LB'\">IN</span>"
 
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
@@ -158,7 +161,7 @@ msgstr "FEDEX_3_DAY_FREIGHT"
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_economy_select
 msgid "FEDEX_ECONOMY_SELECT"
-msgstr ""
+msgstr "FEDEX_ECONOMY_SELECT"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_express_saver
@@ -168,7 +171,7 @@ msgstr "FEDEX_EXPRESS_SAVER"
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_first
 msgid "FEDEX_FIRST"
-msgstr ""
+msgstr "FEDEX_FIRST"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_ground
@@ -208,27 +211,27 @@ msgstr "FEDEX_NEXT_DAY_MID_MORNING"
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_priority
 msgid "FEDEX_PRIORITY"
-msgstr ""
+msgstr "FEDEX_PRIORITY"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_priority_express
 msgid "FEDEX_PRIORITY_EXPRESS"
-msgstr ""
+msgstr "FEDEX_PRIORITY_EXPRESS"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_priority_express_freight
 msgid "FEDEX_PRIORITY_EXPRESS_FREIGHT"
-msgstr ""
+msgstr "FEDEX_PRIORITY_EXPRESS_FREIGHT"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_priority_freight
 msgid "FEDEX_PRIORITY_FREIGHT"
-msgstr ""
+msgstr "FEDEX_PRIORITY_FREIGHT"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_regional_economy
 msgid "FEDEX_REGIONAL_ECONOMY"
-msgstr ""
+msgstr "FEDEX_REGIONAL_ECONOMY"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__first_overnight
@@ -272,7 +275,7 @@ msgstr "Fedexin määritykset"
 #: code:addons/delivery_fedex/models/delivery_fedex.py:0
 #, python-format
 msgid "Fedex Documents"
-msgstr ""
+msgstr "Fedex asiakirjat"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_droppoff_type

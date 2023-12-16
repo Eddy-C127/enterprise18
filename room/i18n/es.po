@@ -265,7 +265,7 @@ msgstr ""
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__stop_datetime
 msgid "End Datetime"
-msgstr ""
+msgstr "Fecha y hora de finalización"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__message_follower_ids
@@ -314,7 +314,7 @@ msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_list
 msgid "Is Currently Available"
-msgstr ""
+msgstr "Está disponible actualmente"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__message_is_follower
@@ -400,14 +400,14 @@ msgstr "Próxima semana"
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "No Bookings Planned"
-msgstr ""
+msgstr "Sin reservas planificadas"
 
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "No Bookings for Today"
-msgstr ""
+msgstr "Sin reservas para hoy"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__message_needaction_counter
@@ -507,6 +507,7 @@ msgstr "Sala"
 #, python-format
 msgid "Room %(room_name)s is already booked during the selected time slot."
 msgstr ""
+"La sala %(room_name)s ya está reservada durante el horario seleccionado."
 
 #. module: room
 #: model:ir.model,name:room.model_room_booking
@@ -559,7 +560,7 @@ msgstr "Planificación"
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "Schedule Booking"
-msgstr ""
+msgstr "Programar reserva"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__short_code
@@ -609,11 +610,13 @@ msgstr "El código corto debe ser único."
 #, python-format
 msgid "The start date of %(booking_name)s must be earlier than the end date."
 msgstr ""
+"La fecha de inicio de %(booking_name)s debe ser antes de la fecha final."
 
 #. module: room
 #: model_terms:ir.actions.act_window,help:room.room_room_action
 msgid "They can then be booked for meetings from a Tablet or the back-end."
 msgstr ""
+"Luego se pueden reservar para reuniones desde una tableta o el backend."
 
 #. module: room
 #. odoo-javascript
@@ -621,6 +624,8 @@ msgstr ""
 #, python-format
 msgid "This room is as free as a fish in a sea of endless possibilities"
 msgstr ""
+"Este espacio es tan libre como un pez en el gran mar de posibilidades "
+"ilimitadas."
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_kanban

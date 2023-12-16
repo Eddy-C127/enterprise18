@@ -74,21 +74,21 @@ msgstr "%s tiedosto(t) ei ole siirretty, koska toinen käyttäjä on lukinnut ne
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "%s new document(s) created"
-msgstr ""
+msgstr "%s uudet asiakirjat on luotu"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "%s page(s) deleted"
-msgstr ""
+msgstr "%s sivut poistettu"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "(Remaining pages"
-msgstr ""
+msgstr "(Jäljellä olevat sivut"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -136,6 +136,8 @@ msgid ""
 "<br/>\n"
 "                    is sharing content with you"
 msgstr ""
+"<br/>\n"
+"                    jakaa sisältöä kanssasi"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -145,7 +147,7 @@ msgstr "<br/>Järjestelmää pyörittää"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "<i class=\"fa fa fa-folder text-primary me-2\" title=\"Workspace\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa fa-folder text-primary me-2\" title=\"Työtila\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
@@ -155,7 +157,7 @@ msgstr "<i class=\"fa fa-download fa-fw\"/>  Lataa kaikki"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "<i class=\"fa fa-lock oe_inline\" title=\"Locked\" invisible=\"not lock_uid\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-lock oe_inline\" title=\"Lukittu\" invisible=\"not lock_uid\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
@@ -163,6 +165,8 @@ msgid ""
 "<i class=\"fa fa-tag o_documents_tag_color ms-2\" invisible=\"not tag_ids\" "
 "title=\"Tags\"/>"
 msgstr ""
+"<i class=\"fa fa-tag o_documents_tag_color ms-2\" invisible=\"not tag_ids\" "
+"title=\"Tunnisteet\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
@@ -193,7 +197,7 @@ msgstr "<span title=\"Requested Document\">Pyydetty asiakirja</span>"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid "<span>&amp;nbsp;Documents.</span>"
-msgstr ""
+msgstr "<span>&amp;nbsp;Asiakirjat.</span>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
@@ -311,6 +315,108 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                    <tbody>\n"
+"                        <!-- HEADER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\">\n"
+"                                        <span style=\"font-size: 10px;\">\n"
+"                                            Asiakirjapyyntö: <br>\n"
+"                                            <t t-if=\"object.create_share_id.name\">\n"
+"                                                <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.create_share_id.name or ''\">Inbox Financial</span>\n"
+"                                            </t>\n"
+"                                        </span><br>\n"
+"                                    </td><td valign=\"middle\" align=\"right\">\n"
+"                                        <img t-attf-src=\"/logo.png?company={{ object.create_uid.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.create_uid.company_id.name\">\n"
+"                                    </td></tr>\n"
+"                                    <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- CONTENT -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                        <div>\n"
+"                                            Hei <t t-out=\"object.create_share_id.owner_id.name or ''\">OdooBot</t>,\n"
+"                                           <br><br>\n"
+"                                            Tämä on ystävällinen muistutus pyydetyn asiakirjan lataamisesta:\n"
+"                                           <br><br>\n"
+"                                            <center>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.create_share_id.name\">\n"
+"                                                        <b t-out=\"object.create_share_id.name or ''\">Inbox Financial</b>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.create_share_id.activity_note\">\n"
+"                                                        <i t-out=\"object.create_share_id.activity_note or ''\">Esimerkki huomautuksesta.</i>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <br>\n"
+"                                                <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                    <a t-att-href=\"object.create_share_id.full_url\" style=\"background-color: #875A7B; padding: 20px 30px 20px 30px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                        Lataa pyydetty asiakirja\n"
+"                                                    </a>\n"
+"                                                </div>\n"
+"                                            </center><br>\n"
+"                                            Toimita puuttuva asiakirja meille ennen linkin voimassaolon päättymistä (suunniteltu <t t-out=\"object.create_share_id.date_deadline or ''\">2021-05-17</t>).\n"
+"                                           <br><br>\n"
+"                                            Kiitos,\n"
+"                                            <t t-if=\"user and user.signature\">\n"
+"                                                <br>\n"
+"                                                <t t-out=\"user.signature\">--<br>Mitchell Admin</t>\n"
+"                                                <br>\n"
+"                                            </t>\n"
+"                                        </div>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- FOOTER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\" align=\"left\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.name or ''\">YourCompany</t>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.phone or ''\">+1 650-123-4567</t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.email\">\n"
+"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email\">info@yourcompany.com</a>\n"
+"                                        </t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.website\">\n"
+"                                            | <a t-att-href=\"object.create_uid.company_id.website\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.website\">http://www.example.com</a>\n"
+"                                        </t>\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                    </table>\n"
+"                    </td></tr>\n"
+"                    <!-- POWERED BY -->\n"
+"                    <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                          <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"                           <t t-if=\"object.create_share_id.date_deadline\">\n"
+"                                Tämä linkki erääntyy <b t-out=\"object.create_share_id.date_deadline\">2021-05-17</b>.<br>\n"
+"                           </t>\n"
+"                            Voimana <a target=\"_blank\" href=\"https://www.odoo.com/app/documents\" style=\"color: #875A7B;\">Odoo Documents</a>\n"
+"                          </td></tr>\n"
+"                        </table>\n"
+"                    </td></tr>\n"
+"                </table>\n"
+"            "
 
 #. module: documents
 #: model:mail.template,body_html:documents.mail_template_document_request
@@ -416,6 +522,106 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                    <tbody>\n"
+"                        <!-- HEADER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\">\n"
+"                                        <span style=\"font-size: 10px;\">\n"
+"                                            Asiakirjapyyntö: <br>\n"
+"                                            <t t-if=\"object.name\">\n"
+"                                                <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.name or ''\">Inbox Financial</span>\n"
+"                                            </t>\n"
+"                                        </span><br>\n"
+"                                    </td><td valign=\"middle\" align=\"right\" t-if=\"not object.create_uid.company_id.uses_default_logo\">\n"
+"                                        <img t-attf-src=\"/logo.png?company={{ object.create_uid.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.create_uid.company_id.name\">\n"
+"                                    </td></tr>\n"
+"                                    <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- CONTENT -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                        <div>\n"
+"                                            Hei <t t-out=\"object.owner_id.name or ''\">OdooBot</t>,\n"
+"                                           <br><br>\n"
+"                                           <t t-out=\"object.create_uid.name or ''\">OdooBot</t><t t-out=\"object.create_uid.email or ''\">(odoobot@example.com)</t> pyytää sinua toimittamaan seuraavan asiakirjan:\n"
+"                                           <br><br>\n"
+"                                            <center>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.name\">\n"
+"                                                        <b t-out=\"object.name or ''\">Inbox Financial</b>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.activity_note\">\n"
+"                                                        <i t-out=\"object.activity_note or ''\">Esimerkki huomautuksesta.</i>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <br>\n"
+"                                                <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                    <a t-att-href=\"object.full_url\" style=\"background-color: #875A7B; padding: 20px 30px 20px 30px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                        Lataa pyydetty asiakirja\n"
+"                                                    </a>\n"
+"                                                </div>\n"
+"                                            </center><br>\n"
+"                                            Toimita puuttuva asiakirja meille<t t-if=\"object.date_deadline\"> ennen linkin voimassaolon päättymistä (suunniteltu <t t-out=\"object.date_deadline\">2021-05-17</t>)</t>.\n"
+"                                            <t t-if=\"user and user.signature\">\n"
+"                                                <br>\n"
+"                                                <t t-out=\"user.signature or ''\">--<br>Mitchell admin</t>\n"
+"                                                <br>\n"
+"                                            </t>\n"
+"                                        </div>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- FOOTER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\" align=\"left\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.name or ''\">YourCompany</t>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.phone or ''\">+1 650-123-4567</t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.email\">\n"
+"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                                        </t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.website\">\n"
+"                                            | <a t-attf-href=\"'%s' % {{ object.create_uid.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.website or ''\">http://www.example.com</a>\n"
+"                                        </t>\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                    </table>\n"
+"                    </td></tr>\n"
+"                    <!-- POWERED BY -->\n"
+"                    <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                          <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"                           <t t-if=\"object.date_deadline\">\n"
+"                                Tämä linkki vanhenee <b t-out=\"object.date_deadline or ''\">2021-05-17</b>.<br>\n"
+"                           </t>\n"
+"                            Voimana <a target=\"_blank\" href=\"https://www.odoo.com/app/documents\" style=\"color: #875A7B;\">Odoo Documents</a>\n"
+"                          </td></tr>\n"
+"                        </table>\n"
+"                    </td></tr>\n"
+"                </table>\n"
+"            "
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_defaults
@@ -443,6 +649,8 @@ msgid ""
 "A workspace cannot have one of his child defined as Parent Workspace in "
 "order to avoid a recursion issue."
 msgstr ""
+"Työtilalla ei voi olla yhtä alemman tason työtilaa määriteltynä ylemmän "
+"tason työtilana, jotta vältetään rekursio-ongelma."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__parent_folder_id
@@ -550,7 +758,7 @@ msgstr "Toimenpidekirjaus"
 #. module: documents
 #: model:ir.ui.menu,name:documents.mail_activity_plan_menu
 msgid "Activity Plans"
-msgstr ""
+msgstr "Toimintasuunnitelmat"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_state
@@ -747,42 +955,42 @@ msgstr "Arkistoitu"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
 msgid "Archived Workspace"
-msgstr ""
+msgstr "Arkistoitu työtila"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Are you sure that you want to delete the focused page ?"
-msgstr ""
+msgstr "Oletko varma, että haluat poistaa kohteena olevan sivun?"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Are you sure that you want to delete the selected page(s)"
-msgstr ""
+msgstr "Oletko varma, että haluat poistaa valitut sivut?"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Are you sure that you want to delete this page ?"
-msgstr ""
+msgstr "Oletko varma, että haluat poistaa tämän sivun?"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Are you sure you want to permanently erase the document?"
-msgstr ""
+msgstr "Haluatko varmasti poistaa asiakirjan pysyvästi?"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Are you sure you want to permanently erase the documents?"
-msgstr ""
+msgstr "Oletko varma, että haluat poistaa asiakirjat pysyvästi?"
 
 #. module: documents
 #. odoo-javascript
@@ -893,7 +1101,7 @@ msgstr "Voi ladata"
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "Can't share documents of different workspaces."
-msgstr ""
+msgstr "Useiden työtilojen asiakirjoja ei voi jakaa."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
@@ -908,6 +1116,8 @@ msgid ""
 "Cannot move folder under the given parent as this would create a recursive "
 "hierarchy"
 msgstr ""
+"Kansiota ei voi siirtää annetun ylemmän tason kansion alle, koska tämä loisi"
+" rekursiivisen hierarkian"
 
 #. module: documents
 #: model_terms:documents.folder,description:documents.documents_internal_folder
@@ -940,7 +1150,7 @@ msgstr "Valitse yhdistettävä tietue"
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "Choose or Configure Email Servers"
-msgstr ""
+msgstr "Valitse tai määritä sähköpostipalvelimet"
 
 #. module: documents
 #. odoo-javascript
@@ -979,7 +1189,7 @@ msgstr "Sulje"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Close split tools"
-msgstr ""
+msgstr "Sulje jaetut työkalut"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
@@ -1048,7 +1258,7 @@ msgstr "Luo jako"
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
 msgid "Create Vendor Bill"
-msgstr ""
+msgstr "Luo toimittajan lasku"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
@@ -1120,6 +1330,8 @@ msgstr "Ladattujen asiakirjojen oletusarvot"
 #: model:ir.model.fields,help:documents.field_res_config_settings__deletion_delay
 msgid "Delay after permanent deletion of the document in the trash (days)"
 msgstr ""
+"Viive sen jälkeen, kun asiakirja on poistettu pysyvästi roskakorista "
+"(päivää)"
 
 #. module: documents
 #. odoo-javascript
@@ -1140,7 +1352,7 @@ msgstr "Poista"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Delete focused or selected pages"
-msgstr ""
+msgstr "Poista tarkennetut tai valitut sivut"
 
 #. module: documents
 #. odoo-javascript
@@ -1148,22 +1360,22 @@ msgstr ""
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Delete permanently"
-msgstr ""
+msgstr "Poista pysyvästi"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_res_config_settings__deletion_delay
 msgid "Deletion Delay"
-msgstr ""
+msgstr "Poistamisen viive"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__deletion_delay
 msgid "Deletion delay"
-msgstr ""
+msgstr "Poistoviive"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Deletion delay (days)"
-msgstr ""
+msgstr "Poistoviive (päivää)"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_deprecate
@@ -1219,7 +1431,7 @@ msgstr "Haluatko todella poistaa linkin tähän tietueeseen?"
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #, python-format
 msgid "Do you want to exit without saving or gather pages into one document ?"
-msgstr ""
+msgstr "Haluatko poistua tallentamatta tai koota sivut yhteen asiakirjaan?"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_document
@@ -1249,7 +1461,7 @@ msgstr "Dokumentin omistaja"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_activity_plan_action_document
 msgid "Document Plans"
-msgstr ""
+msgstr "Asiakirjasuunnitelmat"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
@@ -1275,7 +1487,7 @@ msgstr "Asiakirjapyyntö: %s Lähettäjä: %s"
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request_reminder
 msgid "Document Request: Reminder"
-msgstr ""
+msgstr "Asiakirjapyyntö: Muistutus"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__has_write_access
@@ -1295,7 +1507,7 @@ msgstr "Dokumenttilista"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "Document preview"
-msgstr ""
+msgstr "Asiakirjan esikatselu"
 
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request
@@ -1371,7 +1583,7 @@ msgstr "Lataa"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
 msgid "Download #{document.name}"
-msgstr ""
+msgstr "Lataa #{document.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
@@ -1387,7 +1599,7 @@ msgstr "Lataa ja lähetä"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "Download file"
-msgstr ""
+msgstr "Lataa tiedosto"
 
 #. module: documents
 #. odoo-javascript
@@ -1457,7 +1669,7 @@ msgstr "Virhe"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Escape Preview/Deselect/Exit"
-msgstr ""
+msgstr "Poistu Esikatselu / Valinta / Valinnan poistaminen / Poistu"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__excluded_tag_ids
@@ -1469,14 +1681,14 @@ msgstr "Poissuljetut tunnisteet"
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.js:0
 #, python-format
 msgid "Exit Split Tools"
-msgstr ""
+msgstr "Lopeta Split Tools -työkalut"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #, python-format
 msgid "Exit without saving"
-msgstr ""
+msgstr "Poistu tallentamatta"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_documents_expense
@@ -1526,7 +1738,7 @@ msgstr "Tiedoston sisältö (raaka)"
 #: model:ir.model.fields,field_description:documents.field_documents_document__file_extension
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "File Extension"
-msgstr ""
+msgstr "Tiedoston laajennus"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__file_size
@@ -1543,7 +1755,7 @@ msgstr "Tiedoston suoratoistomalli ohjaimille"
 #: code:addons/documents/controllers/documents.py:0
 #, python-format
 msgid "File uploaded by:"
-msgstr ""
+msgstr "Tiedoston on ladannut:"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
@@ -1554,6 +1766,7 @@ msgstr "Tiedostojen keskittäminen"
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 msgid "Files will be sent to trash and deleted forever after"
 msgstr ""
+"Tiedostot lähetetään roskakoriin ja poistetaan lopullisesti sen jälkeen"
 
 #. module: documents
 #. odoo-javascript
@@ -1562,6 +1775,8 @@ msgstr ""
 #, python-format
 msgid "Files will be sent to trash and deleted forever after %s days."
 msgstr ""
+"Tiedostot lähetetään roskakoriin ja poistetaan lopullisesti %s päivän "
+"kuluttua."
 
 #. module: documents
 #: model:documents.folder,name:documents.documents_finance_folder
@@ -1588,28 +1803,28 @@ msgstr "Tilikaudet"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Focus first page of next group"
-msgstr ""
+msgstr "Keskity seuraavan ryhmän ensimmäiselle sivulle"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Focus first page of previous group"
-msgstr ""
+msgstr "Keskity edellisen ryhmän ensimmäiselle sivulle"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Focus next page"
-msgstr ""
+msgstr "Keskity seuraavalle sivulle"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Focus previous page"
-msgstr ""
+msgstr "Keskity edellinen sivu"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
@@ -1643,12 +1858,12 @@ msgstr "Tulevat toimenpiteet"
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #, python-format
 msgid "Gather in one document"
-msgstr ""
+msgstr "Kerää yhteen asiakirjaan"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Gb"
-msgstr ""
+msgstr "Gt"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -1811,7 +2026,7 @@ msgstr "On jaettu"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_multipage
 msgid "Is considered multipage"
-msgstr ""
+msgstr "Pidetään monisivuisena"
 
 #. module: documents
 #. odoo-javascript
@@ -1819,6 +2034,7 @@ msgstr ""
 #, python-format
 msgid "Items in trash will be deleted forever after %s days."
 msgstr ""
+"Roskakorissa olevat kohteet poistetaan lopullisesti %s päivän kuluttua."
 
 #. module: documents
 #. odoo-javascript
@@ -1826,11 +2042,12 @@ msgstr ""
 #, python-format
 msgid "Items moved to the trash will be deleted forever after %s days."
 msgstr ""
+"Roskakoriin siirretyt kohteet poistetaan lopullisesti %s päivän kuluttua."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Kb"
-msgstr ""
+msgstr "kt"
 
 #. module: documents
 #: model:documents.facet,name:documents.documents_internal_knowledge
@@ -1930,7 +2147,7 @@ msgstr "Linkki"
 #: code:addons/documents/controllers/documents.py:0
 #, python-format
 msgid "Link created by:"
-msgstr ""
+msgstr "Linkin on luonut:"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_rule__create_model__link_to_record
@@ -1940,7 +2157,7 @@ msgstr "Linkki tietueeseen"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "Links cannot be shared and therefore will be excluded."
-msgstr ""
+msgstr "Linkkejä ei voi jakaa, joten ne suljetaan pois."
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_share__state__live
@@ -2005,7 +2222,7 @@ msgstr "Markkinointi"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Mb"
-msgstr ""
+msgstr "Mt"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_note
@@ -2062,7 +2279,7 @@ msgstr "Siirrä Saapuneet-kansioon"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Move this page to trash"
-msgstr ""
+msgstr "Siirrä tämä sivu roskakoriin"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__folder_id
@@ -2081,7 +2298,7 @@ msgstr "Siirry työtilaan"
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #, python-format
 msgid "Move to trash"
-msgstr ""
+msgstr "Siirrä roskiin"
 
 #. module: documents
 #. odoo-javascript
@@ -2091,7 +2308,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #, python-format
 msgid "Move to trash?"
-msgstr ""
+msgstr "Siirtyä roskiin?"
 
 #. module: documents
 #. odoo-javascript
@@ -2202,7 +2419,7 @@ msgstr "Toimintatyyppejä ei löytynyt. Luodaan yksi!"
 #: code:addons/documents/static/src/views/helper/documents_action_helper.xml:0
 #, python-format
 msgid "No alias configured"
-msgstr ""
+msgstr "Ei määritettyä aliasta"
 
 #. module: documents
 #. odoo-javascript
@@ -2250,7 +2467,7 @@ msgstr "Toimenpiteiden määrä"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__links_count
 msgid "Number of Links"
-msgstr ""
+msgstr "Linkkien määrä"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_error_counter
@@ -2396,6 +2613,7 @@ msgstr "Osittainen siirto"
 #: model_terms:ir.ui.view,arch_db:documents.not_available
 msgid "Please contact the person that shared this link for more information."
 msgstr ""
+"Ota yhteyttä tämän linkin jakaneeseen henkilöön saadaksesi lisätietoja."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_contact
@@ -2468,7 +2686,7 @@ msgstr "Jäljellä olevat sivut"
 #: code:addons/documents/static/src/views/activity/documents_activity_controller.js:0
 #, python-format
 msgid "Reminder emails have been sent."
-msgstr ""
+msgstr "Muistutussähköpostit on lähetetty."
 
 #. module: documents
 #: model:mail.template,subject:documents.mail_template_document_request_reminder
@@ -2476,6 +2694,8 @@ msgid ""
 "Reminder to upload your document{{ object.name and ' : ' + object.name or ''"
 " }}"
 msgstr ""
+"Muistutus asiakirjan lataamisesta{{ object.name and ' : ' + object.name or "
+"'' }}"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_action__action__remove
@@ -2536,6 +2756,8 @@ msgid ""
 "Requested\n"
 "                                ∙"
 msgstr ""
+"Pyydetty\n"
+"                                ∙"
 
 #. module: documents
 #: model:mail.activity.type,name:documents.mail_documents_activity_data_md
@@ -2625,42 +2847,42 @@ msgstr "Valitse kaikki"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select focused page"
-msgstr ""
+msgstr "Valitse fokusoitu sivu"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select next page"
-msgstr ""
+msgstr "Valitse seuraava sivu"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select next pages of the group"
-msgstr ""
+msgstr "Valitse ryhmän seuraavat sivut"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select previous page"
-msgstr ""
+msgstr "Valitse edellinen sivu"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select previous pages of the group"
-msgstr ""
+msgstr "Valitse ryhmän edelliset sivut"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select/Deselect all pages"
-msgstr ""
+msgstr "Kaikkien sivujen valitseminen/poistaminen"
 
 #. module: documents
 #. odoo-javascript
@@ -2711,7 +2933,7 @@ msgstr "Aseta tunnisteet"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Set deletion delay for documents in the Trash"
-msgstr ""
+msgstr "Aseta poistoviive roskakorissa oleville asiakirjoille"
 
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request_reminder
@@ -2719,6 +2941,8 @@ msgid ""
 "Set reminders in activities to notify users who didn't upload their "
 "requested document"
 msgstr ""
+"Aseta toiminnoissa muistutuksia, joilla ilmoitetaan käyttäjille, jotka eivät"
+" ole ladanneet pyydettyä asiakirjaa"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__has_owner_activity
@@ -2838,12 +3062,12 @@ msgstr "Koko:"
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "Some files could not be uploaded (max size: %s)."
-msgstr ""
+msgstr "Joitakin tiedostoja ei voitu ladata (enimmäiskoko: %s)."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
 msgid "Sorry, this link is no longer valid."
-msgstr ""
+msgstr "Valitettavasti tämä linkki ei ole enää voimassa."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__link_model
@@ -2873,7 +3097,7 @@ msgstr "Jaa PDF"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Split selected pages"
-msgstr ""
+msgstr "Valittujen sivujen jakaminen"
 
 #. module: documents
 #: model:documents.facet,name:documents.documents_finance_status
@@ -2983,14 +3207,14 @@ msgstr ""
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_res_config_settings_check_deletion_delay
 msgid "The deletion delay should be positive."
-msgstr ""
+msgstr "Poistoviiveen pitää olla positiivinen."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "The links and requested documents are not shareable."
-msgstr ""
+msgstr "Linkkejä ja pyydettyjä asiakirjoja ei voi jakaa."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_model_id
@@ -3025,7 +3249,7 @@ msgstr "Jakamisen URL-osoite on kopioitu leikepöydällesi."
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
 #, python-format
 msgid "The share url has been copied to your clipboard. Links were excluded."
-msgstr ""
+msgstr "Jaon URL-osoite on kopioitu leikepöydällesi. Linkit jätettiin pois."
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_share_share_unique
@@ -3048,13 +3272,15 @@ msgid ""
 "This document has been requested.\n"
 "                <b onclick=\"document.querySelector('.o_request_upload').click()\" style=\"cursor:pointer;\">Upload it</b>."
 msgstr ""
+"Tätä asiakirjaa on pyydetty.\n"
+"               <b onclick=\"document.querySelector('.o_request_upload').click()\" style=\"cursor:pointer;\">Lataa se</b>."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #, python-format
 msgid "This file has been restored"
-msgstr ""
+msgstr "Tämä tiedosto on palautettu"
 
 #. module: documents
 #. odoo-python
@@ -3062,7 +3288,7 @@ msgstr ""
 #, python-format
 msgid ""
 "This file has been sent to the trash and will be deleted forever on the %s"
-msgstr ""
+msgstr "Tämä tiedosto on lähetetty roskakoriin ja poistetaan lopullisesti %s"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__company_id
@@ -3179,11 +3405,13 @@ msgid ""
 "URL %s does not seem complete, as it does not begin with http(s):// or "
 "ftp://"
 msgstr ""
+"URL-osoite %s ei vaikuta täydelliseltä, koska se ei ala http(s):// tai "
+"ftp://"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__url_preview_image
 msgid "URL Preview Image"
-msgstr ""
+msgstr "URL Esikatselukuva"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -3268,7 +3496,7 @@ msgstr "Vahvistettu"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "Validity date:"
-msgstr ""
+msgstr "Voimassa:"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_marketing_assets_Videos
@@ -3309,7 +3537,7 @@ msgstr "Viikot"
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #, python-format
 msgid "What do you want to do with the remaining pages ?"
-msgstr ""
+msgstr "Mitä haluat tehdä jäljellä oleville sivuille?"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.workflow_rule_action
@@ -3379,7 +3607,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #, python-format
 msgid "You cannot upload content in this workspace"
-msgstr ""
+msgstr "Et voi ladata sisältöä tässä työtilassa"
 
 #. module: documents
 #. odoo-python
@@ -3400,7 +3628,7 @@ msgstr "Sinulla ei ole oikeuksia siirtää asiakirjoja kyseiseen työtilaan"
 #: code:addons/documents/static/src/views/helper/documents_drop_zone.xml:0
 #, python-format
 msgid "You must be in a specific workspace to upload files"
-msgstr ""
+msgstr "Sinun on oltava tietyssä työtilassa ladataksesi tiedostoja"
 
 #. module: documents
 #. odoo-javascript
@@ -3412,7 +3640,7 @@ msgstr "YouTube-video"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 msgid "days."
-msgstr ""
+msgstr "päivää."
 
 #. module: documents
 #. odoo-javascript
@@ -3500,12 +3728,12 @@ msgstr "esim. https://www.youtube.com/watch?v=CP96yVnXNrY"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #, python-format
 msgid "file_extension"
-msgstr ""
+msgstr "file_extension"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "files"
-msgstr ""
+msgstr "tiedostot"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__is_readonly_model

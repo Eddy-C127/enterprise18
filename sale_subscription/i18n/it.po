@@ -6,8 +6,8 @@
 # Martin Trigaux, 2023
 # Sergio Zanchetta <primes2h@gmail.com>, 2023
 # Wil Odoo, 2023
-# Marianna Ciofani, 2023
 # GUEST.it <guestisp@users.noreply.github.com>, 2023
+# Marianna Ciofani, 2023
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: GUEST.it <guestisp@users.noreply.github.com>, 2023\n"
+"Last-Translator: Marianna Ciofani, 2023\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1477,6 +1477,13 @@ msgid "Change customer"
 msgstr "Cambia cliente"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Check reopened subscription"
+msgstr "Controlla abbonamento riaperto"
+
+#. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
@@ -2516,12 +2523,6 @@ msgid "MRR"
 msgstr "MRR"
 
 #. module: sale_subscription
-#: model:ir.actions.act_window,name:sale_subscription.sale_order_log_analysis_action
-#: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_analysis_report
-msgid "MRR Analysis"
-msgstr "Analisi MRR"
-
-#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "MRR Between"
 msgstr "MRR tra"
@@ -2574,6 +2575,11 @@ msgstr "Massimo di intervallo RMR"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_min
 msgid "MRR Range Min"
 msgstr "Minimo di intervallo RMR"
+
+#. module: sale_subscription
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_analysis_report
+msgid "MRR Timeline"
+msgstr "Sequenza MRR"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_tree
@@ -3908,6 +3914,25 @@ msgstr "Invia"
 #, python-format
 msgid "Subscription"
 msgstr "Abbonamento"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Subscription %s has been canceled. The parent order %s has been reopened.\n"
+"                                                You should close %s if the customer churned, or renew it if the customer continue the service.\n"
+"                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
+"                                                created subscription and renew %s instead"
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Subscription %s has been reopened. The end date has been removed"
+msgstr ""
+"L'abbonamento %s è stato aperto di nuovo. La data di fine è stata eliminata"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_payment_transaction__subscription_action
@@ -5318,3 +5343,5 @@ msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
 "valid positive numeric value."
 msgstr ""
+"Il periodo ricorrente deve essere un numero positivo. Assicurati che il "
+"valore inserito sia un numero positivo valido."

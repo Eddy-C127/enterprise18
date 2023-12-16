@@ -64,7 +64,7 @@ msgstr "Añadir una nueva petición de mantenimiento"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__recurring_leaves_count
 msgid "Additional Leaves to Plan Ahead"
-msgstr ""
+msgstr "Pausas adicionales por planificar"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_attachment_count
@@ -81,6 +81,8 @@ msgstr "Bloquear centro de trabajo"
 msgid ""
 "Block the workcenter for this many time slots in the future in advance."
 msgstr ""
+"Bloquee el centro de trabajo para esta cantidad de espacios de tiempo en el "
+"futuro por adelantado."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__company_id
@@ -225,6 +227,8 @@ msgid ""
 "It won't be possible to plan work orders or other maintenances on this "
 "workcenter during this time."
 msgstr ""
+"No es posible planificar órdenes de trabajo u otro tipo de mantenimiento en "
+"este centro de trabajo durante este tiempo. "
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
@@ -309,6 +313,8 @@ msgid ""
 "Manufacturing operations are processed at Work Centers. A Work Center can be composed of\n"
 "            workers and/or machines, they are used for costing, scheduling, capacity planning, etc."
 msgstr ""
+"Las operaciones de fabricación se procesan en centros de trabajo. Un centro de trabajo se compone de\n"
+"                trabajadores y/o maquinaria, se utilizan para calcular costes, programar actividades, planificar capacidad, etc."
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
@@ -426,14 +432,14 @@ msgstr "Solicitud"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_stage__create_leaves
 msgid "Request Confirmed"
-msgstr ""
+msgstr "Solicitud confirmada"
 
 #. module: mrp_maintenance
 #. odoo-javascript
 #: code:addons/mrp_maintenance/static/src/components/menuPopup.xml:0
 #, python-format
 msgid "Request Maintenance"
-msgstr ""
+msgstr "Solicitar mantenimiento"
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -485,7 +491,7 @@ msgstr "Técnico"
 #: code:addons/mrp_maintenance/static/src/components/maintenance_request_form_view.js:0
 #, python-format
 msgid "The maintenance request has successfully been created."
-msgstr ""
+msgstr "La solicitud de mantenimiento se ha creado correctamente."
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -495,18 +501,20 @@ msgid ""
 "The schedule has changed from %(desired_date)s to %(effective_date)s due to "
 "planned manufacturing orders."
 msgstr ""
+"Este horario cambio de %(desired_date)s a%(effective_date)s debido a las "
+"órdenes de fabricación."
 
 #. module: mrp_maintenance
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "The workcenter is missing for %s."
-msgstr ""
+msgstr "El centro de trabajo falta en %s."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__effective_date
 msgid "This date will be used to compute the Mean Time Between Failure."
-msgstr ""
+msgstr "Esta fecha se usará para calcular el Tiempo medio entre fallos."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__activity_exception_decoration
@@ -529,6 +537,8 @@ msgid ""
 "When this box is unticked, and the maintenance is of the type 'Work Center', no leave is created on the respective work center when a maintenance request is created.\n"
 "If the box is ticked, the work center is automatically blocked for the listed duration, either at the specified date, or as soon as possible, if the work center is unavailable then."
 msgstr ""
+"Cuando la casilla no está marcada, el mantenimiento es de tipo \"Centro de trabajo\", entonces no se crea una pausa en el respectivo centro de trabajo al crear una solicitud de mantenimiento.\n"
+"Si la casilla está marcada, el centro de trabajo se bloquea automáticamente por el tiempo establecido, ya sea en la fecha configurada o tan pronto como sea posible si el centro de trabajo no está disponible en ese momento."
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_mrp_workcenter

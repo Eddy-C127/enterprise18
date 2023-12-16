@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Dariusz Żbikowski <darek@krokus.com.pl>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-11 09:27+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Dariusz Żbikowski <darek@krokus.com.pl>, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,11 +97,6 @@ msgstr "(1 wiersz)"
 #, python-format
 msgid "(No Group)"
 msgstr "(Brak grupy)"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid "-> Check your tax report"
-msgstr "-> Sprawdź swój raport podatkowy"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -1677,11 +1673,6 @@ msgid "Group Name"
 msgstr "Nazwa grupy"
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
-msgid "Group by:"
-msgstr ""
-
-#. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
@@ -1851,6 +1842,13 @@ msgstr "Saldo początkowe"
 #, python-format
 msgid "Insert foot note here"
 msgstr "Wstaw stopkę tutaj"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#, python-format
+msgid "Integer Rounding"
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -2261,6 +2259,8 @@ msgstr "Marża netto (zysk netto / przychód)"
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "No"
@@ -2344,6 +2344,13 @@ msgstr "Należności niehandlowe"
 #, python-format
 msgid "None"
 msgstr "Brak"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_deferred_reports.py:0
+#, python-format
+msgid "Not Started"
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -2699,7 +2706,6 @@ msgstr "Przypomnienie"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_footnote__report_id
-#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Report"
 msgstr "Raport"
 
@@ -2707,6 +2713,11 @@ msgstr "Raport"
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "Report Line"
 msgstr "Linia raportu"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+msgid "Report Name"
+msgstr "Nazwa raportu"
 
 #. module: account_reports
 #. odoo-python
@@ -2830,11 +2841,6 @@ msgstr "Gotówka - prognoza krótkoterminowa"
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__show_warning_move_id
 msgid "Show Warning Move"
 msgstr "Pokaż ruch ostrzegawczy"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid "Some controls failed."
-msgstr "Niektóre kontrole zawiodły."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3225,6 +3231,13 @@ msgid "This option hides lines with a value of 0"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "This report already has a menuitem."
+msgstr ""
+
+#. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid ""
 "This report is linked to a custom handler.\n"
@@ -3513,6 +3526,8 @@ msgstr "XLSX"
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
 msgid "Yes"

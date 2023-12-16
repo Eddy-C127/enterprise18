@@ -519,7 +519,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">How do they compare and evaluate offers?</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">¿Cómo comparan y evalúan las ofertas?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -550,17 +550,17 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Job Title 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Puesto de trabajo 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Job Title 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Puesto de trabajo 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Job Title</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Puesto de trabajo</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -1562,6 +1562,9 @@ msgid ""
 "                    Company Newsletter\n"
 "                </span>: <font class=\"text-400\">Month</font>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                    Boletín de noticias de la empresa\n"
+"                </span>: <font class=\"text-400\">Mes</font>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1598,6 +1601,8 @@ msgid ""
 "<strong style=\"font-weight: 500\"><span style=\"font-size: 14px\">\n"
 "                            Early bird alert</span></strong>"
 msgstr ""
+"<strong style=\"font-weight: 500\"><span style=\"font-size: 14px\">\n"
+"                            Venta anticipada de entradas </span></strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1608,6 +1613,7 @@ msgstr "<strong style=\"font-weight: 500\">Tareas opcionales</strong>"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<strong style=\"font-weight: 500\">⚡ TOP 3 PRIORITIES</strong>"
 msgstr ""
+"<strong style=\"font-weight: 500\">⚡ LAS 3 PRIORIDADES PRINCIPALES</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -1842,7 +1848,7 @@ msgstr "<strong>Notas adicionales:</strong>"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<strong>Fast Facts</strong>"
-msgstr ""
+msgstr "<strong>Datos básicos</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -1901,6 +1907,8 @@ msgid ""
 "<strong>Summary</strong>: <font class=\"text-600\">What an exciting release!"
 " This time the focus was on...</font>"
 msgstr ""
+"<strong>Resumen</strong>: <font class=\"text-600\">esta nueva versión nos "
+"enfocamos en...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -1919,7 +1927,7 @@ msgstr "<strong>USP</strong>"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<strong>⚡ TOP 3 PRIORITIES</strong>"
-msgstr ""
+msgstr "<strong>⚡ LAS 3 PRIORIDADES PRINCIPALES</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -1976,6 +1984,11 @@ msgid ""
 "                        <br>\n"
 "                        Our products are designed for small to medium size companies willing to optimize their performance."
 msgstr ""
+"Acerca de SuEmpresa: Somos un equipo de personas apasionadas cuyo objetivo es mejorar la vida de las personas\n"
+"                        a través de productos revolucionarios.\n"
+"                        Creamos excelentes productos para resolver sus problemas empresariales.\n"
+"                        <br>\n"
+"                        Nuestros productos están diseñados para pequeñas y medianas empresas dispuestas a optimizar su rendimiento."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -1987,7 +2000,7 @@ msgstr "Ausente por más de un día"
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 #, python-format
 msgid "Access Restricted. May not be shared with everyone from"
-msgstr ""
+msgstr "Acceso restringido. Puede que no se comparta con todos en "
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_account_management
@@ -1997,7 +2010,7 @@ msgstr "Gestión contable"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Account Management Cheat Sheet"
-msgstr ""
+msgstr "Hoja de referencia de gestión de cuentas"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_needaction
@@ -2077,7 +2090,7 @@ msgstr "Agregue un comentario a la selección"
 #: code:addons/knowledge/static/src/components/knowledge_icon/knowledge_icon.xml:0
 #, python-format
 msgid "Add a random icon"
-msgstr ""
+msgstr "Agregar un icono aleatorio"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_stage_action
@@ -2085,6 +2098,8 @@ msgid ""
 "Add an embed kanban view of article items in the body of an article by using"
 " '/kanban' command."
 msgstr ""
+"Agregue una vista kanban incrustada de elementos del artículo en el cuerpo "
+"de un artículo con el comando '/kanban'."
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_favorite_action
@@ -2092,6 +2107,8 @@ msgid ""
 "Add articles in your list of favorites by clicking on the <i class=\"fa fa-"
 "star-o\"></i> next to the article name."
 msgstr ""
+"Agregue artículos a su lista de favoritos haciendo clic en el <i class=\"fa "
+"fa-star-o\"></i> junto al nombre del artículo."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2099,7 +2116,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Add cover"
-msgstr ""
+msgstr "Agregar portada"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2126,7 +2143,7 @@ msgstr "Agregue personas o correos electrónicos"
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 #, python-format
 msgid "Add people or email addresses..."
-msgstr ""
+msgstr "Agregue personas o correos electrónicos..."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2141,6 +2158,8 @@ msgid ""
 "Adding members allows you to share Articles while granting specific access "
 "rights<br>(can write, can read, ...)."
 msgstr ""
+"Agregue miembros le permite compartir artículos mientras otorga permisos de "
+"acceso específicos<br>(escritura, lectura, ...)."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2166,7 +2185,7 @@ msgstr "Búsqueda avanzada"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Advertising that would appear online or on TV"
-msgstr ""
+msgstr "Publicidad que aparecería en Internet o en televisión"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -2280,6 +2299,8 @@ msgid ""
 "Always type <strong>YourCompany</strong> in the same font size and style as "
 "the content of the text"
 msgstr ""
+"Siempre escribir <strong>SuEmpresa</strong> en el mismo tamaño de fuente y "
+"estilo que el contenido del texto."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -2313,6 +2334,8 @@ msgid ""
 "Are you sure you want to delete this cover? It will be removed from every "
 "article it is used in."
 msgstr ""
+"¿Está seguro de que desea eliminar esta portada? Se eliminará de los "
+"artículos en donde se utiliza."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2322,6 +2345,8 @@ msgid ""
 "Are you sure you want to leave your private Article? As you are its last "
 "member, it will be moved to the Trash."
 msgstr ""
+"¿Está seguro de que quiere dejar su artículo como privado? Ya que es su "
+"último miembro, se moverá a la papelera."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2382,6 +2407,9 @@ msgid ""
 "Are you sure you want to restore access? This means this article will now "
 "inherit any access set on its parent articles."
 msgstr ""
+"¿Está seguro de que desea restaurar el acceso? Esto significa que este "
+"artículo ahora heredará cualquier acceso establecido en sus artículos "
+"principales."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2391,13 +2419,16 @@ msgid ""
 "Are you sure you want to restrict access to this article? This means it will"
 " no longer inherit access rights from its parents."
 msgstr ""
+"¿Está seguro de que desea restringir el acceso a este artículo? Esto "
+"significa que ya no heredará los permisos de acceso de sus artículos "
+"principales."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_view.js:0
 #, python-format
 msgid "Are you sure you want to send this article to the trash?"
-msgstr ""
+msgstr "¿Está seguro de que desea enviar este artículo a la papelera?"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2407,6 +2438,8 @@ msgid ""
 "Are you sure you want to set the internal permission to \"none\"? If you do,"
 " you will no longer have access to the article."
 msgstr ""
+"¿Está seguro de que desea establecer el permiso interno como \"ninguno\"? Si"
+" lo hace, ya no tendrá acceso al artículo."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2416,6 +2449,8 @@ msgid ""
 "Are you sure you want to set your permission to \"none\"? If you do, you "
 "will no longer have access to the article."
 msgstr ""
+"¿Está seguro de que desea establecer su permiso a \"ninguno\"? Si lo hace, "
+"ya no tendrá acceso al artículo."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2439,6 +2474,8 @@ msgid ""
 "Article '%s' should always have a writer: inherit write permission, or have "
 "a member with write access"
 msgstr ""
+"El artículo \"%s\" siempre debe tener un autor, ya sea que herede el permiso"
+" de edición o tenga un miembro con acceso de edición."
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_thread
@@ -2501,7 +2538,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_article_item_parent
 msgid "Article items must have a parent."
-msgstr ""
+msgstr "Los elementos del artículo deben tener uno principal."
 
 #. module: knowledge
 #. odoo-python
@@ -2586,7 +2623,7 @@ msgstr "Reserva"
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Base Color On"
-msgstr ""
+msgstr "Color basado en"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2614,13 +2651,13 @@ msgstr "Contenido"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Booklets for a total price &gt; $1000"
-msgstr ""
+msgstr "Folletos con un precio total mayor que 1000 USD."
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_brand_assets
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Brand Assets"
-msgstr ""
+msgstr "Activos de marca"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -2630,6 +2667,10 @@ msgid ""
 "class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
 "star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"Atracción por la marca <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -2639,6 +2680,10 @@ msgid ""
 "star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Atracción por la marca <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
@@ -2648,6 +2693,10 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Atracción por la marca <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -2672,12 +2721,12 @@ msgstr "Reglas del nombre de la marca"
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "Browse Templates"
-msgstr ""
+msgstr "Explorar plantillas"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "Bug Fixes 🔨"
-msgstr ""
+msgstr "Solución de bugs 🔨"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2761,14 +2810,14 @@ msgstr "¿Todos pueden ver el artículo?"
 #: code:addons/knowledge/models/knowledge_article_member.py:0
 #, python-format
 msgid "Can not update the article or partner of a member."
-msgstr ""
+msgstr "No se puede actualizar el artículo o contacto de un miembro."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article_favorite.py:0
 #, python-format
 msgid "Can not update the article or user of a favorite."
-msgstr ""
+msgstr "No se puede actualizar el artículo o usuario de un favorito."
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__inherited_permission__read
@@ -2776,7 +2825,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article_member__permission__read
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_invite__permission__read
 msgid "Can read"
-msgstr ""
+msgstr "Puede leer"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__user_has_access_parent_path
@@ -2807,6 +2856,8 @@ msgid ""
 "Cannot create an article under article %(parent_name)s which is a non-"
 "private parent"
 msgstr ""
+"No se puede crear un artículo bajo el artículo %(parent_name)s, ya que es un"
+" principal no privado"
 
 #. module: knowledge
 #. odoo-python
@@ -2816,6 +2867,8 @@ msgid ""
 "Cannot move %(article_name)s as a root of the 'shared' section since access "
 "rights can not be inferred without a parent."
 msgstr ""
+"No puede mover %(article_name)s como raíz de la sección \"compartida\" ya "
+"que los permisos de acceso no se pueden inferir sin un principal."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -2823,6 +2876,8 @@ msgid ""
 "Capitalize the word <strong>YourCompany</strong>, except if it's part of an "
 "URL e.g. website/company"
 msgstr ""
+"Escribir <strong>SuEmpresa</strong> en mayúsculas excepto si es parte de una"
+" URL (por ejemplo, sitio_web/empresa)."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -2857,6 +2912,8 @@ msgid ""
 "Centralize account insights in one document for comprehensive monitoring and"
 " follow-up."
 msgstr ""
+"Centralize la información sobre la cuenta en un solo documento para llevar "
+"un mejor seguimiento y monitoreo. "
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_meeting_minutes
@@ -2864,6 +2921,8 @@ msgid ""
 "Centralize team meetings in a single article, while making sure notes are "
 "handled efficiently."
 msgstr ""
+"Centralice las reuniones del equipo en un solo artículo y asegúrese de que "
+"las notas se gestionen con eficacia."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -2909,7 +2968,7 @@ msgstr "Artículos y elementos secundarios"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.js:0
 #, python-format
 msgid "Choose a nice cover"
-msgstr ""
+msgstr "Elija una portada"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2924,7 +2983,7 @@ msgstr "Elija un artículo..."
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Click and hold to reposition"
-msgstr ""
+msgstr "Haga clic y mantenga pulsado para reposicionar"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2976,7 +3035,7 @@ msgstr "Nombre de la empresa:"
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_company_newsletter
 msgid "Company Newsletter"
-msgstr ""
+msgstr "Boletín de noticias de la empresa"
 
 #. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_company_organization
@@ -3030,7 +3089,7 @@ msgstr "Contáctenos"
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos_contact_our_lawyer
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos_contact_our_lawyer
 msgid "Contact our Lawyer"
-msgstr ""
+msgstr "Contactar a nuestro abogado"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3085,6 +3144,8 @@ msgid ""
 "Could not move \"%s%s\" in the shared section. Only shared articles can be "
 "moved in this section."
 msgstr ""
+"No se pudo mover \"%s%s\" a la sección de compartidos, solo puede mover los "
+"artículos compartidos."
 
 #. module: knowledge
 #. odoo-javascript
@@ -3093,7 +3154,7 @@ msgstr ""
 msgid ""
 "Could not move \"%s%s\" under \"%s%s\", because you do not have write "
 "permission on the latter."
-msgstr ""
+msgstr "No se pudo mover \"%s%s\" bajo \"%s%s\" pues no tiene permisos de edición."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3309,6 +3370,8 @@ msgid ""
 "Default permission for all internal users. (External users can still have "
 "access to this article if they are added to its members)"
 msgstr ""
+"Permiso por defecto para todos los usuarios internos. (Los usuarios externos"
+" aún pueden tener acceso a este artículo si se agregan como miembros)"
 
 #. module: knowledge
 #. odoo-python
@@ -3318,6 +3381,8 @@ msgid ""
 "Deleted articles are stored in Trash an extra <b>%(threshold)s</b> days\n"
 "                 before being permanently removed for your database"
 msgstr ""
+"Los artículos eliminados se almacenan en la papelera durante <b>%(threshold)s</b> días adicionales\n"
+"                 antes de ser eliminados de forma permanente de su base de datos"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__deletion_date
@@ -3332,7 +3397,7 @@ msgstr "Los artículos no sincronizados deben tener permiso interno."
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_desynchronized
 msgid "Desyncronized with parents"
-msgstr ""
+msgstr "No sincronizado con el principal"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3362,11 +3427,13 @@ msgid ""
 "Distribute brand digital assets while ensuring compliance with company "
 "policies and guidelines."
 msgstr ""
+"Distribuya activos digitales de marca para garantizar el cumplimiento de las"
+" políticas y reglas de la empresa."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Diving in"
-msgstr ""
+msgstr "Para comenzar..."
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -3382,6 +3449,8 @@ msgid ""
 "Don't forget to spread the word, we're <em>so</em> looking forward to "
 "unveiling this new Odoo version! 🥳"
 msgstr ""
+"Avísale a todas las personas que conozcas, ¡nos entusiasma <em>mucho</em> "
+"presentar esta nueva versión de Odoo! 🥳"
 
 #. module: knowledge
 #. odoo-python
@@ -3404,7 +3473,7 @@ msgstr "Descargar"
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "Drop here to delete this article"
-msgstr ""
+msgstr "Arrástrelo aquí para eliminar este artículo"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3433,17 +3502,17 @@ msgstr "Educación:"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Education: Bachelor's degree in Marketing"
-msgstr ""
+msgstr "Educación: Título de Gardo en Marketing"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 msgid "Education: High school diploma"
-msgstr ""
+msgstr "Estudios: Diploma de bachillerato"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Education: PhD."
-msgstr ""
+msgstr "Educación: Doctor"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -3453,7 +3522,7 @@ msgstr "Educación: Estudiante"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "Egg'cellent run"
-msgstr ""
+msgstr "Un maratón maravilloso"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3621,7 +3690,7 @@ msgstr "Anchura completa"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__full_width
 msgid "Full width"
-msgstr ""
+msgstr "Ancho completo"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -3687,18 +3756,20 @@ msgstr "¿Tiene subelementos de artículo?"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_article_children
 msgid "Has normal article children?"
-msgstr ""
+msgstr "¿Tiene subartículos normales?"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__user_has_access_parent_path
 msgid ""
 "Has the user access to each parent from current article until its root?"
 msgstr ""
+"¿El usuario tiene acceso a cada parte principal desde el artículo actual "
+"hasta su raíz?"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__have_share_partners
 msgid "Have Share Partners"
-msgstr ""
+msgstr "Tiene contactos compartidos"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -3714,6 +3785,11 @@ msgid ""
 "            <br/>\n"
 "            No more time wasted! 🔥"
 msgstr ""
+"Hola, soy una plantilla 👋\n"
+"            <br/>\n"
+"            Use los botones en la parte superior derecha de este cuadro para reutilizar mi contenido.\n"
+"            <br/>\n"
+"            ¡Ahorrará mucho tiempo! 🔥"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -3751,14 +3827,14 @@ msgstr "Oculto"
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "Highlight content and use the"
-msgstr ""
+msgstr "Destacar contenido y utilizar"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Highlight the structure of this article"
-msgstr ""
+msgstr "Destacar la estructura de este artículo"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__html_field_history
@@ -3912,12 +3988,17 @@ msgid ""
 "team.<br>At MyCompany, your happiness is our utmost priority, and we'll go "
 "the extra mile to make sure you find what you're looking for!"
 msgstr ""
+"Si ninguna de esas ofertas le convenció, póngase en contacto con nuestro "
+"equipo.<br>Para MiEmpresa, su felicidad es nuestra prioridad y haremos todo "
+"lo posible para asegurarnos de que encuentre lo que está buscando."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__is_desynchronized
 msgid ""
 "If set, this article won't inherit access rules from its parents anymore."
 msgstr ""
+"Si está habilitado, este artículo ya no heredará las reglas de acceso del "
+"principal."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -3985,6 +4066,8 @@ msgstr "Informe a RR. HH. y a su líder de equipo."
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_release_note
 msgid "Inform users about your latest software updates and improvements."
 msgstr ""
+"Informe a los usuarios sobre las últimas actualizaciones del software y sus "
+"mejoras."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__inherited_permission
@@ -3995,7 +4078,7 @@ msgstr "Permiso heredado"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__inherited_permission_parent_id
 msgid "Inherited Permission Parent Article"
-msgstr ""
+msgstr "Permiso heredado del artículo principal"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4216,22 +4299,22 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Item 1"
-msgstr "Elemento 1"
+msgstr "Primer tema"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Item 2"
-msgstr "Elemento 2"
+msgstr "Segundo tema"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Item 3"
-msgstr ""
+msgstr "Tercer tema"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Item 4"
-msgstr ""
+msgstr "Cuarto tema"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4325,6 +4408,8 @@ msgid ""
 "Keep your colleagues informed about the company's latest developments and "
 "activities through periodic updates."
 msgstr ""
+"Mantenga a sus compañeros informados sobre los últimos acontecimientos y "
+"actividades de la empresa a través de actualizaciones periódicas."
 
 #. module: knowledge
 #. odoo-javascript
@@ -4339,7 +4424,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
 #, python-format
 msgid "Knowledge"
-msgstr "Conocimiento"
+msgstr "Información"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article
@@ -4515,6 +4600,8 @@ msgid ""
 "Logging changes from %(partner_name)s without write access on article "
 "%(article_name)s due to hierarchy tree update"
 msgstr ""
+"Registrando los cambios de %(partner_name)s sin acceso de edición en el "
+"artículo %(article_name)s debido a la actualización del árbol jerárquico"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -4553,7 +4640,7 @@ msgstr "Gestione el horario de su equipo para el próximo sprint."
 #: code:addons/knowledge/models/knowledge_article_thread.py:0
 #, python-format
 msgid "Mark Comment as Closed"
-msgstr ""
+msgstr "Marcar comentario como cerrado"
 
 #. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_marketing
@@ -4597,7 +4684,7 @@ msgstr "Actas de reunión"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Meeting Minutes Template"
-msgstr ""
+msgstr "Plantilla para las actas de reunión"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_member_view_form
@@ -4623,7 +4710,7 @@ msgstr "Información de miembros"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__root_article_id
 msgid "Menu Article"
-msgstr ""
+msgstr "Menú del artículo"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__message
@@ -4647,7 +4734,7 @@ msgstr "Mensajes"
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_views.xml:0
 #, python-format
 msgid "Missing Calendar configuration."
-msgstr ""
+msgstr "Falta la configuración del Calendario."
 
 #. module: knowledge
 #. odoo-javascript
@@ -4670,6 +4757,10 @@ msgid ""
 "                            kilometers.<br>Starting from the office, they enjoyed a great tour in the countryside before\n"
 "                            coming back to Grand-Rosière, where they were welcomed with a drink and a burger."
 msgstr ""
+"Más de 150 Odooers participaron en la edición de este año de las carreras de"
+" 5 y 11 kilómetros.<br>El punto de partida fue la oficina, disfrutaron de un"
+" gran recorrido por el campo antes de regresar a Grand-Rosière, donde les "
+"recibimos con una bebida y una hamburguesa."
 
 #. module: knowledge
 #. odoo-javascript
@@ -4862,14 +4953,14 @@ msgstr "Próxima reunión: <u>6 de mayo @oficina de John</u>"
 #: code:addons/knowledge/static/src/xml/knowledge_command_palette.xml:0
 #, python-format
 msgid "No Article found."
-msgstr ""
+msgstr "No se encontró ningún artículo."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #, python-format
 msgid "No Article found. Create \"%s\""
-msgstr ""
+msgstr "No se encontró ningún artículo. Cree \"%s\""
 
 #. module: knowledge
 #. odoo-python
@@ -4899,7 +4990,7 @@ msgstr "Sin acceso"
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #, python-format
 msgid "No article found."
-msgstr ""
+msgstr "No se encontró ningún artículo."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
@@ -4911,7 +5002,7 @@ msgstr "Todavía no hay artículos."
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #, python-format
 msgid "No hidden articles found"
-msgstr ""
+msgstr "No se encontraron artículos ocultos"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_stage_action
@@ -4935,7 +5026,7 @@ msgstr "¿No está seguro de cómo hacerlo?"
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "Nothing going on!"
-msgstr ""
+msgstr "¡No ocurre nada!"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -4978,7 +5069,7 @@ msgstr "Objetivos de la colaboración"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Odoo Brand Assets"
-msgstr ""
+msgstr "Activos de marca de Odoo"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -5010,7 +5101,7 @@ msgstr "Aceptar"
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Onboarding.pdf"
-msgstr ""
+msgstr "Integración.pdf"
 
 #. module: knowledge
 #. odoo-python
@@ -5034,13 +5125,15 @@ msgstr "Solo los usuarios internos pueden alterar las afiliaciones."
 #, python-format
 msgid "Only internal users are allowed to create workspace root articles."
 msgstr ""
+"Solo los usuarios internos pueden crear artículos de raíz del espacio de "
+"trabajo."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Only internal users are allowed to modify this information."
-msgstr ""
+msgstr "Solo los usuarios internos pueden modificar esta información."
 
 #. module: knowledge
 #. odoo-python
@@ -5057,6 +5150,8 @@ msgid ""
 "Only internal users are allowed to restore the original article access "
 "information."
 msgstr ""
+"Solo los usuarios internos pueden restaurar la información original de "
+"acceso del artículo."
 
 #. module: knowledge
 #. odoo-javascript
@@ -5066,6 +5161,8 @@ msgid ""
 "Oops, the file %s could not be found. Please replace this file box by a new "
 "one to re-upload the file."
 msgstr ""
+"Uy, no pudimos encontrar el archivo %s, reemplace este cuadro de archivo por"
+" uno nuevo para volver a cargar el archivo."
 
 #. module: knowledge
 #. odoo-javascript
@@ -5088,7 +5185,7 @@ msgstr "Abrir vídeo"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Open comments panel"
-msgstr ""
+msgstr "Abrir panel de comentarios"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5102,7 +5199,7 @@ msgstr "Abrir historial"
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "Open the Trash"
-msgstr ""
+msgstr "Abrir la papelera"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
@@ -5117,11 +5214,13 @@ msgid ""
 "Organize your database with custom fields\n"
 "                        (Text, Selection, ...)."
 msgstr ""
+"Organice su base de datos con campos personalizados\n"
+"                        (Texto, selección, ...)."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos
 msgid "Otherwise, feel free to handle others listed below:"
-msgstr ""
+msgstr "También puede realizar alguna de las siguientes actividades:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -5238,12 +5337,12 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Pluralize the trademark (e.g.<em>YourCompanies</em>)"
-msgstr ""
+msgstr "Pluralizar la marca (por ejemplo, <em>SusEmpresas</em>)"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "Podcast updates 📻"
-msgstr ""
+msgstr "Actualizaciones sobre el podcast 📻"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -5501,7 +5600,7 @@ msgstr "Renombrar"
 #: code:addons/knowledge/static/src/discuss/message_actions.js:0
 #, python-format
 msgid "Reopen the Thread"
-msgstr ""
+msgstr "Reabrir el hilo"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5536,14 +5635,14 @@ msgstr "Reposicionar portada"
 #: code:addons/knowledge/static/src/discuss/message_actions.js:0
 #, python-format
 msgid "Resolve the Thread"
-msgstr ""
+msgstr "Resolver el hilo"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "Resolved Comments"
-msgstr ""
+msgstr "Comentarios resueltos"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_user_id
@@ -5600,17 +5699,17 @@ msgstr "Restringido"
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_desync_on_root
 msgid "Root articles cannot be desynchronized."
-msgstr ""
+msgstr "Los artículos raíz no se pueden desincronizar. "
 
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_permission_on_root
 msgid "Root articles must have internal permission."
-msgstr ""
+msgstr "Los artículos raíz deben tener permiso interno."
 
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_template_category_on_root
 msgid "Root templates must have a category."
-msgstr ""
+msgstr "Las plantillas raíz deben tener una categoría."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -5994,11 +6093,13 @@ msgstr "Etapas"
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_stage__parent_id
 msgid "Stages are shared among acommon parent and its children articles."
 msgstr ""
+"Las etapas se comparten entre un artículo principal común y sus "
+"subartículos."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Stakeholders Analysis"
-msgstr ""
+msgstr "Análisis de las partes interesadas"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6012,14 +6113,14 @@ msgstr "Fecha de inicio"
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.js:0
 #, python-format
 msgid "Start Date Time"
-msgstr ""
+msgstr "Fecha y hora de inicio"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Start typing"
-msgstr ""
+msgstr "Comience a escribir"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6029,6 +6130,8 @@ msgid ""
 "Start typing to continue with an empty page or pick an option below to get "
 "started."
 msgstr ""
+"Comience a escribir para continuar en una página en blanco o elija alguna de"
+" las siguientes opciones."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__activity_state
@@ -6055,7 +6158,7 @@ msgstr "Fecha de finalización"
 #: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
 #, python-format
 msgid "Switch Mode"
-msgstr ""
+msgstr "Cambiar modo"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6153,6 +6256,10 @@ msgid ""
 "                                <strong>Odoo Run</strong>\n"
 "                            </font>!"
 msgstr ""
+"¡Gracias a todas las personas que nos ayudaron a organizar esta edición del \n"
+"                            <font class=\"text-o-color-2\">\n"
+"                                <strong>Maratón de Odoo</strong>\n"
+"                            </font>!"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -6194,7 +6301,7 @@ msgstr "El artículo \"%s\" necesita al menos un miembro con acceso a \"Editar\"
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 #, python-format
 msgid "The operation could not be completed."
-msgstr ""
+msgstr "La operación no se pudo completar."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -6203,6 +6310,9 @@ msgid ""
 "                            new episode of the series features Géry, the mastermind behind OWL, the world fastest JS\n"
 "                            framework. 🚀"
 msgstr ""
+"Para todas las personas que están interesadas en la tecnología nuestro podcast tiene un nuevo ciclo de conversaciones técnicas. En este\n"
+"                            nuevo episodio contamos con la participación de Géry, el creador de OWL, el framework de JS más rápido\n"
+"                           del mundo. 🚀"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6210,7 +6320,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 #, python-format
 msgid "The record that this macro is targeting could not be found."
-msgstr ""
+msgstr "El registro al que está dirigido este macro no se pudo encontrar."
 
 #. module: knowledge
 #. odoo-python
@@ -6239,7 +6349,7 @@ msgstr "Se requiere la propiedad de fecha de inicio."
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__root_article_id
 msgid ""
 "The subject is the title of the highest parent in the article hierarchy."
-msgstr ""
+msgstr "El tema es el título del artículo principal más alto en la jerarquía."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -6247,6 +6357,8 @@ msgid ""
 "The tickets to participate to Odoo Experience 23 are now available and they "
 "are cheaper if you book them now!"
 msgstr ""
+"Las entradas para ser parte de Odoo Experience 2023 ya están disponibles y "
+"son más baratas si las adquiere en este momento."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6265,7 +6377,7 @@ msgstr "No hay artículos en su espacio de trabajo."
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "Things to handle this week*"
-msgstr ""
+msgstr "Cosas por hacer esta semana*"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
@@ -6294,7 +6406,7 @@ msgstr "Este artículo se muestra solo a sus miembros."
 #: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
 #, python-format
 msgid "This article was deleted or you don't have the rights to access it."
-msgstr ""
+msgstr "Este artículo se eliminó o no tiene permiso para acceder."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -6303,6 +6415,9 @@ msgid ""
 "                            Antwerp, ready to promote our company!<br>Fabien was also there and gave an interview on the main\n"
 "                            stage."
 msgstr ""
+"Odoo también estuvo presente este año en el <em>Festival de Tecnología e Innovación para estudiantes</em> que se llevó a cabo en \n"
+"                            Amberes.<br>Además, Fabien también estuvo allí y dio una entrevista en el escenario \n"
+"                            principal."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6311,17 +6426,19 @@ msgstr ""
 msgid ""
 "Those fields will be available on all articles that share the same parent."
 msgstr ""
+"Esos campos estarán disponibles en todos los artículos que compartan el "
+"mismo artículo principal."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__is_resolved
 msgid "Thread Closed"
-msgstr ""
+msgstr "Hilo cerrado"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_product_catalog
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "Tiny House Catalog"
-msgstr ""
+msgstr "Catálogo de casas pequeñas"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -6364,19 +6481,19 @@ msgstr "Papelera"
 #: model:ir.ui.menu,name:knowledge.knowledge_article_menu_trashed
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search
 msgid "Trashed"
-msgstr ""
+msgstr "Eliminado"
 
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_trash
 msgid "Trashed articles must be archived."
-msgstr ""
+msgstr "Los artículos eliminados se deben archivar."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Trying to remove wrong member."
-msgstr ""
+msgstr "Está tratando de eliminar al miembro incorrecto."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__activity_exception_decoration
@@ -6403,7 +6520,7 @@ msgstr "Desbloquear"
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "Unresolved Comments"
-msgstr ""
+msgstr "Comentarios no resueltos"
 
 #. module: knowledge
 #. odoo-python
@@ -6466,16 +6583,18 @@ msgstr "Utilizar como archivo adjunto"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Use the expression \"YourCompanions\" to refer to our community"
 msgstr ""
+"Usar la expresión \"SusCompañeros\" para hacer referencia a nuestra "
+"comunidad"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Use the logo instead of the word inside sentences"
-msgstr ""
+msgstr "Usar el logo en lugar de la palabra dentro de las oraciones."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Use this template whenever you have an announcement to make."
-msgstr ""
+msgstr "Use esta plantilla siempre que deba hacer un anuncio."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__category
@@ -6483,6 +6602,8 @@ msgid ""
 "Used to categozie articles in UI, depending on their main permission "
 "definitions."
 msgstr ""
+"Se utiliza para categorizar artículos en la interfaz de usuario según sus "
+"principales definiciones de permisos."
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_res_users
@@ -6516,7 +6637,7 @@ msgstr "Permiso del usuario"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "VersionName - ReleaseDate"
-msgstr ""
+msgstr "Nombre de la versión - Fecha de lanzamiento"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6530,7 +6651,7 @@ msgstr "Vídeo"
 #: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
 #, python-format
 msgid "Video player"
-msgstr ""
+msgstr "Reproductor de vídeo"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6554,7 +6675,7 @@ msgstr "Regar las plantas"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "We already cannot wait for the next one🏃"
-msgstr ""
+msgstr "Ya no podemos esperar al próximo🏃"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__website_message_ids
@@ -6581,6 +6702,8 @@ msgid ""
 "Welcome to the last edition of the MyCompany Newsletter!<br>\n"
 "                We are very excited to share with you the hottest updates and news! 🤩"
 msgstr ""
+"¡Le damos la bienvenida a la última edición del boletín de noticias de MiEmpresa!<br>\n"
+"                Nos emociona compartirle las actualizaciones y noticias más recientes. 🤩"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -6618,6 +6741,10 @@ msgid ""
 "                parameter can be used to modify the number of days. \n"
 "                (default is 30)"
 msgstr ""
+"Cuando se envían a la papelera, los artículos se marcan para ser eliminados\n"
+"                días tras la última edición. El parámetro knowledge_article_trash_limit_days config\n"
+"                se puede utilizar para modificar el número de días. \n"
+"                (los días predeterminados son 30)"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__full_width
@@ -6625,6 +6752,9 @@ msgid ""
 "When set, the article body will take the full width available on the article"
 " page. Otherwise, the body will have large horizontal margins."
 msgstr ""
+"Cuando se establece, el cuerpo del artículo tomará el ancho completo "
+"disponible en la página del artículo; si no, el cuerpo tendrá márgenes "
+"horizontales grandes."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -6635,21 +6765,27 @@ msgid ""
 "in touch with our architects and we will make sure to provide any specific "
 "choice you desire."
 msgstr ""
+"Sin importar si tiene preferencia por el encanto rústico de una cabaña de "
+"madera o la intrínseca belleza de las acerías victorianas, aquí podrá "
+"encontrar lo que necesita. ¿Está en búsqueda de una opción más específica? "
+"También podemos ayudarle, solo póngase en contacto con nuestros arquitectos "
+"y nos aseguraremos de construir un lugar que cumpla con sus "
+"especificaciones."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Which color should we pick for the logo?"
-msgstr ""
+msgstr "¿Qué color debemos elegir para usar en el logo?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Which size should the rollups be?"
-msgstr ""
+msgstr "¿Qué tamaño deben tener los expositores enrollables?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Which text should we print on the billboards?"
-msgstr ""
+msgstr "¿Qué texto debemos imprimir en las vallas publicitarias?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -6660,6 +6796,12 @@ msgid ""
 "multiple roommates, our Serenità model is highly recommended, providing "
 "ample space for each individual to enjoy<br>"
 msgstr ""
+"Si bien las casas pequeñas son, pues, pequeñas por naturaleza, es importante"
+" priorizar la comodidad al compartir un espacio tan limitado. Para asegurar "
+"que todas las personas que habitarán allí sean felices, verifique que haya "
+"al menos 9m² por persona. Si planifique vivir con varios compañeros de "
+"habitación, le recomendamos nuestro modelo Serenità, tiene suficiente "
+"espacio para que todos se sientan a gusto.<br>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -6670,6 +6812,11 @@ msgid ""
 "Cielo model.<br>It provides everything you need while allowing you to "
 "save.<br>"
 msgstr ""
+"Mientras que las casas pequeñas ofrecen una alternativa más rentable a las "
+"casas tradicionales, en MiEmpresa priorizamos la durabilidad, lo cual "
+"conlleva un precio justo. Sin embargo, si su presupuesto es un poco más "
+"ajustado, tenemos la solución perfecta: nuestro modelo Cielo.<br>Cuenta con "
+"todo lo que necesita mientras le permite ahorrar.<br>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -6706,7 +6853,7 @@ msgstr "Espacio de trabajo"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Write"
-msgstr ""
+msgstr "Editar"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6714,12 +6861,14 @@ msgid ""
 "Write it without any article(<em><s>the</s> YourCompany, <s>a</s> "
 "YourCompany, ...</em>)"
 msgstr ""
+"Escribir el nombre sin artículo (<em><s>la</s> SuEmpresa, <s>una</s> "
+"SuEmpresa, ...</em>)"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos_write_the_next_newsletter
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos_write_the_next_newsletter
 msgid "Write the next Newsletter"
-msgstr ""
+msgstr "Escribir el siguiente boletín de noticias"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6923,6 +7072,8 @@ msgstr "Necesita tener acceso a este artículo para unirse a sus miembros."
 msgid ""
 "You need to have access to this article's root in order to join its members."
 msgstr ""
+"Necesita tener acceso al origen de este artículo para poder unirse a sus "
+"miembros."
 
 #. module: knowledge
 #. odoo-python
@@ -6951,7 +7102,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "YourCompany is proud to announce that..."
-msgstr ""
+msgstr "A SuEmpresa le complace anunciar que..."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6960,6 +7111,9 @@ msgid ""
 "                <br>\n"
 "                When representing the brand, we thus ask you to be very cautious in how you refer to the company."
 msgstr ""
+"SuEmpresa está muy orgullosa de su imagen de marca\n"
+"                <br>\n"
+"                Le pedimos que sea muy cuidadoso en la forma en que se refiere a la empresa ya que usted representa la marca."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
@@ -6988,7 +7142,7 @@ msgstr "botón para agregar comentarios"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "contact our FleetOfficer"
-msgstr ""
+msgstr "póngase en contacto con nuestro encargado de Flota."
 
 #. module: knowledge
 #. odoo-javascript
@@ -7110,7 +7264,7 @@ msgstr "para liberar el poder de la información!"
 #: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
 #, python-format
 msgid "untitled"
-msgstr ""
+msgstr "sin título"
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__write
@@ -7153,13 +7307,13 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "⌚ Elevator Pitch"
-msgstr ""
+msgstr "⌚ Elevator Pitch"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "☝🏼 Please prepare the following before the meeting:"
-msgstr ""
+msgstr "☝🏼 Prepare lo siguiente antes de la reunión:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification

@@ -122,6 +122,8 @@ msgid ""
 " duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its"
 " period."
 msgstr ""
+"<b>Přetáhněte</b> směnu a přeplánujte ji. <i>Tip: Stisknutím CTRL (nebo Cmd)"
+" jej duplikujete.</i> <b>Upravte velikost</b> směny a upravte její periodu."
 
 #. module: planning
 #. odoo-javascript
@@ -299,7 +301,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
 msgid "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Hours\" title=\"Hours\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Hours\" title=\"Hours\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
@@ -323,6 +325,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer "
 "unassign yourself from this shift."
 msgstr ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> Už se nemůžete odhlásit"
+" z této směny."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -339,7 +343,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 msgid "<i class=\"fa fa-long-arrow-right\" title=\"Arrow\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-long-arrow-right\" title=\"Arrow\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
@@ -501,7 +505,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "<span>months ahead</span>"
-msgstr ""
+msgstr "<span>měsíce dopředu</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
@@ -654,7 +658,7 @@ msgstr ""
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 #, python-format
 msgid "Are you sure you want to delete this shift?"
-msgstr ""
+msgstr "Opravdu chcete tuto směnu smazat?"
 
 #. module: planning
 #. odoo-python
@@ -773,7 +777,7 @@ msgstr "Barva"
 #. module: planning
 #: model:planning.role,name:planning.planning_role_cm
 msgid "Community Manager"
-msgstr ""
+msgstr "Manažer komunity"
 
 #. module: planning
 #: model:ir.model,name:planning.model_res_company
@@ -814,14 +818,14 @@ msgstr "Potvrďte odstranění slotů"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__conflicting_slot_ids
 msgid "Conflicting Slot"
-msgstr ""
+msgstr "Konfliktní slot"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #, python-format
 msgid "Copy previous"
-msgstr ""
+msgstr "Kopírovat předchozí"
 
 #. module: planning
 #. odoo-javascript
@@ -886,7 +890,7 @@ msgstr "Dny"
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Days before shift for unassignment"
-msgstr ""
+msgstr "Dny před směnou pro nepřiřazení"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -896,7 +900,7 @@ msgstr "Uzávěrka"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__unassign_deadline
 msgid "Deadline for unassignment"
-msgstr ""
+msgstr "Termín pro zrušení zadání"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_planning__self_unassign_days_before
@@ -904,7 +908,7 @@ msgstr ""
 #: model:ir.model.fields,help:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,help:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Deadline in days for shift unassignment"
-msgstr ""
+msgstr "Termín ve dnech pro vyřazení směny"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_hr_employee__default_planning_role_id
@@ -971,7 +975,7 @@ msgstr "Průvodce odchodem"
 #. module: planning
 #: model:planning.role,name:planning.planning_role_developer
 msgid "Developer"
-msgstr ""
+msgstr "Vývojář"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
@@ -1173,7 +1177,7 @@ msgstr "Navždy každý %s týden (y)"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Generate shifts"
-msgstr ""
+msgstr "Generovat směny"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.brand_promotion
@@ -1257,6 +1261,8 @@ msgid ""
 "If you are happy with your planning, you can now <b>send</b> it to your "
 "employees."
 msgstr ""
+"Pokud jste se svým plánováním spokojeni, můžete jej nyní <b>poslat</b> svým "
+"zaměstnancům."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__include_unassigned
@@ -1271,7 +1277,7 @@ msgstr "Zahrnuje otevřené směny"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_hatched
 msgid "Is Hatched"
-msgstr ""
+msgstr "Je vylíhlý"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_assigned_to_me
@@ -1291,7 +1297,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_unassign_deadline_passed
 msgid "Is unassignement deadline not past"
-msgstr ""
+msgstr "Neuplynula lhůta pro zrušení úkolu"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1504,7 +1510,7 @@ msgstr "Nebyly nalezeny žádné role. Vytvořme si jednu!"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_shift_template
 msgid "No shift templates found. Let's create one!"
-msgstr ""
+msgstr "Nebyly nalezeny žádné šablony směny. Vytvořme si jednu!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_my_calendar
@@ -1571,6 +1577,8 @@ msgid ""
 "Operation not supported, you should always compare overlap_slot_count to 0 "
 "value with = or > operator."
 msgstr ""
+"Operace není podporována, měli byste vždy porovnat overlap_slot_count s "
+"hodnotou 0 s operátorem = nebo >."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__overlap_slot_count
@@ -1700,14 +1708,14 @@ msgstr "Plánování: generování dalších opakujících se směn"
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "Planning: new open shift available on"
-msgstr ""
+msgstr "Plánování: k dispozici nová otevřená směna dne"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "Planning: new shift on"
-msgstr ""
+msgstr "Plánování: nová směna dne"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.brand_promotion
@@ -1965,7 +1973,7 @@ msgstr "Kalendář pronájmů"
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_schedule_by_resource
 msgid "Schedule by Resource"
-msgstr ""
+msgstr "Rozvrh podle zdroje"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_schedule_by_role
@@ -2074,7 +2082,7 @@ msgstr "Posun od"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #, python-format
 msgid "Shifts in Conflict"
-msgstr ""
+msgstr "Směny v konfliktu"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -2140,7 +2148,7 @@ msgstr "Obnovení šablony"
 #: model:ir.model.constraint,message:planning.constraint_res_company_planning_self_unassign_days_before_positive
 msgid ""
 "The amount of days before unassignment must be positive or equal to zero."
-msgstr ""
+msgstr "Počet dní před zrušením přiřazení musí být kladný nebo roven nule."
 
 #. module: planning
 #. odoo-python
@@ -2154,7 +2162,7 @@ msgstr "Společnost vám neumožňuje zrušit přiřazení."
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The deadline for unassignment has passed."
-msgstr ""
+msgstr "Lhůta pro zrušení přidělení vypršela."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_positive
@@ -2211,7 +2219,7 @@ msgstr ""
 #: code:addons/planning/wizard/planning_send.py:0
 #, python-format
 msgid "The schedule was successfully sent to your employees."
-msgstr ""
+msgstr "Rozvrh byl úspěšně odeslán vašim zaměstnancům."
 
 #. module: planning
 #. odoo-python
@@ -2225,7 +2233,7 @@ msgstr "Vybraná délka vytváří datum příliš vzdálené do budoucnosti."
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The shift has successfully been sent."
-msgstr ""
+msgstr "Směna byla úspěšně odeslána."
 
 #. module: planning
 #. odoo-javascript
@@ -2242,14 +2250,14 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The shifts have been successfully reset to draft."
-msgstr ""
+msgstr "Směny byly úspěšně resetovány na koncept."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The shifts have successfully been published and sent."
-msgstr ""
+msgstr "Směny byly úspěšně zveřejněny a odeslány."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_lower_than_24
@@ -2266,7 +2274,7 @@ msgstr ""
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The start hour must be greater or equal to 0 and lower than 24."
-msgstr ""
+msgstr "Počáteční hodina musí být větší nebo rovna 0 a nižší než 24."
 
 #. module: planning
 #. odoo-python
@@ -2289,14 +2297,14 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "There are no shifts to publish and send."
-msgstr ""
+msgstr "Nejsou zde žádné směny k zveřejnění a odeslání."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "There are no shifts to reset to draft."
-msgstr ""
+msgstr "Nejsou zde žádné směny k resetování na koncept."
 
 #. module: planning
 #. odoo-python
@@ -2321,6 +2329,8 @@ msgid ""
 "This open shift is no longer available, or the planning has been updated in "
 "the meantime. Please contact your manager for further information."
 msgstr ""
+"Tato otevřená směna již není k dispozici nebo bylo plánování mezitím "
+"aktualizováno. Další informace vám poskytne váš manažer."
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__this
@@ -2339,12 +2349,12 @@ msgstr ""
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 #, python-format
 msgid "This shift was successfully saved as a template."
-msgstr ""
+msgstr "Tato směna byla úspěšně uložena jako šablona."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_kanban_view
 msgid "Timezone:"
-msgstr ""
+msgstr "Časové pásmo:"
 
 #. module: planning
 #: model:digest.tip,name:planning.digest_tip_planning_0
@@ -2482,7 +2492,7 @@ msgstr "Roků"
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You are not allowed to reset to draft shifts."
-msgstr ""
+msgstr "Nemáte oprávnění resetovat směny na koncept."
 
 #. module: planning
 #. odoo-python
@@ -2539,7 +2549,7 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You don't have the right to self assign."
-msgstr ""
+msgstr "Nemáte právo na vlastní přiřazení."
 
 #. module: planning
 #. odoo-python
@@ -2564,6 +2574,8 @@ msgid ""
 "Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ "
 "format_date(ctx.get('end_datetime')) }}"
 msgstr ""
+"Vaše plánování od {{ format_date(ctx.get('start_datetime')) }} do {{ "
+"format_date(ctx.get('end_datetime')) }}"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_shift_switch_email
@@ -2582,7 +2594,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "days before the beginning of the shift"
-msgstr ""
+msgstr "dní před začátkem směny"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -2645,3 +2657,4 @@ msgstr "k"
 #: model:mail.template,subject:planning.email_template_slot_single
 msgid "{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"
 msgstr ""
+"{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"

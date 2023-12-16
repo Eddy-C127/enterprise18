@@ -132,6 +132,26 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Apreciable <t t-out=\"ctx.get('employee_to_name', 'employee')\">empleado</t>,\n"
+"                        <br>\n"
+"                        <t t-out=\"ctx.get('author_name', '')\">Addison Olson</t> (<t t-out=\"ctx.get('author_mail', '')\">addison.olson28@ejemplo.com</t>) desea una evaluación.\n"
+"                        <t t-if=\"ctx.get('user_body')\">\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;\">\n"
+"                                <t t-out=\"ctx.get('user_body')\">Evaluación anual.</t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\" margin: auto; background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    Ver evaluación\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model:mail.template,body_html:hr_appraisal.mail_template_appraisal_request
@@ -160,6 +180,29 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Apreciable <t t-out=\"ctx.get('employee_to_name', 'employee')\">empleado</t>,\n"
+"                        <br>\n"
+"                        <t t-out=\"ctx.get('author_name', '')\">Addison Olson</t>\n"
+"                        <br>\n"
+"                        (<t t-out=\"ctx.get('author_mail', '')\">addison.olson28@ejemplo.com</t>) solicitó una evaluación.\n"
+"                        <t t-if=\"ctx.get('user_body')\">\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;\">\n"
+"                                <t t-out=\"ctx.get('user_body')\">Evaluación anual.</t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\" margin: auto; background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    Ver evaluación\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                        <br>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -221,6 +264,10 @@ msgid ""
 "                for you to reach your goals and look for the best collaboration.\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                ¿De qué forma la empresa puede ayudarle con sus necesidades y objetivos con la\n"
+"                finalidad de que alcance sus metas y puedan colaborar de la manera más óptima?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -2039,7 +2086,7 @@ msgstr ""
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "What would I need to improve my work?"
-msgstr ""
+msgstr "¿Qué necesitaría para mejorar mi trabajo?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
@@ -2047,6 +2094,8 @@ msgid ""
 "When the Appraisals plan is saved, it will overwrite all empty Next "
 "Appraisal Dates for every employee."
 msgstr ""
+"Al guardar el plan de evaluaciones, sobrescribirá todas las siguientes "
+"fechas de evaluación vacías para cada empleado."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -2084,7 +2133,7 @@ msgstr ""
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Your Appraisal has been completed"
-msgstr ""
+msgstr "Su evaluación ha sido completada"
 
 #. module: hr_appraisal
 #. odoo-python

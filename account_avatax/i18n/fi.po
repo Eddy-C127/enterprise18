@@ -49,6 +49,8 @@ msgid ""
 "<i class=\"oi oi-fw oi-arrow-right\"/>\n"
 "                                How to Get Credentials"
 msgstr ""
+"<i class=\"oi oi-fw oi-arrow-right\"/>\n"
+"                                Miten hankkia tunnukset"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -56,6 +58,8 @@ msgid ""
 "<i title=\"Go to Avatax portal\" role=\"img\" aria-label=\"Go to Avatax portal\" class=\"fa fa-external-link-square fa-fw\"/>\n"
 "                                Avatax portal"
 msgstr ""
+"<i title=\"Mene Avatax-portaaliin\" role=\"img\" aria-label=\"Mene Avatax-portaaliin\" class=\"fa fa-external-link-square fa-fw\"/>\n"
+"                                Avatax-portaali"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -63,6 +67,8 @@ msgid ""
 "<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-file-text-o\"/>\n"
 "                                Show logs"
 msgstr ""
+"<i title=\"Näytä lokit\" role=\"img\" aria-label=\"Näytä lokit\" class=\"fa fa-file-text-o\"/>\n"
+"                                Näytä lokit"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -70,6 +76,8 @@ msgid ""
 "<i title=\"Start logging for 30 minutes\" role=\"img\" aria-label=\"Start logging for 30 minutes\" class=\"fa fa-file-text-o\"/>\n"
 "                                Start logging for 30 minutes"
 msgstr ""
+"<i title=\"Aloita lokien kirjaaminen 30 minuutin ajaksi\" role=\"img\" aria-label=\"Aloita lokien kirjaaminen 30 minuutin ajaksi\" class=\"fa fa-file-text-o\"/>\n"
+"                                Aloita lokien kirjaaminen 30 minuutin ajaksi"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -77,6 +85,8 @@ msgid ""
 "<i title=\"Sync Parameters\" role=\"img\" aria-label=\"Sync Parameters\" class=\"fa fa-refresh\"/>\n"
 "                                Sync Parameters"
 msgstr ""
+"<i title=\"Synkronointiparametrit\" role=\"img\" aria-label=\"Synkronointiparametrit\" class=\"fa fa-refresh\"/>\n"
+"                                Synkronointiparametrit"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -84,6 +94,8 @@ msgid ""
 "<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" class=\"fa fa-plug fa-fw\"/>\n"
 "                                Test connection"
 msgstr ""
+"<i title=\"Testaa yhteys\" role=\"img\" aria-label=\"Testaa yhteys\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                Testaa yhteys"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -122,19 +134,19 @@ msgstr "Osoitteen varmistustas tuetaan vain Pohjois-Amerikan osoitteille."
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Authentication failed."
-msgstr ""
+msgstr "Tunnistautuminen epäonnistui."
 
 #. module: account_avatax
 #. odoo-python
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Authentication success."
-msgstr ""
+msgstr "Tunnistautuminen onnistui."
 
 #. module: account_avatax
 #: model:account.fiscal.position,name:account_avatax.account_fiscal_position_avatax_us
 msgid "Automatic Tax Mapping (AvaTax)"
-msgstr ""
+msgstr "Automaattinen verokantojen yhdistäminen (AvaTax)"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__avalara_api_id
@@ -435,7 +447,7 @@ msgstr "Mixin, jolla luodaan tunnuksia Avataxille"
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_account_external_tax_mixin
 msgid "Mixin to manage common parts of external tax calculation"
-msgstr ""
+msgstr "Mixin, jossa voit hallita ulkoisten verojen yleisten osien laskentaa"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_exemption__name
@@ -546,7 +558,7 @@ msgstr "Hakutoimintoa ei tueta"
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_connection_test_result__server_response
 msgid "Server Response"
-msgstr ""
+msgstr "Palvelimen vastaus"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_validate_address__state_id
@@ -580,12 +592,12 @@ msgstr "Synkronoi erivapauskoodit Avataxista"
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Test Result"
-msgstr ""
+msgstr "Testitulos"
 
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_avatax_connection_test_result
 msgid "Test connection with avatax"
-msgstr ""
+msgstr "Testaa yhteys Avataxiin"
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_res_config_settings__avalara_partner_code
@@ -632,7 +644,7 @@ msgstr "Tämä on jo voimassa oleva osoite."
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__setting_account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_config_settings__setting_account_avatax
 msgid "Use AvaTax"
-msgstr ""
+msgstr "Käytä AvaTaxia"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__is_avatax

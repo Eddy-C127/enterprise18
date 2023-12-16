@@ -11,6 +11,7 @@
 # Patrick-Jordan Kiudorv, 2023
 # Martin Trigaux, 2023
 # Leaanika Randmets, 2023
+# Mihkel avalah, 2023
 # 
 msgid ""
 msgstr ""
@@ -18,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Leaanika Randmets, 2023\n"
+"Last-Translator: Mihkel avalah, 2023\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,6 +33,8 @@ msgid ""
 "<span class=\"fa fa-lg fa-building-o fa-fw\" title=\"Values set here are "
 "company-specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
+"<span class=\"fa fa-lg fa-building-o fa-fw\" title=\"Values set here are "
+"company-specific.\" groups=\"base.group_multi_company\"/>"
 
 #. module: documents_project_sale
 #: model:ir.model.fields,field_description:documents_project_sale.field_product_product__documents_allowed_company_id
@@ -98,7 +101,7 @@ msgstr "Toote mall"
 #: model:ir.model.fields,field_description:documents_project_sale.field_product_product__project_template_use_documents
 #: model:ir.model.fields,field_description:documents_project_sale.field_product_template__project_template_use_documents
 msgid "Project Template - Documents"
-msgstr ""
+msgstr "Projekti mall - dokumendid"
 
 #. module: documents_project_sale
 #: model:product.template,name:documents_project_sale.product_1
@@ -133,6 +136,8 @@ msgid ""
 "The \"%s\" workspace template should either be in the \"%s\" company like "
 "this product or be open to all companies."
 msgstr ""
+"Tööala mall \"%s\" peaks asuma ettevõttes \"%s\" nagu see toode või olema "
+"avatud kõigile ettevõtetele."
 
 #. module: documents_project_sale
 #. odoo-python
@@ -143,6 +148,9 @@ msgid ""
 "which it is a template. Please update the company of the \"%s\" product, or "
 "leave the company of this workspace empty."
 msgstr ""
+"See tööala peaks jääma samale ettevõttele kui toode\"%s\", millega see "
+"seotud on. Palun uuendage toote\"%s\" ettevõtet või jätke selle tööala "
+"ettevõte tühjaks."
 
 #. module: documents_project_sale
 #. odoo-python
@@ -154,6 +162,10 @@ msgid ""
 "\n"
 "Please update the company of those products, or leave the company of this workspace empty."
 msgstr ""
+"See tööala peaks jääma samale ettevõttele, millega järgnevad tooted seotud on:\n"
+"%s\n"
+"\n"
+"Uuendage ettevõtet või jätke ettevõtte väli tööalal tühjaks."
 
 #. module: documents_project_sale
 #: model:ir.model.fields,field_description:documents_project_sale.field_product_product__template_folder_id

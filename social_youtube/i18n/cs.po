@@ -28,11 +28,13 @@ msgid ""
 "'Uploads' Playlist ID provided by the YouTube API, this should never be set "
 "manually."
 msgstr ""
+"ID seznamu videí „Nahrávání“ poskytované rozhraním YouTube API, nikdy by se "
+"nemělo nastavovat ručně."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.youtube_preview
 msgid "123 Views •"
-msgstr ""
+msgstr "123 zhlédnutí •"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_stream_post_view_kanban
@@ -55,17 +57,21 @@ msgid ""
 "<span>These are stored up to 30 days and refreshed often to provide you an accurate depiction of reality. </span>\n"
 "                        <span>To delete these from Odoo, simply delete this account.</span>"
 msgstr ""
+"<span>Tyto se uchovávají až 30 dní a často se obnovují, aby vám poskytly přesné zobrazení reality. </span>\n"
+"                        <span>Chcete-li je odstranit z Odoo, jednoduše smažte tento účet.</span>"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Access to your account can be revoked at any time from"
-msgstr ""
+msgstr "Přístup k vašemu účtu lze kdykoli zrušit z"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_access_token
 msgid ""
 "Access token provided by the YouTube API, this should never be set manually."
 msgstr ""
+"Přístupový token poskytovaný rozhraním YouTube API, nikdy by se nemělo "
+"nastavovat ručně."
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__account_id
@@ -85,7 +91,7 @@ msgstr "Vyskytla se chyba."
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "Auth endpoint did not provide a refresh token. Please try again."
-msgstr ""
+msgstr "Koncový bod ověřování neposkytnul obnovovací token. Zkuste to znovu."
 
 #. module: social_youtube
 #. odoo-javascript
@@ -99,6 +105,7 @@ msgstr "Autor obrázku"
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "By using our Social YouTube Application, you implicitly agree to the:"
 msgstr ""
+"Používáním naší aplikace YouTube pro sociální sítě implicitně souhlasíte s:"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_revoke_youtube_view_form
@@ -133,6 +140,8 @@ msgid ""
 "Comments are marked as 'disabled' for this video. It could have been set as "
 "'private'."
 msgstr ""
+"Komentáře jsou u tohoto videa označeny jako „zakázané“. Mohlo být nastaveno "
+"jako „soukromé“."
 
 #. module: social_youtube
 #: model:ir.model,name:social_youtube.model_res_config_settings
@@ -150,12 +159,12 @@ msgstr "Potvrzení"
 #: model:ir.model.fields,help:social_youtube.field_social_live_post__youtube_video_id
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video_id
 msgid "Contains the ID of the video as returned by the YouTube API"
-msgstr ""
+msgstr "Obsahuje ID videa vrácené rozhraním YouTube API"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video_category_id
 msgid "Contains the ID of the video category as returned by the YouTube API"
-msgstr ""
+msgstr "Obsahuje ID kategorie videa vrácené rozhraním YouTube API"
 
 #. module: social_youtube
 #. odoo-python
@@ -186,14 +195,14 @@ msgstr "Zobrazovací název"
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Do you also want to remove the video from your YouTube account?"
-msgstr ""
+msgstr "Chcete také odstranit video ze svého účtu YouTube?"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Draft Video"
-msgstr ""
+msgstr "Koncept videa"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_token_expiration_date
@@ -205,17 +214,17 @@ msgstr ""
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_access_token
 msgid "Google Access Token"
-msgstr ""
+msgstr "Přístupový token Google"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Google Privacy Policy"
-msgstr ""
+msgstr "Zásady ochrany osobních údajů Google"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_refresh_token
 msgid "Google Refresh Token"
-msgstr ""
+msgstr "Obnovovací token Google"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__id
@@ -254,12 +263,12 @@ msgstr "Ne"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.res_config_settings_view_form
 msgid "OAuth Client ID"
-msgstr ""
+msgstr "OAuth ID klienta"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.res_config_settings_view_form
 msgid "OAuth Client Secret"
-msgstr ""
+msgstr "OAuth tajný klíč klienta"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_revoke_youtube_view_form
@@ -286,7 +295,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
 #, python-format
 msgid "Please select a single YouTube account at a time."
-msgstr ""
+msgstr "Vyberte prosím vždy jeden účet YouTube."
 
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_post__youtube_video_privacy__private
@@ -325,6 +334,8 @@ msgid ""
 "Refresh token provided by the YouTube API, this should never be set "
 "manually."
 msgstr ""
+"Obnovovací token poskytovaný rozhraním YouTube API, nikdy by se nemělo "
+"nastavovat ručně."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -367,12 +378,12 @@ msgstr "Vybrat"
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_accounts_other_count
 msgid "Selected Other Accounts"
-msgstr ""
+msgstr "Vybrané ostatní účty"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_accounts_count
 msgid "Selected YouTube Accounts"
-msgstr ""
+msgstr "Vybrané YouTube účty"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video
@@ -380,6 +391,8 @@ msgid ""
 "Simply holds the filename of the video as the video itself is uploaded "
 "directly to YouTube"
 msgstr ""
+"Jednoduše obsahuje název souboru videa, protože samotné video je nahráno "
+"přímo na YouTube"
 
 #. module: social_youtube
 #: model:ir.model,name:social_youtube.model_social_account
@@ -421,14 +434,14 @@ msgstr "Stream příspěvku sociální sítě"
 #: code:addons/social_youtube/models/social_post.py:0
 #, python-format
 msgid "The 'message' field is required for post ID %s"
-msgstr ""
+msgstr "Pole 'zpráva' je povinné pro ID příspěvku %s"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "The selected video exceeds the maximum allowed size of %s."
-msgstr ""
+msgstr "Vybrané video překračuje maximální povolenou velikost %s."
 
 #. module: social_youtube
 #. odoo-python
@@ -446,14 +459,14 @@ msgstr ""
 #: code:addons/social_youtube/models/social_live_post.py:0
 #, python-format
 msgid "The video you are trying to publish has been deleted from YouTube."
-msgstr ""
+msgstr "Video, které se pokoušíte publikovat, bylo smazáno z YouTube."
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "There is no channel linked with this YouTube account."
-msgstr ""
+msgstr "S tímto účtem YouTube není propojen žádný kanál."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -461,11 +474,13 @@ msgid ""
 "To provide our application services, note that we store the following data "
 "from your YouTube account:"
 msgstr ""
+"Abychom mohli poskytovat naše aplikační služby, ukládáme z vašeho účtu "
+"YouTube následující údaje:"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_token_expiration_date
 msgid "Token expiration date"
-msgstr ""
+msgstr "Datum vypršení tokenu"
 
 #. module: social_youtube
 #. odoo-python
@@ -491,14 +506,14 @@ msgstr ""
 #: code:addons/social_youtube/static/src/xml/social_youtube_templates.xml:0
 #, python-format
 msgid "Upload Video"
-msgstr ""
+msgstr "Nahrát video"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Upload failed. Please try again."
-msgstr ""
+msgstr "Nahrávání selhalo, Zkuste to znovu."
 
 #. module: social_youtube
 #. odoo-javascript
@@ -512,12 +527,12 @@ msgstr ""
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Uploading... 0%"
-msgstr ""
+msgstr "Nahrávání... 0%"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_res_config_settings__youtube_use_own_account
 msgid "Use your own YouTube Account"
-msgstr ""
+msgstr "Použijte svůj vlastní účet YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_media__media_type
@@ -538,7 +553,7 @@ msgstr "Video"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
 msgid "Video Description"
-msgstr ""
+msgstr "Popis videa"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_video_privacy
@@ -548,21 +563,21 @@ msgstr ""
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
 msgid "Video Title"
-msgstr ""
+msgstr "Název videa"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Video Upload"
-msgstr ""
+msgstr "Nahrát video"
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_stream_post.py:0
 #, python-format
 msgid "Video not found. It could have been removed from Youtube."
-msgstr ""
+msgstr "Video nebylo nenalezeno. Mohlo být odstraněno z Youtube."
 
 #. module: social_youtube
 #. odoo-javascript
@@ -577,7 +592,7 @@ msgstr "Zobrazení"
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Yes, delete it"
-msgstr ""
+msgstr "Ano, smazat"
 
 #. module: social_youtube
 #. odoo-python
@@ -591,7 +606,7 @@ msgstr "Nemáte aktivní předplatné. Prosím, koupte si zde: %s"
 #: code:addons/social_youtube/models/social_post.py:0
 #, python-format
 msgid "You have to upload a video when posting on YouTube."
-msgstr ""
+msgstr "Při zveřejňování na YouTube musíte nahrát video."
 
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_media__media_type__youtube
@@ -602,12 +617,12 @@ msgstr "YouTube"
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_access_token
 msgid "YouTube Access Token"
-msgstr ""
+msgstr "Přístupový token YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_video_category_id
 msgid "YouTube Category Id"
-msgstr ""
+msgstr "Id kategorie Youtube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_channel_id
@@ -620,18 +635,20 @@ msgid ""
 "YouTube Channel ID provided by the YouTube API, this should never be set "
 "manually."
 msgstr ""
+"ID YouTube kanálu poskytované rozhraním YouTube API, nikdy by se nemělo "
+"nastavovat ručně."
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/stream_post_kanban_record.js:0
 #, python-format
 msgid "YouTube Comments"
-msgstr ""
+msgstr "Komentáře na YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_comments_count
 msgid "YouTube Comments Count"
-msgstr ""
+msgstr "Počet komentářů na YouTube"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.res_config_settings_view_form
@@ -641,12 +658,12 @@ msgstr ""
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_dislikes_count
 msgid "YouTube Dislikes"
-msgstr ""
+msgstr "To se mi nelíbí na YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_likes_count
 msgid "YouTube Likes"
-msgstr ""
+msgstr "To se mi líbí na YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_likes_ratio
@@ -656,17 +673,17 @@ msgstr ""
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_res_config_settings__youtube_oauth_client_id
 msgid "YouTube OAuth Client ID"
-msgstr ""
+msgstr "YouTube OAuth ID klienta"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_res_config_settings__youtube_oauth_client_secret
 msgid "YouTube OAuth Client Secret"
-msgstr ""
+msgstr "YouTube OAuth tajný klíč klienta"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
 msgid "YouTube Options"
-msgstr ""
+msgstr "Možnosti YouTube"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.youtube_preview
@@ -676,18 +693,18 @@ msgstr ""
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_preview
 msgid "YouTube Preview"
-msgstr ""
+msgstr "Náhled YouTube"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "YouTube Terms of Service (ToS)"
-msgstr ""
+msgstr "Smluvní podmínky YouTube (SP)"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_kanban
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_stream_post_view_kanban
 msgid "YouTube Thumbnail"
-msgstr ""
+msgstr "Miniatura YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_thumbnail_url
@@ -698,33 +715,33 @@ msgstr ""
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_upload_playlist_id
 msgid "YouTube Upload Playlist ID"
-msgstr ""
+msgstr "ID seznamu videí nahrání na YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_video
 msgid "YouTube Video"
-msgstr ""
+msgstr "YouTube video"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_description
 msgid "YouTube Video Description"
-msgstr ""
+msgstr "Popis YouTube videa"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_video_id
 msgid "YouTube Video ID"
-msgstr ""
+msgstr "ID YouTube videa"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_live_post__youtube_video_id
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_video_id
 msgid "YouTube Video Id"
-msgstr ""
+msgstr "Id YouTube videa"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_title
 msgid "YouTube Video Title"
-msgstr ""
+msgstr "Název YouTube videa"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_video_url
@@ -734,7 +751,7 @@ msgstr ""
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_views_count
 msgid "YouTube Views"
-msgstr ""
+msgstr "Zhlédnutí na YouTube"
 
 #. module: social_youtube
 #. odoo-python
@@ -742,25 +759,26 @@ msgstr ""
 #, python-format
 msgid "YouTube did not provide a valid access token or it may have expired."
 msgstr ""
+"YouTube neposkytl platný přístupový token nebo jeho platnost již vypršela."
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "YouTube did not provide a valid authorization code."
-msgstr ""
+msgstr "YouTube neposkytl platný autorizační kód."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Your channel name and picture"
-msgstr ""
+msgstr "Název a obrázek vašeho kanálu"
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_live_post.py:0
 #, python-format
 msgid "Your video is missing a correct title or description."
-msgstr ""
+msgstr "Vašemu videu chybí správný název nebo popis."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -775,11 +793,13 @@ msgid ""
 "e.g. Engage your entire community with a single app! "
 "https://www.odoo.com/trial"
 msgstr ""
+"např. Zapojte celou svou komunitu pomocí jediné aplikace! "
+"https://www.odoo.com/trial"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
 msgid "e.g. Odoo Social Tutorial"
-msgstr ""
+msgstr "např. Sociální tutoriál Odoo"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form

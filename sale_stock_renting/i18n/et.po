@@ -3,7 +3,6 @@
 # 	* sale_stock_renting
 # 
 # Translators:
-# Anna, 2023
 # Egon Raamat <egon@avalah.ee>, 2023
 # Rivo Zängov <eraser@eraser.ee>, 2023
 # Patrick-Jordan Kiudorv, 2023
@@ -16,6 +15,7 @@
 # Eneli Õigus <enelioigus@gmail.com>, 2023
 # Piia Paurson <piia@avalah.ee>, 2023
 # Martin Trigaux, 2023
+# Anna, 2023
 # 
 msgid ""
 msgstr ""
@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Anna, 2023\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +65,7 @@ msgstr ""
 msgid ""
 "A new rental period will not propagate to stock pickings. You may need to "
 "manually change that."
-msgstr ""
+msgstr "Uus rendiperiood ei laiene laokorjele. Peate seda käsitsi muutma."
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__padding_time
@@ -109,7 +109,7 @@ msgstr "Seadistused"
 #. module: sale_stock_renting
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.res_config_settings_inherit_view_form
 msgid "Default Padding Time"
-msgstr ""
+msgstr "Vaikimisi täiteaeg"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_rental_order_wizard_line__tracking
@@ -162,7 +162,7 @@ msgstr "Minimaalne aeg kahe rentimise vahel"
 #: code:addons/sale_stock_renting/models/sale_order_line.py:0
 #, python-format
 msgid "No valid quant has been found in location %s for serial number %s!"
-msgstr ""
+msgstr "Ühtegi vastavat kogust ei leitud asukohast %s seerianumbriga %s!"
 
 #. module: sale_stock_renting
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
@@ -240,13 +240,13 @@ msgstr "Rentimise ajakava"
 #: code:addons/sale_stock_renting/models/sale_order_line.py:0
 #, python-format
 msgid "Rental move:"
-msgstr ""
+msgstr "Rentimise liikumine:"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__group_rental_stock_picking
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.res_config_settings_inherit_view_form
 msgid "Rental pickings"
-msgstr ""
+msgstr "Rentimise korje"
 
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_rental_order_wizard_line
@@ -355,12 +355,12 @@ msgstr "Partii pole saadaval"
 #. module: sale_stock_renting
 #: model:res.groups,name:sale_stock_renting.group_rental_stock_picking
 msgid "Use pickings for rental orders"
-msgstr ""
+msgstr "Kasuta korjet renditellimuste jaoks"
 
 #. module: sale_stock_renting
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.res_config_settings_inherit_view_form
 msgid "Use stock pickings for rental orders"
-msgstr ""
+msgstr "Kasuta laokorjet renditellimuste jaoks"
 
 #. module: sale_stock_renting
 #. odoo-javascript

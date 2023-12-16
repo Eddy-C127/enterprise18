@@ -47,13 +47,34 @@ msgid ""
 "    </a>\n"
 "</p>"
 msgstr ""
+"\n"
+"<p class=\"o_view_nocontent_expense_receipt\">\n"
+"    <h2 class=\"d-none d-md-block\">\n"
+"        Arrastre y suelte archivos para crear gastos.\n"
+"    </h2>\n"
+"    <p>\n"
+"        \n"
+"    </p>\n"
+"    <h2 class=\"d-none d-md-block\">\n"
+"        ¿Conoce nuestra aplicación para móviles?\n"
+"    </h2>\n"
+"</p>\n"
+"<p>Tome fotografías de sus recibos y deje que Odoo<br/> genere los gastos automáticamente por usted.</p>\n"
+"<p class=\"d-none d-md-block\">\n"
+"    <a href=\"https://apps.apple.com/be/app/odoo/id1272543640\" target=\"_blank\" class=\"o_expense_mobile_app\">\n"
+"        <img alt=\"Apple App Store\" class=\"img img-fluid h-100 o_expense_apple_store\" src=\"/hr_expense/static/img/app_store.png\"/>\n"
+"    </a>\n"
+"    <a href=\"https://play.google.com/store/apps/details?id=com.odoo.mobile\" target=\"_blank\" class=\"o_expense_mobile_app\">\n"
+"        <img alt=\"Google Play Store\" class=\"img img-fluid h-100 o_expense_google_store\" src=\"/hr_expense/static/img/play_store.png\"/>\n"
+"    </a>\n"
+"</p>"
 
 #. module: hr_expense_extract
 #. odoo-javascript
 #: code:addons/hr_expense_extract/static/src/js/tours/expense_tour.js:0
 #, python-format
 msgid "<b>Congratulations</b>, you are now an expert of Expenses."
-msgstr ""
+msgstr "<b>Enhorabuena</b>, ahora eres un experto en Gastos."
 
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.hr_expense_extract_view_form
@@ -240,7 +261,7 @@ msgstr "Opción de procesamiento de gastos"
 #. module: hr_expense_extract
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__sample
 msgid "Expenses created from sample receipt"
-msgstr ""
+msgstr "Gastos creados desde el recibo del gasto"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_state_processed

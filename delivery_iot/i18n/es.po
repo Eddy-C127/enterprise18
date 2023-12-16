@@ -29,17 +29,17 @@ msgstr "'Informe vacío - Se usa para asignar una impresora IoT'"
 #. module: delivery_iot
 #: model:ir.model.fields,field_description:delivery_iot.field_stock_picking_type__auto_print_carrier_labels
 msgid "Auto Print Carrier Labels"
-msgstr ""
+msgstr "Imprimir automáticamente etiquetas de transportista"
 
 #. module: delivery_iot
 #: model:ir.model.fields,field_description:delivery_iot.field_stock_picking_type__auto_print_export_documents
 msgid "Auto Print Export Documents"
-msgstr ""
+msgstr "Imprimir automáticamente documentos de exportación"
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "Carrier Labels"
-msgstr ""
+msgstr "Etiquetas de transportista "
 
 #. module: delivery_iot
 #: model:ir.model.fields,help:delivery_iot.field_choose_delivery_package__available_scale_ids
@@ -69,7 +69,7 @@ msgstr "Dirección de dominio"
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "Export Documents"
-msgstr ""
+msgstr "Documentos de exportación"
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
@@ -93,6 +93,9 @@ msgid ""
 " of the picking when they are created. Note this requires a printer to be "
 "assigned to this report."
 msgstr ""
+"Si esta casilla está seleccionada, Odoo imprimirá automáticamente las "
+"etiquetas de los transportistas de la recolección cuando se creen. Tenga en "
+"cuenta que esto requiere que se asigne una impresora a este informe."
 
 #. module: delivery_iot
 #: model:ir.model.fields,help:delivery_iot.field_stock_picking_type__auto_print_export_documents
@@ -102,6 +105,11 @@ msgid ""
 "documents depends on the carrier and the destination. Note this requires a "
 "printer to be assigned to this report. "
 msgstr ""
+"Si esta casilla está seleccionada, Odoo imprimirá automáticamente los "
+"documentos de exportación de la recolección cuando se creen. La "
+"disponibilidad de los documentos de exportación depende del transportista y "
+"del destino. Tenga en cuenta que esto requiere que se asigne una impresora a"
+" este informe."
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit

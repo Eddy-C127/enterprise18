@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-13 08:29+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Fernanda Alvarez, 2023\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
@@ -30,26 +30,6 @@ msgstr ""
 "class=\"fa fa-fw fa-refresh\"/>"
 
 #. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__boc
-msgid "Bank Of Canada"
-msgstr "Banco de Canadá"
-
-#. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bbr
-msgid "Central Bank of Brazil"
-msgstr "Banco Central de Brasil"
-
-#. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__cbegy
-msgid "Central Bank of Egypt"
-msgstr "Banco Central de Egipto"
-
-#. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__mindicador
-msgid "Chilean mindicador.cl"
-msgstr "mindicador.cl chileno"
-
-#. module: currency_rate_live
 #: model:ir.model,name:currency_rate_live.model_res_company
 msgid "Companies"
 msgstr "Empresas"
@@ -65,11 +45,6 @@ msgid "Currency: rate update"
 msgstr "Divisa: actualizar tasa"
 
 #. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__cnb
-msgid "Czech National Bank"
-msgstr "Banco Nacional Checo"
-
-#. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__daily
 msgid "Daily"
 msgstr "Diario"
@@ -78,11 +53,6 @@ msgstr "Diario"
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__ecb
 msgid "European Central Bank"
 msgstr "Banco Central Europeo "
-
-#. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__fta
-msgid "Federal Tax Administration (Switzerland)"
-msgstr "Administración Federal de Impuestos (Suiza)"
 
 #. module: currency_rate_live
 #: model_terms:ir.ui.view,arch_db:currency_rate_live.res_config_settings_view_form
@@ -101,24 +71,9 @@ msgid "Manually"
 msgstr "Manualmente"
 
 #. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__banxico
-msgid "Mexican Bank"
-msgstr "Banco de México"
-
-#. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__monthly
 msgid "Monthly"
 msgstr "Mensual"
-
-#. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bnr
-msgid "National Bank Of Romania"
-msgstr "Banco Nacional de Rumania"
-
-#. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__nbp
-msgid "National Bank of Poland"
-msgstr "Banco Nacional de Polonia"
 
 #. module: currency_rate_live
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_company__currency_next_execution_date
@@ -132,11 +87,6 @@ msgid "Next Run"
 msgstr "Siguiente ejecución"
 
 #. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bcrp
-msgid "SUNAT (replaces Bank of Peru)"
-msgstr "SUNAT (remplaza al Banco de Perú)"
-
-#. module: currency_rate_live
 #: model_terms:ir.ui.view,arch_db:currency_rate_live.res_config_settings_view_form
 msgid "Service"
 msgstr "Servicio"
@@ -148,25 +98,22 @@ msgid "Service Provider"
 msgstr "Proveedor de servicio"
 
 #. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__tcmb
-msgid "Turkey Republic Central Bank"
-msgstr "Banco Central de la República de Turquía"
-
-#. module: currency_rate_live
-#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__cbuae
-msgid "UAE Central Bank"
-msgstr "Banco Central de los Emiratos Árabes Unidos"
+#. odoo-python
+#: code:addons/currency_rate_live/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"The selected exchange rate provider requires the GTQ and USD currencies to "
+"be active."
+msgstr ""
 
 #. module: currency_rate_live
 #. odoo-python
 #: code:addons/currency_rate_live/models/res_config_settings.py:0
 #, python-format
 msgid ""
-"Unable to connect to the online exchange rate platform. The web service may "
-"be temporary down. Please try again in a moment."
+"Unable to connect to the online exchange rate platform %s. The web service "
+"may be temporarily down. Please try again in a moment."
 msgstr ""
-"No fue posible conectar con la plataforma de tasa de cambio en línea. El "
-"servicio web puede estar inactivo temporalmente, inténtelo más tarde. "
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__weekly
@@ -183,6 +130,71 @@ msgid ""
 msgstr ""
 "Su divisa principal (%s) no es compatible con este proveedor de tasas de "
 "cambio, elija otra."
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__cbuae
+msgid "[AE] Central Bank of the UAE"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bbr
+msgid "[BR] Central Bank of Brazil"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__boc
+msgid "[CA] Bank of Canada"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__fta
+msgid "[CH] Federal Tax Administration of Switzerland"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__mindicador
+msgid "[CL] Central Bank of Chile via mindicador.cl"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__cnb
+msgid "[CZ] Czech National Bank"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__cbegy
+msgid "[EG] Central Bank of Egypt"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__banguat
+msgid "[GT] Bank of Guatemala"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__banxico
+msgid "[MX] Bank of Mexico"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bcrp
+msgid "[PE] SUNAT (replaces Bank of Peru)"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__nbp
+msgid "[PL] National Bank of Poland"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bnr
+msgid "[RO] National Bank of Romania"
+msgstr ""
+
+#. module: currency_rate_live
+#: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__tcmb
+msgid "[TR] Central Bank of the Republic of Turkey"
+msgstr ""
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__xe_com

@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Larissa Manderfeld, 2023
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Larissa Manderfeld, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +28,9 @@ msgid ""
 " You've gained {gained} points with this progress.{new_line}It makes you a "
 "new total of {total} points. Visit {link1}this link{link2} to pick a gift!"
 msgstr ""
+"Ha ganado {gained} puntos con este progreso.{new_line}Se convierte en un "
+"nuevo total de {total} puntos. ¡Visite {link1}este enlace{link2} para elegir"
+" un regalo!"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_recruitment_report__referral_hired
@@ -95,6 +99,8 @@ msgid ""
 "<span title=\"My Link to Share\"><i class=\"fa fa-lg fa-link\" role=\"img\" "
 "aria-label=\"My Link to Share\"/></span>"
 msgstr ""
+"<span title=\"My Link to Share\"><i class=\"fa fa-lg fa-link\" role=\"img\" "
+"aria-label=\"My Link to Share\"/></span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -165,6 +171,8 @@ msgid ""
 "Alerts will be displayed on the first screen to give information or "
 "redirects the employees"
 msgstr ""
+"Las alertas aparecerán en la primera pantalla para brindar información o "
+"redirigir a los empleados"
 
 #. module: hr_referral
 #: model:ir.model.fields,help:hr_referral.field_hr_recruitment_stage__points
@@ -307,9 +315,24 @@ msgid "Cost"
 msgstr "Coste"
 
 #. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_friend_configuration
+msgid "Create a new friend"
+msgstr "Crear un nuevo amigo"
+
+#. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_level_configuration
+msgid "Create a new level"
+msgstr "Crear un nuevo nivel"
+
+#. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_alert_configuration
 msgid "Create new alerts"
 msgstr "Crea nuevas alertas"
+
+#. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_points
+msgid "Create new reward points"
+msgstr "Crear nuevos puntos de recompensa"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__create_uid
@@ -537,7 +560,7 @@ msgstr "Icono de Font Awesome ej. fa-tasks"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_onboarding_tree
 msgid "Force Onboarding"
-msgstr ""
+msgstr "Forzar integración"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__friend_id
@@ -1006,7 +1029,7 @@ msgstr "Puntos faltantes"
 #: code:addons/hr_referral/static/src/views/dashboard.xml:0
 #, python-format
 msgid "Points Received"
-msgstr ""
+msgstr "Puntos recibidos"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -1028,7 +1051,7 @@ msgstr "Puntos necesarios para comprar esto"
 #: code:addons/hr_referral/static/src/views/dashboard.xml:0
 #, python-format
 msgid "Points to spend"
-msgstr ""
+msgstr "Puntos para gastar"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_friend__position
@@ -1313,6 +1336,8 @@ msgstr "Saltar y comenzar"
 #, python-format
 msgid "Sorry, your referral %s has been refused in the recruitment process."
 msgstr ""
+"Lo sentimos, su referencia %s ha sido rechazado en el proceso de "
+"reclutamiento."
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_users__utm_source_id
@@ -1431,6 +1456,8 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:hr_referral.employee_referral_report_action
 msgid "This reports allow you to follow the referrals and their evolution."
 msgstr ""
+"Este informe le permite conocer el proceso en el que se encuentran las "
+"referencias."
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_onboarding_tree
@@ -1438,6 +1465,8 @@ msgid ""
 "This will make the onboarding visible to all employees who have already seen"
 " it. Do you want to continue?"
 msgstr ""
+"Esto hará que la integración sea visible para todos los empleados que ya la "
+"hayan visto, ¿desea continuar?"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1505,7 +1534,7 @@ msgstr "Usuario responsable del regalo."
 #. module: hr_referral
 #: model:res.groups,name:hr_referral.group_hr_recruitment_referral_user
 msgid "User: Referral only"
-msgstr ""
+msgstr "Usuario: solo referencia"
 
 #. module: hr_referral
 #. odoo-javascript

@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Lucia Pacheco, 2023
+# Fernanda Alvarez, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Lucia Pacheco, 2023\n"
+"Last-Translator: Fernanda Alvarez, 2023\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -273,11 +274,11 @@ msgstr ""
 "                        Lamentamos ver que, a pesar de haberle enviado un recordatorio, su cuenta todavía tiene adeudos considerables.\n"
 "                    </p>\n"
 "                    <p>\n"
-"                        Es esencial que realice el pago de inmediato, de lo contrario, tendremos que considerar la suspensión de su cuenta, lo que significa que ya no podremos proveer a su empresa con (bienes/servicios).\n"
+"                        Es de suma importancia que realice el pago de inmediato, de lo contrario, tendremos que considerar la suspensión de su cuenta, lo que significa que ya no podremos proveer a su empresa con (bienes/servicios).\n"
 "                        Tome las medidas adecuadas para llevar a cabo este pago en los próximos 8 días.\n"
 "                    </p>\n"
 "                    <p>\n"
-"                        Si hay algún problema con el pago de la factura del que no tengamos conocimiento, no dude en contactar a nuestro departamento de contabilidad para que podamos resolver el asunto rápidamente.\n"
+"                        Si hay algún problema con el pago de la factura del que no tengamos conocimiento, no dude en contactar a nuestro departamento de contabilidad para que podamos resolver el asunto con rapidez.\n"
 "                    </p>\n"
 "                    <p>\n"
 "                        Los detalles de los pagos pendientes se encuentran impresos a continuación.\n"
@@ -314,8 +315,9 @@ msgid ""
 "<span>Preferred address for follow-up reports. Selected by default when you "
 "send reminders about overdue invoices.</span>"
 msgstr ""
-"<span>Dirección preferida para los informes de seguimiento. Seleccionada por"
-" defecto al enviar recordatorios de las facturas vencidas.</span>"
+"<span>Dirección preferida para los reportes de seguimiento. Se selecciona de"
+" forma predeterminada al enviar recordatorios de las facturas "
+"vencidas.</span>"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -644,7 +646,7 @@ msgstr "Seguimiento %s - %s"
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__type__followup
 msgid "Follow-up Address"
-msgstr "Direcciones de seguimientos"
+msgstr "Dirección de seguimiento"
 
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_account_followup_followup_line
@@ -863,12 +865,12 @@ msgstr "Siguiente recordatorio"
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_status__no_action_needed
 msgid "No action needed"
-msgstr "No se requiere acción"
+msgstr "No se necesita realizar una acción"
 
 #. module: account_followup
 #: model_terms:ir.actions.act_window,help:account_followup.action_view_list_customer_statements
 msgid "No follow-up to send!"
-msgstr "¡No hay seguimientos que mandar!"
+msgstr "¡No hay seguimientos que enviar!"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_note
@@ -1093,7 +1095,7 @@ msgstr ""
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_move_line__invoice_origin
 msgid "The document(s) that generated the invoice."
-msgstr "El documento o documentos que generaron esta factura"
+msgstr "Los documentos que generaron esta factura."
 
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_followup_followup_line__delay
@@ -1155,7 +1157,7 @@ msgstr "Factura sin pagar"
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__unpaid_invoices_count
 #: model:ir.model.fields,field_description:account_followup.field_res_users__unpaid_invoices_count
 msgid "Unpaid Invoices Count"
-msgstr "Conteo de las facturas sin pagar"
+msgstr "Número de facturas sin pagar"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__unreconciled_aml_ids
@@ -1235,7 +1237,7 @@ msgstr "p. ej. primer correo de recordatorio"
 #: code:addons/account_followup/models/account_followup_report.py:0
 #, python-format
 msgid "payment reminder"
-msgstr "recordatorio de pagos"
+msgstr "recordatorio de pago"
 
 #. module: account_followup
 #: model:mail.template,subject:account_followup.demo_followup_email_template_2

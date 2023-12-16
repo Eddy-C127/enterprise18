@@ -56,6 +56,21 @@ msgstr ""
 
 #. module: whatsapp
 #. odoo-python
+#: code:addons/whatsapp/models/models.py:0
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid "'%(field)s' does not seem to be a valid field path"
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid "'%(field)s' does not seem to be a valid field path on %(model)s"
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
 msgid ", ... (%s Others)"
@@ -1478,6 +1493,14 @@ msgid "Please enter a valid URL in the format 'https://www.example.com'."
 msgstr ""
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/res_partner.py:0
+#, python-format
+msgid ""
+"Please enter at least 3 characters when searching a Phone/Mobile number."
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__pl
 msgid "Polish"
 msgstr ""
@@ -1574,7 +1597,7 @@ msgstr "נדחה"
 #. odoo-python
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
-msgid "Related %(model_name)s:"
+msgid "Related %(model_name)s: "
 msgstr ""
 
 #. module: whatsapp
@@ -1627,6 +1650,13 @@ msgstr "שגיאה בשליחת SMS"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_variable__demo_value
 msgid "Sample Value"
+msgstr ""
+
+#. module: whatsapp
+#. odoo-javascript
+#: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
+#, python-format
+msgid "Search WhatsApp Channel"
 msgstr ""
 
 #. module: whatsapp
@@ -1810,6 +1840,15 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_search
 msgid "Template"
 msgstr "תבנית"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#, python-format
+msgid ""
+"Template %(template_name)s holds a wrong configuration for 'phone field'\n"
+"%(error_msg)s"
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -2179,6 +2218,13 @@ msgid "Wa Template"
 msgstr "תבנית"
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/models.py:0
+#, python-format
+msgid "We were not able to fetch value of field '%(field)s'"
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__webhook_verify_token
 msgid "Webhook Verify Token"
 msgstr ""
@@ -2213,13 +2259,6 @@ msgstr "היסטורית התקשרויות מאתר האינטרנט"
 #: model_terms:ir.ui.view,arch_db:whatsapp.res_config_settings_view_form
 #, python-format
 msgid "WhatsApp"
-msgstr ""
-
-#. module: whatsapp
-#. odoo-javascript
-#: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
-#, python-format
-msgid "Search WhatsApp Channel"
 msgstr ""
 
 #. module: whatsapp
@@ -2354,9 +2393,26 @@ msgstr ""
 
 #. module: whatsapp
 #. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid ""
+"You are not allowed to use %(field)s in phone field, contact your "
+"administrator to configure it."
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "You are not allowed to use this field, contact your administrator."
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"You are not allowed to use field %(field)s, contact your administrator."
 msgstr ""
 
 #. module: whatsapp
@@ -2375,9 +2431,18 @@ msgstr ""
 
 #. module: whatsapp
 #. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "You can not select field of %r."
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid "You can not select field of %(model)s."
 msgstr ""
 
 #. module: whatsapp

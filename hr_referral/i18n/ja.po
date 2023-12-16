@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Junko Augias, 2023
+# Ryoko Tsuda <ryoko@quartile.co>, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Junko Augias, 2023\n"
+"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -308,9 +309,24 @@ msgid "Cost"
 msgstr "原価"
 
 #. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_friend_configuration
+msgid "Create a new friend"
+msgstr "新しい友達を作成"
+
+#. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_level_configuration
+msgid "Create a new level"
+msgstr "新しいレベルを作成"
+
+#. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_alert_configuration
 msgid "Create new alerts"
 msgstr "新しいアラートを作成"
+
+#. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_points
+msgid "Create new reward points"
+msgstr "新しいリワードポイントを作成"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__create_uid
@@ -1508,12 +1524,12 @@ msgstr "ウェブページ訪問"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__website_message_ids
 msgid "Website Messages"
-msgstr "サイトメッセージ"
+msgstr "ウェブサイトメッセージ"
 
 #. module: hr_referral
 #: model:ir.model.fields,help:hr_referral.field_hr_referral_reward__website_message_ids
 msgid "Website communication history"
-msgstr "サイト通信履歴"
+msgstr "ウェブサイト通信履歴"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_onboarding

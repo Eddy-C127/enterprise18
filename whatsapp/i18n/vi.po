@@ -48,6 +48,21 @@ msgstr ""
 
 #. module: whatsapp
 #. odoo-python
+#: code:addons/whatsapp/models/models.py:0
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid "'%(field)s' does not seem to be a valid field path"
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid "'%(field)s' does not seem to be a valid field path on %(model)s"
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
 msgid ", ... (%s Others)"
@@ -1500,6 +1515,14 @@ msgid "Please enter a valid URL in the format 'https://www.example.com'."
 msgstr "Vui lòng nhập URL hợp lệ ở định dạng 'https://www.example.com'."
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/res_partner.py:0
+#, python-format
+msgid ""
+"Please enter at least 3 characters when searching a Phone/Mobile number."
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__pl
 msgid "Polish"
 msgstr "Ba Lan"
@@ -1596,8 +1619,8 @@ msgstr "Bị từ chối"
 #. odoo-python
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
-msgid "Related %(model_name)s:"
-msgstr "%(model_name)s liên quan:"
+msgid "Related %(model_name)s: "
+msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__model
@@ -1650,6 +1673,13 @@ msgstr "Lỗi gửi SMS"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_variable__demo_value
 msgid "Sample Value"
 msgstr "Giá trị mẫu"
+
+#. module: whatsapp
+#. odoo-javascript
+#: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
+#, python-format
+msgid "Search WhatsApp Channel"
+msgstr ""
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.template_message_preview
@@ -1834,6 +1864,15 @@ msgstr "Telugu"
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_search
 msgid "Template"
 msgstr "Mẫu"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#, python-format
+msgid ""
+"Template %(template_name)s holds a wrong configuration for 'phone field'\n"
+"%(error_msg)s"
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -2223,6 +2262,13 @@ msgid "Wa Template"
 msgstr "Mẫu WA"
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/models.py:0
+#, python-format
+msgid "We were not able to fetch value of field '%(field)s'"
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__webhook_verify_token
 msgid "Webhook Verify Token"
 msgstr "Token xác minh webhook"
@@ -2258,13 +2304,6 @@ msgstr "Lịch sử trao đổi qua trang web"
 #, python-format
 msgid "WhatsApp"
 msgstr "WhatsApp"
-
-#. module: whatsapp
-#. odoo-javascript
-#: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
-#, python-format
-msgid "Search WhatsApp Channel"
-msgstr ""
 
 #. module: whatsapp
 #: model:ir.actions.server,name:whatsapp.ir_actions_server_resend_whatsapp_queue
@@ -2400,11 +2439,28 @@ msgstr ""
 
 #. module: whatsapp
 #. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid ""
+"You are not allowed to use %(field)s in phone field, contact your "
+"administrator to configure it."
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "You are not allowed to use this field, contact your administrator."
 msgstr ""
 "Bạn không được phép sử dụng trường này, hãy liên hệ với quản trị viên."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"You are not allowed to use field %(field)s, contact your administrator."
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -2422,10 +2478,19 @@ msgstr "Bạn không thể gửi lại tin nhắn không ở trạng thái khôn
 
 #. module: whatsapp
 #. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "You can not select field of %r."
 msgstr "Bạn không thể chọn trường của %r."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid "You can not select field of %(model)s."
+msgstr ""
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action

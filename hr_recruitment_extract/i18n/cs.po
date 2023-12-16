@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Jakub Smolka, 2023
-# Tomáš Píšek, 2023
 # Wil Odoo, 2023
 # Ivana Bartonkova, 2023
+# Tomáš Píšek, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ivana Bartonkova, 2023\n"
+"Last-Translator: Tomáš Píšek, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +35,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Buy credits"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Koupit kredity"
 
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.hr_recruitment_extract_view_form
@@ -42,6 +44,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Refresh"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Onovit"
 
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.hr_recruitment_extract_view_form
@@ -49,6 +53,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Retry"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Zkusit znovu"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__message_needaction
@@ -97,23 +103,23 @@ msgstr "Konfigurační nastavení"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields.selection,name:hr_recruitment_extract.selection__res_company__recruitment_extract_show_ocr_option_selection__auto_send
 msgid "Digitize automatically"
-msgstr ""
+msgstr "Digitalizovat automaticky"
 
 #. module: hr_recruitment_extract
 #: model:ir.actions.server,name:hr_recruitment_extract.ir_actions_server_digitize_cv
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.hr_recruitment_extract_view_form
 msgid "Digitize document"
-msgstr ""
+msgstr "Digitalizovat dokument"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields.selection,name:hr_recruitment_extract.selection__res_company__recruitment_extract_show_ocr_option_selection__manual_send
 msgid "Digitize on demand only"
-msgstr ""
+msgstr "Digitalizovat pouze na vyžádání"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields.selection,name:hr_recruitment_extract.selection__res_company__recruitment_extract_show_ocr_option_selection__no_send
 msgid "Do not digitize"
-msgstr ""
+msgstr "Nedigitalizovat"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__extract_error_message
@@ -123,7 +129,7 @@ msgstr "Chybové hlášení"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__extract_state_processed
 msgid "Extract State Processed"
-msgstr ""
+msgstr "Vytěžování - stav procesu"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__extract_state
@@ -133,7 +139,7 @@ msgstr "Stav extraktu"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__extract_status
 msgid "Extract status"
-msgstr ""
+msgstr "Status vytěžování"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__message_follower_ids
@@ -153,7 +159,7 @@ msgstr "Má zprávu"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "ID požadavku na IAP-OCR"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,help:hr_recruitment_extract.field_hr_applicant__message_needaction
@@ -174,7 +180,7 @@ msgstr "Je odběratel"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "Je ve stavu umožňujícím vytěžení"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__message_main_attachment_id
@@ -247,6 +253,8 @@ msgid ""
 "The data extraction is not finished yet. The extraction usually takes "
 "between 5 and 10 seconds."
 msgstr ""
+"Vytěžování dat ještě nebylo dokončeno. Vytěžování obvykle trvá 5 až 10 "
+"sekund."
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__website_message_ids

@@ -447,12 +447,12 @@ msgstr "Envío SendCloud"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.res_config_settings_view_form_stock
 msgid "Sendcloud Shipping Methods"
-msgstr ""
+msgstr "Métodos de envío de SendCloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_name
 msgid "Sendcloud Shipping Product"
-msgstr ""
+msgstr "Producto de envío de SendCloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__country_id
@@ -464,12 +464,12 @@ msgstr "Enviar desde"
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Shipment %s cancelled"
-msgstr ""
+msgstr "Envío %s cancelado"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__carrier
 msgid "Shipping Carrier"
-msgstr ""
+msgstr "Transportista de envío"
 
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_delivery_carrier
@@ -493,6 +493,8 @@ msgid ""
 "Some carriers require package dimensions, you can define these in a package "
 "type that you set as default"
 msgstr ""
+"Algunos transportistas requieren las dimensiones del paquete, puede "
+"definirlas en un tipo de paquete que estableció como predeterminado"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -566,6 +568,8 @@ msgid ""
 "There are no shipping products available, please update the 'Shipping From' "
 "field or activate suitable carriers in your sendcloud account"
 msgstr ""
+"No hay productos de envío disponibles. Actualice el campo de 'Envío desde' o"
+" active transportistas adecuados en su cuenta de SendCloud "
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -574,6 +578,8 @@ msgstr ""
 msgid ""
 "There is no rate available for this order with the selected shipping product"
 msgstr ""
+"No hay una tasa disponible para esta orden con el producto de envío "
+"seleccionado"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -583,6 +589,8 @@ msgid ""
 "There is no shipping method available for this order with the selected "
 "carrier"
 msgstr ""
+"No existe un método de envío disponible para esta orden con el transportista"
+" seleccionado"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -592,6 +600,8 @@ msgid ""
 "There is no shipping method available for this picking with the selected "
 "carrier"
 msgstr ""
+"No existe un método de envío disponible para esta recolección con el "
+"transportista seleccionado"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -611,13 +621,15 @@ msgid ""
 "There's no shipping method matching all your selected filters for this "
 "picking/order."
 msgstr ""
+"No existe un método de envío que corresponda con todos sus filtros "
+"seleccionados para esta recolección u orden."
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "There's no unit of measure with the name \"%s\"."
-msgstr ""
+msgstr "No existe una unidad de medida llamada \"%s\"."
 
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_stock_picking
@@ -627,19 +639,19 @@ msgstr "Albarán"
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_use_batch_shipping
 msgid "Use Batch Shipping"
-msgstr ""
+msgstr "Usar envío por lotes"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_rules
 msgid "Use Sendcloud shipping rules"
-msgstr ""
+msgstr "Utilice las reglas de envío de SendCloud"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 #, python-format
 msgid "Weight range"
-msgstr ""
+msgstr "Rango de peso"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_use_batch_shipping
@@ -647,6 +659,8 @@ msgid ""
 "When sending multiple parcels, combine them in one shipment. Not supported "
 "for international shipping requiring customs' documentation"
 msgstr ""
+"Al enviar diferentes paquetes, combínelos en un solo envío. No es compatible"
+" con envíos internacionales que requieran documentación aduanera."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -654,6 +668,8 @@ msgstr ""
 #, python-format
 msgid "You must add your public and secret key for sendcloud delivery type!"
 msgstr ""
+"Debe agregar sus claves pública y secreta para el tipo de entrega de "
+"SendCloud."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -663,13 +679,15 @@ msgid ""
 "You must assign the required 'Shipping From' field in order to search for "
 "available products"
 msgstr ""
+"Debe asignar el campo requerido de 'Envío desde' para buscar los productos "
+"disponibles."
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "You must have a shipping product configured!"
-msgstr ""
+msgstr "Debe tener un producto de envío configurado."
 
 #. module: delivery_sendcloud
 #. odoo-javascript
@@ -686,3 +704,5 @@ msgid ""
 "created in Sendcloud. <br/>\n"
 "            <b>Tracking Numbers:</b>"
 msgstr ""
+"creado en SendCloud. <br/>\n"
+"            <b>Números de rastreo:</b>"

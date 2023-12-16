@@ -162,6 +162,12 @@ msgstr ""
 "            "
 
 #. module: account_online_synchronization
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid " If you've already opened this issue don't report it again."
+msgstr ""
+
+#. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__access_token
 msgid "Access Token"
 msgstr "Token de acceso"
@@ -475,12 +481,12 @@ msgstr "Error"
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_journal__expiring_synchronization_date
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__expiring_synchronization_date
 msgid "Expiring Synchronization Date"
-msgstr ""
+msgstr "Fecha de vencimiento de la sincronización"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_journal__expiring_synchronization_due_day
 msgid "Expiring Synchronization Due Day"
-msgstr ""
+msgstr "Día de vencimiento de la sincronización"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -497,12 +503,12 @@ msgstr "Información extra que necesita el proveedor terciario"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Fetch"
-msgstr ""
+msgstr "Recuperar"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Fetch Missing Bank Statements Wizard"
-msgstr ""
+msgstr "Asistente para recuperar estados bancarios faltantes"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -517,7 +523,7 @@ msgstr "Obtener transacciones"
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Fetched Transactions"
-msgstr ""
+msgstr "Transacciones recuperadas"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_journal__online_sync_fetching_status
@@ -530,7 +536,7 @@ msgstr ""
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "Fetching..."
-msgstr ""
+msgstr "Recuperando..."
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -540,7 +546,7 @@ msgstr ""
 #: model:ir.actions.server,name:account_online_synchronization.account_journal_action_fetch_missing_transactions
 #, python-format
 msgid "Find Missing Transactions"
-msgstr ""
+msgstr "Encontrar transacciones faltantes"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_follower_ids
@@ -572,7 +578,7 @@ msgstr "Tiene cuentas no vinculadas"
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Here"
-msgstr ""
+msgstr "Aquí"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_selection__id
@@ -1008,6 +1014,8 @@ msgid ""
 "Security Tip: always check the domain name of this page, before clicking on "
 "the button."
 msgstr ""
+"Consejo de seguridad: siempre verifique el nombre de dominio de esta página "
+"antes de hacer clic en el botón."
 
 #. module: account_online_synchronization
 #. odoo-javascript

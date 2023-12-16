@@ -138,12 +138,12 @@ msgstr "<span class=\"o_form_label oe_inline\">%</span>"
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "<span class=\"o_stat_text\">Consolidated Balance</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Konsolidoitu tase</span>"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "<span class=\"o_stat_text\">Edit</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Muokkaa</span>"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_kanban
@@ -172,6 +172,8 @@ msgid ""
 "A journal entry should only be linked to a company period OR to a analysis "
 "period of another consolidation!"
 msgstr ""
+"Päiväkirjamerkintä saa liittyä vain yrityksen kauteen TAI toisen "
+"konsolidoinnin analyysikauteen!"
 
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_account_account
@@ -188,7 +190,7 @@ msgstr "Tilikonsolidoinnin valuutta on poikkeava"
 #. module: account_consolidation
 #: model:onboarding.onboarding,name:account_consolidation.onboarding_onboarding_account_consolidation_dashboard
 msgid "Account Consolidation Dashboard Onboarding"
-msgstr ""
+msgstr "Tilikonsolidoinnin kojelaudan käyttöönotto"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_tree
@@ -271,7 +273,7 @@ msgstr "Aktiivinen"
 #: code:addons/account_consolidation/static/src/views/trial_balance_grid/trial_balance_grid_controller.xml:0
 #, python-format
 msgid "Add a column"
-msgstr "Lisää sarake "
+msgstr "Lisää sarake"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_company_period_form
@@ -302,6 +304,8 @@ msgid ""
 "An account group can only have accounts or other groups children but not "
 "both!"
 msgstr ""
+"Tiliryhmällä voi olla vain tilejä tai muista ryhmistä periytyviä alempia "
+"tasoja, mutta ei molempia!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal__period_id
@@ -329,7 +333,7 @@ msgstr "Analyysijakso"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Analysis period created!"
-msgstr ""
+msgstr "Analyysijakso luotu!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_form_onboarding
@@ -402,7 +406,7 @@ msgstr "Tilikartta"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_setup_ccoa
 msgid "Chart of accounts set!"
-msgstr ""
+msgstr "Tilikartta on laadittu!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_tree
@@ -502,7 +506,7 @@ msgstr "Yrityksen kartoittamattomien tilien määrä"
 #: code:addons/account_consolidation/static/src/components/consolidation_report/filters/filters.xml:0
 #, python-format
 msgid "Comparison:"
-msgstr ""
+msgstr "Vertailu:"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period_composition__composed_period_id
@@ -722,7 +726,7 @@ msgstr "Luo ensimmäinen jakso"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Create your first analysis period & set the currency rates."
-msgstr ""
+msgstr "Luo ensimmäinen analyysijakso ja aseta valuuttakurssit."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__create_uid
@@ -809,7 +813,7 @@ msgstr "Määrittele"
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid ""
 "Define the companies that should be consolidated & the target currency."
-msgstr ""
+msgstr "Määrittele konsolidoitavat yhtiöt ja kohdevaluutta."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal_line__note
@@ -1170,12 +1174,12 @@ msgstr "Perehdytys"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Onboarding Analysis period"
-msgstr ""
+msgstr "Analyysijakson käyttöönotto"
 
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_setup_ccoa
 msgid "Onboarding Chart of Accounts"
-msgstr ""
+msgstr "Tilikartan käyttöönotto"
 
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_onboarding_onboarding_step
@@ -1185,7 +1189,7 @@ msgstr "Perehdytyksen askel"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid "Onboarding The Scope of Consolidation"
-msgstr ""
+msgstr "Konsolidoinnin laajuuden käyttöönotto"
 
 #. module: account_consolidation
 #. odoo-python
@@ -1194,6 +1198,8 @@ msgstr ""
 msgid ""
 "Only one entry by account should be created for a generated journal entry!"
 msgstr ""
+"Tuotettua päiväkirjamerkintää varten on luotava vain yksi tilikohtainen "
+"kirjaus!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_search
@@ -1309,7 +1315,7 @@ msgstr "Tekstiviestin toimitusvirhe"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid "Scope of Consolidation defined!"
-msgstr ""
+msgstr "Konsolidoinnin soveltamisala on määritelty!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__sequence
@@ -1585,7 +1591,7 @@ msgstr "Et voi muokata automaattisesti luotua päiväkirjamerkintää."
 #: code:addons/account_consolidation/models/consolidation_journal.py:0
 #, python-format
 msgid "You cannot add journals to a closed period!"
-msgstr ""
+msgstr "Et voi lisätä päiväkirjoja suljettuun jaksoon!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_form

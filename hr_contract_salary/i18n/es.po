@@ -1796,13 +1796,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__salary_offer_ids
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__salary_offer_ids
 msgid "Salary Offer"
-msgstr ""
+msgstr "Oferta salarial"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__salary_offers_count
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__salary_offers_count
 msgid "Salary Offers Count"
-msgstr ""
+msgstr "Número de ofertas salariales"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_benefit
@@ -1822,12 +1822,12 @@ msgstr "Configurador del paquete salarial"
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_offer
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
 msgid "Salary Package Offer"
-msgstr ""
+msgstr "Oferta de paquete salarial"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_tree
 msgid "Salary Package Offers"
-msgstr ""
+msgstr "Ofertas de paquete salarial"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_personal_info
@@ -1886,7 +1886,7 @@ msgstr "Escuela"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_search
 msgid "Search Offers"
-msgstr ""
+msgstr "Buscar ofertas"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit_value__display_type__section
@@ -1898,12 +1898,12 @@ msgstr "Sección"
 #: model:hr.contract.salary.personal.info,placeholder:hr_contract_salary.hr_contract_salary_personal_info_country_id
 #: model:hr.contract.salary.personal.info,placeholder:hr_contract_salary.hr_contract_salary_personal_info_country_of_birth
 msgid "Select a Country"
-msgstr ""
+msgstr "Seleccionar un país"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,placeholder:hr_contract_salary.hr_contract_salary_personal_info_state_id
 msgid "Select a State"
-msgstr ""
+msgstr "Seleccionar una provincia"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__display_type__dropdown
@@ -1919,7 +1919,7 @@ msgstr "Seleccionar naturaleza"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
 msgid "Send By Email"
-msgstr ""
+msgstr "Enviar por correo electrónico"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__sign_copy_partner_id
@@ -1930,7 +1930,7 @@ msgstr "Enviar copia a"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_applicant_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
 msgid "Sent Offers"
-msgstr ""
+msgstr "Ofertas enviadas"
 
 #. module: hr_contract_salary
 #: model:mail.template,description:hr_contract_salary.mail_template_send_offer_applicant
@@ -2101,7 +2101,7 @@ msgstr "El contrato del cual este contrato ha sido duplicado."
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "The current requested documents are the followings:"
-msgstr ""
+msgstr "Los documentos que se requieren actualmente son los siguientes:"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
@@ -2109,6 +2109,8 @@ msgid ""
 "The employee does not have a valid work email set. The Simulation Link won't"
 " be able to be completed."
 msgstr ""
+"El empleado no tiene un correo electrónico válido establecido y el enlace de"
+" simulación no se podrá completar."
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -2141,6 +2143,8 @@ msgid ""
 "The type of activity that will be created automatically on the contract if "
 "this benefit is chosen by the employee."
 msgstr ""
+"El tipo de actividad que se creará automáticamente en el contrato si el "
+"empleado elije esta ventaja."
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_benefits
@@ -2150,7 +2154,7 @@ msgstr "No hay opciones disponibles para personalizar tu salario"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_diff_email_template
 msgid "There were no changes since previous contract."
-msgstr ""
+msgstr "No hubo cambios desde el contrato anterior."
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
@@ -2158,6 +2162,8 @@ msgid ""
 "They will review your contract.<br/> Feel free to contact them if you have "
 "any questions."
 msgstr ""
+"La persona revisará el contrato.<br/> Es libre de contactarle si tiene "
+"alguna pregunta."
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -2176,7 +2182,7 @@ msgstr ""
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "This offer has been updated, please request an updated link.."
-msgstr ""
+msgstr "La oferta se ha actualizada, solicite un enlace actualizado."
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -2184,7 +2190,7 @@ msgstr ""
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "This offer is outdated, please request an updated link..."
-msgstr ""
+msgstr "Esta oferta no está actualizada, solicite un enlace actualizado..."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__display_name
@@ -2231,6 +2237,8 @@ msgstr "Unidad de medida"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.res_config_settings_view_form_hr
 msgid "Validity duration for salary package requests for employees"
 msgstr ""
+"Duración de la validez de las solicitudes del paquete salarial para los "
+"empleados"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.res_config_settings_view_form

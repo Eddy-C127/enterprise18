@@ -8,14 +8,15 @@
 # Jakub Smolka, 2023
 # Tomáš Píšek, 2023
 # Aleš Fiala <f.ales1@seznam.cz>, 2023
+# Jan Horzinka <jan.horzinka@centrum.cz>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-11 09:27+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2023\n"
+"Last-Translator: Jan Horzinka <jan.horzinka@centrum.cz>, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,14 +43,14 @@ msgstr "a jeden další"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "%s is not a numeric value"
-msgstr ""
+msgstr "%s není číselnou hodnotou"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "%s selected"
-msgstr ""
+msgstr "%s vybráno"
 
 #. module: account_reports
 #. odoo-python
@@ -59,6 +60,7 @@ msgid ""
 "'Open General Ledger' caret option is only available form report lines "
 "targetting accounts."
 msgstr ""
+"Možnost 'Otevřít hlavní knihu' je dostupná pouze u řádků propojených s účty."
 
 #. module: account_reports
 #. odoo-python
@@ -68,27 +70,29 @@ msgid ""
 "'View Bank Statement' caret option is only available for report lines "
 "targeting bank statements."
 msgstr ""
+"Možnost 'Zobrazit bankovní výpis' je dostupá pouze u řádků propojené na "
+"bankovní výpisy."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "'external' engine does not support groupby, limit nor offset."
-msgstr ""
+msgstr "'externí' metoda výpočtu nepodporuje seskupení, limit ani posun."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "(%s lines)"
-msgstr ""
+msgstr "(%s položek)"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "(1 line)"
-msgstr ""
+msgstr "(1 položka)"
 
 #. module: account_reports
 #. odoo-python
@@ -99,11 +103,6 @@ msgstr "(žádná skupina)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid "-> Check your tax report"
-msgstr ""
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid "-> Refresh"
 msgstr "-> Obnovit"
 
@@ -111,25 +110,25 @@ msgstr "-> Obnovit"
 #: model:account.report.column,name:account_reports.aged_payable_report_period1
 #: model:account.report.column,name:account_reports.aged_receivable_report_period1
 msgid "1-30"
-msgstr ""
+msgstr "1-30"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period2
 #: model:account.report.column,name:account_reports.aged_receivable_report_period2
 msgid "31-60"
-msgstr ""
+msgstr "31-60"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period3
 #: model:account.report.column,name:account_reports.aged_receivable_report_period3
 msgid "61-90"
-msgstr ""
+msgstr "61-90"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period4
 #: model:account.report.column,name:account_reports.aged_receivable_report_period4
 msgid "91-120"
-msgstr ""
+msgstr "91-120"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -137,28 +136,31 @@ msgid ""
 "<i>Errors marked with <i class=\"fa fa-warning\"/> are critical and prevent "
 "the file generation.</i>"
 msgstr ""
+"<i>Chyby označené <i class=\"fa fa-warning\"/> jsou kritické a blokují "
+"vytvoření souboru.</i>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.partner_view_buttons
 msgid "<span class=\"o_stat_text\">Partner Ledger</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Saldokonto</span>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "<span>One or more error(s) occurred during file generation:</span>"
 msgstr ""
+"<span>Jedna nebo více chyb, které nastaly při vytváření souboru:</span>"
 
 #. module: account_reports
 #: model:ir.model.constraint,message:account_reports.constraint_account_report_horizontal_group_name_uniq
 msgid "A horizontal group with the same name already exists."
-msgstr ""
+msgstr "Horizontální skupina s tímto názvem již existuje."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.js:0
 #, python-format
 msgid "A line with a 'Group By' value cannot have children."
-msgstr ""
+msgstr "Řádek s 'Seskupit dle' nemůže mít podřízené řádky."
 
 #. module: account_reports
 #. odoo-python
@@ -179,6 +181,8 @@ msgid ""
 "A tax unit must contain a minimum of two companies. You might want to delete"
 " the unit."
 msgstr ""
+"Daňová jednotka musí zahrnovat minimálně dvě společnosti. Možná chcete "
+"jednotku smazat."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_total_assets0
@@ -245,7 +249,7 @@ msgstr "Deník přecenění účtu"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_account_type.xml:0
 #, python-format
 msgid "Account:"
-msgstr ""
+msgstr "Účet"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_representative_id
@@ -280,19 +284,19 @@ msgstr "Účty"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
-msgstr ""
+msgstr "Výkaz o pokrytí účtů"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.multicurrency_revaluation_to_adjust
 msgid "Accounts To Adjust"
-msgstr ""
+msgstr "Účty k úpravě"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Accounts coverage"
-msgstr ""
+msgstr "Pokrytí účtů"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_mail_activity_type__category
@@ -423,14 +427,14 @@ msgstr "Všechny deníky"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "All Payable"
-msgstr ""
+msgstr "Všechny závazky"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "All Receivable"
-msgstr ""
+msgstr "Všechny pohledávky"
 
 #. module: account_reports
 #. odoo-python
@@ -456,14 +460,14 @@ msgstr "Měna množství"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Amount In Currency"
-msgstr ""
+msgstr "Částka v měně"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Amount in currency: %s"
-msgstr ""
+msgstr "Částka v měně: %s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -478,7 +482,7 @@ msgstr "Analytický filtr"
 #: model:ir.model.fields,field_description:account_reports.field_account_report__filter_analytic_groupby
 #, python-format
 msgid "Analytic Group By"
-msgstr ""
+msgstr "Analytická skupina podle"
 
 #. module: account_reports
 #. odoo-javascript
@@ -551,7 +555,7 @@ msgstr "Průměrné dny dlužníků"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "B: %s"
-msgstr ""
+msgstr "B: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -578,17 +582,17 @@ msgstr "Rozvaha"
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_current
 msgid "Balance at Current Rate"
-msgstr ""
+msgstr "Zůstatek v aktuálním kurzu"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_operation
 msgid "Balance at Operation Rate"
-msgstr ""
+msgstr "Zůstatek v provozním kurzu"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_currency
 msgid "Balance in Foreign Currency"
-msgstr ""
+msgstr "Zůstatek v cizí měně"
 
 #. module: account_reports
 #. odoo-python
@@ -648,14 +652,14 @@ msgstr "Zrušit"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Cannot audit tax from another model than account.tax."
-msgstr ""
+msgstr "Nelze auditovat daň z jiného modelu než account.tax."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Cannot generate carryover values for all fiscal positions at once!"
-msgstr ""
+msgstr "Nelze generovat hodnoty přenosu pro všechny fiskální pozice najednou!"
 
 #. module: account_reports
 #. odoo-javascript
@@ -669,21 +673,21 @@ msgstr "Přenos"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Carryover adjustment for tax unit"
-msgstr ""
+msgstr "Přenosová úprava pro daňovou jednotku"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Carryover can only be generated for a single column group."
-msgstr ""
+msgstr "Přenos lze vygenerovat pouze pro jednu skupinu sloupců."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Carryover from %s to %s"
-msgstr ""
+msgstr "Přenesení z %s do %s"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash0
@@ -920,14 +924,14 @@ msgstr "Náklady na výnosy"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Could not expand term %s while evaluating formula %s"
-msgstr ""
+msgstr "Nepodařilo se rozšířit výraz %s během vyhodnocování vzorce %s"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Could not parse account_code formula from token '%s'"
-msgstr ""
+msgstr "Nelze analyzovat vzorec account_code z tokenu '%s'"
 
 #. module: account_reports
 #. odoo-javascript
@@ -953,7 +957,7 @@ msgstr "Vytvořit záznam"
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_create_report_menu
 msgid "Create Menu Item"
-msgstr ""
+msgstr "Vytvořit položku nabídky"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__create_uid
@@ -1216,14 +1220,14 @@ msgstr "Vlastní zpracování výkazu prodejů ES"
 #: code:addons/account_reports/models/account_sales_report.py:0
 #, python-format
 msgid "EC tax on non EC countries"
-msgstr ""
+msgstr "Daň ES na země mimo ES"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_sales_report.py:0
 #, python-format
 msgid "EC tax on same country"
-msgstr ""
+msgstr "Daň ES ve stejné zemi"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_equity0
@@ -1356,6 +1360,9 @@ msgid ""
 " you had the customer on the phone and want to remember the date he promised"
 " he would pay)"
 msgstr ""
+"Očekávaný termín platby, jak byl ručně nastaven prostřednictvím výpisu "
+"zákazníka (např. Pokud jste měli zákazníka na telefonu a chcete si "
+"vzpomenout na datum, kdy slíbil, že zaplatí)"
 
 #. module: account_reports
 #. odoo-python
@@ -1381,7 +1388,7 @@ msgstr "Účet zajišťování výdajů"
 #: code:addons/account_reports/wizard/multicurrency_revaluation.py:0
 #, python-format
 msgid "Expense Provision for %s"
-msgstr ""
+msgstr "Zajišťování výdajů pro %s"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_expenses0
@@ -1416,7 +1423,7 @@ msgstr "Průvodce exportem pro účetní výkazy"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 msgid "Expression"
-msgstr ""
+msgstr "Vzorec"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
@@ -1541,7 +1548,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__fun_param
 msgid "Function Parameter"
-msgstr ""
+msgstr "Parametr funkce"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__fun_to_call
@@ -1583,7 +1590,7 @@ msgstr "Vygenerované dokumenty"
 #. module: account_reports
 #: model:account.report,name:account_reports.generic_ec_sales_report
 msgid "Generic EC Sales List"
-msgstr ""
+msgstr "Generický seznam prodejů EC"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_generic_tax_report_handler
@@ -1605,7 +1612,7 @@ msgstr "Vlastní zpracování generických daňových výkazů (Daň -> Účet)"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Go to report configuration"
-msgstr ""
+msgstr "Přejděte na nastavení výkazu"
 
 #. module: account_reports
 #. odoo-python
@@ -1648,17 +1655,12 @@ msgstr "Seskupit podle"
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Group By Months"
-msgstr ""
+msgstr "Seskupit podle měsíců"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_horizontal_group_form
 msgid "Group Name"
 msgstr "Název Skupiny"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
-msgid "Group by:"
-msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -1684,7 +1686,7 @@ msgstr "Hierarchie a mezisoučty"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__horizontal_group_id
 msgid "Horizontal Group"
-msgstr ""
+msgstr "Horizontální skupina"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1772,7 +1774,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Include Payments"
-msgstr ""
+msgstr "Zahrnout parametry"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -1795,7 +1797,7 @@ msgstr "Účet poskytování příjmů"
 #: code:addons/account_reports/wizard/multicurrency_revaluation.py:0
 #, python-format
 msgid "Income Provision for %s"
-msgstr ""
+msgstr "Poskytování příjmů pro %s"
 
 #. module: account_reports
 #. odoo-python
@@ -1834,7 +1836,7 @@ msgstr "Sem vložte poznámku"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Integer Rounding"
-msgstr ""
+msgstr "Zaokrouhlení celého čísla"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2129,14 +2131,14 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Manual value"
-msgstr ""
+msgstr "Manuální hodnota"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Manual values"
-msgstr ""
+msgstr "Manuální hodnoty"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_matching_number
@@ -2243,8 +2245,8 @@ msgid "Net profit margin (net profit / income)"
 msgstr "Čisté ziskové rozpětí (čistý zisk / zisk)"
 
 #. module: account_reports
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
@@ -2305,7 +2307,7 @@ msgstr "Nebylo nalezeno žádné potřebné opatření."
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "Non Trade Partners"
-msgstr ""
+msgstr "Partneři mimo obchodní styk"
 
 #. module: account_reports
 #. odoo-python
@@ -2329,6 +2331,13 @@ msgstr "Pohledávky mimo obchodní styk"
 #, python-format
 msgid "None"
 msgstr "Žádné"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_deferred_reports.py:0
+#, python-format
+msgid "Not Started"
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -2408,7 +2417,7 @@ msgstr "Možnosti"
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Options:"
-msgstr ""
+msgstr "Možnosti:"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_other_income0
@@ -2642,7 +2651,7 @@ msgstr "Návrh na daňové uzavření deníkového záznamu."
 #: code:addons/account_reports/wizard/multicurrency_revaluation.py:0
 #, python-format
 msgid "Provision for %(for_cur)s (1 %(comp_cur)s = %(rate)s %(for_cur)s)"
-msgstr ""
+msgstr "Rezerva pro %(for_cur)s (1 %(comp_cur)s = %(rate)s %(for_cur)s)"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2682,7 +2691,6 @@ msgstr "Připomínka"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_footnote__report_id
-#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Report"
 msgstr "Výkaz"
 
@@ -2690,6 +2698,11 @@ msgstr "Výkaz"
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "Report Line"
 msgstr "Řádek výkazu"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+msgid "Report Name"
+msgstr "Jméno sestavy"
 
 #. module: account_reports
 #. odoo-python
@@ -2815,16 +2828,11 @@ msgid "Show Warning Move"
 msgstr "Zobrazit varovný pohyb"
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid "Some controls failed."
-msgstr ""
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Sort By Date"
-msgstr ""
+msgstr "Seřadit podle data"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -2859,7 +2867,7 @@ msgstr "Podřazený vzorec"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "T: %s"
-msgstr ""
+msgstr "T: %s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3200,6 +3208,13 @@ msgid "This option hides lines with a value of 0"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "This report already has a menuitem."
+msgstr ""
+
+#. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid ""
 "This report is linked to a custom handler.\n"
@@ -3253,7 +3268,7 @@ msgstr "Celkový %s"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "Trade Partners"
-msgstr ""
+msgstr "Obchodní partneři"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -3358,7 +3373,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Unknown date scope: %s"
-msgstr ""
+msgstr "Neznámý rozsah data: %s"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.multicurrency_revaluation_report
@@ -3479,8 +3494,8 @@ msgid "XLSX"
 msgstr "XLSX"
 
 #. module: account_reports
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
@@ -3544,7 +3559,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_main
 msgid "[Draft]"
-msgstr ""
+msgstr "[Návrh]"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3589,7 +3604,7 @@ msgstr "každé 4 měsíce"
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 #, python-format
 msgid "in the next period."
-msgstr ""
+msgstr "v dalším období."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3619,7 +3634,7 @@ msgstr "n/a"
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "partners"
-msgstr ""
+msgstr "partneři"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3655,7 +3670,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "that are not established abroad."
-msgstr ""
+msgstr "které nejsou usazeny v zahraničí."
 
 #. module: account_reports
 #. odoo-javascript

@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Jakub Smolka, 2023
-# Tomáš Píšek, 2023
 # Ivana Bartonkova, 2023
 # Wil Odoo, 2023
+# Tomáš Píšek, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Tomáš Píšek, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,6 +28,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Buy credits"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Koupit kredity"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
@@ -35,6 +37,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Refresh"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Onovit"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
@@ -42,6 +46,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Retry"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Zkusit znovu"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_needaction
@@ -70,14 +76,14 @@ msgstr "Počet příloh"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_journal__alias_auto_extract_pdfs_only
 msgid "Auto extract PDFs only"
-msgstr ""
+msgstr "Automaticky vytěžovat pouze PDF"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_can_show_banners
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_can_show_banners
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_can_show_banners
 msgid "Can show the ocr banners"
-msgstr ""
+msgstr "Lze zobrazit štítek vytěžování"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_can_show_send_button
@@ -99,7 +105,7 @@ msgstr "Konfigurační nastavení"
 #: code:addons/account_invoice_extract/models/account_invoice.py:0
 #, python-format
 msgid "Couldn't reload AI data."
-msgstr ""
+msgstr "Nelze obnovit data AI"
 
 #. module: account_invoice_extract
 #. odoo-javascript
@@ -126,34 +132,34 @@ msgstr "Zákaznické faktury"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_out_invoice_digitalization_mode
 msgid "Digitization mode on customer invoices"
-msgstr ""
+msgstr "Režim digitalizace vydaných faktur"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_in_invoice_digitalization_mode
 msgid "Digitization mode on vendor bills"
-msgstr ""
+msgstr "Režim digitalizace přijatých faktur"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__auto_send
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_out_invoice_digitalization_mode__auto_send
 msgid "Digitize automatically"
-msgstr ""
+msgstr "Digitalizovat automaticky"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
 msgid "Digitize document"
-msgstr ""
+msgstr "Digitalizovat dokument"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__manual_send
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_out_invoice_digitalization_mode__manual_send
 msgid "Digitize on demand only"
-msgstr ""
+msgstr "Digitalizovat pouze na vyžádání"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_journal__display_alias_auto_extract_pdfs_only
 msgid "Display Alias Auto Extract Pdfs Only"
-msgstr ""
+msgstr "Zobrazovaný alias, pouze pro automaticky vytěžované PDF"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__display_name
@@ -164,7 +170,7 @@ msgstr "Zobrazovací název"
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__no_send
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_out_invoice_digitalization_mode__no_send
 msgid "Do not digitize"
-msgstr ""
+msgstr "Nedigitalizovat"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.res_config_settings_view_form
@@ -181,26 +187,26 @@ msgstr "Chybové hlášení"
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_attachment_id
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_attachment_id
 msgid "Extract Attachment"
-msgstr ""
+msgstr "Vytěžit přílohu"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_detected_layout
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_detected_layout
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_detected_layout
 msgid "Extract Detected Layout Id"
-msgstr ""
+msgstr "Vytěžování - detekované ID rozložení"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_partner_name
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_partner_name
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_partner_name
 msgid "Extract Detected Partner Name"
-msgstr ""
+msgstr "Vytěžování - detekované jméno partnera"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_state_processed
 msgid "Extract State Processed"
-msgstr ""
+msgstr "Vytěžování - stav procesu"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_word_ids
@@ -217,7 +223,7 @@ msgstr "Stav extraktu"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_status
 msgid "Extract status"
-msgstr ""
+msgstr "Status vytěžování"
 
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_account_invoice_extract_words
@@ -257,7 +263,7 @@ msgstr "ID"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "ID požadavku na IAP-OCR"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,help:account_invoice_extract.field_account_move__message_needaction
@@ -283,7 +289,7 @@ msgstr "OCR faktury: Aktualizace všech stavů"
 #. module: account_invoice_extract
 #: model:ir.actions.server,name:account_invoice_extract.ir_cron_ocr_validate_ir_actions_server
 msgid "Invoice OCR: Validate Invoices"
-msgstr ""
+msgstr "Vytěžování faktur: Potvrdit faktury"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_is_follower
@@ -293,7 +299,7 @@ msgstr "Je odběratel"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "Je ve stavu umožňujícím vytěžení"
 
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_account_journal
@@ -353,13 +359,15 @@ msgstr "Počet zpráv s chybou při doručení"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__ocr_selected
 msgid "Ocr Selected"
-msgstr ""
+msgstr "Slova vybrané OCR"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,help:account_invoice_extract.field_account_journal__alias_auto_extract_pdfs_only
 msgid ""
 "Only extract PDF files attached to email arriving trough this email alias."
 msgstr ""
+"Vytěžovat pouze PDF soubory přiložené v e-mailu přicházejícího na tento "
+"e-mail alias."
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__rating_ids
@@ -369,7 +377,7 @@ msgstr "Hodnocení"
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
 msgid "Reload AI Data"
-msgstr ""
+msgstr "Obnovit data AI"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_has_sms_error
@@ -379,13 +387,13 @@ msgstr "Chyba doručení SMS"
 #. module: account_invoice_extract
 #: model:ir.actions.server,name:account_invoice_extract.model_account_send_for_digitalization
 msgid "Send Bills for digitization"
-msgstr ""
+msgstr "Odeslat přijaté faktury k digitalizaci"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_single_line_per_tax
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_config_settings__extract_single_line_per_tax
 msgid "Single Invoice Line Per Tax"
-msgstr ""
+msgstr "Jeden řádek faktury na daň"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
@@ -393,6 +401,8 @@ msgid ""
 "The data extraction is not finished yet. The extraction usually takes "
 "between 5 and 10 seconds."
 msgstr ""
+"Vytěžování dat ještě nebylo dokončeno. Vytěžování obvykle trvá 5 až 10 "
+"sekund."
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__user_selected

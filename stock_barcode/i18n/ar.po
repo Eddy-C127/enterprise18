@@ -657,7 +657,7 @@ msgstr "مواقع المخزون"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__is_barcode_picking_type
 msgid "Is Barcode Picking Type"
-msgstr ""
+msgstr "نوع عملية الانتقاء بواسطة الباركود "
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__write_uid
@@ -763,7 +763,7 @@ msgstr "لا توجد عملية انتقاء أو منتج مقابل للبا�
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "No product, lot or package found for barcode %s"
-msgstr ""
+msgstr "لم يتم العثور على منتج أو مجموعة أو طرد للباركود %s "
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_nomenclature_id
@@ -896,7 +896,7 @@ msgstr "اضغط على تصديق أو قم بمسح منتج آخر ضوئيا
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Print Barcodes"
-msgstr ""
+msgstr "طباعة الباركودات "
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -956,7 +956,7 @@ msgstr "تعبئة المنتج"
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_reference_code
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_quant__product_reference_code
 msgid "Product Reference Code"
-msgstr ""
+msgstr "كود مرجع المنتج "
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_stock_quant_ids
@@ -1165,7 +1165,7 @@ msgstr "قم بمسح منتج ضوئياً ثم موقع الوجهة "
 #, python-format
 msgid ""
 "Scan a product, a lot/serial number or a package to filter the transfers."
-msgstr ""
+msgstr "قم بمسح منتج أو رقم مجموعة/رقم تسلسلي أو طرد لتصفية الشحنات. "
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1405,6 +1405,8 @@ msgid ""
 "Technical field indicating if should be used in barcode app and used to "
 "control visibility in the related UI."
 msgstr ""
+"حقل تقني يشير إلى ما إذا كان يجب استخدامه في تطبيق الباركود واستخدامه للتحكم"
+" في الظهور في واجهة المستخدم ذات الصلة. "
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__show_barcode_validation
@@ -1601,6 +1603,8 @@ msgid ""
 "You are about to take the product %(productName)s from the location %(locationName)s but this product isn't reserved in this location.\n"
 "Scan the current location to confirm that."
 msgstr ""
+"أنت على وشك أخذ المنتج %(productName)s من الموقع %(locationName)s ولكن هذا المنتج غير محجوز في ذلك الموقع.\n"
+"قم بمسح الموقع الحالي لتأكيد ذلك. "
 
 #. module: stock_barcode
 #. odoo-javascript

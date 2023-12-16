@@ -22,6 +22,7 @@
 # Leaanika Randmets, 2023
 # Katrin Kampura, 2023
 # Martin Trigaux, 2023
+# Mihkel avalah, 2023
 # 
 msgid ""
 msgstr ""
@@ -29,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-06 08:38+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Mihkel avalah, 2023\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,14 +43,14 @@ msgstr ""
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #, python-format
 msgid "%(user_name)s suggests to delete this instruction"
-msgstr ""
+msgstr "%(user_name)s soovitab selle juhendi kustutada"
 
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #, python-format
 msgid "%(user_name)s suggests to use this document as instruction"
-msgstr ""
+msgstr "%(user_name)s soovitab seda dokumenti kasutada juhendina."
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -64,7 +65,7 @@ msgstr "+ Uus operaator"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "< Back"
-msgstr ""
+msgstr "< Tagasi"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
@@ -79,7 +80,7 @@ msgstr "<span class=\"o_stat_text\">Juhised</span>"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
 msgid "<span invisible=\"employee_name\">Log In </span>"
-msgstr ""
+msgstr "<span invisible=\"employee_name\">Logi sisse </span>"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_ids
@@ -133,14 +134,14 @@ msgstr "Lisa koostisosa"
 #: code:addons/mrp_workorder/static/src/mrp_display/employees_panel.xml:0
 #, python-format
 msgid "Add Operator"
-msgstr ""
+msgstr "Lisa operaator"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
 msgid "Add Work Order"
-msgstr ""
+msgstr "Lisa töökäsk"
 
 #. module: mrp_workorder
 #. odoo-python
@@ -148,7 +149,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_additional_workorder_wizard
 #, python-format
 msgid "Add Workorder"
-msgstr ""
+msgstr "Lisa töökäsk"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -167,7 +168,7 @@ msgstr "Lisa toode"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_additional_workorder_wizard
 msgid "Add workorder"
-msgstr ""
+msgstr "Lisa töökäsk"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workorder_additional_product
@@ -177,19 +178,19 @@ msgstr "Lisatoode"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_production_additional_workorder
 msgid "Additional Workorder"
-msgstr ""
+msgstr "Täiendav töökäsk"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__all_employees_allowed
 msgid "All Employees Allowed"
-msgstr ""
+msgstr "Kõik töötajad on lubatud"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/control_panel.js:0
 #, python-format
 msgid "All MO"
-msgstr ""
+msgstr "Kõik tootmistellimused"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__allow_producing_quantity_change
@@ -331,7 +332,7 @@ msgstr "Sulge"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #, python-format
 msgid "Close Production"
-msgstr ""
+msgstr "Sulge tootmine"
 
 #. module: mrp_workorder
 #: model:product.attribute,name:mrp_workorder.product_attribute_color_radio
@@ -382,14 +383,14 @@ msgstr "Kinnitage"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__connected_employee_ids
 msgid "Connected Employee"
-msgstr ""
+msgstr "Ühendatud töötaja"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/components/working_employee_popup_wo_list.xml:0
 #, python-format
 msgid "Connected Employees"
-msgstr ""
+msgstr "Ühendatud töötajad"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__consumption
@@ -407,14 +408,14 @@ msgstr "Jätka"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.quality_check_view_form_tablet
 msgid "Continue Consumption"
-msgstr ""
+msgstr "Jätka tarbimist"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Continue consumption"
-msgstr ""
+msgstr "Jätka tarbimist"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder_additional_product__product_uom_category_id
@@ -435,7 +436,7 @@ msgstr "Kulu"
 #: code:addons/mrp_workorder/static/src/components/viewer.js:0
 #, python-format
 msgid "Could not display the selected %s"
-msgstr ""
+msgstr "Valitud %s ei saanud kuvada."
 
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.mrp_stock_picking_type_action
@@ -492,7 +493,7 @@ msgstr "Määrab ära kvaliteedikontrollipunkti tüübi."
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
 msgid "Delete a Step"
-msgstr ""
+msgstr "Kustuta samm"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__is_deleted
@@ -567,7 +568,7 @@ msgstr "Tagage oma lattu ladustava toote jälgitavus."
 #: code:addons/mrp_workorder/static/src/mrp_display/hooks/employee_hooks.js:0
 #, python-format
 msgid "Error during log out!"
-msgstr ""
+msgstr "Viga väljalogimisel!"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__duration_expected
@@ -586,7 +587,7 @@ msgstr "Ei ole korras"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Fill in worksheet"
-msgstr ""
+msgstr "Täida Tööleht"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -654,6 +655,8 @@ msgid ""
 "If this checkbox is ticked, the serial numbers lines for this operation type"
 " will be pre-filled in the shop floor."
 msgstr ""
+"Kui linnutate selle kasti, täidetakse selle operatsioonitüübi seerianumbrite"
+" read shop flooris eelnevalt ära."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__worksheet_document
@@ -741,7 +744,7 @@ msgstr "Viimati uuendatud"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Load Samples"
-msgstr ""
+msgstr "Laadige näidised"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -756,7 +759,7 @@ msgstr "Sisse logitud!"
 #: code:addons/mrp_workorder/static/src/mrp_display/hooks/employee_hooks.js:0
 #, python-format
 msgid "Logged out!"
-msgstr ""
+msgstr "Välja logitud!"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -772,22 +775,22 @@ msgstr "Partii/seerianumber"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_report_mrp_report_mo_overview
 msgid "MO Overview Report"
-msgstr ""
+msgstr "Tootmistellimuse koondraport "
 
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_tablet_timer
 msgid "Manage Work Order timer on Shop Floor"
-msgstr ""
+msgstr "Juhtige töökäsu taimerit shop floorist"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Manage your manufacturing orders from the shop floor app"
-msgstr ""
+msgstr "Juhtige oma tootmistellimusi Shop floori rakendusest"
 
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_shop_floor
 msgid "Manage your manufacturing orders from the shop floor display app"
-msgstr ""
+msgstr "Juhtige oma tootmistellimusi Shop floori rakendusest"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_tree_view_planning
@@ -834,7 +837,7 @@ msgstr "Menüü"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
 msgid "Move to work center"
-msgstr ""
+msgstr "Liigutage töökeskusesse"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__move_line_ids
@@ -851,13 +854,13 @@ msgstr "Minu tegevuse tähtaeg"
 #: code:addons/mrp_workorder/static/src/mrp_display/control_panel.js:0
 #, python-format
 msgid "My WO"
-msgstr ""
+msgstr "Minu töökäsk"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_workorder_form_view_filter_my_work_orders
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_workorder_form_view_search_my_work_orders
 msgid "My Work Orders"
-msgstr ""
+msgstr "Minu töökäsud"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_propose_change__note
@@ -869,21 +872,21 @@ msgstr "Uus juhis"
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #, python-format
 msgid "New Instruction suggested by %(user_name)s"
-msgstr ""
+msgstr "Uut juhendit soovitas %(user_name)s"
 
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/models/quality.py:0
 #, python-format
 msgid "New Step suggested by %(user_name)s"
-msgstr ""
+msgstr "Uut sammu soovitas %(user_name)s"
 
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #, python-format
 msgid "New Title suggested:"
-msgstr ""
+msgstr "Uue pealkirja ettepanek:"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -918,7 +921,7 @@ msgstr "Järgmine kontroll"
 #: code:addons/mrp_workorder/static/src/components/working_employee_popup_wo_list.xml:0
 #, python-format
 msgid "No connected employees"
-msgstr ""
+msgstr "Ühendatud töötajaid pole"
 
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.action_mrp_workorder_show_steps
@@ -938,13 +941,15 @@ msgid ""
 "No workcenters are available, please create one first to add it to the shop "
 "floor view"
 msgstr ""
+"Töökeskusi pole saadaval!  Esmalt looge üks, et see shop floor vaatesse "
+"lisada"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/components/working_employee_popup_wo_list.xml:0
 #, python-format
 msgid "No workorders"
-msgstr ""
+msgstr "Töökäske ei ole"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_routing_workcenter__employee_ratio
@@ -954,7 +959,7 @@ msgstr "Töö tegemiseks vajalik töötajate arv."
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_inherit_workorder
 msgid "Open Shop Floor"
-msgstr ""
+msgstr "Ava Shop floor"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -972,7 +977,7 @@ msgstr "Operatsioon"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__name
 msgid "Operation name"
-msgstr ""
+msgstr "Operatsiooni nimi"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workcenter_form_view_inherit
@@ -1020,7 +1025,7 @@ msgstr "Korras"
 #: code:addons/mrp_workorder/static/src/components/pin_popup.xml:0
 #, python-format
 msgid "Password?"
-msgstr ""
+msgstr "Parool?"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1089,7 +1094,7 @@ msgstr ""
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid "Please unblock the work center to start the work order"
-msgstr ""
+msgstr "Palun avage töökeskus, et alustada töökäsuga."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1101,7 +1106,7 @@ msgstr "Palun laadige üles pilt."
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_stock_picking_type__prefill_lot_tablet
 msgid "Pre-fill Lot/Serial Numbers in Shop Floor"
-msgstr ""
+msgstr "Eeltäida partii- või seerianumber shop flooris"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__previous_check_id
@@ -1270,21 +1275,21 @@ msgstr "Salvesta tootmine"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
 #, python-format
 msgid "Register %s"
-msgstr ""
+msgstr "Registreeri %s"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #, python-format
 msgid "Register Production"
-msgstr ""
+msgstr "Registreeri tootmine"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
 #, python-format
 msgid "Register Production: %s"
-msgstr ""
+msgstr "Registreeri tootmine: %s"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__additional
@@ -1332,14 +1337,14 @@ msgstr "Tulemus"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
 #, python-format
 msgid "STARTED work on workorder %s"
-msgstr ""
+msgstr "Alustasin tööd töökäsul %s"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
 #, python-format
 msgid "STOPPED work on workorder %s"
-msgstr ""
+msgstr "Peatasin töö töökäsul %s"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1361,21 +1366,21 @@ msgstr "Valige Töötaja"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
 #, python-format
 msgid "Select Work Centers for this station"
-msgstr ""
+msgstr "Valige töökeskused selle jaama jaoks"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.js:0
 #, python-format
 msgid "Select a new work center"
-msgstr ""
+msgstr "Valige uus töökeskus"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.js:0
 #, python-format
 msgid "Select the concerning quality check"
-msgstr ""
+msgstr "Valige vastav kvaliteedikontroll."
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1400,14 +1405,14 @@ msgstr "Määra uus pilt"
 #: model:ir.model.fields,field_description:mrp_workorder.field_res_config_settings__group_mrp_wo_shop_floor
 #: model:ir.ui.menu,name:mrp_workorder.menu_mrp_workorder_root
 msgid "Shop Floor"
-msgstr ""
+msgstr "Shop Floor"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Shop Floor Control Panel"
-msgstr ""
+msgstr "Shop Floori juhtpaneel"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_routing_workcenter_tree_view_inherited
@@ -1424,7 +1429,7 @@ msgstr "Näita taimerit töökäsu ekraanil"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Skip >"
-msgstr ""
+msgstr "Jäta vahele >"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1552,7 +1557,7 @@ msgstr ""
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid "There is no session chief. Please log in."
-msgstr ""
+msgstr "Pole ühtegi sessiooni juhti. Palun logi sisse."
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1609,6 +1614,8 @@ msgid ""
 "Track work orders, show instructions and record manufacturing operations from here:\n"
 "                                quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
+"Jälgige töökorraldusi, kuvage juhiseid ja salvestage tootmisoperatsioonid siit:\n"
+"                                kvaliteedikontroll, tarbitud kogused, partii/seerianumbrid jne."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1638,7 +1645,7 @@ msgstr "Kirjel oleva erandtegevuse tüüp."
 #, python-format
 msgid ""
 "Unable to load samples when you already have existing manufacturing orders"
-msgstr ""
+msgstr "Olemasolevate tootmistellimuste korral ei saa näidiseid laadida."
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1743,14 +1750,14 @@ msgstr "Viimase skaneeritud triipkoodi väärtus."
 #: code:addons/mrp_workorder/static/src/mrp_display/search_bar.xml:0
 #, python-format
 msgid "WO"
-msgstr ""
+msgstr "Töökäsk"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "WO Filters"
-msgstr ""
+msgstr "Töökäskude filtrid"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1817,7 +1824,7 @@ msgstr "Töökeskus"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.stock_picking_type_view_kanban
 msgid "Workcenter Control Panel"
-msgstr ""
+msgstr "Töökeskuse juhtpaneel"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workcenter_productivity
@@ -1832,7 +1839,7 @@ msgstr "Töökeskuse staatus"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__employee_ids
 msgid "Working employees"
-msgstr ""
+msgstr "Töötavad töötajad"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__workorder_id
@@ -1865,21 +1872,21 @@ msgstr "Töölehe lehekülg"
 #: code:addons/mrp_workorder/static/src/mrp_display/hooks/employee_hooks.js:0
 #, python-format
 msgid "Wrong password!"
-msgstr ""
+msgstr "Vale parool!"
 
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid "You are not allow to work on some of these work orders."
-msgstr ""
+msgstr "Sul pole lubatud töötada mõne töökäsuga."
 
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid "You are not allowed to work on the workorder"
-msgstr ""
+msgstr "Sul pole lubatud töötada selle töökäsuga."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1904,7 +1911,7 @@ msgstr "Te ei määranud lõpptootele partii/seerianumbrit"
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid "You must be logged in to process some of these work orders."
-msgstr ""
+msgstr "Pead olema sisse logitud, et töötada mõne töökäsuga."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1914,6 +1921,8 @@ msgid ""
 "You need to complete Quality Checks using the Shop Floor before marking Work"
 " Order as Done."
 msgstr ""
+"Enne töökorralduse tehtuks märkimist peate kvaliteedikontrolli shop flooris "
+"lõpule viima."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1925,20 +1934,23 @@ msgid ""
 "'Productive'. Create one from the Manufacturing app, menu: Configuration / "
 "Productivity Losses."
 msgstr ""
+"Sa pead lisama vähemalt ühe tootmise efektiivsuse näitaja, mis kuulub "
+"kategooriasse \"tootlikus\". Loo see  tootmismoodulis Seadistused -> "
+"Tootmise efektiivsus menüü all."
 
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid "You need to log in to process this work order."
-msgstr ""
+msgstr "Peate sisse logima, et seda töökäsku teha."
 
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
 #, python-format
 msgid "You need to supply a Lot/Serial Number for the final product."
-msgstr ""
+msgstr "Lõpptoote jaoks tuleb lisada partii- või seerianumber."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1960,7 +1972,7 @@ msgstr "Peate ikkagi kvaliteedikontrolli tegema!"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.js:0
 #, python-format
 msgid "Your suggestion to delete the %s step was succesfully created."
-msgstr ""
+msgstr "Teie ettepanek %s sammu kustutamiseks on edukalt loodud. "
 
 #. module: mrp_workorder
 #: model:ir.model.fields.selection,name:mrp_workorder.selection__quality_point__test_report_type__zpl
@@ -2017,4 +2029,4 @@ msgstr "puidust tooli iste"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production__employee_ids
 msgid "working employees"
-msgstr ""
+msgstr "töötavad töötajad"

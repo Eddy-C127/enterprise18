@@ -5,14 +5,15 @@
 # Translators:
 # Wil Odoo, 2023
 # Jolien De Paepe, 2023
+# Martin Trigaux, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-11 09:27+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jolien De Paepe, 2023\n"
+"Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -99,11 +100,6 @@ msgstr "(1 ligne)"
 #, python-format
 msgid "(No Group)"
 msgstr "(Pas de groupe)"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid "-> Check your tax report"
-msgstr "-> Vérifier votre déclaration de TVA"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -1694,11 +1690,6 @@ msgid "Group Name"
 msgstr "Nom du groupe"
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
-msgid "Group by:"
-msgstr "Regrouper par :"
-
-#. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
@@ -2288,8 +2279,8 @@ msgid "Net profit margin (net profit / income)"
 msgstr "Marge bénéficiaire nette (bénéfice net / revenu)"
 
 #. module: account_reports
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
@@ -2376,6 +2367,13 @@ msgstr "Créances non commerciales"
 #, python-format
 msgid "None"
 msgstr "Aucun"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_deferred_reports.py:0
+#, python-format
+msgid "Not Started"
+msgstr "Non commencé"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2737,7 +2735,6 @@ msgstr "Rappel"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_footnote__report_id
-#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Report"
 msgstr "Rapport"
 
@@ -2745,6 +2742,11 @@ msgstr "Rapport"
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "Report Line"
 msgstr "Ligne de rapport"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+msgid "Report Name"
+msgstr "Nom du rapport"
 
 #. module: account_reports
 #. odoo-python
@@ -2868,11 +2870,6 @@ msgstr "Prévisions de trésorerie à court terme"
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__show_warning_move_id
 msgid "Show Warning Move"
 msgstr "Afficher l'avertissement écriture"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid "Some controls failed."
-msgstr "Certains contrôles ont échoué."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3277,6 +3274,13 @@ msgid "This option hides lines with a value of 0"
 msgstr "Cette option masque les lignes avec une valeur à 0"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "This report already has a menuitem."
+msgstr ""
+
+#. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid ""
 "This report is linked to a custom handler.\n"
@@ -3577,8 +3581,8 @@ msgid "XLSX"
 msgstr "XLSX"
 
 #. module: account_reports
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format

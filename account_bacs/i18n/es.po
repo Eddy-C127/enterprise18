@@ -25,6 +25,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span class=\"bacs-garantee-text\">The Direct Debit Guarantee</span>"
 msgstr ""
+"<span class=\"bacs-garantee-text\">Garantía de domiciliación bancaria</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -37,6 +38,8 @@ msgid ""
 "<span class=\"float-start font-small\">To:</span>\n"
 "                            <span class=\"float-end font-small\">Bank/building society</span>"
 msgstr ""
+"<span class=\"float-start font-small\">A:</span>\n"
+"                            <span class=\"float-end font-small\">Banco/cooperativa de crédito</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -58,6 +61,8 @@ msgstr "<span class=\"font-small\">firma(s)</span>"
 msgid ""
 "<span>If an error is made in the payment of your Direct Debit, by</span>"
 msgstr ""
+"<span>Si ocurre un error al realizar el pago de su domiciliación bancaria "
+"por parte de</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -65,6 +70,8 @@ msgid ""
 "<span>If there are any changes to the amount, date or frequency of your "
 "Direct Debit</span>"
 msgstr ""
+"<span>Si hay cambios en el importe, fecha o frecuencia de su domiciliación "
+"bancaria</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -72,6 +79,8 @@ msgid ""
 "<span>If you receive a refund you are not entitled to, you must pay it back "
 "when</span>"
 msgstr ""
+"<span>Si recibe un reembolso que no le corresponde, debe devolverlo "
+"cuando</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -79,6 +88,8 @@ msgid ""
 "<span>This Guarantee is offered by all banks and building societies that "
 "accept instructions to pay Direct Debits</span>"
 msgstr ""
+"<span>Todos los bancos y cooperativas de crédito que aceptan instrucciones "
+"para pagar domiciliaciones bancarias ofrecen esta garantía</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -87,11 +98,15 @@ msgid ""
 "bank or building society. Written confirmation may be required. Please also "
 "notify us.</span>"
 msgstr ""
+"<span>Puede cancelar una domiciliación bancaria en cualquier momento, solo "
+"debe contactar a su banco o cooperativa de crédito. Es posible que sea "
+"necesario emitir una confirmación por escrito. Además, le solicitamos que "
+"también nos notifique.</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span>asks you to</span>"
-msgstr ""
+msgstr "<span>le pide</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -424,7 +439,7 @@ msgstr ""
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "DDI 2 5/15"
-msgstr ""
+msgstr "DDI 2 5/15"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__start_date
@@ -796,12 +811,12 @@ msgstr "Pagos por cobrar"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Please fill in the whole form using a ball point pen and send it to:"
-msgstr ""
+msgstr "Complete todo el formulario con un bolígrafo y envíelo a:"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Please pay"
-msgstr ""
+msgstr "Por favor, pague"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -1012,7 +1027,7 @@ msgstr ""
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "This guarantee should be detached and retained by the payer."
-msgstr ""
+msgstr "El pagador debe separar y conservar esta garantía."
 
 #. module: account_bacs
 #. odoo-python

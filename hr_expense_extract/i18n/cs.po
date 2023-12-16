@@ -3,10 +3,10 @@
 # 	* hr_expense_extract
 # 
 # Translators:
-# Tomáš Píšek, 2023
 # Jakub Smolka, 2023
 # Ivana Bartonkova, 2023
 # Wil Odoo, 2023
+# Tomáš Píšek, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Tomáš Píšek, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,6 +63,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Buy credits"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Koupit kredity"
 
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.hr_expense_extract_view_form
@@ -70,6 +72,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Refresh"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Onovit"
 
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.hr_expense_extract_view_form
@@ -77,6 +81,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Retry"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Zkusit znovu"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_needaction
@@ -177,18 +183,18 @@ msgstr "Měna"
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__res_company__expense_extract_show_ocr_option_selection__auto_send
 msgid "Digitize automatically"
-msgstr ""
+msgstr "Digitalizovat automaticky"
 
 #. module: hr_expense_extract
 #: model:ir.actions.server,name:hr_expense_extract.hr_expense_parse_action_server
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.hr_expense_extract_view_form
 msgid "Digitize document"
-msgstr ""
+msgstr "Digitalizovat dokument"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__res_company__expense_extract_show_ocr_option_selection__manual_send
 msgid "Digitize on demand only"
-msgstr ""
+msgstr "Digitalizovat pouze na vyžádání"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_receipt__display_name
@@ -199,7 +205,7 @@ msgstr "Zobrazovací název"
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__res_company__expense_extract_show_ocr_option_selection__no_send
 msgid "Do not digitize"
-msgstr ""
+msgstr "Nedigitalizovat"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_error_message
@@ -242,7 +248,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_state_processed
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_state_processed
 msgid "Extract State Processed"
-msgstr ""
+msgstr "Vytěžování - stav procesu"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_state
@@ -254,7 +260,7 @@ msgstr "Stav extraktu"
 #: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_status
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_status
 msgid "Extract status"
-msgstr ""
+msgstr "Status vytěžování"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_follower_ids
@@ -294,7 +300,7 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_document_uuid
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "ID požadavku na IAP-OCR"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_needaction
@@ -320,7 +326,7 @@ msgstr "Je odběratel"
 #: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__is_in_extractable_state
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "Je ve stavu umožňujícím vytěžení"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_register__journal_id
@@ -505,6 +511,8 @@ msgid ""
 "The data extraction is not finished yet. The extraction usually takes "
 "between 5 and 10 seconds."
 msgstr ""
+"Vytěžování dat ještě nebylo dokončeno. Vytěžování obvykle trvá 5 až 10 "
+"sekund."
 
 #. module: hr_expense_extract
 #. odoo-python

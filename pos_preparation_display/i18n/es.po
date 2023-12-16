@@ -24,19 +24,19 @@ msgstr ""
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "<span>Average time</span>"
-msgstr ""
+msgstr "<span>Tiempo promedio</span>"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "<span>In progress</span>"
-msgstr ""
+msgstr "<span>En progreso</span>"
 
 #. module: pos_preparation_display
 #. odoo-python
 #: code:addons/pos_preparation_display/models/preparation_display.py:0
 #, python-format
 msgid "A preparation display must have a minimum of one step."
-msgstr ""
+msgstr "Una pantalla de preparación debe tener por lo menos un paso."
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__access_token
@@ -46,7 +46,7 @@ msgstr "Token de acceso"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__alert_timer
 msgid "Alert timer (min)"
-msgstr ""
+msgstr "Temporizador de alerta (min)"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -68,7 +68,7 @@ msgstr "Todas las categorías"
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__order_stage_ids
 msgid "All the stage ids in which the order is placed"
-msgstr ""
+msgstr "Todos los ids de etapa en donde se coloca la comanda"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_reset_wizard
@@ -76,11 +76,15 @@ msgid ""
 "Archive all preparation display's orders for a fresh start. This will not "
 "affect the PoS order history."
 msgstr ""
+"Archivar todas las comandas en pantallas de preparación para iniciar de "
+"nuevo, esto no afectará el historial de comandas del punto de venta."
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_display__average_time
 msgid "Average time of all order that not in a done stage."
 msgstr ""
+"Tiempo promedio de todas las comandas que no se encuentran en estado de "
+"\"hecha\"."
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_reset_wizard
@@ -215,7 +219,7 @@ msgstr "ID"
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__pos_order_id
 msgid "ID of the original PoS order"
-msgstr ""
+msgstr "ID de la orden de PdV original"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__internal_note
@@ -225,7 +229,7 @@ msgstr "Nota interna"
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_orderline__internal_note
 msgid "Internal notes written at the time of the order"
-msgstr ""
+msgstr "Notas internas escritas al momento de hacer la comanda"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__contains_bar_restaurant

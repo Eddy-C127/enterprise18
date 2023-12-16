@@ -1369,7 +1369,7 @@ msgstr "Notas"
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "Nothing to do here!"
-msgstr ""
+msgstr "¡Nada que hacer aquí!"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__on_validation
@@ -2131,7 +2131,7 @@ msgstr "Asistente"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__company_currency_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__company_currency_id
 msgid "Wizard Company Currency"
-msgstr ""
+msgstr "Moneda de la empresa del asistente"
 
 #. module: account_accountant
 #. odoo-python
@@ -2145,7 +2145,7 @@ msgstr "Cancelación"
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
 msgid "Write-Off Entry"
-msgstr ""
+msgstr "Asiento de desajuste"
 
 #. module: account_accountant
 #. odoo-python
@@ -2164,6 +2164,7 @@ msgstr ""
 #, python-format
 msgid "You can only reconcile entries with up to two different accounts: %s"
 msgstr ""
+"Solo puede conciliar asientos con un máximo de dos cuentas diferentes: %s"
 
 #. module: account_accountant
 #. odoo-python
@@ -2173,6 +2174,8 @@ msgid ""
 "You cannot change the account for a deferred line in %(move_name)s if it has"
 " already been deferred."
 msgstr ""
+"No puede cambiar la cuenta para una línea diferida en %(move_name)s si ya ha"
+" sido diferida."
 
 #. module: account_accountant
 #. odoo-python
@@ -2180,6 +2183,8 @@ msgstr ""
 #, python-format
 msgid "You cannot create a deferred entry with a start date but no end date."
 msgstr ""
+"No puede crear un asiento diferido con una fecha de inicio pero sin fecha de"
+" finalización"
 
 #. module: account_accountant
 #. odoo-python
@@ -2189,6 +2194,8 @@ msgid ""
 "You cannot create a deferred entry with a start date later than the end "
 "date."
 msgstr ""
+"No puede crear un asiento diferido con una fecha de inicio posterior a la "
+"fecha de finalización."
 
 #. module: account_accountant
 #. odoo-python
@@ -2197,6 +2204,7 @@ msgstr ""
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
 msgstr ""
+"No puede generar asientos diferidos para un asiento de diario diverso."
 
 #. module: account_accountant
 #. odoo-python
@@ -2206,6 +2214,8 @@ msgid ""
 "You cannot reset to draft an invoice that is grouped in deferral entry. You "
 "can create a credit note instead."
 msgstr ""
+"No puede restablecer a borrador una factura que se encuentra agrupada en los"
+" asientos diferidos, pero puede crear una nota de crédito."
 
 #. module: account_accountant
 #. odoo-python

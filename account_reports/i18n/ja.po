@@ -5,14 +5,15 @@
 # Translators:
 # Wil Odoo, 2023
 # Junko Augias, 2023
+# Martin Trigaux, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-11 09:27+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Junko Augias, 2023\n"
+"Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,11 +94,6 @@ msgstr "（１行）"
 #, python-format
 msgid "(No Group)"
 msgstr "(グループなし)"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid "-> Check your tax report"
-msgstr "-> 税務申告を確認"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -1648,11 +1644,6 @@ msgid "Group Name"
 msgstr "グループ名"
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
-msgid "Group by:"
-msgstr "グループ化:"
-
-#. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
@@ -1826,7 +1817,7 @@ msgstr "ここに脚注を挿入"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Integer Rounding"
-msgstr ""
+msgstr "整数丸め"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2234,8 +2225,8 @@ msgid "Net profit margin (net profit / income)"
 msgstr "純利益率 (純利益 ÷ 収益)"
 
 #. module: account_reports
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
@@ -2320,6 +2311,13 @@ msgstr "非売掛金"
 #, python-format
 msgid "None"
 msgstr "なし"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_deferred_reports.py:0
+#, python-format
+msgid "Not Started"
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -2673,7 +2671,6 @@ msgstr "リマインダ"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_footnote__report_id
-#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Report"
 msgstr "レポート"
 
@@ -2681,6 +2678,11 @@ msgstr "レポート"
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "Report Line"
 msgstr "レポート明細"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+msgid "Report Name"
+msgstr "レポート名"
 
 #. module: account_reports
 #. odoo-python
@@ -2804,11 +2806,6 @@ msgstr "短期資金予想"
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__show_warning_move_id
 msgid "Show Warning Move"
 msgstr "警告移動を表示"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid "Some controls failed."
-msgstr "一部のコントロールに失敗しました"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3186,6 +3183,13 @@ msgid "This option hides lines with a value of 0"
 msgstr "このオプションは、値が0の行を非表示にします。"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "This report already has a menuitem."
+msgstr ""
+
+#. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid ""
 "This report is linked to a custom handler.\n"
@@ -3467,8 +3471,8 @@ msgid "XLSX"
 msgstr "XLSX"
 
 #. module: account_reports
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 #, python-format
