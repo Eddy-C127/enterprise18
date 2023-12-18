@@ -92,12 +92,13 @@ class Company(models.Model):
                 _logger.warning('The cron "Timesheet: Employees Email Reminder" should have run on %s' % company.timesheet_mail_employee_nextdate)
 
             # get the employee that have at least a timesheet for the last 3 months
+            # and that are still active; don't spam retired users
             users = self.env['account.analytic.line'].search([
                 ('date', '>=', fields.Date.to_string(date.today() - relativedelta(months=3))),
                 ('date', '<=', fields.Date.today()),
                 ('is_timesheet', '=', True),
                 ('company_id', '=', company.id),
-            ]).mapped('user_id')
+            ]).mapped('user_id').filtered('active')
 
             # calculate the period
             if company.timesheet_mail_employee_interval == 'months':
