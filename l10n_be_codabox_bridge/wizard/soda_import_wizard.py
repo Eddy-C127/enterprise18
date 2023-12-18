@@ -27,6 +27,7 @@ class SodaImportWizard(models.TransientModel):
                 'journal_id': self.journal_id.id,
                 'ref': ref,
                 'line_ids': [],
+                'date': soda_file['date']
             }
             for entry in soda_file['entries']:
                 account_id = soda_account_mapping[entry['code']]['account_id']

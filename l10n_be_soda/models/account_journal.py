@@ -5,7 +5,7 @@ import io
 from lxml import etree
 import re
 
-from odoo import _, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -64,8 +64,9 @@ class AccountJournal(models.Model):
                     message = _('The SODA Entry could not be created: \n'
                                 'The company VAT number found in at least one document doesn\'t seem to correspond to this company\'s VAT number nor company id')
                 raise UserError(message)
-            # account.move.ref is SocialNumber+SequenceNumber : check that this move has not already been imported
-            ref = "%s-%s" % (parsed_attachment.find('.//Source').text, parsed_attachment.find('.//SeqNumber').text)
+            # account.move.ref is SocialNumber+SequenceNumber+AccountPeriodYYYY/AccountPeriodmm : check that this move has not already been imported
+            account_period = parsed_attachment.find('.//AccountPeriod').text
+            ref = "%s-%s-%s/%s" % (parsed_attachment.find('.//Source').text, parsed_attachment.find('.//SeqNumber').text, account_period[:4], account_period[4:])
             existing_move = self.env['account.move'].search([('ref', '=', ref)])
             if existing_move:
                 if self._context.get('raise_no_imported_file', True):
@@ -76,6 +77,7 @@ class AccountJournal(models.Model):
             soda_files[ref] = {
                 'entries': [],
                 'attachment_id': attachment.id,
+                'date': parsed_attachment.findtext('.//GenDate') or fields.Date.today().strftime("%Y-%m-%d"),
             }
             # Retrieve aml's infos
             for _idx, elem in enumerate(parsed_attachment.findall('.//Accounting')):

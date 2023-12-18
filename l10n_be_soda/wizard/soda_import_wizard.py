@@ -81,6 +81,7 @@ class SodaImportWizard(models.TransientModel):
                 'move_type': 'entry',
                 'journal_id': self.journal_id.id,
                 'ref': ref,
+                'date': soda_file['date'],
                 'line_ids': [Command.create({
                     'name': entry['name'] or soda_account_mapping[entry['code']]['name'],
                     'account_id': soda_account_mapping[entry['code']]['account_id'],

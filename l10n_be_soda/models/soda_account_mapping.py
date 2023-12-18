@@ -31,6 +31,11 @@ class SodaAccountMapping(models.Model):
                 ('code', '=like', f'{mapping.code}%'),
             ], limit=1)
 
+    @api.depends('code', 'name')
+    def _compute_display_name(self):
+        for mapping in self:
+            mapping.display_name = f"{mapping.code} {mapping.name}"
+
     @api.model
     def find_or_create_mapping_entries(self, soda_code_to_name_mapping, company_id):
         """Find account mappings for the provided SODA codes and/or create new ones when mappings for some SODA codes
