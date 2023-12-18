@@ -70,9 +70,11 @@ class HrAppraisal(models.Model):
     employee_autocomplete_ids = fields.Many2many('hr.employee', compute='_compute_user_manager_rights')
     waiting_feedback = fields.Boolean(
         string="Waiting Feedback from Employee/Managers", compute='_compute_waiting_feedback')
-    employee_feedback = fields.Html(compute='_compute_employee_feedback', store=True, readonly=False)
+    employee_feedback = fields.Html(compute='_compute_employee_feedback', store=True, readonly=False, groups="hr_appraisal.group_hr_appraisal_user")
+    accessible_employee_feedback = fields.Html(compute='_compute_accessible_employee_feedback', inverse="_inverse_accessible_employee_feedback")
     show_employee_feedback_full = fields.Boolean(compute='_compute_show_employee_feedback_full')
-    manager_feedback = fields.Html(compute='_compute_manager_feedback', store=True, readonly=False)
+    manager_feedback = fields.Html(compute='_compute_manager_feedback', store=True, readonly=False, groups="hr_appraisal.group_hr_appraisal_user")
+    accessible_manager_feedback = fields.Html(compute='_compute_accessible_manager_feedback', inverse="_inverse_accessible_manager_feedback")
     show_manager_feedback_full = fields.Boolean(compute='_compute_show_manager_feedback_full')
     employee_feedback_published = fields.Boolean(string="Employee Feedback Published", default=True, tracking=True)
     manager_feedback_published = fields.Boolean(string="Manager Feedback Published", default=True, tracking=True)
@@ -286,17 +288,40 @@ class HrAppraisal(models.Model):
         appraisals.subscribe_employees()
         return appraisals
 
-    def _check_access(self, fields):
-        fields = set(fields)
-        if {'manager_feedback', 'manager_feedback_published'} & fields:
-            if not all(a.can_see_manager_publish for a in self):
-                raise UserError(_('The manager feedback cannot be changed by an employee.'))
-        if {'employee_feedback'} & fields:
-            if not all(a.can_see_employee_publish for a in self):
+    @api.depends('employee_feedback', 'can_see_employee_publish', 'employee_feedback_published')
+    def _compute_accessible_employee_feedback(self):
+        for appraisal in self:
+            if appraisal.can_see_employee_publish or appraisal.employee_feedback_published:
+                appraisal.accessible_employee_feedback = appraisal.sudo().employee_feedback
+            else:
+                appraisal.accessible_employee_feedback = _("Unpublished")
+
+    def _inverse_accessible_employee_feedback(self):
+        for appraisal in self:
+            if appraisal.can_see_employee_publish:
+                appraisal.sudo().employee_feedback = appraisal.accessible_employee_feedback
+            else:
                 raise UserError(_('The employee feedback cannot be changed by managers.'))
 
+    @api.depends('manager_feedback', 'can_see_manager_publish', 'manager_feedback_published')
+    def _compute_accessible_manager_feedback(self):
+        for appraisal in self:
+            if appraisal.can_see_manager_publish or appraisal.manager_feedback_published:
+                appraisal.accessible_manager_feedback = appraisal.sudo().manager_feedback
+            else:
+                appraisal.accessible_manager_feedback = _("Unpublished")
+
+    def _inverse_accessible_manager_feedback(self):
+        for appraisal in self:
+            if appraisal.can_see_manager_publish:
+                appraisal.sudo().manager_feedback = appraisal.accessible_manager_feedback
+            else:
+                raise UserError(_('The manager feedback cannot be changed by an employee.'))
+
     def write(self, vals):
-        self._check_access(vals.keys())
+        if 'manager_feedback_published' in vals and not all(a.can_see_manager_publish for a in self):
+            raise UserError(_('The "Manager Feedback Published" cannot be changed by an employee.'))
+
         force_published = self.env['hr.appraisal']
         if vals.get('employee_feedback_published'):
             user_employees = self.env.user.employee_ids
@@ -407,47 +432,16 @@ class HrAppraisal(models.Model):
             raise UserError(_("You cannot delete appraisal which is not in draft or cancelled state"))
 
     def read(self, fields=None, load='_classic_read'):
-        check_feedback = set(fields) & {'manager_feedback', 'employee_feedback'}
         check_notes = set(fields) & {'note', 'assessment_note'}
-        if check_feedback:
-            fields = fields + ['can_see_employee_publish', 'can_see_manager_publish', 'employee_feedback_published', 'manager_feedback_published']
         if check_notes:
             fields = fields + ['employee_id']
         records = super().read(fields, load)
-        if check_feedback:
-            for appraisal in records:
-                if not appraisal['can_see_employee_publish'] and not appraisal['employee_feedback_published']:
-                    appraisal['employee_feedback'] = _('Unpublished')
-                if not appraisal['can_see_manager_publish'] and not appraisal['manager_feedback_published']:
-                    appraisal['manager_feedback'] = _('Unpublished')
         if check_notes:
             for appraisal in records:
                 if appraisal['employee_id'] == self.env.user.employee_id.id:
                     appraisal['note'] = _('Note')
                     appraisal['assessment_note'] = False
         return records
-
-    @api.model
-    def _read_group_check_field_access_rights(self, field_names):
-        super()._read_group_check_field_access_rights(field_names)
-        if {'manager_feedback', 'employee_feedback'}.intersection(field_names):
-            raise UserError(_('Such grouping is not allowed.'))
-
-    def mapped(self, func):
-        if func and isinstance(func, str):
-            self._check_access(set(func.split('.')))
-        return super().mapped(func)
-
-    @api.model
-    def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
-        fields_list = {term[0] for term in domain if isinstance(term, (tuple, list))}
-        self._check_access(fields_list)
-        return super()._search(domain, offset, limit, order, access_rights_uid)
-
-    def filtered_domain(self, domain):
-        fields_list = {term[0] for term in domain if isinstance(term, (tuple, list))}
-        self._check_access(fields_list)
-        return super().filtered_domain(domain)
 
     def action_calendar_event(self):
         self.ensure_one()

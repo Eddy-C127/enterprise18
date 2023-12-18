@@ -66,43 +66,19 @@ class Applicant(models.Model):
         for applicant in self:
             applicant.source_id = applicant.ref_user_id.utm_source_id
 
-    def _check_referral_fields_access(self, fields):
+    def check_field_access_rights(self, operation, field_names):
         referral_fields = {'name', 'partner_name', 'job_id', 'referral_points_ids', 'earned_points', 'max_points', 'active', 'response_id',
                            'shared_item_infos', 'referral_state', 'user_id', 'friend_id', 'write_date', 'ref_user_id', 'id'}
-        if not (self.env.is_admin() or self.user_has_groups('hr_recruitment.group_hr_recruitment_interviewer')):
-            if set(fields or []) - referral_fields:
+
+        result = super().check_field_access_rights(operation, field_names)
+        if field_names:
+            if (
+                not self.env.is_admin() and not self.user_has_groups('hr_recruitment.group_hr_recruitment_interviewer')
+                and operation == 'read' and not set(field_names) - referral_fields
+            ):
                 raise AccessError(_('You are not allowed to access applicant records.'))
-
-    @api.model
-    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
-        self._check_referral_fields_access(fields)
-        return super().search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
-
-    def read(self, fields=None, load='_classic_read'):
-        self._check_referral_fields_access(fields)
-        return super().read(fields, load)
-
-    @api.model
-    def _read_group_check_field_access_rights(self, field_names):
-        super()._read_group_check_field_access_rights(field_names)
-        self._check_referral_fields_access(field_names)
-
-    @api.model
-    def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
-        fields = {term[0] for term in domain if isinstance(term, (tuple, list))}
-        self._check_referral_fields_access(fields)
-        return super()._search(domain, offset, limit, order, access_rights_uid)
-
-    def mapped(self, func):
-        if func and isinstance(func, str):
-            fields = func.split('.')
-            self._check_referral_fields_access(fields)
-        return super().mapped(func)
-
-    def filtered_domain(self, domain):
-        fields = [term[0] for term in domain if isinstance(term, (tuple, list))]
-        self._check_referral_fields_access(fields)
-        return super().filtered_domain(domain)
+            return result
+        return [field_name for field_name in result if field_name not in referral_fields]
 
     @api.depends('referral_points_ids')
     def _compute_shared_item_infos(self):

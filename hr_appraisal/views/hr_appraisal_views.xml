@@ -102,7 +102,7 @@
                                             <div>Self Assessment will show here</div>
                                             <div>once published</div>
                                         </span>
-                                        <field name="employee_feedback" class="o_appraisal_template" nolabel="1" invisible="not employee_feedback_published and not can_see_employee_publish" readonly="state not in ['new', 'pending'] or not can_see_employee_publish"/>
+                                        <field name="accessible_employee_feedback" class="o_appraisal_template" nolabel="1" invisible="not employee_feedback_published and not can_see_employee_publish" readonly="state not in ['new', 'pending'] or not can_see_employee_publish"/>
                                         <field name="employee_feedback_template" class="o_appraisal_blur"
                                             invisible="employee_feedback_published or can_see_employee_publish"/>
                                     </div>
@@ -123,7 +123,7 @@
                                             <div>Manager Assessment will show here</div>
                                             <div>once published</div>
                                         </span>
-                                        <field name="manager_feedback" class="o_appraisal_template" nolabel="1"
+                                        <field name="accessible_manager_feedback" class="o_appraisal_template" nolabel="1"
                                             invisible="not manager_feedback_published and not can_see_manager_publish"
                                             readonly="not can_see_manager_publish or state not in ['new', 'pending']"/>
                                         <field name="manager_feedback_template" class="o_appraisal_blur"
