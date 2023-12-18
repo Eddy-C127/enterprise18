@@ -1143,8 +1143,8 @@ class AppointmentType(models.Model):
                 ('partner_id', 'in', related_partners.ids)
             ]):
                 for day_dt in rrule.rrule(freq=rrule.DAILY,
-                                          dtstart=event.start,
-                                          until=event.stop,
+                                          dtstart=event.start.date(),
+                                          until=event.stop.date(),
                                           interval=1):
                     partner_events = partner_to_events.setdefault(attendee.partner_id, {})
                     date_date = day_dt.date()  # map per day, not per hour

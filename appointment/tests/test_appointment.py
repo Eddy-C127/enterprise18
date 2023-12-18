@@ -20,6 +20,88 @@ from odoo.fields import Command
 @tagged('appointment_slots')
 class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
 
+    @freeze_time('2023-12-12')
+    @users('apt_manager')
+    def test_appointment_availability_after_utc_conversion(self):
+        """ Check that when an event starts the day before,
+            it doesn't show the date as available for the user.
+            ie: In the brussels TZ, when placing an event on the 15 dec at 00:15 to 18:00,
+            the event is stored in the UTC TZ on the 14 dec at 23:15 to 17:00
+            Because the event start on another day, the 15th was displayed as available.
+        """
+        staff_user = self.staff_users[0]
+        week_days = [0, 1, 2]
+        # The user works on mondays, tuesdays, and wednesdays
+        # Only one hour slot per weekday
+        self.apt_type_bxls_2days.slot_ids = [(5, 0)] + [(0, 0, {
+            'weekday': str(week_day + 1),
+            'start_hour': 8,
+            'end_hour': 9,
+        }) for week_day in week_days]
+
+        # Available on the 12, 13, 18, 19, 20, 25, 26, 27 dec
+        max_available_slots = 8
+        test_data = [
+            # Test 1, after UTC
+            # Brussels TZ: 2023-12-19 00:15 to 2023-12-19 18:00 => same day
+            # UTC TZ:      2023-12-18 23:15 to 2023-12-19 17:00 => different day
+            (
+                datetime(2023, 12, 18, 23, 15),
+                datetime(2023, 12, 19, 17, 0),
+                max_available_slots - 1,
+                {date(2023, 12, 19): []},
+            ),
+            # Test 2, before UTC
+            # New York TZ: 2023-12-18 10:00 to 2023-12-18 22:00 => same day
+            # UTC TZ:      2023-12-18 15:00 to 2023-12-19 03:00 => different day
+            (
+                datetime(2023, 12, 18, 15, 0),
+                datetime(2023, 12, 19, 3, 0),
+                max_available_slots - 0,
+                {},
+            ),
+        ]
+        global_slots_startdate = date(2023, 11, 26)
+        global_slots_enddate = date(2024, 1, 6)
+        slots_startdate = date(2023, 12, 12)
+        slots_enddate = slots_startdate + timedelta(days=15)
+        for start, stop, nb_available_slots, slots_day_specific in test_data:
+            with self.subTest(start=start, stop=stop, nb_available_slots=nb_available_slots):
+                event = self.env["calendar.event"].create([
+                    {
+                        "name": "event-1",
+                        "start": start,
+                        "stop": stop,
+                        "show_as": 'busy',
+                        "partner_ids": staff_user.partner_id.ids,
+                        "attendee_ids": [(0, 0, {
+                            "state": "accepted",
+                            "availability": "busy",
+                            "partner_id": staff_user.partner_id.id,
+                        })],
+                    },
+                ])
+                slots = self.apt_type_bxls_2days._get_appointment_slots(timezone='Europe/Brussels', filter_users=staff_user)
+                self.assertSlots(
+                    slots,
+                    [{'name_formated': 'December 2023',
+                      'month_date': datetime(2023, 12, 1),
+                      'weeks_count': 6,
+                      }
+                     ],
+                    {'startdate': global_slots_startdate,
+                     'enddate': global_slots_enddate,
+                     'slots_startdate': slots_startdate,
+                     'slots_enddate': slots_enddate,
+                     'slots_start_hours': [8],
+                     'slots_weekdays_nowork': range(3, 7),
+                     'slots_day_specific': slots_day_specific,
+                     }
+                )
+                available_slots = self._filter_appointment_slots(slots, filter_weekdays=week_days)
+                self.assertEqual(nb_available_slots, len(available_slots))
+                event.unlink()
+
     @freeze_time('2023-01-6')
     @users('apt_manager')
     def test_appointment_availability_with_show_as(self):
