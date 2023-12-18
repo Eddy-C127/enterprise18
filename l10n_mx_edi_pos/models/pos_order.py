@@ -277,10 +277,10 @@ class PosOrder(models.Model):
             if is_refund:
                 # The order is a refund.
                 origin_uuids = set(self.refunded_order_ids.mapped('l10n_mx_edi_cfdi_uuid'))
-                Document._add_document_origin_cfdi_values(cfdi_values, f"03|{','.join(origin_uuids)}")
+                Document._add_document_origin_cfdi_values(cfdi_values, f"01|{','.join(origin_uuids)}")
             else:
                 # Refund of the pos order itself.
-                Document._add_document_origin_cfdi_values(cfdi_values, f'03|{self.l10n_mx_edi_cfdi_uuid}')
+                Document._add_document_origin_cfdi_values(cfdi_values, f'01|{self.l10n_mx_edi_cfdi_uuid}')
         else:
             cfdi_values['tipo_de_comprobante'] = 'I' if self.amount_total >= 0 else 'E'
             Document._add_document_origin_cfdi_values(cfdi_values, None)
