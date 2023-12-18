@@ -164,10 +164,10 @@ class MarketingActivity(models.Model):
     def _compute_allowed_parent_ids(self):
         for activity in self:
             if activity.trigger_type == 'activity':
-                activity.allowed_parent_ids = activity.campaign_id.marketing_activity_ids.filtered(
+                activity.allowed_parent_ids = activity.campaign_id._origin.marketing_activity_ids.filtered(
                     lambda parent_id: parent_id.ids != activity.ids)
             elif activity.trigger_category:
-                activity.allowed_parent_ids = activity.campaign_id.marketing_activity_ids.filtered(
+                activity.allowed_parent_ids = activity.campaign_id._origin.marketing_activity_ids.filtered(
                     lambda parent_id: parent_id.ids != activity.ids and parent_id.activity_type == activity.trigger_category)
             else:
                 activity.allowed_parent_ids = False
