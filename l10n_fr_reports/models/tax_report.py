@@ -60,7 +60,7 @@ class FrenchReportCustomHandler(models.AbstractModel):
                 'tax_name': _('Difference from rounding taxes'),
                 'amount': total_difference,
                 # The accounts on the tax group ids from the results should be uniform, but we choose the greatest id so that the line appears last on the entry
-                'tax_group_id': max([result['tax_group_id'] for result in results]),
+                'tax_group_id': max([result['tax_group_id'] for result in results] or [None]),
                 'account_id': company.l10n_fr_rounding_difference_profit_account_id.id if total_difference > 0 else company.l10n_fr_rounding_difference_loss_account_id.id
             })
 
