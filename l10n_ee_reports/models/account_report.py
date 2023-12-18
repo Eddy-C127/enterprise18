@@ -50,7 +50,7 @@ class EstonianTaxReportCustomHandler(models.AbstractModel):
 
         lines = report._get_lines(options)
         tax_line_prefix = 'l10n_ee.tax_report_line_'
-        tax_line_numbers = ('1', '2', '2_1', '3', '3_1', '3_1_1', '3_2', '3_2_1',
+        tax_line_numbers = ('1', '1_1', '2', '2_1', '3', '3_1', '3_1_1', '3_2', '3_2_1',
                             '5', '5_1', '5_2', '5_3', '5_3_cars', '5_4', '5_4_cars',
                             '6', '6_1', '7', '7_1', '8', '9', '10', '11',)
         tax_line_mapping = {
@@ -236,20 +236,20 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
                 ) AS tax_rate,
                 SUM(
                   CASE
-                    -- Only base amounts reported on lines 1, 2 or 2_1 of the tax report are reported here
-                    WHEN account_account_tag.name->>'en_US' IN ('+1', '-1', '+2', '-2', '+2_1', '-2_1')
+                    -- Only base amounts reported on lines 1, 1_1, 2 or 2_1 of the tax report are reported here
+                    WHEN account_account_tag.name->>'en_US' IN ('+1', '-1', '+1_1', '-1_1', '+2', '-2', '+2_1', '-2_1')
                     THEN -aml_base.balance
                     ELSE 0
                   END
                 ) AS sum_for_rate_in_period
             """
 
-            # When we are in part A, we only want the invoices that have one or more lines reported on lines 1, 2 or 2¹
+            # When we are in part A, we only want the invoices that have one or more lines reported on lines 1, 1¹, 2 or 2¹
             # of the tax report
             groupby_clause += """
                 HAVING SUM(
                          CASE
-                           WHEN account_account_tag.name->>'en_US' IN ('+1', '-1', '+2', '-2', '+2_1', '-2_1')
+                           WHEN account_account_tag.name->>'en_US' IN ('+1', '-1', '+1_1', '-1_1', '+2', '-2', '+2_1', '-2_1')
                            THEN -aml_base.balance
                            ELSE 0
                          END
