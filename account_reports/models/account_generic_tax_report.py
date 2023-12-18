@@ -134,7 +134,7 @@ class AccountTaxReportHandler(models.AbstractModel):
                 move_options = {**options, 'fiscal_position': move.fiscal_position_id.id if move.fiscal_position_id else 'domestic'}
                 line_ids_vals, tax_group_subtotal = self._compute_vat_closing_entry(company, move_options)
 
-                line_ids_vals += self._add_tax_group_closing_items(tax_group_subtotal, end_date)
+                line_ids_vals += self._add_tax_group_closing_items(tax_group_subtotal, move)
 
                 if move.line_ids:
                     line_ids_vals += [Command.delete(aml.id) for aml in move.line_ids]
@@ -314,13 +314,17 @@ class AccountTaxReportHandler(models.AbstractModel):
         return results
 
     @api.model
-    def _add_tax_group_closing_items(self, tax_group_subtotal, end_date):
+    def _add_tax_group_closing_items(self, tax_group_subtotal, closing_move):
         """Transform the parameter tax_group_subtotal dictionnary into one2many commands.
 
         Used to balance the tax group accounts for the creation of the vat closing entry.
         """
         def _add_line(account, name, company_currency):
-            self.env.cr.execute(sql_account, (account, end_date))
+            self.env.cr.execute(sql_account, (
+                account,
+                closing_move.tax_closing_end_date,
+                closing_move.company_id.id,
+            ))
             result = self.env.cr.dictfetchone()
             advance_balance = result.get('balance') or 0
             # Deduct/Add advance payment
@@ -333,7 +337,7 @@ class AccountTaxReportHandler(models.AbstractModel):
                 }))
             return advance_balance
 
-        currency = self.env.company.currency_id
+        currency = closing_move.company_id.currency_id
         sql_account = '''
             SELECT SUM(aml.balance) AS balance
             FROM account_move_line aml
@@ -341,6 +345,7 @@ class AccountTaxReportHandler(models.AbstractModel):
             WHERE aml.account_id = %s
               AND aml.date <= %s
               AND move.state = 'posted'
+              AND aml.company_id = %s
         '''
         line_ids_vals = []
         # keep track of already balanced account, as one can be used in several tax group
