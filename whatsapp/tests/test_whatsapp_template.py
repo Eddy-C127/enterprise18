@@ -3,46 +3,26 @@
 from odoo import Command
 from odoo import exceptions
 from odoo.addons.whatsapp.tests.common import WhatsAppCommon, MockIncomingWhatsApp
-from odoo.tests import tagged, users
+from odoo.tests import Form, tagged, users
 
 
-@tagged('wa_template')
-class WhatsAppTemplate(WhatsAppCommon, MockIncomingWhatsApp):
+class WhatsAppTemplateCommon(WhatsAppCommon, MockIncomingWhatsApp):
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.basic_template = cls.env['whatsapp.template'].create({
-            'body': 'Demo Template',
-            'name': 'Demo Template',
-            'template_name': 'demo_template',
+            'body': 'Base Template',
+            'name': 'Base Template',
+            'template_name': 'base_template',
             'status': 'approved',
             'wa_account_id': cls.whatsapp_account.id,
             'wa_template_uid': "461783963517285",
         })
 
-    @users('user_wa_admin')
-    def test_button_validation(self):
-        template = self.env['whatsapp.template'].create({
-            'body': 'Hello World',
-            'name': 'Test-basic',
-            'status': 'approved',
-            'wa_account_id': self.whatsapp_account.id,
-        })
 
-        # Test that the WhatsApp message fails validation when a phone number button with an invalid number is added.
-        with self.assertRaises(exceptions.UserError):
-            self._add_button_to_template(
-                template, button_type="phone_number",
-                call_number="91 12345 12345", name="test call fail",
-            )
-
-        # Test that the WhatsApp message fails validation when a URL button with an invalid URL is added.
-        with self.assertRaises(exceptions.ValidationError):
-            self._add_button_to_template(
-                template, button_type='url',
-                name="test url fail", website_url="odoo.com",
-            )
+@tagged('wa_template')
+class WhatsAppTemplate(WhatsAppTemplateCommon):
 
     @users('user_wa_admin')
     def test_template_button_dynamic_url(self):
@@ -67,35 +47,28 @@ class WhatsAppTemplate(WhatsAppCommon, MockIncomingWhatsApp):
         )
 
     @users('user_wa_admin')
-    def test_template_preview(self):
-        """ Test preview feature from template itself """
+    def test_template_button_validation(self):
+        """ Test validation done on buttons """
         template = self.env['whatsapp.template'].create({
-            'body': 'feel free to contact {{1}}',
-            'footer_text': 'Thanks you',
-            'header_text': 'Header {{1}}',
-            'header_type': 'text',
-            'variable_ids': [
-                (5, 0, 0),
-                (0, 0, {
-                    'name': "{{1}}",
-                    'line_type': 'body',
-                    'field_type': "free_text",
-                    'demo_value': "Nishant",
-                }),
-                (0, 0, {
-                    'name': "{{1}}",
-                    'line_type': 'header',
-                    'field_type': "free_text",
-                    'demo_value': "Jigar",
-                }),
-            ],
+            'body': 'Hello World',
+            'name': 'Test-basic',
+            'status': 'approved',
             'wa_account_id': self.whatsapp_account.id,
         })
-        template_preview = self.env['whatsapp.preview'].create({
-            'wa_template_id': template.id
-        })
-        for expected_var in ['Nishant', 'Jigar']:
-            self.assertIn(expected_var, template_preview.preview_whatsapp)
+
+        # Test that the WhatsApp message fails validation when a phone number button with an invalid number is added.
+        with self.assertRaises(exceptions.UserError):
+            self._add_button_to_template(
+                template, button_type="phone_number",
+                call_number="91 12345 12345", name="test call fail",
+            )
+
+        # Test that the WhatsApp message fails validation when a URL button with an invalid URL is added.
+        with self.assertRaises(exceptions.ValidationError):
+            self._add_button_to_template(
+                template, button_type='url',
+                name="test url fail", website_url="odoo.com",
+            )
 
     @users('user_wa_admin')
     def test_template_content_dynamic(self):
@@ -138,6 +111,29 @@ Welcome to {{3}} office''',
         )
 
     @users('user_wa_admin')
+    def test_template_content_validation(self):
+        """ Test body variables validation and usage """
+        template = self.env['whatsapp.template'].create({
+            'body' : '{{3}} {{2}} {{1}} {{3}} {{4}}',
+            'name': 'Test body variables',
+            'wa_account_id': self.whatsapp_account.id,
+        })
+        self.assertWATemplateVariables(
+            template,
+            [('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+             ('{{2}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+             ('{{3}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+             ('{{4}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+            ]
+        )
+
+        # those changes should raise a ValidationError, not other errors
+        with self.assertRaises(exceptions.ValidationError):
+            template.body = "{{2}} {{5}} {{1}} {{3}} {{2}}"
+        with self.assertRaises(exceptions.ValidationError):
+            template.body = "{{2}} {{3}} {{4}} {{5}}"
+
+    @users('user_wa_admin')
     def test_template_header_type_attachment(self):
         """ Test header type attachment """
         for header_type, header_attachment in zip(
@@ -157,6 +153,49 @@ Welcome to {{3}} office''',
                 with self.mockWhatsappGateway():
                     template.button_submit_template()
                 self.assertWATemplate(template)
+
+    @users('user_wa_admin')
+    def test_template_header_type_attachment_validation(self):
+        """ Test header type attachment validation """
+        categ_types = [
+            # document
+            [
+                'text/plain', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/msword',
+                'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            ],
+            # image
+            ['image/jpeg', 'image/png'],
+            # video
+            ['video/mp4', 'video/3gp'],
+        ]
+        all_types = [mimetype for categ in categ_types for mimetype in categ]
+        dummy_data = self.image_attachment.datas
+        for header_type, valid_types in zip(
+            ['document', 'image', 'video'],
+            categ_types,
+        ):
+            for mimetype in all_types:
+                with self.subTest(header_type=header_type, mimetype=mimetype):
+                    tpl_vals = {
+                        'body': f'Header {header_type} template',
+                        'header_attachment_ids': [
+                            (0, 0, {
+                                'datas': dummy_data,
+                                'mimetype': mimetype,
+                                'name': f'Dummy {mimetype}',
+                            }),
+                        ],
+                        'header_type': header_type,
+                        'name': f'Header {header_type} {mimetype}',
+                        'wa_account_id': self.whatsapp_account.id,
+                    }
+                    if mimetype in valid_types:
+                        _template = self.env['whatsapp.template'].create(tpl_vals)
+                    else:
+                        with self.assertRaises(exceptions.ValidationError):
+                            _template = self.env['whatsapp.template'].create(tpl_vals)
 
     @users('user_wa_admin')
     def test_template_header_type_dynamic_text(self):
@@ -212,13 +251,15 @@ Welcome to {{3}} office''',
             'name': 'Header Location',
             'wa_account_id': self.whatsapp_account.id,
         })
-        self.assertWATemplateVariables(
+        self.assertWATemplate(
             template,
-            [('name', 'location', 'free_text', {'demo_value': 'Sample Value'}),
-             ('address', 'location', 'free_text', {'demo_value': 'Sample Value'}),
-             ('latitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
-             ('longitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
-            ]
+            status='draft',
+            template_variables=[
+                ('name', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('address', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('latitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('longitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+            ],
         )
 
         template = self.env['whatsapp.template'].create({
@@ -245,9 +286,138 @@ Welcome to {{3}} office''',
             ],
         )
 
+    @users('user_wa_admin')
+    def test_template_header_variables_update(self):
+        """ Test variable compute method, when updating header_type. """
+        template = self.env['whatsapp.template'].create({
+            'body': 'Super Body',
+            'header_type': 'text',
+            'name': 'Header Variable Update',
+            'wa_account_id': self.whatsapp_account.id,
+        })
+
+        template.header_type = "location"
+        self.assertWATemplate(
+            template,
+            status='draft',
+            template_variables=[
+                ('name', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('address', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('latitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('longitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+            ],
+        )
+
+        template.body = "Feel free to contact {{1}}"
+        self.assertWATemplate(
+            template,
+            status='draft',
+            template_variables=[
+                ('name', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('address', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('latitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ('longitude', 'location', 'free_text', {'demo_value': 'Sample Value'}),
+                ("{{1}}", "body", "free_text", {'demo_value': 'Sample Value'}),
+            ],
+        )
+
+        template.header_type = "text"
+        self.assertWATemplate(
+            template,
+            status='draft',
+            template_variables=[
+                ("{{1}}", "body", "free_text", {'demo_value': 'Sample Value'}),
+            ],
+        )
+
 
 @tagged('wa_template')
-class WhatsAppTemplateSync(WhatsAppCommon, MockIncomingWhatsApp):
+class WhatsAppTemplateForm(WhatsAppTemplateCommon):
+    """ Form tool based unit tests, to check notably computed fields, live
+    ACLs, ... """
+
+    @users('user_wa_admin')
+    def test_model_update(self):
+        """ WA admins that are not sys admins should be able to chose / change
+        models, even when not having access to the underlying ir.model """
+        template_form = Form(self.env['whatsapp.template'])
+        self.assertEqual(template_form.model, 'res.partner')
+        self.assertEqual(template_form.model_id, self.env['ir.model']._get('res.partner'))
+
+        template_form.body = 'Test Body'
+        template_form.model = 'res.users'
+        template_form.name = 'Test Model Update'
+        self.assertEqual(template_form.model, 'res.users')
+        template = template_form.save()
+
+        self.assertEqual(template.model, 'res.users')
+        self.assertEqual(template.model_id, self.env['ir.model']._get('res.users'))
+
+
+@tagged('wa_template')
+class WhatsAppTemplatePreview(WhatsAppTemplateCommon):
+
+    @users('user_wa_admin')
+    def test_template_preview(self):
+        """ Test preview feature from template itself """
+        template = self.env['whatsapp.template'].create({
+            'body': 'Feel free to contact {{1}}',
+            'footer_text': 'Thanks you',
+            'header_text': 'Header {{1}}',
+            'header_type': 'text',
+            'variable_ids': [
+                (5, 0, 0),
+                (0, 0, {
+                    'name': "{{1}}",
+                    'line_type': 'body',
+                    'field_type': "free_text",
+                    'demo_value': "Nishant",
+                }),
+                (0, 0, {
+                    'name': "{{1}}",
+                    'line_type': 'header',
+                    'field_type': "free_text",
+                    'demo_value': "Jigar",
+                }),
+            ],
+            'wa_account_id': self.whatsapp_account.id,
+        })
+        template_preview = self.env['whatsapp.preview'].create({
+            'wa_template_id': template.id
+        })
+        for expected_var in ['Nishant', 'Jigar']:
+            self.assertIn(expected_var, template_preview.preview_whatsapp)
+
+
+@tagged('wa_template')
+class WhatsAppTemplateSync(WhatsAppTemplateCommon):
+
+    @users('user_wa_admin')
+    def test_synchornize_archived(self):
+        """ If template is archived then it should sync the archived template
+        instead of creating new one. """
+        self.basic_template.write({
+            'active': False,
+            'wa_template_uid': '778510144283702',  # sync with mock template_data
+        })
+        with self.mockWhatsappGateway():
+            self.whatsapp_account.with_env(self.env).button_sync_whatsapp_account_templates()
+        self.assertWATemplate(
+            self.basic_template,
+            status='approved',
+            fields_values={
+                'body': 'Greetings of the day! I hope you are safe and doing well. \n '
+                        'This is {{1}} from Odoo. My mobile number is {{2}}.\n'
+                        'I will be happy to help you with any queries you may have.\n'
+                        'Thank you',
+                'wa_template_uid': '778510144283702',
+            },
+            template_variables=[
+                ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
+                ('{{1}}', 'body', 'free_text', {'demo_value': 'Jigar'}),
+                ('{{2}}', 'body', 'free_text', {'demo_value': '+91 12345 12345'})
+            ],
+        )
 
     @users('user_wa_admin')
     def test_synchronize_without_existing_template_from_account(self):
@@ -461,34 +631,70 @@ class WhatsAppTemplateSync(WhatsAppCommon, MockIncomingWhatsApp):
             'status': 'approved',
             'template_name': 'demo_template',
             'wa_account_id': self.whatsapp_account.id,
-            'wa_template_uid': "461783963517285",
+            'wa_template_uid': "1232165456",
         })
 
         update_scenarios = [
-            ("message_template_status_update", {'status': 'pending'}, ('status', 'approved'), {
-                "event": "APPROVED",
-                "message_template_id": basic_template.wa_template_uid,
-                "message_template_name": "basic_template",
-            }),
-            ("template_category_update", {}, ('template_type', 'utility'), {
-                "message_template_id": basic_template.wa_template_uid,
-                "message_template_name": "message_template_category_update",
-                "previous_category": "MARKETING",
-                "new_category": "UTILITY"
-            }),
-            ("message_template_quality_update", {'quality': 'green'}, ('quality', 'red'), {
-                "message_template_id": basic_template.wa_template_uid,
-                "message_template_name": "message_template_quality_update",
-                "previous_quality_score": "GREEN",
-                "new_quality_score": "RED"
-            })
+            (
+                "message_template_status_update",
+                {'status': 'pending'},
+                {'status': 'approved'},
+                {
+                    "event": "APPROVED",
+                    "message_template_id": basic_template.wa_template_uid,
+                    "message_template_name": "basic_template",
+                    "other_info": {
+                        "description": "<b>Super Description</b>",
+                    },
+                },
+            ), (
+                "message_template_status_update",
+                {'status': 'pending'},
+                {'status': 'rejected'},
+                {
+                    "event": "REJECTED",
+                    "message_template_id": basic_template.wa_template_uid,
+                    "message_template_name": "basic_template",
+                    "reason": "<b>Super Reason</b>",
+                },
+            ), (
+                "template_category_update",
+                {},
+                {'template_type': 'utility'},
+                {
+                    "message_template_id": basic_template.wa_template_uid,
+                    "message_template_name": "message_template_category_update",
+                    "previous_category": "MARKETING",
+                    "new_category": "UTILITY"
+                },
+            ), (
+                "message_template_quality_update",
+                {'quality': 'green'},
+                {'quality': 'red'},
+                {
+                    "message_template_id": basic_template.wa_template_uid,
+                    "message_template_name": "message_template_quality_update",
+                    "previous_quality_score": "GREEN",
+                    "new_quality_score": "RED"
+                },
+            ),
         ]
 
         for field, update_values, expected_values, data in update_scenarios:
             with self.subTest(field=field):
-                self._update_template(basic_template, field, update_values, expected_values, data)
+                basic_template.write(update_values)
+                basic_template.flush_recordset()
+                with self.mock_mail_app():
+                    self._receive_template_update(field=field, account=self.whatsapp_account, data=data)
+                    basic_template.flush_recordset()
+                for fname, fvalue in expected_values.items():
+                    self.assertEqual(basic_template[fname], fvalue)
 
-    def _update_template(self, template, field, update_values, expected_values, data):
-        template.write(update_values)
-        self._receive_template_update(field=field, account=self.whatsapp_account, data=data)
-        self.assertEqual(template[expected_values[0]], expected_values[1])
+                # remove value tracking messages
+                log = self._new_msgs.filtered(lambda msg: msg.body)
+                if field == "message_template_status_update" and expected_values['status'] == 'rejected':
+                    self.assertEqual(log.body, "<p>Your Template has been rejected.<br>Reason : &lt;b&gt;Super Reason&lt;/b&gt;</p>")
+                else:
+                    # remove tracking messages
+                    log = self._new_msgs.filtered(lambda msg: msg.body)
+                    self.assertFalse(log)

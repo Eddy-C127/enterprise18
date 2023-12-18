@@ -5,21 +5,18 @@ from odoo.tests import tagged, users
 
 
 @tagged('wa_composer')
-class WhatsAppComposer(WhatsAppCommon):
+class WhatsAppComposerCase(WhatsAppCommon):
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-
-        # WRITE access on partner is required to be able to post a message on it
-        cls.user_employee.write({'groups_id': [(4, cls.env.ref('base.group_partner_manager').id)]})
 
         # test records for sending messages
         cls.test_base_records = cls.env['whatsapp.test.base'].create([
             {
                 'country_id': cls.env.ref('base.in').id,
                 'name': 'Recipient-IN',
-                'phone': "+91 12345 67891"
+                'phone': "+91 12345 67891",
             }, {
                 'country_id': cls.env.ref('base.be').id,
                 'name': 'Recipient-BE',
@@ -63,6 +60,17 @@ Welcome to {{4}} office''',
                 'wa_account_id': cls.whatsapp_account.id,
             }
         ])
+
+
+@tagged('wa_composer')
+class WhatsAppComposerRendering(WhatsAppComposerCase):
+    """ Test rendering based on various templates, notably using static or
+    dynamic content, headers, ... """
+
+    def test_assert_initial_data(self):
+        """ Ensure base data for tests, to ease understanding them """
+        self.assertEqual(self.company_admin.country_id, self.env.ref('base.us'))
+        self.assertEqual(self.user_admin.country_id, self.env.ref('base.be'))
 
     @users('employee')
     def test_composer_tpl_base(self):
@@ -125,13 +133,31 @@ Welcome to {{4}} office''',
         """ Test sending with rendering, including header """
         sample_text = 'Header Free Text'
 
+        base_variable_ids = [
+            (0, 0, {'name': '{{1}}', 'line_type': 'body', 'field_type': 'field', 'demo_value': 'Customer', 'field_name': 'name'}),
+        ]
+
         for header_type, template_upd_values, check_values in zip(
-            ('text', 'text', 'image', 'video', 'document', 'location'),
+            ('text', 'text', 'text', 'text', 'image', 'video', 'document', 'location'),
             (
                 {'header_text': 'Hello World'},
                 {'header_text': 'Header {{1}}',
                  'variable_ids': [
-                     (0, 0, {'name': '{{1}}', 'line_type': 'header', 'field_type': 'free_text', 'demo_value': sample_text})],
+                    (5, 0),
+                    (0, 0, {'name': '{{1}}', 'line_type': 'header', 'field_type': 'free_text', 'demo_value': sample_text})
+                 ] + base_variable_ids,
+                 },
+                {'header_text': 'Header {{1}}',
+                 'variable_ids': [
+                    (5, 0),
+                    (0, 0, {'name': '{{1}}', 'line_type': 'header', 'field_type': 'user_name', 'demo_value': sample_text})
+                 ] + base_variable_ids,
+                 },
+                {'header_text': 'Header {{1}}',
+                 'variable_ids': [
+                    (5, 0),
+                    (0, 0, {'name': '{{1}}', 'line_type': 'header', 'field_type': 'user_mobile', 'demo_value': sample_text})
+                 ] + base_variable_ids,
                  },
                 {'header_attachment_ids': [(6, 0, self.image_attachment.ids)]},
                 {'header_attachment_ids': [(6, 0, self.video_attachment.ids)]},
@@ -145,6 +171,8 @@ Welcome to {{4}} office''',
             ), (
                 {},
                 {'body': f'<p>Header {sample_text}<br>Hello {self.test_base_records[0].name}</p>'},
+                {'body': f'<p>Header {self.env.user.name}<br>Hello {self.test_base_records[0].name}</p>'},
+                {'body': f'<p>Header {self.env.user.mobile}<br>Hello {self.test_base_records[0].name}</p>'},
                 {},
                 {},
                 {},
