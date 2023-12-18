@@ -8,6 +8,11 @@ import { DEFAULT_AVATAR } from "@mail/core/common/persona_service";
 import { toRaw } from "@odoo/owl";
 
 patch(Thread.prototype, {
+    _computeDiscussAppCategory() {
+        return this.type === "whatsapp"
+            ? this._store.discuss.whatsapp
+            : super._computeDiscussAppCategory();
+    },
     get importantCounter() {
         if (this.type === "whatsapp") {
             return this.message_unread_counter || this.message_needaction_counter;
@@ -22,12 +27,6 @@ patch(Thread.prototype, {
             return this.importantCounter === 0;
         }
         return super.canUnpin;
-    },
-    onUpdateType() {
-        super.onUpdateType();
-        this._store.discuss.whatsapp.threads = [
-            [this.type === "whatsapp" ? "ADD" : "DELETE", this],
-        ];
     },
 
     get avatarUrl() {
