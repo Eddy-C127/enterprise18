@@ -40,6 +40,7 @@ class TestSodaFile(AccountTestInvoicingCommon):
                 {'debit': 15655.10, 'credit': 0, 'name': 'Remuneration'},
             ])
             self.assertRecordValues(result_move.line_ids.account_id, [{'code': '453000'}, {'code': '455000'}, {'code': '618000'}])
+            self.assertEqual(result_move.date.strftime("%Y-%m-%d"), '2021-10-23')
 
     def test_soda_file_import_map_accounts(self):
         with file_open(self.soda_file_path, 'rb') as soda_file:
