@@ -1,26 +1,35 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
+from odoo import Command
+from odoo.tests.common import TransactionCase
 from odoo.exceptions import UserError
-from odoo.tests.common import tagged
+from odoo.tests.common import tagged, users
 
 
 @tagged('post_install', '-at_install')
-class TestMerge(AccountTestInvoicingHttpCommon):
+class TestMerge(TransactionCase):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         if 'account.account' not in cls.env:
             cls.skipTest(cls, "`account` module not installed")
 
-        cls.account_sale_a = cls.company_data['default_account_receivable']
+        cls.customer_invoice_journal = cls.env['account.journal'].search([('company_id', '=', cls.env.company.id), ('name', '=', 'Customer Invoices')])
+        cls.account_sale_a = cls.env['account.account'].create({
+            'code': '40001',
+            'name': 'Account Sale A',
+            'account_type': 'asset_receivable',
+            'reconcile': True,
+        })
         cls.account_sale_b = cls.env['account.account'].create({
             'code': '40002',
             'name': 'Account Sale B',
             'account_type': 'asset_receivable',
             'reconcile': True,
         })
+        cls.partner_a = cls.env['res.partner'].create({'name': 'Partner A'})
+        cls.partner_b = cls.env['res.partner'].create({'name': 'Partner B'})
 
     def _enable_merge(self, model_name):
         self.res_model_id = self.env['ir.model'].search([('model', '=', model_name)])
@@ -55,21 +64,31 @@ class TestMerge(AccountTestInvoicingHttpCommon):
         with self.assertRaises(UserError, msg="You cannot merge accounts."):
             self.env['data_merge.group'].merge_multiple_records(group_records)
 
+    @users('admin')
     def test_merge_partner_in_hashed_entries(self):
         """
         Test that we cannot merge partners used in hashed entries
         """
+        self.env.user.write({'groups_id': [(4, self.env.ref('account.group_account_user').id)]})
         self._enable_merge('res.partner')
-        self.company_data['default_journal_sale'].restrict_mode_hash_table = True
+        self.customer_invoice_journal.restrict_mode_hash_table = True
 
-        # todo: investigate why it is needed to init the sequence to avoid hash constraint error
-        self.init_invoice("out_invoice", self.partner_b, "2023-07-22", amounts=[1000], post=False)
-        move = self.init_invoice("out_invoice", self.partner_b, "2023-07-22", amounts=[1000], post=False)
+        move = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'invoice_date': '2023-07-22',
+            'partner_id': self.partner_b.id,
+            'invoice_line_ids': [
+                Command.create({
+                    'name': 'test line',
+                    'price_unit': 1000,
+                }),
+            ],
+        })
         move.action_post()
 
         # The integrity check should work
-        integrity_check = move.company_id._check_hash_integrity()['results'][0]
-        self.assertRegex(integrity_check['msg_cover'], 'All entries are hashed.*')
+        integrity_check = [journal for journal in move.company_id._check_hash_integrity()['results'] if journal['journal_name'] == self.customer_invoice_journal.name][0]
+        self.assertRegex(integrity_check['msg_cover'], 'Entries are hashed from.*')
 
         data_merge_group = self.env['data_merge.group'].create({
             'model_id': self.model_id.id,
