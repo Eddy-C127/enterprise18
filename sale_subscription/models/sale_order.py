@@ -436,6 +436,7 @@ class SaleOrder(models.Model):
             return
         result = self.env['sale.order']._read_group([
                 ('subscription_state', '=', '7_upsell'),
+                ('state', 'in', ['draft', 'sent']),
                 ('subscription_id', 'in', self.ids)
             ],
             ['subscription_id'],
@@ -495,7 +496,7 @@ class SaleOrder(models.Model):
         self.is_upselling = False
         upsell_order_ids = self.env['sale.order'].search([
             ('id', 'in', self.subscription_child_ids.ids),
-            ('state', '=', 'draft'),
+            ('state', 'in', ['draft', 'sent']),
             ('subscription_state', '=', '7_upsell')
         ]).subscription_id
         upsell_order_ids.is_upselling = True
@@ -891,7 +892,7 @@ class SaleOrder(models.Model):
         self.ensure_one()
         action = self._get_associated_so_action()
         action['name'] = _("Upsell Quotations")
-        upsell = self.subscription_child_ids.filtered(lambda so: so.subscription_state == '7_upsell')
+        upsell = self.subscription_child_ids.filtered(lambda so: so.subscription_state == '7_upsell' and so.state in ['draft', 'sent'])
         if len(upsell) == 1:
             action['res_id'] = upsell.id
             action['views'] = [(self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
