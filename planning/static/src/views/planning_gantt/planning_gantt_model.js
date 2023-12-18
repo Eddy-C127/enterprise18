@@ -108,6 +108,8 @@ export class PlanningGanttModel extends GanttModel {
     getDialogContext() {
         const context = super.getDialogContext(...arguments);
         delete context.show_job_title;
+        delete context.highlight_planned;
+        delete context.highlight_conflicting;
         return context;
     }
 
