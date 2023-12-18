@@ -3310,3 +3310,24 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertEqual(renewal_so.invoice_count, 3, "All contracts have the same count")
             self.assertEqual(renewal_so2.invoice_count, 3, "All contracts have the same count")
             self.assertEqual(self.subscription.invoice_count, 3, "All contracts have the same count")
+
+    def test_renew_simple_user(self):
+        user_sales_salesman = self.company_data['default_user_salesman']
+        subscription = self.env['sale.order'].with_user(user_sales_salesman).create({
+                'partner_id': self.partner_a.id,
+                'company_id': self.company_data['company'].id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    (0, 0, {
+                        'name': self.product.name,
+                        'product_id': self.product.id,
+                        'product_uom_qty': 2.0,
+                        'product_uom': self.product.uom_id.id,
+                        'price_unit': 12,
+                    })],
+        })
+        subscription.with_user(user_sales_salesman).action_confirm()
+        self.env['sale.order']._cron_recurring_create_invoice()
+        action = subscription.with_user(user_sales_salesman).prepare_renewal_order()
+        renewal_so = self.env['sale.order'].browse(action['res_id'])
+        renewal_so.with_user(user_sales_salesman).action_confirm()

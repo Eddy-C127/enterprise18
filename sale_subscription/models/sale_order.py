@@ -819,7 +819,7 @@ class SaleOrder(models.Model):
             start_date = renew.start_date or parent.next_invoice_date
             renew.write({'date_order': today, 'start_date': start_date})
             # Do not save token when partially paying a renewal subscription.
-            last_transaction = renew.transaction_ids._get_last()
+            last_transaction = renew.transaction_ids.sudo()._get_last()
             last_token = last_transaction.token_id
             if last_token and last_transaction and self.currency_id.compare_amounts(last_transaction.amount, renew.amount_total) >= 0:
                 renew._save_token_from_payment()
