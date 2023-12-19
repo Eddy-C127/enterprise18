@@ -5,7 +5,7 @@ import { StreamPostCommentsReply } from '@social/js/stream_post_comments_reply';
 import { getFixture, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 
-import testUtils from "@web/../tests/legacy/helpers/test_utils";
+import testUtils from "@web/../tests/legacy_tests/helpers/test_utils";
 
 let target;
 let serverData;

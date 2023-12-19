@@ -5,7 +5,7 @@ import { click, nextTick, getFixture, patchDate, patchWithCleanup } from "@web/.
 import { clickAllDaySlot } from "@web/../tests/views/calendar/helpers";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
-import testUtils from '@web/../tests/legacy/helpers/test_utils';
+import testUtils from '@web/../tests/legacy_tests/helpers/test_utils';
 import { getServerModels } from "./appointment_tests_common";
 
 const { DateTime } = luxon;
@@ -234,11 +234,11 @@ QUnit.test('discard slot in calendar', async function (assert) {
         "The calendar is now in a mode to create custom appointment time slots");
     assert.containsN(target, '.fc-event', 2);
     assert.containsNone(target, '.o_calendar_slot');
-    
+
     // Same behavior as previous next button (+7 days)
     const currentDayPickerElement = target.querySelector('.o_datetime_picker .o_today.o_selected');
     const allPickerElement = [...currentDayPickerElement.parentElement.children]
-    await click(allPickerElement[allPickerElement.indexOf(currentDayPickerElement) + 7]);    
+    await click(allPickerElement[allPickerElement.indexOf(currentDayPickerElement) + 7]);
     await nextTick();
     assert.containsOnce(target, '.fc-event', 'There is one calendar event');
     assert.containsNone(target, '.o_calendar_slot', 'There is no slot yet');
@@ -354,11 +354,11 @@ QUnit.test("create slots for custom appointment type", async function (assert) {
         "The calendar is now in a mode to create custom appointment time slots");
     assert.containsN(target, '.fc-event', 2);
     assert.containsNone(target, '.o_calendar_slot');
-    
+
     // Same behavior as previous next button (+7 days)
     const currentDayPickerElement = target.querySelector('.o_datetime_picker .o_today.o_selected');
     const allPickerElement = [...currentDayPickerElement.parentElement.children]
-    await click(allPickerElement[allPickerElement.indexOf(currentDayPickerElement) + 7]); 
+    await click(allPickerElement[allPickerElement.indexOf(currentDayPickerElement) + 7]);
     assert.containsOnce(target, '.fc-event', 'There is one calendar event');
     assert.containsNone(target, '.o_calendar_slot', 'There is no slot yet');
 
@@ -419,7 +419,7 @@ QUnit.test('filter works in slots-creation mode', async function (assert) {
     // Same behavior as previous next button (+7 days)
     const currentDayPickerElement = target.querySelector('.o_datetime_picker .o_today.o_selected');
     const allPickerElement = [...currentDayPickerElement.parentElement.children]
-    await click(allPickerElement[allPickerElement.indexOf(currentDayPickerElement) + 7]); 
+    await click(allPickerElement[allPickerElement.indexOf(currentDayPickerElement) + 7]);
     assert.containsOnce(target, '.fc-event');
     assert.containsNone(target, '.o_calendar_slot');
 

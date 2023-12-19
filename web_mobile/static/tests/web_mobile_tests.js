@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import testUtils from "@web/../tests/legacy/helpers/test_utils";
+import testUtils from "@web/../tests/legacy_tests/helpers/test_utils";
 
 import { useBackButton } from "@web_mobile/js/core/hooks";
 import { accountMethodsForMobile } from "@web_mobile/js/core/mixins";
@@ -278,7 +278,7 @@ QUnit.module("web_mobile", {
                 this.Components = mainComponents.getEntries();
             }
         }
-        
+
         const fixture = getFixture();
         const env = await makeTestEnv();
         await mount(PseudoWebClient, fixture, { env });
@@ -304,7 +304,7 @@ QUnit.module("web_mobile", {
 
         // simulate 'backbutton' event triggered by the app
         await testUtils.dom.triggerEvent(document, "backbutton");
-        
+
         assert.verifySteps(["overrideBackButton: false"]);
         assert.containsNone(fixture, ".o_popover");
         assert.containsNone(fixture, ".o_popover #comp");

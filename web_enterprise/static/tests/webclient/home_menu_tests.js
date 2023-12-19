@@ -20,7 +20,7 @@ import { registry } from "@web/core/registry";
 import { uiService } from "@web/core/ui/ui_service";
 import { HomeMenu } from "@web_enterprise/webclient/home_menu/home_menu";
 import { browser } from "@web/core/browser/browser";
-import testUtils from "@web/../tests/legacy/helpers/test_utils";
+import testUtils from "@web/../tests/legacy_tests/helpers/test_utils";
 import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_menu/enterprise_subscription_service";
 import { session } from "@web/session";
 import { getTemplate } from "@web/core/templates";

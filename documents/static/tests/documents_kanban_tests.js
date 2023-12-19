@@ -26,7 +26,7 @@ import {
     pagerNext,
     pagerPrevious,
 } from "@web/../tests/search/helpers";
-import testUtils from "@web/../tests/legacy/helpers/test_utils";
+import testUtils from "@web/../tests/legacy_tests/helpers/test_utils";
 import {
     click as legacyClick,
     editInput,
