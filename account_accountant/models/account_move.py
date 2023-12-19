@@ -194,9 +194,11 @@ class AccountMove(models.Model):
         deferred_amounts = self._get_deferred_amounts_by_line(line, [period])[0]
         balance = deferred_amounts[period] if force_balance is None else force_balance
         return [
-            Command.create(
-                self.env['account.move.line']._get_deferred_lines_values(account.id, coeff * balance, ref, line.analytic_distribution, line)
-            )
+            Command.create({
+                **self.env['account.move.line']._get_deferred_lines_values(account.id, coeff * balance, ref, line.analytic_distribution, line),
+                'partner_id': line.partner_id.id,
+                'product_id': line.product_id.id,
+            })
             for (account, coeff) in [(deferred_amounts['account_id'], 1), (deferred_account, -1)]
         ]
 
@@ -228,6 +230,7 @@ class AccountMove(models.Model):
                 'deferred_original_move_ids': [Command.set(line.move_id.ids)],
                 'journal_id': deferred_journal.id,
                 'company_id': self.company_id.id,
+                'partner_id': line.partner_id.id,
                 'date': line.move_id.invoice_date + relativedelta(day=31),
                 'auto_post': 'at_date',
                 'ref': ref,
@@ -247,11 +250,11 @@ class AccountMove(models.Model):
             # Create the deferred entries for the periods [deferred_start_date, deferred_end_date]
             remaining_balance = line.balance
             for period_index, period in enumerate(periods):
-                deferred_move = self.create({
+                deferral_move = self.create({
                     'move_type': 'entry',
                     'deferred_original_move_ids': [Command.set(line.move_id.ids)],
                     'journal_id': deferred_journal.id,
-                    'company_id': self.company_id.id,
+                    'partner_id': line.partner_id.id,
                     'date': period[1],
                     'auto_post': 'at_date',
                     'ref': ref,
@@ -259,12 +262,12 @@ class AccountMove(models.Model):
                 # For the last deferral move the balance is forced to remaining balance to avoid rounding errors
                 force_balance = remaining_balance if period_index == len(periods) - 1 else None
                 # Same as before, to avoid adding taxes for deferred moves.
-                deferred_move.write({
+                deferral_move.write({
                     'line_ids': self._get_deferred_lines(line, deferred_account, period, ref, force_balance=force_balance),
                 })
-                remaining_balance -= deferred_move.line_ids[0].balance
-                line.move_id.deferred_move_ids |= deferred_move
-                deferred_move._post(soft=True)
+                remaining_balance -= deferral_move.line_ids[0].balance
+                line.move_id.deferred_move_ids |= deferral_move
+                deferral_move._post(soft=True)
 
     def open_deferred_entries(self):
         self.ensure_one()
