@@ -27,7 +27,10 @@ The extra tab only appears if:
     ],
     'assets': {
         'web.assets_frontend': [
-          'l10n_mx_edi_website_sale/static/src/js/website_sale.js'
+            'l10n_mx_edi_website_sale/static/src/js/website_sale.js',
+        ],
+        'web.assets_tests': [
+            'l10n_mx_edi_website_sale/static/tests/tours/*.js',
         ],
     },
     'installable': True,

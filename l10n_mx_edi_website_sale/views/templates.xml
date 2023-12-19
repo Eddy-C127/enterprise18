@@ -15,7 +15,7 @@
                 <div class="oe_structure" id="oe_structure_l10n_mx_edi_website_sale_extra_info_1"/>
             </t>
 
-            <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+            <section >
                     <form action="/shop/l10n_mx_invoicing_info" method="post">
                         <h3 class="mb-4">Required additional fields</h3>
                         <t t-if="errors" t-foreach="errors.values()" t-as="err">

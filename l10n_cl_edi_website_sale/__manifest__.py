@@ -12,8 +12,8 @@
     'data': [
         'views/templates.xml',
     ],
-    'assets':{
-        'web.assets_frontend':[
+    'assets': {
+        'web.assets_frontend': [
             'l10n_cl_edi_website_sale/static/src/js/fields/l10n_cl_fields.js',
         ]
     },
