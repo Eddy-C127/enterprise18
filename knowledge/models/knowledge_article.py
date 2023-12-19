@@ -54,12 +54,12 @@ class Article(models.Model):
     article_url = fields.Char('Article URL', compute='_compute_article_url', readonly=True)
     # Access rules and members + implied category
     internal_permission = fields.Selection(
-        [('write', 'Can edit'), ('read', 'Can read'), ('none', 'Restricted')],
+        [('write', 'Can edit'), ('read', 'Can read'), ('none', 'No access')],
         string='Internal Permission', required=False,
         help="Default permission for all internal users. "
              "(External users can still have access to this article if they are added to its members)")
     inherited_permission = fields.Selection(
-        [('write', 'Can edit'), ('read', 'Can read'), ('none', 'Restricted')],
+        [('write', 'Can edit'), ('read', 'Can read'), ('none', 'No access')],
         string='Inherited Permission',
         compute="_compute_inherited_permission", compute_sudo=True,
         store=True, recursive=True)

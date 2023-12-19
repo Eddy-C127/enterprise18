@@ -66,7 +66,7 @@
             </div>
             <t t-set-slot="footer">
                 <button t-if="groups.length > 0" t-on-click="onLoadTemplate" class="btn btn-primary" data-hotkey="q">Load Template</button>
-                <button t-on-click="() => this.props.close()" class="btn text-uppercase" data-hotkey="x">Discard</button>
+                <button t-on-click="() => this.props.close()" class="btn" data-hotkey="x">Discard</button>
             </t>
         </Dialog>
     </t>
