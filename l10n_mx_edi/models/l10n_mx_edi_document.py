@@ -54,6 +54,7 @@ GLOBAL_INVOICE_PERIODICITY_DEFAULT_VALUES = {
 }
 
 TAX_TYPE_TO_CFDI_CODE = {'isr': '001', 'iva': '002', 'ieps': '003'}
+CFDI_CODE_TO_TAX_TYPE = {v: k for k, v in TAX_TYPE_TO_CFDI_CODE.items()}
 
 USAGE_SELECTION = [
     ('G01', 'Acquisition of merchandise'),

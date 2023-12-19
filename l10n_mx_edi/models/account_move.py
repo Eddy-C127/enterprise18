@@ -11,7 +11,7 @@ from odoo import api, fields, models, Command, _
 from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import (
     CANCELLATION_REASON_SELECTION,
     CANCELLATION_REASON_DESCRIPTION,
-    TAX_TYPE_TO_CFDI_CODE,
+    CFDI_CODE_TO_TAX_TYPE,
     USAGE_SELECTION,
 )
 from odoo.exceptions import ValidationError, UserError
@@ -1955,6 +1955,27 @@ class AccountMove(models.Model):
     # CFDI: IMPORT
     # -------------------------------------------------------------------------
 
+    @api.model
+    def _l10n_mx_edi_import_cfdi_get_tax_from_node(self, tax_node, line, is_withholding=False):
+        amount = float(tax_node.attrib.get('TasaOCuota')) * (-100 if is_withholding else 100)
+        domain = [
+            *self.env['account.journal']._check_company_domain(line.company_id),
+            ('amount', '=', amount),
+            ('type_tax_use', '=', 'sale' if self.journal_id.type == 'sale' else 'purchase'),
+            ('amount_type', '=', 'percent'),
+        ]
+        tax_type = CFDI_CODE_TO_TAX_TYPE.get(tax_node.attrib.get('Impuesto'))
+        if tax_type:
+            domain.append(('l10n_mx_tax_type', '=', tax_type))
+        tax = self.env['account.tax'].search(domain, limit=1)
+        if tax:
+            return tax
+        else:
+            msg = _('Could not retrieve the %s tax with rate %s%%.', tax_type, amount)
+            msg_wh = _('Could not retrieve the %s withholding tax with rate %s%%.', tax_type, amount)
+            line.move_id.message_post(body=msg_wh if is_withholding else msg)
+            return False
+
     def _l10n_mx_edi_import_cfdi_fill_invoice_line(self, tree, line):
         # Product
         code = tree.attrib.get('NoIdentificacion')  # default_code if export from Odoo
@@ -1969,28 +1990,20 @@ class AccountMove(models.Model):
         if not product:
             product = self.env['product.product']._retrieve_product(name=cleaned_name, default_code=code)
         line.product_id = product
+
         # Taxes
-        impuesto_to_type = {v: k for k, v in TAX_TYPE_TO_CFDI_CODE.items()}
         tax_ids = []
-        for tax_el in tree.findall("{*}Impuestos/{*}Traslados/{*}Traslado"):
-            amount = float(tax_el.attrib.get('TasaOCuota'))*100
-            domain = [
-                *self.env['account.journal']._check_company_domain(line.company_id),
-                ('amount', '=', amount),
-                ('type_tax_use', '=', 'sale' if self.journal_id.type == 'sale' else 'purchase'),
-                ('amount_type', '=', 'percent'),
-                ('company_id', '=', self.company_id.id),
-            ]
-            tax_type = impuesto_to_type.get(tax_el.attrib.get('Impuesto'))
-            if tax_type:
-                domain.append(('l10n_mx_tax_type', '=', tax_type))
-            tax = self.env['account.tax'].search(domain, limit=1)
+        for tax_node in tree.findall("{*}Impuestos/{*}Traslados/{*}Traslado"):
+            tax = self._l10n_mx_edi_import_cfdi_get_tax_from_node(tax_node, line)
             if tax:
                 tax_ids.append(tax.id)
-            elif tax_type:
-                line.move_id.message_post(body=_("Could not retrieve the %s tax with rate %s%%.", tax_type, amount))
-            else:
-                line.move_id.message_post(body=_("Could not retrieve the tax with rate %s%%.", amount))
+
+        # Withholding Taxes
+        for wh_tax_node in tree.findall("{*}Impuestos/{*}Retenciones/{*}Retencion"):
+            wh_tax = self._l10n_mx_edi_import_cfdi_get_tax_from_node(wh_tax_node, line, is_withholding=True)
+            if wh_tax:
+                tax_ids.append(wh_tax.id)
+
         # Discount
         discount_percent = 0
         discount_amount = float(tree.attrib.get('Descuento') or 0)
