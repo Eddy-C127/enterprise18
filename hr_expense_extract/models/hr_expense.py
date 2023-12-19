@@ -67,7 +67,7 @@ class HrExpense(models.Model):
             currency_ocr = self._get_ocr_selected_value(ocr_results, 'currency', "")
 
             self.state = 'draft'
-            if not self.name or self.name == self.message_main_attachment_id.name.split('.')[0]:
+            if description_ocr and not self.name or self.name == self.message_main_attachment_id.name.split('.')[0]:
                 predicted_product_id = self._predict_product(description_ocr, category=True)
                 if predicted_product_id:
                     self.product_id = predicted_product_id if predicted_product_id else self.product_id
@@ -77,22 +77,23 @@ class HrExpense(models.Model):
             self.predicted_category = description_ocr
 
             context_create_date = fields.Date.context_today(self, self.create_date)
-            if not self.date or self.date == context_create_date:
+            if date_ocr and not self.date or self.date == context_create_date:
                 self.date = date_ocr
 
-            if not self.total_amount_currency:
+            if total_ocr and not self.total_amount_currency:
                 self.total_amount_currency = total_ocr
 
-            if self.user_has_groups('base.group_multi_currency') and (not self.currency_id or self.currency_id == self.env.company.currency_id):
-                currency = self.env["res.currency"].search([
-                    '|', '|',
-                    ('currency_unit_label', 'ilike', currency_ocr),
-                    ('name', 'ilike', currency_ocr),
-                    ('symbol', 'ilike', currency_ocr)],
-                    limit=1
-                )
-                if currency:
-                    self.currency_id = currency
+            if currency_ocr and (not self.currency_id or self.currency_id == self.env.company.currency_id):
+                for comparison in ['=ilike', 'ilike']:
+                    possible_currencies = self.env["res.currency"].search([
+                        '|', '|',
+                        ('currency_unit_label', comparison, currency_ocr),
+                        ('name', comparison, currency_ocr),
+                        ('symbol', comparison, currency_ocr),
+                    ])
+                    if len(possible_currencies) == 1:
+                        self.currency_id = possible_currencies
+                        break
 
     @api.model
     def get_empty_list_help(self, help_message):
