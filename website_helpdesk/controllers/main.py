@@ -154,7 +154,9 @@ class WebsiteForm(form.WebsiteForm):
             ticket = model.env[model_name].browse(id_record)
             attachments = request.env['ir.attachment'].sudo().search([('res_model', '=', model_name), ('res_id', '=', ticket.id), ('access_token', '=', False)])
             attachments.generate_access_token()
-            ticket.message_ids.filtered(lambda m: m.attachment_ids == attachments).is_internal = False
+            message = ticket.message_ids.filtered(lambda m: m.attachment_ids == attachments)
+            message.is_internal = False
+            message.subtype_id = request.env.ref('mail.mt_comment')
 
     def insert_record(self, request, model, values, custom, meta=None):
         res = super().insert_record(request, model, values, custom, meta=meta)
