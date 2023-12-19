@@ -700,3 +700,91 @@ class EstonianTaxReportTest(AccountSalesReportCommon):
             self.get_xml_tree_from_string(actual_xml),
             self.get_xml_tree_from_string(expected_xml)
         )
+
+    @freeze_time('2023-02-01')
+    def test_special_code_single_tax(self):
+        """ Special code column (comments) should not appear when
+        there are only invoices with invoice lines with a single
+        tax
+        """
+        moves = self.env['account.move'].create([
+            {
+                'move_type': 'out_invoice',
+                'journal_id': self.company_data['default_journal_sale'].id,
+                'partner_id': self.partner_ee_1.id,
+                'invoice_date': '2023-01-11',
+                'date': '2023-01-11',
+                'invoice_line_ids': [
+                    (0, 0, {
+                        'quantity': 1.0,
+                        'name': 'PT1',
+                        'price_unit': 500,
+                        'tax_ids': self.taxes['vat_out_22_g'].ids,
+                    }),
+                ],
+            },
+            {
+                'move_type': 'out_invoice',
+                'journal_id': self.company_data['default_journal_sale'].id,
+                'partner_id': self.partner_ee_1.id,
+                'invoice_date': '2023-01-11',
+                'date': '2023-01-11',
+                'invoice_line_ids': [
+                    (0, 0, {
+                        'quantity': 1.0,
+                        'name': 'PT1',
+                        'price_unit': 500,
+                        'tax_ids': self.taxes['vat_out_9_g'].ids,
+                    }),
+                ],
+            },
+        ])
+
+        moves.action_post()
+
+        report = self.env.ref('l10n_ee.tax_report_vat')
+        options = report.get_options()
+        expected_xml = """
+            <vatDeclaration>
+            <taxPayerRegCode>12345678</taxPayerRegCode>
+            <year>2023</year>
+            <month>1</month>
+            <declarationType>1</declarationType>
+            <version>KMD4</version>
+            <declarationBody>
+                <noSales>false</noSales>
+                <noPurchases>true</noPurchases>
+                <sumPerPartnerSales>false</sumPerPartnerSales>
+                <sumPerPartnerPurchases>false</sumPerPartnerPurchases>
+                <transactions22>500.00</transactions22>
+                <transactions9>500.00</transactions9>
+            </declarationBody>
+            <salesAnnex>
+                <saleLine>
+                <buyerRegCode>98765432</buyerRegCode>
+                <buyerName>Partner EE 1</buyerName>
+                <invoiceNumber>INV/2023/00002</invoiceNumber>
+                <invoiceDate>2023-01-11</invoiceDate>
+                <invoiceSum>500.00</invoiceSum>
+                <taxRate>9</taxRate>
+                <sumForRateInPeriod>500.00</sumForRateInPeriod>
+                </saleLine>
+                <saleLine>
+                <buyerRegCode>98765432</buyerRegCode>
+                <buyerName>Partner EE 1</buyerName>
+                <invoiceNumber>INV/2023/00001</invoiceNumber>
+                <invoiceDate>2023-01-11</invoiceDate>
+                <invoiceSum>500.00</invoiceSum>
+                <taxRate>22</taxRate>
+                <sumForRateInPeriod>500.00</sumForRateInPeriod>
+                </saleLine>
+            </salesAnnex>
+            </vatDeclaration>
+        """
+
+        actual_xml = self.env[report.custom_handler_model_name].export_to_xml(options)['file_content']
+
+        self.assertXmlTreeEqual(
+            self.get_xml_tree_from_string(actual_xml),
+            self.get_xml_tree_from_string(expected_xml)
+        )

@@ -215,8 +215,8 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
                               ON aml_tax_rel.account_move_line_id = aml.id
                       INNER JOIN account_tax
                               ON account_tax.id = aml_tax_rel.account_tax_id
-                             AND account_tax.l10n_ee_kmd_inf_code IS NULL
-                              OR account_tax.l10n_ee_kmd_inf_code != '2'
+                             AND (account_tax.l10n_ee_kmd_inf_code IS NULL
+                              OR account_tax.l10n_ee_kmd_inf_code != '2')
                         GROUP BY aml.move_id
                     )
                 """
