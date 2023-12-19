@@ -160,11 +160,12 @@ class TestDeferredManagement(AccountTestInvoicingCommon):
             self.assertRecordValues(deferred_move, [{
                 'state': 'posted',
                 'move_type': 'entry',
+                'partner_id': self.partner_a.id,
                 'date': fields.Date.to_date(expected_date),
             }])
             expense_line = deferred_move.line_ids.filtered(lambda line: line.account_id == source_account)
             self.assertRecordValues(expense_line, [
-                {'debit': expense_line_debit, 'credit': expense_line_credit},
+                {'debit': expense_line_debit, 'credit': expense_line_credit, 'partner_id': self.partner_a.id},
             ])
             deferred_line = deferred_move.line_ids.filtered(lambda line: line.account_id == deferred_account)
             self.assertEqual(deferred_line.debit, deferred_line_debit)
