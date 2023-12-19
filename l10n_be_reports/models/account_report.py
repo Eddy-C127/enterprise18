@@ -333,7 +333,7 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             if not _evaluate_check(check_func)
         ]
 
-        if warnings is not None and _evaluate_check(lambda expr_totals: not any(
+        if warnings is not None and _evaluate_check(lambda expr_totals: any(
             [expr_totals[expr_map[grid]]['value'] for grid in ('c44', 'c46L', 'c46T', 'c48s44', 'c48s46L', 'c48s46T')]
         )):
             # remind user to submit EC Sales Report if any ec sales related taxes
