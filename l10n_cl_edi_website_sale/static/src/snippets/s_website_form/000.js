@@ -8,7 +8,7 @@ publicWidget.registry.s_website_form.include({
      * @override
      */
     async send() {
-        if (this.el.getAttribute("action") === "/shop/l10n_cl_invoicing_info") {
+        if (this.el.getAttribute("action").endsWith("/shop/l10n_cl_invoicing_info")) {
             return;
         }
         return this._super(...arguments);
