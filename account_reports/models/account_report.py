@@ -1271,7 +1271,7 @@ class AccountReport(models.Model):
     def _init_options_search_bar(self, options, previous_options=None):
         if self.search_bar:
             options['search_bar'] = True
-            if previous_options and 'filter_search_bar' in previous_options:
+            if 'default_filter_accounts' not in self._context and previous_options and 'filter_search_bar' in previous_options:
                 options['filter_search_bar'] = previous_options['filter_search_bar']
 
     ####################################################
