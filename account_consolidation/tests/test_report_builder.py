@@ -513,7 +513,7 @@ class TestDefaultBuilder(AccountConsolidationTestCase):
 
         Journal = self.env['consolidation.journal']
         self.ap = self._create_analysis_period(start_date="2019-02-01", end_date="2019-02-28")
-        self.consolidation_account = self._create_consolidation_account()
+        self.consolidation_account = self._create_consolidation_account(name='n' * 45)  # Using a long name
         journals = create_journal(42, 4200.40), create_journal(1989.0, 1912.0)
         self.journals = Journal.browse((j.id for j in journals))
         self.builder = DefaultBuilder(self.env, self.ap._format_value, self.journals)
@@ -541,7 +541,7 @@ class TestDefaultBuilder(AccountConsolidationTestCase):
         account_currency_name = self.consolidation_account.get_display_currency_mode()
         expected = {
             'id': self.report._get_generic_line_id(None, None, self.consolidation_account.id),
-            'name': account_name,
+            'name': account_name[:40] + '...',  # Long names should be shortened
             'title_hover': "%s (%s Currency Conversion Method)" % (account_name, account_currency_name),
             'columns': [{
                 'name': self.builder.value_formatter(t),
