@@ -1982,14 +1982,14 @@ class AccountMove(models.Model):
         tax_type = CFDI_CODE_TO_TAX_TYPE.get(tax_node.attrib.get('Impuesto'))
         if tax_type:
             domain.append(('l10n_mx_tax_type', '=', tax_type))
-        tax = self.env['account.tax'].search(domain, limit=1)
-        if tax:
-            return tax
-        else:
+        taxes = self.env['account.tax'].search(domain, limit=2)
+        if len(taxes) != 1:
+            line.move_id.to_check = True
+        if not taxes:
             msg = _('Could not retrieve the %s tax with rate %s%%.', tax_type, amount)
             msg_wh = _('Could not retrieve the %s withholding tax with rate %s%%.', tax_type, amount)
             line.move_id.message_post(body=msg_wh if is_withholding else msg)
-            return False
+        return taxes[:1]
 
     def _l10n_mx_edi_import_cfdi_fill_invoice_line(self, tree, line):
         # Product
