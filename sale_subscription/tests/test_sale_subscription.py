@@ -1912,6 +1912,7 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(order.order_line[1].price_unit, 15, "The price should be updated")
 
     def test_subscription_constraint(self):
+        sub = self.subscription.copy()
         self.subscription.plan_id = False
         with self.assertRaisesRegex(UserError, 'You cannot save a sale order with recurring product and no subscription plan.'):
             self.subscription.action_confirm()
@@ -1921,6 +1922,48 @@ class TestSubscription(TestSubscriptionCommon):
         with self.assertRaisesRegex(UserError, 'You cannot save a sale order with a subscription plan and no recurring product.'):
             sub2 = self.subscription.copy()
             sub2.action_confirm()
+        # order linked to subscription with recurring product and no recurrence: it was created before the upgrade
+        # of sale.subscription into sale.order
+        context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True, }
+        delivered_product_tmpl = self.env['product.template'].with_context(context_no_mail).create({
+            'name': 'Delivery product',
+            'type': 'service',
+            'recurring_invoice': False,
+            'uom_id': self.env.ref('uom.product_uom_unit').id,
+            'invoice_policy': 'delivery',
+        })
+        self.product.recurring_invoice = True
+        self.product2.recurring_invoice = True
+        sub.action_confirm()
+
+        # Simulate the order without recurrence but linked to a subscription
+        order = self.env['sale.order'].create({
+            'partner_id': self.user_portal.partner_id.id,
+            'pricelist_id': self.company_data['default_pricelist'].id,
+            'subscription_id': sub.id,
+            'order_line': [Command.create({
+                'name': "recurring line",
+                'product_id': self.product.id,
+                'product_uom_qty': 1,
+                'product_uom': self.product.uom_id.id
+                }), Command.create({
+                'name': "None recurring line",
+                'product_id': delivered_product_tmpl.product_variant_id.id,
+                'product_uom_qty': 1,
+                'product_uom': delivered_product_tmpl.product_variant_id.uom_id.id
+                }),
+            ],
+        })
+        # Make sure the _constraint_subscription_recurrence is not triggered
+        self.assertFalse(order.subscription_state)
+        order.action_confirm()
+        order.write({'order_line': [Command.create({
+                    'name': "None recurring line",
+                    'product_id': delivered_product_tmpl.product_variant_id.id,
+                    'product_uom_qty': 1,
+                    'qty_delivered': 3,
+                    'product_uom': delivered_product_tmpl.product_variant_id.uom_id.id
+        })],})
 
     def test_multiple_renew(self):
         """ Prevent to confirm several renewal quotation for the same subscription """
