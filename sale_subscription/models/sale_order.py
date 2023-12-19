@@ -167,6 +167,10 @@ class SaleOrder(models.Model):
         for so in self:
             if so.state in ['draft', 'cancel'] or so.subscription_state == '7_upsell':
                 continue
+            if so.subscription_id and not so.subscription_state:
+                # so created before merge sale.subscription into sale.order upgrade.
+                # This is the so that created the sale.subscription records.
+                continue
             if so in recurring_product_orders and not so.plan_id:
                 raise UserError(_('You cannot save a sale order with recurring product and no subscription plan.'))
             if so.plan_id and so not in recurring_product_orders:
