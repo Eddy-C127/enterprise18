@@ -343,6 +343,7 @@ class MrpProductionWorkcenterLine(models.Model):
             'show_all_workorders': True,
             'workcenter_id': self.workcenter_id.id,
             'search_default_name': self.production_id.name,
+            'shouldHideNewWorkcenterButton': True,
         }
         return action
 

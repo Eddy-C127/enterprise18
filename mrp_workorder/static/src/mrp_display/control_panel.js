@@ -14,6 +14,7 @@ export class ControlPanelButtons extends Component {
         workorders: Array,
         relevantCount: Number,
         adminWorkorders: Array,
+        hideNewWorkcenterButton: Boolean,
     };
 
     get workcenterButtons() {

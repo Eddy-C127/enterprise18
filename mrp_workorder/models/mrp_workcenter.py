@@ -29,7 +29,7 @@ class MrpWorkcenter(models.Model):
         if 'search_default_progress' in self.env.context:
             context = context[:-1] + ",'show_progress_workorders':1}"
         context = context.replace('active_id', str(self.id))
-        action['context'] = dict(literal_eval(context), employee_id=request.session.get('employee_id'))
+        action['context'] = dict(literal_eval(context), employee_id=request.session.get('employee_id'), shouldHideNewWorkcenterButton=True)
         return action
 
     def get_employee_barcode(self, barcode):
