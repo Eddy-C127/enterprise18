@@ -189,7 +189,7 @@ class DataMergeRecord(models.Model):
             return dict()
 
         record_data = record.read(to_read)[0]
-        return {str(field_description(key)):str(format_value(value, self.env)) for key, value in record_data.items() if value and not hidden_field(key)}
+        return {str(field_description(key)):format_value(value, self.env) for key, value in record_data.items() if value and not hidden_field(key)}
 
     @api.depends('res_id')
     def _compute_field_values(self):
