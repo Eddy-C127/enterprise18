@@ -2,6 +2,7 @@
 
 import { Layout } from "@web/search/layout";
 import { user } from "@web/core/user";
+import { session } from "@web/session";
 import { useService, useBus } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { useModel } from "@web/model/model";
@@ -64,7 +65,7 @@ export class MrpDisplay extends Component {
             this.pickingTypeId = this.props.context.active_id;
         }
         useSubEnv({
-            localStorageName: `mrp_workorder.db_${user.db.name}.user_${user.userId}.picking_type_${this.pickingTypeId}`,
+            localStorageName: `mrp_workorder.db_${session.db}.user_${user.userId}.picking_type_${this.pickingTypeId}`,
         });
 
         this.state = useState({

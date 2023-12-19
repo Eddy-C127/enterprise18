@@ -3,13 +3,12 @@ import { PreparationDisplay } from "@pos_preparation_display/app/components/prep
 import { makeEnv, startServices } from "@web/env";
 import { App, whenReady } from "@odoo/owl";
 import { templates } from "@web/core/templates";
-import { user } from "@web/core/user";
 import { session } from "@web/session";
 import { _t } from "@web/core/l10n/translation";
 
 (async function setup() {
     odoo.info = {
-        db: user.db.name,
+        db: session.db,
         server_version: session.server_version,
         server_version_info: session.server_version_info,
         isEnterprise: session.server_version_info.slice(-1)[0] === "e",
