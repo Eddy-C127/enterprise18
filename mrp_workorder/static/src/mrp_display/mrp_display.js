@@ -108,9 +108,9 @@ export class MrpDisplay extends Component {
             this.group_mrp_routings = await user.hasGroup("mrp.group_mrp_routings");
             await this.useEmployee.getConnectedEmployees(true);
             // select the workcenter received in the context
-            if (this.state.activeWorkcenter && (!this.state.workcenters.length || (!(this.state.activeWorkcenter in this.state.workcenters.map((wc) => wc.id)) && this.state.activeWorkcenter != -1))) {
+            if (this.state.activeWorkcenter && !this.state.workcenters.some(wc => wc.id === this.state.activeWorkcenter)) {
                 const workcenters = await this.orm.searchRead("mrp.workcenter", [["id", "=", this.state.activeWorkcenter]], ["display_name"]);
-                this.toggleWorkcenter(workcenters);
+                this.state.workcenters = workcenters;
             }
             if (
                 JSON.parse(localStorage.getItem(this.env.localStorageName)) === null &&
@@ -215,6 +215,10 @@ export class MrpDisplay extends Component {
         return this.model.root.records;
     }
 
+    get shouldHideNewWorkcenterButton() {
+        return this.props.context.shouldHideNewWorkcenterButton || false;
+    }
+
     get workorders() {
         // Returns all workorders
         return this.model.root.records.flatMap((mo) => mo.data.workorder_ids.records);
@@ -232,7 +236,7 @@ export class MrpDisplay extends Component {
         return this.workorders.filter((wo) => activeStates.includes(wo.data.state));
     }
 
-    toggleWorkcenter(workcenters) {
+    async toggleWorkcenter(workcenters) {
         const localStorageName = this.env.localStorageName;
         localStorage.setItem(localStorageName, JSON.stringify(workcenters));
         this.state.workcenters = workcenters;
