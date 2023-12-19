@@ -54,6 +54,7 @@
                                ('start_date', '&lt;=', parent.date or context_today().strftime('%Y-%m-%d')),
                                ('start_date', '=', None)
                            ]"
+                           groups="base.group_no_one"
                     />
                 </xpath>
                 <xpath expr="//field[@name='line_ids']//field[@name='account_id']" position="before">

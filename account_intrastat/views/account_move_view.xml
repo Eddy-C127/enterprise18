@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='analytic_distribution']" position="after">
                     <field name="intrastat_transaction_id" optional="hide"/>
-                    <field name="intrastat_product_origin_country_id" optional="hide"/>
+                    <field name="intrastat_product_origin_country_id" optional="hide" width="92px"/>
                 </xpath>
             </field>
         </record>
@@ -32,6 +32,7 @@
                     <field name="date" column_invisible="True"/>
                     <field name="intrastat_transaction_id"
                            string="Intrastat transaction code"
+                           width="92px"
                            domain="[
                                ('type', '=', 'transaction'),
                                '|',
