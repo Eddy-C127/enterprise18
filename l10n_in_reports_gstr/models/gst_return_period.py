@@ -792,7 +792,7 @@ class L10nInGSTReturnPeriod(models.Model):
                         elif move_id.l10n_in_gst_treatment == "special_economic_zone":
                             invoice_type = 'SEWOP'
                         inv_json = {
-                            "ntty": "C",
+                            "ntty": move_id.move_type == "out_refund" and "C" or "D",
                             "nt_num": move_id.name,
                             "nt_dt": move_id.invoice_date.strftime("%d-%m-%Y"),
                             "val": AccountEdiFormat._l10n_in_round_value(move_id.amount_total_in_currency_signed * -1),
@@ -1204,6 +1204,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
+                    ("move_id.debit_origin_id", "=", False),
                     ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders")),
                     ("tax_tag_ids", "in", gst_tags),
                 ]
@@ -1213,6 +1214,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
+                    ("move_id.debit_origin_id", "=", False),
                     ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer", "composition")),
                     ("move_id.l10n_in_state_id", "!=", self.company_id.state_id.id),
                     ("move_id.amount_total", ">", 250000),
@@ -1237,7 +1239,11 @@ class L10nInGSTReturnPeriod(models.Model):
             return (
                 domain
                 + [
+                    "|",
                     ("move_id.move_type", "=", "out_refund"),
+                    "&",
+                    ("move_id.move_type", "=", "out_invoice"),
+                    ("move_id.debit_origin_id", "!=", False),
                     ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "deemed_export")),
                     ("tax_tag_ids", "in", gst_tags),
                 ]
@@ -1246,7 +1252,11 @@ class L10nInGSTReturnPeriod(models.Model):
             return (
                 domain
                 + [
+                    "|",
                     ("move_id.move_type", "=", "out_refund"),
+                    "&",
+                    ("move_id.move_type", "=", "out_invoice"),
+                    ("move_id.debit_origin_id", "!=", False),
                     "|", "&",
                     ("move_id.l10n_in_gst_treatment", "=", "overseas"),
                     ("tax_tag_ids", "in", export_tags),
@@ -1262,6 +1272,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
+                    ("move_id.debit_origin_id", "=", False),
                     ("move_id.l10n_in_gst_treatment", "=", "overseas"),
                     ("tax_tag_ids", "in", export_tags),
                 ]
