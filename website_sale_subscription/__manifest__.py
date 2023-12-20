@@ -21,6 +21,7 @@ appropriate views and selling choices.
     'assets': {
         'web.assets_frontend': [
             ('before', 'website_sale/static/src/js/website_sale.js', 'website_sale_subscription/static/src/js/variant_mixin.js'),
+            'website_sale_subscription/static/src/js/website_sale_subscription.js',
         ],
         'web.assets_tests': [
             'website_sale_subscription/static/tests/tours/**/*',

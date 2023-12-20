@@ -2,7 +2,7 @@
 <odoo>
 
     <template id="price_dynamic_filter_template_product_product_subscription"
-                inherit_id="website_sale.price_dynamic_filter_template_product_product">
+              inherit_id="website_sale.price_dynamic_filter_template_product_product">
         <xpath expr="//del" position="after">
             <span t-if="record.recurring_invoice and data.get('is_subscription', False) and data.get('is_plan_possible', False)" class="fw-bold">
                 <span t-esc="data.get('temporal_unit_display')"/>
@@ -11,11 +11,7 @@
     </template>
 
     <template id="subscription_search_result_price">
-        <t t-esc="price"
-           t-options="{'widget': 'monetary', 'display_currency': currency}"/>
-        <small>per</small>
-        <small t-if="duration > 1" t-esc="duration"/>
-        <small t-esc="unit"/>
+        <t t-esc="subscription_default_pricing_price"/>
     </template>
 
     <template id="products_item" inherit_id="website_sale.products_item">
@@ -27,11 +23,20 @@
     </template>
 
     <template id="subscription_product_price" inherit_id="website_sale.product_price" name="Subscription Product Price">
-        <xpath expr="//h3[hasclass('css_editable_mode_hidden')]/del" position="after">
-            <t t-if="combination_info.get('is_subscription') and combination_info['is_plan_possible']">
-                <span class="mb-3 align-bottom input-group-lg o_website_sale_subscription_pricing_id variant_attribute">
-                    <span class="o_subscription_unit" t-esc="combination_info['temporal_unit_display']"/>
-                </span>
+        <xpath expr="//h3[hasclass('css_editable_mode_hidden')]" position="attributes">
+            <attribute name="t-att-hidden">combination_info.get('is_subscription', False)</attribute>
+        </xpath>
+        <xpath expr="//h3[hasclass('css_editable_mode_hidden')]" position="after">
+            <t t-if="combination_info.get('is_subscription') and combination_info['pricings']">
+                <select t-if="combination_info['subscription_pricing_select']" name="plan_id" class="form-select plan_select fs-5" required="1" t-nocache="1">
+                    <t t-foreach="combination_info['pricings']" t-as="pricing">
+                        <option t-att-value="pricing['plan_id']" t-att-disabled="not pricing['can_be_added']"
+                                t-att-selected="pricing['plan_id'] == combination_info['subscription_default_pricing_plan_id']">
+                            <t t-esc="pricing['price']"/>
+                        </option>
+                    </t>
+                </select>
+                <h5 t-else=""><t t-esc="combination_info['subscription_default_pricing_price']"/></h5>
             </t>
         </xpath>
     </template>
@@ -51,12 +56,29 @@
             </div>
         </xpath>
     </template>
-
+    
     <template id="product_template_message" inherit_id="website_sale.product">
         <xpath expr="//form[@t-if='product._is_add_to_cart_possible()']" position="after">
             <p t-elif="product.recurring_invoice" class="alert alert-warning">
-                This product pricing is not compatible with the product(s) in your cart.
+                This subscription is not compatible with the one(s) already in your cart.
+                Please order them separately or empty your cart.
             </p>
         </xpath>
+        <div id="product_documents" position="before">
+            <t t-if="combination_info.get('is_subscription') and combination_info['pricings']">
+                <u class="h5">Pricing</u>
+                <table class="o_not_editable table w-50 {{'' if combination_info['pricings'] else 'd-none'}}" id="oe_wsale_subscription_pricing_table">
+                    <tbody>
+                        <t t-foreach="combination_info['pricings']" t-as="pricing">
+                            <tr>
+                                <td class="w-50" t-esc="pricing['table_name']"/>
+                                <td class="w-50 text-muted" t-esc="pricing['table_price']"/>
+                                <td class="w-50 text-muted" t-esc="pricing['to_minimum_billing_period']"/>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+        </div>
     </template>
 </odoo>

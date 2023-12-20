@@ -13,7 +13,7 @@ class TestWebsiteSaleSubscription(TestWebsiteSaleSubscriptionCommon):
         self.env['product.pricelist'].sudo().search([('active', '=', True)]).action_archive()
         # Product not recurring
         product = self.env['product.template'].with_context(website_id=self.current_website.id).create({
-            'name': 'Streaming SUB Weekly',
+            'name': 'Non-recurring Product',
             'list_price': 15,
             'type': 'service',
         })
@@ -46,22 +46,22 @@ class TestWebsiteSaleSubscription(TestWebsiteSaleSubscriptionCommon):
             combination_info = self.sub_product._get_combination_info()
             self.assertEqual(combination_info['price'], 5)
             self.assertTrue(combination_info['is_subscription'])
-            self.assertEqual(combination_info['subscription_duration'], 1)
-            self.assertEqual(combination_info['subscription_unit'], 'week')
+            self.assertEqual(combination_info['subscription_default_pricing_plan_id'], self.plan_week.id)
+            self.assertEqual(combination_info['subscription_default_pricing_price'], 'Weekly: $ 5.00')
 
     def test_combination_info_variant_products(self):
         with MockRequest(self.env, website=self.current_website):
             combination_info = self.sub_with_variants.product_variant_ids[0]._get_combination_info_variant()
             self.assertEqual(combination_info['price'], 10)
             self.assertTrue(combination_info['is_subscription'])
-            self.assertEqual(combination_info['subscription_duration'], 1)
-            self.assertEqual(combination_info['subscription_unit'], 'week')
+            self.assertEqual(combination_info['subscription_default_pricing_plan_id'], self.plan_week.id)
+            self.assertEqual(combination_info['subscription_default_pricing_price'], 'Weekly: $ 10.00')
 
             combination_info_variant_2 = self.sub_with_variants.product_variant_ids[-1]._get_combination_info_variant()
             self.assertEqual(combination_info_variant_2['price'], 25)
             self.assertTrue(combination_info_variant_2['is_subscription'])
-            self.assertEqual(combination_info_variant_2['subscription_duration'], 1)
-            self.assertEqual(combination_info_variant_2['subscription_unit'], 'month')
+            self.assertEqual(combination_info_variant_2['subscription_default_pricing_plan_id'], self.plan_month.id)
+            self.assertEqual(combination_info_variant_2['subscription_default_pricing_price'], 'Monthly: $ 25.00')
 
     def test_combination_info_multi_pricelist(self):
         product = self.sub_product_3.with_context(website_id=self.current_website.id)
