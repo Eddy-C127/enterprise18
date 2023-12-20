@@ -1124,7 +1124,9 @@ registry.category("web_tour.tours").add('test_remaining_decimal_accuracy', {test
             helper.assertValidateIsHighlighted(false);
             helper.assertValidateEnabled(true);
             helper.assertLineQty(0, "0 / 4");
+            helper.assertLineQty(1, "0 / 0.12");
             helper.assertButtonShouldBeVisible(0, "add_quantity");
+            helper.assertButtonShouldBeVisible(1, "add_quantity");
         }
     },
 
@@ -1140,8 +1142,17 @@ registry.category("web_tour.tours").add('test_remaining_decimal_accuracy', {test
         run: function() {
             helper.assertButtonShouldBeVisible(0, "add_quantity");
             helper.assertLineQty(0, '2.2 / 4');
-            const buttonAddQty = document.querySelector(".o_add_quantity");
+            const buttonAddQty = document.querySelector(".o_barcode_line:first-child .o_add_quantity");
             helper.assert(buttonAddQty.innerText, "+1.8", "Something wrong with the quantities");
+        }
+    },
+    // Adds 0.12 (entire demand, less than 1) of the second product
+    { trigger: '.o_barcode_line:last-child .o_add_quantity:contains("0.12")' },
+    {
+        trigger: '.o_barcode_lines',
+        run: function() {
+            helper.assertButtonShouldBeVisible(1, 'add_quantity', false);
+            helper.assertLineQty(1, '0.12 / 0.12');
         }
     },
 ]});

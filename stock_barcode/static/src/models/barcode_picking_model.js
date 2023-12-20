@@ -108,7 +108,10 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     getIncrementQuantity(line) {
-        const quantityToFormat = Math.max(this.getQtyDemand(line) - this.getQtyDone(line), 1);
+        let quantityToFormat = this.getQtyDemand(line) - this.getQtyDone(line);
+        if (quantityToFormat < 0.0) {
+            quantityToFormat = 1.0;
+        }
         return parseFloat(formatFloat(quantityToFormat, { digits: [false, this.precision], thousandsSep: "", decimalPoint: "." }));
     }
 

@@ -1080,6 +1080,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         """
         self.clean_access_rights()
         self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 4)
+        self.env['stock.quant']._update_available_quantity(self.product2, self.stock_location, 1)
 
         # Create the delivery transfer.
         delivery_form = Form(self.env['stock.picking'])
@@ -1087,6 +1088,10 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         with delivery_form.move_ids_without_package.new() as move:
             move.product_id = self.product1
             move.product_uom_qty = 4
+
+        with delivery_form.move_ids_without_package.new() as move:
+            move.product_id = self.product2
+            move.product_uom_qty = 0.12
 
         delivery_picking = delivery_form.save()
         delivery_picking.action_confirm()
