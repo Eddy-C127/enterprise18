@@ -3,7 +3,7 @@
 
 import { uniqueId } from "@web/core/utils/functions";
 import { browser } from "@web/core/browser/browser";
-import { parseHash } from "@web/core/browser/router_service";
+import { parseHash } from "@web/core/browser/router";
 
 var available = typeof OdooDeviceUtility !== 'undefined';
 var DeviceUtility;

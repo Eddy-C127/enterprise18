@@ -2,6 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import mobile from "@web_mobile/js/services/core";
+import { router } from "@web/core/browser/router";
 
 export function shortcutItem(env) {
     return {
@@ -9,7 +10,7 @@ export function shortcutItem(env) {
         id: "web_mobile.shortcut",
         description: _t("Add to Home Screen"),
         callback: () => {
-            const { hash } = env.services.router.current;
+            const { hash } = router.current;
             if (hash.menu_id) {
                 const menu = env.services.menu.getMenu(hash.menu_id);
                 const base64Icon = menu && menu.webIconData;

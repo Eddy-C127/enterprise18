@@ -6,6 +6,7 @@ import { formatPercentage } from "@web/views/fields/formatters";
 import { GanttModel, computeRange } from "@web_gantt/gantt_model";
 import { usePlanningModelActions } from "../planning_hooks";
 import { Domain } from "@web/core/domain";
+import { router } from "@web/core/browser/router";
 
 const GROUPBY_COMBINATIONS = [
     "role_id",
@@ -32,9 +33,8 @@ export class PlanningGanttModel extends GanttModel {
     /**
      * @override
      */
-    setup(_, services) {
+    setup() {
         super.setup(...arguments);
-        this.router = services.router;
         this.getHighlightIds = usePlanningModelActions({
             getHighlightPlannedIds: () => this.env.searchModel.highlightPlannedIds,
             getContext: () => this.env.searchModel._context,
@@ -286,7 +286,7 @@ export class PlanningGanttModel extends GanttModel {
         let { focusDate, scaleId } = super._getInitialRangeParams(...arguments);
         // take parameters from url if set https://example.com/web?date_start=2020-11-08
         // this is used by the mail of planning.planning
-        const search = this.router.current.search;
+        const search = router.current.search;
         if (search.date_start) {
             focusDate = deserializeDateTime(search.date_start);
             if (search.date_end) {
@@ -319,4 +319,3 @@ export class PlanningGanttModel extends GanttModel {
         return super._getRowName(...arguments);
     }
 }
-PlanningGanttModel.services = [...GanttModel.services, "router"];

@@ -2,7 +2,7 @@
 import { Component, EventBus, onWillDestroy, useState, useSubEnv, xml } from "@odoo/owl";
 
 import { registry } from "@web/core/registry";
-import { actionService } from "@web/webclient/actions/action_service";
+import { makeActionManager } from "@web/webclient/actions/action_service";
 import { useBus, useService } from "@web/core/utils/hooks";
 
 import { StudioActionContainer } from "./studio_action_container";
@@ -42,7 +42,11 @@ const dialogService = {
 const actionServiceStudio = {
     dependencies: ["studio", "dialog"],
     start(env, { studio }) {
-        const action = actionService.start(env);
+        const router = {
+            current: { hash: {} },
+            pushState() {},
+        };
+        const action = makeActionManager(env, router);
         const _doAction = action.doAction;
 
         async function doAction(actionRequest, options) {
@@ -55,15 +59,6 @@ const actionServiceStudio = {
         }
 
         return Object.assign(action, { doAction });
-    },
-};
-
-const routerService = {
-    start() {
-        return {
-            current: { hash: {} },
-            pushState() {},
-        };
     },
 };
 
@@ -87,7 +82,6 @@ export class Editor extends Component {
         });
 
         useServicesOverrides({
-            router: routerService,
             dialog: dialogService,
             action: actionServiceStudio,
         });

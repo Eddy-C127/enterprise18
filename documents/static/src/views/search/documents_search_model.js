@@ -3,7 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { SearchModel } from "@web/search/search_model";
 import { browser } from "@web/core/browser/browser";
-import { parseHash } from "@web/core/browser/router_service";
+import { parseHash, router } from "@web/core/browser/router";
 import { useSetupAction } from "@web/webclient/actions/action_hook";
 
 // Helpers
@@ -11,7 +11,6 @@ const isFolderCategory = (s) => s.type === "category" && s.fieldName === "folder
 const isTagFilter = (s) => s.type === "filter" && s.fieldName === "tag_ids";
 
 export class DocumentsSearchModel extends SearchModel {
-
     setup(services) {
         super.setup(services);
         useSetupAction({
@@ -226,7 +225,10 @@ export class DocumentsSearchModel extends SearchModel {
      * @override
      */
     _ensureCategoryValue(category, valueIds) {
-        if (valueIds.includes(category.activeValueId) && this._isCategoryValueReachable(category, category.activeValueId)) {
+        if (
+            valueIds.includes(category.activeValueId) &&
+            this._isCategoryValueReachable(category, category.activeValueId)
+        ) {
             return;
         }
         // If not set in context, or set to an unknown value, set active value
@@ -245,7 +247,9 @@ export class DocumentsSearchModel extends SearchModel {
         // valueIds might contain different values than category.values
         if (category.values.has(category.activeValueId)) {
             // We might be in a deleted subfolder, try to find the parent.
-            let newSection = category.values.get(category.values.get(category.activeValueId).parentId);
+            let newSection = category.values.get(
+                category.values.get(category.activeValueId).parentId
+            );
             while (!this._isCategoryValueReachable(category, newSection.id)) {
                 newSection = category.values.get(newSection.parentId);
             }
@@ -275,7 +279,6 @@ export class DocumentsSearchModel extends SearchModel {
     }
 
     _updateRouteState(state, lock) {
-        this.env.services.router.pushState(state, { lock: lock });
+        router.pushState(state, { lock: lock });
     }
-
 }

@@ -44,6 +44,7 @@ import {
 } from "@web/../tests/helpers/utils";
 import { browser, makeRAMLocalStorage } from "@web/core/browser/browser";
 import { serializeDate } from "@web/core/l10n/dates";
+import { router } from "@web/core/browser/router";
 import {
     click,
     contains,
@@ -4295,7 +4296,7 @@ QUnit.module("documents", {}, function () {
             );
 
             QUnit.test("SearchPanel: updates the route", async function (assert) {
-                const kanban = await createDocumentsView({
+                await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
@@ -4307,13 +4308,13 @@ QUnit.module("documents", {}, function () {
                         </t></templates></kanban>`,
                 });
 
-                assert.strictEqual(kanban.env.services.router.current.hash.folder_id, 1);
+                assert.strictEqual(router.current.hash.folder_id, 1);
 
                 await legacyClick(target, ".o_search_panel_category_value:nth-of-type(3) header");
-                assert.strictEqual(kanban.env.services.router.current.hash.folder_id, 2);
+                assert.strictEqual(router.current.hash.folder_id, 2);
 
                 await legacyClick(target, ".o_search_panel_category_value:nth-of-type(1) header");
-                assert.strictEqual(kanban.env.services.router.current.hash.folder_id, "");
+                assert.strictEqual(router.current.hash.folder_id, "");
             });
 
             QUnit.test("SearchPanel: update route updates active folder", async function (assert) {
@@ -4339,14 +4340,14 @@ QUnit.module("documents", {}, function () {
                 await loadState(webClient, { action: "documents.document_kanban_view" });
                 await nextTick();
 
-                assert.strictEqual(webClient.router.current.hash.folder_id, 1);
+                assert.strictEqual(router.current.hash.folder_id, 1);
                 await loadState(
                     webClient,
-                    Object.assign({}, webClient.router.current.hash, { folder_id: 2 })
+                    Object.assign({}, router.current.hash, { folder_id: 2 })
                 );
                 await nextTick();
 
-                assert.strictEqual(webClient.router.current.hash.folder_id, 2);
+                assert.strictEqual(router.current.hash.folder_id, 2);
                 assert.containsOnce(
                     target,
                     ".o_search_panel_category_value[title='Workspace2'] > header.active"

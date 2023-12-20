@@ -9,13 +9,13 @@ import { SpreadsheetSelectorDialog } from "@spreadsheet_edition/assets/component
 import { omit } from "@web/core/utils/objects";
 
 import { onWillStart } from "@odoo/owl";
+import { router } from "@web/core/browser/router";
 
 export const patchGraphSpreadsheet = () => ({
     setup() {
         super.setup(...arguments);
         this.notification = useService("notification");
         this.actionService = useService("action");
-        this.router = useService("router");
         this.menu = useService("menu");
         onWillStart(async () => {
             const insertionGroups = registry.category("spreadsheet_view_insertion_groups").getAll();
@@ -28,7 +28,7 @@ export const patchGraphSpreadsheet = () => ({
 
     async onInsertInSpreadsheet() {
         let menuXMLId = undefined;
-        const menuId = this.router.current.hash.menu_id;
+        const menuId = router.current.hash.menu_id;
         if (menuId) {
             const menu = this.menu.getMenu(menuId);
             menuXMLId = menu ? menu.xmlid || menu.id : undefined;

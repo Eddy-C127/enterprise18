@@ -16,6 +16,7 @@ import { getActionManagerServerData, loadState } from "@web/../tests/webclient/h
 import { companyService } from "@web/webclient/company_service";
 import { AppMenuEditor } from "@web_studio/client_action/editor/app_menu_editor/app_menu_editor";
 import { NewModelItem } from "@web_studio/client_action/editor/new_model_item/new_model_item";
+import { router } from "@web/core/browser/router";
 
 const serviceRegistry = registry.category("services");
 let target;
@@ -386,7 +387,7 @@ QUnit.module("Studio > navbar coordination", (hooks) => {
         assert.containsOnce(target, ".o_studio .o_menu_sections .o_menu_sections_more");
 
         await nextTick();
-        const state = webClient.env.services.router.current.hash;
+        const state = router.current.hash;
         await loadState(webClient, state);
         await Promise.all(adapted);
         await nextTick();

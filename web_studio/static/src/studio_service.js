@@ -7,6 +7,7 @@ import { _t } from "@web/core/l10n/translation";
 
 import { EventBus, onWillUnmount, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
+import { routerBus, router } from "@web/core/browser/router";
 
 const URL_VIEW_KEY = "_view_type";
 const URL_ACTION_KEY = "_action";
@@ -41,7 +42,7 @@ export function viewTypeToString(vType) {
 }
 
 export const studioService = {
-    dependencies: ["action", "color_scheme", "home_menu", "router", "menu", "notification"],
+    dependencies: ["action", "color_scheme", "home_menu", "menu", "notification"],
     async start(env, { color_scheme, menu, notification }) {
         const supportedViewTypes = Object.keys(SUPPORTED_VIEW_TYPES);
 
@@ -120,7 +121,7 @@ export const studioService = {
         };
 
         async function _loadParamsFromURL() {
-            const currentHash = env.services.router.current.hash;
+            const currentHash = router.current.hash;
             if (currentHash.action === "studio") {
                 state.studioMode = currentHash[URL_MODE_KEY];
                 state.editedViewType = currentHash[URL_VIEW_KEY] || null;
@@ -158,7 +159,7 @@ export const studioService = {
         }
 
         let studioProm = _loadParamsFromURL();
-        env.bus.addEventListener("ROUTE_CHANGE", async () => {
+        routerBus.addEventListener("ROUTE_CHANGE", async () => {
             studioProm = _loadParamsFromURL();
         });
 
@@ -324,7 +325,7 @@ export const studioService = {
             if (state.editorTab === "reports" && state.editedReport) {
                 hash[URL_REPORT_ID_KEY] = state.editedReport.res_id;
             }
-            env.services.router.pushState(hash, { replace: true });
+            router.pushState(hash, { replace: true });
         }
 
         function setParams(params = {}, reset = true) {

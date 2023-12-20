@@ -22,6 +22,7 @@ import {
     useSpreadsheetThumbnail,
 } from "../../hooks";
 import { formatToLocaleString } from "../../helpers";
+import { router } from "@web/core/browser/router";
 
 const { Model } = spreadsheet;
 
@@ -37,7 +38,6 @@ export class VersionHistoryAction extends Component {
     setup() {
         this.params = this.props.action.params;
         this.orm = useService("orm");
-        this.router = useService("router");
         this.dialog = useService("dialog");
         this.actionService = useService("action");
         this.resId = this.params.spreadsheet_id || (this.props.state && this.props.state.resId); // used when going back to a spreadsheet via breadcrumb
@@ -68,7 +68,7 @@ export class VersionHistoryAction extends Component {
         });
 
         onMounted(() => {
-            this.router.pushState({
+            router.pushState({
                 spreadsheet_id: this.resId,
                 res_model: this.resModel,
                 from_snapshot: this.fromSnapshot,

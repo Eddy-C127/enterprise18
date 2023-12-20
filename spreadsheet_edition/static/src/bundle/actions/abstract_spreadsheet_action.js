@@ -14,6 +14,7 @@ import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks"
 import { RecordFileStore } from "../image/record_file_store";
 import { useSpreadsheetCurrencies, useSpreadsheetLocales, useSpreadsheetThumbnail } from "../hooks";
 import { useSpreadsheetPrint } from "@spreadsheet/hooks";
+import { router } from "@web/core/browser/router";
 
 const { createCurrencyFormat } = spreadsheet.helpers;
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
@@ -47,7 +48,6 @@ export class AbstractSpreadsheetAction extends Component {
             (this.props.state && this.props.state.resId); // used when going back to a spreadsheet via breadcrumb
         this.shareId = this.params.share_id || this.props.state?.shareId;
         this.accessToken = this.params.access_token || this.props.state?.accessToken;
-        this.router = useService("router");
         this.actionService = useService("action");
         this.notifications = useService("notification");
         this.orm = useService("orm");
@@ -93,7 +93,7 @@ export class AbstractSpreadsheetAction extends Component {
             await this.execInitCallbacks();
         });
         onMounted(() => {
-            this.router.pushState({
+            router.pushState({
                 spreadsheet_id: this.resId,
                 access_token: this.accessToken,
                 share_id: this.shareId,

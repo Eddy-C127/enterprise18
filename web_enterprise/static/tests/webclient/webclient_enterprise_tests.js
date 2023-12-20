@@ -24,6 +24,7 @@ import { menuService } from "@web/webclient/menus/menu_service";
 import { actionService } from "@web/webclient/actions/action_service";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { UserMenu } from "@web/webclient/user_menu/user_menu";
+import { router } from "@web/core/browser/router";
 
 import { Component, onMounted, xml } from "@odoo/owl";
 
@@ -407,20 +408,20 @@ QUnit.module("WebClient Enterprise", (hooks) => {
     QUnit.test(
         "url state is well handled when going in and out of the HomeMenu",
         async function (assert) {
-            const webClient = await createEnterpriseWebClient({ fixture, serverData });
+            await createEnterpriseWebClient({ fixture, serverData });
             await nextTick();
-            assert.deepEqual(webClient.env.services.router.current.hash, { action: "menu" });
+            assert.deepEqual(router.current.hash, { action: "menu" });
 
             await click(fixture.querySelector(".o_apps > .o_draggable:nth-child(2) > .o_app"));
             await nextTick();
-            assert.deepEqual(webClient.env.services.router.current.hash, {
+            assert.deepEqual(router.current.hash, {
                 action: 1002,
                 menu_id: 2,
             });
 
             await click(fixture.querySelector(".o_menu_toggle"));
             await nextTick();
-            assert.deepEqual(webClient.env.services.router.current.hash, {
+            assert.deepEqual(router.current.hash, {
                 action: "menu",
                 menu_id: 2,
             });
@@ -429,7 +430,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             await nextTick();
             // if we reload on going back to underlying action
             // end if
-            assert.deepEqual(webClient.env.services.router.current.hash, {
+            assert.deepEqual(router.current.hash, {
                 action: 1002,
                 menu_id: 2,
             });
@@ -478,7 +479,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             "ClientAction_Id 2"
         );
         assert.containsNone(fixture, ".o_home_menu");
-        const state = webClient.env.services.router.current.hash;
+        const state = router.current.hash;
         assert.deepEqual(state, {
             action: 1002,
             menu_id: 2,
@@ -487,7 +488,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
         await loadState(webClient, {});
         assert.containsNone(fixture, ".test_client_action");
         assert.containsOnce(fixture, ".o_home_menu");
-        assert.deepEqual(webClient.env.services.router.current.hash, {
+        assert.deepEqual(router.current.hash, {
             action: "menu",
         });
 
@@ -498,12 +499,12 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             "ClientAction_Id 2"
         );
         assert.containsNone(fixture, ".o_home_menu");
-        assert.deepEqual(webClient.env.services.router.current.hash, state);
+        assert.deepEqual(router.current.hash, state);
 
         await loadState(webClient, {});
         assert.containsNone(fixture, ".test_client_action");
         assert.containsOnce(fixture, ".o_home_menu");
-        assert.deepEqual(webClient.env.services.router.current.hash, {
+        assert.deepEqual(router.current.hash, {
             action: "menu",
         });
 
@@ -516,7 +517,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             "ClientAction_Id 1"
         );
         assert.containsNone(fixture, ".o_home_menu");
-        assert.deepEqual(webClient.env.services.router.current.hash, app1State);
+        assert.deepEqual(router.current.hash, app1State);
     });
 
     QUnit.test(
@@ -554,12 +555,12 @@ QUnit.module("WebClient Enterprise", (hooks) => {
 
         registry.category("services").add("error", errorService);
 
-        const webClient = await createEnterpriseWebClient({ fixture, serverData });
+        await createEnterpriseWebClient({ fixture, serverData });
         assert.verifySteps(["clientAction setup"]);
         assert.containsOnce(fixture, "nav .o_menu_toggle");
         assert.isVisible(fixture.querySelector("nav .o_menu_toggle"));
         assert.strictEqual(fixture.querySelector(".o_action_manager").innerHTML, "");
-        assert.deepEqual(webClient.env.services.router.current.hash, {
+        assert.deepEqual(router.current.hash, {
             action: "__test__client__action__",
             menu_id: 1,
         });

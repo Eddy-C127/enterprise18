@@ -14,7 +14,7 @@ import { HomeMenu } from "./home_menu";
 import { Component, onMounted, onWillUnmount, xml } from "@odoo/owl";
 
 export const homeMenuService = {
-    dependencies: ["action", "router"],
+    dependencies: ["action"],
     start(env) {
         let hasHomeMenu = false; // true iff the HomeMenu is currently displayed
         let hasBackgroundAction = false; // true iff there is an action behind the HomeMenu
@@ -26,7 +26,6 @@ export const homeMenuService = {
             static template = xml`<HomeMenu t-props="homeMenuProps"/>`;
 
             setup() {
-                this.router = useService("router");
                 this.menus = useService("menu");
                 const homemenuConfig = JSON.parse(user.settings?.homemenu_config || "null");
                 const apps = computeAppsAndMenuItems(this.menus.getMenuAsTree("root")).apps;
