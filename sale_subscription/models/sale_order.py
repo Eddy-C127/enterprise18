@@ -1349,7 +1349,7 @@ class SaleOrder(models.Model):
             else:
                 msg_body = _('Automatic payment failed. No email sent this time. Error: %s', transaction and transaction.state_message or _('No valid Payment Method'))
                 if (fields.Date.today() - order.next_invoice_date).days in [2, 7, 14]:
-                    email_context.update({'date_close': date_close, 'payment_token': order.payment_token_id.display_name})
+                    email_context.update({'date_close': date_close, 'payment_token': order.payment_token_id.display_name, 'payment_link': order.get_portal_url()})
                     reminder_mail_template.with_context(email_context).send_mail(order.id)
                     _logger.debug("Sending Payment Failure Mail to %s for contract %s and setting contract to pending", order.partner_id.email, order.id)
                     msg_body = _('Automatic payment failed. Email sent to customer. Error: %s', transaction and transaction.state_message or _('No Payment Method'))
