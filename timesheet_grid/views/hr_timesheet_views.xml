@@ -149,7 +149,7 @@
                     <field name="timer_start" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='unit_amount']" position="attributes">
-                    <attribute name="readonly">(id or readonly_timesheet) and timer_start</attribute>
+                    <attribute name="readonly">id and (readonly_timesheet or timer_start)</attribute>
                 </xpath>
                 <xpath expr="//sheet" position="before">
                     <header>
