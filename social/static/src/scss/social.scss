@@ -246,8 +246,11 @@ $o-social-font-family-reset: $o-font-family-sans-serif;
 }
 
 .o_social_stream_post_image {
-    img {
+    &.o_social_stream_post_image_clickable {
         cursor: pointer;
+    }
+
+    img {
         width: 100%;
         height: auto;
         max-width: 100%;
@@ -431,8 +434,6 @@ $o-social-font-family-reset: $o-font-family-sans-serif;
         }
 
         .o_social_stream_post_image img {
-            cursor: pointer;
-
             @media (min-height: 800px) {
                 max-height: 200px;
             }

@@ -170,6 +170,8 @@ class SocialPostTemplate(models.Model):
         """ Utility method that extracts an URL (ex: https://www.google.com) from a string message.
         Copied from: https://daringfireball.net/2010/07/improved_regex_for_matching_urls """
         # TDE FIXME: use a tool method instead
+        if not message:
+            return None
         url_regex = re.compile(r"""((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|(([^\s()<>]+|(([^\s()<>]+)))*))+(?:(([^\s()<>]+|(([^\s()<>]+)))*)|[^\s`!()[]{};:'".,<>?«»“”‘’]))""", re.DOTALL)
         urls = url_regex.search(message)
         if urls:

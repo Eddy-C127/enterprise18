@@ -59,7 +59,7 @@
                         t-out="_formatCommentStreamPost(originalPost.message.value)"
                         class="o_social_original_post_message_text overflow-auto mb-2"/>
                     <div t-if="originalPost.stream_post_image_ids.raw_value.length > 0"
-                        class="o_social_stream_post_image mt-3 d-flex overflow-hidden">
+                        class="o_social_stream_post_image o_social_stream_post_image_clickable mt-3 d-flex overflow-hidden">
                         <t t-set="images" t-value="JSON.parse(originalPost.stream_post_image_urls.raw_value)"/>
                         <t t-foreach="images.length > 2 ? images.slice(0, 2) : images" t-as="image_url" t-key="image_url_index">
                             <t t-if="image_url_index == 1 &amp;&amp; images.length > 2">

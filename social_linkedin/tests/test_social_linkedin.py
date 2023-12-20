@@ -79,7 +79,7 @@ class SocialLinkedinCase(SocialCase):
     def test_post_urls_metadata(self):
         """Same as @test_post_urls, but this time the page has some metadata."""
 
-        def _patched_get_link_preview_from_url(*args, **kwargs):
+        def _patched_search_or_create_from_url(*args, **kwargs):
             return {
                 'og_image': 'https://example.com/thumbnail',
                 'og_mimetype': 'text/html',
@@ -94,7 +94,7 @@ class SocialLinkedinCase(SocialCase):
                 response.headers['Content-Type'] = 'image/gif'
             return response
 
-        with (patch.object(link_preview, 'get_link_preview_from_url', side_effect=_patched_get_link_preview_from_url),
+        with (patch.object(link_preview, 'get_link_preview_from_url', side_effect=_patched_search_or_create_from_url),
               patch.object(requests, 'get', side_effect=_patched_get)):
             posts_values = self.test_post_urls()
         self.assertEqual(posts_values[0].get('content', {}).get('article', {}).get('thumbnail', {}), 'fake_image_urn')

@@ -2,8 +2,8 @@
 <odoo>
 <data>
     <template id="facebook_preview" t-name="Facebook Preview">
-        <div class="o_social_preview o_social_facebook_preview bg-white px-3 border rounded overflow-hidden">
-            <div class="o_social_preview_header d-flex my-3">
+        <div class="o_social_preview o_social_facebook_preview bg-white border rounded overflow-hidden">
+            <div class="o_social_preview_header d-flex m-3">
                 <span class="o_social_preview_icon_wrapper d-inline-block rounded-circle overflow-hidden me-2">
                     <i class="fa fa-facebook text-white fa-2x"/>
                 </span>
@@ -17,20 +17,29 @@
                     </div>
                 </div>
             </div>
-            <div class="o_social_preview_message pb-3">
-                <t t-esc="message" />
-            </div>
-            <div class="o_social_stream_post_image d-flex mx-n3 overflow-hidden">
-                <t t-foreach="image_urls" t-as="image_url">
-                    <a t-if="image_url_index == 1 and len(image_urls) > 2" class="o_social_stream_post_image_more position-relative d-flex ms-1">
-                        <img t-att-src="image_url" alt="Post Image" />
-                        <div class="o_social_stream_post_image_more_overlay d-flex align-items-center h-100 w-100 text-white justify-content-center position-absolute h1 m-0" style="user-select: none;">
-                            +<t t-esc="len(image_urls) - 2"/>
+            <div class="o_social_preview_message pb-3 mx-3" t-out="message"/>
+            <a t-att-href="link_preview.get('url')" target="_blank">
+                <div t-attf-class="o_social_stream_post_image d-flex overflow-hidden
+                    {{link_preview.get('url') and 'o_social_stream_post_image_clickable'}}">
+                    <t t-foreach="image_urls" t-as="image_url" >
+                        <div t-if="image_url_index == 1 and len(image_urls) > 2" class="o_social_stream_post_image_more position-relative d-flex ms-1">
+                            <img t-att-src="image_url" alt="Post Image" />
+                            <div class="o_social_stream_post_image_more_overlay d-flex align-items-center h-100 w-100 text-white justify-content-center position-absolute h1 m-0" style="user-select: none;">
+                                +<t t-esc="len(image_urls) - 2"/>
+                            </div>
                         </div>
-                    </a>
-                    <img t-elif="image_url_index &lt; 2" t-att-src="image_url" alt="Post Image"  />
-                </t>
-            </div>
+                        <div t-elif="image_url_index &lt; 2" class="w-100">
+                            <img t-att-src="image_url" alt="Post Image"  />
+                        </div>
+                    </t>
+                </div>
+                <div t-if="link_preview"
+                    class="o_social_facebook_preview_article w-100 px-3 py-2 d-block text-dark">
+                    <small t-out="link_preview['domain']" class="text-uppercase"/>
+                    <div t-if="link_preview.get('title')" class="fw-bold" t-out="link_preview['title']"/>
+                    <small t-if="link_preview.get('description')" t-out="link_preview['description']"/>
+                </div>
+            </a>
         </div>
     </template>
 </data>

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from urllib.parse import urlparse
+
 from odoo import models, api, fields
-from odoo.addons.mail.tools.link_preview import get_link_preview_from_url
 
 
 class SocialPostTemplate(models.Model):
@@ -33,8 +34,9 @@ class SocialPostTemplate(models.Model):
                     for image in post.image_ids.sorted(lambda image: image._origin.id or image.id, reverse=True)
                 ]
             elif url_in_message := self.env['social.post']._extract_url_from_message(post.message):
-                preview = get_link_preview_from_url(url_in_message) or {}
+                preview = self.env['mail.link.preview'].sudo()._search_or_create_from_url(url_in_message) or {}
                 link_preview['url'] = url_in_message
+                link_preview['domain'] = urlparse(url_in_message).hostname
                 if image_url := preview.get('og_image'):
                     image_urls.append(image_url)
                 if title := preview.get('og_title'):
