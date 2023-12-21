@@ -85,7 +85,7 @@ export class StreamPostCommentsTwitter extends StreamPostComments {
                 .querySelector('.o_social_textarea_message');
             textAreaMessage.classList.add('text-danger');
             textAreaMessage.textContent = _t(
-                "You can comment only three times a tweet as it may be considered as spamming by Twitter"
+                "Easy, tiger! No spamming allowed. Let's stick to three replies per Tweet."
             );
             return true;
         }
