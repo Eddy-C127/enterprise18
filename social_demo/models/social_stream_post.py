@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from datetime import datetime
+
 from odoo import models
 
 
@@ -154,8 +156,8 @@ class DemoSocialStreamPost(models.Model):
 
         return [{
             'id': 1,
-            'created_time': '2019-02-10T09:12:30+0000',
-            'formatted_created_time': '10/02/2019',
+            'created_time': datetime.now().strftime("%Y-%m-%d 13:12:30"),
+            'formatted_created_time': datetime.now().strftime("%d/%m/%Y"),
             'likes': {'summary': {'total_count': 53}},
             'from': {
                 'name': 'The Jackson Group',
@@ -167,8 +169,8 @@ class DemoSocialStreamPost(models.Model):
             'comments': {'data': self._get_demo_sub_comments()},
         }, {
             'id': 2,
-            'created_time': '2019-02-09T08:12:30+0000',
-            'formatted_created_time': '09/02/2019',
+            'created_time': datetime.now().strftime("%Y-%m-%d 12:12:30"),
+            'formatted_created_time': datetime.now().strftime("%d/%m/%Y"),
             'likes': {'summary': {'total_count': 4}},
             'from': {
                 'name': 'Deco Addict',

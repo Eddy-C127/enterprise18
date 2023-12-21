@@ -13,11 +13,12 @@
         <field name="stream_id" ref="social_stream_instagram_account" />
         <field name="instagram_comments_count">47</field>
         <field name="instagram_likes_count">879</field>
-        <field name="author_name">My Company Page</field>
-        <field name="instagram_post_link">http://instagram.com/1/1</field>
+        <field name="author_name">odoo.official</field>
+        <field name="instagram_post_link">https://www.instagram.com/p/CzY0As5ooep/</field>
         <field name="message">Get 20% out of your purchases on https://mycompany.com/shop
     Better run to our website while it lasts 🏃</field>
-        <field name="published_date" eval="time.strftime('%Y-01-07 09:00:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 09:00:00')"/>
+        <field name="twitter_profile_image_url" eval="'/web/image/res.partner/%s/image_128' % ref('social_demo.res_partner_1')" />
     </record>
 
     <record id="social_stream_post_instagram_image_1" model="social.stream.post.image">

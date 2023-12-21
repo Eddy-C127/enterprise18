@@ -74,6 +74,7 @@
         <field name="stories">7834</field>
         <field name="image" type="base64" file="base/static/img/res_partner_2-image.png"/>
         <field name="media_id" ref="social_twitter.social_media_twitter"/>
+        <field name="twitter_user_id">Odoo</field>
     </record>
 
     <record id="social_account_linkedin" model="social.account">
@@ -95,6 +96,7 @@
         <field name="has_trends" eval="False" />
         <field name="media_id" ref="social_youtube.social_media_youtube"/>
         <field name="linkedin_account_urn">urn:li:organization:31337</field>
+        <field name="youtube_channel_id">UCkQPikELWZFLgQNHd73jkdg</field>
     </record>
 
     <record id="social_account_instagram" model="social.account">
@@ -115,7 +117,7 @@
     <record id="social_post_global" model="social.post">
         <field name="message">Our new product has been released 🎉 Check it out!</field>
         <field name="create_uid" ref="base.user_admin"/>
-        <field name="published_date" eval="time.strftime('%Y-01-05 08:00:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 08:00:00')"/>
         <field name="state">posted</field>
         <field name="account_ids" eval="[(6, 0, [ref('social_demo.social_account_facebook'), ref('social_demo.social_account_twitter'), ref('social_demo.social_account_linkedin')])]" />
     </record>
@@ -142,7 +144,7 @@
         <field name="message">Get 20% out of your purchases on https://mycompany.com/shop
 Better run to our website while it lasts 🏃</field>
         <field name="create_uid" ref="base.user_admin"/>
-        <field name="published_date" eval="time.strftime('%Y-01-07 09:00:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 09:00:00')"/>
         <field name="state">posted</field>
         <field name="utm_campaign_id" ref="social_utm_campaign" />
         <field name="account_ids" eval="[(6, 0, [ref('social_demo.social_account_facebook'), ref('social_demo.social_account_twitter'), ref('social_demo.social_account_linkedin'), ref('social_demo.social_account_instagram')])]" />
@@ -152,11 +154,11 @@ Better run to our website while it lasts 🏃</field>
     <record id="social_post_global_3" model="social.post">
         <field name="message">We are glad to announce a new product for this year! 🍾</field>
         <field name="create_uid" ref="base.user_admin"/>
-        <field name="published_date" eval="time.strftime('%Y-01-10 09:00:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 09:00:00')"/>
         <field name="state">posted</field>
         <field name="utm_campaign_id" ref="social_utm_campaign" />
         <field name="youtube_title">Happy New Year!</field>
-        <field name="youtube_video_id">m5FAPOdqWUc</field>
+        <field name="youtube_video_id">GhhdOgHQxZ4</field>
         <field name="account_ids" eval="[(6, 0, [ref('social_demo.social_account_facebook'), ref('social_demo.social_account_twitter'), ref('social_demo.social_account_linkedin'), ref('social_demo.social_account_youtube')])]" />
     </record>
 </data>

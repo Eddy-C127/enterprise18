@@ -3,7 +3,7 @@
 <data noupdate="1">
     <record id="social_twitter_account_1" model="social.twitter.account">
         <field name="name">My Company</field>
-        <field name="twitter_id">123456789</field>
+        <field name="twitter_id">Odoo</field>
         <field name="twitter_searched_by_id" ref="social_account_twitter"/>
     </record>
 
@@ -44,7 +44,7 @@
 
     <record id="social_live_post_twitter_1" model="social.live.post">
         <field name="state">posted</field>
-        <field name="twitter_tweet_id">1</field>
+        <field name="twitter_tweet_id">1735225253993853106</field>
         <field name="post_id" ref="social_post_global" />
         <field name="account_id" ref="social_account_twitter" />
         <field name="engagement">5257</field>
@@ -52,7 +52,7 @@
 
     <record id="social_live_post_twitter_2" model="social.live.post">
         <field name="state">posted</field>
-        <field name="twitter_tweet_id">2</field>
+        <field name="twitter_tweet_id">1735225253993853106</field>
         <field name="post_id" ref="social_post_twitter" />
         <field name="account_id" ref="social_account_twitter" />
         <field name="engagement">1567</field>
@@ -60,7 +60,7 @@
 
     <record id="social_live_post_twitter_3" model="social.live.post">
         <field name="state">posted</field>
-        <field name="twitter_tweet_id">3</field>
+        <field name="twitter_tweet_id">1735225253993853106</field>
         <field name="post_id" ref="social_post_global_2" />
         <field name="account_id" ref="social_account_twitter" />
         <field name="engagement">8622</field>
@@ -68,7 +68,7 @@
 
     <record id="social_live_post_twitter_4" model="social.live.post">
         <field name="state">posted</field>
-        <field name="twitter_tweet_id">4</field>
+        <field name="twitter_tweet_id">1735225253993853106</field>
         <field name="post_id" ref="social_post_global_3" />
         <field name="account_id" ref="social_account_twitter" />
         <field name="engagement">7511</field>
@@ -83,7 +83,7 @@
         <field name="twitter_screen_name">mycompanyaccount</field>
         <field name="twitter_profile_image_url" eval="'/web/image/res.partner/%s/image_128' % ref('social_demo.res_partner_1')" />
         <field name="message">Our new product has been released 🎉 Check it out!</field>
-        <field name="published_date" eval="time.strftime('%Y-01-05 08:00:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 08:00:00')"/>
     </record>
 
     <record id="social_stream_post_twitter_2" model="social.stream.post">
@@ -108,7 +108,7 @@
         <field name="twitter_profile_image_url" eval="'/web/image/res.partner/%s/image_128' % ref('social_demo.res_partner_1')" />
         <field name="message">Get 20% out of your purchases on https://mycompany.com/shop
 Better run to our website while it lasts 🏃</field>
-        <field name="published_date" eval="time.strftime('%Y-01-07 09:00:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 09:00:00')"/>
     </record>
 
     <record id="social_stream_post_twitter_4" model="social.stream.post">
@@ -154,7 +154,7 @@ https://www.youtube.com/watch?v=kmt-oVAB6hU</field>
         <field name="twitter_screen_name">thejacksongroup</field>
         <field name="twitter_profile_image_url" eval="'/web/image/res.partner/%s/image_128' % ref('social_demo.res_partner_10')" />
         <field name="message">What a great piece of software! In my opinion everyone should use #mycompany products!</field>
-        <field name="published_date" eval="time.strftime('%Y-01-08 08:00:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 08:00:00')"/>
     </record>
 
     <record id="social_stream_post_twitter_search_2" model="social.stream.post">
@@ -166,7 +166,7 @@ https://www.youtube.com/watch?v=kmt-oVAB6hU</field>
         <field name="twitter_screen_name">readymat</field>
         <field name="twitter_profile_image_url" eval="'/web/image/res.partner/%s/image_128' % ref('social_demo.res_partner_4')" />
         <field name="message">Just downloaded the last version of #mycompany software. It's amazing 😱</field>
-        <field name="published_date" eval="time.strftime('%Y-02-08 09:34:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 09:34:00')"/>
     </record>
 
     <record id="social_stream_post_twitter_search_3" model="social.stream.post">
@@ -178,7 +178,7 @@ https://www.youtube.com/watch?v=kmt-oVAB6hU</field>
         <field name="twitter_screen_name">geminifurniture</field>
         <field name="twitter_profile_image_url" eval="'/web/image/res.partner/%s/image_128' % ref('social_demo.res_partner_3')" />
         <field name="message">Just found a small bug in #mycompany software. Happy to give feedback if you guys are interested.</field>
-        <field name="published_date" eval="time.strftime('%Y-04-08 10:24:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 10:24:00')"/>
     </record>
 
     <record id="social_stream_post_twitter_search_4" model="social.stream.post">
@@ -194,7 +194,7 @@ https://www.youtube.com/watch?v=kmt-oVAB6hU</field>
         <field name="twitter_quoted_tweet_author_name">My Company Account</field>
         <field name="twitter_quoted_tweet_profile_image_url" eval="'/web/image/res.users/%s/image_128' % ref('base.user_admin')" />
         <field name="message">Hello @MyCompany! Started using your software a few days ago. It's been a great experience so far 👍 Can't wait to see what comes up next! #mycompany</field>
-        <field name="published_date" eval="time.strftime('%Y-05-08 11:39:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 11:39:00')"/>
     </record>
 
     <record id="social_stream_post_twitter_search_competitor_1" model="social.stream.post">
@@ -207,7 +207,7 @@ https://www.youtube.com/watch?v=kmt-oVAB6hU</field>
         <field name="twitter_screen_name">woodcorner</field>
         <field name="twitter_profile_image_url" eval="'/web/image/res.partner/%s/image_128' % ref('social_demo.res_partner_1')" />
         <field name="message">The last version of #mycompetitor software is really disappointing... 😕</field>
-        <field name="published_date" eval="time.strftime('%Y-01-08 08:00:00')"/>
+        <field name="published_date" eval="time.strftime('%Y-%m-%d 08:00:00')"/>
     </record>
 </data>
 </odoo>

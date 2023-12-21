@@ -12,6 +12,13 @@ class SocialLivePostYoutube(models.Model):
 
     youtube_video_id = fields.Char(related='post_id.youtube_video_id')
 
+    def _compute_live_post_link(self):
+        youtube_live_posts = self._filter_by_media_types(["youtube"]).filtered(lambda post: post.state == 'posted')
+        super(SocialLivePostYoutube, self - youtube_live_posts)._compute_live_post_link()
+
+        for post in youtube_live_posts:
+            post.live_post_link = f"http://youtube.com/watch?v={post.youtube_video_id}"
+
     def _refresh_statistics(self):
         super(SocialLivePostYoutube, self)._refresh_statistics()
         youtube_accounts = self.env['social.account'].search([('media_type', '=', 'youtube')])
