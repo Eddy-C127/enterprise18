@@ -13,8 +13,7 @@ import { uuid } from "@web/views/utils";
 import {
     onError,
     onMounted,
-    onWillDestroy,    
-    useExternalListener,
+    onWillDestroy,
     useState,
     useSubEnv } from "@odoo/owl";
 
@@ -43,7 +42,6 @@ export class EmbeddedViewBehavior extends AbstractBehavior {
     setup () {
         super.setup();
         this.actionService = useService('action');
-        this.uiService = useService('ui');
         this.state = useState({
             waiting: true,
             error: false
@@ -121,35 +119,6 @@ export class EmbeddedViewBehavior extends AbstractBehavior {
         onError(error => {
             console.error(error);
             this.state.error = true;
-        });
-    }
-    /**
-     * This function enables us to adds the desired attributes to the anchor of the embedded view
-     * before it is rendered.
-     * We are adding tabindex="-1" to the anchor because this attribute is needed to capture the
-     * 'focusin' and 'focusout' events.
-     * In these events we are using activateElement/deactivateElement:
-     *
-     * `activateElement` is used to set the anchor as an active element in the ui service, this enables
-     * us to contain the events inside the embedded view when it has the focus.
-     *
-     * `deactivateElement` removes the anchor as an active element, leaving only the document as active
-     * and we come back to the default behavior of the document handling all the events.
-     *
-     * @override
-     */
-    setupAnchor() {
-        super.setupAnchor();
-        this.props.anchor.setAttribute('tabindex', '-1');
-        useExternalListener(this.props.anchor, 'focusin', () => {
-            if (!this.props.anchor.contains(this.uiService.activeElement)) {
-                this.uiService.activateElement(this.props.anchor);
-            }
-        });
-        useExternalListener(this.props.anchor, 'focusout', (event) => {
-            if (!this.props.anchor.contains(event.relatedTarget)) {
-                this.uiService.deactivateElement(this.props.anchor);
-            }
         });
     }
 
