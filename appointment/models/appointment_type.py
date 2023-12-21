@@ -123,7 +123,8 @@ class AppointmentType(models.Model):
         default=lambda self: self.env['calendar.alarm'].search([('default_for_new_appointment_type', '=', True)]))
     schedule_based_on = fields.Selection([
         ('users', 'Users'),
-        ('resources', 'Resources')], string="Availability on", default="users", required=True)
+        ('resources', 'Resources (e.g. Tables, Courts, Rooms, ...)')],
+        string="Availability on", default="users", required=True)
     slot_ids = fields.One2many('appointment.slot', 'appointment_type_id', 'Availabilities', copy=True)
 
     # Staff Users Management
@@ -381,7 +382,7 @@ class AppointmentType(models.Model):
         ])
 
         # Add and reorder views
-        action = AppointmentType.insert_reorder_action_views(action, management_views + ['calendar', 'pivot'])
+        action = AppointmentType.insert_reorder_action_views(action, management_views + ['calendar'])
 
         action['context'] = ast.literal_eval(action['context'])
         action['context'].update({

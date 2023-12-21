@@ -31,7 +31,7 @@
                 <page string="SMS Content" name="sms_body" invisible="mailing_type != 'sms'">
                     <field name="sms_template_id" domain="[('model', '=', mailing_model_real)]" invisible="1"/>
                     <field name="body_plaintext" widget="sms_widget" required="mailing_type == 'sms'"
-                           options="{'dynamic_placeholder': true}"/>
+                           options="{'dynamic_placeholder': true}" default_focus="1"/>
                 </page>
             </xpath>
          </field>

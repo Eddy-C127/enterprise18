@@ -13,13 +13,13 @@ class AppointmentQuestion(models.Model):
     appointment_type_id = fields.Many2one('appointment.type', 'Appointment Type', ondelete="cascade")
     name = fields.Char('Question', translate=True, required=True)
     placeholder = fields.Char('Placeholder', translate=True)
-    question_required = fields.Boolean('Required Answer')
+    question_required = fields.Boolean('Mandatory Answer')
     question_type = fields.Selection([
         ('char', 'Single line text'),
         ('text', 'Multi-line text'),
         ('select', 'Dropdown (one answer)'),
         ('radio', 'Radio (one answer)'),
-        ('checkbox', 'Checkboxes (multiple answers)')], 'Question Type', default='char')
+        ('checkbox', 'Checkboxes (multiple answers)')], 'Answer Type', default='char')
     answer_ids = fields.One2many('appointment.answer', 'question_id', string='Available Answers', copy=True)
     answer_input_ids = fields.One2many('appointment.answer.input', 'question_id', string='Submitted Answers')
 
