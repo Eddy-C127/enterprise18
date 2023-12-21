@@ -14,7 +14,7 @@ class WhatsAppTemplateVariable(models.Model):
     name = fields.Char(string="Placeholder", required=True)
     button_id = fields.Many2one('whatsapp.template.button', ondelete='cascade')
     wa_template_id = fields.Many2one(comodel_name='whatsapp.template', required=True, ondelete='cascade')
-    model = fields.Selection(string="Model Name", related='wa_template_id.model')
+    model = fields.Char(string="Model Name", related='wa_template_id.model')
 
     line_type = fields.Selection([
         ('button', 'Button'),
