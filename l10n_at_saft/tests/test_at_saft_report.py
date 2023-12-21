@@ -82,6 +82,7 @@ class TestAtSaftReport(TestAccountReportsCommon):
                 'date': '2019-06-30',
                 'partner_id': cls.partner_b.id,
                 'invoice_line_ids': [(0, 0, {
+                    'account_id': cls.env['account.chart.template'].ref('chart_at_template_5000').id,
                     'product_id': cls.product_b.id,
                     'quantity': 10.0,
                     'price_unit': 800.0,

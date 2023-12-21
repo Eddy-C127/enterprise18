@@ -248,7 +248,7 @@
                                         <field name="name">III. Securities and shares</field>
                                         <field name="code">ABIII</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">sum([('account_id.tag_ids', 'in', [ref('l10n_at.account_tag_l10n_at_ABIII')])])</field>
+                                        <field name="aggregation_formula">ABIII1.balance + ABIII2.balance</field>
                                         <field name="children_ids">
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_activa_231" model="account.report.line">
                                                 <field name="name">1. Shares in affiliated companies</field>
@@ -376,9 +376,51 @@
                                     <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_14" model="account.report.line">
                                         <field name="name">IV. Balance sheet profit (balance sheet loss)</field>
                                         <field name="code">PAIV</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', 'in', [ref('l10n_at.account_tag_l10n_at_PAIV')])])</field>
+                                        <field name="groupby" eval="False"/>
+                                        <field name="user_groupby" eval="False"/>
+                                        <field name="foldable" eval="False"/>
+                                        <field name="domain_formula" eval="False"/>
+                                        <field name="action_id" ref="action_account_financial_report_l10n_at_paragraph_231_ugb"/>
+                                        <field name="expression_ids">
+                                            <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_14_cross_report" model="account.report.expression">
+                                                <field name="label">cross_report</field>
+                                                <field name="engine">aggregation</field>
+                                                <field name="formula">PL.balance + RCR.balance + RRR.balance - ARR.balance</field>
+                                                <field name="subformula">cross_report</field>
+                                                <field name="date_scope">from_beginning</field>
+                                            </record>
+                                            <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_14_accounts" model="account.report.expression">
+                                                <field name="label">accounts</field>
+                                                <field name="engine">account_codes</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PAIV) - tag(l10n_at.account_tag_l10n_at_RL)</field>
+                                                <field name="subformula" eval="False"/>
+                                            </record>
+                                            <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_14_balance" model="account.report.expression">
+                                                <field name="label">balance</field>
+                                                <field name="engine">aggregation</field>
+                                                <field name="formula">PAIV.cross_report + PAIV.accounts</field>
+                                            </record>
+                                        </field>
+                                        <field name="children_ids">
+                                            <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_141" model="account.report.line">
+                                                <field name="name">of which profit (loss) carried over</field>
+                                                <field name="code">PAIV1</field>
+                                                <field name="expression_ids">
+                                                    <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_141_cross_report" model="account.report.expression">
+                                                        <field name="label">cross_report</field>
+                                                        <field name="engine">aggregation</field>
+                                                        <field name="formula">RL.previous_pnl</field>
+                                                        <field name="subformula">cross_report</field>
+                                                        <field name="date_scope">to_beginning_of_fiscalyear</field>
+                                                    </record>
+                                                    <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_141_balance" model="account.report.expression">
+                                                        <field name="label">balance</field>
+                                                        <field name="engine">aggregation</field>
+                                                        <field name="formula">PAIV1.cross_report + PAIV.accounts</field>
+                                                    </record>
+                                                </field>
+                                            </record>
+                                        </field>
                                     </record>
                                 </field>
                             </record>
@@ -405,8 +447,8 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_21_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PBI)</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PBI)</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -420,8 +462,8 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_22_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PBII)</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PBII)</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -435,8 +477,8 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_23_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PBIII)</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PBIII)</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -450,8 +492,8 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_24_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PBIV)</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PBIV)</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -481,8 +523,8 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_31_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PCI)</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCI)</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -497,8 +539,8 @@
                                                 <field name="label">balance</field>
                                                 <!-- sum_if_neg_groupby -->
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PCII)C + tag(l10n_at.account_tag_l10n_at_ABIV)C</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCII)C - tag(l10n_at.account_tag_l10n_at_ABIV)C</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -512,8 +554,8 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_33_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PCIII)</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCIII)</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -527,8 +569,8 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_34_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PCIV)</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCIV)</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -542,8 +584,8 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_35_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PCV)</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCV)</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -557,8 +599,8 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_36_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PCVI)</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCVI)</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -573,8 +615,8 @@
                                                 <field name="label">balance</field>
                                                 <!-- sum_if_neg_groupby -->
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">tag(l10n_at.account_tag_l10n_at_PCVII)C</field>
-                                                <field name="subformula">-result</field>
+                                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCVII)C</field>
+                                                <field name="subformula" eval="False"/>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -594,7 +636,7 @@
                                                 <field name="label">domain</field>
                                                 <field name="engine">domain</field>
                                                 <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_at.account_tag_l10n_at_PCVIII')])]"/>
-                                                <field name="subformula">sum</field>
+                                                <field name="subformula">-sum</field>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
@@ -609,8 +651,8 @@
                                                         <field name="label">balance</field>
                                                         <!-- sum_if_neg_groupby -->
                                                         <field name="engine">account_codes</field>
-                                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_ABII4)C + tag(l10n_at.account_tag_l10n_at_PCVIII1)C</field>
-                                                        <field name="subformula">-result</field>
+                                                        <field name="formula">-tag(l10n_at.account_tag_l10n_at_ABII4)C - tag(l10n_at.account_tag_l10n_at_PCVIII1)C</field>
+                                                        <field name="subformula" eval="False"/>
                                                         <field name="green_on_positive" eval="False"/>
                                                     </record>
                                                 </field>
@@ -625,8 +667,8 @@
                                                         <field name="label">balance</field>
                                                         <!-- sum_if_neg_groupby -->
                                                         <field name="engine">account_codes</field>
-                                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_PCVIII2)C</field>
-                                                        <field name="subformula">-result</field>
+                                                        <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCVIII2)C</field>
+                                                        <field name="subformula" eval="False"/>
                                                         <field name="green_on_positive" eval="False"/>
                                                     </record>
                                                 </field>
@@ -641,8 +683,8 @@
                                                         <field name="label">balance</field>
                                                         <!-- sum_if_neg_groupby -->
                                                         <field name="engine">account_codes</field>
-                                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_PCVIII3)C</field>
-                                                        <field name="subformula">-result</field>
+                                                        <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCVIII3)C</field>
+                                                        <field name="subformula" eval="False"/>
                                                         <field name="green_on_positive" eval="False"/>
                                                     </record>
                                                 </field>
@@ -657,8 +699,8 @@
                                                         <field name="label">balance</field>
                                                         <!-- sum_if_neg_groupby -->
                                                         <field name="engine">account_codes</field>
-                                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_PCVIII4)C</field>
-                                                        <field name="subformula">-result</field>
+                                                        <field name="formula">-tag(l10n_at.account_tag_l10n_at_PCVIII4)C</field>
+                                                        <field name="subformula" eval="False"/>
                                                         <field name="green_on_positive" eval="False"/>
                                                     </record>
                                                 </field>
@@ -677,8 +719,8 @@
                                     <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_4_balance" model="account.report.expression">
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
-                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_PD)</field>
-                                        <field name="subformula">-result</field>
+                                        <field name="formula">-tag(l10n_at.account_tag_l10n_at_PD)</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
