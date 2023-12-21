@@ -63,8 +63,8 @@
                                             </t>
                                             <t t-foreach="appointment_type.question_ids" t-as="question">
                                                 <div class="row mb-4" t-if="question.question_type!='text'">
-                                                    <label class="col-12 mb-2 fw-normal" t-attf-for="question_#{question.id}" t-out="' '.join([question.name, '*' if question.question_required else ''])"/>
-                                                    <div class="col-12 col-sm-9 offset-sm-3">
+                                                    <label class="col-sm-3 col-form-label fw-normal" t-attf-for="question_#{question.id}" t-out="' '.join([question.name, '*' if question.question_required else ''])"/>
+                                                    <div class="col-sm-9">
                                                         <t t-if="question.question_type == 'char'">
                                                             <input type="char" class="form-control"
                                                                 t-attf-name="question_#{question.id}"
@@ -81,20 +81,20 @@
                                                             </select>
                                                         </t>
                                                         <t t-if="question.question_type == 'radio'">
-                                                            <div class="checkbox" t-foreach="question.answer_ids or []" t-as="answer">
+                                                            <div class="checkbox form-control form-check border-0 pb-0" t-foreach="question.answer_ids or []" t-as="answer">
                                                                 <label>
                                                                     <input type="radio" t-attf-name="question_#{question.id}"
                                                                         t-att-required="question.question_required or None"
-                                                                        t-att-value="answer.id" class="me-1"/> <t t-out="answer.name"/>
+                                                                        t-att-value="answer.id" class="form-check-input me-2"/> <t t-out="answer.name"/>
                                                                 </label>
                                                             </div>
                                                         </t>
                                                         <t t-if="question.question_type == 'checkbox'">
                                                             <div t-attf-class="checkbox-group #{question.question_required and 'required' or ''}">
-                                                                <div class="checkbox" t-foreach="question.answer_ids or []" t-as="answer">
+                                                                <div class="checkbox form-control form-check border-0 pb-0" t-foreach="question.answer_ids or []" t-as="answer">
                                                                     <label>
                                                                         <input type="checkbox" t-attf-name="question_#{question.id}_answer_#{answer.id}"
-                                                                            t-att-value="answer.name" class="me-2"/><t t-out="answer.name"/>
+                                                                            t-att-value="answer.name" class="form-check-input me-2"/><t t-out="answer.name"/>
                                                                     </label>
                                                                 </div>
                                                             </div>
