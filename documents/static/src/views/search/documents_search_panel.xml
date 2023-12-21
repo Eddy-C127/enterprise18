@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="documents.SearchPanelContent" t-inherit="web.SearchPanelContent" t-inherit-mode="primary">
-        <xpath expr="//div[hasclass('o_search_panel')]" position="inside">
-            <span class="o_resize" t-on-click.stop.prevent="" t-on-mousedown.stop.prevent="_onStartResize"/>
-        </xpath>
         <xpath expr="//label[hasclass('o_search_panel_label')]" position="inside">
             <div class="ms-auto">
                 <t t-if="supportedEditionFields.includes(section.fieldName)">

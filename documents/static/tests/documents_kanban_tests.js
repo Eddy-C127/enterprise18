@@ -291,7 +291,7 @@ QUnit.module("documents", {}, function () {
         },
         function () {
             QUnit.test("kanban basic rendering", async function (assert) {
-                assert.expect(26);
+                assert.expect(28);
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -362,7 +362,9 @@ QUnit.module("documents", {}, function () {
                 await legacyClick(target, ".o_search_panel_category_value:nth-of-type(2) header");
 
                 // check view layout
-                assert.containsN(target, ".o_content > div", 3, "should have 3 columns");
+                assert.containsOnce(target, ".o_content > div.o_search_panel");
+                assert.containsOnce(target, ".o_content > div.o_kanban_renderer");
+                assert.containsOnce(target, ".o_content > div.o_documents_inspector");
                 assert.containsOnce(
                     target.querySelector(".o_content"),
                     "> div.o_search_panel",
@@ -1311,7 +1313,9 @@ QUnit.module("documents", {}, function () {
                 await legacyClick(target, ".o_preview_available");
 
                 assert.containsOnce(target, ".o-FileViewer div[title='Split PDF']");
-                const encodedRoute = encodeURIComponent("/documents/content/2?is_document_preview=1");
+                const encodedRoute = encodeURIComponent(
+                    "/documents/content/2?is_document_preview=1"
+                );
                 assert.containsOnce(
                     target,
                     `iframe[data-src="/web/static/lib/pdfjs/web/viewer.html?file=${encodedRoute}#pagemode=none"]`,
@@ -4023,37 +4027,6 @@ QUnit.module("documents", {}, function () {
                     allSelector.querySelector("header").dispatchEvent(dropEvent);
                 }
             );
-
-            QUnit.test("SearchPanel: search panel should be resizable", async function (assert) {
-                assert.expect(1);
-
-                await createDocumentsView({
-                    type: "kanban",
-                    resModel: "documents.document",
-                    arch: `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div draggable="true" class="oe_kanban_global_area">
-                        <i class="fa fa-circle-thin o_record_selector"/>
-                        <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
-                });
-
-                const searchPanel = target.getElementsByClassName("o_search_panel")[0];
-                const resizeHandle = searchPanel.getElementsByClassName("o_resize")[0];
-                const originalWidth = searchPanel.offsetWidth;
-
-                await testUtils.dom.dragAndDrop(resizeHandle, searchPanel, {
-                    mousemoveTarget: document,
-                    mouseupTarget: document,
-                    position: "right",
-                });
-
-                assert.ok(
-                    searchPanel.offsetWidth - originalWidth > 0,
-                    "width should be increased after resizing search panel"
-                );
-            });
 
             QUnit.test("SearchPanel: regular user can not edit", async function (assert) {
                 assert.expect(1);
