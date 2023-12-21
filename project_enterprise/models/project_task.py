@@ -419,8 +419,10 @@ class Task(models.Model):
         compute_allocated_hours = None
         date_start_update = 'planned_date_begin' in vals and vals['planned_date_begin'] is not False
         date_end_update = 'date_deadline' in vals and vals['date_deadline'] is not False
+        # if fsm_mode=True then the processing in industry_fsm module is done for these dates.
         if not self._context.get('smart_task_scheduling') \
-           and date_start_update and date_end_update:  # if fsm_mode=True then the processing in industry_fsm module is done for these dates.
+           and date_start_update and date_end_update \
+           and not any(task.planned_date_begin or task.date_deadline for task in self):
             compute_default_planned_dates = self.filtered(lambda task: not task.planned_date_begin)
             if not vals.get('allocated_hours') and vals.get('planned_date_begin') and vals.get('date_deadline'):
                 compute_allocated_hours = self.filtered(lambda task: not task.allocated_hours)
