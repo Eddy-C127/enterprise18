@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from collections import defaultdict
 from datetime import datetime
+import logging
 from lxml import etree
 from pytz import timezone
 import re
@@ -18,6 +19,7 @@ from odoo.osv import expression
 from odoo.tools import frozendict
 from odoo.addons.base.models.ir_qweb import keep_query
 
+_logger = logging.getLogger(__name__)
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -1749,6 +1751,13 @@ class AccountMove(models.Model):
             if last_document.state == 'payment_sent':
                 current_uuids = set(invoices.mapped('l10n_mx_edi_cfdi_uuid'))
                 previous_uuids = set()
+                if not last_document.attachment_id.raw:
+                    _logger.warning(
+                        "Payment document (id %s) has an empty attachment (id %s)",
+                        last_document.id,
+                        last_document.attachment_id.id,
+                    )
+                    continue
                 cfdi_node = etree.fromstring(last_document.attachment_id.raw)
                 for node in cfdi_node.xpath("//*[local-name()='DoctoRelacionado']"):
                     previous_uuids.add(node.attrib['IdDocumento'])
