@@ -217,3 +217,76 @@ class TestTaskFlow(common.TransactionCase):
             )['user_ids']
 
         self.assertEqual(len(progress_bar), 3)  # 2 users + 1 warning
+
+    def test_editing_task_planned_date(self):
+        """
+            Verify that the planned date is based on the resource calendar when the user chooses only one record (task).
+            Flow:
+               1)   - Create task A
+                    - Select the whole week in the planned date
+                    - Check the task_a planned date
+               2)   - Create task A and taks B
+                    - Select the whole week in the planned date
+                    - Check the task_b and task_c planned date
+        """
+        task_A = self.env['project.task'].create([{
+            'name': 'Task B',
+            'user_ids': self.project_user,
+            'project_id': self.project_test.id,
+        }])
+
+        # Case 1 : one record.
+        task_A.write({
+            'planned_date_begin': '2024-03-24 06:00:00',
+            'date_deadline': '2024-03-30 15:00:00',
+        })
+        self.assertEqual('2024-03-25', task_A.planned_date_begin.strftime('%Y-%m-%d'),
+            'The planned begin date should set according to the resource calendar')
+        self.assertEqual('2024-03-29', task_A.date_deadline.strftime('%Y-%m-%d'),
+            'The planned end date should set according to the resource calendar')
+        # Case 2 : multi record.
+        task_B, task_C = self.env['project.task'].create([{
+            'name': 'Task B',
+            'user_ids': self.project_user,
+            'project_id': self.project_test.id,
+        }, {
+            'name': 'Task C',
+            'user_ids': self.project_user,
+            'project_id': self.project_test.id,
+        }])
+
+        task_A.write({
+            'planned_date_begin': False,
+            'date_deadline': False,
+        })
+        (task_B + task_C).write({
+            'planned_date_begin': '2024-03-24 06:00:00',
+            'date_deadline': '2024-03-30 15:00:00',
+        })
+        self.assertFalse(task_A.planned_date_begin, 'the planned date begin should be set to False')
+        self.assertFalse(task_A.date_deadline, 'the planned date end should be set to False')
+        self.assertEqual('2024-03-25', task_B.planned_date_begin.strftime('%Y-%m-%d'),
+            'the planned date begin should be the first working day found according to the resource calendar of the user assigned and the start datetime selected by the user')
+        self.assertEqual('2024-03-29', task_B.date_deadline.strftime('%Y-%m-%d'),
+            'the planned date end should be the last working day found according to the resource calendar of the user assigned and the end datetime selected by the user')
+        self.assertEqual('2024-03-25', task_C.planned_date_begin.strftime('%Y-%m-%d'),
+            'the planned date begin should be the first working day found according to the resource calendar of the user assigned and the start datetime selected by the user')
+        self.assertEqual('2024-03-29', task_C.date_deadline.strftime('%Y-%m-%d'),
+            'the planned date end should be the last working day found according to the resource calendar of the user assigned and the end datetime selected by the user')
+
+        (task_A + task_B + task_C).write({
+            'planned_date_begin': '2024-03-24 06:00:00',
+            'date_deadline': '2024-03-30 15:00:00',
+        })
+        self.assertEqual('2024-03-24', task_A.planned_date_begin.strftime('%Y-%m-%d'),
+            'the planned date begin should be the one selected by the user')
+        self.assertEqual('2024-03-30', task_A.date_deadline.strftime('%Y-%m-%d'),
+            'the planned date end should be the one selected by the user')
+        self.assertEqual('2024-03-24', task_B.planned_date_begin.strftime('%Y-%m-%d'),
+            'the planned date begin should be the one selected by the user')
+        self.assertEqual('2024-03-30', task_B.date_deadline.strftime('%Y-%m-%d'),
+            'the planned date end should be the one selected by the user')
+        self.assertEqual('2024-03-24', task_C.planned_date_begin.strftime('%Y-%m-%d'),
+            'the planned date begin should be the one selected by the user')
+        self.assertEqual('2024-03-30', task_C.date_deadline.strftime('%Y-%m-%d'),
+            'the planned date end should be the one selected by the user')
