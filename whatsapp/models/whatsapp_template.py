@@ -64,13 +64,13 @@ class WhatsAppTemplate(models.Model):
 
     model_id = fields.Many2one(
         string='Applies to', comodel_name='ir.model',
-        compute='_compute_model_id',
-        ondelete='cascade', precompute=True, required=True, store=True,
+        default=lambda self: self.env['ir.model']._get_id('res.partner'),
+        ondelete='cascade', required=True, store=True,
         tracking=1)
-    model = fields.Selection(
-        selection=_get_model_selection, string='Related Document Model',
-        default="res.partner",
-        store=True, readonly=False)
+    model = fields.Char(
+        string='Related Document Model',
+        related='model_id.model',
+        precompute=True, store=True, readonly=True)
     phone_field = fields.Char(
         string='Phone Field', compute='_compute_phone_field',
         precompute=True, readonly=False, required=True, store=True)

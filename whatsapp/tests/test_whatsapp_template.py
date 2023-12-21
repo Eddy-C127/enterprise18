@@ -345,7 +345,7 @@ class WhatsAppTemplateForm(WhatsAppTemplateCommon):
         self.assertEqual(template_form.model_id, self.env['ir.model']._get('res.partner'))
 
         template_form.body = 'Test Body'
-        template_form.model = 'res.users'
+        template_form.model_id = self.env['ir.model']._get('res.users')
         template_form.name = 'Test Model Update'
         self.assertEqual(template_form.model, 'res.users')
         template = template_form.save()

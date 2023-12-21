@@ -50,11 +50,11 @@
                             <field name="wa_account_id"
                                 groups="whatsapp.group_whatsapp_admin"
                                 readonly="status != 'draft'"/>
-                            <field name="model" required="1"/>
-                            <field name="model_id" invisible="1"/>
+                            <field name="model" invisible="1"/>
+                            <field name="model_id"/>
                             <field name="phone_field"
                                 widget="DynamicModelFieldSelectorChar"
-                                options="{'model': 'model' or 'res.partner'}"/>
+                                options="{'model': 'model'}"/>
                             <field name="template_type" readonly="status != 'draft'"/>
                             <field name="allowed_user_ids"
                                 widget="many2many_tags_avatar"
