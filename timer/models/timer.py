@@ -63,6 +63,7 @@ class TimerTimer(models.Model):
             self.write({'timer_start': new_start, 'timer_pause': False})
 
     @api.model
+    @api.readonly
     def get_server_time(self):
         """ Returns the server time.
             The timer widget needs the server time instead of the client time

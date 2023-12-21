@@ -43,6 +43,7 @@ class MailActivity(models.Model):
         return super().write(values)
 
     @api.model
+    @api.readonly
     def get_today_call_activities(self):
         """Retrieve the list of activities that:
           * have the type “phonecall”
