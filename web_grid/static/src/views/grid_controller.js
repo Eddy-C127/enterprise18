@@ -64,10 +64,11 @@ export class GridController extends Component {
             ranges: this.props.archInfo.ranges,
             defaultAnchor,
         });
+        const isWeekendVisible = browser.localStorage.getItem("grid.isWeekendVisible");
         this.state = useState({
             activeRangeName,
-            isWeekendVisible: browser.localStorage.getItem("grid.isWeekendVisible") != null
-                ? JSON.parse(browser.localStorage.getItem("grid.isWeekendVisible"))
+            isWeekendVisible: isWeekendVisible !== null && isWeekendVisible !== undefined
+                ? JSON.parse(isWeekendVisible)
                 : true,
         });
         const rootRef = useRef("root");

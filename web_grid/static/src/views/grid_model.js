@@ -229,23 +229,8 @@ export class GridSection extends GridRow {
         super(...arguments);
         this.sectionId = sectionId++;
         this.rows = {};
-        // @deprecated remove me in master
-        this.grandTotalPerColumn = {};
         this.isSection = true;
-        this.grandTotal = 0;
         this.lastRow = null;
-    }
-
-    /**
-     * Initialize the grand total per column to 0 for each column.
-     * @private
-     * @deprecated the cells can be used instead
-     * TODO: remove me in master
-     */
-    _initializeGrandTotalPerColumn() {
-        for (const column of this._dataPoint.columnsArray) {
-            this.grandTotalPerColumn[column.id] = 0;
-        }
     }
 
     get value() {
