@@ -21,7 +21,7 @@
                     <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_root_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
-                        <field name="formula">PL.balance + RL.balance</field>
+                        <field name="formula">PL.balance + RCR.balance + RRR.balance - ARR.balance + RL.balance</field>
                         <field name="date_scope">normal</field>
                     </record>
                 </field>
@@ -35,8 +35,8 @@
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl1_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT1)</field>
-                                <field name="subformula">-result</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_EBIT1)</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -50,8 +50,8 @@
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl2_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT2)</field>
-                                <field name="subformula">-result</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_EBIT2)</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -65,8 +65,8 @@
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl3_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT3)</field>
-                                <field name="subformula">-result</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_EBIT3)</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
@@ -95,8 +95,8 @@
                                     <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl41_balance" model="account.report.expression">
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
-                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT4I)</field>
-                                        <field name="subformula">-result</field>
+                                        <field name="formula">-tag(l10n_at.account_tag_l10n_at_EBIT4I)</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="date_scope">normal</field>
                                         <field name="green_on_positive" eval="True"/>
                                     </record>
@@ -111,8 +111,8 @@
                                     <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl42_balance" model="account.report.expression">
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
-                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT4II)</field>
-                                        <field name="subformula">-result</field>
+                                        <field name="formula">-tag(l10n_at.account_tag_l10n_at_EBIT4II)</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="date_scope">normal</field>
                                         <field name="green_on_positive" eval="True"/>
                                     </record>
@@ -127,8 +127,8 @@
                                     <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl43_balance" model="account.report.expression">
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
-                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_EBIT4III)</field>
-                                        <field name="subformula">-result</field>
+                                        <field name="formula">-tag(l10n_at.account_tag_l10n_at_EBIT4III)</field>
+                                        <field name="subformula" eval="False"/>
                                         <field name="date_scope">normal</field>
                                         <field name="green_on_positive" eval="True"/>
                                     </record>
@@ -318,8 +318,8 @@
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl10_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_FIN10)</field>
-                                <field name="subformula">-result</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_FIN10)</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -333,8 +333,8 @@
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl11_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_FIN11)</field>
-                                <field name="subformula">-result</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_FIN11)</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -348,8 +348,8 @@
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl12_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_FIN12)</field>
-                                <field name="subformula">-result</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_FIN12)</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -363,8 +363,8 @@
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl13_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_FIN13)</field>
-                                <field name="subformula">-result</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_FIN13)</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -494,8 +494,8 @@
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl22_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_RCR)</field>
-                                <field name="subformula">-result</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_RCR)</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -509,8 +509,8 @@
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl23_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_RRR)</field>
-                                <field name="subformula">-result</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_RRR)</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -525,28 +525,70 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">tag(l10n_at.account_tag_l10n_at_ARR)</field>
-                                <field name="subformula">-result</field>
+                                <field name="subformula" eval="False"/>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
                     <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl25" model="account.report.line">
                         <field name="code">RL</field>
-                        <field name="groupby">account_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="name">25. Profit/loss carried forward from the previous year (+/-)</field>
-                        <field name="foldable" eval="True"/>
+                        <field name="foldable" eval="False"/>
                         <field name="expression_ids">
+                            <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl25_previous_pnl" model="account.report.expression">
+                                <field name="label">previous_pnl</field>
+                                <field name="engine">account_codes</field>
+                                <field name="formula">
+                                    -tag(l10n_at.account_tag_l10n_at_EBIT1)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT2)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT3)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT4I)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT4II)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT4III)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT5I)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT5II)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT6I)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT6II)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT7I)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT7II)
+                                    - tag(l10n_at.account_tag_l10n_at_EBIT8)
+                                    - tag(l10n_at.account_tag_l10n_at_FIN10)
+                                    - tag(l10n_at.account_tag_l10n_at_FIN11)
+                                    - tag(l10n_at.account_tag_l10n_at_FIN12)
+                                    - tag(l10n_at.account_tag_l10n_at_FIN13)
+                                    - tag(l10n_at.account_tag_l10n_at_FIN14)
+                                    - tag(l10n_at.account_tag_l10n_at_FIN15)
+                                    - tag(l10n_at.account_tag_l10n_at_TAX)
+                                    - tag(l10n_at.account_tag_l10n_at_MTAX)
+                                    - tag(l10n_at.account_tag_l10n_at_RCR)
+                                    - tag(l10n_at.account_tag_l10n_at_RRR)
+                                    - tag(l10n_at.account_tag_l10n_at_ARR)
+                                </field>
+                                <field name="date_scope">to_beginning_of_fiscalyear</field>
+                            </record>
+                            <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl25_account" model="account.report.expression">
+                                <field name="label">accounts</field>
+                                <field name="engine">account_codes</field>
+                                <field name="formula">-tag(l10n_at.account_tag_l10n_at_PAIV) - tag(l10n_at.account_tag_l10n_at_RL)</field>
+                                <field name="date_scope">from_beginning</field>
+                            </record>
                             <record id="account_financial_report_l10n_at_paragraph_231_ugb_line_pl25_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">tag(l10n_at.account_tag_l10n_at_RL)</field>
-                                <field name="subformula">-result</field>
-                                <field name="date_scope">normal</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">RL.previous_pnl + RL.accounts</field>
+                                <field name="subformula" eval="False"/>
                             </record>
                         </field>
                     </record>
                 </field>
             </record>
         </field>
+    </record>
+    <record id="action_account_financial_report_l10n_at_paragraph_231_ugb" model="ir.actions.client">
+        <field name="name">Profit and Loss</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('account_financial_report_l10n_at_paragraph_231_ugb')}"/>
     </record>
 </odoo>
