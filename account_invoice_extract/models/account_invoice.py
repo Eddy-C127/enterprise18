@@ -518,7 +518,7 @@ class AccountMove(models.Model):
             return partner_last_invoice_currency
         if self.company_id.currency_id in possible_currencies:
             return self.company_id.currency_id
-        return possible_currencies[:1]
+        return possible_currencies if len(possible_currencies) == 1 else None
 
 
     def _get_invoice_lines(self, ocr_results):
