@@ -3,7 +3,7 @@
 import { useService } from "@web/core/utils/hooks";
 import { Deferred, KeepLast } from "@web/core/utils/concurrency";
 import { patch } from "@web/core/utils/patch";
-import { Chatter } from "@mail/core/web/chatter";
+import { Chatter } from "@mail/chatter/web_portal/chatter";
 import { useCallbackRecorder } from "@web/webclient/actions/action_hook";
 import {
     onWillUnmount,

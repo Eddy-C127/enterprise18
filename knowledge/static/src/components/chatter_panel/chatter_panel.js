@@ -4,7 +4,7 @@ import { registry } from '@web/core/registry';
 import { standardWidgetProps } from '@web/views/widgets/standard_widget_props';
 
 import { useService } from "@web/core/utils/hooks";
-import { Chatter } from '@mail/core/web/chatter';
+import { Chatter } from '@mail/chatter/web_portal/chatter';
 import { SIZES } from "@web/core/ui/ui_service";
 
 

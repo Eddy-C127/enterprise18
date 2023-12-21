@@ -31,7 +31,12 @@
     },
     'assets': {
         'web.assets_backend': [
-            'whatsapp/static/src/**/*',
+            'whatsapp/static/src/scss/*.scss',
+            'whatsapp/static/src/core/common/**/*',
+            'whatsapp/static/src/core/web/**/*',
+            'whatsapp/static/src/**/common/**/*',
+            'whatsapp/static/src/**/web/**/*',
+            'whatsapp/static/src/components/**/*',
             # Don't include dark mode files in light mode
             ('remove', 'whatsapp/static/src/**/*.dark.scss'),
         ],

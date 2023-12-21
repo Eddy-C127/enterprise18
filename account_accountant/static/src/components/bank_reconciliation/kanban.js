@@ -20,7 +20,7 @@ import { KanbanRecord } from "@web/views/kanban/kanban_record";
 
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
-import { Chatter } from "@mail/core/web/chatter";
+import { Chatter } from "@mail/chatter/web_portal/chatter";
 import { Many2ManyTagsField } from "@web/views/fields/many2many_tags/many2many_tags_field";
 import { Many2OneField } from "@web/views/fields/many2one/many2one_field";
 import { DateTimeField } from "@web/views/fields/datetime/datetime_field";
