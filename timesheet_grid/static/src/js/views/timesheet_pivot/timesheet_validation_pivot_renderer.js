@@ -1,10 +1,8 @@
-/** @odoo-module **/
-
-import { PivotController } from "@web/views/pivot/pivot_controller";
+import { PivotRenderer } from "@web/views/pivot/pivot_renderer";
 import { useService } from "@web/core/utils/hooks";
 import { onWillStart } from "@odoo/owl";
 
-export class TimesheetValidationPivotController extends PivotController {
+export class TimesheetValidationPivotRenderer extends PivotRenderer {
     setup() {
         super.setup();
         this.notificationService = useService("notification");
@@ -31,8 +29,8 @@ export class TimesheetValidationPivotController extends PivotController {
      * @param {MouseEvent} ev
      */
     async onValidateButtonClicked(ev) {
-        const timesheetIDs = await this.model.orm.search(this.props.resModel, this.model.searchParams.domain);
-        const result = await this.model.orm.call(this.props.resModel, 'action_validate_timesheet', [timesheetIDs]);
+        const timesheetIDs = await this.model.orm.search(this.model.metaData.resModel, this.model.searchParams.domain);
+        const result = await this.model.orm.call(this.model.metaData.resModel, 'action_validate_timesheet', [timesheetIDs]);
         this.displayValidateButtonPrimary = false;
         await this.notificationService.add(result.params.title, { type: result.params.type });
         //reload the table content
