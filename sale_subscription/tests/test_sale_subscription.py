@@ -1769,6 +1769,55 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(sale_order.order_line[0].price_unit, pricing2.price)
         self.assertEqual(sale_order.order_line[1].price_unit, cheaper_pricing.price)
 
+        # test constraints
+        product2 = ProductTemplate.create({
+            'recurring_invoice': True,
+            'detailed_type': 'service',
+            'name': 'Variant Products',
+            'list_price': 5,
+        })
+
+        product2.attribute_line_ids = [(Command.create({
+            'attribute_id': product_attribute.id,
+            'value_ids': [Command.set([product_attribute_val1.id, product_attribute_val2.id])],
+        }))]
+        product2_product_2 = product2.product_variant_ids[-1]
+        Pricing.create({
+            'plan_id': self.plan_week.id,
+            'price': 25,
+            'product_template_id': product2.id,
+            'product_variant_ids': [Command.link(product2_product_2.id)],
+        })
+        product2_product_1 = product2.product_variant_ids[0]
+        product2_product_2 = product2.product_variant_ids[-1]
+        with self.assertRaises(UserError):
+            Pricing.create({
+                'plan_id': self.plan_week.id,
+                'price': 32,
+                'product_template_id': product2.id,
+                'product_variant_ids': [Command.set([product2_product_1.id, product2_product_2.id])],
+            })
+        with self.assertRaises(UserError):
+        # Check constraint without product variants
+            Pricing.create({
+                'plan_id': self.plan_month.id,
+                'price': 32,
+                'product_template_id': product2.id,
+                'product_variant_ids': [],
+            })
+            Pricing.create({
+                'plan_id': self.plan_month.id,
+                'price': 40,
+                'product_template_id': product2.id,
+                'product_variant_ids': [],
+            })
+            Pricing.create({
+                'plan_id': self.plan_month.id,
+                'price': 88,
+                'product_template_id': product2.id,
+                'product_variant_ids': [],
+            })
+
     def test_upsell_parent_line_id(self):
         with freeze_time("2022-01-01"):
             self.subscription.order_line = False
