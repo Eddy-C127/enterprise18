@@ -53,6 +53,7 @@ export class GridRenderer extends Component {
         createRecord: Function,
         ranges: { type: Object, optional: true },
         state: Object,
+        toggleWeekendVisibility: Function,
     };
 
     static defaultProps = {
@@ -280,10 +281,10 @@ export class GridRenderer extends Component {
         return 'text-bg-800';
     }
 
-    getSectionTotalRowClass(section) {
+    getSectionTotalRowClass(section, grandTotal) {
         return {
             [this._getSectionTotalCellBgColor(section)]: true,
-            'text-opacity-25': section.grandTotal === 0,
+            'text-opacity-25': grandTotal === 0,
         };
     }
 

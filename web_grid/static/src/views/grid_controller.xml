@@ -54,7 +54,7 @@
                            options="options"
                            model="model"
                            sections="model.sectionsArray"
-                           columns="model.columnsArray"
+                           columns="columns"
                            rows="model.itemsArray"
                            sectionField="model.sectionField"
                            rowFields="model.rowFields"
@@ -67,6 +67,7 @@
                            contentRef="layout.contentRef"
                            ranges="model.ranges"
                            state="state"
+                           toggleWeekendVisibility.bind="toggleWeekendVisibility"
                         />
                     </t>
                 </t>

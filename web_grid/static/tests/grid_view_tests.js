@@ -2298,4 +2298,59 @@ QUnit.module("Views", (hooks) => {
         await click(target, "span.dropdown-item[data-hotkey='w']");
         assertScrollLeft(false);
     });
+
+    QUnit.test("grid: show/hide weekend will show/hide grid values", async function (assert) {
+        patchDate(2017, 0, 25, 0, 0, 0);
+        patchWithCleanup(browser, {
+            localStorage: {
+                setItem(key, value) {
+                    assert.step(`${key}-${value}`);
+                },
+                getItem(key) {
+                    if (key === "grid.isWeekendVisible") {
+                        return true;
+                    }
+                },
+            },
+        });
+        serverData.models["analytic.line"].records.push({
+            id: 6,
+            project_id: 31,
+            task_id: 1,
+            selection_field: "def",
+            date: "2017-01-22",
+            unit_amount: 10,
+        });
+        await makeView({
+            type: "grid",
+            resModel: "analytic.line",
+            serverData,
+            arch: `<grid>
+                    <field name="project_id" type="row" section="1"/>
+                    <field name="task_id" type="row"/>
+                    <field name="date" type="col">
+                        <range name="week" string="Week" span="week" step="day"/>
+                        <range name="month" string="Month" span="month" step="day"/>
+                    </field>
+                    <field name="unit_amount" type="measure" widget="float_time"/>
+                </grid>`,
+            async mockRPC(route, args) {
+                if (args.method === "grid_unavailability") {
+                    return {};
+                }
+            },
+        });
+
+        assert.equal(target.querySelector(".o_grid_section.o_grid_row_total").textContent, "20:00", "should show 20h in timesheet");
+        assert.deepEqual([...target.querySelectorAll(".o_grid_row.o_grid_row_total")].map(el => el.textContent), ["17:30", "2:30"])
+        assert.containsOnce(target, ".scale_button_selection");
+        await click(target, ".scale_button_selection");
+        assert.containsN(target, ".o_view_scale_selector span.dropdown-item.active", 2);
+        const showWeekendsButton = target.querySelectorAll(".o_view_scale_selector span.dropdown-item.active")[1];
+        await click(showWeekendsButton);
+
+        assert.equal(target.querySelector(".o_grid_section.o_grid_row_total").textContent, "10:00", "should show 10 hours as weekend is hidden");
+        assert.deepEqual([...target.querySelectorAll(".o_grid_row.o_grid_row_total")].map(el => el.textContent), ["7:30", "2:30"]);
+        assert.verifySteps(["grid.isWeekendVisible-false"]);
+    });
 });

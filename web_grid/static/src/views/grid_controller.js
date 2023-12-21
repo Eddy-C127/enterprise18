@@ -14,8 +14,11 @@ import { ViewButton } from "@web/views/view_button/view_button";
 import { CogMenu } from "@web/search/cog_menu/cog_menu";
 import { SearchBar } from "@web/search/search_bar/search_bar";
 import { useSearchBarToggler } from "@web/search/search_bar/search_bar_toggler";
+import { browser } from "@web/core/browser/browser";
 
 import { Component, useState, onWillUpdateProps, onWillUnmount, useRef } from "@odoo/owl";
+
+const { DateTime } = luxon;
 
 export class GridController extends Component {
     static components = {
@@ -63,6 +66,9 @@ export class GridController extends Component {
         });
         this.state = useState({
             activeRangeName,
+            isWeekendVisible: browser.localStorage.getItem("grid.isWeekendVisible") != null
+                ? JSON.parse(browser.localStorage.getItem("grid.isWeekendVisible"))
+                : true,
         });
         const rootRef = useRef("root");
         useViewButtons(this.model, rootRef, {
@@ -153,5 +159,16 @@ export class GridController extends Component {
 
     async onRecordSaved(record) {
         await this.reload();
+    }
+
+    get columns() {
+        return this.state.isWeekendVisible || this.state.activeRangeName === "day" ? this.model.columnsArray : this.model.columnsArray.filter(column => {
+            return DateTime.fromISO(column.value).weekday < 6;
+        });
+    }
+
+    toggleWeekendVisibility() {
+        this.state.isWeekendVisible = !this.state.isWeekendVisible;
+        browser.localStorage.setItem("grid.isWeekendVisible", this.state.isWeekendVisible);
     }
 }

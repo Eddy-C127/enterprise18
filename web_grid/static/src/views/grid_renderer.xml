@@ -109,16 +109,17 @@
                     />
                 </div>
             </div>
+            <t t-set="grandTotal" t-value="section.getGrandTotal(props.state.isWeekendVisible)" />
             <div t-if="!props.options.hideLineTotal"
                  class="o_grid_section o_grid_row_total o_grid_highlightable position-relative position-md-sticky end-0 z-index-1 d-flex align-items-center justify-content-center px-3 py-1 border-top fw-bold"
-                 t-att-class="getSectionTotalRowClass(section)"
+                 t-att-class="getSectionTotalRowClass(section, grandTotal)"
                  t-att-data-grid-row="rowPosition"
                  t-att-data-grid-column="props.columns.length + 1 + columnsGap"
                  t-attf-style="grid-row: {{rowPosition}}; grid-column: {{props.columns.length + 1 + columnsGap}};"
             >
                 <div class="o_grid_cell_overlay_total position-absolute top-0 start-0 w-100 h-100 bg-900"/>
                 <div class="position-relative d-flex align-items-center">
-                    <span t-out="formatValue(section.grandTotal)"/>
+                    <span t-out="formatValue(grandTotal)"/>
                 </div>
             </div>
         </t>
@@ -159,7 +160,7 @@
                 </span>
             </t>
         </div>
-        <div t-foreach="row.model.columnsArray"
+        <div t-foreach="props.columns"
              t-as="column"
              t-key="column.id"
              class="o_grid_row o_grid_highlightable position-relative d-flex align-items-center justify-content-center"
@@ -186,20 +187,21 @@
                 />
             </div>
         </div>
+        <t t-set="grandTotal" t-value="row.getGrandTotal(props.state.isWeekendVisible)" />
         <div t-if="!props.options.hideLineTotal"
              class="o_grid_row o_grid_row_total o_grid_highlightable position-relative position-md-sticky end-0 d-flex align-items-center justify-content-center px-3 py-1"
              t-att-class="{
                 'fst-italic': row.isAdditionalRow,
-                'text-bg-200': row.grandTotal &gt;= 0,
-                'bg-danger text-bg-danger': row.grandTotal lt 0,
-                'text-opacity-50': row.grandTotal === 0
+                'text-bg-200': grandTotal &gt;= 0,
+                'bg-danger text-bg-danger': grandTotal lt 0,
+                'text-opacity-50': grandTotal === 0
              }"
              t-att-data-grid-row="rowPosition"
              t-att-data-grid-column="props.columns.length + 1 + columnsGap"
              t-attf-style="grid-row: {{rowPosition}}; grid-column: {{props.columns.length + 1 + columnsGap}};"
         >
             <div class="o_grid_cell_overlay_total position-absolute top-0 start-0 w-100 h-100 bg-900"/>
-            <span class="z-index-1" t-out="formatValue(row.grandTotal)"/>
+            <span class="z-index-1" t-out="formatValue(grandTotal)"/>
 
         </div>
     </t>
@@ -365,6 +367,8 @@
                         scales="props.ranges"
                         currentScale="props.state.activeRangeName"
                         setScale.bind="onRangeClick"
+                        isWeekendVisible="props.state.isWeekendVisible"
+                        toggleWeekendVisibility="props.toggleWeekendVisibility"
                 />
                 <button type="button"
                         class="btn btn-secondary"

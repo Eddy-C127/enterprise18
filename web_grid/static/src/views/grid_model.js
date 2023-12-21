@@ -117,6 +117,7 @@ export class GridRow {
             this.section.addRow(this);
         }
         this.grandTotal = 0;
+        this.grandTotalWeekendHidden = 0;
         this.isAdditionalRow = isAdditionalRow;
         this._generateCells();
     }
@@ -201,6 +202,7 @@ export class GridRow {
         const delta = value - oldValue;
         this.section.updateGrandTotal(column, delta);
         this.grandTotal += delta;
+        this.grandTotalWeekendHidden += column.isWeekDay ? delta : 0;
         column.grandTotal += delta;
         if (this.isAdditionalRow && delta > 0) {
             this.isAdditionalRow = false;
@@ -215,6 +217,10 @@ export class GridRow {
             readonly = Boolean(readonly);
         }
         this.cells[column.id]._readonly = readonly;
+    }
+
+    getGrandTotal(showWeekend) {
+        return showWeekend ? this.grandTotal : this.grandTotalWeekendHidden;
     }
 }
 
@@ -309,6 +315,7 @@ export class GridSection extends GridRow {
     updateGrandTotal(column, delta) {
         this.cells[column.id].value += delta;
         this.grandTotal += delta;
+        this.grandTotalWeekendHidden += column.isWeekDay ? delta : 0;
     }
 }
 
@@ -361,10 +368,11 @@ export class DateGridColumn extends GridColumn {
      * @param dateEnd {String} the date end serialized
      * @param isToday {Boolean} is the date column representing today?
      */
-    constructor(dataPoint, title, dateStart, dateEnd, isToday, readonly = false) {
+    constructor(dataPoint, title, dateStart, dateEnd, isToday, isWeekDay, readonly = false) {
         super(dataPoint, title, dateStart, readonly);
         this.dateEnd = dateEnd;
         this.isToday = isToday;
+        this.isWeekDay = isWeekDay;
     }
 
     get domain() {
@@ -514,12 +522,14 @@ export class GridDataPoint {
             const domainStart = currentDate;
             const domainStop = generateNext(currentDate);
             const domainStartSerialized = serializeDate(domainStart);
+            const isWeekDay = currentDate.weekday < 6;
             const column = new this.DateColumn(
                 this,
                 this._getDateColumnTitle(currentDate),
                 domainStartSerialized,
                 serializeDate(domainStop),
-                currentDate.startOf("day").equals(this.model.today.startOf("day"))
+                currentDate.startOf("day").equals(this.model.today.startOf("day")),
+                isWeekDay,
             );
             this.data.columns[column.id] = column;
             this.data.columnsKeyToIdMapping[domainStartSerialized] = column.id;
