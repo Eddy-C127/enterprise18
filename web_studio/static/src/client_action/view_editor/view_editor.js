@@ -43,7 +43,6 @@ export class ViewEditor extends Component {
     setup() {
         /* Services */
         this.studio = useService("studio");
-        this.user = useService("user");
         this.orm = useService("orm");
         /* MISC */
         // Avoid pollution from the real actionService's env

@@ -2,7 +2,7 @@
 
 import { patch } from "@web/core/utils/patch";
 import { reactive } from "@odoo/owl";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 import { TimerTimesheetGridDataPoint, TimerTimesheetGridModel } from "@timesheet_grid/views/timer_timesheet_grid/timer_timesheet_grid_model";
 
 patch(TimerTimesheetGridDataPoint.prototype, {
@@ -28,7 +28,7 @@ patch(TimerTimesheetGridDataPoint.prototype, {
                     "res.company",
                     "get_timesheet_ranking_data",
                     [periodStart, periodEnd, today],
-                    { context: session.user_context }
+                    { context: user.context }
                 );
             }
             this.data.leaderboard.stored_leaderboard = data.leaderboard;

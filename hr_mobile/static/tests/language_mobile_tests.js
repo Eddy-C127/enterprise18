@@ -1,8 +1,8 @@
 /** @odoo-module **/
 
-import { session } from "@web/session";
 import { accountMethodsForMobile } from "@web_mobile/js/core/mixins";
 import mobile from '@web_mobile/js/services/core';
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { patchWithCleanup, clickSave, getFixture } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 
@@ -43,10 +43,7 @@ QUnit.module("hr_mobile", (hooks) => {
             },
         });
 
-        patchWithCleanup(session, {
-            username: "demo",
-            name: "Marc Demo",
-        });
+        patchUserWithCleanup({ login: "demo", name: "Marc Demo" });
 
         patchWithCleanup(accountMethodsForMobile, {
             async fetchAvatar() {

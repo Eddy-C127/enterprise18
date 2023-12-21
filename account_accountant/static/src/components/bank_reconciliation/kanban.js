@@ -30,6 +30,7 @@ import { TagsList } from "@web/core/tags_list/tags_list";
 import { HtmlField } from "@web_editor/js/backend/html_field";
 import { RainbowMan } from "@web/core/effects/rainbow_man";
 import { Notebook } from "@web/core/notebook/notebook";
+import { user } from "@web/core/user";
 
 import { BankRecRelationalModel } from "./bank_rec_record";
 import { BankRecMonetaryField } from "./monetary_field_auto_signed_amount";
@@ -91,7 +92,6 @@ export class BankRecKanbanController extends KanbanController {
         this.action = useService("action");
         this.orm = useService("orm");
         this.ui = useService("ui");
-        this.user = useService("user");
 
         // RelationalModel services.
         this.relationalModelServices = Object.fromEntries(
@@ -297,8 +297,8 @@ export class BankRecKanbanController extends KanbanController {
     /** Called when the kanban is initialized. **/
     async onWillStartAfterLoad(){
         // Fetch groups.
-        this.hasGroupAnalyticAccounting = await this.user.hasGroup("analytic.group_analytic_accounting");
-        this.hasGroupNoOne = await this.user.hasGroup("base.group_no_one");
+        this.hasGroupAnalyticAccounting = await user.hasGroup("analytic.group_analytic_accounting");
+        this.hasGroupNoOne = await user.hasGroup("base.group_no_one");
 
         // Prepare bankRecoModel.
         await this.initBankRecModel();

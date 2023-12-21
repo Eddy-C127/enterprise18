@@ -2,10 +2,11 @@
 import { Component, useState } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 import { useBus, useService, useOwnedDialogs } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
 import { ModelConfiguratorDialog } from "../../model_configurator/model_configurator";
-import { useDialogConfirmation, useSubEnvAndServices } from "../../utils";
+import { useDialogConfirmation } from "../../utils";
 
 class SimpleNewModelDialog extends Component {
     static template = "web_studio.SimpleNewModelDialog";
@@ -15,7 +16,6 @@ class SimpleNewModelDialog extends Component {
     setup() {
         this.addDialog = useOwnedDialogs();
         this.menus = useService("menu");
-        this.user = useService("user");
         this.action = useService("action");
         this.studio = useService("studio");
         this.state = useState({ modelName: "", showValidation: false });
@@ -27,7 +27,7 @@ class SimpleNewModelDialog extends Component {
                     model_choice: "new",
                     model_options: data.modelOptions,
                     parent_menu_id: this.menus.getCurrentApp().id,
-                    context: this.user.context,
+                    context: user.context,
                 });
                 await this.menus.reload();
                 const action = await this.action.loadAction(action_id);
@@ -64,11 +64,10 @@ class SimpleNewModelDialog extends Component {
 }
 
 export class NewModelItem extends Component {
-    static props = { env: Object };
+    static props = {};
     static template = "web_studio.NewModelItem";
 
     setup() {
-        useSubEnvAndServices(this.props.env);
         this.addDialog = useOwnedDialogs();
         this.menus = useService("menu");
         this.studio = useService("studio");

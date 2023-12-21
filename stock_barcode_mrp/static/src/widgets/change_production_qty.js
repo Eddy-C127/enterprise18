@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart } from "@odoo/owl";
 
@@ -8,7 +9,6 @@ export class ChangeProductionQty extends Component {
     static template = "stock_barcode_mrp.ChangeProductionQty";
     setup() {
         this.actionService = useService("action");
-        const user = useService('user');
 
         onWillStart(async () => {
             this.displayUOM = await user.hasGroup('uom.group_uom');

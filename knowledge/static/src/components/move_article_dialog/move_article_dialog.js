@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { Dialog } from '@web/core/dialog/dialog';
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { SelectMenu } from '@web/core/select_menu/select_menu';
 
@@ -20,7 +21,6 @@ class MoveArticleDialog extends Component {
         this.size = 'md';
         this.title = _t("Move an Article");
         this.orm = useService("orm");
-        this.userService = useService("user");
         this.state = useState({selectedParentArticle: false, selectionDisplayGroups: []});
         this.placeholderLabel = _t('Choose an Article...');
         this.toggler = useRef("togglerRef");
@@ -113,7 +113,7 @@ class MoveArticleDialog extends Component {
     }
 
     get loggedUserPicture() {
-        return `/web/image?model=res.users&field=avatar_128&id=${this.userService.userId}`;
+        return `/web/image?model=res.users&field=avatar_128&id=${user.userId}`;
     }
 
     get moveArticleLabel() {

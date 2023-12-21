@@ -1,12 +1,12 @@
 /* @odoo-module */
 
 import { formatFloatTime } from "@web/views/fields/formatters";
+import { user } from "@web/core/user";
 import { formatFloat } from "@web/core/utils/numbers";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";
 import { getUnionOfIntersections } from "@web_gantt/gantt_helpers";
 import { PlanningEmployeeAvatar } from "./planning_employee_avatar";
 import { PlanningGanttRowProgressBar } from "./planning_gantt_row_progress_bar";
-import { useService } from "@web/core/utils/hooks"
 import { useEffect, onWillStart } from "@odoo/owl";
 import { serializeDateTime } from "@web/core/l10n/dates";
 
@@ -27,13 +27,12 @@ export class PlanningGanttRenderer extends GanttRenderer {
             this.rootRef.el.classList.add("o_planning_gantt");
         });
 
-        this.userService = useService('user');
         this.isPlanningManager = false;
         onWillStart(this.onWillStart);
     }
 
     async onWillStart() {
-        this.isPlanningManager = await this.userService.hasGroup('planning.group_planning_manager');
+        this.isPlanningManager = await user.hasGroup('planning.group_planning_manager');
     }
 
     /**

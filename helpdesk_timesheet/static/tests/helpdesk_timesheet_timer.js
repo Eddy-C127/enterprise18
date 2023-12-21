@@ -2,8 +2,8 @@
 
 import { registry } from "@web/core/registry";
 import { ormService } from "@web/core/orm_service";
-import { userService } from "@web/core/user_service";
 import { serializeDateTime } from "@web/core/l10n/dates";
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { click, editInput, getFixture, nextTick } from "@web/../tests/helpers/utils";
 
 import { getPyEnv } from "@bus/../tests/helpers/mock_python_environment";
@@ -42,7 +42,6 @@ QUnit.module("Views", (hooks) => {
         setupTestEnv();
         const serviceRegistry = registry.category("services");
         serviceRegistry.add("orm", ormService, { force: true });
-        serviceRegistry.add("user", userService, { force: true });
         serviceRegistry.add("timer", timerService, { force: true });
         const gridComponentsRegistry = registry.category("grid_components");
         if (gridComponentsRegistry.contains("timesheet_uom")) {
@@ -52,6 +51,7 @@ QUnit.module("Views", (hooks) => {
     });
 
     QUnit.test("Timer already running with helpdesk ticket", async function (assert) {
+        patchUserWithCleanup({ hasGroup: async (group) => group === "helpdesk.group_helpdesk_user" });
         const pyEnv = getPyEnv();
         pyEnv.mockServer.models["analytic.line"].records.push({
             id: 10,

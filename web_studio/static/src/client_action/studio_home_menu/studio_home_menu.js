@@ -41,7 +41,6 @@ export class StudioHomeMenu extends HomeMenu {
     setup() {
         super.setup(...arguments);
 
-        this.user = useService("user");
         this.studio = useService("studio");
         this.notifications = useService("notification");
         this.dialog = useService("dialog");

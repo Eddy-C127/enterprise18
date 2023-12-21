@@ -2,6 +2,7 @@
 
 import { contains } from "@web/../tests/utils";
 
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import {
     click,
     getFixture,
@@ -25,7 +26,6 @@ import {
     fillActionFieldsDefaults,
 } from "@web_studio/../tests/helpers";
 import { registry } from "@web/core/registry";
-import { session } from "@web/session";
 import { patch } from "@web/core/utils/patch";
 import { StudioView } from "@web_studio/client_action/view_editor/studio_view";
 import { ViewEditor } from "@web_studio/client_action/view_editor/view_editor";
@@ -130,7 +130,7 @@ QUnit.module("Studio", (hooks) => {
     QUnit.test("Studio not available for non system users", async function (assert) {
         assert.expect(2);
 
-        patchWithCleanup(session, { is_system: false });
+        patchUserWithCleanup({ isSystem: false });
         await createEnterpriseWebClient({ serverData });
         assert.containsOnce(target, ".o_main_navbar");
 
@@ -511,6 +511,7 @@ QUnit.module("Studio", (hooks) => {
                     type: "ir.actions.act_window",
                     res_model: "partner",
                     views: [[false, "list"]],
+                    context: { studio: 1 },
                 };
             }
             if (args.method === "web_search_read") {
@@ -852,18 +853,18 @@ QUnit.module("Studio", (hooks) => {
         await nextTick();
         assert.containsOnce(target, ".o_kanban_view");
         assert.verifySteps([
-            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":40,"context":{"lang":"en","uid":7,"tz":"taht","allowed_company_ids":[1],"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[]}`,
+            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":40,"context":{"lang":"en","tz":"taht","allowed_company_ids":[1],"uid":7,"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[]}`,
         ]);
         await toggleSearchBarMenu(target);
         await toggleMenuItem(target, "Apple");
         assert.verifySteps([
-            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":40,"context":{"lang":"en","uid":7,"tz":"taht","allowed_company_ids":[1],"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
+            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":40,"context":{"lang":"en","tz":"taht","allowed_company_ids":[1],"uid":7,"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
         ]);
 
         await openStudio(target);
         assert.containsOnce(target, ".o_web_studio_kanban_view_editor");
         assert.verifySteps([
-            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":1,"context":{"lang":"en","uid":7,"tz":"taht","allowed_company_ids":[1],"studio":1,"bin_size":true,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
+            `web_search_read: {"specification":{"display_name":{}},"offset":0,"order":"","limit":1,"context":{"lang":"en","tz":"taht","allowed_company_ids":[1],"uid":7,"bin_size":true,"studio":1,"current_company_id":1},"count_limit":10001,"domain":[["name","ilike","Apple"]]}`,
         ]);
         assert.strictEqual(target.querySelector(".o_kanban_record").textContent, "Applejack");
     });
@@ -1092,34 +1093,5 @@ QUnit.module("Studio", (hooks) => {
             "/web/dataset/call_kw/pony/get_views",
             "/web/dataset/call_kw/pony/web_read",
         ]);
-    });
-
-    QUnit.test("create new menu uses the studio context key", async (assert) => {
-        serverData.models.pony.fields.selection = {
-            type: "selection",
-            selection: [["1", "1"]],
-            manual: true,
-        };
-        serverData.models.pony.records = [{ id: 1, selection: "1" }];
-
-        serverData.views["pony,false,form"] = `<form><field name="selection" /></form>`;
-        const mockRPC = async (route, args) => {
-            if (route === "/web_studio/create_new_menu") {
-                assert.strictEqual(args.context.studio, 1);
-                return { action_id: 3 };
-            }
-        };
-
-        await createEnterpriseWebClient({ serverData, mockRPC });
-        await click(target.querySelector(".o_app[data-menu-xmlid=app_2]"));
-        await contains(".o_data_cell");
-        await click(target.querySelector(".o_data_cell"));
-        await contains(".o_form_view");
-        await openStudio(target);
-        await contains(".o_studio");
-        await click(target, ".o_web_create_new_model");
-        await editInput(target, '.modal input[name="model_name"]', "ABCD");
-        await click(target, ".modal footer .btn-primary");
-        await click(target, ".modal .o_web_studio_model_configurator_next");
     });
 });

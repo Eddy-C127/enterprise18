@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { browser } from "@web/core/browser/browser";
+import { patchUserContextWithCleanup } from "@web/../tests/helpers/mock_services";
 import {
     click,
     editInput,
@@ -23,7 +24,6 @@ import { disableHookAnimation, selectorContains } from "./view_editor_tests_util
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
 import { doAction } from "@web/../tests/webclient/helpers";
 import { openStudio } from "../../helpers";
-import { session } from "@web/session";
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { ListEditorRenderer } from "@web_studio/client_action/view_editor/editors/list/list_editor_renderer";
 import { registerCleanup } from "@web/../tests/helpers/cleanup";
@@ -1655,11 +1655,9 @@ QUnit.module(
         });
 
         QUnit.test("list editor invisible to visible on field", async function (assert) {
-            patchWithCleanup(session, {
-                user_context: {
-                    lang: "fr_FR",
-                    tz: "Europe/Brussels",
-                },
+            patchUserContextWithCleanup({
+                lang: "fr_FR",
+                tz: "Europe/Brussels",
             });
 
             const changeArch = makeArchChanger();

@@ -123,10 +123,7 @@ export class Editor extends Component {
             Component: AppMenuEditor,
             props: { env: this.env },
         });
-        menuButtonsRegistry.add(`new_model_item_${menuButtonsId}`, {
-            Component: NewModelItem,
-            props: { env: this.env },
-        });
+        menuButtonsRegistry.add(`new_model_item_${menuButtonsId}`, { Component: NewModelItem });
         onWillDestroy(() => {
             menuButtonsRegistry.remove(`app_menu_editor_${menuButtonsId}`);
             menuButtonsRegistry.remove(`new_model_item_${menuButtonsId}`);

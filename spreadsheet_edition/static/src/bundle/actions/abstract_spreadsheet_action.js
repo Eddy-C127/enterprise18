@@ -3,6 +3,7 @@ import { onMounted, onWillStart, useState, Component, useSubEnv, onWillUnmount }
 import { useService } from "@web/core/utils/hooks";
 import { useSetupAction } from "@web/webclient/actions/action_hook";
 import { downloadFile } from "@web/core/network/download";
+import { user } from "@web/core/user";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
@@ -51,7 +52,6 @@ export class AbstractSpreadsheetAction extends Component {
         this.notifications = useService("notification");
         this.orm = useService("orm");
         this.http = useService("http");
-        this.user = useService("user");
         this.ui = useService("ui");
         this.loadLocales = useSpreadsheetLocales();
         this.loadCurrencies = useSpreadsheetCurrencies();
@@ -153,8 +153,8 @@ export class AbstractSpreadsheetAction extends Component {
                 transportService: this.transportService,
                 client: {
                     id: uuidGenerator.uuidv4(),
-                    name: this.user.name,
-                    userId: this.user.userId,
+                    name: user.name,
+                    userId: user.userId,
                 },
                 mode: this.isReadonly ? "readonly" : "normal",
                 snapshotRequested: this.snapshotRequested,

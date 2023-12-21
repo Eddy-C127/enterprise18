@@ -1,8 +1,8 @@
 /** @odoo-module */
 
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { getFixture, patchWithCleanup, click, nextTick } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
-import { session } from "@web/session";
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { browser } from "@web/core/browser/browser";
 import { patchListRendererDesktop } from "@web_enterprise/views/list/list_renderer_desktop";
@@ -53,7 +53,7 @@ QUnit.module(
             async function (assert) {
                 assert.expect(11);
 
-                patchWithCleanup(session, { is_system: true });
+                patchUserWithCleanup({ isSystem: true });
 
                 await makeView({
                     serverData,
@@ -114,7 +114,7 @@ QUnit.module(
             async function (assert) {
                 assert.expect(11);
 
-                patchWithCleanup(session, { is_system: true });
+                patchUserWithCleanup({ isSystem: true });
 
                 await makeView({
                     serverData,
@@ -175,7 +175,7 @@ QUnit.module(
             async function (assert) {
                 assert.expect(3);
 
-                patchWithCleanup(session, { is_system: false });
+                patchUserWithCleanup({ isSystem: false });
 
                 await makeView({
                     serverData,
@@ -200,9 +200,7 @@ QUnit.module(
         QUnit.test(
             "add custom field button not shown to non-system users (wo opt. col.)",
             async function (assert) {
-                assert.expect(1);
-                patchWithCleanup(session, { is_system: false });
-
+                patchUserWithCleanup({ isSystem: false });
                 await makeView({
                     serverData,
                     type: "list",
@@ -223,7 +221,7 @@ QUnit.module(
             "add custom field button not shown with invalid action",
             async function (assert) {
                 assert.expect(1);
-                patchWithCleanup(session, { is_system: false });
+                patchUserWithCleanup({ isSystem: false });
                 config.actionId = null;
                 await makeView({
                     serverData,
@@ -242,7 +240,7 @@ QUnit.module(
         );
 
         QUnit.test("x2many should not be editable", async (assert) => {
-            patchWithCleanup(session, { is_system: true });
+            patchUserWithCleanup({ isSystem: true });
             serverData.models.bar = {
                 fields: {},
                 records: [],
@@ -275,7 +273,7 @@ QUnit.module(
         });
 
         QUnit.test("upsell studio feature is not polluted by another view", async (assert) => {
-            patchWithCleanup(session, { is_system: true });
+            patchUserWithCleanup({ isSystem: true });
 
             const serviceRegistry = registry.category("services");
             serviceRegistry.add("home_menu", homeMenuService);

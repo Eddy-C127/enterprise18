@@ -22,7 +22,7 @@ export function useViewEditorModel(viewRef) {
 
     /* Services */
     const services = Object.fromEntries(
-        ["user", "orm", "ui", "notification"].map((sName) => {
+        ["orm", "ui", "notification"].map((sName) => {
             return [sName, useService(sName)];
         })
     );

@@ -14,6 +14,7 @@ import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { omit, pick } from "@web/core/utils/objects";
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 import { useEditorBreadcrumbs } from "@web_studio/client_action/editor/edition_flow";
 import { KeepLast } from "@web/core/utils/concurrency";
 import { renderToMarkup } from "@web/core/utils/render";
@@ -87,7 +88,7 @@ export class ReportEditorModel extends Reactive {
 
         this._reportArchs = {};
         this.renderKey = 1;
-        this.routesContext = pick(this._services.user.context, "allowed_company_ids");
+        this.routesContext = pick(user.context, "allowed_company_ids");
     }
 
     get reportData() {
@@ -318,7 +319,7 @@ export class ReportEditorModel extends Reactive {
         }
         const modelName = this.reportResModel;
         const result = await this._services.orm.search(modelName, this.getModelDomain(), {
-            context: this._services.user.context,
+            context: user.context,
         });
 
         this.reportEnv = {
@@ -358,7 +359,7 @@ export class ReportEditorModel extends Reactive {
 
 export function useReportEditorModel() {
     const services = Object.fromEntries(
-        ["orm", "user", "ui"].map((name) => {
+        ["orm", "ui"].map((name) => {
             return [name, useService(name)];
         })
     );

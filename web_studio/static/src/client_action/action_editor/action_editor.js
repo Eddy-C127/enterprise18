@@ -2,6 +2,7 @@
 import { Component } from "@odoo/owl";
 import { useOwnedDialogs, useService } from "@web/core/utils/hooks";
 import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
 import { sortBy } from "@web/core/utils/arrays";
@@ -88,7 +89,6 @@ class ActionEditor extends Component {
         this.studio = useStudioServiceAsReactive();
         this.action = useService("action");
         this.notification = useService("notification");
-        this.user = useService("user");
         this.viewCategories = getViewCategories();
         this.addDialog = useOwnedDialogs();
 
@@ -173,7 +173,7 @@ class ActionEditor extends Component {
             res_model: action.res_model,
             view_type: viewType,
             args: { view_mode: viewMode.join(",") },
-            context: this.user.context,
+            context: user.context,
         });
 
         if (viewAdded !== true) {

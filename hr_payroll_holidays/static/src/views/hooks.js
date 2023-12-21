@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart, xml } from "@odoo/owl";
 
@@ -22,7 +23,6 @@ export class TimeOffToDeferWarning extends Component {
 };
 
 export function useTimeOffToDefer() {
-    const user = useService("user");
     const orm = useService("orm");
     const timeOff = {};
     onWillStart(async () => {

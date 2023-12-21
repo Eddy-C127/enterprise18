@@ -48,7 +48,6 @@ export class TemplateDialog extends Component {
             },
         });
         this.model = new SearchModel(this.env, {
-            user: useService("user"),
             orm: this.orm,
             view: useService("view"),
         });

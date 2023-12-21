@@ -1,5 +1,6 @@
 /** @odoo-module */
 
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import {
     getFixture,
@@ -309,9 +310,7 @@ QUnit.module("Studio Approval", (hooks) => {
     QUnit.test("approval widget basic flow", async function (assert) {
         assert.expect(5);
 
-        patchWithCleanup(session, {
-            uid: 42,
-        });
+        patchUserWithCleanup({ userId: 42 });
 
         let hasValidatedRule;
 

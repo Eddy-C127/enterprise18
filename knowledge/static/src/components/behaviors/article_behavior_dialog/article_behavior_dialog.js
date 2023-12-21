@@ -5,6 +5,7 @@ import { useService } from '@web/core/utils/hooks';
 import { Dialog } from '@web/core/dialog/dialog';
 import { SelectMenu } from '@web/core/select_menu/select_menu';
 import { DropdownItem } from '@web/core/dropdown/dropdown_item';
+import { user } from "@web/core/user";
 import { Component, useEffect, onWillStart, useRef, useState } from '@odoo/owl';
 
 export class ArticleSelectionBehaviorDialog extends Component {
@@ -26,7 +27,6 @@ export class ArticleSelectionBehaviorDialog extends Component {
     setup() {
         super.setup();
         this.orm = useService('orm');
-        this.userService = useService('user');
         this.placeholderLabel = _t('Choose an Article...');
         this.toggler = useRef('togglerRef');
         this.state = useState({
@@ -42,7 +42,7 @@ export class ArticleSelectionBehaviorDialog extends Component {
 
         onWillStart(async () => {
             await this.fetchArticles();
-            this.state.isInternalUser = await this.userService.hasGroup('base.group_user');
+            this.state.isInternalUser = await user.hasGroup('base.group_user');
         });
     }
 

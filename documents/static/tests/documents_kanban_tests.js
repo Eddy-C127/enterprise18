@@ -20,7 +20,7 @@ import {
 import { registry } from "@web/core/registry";
 import { getOrigin } from "@web/core/utils/urls";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
-import { makeFakeUserService } from "@web/../tests/helpers/mock_services";
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 
 import {
     toggleMenuItem,
@@ -42,7 +42,6 @@ import {
     patchWithCleanup,
     triggerEvent,
 } from "@web/../tests/helpers/utils";
-import { session } from "@web/session";
 import { browser, makeRAMLocalStorage } from "@web/core/browser/browser";
 import { serializeDate } from "@web/core/l10n/dates";
 import {
@@ -1416,7 +1415,7 @@ QUnit.module("documents", {}, function () {
                 assert.expect(6);
                 const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
                 pyEnv.authenticate(user.login, user.password);
-                patchWithCleanup(session, { uid: pyEnv.currentUserId });
+                patchUserWithCleanup({ userId: pyEnv.currentUserId });
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -1467,7 +1466,7 @@ QUnit.module("documents", {}, function () {
 
                 const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
                 pyEnv.authenticate(user.login, user.password);
-                patchWithCleanup(session, { uid: pyEnv.currentUserId });
+                patchUserWithCleanup({ userId: pyEnv.currentUserId });
                 const kanban = await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -1987,7 +1986,7 @@ QUnit.module("documents", {}, function () {
 
                 const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
                 pyEnv.authenticate(user.login, user.password);
-                patchWithCleanup(session, { uid: pyEnv.currentUserId });
+                patchUserWithCleanup({ userId: pyEnv.currentUserId });
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -2310,7 +2309,7 @@ QUnit.module("documents", {}, function () {
 
                     const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
                     pyEnv.authenticate(user.login, user.password);
-                    patchWithCleanup(session, { uid: pyEnv.currentUserId });
+                    patchUserWithCleanup({ userId: pyEnv.currentUserId });
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
@@ -2359,7 +2358,7 @@ QUnit.module("documents", {}, function () {
                 });
                 const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
                 pyEnv.authenticate(user.login, user.password);
-                patchWithCleanup(session, { uid: pyEnv.currentUserId });
+                patchUserWithCleanup({ userId: pyEnv.currentUserId });
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -4078,11 +4077,9 @@ QUnit.module("documents", {}, function () {
             QUnit.test("SearchPanel: can edit folders", async function (assert) {
                 assert.expect(8);
 
-                serviceRegistry.add(
-                    "user",
-                    makeFakeUserService((group) => group === "documents.group_documents_manager"),
-                    { force: true }
-                );
+                patchUserWithCleanup({
+                    hasGroup: (group) => group === "documents.group_documents_manager",
+                });
 
                 const kanban = await createDocumentsView({
                     type: "kanban",
@@ -4172,11 +4169,9 @@ QUnit.module("documents", {}, function () {
             QUnit.test("SearchPanel: can edit attributes", async function (assert) {
                 assert.expect(2);
 
-                serviceRegistry.add(
-                    "user",
-                    makeFakeUserService((group) => group === "documents.group_documents_manager"),
-                    { force: true }
-                );
+                patchUserWithCleanup({
+                    hasGroup: (group) => group === "documents.group_documents_manager",
+                });
 
                 await createDocumentsView({
                     type: "kanban",

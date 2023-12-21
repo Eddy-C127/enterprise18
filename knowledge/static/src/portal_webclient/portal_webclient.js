@@ -16,7 +16,6 @@ export class KnowledgePortalWebClient extends Component {
         window.parent.document.body.style.margin = "0"; // remove the margin in the parent body
         this.actionService = useService("action");
         this.orm = useService("orm");
-        this.userService = useService("user");
         useOwnDebugContext({ categories: ["default"] });
         this.state = useState({
             fullscreen: false,

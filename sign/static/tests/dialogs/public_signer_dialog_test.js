@@ -3,7 +3,6 @@
 import { click, getFixture, mount, editInput } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
-    makeFakeUserService,
     makeFakeDialogService,
     makeFakeLocalizationService,
 } from "@web/../tests/helpers/mock_services";
@@ -42,7 +41,6 @@ QUnit.module("public signer dialog", function (hooks) {
 
     hooks.beforeEach(() => {
         target = getFixture();
-        serviceRegistry.add("user", makeFakeUserService());
         serviceRegistry.add("dialog", makeFakeDialogService());
         serviceRegistry.add("localization", makeFakeLocalizationService());
         serviceRegistry.add("ui", uiService);

@@ -8,7 +8,6 @@ import { ormService } from "@web/core/orm_service";
 import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_menu/enterprise_subscription_service";
 
 import { fakeCommandService, patchRPCWithCleanup } from "@web/../tests/helpers/mock_services";
-import { userService } from "@web/core/user_service";
 import { uiService } from "@web/core/ui/ui_service";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { registerCleanup } from "@web/../tests/helpers/cleanup";
@@ -138,7 +137,6 @@ QUnit.module("Studio", (hooks) => {
         serviceRegistry.add("home_menu", fakeHomeMenuService);
         serviceRegistry.add("http", fakeHTTPService);
         serviceRegistry.add("menu", fakeMenuService);
-        serviceRegistry.add("user", userService);
         serviceRegistry.add("studio", fakeStudioService);
         serviceRegistry.add("hotkey", hotkeyService);
         serviceRegistry.add("dialog", dialogService);

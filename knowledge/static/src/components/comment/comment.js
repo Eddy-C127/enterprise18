@@ -1,4 +1,5 @@
 /** @odoo-module */
+import { user } from "@web/core/user";
 import { useBus, useService } from '@web/core/utils/hooks';
 import { usePopover } from '@web/core/popover/popover_hook';
 import { Composer } from '@mail/core/common/composer';
@@ -48,7 +49,6 @@ export class KnowledgeCommentsThread extends Component {
 
         this.threadService = useService('mail.thread');
         this.messageService = useService('mail.message');
-        this.userService = useService('user');
         this.orm = useService('orm');
         this.uiService = useService('ui');
         this.popover = usePopover(KnowledgeCommentsPopover, {
@@ -109,7 +109,7 @@ export class KnowledgeCommentsThread extends Component {
         useBus(this.env.bus, 'KNOWLEDGE:CLOSE_COMMENT', () => this.state.commenting = false);
         useBus(this.env.bus, 'mail.thread/onUpdate', ({ detail }) => {
             if (detail.data.isLoaded && detail.thread.model === 'knowledge.article.thread') {
-                this.state.lastPartnerId = detail.thread.messages.at(-1)?.author.id || this.userService.partnerId;
+                this.state.lastPartnerId = detail.thread.messages.at(-1)?.author.id || user.partnerId;
             }
         });
 
@@ -201,9 +201,9 @@ export class KnowledgeCommentsThread extends Component {
                     this.props.destroyComment(this.state.knowledgeThreadId, this.mainAnchor, true);
                     return;
                 }
-                this.state.lastPartnerId = this.messages.length ? this.messages.at(-1)?.author.id : this.userService.partnerId;
+                this.state.lastPartnerId = this.messages.length ? this.messages.at(-1)?.author.id : user.partnerId;
             } else if (!this.state.thread) {
-                this.state.lastPartnerId = this.userService.partnerId;
+                this.state.lastPartnerId = user.partnerId;
             }
         });
 
@@ -369,7 +369,7 @@ export class KnowledgeCommentsThread extends Component {
         const commentWidth = this.targetRef.el.getBoundingClientRect().width;
         this.state.smallUI = !this.props.forceFullSize && (forcedSmallUI || this.isSmallUINeeded());
         if (this.state.smallUI) {
-            this.state.lastPartnerId = this.messages.at(-1)?.author.id || this.userService.partnerId;
+            this.state.lastPartnerId = this.messages.at(-1)?.author.id || user.partnerId;
             this.state.width = '';
             // 1cm is the size of the margin that was decided to set when an article is not full size but
             // still triggers the small UI mode. 1rem is the size of the

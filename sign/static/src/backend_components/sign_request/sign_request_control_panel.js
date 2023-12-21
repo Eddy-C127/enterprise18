@@ -59,7 +59,6 @@ export class SignRequestControlPanel extends Component {
         this.controlPanelDisplay = {};
         this.action = useService("action");
         this.orm = useService("orm");
-        this.user = useService("user");
         this.signInfo = useService("signInfo");
         this.nextTemplate = multiFileUpload.getNext();
         useResendButtons();

@@ -4,7 +4,7 @@ import { Component } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
-import { useService } from "@web/core/utils/hooks";
+import { user } from "@web/core/user";
 
 export class NewReportDialog extends Component {
     static template = "web_studio.NewReportDialog";
@@ -12,7 +12,6 @@ export class NewReportDialog extends Component {
     static props = ["resModel", "onReportCreated", "close"];
 
     setup() {
-        this.user = useService("user");
         this.layouts = [
             {
                 name: "web.external_layout",
@@ -36,7 +35,7 @@ export class NewReportDialog extends Component {
         const report = await rpc("/web_studio/create_new_report", {
             model_name: this.props.resModel,
             layout,
-            context: this.user.context,
+            context: user.context,
         });
         this.props.onReportCreated(report);
         this.props.close();

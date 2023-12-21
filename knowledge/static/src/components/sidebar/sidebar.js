@@ -10,6 +10,7 @@ import {
     KnowledgeSidebarSharedSection,
     KnowledgeSidebarWorkspaceSection
 } from "./sidebar_section";
+import { user } from "@web/core/user";
 import { throttleForAnimation } from "@web/core/utils/timing";
 import { useNestedSortable } from "@web/core/utils/nested_sortable";
 import { useService } from "@web/core/utils/hooks";
@@ -53,7 +54,6 @@ export class KnowledgeSidebar extends Component {
         this.actionService = useService("action");
         this.dialog = useService("dialog");
         this.orm = useService("orm");
-        this.userService = useService("user");
 
         this.favoriteTree = useRef("favoriteTree");
         this.mainTree = useRef("mainTree");
@@ -193,7 +193,7 @@ export class KnowledgeSidebar extends Component {
         });
 
         onWillStart(async () => {
-            this.isInternalUser = await this.userService.hasGroup('base.group_user');
+            this.isInternalUser = await user.hasGroup('base.group_user');
         });
 
         useRecordObserver(async (record) => {

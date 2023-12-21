@@ -9,7 +9,7 @@ import { isMobileOS } from "@web/core/browser/feature_detection";
 import { _t } from "@web/core/l10n/translation";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { useService } from "@web/core/utils/hooks";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 
 export class CorrespondenceDetails extends Component {
     static props = ["extraClass?", "correspondence"];
@@ -249,7 +249,7 @@ export class CorrespondenceDetails extends Component {
         const resModel = this.activity.res_model;
         const resId = this.activity.res_id;
         const viewId = await this.orm.call(resModel, "get_formview_id", [[resId]], {
-            context: session.user_context,
+            context: user.context,
         });
         this.action.doAction({
             type: "ir.actions.act_window",

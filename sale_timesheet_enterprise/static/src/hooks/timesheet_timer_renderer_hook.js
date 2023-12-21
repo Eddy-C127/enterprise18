@@ -3,7 +3,7 @@
 import { reactive } from "@odoo/owl";
 
 import { patch } from "@web/core/utils/patch";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 
 import { TimesheetTimerRendererHook } from "@timesheet_grid/hooks/timesheet_timer_hooks";
 
@@ -33,7 +33,7 @@ patch(TimesheetTimerRendererHook.prototype, {
             "res.company",
             "get_timesheet_ranking_data",
             [periodStart, periodEnd, today, false],
-            { context: session.user_context }
+            { context: user.context }
         );
 
         this.leaderboard.total_time_target = data.total_time_target;

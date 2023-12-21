@@ -1,13 +1,14 @@
 /** @odoo-module */
 
 import { registry } from "@web/core/registry";
+import { user } from "@web/core/user";
 
 export const timerHelpdeskService = {
-    dependencies: ["orm", "user"],
+    dependencies: ["orm"],
     async: [
         "getHelpdeskProjects",
     ],
-    start(env, { orm, user }) {
+    start(env, { orm }) {
         let helpdeskProjects;
         return {
             async fetchHelpdeskProjects() {

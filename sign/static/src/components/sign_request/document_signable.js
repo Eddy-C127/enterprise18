@@ -30,7 +30,6 @@ export class Document extends Component {
     setup() {
         this.orm = useService("orm");
         this.dialog = useService("dialog");
-        this.user = useService("user");
         this.ui = useService("ui");
         this.signInfo = useService("signInfo");
         useEffect(
@@ -122,7 +121,6 @@ export class Document extends Component {
                 rpc,
                 orm: this.orm,
                 dialog: this.dialog,
-                user: this.user,
                 ui: this.ui,
                 signInfo: this.signInfo,
             },

@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 import { rpc } from "@web/core/network/rpc";
 import { ConfirmationDialog, AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
@@ -27,15 +27,14 @@ export class PermissionPanel extends Component {
         this.orm = useService('orm');
         /** @type {import("@mail/core/common/thread_service").ThreadService} */
         this.threadService = useService("mail.thread");
-        this.userService = useService('user');
 
         this.state = useState({
             loading: true,
-            partner_id: session.partner_id
+            partner_id: user.partnerId
         });
         onWillStart(async () => {
             this.loadPanel();
-            this.isInternalUser = await this.userService.hasGroup('base.group_user');
+            this.isInternalUser = await user.hasGroup('base.group_user');
         });
     }
 
@@ -69,7 +68,7 @@ export class PermissionPanel extends Component {
      * @returns {Boolean}
      */
     isLoggedUser (member) {
-        return member.partner_id === session.partner_id;
+        return member.partner_id === user.partnerId;
     }
 
     _onInviteMembersClick () {
@@ -93,7 +92,7 @@ export class PermissionPanel extends Component {
     _onChangeInternalPermission (event) {
         const $select = $(event.target);
         const index = this.state.members.findIndex(current => {
-            return current.partner_id === session.partner_id;
+            return current.partner_id === user.partnerId;
         });
         const newPermission = $select.val();
         const oldPermission = this.state.internal_permission;

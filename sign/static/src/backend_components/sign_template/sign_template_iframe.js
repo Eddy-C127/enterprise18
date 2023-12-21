@@ -7,6 +7,7 @@ import { normalizePosition, startResize } from "@sign/components/sign_request/ut
 import { SignItemCustomPopover } from "@sign/backend_components/sign_template/sign_item_custom_popover";
 import { PDFIframe } from "@sign/components/sign_request/PDF_iframe";
 import { EditablePDFIframeMixin } from "@sign/backend_components/editable_pdf_iframe_mixin";
+import { user } from "@web/core/user";
 import { Deferred } from "@web/core/utils/concurrency";
 import { isMobileOS } from "@web/core/browser/feature_detection";
 
@@ -331,7 +332,7 @@ export class SignTemplateIframe extends EditablePDFIframeMixin(PDFIframe) {
             "sign.item.option",
             [["id", "in", newIds]],
             ["id", "value"],
-            { context: this.user.context }
+            { context: user.context }
         );
         for (const option of newOptions) {
             this.selectionOptionsById[option.id] = option;

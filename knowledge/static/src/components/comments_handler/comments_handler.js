@@ -2,6 +2,7 @@
 
 import { registry } from '@web/core/registry';
 import { standardWidgetProps } from '@web/views/widgets/standard_widget_props';
+import { user } from "@web/core/user";
 import { useBus, useService } from '@web/core/utils/hooks';
 import { useRecordObserver } from '@web/model/relational_model/utils';
 import { isZWS } from '@web_editor/js/editor/odoo-editor/src/utils/utils';
@@ -55,9 +56,7 @@ export class KnowledgeCommentsHandler extends Component {
         };
 
         this.threadService = useService('mail.thread');
-        this.userService = useService('user');
         this.orm = useService('orm');
-
         useRecordObserver(async (record) => {
             const allCommentsThread = (record.resId || this.props.record.resId) ? await this.orm.searchRead(
                 'knowledge.article.thread',
@@ -74,8 +73,8 @@ export class KnowledgeCommentsHandler extends Component {
         });
 
         onWillStart(async () => {
-            this.state.isInternalUser = await this.userService.hasGroup('base.group_user');
-            this.state.isPortalUser = await this.userService.hasGroup('base.group_portal');
+            this.state.isInternalUser = await user.hasGroup('base.group_user');
+            this.state.isPortalUser = await user.hasGroup('base.group_portal');
         });
 
         onMounted(() => {

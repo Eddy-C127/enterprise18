@@ -3,12 +3,12 @@
 import { click, getFixture, mount, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
-    makeFakeUserService,
     makeFakeDialogService,
     makeFakeLocalizationService,
 } from "@web/../tests/helpers/mock_services";
 import { NextDirectSignDialog } from "@sign/dialogs/dialogs";
 import { registry } from "@web/core/registry";
+import { user } from "@web/core/user";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { uiService } from "@web/core/ui/ui_service";
 
@@ -53,7 +53,6 @@ QUnit.module("next direct sign dialog", function (hooks) {
 
     hooks.beforeEach(() => {
         target = getFixture();
-        serviceRegistry.add("user", makeFakeUserService());
         serviceRegistry.add("dialog", makeFakeDialogService());
         serviceRegistry.add("localization", makeFakeLocalizationService());
         serviceRegistry.add("ui", uiService);
@@ -104,7 +103,7 @@ QUnit.module("next direct sign dialog", function (hooks) {
                 assert.strictEqual(action.tag, "sign.SignableDocument");
                 const expected = {
                     id: documentId,
-                    create_uid: env.services.user.userId,
+                    create_uid: user.userId,
                     state: signRequestState,
                     token: "abc",
                     token_list: ["def"],

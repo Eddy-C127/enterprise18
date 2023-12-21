@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 import { KeepLast } from "@web/core/utils/concurrency";
 import { intersection } from "@web/core/utils/arrays";
 import { AutoComplete } from "@web/core/autocomplete/autocomplete";
@@ -110,7 +110,7 @@ export class DocumentsInspector extends Component {
         const updateLockedState = (props) => {
             this.isLocked =
                 (props.documents.find(
-                    (rec) => rec.data.lock_uid && rec.data.lock_uid[0] !== session.uid
+                    (rec) => rec.data.lock_uid && rec.data.lock_uid[0] !== user.userId
                 ) &&
                     true) ||
                 false;
@@ -373,9 +373,12 @@ export class DocumentsInspector extends Component {
                     { type: "warning" }
                 );
             } else {
-                this.notificationService.add(_t("The share url has been copied to your clipboard."), {
-                    type: "success",
-                });
+                this.notificationService.add(
+                    _t("The share url has been copied to your clipboard."),
+                    {
+                        type: "success",
+                    }
+                );
             }
         });
     }
@@ -557,7 +560,7 @@ export class DocumentsInspector extends Component {
             "get_formview_action",
             [[record.data.res_id]],
             {
-                context: record.model.user.context,
+                context: user.context,
             }
         );
         await this.action.doAction(action);

@@ -5,8 +5,8 @@ import { rpc } from "@web/core/network/rpc";
 import * as BarcodeScanner from '@web/webclient/barcode/barcode_scanner';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { registry } from "@web/core/registry";
+import { user } from "@web/core/user";
 import { useBus, useService } from "@web/core/utils/hooks";
-import { session } from "@web/session";
 import { serializeDate, today } from "@web/core/l10n/dates";
 import { Component, onWillStart, useState } from "@odoo/owl";
 
@@ -21,7 +21,6 @@ export class MainMenu extends Component {
 
     setup() {
         const displayDemoMessage = this.props.action.params.message_demo_barcodes;
-        const user = useService('user');
         this.actionService = useService('action');
         this.dialogService = useService('dialog');
         this.home = useService("home_menu");
@@ -37,7 +36,7 @@ export class MainMenu extends Component {
             this.locationsEnabled = await user.hasGroup('stock.group_stock_multi_locations');
             this.packagesEnabled = await user.hasGroup('stock.group_tracking_lot');
             const args = [
-                ["user_id", "=?", session.uid],
+                ["user_id", "=?", user.userId],
                 ["location_id.usage", "in", ["internal", "transit"]],
                 ["inventory_date", "<=", serializeDate(today())],
             ]

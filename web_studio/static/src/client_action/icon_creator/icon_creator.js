@@ -2,6 +2,7 @@
 import { COLORS, BG_COLORS, ICONS } from "@web_studio/utils";
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { FileInput } from "@web/core/file_input/file_input";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 
 import { Component, onWillUpdateProps, useRef, useState } from "@odoo/owl";
@@ -60,7 +61,6 @@ export class IconCreator extends Component {
         this.iconRef = useRef("app-icon");
 
         this.orm = useService("orm");
-        const user = useService("user");
 
         this.FileInput = FileInput;
         this.fileInputProps = {

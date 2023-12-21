@@ -3,6 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
 import { multiFileUpload } from "@sign/backend_components/multi_file_upload";
+import { user } from "@web/core/user";
 import { getDataURLFromFile } from "@web/core/utils/urls";
 import { TemplateAlertDialog } from "@sign/backend_components/template_alert_dialog/template_alert_dialog";
 import { onWillStart, useComponent, useRef } from "@odoo/owl";
@@ -10,7 +11,6 @@ import { onWillStart, useComponent, useRef } from "@odoo/owl";
 export function useSignViewButtons() {
     const component = useComponent();
     const fileInput = useRef("uploadFileInput");
-    const user = useService("user");
     const orm = useService("orm");
     const dialog = useService("dialog");
     const action = useService("action");

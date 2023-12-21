@@ -1,9 +1,10 @@
 /* @odoo-module */
 
 import { setupManager } from "@mail/../tests/helpers/webclient_setup";
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 
 import { patch } from "@web/core/utils/patch";
-import { makeFakeUserService } from "@web/../tests/helpers/mock_services";
+import { user } from "@web/core/user";
 import { registry } from "@web/core/registry";
 
 patch(setupManager, {
@@ -23,10 +24,12 @@ patch(setupManager, {
                 };
             },
         });
-        if (!services.contains("user")) {
-            const fakeUserService = makeFakeUserService((group) => group === "base.group_user");
-            services.add("user", fakeUserService);
-        }
+        const superHasGroup = user.hasGroup;
+        patchUserWithCleanup({
+            hasGroup: (group) => {
+                return group === "base.group_user" || superHasGroup(group);
+            }
+        });
         return super.setupServiceRegistries(...arguments);
     },
 });

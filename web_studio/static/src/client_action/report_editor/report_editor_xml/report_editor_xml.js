@@ -4,7 +4,8 @@ import { XmlResourceEditor } from "@web_studio/client_action/xml_resource_editor
 import { useEditorMenuItem } from "@web_studio/client_action/editor/edition_flow";
 import { ReportEditorSnackbar } from "@web_studio/client_action/report_editor/report_editor_snackbar";
 import { ReportRecordNavigation } from "./report_record_navigation";
-import { useBus, useOwnedDialogs, useService } from "@web/core/utils/hooks";
+import { user } from "@web/core/user";
+import { useBus, useOwnedDialogs } from "@web/core/utils/hooks";
 import { ReportEditorIframe } from "../report_editor_iframe";
 import { localization } from "@web/core/l10n/localization";
 import { TranslationDialog } from "@web/views/fields/translation_dialog";
@@ -31,7 +32,6 @@ class TranslationButton extends Component {
     };
 
     setup() {
-        this.user = useService("user");
         this.addDialog = useOwnedDialogs();
     }
 
@@ -39,7 +39,7 @@ class TranslationButton extends Component {
         return localization.multiLang;
     }
     get lang() {
-        return this.user.lang.split("_")[0].toUpperCase();
+        return user.lang.split("_")[0].toUpperCase();
     }
     onClick() {
         this.addDialog(TranslationDialog, {

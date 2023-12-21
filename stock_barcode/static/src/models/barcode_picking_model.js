@@ -5,7 +5,7 @@ import { BackorderDialog } from '../components/backorder_dialog';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { escape } from '@web/core/utils/strings';
-import { session } from '@web/session';
+import { user } from '@web/core/user';
 import { markup } from '@odoo/owl';
 import { formatFloat } from "@web/core/utils/numbers";
 
@@ -1464,9 +1464,9 @@ export default class BarcodePickingModel extends BarcodeModel {
      * Set the pickings's responsible if not assigned to active user.
      */
     async _setUser() {
-        if (this.record.id && this.record.user_id != session.uid) {
-            this.record.user_id = session.uid;
-            await this.orm.write(this.resModel, [this.record.id], { user_id: session.uid });
+        if (this.record.id && this.record.user_id != user.userId) {
+            this.record.user_id = user.userId;
+            await this.orm.write(this.resModel, [this.record.id], { user_id: user.userId });
         }
     }
 

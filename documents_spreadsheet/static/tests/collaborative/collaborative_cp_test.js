@@ -14,7 +14,7 @@ import {
     joinSession,
     leaveSession,
 } from "@spreadsheet_edition/../tests/utils/collaborative_helpers";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 
 /** @type {HTMLElement} */
 let target;
@@ -80,7 +80,7 @@ QUnit.module(
         });
 
         QUnit.test("collaborative session client has the user id", async function (assert) {
-            const uid = session.user_context.uid;
+            const uid = user.userId;
             const { model } = await createSpreadsheet();
             const clients = [...model.getters.getConnectedClients()];
             assert.strictEqual(clients.length, 1);

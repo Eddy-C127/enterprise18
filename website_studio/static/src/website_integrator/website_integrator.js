@@ -4,6 +4,7 @@ import { useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 
@@ -18,7 +19,6 @@ class WebsiteIntegrator extends Component {
         this.studio = useService("studio");
         this.orm = useService("orm");
         this.action = useService("action");
-        this.user = useService("user");
         this.notification = useService("notification");
         this.state = useState({ forms: [] });
         this.isDesigner = false;
@@ -51,10 +51,10 @@ class WebsiteIntegrator extends Component {
             return Promise.all([
                 this.loadExistingForms(),
                 this.loadWebsitePages(),
-                this.user
+                user
                     .hasGroup("website.group_website_designer")
                     .then((r) => (this.isDesigner = r)),
-                    this.user
+                user
                     .hasGroup("website.group_multi_website")
                     .then((r) => (this.hasMultiWebsite = r)),
             ]);

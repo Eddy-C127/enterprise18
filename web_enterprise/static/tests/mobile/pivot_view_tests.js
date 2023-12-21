@@ -3,7 +3,6 @@
 import { registry } from "@web/core/registry";
 import {
     makeFakeLocalizationService,
-    makeFakeUserService,
 } from "@web/../tests/helpers/mock_services";
 import { getFixture, patchWithCleanup } from "@web/../tests/helpers/utils";
 import {
@@ -154,7 +153,6 @@ QUnit.module("Views", (hooks) => {
         setupControlPanelFavoriteMenuRegistry();
         setupControlPanelServiceRegistry();
         serviceRegistry.add("localization", makeFakeLocalizationService());
-        serviceRegistry.add("user", makeFakeUserService());
         patchWithCleanup(browser, { setTimeout: (fn) => fn() });
     });
 

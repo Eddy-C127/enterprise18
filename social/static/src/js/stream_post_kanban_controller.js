@@ -7,6 +7,7 @@ import { StreamPostDashboard } from './stream_post_kanban_dashboard';
 import { useModelWithSampleData } from "@web/model/model";
 
 import { KanbanController } from '@web/views/kanban/kanban_controller';
+import { user } from "@web/core/user";
 import { useService } from '@web/core/utils/hooks';
 import { onWillStart, useEffect, useSubEnv, useState } from "@odoo/owl";
 
@@ -29,7 +30,6 @@ export class StreamPostKanbanController extends KanbanController {
             refreshRequired: false,
             disableSyncButton: false,
         });
-        this.user = useService('user');
         useSubEnv({
             refreshStats: this._onRefreshStats.bind(this)
         });
@@ -41,7 +41,7 @@ export class StreamPostKanbanController extends KanbanController {
         }, () => [document.querySelector('.o_social_js_add_stream')]);
 
         onWillStart(async () => {
-            this.isSocialManager = await this.user.hasGroup("social.group_social_manager");
+            this.isSocialManager = await user.hasGroup("social.group_social_manager");
             this.hasAccounts = await this.orm.searchCount('social.account', []) > 0;
             this.accounts = await this.model._loadAccountsStats();
         });

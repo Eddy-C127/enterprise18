@@ -4,7 +4,6 @@ import { click, getFixture, mount, patchWithCleanup, nextTick } from "@web/../te
 import { browser } from "@web/core/browser/browser";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
-    makeFakeUserService,
     makeFakeDialogService,
     makeFakeLocalizationService,
 } from "@web/../tests/helpers/mock_services";
@@ -41,7 +40,6 @@ QUnit.module("sms signer dialog", (hooks) => {
 
     hooks.beforeEach(async () => {
         target = getFixture();
-        serviceRegistry.add("user", makeFakeUserService());
         serviceRegistry.add("dialog", makeFakeDialogService());
         serviceRegistry.add("localization", makeFakeLocalizationService());
         serviceRegistry.add("ui", uiService);

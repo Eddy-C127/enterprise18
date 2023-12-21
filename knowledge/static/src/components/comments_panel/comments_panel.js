@@ -2,6 +2,7 @@
 
 import { registry } from '@web/core/registry';
 import { standardWidgetProps } from '@web/views/widgets/standard_widget_props';
+import { user } from "@web/core/user";
 import { useBus, useService } from '@web/core/utils/hooks';
 
 import { KnowledgeCommentsThread } from '../comment/comment';
@@ -36,10 +37,9 @@ export class KnowledgeArticleCommentsPanel extends Component {
 
         this.threadService = useService('mail.thread');
         this.orm = useService('orm');
-        this.userService = useService('user');
 
         onWillStart(async () => {
-            this.state.isInternalUser = await this.userService.hasGroup('base.group_user');
+            this.state.isInternalUser = await user.hasGroup('base.group_user');
         });
 
         useBus(this.env.bus, 'KNOWLEDGE:TOGGLE_COMMENTS', this.toggleComments.bind(this));

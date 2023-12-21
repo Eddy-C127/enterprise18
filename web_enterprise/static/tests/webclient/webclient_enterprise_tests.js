@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import {
     click,
     editInput,
@@ -17,7 +18,6 @@ import { ormService } from "@web/core/orm_service";
 import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_menu/enterprise_subscription_service";
 import { browser } from "@web/core/browser/browser";
 import { errorService } from "@web/core/errors/error_service";
-import { session } from "@web/session";
 import { shareUrlMenuItem } from "@web_enterprise/webclient/share_url/share_url";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { menuService } from "@web/webclient/menus/menu_service";
@@ -571,8 +571,10 @@ QUnit.module("WebClient Enterprise", (hooks) => {
         "Apps are reordered at startup based on session's user settings",
         async function (assert) {
             // Config is written with apps xmlids order (default is menu_1, menu_2)
-            patchWithCleanup(session, {
-                user_settings: { id: 1, homemenu_config: '["menu_2","menu_1"]' },
+            patchUserWithCleanup({
+                get settings() {
+                    return { id: 1, homemenu_config: '["menu_2","menu_1"]' };
+                },
             });
             await createEnterpriseWebClient({ fixture, serverData });
 

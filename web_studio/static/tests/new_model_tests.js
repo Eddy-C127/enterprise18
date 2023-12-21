@@ -20,7 +20,7 @@ QUnit.module("Studio Navbar > New Model", (hooks) => {
 
     class Parent extends Component {
         static components = { MainComponentsContainer, NewModelItem };
-        static template = xml`<MainComponentsContainer /><NewModelItem env="env" />`;
+        static template = xml`<MainComponentsContainer /><NewModelItem />`;
     }
 
     async function createNewModelIem(config = {}) {

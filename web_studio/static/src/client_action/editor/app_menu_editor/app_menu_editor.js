@@ -3,6 +3,7 @@ import { Component, useRef, useState } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
 import { useBus, useService, useOwnedDialogs } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
+import { user } from "@web/core/user";
 import { useNestedSortable } from "@web/core/utils/nested_sortable";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { MenuCreatorDialog } from "@web_studio/client_action/menu_creator/menu_creator";
@@ -25,7 +26,6 @@ class EditMenuDialog extends Component {
         this.menus = useService("menu");
         this.addDialog = useOwnedDialogs();
         this.orm = useService("orm");
-        this.user = useService("user");
 
         useBus(this.env.bus, "ACTION_MANAGER:UPDATE", () => this.cancel());
 
@@ -167,7 +167,7 @@ class EditMenuDialog extends Component {
                     model_choice: data.modelChoice,
                     model_options: data.modelOptions || {},
                     parent_menu_id: this.mainItem.id,
-                    context: this.user.context,
+                    context: user.context,
                 });
                 this.env.bus.trigger("CLEAR-CACHES");
                 this.menus.reload();

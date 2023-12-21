@@ -4,7 +4,7 @@ import { ControlPanel } from "@web/search/control_panel/control_panel";
 import { useService } from "@web/core/utils/hooks";
 import { SpreadsheetName } from "./spreadsheet_name";
 import { SpreadsheetShareButton } from "@spreadsheet/components/share_button/share_button";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 import { _t } from "@web/core/l10n/translation";
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
@@ -52,11 +52,10 @@ export class SpreadsheetControlPanel extends Component {
     setup() {
         this.controlPanelDisplay = {};
         this.actionService = useService("action");
-        this.userService = useService("user");
         this.breadcrumbs = useState(this.env.config.breadcrumbs);
         this.collaborative = useState({
             isSynced: true,
-            connectedUsers: [{ name: session.username, id: session.id }],
+            connectedUsers: [{ name: user.login, id: user.userId }],
         });
         this.locale = useState({
             mismatchedLocaleTitle: "",

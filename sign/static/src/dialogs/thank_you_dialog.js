@@ -4,6 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { session } from "@web/session";
 import { Dialog } from "@web/core/dialog/dialog";
 import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { EncryptedDialog } from "./encrypted_dialog";
 import { Component, onWillStart, useState } from "@odoo/owl";
@@ -34,7 +35,6 @@ export class ThankYouDialog extends Component {
     };
 
     setup() {
-        this.user = useService("user");
         this.dialog = useService("dialog");
         this.signInfo = useService("signInfo");
         this.state = useState({
@@ -48,7 +48,7 @@ export class ThankYouDialog extends Component {
     }
 
     get suggestSignUp() {
-        return !this.user.userId;
+        return !user.userId;
     }
 
     get dialogProps() {

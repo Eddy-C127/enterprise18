@@ -21,7 +21,6 @@ patch(StudioNavbar.prototype, {
                 });
                 resetViewCompilerCache();
                 this.env.bus.trigger("CLEAR-CACHES");
-                this.user.removeFromContext("studio");
                 return;
             }
         }
