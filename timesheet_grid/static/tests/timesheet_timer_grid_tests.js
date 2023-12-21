@@ -1,9 +1,9 @@
 /** @odoo-module */
 
-import { browser } from "@web/core/browser/browser";
 import { Domain } from "@web/core/domain";
 import { registry } from "@web/core/registry";
 import { ormService } from "@web/core/orm_service";
+import { contains } from "@web/../tests/utils";
 import { serializeDateTime, serializeDate, deserializeDate } from "@web/core/l10n/dates";
 import {
     click,
@@ -11,7 +11,6 @@ import {
     getFixture,
     getNodesTextContent,
     nextTick,
-    patchWithCleanup,
     triggerEvent,
     clickOpenM2ODropdown,
     selectDropdownItem,
@@ -1015,10 +1014,6 @@ QUnit.module("Views", (hooks) => {
                 context: { group_by: ["project_id", "task_id"] },
             });
 
-            patchWithCleanup(browser, {
-                setTimeout: (fn) => fn(),
-                clearTimeout: () => {},
-            });
             const columnTotalEls = target.querySelectorAll(".o_grid_column_total");
             const columnTotalWithBarchartTotalTitle = {
                 danger: [],
@@ -1083,10 +1078,9 @@ QUnit.module("Views", (hooks) => {
             );
             await nextTick();
             await triggerEvent(columnTotalEl, "", "mouseover");
-            assert.containsOnce(
-                target,
-                ".o_grid_bar_chart_container.o_grid_highlighted .o_grid_bar_chart_overtime",
-                "The overtime of the total column hovered should be visible"
+            // The overtime of the total column hovered should be visible
+            await contains(
+                ".o_grid_bar_chart_container.o_grid_highlighted .o_grid_bar_chart_overtime"
             );
 
             const overTimeColor = ["text-danger","text-warning","text-danger","text-danger"];
