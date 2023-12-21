@@ -6,7 +6,7 @@
     'category': 'Hidden',
     'summary': 'Spreadsheet',
     'description': 'Spreadsheet',
-    'depends': ['spreadsheet'],
+    'depends': ['spreadsheet', 'mail'],
     'data': [
         'security/ir.model.access.csv',
         'views/spreadsheet_views.xml',

@@ -263,3 +263,31 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         next_revision_id = revision_data["nextRevisionId"]
         spreadsheet.dispatch_spreadsheet_message(revision_data)
         self.assertEqual(spreadsheet.current_revision_uuid, next_revision_id)
+
+    def test_default_company_custom_colors(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        company = self.env["res.company"].create({"name": "test"})
+        data = spreadsheet.with_company(company).join_spreadsheet_session()
+        self.assertEqual(data["company_colors"], ["#000000", "#875A7B"])
+
+    def test_all_company_custom_colors(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        company = self.env["res.company"].create({"name": "test"})
+        company.primary_color = "#000000"
+        company.secondary_color = "#ffffff"
+        company.email_primary_color = "#aaaaaa"
+        company.email_secondary_color = "#bbbbbb"
+        data = spreadsheet.with_company(company).join_spreadsheet_session()
+        self.assertEqual(data["company_colors"], ["#000000", "#ffffff", "#aaaaaa", "#bbbbbb"])
+
+    def test_two_companies_custom_colors(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        company_A = self.env["res.company"].create({"name": "company A"})
+        company_B = self.env["res.company"].create({"name": "company B"})
+        companies = company_A | company_B
+        company_A.primary_color = "#aa0000"
+        company_B.primary_color = "#bb0000"
+        company_A.secondary_color = "#aa1111"
+        company_B.secondary_color = "#bb1111"
+        data = spreadsheet.with_context(allowed_company_ids=companies.ids).join_spreadsheet_session()
+        self.assertEqual(data["company_colors"], ["#aa0000", "#aa1111", "#bb0000", "#bb1111"])

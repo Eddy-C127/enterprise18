@@ -159,6 +159,7 @@ export class AbstractSpreadsheetAction extends Component {
                 },
                 mode: this.isReadonly ? "readonly" : "normal",
                 snapshotRequested: this.snapshotRequested,
+                customColors: this.record.company_colors,
             },
             this.stateUpdateMessages
         );

@@ -11,7 +11,8 @@ from typing import Dict, Any, List, Optional
 
 from odoo import _, fields, models, api
 from odoo.exceptions import AccessError, UserError
-from odoo.tools import mute_logger
+from odoo.tools import mute_logger, OrderedSet
+
 _logger = logging.getLogger(__name__)
 
 CollaborationMessage = Dict[str, Any]
@@ -80,7 +81,8 @@ class SpreadsheetMixin(models.AbstractModel):
             "snapshot_requested": can_write and spreadsheet_sudo._should_be_snapshotted(),
             "isReadonly": not can_write,
             "default_currency": self.env["res.currency"].get_company_currency_for_spreadsheet(),
-            "user_locale": self.env["res.lang"]._get_user_spreadsheet_locale()
+            "user_locale": self.env["res.lang"]._get_user_spreadsheet_locale(),
+            "company_colors": self._get_context_company_colors(),
         }
 
     def dispatch_spreadsheet_message(self, message: CollaborationMessage, share_id=None, access_token=None):
@@ -396,6 +398,17 @@ class SpreadsheetMixin(models.AbstractModel):
                 'next': self.action_edit(),
             }
         }
+
+    def _get_context_company_colors(self):
+        companies = self.env.companies
+        colors = OrderedSet()
+        for company in companies:
+            colors.add(company.primary_color)
+            colors.add(company.secondary_color)
+            colors.add(company.email_primary_color)
+            colors.add(company.email_secondary_color)
+        colors.discard(False)
+        return list(colors)
 
     def _dispatch_command(self, command):
         is_accepted = self.dispatch_spreadsheet_message(self._build_new_revision_data(command))
