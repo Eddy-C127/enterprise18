@@ -115,7 +115,7 @@
                                 <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_required" data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="helpdesk1">
-                                            <span class="s_website_form_label_content">Your Name</span>
+                                            <span class="s_website_form_label_content">Full Name</span>
                                             <span class="s_website_form_mark"> *</span>
                                         </label>
                                         <div class="col-sm">
@@ -123,45 +123,66 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="helpdesk2">
+                                            <span class="s_website_form_label_content">Phone Number</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input type="tel" class="form-control s_website_form_input" name="partner_phone" data-fill-with="phone" id="helpdesk2"/>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_required" data-type="email" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk2">
-                                            <span class="s_website_form_label_content">Your Email</span>
+                                        <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk3">
+                                            <span class="s_website_form_label_content">Email Address</span>
                                             <span class="s_website_form_mark"> *</span>
                                         </label>
                                         <div class="col-sm">
-                                            <input type="email" class="form-control s_website_form_input" name="partner_email" required="1" data-fill-with="email" id="helpdesk2"/>
+                                            <input type="email" class="form-control s_website_form_input" name="partner_email" required="1" data-fill-with="email" id="helpdesk3"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_custom" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="helpdesk4">
+                                            <span class="s_website_form_label_content">Company Name</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input type="text" class="form-control s_website_form_input" name="partner_company_name" data-fill-with="commercial_company_name" id="helpdesk4"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_model_required" data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk3">
-                                            <span class="s_website_form_label_content">Subject</span>
+                                        <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk5">
+                                            <span class="s_website_form_label_content">Message Subject</span>
                                             <span class="s_website_form_mark"> *</span>
                                         </label>
                                         <div class="col-sm">
-                                            <input type="text" class="form-control s_website_form_input" name="name" required="true" id="helpdesk3"/>
+                                            <input type="text" class="form-control s_website_form_input" name="name" required="true" id="helpdesk5"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-0 py-2 s_website_form_field col-12" data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk4">
-                                            <span class="s_website_form_label_content">Description</span>
+                                        <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk6">
+                                            <span class="s_website_form_label_content">Ask Your Question</span>
+                                            <span class="s_website_form_mark"> *</span>
                                         </label>
                                         <div class="col-sm">
-                                            <textarea type="text" class="form-control s_website_form_input" name="description" id="helpdesk4" rows="5"/>
+                                            <textarea type="text" class="form-control s_website_form_input" name="description" required="true" id="helpdesk6" rows="5"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_custom" data-type="binary" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class=" col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk5">
+                                        <label class=" col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk7">
                                             <span class="s_website_form_label_content">Attachment</span>
                                         </label>
                                         <div class="col-sm">
-                                            <input type="file" class="form-control s_website_form_input" name="Attachment" id="helpdesk5"/>
+                                            <input type="file" class="form-control s_website_form_input" name="Attachment" id="helpdesk7"/>
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +192,7 @@
                                             <span class="s_website_form_label_content"/>
                                         </label>
                                         <div class="col-sm">
-                                            <input type="hidden" class="form-control s_website_form_input" name="team_id" id="helpdesk6" />
+                                            <input type="hidden" class="form-control s_website_form_input" name="team_id" id="helpdesk8" />
                                         </div>
                                     </div>
                                 </div>

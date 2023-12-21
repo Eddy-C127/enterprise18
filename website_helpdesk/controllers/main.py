@@ -146,6 +146,8 @@ class WebsiteForm(form.WebsiteForm):
                 partner = request.env['res.partner'].sudo().create({
                     'email': email,
                     'name': request.params.get('partner_name', False),
+                    'phone': request.params.get('partner_phone', False),
+                    'company_name': request.params.get('partner_company_name', False),
                     'lang': request.lang.code,
                 })
             request.params['partner_id'] = partner.id
