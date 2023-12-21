@@ -1068,7 +1068,7 @@ registry.category("web_tour.tours").add("web_studio_approval_tour", {
         },
         {
             // there should be a warning
-            trigger: ".o_notification.border-warning",
+            trigger: ".o_notification_bar.bg-warning",
         },
         {
             trigger: ".breadcrumb .o_back_button",

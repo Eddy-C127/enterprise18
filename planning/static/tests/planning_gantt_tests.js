@@ -215,7 +215,7 @@ QUnit.module("Views", (hooks) => {
             groupBy: ["resource_id"],
         });
         await click(target.querySelector(".o_gantt_button_send_all.btn-primary"));
-        await contains(".o_notification.border-danger", {
+        await contains(".o_notification:has(.o_notification_bar.bg-danger)", {
             text: "The shifts have already been published, or there are no shifts to publish.",
         });
     });
@@ -234,7 +234,7 @@ QUnit.module("Views", (hooks) => {
         assert.hasClass(target.querySelector(".o_gantt_view .o_content"), "o_view_sample_data");
         assert.ok(target.querySelectorAll(".o_gantt_row_headers .o_gantt_row_header").length >= 2);
         await click(target.querySelector(".o_gantt_button_send_all.btn-primary"));
-        await contains(".o_notification.border-danger", {
+        await contains(".o_notification:has(.o_notification_bar.bg-danger)", {
             text: "The shifts have already been published, or there are no shifts to publish.",
         });
     });

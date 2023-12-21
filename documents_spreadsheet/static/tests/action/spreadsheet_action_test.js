@@ -184,7 +184,7 @@ QUnit.module(
         QUnit.test("notify user window", async function () {
             const { env } = await createSpreadsheet();
             env.notifyUser({ text: "this is a notification", type: "warning", sticky: true });
-            await contains(".o_notification.border-warning", { text: "this is a notification" });
+            await contains(".o_notification:has(.o_notification_bar.bg-warning)", { text: "this is a notification" });
         });
 
         QUnit.test("raise error window", async function (assert) {

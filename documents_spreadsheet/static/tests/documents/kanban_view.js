@@ -181,7 +181,7 @@ QUnit.module(
             });
             await click(target, ".o_kanban_record:nth-of-type(1) .o_record_selector");
             await click(target, "button.o_inspector_share");
-            await contains(".o_notification.border-success", {
+            await contains(".o_notification:has(.o_notification_bar.bg-success)", {
                 text: "The share url has been copied to your clipboard.",
             });
             assert.verifySteps(["spreadsheet_shared", "share url copied"]);

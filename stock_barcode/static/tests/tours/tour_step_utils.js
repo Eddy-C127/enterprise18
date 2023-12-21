@@ -15,7 +15,7 @@ export const stepUtils = {
                 run: 'scan O-BTN.validate',
             },
             {
-                trigger: '.o_notification.border-success',
+                trigger: '.o_notification_bar.bg-success',
                 isCheck: true,
             },
         ];

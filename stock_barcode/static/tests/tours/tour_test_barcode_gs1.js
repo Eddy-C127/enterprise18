@@ -226,7 +226,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
         run: 'scan 011522222222221921Serial3\x1D3020',
     },
     {
-        trigger: '.o_notification.border-danger',
+        trigger: '.o_notification_bar.bg-danger',
     },
     {
         trigger: '.o_barcode_line:contains("Serial3")',
@@ -288,7 +288,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
         trigger: '.modal-content .btn[name=action_confirm]',
     },
     {
-        trigger: '.o_notification.border-success',
+        trigger: '.o_notification_bar.bg-success',
         isCheck: true,
     },
 ]});
@@ -301,7 +301,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
         run: 'scan 00987654123487568456',
     },
     {
-        trigger: '.o_notification.border-danger'
+        trigger: '.o_notification_bar.bg-danger'
     },
     // Changes location for Section 1 and scans again the package.
     {
@@ -350,7 +350,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
         run: 'scan 00487325612456785124',
     },
     {
-        trigger: '.o_notification.border-danger'
+        trigger: '.o_notification_bar.bg-danger'
     },
 
     // Scans additionnal products and put them in a new pack by scanning a non-existing package barcode.
@@ -384,7 +384,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
         trigger: '.o_apply_page'
     },
     {
-        trigger: '.o_notification.border-success',
+        trigger: '.o_notification_bar.bg-success',
         isCheck: true,
     }
 ]});
@@ -1066,7 +1066,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {t
         run: 'scan 01000000152643293100000005',
     },
     {
-        trigger: '.o_notification.border-danger',
+        trigger: '.o_notification_bar.bg-danger',
         run: function () {
             helper.assertLinesCount(0);
             const errorMessageTitle = document.querySelector('.o_notification_title');
@@ -1094,7 +1094,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {t
         run: 'scan 01000000152643293100000005',
     },
     {
-        trigger: '.o_notification.border-danger',
+        trigger: '.o_notification_bar.bg-danger',
         run: function () {
             helper.assertLinesCount(1);
             const line = helper.getLine({ barcode: "15264329" });
@@ -1126,7 +1126,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {t
         run: 'scan 01000000152648793700000006',
     },
     {
-        trigger: '.o_notification.border-danger',
+        trigger: '.o_notification_bar.bg-danger',
         run: function () {
             helper.assertLinesCount(2);
             const line = helper.getLine({ barcode: "15264879" });

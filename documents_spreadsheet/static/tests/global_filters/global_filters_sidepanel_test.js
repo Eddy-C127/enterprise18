@@ -703,7 +703,7 @@ QUnit.module(
                 });
                 await openGlobalFilterSidePanel();
                 await clickCreateFilter("text");
-                await contains(".o_notification.border-info", {
+                await contains(".o_notification:has(.o_notification_bar.bg-info)", {
                     text: "New spreadsheet created in Documents",
                 });
                 await contains(".o-sidePanel");
@@ -711,7 +711,7 @@ QUnit.module(
                 await editGlobalFilterDefaultValue("Default Value");
                 await selectFieldMatching("name");
                 await saveGlobalFilter();
-                await contains(".o_notification.border-danger", { text: "Duplicated Label" });
+                await contains(".o_notification:has(.o_notification_bar.bg-danger)", { text: "Duplicated Label" });
             }
         );
 

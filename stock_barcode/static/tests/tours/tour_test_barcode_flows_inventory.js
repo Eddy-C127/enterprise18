@@ -97,7 +97,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment', {test: true
     },
 
     {
-        trigger: '.o_notification.border-success',
+        trigger: '.o_notification_bar.bg-success',
         run: function () {
             helper.assertErrorMessage('The inventory adjustment has been validated');
         },
@@ -222,7 +222,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
     },
 
     {
-        trigger: '.o_notification.border-danger',
+        trigger: '.o_notification_bar.bg-danger',
         run: function () {
             // Check that other lines is correct
             let line = helper.getLine({ barcode: 'productserial1' });
@@ -334,7 +334,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
     },
 
     {
-        trigger: '.o_notification.border-success',
+        trigger: '.o_notification_bar.bg-success',
     },
 
     {
@@ -591,7 +591,7 @@ registry.category("web_tour.tours").add('test_inventory_package', {test: true, s
     },
 
     {
-        trigger: '.o_notification.border-success',
+        trigger: '.o_notification_bar.bg-success',
         run: function () {
             helper.assertErrorMessage('The inventory adjustment has been validated');
         },
@@ -615,7 +615,7 @@ registry.category("web_tour.tours").add('test_inventory_packaging', {test: true,
         }
     },
     { trigger: '.o_apply_page' },
-    { trigger: '.o_notification.border-success' },
+    { trigger: '.o_notification_bar.bg-success' },
     { trigger: '.button_inventory' },
     // Scans a packaging when a quant for its product exists.
     {
@@ -628,7 +628,7 @@ registry.category("web_tour.tours").add('test_inventory_packaging', {test: true,
         trigger: '.o_apply_page',
     },
     {
-        trigger: '.o_notification.border-success',
+        trigger: '.o_notification_bar.bg-success',
         isCheck: true,
     },
 ]});
@@ -899,7 +899,7 @@ registry.category("web_tour.tours").add('test_inventory_using_buttons', {test: t
     // Validates the inventory.
     { trigger: '.o_apply_page' },
     {
-        trigger: '.o_notification.border-success',
+        trigger: '.o_notification_bar.bg-success',
         isCheck: true,
     }
 ]});

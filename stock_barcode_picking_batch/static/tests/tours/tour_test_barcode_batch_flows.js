@@ -179,7 +179,7 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
         run: 'scan SN-LHOOQ'
     },
     {
-        trigger: '.o_notification.border-danger'
+        trigger: '.o_notification_bar.bg-danger'
     },
     {
         trigger: '.o_barcode_client_action',
@@ -468,7 +468,7 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_1', {test: 
     // the location is mandatory. So the application should ask to scan the location to confirm.
     { trigger: ".o_barcode_client_action", run: "scan product2" },
     {
-        trigger: ".o_notification.border-danger:contains('Scan the current location to confirm that.')",
+        trigger: ".o_notification:has(.o_notification_bar.bg-danger):contains('Scan the current location to confirm that.')",
         run: "scan LOC-01-02-00",
     },
     { trigger: ".o_barcode_client_action", run: "scan product2" },
@@ -555,7 +555,7 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_1', {test: 
         }
     },
     { trigger: '.o_barcode_backorder_dialog .btn.btn-primary' },
-    { trigger: '.o_notification.border-success', isCheck: true },
+    { trigger: '.o_notification_bar.bg-success', isCheck: true },
 ]});
 
 registry.category("web_tour.tours").add('test_barcode_batch_delivery_2_move_entire_package', {test: true, steps: () => [
@@ -846,7 +846,7 @@ registry.category("web_tour.tours").add('test_pack_and_same_product_several_sml'
         run: 'scan P00001',
     },
     {
-        trigger: '.o_notification.border-danger',
+        trigger: '.o_notification_bar.bg-danger',
         run: function () {
             helper.assertErrorMessage('This package is already scanned.');
         },

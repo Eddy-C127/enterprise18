@@ -30,7 +30,7 @@ registry.category("web_tour.tours").add('test_immediate_receipt_kit_from_scratch
         trigger: '.btn.o_validate_page',
     },
     {
-        extra_trigger: '.o_notification.border-danger',
+        extra_trigger: '.o_notification_bar.bg-danger',
         trigger: '.o_barcode_line:contains("Compo Lot")',
         run: function() {
             helper.assertLinesCount(4);
@@ -78,7 +78,7 @@ registry.category("web_tour.tours").add('test_planned_receipt_kit_from_scratch_w
         trigger: '.btn.o_validate_page',
     },
     {
-        extra_trigger: '.o_notification.border-danger',
+        extra_trigger: '.o_notification_bar.bg-danger',
         trigger: '.o_barcode_line:contains("Compo Lot")',
         run: function() {
             helper.assertLinesCount(4);
@@ -128,7 +128,7 @@ registry.category("web_tour.tours").add('test_process_confirmed_mo', {test: true
         trigger: '.o_validate_page',
     },
     {
-        trigger: '.o_notification.border-success',
+        trigger: '.o_notification_bar.bg-success',
         isCheck: true,
     },
 ]});
@@ -627,7 +627,7 @@ registry.category("web_tour.tours").add("test_barcode_production_component_no_st
         trigger: "button[name='action_confirm']",
     },
     {
-        trigger: ".o_notification.border-success",
+        trigger: ".o_notification_bar.bg-success",
         isCheck: true,
     },
 ]});
