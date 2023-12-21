@@ -75,3 +75,7 @@ class HrApplicant(models.Model):
                 "res_id": self.salary_offer_ids.id,
             })
         return action
+
+    def archive_applicant(self):
+        self.salary_offer_ids.filtered(lambda o: o.state != 'refused').action_refuse_offer(_("The offer has been marked as refused when the linked applicant was declined."))
+        return super().archive_applicant()
