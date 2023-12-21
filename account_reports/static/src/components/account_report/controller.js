@@ -284,7 +284,7 @@ export class AccountReportController {
             currentOptionKey = optionKeys.shift();
             option = option[currentOptionKey];
 
-            if (option  === undefined)
+            if (option === undefined)
                 throw new Error(`Invalid option key in _updateOption(): ${ currentOptionKey } (${ optionPath })`);
         }
 
