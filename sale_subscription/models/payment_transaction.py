@@ -167,6 +167,18 @@ class PaymentTransaction(models.Model):
                 for order in orders:
                     order._subscription_post_success_payment(tx, tx.invoice_ids, automatic=automatic)
 
+    def _set_done(self, **kwargs):
+        self.sale_order_ids.filtered('is_subscription').payment_exception = False
+        return super()._set_done(**kwargs)
+
+    def _set_pending(self, **kwargs):
+        self.sale_order_ids.filtered('is_subscription').payment_exception = False
+        return super()._set_pending(**kwargs)
+
+    def _set_authorize(self, **kwargs):
+        self.sale_order_ids.filtered('is_subscription').payment_exception = False
+        return super()._set_authorize(**kwargs)
+
     def _set_canceled(self, **kwargs):
         self.sale_order_ids.filtered('is_subscription').pending_transaction = False
         return super()._set_canceled(**kwargs)
