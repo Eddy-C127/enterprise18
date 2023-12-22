@@ -1603,7 +1603,6 @@ class SaleOrder(models.Model):
                 return
             else: #  transaction.renewal_state in ['pending', 'authorized', 'done']
                 self._subscription_commit_cursor(auto_commit)
-                self.with_context(mail_notrack=True).write({'payment_exception': False})
                 invoice._post()
                 self._subscription_commit_cursor(auto_commit)
             # if no transaction or failure, log error, rollback and remove invoice
