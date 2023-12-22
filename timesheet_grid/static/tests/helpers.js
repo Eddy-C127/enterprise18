@@ -2,6 +2,8 @@
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
+import { setupTestEnv } from "@hr_timesheet/../tests/hr_timesheet_common_tests";
+
 import { patchDate } from "@web/../tests/helpers/utils";
 
 function get_planned_and_worked_hours(resIds) {
@@ -72,6 +74,12 @@ function get_daily_working_hours() {
             "2017-01-25": 0,
         },
     };
+}
+
+export const timesheetListSetupHelper = {
+    setupTimesheetList() {
+        setupTestEnv();
+    }
 }
 
 export class TimesheetGridSetupHelper {
