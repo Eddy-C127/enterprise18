@@ -117,6 +117,7 @@ class HrContractSalaryOffer(models.Model):
             'default_model': 'hr.contract.salary.offer',
             'default_res_ids': self.ids,
             'default_template_id': default_template_id,
+            'default_record_name': _("%s: Job Offer - %s", self.company_id.name, self.job_title),
             'offer_id': self.id,
             'access_token': self.access_token,
             'partner_to': partner_to and partner_to.id or False,
