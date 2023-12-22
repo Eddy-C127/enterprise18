@@ -1268,7 +1268,10 @@ class SaleOrder(models.Model):
         self.ensure_one()
         if not mail_ctx:
             mail_ctx = {}
-        return {**self._context, **mail_ctx, **{'total_amount': self.amount_total, 'currency_name': self.currency_id.name, 'responsible_email': self.user_id.email}}
+        return {**self._context, **mail_ctx, **{'total_amount': self.amount_total,
+                                                'currency_name': self.currency_id.name,
+                                                'responsible_email': self.user_id.email,
+                                                'code': self.client_order_ref}}
 
     def _update_next_invoice_date(self):
         """ Update the next_invoice_date according to the periodicity of the order.
