@@ -25,13 +25,13 @@
                                 </div>
                                 <div class="d-flex align-items-start flex-row">
                                     <div class="mt-2 h6 flex-grow-1">
+                                        <field name="no_of_recruitment"/>
                                         <t t-if="record.no_of_recruitment.raw_value > 1">
-                                            <t t-set="pos">Positions</t>
+                                            Open Positions
                                         </t>
                                         <t t-else="">
-                                            <t t-set="pos">Position</t>
+                                            Open Position
                                         </t>
-                                        <field name="no_of_recruitment"/> Open <t t-esc="pos"/>
                                     </div>
                                     <div class="d-flex align-items-center flex-grow-0 mt-1">
                                         <img src="/hr_referral/static/src/img/points.svg" class="me-2" height="20px" alt="Points icon"/>
