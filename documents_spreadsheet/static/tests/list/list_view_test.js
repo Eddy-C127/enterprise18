@@ -245,7 +245,7 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
     });
 
     QUnit.test("user related context is not saved in the spreadsheet", async function (assert) {
-        assert.expect(1);
+        assert.expect(3);
         setupViewRegistries();
 
         registry.category("favoriteMenu").add(
@@ -412,7 +412,7 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
     });
 
     QUnit.test("Update the list title from the side panel", async function (assert) {
-        assert.expect(1);
+        assert.expect(3);
 
         const { model, env } = await createSpreadsheetFromListView();
         // opening from a pivot cell

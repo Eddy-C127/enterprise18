@@ -20,7 +20,7 @@ import { SpreadsheetAction } from "../../src/bundle/actions/spreadsheet_action";
 import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
 import { registry } from "@web/core/registry";
 import { fieldService } from "@web/core/field_service";
-import { browser } from "@web/core/browser/browser";
+import { contains } from "@web/../tests/utils";
 import { onMounted } from "@odoo/owl";
 
 /** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
@@ -135,8 +135,7 @@ export async function createSpreadsheetFromListView(params = {}) {
  * @returns Promise
  */
 export async function toggleCogMenuSpreadsheet(el) {
-    patchWithCleanup(browser, {
-        setTimeout: (fn) => fn(),
-    });
-    return mouseEnter(findItem(el, ".o_cp_action_menus .dropdown-toggle", "Spreadsheet"));
+    await contains(".o_cp_action_menus .dropdown-toggle", { text: "Spreadsheet" });
+    await mouseEnter(findItem(el, ".o_cp_action_menus .dropdown-toggle", "Spreadsheet"));
+    await contains(".o-dropdown .show", { text: "Spreadsheet" });
 }
