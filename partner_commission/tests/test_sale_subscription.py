@@ -8,7 +8,7 @@ from odoo.addons.partner_commission.tests.setup import TestCommissionsSetup
 from odoo import fields
 
 
-@tagged('post_install', '-at_install')
+@tagged('commission_subscription', 'post_install', '-at_install')
 class TestSaleSubscription(TestCommissionsSetup):
 
     @classmethod
