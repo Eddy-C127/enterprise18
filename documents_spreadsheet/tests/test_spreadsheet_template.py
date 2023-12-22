@@ -28,6 +28,13 @@ class SpreadsheetTemplate(SpreadsheetTestCommon):
             "It should have assigned the given name"
         )
 
+    def test_file_name(self):
+        template = self.env["spreadsheet.template"].create({
+            "spreadsheet_data": TEST_CONTENT,
+            "name": "Template name",
+        })
+        self.assertEqual(template.file_name, "Template name.osheet.json")
+
     def test_allow_write_on_own_template(self):
         template = self.env["spreadsheet.template"].with_user(self.spreadsheet_user)\
             .create({

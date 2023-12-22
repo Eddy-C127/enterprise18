@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 
 class SpreadsheetTemplate(models.Model):
     _name = "spreadsheet.template"
@@ -10,6 +10,12 @@ class SpreadsheetTemplate(models.Model):
 
     name = fields.Char(required=True, translate=True)
     sequence = fields.Integer(default=100)
+    file_name = fields.Char(compute="_compute_file_name")
+
+    @api.depends("name")
+    def _compute_file_name(self):
+        for template in self:
+            template.file_name = f"{template.name}.osheet.json"
 
     def copy(self, default=None):
         self.ensure_one()
