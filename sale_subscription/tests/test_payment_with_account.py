@@ -52,6 +52,5 @@ class TestSubscriptionPaymentsAccount(AccountPaymentCommon, TestSubscriptionComm
                                 self.subscription.order_line.mapped('product_uom_qty') + sub2.order_line.mapped('product_uom_qty'))
                 tx = self.env['payment.transaction'].search([('invoice_ids', 'in', invoice.ids)])
                 tx._set_done()
-                tx._reconcile_after_done()
                 tx._create_payment()
                 self.assertTrue(invoice.payment_state in ['in_payment', 'paid'])

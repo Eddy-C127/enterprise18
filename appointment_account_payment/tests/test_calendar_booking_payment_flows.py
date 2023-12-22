@@ -69,7 +69,7 @@ class AppointmentAccountPaymentFlowsTest(AppointmentAccountPaymentFlowsCommon):
         self.assertEqual(self.booking_invoice.transaction_ids, tx_sudo)
 
         tx_sudo._set_done()
-        tx_sudo._reconcile_after_done()
+        tx_sudo._post_process()
 
         self.assertTrue(self.booking_invoice.calendar_booking_ids.calendar_event_id)
 

@@ -323,6 +323,7 @@ class TestSubscriptionCommon(TestSaleCommon):
         tx = self._mock_subscription_do_payment(payment_method, invoice)
         tx.state = "pending"
         tx._set_error("Payment declined")
+        tx._post_process()
         tx.env.cr.flush()  # simulate commit after sucessfull `_do_payment()`
         return tx
 

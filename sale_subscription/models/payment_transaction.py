@@ -79,14 +79,6 @@ class PaymentTransaction(models.Model):
         tx_to_invoice.invoice_ids._post()
         tx_to_invoice.filtered(lambda t: not t.subscription_action).invoice_ids.transaction_ids._send_invoice()
 
-    def _reconcile_after_done(self):
-        # override to force invoice creation if the transaction is done for a subscription
-        # We don't take care of the sale.automatic_invoice parameter in that case.
-        res = super()._reconcile_after_done()
-        self.filtered(lambda tx: tx.operation != 'validation')._create_or_link_to_invoice()
-        self._post_subscription_action()
-        return res
-
     def _get_invoiced_subscription_transaction(self):
         # create the invoices for the transactions that are not yet linked to invoice
         # `_do_payment` do link an invoice to the payment transaction
@@ -132,16 +124,24 @@ class PaymentTransaction(models.Model):
         res = super(PaymentTransaction, transaction_to_invoice)._invoice_sale_orders()
         return res
 
-    def _finalize_post_processing(self):
-        """ Override of `payment` to handle reconcilation for subscription's validation transaction.
-        references.
-        `super()._finalize_post_processing` never call `_reconcile_after_done` on validation tx.
-        We explicitely calls it here to make sure the token is assigned.
+    def _post_process(self):
+        """ Override of `payment` to add Subscriptions-specific logic to the post-processing.
+
+        In particular, for confirmed transactions we handle reconciliation for subscription's
+        validation transaction references. For cancelled or error transactions, we call
+        `_handle_unsuccessful_transaction`.
 
         :return: None
         """
-        self.filtered(lambda tx: tx.operation == 'validation' and tx.sale_order_ids.is_subscription)._reconcile_after_done()
-        super()._finalize_post_processing()
+        super()._post_process()
+        for tx in self:
+            if tx.state == 'done' and tx.sale_order_ids.is_subscription:
+                if tx.operation != 'validation':
+                    tx._create_or_link_to_invoice()
+                self._post_subscription_action()
+            elif tx.state in ('error', 'cancel'):
+                tx._handle_unsuccessful_transaction()
+
 
     def _post_subscription_action(self):
         """
@@ -177,17 +177,9 @@ class PaymentTransaction(models.Model):
         self.sale_order_ids.filtered('is_subscription').payment_exception = False
         return super()._set_pending(**kwargs)
 
-    def _set_authorize(self, **kwargs):
+    def _set_authorized(self, **kwargs):
         self.sale_order_ids.filtered('is_subscription').payment_exception = False
-        return super()._set_authorize(**kwargs)
-
-    def _set_canceled(self, **kwargs):
-        self._handle_unsuccessful_transaction()
-        return super()._set_canceled(**kwargs)
-
-    def _set_error(self, state_message):
-        self._handle_unsuccessful_transaction()
-        return super()._set_error(state_message)
+        return super()._set_authorized(**kwargs)
 
     def _handle_unsuccessful_transaction(self):
         """ Unset pending transactions for subscriptions and cancel their draft invoices. """

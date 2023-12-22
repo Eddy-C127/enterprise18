@@ -197,7 +197,8 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         subscription.transaction_ids.token_id = self.payment_token.id
         self.assertEqual(subscription.next_invoice_date, datetime.date.today())
         self.assertEqual(subscription.state, 'sale')
-        subscription.transaction_ids._reconcile_after_done()  # Create the payment
+        subscription.transaction_ids._create_or_link_to_invoice()
+        subscription.transaction_ids._post_process()  # Create the payment
         self.assertEqual(subscription.invoice_count, 1, "One invoice should be created")
         # subscription has a payment_token_id, the invoice is created by the flow.
         subscription.invoice_ids.invoice_line_ids.account_id.account_type = 'income'
@@ -227,7 +228,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
                 'flow': 'direct',
                 }
         self.make_jsonrpc_request(url, data)
-        # the transaction is associated to the invoice in tx._reconcile_after_done()
+        # the transaction is associated to the invoice in tx._post_process()
         invoice_transactions = subscription.invoice_ids.transaction_ids
         self.assertEqual(len(invoice_transactions), 2, "Two transactions should be created. Calling /my/subscriptions/transaction/ creates a new one")
         last_transaction_id = subscription.transaction_ids - first_transaction_id
@@ -236,7 +237,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         last_transaction_id._set_done()
         self.assertEqual(subscription.invoice_ids.sorted('id').mapped('state'), ['posted', 'draft'])
         subscription.invoice_ids.filtered(lambda am: am.state == 'draft')._post()
-        subscription.transaction_ids._reconcile_after_done()  # Create the payment
+        subscription.transaction_ids._post_process()  # Create the payment
         # subscription has a payment_token_id, the invoice is created by the flow.
         subscription.invoice_ids.invoice_line_ids.account_id.account_type = 'asset_cash'
         subscription.invoice_ids.auto_post = 'at_date'
@@ -345,7 +346,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
 
                 tx_sudo._set_done()
                 with mute_logger('odoo.addons.sale.models.payment_transaction'):
-                    tx_sudo._finalize_post_processing()
+                    tx_sudo._post_process()
                 self.assertEqual(subscription.state, 'sent')  # Only a partial amount was paid
                 subscription.action_confirm()
                 self.assertEqual(subscription.next_invoice_date, datetime.date.today())
@@ -388,7 +389,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
                 self.assertEqual(tx_sudo.sale_order_ids.transaction_ids, tx_sudo)
                 tx_sudo._set_done()
                 with mute_logger('odoo.addons.sale.models.payment_transaction'):
-                    tx_sudo._finalize_post_processing()
+                    tx_sudo._post_process()
 
                 # Confirm renewal. Assert that no token was saved, renewal was sent and only one invoice was registered.
                 renewal_so.action_confirm()
@@ -457,7 +458,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
             tx_sudo = self._get_tx(processing_values['reference'])
             tx_sudo._set_done()
             with mute_logger('odoo.addons.sale.models.payment_transaction'):
-                tx_sudo._finalize_post_processing()
+                tx_sudo._post_process()
             # Ensure token was assigned after completing the payment in invoices route.
             self.assertEqual(subscription.payment_token_id.id, test_payment_token.id, "Token must be assigned to subscription after transaction creation.")
             # Create transaction with new token without sending invoice_ids in custom_create_values.
@@ -479,7 +480,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
                 'partner_id': self.partner.id
             }
             tx_sudo = self._create_transaction(**kwargs)
-            tx_sudo._finalize_post_processing()
+            tx_sudo._post_process()
             tx_sudo._set_done()
             # Ensure token was not changed after completing the payment in invoices route.
             self.assertEqual(subscription.payment_token_id.id, test_payment_token.id, "Token must remain unchanged after new payment.")

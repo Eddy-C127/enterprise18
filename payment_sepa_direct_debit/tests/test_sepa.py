@@ -32,6 +32,7 @@ class TestSepaDirectDebit(SepaDirectDebitCommon):
     def test_confirming_transaction_creates_token(self):
         tx = self._create_transaction(flow='direct', state='pending', mandate_id=self.mandate.id)
         tx._set_done()
+        tx._post_process()
         token = self.env['payment.token'].search([('sdd_mandate_id', '=', self.mandate.id)])
         self.assertTrue(token)
         self.assertTrue(token.active)

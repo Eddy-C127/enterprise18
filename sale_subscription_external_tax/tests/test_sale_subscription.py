@@ -97,6 +97,6 @@ class TestSaleSubscriptionExternal(TestSubscriptionCommon, TestSaleSubscriptionE
         })
 
         with self.patch_set_external_taxes(), self.patch_set_external_taxes_so(new_set_external_taxes):
-            tx._reconcile_after_done()
+            tx._post_process()
 
         self.assertTrue(sub._is_paid(), 'Subscription should be fully paid')
