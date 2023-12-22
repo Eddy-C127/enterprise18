@@ -345,9 +345,7 @@ export class SignTemplateIframe extends EditablePDFIframeMixin(PDFIframe) {
      */
     async updateRoles(id) {
         if (!(id in this.signRolesById)) {
-            const newRole = await this.orm.searchRead("sign.item.role", [["id", "=", id]], [], {
-                context: this.user.context,
-            });
+            const newRole = await this.orm.searchRead("sign.item.role", [["id", "=", id]], []);
             this.signRolesById[newRole[0].id] = newRole[0];
         }
     }
