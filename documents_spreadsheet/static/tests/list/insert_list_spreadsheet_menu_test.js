@@ -24,7 +24,7 @@ QUnit.module(
     },
     function () {
         QUnit.test("Can save a list in a new spreadsheet", async (assert) => {
-            assert.expect(2);
+            assert.expect(4);
 
             await spawnListViewForSpreadsheet({
                 mockRPC: async function (route, args) {
@@ -46,7 +46,7 @@ QUnit.module(
         });
 
         QUnit.test("Can save a list in existing spreadsheet", async (assert) => {
-            assert.expect(3);
+            assert.expect(5);
 
             await spawnListViewForSpreadsheet({
                 mockRPC: async function (route, args) {
@@ -77,7 +77,7 @@ QUnit.module(
         });
 
         QUnit.test("List name can be changed from the dialog", async (assert) => {
-            assert.expect(2);
+            assert.expect(4);
 
             await spawnListViewForSpreadsheet();
 
@@ -103,7 +103,7 @@ QUnit.module(
         });
 
         QUnit.test("Unsorted List name doesn't contains sorting info", async function (assert) {
-            assert.expect(1);
+            assert.expect(3);
             await spawnListViewForSpreadsheet();
 
             await toggleActionMenu(target);
@@ -113,7 +113,7 @@ QUnit.module(
         });
 
         QUnit.test("Sorted List name contains sorting info", async function (assert) {
-            assert.expect(1);
+            assert.expect(3);
             await spawnListViewForSpreadsheet({
                 orderBy: [{ name: "bar", asc: true }],
             });

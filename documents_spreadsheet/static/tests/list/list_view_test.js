@@ -261,7 +261,7 @@ QUnit.module("document_spreadsheet > list view", {
     });
 
     QUnit.test("user related context is not saved in the spreadsheet", async function (assert) {
-        assert.expect(1);
+        assert.expect(3);
         setupViewRegistries();
 
         registry.category("favoriteMenu").add(
