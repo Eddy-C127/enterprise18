@@ -165,7 +165,7 @@ msgstr ""
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid " If you've already opened this issue don't report it again."
-msgstr ""
+msgstr "Si ya ha abierto esta incidencia no vuelva a informar de ella."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__access_token
@@ -223,6 +223,8 @@ msgstr "Cuenta: sincronizar diario en línea"
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_unused_connection_cron_ir_actions_server
 msgid "Account: Journal online sync cleanup unused connections"
 msgstr ""
+"Cuenta: la sincronización en línea del diario limpia las conexiones no "
+"utilizadas"
 
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_mail_cron_ir_actions_server
@@ -294,7 +296,7 @@ msgstr "Banco"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_online_link
 msgid "Bank Connection"
-msgstr ""
+msgstr "Conexión bancaria"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_bank_statement_line
@@ -316,7 +318,7 @@ msgstr "Sincronización con el banco: actualizar su consentimiento"
 #. module: account_online_synchronization
 #: model:mail.template,name:account_online_synchronization.email_template_sync_reminder
 msgid "Bank connection expiration reminder"
-msgstr ""
+msgstr "Recordatorio de vencimiento de la conexión bancaria"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_bank_rec_widget
@@ -334,6 +336,7 @@ msgstr "Cancelar"
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Choose a date and a journal from which you want to fetch transactions"
 msgstr ""
+"Elija una fecha y un diario del cual quiere recuperar las transacciones"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__client_id
@@ -351,6 +354,9 @@ msgid ""
 "Comma separated list of email addresses to send consent renewal "
 "notifications 15, 3 and 1 days before expiry"
 msgstr ""
+"Lista de direcciones de correo electrónico separada por comas para enviar "
+"notificaciones de renovación de consentimiento a 15, 3 y 1 días antes del "
+"vencimiento"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_res_company
@@ -382,7 +388,7 @@ msgstr "Conectar mi banco"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Connect your bank account to Odoo"
-msgstr ""
+msgstr "Conecte su cuenta bancaria a Odoo"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__connected
@@ -529,7 +535,7 @@ msgstr "Transacciones recuperadas"
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_journal__online_sync_fetching_status
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_account__fetching_status
 msgid "Fetching Status"
-msgstr ""
+msgstr "Estado de recuperación"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -620,12 +626,12 @@ msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_account__inverse_balance_sign
 msgid "If checked, the balance sign will be inverted"
-msgstr ""
+msgstr "Si está seleccionado, se invertirá el signo del saldo"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_account__inverse_transaction_sign
 msgid "If checked, the transaction sign will be inverted"
-msgstr ""
+msgstr "Si está seleccionado, se invertirá el signo de la transacción"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__auto_sync
@@ -671,7 +677,7 @@ msgstr "Valor invalido para proxy_mode parametro de configuración."
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_account__inverse_balance_sign
 msgid "Inverse Balance Sign"
-msgstr ""
+msgstr "Signo de saldo inverso"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_account__inverse_transaction_sign
@@ -729,19 +735,19 @@ msgstr "Última sincronización"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Latest Balance"
-msgstr ""
+msgstr "Último saldo"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_bank_selection
 msgid "Link a bank account to the selected journal"
-msgstr ""
+msgstr "Vincule una cuenta bancaria al diario seleccionado"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Manual Bank Statement Lines"
-msgstr ""
+msgstr "Líneas de extracto bancario manuales"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -765,7 +771,7 @@ msgstr "Mensajes"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Missing and Pending Transactions"
-msgstr ""
+msgstr "Transacciones faltantes y pendientes"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__my_activity_date_deadline
@@ -900,7 +906,7 @@ msgstr "Pendiente"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Please enter a valid Starting Date to continue."
-msgstr ""
+msgstr "Ingrese una fecha de inicio válida para continuar"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -914,7 +920,7 @@ msgstr "Por favor vuelve a conectar tu cuenta electrónica."
 #: code:addons/account_online_synchronization/wizard/account_bank_statement_line.py:0
 #, python-format
 msgid "Please select first the transactions you wish to import."
-msgstr ""
+msgstr "Seleccione las primeras transacciones que desea importar"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_bank_statement_line_transient__state__posted
@@ -924,7 +930,7 @@ msgstr "Publicado"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.missing_bank_statement_line_search
 msgid "Posted Transactions"
-msgstr ""
+msgstr "Transacciones registradas"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_account__fetching_status__processing
@@ -983,14 +989,14 @@ msgstr "Token de actualización"
 #: code:addons/account_online_synchronization/models/account_journal.py:0
 #, python-format
 msgid "Report Issue"
-msgstr ""
+msgstr "Notificar problema"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Report issue"
-msgstr ""
+msgstr "Notificar problema"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__client_id
@@ -1035,7 +1041,7 @@ msgstr "Seleccionar una cuenta bancaria"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
 msgid "Select the"
-msgstr ""
+msgstr "Seleccione la cuenta"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_selection__selected_account
@@ -1147,6 +1153,8 @@ msgid ""
 "True if that connection still has accounts that are not linked to an Odoo "
 "journal"
 msgstr ""
+"True si la conexión aún tiene cuentas que no están vinculadas a un diario de"
+" Odoo"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__activity_exception_decoration
@@ -1252,7 +1260,7 @@ msgstr "Su conexión bancaria vencerá pronto"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
 msgid "account to connect:"
-msgstr "cuenta a conectar:"
+msgstr "a conectar:"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1276,7 +1284,7 @@ msgstr "representación de una cuenta bancaria en línea"
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "transactions fetched"
-msgstr ""
+msgstr "transacciones recuperadas"
 
 #. module: account_online_synchronization
 #. odoo-javascript

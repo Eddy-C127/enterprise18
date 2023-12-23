@@ -1,35 +1,35 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* planning
-#
+# 
 # Translators:
-# Диляра Дельтаева <dilya.kz93@gmail.com>, 2022
-# Ekaterina <nawsikaya@bk.ru>, 2022
-# Vasiliy Korobatov <korobatov@gmail.com>, 2022
-# Sergey Vilizhanin, 2022
-# valmasone, 2022
-# Иван Дроздов <hiraetari@gmail.com>, 2022
-# Vladimir Lukianov <lvm.mobile@gmail.com>, 2022
-# Evgeny <transingularity@gmail.com>, 2022
-# Irina Fedulova <istartlin@gmail.com>, 2022
-# ILMIR <karamov@it-projects.info>, 2022
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2022
-# Martin Trigaux, 2022
-# Сергей Шебанин <sergey@shebanin.ru>, 2022
+# Диляра Дельтаева <dilya.kz93@gmail.com>, 2023
+# Collex100, 2023
+# Ekaterina <nawsikaya@bk.ru>, 2023
+# Sergey Vilizhanin, 2023
+# valmasone, 2023
+# Vladimir Lukianov <lvm.mobile@gmail.com>, 2023
+# Evgeny <transingularity@gmail.com>, 2023
+# Irina Fedulova <istartlin@gmail.com>, 2023
 # Alena Vlasova, 2023
-#
+# Martin Trigaux, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# alenafairy, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:47+0000\n"
-"Last-Translator: Alena Vlasova, 2023\n"
+"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Ivan Kropotkin <yelizariev@itpp.dev>, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: planning
@@ -42,7 +42,7 @@ msgstr "%s (копия)"
 #. module: planning
 #: model:ir.actions.report,print_report_name:planning.report_planning_slot
 msgid "'Planning'"
-msgstr ""
+msgstr "'Планирование'"
 
 #. module: planning
 #. odoo-python
@@ -54,12 +54,22 @@ msgstr "(в течение %s дней)"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid ".&amp;nbsp;"
+msgstr ".&amp;nbsp;"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "01/01/2023 5:00 PM"
+msgstr ""
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "01/01/2023 9:00 AM"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "04:00"
-msgstr ""
+msgstr "04:00"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -67,23 +77,37 @@ msgid "08:00"
 msgstr ""
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "100"
+msgstr "100"
+
+#. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "12:00"
-msgstr ""
+msgstr "12:00"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "16:00"
+msgstr "16:00"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "8 hours"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<b class=\"o_gantt_header o_gantt_row_sidebar position-sticky top-0 bg-view d-flex align-items-center justify-content-center\">Schedule</b>"
+msgid ""
+"<b class=\"o_gantt_header o_gantt_row_sidebar position-sticky top-0 bg-view "
+"d-flex align-items-center justify-content-center\">Schedule</b>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<b class=\"o_gantt_header_scale d-flex align-items-center justify-content-center\">12 February 2023 - 18 February 2023</b>"
+msgid ""
+"<b class=\"o_gantt_header_scale d-flex align-items-center justify-content-"
+"center\">12 February 2023 - 18 February 2023</b>"
 msgstr ""
 
 #. module: planning
@@ -96,30 +120,36 @@ msgstr "<b class=\"tip_title\">Совет: записывайте свое пл�
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
 msgid "<b>Congratulations!</b></br> You are now a master of planning."
-msgstr ""
+msgstr "<b>Поздравляем!</b></br> Теперь вы мастер планирования."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
-msgid "<b>Drag & drop</b> your shift to reschedule it. <i>Tip: hit CTRL (or Cmd) to duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its period."
-msgstr "<b>Перетащите</b>свою смену, чтобы перенести ее. <i>Совет: нажмите CTRL (или Cmd), чтобы продублировать ее. </i> <b>Отрегулируйте размер</b> смены, чтобы изменить ее длительность."
+msgid ""
+"<b>Drag & drop</b> your shift to reschedule it. <i>Tip: hit CTRL (or Cmd) to"
+" duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its"
+" period."
+msgstr ""
+"<b>Перетащите</b>свою смену, чтобы перенести ее. <i>Совет: нажмите CTRL (или"
+" Cmd), чтобы продублировать ее. </i> <b>Отрегулируйте размер</b> смены, "
+"чтобы изменить ее длительность."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
 msgid "<b>Publish & send</b> your employee's planning."
-msgstr ""
+msgstr "<b>Публикуйте и отправляйте</b> планы ваших сотрудников."
 
 #. module: planning
 #: model:mail.template,body_html:planning.email_template_shift_switch_email
 msgid ""
 "<div>\n"
 "                    <p>\n"
-"                        Dear <t t-out=\"ctx['assignee'].name or ''\"></t>,\n"
+"                        Dear <t t-out=\"ctx.get('old_assignee_name', 'Mitchel Admin')\"></t>,\n"
 "                        <br><br>\n"
-"                        Your following shift was re-assigned to <t t-out=\"ctx['employee'].name\"></t>.\n"
+"                        Your following shift was re-assigned to <t t-out=\"ctx.get('new_assignee_name', 'Marc Demo')\"></t>.\n"
 "                    </p>\n"
 "                    <br>\n"
 "                    <table style=\"width: 80%; margin: auto;\">\n"
@@ -249,29 +279,34 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> \n"
+"<i class=\"fa fa-check-circle text-success\"/>\n"
 "                        You have successfully requested to switch your shift. You will be notified when another employee takes over your shift."
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-check-circle text-success\"/> Request to switch shift cancelled successfully."
+msgid ""
+"<i class=\"fa fa-check-circle text-success\"/> Request to switch shift "
+"cancelled successfully."
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-check-circle text-success\"/> This shift is no longer assigned to you."
-msgstr "<i class=\"fa fa-check-circle text-success\"/> Эта смена больше не закреплена за вами."
+msgid ""
+"<i class=\"fa fa-check-circle text-success\"/> This shift is no longer "
+"assigned to you."
+msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> Эта смена больше не "
+"закреплена за вами."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-check-circle text-success\"/> You were successfully assigned this open shift."
-msgstr "<i class=\"fa fa-check-circle text-success\"/> Вам успешно назначена эта открытая смена."
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
-msgid "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
-msgstr "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Дата\" title=\"Дата\"/>"
+msgid ""
+"<i class=\"fa fa-check-circle text-success\"/> You were successfully "
+"assigned this open shift."
+msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> Вам успешно назначена эта "
+"открытая смена."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
@@ -280,28 +315,42 @@ msgstr "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Часы\" title=\"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
-msgid "<i class=\"fa fa-envelope-o\" title=\"Mail\" role=\"img\" style=\"padding-right: 2px\"/>"
+msgid ""
+"<i class=\"fa fa-envelope-o\" title=\"Mail\" role=\"img\" style=\"padding-"
+"right: 2px\"/>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already assigned to another employee."
-msgstr "<i class=\"fa fa-exclamation-circle text-warning\"/> Эта смена уже закреплена за другим сотрудником."
+msgid ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already "
+"assigned to another employee."
+msgstr ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> Эта смена уже "
+"закреплена за другим сотрудником."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer unassign yourself from this shift."
-msgstr "<i class=\"fa fa-exclamation-circle text-warning\"/> Вы больше не можете снять с себя назначение на эту смену."
+msgid ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer "
+"unassign yourself from this shift."
+msgstr ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> Вы больше не можете "
+"снять с себя назначение на эту смену."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
-msgid "<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
+msgid ""
+"<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
 msgstr ""
+"<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid "<i class=\"fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
@@ -324,19 +373,33 @@ msgid "<i class=\"fa small fa-minus me-1\"></i>Waiter"
 msgstr ""
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
+msgid "<i class=\"me-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
+msgstr "<i class=\"me-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
+
+#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "<span aria-label=\"Close\">×</span>"
 msgstr "<span aria-label=\"Закрыть\">×</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
-msgid "<span class=\"align-middle\" attrs=\"{'invisible': [('overlap_slot_count', '=', 0)]}\">for this resource at the same time.</span>"
-msgstr "<span class=\"align-middle\" attrs=\"{'invisible': [('overlap_slot_count', '=', 0)]}\">для этого ресурса в то же самое время.</span>"
+msgid ""
+"<span class=\"align-middle\" invisible=\"overlap_slot_count == 0\">Prepare "
+"for the ultimate multi-tasking challenge:</span>"
+msgstr ""
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid ""
+"<span class=\"align-middle\" invisible=\"overlap_slot_count == "
+"0\">conflict.</span>"
+msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
-msgstr ""
+msgstr "<span class=\"ms-2 flex-shrink-1\"> Рабочие часы</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -345,57 +408,79 @@ msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 mb-1\">04:00</span>"
+msgid ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">04:00</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 mb-1\">12:00</span>"
+msgid ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">12:00</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 mb-1\">16:00</span>"
+msgid ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">16:00</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 z-index-1\">04:00</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-index-1\">04:00</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 z-index-1\">08:00</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-index-1\">08:00</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 z-index-1\">12:00</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-index-1\">12:00</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM (4h) - Jeffrey Kelly</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM (4h)"
+" - Jeffrey Kelly</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM (4h)</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM "
+"(4h)</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM (4h) - Doris Cole</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM "
+"(4h) - Doris Cole</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM (4h) - Eli Lambert</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM "
+"(4h) - Eli Lambert</span>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM (4h)</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM "
+"(4h)</span>"
 msgstr ""
 
 #. module: planning
@@ -409,22 +494,24 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "<span>Doris Cole <span class=\"text-muted\">(Bartender)</span></span>"
-msgstr ""
+msgstr "<span>Дорис Коул <span class=\"text-muted\">(Бармен)</span></span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "<span>Eli Lambert <span class=\"text-muted\">(Waiter)</span></span>"
-msgstr ""
+msgstr "<span>Эли Ламберт <span class=\"text-muted\">(Официант)</span></span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "<span>Jeffrey Kelly <span class=\"text-muted\">(Bartender)</span></span>"
-msgstr ""
+msgstr "<span>Джефри Келли <span class=\"text-muted\">(Бармен)</span></span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
-msgid "<span>The employee assigned would like to switch shifts with someone else.</span>"
+msgid ""
+"<span>The employee assigned would like to switch shifts with someone "
+"else.</span>"
 msgstr ""
 
 #. module: planning
@@ -435,17 +522,14 @@ msgstr "<span>месяцев вперед</span>"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 msgid "<strong>Allocated Time — </strong>"
-msgstr ""
+msgstr "<strong>Выделенное время — </strong>"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
-msgid "A recurrence repeating itself until a certain date must have its limit set"
-msgstr "У повторения продолжающегося до определенной даты, должен установлен лимит"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
-msgid "ASSIGN TO ME"
+msgid ""
+"A recurrence repeating itself until a certain date must have its limit set"
 msgstr ""
+"У повторения продолжающегося до определенной даты, должен установлен лимит"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__active
@@ -458,7 +542,7 @@ msgstr "Активно"
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.js:0
 #, python-format
 msgid "Add Shift"
-msgstr ""
+msgstr "Добавить смену"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
@@ -468,12 +552,14 @@ msgstr "Дополнительное сообщение"
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__note
 msgid "Additional message displayed in the email sent to employees"
-msgstr "Дополнительное сообщение, отображаемое в электронном письме, отправляемом сотрудникам"
+msgstr ""
+"Дополнительное сообщение, отображаемое в электронном письме, отправляемом "
+"сотрудникам"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "Additional note sent to the employee"
-msgstr ""
+msgstr "Дополнительная заметка, направленная работнику"
 
 #. module: planning
 #: model:res.groups,name:planning.group_planning_manager
@@ -484,7 +570,9 @@ msgstr "Администратор"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 #, python-format
-msgid "All open shifts have already been assigned, or there are no resources available to take them at this time."
+msgid ""
+"All open shifts have already been assigned, or there are no resources "
+"available to take them at this time."
 msgstr ""
 
 #. module: planning
@@ -494,24 +582,32 @@ msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
-msgid "All subsequent shifts will be deleted. Are you sure you want to continue?"
-msgstr "Все последующие смены будут удалены. Вы уверены что хотите продолжить?"
+msgid ""
+"All subsequent shifts will be deleted. Are you sure you want to continue?"
+msgstr ""
+"Все последующие смены будут удалены. Вы уверены что хотите продолжить?"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__allocated_hours
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Allocated Hours"
 msgstr "Выделенные часы"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
+msgid "Allocated Percentage"
+msgstr ""
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_hours
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Allocated Time"
-msgstr "распределенный время"
+msgstr "Выделенное время"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_percentage
 msgid "Allocated Time %"
-msgstr ""
+msgstr "Выделенное время %"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__allocated_percentage
@@ -522,11 +618,12 @@ msgstr "Выделенное время (%)"
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_allocated_hours_positive
 msgid "Allocated hours and allocated time percentage cannot be negative."
 msgstr ""
+"Выделенные часы и процент выделенного времени не могут быть отрицательными."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocation_type
 msgid "Allocation Type"
-msgstr "Тип отсутствия"
+msgstr "Тип планируемого отсутствия"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allow_template_creation
@@ -547,8 +644,12 @@ msgstr "Смена должна быть в той же компании, что
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
-msgid "Analyze the allocation of your resources across roles, projects, and sales orders, and estimate future needs."
+msgid ""
+"Analyze the allocation of your resources across roles, projects, and sales "
+"orders, and estimate future needs."
 msgstr ""
+"Проанализировать распределение должностных полномочий, проектов и продаж, а "
+"также оценить будущие потребности."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_form
@@ -557,6 +658,16 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 msgid "Archived"
 msgstr "Архивировано"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/resource_form/resource_form_controller.js:0
+#: code:addons/planning/static/src/views/resource_list/resource_list_controller.js:0
+#, python-format
+msgid ""
+"Archiving this resource will transform all of its future shifts into open "
+"shifts. Are you sure you want to continue?"
+msgstr ""
 
 #. module: planning
 #. odoo-javascript
@@ -569,8 +680,12 @@ msgstr "Вы уверены, что хотите удалить эту смен�
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
-msgid "As there is no running contract during this period, this resource is not expected to work a shift. Planned hours:"
+msgid ""
+"As there is no running contract during this period, this resource is not "
+"expected to work a shift. Planned hours:"
 msgstr ""
+"Так как нет действующего договора в течение этого периода, этот ресурс не "
+"может отработать смену. Запланированные часы:"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -587,13 +702,20 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
-msgid "Assign a <b>resource</b>, or leave it open for the moment. <i>Tip: Create open shifts for the roles you will be needing to complete a mission. Then, assign those open shifts to the resources that are available.</i>"
+msgid ""
+"Assign a <b>resource</b>, or leave it open for the moment. <i>Tip: Create "
+"open shifts for the roles you will be needing to complete a mission. Then, "
+"assign those open shifts to the resources that are available.</i>"
 msgstr ""
+"Назначьте <b>ресурс</b> или оставьте смену открытой на некоторое время. "
+"<i>Подсказка: Создавайте открытые смены для должностных позиций, для которых"
+" вы хотите завершить задачу. Затем, назначьте открытые смены ресурсам, "
+"которые доступны."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "Assignee"
-msgstr ""
+msgstr "Ответственный"
 
 #. module: planning
 #. odoo-javascript
@@ -614,6 +736,13 @@ msgid "Automatically plan open shifts and sales orders"
 msgstr ""
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_filter_panel/planning_calendar_filter_panel.xml:0
+#, python-format
+msgid "Avatar"
+msgstr "Аватар"
+
+#. module: planning
 #: model:ir.model.fields,field_description:planning.field_resource_resource__avatar_128
 msgid "Avatar 128"
 msgstr "Аватар 128"
@@ -621,7 +750,7 @@ msgstr "Аватар 128"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Bartender"
-msgstr ""
+msgstr "Бармен"
 
 #. module: planning
 #: model:ir.model,name:planning.model_hr_employee_base
@@ -682,15 +811,18 @@ msgstr "Компании"
 #: model:ir.model.fields,field_description:planning.field_planning_planning__company_id
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__company_id
 #: model:ir.model.fields,field_description:planning.field_planning_slot__company_id
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Company"
 msgstr "Компания"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_planning__company_id
-msgid "Company linked to the material resource. Leave empty for the resource to be available in every company."
+msgid ""
+"Company linked to the material resource. Leave empty for the resource to be "
+"available in every company."
 msgstr ""
+"Компания, связанная с материальным ресурсом. Оставьте поле пустым для того, "
+"чтобы ресурс был доступен в каждой компании."
 
 #. module: planning
 #: model:ir.model,name:planning.model_res_config_settings
@@ -723,9 +855,15 @@ msgstr "Копировать предыдущее"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
+#: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
 #, python-format
 msgid "Copy previous week"
 msgstr "Копировать предыдущую неделю"
+
+#. module: planning
+#: model:planning.role,name:planning.planning_role_crane
+msgid "Crane"
+msgstr ""
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
@@ -735,7 +873,7 @@ msgstr "Копировать предыдущую неделю"
 #: model:ir.model.fields,field_description:planning.field_planning_slot__create_uid
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__create_uid
 msgid "Created by"
-msgstr "Создал"
+msgstr "Создано"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_date
@@ -781,7 +919,7 @@ msgstr "Дни до смены для снятия с работы"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Deadline"
-msgstr "Крайний Срок"
+msgstr "Крайний срок сдачи"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__unassign_deadline
@@ -803,19 +941,42 @@ msgid "Default Role"
 msgstr ""
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
-msgid "Define a work email address for the following employees so they will receive the planning."
+#: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
+msgid "Default Roles"
 msgstr ""
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
+msgid ""
+"Define a work email address for the following employees so they will receive"
+" the planning."
+msgstr ""
+"Определите рабочий адрес электронной почты для следующих сотрудников, чтобы "
+"они могли получать информацию о планировании."
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__role_id
-msgid "Define the roles your resources perform (e.g. Chef, Bartender, Waiter...). Create open shifts for the roles you need to complete a mission. Then, assign those open shifts to the resources that are available."
+msgid ""
+"Define the roles your resources perform (e.g. Chef, Bartender, Waiter...). "
+"Create open shifts for the roles you need to complete a mission. Then, "
+"assign those open shifts to the resources that are available."
 msgstr ""
+"Установите должностные позиции, которые выполняют ваши ресурсы (например, "
+"шеф-повар, бармен, официант...). Создайте свободные смены для должностей, "
+"необходимых для выполнения поставленных задач. Затем назначьте эти свободные"
+" смены доступным ресурсам."
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "Define the roles your resources perform (e.g. Chef, Bartender, Waiter...). Create open shifts for the roles you will be needing to complete a mission. Then, assign those open shifts to the resources that are available."
+msgid ""
+"Define the roles your resources perform (e.g. Chef, Bartender, Waiter...). "
+"Create open shifts for the roles you will be needing to complete a mission. "
+"Then, assign those open shifts to the resources that are available."
 msgstr ""
+"Установите должностные позиции, которые выполняют ваши ресурсы (например, "
+"шеф-повар, бармен, официант...). Создайте свободные смены для должностей, "
+"которые понадобятся для выполнения поставленных задач. Затем назначьте эти "
+"свободные смены доступным ресурсам."
 
 #. module: planning
 #. odoo-javascript
@@ -836,8 +997,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__department_id
 #: model:ir.model.fields,field_description:planning.field_planning_slot__department_id
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Department"
 msgstr "Подразделение"
 
@@ -867,33 +1027,35 @@ msgstr "Отменить"
 #: model:ir.model.fields,field_description:planning.field_planning_slot__display_name
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__display_name
 msgid "Display Name"
-msgstr "Отображаемое имя"
+msgstr "Показывать название"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "Distribute your material resources across projects and sales orders."
-msgstr ""
+msgstr "Распределяйте материальные ресурсы по проектам и заказам на продажу."
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Doris Cole (Bartender)"
-msgstr ""
+msgstr "Дорис Коул (бармен)"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__state__draft
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__state__draft
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #, python-format
 msgid "Draft"
 msgstr "Черновик"
 
 #. module: planning
 #: model_terms:digest.tip,tip_description:planning.digest_tip_planning_0
-msgid "Drag a shift to another day to reschedule it, or to another row to reassign the shift. If the shift was published, the user will automatically be notified of the change. Press CTRL (or Cmd on Mac) while dragging a shift to duplicate it."
-msgstr "Перетащите смену на другой день, чтобы переназначить ее, или на другую строку, чтобы переназначить смену. Если смена была опубликована, пользователь будет автоматически уведомлен об изменении. Нажмите CTRL (или Cmd на Mac), перетаскивая смену, чтобы дублировать ее."
+msgid ""
+"Drag a shift to another day to reschedule it, or to another row to reassign "
+"the shift. Press CTRL (or Cmd on Mac) while dragging a shift to duplicate "
+"it."
+msgstr ""
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__duration
@@ -904,7 +1066,7 @@ msgstr "Длительность"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration_days
 msgid "Duration Days"
-msgstr ""
+msgstr "Длительность в днях"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
@@ -915,22 +1077,27 @@ msgstr "Редактировать"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Eli Lambert (Waiter)"
-msgstr ""
+msgstr "Эли Ламбер (официант)"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_shift_switch_email
-msgid "Email sent automatically when employee self assigns to an unwanted shift of another employee"
+msgid ""
+"Email sent automatically when employee self assigns to an unwanted shift of "
+"another employee"
 msgstr ""
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_slot_single
 msgid "Email sent automatically when publishing a shift"
-msgstr ""
+msgstr "Письмо, автоматически отправленное при публикации смены"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_planning_planning
-msgid "Email sent automatically when publishing the schedule of your employees"
+msgid ""
+"Email sent automatically when publishing the schedule of your employees"
 msgstr ""
+"Письмо, отправленное автоматически при публикации расписания ваших "
+"сотрудников"
 
 #. module: planning
 #: model:ir.model,name:planning.model_hr_employee
@@ -946,23 +1113,28 @@ msgstr "Имя сотрудника"
 
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_settings_employee
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Employees"
 msgstr "Сотрудники"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__employee_ids
-msgid "Employees who will receive planning by email if you click on publish & send."
-msgstr "Сотрудники, которые получат план по электронной почте, если вы нажмете «Опубликовать и отправить»."
+msgid ""
+"Employees who will receive planning by email if you click on publish & send."
+msgstr ""
+"Сотрудники, которые получат план по электронной почте, если вы нажмете "
+"«Опубликовать и отправить»."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
 msgid "Employees with no Work Email"
-msgstr ""
+msgstr "Сотрудники, не имеющие рабочей электронной почты"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__employees_no_email
 msgid "Employees without email"
-msgstr ""
+msgstr "Сотрудники без электронной почты"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
@@ -972,15 +1144,14 @@ msgstr "Конец"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__end_datetime
 #: model:ir.model.fields,field_description:planning.field_planning_slot__end_datetime
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "End Date"
 msgstr "Дата окончания"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__end_time
 msgid "End Hour"
-msgstr ""
+msgstr "Час окончания"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_hr_employee_employee_token_unique
@@ -1006,18 +1177,22 @@ msgstr "Дополнительное сообщение"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_my_calendar
-msgid "Find here your planning. Assign yourself open shifts that match your roles, or indicate your unavailability."
+msgid ""
+"Find here your planning. Assign yourself open shifts that match your roles, "
+"or indicate your unavailability."
 msgstr ""
+"Посмотрите свое планирование. Назначьте себе свободные смены, "
+"соответствующие вашей должности, или укажите отсутствие."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Fixed Hours"
-msgstr ""
+msgstr "Фиксированные часы"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Flexible Hours"
-msgstr ""
+msgstr "Гибкие часы"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__allocation_type__forecast
@@ -1038,12 +1213,6 @@ msgid "Forever, every %s week(s)"
 msgstr "Бессрочно, каждую/ые %s неделю/ли"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Future"
-msgstr "В будущем"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Generate shifts"
 msgstr "Создание смен"
@@ -1054,10 +1223,9 @@ msgid "Give depth to your"
 msgstr "Добавьте смысла своим"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Group By"
 msgstr "Группировка"
 
@@ -1069,6 +1237,7 @@ msgid "Has Slots"
 msgstr ""
 
 #. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_analysis_report__request_to_switch
 #: model:ir.model.fields,field_description:planning.field_planning_slot__request_to_switch
 msgid "Has there been a request to switch on this shift slot?"
 msgstr ""
@@ -1080,8 +1249,6 @@ msgstr "Часы"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__user
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
 msgid "Human"
 msgstr "Человек"
 
@@ -1092,6 +1259,7 @@ msgid "I Am Unavailable"
 msgstr "Я недоступен"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "I Take It"
@@ -1116,15 +1284,23 @@ msgstr "Идентификатор"
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_analysis_report__publication_warning
 #: model:ir.model.fields,help:planning.field_planning_slot__publication_warning
-msgid "If checked, it means that the shift contains has changed since its last publish."
-msgstr "Если этот флажок установлен, это означает, что содержимое смены изменилось с момента последней публикации."
+msgid ""
+"If checked, it means that the shift contains has changed since its last "
+"publish."
+msgstr ""
+"Если этот флажок установлен, это означает, что содержимое смены изменилось с"
+" момента последней публикации."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
-msgid "If you are happy with your planning, you can now <b>send</b> it to your employees."
-msgstr "Если вы довольны своим планом, теперь вы можете <b>отправить</b> его своим сотрудникам."
+msgid ""
+"If you are happy with your planning, you can now <b>send</b> it to your "
+"employees."
+msgstr ""
+"Если вы довольны своим планом, теперь вы можете <b>отправить</b> его своим "
+"сотрудникам."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__include_unassigned
@@ -1164,7 +1340,7 @@ msgstr "Срок отмены назначения не истек"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Jeffrey Kelly (Bartender)"
-msgstr ""
+msgstr "Джефри Келли (бармен)"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__job_title
@@ -1199,11 +1375,6 @@ msgid "Last Updated on"
 msgstr "Последнее обновление"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Last Week"
-msgstr "Прошлая неделя"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #, python-format
@@ -1225,8 +1396,13 @@ msgstr "Разрешить сотрудникам отменять назнач�
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
-msgid "Let's create your first <b>shift</b>. <i>Tip: use the (+) shortcut available on each cell of the Gantt view to save time.</i>"
+msgid ""
+"Let's create your first <b>shift</b>. <i>Tip: use the (+) shortcut available"
+" on each cell of the Gantt view to save time.</i>"
 msgstr ""
+"Давайте создадим вашу первую <b>смену</b>. <i>Совет: для экономии времени "
+"используйте сочетание клавиш (+), доступное в каждой ячейке представления "
+"Ганта.</i>"
 
 #. module: planning
 #. odoo-javascript
@@ -1236,9 +1412,16 @@ msgid "Let's start managing your employees' schedule!"
 msgstr "Давайте начнем управлять расписанием ваших сотрудников!"
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+#, python-format
+msgid "List"
+msgstr "Список"
+
+#. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_shift_template
 msgid "Make encoding shifts easy with templates."
-msgstr ""
+msgstr "Упростите кодирование смен с помощью шаблонов."
 
 #. module: planning
 #: model:planning.role,name:planning.planning_role_management
@@ -1248,21 +1431,26 @@ msgstr "Управление"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__manager_id
 #: model:ir.model.fields,field_description:planning.field_planning_slot__manager_id
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Manager"
 msgstr "Руководитель"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.slot_report
+msgid "Marc Demo"
+msgstr ""
+
+#. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
 msgid "Material"
 msgstr "Материал"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_resources
 #: model:ir.ui.menu,name:planning.planning_menu_settings_resource
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Materials"
 msgstr "материалы"
 
@@ -1278,15 +1466,21 @@ msgid "Monday, 13"
 msgstr ""
 
 #. module: planning
-#: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__month
-#: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__month
-msgid "Months"
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+#, python-format
+msgid "Month"
 msgstr "Месяц"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
+#: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__month
+#: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__month
+msgid "Months"
+msgstr "Месяцы"
+
+#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Department"
 msgstr "Мой отдел"
 
@@ -1298,47 +1492,46 @@ msgid "My Planning"
 msgstr "Мое планирование"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Roles"
-msgstr ""
+msgstr "Мои должности"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Shifts"
 msgstr "Мои смены"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Team"
 msgstr "Моя команда"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__name
 msgid "Name"
-msgstr "Имя"
+msgstr "Название"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Next Week"
-msgstr "Следующая неделя"
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
+#, python-format
+msgid "New Shift"
+msgstr ""
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 #, python-format
 msgid "No Email Address For Some Employees"
-msgstr ""
+msgstr "Нет адреса электронной почты у некоторых сотрудников."
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_number
 msgid "No Of Repetitions of the plannings"
-msgstr ""
+msgstr "Кол-во повторов планирований"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
@@ -1348,7 +1541,7 @@ msgstr "Данных пока нет!"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "No material resources found. Let's create one!"
-msgstr ""
+msgstr "Ресурсы не найдены. Давайте создадим!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1374,14 +1567,18 @@ msgstr "Смены не найдены. Давайте создадим перв
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Note"
-msgstr "Заметка"
+msgstr "Запись журнала"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
-msgid "Now that this week is ready, let's get started on <b>next week's schedule</b>."
+msgid ""
+"Now that this week is ready, let's get started on <b>next week's "
+"schedule</b>."
 msgstr ""
+"Теперь, когда эта неделя готова, давайте приступим к составлению расписания "
+"на <b>следующую неделю</b>."
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_type__x_times
@@ -1394,11 +1591,17 @@ msgid "Number of Repetitions"
 msgstr "Число повторений"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
+msgid "Open Shift"
+msgstr ""
+
+#. module: planning
 #. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_calendar_model.js:0
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_model.js:0
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #: model_terms:ir.ui.view,arch_db:planning.slot_report
 #, python-format
 msgid "Open Shifts"
@@ -1413,19 +1616,17 @@ msgstr "Доступны открытые смены"
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
-msgid "Operation not supported, you should always compare overlap_slot_count to 0 value with = or > operator."
-msgstr "Операция не поддерживается, всегда следует сравнивать overlap_slot_count со значением 0 с помощью оператора = или >."
+msgid ""
+"Operation not supported, you should always compare overlap_slot_count to 0 "
+"value with = or > operator."
+msgstr ""
+"Операция не поддерживается, всегда следует сравнивать overlap_slot_count со "
+"значением 0 с помощью оператора = или >."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__overlap_slot_count
 msgid "Overlapping Slots"
 msgstr "Перекрывающиеся слоты"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Past"
-msgstr "В прошлом"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
@@ -1437,8 +1638,21 @@ msgstr "Период"
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
-msgid "Plan all of your shifts in one click by <b>copying the previous week's schedule</b>."
+msgid ""
+"Plan all of your shifts in one click by <b>copying the previous week's "
+"schedule</b>."
 msgstr ""
+"Планируйте все свои смены в один клик, <b>копируя расписание предыдущей "
+"недели</b>."
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid ""
+"Plan resource allocation across projects and estimate deadlines more "
+"accurately"
+msgstr ""
+"Планируйте распределение ресурсов по проектам и более точно оценивайте "
+"сроки."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__start_time
@@ -1473,6 +1687,11 @@ msgstr "Анализ планирования"
 #. module: planning
 #: model:ir.model,name:planning.model_planning_analysis_report
 msgid "Planning Analysis Report"
+msgstr "Отчет по анализу планирования"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "Planning Meeting"
 msgstr ""
 
 #. module: planning
@@ -1497,6 +1716,16 @@ msgid "Planning Shift"
 msgstr "Планирование смены"
 
 #. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_analysis_report__slot_id
+msgid "Planning Slot"
+msgstr "Слот планирования"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_role__slot_properties_definition
+msgid "Planning Slot Properties"
+msgstr ""
+
+#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Planning:"
 msgstr "Планирование:"
@@ -1504,12 +1733,12 @@ msgstr "Планирование:"
 #. module: planning
 #: model:mail.template,name:planning.email_template_planning_planning
 msgid "Planning: New Schedule"
-msgstr ""
+msgstr "Планирование: новое расписание"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_slot_single
 msgid "Planning: New Shift"
-msgstr ""
+msgstr "Планирование: новая смена"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_shift_switch_email
@@ -1546,6 +1775,21 @@ msgid "Previous Template"
 msgstr "Предыдущий шаблон"
 
 #. module: planning
+#: model:ir.model.fields,field_description:planning.field_res_config_settings__module_project_forecast
+msgid "Project Planning"
+msgstr ""
+
+#. module: planning
+#: model:planning.role,name:planning.planning_role_projector
+msgid "Projector"
+msgstr ""
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__slot_properties
+msgid "Properties"
+msgstr "Свойства"
+
+#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
@@ -1567,8 +1811,7 @@ msgstr "Опубликовать и отправить"
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__state__published
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__state__published
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #, python-format
 msgid "Published"
 msgstr "Опубликовано"
@@ -1582,7 +1825,7 @@ msgstr "Скорость создания смен"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__recurrence_update
 msgid "Recurrence Update"
-msgstr ""
+msgstr "Обновление повторов"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__recurrency_id
@@ -1593,6 +1836,16 @@ msgstr "Повторение"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Recurring Shifts"
+msgstr ""
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning_recurrency.py:0
+#, python-format
+msgid ""
+"Recurring shifts cannot be planned further than 999 days in the future. If "
+"you need to schedule beyond this limit, please set the recurrence to repeat "
+"forever instead."
 msgstr ""
 
 #. module: planning
@@ -1618,7 +1871,7 @@ msgstr "Повторение"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_interval
 msgid "Repeat Every"
-msgstr "Интервал повторения"
+msgstr "Интервал повтора"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_type
@@ -1654,7 +1907,7 @@ msgid "Reporting"
 msgstr "Отчетность"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Requests to Switch"
 msgstr ""
 
@@ -1668,10 +1921,14 @@ msgstr "Переместить в черновики"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__resource_id
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_id
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Resource"
 msgstr "Ресурс"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__resource_color
+msgid "Resource color"
+msgstr ""
 
 #. module: planning
 #: model:ir.model,name:planning.model_resource_resource
@@ -1687,9 +1944,8 @@ msgstr "Ресурсы"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__role_id
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Role"
 msgstr "Роль"
@@ -1700,6 +1956,8 @@ msgid ""
 "Role that will be selected by default when creating a shift for this employee.\n"
 "This role will also have precedence over the other roles of the employee when planning orders."
 msgstr ""
+"Должность, которая будет выбрана по умолчанию при создании смены для этого сотрудника. \n"
+"Эта должность также будет иметь приоритет перед остальными должностными обязанностями при планировании заказов. "
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_resource_resource__default_role_id
@@ -1713,6 +1971,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:planning.field_hr_employee__planning_role_ids
 #: model:ir.model.fields,field_description:planning.field_resource_resource__role_ids
 #: model:ir.ui.menu,name:planning.planning_menu_settings_role
+#: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
+#: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Roles"
 msgstr "Роли"
 
@@ -1724,6 +1984,10 @@ msgid ""
 "Additionally, the employee will only be assigned orders for these roles (with the default planning role having precedence over the other ones).\n"
 "Leave empty for the employee to be assigned shifts regardless of the role."
 msgstr ""
+"Должностные обязанности, которые сотрудник может выполнять. При создании смены для этого сотрудника, будут отображаться только шаблоны смен для этих должностей.\n"
+"Аналогично, только открытые смены доступные для этих должностей будут отправлены сотруднику, когда расписание опубликовано.\n"
+"Кроме того, сотруднику будут назначаться заказы для этих должностей (при этом планирование должностных обязанностей по умолчанию будет иметь приоритет перед другими).\n"
+"Оставьте это поле пустым, чтобы сотруднику назначались смены независимо от должности."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
@@ -1733,7 +1997,7 @@ msgstr "Сохранить"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
 msgid "Save & Send Schedule"
-msgstr ""
+msgstr "Сохранить и отправить расписание"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_creation
@@ -1746,6 +2010,11 @@ msgstr "Сохранить как шаблон"
 #, python-format
 msgid "Save this shift once it is ready."
 msgstr "Сохраните эту смену, как только она будет готова."
+
+#. module: planning
+#: model:planning.role,name:planning.planning_role_scanner
+msgid "Scanner"
+msgstr "Сканер"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_planning
@@ -1767,8 +2036,12 @@ msgstr "Расписание по ролям"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_resource
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_role
-msgid "Schedule your human and material resources across roles, projects and sales orders."
+msgid ""
+"Schedule your human and material resources across roles, projects and sales "
+"orders."
 msgstr ""
+"Планируйте человеческие и материальные ресурсы по должностям, проектам и "
+"заказам на продажу."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_hr_employee__employee_token
@@ -1805,7 +2078,7 @@ msgstr "Отправить расписание"
 #: model:ir.model.fields,field_description:planning.field_planning_role__sequence
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__sequence
 msgid "Sequence"
-msgstr "Нумерация"
+msgstr "Последовательность"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_settings
@@ -1849,7 +2122,7 @@ msgid "Shift Templates"
 msgstr "Шаблоны смены"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts Planned"
 msgstr ""
 
@@ -1861,20 +2134,18 @@ msgstr "Переходы от"
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #, python-format
 msgid "Shifts in Conflict"
 msgstr "Смены с конфликтом"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts of Your Department Member"
-msgstr ""
+msgstr "Смены сотрудника вашего отдела"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts of Your Team Member"
 msgstr "Смены члена вашей команды"
 
@@ -1894,18 +2165,17 @@ msgid "Start"
 msgstr "Начать"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
+msgid "Start & End Hours"
+msgstr ""
+
+#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__start_datetime
 #: model:ir.model.fields,field_description:planning.field_planning_planning__start_datetime
 #: model:ir.model.fields,field_description:planning.field_planning_slot__start_datetime
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Start Date"
 msgstr "Дата начала"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
-msgid "Start Hour"
-msgstr "Время начала"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__state
@@ -1931,8 +2201,11 @@ msgstr "Сброс шаблона"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_res_company_planning_self_unassign_days_before_positive
-msgid "The amount of days before unassignment must be positive or equal to zero."
-msgstr "Количество дней до отмены назначения должно быть положительным или равным нулю."
+msgid ""
+"The amount of days before unassignment must be positive or equal to zero."
+msgstr ""
+"Количество дней до отмены назначения должно быть положительным или равным "
+"нулю."
 
 #. module: planning
 #. odoo-python
@@ -1951,26 +2224,26 @@ msgstr "Срок снятия с учета истек."
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_positive
 msgid "The duration cannot be negative."
-msgstr ""
+msgstr "Длительность не может быть отрицательной."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The duration is too long."
-msgstr ""
+msgstr "Продолжительность слишком большая."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_start_date_lower_end_date
 msgid "The end date of a shift should be after its start date."
-msgstr ""
+msgstr "Дата окончания смены должна быть после даты ее начала."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_recurrency.py:0
 #, python-format
 msgid "The number of repetitions cannot be negative."
-msgstr ""
+msgstr "Число повторений не может быть отрицательным."
 
 #. module: planning
 #. odoo-javascript
@@ -1982,21 +2255,21 @@ msgstr ""
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_repeat_interval_positive
 msgid "The recurrence should be greater than 0."
-msgstr ""
+msgstr "Повторяемость должна быть больше 0."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The recurrence's end date should fall after the shift's start date."
-msgstr ""
+msgstr "Дата окончания повторения должна наступать после даты начала смены."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 #, python-format
 msgid "The recurring shifts have successfully been created."
-msgstr ""
+msgstr "Повторяющиеся смены успешно созданы."
 
 #. module: planning
 #. odoo-python
@@ -2010,7 +2283,7 @@ msgstr "Расписание успешно отправлено вашим со
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The selected duration creates a date too far into the future."
-msgstr ""
+msgstr "Выбранная длительность создает дату слишком в далеком будущем."
 
 #. module: planning
 #. odoo-python
@@ -2020,13 +2293,14 @@ msgid "The shift has successfully been sent."
 msgstr "Смена успешно отправлена."
 
 #. module: planning
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 #: code:addons/planning/wizard/planning_send.py:0
 #, python-format
-msgid "The shifts have already been published, or there are no shifts to publish."
-msgstr ""
+msgid ""
+"The shifts have already been published, or there are no shifts to publish."
+msgstr "Смены уже опубликованы, или нет смен для публикации."
 
 #. module: planning
 #. odoo-python
@@ -2045,19 +2319,19 @@ msgstr "Смены успешно опубликованы и отправлен
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_lower_than_24
 msgid "The start hour cannot be greater than 24."
-msgstr ""
+msgstr "Начальное время не может быть больше 24."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_positive
 msgid "The start hour cannot be negative."
-msgstr ""
+msgstr "Час начала не может быть отрицательным."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The start hour must be greater or equal to 0 and lower than 24."
-msgstr ""
+msgstr "Начальный час должен быть больше или равен 0 и меньше 24."
 
 #. module: planning
 #. odoo-python
@@ -2070,8 +2344,11 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 #, python-format
-msgid "There are no shifts planned for the previous week, or they have already been copied."
+msgid ""
+"There are no shifts planned for the previous week, or they have already been"
+" copied."
 msgstr ""
+"На предыдущей неделе нет запланированных смен, или они уже были скопированы."
 
 #. module: planning
 #. odoo-python
@@ -2092,17 +2369,12 @@ msgstr "Нет смен для сброса в черновик."
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "This Progress Bar is not implemented."
-msgstr ""
+msgstr "Эта строка прогресса не используется."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__was_copied
 msgid "This Shift Was Copied From Previous Week"
 msgstr "Эта смена была скопирована с предыдущей недели"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "This Week"
-msgstr "Текущая неделя"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__subsequent
@@ -2111,8 +2383,13 @@ msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
-msgid "This open shift is no longer available, or the planning has been updated in the meantime. Please contact your manager for further information."
-msgstr "Эта открытая смена больше недоступна, или планирование было обновлено. Пожалуйста, свяжитесь с вашим менеджером для получения дополнительной информации."
+msgid ""
+"This open shift is no longer available, or the planning has been updated in "
+"the meantime. Please contact your manager for further information."
+msgstr ""
+"Эта открытая смена больше недоступна, или планирование было обновлено. "
+"Пожалуйста, свяжитесь с вашим менеджером для получения дополнительной "
+"информации."
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__this
@@ -2144,25 +2421,20 @@ msgid "Tip: Record your planning faster"
 msgstr "Совет: записывайте свое планирование быстрее"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "To Resend"
-msgstr ""
-
-#. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__repeat
-msgid "To avoid polluting your database and performance issues, shifts are only created for the next 6 months. They are then gradually created as time passes by in order to always get shifts 6 months ahead. This value can be modified from the settings of Planning, in debug mode."
+msgid ""
+"To avoid polluting your database and performance issues, shifts are only "
+"created for the next 6 months. They are then gradually created as time "
+"passes by in order to always get shifts 6 months ahead. This value can be "
+"modified from the settings of Planning, in debug mode."
 msgstr ""
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+#, python-format
 msgid "Today"
 msgstr "Сегодня"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Tomorrow"
-msgstr "Завтра"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -2215,7 +2487,7 @@ msgstr "Просмотр планирования"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Waiter"
-msgstr ""
+msgstr "Официант"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -2223,11 +2495,18 @@ msgid "Wednesday, 15"
 msgstr ""
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+#, python-format
+msgid "Week"
+msgstr "Неделя"
+
+#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_type
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__week
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__week
 msgid "Weeks"
-msgstr "Неделя"
+msgstr "Недели"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__work_address_id
@@ -2248,25 +2527,28 @@ msgstr "Рабочее место"
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__working_days_count
 #: model:ir.model.fields,field_description:planning.field_planning_slot__working_days_count
 msgid "Working Days"
-msgstr ""
+msgstr "Рабочие дни"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
-msgid "Write the <b>role</b> your employee will perform (<i>e.g. Chef, Bartender, Waiter, etc.</i>). <i>Tip: Create open shifts for the roles you will be needing to complete a mission. Then, assign those open shifts to the resources that are available.</i>"
+msgid ""
+"Write the <b>role</b> your employee will perform (<i>e.g. Chef, Bartender, "
+"Waiter, etc.</i>). <i>Tip: Create open shifts for the roles you will be "
+"needing to complete a mission. Then, assign those open shifts to the "
+"resources that are available.</i>"
 msgstr ""
+"Напишите <b>должность</b>, которую будет выполнять ваш сотрудник "
+"(<i>например, шеф-повар, бармен, официант и т.д.). <i>Совет: Создайте "
+"свободные смены для должностей, которые понадобятся для выполнения задания. "
+"Затем назначьте эти свободные смены на имеющиеся ресурсы.</i>"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__year
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__year
 msgid "Years"
 msgstr "Год"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Yesterday"
-msgstr "Вчера"
 
 #. module: planning
 #. odoo-python
@@ -2293,7 +2575,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
-msgid "You can not request to switch a shift that is assigned to another user."
+msgid ""
+"You can not request to switch a shift that is assigned to another user."
 msgstr ""
 
 #. module: planning
@@ -2350,12 +2633,18 @@ msgstr "Ваше планирование"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_planning_planning
-msgid "Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ format_date(ctx.get('end_datetime')) }}"
-msgstr "Ваше планирование с {{ format_date(ctx.get('start_datetime')) }} по {{ format_date(ctx.get('end_datetime')) }}"
+msgid ""
+"Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ "
+"format_date(ctx.get('end_datetime')) }}"
+msgstr ""
+"Ваше планирование с {{ format_date(ctx.get('start_datetime')) }} по {{ "
+"format_date(ctx.get('end_datetime')) }}"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_shift_switch_email
-msgid "Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ ctx['employee'].name }}"
+msgid ""
+"Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ "
+"ctx.get('new_assignee_name', 'Marc Demo') }}"
 msgstr ""
 
 #. module: planning
@@ -2373,22 +2662,28 @@ msgstr "дней до начала смены"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "days span)"
-msgstr ""
+msgstr "промежуток времени)"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "e.g. Bartender"
+msgstr "например, бармен"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
+msgid "e.g. Cleaner"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_form_view_inherit
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_tree_view_inherit
 msgid "e.g. Crane"
-msgstr ""
+msgstr "например, кран"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
 msgid "e.g. John Doe"
 msgstr "например, Петр Петров"
 
@@ -2425,3 +2720,4 @@ msgstr "до"
 #: model:mail.template,subject:planning.email_template_slot_single
 msgid "{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"
 msgstr ""
+"{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"

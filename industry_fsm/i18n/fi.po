@@ -60,6 +60,26 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"   <t t-set=\"date_begin\" t-value=\"format_datetime(object.planned_date_begin, tz=object.partner_id.tz, lang_code=object.partner_id.lang)\"></t>\n"
+"\n"
+"    <t t-set=\"date_end\" t-value=\"format_datetime(object.date_deadline, tz=object.partner_id.tz, lang_code=object.partner_id.lang)\"></t>\n"
+"\n"
+"    Hyvä <t t-out=\"object.partner_id.name or 'customer'\">asiakas</t>,<br><br>\n"
+"   <t t-if=\"date_begin and date_end\">\n"
+"       <t t-out=\"object.name or ''\">Kattilan huoltotoimenpide</t> on ajoitettu <t t-out=\"date_begin or ''\">31.05.2021 klo 12:30:00</t> - <t t-out=\"date_end or ''\">31.05.2021 klo 14:30:00</t> väliseksi ajaksi.\n"
+"   </t>\n"
+"   <t t-else=\"\">\n"
+"       <t t-out=\"object.name or ''\">Kattilan huoltotoimenpide</t> on ajoitettu.\n"
+"   </t>\n"
+"   <br><br>\n"
+"    Ystävällisin terveisin,\n"
+"    <t t-if=\"user.signature\">\n"
+"        <br>\n"
+"        <t t-out=\"user.signature or ''\">--<br>Mitchell Admin</t>\n"
+"    </t>\n"
+"</div>\n"
+"        "
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_button
@@ -73,6 +93,9 @@ msgid ""
 "title=\"By saving this change, the customer phone number will also be "
 "updated.\" invisible=\"not partner_id or not is_task_phone_update\"/>"
 msgstr ""
+"<span class=\"fa fa-exclamation-triangle text-warning oe_edit_only\" "
+"title=\"Tämän muutoksen tallentamalla asiakkaan puhelinnumero päivitetään.\""
+" invisible=\"not partner_id or not is_task_phone_update\"/>"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_my_task
@@ -82,7 +105,7 @@ msgstr "<strong>Suunniteltu päivämäärä:</strong>"
 #. module: industry_fsm
 #: model:ir.model.constraint,message:industry_fsm.constraint_project_project_company_id_required_for_fsm_project
 msgid "A fsm project must be company restricted"
-msgstr ""
+msgstr "Fsm-hankkeen on oltava yrityskohtaisesti rajoitettu"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__active
@@ -685,7 +708,7 @@ msgstr "Aikatauluta tehtävät ja anna ne työntekijöille."
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.report_project_task_user_fsm_view_search
 msgid "Search Planning"
-msgstr ""
+msgstr "Haun suunnittelu"
 
 #. module: industry_fsm
 #. odoo-javascript
@@ -862,14 +885,14 @@ msgstr "Tähän tehtävään ja sen alitehtäviin käytetty aika."
 #: code:addons/industry_fsm/models/project_task.py:0
 #, python-format
 msgid "Timer started at: %(date)s %(time)s"
-msgstr ""
+msgstr "Ajastin käynnistetty: %(date)s %(time)s"
 
 #. module: industry_fsm
 #. odoo-python
 #: code:addons/industry_fsm/wizard/project_task_create_timesheet.py:0
 #, python-format
 msgid "Timer stopped at: %(date)s %(time)s"
-msgstr ""
+msgstr "Ajastin pysäytetty: %(date)s %(time)s"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.timesheet_view_form
@@ -885,7 +908,7 @@ msgstr "Aikatauluttaminen"
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_search_fsm
 msgid "To Schedule/Assign"
-msgstr ""
+msgstr "Aikatauluttaminen / vastuuttaminen"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_all_fsm
@@ -938,7 +961,7 @@ msgstr "Käyttäjä"
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit
 msgid "View Itinerary"
-msgstr ""
+msgstr "Näytä matkasuunnitelma"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task_stop_timers_wizard_line__wizard_id
@@ -983,6 +1006,12 @@ msgid ""
 "format_datetime(object.date_deadline, tz=object.partner_id.tz, "
 "lang_code=object.partner_id.lang) or '' }}"
 msgstr ""
+"Toimenpiteesi on ajoitettu {{ object.planned_date_begin and "
+"object.date_deadline and 'alkaen ' + "
+"format_datetime(object.planned_date_begin, tz=object.partner_id.tz, "
+"lang_code=object.partner_id.lang) + ' päättyen ' + "
+"format_datetime(object.date_deadline, tz=object.partner_id.tz, "
+"lang_code=object.partner_id.lang) or '' }}"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.quick_create_task_form_fsm_inherited
@@ -992,7 +1021,7 @@ msgstr "esim. kattilan vaihto"
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit
 msgid "is FSM?"
-msgstr ""
+msgstr "on FSM?"
 
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.fsm_customer_ratings_server_action

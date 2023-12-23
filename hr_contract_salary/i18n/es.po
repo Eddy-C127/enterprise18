@@ -306,7 +306,7 @@ msgstr "Presupuesto anual de empleados"
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "Annual Employer Cost"
-msgstr "Costo anual del empleador"
+msgstr "Coste anual del empleador"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_applicant
@@ -577,12 +577,12 @@ msgstr "Revisiones de contratos"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_id
 msgid "Cost Field"
-msgstr "Campo de costo"
+msgstr "Campo de coste"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__cost_field
 msgid "Cost Field Name"
-msgstr "Nombre de campo de costo"
+msgstr "Nombre de campo de coste"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_public
@@ -803,6 +803,9 @@ msgid ""
 "signatures related to the benefit. eg: A company car policy to approve if "
 "you choose a company car."
 msgstr ""
+"Se solicitarán los documentos seleccionados al empleado para que los firme. "
+"Por ejemplo: una política referente a un automóvil de la empresa para "
+"aprobar en caso de que haya elegido uno."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_sign_document_wizard__sign_template_ids
@@ -1326,12 +1329,12 @@ msgstr "Mensual"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_history_view_form
 msgid "Monthly Cost"
-msgstr "Costo mensual"
+msgstr "Coste mensual"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__monthly_yearly_costs
 msgid "Monthly Cost (Real)"
-msgstr "Costo mensual (real)"
+msgstr "Coste mensual (real)"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1790,7 +1793,7 @@ msgstr "Configurador de sueldo"
 #. module: hr_contract_salary
 #: model:ir.actions.server,name:hr_contract_salary.ir_cron_update_offer_state_ir_actions_server
 msgid "Salary Configurator: Update Offer State"
-msgstr ""
+msgstr "Configurador de sueldo: actualizar el estado de la oferta"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__salary_offer_ids
@@ -2016,7 +2019,7 @@ msgstr "Deslizador mínimo"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__slider_step
 msgid "Slider Step"
-msgstr ""
+msgstr "Paso del regulador"
 
 #. module: hr_contract_salary
 #. odoo-javascript
@@ -2210,17 +2213,17 @@ msgstr "Token"
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__monthly_yearly_costs
 msgid "Total real monthly cost of the employee for the employer."
-msgstr "Costo total mensual real del empleado para el empleador."
+msgstr "Coste total mensual real del empleado para el empleador."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__final_yearly_costs
 msgid "Total real yearly cost of the employee for the employer."
-msgstr "Costo total anual real del empleado para el empleador."
+msgstr "Coste total anual real del empleado para el empleador."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_history__reference_yearly_cost
 msgid "Total yearly cost of the employee for the employer."
-msgstr "Costo total anual del empleado para el empleador."
+msgstr "Coste total anual del empleado para el empleador."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_offer__activity_exception_decoration
@@ -2313,7 +2316,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__show_name
 msgid "Whether the name should be displayed in the Salary Configurator"
-msgstr ""
+msgstr "Si el nombre se debe mostrar en el configurador de sueldo"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit_type__periodicity__yearly
@@ -2326,12 +2329,12 @@ msgstr "Anualmente"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_history__reference_yearly_cost
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_history_view_form
 msgid "Yearly Cost"
-msgstr "Costo anual"
+msgstr "Coste anual"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__final_yearly_costs
 msgid "Yearly Cost (Real)"
-msgstr "Costo anual (real)"
+msgstr "Coste anual (real)"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -2381,6 +2384,8 @@ msgstr "firmar"
 msgid ""
 "{{ object.company_id.name }}: Job Offer - {{ object.applicant_id.name }}"
 msgstr ""
+"{{ object.company_id.name }}: Oferta de trabajo - {{ "
+"object.applicant_id.name }}"
 
 #. module: hr_contract_salary
 #: model:mail.template,subject:hr_contract_salary.mail_template_send_offer

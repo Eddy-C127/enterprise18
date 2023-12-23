@@ -208,8 +208,8 @@ msgstr "Templat Bagan Akun"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
-msgid "Account Code"
-msgstr "Kode Akun"
+msgid "Account Code / Tag"
+msgstr ""
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
@@ -3199,6 +3199,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
+msgid "The used operator is not supported for this expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
 msgid "This account is reported in multiple lines of the report"
 msgstr "Akun ini dilaporkan di lebih dari satu baris laporan"
 
@@ -3272,6 +3279,15 @@ msgstr ""
 #, python-format
 msgid "This report only displays the data of the active company."
 msgstr "Laporan ini hanya menampilkan data dari perusahaan aktif"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"This tag is reported in a line of the report but is not linked to any "
+"account of the Chart of Accounts"
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return

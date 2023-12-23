@@ -232,7 +232,7 @@ msgstr "Fecha de Creación"
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_project_task_create_timesheet
 msgid "Create Timesheet from task"
-msgstr "Crear hoja de horas desde una tarea"
+msgstr "Crear hoja de asistencia desde una tarea"
 
 #. module: industry_fsm
 #: model:ir.actions.act_window,name:industry_fsm.open_create_project_fsm
@@ -489,6 +489,8 @@ msgid ""
 "Let's <b>mark your task as done!</b> <i>Tip: when doing so, your stock will "
 "automatically be updated, and your task will be closed.</i>"
 msgstr ""
+"<b>¡Marquemos su tarea como hecha!</b> <i>Consejo: al hacerlo, su stock se "
+"actualizará automáticamente, y su tarea se cerrará.</i>"
 
 #. module: industry_fsm
 #. odoo-javascript
@@ -903,7 +905,7 @@ msgstr "Por programar"
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_search_fsm
 msgid "To Schedule/Assign"
-msgstr ""
+msgstr "A planificar/asignar"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_all_fsm
@@ -911,6 +913,8 @@ msgid ""
 "To get things done, plan activities and use the task status.<br>\n"
 "                Collaborate efficiently by chatting in real-time or via email."
 msgstr ""
+"Para completar sus tareas, planifica actividades y utilice el estado de la tarea.<br>\n"
+"                Colabore de forma eficiente al chatear en tiempo real o a través de correo electrónico."
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_tasks_action_fsm
@@ -1001,6 +1005,12 @@ msgid ""
 "format_datetime(object.date_deadline, tz=object.partner_id.tz, "
 "lang_code=object.partner_id.lang) or '' }}"
 msgstr ""
+"Se programó su intervención {{ object.planned_date_begin and "
+"object.date_deadline and 'from the ' + "
+"format_datetime(object.planned_date_begin, tz=object.partner_id.tz, "
+"lang_code=object.partner_id.lang) + ' to the ' + "
+"format_datetime(object.date_deadline, tz=object.partner_id.tz, "
+"lang_code=object.partner_id.lang) or '' }}"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.quick_create_task_form_fsm_inherited

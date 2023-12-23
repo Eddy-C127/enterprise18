@@ -1,24 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* delivery_bpost
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Evgeniia Kotova, 2022
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2022
-#
+# Martin Trigaux, 2023
+# Evgeniia Kotova, 2023
+# alenafairy, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:45+0000\n"
-"Last-Translator: Ivan Kropotkin <yelizariev@itpp.dev>, 2022\n"
+"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Ivan Kropotkin <yelizariev@itpp.dev>, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: delivery_bpost
@@ -247,7 +248,7 @@ msgstr "Методы доставки"
 #. module: delivery_bpost
 #: model:ir.model,name:delivery_bpost.model_stock_package_type
 msgid "Stock package type"
-msgstr ""
+msgstr "Тип складской упаковки"
 
 #. module: delivery_bpost
 #. odoo-python
@@ -263,13 +264,17 @@ msgstr "Услуга доставки BPost не отвечает, повтор�
 msgid ""
 "The address of your company/warehouse is incomplete or wrong (Missing field(s):  \n"
 " %s)"
-msgstr "Адрес вашей компании / склада является неполной или неправильной (отсутствует поле (я): %s)"
+msgstr ""
+"Адрес вашей компании / склада является неполной или неправильной "
+"(отсутствует поле (я): %s)"
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
 #, python-format
-msgid "The estimated shipping price cannot be computed because all your products are service."
+msgid ""
+"The estimated shipping price cannot be computed because all your products "
+"are service."
 msgstr ""
 
 #. module: delivery_bpost
@@ -323,7 +328,9 @@ msgstr "Вы не можете вычислить кодовую фразу ни
 #: code:addons/delivery_bpost/models/bpost_request.py:0
 #, python-format
 msgid "Your company/warehouse address must be in Belgium to ship with bpost"
-msgstr "Адрес вашей компании / склада должны быть в Бельгии, чтобы доставить их с bpost"
+msgstr ""
+"Адрес вашей компании / склада должны быть в Бельгии, чтобы доставить их с "
+"bpost"
 
 #. module: delivery_bpost
 #: model:ir.model.fields.selection,name:delivery_bpost.selection__delivery_carrier__bpost_domestic_deliver_type__bpack_24h_pro
@@ -375,15 +382,23 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
 #, python-format
-msgid "bpost Domestic is used only to ship inside Belgium. Please change the delivery method into bpost International."
-msgstr "Отечественный bpost используется только для доставки в Бельгию. Пожалуйста, измените метод доставки в Международный bpost."
+msgid ""
+"bpost Domestic is used only to ship inside Belgium. Please change the "
+"delivery method into bpost International."
+msgstr ""
+"Отечественный bpost используется только для доставки в Бельгию. Пожалуйста, "
+"измените метод доставки в Международный bpost."
 
 #. module: delivery_bpost
 #. odoo-python
 #: code:addons/delivery_bpost/models/bpost_request.py:0
 #, python-format
-msgid "bpost International is used only to ship outside Belgium. Please change the delivery method into bpost Domestic."
-msgstr "Международный bpost используется только для доставки за пределами Бельгии. Пожалуйста, измените метод доставки в адрес Отечественного bpost."
+msgid ""
+"bpost International is used only to ship outside Belgium. Please change the "
+"delivery method into bpost Domestic."
+msgstr ""
+"Международный bpost используется только для доставки за пределами Бельгии. "
+"Пожалуйста, измените метод доставки в адрес Отечественного bpost."
 
 #. module: delivery_bpost
 #: model_terms:ir.ui.view,arch_db:delivery_bpost.res_config_settings_view_form_sale

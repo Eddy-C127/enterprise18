@@ -1431,6 +1431,16 @@ msgstr ""
 "選択したタイムシートは、チームに属していない従業員のものであるか、または検証できる状態ではないため、検証できません。これは、タイムシートが未来の日付であることが原因である可能性があります。"
 
 #. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid ""
+"Your timesheet entry is missing a project. Please either group the Grid view"
+" by project or enter your timesheets through another view."
+msgstr ""
+"タイムシートの入力にプロジェクトが含まれていません。グリッドビューをプロジェクトごとにグループ化するか、別のビューからタイムシートを入力して下さい。"
+
+#. module: timesheet_grid
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_employee_interval__months
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_interval__months
 msgid "after the end of the month"

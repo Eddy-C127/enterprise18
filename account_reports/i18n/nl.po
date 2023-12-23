@@ -3,10 +3,10 @@
 # 	* account_reports
 # 
 # Translators:
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
 # Wil Odoo, 2023
-# Jolien De Paepe, 2023
 # Martin Trigaux, 2023
+# Jolien De Paepe, 2023
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-11 09:27+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -210,8 +210,8 @@ msgstr "Grootboekschema sjabloon"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
-msgid "Account Code"
-msgstr "Rekeningcode"
+msgid "Account Code / Tag"
+msgstr ""
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
@@ -1378,8 +1378,8 @@ msgid ""
 "Expected payment date for journal item %r has been changed from %s to %s on "
 "journal entry %r"
 msgstr ""
-"Verwachte betalingsdatum voor journaalitem %r is gewijzigd van %s in %s op "
-"journaalboeking %r"
+"Verwachte betalingsdatum voor boekingsregels %r is gewijzigd van %s in %s op"
+" journaalboeking %r"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__expense_provision_account_id
@@ -1870,7 +1870,7 @@ msgstr "Intracommunautaire BTW zijn toegepast op"
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Partners"
-msgstr "Ongeldige partners"
+msgstr "Ongeldige relaties"
 
 #. module: account_reports
 #. odoo-python
@@ -2328,7 +2328,7 @@ msgstr "Er is geen voorziening gevonden."
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "Non Trade Partners"
-msgstr "Niet-handelspartners"
+msgstr "Niet-handelsrelaties"
 
 #. module: account_reports
 #. odoo-python
@@ -3200,6 +3200,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
+msgid "The used operator is not supported for this expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
 msgid "This account is reported in multiple lines of the report"
 msgstr "Deze rekening wordt vermeld in meerdere regels van het rapport"
 
@@ -3257,7 +3264,7 @@ msgstr "Deze optie verbergt regels met een waarde van 0"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This report already has a menuitem."
-msgstr ""
+msgstr "Dit rapport heeft al een menuitem."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3274,6 +3281,15 @@ msgstr ""
 #, python-format
 msgid "This report only displays the data of the active company."
 msgstr "Dit rapport toont enkel de gegevens van het actieve bedrijf."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"This tag is reported in a line of the report but is not linked to any "
+"account of the Chart of Accounts"
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -3320,7 +3336,7 @@ msgstr "Totaal %s"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "Trade Partners"
-msgstr "Handelspartners"
+msgstr "Handelsrelaties"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report

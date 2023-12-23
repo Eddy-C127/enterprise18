@@ -2,12 +2,16 @@
 # This file contains the translation of the following modules:
 # 	* account_sepa
 # 
+# Translators:
+# Wil Odoo, 2023
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2023\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,22 +55,22 @@ msgstr ""
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_account_batch_payment
 msgid "Batch Payment"
-msgstr ""
+msgstr "Pagamento em Série"
 
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Empresas"
 
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Configurações"
 
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_res_company__sepa_orgid_issr
@@ -74,11 +78,12 @@ msgid ""
 "Entity that assigns the identification (eg. KBE-BCO or Finanzamt Muenchen "
 "IV)."
 msgstr ""
+"Entidade que emite a identificação (p.e. KBE-BCO ou Finanzmat Muenchen IV)."
 
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_03
 msgid "Generic"
-msgstr ""
+msgstr "Genérica"
 
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_03_de
@@ -94,24 +99,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_sepa.field_res_company__sepa_orgid_id
 #: model:ir.model.fields,field_description:account_sepa.field_res_config_settings__sepa_orgid_id
 msgid "Identification"
-msgstr ""
+msgstr "Identificação"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_res_company__sepa_orgid_id
 #: model:ir.model.fields,help:account_sepa.field_res_config_settings__sepa_orgid_id
 msgid "Identification assigned by an institution (eg. VAT number)."
-msgstr ""
+msgstr "Identificação emitida por uma instituição (p.e. NIPC/NIF)."
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_res_company__sepa_orgid_issr
 #: model:ir.model.fields,field_description:account_sepa.field_res_config_settings__sepa_orgid_issr
 msgid "Issuer"
-msgstr ""
+msgstr "Emissor"
 
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Diário"
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_res_company__account_sepa_lei
@@ -137,7 +142,7 @@ msgstr ""
 #. module: account_sepa
 #: model_terms:ir.ui.view,arch_db:account_sepa.res_partner_sepa_inherit_form
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Diversos"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_res_config_settings__sepa_initiating_party_name
@@ -168,22 +173,22 @@ msgstr ""
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_account_payment_method
 msgid "Payment Methods"
-msgstr ""
+msgstr "Métodos de Pagamento"
 
 #. module: account_sepa
 #: model_terms:ir.ui.view,arch_db:account_sepa.account_journal_dashboard_kanban_view_inherited
 msgid "Payment to send via SEPA"
-msgstr ""
+msgstr "Pagamento para enviar via SEPA"
 
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_account_payment
 msgid "Payments"
-msgstr ""
+msgstr "Pagamentos"
 
 #. module: account_sepa
 #: model_terms:ir.ui.view,arch_db:account_sepa.account_journal_dashboard_kanban_view_inherited
 msgid "Payments to send via SEPA"
-msgstr ""
+msgstr "Pagamentos para enviar via SEPA"
 
 #. module: account_sepa
 #. odoo-python
@@ -196,7 +201,7 @@ msgstr ""
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_account_payment_register
 msgid "Register Payment"
-msgstr ""
+msgstr "Registar Pagamento"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_account_batch_payment__sct_batch_booking
@@ -218,7 +223,7 @@ msgstr ""
 #: code:addons/account_sepa/models/account_journal_dashboard.py:0
 #, python-format
 msgid "SEPA Credit Transfers to Send"
-msgstr ""
+msgstr "Transferências de Crédito SEPA para Enviar"
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_journal__sepa_pain_version
@@ -323,6 +328,8 @@ msgid ""
 "The account %s, linked to partner '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
+"A conta %s, agregada ao parceiro '%s', não é do tipo IBAN.\n"
+"Uma conta IBAN válida é necessária para usar as funcionalidades SEPA."
 
 #. module: account_sepa
 #. odoo-python
@@ -332,6 +339,8 @@ msgid ""
 "The account %s, of journal '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
+"A conta %s, do diário '%s', não é do tipo IBAN.\n"
+"Uma conta IBAN válida é necessária para usar as funcionalidades SEPA."
 
 #. module: account_sepa
 #. odoo-python
@@ -359,13 +368,15 @@ msgid ""
 "The journal '%s' requires a proper IBAN account to pay via SEPA. Please "
 "configure it first."
 msgstr ""
+"O diário '%s' requer um IBAN da conta correto para pagamentos via SEPA. Por "
+"favor, configure-o primeiro."
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_journal.py:0
 #, python-format
 msgid "Too many transactions for a single file."
-msgstr ""
+msgstr "Demasiadas transações para um único ficheiro."
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_payment__sepa_uetr
@@ -384,9 +395,11 @@ msgid ""
 "Will appear in SEPA payments as the name of the party initiating the "
 "payment. Limited to 70 characters."
 msgstr ""
+"Aparecerá nos pagamentos SEPA como o nome de quem iniciou o pagamento. Será "
+"limitado a 70 caracteres."
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_res_company__sepa_initiating_party_name
 #: model:ir.model.fields,field_description:account_sepa.field_res_config_settings__sepa_initiating_party_name
 msgid "Your Company Name"
-msgstr ""
+msgstr "Nome da Sua Empresa"

@@ -6,6 +6,7 @@
 # Martin Trigaux, 2023
 # Wil Odoo, 2023
 # Larissa Manderfeld, 2023
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2023
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2023\n"
+"Last-Translator: Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -162,13 +163,15 @@ msgstr "Suprimir todo"
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__displayed
 msgid ""
 "Determines whether the order should be displayed on the preparation screen"
-msgstr ""
+msgstr "Determina si el pedido se debe mostrar en la pantalla de preparación"
 
 #. module: pos_preparation_display
 #: model_terms:ir.actions.act_window,help:pos_preparation_display.action_preparation_display
 msgid ""
 "Different products and categories are sent to different tablets and screens."
 msgstr ""
+"Los diferentes productos y categorías se envían a tabletas y pantallas "
+"distintas."
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_reset_wizard
@@ -190,14 +193,14 @@ msgstr "Nombre mostrado"
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 #, python-format
 msgid "Explore demo data"
-msgstr ""
+msgstr "Explorar datos de demostración"
 
 #. module: pos_preparation_display
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/override/point_of_sale/pos_store.js:0
 #, python-format
 msgid "Failed in sending the changes to preparation display"
-msgstr ""
+msgstr "Falló al enviar los cambios a la pantalla de preparación"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -219,7 +222,7 @@ msgstr "ID"
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__pos_order_id
 msgid "ID of the original PoS order"
-msgstr "ID de la orden de PdV original"
+msgstr "ID del pedido de TPV original"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__internal_note
@@ -240,13 +243,13 @@ msgstr "Es un bar/restaurante"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order_stage__done
 msgid "Is the order done"
-msgstr ""
+msgstr "¿El pedido está listo?"
 
 #. module: pos_preparation_display
 #: model:ir.actions.server,name:pos_preparation_display.action_pos_preparation_display_kitchen_display
 #: model:ir.ui.menu,name:pos_preparation_display.menu_point_kitchen_display_root
 msgid "Kitchen Display"
-msgstr "Pantalla para cocina"
+msgstr "Pantalla de cocina"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__write_uid
@@ -317,22 +320,22 @@ msgstr "Líneas del pedido"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__order_stage_ids
 msgid "Order Stage"
-msgstr ""
+msgstr "Etapa del pedido"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__average_time
 msgid "Order average time"
-msgstr ""
+msgstr "Tiempo promedio del pedido"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__order_count
 msgid "Order count"
-msgstr ""
+msgstr "Número de pedidos"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__displayed
 msgid "Order is displayed"
-msgstr ""
+msgstr "Se muestra el pedido"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__pos_config_ids
@@ -353,7 +356,7 @@ msgstr "Sesión TPV"
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_orderline
 msgid "Point of Sale preparation order line"
-msgstr ""
+msgstr "Línea de orden de preparación del punto de venta"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_stage
@@ -379,7 +382,7 @@ msgstr "Pantalla de preparación"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__preparation_display_order_id
 msgid "Preparation Display Order"
-msgstr ""
+msgstr "Pantalla de preparación del pedido"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_display
@@ -415,7 +418,7 @@ msgstr "Cantidad de productos cancelados"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__product_quantity
 msgid "Quantity of ordered product"
-msgstr ""
+msgstr "Cantidad de productos pedidos"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -423,7 +426,7 @@ msgstr ""
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 #, python-format
 msgid "Recall"
-msgstr ""
+msgstr "Hacer recordatorio"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -443,12 +446,12 @@ msgstr "Restablecer pantalla de preparación"
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_reset_wizard
 msgid "Reset all current order in a preparation display"
-msgstr ""
+msgstr "Restablezca todas los pedidos actuales en la pantalla de preparación"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "Reset all orders"
-msgstr ""
+msgstr "Restablecer todos los pedidos"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__attribute_value_ids
@@ -460,7 +463,7 @@ msgstr "Atributos seleccionados"
 #: code:addons/pos_preparation_display/static/src/override/point_of_sale/pos_store.js:0
 #, python-format
 msgid "Send failed"
-msgstr ""
+msgstr "Envío fallido"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__sequence
@@ -475,7 +478,7 @@ msgstr "Etapa"
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_order_stage
 msgid "Stage of orders by preparation display"
-msgstr ""
+msgstr "Etapa del pedido según la pantalla de preparación"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__stage_ids
@@ -486,24 +489,24 @@ msgstr "Etapas"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__todo
 msgid "Status of the orderline"
-msgstr ""
+msgstr "Estado de la línea de pedido"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_orderline__todo
 msgid "The status of a command line, todo or not"
-msgstr ""
+msgstr "El estado de una línea de comando, pendiente o no"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_stage__alert_timer
 msgid "Timer after which the order will be highlighted"
-msgstr ""
+msgstr "Tiempo tras el que se resaltará el pedido"
 
 #. module: pos_preparation_display
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 #, python-format
 msgid "or simply wait for commands to be sent to this location."
-msgstr ""
+msgstr "o simplemente esperar a que se envíen los pedidos a esta ubicación."
 
 #. module: pos_preparation_display
 #. odoo-javascript

@@ -51,12 +51,12 @@ msgid ""
 "- Follow-up Address: Preferred address for follow-up reports. Selected by default when you send reminders about overdue invoices.\n"
 "- Other: Other address for the company (e.g. subsidiary, ...)"
 msgstr ""
-"- Contactos: utilice esta opción para organizar los datos de contacto de los empleados de una empresa determinada (por ejemplo, director general, director financiero, etc.).\n"
-"- Dirección de facturación: dirección preferida para todas las facturas. Se selecciona por defecto cuando se factura un pedido que pertenece a esta empresa.\n"
-"- Dirección de entrega: dirección preferida para todas las entregas. Se selecciona por defecto cuando entrega un pedido que pertenece a esta empresa.\n"
-"- Privada: las direcciones privadas sólo son visibles por los usuarios autorizados y contienen datos sensibles (direcciones particulares de los empleados, etc.).\n"
-"- Dirección de seguimiento: dirección preferida para los informes de seguimiento. Seleccionada por defecto cuando envía recordatorios sobre facturas vencidas.\n"
-"- Otra: Otra dirección de la empresa (por ejemplo, filial, etc.)."
+"- Contactos: utilice esta opción para organizar los detalles de contacto de los empleados de una empresa determinada (por ejemplo, director general, director financiero, etc.).\n"
+"- Dirección de facturación: dirección preferida para todas las facturas. Se selecciona de forma predeterminada cuando factura una orden que pertenece a esta empresa.\n"
+"- Dirección de entrega: dirección preferida para todas las entregas. Se selecciona de forma predeterminada cuando entrega una orden que pertenece a esta empresa.\n"
+"- Privada: las direcciones privadas solo son visibles por los usuarios autorizados y contienen datos sensibles (por ejemplo, direcciones particulares de los empleados, etc.).\n"
+"- Dirección de seguimiento: dirección preferida para los reportes de seguimiento. Se selecciona de forma predeterminada cuando envía recordatorios sobre facturas vencidas.\n"
+"- Otra: otras direcciones de la empresa (por ejemplo, filiales, etc.)."
 
 #. module: account_followup
 #: model:account_followup.followup.line,name:account_followup.demo_followup_line1
@@ -374,7 +374,7 @@ msgstr "Tipo de actividad"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
 msgid "Add a note"
-msgstr "Agregar nota"
+msgstr "Agregar una nota"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.manual_reminder_view_form
@@ -507,9 +507,9 @@ msgid ""
 "Date where the next action should be taken for a receivable item. Usually, "
 "automatically set when sending reminders through the customer statement."
 msgstr ""
-"Fecha en la que se debe realizar la siguiente acción para un apunte de "
-"diario por cobrar. Normalmente se establece automáticamente cuando se envían"
-" recordatorios a través del estado de cuenta del cliente."
+"Fecha en la que se debe realizar la siguiente acción para un apunte contable"
+" por cobrar. Por lo general se establece en automático al enviar "
+"recordatorios mediante el estado de cuenta del cliente."
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.followup_filter_info_template
@@ -541,9 +541,9 @@ msgstr ""
 "Apreciable %s,\n"
 "\n"
 "\n"
-"A no ser que sea error nuestro, parece que la cantidad que se muestra a continuación sigue sin pagarse. Tome las medidas necesarias para realizar este pago dentro de los siguientes 8 días.\n"
+"A no ser que se trate de un error nuestro, parece que aún no recibimos el pago por el importe que aparece a continuación. Tome las medidas necesarias para realizar este pago dentro de los siguientes 8 días.\n"
 "\n"
-"Si realizo el pago después de que se envió este correo, ignore este mensaje. No dude en contactar a nuestro equipo de contabilidad.\n"
+"Si realizó el pago después de que recibió este correo, ignore este mensaje. No dude en contactar a nuestro equipo de contabilidad.\n"
 "\n"
 "Saludos cordiales,\n"
 "\n"
@@ -583,9 +583,9 @@ msgid ""
 "- Account Manager: Sales Person defined on the customer"
 msgstr ""
 "Determine a quién se le asignará la actividad:\n"
-"- Responsable del seguimiento (automático)\n"
+"- Responsable del seguimiento (predeterminado)\n"
 "- Vendedor: vendedor definido en la factura\n"
-"- Gestor de cuenta: vendedor definido en el cliente"
+"- Gerente de cuenta: vendedor definido en el cliente"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__display_name
@@ -619,7 +619,7 @@ msgstr "Destinatarios del correo electrónico"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.manual_reminder_view_form
 msgid "Email Subject"
-msgstr "Asunto de correo"
+msgstr "Asunto del correo"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_form_view
@@ -728,8 +728,8 @@ msgid ""
 "            possible to use print and e-mail templates to send specific messages to\n"
 "            the customer."
 msgstr ""
-"Para cada paso, especifique las acciones que se tienen que tomar y el retraso en días. Puede\n"
-"            usar las plantillas para impresión y para correo electrónico para enviar mensajes específicos\n"
+"En todos los pasos debe especificar las acciones a tomar y el retraso en días. Puede\n"
+"            usar plantillas para impresión y para correo electrónico para enviar mensajes específicos\n"
 "            al cliente."
 
 #. module: account_followup
@@ -1085,12 +1085,12 @@ msgid ""
 "                - if no level defined at all -> next date never automatically set"
 msgstr ""
 "La fecha antes de la cual no debe realizarse ninguna acción de seguimiento.\n"
-"                Usted puede establecerla de forma manual si lo desea, aunque la fecha se fija de modo automático cuando se procesan los seguimientos.\n"
-"                La fecha se calcula de acuerdo con las siguientes reglas (dependiendo de los niveles de seguimiento):\n"
-"                - por defecto -> la fecha siguiente se fija en {retraso del siguiente nivel - retraso del nivel actual} días\n"
-"                -  si no hay nivel siguiente -> la fecha siguiente se fija en {retraso del nivel actual - retraso del nivel anterior} días\n"
-"                - si no hay nivel siguiente NI nivel anterior -> la fecha siguiente se fija en {retraso del nivel actual} días\n"
-"                - si no hay ningún nivel definido -> la fecha siguiente nunca se fija de modo automático"
+"                Si lo desea, puede establecerla de forma manual aunque la fecha se fija en automático cuando se procesan los seguimientos.\n"
+"                La fecha se calcula de acuerdo con las siguientes reglas (según los niveles de seguimiento):\n"
+"                - predeterminado -> la siguiente fecha se fija en {retraso del siguiente nivel - retraso del nivel actual} días\n"
+"                -  si no hay siguiente nivel -> la siguiente fecha se fija en {retraso del nivel actual - retraso del nivel anterior} días\n"
+"                - si no hay siguiente nivel Y TAMPOCO hay nivel anterior -> la siguiente fecha se fija en {retraso del nivel actual} días\n"
+"                - si no hay ningún nivel definido -> la siguiente fecha nunca se fija en automático"
 
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_move_line__invoice_origin
@@ -1181,8 +1181,8 @@ msgid ""
 "We were not able to process some of the automated follow-up actions due to "
 "missing information on the partners."
 msgstr ""
-"No pudimos procesar algunas de las acciones de seguimiento automatizadas ya "
-"que falta información en los contactos."
+"No pudimos procesar algunas de las acciones de seguimiento automatizadas, "
+"falta información en los contactos."
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_status__with_overdue_invoices
@@ -1230,7 +1230,7 @@ msgstr "días después de la fecha de vencimiento"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
 msgid "e.g. First Reminder Email"
-msgstr "p. ej. primer correo de recordatorio"
+msgstr "Por ejemplo, primer correo de recordatorio"
 
 #. module: account_followup
 #. odoo-python

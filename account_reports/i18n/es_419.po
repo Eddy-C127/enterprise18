@@ -210,8 +210,8 @@ msgstr "Plantilla de plan de cuentas"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
-msgid "Account Code"
-msgstr "Código de cuenta"
+msgid "Account Code / Tag"
+msgstr ""
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
@@ -1504,7 +1504,7 @@ msgstr "Filtros"
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 #, python-format
 msgid "Filters:"
-msgstr "Filtros"
+msgstr "Filtros:"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1908,7 +1908,7 @@ msgstr "Fórmula de dominio no válida en la expresión %r de la línea %r: %s"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Invalid method %r"
-msgstr "Modelo no válido %r"
+msgstr "Método no válido %r"
 
 #. module: account_reports
 #. odoo-python
@@ -1916,14 +1916,14 @@ msgstr "Modelo no válido %r"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Invalid subformula in expression %r of line %r: %s"
-msgstr "Sub-fórmula no válida en la expresión %r de la línea %r: %s"
+msgstr "Subfórmula no válida en la expresión %r de la línea %r: %s"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Invalid token '%s' in account_codes formula '%s'"
-msgstr "Token '%s' no válido en la fórmula de account_codes '%s'"
+msgstr "Token '%s' no válido en la fórmula '%s' de account_codes"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
@@ -2371,7 +2371,7 @@ msgstr "Ninguno"
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "Not Started"
-msgstr ""
+msgstr "Sin empezar"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2743,7 +2743,7 @@ msgstr "Línea de reporte"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Report Name"
-msgstr ""
+msgstr "Nombre del reporte"
 
 #. module: account_reports
 #. odoo-python
@@ -3219,6 +3219,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
+msgid "The used operator is not supported for this expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
 msgid "This account is reported in multiple lines of the report"
 msgstr "Esta cuenta se reporta en varias líneas del reporte"
 
@@ -3274,7 +3281,7 @@ msgstr "Esta opción oculta las líneas con valor 0"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This report already has a menuitem."
-msgstr ""
+msgstr "Este reporte ya tiene un elemento de menú."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3291,6 +3298,15 @@ msgstr ""
 #, python-format
 msgid "This report only displays the data of the active company."
 msgstr "Este informe solo muestra los datos de la empresa activa."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"This tag is reported in a line of the report but is not linked to any "
+"account of the Chart of Accounts"
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return

@@ -1,28 +1,29 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* crm_helpdesk
-#
+# 
 # Translators:
-# Сергей Шебанин <sergey@shebanin.ru>, 2022
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2022
-# Irina Fedulova <istartlin@gmail.com>, 2022
-# Максим Дронь <dronmax@gmail.com>, 2022
-# ILMIR <karamov@it-projects.info>, 2022
-# Martin Trigaux, 2022
-# valmasone, 2022
-#
+# Alena Vlasova, 2023
+# alenafairy, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Максим Дронь <dronmax@gmail.com>, 2023
+# valmasone, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Martin Trigaux, 2023
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.5alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:45+0000\n"
-"Last-Translator: valmasone, 2022\n"
+"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: crm_helpdesk
@@ -46,7 +47,7 @@ msgstr "Преобразовать в Лид"
 #: model_terms:ir.ui.view,arch_db:crm_helpdesk.crm_lead_convert2ticket_view_form
 #: model_terms:ir.ui.view,arch_db:crm_helpdesk.crm_lead_view_form
 msgid "Convert to Ticket"
-msgstr "Преобразовать в Запрос"
+msgstr "Преобразовать в заявку"
 
 #. module: crm_helpdesk
 #: model_terms:ir.ui.view,arch_db:crm_helpdesk.crm_lead_convert2ticket_view_form
@@ -62,7 +63,7 @@ msgstr "Создать нового клиента"
 #: model:ir.model.fields,field_description:crm_helpdesk.field_crm_lead_convert2ticket__create_uid
 #: model:ir.model.fields,field_description:crm_helpdesk.field_helpdesk_ticket_to_lead__create_uid
 msgid "Created by"
-msgstr "Создал"
+msgstr "Создано"
 
 #. module: crm_helpdesk
 #: model:ir.model.fields,field_description:crm_helpdesk.field_crm_lead_convert2ticket__create_date
@@ -81,13 +82,13 @@ msgstr "Клиент"
 #: model_terms:ir.ui.view,arch_db:crm_helpdesk.crm_lead_convert2ticket_view_form
 #: model_terms:ir.ui.view,arch_db:crm_helpdesk.helpdesk_ticket_to_lead_view_form
 msgid "Discard"
-msgstr ""
+msgstr "Отменить"
 
 #. module: crm_helpdesk
 #: model:ir.model.fields,field_description:crm_helpdesk.field_crm_lead_convert2ticket__display_name
 #: model:ir.model.fields,field_description:crm_helpdesk.field_helpdesk_ticket_to_lead__display_name
 msgid "Display Name"
-msgstr "Отображаемое имя"
+msgstr "Показывать название"
 
 #. module: crm_helpdesk
 #: model:ir.model.fields.selection,name:crm_helpdesk.selection__helpdesk_ticket_to_lead__action__nothing
@@ -132,7 +133,7 @@ msgstr "Лид преобразован"
 #. module: crm_helpdesk
 #: model:ir.model,name:crm_helpdesk.model_crm_lead_convert2ticket
 msgid "Lead convert to Ticket"
-msgstr "Конвертирование лида в запрос"
+msgstr "Преобразование лида в заявку"
 
 #. module: crm_helpdesk
 #. odoo-python

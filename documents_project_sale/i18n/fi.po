@@ -31,6 +31,8 @@ msgid ""
 "<span class=\"fa fa-lg fa-building-o fa-fw\" title=\"Values set here are "
 "company-specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
+"<span class=\"fa fa-lg fa-building-o fa-fw\" title=\"Nämä arvot ovat "
+"yrityskohtaisia.\" groups=\"base.group_multi_company\"/>"
 
 #. module: documents_project_sale
 #: model:ir.model.fields,field_description:documents_project_sale.field_product_product__documents_allowed_company_id
@@ -97,7 +99,7 @@ msgstr "Tuotemalli"
 #: model:ir.model.fields,field_description:documents_project_sale.field_product_product__project_template_use_documents
 #: model:ir.model.fields,field_description:documents_project_sale.field_product_template__project_template_use_documents
 msgid "Project Template - Documents"
-msgstr ""
+msgstr "Projektimalli - Asiakirjat"
 
 #. module: documents_project_sale
 #: model:product.template,name:documents_project_sale.product_1
@@ -132,6 +134,8 @@ msgid ""
 "The \"%s\" workspace template should either be in the \"%s\" company like "
 "this product or be open to all companies."
 msgstr ""
+"Työtilan \"%s\" mallin pitäisi olla joko \"%s\" yrityksessä, kuten tämä "
+"tuote, tai sen pitäisi olla avoin kaikille yrityksille."
 
 #. module: documents_project_sale
 #. odoo-python
@@ -142,6 +146,9 @@ msgid ""
 "which it is a template. Please update the company of the \"%s\" product, or "
 "leave the company of this workspace empty."
 msgstr ""
+"Tämän työtilan on pysyttävä samassa yrityksessä kuin \"%s\" -tuote, jolle se"
+" on mallina. Päivitä \"%s\" -tuotteen yritys tai jätä tämän työtilan yritys "
+"tyhjäksi."
 
 #. module: documents_project_sale
 #. odoo-python
@@ -153,6 +160,10 @@ msgid ""
 "\n"
 "Please update the company of those products, or leave the company of this workspace empty."
 msgstr ""
+"Tämän työtilan tulisi olla samassa yrityksessä kuin seuraavat tuotteet, joille se on mallina:\n"
+"%s\n"
+"\n"
+"Päivitä näiden tuotteiden yritys tai jätä tämän työtilan yritys tyhjäksi."
 
 #. module: documents_project_sale
 #: model:ir.model.fields,field_description:documents_project_sale.field_product_product__template_folder_id

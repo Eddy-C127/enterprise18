@@ -315,24 +315,9 @@ msgid "Cost"
 msgstr "Costo"
 
 #. module: hr_referral
-#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_friend_configuration
-msgid "Create a new friend"
-msgstr "Crear un nuevo amigo"
-
-#. module: hr_referral
-#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_level_configuration
-msgid "Create a new level"
-msgstr "Crear un nuevo nivel"
-
-#. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_alert_configuration
 msgid "Create new alerts"
 msgstr "Cree nuevas alertas"
-
-#. module: hr_referral
-#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_points
-msgid "Create new reward points"
-msgstr "Crear nuevos puntos de recompensa"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__create_uid
@@ -732,6 +717,11 @@ msgid "In Progress"
 msgstr "En progreso"
 
 #. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__is_accessible_to_current_user
+msgid "Is Accessible To Current User"
+msgstr "¿El usuario actual puede acceder?"
+
+#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_is_follower
 msgid "Is Follower"
 msgstr "Es un seguidor"
@@ -999,6 +989,16 @@ msgid "Open"
 msgstr "Abierto"
 
 #. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Position"
+msgstr "Puesto abierto"
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Positions"
+msgstr "Puestos abiertos"
+
+#. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
 msgid "Point icon"
 msgstr "Icono de punto"
@@ -1076,11 +1076,6 @@ msgstr "Producto"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__name
 msgid "Product Name"
 msgstr "Nombre del producto"
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
-msgid "Ratings"
-msgstr "Calificaciones"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
@@ -1514,6 +1509,18 @@ msgid "UTM Source"
 msgstr "Fuente UTM"
 
 #. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/models/hr_applicant.py:0
+#, python-format
+msgid ""
+"Unsupported search on field is_accessible_to_current_user: %s operator & %s "
+"value. Only = and != operator and boolean values are supported."
+msgstr ""
+"Búsqueda incompatible en el campo is_accessible_to_current_user: operador %s"
+" y valor %s. Solo los operadores = y != y los valores booleanos son "
+"compatibles."
+
+#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__url
 msgid "Url"
 msgstr "URL"
@@ -1572,6 +1579,19 @@ msgstr "Integración de bienvenida en la aplicación Referencias"
 #, python-format
 msgid "You are not allowed to access applicant records."
 msgstr "No se le permite acceder a los registros de los candidatos."
+
+#. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/models/hr_applicant.py:0
+#, python-format
+msgid ""
+"You are not allowed to access this application record because you're not one"
+" of the interviewers of this application. If you think that's an error, "
+"please contact your administrator."
+msgstr ""
+"No puede acceder al registro de la solicitud, no es uno de los "
+"entrevistadores. Si cree que se trata de un error, póngase en contacto con "
+"su administrador."
 
 #. module: hr_referral
 #. odoo-python

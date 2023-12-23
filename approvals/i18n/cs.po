@@ -208,6 +208,8 @@ msgstr "Schvalovatel"
 msgid ""
 "Approver Sequence can only be activated with at least 1 minimum approver."
 msgstr ""
+"Sekvence schvalovatelů může být aktivována pouze s alespoň 1 minimálním "
+"schvalovatelem."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__user_ids
@@ -230,7 +232,7 @@ msgstr "Schvalovatelé"
 #: model:ir.model.fields,field_description:approvals.field_approval_category__approver_sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_request__approver_sequence
 msgid "Approvers Sequence?"
-msgstr ""
+msgstr "Pořadí schvalovatelů?"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
@@ -277,7 +279,7 @@ msgstr "Služební cesta"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__change_request_owner
 msgid "Can Change Request Owner"
-msgstr ""
+msgstr "Může změnit vlastníka požadavku"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__can_edit
@@ -311,7 +313,7 @@ msgstr "Kategorie"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__category_approver
 msgid "Category Approver"
-msgstr ""
+msgstr "Kategorie schvalovatele"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__sequence_code
@@ -1046,6 +1048,8 @@ msgstr "Odesláno"
 #: model:res.groups,comment:approvals.group_approval_user
 msgid "The user will be able to access all requests and approve/refuse them."
 msgstr ""
+"Uživatel bude mít přístup ke všem požadavkům a bude je moci "
+"schvalovat/odmítat."
 
 #. module: approvals
 #: model:res.groups,comment:approvals.group_approval_manager
@@ -1152,7 +1156,7 @@ msgstr "Ustoupit"
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
 msgid "You cannot approve before the previous approver."
-msgstr ""
+msgstr "Nemůžete schválit dříve než předchozí schvalovatel."
 
 #. module: approvals
 #. odoo-python

@@ -1206,17 +1206,17 @@ msgstr "Crear un nuevo contrato"
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_salary_rule_form
 msgid "Create a new salary rule"
-msgstr ""
+msgstr "Crear una nueva regla salarial"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.hr_rule_parameter_action
 msgid "Create a new salary rule parameter"
-msgstr ""
+msgstr "Crear un nuevo parámetro para regla salarial"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_list_form
 msgid "Create a new salary structure"
-msgstr ""
+msgstr "Crear una nueva estructura salarial"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -2723,7 +2723,7 @@ msgstr "Número de mensajes con error de envío"
 #. module: hr_payroll
 #: model:res.groups,name:hr_payroll.group_hr_payroll_user
 msgid "Officer: Manage all contracts"
-msgstr ""
+msgstr "Encargado: gestionar todos los contratos"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
@@ -2814,7 +2814,7 @@ msgstr "Archivo PDF"
 #: code:addons/hr_payroll/models/hr_payroll_employee_declaration.py:0
 #, python-format
 msgid "PDF generation started. It will be available shortly."
-msgstr ""
+msgstr "Se empezó a crear el PDF, pronto estará disponible."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__paid
@@ -3169,7 +3169,7 @@ msgstr "Nombre del archivo PDF"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__pdf_to_generate
 msgid "Pdf To Generate"
-msgstr ""
+msgstr "PDF a generar"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__percentage
@@ -3724,7 +3724,7 @@ msgstr "Semestralmente"
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__semi-monthly
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__semi-monthly
 msgid "Semi-monthly"
-msgstr ""
+msgstr "Quincenal"
 
 #. module: hr_payroll
 #: model:mail.template,description:hr_payroll.mail_template_new_payslip
@@ -3759,6 +3759,10 @@ msgid ""
 "generated for all the selected employees, based on their contracts "
 "configuration."
 msgstr ""
+"Establece una estructura específica si desea generar una nómina adicional "
+"(por ejemplo, prima de fin de año). Si deja este campo vacío, se generará "
+"una nómina regular para todos los empleados seleccionados, según la "
+"configuración de sus contratos."
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -4774,7 +4778,7 @@ msgstr "¡No puede eliminar un embargo de salario en ejecución!"
 #: code:addons/hr_payroll/models/hr_salary_attachment.py:0
 #, python-format
 msgid "You cannot record a payment on multi employees attachments."
-msgstr ""
+msgstr "No puede registrar un pago en ajustes salarial de varios empleados."
 
 #. module: hr_payroll
 #. odoo-python

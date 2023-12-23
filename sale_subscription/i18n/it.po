@@ -3925,6 +3925,10 @@ msgid ""
 "                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
 "                                                created subscription and renew %s instead"
 msgstr ""
+"L'abbonamento %s è stato annullato. L'ordine principale %s è stato riaperto.\n"
+"                                                Dovresti chiudere %s se il cliente ha abbandonato, o rinnovarlo se il cliente continua ad utiizzare il servizio.\n"
+"                                                Nota: se hai già creato un nuovo abbonamento invece di rinnovarlo, annulla quello più nuovo\n"
+"                                                e rinnova %s "
 
 #. module: sale_subscription
 #. odoo-python
@@ -4405,8 +4409,8 @@ msgstr "C'è un"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
 #, python-format
-msgid "There is multiple pricings for an unique product, plan and pricelist."
-msgstr "Esistono più prezzi per un unico prodotto, piano e listino."
+msgid "There are multiple pricings for an unique product, plan and pricelist."
+msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban

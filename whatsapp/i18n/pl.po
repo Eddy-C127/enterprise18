@@ -428,6 +428,13 @@ msgstr ""
 
 #. module: whatsapp
 #. odoo-python
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#, python-format
+msgid "Configure Templates"
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "Configure Whatsapp Business Account"
@@ -1292,19 +1299,19 @@ msgid "No WhatsApp messages found."
 msgstr ""
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#, python-format
+msgid "No approved WhatsApp Templates are available for this model."
+msgstr ""
+
+#. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/web/channel_selector_patch.js:0
 #, python-format
 msgid "No results found"
 msgstr "Nic nie znaleziono"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
-#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
-#, python-format
-msgid "No template available for this model"
-msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__none
@@ -2187,13 +2194,6 @@ msgstr "Wideo"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__vi
 msgid "Vietnamese"
-msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
-#, python-format
-msgid "View Templates"
 msgstr ""
 
 #. module: whatsapp

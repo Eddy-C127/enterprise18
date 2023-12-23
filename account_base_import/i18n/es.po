@@ -23,12 +23,12 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "<span class=\"text-muted\">(end of year balances)</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">(balances al final del año)</span>"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "<span class=\"text-muted\">(for full history)</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">(para el historial completo)</span>"
 
 #. module: account_base_import
 #: model:ir.model,name:account_base_import.model_account_account
@@ -40,7 +40,7 @@ msgstr "Cuenta"
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "Account Winbooks Import module"
-msgstr ""
+msgstr "Módulo para importar cuenta de Winbooks"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
@@ -53,7 +53,7 @@ msgstr "Importación contable"
 #: model:ir.actions.client,name:account_base_import.action_open_import_guide
 #, python-format
 msgid "Accounting Import Guide"
-msgstr ""
+msgstr "Guía para importar contabilidad"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -78,7 +78,7 @@ msgstr "Plan de cuentas"
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "Choose how you want to setup your CoA"
-msgstr ""
+msgstr "Elija como desea configurar su plan contable"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -104,21 +104,21 @@ msgstr "Descargar"
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "Excel Import"
-msgstr ""
+msgstr "Importación de Excel"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "FEC"
-msgstr "fec"
+msgstr "FEC"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "FEC Import module"
-msgstr "Módulo para importar FEC"
+msgstr "módulo de importación FEC"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
@@ -216,6 +216,8 @@ msgid ""
 "Most accounting software in Europe support exporting SAF-T file for audit purposes.\n"
 "                            Use the"
 msgstr ""
+"La mayoría de los software de contabilidad en Europa son compatibles con la exportación de archivos SAF-T para fines de auditoría.\n"
+"                            Use el"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -225,6 +227,8 @@ msgid ""
 "Most accounting software in France support exporting FEC file for audit purposes.\n"
 "                            Use the"
 msgstr ""
+"La mayoría de los software de contabilidad en Francia son compatibles con la exportación de archivos FEC para fines de auditoría.\n"
+"                            Use el"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -232,6 +236,8 @@ msgstr ""
 #, python-format
 msgid "Optional, but useful to import open receivables & payables using a"
 msgstr ""
+"Opcional, pero es útil para importar cuentas por cobrar y por pagar abiertas"
+" usando"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -246,14 +252,14 @@ msgstr "Revisar manualmente"
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "SAF-T"
-msgstr ""
+msgstr "SAF-T"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "SAF-T Import module"
-msgstr ""
+msgstr "módulo de importación SAF-T"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -267,7 +273,7 @@ msgstr "SIE 5"
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "SIE Import module"
-msgstr "Módulo para importar SIE"
+msgstr "módulo de importación SIE"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -278,6 +284,9 @@ msgid ""
 "such as auditing, importing and exporting data from and to other accounting "
 "softwares."
 msgstr ""
+"El formato de archivo estándar SIE es muy común en Suecia para varios fines "
+"como la auditoría, importación y exportación de datos desde y hacia otros "
+"programas de contabilidad."
 
 #. module: account_base_import
 #. odoo-python
@@ -285,6 +294,7 @@ msgstr ""
 #, python-format
 msgid "The import file is missing the following required columns: %s"
 msgstr ""
+"Faltan las siguientes columnas necesarias en el archivo de importación: %s"
 
 #. module: account_base_import
 #. odoo-python
@@ -302,6 +312,9 @@ msgid ""
 " import. Only use the Journal Items import for unreconciled entries in your "
 "Payable and Receivable Accounts."
 msgstr ""
+"Consejo: recomendamos importar sus saldos iniciales mediante la importación "
+"de plan contable. Solo utilice la importación de apuntes contables con "
+"asientos sin conciliar en sus cuentas por pagar y por cobrar."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -317,6 +330,8 @@ msgstr ""
 #, python-format
 msgid "Use templates to import CSV or Excel for your accounting setup."
 msgstr ""
+"Utilice plantillas para importar archivos CSV o de Excel para su "
+"configuración contable."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -326,6 +341,8 @@ msgid ""
 "We will setup your charts of accounts and the history of journal entries, "
 "that will stay in draft."
 msgstr ""
+"Configuraremos su plan contable y el historial de asientos contables, se "
+"mantendrá en borrador."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -343,7 +360,7 @@ msgid ""
 "                            Use the"
 msgstr ""
 "Winbooks es un software de contabilidad belga que fue comprado por Exact.\n"
-"                            Utilice"
+"                            Use el"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -354,6 +371,9 @@ msgid ""
 "                            For general SIE, we will setup your charts of accounts balances, journals, partners, and the history of journal entries (journals data must be present in the file).\n"
 "                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
 msgstr ""
+"es necesario para importar el SIE y los archivos correspondientes.\n"
+"                            Por lo general, para el SIE configuraremos varias cosas como sus saldos del plan contable, diarios, contactos y el historial de asientos contables (los datos de los diarios deben estar presentes en el archivo).\n"
+"                            Para la entrada SIE, solo se crearán los asientos y los contactos, lo demás ya debe estar presente en el sistema."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -369,7 +389,7 @@ msgstr "o"
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "template."
-msgstr ""
+msgstr "plantilla."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -379,6 +399,8 @@ msgid ""
 "to import a Winbooks full back-up (Maintenance > Backup) to get the chart of accounts, contacts, taxes, history of journal entries, and documents.\n"
 "                            Support versions: Winbooks Desktop 5.50, 6, 7, 8."
 msgstr ""
+"para importar un respaldo completo de Winbooks (Mantenimiento > Respaldo) con el fin de obtener el plan contables, contactos, impuestos, historial de asientos contables y documentos.\n"
+"                            Versiones compatibles: Winbooks Desktop 5.50, 6, 7, 8."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -396,4 +418,4 @@ msgstr ""
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "to import the SAF-T file."
-msgstr ""
+msgstr "para importar el archivo SAF-T."

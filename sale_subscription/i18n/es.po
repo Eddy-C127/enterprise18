@@ -1066,6 +1066,9 @@ msgid ""
 " in their subscription.Only products that are listed as \"optional "
 "products\" can be modified."
 msgstr ""
+"Permita a los clientes crear un presupuesto de venta adicional para ajustar "
+"la cantidad de productos en sus suscripción. Solo puede modificar los "
+"productos que aparezcan como \"productos opcionales\". "
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_subscription_plan__related_plan_id
@@ -1073,6 +1076,8 @@ msgid ""
 "Allow your customers to switch from this plan to another on quotation (new "
 "subscription or renewal)"
 msgstr ""
+"Permita que sus clientes cambien de este plan a otro en el presupuesto "
+"(nueva suscripción o renovación)"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log__amount_signed
@@ -1389,7 +1394,7 @@ msgstr "Cambiar cliente"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Check reopened subscription"
-msgstr ""
+msgstr "Verificar suscripción reabierta"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -1430,7 +1435,7 @@ msgstr "Clic aqui para añadir algún producto o servicio a su presupuesto."
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
 msgid "Closable"
-msgstr ""
+msgstr "Se puede cerrar"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
@@ -1519,6 +1524,8 @@ msgid ""
 "Consolidate all of a customer's subscriptions that are due to be billed on "
 "the same day onto a single invoice."
 msgstr ""
+"Consolide todas las suscripciones de los clientes que están pendientes de "
+"facturación en mismo día en una misma factura."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_res_config_settings__invoice_consolidation
@@ -1609,7 +1616,7 @@ msgstr "Crea una nueva plantilla de suscripción"
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_quotes
 msgid "Create a subscription quotation"
-msgstr ""
+msgstr "Generar un presupuesto para una suscripción"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__action__next_activity
@@ -1739,6 +1746,7 @@ msgstr "El cliente puede cerrar su suscripción."
 #: model:ir.model.fields,help:sale_subscription.field_sale_subscription_plan__user_extend
 msgid "Customer can create a renewal quotation for their subscription."
 msgstr ""
+"El cliente puede crear un presupuesto de renovación para su suscripción."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__customer_ids
@@ -1765,7 +1773,7 @@ msgstr "Días"
 #: model:ir.model.fields,field_description:sale_subscription.field_res_company__subscription_default_plan_id
 #: model:ir.model.fields,field_description:sale_subscription.field_res_config_settings__subscription_default_plan_id
 msgid "Default Recurrence"
-msgstr ""
+msgstr "Recurrencia predeterminada"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.res_config_settings_view_form
@@ -1790,6 +1798,9 @@ msgid ""
 "delay before the trigger date, like sending a reminder 15 minutes before a "
 "meeting."
 msgstr ""
+"Plazo después de la fecha de activación. Puede poner un número negativo si "
+"necesita un plazo antes de la fecha de activación, como enviar un "
+"recordatorio 15 minutos antes de una reunión. "
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_range
@@ -2407,7 +2418,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__log_webhook_calls
 msgid "Log Calls"
-msgstr ""
+msgstr "Registrar llamadas"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__log_currency_id
@@ -3385,7 +3396,7 @@ msgstr "Presupuesto de renovación"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Renewal Quotations"
-msgstr ""
+msgstr "Presupuestos de renovación"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
@@ -3724,6 +3735,8 @@ msgid ""
 "Some triggers need a reference to a selection field. This field is used to "
 "store it."
 msgstr ""
+"Algunos activadores necesitan una referencia a un campo de selección, este "
+"campo se usa para almacenarlo."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_field_ref
@@ -3731,6 +3744,8 @@ msgid ""
 "Some triggers need a reference to another field. This field is used to store"
 " it."
 msgstr ""
+"Algunos activadores necesitan una referencia de otro campo. Este campo está "
+"habituado a almacenarla."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__source_id
@@ -4270,12 +4285,12 @@ msgstr ""
 #. module: sale_subscription
 #: model:sale.order.close.reason,name:sale_subscription.close_reason_renew
 msgid "The subscription was renewed with a new plan"
-msgstr ""
+msgstr "La suscripción se renovó con un nuevo plan"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
 msgid "The text to display on the call to action"
-msgstr ""
+msgstr "El texto a mostrar en la llamada a la acción"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4289,7 +4304,7 @@ msgstr "Se ha cancelado la venta adicional %s."
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "The upsell %s has been confirmed."
-msgstr ""
+msgstr "Se confirmó la venta adicional %s."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -4305,7 +4320,7 @@ msgstr "Hay una"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
 #, python-format
-msgid "There is multiple pricings for an unique product, plan and pricelist."
+msgid "There are multiple pricings for an unique product, plan and pricelist."
 msgstr ""
 
 #. module: sale_subscription
@@ -4332,6 +4347,9 @@ msgid ""
 "don't want you to leave, can we offer to schedule a meeting with your "
 "account manager?)"
 msgstr ""
+"Este mensaje se mostrará para convencer al cliente de quedarse (por ejemplo:"
+" no quisiéramos que se fuera, ¿nos permitiría ofrecerle una reunión con el "
+"gerente de su cuenta?)"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4341,13 +4359,15 @@ msgid ""
 "This payment method cannot be deleted, because it is currently linked to the\n"
 "                following active subscriptions:"
 msgstr ""
+"Este método de pago no puede eliminarse porque está vinculado a la\n"
+"                siguientes suscripción activas:"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/controllers/portal.py:0
 #, python-format
 msgid "This subscription has a pending payment transaction."
-msgstr ""
+msgstr "Esta suscripción tiene una transacción de pago pendiente."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4451,12 +4471,12 @@ msgstr "Fecha activación"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_selection_field_id
 msgid "Trigger Field"
-msgstr ""
+msgstr "Campo de activación"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_field_ref_model_name
 msgid "Trigger Field Model"
-msgstr ""
+msgstr "Modelo del campo de activación"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trigger_field_ids
@@ -4476,12 +4496,12 @@ msgstr "Activar en"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_field_ref
 msgid "Trigger Reference"
-msgstr ""
+msgstr "Referencia del activador "
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_field_ref_display_name
 msgid "Trigger Reference Display Name"
-msgstr ""
+msgstr "Nombre de la referencia del activador"
 
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_alert_action
@@ -4528,7 +4548,7 @@ msgstr "Desconocido"
 #. module: sale_subscription
 #: model:sale.order.close.reason,name:sale_subscription.close_reason_unpaid_subscription
 msgid "Unpaid subscription"
-msgstr ""
+msgstr "Suscripción no pagada"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_subscription_plan__auto_close_limit
@@ -4587,12 +4607,12 @@ msgstr "Número de ventas adicionales"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Upsell Quotations"
-msgstr ""
+msgstr "Presupuesto de ventas adicionales"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Upsell Quote"
-msgstr ""
+msgstr "Presupuesto de venta adicional"
 
 #. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.sale_subscription_action_upsell
@@ -4785,6 +4805,8 @@ msgid ""
 "You can not delete a confirmed subscription. You must first close and cancel"
 " it before you can delete it."
 msgstr ""
+"No puede eliminar una suscripción confirmada. Deberá primero cerrarla y "
+"luego cancelarla para poder eliminarla."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4795,6 +4817,9 @@ msgid ""
 "You can not upsell or renew a subscription that has not been invoiced yet. "
 "Please, update directly the %s contract or invoice it first."
 msgstr ""
+"No se puede realizar una venta adicional o una renovación para una "
+"suscripción que aún no se ha facturado. Actualice directamente el contrato "
+"%s o factúrelo primero."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4812,7 +4837,7 @@ msgstr ""
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "You cannot cancel a subscription that has been invoiced."
-msgstr ""
+msgstr "No puede cancelar una suscripción que ya se facturó."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4830,13 +4855,16 @@ msgid ""
 " - Has not started yet.\n"
 " - Has no invoiced period in the future."
 msgstr ""
+"No puede crear una venta adicional para esta suscripción porque:\n"
+" - Aún no ha comenzado.\n"
+" - No tiene periodos facturados en el futuro."
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "You cannot renew a contract that already has an active subscription. "
-msgstr ""
+msgstr "No puede renovar un contrato que ya tiene una suscripción activa."
 
 #. module: sale_subscription
 #. odoo-python

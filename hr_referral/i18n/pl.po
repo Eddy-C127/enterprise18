@@ -708,6 +708,11 @@ msgid "In Progress"
 msgstr "W toku"
 
 #. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__is_accessible_to_current_user
+msgid "Is Accessible To Current User"
+msgstr ""
+
+#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_is_follower
 msgid "Is Follower"
 msgstr "Jest obserwatorem"
@@ -975,6 +980,16 @@ msgid "Open"
 msgstr "Otwarta"
 
 #. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Position"
+msgstr ""
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Positions"
+msgstr ""
+
+#. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
 msgid "Point icon"
 msgstr "Ikona punktu"
@@ -1052,11 +1067,6 @@ msgstr "Produkt"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__name
 msgid "Product Name"
 msgstr "Nazwa produktu"
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
-msgid "Ratings"
-msgstr "Oceny"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
@@ -1486,6 +1496,15 @@ msgid "UTM Source"
 msgstr "Źródło UTM"
 
 #. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/models/hr_applicant.py:0
+#, python-format
+msgid ""
+"Unsupported search on field is_accessible_to_current_user: %s operator & %s "
+"value. Only = and != operator and boolean values are supported."
+msgstr ""
+
+#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__url
 msgid "Url"
 msgstr "Url"
@@ -1544,6 +1563,16 @@ msgstr "Powitalny onboarding w aplikacji polecającej"
 #, python-format
 msgid "You are not allowed to access applicant records."
 msgstr "Nie możesz uzyskać dostępu do danych kandydata."
+
+#. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/models/hr_applicant.py:0
+#, python-format
+msgid ""
+"You are not allowed to access this application record because you're not one"
+" of the interviewers of this application. If you think that's an error, "
+"please contact your administrator."
+msgstr ""
 
 #. module: hr_referral
 #. odoo-python

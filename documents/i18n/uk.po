@@ -118,6 +118,8 @@ msgid ""
 "<br/>\n"
 "                    is sharing content with you"
 msgstr ""
+"<br/>\n"
+"                    ділиться з вами вмістом"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -127,7 +129,7 @@ msgstr "<br/>Зроблено"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "<i class=\"fa fa fa-folder text-primary me-2\" title=\"Workspace\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa fa-folder text-primary me-2\" title=\"Workspace\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
@@ -137,7 +139,7 @@ msgstr "<i class=\"fa fa-download fa-fw\"/>  Завантажити все"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "<i class=\"fa fa-lock oe_inline\" title=\"Locked\" invisible=\"not lock_uid\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-lock oe_inline\" title=\"Locked\" invisible=\"not lock_uid\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
@@ -145,6 +147,8 @@ msgid ""
 "<i class=\"fa fa-tag o_documents_tag_color ms-2\" invisible=\"not tag_ids\" "
 "title=\"Tags\"/>"
 msgstr ""
+"<i class=\"fa fa-tag o_documents_tag_color ms-2\" invisible=\"not tag_ids\" "
+"title=\"Tags\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
@@ -736,7 +740,7 @@ msgstr "Примітка дії"
 #. module: documents
 #: model:ir.ui.menu,name:documents.mail_activity_plan_menu
 msgid "Activity Plans"
-msgstr ""
+msgstr "Плани дій"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_state
@@ -934,7 +938,7 @@ msgstr "Заархівовано"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
 msgid "Archived Workspace"
-msgstr ""
+msgstr "Заархівована папка"
 
 #. module: documents
 #. odoo-javascript
@@ -962,14 +966,14 @@ msgstr "Ви впевнені, що хочете видалити цю стор�
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Are you sure you want to permanently erase the document?"
-msgstr ""
+msgstr "Ви впевнені, що бажаєте остаточно стерти документ?"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Are you sure you want to permanently erase the documents?"
-msgstr ""
+msgstr "Ви впевнені, що бажаєте остаточно стерти документи?"
 
 #. module: documents
 #. odoo-javascript
@@ -1080,7 +1084,7 @@ msgstr "Можна завантажувати"
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "Can't share documents of different workspaces."
-msgstr ""
+msgstr "Неможливо поділитися документами з різних папок."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
@@ -1095,6 +1099,8 @@ msgid ""
 "Cannot move folder under the given parent as this would create a recursive "
 "hierarchy"
 msgstr ""
+"Неможливо перемістити папку під даний батьківський елемент, оскільки це "
+"створить рекурсивну ієрархію"
 
 #. module: documents
 #: model_terms:documents.folder,description:documents.documents_internal_folder
@@ -1129,7 +1135,7 @@ msgstr "Оберіть дію для створення посилання"
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "Choose or Configure Email Servers"
-msgstr ""
+msgstr "Оберіть або налаштуйте поштові сервери"
 
 #. module: documents
 #. odoo-javascript
@@ -1308,7 +1314,7 @@ msgstr "Типові значення для завантажених докум
 #: model:ir.model.fields,help:documents.field_documents_folder__deletion_delay
 #: model:ir.model.fields,help:documents.field_res_config_settings__deletion_delay
 msgid "Delay after permanent deletion of the document in the trash (days)"
-msgstr ""
+msgstr "Затримка після остаточного видалення документа в кошику (у днях)"
 
 #. module: documents
 #. odoo-javascript
@@ -1337,22 +1343,22 @@ msgstr "Видалити виділені сторінки"
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Delete permanently"
-msgstr ""
+msgstr "Видалити назавжди"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_res_config_settings__deletion_delay
 msgid "Deletion Delay"
-msgstr ""
+msgstr "Затримка видалення"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__deletion_delay
 msgid "Deletion delay"
-msgstr ""
+msgstr "Затримка видалення"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Deletion delay (days)"
-msgstr ""
+msgstr "Затримка видалення (в днях)"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_deprecate
@@ -1438,7 +1444,7 @@ msgstr "Власник документу"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_activity_plan_action_document
 msgid "Document Plans"
-msgstr ""
+msgstr "Плани документів"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
@@ -1576,7 +1582,7 @@ msgstr "Скачати та званатажити"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "Download file"
-msgstr ""
+msgstr "Завантажити файл"
 
 #. module: documents
 #. odoo-javascript
@@ -1742,7 +1748,7 @@ msgstr "Централізація файлів"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 msgid "Files will be sent to trash and deleted forever after"
-msgstr ""
+msgstr "Файли буде відправлено в смітник і видалено назавжди після"
 
 #. module: documents
 #. odoo-javascript
@@ -1750,7 +1756,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #, python-format
 msgid "Files will be sent to trash and deleted forever after %s days."
-msgstr ""
+msgstr "Файли буде відправлено в смітник і видалено назавжди через %s днів."
 
 #. module: documents
 #: model:documents.folder,name:documents.documents_finance_folder
@@ -1837,7 +1843,7 @@ msgstr "Зібрати в одному документі"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Gb"
-msgstr ""
+msgstr "Gb"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -2007,7 +2013,7 @@ msgstr "Вважається багатосторінковим"
 #: code:addons/documents/static/src/views/search/documents_search_model.js:0
 #, python-format
 msgid "Items in trash will be deleted forever after %s days."
-msgstr ""
+msgstr "Елементи в смітнику буде видалено назавжди після %s днів."
 
 #. module: documents
 #. odoo-javascript
@@ -2015,11 +2021,12 @@ msgstr ""
 #, python-format
 msgid "Items moved to the trash will be deleted forever after %s days."
 msgstr ""
+"Елементи, переміщені в смітник, будуть видалені назавжди після %s днів."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Kb"
-msgstr ""
+msgstr "Kb"
 
 #. module: documents
 #: model:documents.facet,name:documents.documents_internal_knowledge
@@ -2195,7 +2202,7 @@ msgstr "Маркетинг"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_note
@@ -2271,7 +2278,7 @@ msgstr "Перемістити до робочої області"
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #, python-format
 msgid "Move to trash"
-msgstr ""
+msgstr "Перемістити в смітник"
 
 #. module: documents
 #. odoo-javascript
@@ -2281,7 +2288,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #, python-format
 msgid "Move to trash?"
-msgstr ""
+msgstr "Перемістити в смітник?"
 
 #. module: documents
 #. odoo-javascript
@@ -2730,6 +2737,8 @@ msgid ""
 "Requested\n"
 "                                ∙"
 msgstr ""
+"Запитуваний\n"
+"                                ∙"
 
 #. module: documents
 #: model:mail.activity.type,name:documents.mail_documents_activity_data_md
@@ -2904,7 +2913,7 @@ msgstr "Встановіть теги"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Set deletion delay for documents in the Trash"
-msgstr ""
+msgstr "Встановити затримку видалення для документів у смітник"
 
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request_reminder
@@ -3178,14 +3187,14 @@ msgstr ""
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_res_config_settings_check_deletion_delay
 msgid "The deletion delay should be positive."
-msgstr ""
+msgstr "Затримка видалення повинна бути позитивною."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "The links and requested documents are not shareable."
-msgstr ""
+msgstr "Посиланнями та запитуваними документами не можна поділитися."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_model_id
@@ -3253,7 +3262,7 @@ msgstr ""
 #: code:addons/documents/models/documents_document.py:0
 #, python-format
 msgid "This file has been restored"
-msgstr ""
+msgstr "Файл переміщено"
 
 #. module: documents
 #. odoo-python
@@ -3261,7 +3270,7 @@ msgstr ""
 #, python-format
 msgid ""
 "This file has been sent to the trash and will be deleted forever on the %s"
-msgstr ""
+msgstr "Цей файл було відправлено в смітник і буде видалено назавжди %s"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__company_id
@@ -3469,7 +3478,7 @@ msgstr "Підтверджено"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "Validity date:"
-msgstr ""
+msgstr "Дійсно до:"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_marketing_assets_Videos
@@ -3580,7 +3589,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #, python-format
 msgid "You cannot upload content in this workspace"
-msgstr ""
+msgstr "Ви не можете завантажувати вміст у цю папку"
 
 #. module: documents
 #. odoo-python
@@ -3613,7 +3622,7 @@ msgstr "Відео Youtube"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 msgid "days."
-msgstr ""
+msgstr "днів."
 
 #. module: documents
 #. odoo-javascript
@@ -3706,7 +3715,7 @@ msgstr "file_extension"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "files"
-msgstr ""
+msgstr "файли"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__is_readonly_model

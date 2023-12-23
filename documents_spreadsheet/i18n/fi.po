@@ -35,7 +35,7 @@ msgstr "\"%s\" tallennettu mallina"
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.share_page
 msgid "#{'Download '}#{document.name}"
-msgstr ""
+msgstr "#{'Download '}#{document.name}"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -123,7 +123,7 @@ msgstr "Tekijät"
 #. module: documents_spreadsheet
 #: model:ir.model,name:documents_spreadsheet.model_documents_shared_spreadsheet
 msgid "Copy of a shared spreadsheet"
-msgstr ""
+msgstr "Kopio jaetusta laskentataulukosta"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -137,7 +137,7 @@ msgstr "Luo"
 #: code:addons/documents_spreadsheet/static/src/spreadsheet_template/spreadsheet_template_dialog.js:0
 #, python-format
 msgid "Create a Spreadsheet or select a Template"
-msgstr ""
+msgstr "Luo laskentataulukko tai valitse malli"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_shared_spreadsheet__create_uid
@@ -202,19 +202,19 @@ msgstr "Muokkaa laskentataulukoita yhdessä."
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_shared_spreadsheet__excel_export
 msgid "Excel Export"
-msgstr ""
+msgstr "Excel-vienti"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_view/documents_spreadsheet_controller_mixin.js:0
 #, python-format
 msgid "Format issue"
-msgstr ""
+msgstr "Formaattikysymys"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_share__freezed_spreadsheet_ids
 msgid "Freezed Spreadsheet"
-msgstr ""
+msgstr "Jäädytetty laskentataulukko"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__handler
@@ -325,14 +325,14 @@ msgstr "Uusi laskentataulukkomalli luotu"
 #. module: documents_spreadsheet
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_shared_spreadsheet__unique
 msgid "Only one freezed spreadsheet per document share"
-msgstr ""
+msgstr "Vain yksi jäädytetty laskentataulukko per asiakirjajako"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_view/documents_spreadsheet_controller_mixin.js:0
 #, python-format
 msgid "Open with Odoo Spreadsheet"
-msgstr ""
+msgstr "Avaa Odoo-taulukkolaskentaohjelmalla"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -346,7 +346,7 @@ msgstr "Palauta"
 #: code:addons/documents_spreadsheet/static/src/documents_view/documents_spreadsheet_controller_mixin.js:0
 #, python-format
 msgid "Restore file?"
-msgstr ""
+msgstr "Palauta tiedosto?"
 
 #. module: documents_spreadsheet
 #: model:ir.actions.act_window,name:documents_spreadsheet.save_spreadsheet_template_action
@@ -358,7 +358,7 @@ msgstr "Tallenna mallipohjana"
 #: code:addons/documents_spreadsheet/static/src/spreadsheet_clone_xlsx_dialog/spreadsheet_clone_xlsx_dialog.xml:0
 #, python-format
 msgid "Send source file to trash"
-msgstr ""
+msgstr "Lähetä lähdetiedosto roskakoriin"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__sequence
@@ -371,7 +371,7 @@ msgstr "Järjestys"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__server_revision_id
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__server_revision_id
 msgid "Server Revision"
-msgstr ""
+msgstr "Palvelimen tarkistus"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_shared_spreadsheet__share_id
@@ -396,7 +396,7 @@ msgstr "Laskentataulukon avustaja"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__spreadsheet_data
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__spreadsheet_data
 msgid "Spreadsheet Data"
-msgstr ""
+msgstr "Taulukkolaskentataulukon data"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.spreadsheet_document_view_kanban
@@ -441,7 +441,7 @@ msgstr "Taulukkolaskentamallit"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__spreadsheet_binary_data
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__spreadsheet_binary_data
 msgid "Spreadsheet file"
-msgstr ""
+msgstr "Taulukkolaskentatiedosto"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -451,6 +451,8 @@ msgid ""
 "Spreadsheet files cannot be handled from the Trash. Would you like to "
 "restore this document?"
 msgstr ""
+"Taulukkolaskentatiedostoja ei voi käsitellä roskakorista. Haluatko palauttaa"
+" tämän asiakirjan?"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -460,6 +462,8 @@ msgid ""
 "Spreadsheet files cannot be previewed or edited in Odoo. Opening your file "
 "with Odoo Spreadsheet will allow you to do so."
 msgstr ""
+"Taulukkotiedostoja ei voi esikatsella tai muokata Odoossa. Avaamalla "
+"tiedoston Odoo Spreadsheet -ohjelmalla voit tehdä niin."
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.res_config_settings_view_form_inherit_documents_spreadsheet
@@ -494,7 +498,7 @@ msgstr "Tiedosto ei ole xlsx-tiedosto"
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 #, python-format
 msgid "The spreadsheet you are trying to access does not exist."
-msgstr ""
+msgstr "Taulukkolaskentataulukkoa, jota yrität käyttää, ei ole olemassa."
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -559,7 +563,7 @@ msgstr "Työtila"
 #: code:addons/documents_spreadsheet/controllers/documents.py:0
 #, python-format
 msgid "You cannot upload spreadsheets in a shared folder"
-msgstr ""
+msgstr "Et voi ladata taulukkolaskentataulukoita jaettuun kansioon"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -569,7 +573,7 @@ msgstr ""
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 #, python-format
 msgid "You don't have access to this document"
-msgstr ""
+msgstr "Sinulla ei ole pääsyä tähän asiakirjaan"
 
 #. module: documents_spreadsheet
 #. odoo-javascript

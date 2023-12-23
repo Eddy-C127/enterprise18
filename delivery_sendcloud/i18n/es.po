@@ -45,6 +45,11 @@ msgid ""
 "Divide the quantity of the following product(s) among packages if possible or choose another carrier:\n"
 "\t%s"
 msgstr ""
+"%s\n"
+"Además, algunos productos individuales se pasan del peso más alto permitido en el método de entrega.\n"
+"                             \n"
+"Divida la cantidad de los siguientes productos entre los paquetes si es posible o elija otro transportista:\n"
+"\t%s"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -55,6 +60,9 @@ msgid ""
 "                         \n"
 "Try to distributes your products in packages weighting less than %s %s or choose another carrier."
 msgstr ""
+"%s su recolección se pasa del peso más alto permitido en el método de envío.\n"
+"                         \n"
+"Intente distribuir sus productos en paquetes que pesen menos que %s %s o elija otro transportista.  "
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -72,6 +80,9 @@ msgid ""
 "charges, your shippings are automatically <b>cancelled</b> after the label "
 "creation."
 msgstr ""
+"<i class=\"fa fa-exclamation-triangle\"/> Para evitar cobros en el entorno "
+"de pruebas, sus envíos se <b>cancelan</b> automáticamente después de la "
+"creación de la etiqueta."
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -79,6 +90,8 @@ msgid ""
 "<i class=\"fa fa-info-circle\"/> Available shipping products depend on "
 "enabled carriers in your Sendcloud account."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/> Los métodos de envío disponibles dependen "
+"de los transportistas habilitados en su cuenta de Sendcloud."
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__sendcloud_products_code
@@ -119,12 +132,12 @@ msgstr "Elegir productos de envío de SendCloud"
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_sendcloud_shipping_wizard
 msgid "Choose from the available sendcloud shipping methods"
-msgstr ""
+msgstr "Elija uno de los métodos de envío de SendCloud disponibles"
 
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_sendcloud_shipping_product
 msgid "Choose from the available sendcloud shipping products"
-msgstr ""
+msgstr "Elija uno de los métodos de envío de SoundCloud disponibles"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -136,7 +149,7 @@ msgstr "Confirmar"
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "Could not find currency %s"
-msgstr ""
+msgstr "No se encontró una moneda %s"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -165,7 +178,7 @@ msgstr "Tipo de paquete por defecto"
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_default_package_type_id
 msgid "Default Package Type for Sendcloud"
-msgstr ""
+msgstr "Tipo de paquete predeterminado de SendCloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__carrier_id
@@ -183,6 +196,8 @@ msgid ""
 "Depending your Sendcloud account type, through rules you can define the shipping method to use depending on different conditions like destination, weight, value, etc.\n"
 "Rules can override shipping product selected in Odoo"
 msgstr ""
+"Dependiendo de su tipo de cuenta de SendCloud, puede definir el método de envío mediante reglas según distintas condiciones, como el destino, peso, valor, etc. \n"
+"Las reglas pueden anular el producto de envío seleccionado en Odoo"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__display_name
@@ -198,20 +213,22 @@ msgid ""
 "Ensure picking has shipping weight, if using packages, each package should "
 "have a shipping weight"
 msgstr ""
+"Asegúrese de que la recolección tiene peso de envío. Si utiliza paquetes, "
+"cada paquete debe tener un peso de envío"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Failed to create the return label!"
-msgstr ""
+msgstr "Error al crear la etiqueta de devolución."
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Failed to get the actual price!"
-msgstr ""
+msgstr "Error al obtener el precio real."
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_product_functionalities
@@ -234,7 +251,7 @@ msgstr "Ir al producto de envío"
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_can_batch_shipping
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__has_multicollo
 msgid "Has Multicollo"
-msgstr ""
+msgstr "Tiene Multicollo"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__id
@@ -262,7 +279,7 @@ msgstr "Última actualización el"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "Load your products"
-msgstr "Cargar sus prodcutos"
+msgstr "Cargar sus productos"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -286,14 +303,14 @@ msgstr "Altura máxima"
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 #, python-format
 msgid "Max length"
-msgstr ""
+msgstr "Largo máximo"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 #, python-format
 msgid "Max width"
-msgstr ""
+msgstr "Anchura máxima"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__max_weight
@@ -310,7 +327,7 @@ msgstr "Peso mínimo"
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Must be a Sendcloud carrier!"
-msgstr ""
+msgstr "¡Debe ser un transportista de SendCloud!"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -318,13 +335,15 @@ msgstr ""
 #, python-format
 msgid "No address found with contact name %s on your sendcloud account."
 msgstr ""
+"No se encontró una dirección para el nombre de contacto %s en su cuenta de "
+"SendCloud."
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "No picking or order provided"
-msgstr ""
+msgstr "No se proporcionó una recolección o una orden"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -334,6 +353,8 @@ msgid ""
 "Note that a unit of the product '%s' is heavier than the maximum weight "
 "allowed by the shipping method."
 msgstr ""
+"Tenga en cuenta que la unidad de producto '%s' es más pesado que el peso "
+"máximo permitido en el método de envío."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -343,6 +364,8 @@ msgid ""
 "Note that this price is for %s packages since the order weight is more than "
 "the maximum weight allowed by the shipping method."
 msgstr ""
+"Tenga en cuenta que este precio es para %s paquetes ya que el peso de la "
+"orden es superior al peso máximo permitido en el método de envío."
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -354,7 +377,7 @@ msgstr "Opciones"
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "Order below minimum weight of carrier"
-msgstr ""
+msgstr "Orden por debajo del peso mínimo del transportista"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
@@ -612,6 +635,9 @@ msgid ""
 "%s\n"
 "You can either choose another carrier, change your filters or redefine the content of your package(s)."
 msgstr ""
+"No existe un método con rango de peso correspondiente para los paquetes:\n"
+"%s\n"
+"Puede escoger otro transportista, cambiar sus filtros o redefinir el contenido de sus paquetes."
 
 #. module: delivery_sendcloud
 #. odoo-python

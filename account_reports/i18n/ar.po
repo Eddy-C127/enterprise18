@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Malaz Abuidris <msea@odoo.com>, 2023
 # Martin Trigaux, 2023
+# Malaz Abuidris <msea@odoo.com>, 2023
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-11 09:27+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2023\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -204,8 +204,8 @@ msgstr "نموذج مخطط الحساب "
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
-msgid "Account Code"
-msgstr "كود الحساب "
+msgid "Account Code / Tag"
+msgstr ""
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
@@ -3177,6 +3177,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
+msgid "The used operator is not supported for this expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
 msgid "This account is reported in multiple lines of the report"
 msgstr "توجد عدة تقارير حول هذا الحساب في عدة بنود من التقرير "
 
@@ -3227,7 +3234,7 @@ msgstr "يقوم هذا الخيار بإخفاء البنود التي قيمت
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This report already has a menuitem."
-msgstr ""
+msgstr "هذا التقرير يحتوي على عنصر قائمة بالفعل. "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3244,6 +3251,15 @@ msgstr ""
 #, python-format
 msgid "This report only displays the data of the active company."
 msgstr "هذا التقرير يعرض فقط بيانات الشركة النشطة. "
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"This tag is reported in a line of the report but is not linked to any "
+"account of the Chart of Accounts"
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return

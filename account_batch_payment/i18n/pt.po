@@ -2,12 +2,17 @@
 # This file contains the translation of the following modules:
 # 	* account_batch_payment
 # 
+# Translators:
+# Manuela Silva <mmsrs@sky.com>, 2023
+# Wil Odoo, 2023
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2023\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +43,7 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_move_kanban
 msgid "<i class=\"fa fa-clock-o\" aria-label=\"Date\" role=\"img\" title=\"Date\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o\" aria-label=\"Date\" role=\"img\" title=\"Data\"/>"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_form_inherit_account_batch_payment
@@ -70,34 +75,34 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Ação Necessária"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_ids
 msgid "Activities"
-msgstr ""
+msgstr "Atividades"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr ""
+msgstr "Marcador de Exceções de Atividade"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_state
 msgid "Activity State"
-msgstr ""
+msgstr "Estado da Atividade"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_type_icon
 msgid "Activity Type Icon"
-msgstr ""
+msgstr "Ícone de Tipo de Atividade"
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "All payments in the batch must belong to the same company."
-msgstr ""
+msgstr "Todos os pagamentos do Lote devem pertencer a mesma companhia."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -105,13 +110,14 @@ msgstr ""
 #, python-format
 msgid "All payments in the batch must share the same payment method."
 msgstr ""
+"Todos os pagamentos no lote devem partilhar o mesmo método de pagamento."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__amount
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 msgid "Amount"
-msgstr ""
+msgstr "Valor"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__amount_residual
@@ -126,27 +132,27 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_payment__amount_signed
 msgid "Amount Signed"
-msgstr ""
+msgstr "Valor com Sinal"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Número de Anexos"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__available_payment_method_ids
 msgid "Available Payment Method"
-msgstr ""
+msgstr "Método de Pagamento Disponível"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__journal_id
 msgid "Bank"
-msgstr ""
+msgstr "Banco"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
 msgid "Bank Journal"
-msgstr ""
+msgstr "Diário Bancário"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
@@ -156,18 +162,18 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 msgid "Batch Content"
-msgstr ""
+msgstr "Conteúdo do lote "
 
 #. module: account_batch_payment
 #: model:account.payment.method,name:account_batch_payment.account_payment_method_batch_deposit
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.account_journal_dashboard_kanban_view_inherited
 msgid "Batch Deposit"
-msgstr ""
+msgstr "Depósito em Lote"
 
 #. module: account_batch_payment
 #: model:ir.model,name:account_batch_payment.model_report_account_batch_payment_print_batch_payment
 msgid "Batch Deposit Report"
-msgstr ""
+msgstr "Relatório do deposito em lote"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -179,19 +185,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
 #, python-format
 msgid "Batch Payment"
-msgstr ""
+msgstr "Pagamento em Série"
 
 #. module: account_batch_payment
 #: model:ir.ui.menu,name:account_batch_payment.menu_batch_payment_purchases
 #: model:ir.ui.menu,name:account_batch_payment.menu_batch_payment_sales
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_search_inherit_account_batch_payment
 msgid "Batch Payments"
-msgstr ""
+msgstr "Pagamentos em Lote"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__batch_type
 msgid "Batch Type"
-msgstr ""
+msgstr "Tipo de lote"
 
 #. module: account_batch_payment
 #: model_terms:ir.actions.act_window,help:account_batch_payment.action_batch_payment_in
@@ -222,17 +228,17 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__payment_method_code
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__company_currency_id
 msgid "Company Currency"
-msgstr ""
+msgstr "Moeda da Empresa"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_tree_inherit_account_batch_payment
@@ -244,17 +250,17 @@ msgstr ""
 #: code:addons/account_batch_payment/models/account_journal.py:0
 #, python-format
 msgid "Create Batch Payment"
-msgstr ""
+msgstr "Criar pagamento em lote"
 
 #. module: account_batch_payment
 #: model_terms:ir.actions.act_window,help:account_batch_payment.action_batch_payment_in
 msgid "Create a new customer batch payment"
-msgstr ""
+msgstr "Criar método de pagamento para clientes em lote"
 
 #. module: account_batch_payment
 #: model_terms:ir.actions.act_window,help:account_batch_payment.action_batch_payment_out
 msgid "Create a new vendor batch payment"
-msgstr ""
+msgstr "Criar método de pagamento para vendedores em lote"
 
 #. module: account_batch_payment
 #: model:ir.actions.server,name:account_batch_payment.action_account_create_batch_payment
@@ -266,14 +272,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__create_uid
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Criado por"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__create_date
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__create_date
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Criado em"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__export_file_create_date
@@ -283,12 +289,12 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Moeda"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Customer"
-msgstr ""
+msgstr "Cliente"
 
 #. module: account_batch_payment
 #: model:ir.actions.act_window,name:account_batch_payment.action_batch_payment_in
@@ -299,7 +305,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__date
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
@@ -309,14 +315,14 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__description
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__display_name
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__display_name
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__error_line_ids
@@ -336,90 +342,90 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__export_file
 msgid "Export file related to this batch"
-msgstr ""
+msgstr "Exportar ficheiros relacionados com este lote"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__export_file
 msgid "File"
-msgstr ""
+msgstr "Ficheiro"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__file_generation_enabled
 msgid "File Generation Enabled"
-msgstr ""
+msgstr "Gerador de ficheiros ativado"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__export_filename
 msgid "File Name"
-msgstr ""
+msgstr "Nome do Ficheiro"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Seguidores"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Seguidores (Parceiros)"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
+msgstr "ícone do Font awesome ex. fa-tasks"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__export_file_create_date
 msgid "Generation Date"
-msgstr ""
+msgstr "Data de gerador"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
 msgid "Group By"
-msgstr ""
+msgstr "Agrupar por"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Há Mensagem"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__help_message
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__id
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__id
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_exception_icon
 msgid "Icon"
-msgstr ""
+msgstr "Ícone"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "ícone para indicar uma exceção na atividade."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Se selecionado, há novas mensagens que requerem a sua atenção."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__message_has_error
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Se estiver marcado, algumas mensagens têm um erro de entrega."
 
 #. module: account_batch_payment
 #: model:ir.model.fields.selection,name:account_batch_payment.selection__account_batch_payment__batch_type__inbound
 msgid "Inbound"
-msgstr ""
+msgstr "Entrada"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -431,7 +437,7 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "É Seguidor"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
@@ -441,21 +447,21 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model,name:account_batch_payment.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Diário"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__write_uid
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__write_uid
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última Atualização por"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__write_date
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__write_date
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última Atualização em"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -465,17 +471,17 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Memo"
-msgstr ""
+msgstr "Memorando"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Erro de Envio de Mensagem"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Mensagens"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
@@ -485,17 +491,17 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr ""
+msgstr "Prazo das Minhas Atividades"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_payment__payment_method_name
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__export_filename
 msgid "Name of the export file generated for this batch"
-msgstr ""
+msgstr "Nome do ficheiro exportado, gerado por este lote"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_payment__amount_signed
@@ -505,27 +511,27 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields.selection,name:account_batch_payment.selection__account_batch_payment__state__draft
 msgid "New"
-msgstr ""
+msgstr "Novo"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "Nova Atividade de Calendário"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr ""
+msgstr "Prazo da Próxima Atividade"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_summary
 msgid "Next Activity Summary"
-msgstr ""
+msgstr "Resumo da Próxima Atividade"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
+msgstr "Tipo da Atividade Seguinte "
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_search_inherit_account_batch_payment
@@ -540,12 +546,12 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Número de Ações"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Número de erros"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__message_needaction_counter
@@ -555,7 +561,7 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Número de mensagens com um erro de entrega"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
@@ -565,7 +571,7 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields.selection,name:account_batch_payment.selection__account_batch_payment__batch_type__outbound
 msgid "Outbound"
-msgstr ""
+msgstr "Saída"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -577,17 +583,17 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_tree_inherit_account_batch_payment
 msgid "Partner"
-msgstr ""
+msgstr "Parceiro"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__payment_method_id
 msgid "Payment Method"
-msgstr ""
+msgstr "Método de Pagamento"
 
 #. module: account_batch_payment
 #: model:ir.model,name:account_batch_payment.model_account_payment_method
 msgid "Payment Methods"
-msgstr ""
+msgstr "Métodos de Pagamento"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -600,7 +606,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__payment_ids
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 msgid "Payments"
-msgstr ""
+msgstr "Pagamentos"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -619,12 +625,12 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 msgid "Print"
-msgstr ""
+msgstr "Imprimir"
 
 #. module: account_batch_payment
 #: model:ir.actions.report,name:account_batch_payment.action_print_batch_payment
 msgid "Print Batch Payment"
-msgstr ""
+msgstr "Imprimir Pagamento em lote"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -634,7 +640,7 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Classificações"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -644,32 +650,32 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Recipient Bank Account"
-msgstr ""
+msgstr "Conta bancária destinatária"
 
 #. module: account_batch_payment
 #: model:ir.model.fields.selection,name:account_batch_payment.selection__account_batch_payment__state__reconciled
 msgid "Reconciled"
-msgstr ""
+msgstr "Reconciliado"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__name
 msgid "Reference"
-msgstr ""
+msgstr "Referência"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__activity_user_id
 msgid "Responsible User"
-msgstr ""
+msgstr "Utilizador Responsável"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Erro de Envio de SMS"
 
 #. module: account_batch_payment
 #: model:ir.model.fields.selection,name:account_batch_payment.selection__account_batch_payment__state__sent
 msgid "Sent"
-msgstr ""
+msgstr "Enviado"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -681,7 +687,7 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_line_tree
 msgid "Show"
-msgstr ""
+msgstr "Mostrar"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__show_remove_button
@@ -718,7 +724,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__state
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__activity_state
@@ -728,11 +734,15 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
+"Estados baseados nas atividades\n"
+"Vencida: Ultrapassada a data planeada\n"
+"Hoje: Data da atividade é a de hoje\n"
+"Planeada: Atividades futuras."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "TOTAL"
-msgstr ""
+msgstr "TOTAL"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -786,12 +796,12 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__payment_method_id
 msgid "The payment method used by the payments in this batch."
-msgstr ""
+msgstr "O método de pagamento usado nos pagamentos neste lote ."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_error_wizard__show_remove_options
@@ -803,17 +813,17 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
+msgstr "Tipo de atividade de exceção registada."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
 msgid "Unreconciled"
-msgstr ""
+msgstr "Não Reconciliado"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 msgid "Validate"
-msgstr ""
+msgstr "Validar"
 
 #. module: account_batch_payment
 #: model:ir.actions.act_window,name:account_batch_payment.action_batch_payment_out
@@ -833,12 +843,12 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Mensagens do Website"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Histórico de comunicação do Website"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__file_generation_enabled

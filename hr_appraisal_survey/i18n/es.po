@@ -33,6 +33,8 @@ msgid ""
 "360 Degree Feedback is a system or process in which managers will ask feedback from the people who work around the employee.\n"
 "            This typically includes the employee's manager, peers, and direct reports."
 msgstr ""
+"La retroalimentación de 360 ​​grados es un sistema o proceso en el que los gerentes solicitan la retroalimentación de las personas que trabajan con el empleado.\n"
+"            Esto normalmente incluye al gerente del empleado, sus compañeros y sus subordinados directos."
 
 #. module: hr_appraisal_survey
 #: model:ir.actions.act_window,name:hr_appraisal_survey.survey_survey_action_appraisal
@@ -81,6 +83,27 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<t t-set=\"logged_user\" t-value=\"ctx.get('logged_user')\"></t>\n"
+"                <t t-set=\"employee\" t-value=\"ctx.get('employee')\"></t>\n"
+"                <t t-set=\"deadline\" t-value=\"ctx.get('deadline')\"></t>\n"
+"                <div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        <p style=\"margin-left:5px\">Apreciable <t t-out=\"object.partner_id.name or 'participant'\">[participante]</t></p>\n"
+"                        <span>\n"
+"                            <t t-out=\"logged_user\">[Usuario actual]</t> le invita a participar en una encuesta y proporcionar su retroalimentación sobre <t t-out=\"employee\">[empleado]</t>.\n"
+"                            Complete la encuesta antes del <t t-out=\"deadline\">[fecha específica]</t>.\n"
+"                        </span>\n"
+"                        <br>\n"
+"                        Gracias\n"
+"                        <br><br>\n"
+"                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
+"                            <a t-att-href=\"object.get_start_url()\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                Dar su opinión\n"
+"                            </a>\n"
+"                        </div>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_1
@@ -136,7 +159,7 @@ msgstr "Comentarios Adicionales"
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.y_360_5_6
 msgid "Admit my mistakes"
-msgstr ""
+msgstr "Admitir mis errores"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_user_input_view_tree
@@ -246,7 +269,7 @@ msgstr "En la conclusión del periodo de evaluación"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
 msgid "At the outset of the appraisal time period"
-msgstr ""
+msgstr "Al inicio del periodo de evaluación"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_appraisal_ask_feedback__attachment_ids
@@ -282,6 +305,8 @@ msgstr "Cancelar"
 #: model:survey.question.answer,value:hr_appraisal_survey.y_360_5_3
 msgid "Collaborate effectively with others to achieve shared goals"
 msgstr ""
+"Colaborar de forma efectiva con los demás para alcanzar los objetivos "
+"compartidos"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_9
@@ -670,7 +695,7 @@ msgstr "Destinatarios"
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.y_360_5_7
 msgid "Recognize the contributions of teammates and peers"
-msgstr "Reconozco las contribuciones de mis compañeros"
+msgstr "Reconocer las contribuciones de mis compañeros"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_appraisal_ask_feedback__render_model
@@ -725,7 +750,7 @@ msgstr "Ver respuestas"
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.y_360_5_5
 msgid "Seek to understand the problem before working on a solution"
-msgstr "Busco entender el problema antes de trabajar en una solución"
+msgstr "Buscar entender el problema antes de trabajar en una solución"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.appraisal_ask_feedback_view_form
@@ -746,7 +771,7 @@ msgstr ""
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.y_360_5_4
 msgid "Show good judgment in decision making"
-msgstr ""
+msgstr "Mostrar buen juicio al tomar decisiones"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3

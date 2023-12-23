@@ -7,6 +7,7 @@
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2023
 # Wil Odoo, 2023
 # Martin Trigaux, 2023
+# Larissa Manderfeld, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-11 09:27+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Larissa Manderfeld, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -160,7 +161,7 @@ msgstr "Ya existe un grupo horizontal con el mismo nombre."
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.js:0
 #, python-format
 msgid "A line with a 'Group By' value cannot have children."
-msgstr ""
+msgstr "Una línea con un valor 'Group By' no puede tener líneas secundarias."
 
 #. module: account_reports
 #. odoo-python
@@ -210,8 +211,8 @@ msgstr "Plantilla de Plan de Cuentas"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
-msgid "Account Code"
-msgstr "Código de la cuenta"
+msgid "Account Code / Tag"
+msgstr ""
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
@@ -921,7 +922,7 @@ msgstr "Contacto"
 #: model:account.report.line,name:account_reports.account_financial_report_cost_sales0
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_direct_costs0
 msgid "Cost of Revenue"
-msgstr "Costo de ingresos"
+msgstr "Coste de ingresos"
 
 #. module: account_reports
 #. odoo-python
@@ -1862,7 +1863,7 @@ msgstr "Insertar pie depágina aquí"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Integer Rounding"
-msgstr ""
+msgstr "Redondeo de enteros"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2369,7 +2370,7 @@ msgstr "Ninguno"
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "Not Started"
-msgstr ""
+msgstr "No empezado"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3217,6 +3218,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
+msgid "The used operator is not supported for this expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
 msgid "This account is reported in multiple lines of the report"
 msgstr "Esta cuenta se reporta en varias líneas del reporte"
 
@@ -3254,6 +3262,8 @@ msgid ""
 "This line and all its children will be deleted. Are you sure you want to "
 "proceed?"
 msgstr ""
+"Esta línea y todas sus líneas secundarias se eliminarán. ¿Está seguro de que"
+" desea continuar?"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -3270,7 +3280,7 @@ msgstr "Esta opción oculta las líneas con valor 0"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This report already has a menuitem."
-msgstr ""
+msgstr "Este informe ya tiene un elemento de menú."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3287,6 +3297,15 @@ msgstr ""
 #, python-format
 msgid "This report only displays the data of the active company."
 msgstr "Este reporte solo muestra los datos de la empresa activa."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"This tag is reported in a line of the report but is not linked to any "
+"account of the Chart of Accounts"
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return

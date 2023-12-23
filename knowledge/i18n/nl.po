@@ -3653,7 +3653,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__have_share_partners
 msgid "Have Share Partners"
-msgstr "Deelpartners hebben"
+msgstr "Is gedeeld met relaties"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -6184,6 +6184,15 @@ msgstr ""
 "De podcast lanceert zijn nieuwe technische lezingen, voor alle technisch onderlegde luisteraars! Dit\n"
 "                            In een nieuwe aflevering van de serie zien we Géry, het brein achter OWL, de snelste JS ter wereld\n"
 "                            kader. 🚀"
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"The destination placement of %(article_name)s is ambiguous, you should "
+"specify the category."
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript

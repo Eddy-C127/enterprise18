@@ -6,8 +6,8 @@
 # Martin Trigaux, 2023
 # JH CHOI <hwangtog@gmail.com>, 2023
 # Daye Jeong, 2023
-# Sarah Park, 2023
 # Wil Odoo, 2023
+# Sarah Park, 2023
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Sarah Park, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1459,7 +1459,7 @@ msgstr "고객 변경"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Check reopened subscription"
-msgstr ""
+msgstr "재개된 구독 확인하기"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -3852,13 +3852,17 @@ msgid ""
 "                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
 "                                                created subscription and renew %s instead"
 msgstr ""
+"%s 구독이 취소되었습니다. 상위 주문인 %s 항목이 다시 진행되었습니다.\n"
+"                                                고객이 이탈한 경우라면 %s 항목을 종료하시기 바라며, 고객이 서비스를 계속 이용할 경우에는 갱신해야 합니다.\n"
+"                                                참고: 구독을 갱신하는 대신 이미 새 구독을 생성한 경우에는, 새로 생성된\n"
+"                                                구독을 취소하신 후 대신 %s 항목을 갱신하시기 바랍니다."
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Subscription %s has been reopened. The end date has been removed"
-msgstr ""
+msgstr "%s 구독이 재개되었습니다. 종료일 삭제가 완료되었습니다."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_payment_transaction__subscription_action
@@ -4308,8 +4312,8 @@ msgstr "다음 내역에는"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
 #, python-format
-msgid "There is multiple pricings for an unique product, plan and pricelist."
-msgstr "고유한 품목 및 구독 상품, 가격표에 따라 다양한 가격제가 있습니다."
+msgid "There are multiple pricings for an unique product, plan and pricelist."
+msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban

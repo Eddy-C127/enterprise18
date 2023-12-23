@@ -3,9 +3,9 @@
 # 	* whatsapp
 # 
 # Translators:
-# Martin Trigaux, 2023
 # Tony Ng, 2023
 # Wil Odoo, 2023
+# Martin Trigaux, 2023
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -152,12 +152,12 @@ msgstr "管理員"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__af
 msgid "Afrikaans"
-msgstr ""
+msgstr "南非文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__sq
 msgid "Albanian"
-msgstr ""
+msgstr "阿爾巴尼亞文"
 
 #. module: whatsapp
 #. odoo-python
@@ -204,7 +204,7 @@ msgstr "已審批"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ar
 msgid "Arabic"
-msgstr ""
+msgstr "阿拉伯文"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
@@ -248,7 +248,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__az
 msgid "Azerbaijani"
-msgstr ""
+msgstr "阿塞拜疆文"
 
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_base
@@ -258,7 +258,7 @@ msgstr "計稅基數"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__bn
 msgid "Bengali"
-msgstr ""
+msgstr "孟加拉文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__body
@@ -276,7 +276,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__bg
 msgid "Bulgarian"
-msgstr ""
+msgstr "保加利亞文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_variable__button_id
@@ -368,7 +368,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ca
 msgid "Catalan"
-msgstr ""
+msgstr "加泰隆尼亞文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__template_type
@@ -378,7 +378,7 @@ msgstr "類別"
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_discuss_channel_member
 msgid "Channel Member"
-msgstr "渠道成員"
+msgstr "頻道成員"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_discuss_channel__channel_type
@@ -395,17 +395,17 @@ msgstr "2 人之間的聊天是私密且獨特的。群組在受邀者之間是�
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__zh_cn
 msgid "Chinese (CHN)"
-msgstr ""
+msgstr "中文（中國大陸）"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__zh_hk
 msgid "Chinese (HKG)"
-msgstr ""
+msgstr "中文（香港）"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__zh_tw
 msgid "Chinese (TAI)"
-msgstr ""
+msgstr "中文（台灣）"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_composer_view_form
@@ -421,6 +421,13 @@ msgstr "配置"
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.res_config_settings_view_form
 msgid "Configure Meta Accounts"
+msgstr ""
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#, python-format
+msgid "Configure Templates"
 msgstr ""
 
 #. module: whatsapp
@@ -482,17 +489,17 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__hr
 msgid "Croatian"
-msgstr ""
+msgstr "克羅地亞文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__cs
 msgid "Czech"
-msgstr ""
+msgstr "捷克文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__da
 msgid "Danish"
-msgstr ""
+msgstr "丹麥文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__status__deleted
@@ -552,7 +559,7 @@ msgstr "文件"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__res_ids
 msgid "Document IDs"
-msgstr "文件 IDs"
+msgstr "文件識別碼"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__res_model
@@ -591,7 +598,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__nl
 msgid "Dutch"
-msgstr ""
+msgstr "荷蘭文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_button__url_type__dynamic
@@ -613,17 +620,17 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__en
 msgid "English"
-msgstr "英語"
+msgstr "英文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__en_gb
 msgid "English (UK)"
-msgstr ""
+msgstr "英文（英國）"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__en_us
 msgid "English (US)"
-msgstr ""
+msgstr "英文（美國）"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__error_msg
@@ -633,7 +640,7 @@ msgstr "錯誤訊息"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__et
 msgid "Estonian"
-msgstr ""
+msgstr "愛沙尼亞文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__state__error
@@ -689,12 +696,12 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__fil
 msgid "Filipino"
-msgstr ""
+msgstr "菲律賓文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__fi
 msgid "Finnish"
-msgstr ""
+msgstr "芬蘭文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__whatsapp_recoverable
@@ -795,22 +802,22 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__fr
 msgid "French"
-msgstr "法國"
+msgstr "法文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ka
 msgid "Georgian"
-msgstr ""
+msgstr "格魯吉亞文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__de
 msgid "German"
-msgstr "德國"
+msgstr "德文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__el
 msgid "Greek"
-msgstr ""
+msgstr "希臘文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__quality__green
@@ -833,7 +840,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__gu
 msgid "Gujarati"
-msgstr ""
+msgstr "古吉拉特文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__has_action
@@ -849,7 +856,7 @@ msgstr "有訊息"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ha
 msgid "Hausa"
-msgstr ""
+msgstr "豪薩文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_variable__line_type__header
@@ -890,17 +897,17 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__he
 msgid "Hebrew"
-msgstr ""
+msgstr "希伯來文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__hi
 msgid "Hindi"
-msgstr ""
+msgstr "印地文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__hu
 msgid "Hungarian"
-msgstr ""
+msgstr "匈牙利文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__id
@@ -962,7 +969,7 @@ msgstr "來電"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__id
 msgid "Indonesian"
-msgstr ""
+msgstr "印尼文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__invalid_phone_number_count
@@ -991,7 +998,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ga
 msgid "Irish"
-msgstr ""
+msgstr "愛爾蘭文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__is_button_dynamic
@@ -1017,37 +1024,37 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__it
 msgid "Italian"
-msgstr ""
+msgstr "意大利文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ja
 msgid "Japanese"
-msgstr "日本"
+msgstr "日文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__kn
 msgid "Kannada"
-msgstr ""
+msgstr "卡納達文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__kk
 msgid "Kazakh"
-msgstr ""
+msgstr "哈薩克文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__rw_rw
 msgid "Kinyarwanda"
-msgstr ""
+msgstr "盧安達文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ko
 msgid "Korean"
-msgstr ""
+msgstr "韓文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ky_kg
 msgid "Kyrgyz (Kyrgyzstan)"
-msgstr ""
+msgstr "吉爾吉斯文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__lang_code
@@ -1057,7 +1064,7 @@ msgstr "語言"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__lo
 msgid "Lao"
-msgstr ""
+msgstr "老撾文"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_search
@@ -1099,7 +1106,7 @@ msgstr "上年"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__lv
 msgid "Latvian"
-msgstr ""
+msgstr "拉脫維亞文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__status__limit_exceeded
@@ -1109,7 +1116,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__lt
 msgid "Lithuanian"
-msgstr ""
+msgstr "立陶宛文"
 
 #. module: whatsapp
 #. odoo-python
@@ -1149,7 +1156,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__mk
 msgid "Macedonian"
-msgstr ""
+msgstr "馬其頓文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__mail_message_id
@@ -1159,17 +1166,17 @@ msgstr "信件消息"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ms
 msgid "Malay"
-msgstr ""
+msgstr "馬來文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ml
 msgid "Malayalam"
-msgstr ""
+msgstr "馬拉雅拉姆文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__mr
 msgid "Marathi"
-msgstr ""
+msgstr "馬拉地文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__template_type__marketing
@@ -1288,19 +1295,19 @@ msgid "No WhatsApp messages found."
 msgstr ""
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#, python-format
+msgid "No approved WhatsApp Templates are available for this model."
+msgstr ""
+
+#. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/web/channel_selector_patch.js:0
 #, python-format
 msgid "No results found"
 msgstr "無任何結果"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
-#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
-#, python-format
-msgid "No template available for this model"
-msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__none
@@ -1311,7 +1318,7 @@ msgstr "無"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__nb
 msgid "Norwegian"
-msgstr ""
+msgstr "挪威文"
 
 #. module: whatsapp
 #. odoo-python
@@ -1427,7 +1434,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__fa
 msgid "Persian"
-msgstr ""
+msgstr "波斯文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__phone
@@ -1489,7 +1496,7 @@ msgstr "搜索電話/手機號碼時，請至少輸入 3 個字符。"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__pl
 msgid "Polish"
-msgstr ""
+msgstr "波蘭文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_variable__field_type__portal_url
@@ -1499,12 +1506,12 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__pt_br
 msgid "Portuguese (BR)"
-msgstr ""
+msgstr "葡萄牙文（巴西）"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__pt_pt
 msgid "Portuguese (POR)"
-msgstr ""
+msgstr "葡萄牙文（葡萄牙）"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
@@ -1524,7 +1531,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__pa
 msgid "Punjabi"
-msgstr ""
+msgstr "旁遮普文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__quality
@@ -1620,12 +1627,12 @@ msgstr "重試"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ro
 msgid "Romanian"
-msgstr ""
+msgstr "羅馬尼亞文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ru
 msgid "Russian"
-msgstr ""
+msgstr "俄羅斯文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__message_has_sms_error
@@ -1720,17 +1727,17 @@ msgstr "序列"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__sr
 msgid "Serbian"
-msgstr ""
+msgstr "塞爾維亞文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__sk
 msgid "Slovak"
-msgstr ""
+msgstr "斯洛伐克文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__sl
 msgid "Slovenian"
-msgstr ""
+msgstr "斯洛文尼亞文"
 
 #. module: whatsapp
 #. odoo-python
@@ -1751,22 +1758,22 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__es
 msgid "Spanish"
-msgstr ""
+msgstr "西班牙文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__es_ar
 msgid "Spanish (ARG)"
-msgstr ""
+msgstr "西班牙文（阿根廷）"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__es_mx
 msgid "Spanish (MEX)"
-msgstr ""
+msgstr "西班牙文（墨西哥）"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__es_es
 msgid "Spanish (SPA)"
-msgstr ""
+msgstr "西班牙文（西班牙）"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__state
@@ -1793,12 +1800,12 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__sw
 msgid "Swahili"
-msgstr ""
+msgstr "斯瓦希里文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__sv
 msgid "Swedish"
-msgstr "瑞典"
+msgstr "瑞典文"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
@@ -1813,12 +1820,12 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ta
 msgid "Tamil"
-msgstr ""
+msgstr "泰米爾文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__te
 msgid "Telugu"
-msgstr ""
+msgstr "泰盧固文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__wa_template_id
@@ -1948,7 +1955,7 @@ msgstr "文字"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__th
 msgid "Thai"
-msgstr ""
+msgstr "泰文"
 
 #. module: whatsapp
 #. odoo-python
@@ -2022,7 +2029,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__tr
 msgid "Turkish"
-msgstr ""
+msgstr "土耳其文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_mail_mail__message_type
@@ -2035,7 +2042,7 @@ msgstr "類型"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__uk
 msgid "Ukrainian"
-msgstr ""
+msgstr "烏克蘭文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__whatsapp_unrecoverable
@@ -2057,7 +2064,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ur
 msgid "Urdu"
-msgstr ""
+msgstr "烏爾都文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_button__url_type
@@ -2163,7 +2170,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__uz
 msgid "Uzbek"
-msgstr ""
+msgstr "烏茲別克文"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_button__variable_ids
@@ -2188,14 +2195,7 @@ msgstr "影片"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__vi
 msgid "Vietnamese"
-msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
-#, python-format
-msgid "View Templates"
-msgstr ""
+msgstr "越南文"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_button__button_type__url
@@ -2476,7 +2476,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__zu
 msgid "Zulu"
-msgstr ""
+msgstr "祖魯文"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form

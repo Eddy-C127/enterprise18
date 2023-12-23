@@ -2,12 +2,17 @@
 # This file contains the translation of the following modules:
 # 	* helpdesk
 # 
+# Translators:
+# Manuela Silva <mmsrs@sky.com>, 2023
+# Wil Odoo, 2023
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2023\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +33,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__rating_count
 msgid "# Ratings"
-msgstr ""
+msgstr "# Avaliações"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__sla_policy_count
@@ -47,7 +52,7 @@ msgstr ""
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 #, python-format
 msgid "%s (copy)"
-msgstr ""
+msgstr "%s (cópia)"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -57,22 +62,23 @@ msgstr ""
 #. module: helpdesk
 #: model:helpdesk.sla,name:helpdesk.helpdesk_sla_1
 msgid "2 days to start"
-msgstr ""
+msgstr "2 dias para iniciar"
 
 #. module: helpdesk
 #: model:helpdesk.sla,name:helpdesk.helpdesk_sla_2
 msgid "7 days to finish"
-msgstr ""
+msgstr "7 dias para terminar"
 
 #. module: helpdesk
 #: model:helpdesk.sla,name:helpdesk.helpdesk_sla_3
 msgid "8 hours to finish"
-msgstr ""
+msgstr "8 horas para terminar"
 
 #. module: helpdesk
 #: model_terms:digest.tip,tip_description:helpdesk.digest_tip_helpdesk_0
 msgid "<b class=\"tip_title\">Tip: Create tickets from incoming emails</b>"
 msgstr ""
+"<b class=\"tip_title\">Dica: Criar tickets a partir de emails recebidos</b>"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -221,6 +227,8 @@ msgid ""
 "<i class=\"fa fa-envelope-o\" title=\"Domain alias\" role=\"img\" aria-"
 "label=\"Domain alias\"/>&amp;nbsp;"
 msgstr ""
+"<i class=\"fa fa-envelope-o\" title=\"Domain alias\" role=\"img\" aria-"
+"label=\"Domain alias\"/>&amp;nbsp;"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -271,7 +279,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<small class=\"text-end\">Stage:</small>"
-msgstr ""
+msgstr "<small class=\"text-end\">Estado:</small>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -305,6 +313,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 msgid "<span class=\"o_field_widget o_readonly_modifier\">Working Hours</span>"
 msgstr ""
+"<span class=\"o_field_widget o_readonly_modifier\">Horas de trabalho</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
@@ -327,7 +336,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_partner_form_inherit_helpdesk
 msgid "<span class=\"o_stat_text\"> Tickets</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\"> Tickets</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
@@ -342,7 +351,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted\">Open</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Aberto</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -352,12 +361,12 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted\">Urgent</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Urgente</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "<span><b>Followers </b></span>"
-msgstr ""
+msgstr "<span><b>Seguidores</b></span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -367,7 +376,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span>Reporting</span>"
-msgstr ""
+msgstr "<span>Relatórios</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -377,12 +386,12 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span>Tickets Closed</span>"
-msgstr ""
+msgstr "<span>Tickets Fechados</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span>View</span>"
-msgstr ""
+msgstr "<span>Ver</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -394,12 +403,12 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "<span>days of inactivity</span>"
-msgstr ""
+msgstr "<span>dias de inatividade</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<strong class=\"col-lg-2\">Managed by</strong>"
-msgstr ""
+msgstr "<strong class=\"col-lg-2\">Gerido por</strong>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -422,26 +431,28 @@ msgid ""
 "A Python dictionary that will be evaluated to provide default values when "
 "creating new records for this alias."
 msgstr ""
+"Um dicionário de Python que será avaliado para fornecer valores predefinidos"
+" quando criar novos registos para este alias."
 
 #. module: helpdesk
 #: model:ir.model.constraint,message:helpdesk.constraint_helpdesk_tag_name_uniq
 msgid "A tag with the same name already exists."
-msgstr ""
+msgstr "Etiqueta já existe."
 
 #. module: helpdesk
 #: model:ir.model.constraint,message:helpdesk.constraint_helpdesk_ticket_type_name_uniq
 msgid "A type with the same name already exists."
-msgstr ""
+msgstr "Tipo já existe."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__description
 msgid "About Team"
-msgstr ""
+msgstr "Sobre a Equipa"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Accept Emails From"
-msgstr ""
+msgstr "Aceitar Emails De"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__access_instruction_message
@@ -451,13 +462,13 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__access_warning
 msgid "Access warning"
-msgstr ""
+msgstr "Aviso de acesso"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_needaction
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Ação Necessária"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__active
@@ -467,33 +478,33 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__active
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__active
 msgid "Active"
-msgstr ""
+msgstr "Ativo"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_ids
 msgid "Activities"
-msgstr ""
+msgstr "Atividades"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr ""
+msgstr "Marcador de Exceções de Atividade"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_state
 msgid "Activity State"
-msgstr ""
+msgstr "Estado da Atividade"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_type_icon
 msgid "Activity Type Icon"
-msgstr ""
+msgstr "Ícone de Tipo de Atividade"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.mail_activity_type_action_config_helpdesk
 #: model:ir.ui.menu,name:helpdesk.helpdesk_menu_config_activity_type
 msgid "Activity Types"
-msgstr ""
+msgstr "Tipos de Atividade"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -520,7 +531,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_stage_view_form
 msgid "Add a description..."
-msgstr ""
+msgstr "Acrescente uma descrição..."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -534,7 +545,7 @@ msgstr ""
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_helpdesk_manager
 msgid "Administrator"
-msgstr ""
+msgstr "Administrador"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -544,17 +555,17 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_id
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_contact
 msgid "Alias Contact Security"
-msgstr ""
+msgstr "Segurança de Contacto do Alias"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_domain_id
 msgid "Alias Domain"
-msgstr ""
+msgstr "Domínio Apelido"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_domain
@@ -574,7 +585,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_name
 msgid "Alias Name"
-msgstr ""
+msgstr "Nome do Alias"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_status
@@ -589,20 +600,20 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_model_id
 msgid "Aliased Model"
-msgstr ""
+msgstr "Modelo Aliased"
 
 #. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
 #, python-format
 msgid "All"
-msgstr ""
+msgstr "Tudo"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_action_main_tree
 #: model:ir.ui.menu,name:helpdesk.helpdesk_ticket_menu_all
 msgid "All Tickets"
-msgstr ""
+msgstr "Todos os Tickets"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_team__privacy_visibility__internal
@@ -612,12 +623,12 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Allow your customers to close their own tickets"
-msgstr ""
+msgstr "Permitir que os clientes fechem os seus próprios tickets"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Archive Stages"
-msgstr ""
+msgstr "Arquivar Estágios"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -631,12 +642,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Archived"
-msgstr ""
+msgstr "Arquivados"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_confirmation_wizard
 msgid "Are you sure you want to continue?"
-msgstr ""
+msgstr "Tem certeza de que deseja continuar?"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
@@ -648,20 +659,20 @@ msgstr ""
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 #, python-format
 msgid "Assign the ticket to a <b>member of your team</b>."
-msgstr ""
+msgstr "Atribuir o ticket ao <b>membro da tua equipa</b>."
 
 #. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
 #, python-format
 msgid "Assigned"
-msgstr ""
+msgstr "Atribuído"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__user_id
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__user_id
 msgid "Assigned To"
-msgstr ""
+msgstr "Atribuído A"
 
 #. module: helpdesk
 #. odoo-python
@@ -675,13 +686,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.rating_rating_view_tree_inherit_helpdesk
 #, python-format
 msgid "Assigned to"
-msgstr ""
+msgstr "Atribuído a"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 msgid "Assignee"
-msgstr ""
+msgstr "Responsável"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__assign_method
@@ -710,7 +721,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_attachment_count
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Número de Anexos"
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_auto_assignment
@@ -732,18 +743,18 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__auto_close_ticket
 msgid "Automatic Closing"
-msgstr ""
+msgstr "Fecho Automático"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Average"
-msgstr ""
+msgstr "Média"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__avg_response_hours
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__avg_response_hours
 msgid "Average Hours to Respond"
-msgstr ""
+msgstr "Horas em Média para Responder"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -804,12 +815,12 @@ msgstr ""
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "Avg Open Hours"
-msgstr ""
+msgstr "Média Horas em Aberto"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Bad"
-msgstr ""
+msgstr "Mau"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -826,22 +837,22 @@ msgstr ""
 #: model:helpdesk.stage,legend_blocked:helpdesk.stage_solved
 #, python-format
 msgid "Blocked"
-msgstr ""
+msgstr "Bloqueado"
 
 #. module: helpdesk
 #: model:helpdesk.tag,name:helpdesk.tag_crm
 msgid "CRM"
-msgstr ""
+msgstr "CRM"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__campaign_id
 msgid "Campaign"
-msgstr ""
+msgstr "Campanha"
 
 #. module: helpdesk
 #: model:helpdesk.stage,name:helpdesk.stage_cancelled
 msgid "Canceled"
-msgstr ""
+msgstr "Cancelado"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -853,31 +864,31 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Channels"
-msgstr ""
+msgstr "Canais"
 
 #. module: helpdesk
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.xml:0
 #, python-format
 msgid "Click to set"
-msgstr ""
+msgstr "Clique para definir"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "Close Ticket"
-msgstr ""
+msgstr "Fechar Ticket"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__close_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__close_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__close_date
 msgid "Close date"
-msgstr ""
+msgstr "Data de fecho"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -895,7 +906,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 #, python-format
 msgid "Closed"
-msgstr ""
+msgstr "Encerrado"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -904,12 +915,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #, python-format
 msgid "Closed Tickets"
-msgstr ""
+msgstr "Tickets Fechados"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_action_close_analysis
 msgid "Closed Tickets Analysis"
-msgstr ""
+msgstr "Análise de Tickets Fechados"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__closed_by_partner
@@ -934,24 +945,24 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_tag__color
 msgid "Color"
-msgstr ""
+msgstr "Cor"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__color
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__color
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__color
 msgid "Color Index"
-msgstr ""
+msgstr "Índice de Cor"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.rating_rating_view_search_inherit_helpdesk
 msgid "Comment"
-msgstr ""
+msgstr "Comentário"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__commercial_partner_id
 msgid "Commercial Entity"
-msgstr ""
+msgstr "Entidade Comercial"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -966,7 +977,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Empresas"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__company_id
@@ -978,37 +989,37 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_search
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #. module: helpdesk
 #: model:ir.ui.menu,name:helpdesk.helpdesk_menu_config
 msgid "Configuration"
-msgstr ""
+msgstr "Configuração"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_confirmation_wizard
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_unarchive_wizard
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmar"
 
 #. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/wizard/helpdesk_stage_delete.py:0
 #, python-format
 msgid "Confirmation"
-msgstr ""
+msgstr "Confirmação"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_action_sla
 msgid "Congratulations!"
-msgstr ""
+msgstr "Parabéns!"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_res_partner
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_coupons
@@ -1018,12 +1029,12 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Create Date"
-msgstr ""
+msgstr "Data de Criação"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.email_template_action_helpdesk
 msgid "Create a new template"
-msgstr ""
+msgstr "Criar um modelo novo"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_team_action
@@ -1052,7 +1063,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__create_date
 msgid "Created On"
-msgstr ""
+msgstr "Criado em"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__create_uid
@@ -1064,7 +1075,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__create_uid
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Criado por"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__create_date
@@ -1076,29 +1087,29 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__create_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Criado em"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_tree
 msgid "Creation Date"
-msgstr ""
+msgstr "Data de Criação"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 msgid "Criteria"
-msgstr ""
+msgstr "Critérios"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "Current stage of this ticket"
-msgstr ""
+msgstr "Estado atual deste ticket"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_bounced_content
 msgid "Custom Bounced Message"
-msgstr ""
+msgstr "Mensagem Personalizada de Email Rejeitado"
 
 #. module: helpdesk
 #. odoo-python
@@ -1109,7 +1120,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 #, python-format
 msgid "Customer"
-msgstr ""
+msgstr "Cliente"
 
 #. module: helpdesk
 #. odoo-python
@@ -1118,7 +1129,7 @@ msgstr ""
 #: model:helpdesk.team,name:helpdesk.helpdesk_team1
 #, python-format
 msgid "Customer Care"
-msgstr ""
+msgstr "Atendimento ao Cliente"
 
 #. module: helpdesk
 #. odoo-python
@@ -1128,26 +1139,26 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__partner_email
 #, python-format
 msgid "Customer Email"
-msgstr ""
+msgstr "Email do Cliente"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__partner_name
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__partner_name
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__partner_name
 msgid "Customer Name"
-msgstr ""
+msgstr "Nome do Cliente"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__partner_phone
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__partner_phone
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__partner_phone
 msgid "Customer Phone"
-msgstr ""
+msgstr "Telefone do Cliente"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__access_url
 msgid "Customer Portal URL"
-msgstr ""
+msgstr "URL do Portal do Cliente"
 
 #. module: helpdesk
 #: model:ir.actions.server,name:helpdesk.action_open_customer_preview
@@ -1159,12 +1170,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_rating
 #: model:ir.ui.menu,name:helpdesk.helpdesk_ticket_report_menu_ratings
 msgid "Customer Ratings"
-msgstr ""
+msgstr "Classificações de Clientes"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__partner_ids
 msgid "Customers"
-msgstr ""
+msgstr "Clientes"
 
 #. module: helpdesk
 #. odoo-python
@@ -1178,14 +1189,14 @@ msgstr ""
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "Daily Target"
-msgstr ""
+msgstr "Objetivo Diário"
 
 #. module: helpdesk
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/views/helpdesk_team_kanban/helpdesk_team_kanban_view.js:0
 #, python-format
 msgid "Dashboard"
-msgstr ""
+msgstr "Painel"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__reached_datetime
@@ -1202,7 +1213,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__deadline
 msgid "Deadline"
-msgstr ""
+msgstr "Prazo"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -1217,14 +1228,14 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_defaults
 msgid "Default Values"
-msgstr ""
+msgstr "Valores Predefinidos"
 
 #. module: helpdesk
 #: model:ir.actions.server,name:helpdesk.unlink_helpdesk_stage_action
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_kanban
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #. module: helpdesk
 #. odoo-python
@@ -1234,7 +1245,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_unarchive_wizard
 #, python-format
 msgid "Delete Stage"
-msgstr ""
+msgstr "Excluir Estágio"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1248,7 +1259,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__description
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -1258,7 +1269,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_digest_digest
 msgid "Digest"
-msgstr ""
+msgstr "Resumo"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -1266,7 +1277,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_unarchive_wizard
 msgid "Discard"
-msgstr ""
+msgstr "Descartar"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__display_extra_info
@@ -1285,7 +1296,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__display_name
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
@@ -1299,11 +1310,13 @@ msgstr ""
 #, python-format
 msgid "Do not have access, skip this data for user's digest email"
 msgstr ""
+"Se não tem acesso, ignore estes dados para o \"e-mail\" de resumo do "
+"utilizador"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Documentation"
-msgstr ""
+msgstr "Documentação"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__domain_user_ids
@@ -1323,19 +1336,19 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_kanban
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_email
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_tree
 msgid "Email Alias"
-msgstr ""
+msgstr "Alias de Email"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__template_id
 msgid "Email Template"
-msgstr ""
+msgstr "Modelo de Email"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_stage__template_id
@@ -1348,7 +1361,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__email_cc
 msgid "Email cc"
-msgstr ""
+msgstr "E-mail cc"
 
 #. module: helpdesk
 #: model_terms:digest.tip,tip_description:helpdesk.digest_tip_helpdesk_0
@@ -1388,18 +1401,18 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "Extra Info"
-msgstr ""
+msgstr "Mais Informação"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_status__status__failed
 msgid "Failed"
-msgstr ""
+msgstr "Falhou"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_fail
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__sla_fail
 msgid "Failed SLA Policy"
-msgstr ""
+msgstr "SLA Falhado"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__sla_failed
@@ -1433,7 +1446,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__fold
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__fold
 msgid "Folded in Kanban"
-msgstr ""
+msgstr "Arquivado em Kanban"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1448,29 +1461,29 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Followed"
-msgstr ""
+msgstr "Seguido"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_follower_ids
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Seguidores"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_partner_ids
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Seguidores (Parceiros)"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
+msgstr "ícone do Font awesome ex. fa-tasks"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Future Activities"
-msgstr ""
+msgstr "Atividades Futuras"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1522,24 +1535,24 @@ msgstr ""
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket__kanban_state__done
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket_report_analysis__kanban_state__done
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__legend_done
 msgid "Green Kanban Label"
-msgstr ""
+msgstr "Etiqueta Kanban Verde"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__kanban_state__normal
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket__kanban_state__normal
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket_report_analysis__kanban_state__normal
 msgid "Grey"
-msgstr ""
+msgstr "Cinzento"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__legend_normal
 msgid "Grey Kanban Label"
-msgstr ""
+msgstr "Etiqueta Kanban Cinzenta"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_search
@@ -1548,34 +1561,34 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Group By"
-msgstr ""
+msgstr "Agrupar por"
 
 #. module: helpdesk
 #: model:mail.activity.type,name:helpdesk.mail_act_helpdesk_handle
 msgid "Handle Ticket"
-msgstr ""
+msgstr "Gerir Ticket"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Happy"
-msgstr ""
+msgstr "Contente"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_kanban
 msgid "Happy face"
-msgstr ""
+msgstr "Cara feliz"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__has_external_mail_server
 msgid "Has External Mail Server"
-msgstr ""
+msgstr "Tem Servidor de Email Externo"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__has_message
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Há Mensagem"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_reached
@@ -1596,22 +1609,22 @@ msgstr ""
 #: model:ir.ui.menu,name:helpdesk.menu_helpdesk_root
 #: model_terms:ir.ui.view,arch_db:helpdesk.digest_digest_view_form
 msgid "Helpdesk"
-msgstr ""
+msgstr "Apoio ao Cliente"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_team_dashboard_action_main
 msgid "Helpdesk Overview"
-msgstr ""
+msgstr "Vista Geral de Apoio ao Cliente"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_sla
 msgid "Helpdesk SLA Policies"
-msgstr ""
+msgstr "Apoio ao Cliente - Políticas SLA"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_stage
 msgid "Helpdesk Stage"
-msgstr ""
+msgstr "Estado de Apoio ao Cliente"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_stage_delete_wizard
@@ -1621,7 +1634,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_tag
 msgid "Helpdesk Tags"
-msgstr ""
+msgstr "Etiquetas de Apoio ao Cliente"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_team
@@ -1638,7 +1651,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.rating_rating_view_search_inherit_helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.rating_rating_view_tree_inherit_helpdesk
 msgid "Helpdesk Team"
-msgstr ""
+msgstr "Equipa de Apoio ao Cliente"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_search
@@ -1651,18 +1664,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage_delete_wizard__team_ids
 #: model:ir.ui.menu,name:helpdesk.helpdesk_team_menu
 msgid "Helpdesk Teams"
-msgstr ""
+msgstr "Equipas do Apoio ao Cliente"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_ticket
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "Helpdesk Ticket"
-msgstr ""
+msgstr "Ticket de Apoio ao Cliente"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_ticket_type
 msgid "Helpdesk Ticket Type"
-msgstr ""
+msgstr "Tipo de Ticket de Apoio ao Cliente"
 
 #. module: helpdesk
 #: model:ir.actions.server,name:helpdesk.ir_cron_auto_close_ticket_ir_actions_server
@@ -1673,12 +1686,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_graph_main
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_pivot_main
 msgid "Helpdesk Tickets"
-msgstr ""
+msgstr "Tickets de Apoio ao Cliente"
 
 #. module: helpdesk
 #: model:mail.template,name:helpdesk.solved_ticket_request_email_template
 msgid "Helpdesk: Ticket Closed"
-msgstr ""
+msgstr "Helpdesk: Ticket Fechado"
 
 #. module: helpdesk
 #: model:mail.template,name:helpdesk.rating_ticket_request_email_template
@@ -1704,12 +1717,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket__priority__2
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket_report_analysis__priority__2
 msgid "High priority"
-msgstr ""
+msgstr "Prioridade elevada"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "History"
-msgstr ""
+msgstr "Histórico"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_open_hours
@@ -1757,7 +1770,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__id
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_tree
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_parent_thread_id
@@ -1765,22 +1778,24 @@ msgid ""
 "ID of the parent record holding the alias (example: project holding the task"
 " creation alias)"
 msgstr ""
+"ID do registo parent que armazena o alias (Ex.: projeto que armazena o alias"
+" de criação de tarefas)"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_exception_icon
 msgid "Icon"
-msgstr ""
+msgstr "Ícone"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "ícone para indicar uma exceção na atividade."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__message_needaction
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Se selecionado, há novas mensagens que requerem a sua atenção."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__message_has_error
@@ -1788,7 +1803,7 @@ msgstr ""
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__message_has_error
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Se estiver marcado, algumas mensagens têm um erro de entrega."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__portal_show_rating
@@ -1821,7 +1836,7 @@ msgstr ""
 #: model:helpdesk.stage,name:helpdesk.stage_in_progress
 #, python-format
 msgid "In Progress"
-msgstr ""
+msgstr "Em Progresso"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__from_stage_ids
@@ -1849,12 +1864,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_is_follower
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "É Seguidor"
 
 #. module: helpdesk
 #: model:helpdesk.ticket.type,name:helpdesk.type_incident
 msgid "Issue"
-msgstr ""
+msgstr "Questão"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1876,19 +1891,19 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__legend_blocked
 msgid "Kanban Blocked Explanation"
-msgstr ""
+msgstr "Legenda Kanban Bloqueada"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__legend_normal
 msgid "Kanban Ongoing Explanation"
-msgstr ""
+msgstr "Legenda Kanban Ativa"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__kanban_state
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__kanban_state
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__kanban_state
 msgid "Kanban State"
-msgstr ""
+msgstr "Estado Kanban"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__kanban_state_label
@@ -1898,12 +1913,12 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__legend_done
 msgid "Kanban Valid Explanation"
-msgstr ""
+msgstr "Legenda Kanban Introduzida"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_website_helpdesk_knowledge
 msgid "Knowledge"
-msgstr ""
+msgstr "Conhecimento"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_digest_digest__kpi_helpdesk_tickets_closed_value
@@ -1913,22 +1928,22 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_data
 msgid "Last 3 months"
-msgstr ""
+msgstr "Últimos 3 meses"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.rating_rating_view_search_inherit_helpdesk
 msgid "Last 30 Days"
-msgstr ""
+msgstr "Últimos 30 Dias"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_data
 msgid "Last 30 days"
-msgstr ""
+msgstr "Últimos 30 dias"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_data
 msgid "Last 7 days"
-msgstr ""
+msgstr "Últimos 7 dias"
 
 #. module: helpdesk
 #. odoo-python
@@ -1936,7 +1951,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__date_last_stage_update
 #, python-format
 msgid "Last Stage Update"
-msgstr ""
+msgstr "Última Atualização de Etapa"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__write_uid
@@ -1948,7 +1963,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__write_uid
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última Atualização por"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__write_date
@@ -1960,12 +1975,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__write_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última Atualização em"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Late Activities"
-msgstr ""
+msgstr "Atividades em Atraso"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_data
@@ -2006,7 +2021,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_website_helpdesk_livechat
 msgid "Live Chat"
-msgstr ""
+msgstr "Conversação Live"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_incoming_local
@@ -2024,7 +2039,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket__priority__0
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket_report_analysis__priority__0
 msgid "Low priority"
-msgstr ""
+msgstr "Prioridade baixa"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_sla_action
@@ -2059,7 +2074,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__medium_id
 msgid "Medium"
-msgstr ""
+msgstr "Médio"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
@@ -2077,41 +2092,41 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_ir_ui_menu
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_mail_message
 msgid "Message"
-msgstr ""
+msgstr "Mensagem"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_has_error
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Erro de Envio de Mensagem"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_ids
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Mensagens"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__priority
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__priority
 msgid "Minimum Priority"
-msgstr ""
+msgstr "Prioridade Mínima"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla__stage_id
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__sla_stage_id
 msgid "Minimum stage a ticket needs to reach in order to satisfy this SLA."
-msgstr ""
+msgstr "Estado mínimo que um ticket deve alcançar para satisfazer este SLA."
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_ir_module_module
 msgid "Module"
-msgstr ""
+msgstr "Módulo"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__to_stage_id
@@ -2121,7 +2136,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr ""
+msgstr "Prazo das Minhas Atividades"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_tree
@@ -2133,7 +2148,7 @@ msgstr ""
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "My Performance"
-msgstr ""
+msgstr "O Meu Desempenho"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2152,7 +2167,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 #, python-format
 msgid "My Tickets"
-msgstr ""
+msgstr "Os Meus Tickets"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__name
@@ -2164,7 +2179,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_list_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_tree
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -2178,7 +2193,7 @@ msgstr ""
 #: model:helpdesk.stage,name:helpdesk.stage_new
 #, python-format
 msgid "New"
-msgstr ""
+msgstr "Novo"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__assign_method
@@ -2192,27 +2207,27 @@ msgstr ""
 #: code:addons/helpdesk/controllers/portal.py:0
 #, python-format
 msgid "Newest"
-msgstr ""
+msgstr "Mais Recente"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "Nova Atividade de Calendário"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr ""
+msgstr "Prazo da Próxima Atividade"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_summary
 msgid "Next Activity Summary"
-msgstr ""
+msgstr "Resumo da Próxima Atividade"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
+msgstr "Tipo da Atividade Seguinte "
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_sla_action
@@ -2239,12 +2254,12 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_analysis_dashboard_action
 #: model_terms:ir.actions.act_window,help:helpdesk.rating_rating_action_helpdesk
 msgid "No data yet!"
-msgstr ""
+msgstr "Sem dados!"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_stage_action
 msgid "No stages found. Let's create one!"
-msgstr ""
+msgstr "Nenhum estágio encontrado. Vamos criar um!"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_tag_action
@@ -2284,13 +2299,13 @@ msgstr ""
 #: code:addons/helpdesk/controllers/portal.py:0
 #, python-format
 msgid "None"
-msgstr ""
+msgstr "Nenhum(a)"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_needaction_counter
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Número de Ações"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_status_failed
@@ -2306,7 +2321,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_has_error_counter
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Número de erros"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__message_needaction_counter
@@ -2318,7 +2333,7 @@ msgstr ""
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__message_has_error_counter
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Número de mensagens com um erro de entrega"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -2354,7 +2369,7 @@ msgstr ""
 #. module: helpdesk
 #: model:helpdesk.stage,name:helpdesk.stage_on_hold
 msgid "On Hold"
-msgstr ""
+msgstr "Em espera"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_status__status__ongoing
@@ -2367,7 +2382,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 #, python-format
 msgid "Open"
-msgstr ""
+msgstr "Aberto"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2375,7 +2390,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #, python-format
 msgid "Open Tickets"
-msgstr ""
+msgstr "Tickets Abertos"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__open_hours
@@ -2389,6 +2404,9 @@ msgid ""
 "attached, even if they did not reply to it. If set, this will disable the "
 "creation of new records completely."
 msgstr ""
+"ID opcional de uma linha (registo) à qual todas as mensagens de entrada "
+"serão anexadas, mesmo que não tenham tido resposta. Se definido, irá "
+"desativar completamente a criação de novos registos."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_page
@@ -2403,17 +2421,17 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.ui.menu,name:helpdesk.helpdesk_menu_team_dashboard
 msgid "Overview"
-msgstr ""
+msgstr "Visão geral"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_parent_model_id
 msgid "Parent Model"
-msgstr ""
+msgstr "Modelo Parent"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_parent_thread_id
 msgid "Parent Record Thread ID"
-msgstr ""
+msgstr "ID da Linha de Registo do Parent"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_parent_model_id
@@ -2422,6 +2440,9 @@ msgid ""
 " necessarily the model given by alias_model_id (example: project "
 "(parent_model) and task (model))"
 msgstr ""
+"Modelo parent que armazena o alias. O modelo que armazena a referência ao "
+"alias não é necessariamente o modelo determinado por alias_model_id (Ex.: "
+"project (parent_model) e task (model))"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__is_partner_email_update
@@ -2481,14 +2502,14 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Performance"
-msgstr ""
+msgstr "Desempenho"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_action_team_performance
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_graph_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_pivot_analysis
 msgid "Performance Analysis"
-msgstr ""
+msgstr "Análise de Desempenho"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__auto_close_day
@@ -2498,7 +2519,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "Phone"
-msgstr ""
+msgstr "Telefone"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2534,11 +2555,15 @@ msgid ""
 "- partners: only authenticated partners\n"
 "- followers: only followers of the related document or members of following channels\n"
 msgstr ""
+"Política de publicação de mensagens no documento usando o mailgateway.\n"
+"- todos: todos podem publicar\n"
+"- parceiros: apenas parceiros autenticados\n"
+"- seguidores: apenas seguidores do documento relacionado ou membros de canais seguidores\n"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__access_url
 msgid "Portal Access URL"
-msgstr ""
+msgstr "URL de Acesso Portal"
 
 #. module: helpdesk
 #. odoo-python
@@ -2553,7 +2578,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__priority
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Priority"
-msgstr ""
+msgstr "Prioridade"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__privacy_visibility_warning
@@ -2564,7 +2589,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__properties
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Properties"
-msgstr ""
+msgstr "Propriedades"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2574,12 +2599,12 @@ msgstr ""
 #. module: helpdesk
 #: model:helpdesk.ticket.type,name:helpdesk.type_question
 msgid "Question"
-msgstr ""
+msgstr "Pergunta"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_tree
 msgid "Rating"
-msgstr ""
+msgstr "Classificação"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__rating_last_value
@@ -2630,7 +2655,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__rating_ids
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Classificações"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__portal_show_rating
@@ -2641,17 +2666,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_tree
 msgid "Reach Stage"
-msgstr ""
+msgstr "Estado para Alcançar"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_status__status__reached
 msgid "Reached"
-msgstr ""
+msgstr "Alcançado"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__reached_datetime
 msgid "Reached Date"
-msgstr ""
+msgstr "Data Alcançada"
 
 #. module: helpdesk
 #. odoo-python
@@ -2663,7 +2688,7 @@ msgstr ""
 #: model:helpdesk.stage,legend_done:helpdesk.stage_solved
 #, python-format
 msgid "Ready"
-msgstr ""
+msgstr "Pronto"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2675,26 +2700,26 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid "Record Thread ID"
-msgstr ""
+msgstr "ID da Linha de Registo"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__kanban_state__blocked
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket__kanban_state__blocked
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_ticket_report_analysis__kanban_state__blocked
 msgid "Red"
-msgstr ""
+msgstr "Vermelho"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__legend_blocked
 msgid "Red Kanban Label"
-msgstr ""
+msgstr "Etiqueta Kanban Vermelha"
 
 #. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
 #, python-format
 msgid "Reference"
-msgstr ""
+msgstr "Referência"
 
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_refund_status
@@ -2704,12 +2729,12 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_credit_notes
 msgid "Refunds"
-msgstr ""
+msgstr "Notas de Crédito"
 
 #. module: helpdesk
 #: model:helpdesk.tag,name:helpdesk.tag_repair
 msgid "Repair"
-msgstr ""
+msgstr "Reparação"
 
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_repair_status
@@ -2719,7 +2744,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_product_repairs
 msgid "Repairs"
-msgstr ""
+msgstr "Reparações"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
@@ -2729,17 +2754,17 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.ui.menu,name:helpdesk.helpdesk_ticket_report_menu_main
 msgid "Reporting"
-msgstr ""
+msgstr "Relatórios"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_user_id
 msgid "Responsible User"
-msgstr ""
+msgstr "Utilizador Responsável"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_kanban
 msgid "Restore"
-msgstr ""
+msgstr "Restaurar"
 
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_return_status
@@ -2775,7 +2800,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "SLA Failed"
-msgstr ""
+msgstr "SLAs Falhados"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_sla_action
@@ -2788,7 +2813,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_tree
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "SLA Policies"
-msgstr ""
+msgstr "Políticas de SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_res_partner__sla_ids
@@ -2801,12 +2826,12 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 msgid "SLA Policy"
-msgstr ""
+msgstr "Política de SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__description
 msgid "SLA Policy Description"
-msgstr ""
+msgstr "Descrição da Política de SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_stage_id
@@ -2876,7 +2901,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_has_sms_error
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Erro de Envio de SMS"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -2889,7 +2914,7 @@ msgstr ""
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "Sample"
-msgstr ""
+msgstr "Amostra"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
@@ -2909,12 +2934,12 @@ msgstr ""
 #: code:addons/helpdesk/controllers/portal.py:0
 #, python-format
 msgid "Search <span class=\"nolabel\"> (in Content)</span>"
-msgstr ""
+msgstr "Procurar <span class=\"nolabel\"> (no Conteúdo)</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_search
 msgid "Search SLA Policies"
-msgstr ""
+msgstr "Procurar Políticas de SLA"
 
 #. module: helpdesk
 #. odoo-python
@@ -2928,7 +2953,7 @@ msgstr ""
 #: code:addons/helpdesk/controllers/portal.py:0
 #, python-format
 msgid "Search in Messages"
-msgstr ""
+msgstr "Procurar em Mensagens"
 
 #. module: helpdesk
 #. odoo-python
@@ -2947,7 +2972,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__access_token
 msgid "Security Token"
-msgstr ""
+msgstr "Código de Segurança"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2964,7 +2989,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.action_helpdesk_ticket_mass_mail
 msgid "Send Email"
-msgstr ""
+msgstr "Enviar mensagem"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2985,12 +3010,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__sequence
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_type__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sequência"
 
 #. module: helpdesk
 #: model:helpdesk.tag,name:helpdesk.tag_service
 msgid "Service"
-msgstr ""
+msgstr "Serviço"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3012,12 +3037,12 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "Settings"
-msgstr ""
+msgstr "Definições"
 
 #. module: helpdesk
 #: model:ir.actions.server,name:helpdesk.model_helpdesk_ticket_action_share
 msgid "Share"
-msgstr ""
+msgstr "Partilhar"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3040,12 +3065,12 @@ msgstr ""
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_sla
 msgid "Show SLA Policies"
-msgstr ""
+msgstr "Mostrar Políticas de SLA"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Show all records which has next action date is before today"
-msgstr ""
+msgstr "Mostrar todos os registos cuja data de ação é anterior à atual"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__sla_id
@@ -3055,12 +3080,12 @@ msgstr ""
 #. module: helpdesk
 #: model:helpdesk.stage,name:helpdesk.stage_solved
 msgid "Solved"
-msgstr ""
+msgstr "Resolvido"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__source_id
 msgid "Source"
-msgstr ""
+msgstr "Origem"
 
 #. module: helpdesk
 #. odoo-python
@@ -3074,13 +3099,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
 #, python-format
 msgid "Stage"
-msgstr ""
+msgstr "Etapa"
 
 #. module: helpdesk
 #: model:mail.message.subtype,description:helpdesk.mt_ticket_stage
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_stage
 msgid "Stage Changed"
-msgstr ""
+msgstr "Etapa Alterada"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_stage_view_form
@@ -3090,14 +3115,14 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_stage_view_form
 msgid "Stage Search"
-msgstr ""
+msgstr "Pesquisa fase"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_stage_action
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__stage_ids
 #: model:ir.ui.menu,name:helpdesk.helpdesk_stage_menu
 msgid "Stages"
-msgstr ""
+msgstr "Etapas"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage_delete_wizard__stages_active
@@ -3115,13 +3140,15 @@ msgid ""
 "Stages the team will use. This team's tickets will only be able to be in "
 "these stages."
 msgstr ""
+"Estados que a equipa vai utilizar. Os tickets desta equipa só poderão estar "
+"nestes estados."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_status
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__status
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__activity_state
@@ -3131,6 +3158,10 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
+"Estados baseados nas atividades\n"
+"Vencida: Ultrapassada a data planeada\n"
+"Hoje: Data da atividade é a de hoje\n"
+"Planeada: Atividades futuras."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__duration_tracking
@@ -3145,19 +3176,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__name
 #, python-format
 msgid "Subject"
-msgstr ""
+msgstr "Assunto"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_action_7days_success
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__success_rate
 msgid "Success Rate"
-msgstr ""
+msgstr "Taxa de Sucesso"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_action_7dayssuccess
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_action_success
 msgid "Success Rate Analysis"
-msgstr ""
+msgstr "Análise da Taxa de Sucesso"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_success
@@ -3169,7 +3200,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_type_view_form
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_type_view_tree
 msgid "Tag"
-msgstr ""
+msgstr "Etiqueta"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_tag_action
@@ -3181,7 +3212,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tag_view_form
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetas"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_tag_action
@@ -3191,7 +3222,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 msgid "Target"
-msgstr ""
+msgstr "Alvo"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_res_users__helpdesk_target_rating
@@ -3227,12 +3258,12 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.rating_rating_view_form_inherit_helpdesk
 msgid "Team"
-msgstr ""
+msgstr "Equipa"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__member_ids
 msgid "Team Members"
-msgstr ""
+msgstr "Membros da equipa"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__team_privacy_visibility
@@ -3242,7 +3273,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.email_template_action_helpdesk
 msgid "Templates"
-msgstr ""
+msgstr "Modelos"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_model_id
@@ -3251,6 +3282,9 @@ msgid ""
 " email that does not reply to an existing record will cause the creation of "
 "a new record of this model (e.g. a Project Task)"
 msgstr ""
+"O modelo (Odoo Document Kind) a qual esta alias corresponde. Qualquer email "
+"de entrada que não responda a um registo existente criará um novo registo "
+"deste modelo (Ex.: uma Tarefa de Projeto)"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_name
@@ -3258,6 +3292,8 @@ msgid ""
 "The name of the email alias, e.g. 'jobs' if you want to catch emails for "
 "<jobs@example.odoo.com>"
 msgstr ""
+"O nome do alias de email, ex.: 'jobs' se quiser receber emails de "
+"<jobs@example.odoo.com>"
 
 #. module: helpdesk
 #. odoo-python
@@ -3285,7 +3321,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
 msgid "There are currently no Ticket for your account."
-msgstr ""
+msgstr "De momento, não existem Tickets na sua conta."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_page
@@ -3376,7 +3412,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.rating_rating_view_tree_inherit_helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "Ticket"
-msgstr ""
+msgstr "Ticket"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_action_dashboard
@@ -3385,7 +3421,7 @@ msgstr ""
 #: model:ir.model,name:helpdesk.model_helpdesk_ticket_report_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_pivot_analysis
 msgid "Ticket Analysis"
-msgstr ""
+msgstr "Análise de Tickets"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_closed
@@ -3413,7 +3449,7 @@ msgstr ""
 #: model:mail.message.subtype,name:helpdesk.mt_team_ticket_new
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_new
 msgid "Ticket Created"
-msgstr ""
+msgstr "Ticket Criado"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__sla_deadline
@@ -3451,7 +3487,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 msgid "Ticket Type"
-msgstr ""
+msgstr "Tipo de Ticket"
 
 #. module: helpdesk
 #. odoo-python
@@ -3463,7 +3499,7 @@ msgstr ""
 #. module: helpdesk
 #: model:mail.message.subtype,description:helpdesk.mt_ticket_new
 msgid "Ticket created"
-msgstr ""
+msgstr "Ticket criado"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3491,7 +3527,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_my_home_menu_helpdesk
 #, python-format
 msgid "Tickets"
-msgstr ""
+msgstr "Tickets"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3510,7 +3546,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_digest_digest__kpi_helpdesk_tickets_closed
 msgid "Tickets Closed"
-msgstr ""
+msgstr "Tickets Fechados"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
@@ -3543,7 +3579,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_helpdesk_timesheet
 msgid "Timesheets"
-msgstr ""
+msgstr "Registos de Horas"
 
 #. module: helpdesk
 #: model:digest.tip,name:helpdesk.digest_tip_helpdesk_0
@@ -3566,12 +3602,12 @@ msgstr ""
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "Today"
-msgstr ""
+msgstr "Hoje"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Today Activities"
-msgstr ""
+msgstr "Atividades do Dia"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3611,7 +3647,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_twitter
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3627,12 +3663,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_type_id
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
+msgstr "Tipo de atividade de exceção registada."
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_type_action
@@ -3660,19 +3696,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
 #, python-format
 msgid "Unassigned"
-msgstr ""
+msgstr "Não Atribuídos"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__unassigned_tickets
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 msgid "Unassigned Tickets"
-msgstr ""
+msgstr "Tickets Não Atribuídos"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Unread Messages"
-msgstr ""
+msgstr "Mensagens Não Lidas"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3684,7 +3720,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 #, python-format
 msgid "Urgent"
-msgstr ""
+msgstr "Urgente"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3736,7 +3772,7 @@ msgstr ""
 #: model:ir.model,name:helpdesk.model_res_users
 #: model:res.groups,name:helpdesk.group_helpdesk_user
 msgid "User"
-msgstr ""
+msgstr "Utilizador"
 
 #. module: helpdesk
 #: model:helpdesk.team,name:helpdesk.helpdesk_team3
@@ -3746,7 +3782,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__privacy_visibility
 msgid "Visibility"
-msgstr ""
+msgstr "Visibilidade"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3780,24 +3816,24 @@ msgstr ""
 #. module: helpdesk
 #: model:helpdesk.tag,name:helpdesk.tag_website
 msgid "Website"
-msgstr ""
+msgstr "Website"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_website_helpdesk_form
 msgid "Website Form"
-msgstr ""
+msgstr "Formulário do Site da Web"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__website_message_ids
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Mensagens do Website"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__website_message_ids
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Histórico de comunicação do Website"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__time
@@ -3807,7 +3843,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__resource_calendar_id
 msgid "Working Hours"
-msgstr ""
+msgstr "Horário de Trabalho"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_assignation_hours

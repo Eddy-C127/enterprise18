@@ -128,6 +128,17 @@ msgid ""
 "    </div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"        Apreciable<t t-out=\"object.sudo().partner_id.name or 'Madam/Sir'\">Señor/Señora</t>,<br><br>\n"
+"        Le informamos que hemos cerrado su ticket (con referencia <t t-out=\"object.id or ''\">15</t>. \n"
+"        Esperamos que los servicios que le proporcionamos hayan cumplido con sus expectativas y esté satisfecho con la resolución de su problema.<br><br>\n"
+"        Sin embargo, si tiene alguna pregunta o comentario, no dude en responder a este correo para reabrir su ticket. \n"
+"        Nuestro equipo siempre estará disponible para ayudarle y estaremos encantados de ayudarle en otras dudas que pueda tener.<br><br>\n"
+"        Gracias por escoger nuestros servicios y por su cooperación a lo largo del proceso. Valoramos mucho su negocio y le agrádecemos la oportunidad de dejarnos ayudarle.<br><br>\n"
+"        Saludos cordiales,<br><br>\n"
+"       Equipo del <t t-out=\"object.team_id.name or 'Helpdesk'\">Servicio de Asistencia</t> .\n"
+"    </div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.rating_ticket_request_email_template
@@ -190,6 +201,63 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"access_token\" t-value=\"object._rating_get_access_token()\"></t>\n"
+"    <t t-set=\"partner\" t-value=\"object._rating_get_partner()\"></t>\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0;\">\n"
+"    <tbody>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"            <t t-if=\"partner.name\">\n"
+"                Hola<t t-out=\"partner.name or ''\">Brandon Freeman</t>,<br><br>\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                Hola,<br>\n"
+"            </t>\n"
+"            Nos gustaría que se tomara un momento para calificar nuestros servicios en relación con el ticket \"<strong t-out=\"object.name or ''\">Las patas de la mesa no están balanceadas</strong>\"\n"
+"            <t t-if=\"object._rating_get_operator().name\">\n"
+"                asignado a <strong t-out=\"object._rating_get_operator().name or ''\">Mitchell Admin</strong>.<br><br>\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                .<br><br>\n"
+"            </t>\n"
+"        </td></tr>\n"
+"        <tr><td style=\"text-align: center;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"o_mail_notification\" style=\"width:100%; margin: 32px 0px 32px 0px;\">\n"
+"                <tr><td style=\"font-size: 14px;\">\n"
+"                    <strong>Díganos como se sintió con nuestros servicios</strong><br>\n"
+"                    <span style=\"text-color: #888888\">(haga clic en una de estas caritas)</span>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"font-size: 14px;\">\n"
+"                    <table style=\"width:100%;text-align:center;margin-top:2rem;\">\n"
+"                        <tr>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/5\">\n"
+"                                    <img alt=\"Satisfied\" src=\"/rating/static/src/img/rating_5.png\" title=\"Satisfied\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/3\">\n"
+"                                    <img alt=\"Okay\" src=\"/rating/static/src/img/rating_3.png\" title=\"Okay\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/1\">\n"
+"                                    <img alt=\"Dissatisfied\" src=\"/rating/static/src/img/rating_1.png\" title=\"Dissatisfied\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td></tr>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"            Apreciamos su retroalimentación. Nos ayuda a seguir mejorando.\n"
+"            <br><br><span style=\"margin: 0px 0px 0px 0px; font-size: 12px; opacity: 0.5; color: #454748;\">Se le envió esta encuesta de cliente porque su ticket pasó a la etapa de <b t-out=\"object.stage_id.name or ''\">En Progreso</b>.</span>\n"
+"        </td></tr>\n"
+"    </tbody>\n"
+"    </table>\n"
+"</div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.new_ticket_request_email_template
@@ -227,6 +295,38 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    Apreciable <t t-out=\"object.sudo().partner_id.name or object.sudo().partner_name or 'Madam/Sir'\">señora/señor</t>,<br><br>\n"
+"    Recibimos su solicitud\n"
+"    <t t-if=\"object.get_portal_url()\">\n"
+"        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">Las patas de la mesa no están balanceadas</a>\n"
+"    </t>\n"
+"    y la está revisando nuestro equipo <t t-out=\"object.team_id.name or ''\">Asistencia VIP</t>.<br><br>\n"
+"    La referencia de su ticket es <strong><t t-out=\"object.ticket_ref or ''\">15</t></strong>.<br><br>\n"
+"\n"
+"    Si desea proporcionar información adicional, le pedimos que responda a este correo electrónico.<br><br>\n"
+"    <t t-if=\"object.team_id.show_knowledge_base\">\n"
+"        No dude en visitar nuestro <a t-attf-href=\"{{ object.team_id.get_knowledge_base_url() }}\">Centro de ayuda</a>, es posible que allí encuentre una respuesta para su pregunta.\n"
+"        <br><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
+"        Puede cerrar su ticket si ya no requiere de nuestra ayuda. Gracias por su colaboración.<br><br>\n"
+"    </t>\n"
+"\n"
+"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
+"        <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.get_portal_url()\" target=\"_blank\">Ver ticket</a>\n"
+"        <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
+"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"'/my/ticket/close/%s/%s' % (object.id, object.access_token)\" target=\"_blank\">Cerrar ticket</a>\n"
+"        </t>\n"
+"        <t t-if=\"object.team_id.use_website_helpdesk_forum or object.team_id.use_website_helpdesk_knowledge or object.team_id.use_website_helpdesk_slides\">\n"
+"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.team_id.feature_form_url\" target=\"_blank\">Visitar nuestro Centro de ayuda</a>\n"
+"        </t><br><br>\n"
+"    </div>\n"
+"\n"
+"    Saludos cordiales,<br><br>\n"
+"    El equipo de <t t-out=\"object.team_id.name or 'Helpdesk'\">Servicio de asistencia</t> \n"
+"</div>\n"
+"        "
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -423,6 +523,7 @@ msgid ""
 "<span>Your ticket has successfully been closed. Thank you for your "
 "collaboration.</span>"
 msgstr ""
+"<span>Su ticket se ha cerrado con éxito. Gracias por su colaboración.</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -437,7 +538,7 @@ msgstr "<strong class=\"col-lg-2\">Gestionado por</strong>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<strong class=\"col-lg-3\">Reported on</strong>"
-msgstr ""
+msgstr "<strong class=\"col-lg-3\">Informado el</strong>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -750,6 +851,10 @@ msgid ""
 "that is not publicly available, or there is no customer associated with the "
 "ticket."
 msgstr ""
+"La vista previa para el cliente no está disponible por el momento. El "
+"cliente no puede acceder al ticket actual pues pertenece a un equipo de "
+"servicio de asistencia que no es público, o no existe un cliente asociado "
+"con el ticket. "
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_attachment_count
@@ -760,7 +865,7 @@ msgstr "Nº de archivos adjuntos"
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_auto_assignment
 msgid "Auto Assigment"
-msgstr ""
+msgstr "Asignación automática"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1265,7 +1370,7 @@ msgstr "Fecha límite"
 #: code:addons/helpdesk/static/src/views/helpdesk_ticket_pivot/helpdesk_ticket_pivot_model.js:0
 #, python-format
 msgid "Deadline reached"
-msgstr ""
+msgstr "Fecha límite alcanzada"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_defaults
@@ -1324,7 +1429,7 @@ msgstr "Descartar"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__display_extra_info
 msgid "Display Extra Info"
-msgstr ""
+msgstr "Mostrar información adicional"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__display_name
@@ -1507,7 +1612,7 @@ msgstr "Seguir todos los tickets del equipo"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_my_home_helpdesk_ticket
 msgid "Follow all your helpdesk tickets"
-msgstr ""
+msgstr "Siga todos sus tickets del servicio de asistencia"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
@@ -1542,6 +1647,9 @@ msgid ""
 "Get in touch with your website visitors. Create and search tickets from your"
 " conversations. Answer in an instant by using canned responses."
 msgstr ""
+"Póngase en contacto con los visitantes de su sitio web. Cree y busque "
+"tickets desde sus conversaciones. Responda en un instante usando las "
+"respuestas predefinidas. "
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_analysis_action
@@ -1561,7 +1669,7 @@ msgstr "Obtenga tickets a través de un formulario en línea"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Grant discounts, free products or free shipping"
-msgstr ""
+msgstr "Otorgue descuentos, productos gratuitos o envíos gratis"
 
 #. module: helpdesk
 #. odoo-python
@@ -1572,6 +1680,9 @@ msgid ""
 "followers. Employees automatically get access to the tickets they are "
 "assigned to."
 msgstr ""
+"Permita que los empleados accedan a su equipo de servicio de asistencia o a "
+"los tickets agregándolos como seguidores, tendrán acceso de forma automática"
+" a los tickets en los que están asignados."
 
 #. module: helpdesk
 #. odoo-python
@@ -1582,6 +1693,9 @@ msgid ""
 " followers. Customers automatically get access to their tickets in their "
 "portal."
 msgstr ""
+"Permita que a los usuarios del portal accedan a su equipo de servicio de "
+"asistencia o a los tickets agregándolos como seguidores. Los clientes "
+"tendrán acceso de forma automática a sus tickets en el portal."
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__kanban_state__done
@@ -3487,7 +3601,7 @@ msgstr ""
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 #, python-format
 msgid "This ticket was closed %s hours after its SLA deadline."
-msgstr ""
+msgstr "Este ticket se cerró %s horas después de su fecha límite de SLA."
 
 #. module: helpdesk
 #. odoo-python
@@ -3495,6 +3609,7 @@ msgstr ""
 #, python-format
 msgid "This ticket was successfully closed %s hours before its SLA deadline."
 msgstr ""
+"Este ticket se cerró con éxito %s horas después de su fecha límite de SLA."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_confirmation_wizard

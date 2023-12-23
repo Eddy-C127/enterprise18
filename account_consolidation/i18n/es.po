@@ -120,7 +120,7 @@ msgstr "<span class=\"o_form_label oe_inline\">%</span>"
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "<span class=\"o_stat_text\">Consolidated Balance</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Saldo consolidado</span>"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
@@ -154,6 +154,8 @@ msgid ""
 "A journal entry should only be linked to a company period OR to a analysis "
 "period of another consolidation!"
 msgstr ""
+"¡Un asiento contable solo puede estar vinculado a un periodo empresarial O a"
+" un periodo de análisis de otra consolidación!"
 
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_account_account
@@ -706,7 +708,7 @@ msgstr "Crear primer periodo"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Create your first analysis period & set the currency rates."
-msgstr ""
+msgstr "Cree su primer periodo de análisis y configure las tasas de cambio."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__create_uid
@@ -795,7 +797,7 @@ msgstr "Definir"
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid ""
 "Define the companies that should be consolidated & the target currency."
-msgstr ""
+msgstr "Defina las empresas que deben consolidarse y la moneda destino."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal_line__note
@@ -1157,7 +1159,7 @@ msgstr "Incorporación"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Onboarding Analysis period"
-msgstr ""
+msgstr "Integración a los periodos de análisis "
 
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_setup_ccoa
@@ -1172,7 +1174,7 @@ msgstr "Paso de incorporación"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid "Onboarding The Scope of Consolidation"
-msgstr ""
+msgstr "Integración al alcance de la consolidación "
 
 #. module: account_consolidation
 #. odoo-python
@@ -1181,6 +1183,7 @@ msgstr ""
 msgid ""
 "Only one entry by account should be created for a generated journal entry!"
 msgstr ""
+"¡Solo debe crearse un asiento por cuenta para un asiento de diario generado!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_search
@@ -1296,7 +1299,7 @@ msgstr "Error de entrega del SMS"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid "Scope of Consolidation defined!"
-msgstr ""
+msgstr "¡Alcance de la consolidación definido!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__sequence
@@ -1575,7 +1578,7 @@ msgstr "No puedes editar una entrada de diario generada automáticamente."
 #: code:addons/account_consolidation/models/consolidation_journal.py:0
 #, python-format
 msgid "You cannot add journals to a closed period!"
-msgstr ""
+msgstr "¡No puede agregar diarios a un periodo cerrado!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_form

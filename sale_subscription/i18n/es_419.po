@@ -1484,7 +1484,7 @@ msgstr "Cambiar cliente"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Check reopened subscription"
-msgstr ""
+msgstr "Verificar suscripción reabierta"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -2584,7 +2584,7 @@ msgstr "Rango mínimo del MRR"
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_analysis_report
 msgid "MRR Timeline"
-msgstr ""
+msgstr "Cronograma de MRR"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_tree
@@ -3930,6 +3930,10 @@ msgid ""
 "                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
 "                                                created subscription and renew %s instead"
 msgstr ""
+"Se canceló la suscripción %s y la orden principal %s se volvió a abrir.\n"
+"                                                Debe cerrar %s si el cliente la canceló o renovarla si el cliente sigue usando el servicio.\n"
+"                                                Nota: si creó una nueva suscripción en lugar de renovarla, cancélela.\n"
+"                                                Renueve %s. "
 
 #. module: sale_subscription
 #. odoo-python
@@ -3937,6 +3941,7 @@ msgstr ""
 #, python-format
 msgid "Subscription %s has been reopened. The end date has been removed"
 msgstr ""
+"La suscripción %s se volvió a abrir. Se eliminó la fecha de finalización. "
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_payment_transaction__subscription_action
@@ -4412,8 +4417,8 @@ msgstr "Hay un"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
 #, python-format
-msgid "There is multiple pricings for an unique product, plan and pricelist."
-msgstr "Hay varios precios para un solo producto, plan y lista de precios."
+msgid "There are multiple pricings for an unique product, plan and pricelist."
+msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban

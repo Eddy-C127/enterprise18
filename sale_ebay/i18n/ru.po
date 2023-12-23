@@ -1,40 +1,46 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* sale_ebay
-#
+# 
 # Translators:
-# Vasiliy Korobatov <korobatov@gmail.com>, 2022
-# Gennady Marchenko <gennadym@gmail.com>, 2022
-# ILMIR <karamov@it-projects.info>, 2022
-# Константин Коровин <korovin74@gmail.com>, 2022
-# Максим Дронь <dronmax@gmail.com>, 2022
-# Irina Fedulova <istartlin@gmail.com>, 2022
-# Сергей Шебанин <sergey@shebanin.ru>, 2022
-# Иван Дроздов <hiraetari@gmail.com>, 2022
-# Sergey Vilizhanin, 2022
-# Martin Trigaux, 2022
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2022
-#
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Alena Vlasova, 2023
+# alenafairy, 2023
+# Константин Коровин <korovin74@gmail.com>, 2023
+# Максим Дронь <dronmax@gmail.com>, 2023
+# Irina Fedulova <istartlin@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Иван Дроздов <hiraetari@gmail.com>, 2023
+# Sergey Vilizhanin, 2023
+# Martin Trigaux, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:48+0000\n"
-"Last-Translator: Ivan Kropotkin <yelizariev@itpp.dev>, 2022\n"
+"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Ivan Kropotkin <yelizariev@itpp.dev>, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
 #, python-format
-msgid " If you want to set quantity to 0, the Out Of Stock option should be enabled and the listing duration should set to Good 'Til Canceled"
-msgstr "Если вы хотите установить количество 0, опция Отсутствует на Складе должна быть включена и продолжительность листинга должно быть установлена на Доступно, пока не Закончилось"
+msgid ""
+" If you want to set quantity to 0, the Out Of Stock option should be enabled"
+" and the listing duration should set to Good 'Til Canceled"
+msgstr ""
+"Если вы хотите установить количество 0, опция Отсутствует на Складе должна "
+"быть включена и продолжительность листинга должно быть установлена на "
+"Доступно, пока не Закончилось"
 
 #. module: sale_ebay
 #. odoo-python
@@ -86,8 +92,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
 #, python-format
-msgid "All the quantities must be greater than 0 or you need to enable the Out Of Stock option."
-msgstr "Все количества должны быть больше, чем 0 или необходимо включить опцию Отсутствует на Складе."
+msgid ""
+"All the quantities must be greater than 0 or you need to enable the Out Of "
+"Stock option."
+msgstr ""
+"Все количества должны быть больше, чем 0 или необходимо включить опцию "
+"Отсутствует на Складе."
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_best_offer
@@ -183,7 +193,7 @@ msgstr "Страна"
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__create_uid
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_site__create_uid
 msgid "Created by"
-msgstr "Создал"
+msgstr "Создано"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_category__create_date
@@ -228,7 +238,7 @@ msgstr "Код Разработчика"
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__display_name
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_site__display_name
 msgid "Display Name"
-msgstr "Отображаемое имя"
+msgstr "Показывать название"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_listing_duration
@@ -296,10 +306,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Error Encountered.\n"
-"'%s'"
+"%r"
 msgstr ""
-"Обнаружена Ошибка.\n"
-"'%s'"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
@@ -431,7 +439,7 @@ msgstr "Тип Листинга"
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_location
 msgid "Location"
-msgstr "Место"
+msgstr "Место хранения"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_account_deletion_endpoint
@@ -441,7 +449,7 @@ msgstr ""
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "Mode"
-msgstr "Режим"
+msgstr "Способ"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -454,7 +462,7 @@ msgstr "Режим и полномочия"
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__name
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_site__name
 msgid "Name"
-msgstr "Имя"
+msgstr "Название"
 
 #. module: sale_ebay
 #. odoo-python
@@ -497,7 +505,9 @@ msgstr "Политика Оплаты"
 #. odoo-python
 #: code:addons/sale_ebay/models/res_config_settings.py:0
 #, python-format
-msgid "Please provide your ebay production keys before enabling the account deletion notifications."
+msgid ""
+"Please provide your ebay production keys before enabling the account "
+"deletion notifications."
 msgstr ""
 
 #. module: sale_ebay
@@ -652,7 +662,7 @@ msgstr "Стартовая Цена для Аукциона"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "Storage"
-msgstr ""
+msgstr "хранение"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -718,8 +728,12 @@ msgstr ""
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_subtitle
 #: model:ir.model.fields,help:sale_ebay.field_product_template__ebay_subtitle
-msgid "The subtitle is restricted to 55 characters. Fees can be claimed by eBay for this feature"
-msgstr "Подзаголовок ограничен до 55 символов. Плата может быть востребована eBay для этой функции"
+msgid ""
+"The subtitle is restricted to 55 characters. Fees can be claimed by eBay for"
+" this feature"
+msgstr ""
+"Подзаголовок ограничен до 55 символов. Плата может быть востребована eBay "
+"для этой функции"
 
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_title
@@ -730,21 +744,36 @@ msgstr "Заглавие ограничено 80 символами"
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_category_2_id
 #: model:ir.model.fields,help:sale_ebay.field_product_template__ebay_category_2_id
-msgid "The use of a secondary category is not allowed on every eBay sites. Fees can be claimed by eBay for this feature"
-msgstr "Использование вторичной категории не допускается на каждых eBay сайтах. Плата может быть востребована eBay для этой функции"
+msgid ""
+"The use of a secondary category is not allowed on every eBay sites. Fees can"
+" be claimed by eBay for this feature"
+msgstr ""
+"Использование вторичной категории не допускается на каждых eBay сайтах. "
+"Плата может быть востребована eBay для этой функции"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
 #, python-format
-msgid "There is no last synchronization date in your System Parameters. Create a System Parameter record with the key \"ebay_last_sync\" and the value set to the date of the oldest order you wish to synchronize in the format \"YYYY-MM-DD\"."
-msgstr "Нет даты последней синхронизации вашей системе параметров. Создайте запись системы параметров с ключом &quot;ebay_last_sync&quot; и установленное значение на дату старого заказа, которую вы хотите синхронизировать в формате &quot;год-месяц-ДЕНЬ&quot;."
+msgid ""
+"There is no last synchronization date in your System Parameters. Create a "
+"System Parameter record with the key \"ebay_last_sync\" and the value set to"
+" the date of the oldest order you wish to synchronize in the format \"YYYY-"
+"MM-DD\"."
+msgstr ""
+"Нет даты последней синхронизации вашей системе параметров. Создайте запись "
+"системы параметров с ключом &quot;ebay_last_sync&quot; и установленное "
+"значение на дату старого заказа, которую вы хотите синхронизировать в "
+"формате &quot;год-месяц-ДЕНЬ&quot;."
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
 #, python-format
-msgid "This function should not be called with a range of more than 30 days, as eBay does not handle longer timespans. Instead use synchronize_orders which split in as many calls as needed."
+msgid ""
+"This function should not be called with a range of more than 30 days, as "
+"eBay does not handle longer timespans. Instead use synchronize_orders which "
+"split in as many calls as needed."
 msgstr ""
 
 #. module: sale_ebay
@@ -938,7 +967,8 @@ msgstr "параметры eBay"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
-msgid "eBay requires supporting customer account deletion/closure notifications."
+msgid ""
+"eBay requires supporting customer account deletion/closure notifications."
 msgstr ""
 
 #. module: sale_ebay

@@ -315,24 +315,9 @@ msgid "Cost"
 msgstr "Chi phí"
 
 #. module: hr_referral
-#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_friend_configuration
-msgid "Create a new friend"
-msgstr ""
-
-#. module: hr_referral
-#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_level_configuration
-msgid "Create a new level"
-msgstr ""
-
-#. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_alert_configuration
 msgid "Create new alerts"
 msgstr "Tạo cảnh báo mới"
-
-#. module: hr_referral
-#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_points
-msgid "Create new reward points"
-msgstr ""
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__create_uid
@@ -728,6 +713,11 @@ msgid "In Progress"
 msgstr "Đang thực hiện"
 
 #. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__is_accessible_to_current_user
+msgid "Is Accessible To Current User"
+msgstr ""
+
+#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_is_follower
 msgid "Is Follower"
 msgstr "Là người theo dõi"
@@ -995,6 +985,16 @@ msgid "Open"
 msgstr "Mở"
 
 #. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Position"
+msgstr ""
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Positions"
+msgstr ""
+
+#. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
 msgid "Point icon"
 msgstr "Biểu tượng điểm"
@@ -1072,11 +1072,6 @@ msgstr "Sản phẩm"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__name
 msgid "Product Name"
 msgstr "Tên sản phẩm"
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
-msgid "Ratings"
-msgstr "Đánh giá"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
@@ -1512,6 +1507,15 @@ msgid "UTM Source"
 msgstr "UTM Source"
 
 #. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/models/hr_applicant.py:0
+#, python-format
+msgid ""
+"Unsupported search on field is_accessible_to_current_user: %s operator & %s "
+"value. Only = and != operator and boolean values are supported."
+msgstr ""
+
+#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__url
 msgid "Url"
 msgstr "Url"
@@ -1570,6 +1574,16 @@ msgstr "Chào mừng bạn tham gia ứng dụng Giới thiệu"
 #, python-format
 msgid "You are not allowed to access applicant records."
 msgstr "Bạn không được phép truy cập hồ sơ ứng viên."
+
+#. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/models/hr_applicant.py:0
+#, python-format
+msgid ""
+"You are not allowed to access this application record because you're not one"
+" of the interviewers of this application. If you think that's an error, "
+"please contact your administrator."
+msgstr ""
 
 #. module: hr_referral
 #. odoo-python

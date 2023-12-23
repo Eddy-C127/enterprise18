@@ -1,35 +1,38 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_asset
-#
+# 
 # Translators:
-# Vasiliy Korobatov <korobatov@gmail.com>, 2022
-# Vitalius Sharkhun <al070572sva@gmail.com>, 2022
-# Андрей Гусев <gaussgss@gmail.com>, 2022
-# Viktor Pogrebniak <vp@aifil.ru>, 2022
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2022
-# Ekaterina <nawsikaya@bk.ru>, 2022
-# Irina Fedulova <istartlin@gmail.com>, 2022
-# Sergey Vilizhanin, 2022
-# ILMIR <karamov@it-projects.info>, 2022
-# Martin Trigaux, 2022
-# Сергей Шебанин <sergey@shebanin.ru>, 2022
-# Alena Vlasova, 2022
-# Gennady Marchenko <gennadym@gmail.com>, 2022
-# Sergey Vernyayev, 2022
-#
+# Sergey Vernyayev, 2023
+# Vitalius Sharkhun <al070572sva@gmail.com>, 2023
+# Андрей Гусев <gaussgss@gmail.com>, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Gennady Marchenko <gennadym@gmail.com>, 2023
+# Sergey Vilizhanin, 2023
+# Ekaterina <nawsikaya@bk.ru>, 2023
+# alenafairy, 2023
+# valmasone, 2023
+# Viktor Pogrebniak <vp@aifil.ru>, 2023
+# Irina Fedulova <istartlin@gmail.com>, 2023
+# Elena Da, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Alena Vlasova, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Martin Trigaux, 2023
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:44+0000\n"
-"Last-Translator: Sergey Vernyayev, 2022\n"
+"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"PO-Revision-Date: 2023-10-26 23:09+0000\n"
+"Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_asset
@@ -65,14 +68,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
-msgid "%s Future entries will be recomputed to depreciate the asset following the changes."
-msgstr ""
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-#, python-format
-msgid "%s created from invoice: %s"
+msgid ""
+"%s Future entries will be recomputed to depreciate the asset following the "
+"changes."
 msgstr ""
 
 #. module: account_asset
@@ -99,21 +97,7 @@ msgstr ""
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "(incl."
-msgstr ""
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-#, python-format
-msgid "A deferred expense has been created for this move:"
-msgstr ""
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-#, python-format
-msgid "A deferred revenue has been created for this move:"
-msgstr ""
+msgstr "(включая"
 
 #. module: account_asset
 #. odoo-python
@@ -126,21 +110,29 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
-msgid "A depreciation entry will be posted on and including the date %s. <br/> %s Future entries will be recomputed to depreciate the asset following the changes."
+msgid ""
+"A depreciation entry will be posted on and including the date %s. <br/> %s "
+"Future entries will be recomputed to depreciate the asset following the "
+"changes."
 msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
-msgid "A depreciation entry will be posted on and including the date %s.<br/> A disposal entry will be posted on the %s account <b>%s</b>."
+msgid ""
+"A depreciation entry will be posted on and including the date %s.<br/> A "
+"disposal entry will be posted on the %s account <b>%s</b>."
 msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
-msgid "A depreciation entry will be posted on and including the date %s.<br/> A second entry will neutralize the original income and post the  outcome of this sale on account <b>%s</b>."
+msgid ""
+"A depreciation entry will be posted on and including the date %s.<br/> A "
+"second entry will neutralize the original income and post the  outcome of "
+"this sale on account <b>%s</b>."
 msgstr ""
 
 #. module: account_asset
@@ -178,43 +170,37 @@ msgstr "Счёт"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_type
-msgid "Account Type is used for information purpose, to generate country-specific legal reports, and set the rules to close a fiscal year and generate opening entries."
-msgstr "Тип счёта используется в информационных целях, при создании официальных отчётов для конкретной страны, определении правил закрытия финансового года и проводок открытия."
+msgid ""
+"Account Type is used for information purpose, to generate country-specific "
+"legal reports, and set the rules to close a fiscal year and generate opening"
+" entries."
+msgstr ""
+"Тип счёта используется в информационных целях, при создании официальных "
+"отчётов для конкретной страны, определении правил закрытия финансового года "
+"и проводок открытия."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_id
 msgid "Account used in the depreciation entries, to decrease the asset value."
-msgstr "Аккаунт используется в записях амортизации для уменьшения стоимости активов."
+msgstr ""
+"Аккаунт используется в записях амортизации для уменьшения стоимости активов."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_expense_id
-msgid "Account used in the periodical entries, to record a part of the asset as expense."
-msgstr "Учетная запись, используемая в периодических записях, чтобы записать часть актива в качестве расхода."
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Account used to recognize the expense"
+msgid ""
+"Account used in the periodical entries, to record a part of the asset as "
+"expense."
 msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Account used to recognize the revenue"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Account used to record the deferred expense"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Account used to record the deferred income"
-msgstr ""
+"Учетная запись, используемая в периодических записях, чтобы записать часть "
+"актива в качестве расхода."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_asset_id
-msgid "Account used to record the purchase of the asset at its original price."
-msgstr "Учетная запись, используемая для записи покупки актива по его первоначальной цене."
+msgid ""
+"Account used to record the purchase of the asset at its original price."
+msgstr ""
+"Учетная запись, используемая для записи покупки актива по его первоначальной"
+" цене."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__gain_account_id
@@ -223,7 +209,9 @@ msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_res_company__gain_account_id
-msgid "Account used to write the journal item in case of gain while selling an asset"
+msgid ""
+"Account used to write the journal item in case of gain while selling an "
+"asset"
 msgstr ""
 
 #. module: account_asset
@@ -233,7 +221,9 @@ msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_res_company__loss_account_id
-msgid "Account used to write the journal item in case of loss while selling an asset"
+msgid ""
+"Account used to write the journal item in case of loss while selling an "
+"asset"
 msgstr ""
 
 #. module: account_asset
@@ -256,7 +246,7 @@ msgstr "Дата поступления"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__modify_action
 msgid "Action"
-msgstr "Действие"
+msgstr "Операции"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_needaction
@@ -271,7 +261,7 @@ msgstr "Активно"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_ids
 msgid "Activities"
-msgstr "Действия"
+msgstr "Деятельность"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_exception_decoration
@@ -281,7 +271,7 @@ msgstr "Оформление исключения активности"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_state
 msgid "Activity State"
-msgstr "Статус действия"
+msgstr "Статус активности"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_type_icon
@@ -329,6 +319,7 @@ msgstr ""
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
+#: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "An asset will be created for the value increase of the asset. <br/>"
 msgstr ""
@@ -336,23 +327,22 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__analytic_distribution
 msgid "Analytic Distribution"
-msgstr ""
+msgstr "Разнесение аналитики"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__analytic_distribution_search
 msgid "Analytic Distribution Search"
-msgstr ""
+msgstr "Поиск по аналитическому распределению"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__analytic_precision
 msgid "Analytic Precision"
-msgstr ""
+msgstr "Аналитическая точность"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
 msgid "Archived"
 msgstr "Архивировано"
 
@@ -364,7 +354,6 @@ msgstr "Архивировано"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_id
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_id
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__asset_id
-#: model:ir.model.fields.selection,name:account_asset.selection__account_account__asset_type__purchase
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 #, python-format
@@ -378,6 +367,7 @@ msgstr "Счет активов"
 
 #. module: account_asset
 #. odoo-python
+#: code:addons/account_asset/models/account_asset.py:0
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset Cancelled"
@@ -405,9 +395,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
 msgid "Asset Model"
 msgstr "модель актива"
 
@@ -419,7 +407,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_model_form
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_model_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_purchase_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Asset Models"
 msgstr "Модели основных средств"
 
@@ -429,23 +417,9 @@ msgid "Asset Name"
 msgstr "Название актива"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Asset Options"
-msgstr ""
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_paused_days
 msgid "Asset Paused Days"
 msgstr ""
-
-#. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_account__asset_type
-#: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_type
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_asset_type
-#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_asset_type
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_asset_type
-msgid "Asset Type"
-msgstr "Тип Актива"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_value_change
@@ -465,6 +439,13 @@ msgstr ""
 #, python-format
 msgid "Asset created"
 msgstr "Актив создан"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Asset created from invoice: %s"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
@@ -512,7 +493,7 @@ msgstr "Признание Актива/Дохода"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_ids
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_ids
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_purchase_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_tree
 #, python-format
 msgid "Assets"
 msgstr "Основные средства"
@@ -541,7 +522,9 @@ msgstr "Активы в состоянии \"Черновик\" и \"Откры�
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
-msgid "Atleast one asset (%s) couldn't be set as running because it lacks any required information"
+msgid ""
+"Atleast one asset (%s) couldn't be set as running because it lacks any "
+"required information"
 msgstr ""
 
 #. module: account_asset
@@ -556,16 +539,6 @@ msgstr ""
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Automate Deferred Expense"
-msgstr "Автоматизировать расходы будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Automate Deferred Revenue"
-msgstr "Автоматизировать доходы будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
 msgid "Automation"
 msgstr "Автоматизация"
 
@@ -577,7 +550,7 @@ msgstr ""
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Bills"
-msgstr "Счета"
+msgstr "Документы покупки"
 
 #. module: account_asset
 #. odoo-python
@@ -657,16 +630,6 @@ msgid "Compute Depreciation"
 msgstr "Вычислить Амортизацию"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Compute Expense"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Compute Revenue"
-msgstr "Вычислить доход"
-
-#. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Confirm"
 msgstr "Подтвердить"
@@ -681,20 +644,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_asset.field_account_move__count_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__count_asset
 msgid "Count Asset"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__count_deferred_expense
-#: model:ir.model.fields,field_description:account_asset.field_account_move__count_deferred_expense
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__count_deferred_expense
-msgid "Count Deferred Expense"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__count_deferred_revenue
-#: model:ir.model.fields,field_description:account_asset.field_account_move__count_deferred_revenue
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__count_deferred_revenue
-msgid "Count Deferred Revenue"
 msgstr ""
 
 #. module: account_asset
@@ -725,30 +674,10 @@ msgid "Create new asset model"
 msgstr ""
 
 #. module: account_asset
-#: model_terms:ir.actions.act_window,help:account_asset.action_account_expense_form
-msgid "Create new deferred expense"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.actions.act_window,help:account_asset.action_account_expense_model_form
-msgid "Create new deferred expense model"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.actions.act_window,help:account_asset.action_account_revenue_form
-msgid "Create new deferred revenue"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.actions.act_window,help:account_asset.action_account_revenue_model_form
-msgid "Create new deferred revenue model"
-msgstr ""
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__create_uid
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__create_uid
 msgid "Created by"
-msgstr "Создал"
+msgstr "Создано"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__create_date
@@ -762,16 +691,6 @@ msgstr "Дата создания"
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_depreciated_value
 msgid "Cumulative Depreciation"
 msgstr "Накопленная Амортизация"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Cumulative Expense"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Cumulative Revenue"
-msgstr "Кумулятивный доход"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__currency_id
@@ -792,7 +711,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__invoice_ids
 msgid "Customer Invoice"
-msgstr "Акт для клиента"
+msgstr "Документ продажи покупателю"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__date
@@ -830,163 +749,6 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method__degressive_then_linear
 msgid "Declining then Straight Line"
-msgstr ""
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-#: model:ir.model.fields.selection,name:account_asset.selection__account_account__asset_type__expense
-#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__asset_type__expense
-#, python-format
-msgid "Deferred Expense"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
-msgid "Deferred Expense Account"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Deferred Expense Amount"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Deferred Expense Model"
-msgstr "Модель расходов будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Deferred Expense Model name"
-msgstr "Имя модели расходов будущих периодов"
-
-#. module: account_asset
-#: model:ir.actions.act_window,name:account_asset.action_account_expense_model_form
-#: model:ir.ui.menu,name:account_asset.menu_action_account_expense_model_recognition
-msgid "Deferred Expense Models"
-msgstr "Модели расходов будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Deferred Expense Options"
-msgstr "Варианты расходов будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Deferred Expense name"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_move_form_asset_inherit
-msgid "Deferred Expense(s)"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.actions.act_window,name:account_asset.action_account_expense_form
-#: model:ir.ui.menu,name:account_asset.menu_action_account_expense_recognition
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_tree
-msgid "Deferred Expenses"
-msgstr "Расходы будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-msgid "Deferred Expenses Models"
-msgstr "Модели расходов будущих периодов"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-#: model:ir.model.fields.selection,name:account_asset.selection__account_account__asset_type__sale
-#, python-format
-msgid "Deferred Revenue"
-msgstr "Доходы будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
-msgid "Deferred Revenue Account"
-msgstr "Счет Дохода Будущих Периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Deferred Revenue Amount"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Deferred Revenue Model"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Deferred Revenue Model name"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.actions.act_window,name:account_asset.action_account_revenue_model_form
-#: model:ir.ui.menu,name:account_asset.menu_action_account_revenue_model_recognition
-msgid "Deferred Revenue Models"
-msgstr "Модели доходов будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Deferred Revenue Options"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Deferred Revenue name"
-msgstr "Наименование Дохода будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_move_form_asset_inherit
-msgid "Deferred Revenue(s)"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.actions.act_window,name:account_asset.action_account_revenue_form
-#: model:ir.ui.menu,name:account_asset.menu_action_account_revenue_recognition
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_sale_tree
-msgid "Deferred Revenues"
-msgstr "Доходы будущих периодов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-msgid "Deferred Revenues Models"
-msgstr "Модели доходов будущих периодов"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-#, python-format
-msgid "Deferred expense"
-msgstr ""
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-#, python-format
-msgid "Deferred expense created"
-msgstr ""
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-#, python-format
-msgid "Deferred revenue"
-msgstr ""
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-#, python-format
-msgid "Deferred revenue created"
 msgstr ""
 
 #. module: account_asset
@@ -1083,7 +845,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__display_name
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__display_name
 msgid "Display Name"
-msgstr "Отображаемое имя"
+msgstr "Показывать название"
 
 #. module: account_asset
 #. odoo-python
@@ -1132,20 +894,6 @@ msgid "Draft Asset Exists"
 msgstr ""
 
 #. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__draft_deferred_expense_exists
-#: model:ir.model.fields,field_description:account_asset.field_account_move__draft_deferred_expense_exists
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__draft_deferred_expense_exists
-msgid "Draft Deferred Expense Exists"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__draft_deferred_revenue_exists
-#: model:ir.model.fields,field_description:account_asset.field_account_move__draft_deferred_revenue_exists
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__draft_deferred_revenue_exists
-msgid "Draft Deferred Revenue Exists"
-msgstr ""
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__method_number
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__method_number
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1159,48 +907,11 @@ msgid "Duration / Rate"
 msgstr ""
 
 #. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_tree
-#, python-format
-msgid "Expense"
-msgstr "Расход"
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__account_depreciation_expense_id
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_depreciation_expense_id
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
 msgid "Expense Account"
 msgstr "Счет расходов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Expense Board"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Expense Date"
-msgstr "Дата расхода"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Expense Lines"
-msgstr "Позиции расходов"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-msgid "Expense Name"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Expense Recognition"
-msgstr ""
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_first_depreciation
@@ -1226,7 +937,7 @@ msgstr "Подписчики (Партнеры)"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Иконка со шрифтом Font awesome, например. fa-tasks"
+msgstr "Иконка со шрифтом Font awesome, например, fa-tasks"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_account__form_view_ref
@@ -1287,8 +998,6 @@ msgstr ""
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
 msgid "Group By..."
 msgstr "Группировать по…"
 
@@ -1316,22 +1025,28 @@ msgstr "Значок, обозначающий действие исключен
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Если отмечено, новые сообщения будут требовать вашего внимания."
+msgstr ""
+"Если флажок установлен, новые сообщения будут требовать вашего внимания."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__message_has_error
 #: model:ir.model.fields,help:account_asset.field_account_asset__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Если отмечено - некоторые сообщения имеют ошибку доставки."
+msgstr "Если флажок установлен, некоторые сообщения имеют ошибку доставки."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_account__asset_model
-msgid "If this is selected, an expense/revenue will be created automatically when Journal Items on this account are posted."
+msgid ""
+"If this is selected, an expense/revenue will be created automatically when "
+"Journal Items on this account are posted."
 msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__already_depreciated_amount_import
-msgid "In case of an import from another software, you might need to use this field to have the right depreciation table report. This is the value that was already depreciated with entries not computed from this model"
+msgid ""
+"In case of an import from another software, you might need to use this field"
+" to have the right depreciation table report. This is the value that was "
+"already depreciated with entries not computed from this model"
 msgstr ""
 
 #. module: account_asset
@@ -1342,7 +1057,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__invoice_line_ids
 msgid "Invoice Line"
-msgstr "Позиция акта"
+msgstr "Позиция документа продажи"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_is_follower
@@ -1357,8 +1072,6 @@ msgstr "Это сумма, которую вы планируете иметь, 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__journal_id
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
 msgid "Journal"
 msgstr "Журнал"
 
@@ -1392,7 +1105,9 @@ msgstr "Элементы журнала"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
-msgid "Journal Items of {account} should have a label in order to generate an asset"
+msgid ""
+"Journal Items of %(account)s should have a label in order to generate an "
+"asset"
 msgstr ""
 
 #. module: account_asset
@@ -1478,20 +1193,10 @@ msgid "Modify Depreciation"
 msgstr "Изменить амортизацию"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Modify Expense"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Modify Revenue"
-msgstr "Изменение выручки"
-
-#. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method_period__1
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__method_period__1
 msgid "Months"
-msgstr "Месяц"
+msgstr "Месяцы"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_account__multiple_assets_per_line
@@ -1500,7 +1205,9 @@ msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_account__multiple_assets_per_line
-msgid "Multiple asset items will be generated depending on the bill line quantity instead of 1 global asset."
+msgid ""
+"Multiple asset items will be generated depending on the bill line quantity "
+"instead of 1 global asset."
 msgstr ""
 
 #. module: account_asset
@@ -1539,16 +1246,6 @@ msgid "Next Activity Type"
 msgstr "Тип следующего действия"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Next Period Expense"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Next Period Revenue"
-msgstr "Следующий период дохода"
-
-#. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_account__create_asset__no
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__gain_or_loss__no
 msgid "No"
@@ -1578,15 +1275,15 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__name
 msgid "Note"
-msgstr "Заметка"
+msgstr "Запись журнала"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Количество действий"
+msgstr "Кол-во действий"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_purchase_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Number of Depreciations"
 msgstr "Число амортизаций"
 
@@ -1595,13 +1292,6 @@ msgstr "Число амортизаций"
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__method_period
 msgid "Number of Months in a Period"
 msgstr "Количество месяцев в периоде"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Number of Recognitions"
-msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__gross_increase_count
@@ -1627,13 +1317,13 @@ msgstr "Количество ошибок"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr "Количество сообщений, требующих действия"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Количество сообщений с ошибкой отправки"
+msgstr "Количество сообщений с ошибкой доставки"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__paused
@@ -1656,7 +1346,15 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__parent_id
 msgid "Parent"
-msgstr "Родитель"
+msgstr "Родительский"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_asset.py:0
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+#, python-format
+msgid "Parent Asset"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
@@ -1672,9 +1370,7 @@ msgid "Paused Prorata Date"
 msgstr ""
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_purchase_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Period length"
 msgstr ""
 
@@ -1689,14 +1385,9 @@ msgid "Prorata Date"
 msgstr ""
 
 #. module: account_asset
-#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__asset_type__purchase
-msgid "Purchase: Asset"
-msgstr "Покупка: Активы"
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Рейтинги"
 
 #. module: account_asset
 #. odoo-python
@@ -1706,30 +1397,14 @@ msgid "Re-evaluate"
 msgstr ""
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Recognition Values"
-msgstr ""
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_ids
 #: model_terms:ir.ui.view,arch_db:account_asset.view_move_line_form_asset_inherit
 msgid "Related Assets"
 msgstr ""
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Related Expenses"
-msgstr ""
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__related_purchase_value
 msgid "Related Purchase Value"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Related Sales"
 msgstr ""
 
 #. module: account_asset
@@ -1740,15 +1415,9 @@ msgid "Reset to running"
 msgstr ""
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Residual Amount to Recognize"
-msgstr ""
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_user_id
 msgid "Responsible User"
-msgstr "Ответственный"
+msgstr "Ответственный пользователь"
 
 #. module: account_asset
 #. odoo-python
@@ -1756,7 +1425,7 @@ msgstr "Ответственный"
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 #, python-format
 msgid "Resume"
-msgstr "Возобновить"
+msgstr "Резюме"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1765,50 +1434,11 @@ msgstr ""
 
 #. module: account_asset
 #. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-#, python-format
-msgid "Revenue"
-msgstr "Доход"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
-msgid "Revenue Account"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Revenue Board"
-msgstr "Доска дохода"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Revenue Date"
-msgstr "Дата дохода"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Revenue Lines"
-msgstr "строки дохода"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_sale_tree
-msgid "Revenue Name"
-msgstr "Наименование Дохода"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Revenue Recognition"
-msgstr "Признание Дохода"
-
-#. module: account_asset
-#. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
-msgid "Reverse the depreciation entries posted in the future in order to modify the depreciation"
+msgid ""
+"Reverse the depreciation entries posted in the future in order to modify the"
+" depreciation"
 msgstr ""
 
 #. module: account_asset
@@ -1827,11 +1457,6 @@ msgstr "Ошибка доставки SMS"
 #, python-format
 msgid "Sale"
 msgstr "Продажа"
-
-#. module: account_asset
-#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__asset_type__sale
-msgid "Sale: Revenue Recognition"
-msgstr "Продажа: Признание Дохода"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1871,13 +1496,15 @@ msgstr ""
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Show all records which has next action date is before today"
-msgstr "Показать все записи, у которых дата следующего действия не превышает текущей даты"
+msgstr ""
+"Показать все записи, у которых дата следующего действия не превышает текущей"
+" даты"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
-msgid "Some fields are missing {}"
+msgid "Some fields are missing %s"
 msgstr ""
 
 #. module: account_asset
@@ -1912,14 +1539,19 @@ msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__book_value
-msgid "Sum of the depreciable value, the salvage value and the book value of all value increase items"
+msgid ""
+"Sum of the depreciable value, the salvage value and the book value of all "
+"value increase items"
 msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
-msgid "The account %(exp_acc)s has been credited by %(exp_delta)s, while the account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to %(move_count)s cancelled %(word)s:<br>%(entries)s"
+msgid ""
+"The account %(exp_acc)s has been credited by %(exp_delta)s, while the "
+"account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to "
+"%(move_count)s cancelled %(word)s:"
 msgstr ""
 
 #. module: account_asset
@@ -1932,7 +1564,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
-msgid "The amount you have entered (%s) does not match the Related Purchase's value (%s). Please make sure this is what you want."
+msgid ""
+"The amount you have entered (%s) does not match the Related Purchase's value"
+" (%s). Please make sure this is what you want."
 msgstr ""
 
 #. module: account_asset
@@ -1947,7 +1581,9 @@ msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__invoice_ids
-msgid "The disposal invoice is needed in order to generate the closing journal entry."
+msgid ""
+"The disposal invoice is needed in order to generate the closing journal "
+"entry."
 msgstr ""
 
 #. module: account_asset
@@ -1971,8 +1607,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
-msgid "There are unposted depreciations prior to the selected operation date, please deal with them first."
+msgid ""
+"There are unposted depreciations prior to the selected operation date, "
+"please deal with them first."
 msgstr ""
+"Имеются неучтенные амортизационные отчисления до выбранной даты операции, "
+"сначала разберитесь с ними."
 
 #. module: account_asset
 #. odoo-javascript
@@ -1996,20 +1636,6 @@ msgstr "Всего"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__total_depreciable_value
 msgid "Total Depreciable Value"
-msgstr ""
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-#, python-format
-msgid "Turn as a deferred expense"
-msgstr ""
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-#, python-format
-msgid "Turn as a deferred revenue"
 msgstr ""
 
 #. module: account_asset
@@ -2044,6 +1670,7 @@ msgstr ""
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
+#: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Value increase for: %(asset)s"
 msgstr ""
@@ -2058,12 +1685,12 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__website_message_ids
 msgid "Website Messages"
-msgstr "Сообщения с сайта"
+msgstr "Сообщения на сайте"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__website_message_ids
 msgid "Website communication history"
-msgstr "История общения с сайтом"
+msgstr "История общения на сайте"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__state
@@ -2085,7 +1712,16 @@ msgstr "Год"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
-msgid "You can't post an entry related to a draft asset. Please post the asset before."
+msgid ""
+"You can't post an entry related to a draft asset. Please post the asset "
+"before."
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "You can't re-evaluate the asset before the lock date."
 msgstr ""
 
 #. module: account_asset
@@ -2100,14 +1736,18 @@ msgstr ""
 #: code:addons/account_asset/models/account_asset.py:0
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
-msgid "You cannot automate the journal entry for an asset that has a running gross increase. Please use 'Dispose' on the increase(s)."
+msgid ""
+"You cannot automate the journal entry for an asset that has a running gross "
+"increase. Please use 'Dispose' on the increase(s)."
 msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
-msgid "You cannot create an asset from lines containing credit and debit on the account or with a null amount"
+msgid ""
+"You cannot create an asset from lines containing credit and debit on the "
+"account or with a null amount"
 msgstr ""
 
 #. module: account_asset
@@ -2128,6 +1768,13 @@ msgstr ""
 
 #. module: account_asset
 #. odoo-python
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "You cannot dispose of an asset before the lock date."
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "You cannot reset to draft an entry related to a posted asset"
@@ -2138,6 +1785,13 @@ msgstr ""
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "You cannot resume at a date equal to or before the pause date"
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "You cannot select the same account as the Depreciation Account"
 msgstr ""
 
 #. module: account_asset
@@ -2160,16 +1814,6 @@ msgstr ""
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "depreciable)"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "e.g. Annual Subscription"
-msgstr ""
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "e.g. Annually Paid Insurance"
 msgstr ""
 
 #. module: account_asset

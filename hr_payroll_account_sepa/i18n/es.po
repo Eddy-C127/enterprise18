@@ -79,7 +79,7 @@ msgstr "Empleados con cuentas bancarias inválidas"
 #: code:addons/hr_payroll_account_sepa/models/hr_payslip.py:0
 #, python-format
 msgid "Employees with untrusted Bank Account numbers"
-msgstr ""
+msgstr "Empleados con números de cuenta bancaria no fiables"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_payslip__sepa_export
@@ -198,13 +198,14 @@ msgstr "Algunos empleados (%s) no tienen una cuenta bancaria."
 #, python-format
 msgid "Some employees (%s) don't have a valid name on the work contact."
 msgstr ""
+"Algunos empleados (%s) no tienen un nombre válido en su contacto laboral."
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
 #: code:addons/hr_payroll_account_sepa/models/hr_payslip.py:0
 #, python-format
 msgid "Some employees (%s) don't have a work contact."
-msgstr ""
+msgstr "Algunos empleados (%s) no tienen un contacto laboral."
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
@@ -214,6 +215,8 @@ msgid ""
 "The following employees have invalid bank accounts and could not be trusted:\n"
 "%s"
 msgstr ""
+"Los siguientes empleados no tienen cuentas bancarias válidas y no se pueden realizar operaciones:\n"
+"%s"
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
@@ -234,12 +237,12 @@ msgstr ""
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip__sepa_uetr
 msgid "UETR"
-msgstr ""
+msgstr "UETR"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_payslip__sepa_uetr
 msgid "Unique end-to-end transaction reference"
-msgstr ""
+msgstr "Referencia de seguimiento de extremo a extremo"
 
 #. module: hr_payroll_account_sepa
 #. odoo-python

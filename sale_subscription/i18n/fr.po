@@ -3,8 +3,8 @@
 # 	* sale_subscription
 # 
 # Translators:
-# Jolien De Paepe, 2023
 # Wil Odoo, 2023
+# Jolien De Paepe, 2023
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Jolien De Paepe, 2023\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3920,6 +3920,10 @@ msgid ""
 "                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
 "                                                created subscription and renew %s instead"
 msgstr ""
+"L'abonnement %s a été annulé. L'ordre parent %s a été rouvert.\n"
+"                                                Vous devrez fermer %s si le client s'est désabonné ou le renouveler si le client continue à utiliser le service.\n"
+"                                                Remarque : si vous avez déjà créé un nouvel abonnement au lieu de le renouveler, annulez l'abonnement nouvellement créé\n"
+"                                                et renouvelez %s à la place"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4402,9 +4406,8 @@ msgstr "Il y a"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
 #, python-format
-msgid "There is multiple pricings for an unique product, plan and pricelist."
+msgid "There are multiple pricings for an unique product, plan and pricelist."
 msgstr ""
-"Il y a plusieurs prix pour un produit unique, un plan et une liste de prix."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban

@@ -8,8 +8,8 @@
 # Svante Suominen <svante.suominen@web-veistamo.fi>, 2023
 # Martin Trigaux, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
 # 
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +36,8 @@ msgid ""
 "<span invisible=\"encode_uom_in_days\"> Hours</span>\n"
 "                            <span invisible=\"not encode_uom_in_days\"> Days</span>"
 msgstr ""
+"<span invisible=\"encode_uom_in_days\"> Tunnit</span>\n"
+"                            <span invisible=\"not encode_uom_in_days\"> Päivät</span>"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_analysis_report__allocated_hours_cost
@@ -45,7 +47,7 @@ msgstr "Kohdennetut tuntikustannukset"
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,help:project_timesheet_forecast.field_planning_analysis_report__remaining_hours
 msgid "Allocated time minus the effective time."
-msgstr ""
+msgstr "Asetettu aika miinus todellinen aika."
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_slot__allow_timesheets
@@ -86,7 +88,7 @@ msgstr "Näyttönimi"
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__effective_costs
 msgid "Effective Costs"
-msgstr ""
+msgstr "Tehokkaat kustannukset"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_slot__effective_hours
@@ -103,7 +105,7 @@ msgstr "Tehollisten tuntien kustannukset"
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_analysis_report__effective_hours
 msgid "Effective Time"
-msgstr ""
+msgstr "Tehollinen aika"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__employee_id
@@ -182,7 +184,7 @@ msgstr ""
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__planned_costs
 msgid "Planned Costs"
-msgstr ""
+msgstr "Suunnitellut kustannukset"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__planned_hours
@@ -230,7 +232,7 @@ msgstr "Jäljelläolevat tunnit"
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_analysis_report__remaining_hours
 msgid "Remaining Time"
-msgstr ""
+msgstr "Jäljellä oleva aika"
 
 #. module: project_timesheet_forecast
 #: model:ir.actions.act_window,name:project_timesheet_forecast.project_timesheet_action_schedule_by_role
@@ -299,7 +301,7 @@ msgstr "Tuntikirjaukset"
 #: model:ir.actions.act_window,name:project_timesheet_forecast.project_timesheet_forecast_report_action
 #: model:ir.ui.menu,name:project_timesheet_forecast.menu_project_timesheet_forecast_report_analysis
 msgid "Timesheets / Planning Analysis"
-msgstr ""
+msgstr "Työaikataulut / suunnitteluanalyysi"
 
 #. module: project_timesheet_forecast
 #: model_terms:ir.ui.view,arch_db:project_timesheet_forecast.project_timesheet_forecast_report_analysis_view_tree
