@@ -48,8 +48,8 @@ class StockPicking(models.Model):
             return checks.action_open_quality_check_wizard()
         return False
 
-    def _create_backorder(self):
-        res = super(StockPicking, self)._create_backorder()
+    def _create_backorder(self, backorder_moves=None):
+        res = super(StockPicking, self)._create_backorder(backorder_moves=backorder_moves)
         if self.env.context.get('skip_check'):
             return res
         for backorder in res:

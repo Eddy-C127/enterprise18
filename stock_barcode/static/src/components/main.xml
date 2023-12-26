@@ -88,6 +88,7 @@
                     t-attf-class="{{button.class}}" t-esc="button.name"
                     t-on-click="button.onclick ? () => this[button.onclick]() : () => env.model.print(button.action, button.method)"/>
             </t>
+            <button t-if="env.model.displaySplitButton" t-on-click="split" class="o_split btn-lg btn btn-light text-uppercase">Split</button>
             <button t-if="env.model.displayCancelButton"
                 t-on-click="cancel" t-out="env.model.cancelLabel"
                 class="o_cancel_operation btn-lg btn btn-light text-uppercase"/>
