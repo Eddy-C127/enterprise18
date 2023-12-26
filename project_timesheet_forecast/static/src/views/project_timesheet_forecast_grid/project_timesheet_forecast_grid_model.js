@@ -42,9 +42,9 @@ patch(TimesheetGridDataPoint.prototype, {
             ["end_datetime", ">", serializeDate(this.navigationInfo.periodStart)],
         ]);
 
-        let additionalDomain = [];
         const fieldsToRemove = [];
         const searchDomain = new Domain(this.searchParams.domain);
+        let additionalDomain = searchDomain;
         for (const tuple of searchDomain.ast.value) {
             if (
                 tuple.type === 10
@@ -55,7 +55,7 @@ patch(TimesheetGridDataPoint.prototype, {
         }
         if (fieldsToRemove.length) {
             additionalDomain = Domain.removeDomainLeaves(
-                this.searchParams.domain,
+                additionalDomain,
                 fieldsToRemove,
             );
         }
