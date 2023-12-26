@@ -80,7 +80,7 @@ class PaymentTransaction(models.Model):
         # override to force invoice creation if the transaction is done for a subscription
         # We don't take care of the sale.automatic_invoice parameter in that case.
         res = super()._reconcile_after_done()
-        self._create_or_link_to_invoice()
+        self.filtered(lambda tx: tx.operation != 'validation')._create_or_link_to_invoice()
         self._post_subscription_action()
         return res
 
@@ -130,9 +130,14 @@ class PaymentTransaction(models.Model):
         return res
 
     def _finalize_post_processing(self):
-        for tx in self:
-            if tx.operation == 'validation' and tx.subscription_action == 'assign_token':
-                tx.sale_order_ids._assign_token(tx)
+        """ Override of `payment` to handle reconcilation for subscription's validation transaction.
+        references.
+        `super()._finalize_post_processing` never call `_reconcile_after_done` on validation tx.
+        We explicitely calls it here to make sure the token is assigned.
+
+        :return: None
+        """
+        self.filtered(lambda tx: tx.operation == 'validation' and tx.sale_order_ids.is_subscription)._reconcile_after_done()
         super()._finalize_post_processing()
 
     def _post_subscription_action(self):
@@ -145,14 +150,16 @@ class PaymentTransaction(models.Model):
             orders = tx.sale_order_ids
             # quotation subscription paid on portal have pending transactions
             orders.pending_transaction = False
-            if not tx.subscription_action or not tx.renewal_state == 'authorized':
+            if not tx.subscription_action or tx.renewal_state != 'authorized':
                 # We don't assign failing tokens, and we don't send emails
                 continue
-            orders = tx.sale_order_ids
-            orders.set_open()
-            # A mail is always sent for assigned token flow
             if tx.subscription_action == 'assign_token':
                 orders._assign_token(tx)
+            if tx.operation == 'validation':
+                # validation transaction have the `assign_token` `subscription_action`
+                # Once the token is assigned, we are done because we don't send emails in that case.
+                continue
+            orders.set_open()
             orders._send_success_mail(tx.invoice_ids, tx)
             if tx.subscription_action in ['manual_send_mail', 'automatic_send_mail']:
                 automatic = tx.subscription_action == 'automatic_send_mail'

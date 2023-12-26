@@ -288,8 +288,9 @@ class PaymentPortal(payment_portal.PaymentPortal):
         tx_sudo = super()._create_transaction(
             *args, **kwargs
         )
-        subscriptions = tx_sudo.sale_order_ids.filtered('is_subscription')
-        subscriptions.pending_transaction = True
+        if tx_sudo.operation != 'validation':
+            subscriptions = tx_sudo.sale_order_ids.filtered('is_subscription')
+            subscriptions.pending_transaction = True
         return tx_sudo
 
 
