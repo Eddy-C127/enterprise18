@@ -163,17 +163,25 @@
 
         <span id="sale_info_title" position="replace">
             <span id="sale_info_title">
-                <h5 class="mb-1">
+                <h4 class="mb-1">
                     Subscription Information
-                </h5>
-                <hr class="my-0"/>
+                </h4>
+                <hr class="mt-1 mb-2"/>
             </span>
         </span>
 
         <tbody id="sale_info_table" position="replace">
             <tbody style="white-space:nowrap">
+                <tr t-if="sale_order._has_to_be_signed() or sale_order._has_to_be_paid()">
+                    <th class="ps-0 pb-0">Date:</th>
+                    <td class="w-100 pb-0 text-wrap"><span t-field="sale_order.date_order" t-options='{"widget": "date"}'/></td>
+                </tr>
+                <tr t-if="sale_order._has_to_be_signed() or sale_order._has_to_be_paid()">
+                    <th class="ps-0 pb-0">Expiration Date:</th>
+                    <td class="w-100 pb-0 text-wrap"><span t-field="sale_order.validity_date" t-options='{"widget": "date"}'/></td>
+                </tr>
                 <tr t-if="sale_order.plan_id">
-                    <th class="text-end pb-0">Recurring Plan:</th>
+                    <th class="ps-0 pb-0">Recurring Plan:</th>
                     <td class="w-100 pb-0 text-wrap"><span t-field="sale_order.sudo().plan_id.name"/></td>
                     <td>
                         <a role="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#wc-modal-change-plan" href="#"
@@ -183,29 +191,23 @@
                     </td>
                 </tr>
                 <tr t-if="sale_order.client_order_ref">
-                    <th class="text-end pb-0">Reference:</th>
+                    <th class="ps-0 pb-0">Reference:</th>
                     <td class="w-100 pb-0 text-wrap"><span t-field="sale_order.client_order_ref"/></td>
                 </tr>
-                <tr t-if="sale_order.end_date">
-                    <th class="text-end pb-0">Valid Until:</th>
-                    <td class="w-100 pb-0"><span t-field="sale_order.end_date"/></td>
+                <tr t-if="sale_order.subscription_state == '3_progress'">
+                    <th class="ps-0 pb-0">Next Billing Date:</th>
+                    <td class="w-100 pb-0"><span t-field="sale_order.next_invoice_date"/></td>
                 </tr>
                 <tr t-if="sale_order.start_date">
-                    <th class="text-end pb-0">Start Date:</th>
+                    <th class="ps-0 pb-0">Start Date:</th>
                     <td class="w-100 pb-0"><span t-field="sale_order.start_date"/></td>
                 </tr>
-                <tr t-if="sale_order.subscription_state == '3_progress'">
-                    <th class="text-end pb-0">Next Billing Date:</th>
-                    <td class="w-100 pb-0"><span t-field="sale_order.next_invoice_date"/></td>
+                <tr t-if="sale_order.end_date">
+                    <th class="ps-0 pb-0">Valid Until:</th>
+                    <td class="pb-0"><span t-field="sale_order.end_date"/></td>
                 </tr>
             </tbody>
         </tbody>
-
-        <h3 id="details_title" position="replace">
-            <h3 id="details_title">
-                Plan Details
-            </h3>
-        </h3>
 
         <!-- ======  Subscription closed ====== -->
         <div id="content" position="inside">
@@ -227,7 +229,7 @@
                         </div>
                     </div>
                     <div>
-                        <hr class="my-0"/>
+                        <hr class="mt-1 mb-2"/>
                         <t t-call="payment.form">
                             <t t-set="landing_route" t-value="sale_order.get_portal_url()"/>
                         </t>
@@ -421,11 +423,11 @@
     <template id="sale_order_portal_content_inherit" inherit_id="sale.sale_order_portal_content">
         <tbody id="sale_info_table" position="inside">
             <tr t-if="sale_order.subscription_id">
-                <th class="text-end pb-0">Subscription:</th>
+                <th class="ps-0 pb-0">Subscription:</th>
                 <td class="w-100 pb-0 text-wrap"><a t-att-href="sale_order.subscription_id.get_portal_url()"><span t-field="sale_order.subscription_id.name"/></a></td>
             </tr>
             <tr t-if="sale_order.plan_id">
-                <th class="text-end pb-0">Recurring Plan:</th>
+                <th class="ps-0 pb-0">Recurring Plan:</th>
                 <td class="w-100 pb-0 text-wrap"><span t-field="sale_order.plan_id.sudo().name"/></td>
             </tr>
         </tbody>
