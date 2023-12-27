@@ -82,5 +82,18 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="res_partner_vat_listing_warning_view_tree" model="ir.ui.view">
+            <field name="name">res.partner.vat.listing.warning.view.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree create="false" editable="bottom">
+                    <field name="name" readonly="true"/>
+                    <field name="country_id"/>
+                    <field name="vat"/>
+                </tree>
+            </field>
+        </record>
+
     </data>
 </odoo>
