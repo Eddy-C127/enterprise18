@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, _
-from odoo.tools import groupby
+from odoo.tools import groupby, SQL
 from odoo.exceptions import UserError
 from markupsafe import Markup
 from .account_report import _raw_phonenumber, _get_xml_export_representative_node
@@ -60,6 +60,53 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
 
         self._enable_export_buttons_for_common_vat_groups_in_branches(options)
 
+    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
+        if warnings is not None:
+            warning_partners = self._get_warning_partners(report, options)
+            if warning_partners:
+                warnings['l10n_be_reports.partner_vat_listing_missing_partners_warning'] = {
+                    'alert_type': 'warning',
+                    'count': len(warning_partners),
+                    'ids': warning_partners,
+                }
+
+        return lines
+
+    def action_warning_partners(self, options, params):
+        view_id = (
+                self.env.ref('l10n_be_reports.res_partner_vat_listing_warning_view_tree', raise_if_not_found=False) or
+                self.env.ref('base.view_partner_tree')  # In case the DB was not updated.
+        ).id
+        return {
+            'name': _('Missing partners'),
+            'res_model': 'res.partner',
+            'views': [(view_id, 'tree')],
+            'domain': [('id', 'in', params['ids'])],
+            'type': 'ir.actions.act_window',
+        }
+
+    def _get_excluded_taxes(self):
+        tag_49_ids = self.env.ref('l10n_be.tax_report_line_49').expression_ids._get_matching_tags().ids
+        trl_49 = self.env['account.tax.repartition.line'].search([('tag_ids', 'in', tag_49_ids), ('document_type', '=', 'refund')])
+        tag_47_ids = self.env.ref('l10n_be.tax_report_line_47').expression_ids._get_matching_tags().ids
+        trl_47 = self.env['account.tax.repartition.line'].search([('tag_ids', 'in', tag_47_ids), ('document_type', '=', 'invoice')])
+        return trl_47.tax_id & trl_49.tax_id
+
+    def _get_query_fun_params(self, report, options, remove_forced_domain=False):
+        # Remove the forced_domain possibly used in the options to force the value of the groupby being unfolded/horizontal group. Indeed, we want
+        # the turnover/refund check to apply globally.
+        new_options = {**options, 'forced_domain': []} if remove_forced_domain else options
+        excluded_tax_ids = self._get_excluded_taxes().ids
+
+        tables, where_clause, where_params = report._query_get(new_options, 'strict_range')
+        return {
+            'options': new_options,
+            'excluded_tax_ids': excluded_tax_ids,
+            'tables': tables,
+            'where_clause': where_clause,
+            'where_params': where_params,
+        }
+
     def _report_custom_engine_partner_vat_listing(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
         def build_result_dict(query_res_lines, partners_vat_map):
             vat_number = None
@@ -83,19 +130,10 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
 
             return rslt
 
-        def get_excluded_taxes():
-            tag_49_ids = self.env.ref('l10n_be.tax_report_line_49').expression_ids._get_matching_tags().ids
-            trl_49 = self.env['account.tax.repartition.line'].search([('tag_ids', 'in', tag_49_ids), ('document_type', '=', 'refund')])
-            tag_47_ids = self.env.ref('l10n_be.tax_report_line_47').expression_ids._get_matching_tags().ids
-            trl_47 = self.env['account.tax.repartition.line'].search([('tag_ids', 'in', tag_47_ids), ('document_type', '=', 'invoice')])
-            return trl_47.tax_id & trl_49.tax_id
-
         report = self.env['account.report'].browse(options['report_id'])
         report._check_groupby_fields((next_groupby.split(',') if next_groupby else []) + ([current_groupby] if current_groupby else []))
 
-        excluded_tax_ids = get_excluded_taxes().ids
-        tables, where_clause, where_params = report._query_get(options, 'strict_range')
-        partners_vat_map = self._get_accepted_partners_vat_map(report, options, excluded_tax_ids)
+        partners_vat_map = self._get_accepted_partners_vat_map(report, options)
 
         partner_ids = [partner_id for partner_id in partners_vat_map]
 
@@ -111,14 +149,7 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         else:
             grouping_key_param = 'NULL'
 
-        query_fun_params = {
-            'options': options,
-            'excluded_tax_ids': excluded_tax_ids,
-            'tables': tables,
-            'where_clause': where_clause,
-            'where_params': where_params,
-            'partner_ids': partner_ids,
-        }
+        query_fun_params = self._get_query_fun_params(report, options) | {'partner_ids': partner_ids}
 
         turnover_from, turnover_where, turnover_where_params = self._get_turnover_query(**query_fun_params)
         refund_base_from, refund_base_where, refund_base_where_params = self._get_refund_base_query(**query_fun_params)
@@ -187,19 +218,8 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
 
             return rslt
 
-    def _get_accepted_partners_vat_map(self, report, options, excluded_tax_ids):
-        # Remove the forced_domain possibly used in the options to force the value of the groupby being unfolded/horizontal group. Indeed, we want
-        # the turnover/refund check to apply globally.
-        new_options = {**options, 'forced_domain': []}
-
-        tables, where_clause, where_params = report._query_get(new_options, 'strict_range')
-        query_fun_params = {
-            'options': new_options,
-            'excluded_tax_ids': excluded_tax_ids,
-            'tables': tables,
-            'where_clause': where_clause,
-            'where_params': where_params,
-        }
+    def _get_accepted_partners_vat_map(self, report, options):
+        query_fun_params = self._get_query_fun_params(report, options, remove_forced_domain=True)
 
         turnover_from, turnover_where, turnover_where_params = self._get_turnover_query(**query_fun_params)
         refund_base_from, refund_base_where, refund_base_where_params = self._get_refund_base_query(**query_fun_params)
@@ -235,6 +255,57 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         be_format = r'BE%'
         self._cr.execute(query, [*turnover_where_params, be_format, *refund_base_where_params, be_format, *vat_amounts_where_params, be_format])
         return dict(self._cr.fetchall())
+
+    def _get_warning_partners(self, report, options):
+        """
+        Returns a list of partner IDs that should potentially have been included in the report. Those are partners
+        with a turnover of more than 250 or at least one credit note and one of the following:
+        - No country and tax ID.
+        - Country = BE and no tax ID or tax ID not starting with BE.
+        - No country specified and tax ID starting with BE.
+        """
+        query_fun_params = self._get_query_fun_params(report, options, remove_forced_domain=True)
+
+        turnover_from, turnover_where, turnover_where_params = self._get_turnover_query(**query_fun_params)
+        refund_base_from, refund_base_where, refund_base_where_params = self._get_refund_base_query(**query_fun_params)
+        vat_amounts_from, vat_amounts_where, vat_amounts_where_params = self._get_vat_amounts_query(**query_fun_params)
+
+        query = f"""
+            SELECT id
+            FROM (
+                SELECT res_partner.id as id, res_partner.country_id as country_id, res_partner.vat as vat
+                FROM {turnover_from}
+                WHERE {turnover_where}
+                GROUP BY res_partner.id
+                HAVING SUM(account_move_line.credit - account_move_line.debit) > 250
+
+                UNION
+
+                SELECT res_partner.id as id, res_partner.country_id as country_id, res_partner.vat as vat
+                FROM {refund_base_from}
+                WHERE {refund_base_where}
+                GROUP BY res_partner.id
+                HAVING SUM(account_move_line.balance) > 0
+
+                UNION
+
+                SELECT res_partner.id as id, res_partner.country_id as country_id, res_partner.vat as vat
+                FROM {vat_amounts_from}
+                WHERE {vat_amounts_where}
+                GROUP BY res_partner.id
+                HAVING SUM(account_move_line.debit) > 0
+            ) as partner_ids
+            WHERE
+                (country_id IS NULL AND vat IS NULL)
+                OR (country_id IS NULL AND vat NOT ILIKE %s)
+                OR (country_id = %s AND vat IS NULL)
+                OR (country_id = %s AND vat NOT ILIKE %s)
+        """
+
+        be_format = r'BE%'
+        be_country_id = self.env.ref('base.be').id
+        self._cr.execute(SQL(query, *turnover_where_params, *refund_base_where_params, *vat_amounts_where_params, be_format, be_country_id, be_country_id, be_format))
+        return [r[0] for r in self._cr.fetchall()]
 
     def _get_turnover_query(self, options, excluded_tax_ids, tables, where_clause, where_params, partner_ids=None):
         turnover_from = f"""
