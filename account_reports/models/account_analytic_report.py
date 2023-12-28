@@ -142,7 +142,7 @@ class AccountReport(models.AbstractModel):
                     typecast = sql.SQL('integer')
                 elif line_fields[fname].get("type") == "datetime":
                     typecast = sql.SQL('date')
-                elif line_fields[fname].get("type") == "selection":
+                elif line_fields[fname].get("type") in ["selection", "reference"]:
                     typecast = sql.SQL('text')
                 else:
                     typecast = sql.SQL(line_fields[fname].get("type"))
