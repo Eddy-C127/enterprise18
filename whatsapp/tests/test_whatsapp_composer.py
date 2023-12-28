@@ -144,7 +144,10 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
         for test_records, use_default, force_cron, exp_phone, exp_invalid_count, exp_crash, exp_batch, exp_cron_trigger in [
             (
                 all_test_records[0], False, False,
-                '12321', 1, True, False, False,  # no need to force cron in single mode
+                '12321', 1, True, False, False,  # single record without cron
+            ), (
+                all_test_records[0], False, True,
+                '12321', 1, False, False, True,  # single record with cron
             ), (
                 all_test_records[0], True, False,
                 '+32455112233', 0, False, False, False,  # no need to force cron in single mode / won't crash as default context value
@@ -182,9 +185,9 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
                     else:
                         composer._send_whatsapp_template(force_send_by_cron=force_cron)
 
-                # in batch mode: two messages ready to be sent (invalid is ignored)
+                # in batch mode: three messages ready to be sent if sent with force_cron parameter, else two messages
                 if exp_batch:
-                    self.assertEqual(len(self._new_wa_msg), 2)
+                    self.assertEqual(len(self._new_wa_msg), 3 if force_cron else 2)
                     for exp_contacted in self.customers:
                         self.assertWAMessageFromRecord(
                             exp_contacted,
