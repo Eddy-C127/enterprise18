@@ -308,7 +308,13 @@ export class MrpDisplay extends Component {
                 (acc, rec) => ({ ...acc, [rec.resId]: rec }),
                 {}
             );
-            return this.env.searchModel.recordCache.ids.map((id) => allRecordsHash[id]);
+            // In some cases (ex. MO ready after scrap), an MO included in the filtered records at the previous load no
+            // longer conforms to the current filterset.
+            // We make sure this does not result in any undefined values in the returned list.
+            return this.env.searchModel.recordCache.ids.reduce((acc, id) => {
+                const record = allRecordsHash[id];
+                return record ? [...acc, record] : acc;
+            }, []);
         } else {
             // Put the filtered records in the cache as it is empty, and return the records
             if (!showMOs) {
