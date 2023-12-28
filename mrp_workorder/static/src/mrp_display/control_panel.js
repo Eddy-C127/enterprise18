@@ -32,7 +32,7 @@ export class ControlPanelButtons extends Component {
                 adminCount++;
             }
         }
-        if (this.props.activeWorkcenter > 0) {
+        if (this.props.activeWorkcenter > 0 && workcenterButtons[this.props.activeWorkcenter]) {
             workcenterButtons[this.props.activeWorkcenter].count = this.props.relevantCount;
         } else if (this.props.activeWorkcenter === 0) {
             productionCount = this.props.relevantCount;
