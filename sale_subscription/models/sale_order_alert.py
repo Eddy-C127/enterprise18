@@ -179,12 +179,21 @@ class SaleOrderAlert(models.Model):
             domain = literal_eval(alert.filter_domain) if alert.filter_domain else []
             alert.subscription_count = self.env['sale.order'].search_count(domain)
 
+    def _get_action_template_values(self):
+        self.ensure_one()
+        if self.action == 'mail_post':
+            return {'template_id': self.template_id.id}
+        elif self.action == 'sms':
+            return {'sms_template_id': self.sms_template_id.id}
+        return {}
+
     def _create_actions(self):
         action_values = [{
             'name': alert.name,
             'usage': 'base_automation',
             'model_id': alert.model_id.id,
             'base_automation_id': alert.automation_id.id,
+            **alert._get_action_template_values()
         } for alert in self]
 
         actions = self.env['ir.actions.server'].create(action_values)
@@ -205,7 +214,7 @@ class SaleOrderAlert(models.Model):
             alert_values = {}
             if not vals.get('filter_domain'):
                 alert_values['filter_domain'] = alert._get_alert_domain()
-            if alert.subscription_state_from:
+            if alert.subscription_state_from and not vals.get('filter_pre_domain'):
                 alert_values['filter_pre_domain'] = [('subscription_state', '=', alert.subscription_state_from)]
             if alert_values:
                 alert.with_context(skip_configure_alerts=True).write(alert_values)
