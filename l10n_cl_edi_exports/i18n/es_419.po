@@ -292,6 +292,15 @@ msgstr "Sin pago"
 #, python-format
 msgid "You must set %s on invoice %s"
 msgstr ""
+"Debe establecer %s en la factura %s"
+
+#. module: l10n_cl_edi_exports
+#. odoo-python
+#: code:addons/l10n_cl_edi_exports/models/account_move.py:0
+#, python-format
+msgid ""
+"You must set a different currency than %s on invoice %s"
+msgstr ""
 
 #. module: l10n_cl_edi_exports
 #. odoo-python
@@ -306,31 +315,3 @@ msgstr ""
 #, python-format
 msgid "a transport type"
 msgstr "un método de transporte"
-
-#. module: l10n_cl_edi_exports
-#. odoo-python
-#: code:addons/l10n_cl_edi_exports/models/account_move.py:0
-#, python-format
-msgid "a different currency than %s"
-msgstr "una moneda diferente a %s"
-
-#. module: l10n_cl_edi_exports
-#. odoo-python
-#: code:addons/l10n_cl_edi_exports/models/account_move.py:0
-#, python-format
-msgid "an Incoterm"
-msgstr "un Incoterm"
-
-#. module: l10n_cl_edi_exports
-#. odoo-python
-#: code:addons/l10n_cl_edi_exports/models/account_move.py:0
-#, python-format
-msgid "ports of Origin and Destination"
-msgstr "puertos de Embarque y Desembarque"
-
-#. module: l10n_cl_edi_exports
-#. odoo-python
-#: code:addons/l10n_cl_edi_exports/models/account_move.py:0
-#, python-format
-msgid "the number of packages when exporting goods"
-msgstr "el número de paquetes cuando se exportan bienes tangibles"
