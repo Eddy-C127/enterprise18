@@ -503,25 +503,12 @@ class AccountMove(models.Model):
                 raise UserError(_('No AFIP code in %s UOM', line.product_uom_id.name))
 
             Pro_umed = line.product_uom_id.l10n_ar_afip_code
-            if Pro_umed != ['97', '99', '00']:
-                if line._get_downpayment_lines():
-                    Pro_umed = '97'
-                elif line.price_unit < 0:
-                    Pro_umed = '99'
-            if Pro_umed in ['97', '99', '00']:
-                values = {
-                    'Pro_ds': line.name,
-                    'Pro_umed': Pro_umed,
-                    'Pro_total_item': line.price_unit,
-                    'Pro_qty': 0,
-                    'Pro_precio_uni': 0,
-                    'Pro_bonificacion': 0,}
-            else:
-                values = {
-                    'Pro_ds': line.name,
-                    'Pro_qty': line.quantity,
-                    'Pro_umed': Pro_umed,
-                    'Pro_precio_uni': line.price_unit}
+            values = {
+                'Pro_ds': line.name,
+                'Pro_qty': line.quantity,
+                'Pro_umed': Pro_umed,
+                'Pro_precio_uni': line.price_unit,
+            }
 
             # We compute bonus by substracting theoretical minus amount
             bonus = line.discount and \
@@ -543,6 +530,20 @@ class AccountMove(models.Model):
                                'Iva_id': vat_tax.tax_group_id.l10n_ar_vat_afip_code,
                                'Imp_total': vat_taxes_amounts['total_included']})
             elif afip_ws == 'wsfex':
+                if Pro_umed != ['97', '99', '00']:
+                    if line._get_downpayment_lines():
+                        Pro_umed = '97'
+                    elif line.price_unit < 0:
+                        Pro_umed = '99'
+                if Pro_umed in ['97', '99', '00']:
+                    values = {
+                        'Pro_ds': line.name,
+                        'Pro_umed': Pro_umed,
+                        'Pro_total_item': line.price_unit,
+                        'Pro_qty': 0,
+                        'Pro_precio_uni': 0,
+                        'Pro_bonificacion': 0,
+                    }
                 values.update({'Pro_codigo': line.product_id.default_code or '',
                                'Pro_total_item': float_repr(line.price_subtotal, precision_digits=2),
                                'Pro_bonificacion': bonus})
