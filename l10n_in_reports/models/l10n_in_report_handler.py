@@ -40,7 +40,7 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
         missing_hsn = self.env['account.move.line'].search(
             aml_domain +
             [
-                ('product_id.l10n_in_hsn_code', '=', False),
+                ('l10n_in_hsn_code', '=', False),
             ]
         ).product_id.ids
         return 'l10n_in_reports.missing_hsn_warning', missing_hsn
@@ -50,8 +50,8 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
         invalid_type_service_for_hsn = self.env['account.move.line'].search(
             aml_domain +
             [
-                ('product_id.l10n_in_hsn_code', '!=', False),
-                ('product_id.l10n_in_hsn_code', 'like', '99%'),
+                ('l10n_in_hsn_code', '!=', False),
+                ('l10n_in_hsn_code', 'like', '99%'),
                 ('product_id.detailed_type', '!=', 'service'),
             ]
         ).product_id.ids
@@ -62,9 +62,9 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
         invalid_hsn_for_service = self.env['account.move.line'].search(
             aml_domain +
             [
-                ('product_id.l10n_in_hsn_code', '!=', False),
+                ('l10n_in_hsn_code', '!=', False),
                 ('product_id.detailed_type', '=', 'service'),
-                ('product_id.l10n_in_hsn_code', 'not like', '99%'),
+                ('l10n_in_hsn_code', 'not like', '99%'),
             ]
         ).product_id.ids
         return 'l10n_in_reports.invalid_hsn_for_service_warning', invalid_hsn_for_service

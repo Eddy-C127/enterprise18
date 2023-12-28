@@ -526,9 +526,9 @@ class L10nInGSTReturnPeriod(models.Model):
                     # If product is service then UQC is Not Applicable (NA)
                     uqc = "NA"
                 group_key = "%s-%s-%s" %(
-                    tax_rate, line.product_id.l10n_in_hsn_code, uqc)
+                    tax_rate, line.l10n_in_hsn_code, uqc)
                 hsn_json.setdefault(group_key, {
-                    "hsn_sc": self.env["account.edi.format"]._l10n_in_edi_extract_digits(line.product_id.l10n_in_hsn_code),
+                    "hsn_sc": self.env["account.edi.format"]._l10n_in_edi_extract_digits(line.l10n_in_hsn_code),
                     "uqc": uqc,
                     "rt": tax_rate,
                     "qty": 0.00, "txval": 0.00, "iamt": 0.00, "samt": 0.00, "camt": 0.00, "csamt": 0.00})
