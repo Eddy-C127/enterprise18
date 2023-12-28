@@ -21,6 +21,9 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             'components': {
                 'AccountReportLineName': 'account_reports.AgedPartnerBalanceLineName',
             },
+            'templates': {
+                "AccountReportFilters": 'account_reports.AccountReportAgingFilters',
+            },
         }
 
     def _custom_options_initializer(self, report, options, previous_options=None):
@@ -39,6 +42,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         }
 
         options['order_column'] = (previous_options or {}).get('order_column') or default_order_column
+        options['aging_based_on'] = (previous_options or {}).get('aging_based_on') or 'base_on_maturity_date'
 
     def _custom_line_postprocessor(self, report, options, lines):
         partner_lines_map = {}
@@ -86,6 +90,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         def minus_days(date_obj, days):
             return fields.Date.to_string(date_obj - relativedelta(days=days))
 
+        aging_date_field = 'invoice_date' if options['aging_based_on'] == 'base_on_invoice_date' else 'date_maturity'
         date_to = fields.Date.from_string(options['date']['date_to'])
         periods = [
             (False, fields.Date.to_string(date_to)),
@@ -183,10 +188,10 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                 ARRAY_AGG(DISTINCT account_move_line.partner_id) AS partner_id,
                 ARRAY_AGG(account_move_line.payment_id) AS payment_id,
                 ARRAY_AGG(DISTINCT move.invoice_date) AS invoice_date,
-                ARRAY_AGG(DISTINCT COALESCE(account_move_line.date_maturity, account_move_line.date)) AS report_date,
+                ARRAY_AGG(DISTINCT COALESCE(account_move_line.{aging_date_field}, account_move_line.date)) AS report_date,
                 ARRAY_AGG(DISTINCT account_move_line.expected_pay_date) AS expected_date,
                 ARRAY_AGG(DISTINCT account.code) AS account_name,
-                ARRAY_AGG(DISTINCT COALESCE(account_move_line.date_maturity, account_move_line.date)) AS due_date,
+                ARRAY_AGG(DISTINCT COALESCE(account_move_line.{aging_date_field}, account_move_line.date)) AS due_date,
                 ARRAY_AGG(DISTINCT account_move_line.currency_id) AS currency_id,
                 COUNT(account_move_line.id) AS aml_count,
                 ARRAY_AGG(account.code) AS account_code,
@@ -222,12 +227,12 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             JOIN period_table ON
                 (
                     period_table.date_start IS NULL
-                    OR COALESCE(account_move_line.date_maturity, account_move_line.date) <= DATE(period_table.date_start)
+                    OR COALESCE(account_move_line.{aging_date_field}, account_move_line.date) <= DATE(period_table.date_start)
                 )
                 AND
                 (
                     period_table.date_stop IS NULL
-                    OR COALESCE(account_move_line.date_maturity, account_move_line.date) >= DATE(period_table.date_stop)
+                    OR COALESCE(account_move_line.{aging_date_field}, account_move_line.date) >= DATE(period_table.date_stop)
                 )
 
             WHERE {where_clause}

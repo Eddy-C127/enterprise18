@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="account_reports.AccountReportAgingBasedOn">
+        <Dropdown togglerClass="'btn btn-secondary'">
+            <t t-set-slot="toggler">
+                <i class="fa fa-file me-1"/>Based On:
+                <t t-if="controller.options.aging_based_on == 'base_on_invoice_date' ">
+                    Invoice Date
+                </t>
+                <t t-else="">
+                    Due Date
+                </t>
+            </t>
+            <t>
+                <DropdownItem class="{'selected': controller.options.aging_based_on == 'base_on_maturity_date'}" onSelected="() => this.updateFilter('aging_based_on', 'base_on_maturity_date')">
+                    Due Date
+                </DropdownItem>
+            </t>
+            <t>
+                <DropdownItem class="{'selected': controller.options.aging_based_on == 'base_on_invoice_date'}" onSelected="() => this.updateFilter('aging_based_on', 'base_on_invoice_date')">
+                    Invoice Date
+                </DropdownItem>
+            </t>
+        </Dropdown>
+    </t>
+</templates>
