@@ -15,21 +15,6 @@ class SyncingCase(MarketingAutomationCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.date_reference = Datetime.from_string('2023-11-08 09:00:00')
-
-        countries = [cls.env.ref('base.be'), cls.env.ref('base.in')]
-        cls.test_contacts = cls.env['mailing.contact'].create([
-            {
-                'country_id': countries[idx % len(countries)].id,
-                'email': f'ma.test.contact.{idx}@example.com',
-                'name': f'MATest_{idx}',
-            }
-            for idx in range(10)
-        ])
-        cls.campaign = cls.env['marketing.campaign'].create({
-            'domain': [('name', 'like', 'MATest')],
-            'model_id': cls.env['ir.model']._get_id('mailing.contact'),
-            'name': 'Test Campaign',
-        })
         cls.activity_1 = cls._create_activity_mail(
             cls.campaign,
             user=cls.user_marketing_automation,
