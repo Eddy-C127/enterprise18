@@ -5,7 +5,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields, models, _
+from odoo import fields, models, _, api
 from odoo.exceptions import UserError
 from odoo.tools import file_open
 
@@ -17,7 +17,7 @@ class MrpProduction(models.Model):
 
     check_ids = fields.One2many('quality.check', 'production_id', string="Checks")
 
-    employee_ids = fields.Many2many('hr.employee', string="working employees", related='workorder_ids.employee_ids')
+    employee_ids = fields.Many2many('hr.employee', string="working employees", compute='_compute_employee_ids')
 
     def write(self, vals):
         if 'lot_producing_id' in vals:
@@ -62,6 +62,11 @@ class MrpProduction(models.Model):
                 'default_production_id': self.id,
             }
         }
+
+    @api.depends('workorder_ids', 'workorder_ids.employee_ids')
+    def _compute_employee_ids(self):
+        for record in self:
+            record.employee_ids = record.workorder_ids.employee_ids
 
     def _split_productions(self, amounts=False, cancel_remaining_qty=False, set_consumed_qty=False):
         productions = super()._split_productions(amounts=amounts, cancel_remaining_qty=cancel_remaining_qty, set_consumed_qty=set_consumed_qty)
