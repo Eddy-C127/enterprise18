@@ -424,7 +424,7 @@ class QualityCheck(models.Model):
             })
 
             vals_list.append(vals)
-            qty_done -= vals['qty_done']
+            qty_done -= vals['quantity']
             # If all the qty_done is distributed, we can close the loop
             if float_compare(qty_done, 0, precision_rounding=self.product_id.uom_id.rounding) <= 0:
                 break
