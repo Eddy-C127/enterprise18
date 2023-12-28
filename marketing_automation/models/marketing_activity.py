@@ -225,6 +225,12 @@ class MarketingActivity(models.Model):
             values['require_sync'] = self.env['marketing.campaign'].browse(campaign_id).state == 'running'
         return super().create(vals_list)
 
+    def copy_data(self, default=None):
+        """ When copying the activities, we should also copy their mailings. """
+        default = dict(default or {})
+        default['mass_mailing_id'] = self.mass_mailing_id.copy().id
+        return super(MarketingActivity, self).copy_data(default=default)
+
     def write(self, values):
         if any(field in values.keys() for field in ('interval_number', 'interval_type')):
             values['require_sync'] = True

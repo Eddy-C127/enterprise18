@@ -225,3 +225,18 @@ class MarketingAutomationCommon(MarketingAutomationCase, MassMailCommon):
             name='Mounhir MarketAutoUser',
             signature='--\nM'
         )
+
+        countries = [cls.env.ref('base.be'), cls.env.ref('base.in')]
+        cls.test_contacts = cls.env['mailing.contact'].create([
+            {
+                'country_id': countries[idx % len(countries)].id,
+                'email': f'ma.test.contact.{idx}@example.com',
+                'name': f'MATest_{idx}',
+            }
+            for idx in range(10)
+        ])
+        cls.campaign = cls.env['marketing.campaign'].create({
+            'domain': [('name', 'like', 'MATest')],
+            'model_id': cls.env['ir.model']._get_id('mailing.contact'),
+            'name': 'Test Campaign',
+        })
