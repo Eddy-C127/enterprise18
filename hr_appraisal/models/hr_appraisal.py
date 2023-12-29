@@ -84,6 +84,30 @@ class HrAppraisal(models.Model):
     note = fields.Html(string="Private Note", help="The content of this note is not visible by the Employee.")
     appraisal_plan_posted = fields.Boolean()
     appraisal_properties = fields.Properties("Properties", definition="department_id.appraisal_properties_definition", precompute=False)
+    duplicate_appraisal_id = fields.Many2one('hr.appraisal', compute='_compute_duplicate_appraisal_id', export_string_translation=False, store=False)
+
+    @api.depends('employee_id', 'manager_ids')
+    def _compute_duplicate_appraisal_id(self):
+        """
+        Note: We only care for duplicate_appraisal_id when we create a
+        new appraisal. This field is currently only used in form view
+        and for performance reasons it should rather stay that way.
+        """
+        ongoing_appraisals = self.search([
+            ('state', 'in', ['new', 'pending']),
+            ('employee_id', 'in', self.employee_id.ids),
+            ('manager_ids', 'in', self.manager_ids.ids),
+        ], order='date_close')
+        self.duplicate_appraisal_id = False
+        for appraisal in self:
+            if appraisal.state != 'new':
+                continue
+            for ongoing_appraisal in ongoing_appraisals:
+                if ongoing_appraisals.manager_ids == appraisal.manager_ids._origin\
+                    and ongoing_appraisal.employee_id == appraisal.employee_id\
+                        and ongoing_appraisal.id != appraisal.id:
+                    appraisal.duplicate_appraisal_id = ongoing_appraisal.id
+                    break
 
     @api.depends('employee_id')
     def _compute_department_id(self):
@@ -199,6 +223,16 @@ class HrAppraisal(models.Model):
                 appraisal.meeting_count_display = _('Next Meeting')
             else:
                 appraisal.meeting_count_display = _('Last Meeting')
+
+    @api.depends('employee_id', 'date_close')
+    @api.depends_context('include_date_in_name')
+    def _compute_display_name(self):
+        if not self.env.context.get('include_date_in_name'):
+            return super()._compute_display_name()
+        for appraisal in self:
+            appraisal.display_name = _(
+                "Appraisal for %(employee)s on %(date)s",
+                employee=appraisal.employee_id.name, date=appraisal.date_close)
 
     def _group_expand_states(self, states, domain, order):
         return [key for key, val in self._fields['state'].selection]

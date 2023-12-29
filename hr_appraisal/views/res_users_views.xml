@@ -25,12 +25,20 @@
             </xpath>
             <header position="inside">
                 <field name="employee_ids" invisible="1"/>
+                <field name="ongoing_appraisal_count" invisible="1"/>
                 <button name="action_send_appraisal_request"
                     string="Request Appraisal"
                     type="object"
                     data-hotkey="g"
-                    class="btn btn-primary"/>
+                    class="btn btn-primary"
+                    invisible="ongoing_appraisal_count"/>
+                <button name="action_send_appraisal_request"
+                    string="Request Appraisal"
+                    type="object"
+                    data-hotkey="g"
+                    class="btn btn-secondary"
+                    invisible="not ongoing_appraisal_count"/>
             </header>
-    </field>
+        </field>
     </record>
 </odoo>

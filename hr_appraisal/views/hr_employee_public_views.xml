@@ -14,7 +14,7 @@
                 data-hotkey="g"
                 groups="!hr_appraisal.group_hr_appraisal_user"
                 class="btn btn-primary"
-                invisible="parent_user_id != uid and ongoing_appraisal_count != 0"/>
+                invisible="parent_user_id != uid or ongoing_appraisal_count != 0"/>
             <button name="action_send_appraisal_request"
                 string="Request Appraisal"
                 type="object"
@@ -22,6 +22,20 @@
                 groups="hr_appraisal.group_hr_appraisal_user"
                 invisible="ongoing_appraisal_count != 0"
                 class="btn btn-primary"/>
+            <button name="action_send_appraisal_request"
+                string="Request Appraisal"
+                type="object"
+                data-hotkey="g"
+                groups="!hr_appraisal.group_hr_appraisal_user"
+                class="btn btn-secondary"
+                invisible="parent_user_id != uid or ongoing_appraisal_count == 0"/>
+            <button name="action_send_appraisal_request"
+                string="Request Appraisal"
+                type="object"
+                data-hotkey="g"
+                groups="hr_appraisal.group_hr_appraisal_user"
+                invisible="ongoing_appraisal_count == 0"
+                class="btn btn-secondary"/>
         </xpath>
             <xpath expr="//field[@name='work_email']" position="after">
                 <field name="is_manager" invisible="1"/>
