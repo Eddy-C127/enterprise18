@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from unittest.mock import MagicMock, patch
 
 from odoo.addons.base.models.res_bank import sanitize_account_number
 from odoo.addons.account_online_synchronization.tests.common import AccountOnlineSynchronizationCommon
 from odoo.exceptions import RedirectWarning
 from odoo.tests import tagged
 from odoo import fields, Command
-from unittest.mock import MagicMock, patch
 
 
 @tagged('post_install', '-at_install')
@@ -214,6 +214,57 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         self.account_online_account.account_online_link_id.state = 'connected'
         res = self.account_online_account.account_online_link_id._fetch_transactions()
         self.assertTrue('account_online_identifier' in res.get('params', {}).get('includeParam', {}))
+
+    def test_duplicate_transaction_date_amount_account(self):
+        """ This test verifies that the duplicate transaction wizard is detects transactions with
+            same date, amount, account_number and currency
+        """
+        # Create 2 groups of respectively 2 and 3 duplicate transactions
+        transactions = self._create_online_transactions([
+            '2024-01-01', '2024-01-01',
+            '2024-01-02', '2024-01-02', '2024-01-02',
+        ])
+        bsls = self.BankStatementLine._online_sync_bank_statement(transactions, self.account_online_account)
+        self.env.flush_all()  # _get_duplicate_transactions make sql request, must write to db
+        duplicate_transactions = self.euro_bank_journal._get_duplicate_transactions(
+            fields.Date.to_date('2000-01-01')
+        )
+        group_1 = bsls.filtered(lambda bsl: bsl.date == fields.Date.from_string('2024-01-01')).ids
+        group_2 = bsls.filtered(lambda bsl: bsl.date == fields.Date.from_string('2024-01-02')).ids
+
+        self.assertEqual(duplicate_transactions, [group_1, group_2])
+
+        # check has_duplicate_transactions
+        has_duplicate_transactions = self.euro_bank_journal._has_duplicate_transactions(
+            fields.Date.to_date('2000-01-01')
+        )
+        self.assertTrue(has_duplicate_transactions is True)  # explicit check on bool type
+
+    def test_duplicate_transaction_online_transaction_identifier(self):
+        """ This test verifies that the duplicate transaction wizard is detects transactions with
+            same online_transaction_identifier
+        """
+        # Create transactions
+        transactions = self._create_online_transactions([
+            '2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'
+        ])
+        bsls = self.BankStatementLine._online_sync_bank_statement(transactions, self.account_online_account)
+
+        group_1, group_2 = [], []
+        for bsl in bsls:
+            # have to update the online_transaction_identifier after to force duplicates
+            if bsl.payment_ref in ('transaction_1', 'transaction_2'):
+                group_1.append(bsl.id)
+                bsl.online_transaction_identifier = 'same_oti_1'
+            if bsl.payment_ref in ('transaction_3, transaction_4, transaction_5'):
+                group_2.append(bsl.id)
+                bsl.online_transaction_identifier = 'same_oti_2'
+
+        self.env.flush_all()  # _get_duplicate_transactions make sql request, must write to db
+        duplicate_transactions = self.euro_bank_journal._get_duplicate_transactions(
+            fields.Date.to_date('2000-01-01')
+        )
+        self.assertEqual(duplicate_transactions, [group_1, group_2])
 
     @patch('odoo.addons.account_online_synchronization.models.account_online.requests')
     def test_fetch_receive_error_message(self, patched_request):

@@ -397,10 +397,11 @@ class AccountOnlineLink(models.Model):
         }
 
     @api.model
-    def _show_fetched_transactions_action(self, stmt_line_ids):
+    def _show_fetched_transactions_action(self, stmt_line_ids, duplicates_from_date):
         return self.env['account.bank.statement.line']._action_open_bank_reconciliation_widget(
             extra_domain=[('id', 'in', stmt_line_ids.ids)],
             name=_('Fetched Transactions'),
+            **({'default_context': {'duplicates_from_date': duplicates_from_date}} if duplicates_from_date else {}),
         )
 
     def _get_connection_state_details(self, journal):
@@ -728,7 +729,7 @@ class AccountOnlineLink(models.Model):
             return False
         return True
 
-    def _fetch_transactions(self, refresh=True, accounts=False):
+    def _fetch_transactions(self, refresh=True, accounts=False, check_duplicates=False):
         self.ensure_one()
         # return early if condition to fetch transactions are not met
         if not self._pre_check_fetch_transactions():
@@ -766,10 +767,16 @@ class AccountOnlineLink(models.Model):
                 if not accounts_to_synchronize:
                     return
 
+            def get_duplicates_from_date(statement_lines, journal):
+                if check_duplicates and statement_lines:
+                    from_date = fields.Date.to_string(statement_lines.sorted('date')[0].date)
+                    if journal._has_duplicate_transactions(from_date):
+                        return from_date
+
             for online_account in accounts_to_synchronize:
                 journal = online_account.journal_ids[0]
                 online_account.fetching_status = 'processing'
-                # Commiting here so that multiple thread calling this method won't execute in parallel and import duplicates transaction
+                # Committing here so that multiple thread calling this method won't execute in parallel and import duplicates transaction
                 self.env.cr.commit()
                 try:
                     transactions = online_account._retrieve_transactions().get('transactions', [])
@@ -813,20 +820,22 @@ class AccountOnlineLink(models.Model):
                     if statement_lines:
                         domain = [('id', 'in', statement_lines.ids)]
 
+                    duplicates_from_date = get_duplicates_from_date(statement_lines, journal)
                     return self.env['account.bank.statement.line']._action_open_bank_reconciliation_widget(
                         extra_domain=domain,
                         name=_('Fetched Transactions'),
-                        default_context={**self.env.context, 'default_journal_id': journal.id},
+                        default_context={**self.env.context, 'default_journal_id': journal.id, 'duplicates_from_date': duplicates_from_date},
                     )
                 else:
                     statement_lines = self.env['account.bank.statement.line']._online_sync_bank_statement(sorted_transactions, online_account)
                     online_account.fetching_status = 'done'
+                    duplicates_from_date = get_duplicates_from_date(statement_lines, journal)
                     self._notify_connection_update(
                         journal=journal,
                         connection_state_details={
                             'status': 'success',
                             'nb_fetched_transactions': len(statement_lines),
-                            'action': self._show_fetched_transactions_action(statement_lines),
+                            'action': self._show_fetched_transactions_action(statement_lines, duplicates_from_date),
                         },
                     )
             return
@@ -952,7 +961,7 @@ class AccountOnlineLink(models.Model):
             new_account, swift_code = online_link._fetch_accounts(online_identifier=online_identifier)
             if new_account:
                 new_account._assign_journal(swift_code)
-                action = online_link._fetch_transactions(accounts=new_account)
+                action = online_link._fetch_transactions(accounts=new_account, check_duplicates=True)
                 return action or self.env['ir.actions.act_window']._for_xml_id('account.open_account_journal_dashboard_kanban')
             raise UserError(_("The consent for the selected account has expired."))
         return {'type': 'ir.actions.client', 'tag': 'reload'}
@@ -980,7 +989,7 @@ class AccountOnlineLink(models.Model):
         account_online_accounts, swift_code = self._fetch_accounts()
         if account_online_accounts and len(account_online_accounts) == 1:
             account_online_accounts._assign_journal(swift_code)
-            return self._fetch_transactions(accounts=account_online_accounts)
+            return self._fetch_transactions(accounts=account_online_accounts, check_duplicates=True)
         return self._link_accounts_to_journals_action(swift_code)
 
     def _success_updateCredentials(self):
@@ -994,7 +1003,7 @@ class AccountOnlineLink(models.Model):
     def _success_reconnect(self):
         self.ensure_one()
         self._log_information(state='connected')
-        return self._fetch_transactions()
+        return self._fetch_transactions(check_duplicates=True)
 
     ##################
     # action buttons #

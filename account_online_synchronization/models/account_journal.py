@@ -7,6 +7,7 @@ from requests.exceptions import RequestException, Timeout
 
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError, ValidationError, RedirectWarning
+from odoo.tools import SQL
 
 _logger = logging.getLogger(__name__)
 
@@ -202,6 +203,82 @@ class AccountJournal(models.Model):
             'views': [(False, 'form')],
             'target': 'new',
         }
+
+    def action_open_duplicate_transaction_wizard(self, from_date=None):
+        """ This method allows to open the wizard to find duplicate transactions.
+            :param from_date: date from with we must check for duplicates.
+
+            :return: An action opening the wizard.
+        """
+        wizard = self.env['account.duplicate.transaction.wizard'].create({
+            'journal_id': self.id if len(self) == 1 else None,
+            **({'date': from_date} if from_date else {}),
+        })
+        return wizard._get_records_action(name=_("Find Duplicate Transactions"))
+
+    def _has_duplicate_transactions(self, date_from):
+        """ Has any transaction with
+               - same amount &
+               - same date &
+               - same account number
+            We do not check on online_transaction_identifier because this is called after the fetch
+            where transitions would already have been filtered on existing online_transaction_identifier.
+
+            :param from_date: date from with we must check for duplicates.
+        """
+        self.env.cr.execute(SQL.join(SQL(''), [
+            self._get_duplicate_amount_date_account_transactions_query(date_from),
+            SQL('LIMIT 1'),
+        ]))
+        return bool(self.env.cr.rowcount)
+
+    def _get_duplicate_transactions(self, date_from):
+        """Find all transaction with
+               - same amount &
+               - same date &
+               - same account number
+               or
+               - same transaction id
+
+            :param from_date: date from with we must check for duplicates.
+        """
+        query = SQL.join(SQL(''), [
+            self._get_duplicate_amount_date_account_transactions_query(date_from),
+            SQL('UNION'),
+            self._get_duplicate_online_transaction_identifier_transactions_query(date_from),
+            SQL('ORDER BY ids'),
+        ])
+        return [res[0] for res in self.env.execute_query(query)]
+
+    def _get_duplicate_amount_date_account_transactions_query(self, date_from):
+        self.ensure_one()
+        return SQL('''
+              SELECT ARRAY_AGG(st_line.id ORDER BY st_line.id) AS ids
+                FROM account_bank_statement_line st_line
+                JOIN account_move move ON move.id = st_line.move_id
+               WHERE st_line.journal_id = %(journal_id)s AND move.date >= %(date_from)s
+            GROUP BY st_line.currency_id, st_line.amount, st_line.account_number, move.date
+              HAVING count(st_line.id) > 1
+            ''',
+            journal_id=self.id,
+            date_from=date_from,
+        )
+
+    def _get_duplicate_online_transaction_identifier_transactions_query(self, date_from):
+        return SQL('''
+              SELECT ARRAY_AGG(st_line.id ORDER BY st_line.id) AS ids
+                FROM account_bank_statement_line st_line
+                JOIN account_move move ON move.id = st_line.move_id
+               WHERE st_line.journal_id = %(journal_id)s AND
+                     move.date >= %(prior_date)s AND
+                     st_line.online_transaction_identifier IS NOT NULL
+            GROUP BY st_line.online_transaction_identifier
+              HAVING count(st_line.id) > 1 AND BOOL_OR(move.date >= %(date_from)s)  -- at least one date is > date_from
+                ''',
+                journal_id=self.id,
+                date_from=date_from,
+                prior_date=date_from - relativedelta(months=3),  # allow 1 of duplicate statements to be older than "from" date
+            )
 
     def action_open_dashboard_asynchronous_action(self):
         """ This method allows to open action asynchronously
