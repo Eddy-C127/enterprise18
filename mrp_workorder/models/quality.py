@@ -531,7 +531,7 @@ class QualityCheck(models.Model):
         rounding = move.product_uom.rounding
         new_qty = self._prepare_component_quantity(move, self.workorder_id.qty_producing)
         qty_todo = float_round(new_qty, precision_rounding=rounding)
-        if (move.picked):
+        if (move.picked and self.quality_state != 'pass'):
             qty_todo = qty_todo - move.quantity
         if self.move_line_id and self.move_line_id.lot_id:
             qty_todo = min(self.move_line_id.quantity, qty_todo)
