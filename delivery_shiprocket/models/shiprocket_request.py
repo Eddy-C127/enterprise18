@@ -307,7 +307,7 @@ class ShipRocket:
         if partner.child_ids.filtered(lambda p: p.type == 'invoice'):
             partner_invoice = partner.child_ids.filtered(lambda p: p.type == 'invoice')[0]
         warehouse_partner_id = picking.picking_type_id.warehouse_id.partner_id or picking.company_id.partner_id
-        warehouse_partner_name = re.sub(r'[^a-zA-Z0-9\s]+', '', warehouse_partner_id.name)
+        warehouse_partner_name = re.sub(r'[^a-zA-Z0-9\s]+', '', warehouse_partner_id.name)[:36]
         if picking.sale_id:
             partner_invoice = picking.sale_id.partner_invoice_id
             order_name = order_name + '-' + picking.sale_id.name
@@ -378,7 +378,7 @@ class ShipRocket:
             raise RedirectWarning(_("Configure Shiprocket channel in shipping method"), action.id,
                                   _("Go to Shipping Methods"))
         parcel_dict = {}
-        ship_from = picking.picking_type_id.warehouse_id.partner_id or picking.warehouse_id.company_id.partner_id
+        ship_from = picking.picking_type_id.warehouse_id.partner_id or picking.company_id.partner_id
         default_package = self.carrier.shiprocket_default_package_type_id
         packages = self.carrier._get_packages_from_picking(picking, default_package)
         for index, package in enumerate(packages):
