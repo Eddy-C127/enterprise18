@@ -316,7 +316,7 @@ export class PreparationDisplay extends Reactive {
     }
 
     saveFilterToLocalStorage() {
-        const localStorageName = `preparation_display_${this.id}.db_${user.db.name}.user_${user.userId}`;
+        const localStorageName = `preparation_display_${this.id}.db_${odoo.info.db}.user_${user.userId}`;
 
         localStorage.setItem(
             localStorageName,
@@ -328,7 +328,7 @@ export class PreparationDisplay extends Reactive {
     }
 
     restoreFilterFromLocalStorage() {
-        const localStorageName = `preparation_display_${this.id}.db_${user.db.name}.user_${user.userId}`;
+        const localStorageName = `preparation_display_${this.id}.db_${odoo.info.db}.user_${user.userId}`;
         const localStorageData = JSON.parse(localStorage.getItem(localStorageName));
 
         if (localStorageData) {
