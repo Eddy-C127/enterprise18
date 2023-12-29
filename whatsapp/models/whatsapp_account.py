@@ -182,8 +182,8 @@ class WhatsAppAccount(models.Model):
             sender_name = value.get('contacts', [{}])[0].get('profile', {}).get('name')
             sender_mobile = messages['from']
             message_type = messages['type']
-            if 'context' in messages:
-                parent_whatsapp_message = self.env['whatsapp.message'].sudo().search([('msg_uid', '=', messages['context'].get('id'))])
+            if 'context' in messages and messages['context'].get('id'):
+                parent_whatsapp_message = self.env['whatsapp.message'].sudo().search([('msg_uid', '=', messages['context']['id'])])
                 if parent_whatsapp_message:
                     parent_id = parent_whatsapp_message.mail_message_id
                 if parent_id:

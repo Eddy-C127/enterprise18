@@ -213,3 +213,29 @@ class WhatsAppMessage(WhatsAppFullCase, MockIncomingWhatsApp):
                     if self._new_partners:
                         self._new_partners.unlink()
                     discuss_channel.unlink()
+
+    def test_message_values_from_forwarded_message(self):
+        """ Check values produced when receiving a new forwarded message with missing "id" """
+        template = self.whatsapp_template.with_user(self.env.user)
+        test_record = self.test_base_record_nopartner.with_env(self.env)
+
+        composer = self._instanciate_wa_composer_from_records(template, test_record)
+        with self.mockWhatsappGateway():
+            composer.action_send_whatsapp_template()
+
+        composer = self._instanciate_wa_composer_from_records(template, self.test_base_records)
+        with self.mockWhatsappGateway():
+            composer.action_send_whatsapp_template()
+
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(
+                self.whatsapp_account, 'Hello', '32499123456', additional_message_values={"context": {"forwarded": True}}
+            )
+
+        self.assertWhatsAppDiscussChannel(
+            "32499123456",
+            wa_msg_count=1, msg_count=2,
+            wa_message_fields_values={
+                'state': 'received',
+            },
+        )
