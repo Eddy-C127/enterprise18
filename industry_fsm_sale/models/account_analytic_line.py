@@ -18,5 +18,7 @@ class AccountAnalyticLine(models.Model):
                 ('price_unit', '=', mapping.price_unit),
                 ('order_id', '=', self.task_id.sale_order_id.id)],
                 limit=1)
+            if mapping and not sol and not self.task_id.fsm_done:
+                return False
             return sol or self.task_id.sale_line_id
         return super()._timesheet_determine_sale_line()
