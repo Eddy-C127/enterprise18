@@ -722,11 +722,11 @@ class AccountOnlineLink(models.Model):
                 if not is_cron_running:
                     # For people in stable who will update their code without upgrading their module,
                     # we need to be sure to change the cron from running only once every year (original interval is 12 months) to maximum 5 minutes
-                    cron_record = self.env.ref('account_online_synchronization.online_sync_cron_waiting_synchronization')
-                    if cron_record.nextcall > fields.Datetime.now() + relativedelta(minutes=5) or cron_record.interval_number > 5 or cron_record.interval_type != 'minutes':
-                        cron_record.nextcall = fields.Datetime.now() + relativedelta(minutes=5)
-                        cron_record.interval_number = 5
-                        cron_record.interval_type = 'minutes'
+                    cron_record_in_sudo = self.env.ref('account_online_synchronization.online_sync_cron_waiting_synchronization').sudo()
+                    if cron_record_in_sudo.nextcall > fields.Datetime.now() + relativedelta(minutes=5) or cron_record_in_sudo.interval_number > 5 or cron_record_in_sudo.interval_type != 'minutes':
+                        cron_record_in_sudo.nextcall = fields.Datetime.now() + relativedelta(minutes=5)
+                        cron_record_in_sudo.interval_number = 5
+                        cron_record_in_sudo.interval_type = 'minutes'
                     # we want to import the first 100 transaction, show them to the user
                     # and import the rest asynchronously with the 'online_sync_cron_waiting_synchronization' cron
                     total = sum([transaction['amount'] for transaction in transactions])
