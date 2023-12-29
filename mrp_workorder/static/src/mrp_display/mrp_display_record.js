@@ -505,7 +505,9 @@ export class MrpDisplayRecord extends Component {
         }
         const action = await this.model.orm.call(resModel, "button_mark_done", [resId], kwargs);
         if (action && typeof action === "object") {
-            action.context.skip_redirection = true;
+            if (action.context) {
+                action.context.skip_redirection = true;
+            }
             return this._doAction(action);
         } else if (this.props.record.resModel === "mrp.production") {
             await this.props.removeFromValidationStack(this.props.record);
