@@ -110,14 +110,14 @@
         <field name="name">Scheduled Rentals</field>
         <field name="res_model">sale.rental.schedule</field>
         <field name="view_mode">gantt</field>
-        <field name="context">{'search_default_Rentals':1, 'group_by_no_leaf':1}</field>
+        <field name="context">{'search_default_Rentals':1}</field>
     </record>
 
     <record id="action_create_rental_order" model="ir.actions.act_window">
         <field name="name">Create Rental Orders</field>
         <field name="res_model">sale.order</field>
         <field name="view_id" ref="sale_renting.rental_order_primary_form_view"/>
-        <field name="context">{'in_rental_app': 1, 'group_by_no_leaf': 0}</field>
+        <field name="context">{'in_rental_app': 1}</field>
     </record>
 
     <record id="product_template_form_view_rental_gantt" model="ir.ui.view">

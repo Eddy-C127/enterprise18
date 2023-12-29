@@ -65,7 +65,6 @@ class ProductProduct(models.Model):
             'domain': [('product_id', 'in', self.ids)],
             'context': {
                 'search_default_Rentals':1,
-                'group_by_no_leaf':1,
                 'group_by':[],
                 'restrict_renting_products': True,
             }
