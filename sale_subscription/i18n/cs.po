@@ -7,8 +7,8 @@
 # Ivana Bartonkova, 2023
 # Jakub Smolka, 2023
 # Wil Odoo, 2023
-# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # Tomáš Píšek, 2023
+# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tomáš Píšek, 2023\n"
+"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -957,7 +957,7 @@ msgstr "Automatická pravidla"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__rating_avg
 msgid "Average Rating"
-msgstr ""
+msgstr "Průměrné hodnocení"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__health__bad
@@ -2251,6 +2251,8 @@ msgid ""
 "Mix of negative recurring lines and non-recurring line. The contract should "
 "be fixed manually"
 msgstr ""
+"Mix negativních opakujících se položek a neopakujících se položek. Smlouva "
+"by měla být stanovena ručně"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__model_id
@@ -2431,7 +2433,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_order_product_search_inherit
 msgid "Non-recurring"
-msgstr ""
+msgstr "Neopakující se"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
@@ -2634,14 +2636,14 @@ msgstr "Platební podmínky:"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment not recorded"
-msgstr ""
+msgstr "Platba nebyla zaznamenána"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment recorded: %s"
-msgstr ""
+msgstr "Platba zaznamenána: %s"
 
 #. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
@@ -3815,6 +3817,8 @@ msgid ""
 "The following recurring orders have draft invoices. Please Confirm them or "
 "cancel them before creating new invoices. %s."
 msgstr ""
+"Následující opakované objednávky mají koncepty faktur. Před vytvořením "
+"nových faktur je prosím potvrďte nebo zrušte. %s."
 
 #. module: sale_subscription
 #. odoo-python
@@ -3824,6 +3828,8 @@ msgid ""
 "The following refund %s has been made on this contract. Please check the "
 "next invoice date if necessary."
 msgstr ""
+"Na základě této smlouvy byla provedena následující refundace %s. V případě "
+"potřeby zkontrolujte datum příští faktury."
 
 #. module: sale_subscription
 #. odoo-python
@@ -3832,6 +3838,7 @@ msgstr ""
 msgid ""
 "The last invoice (%s) of this subscription is unpaid after the due date."
 msgstr ""
+"Poslední faktura (%s) tohoto předplatného je neuhrazena po datu splatnosti."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__pending_transaction
@@ -4155,6 +4162,8 @@ msgid ""
 "Unpaid subscription after the due date majored by this number of days will be automatically closed by the subscriptions expiration scheduled action. \n"
 "If the chosen payment method has failed to renew the subscription after this time, the subscription is automatically closed."
 msgstr ""
+"Nezaplacené předplatné po datu splatnosti o tento počet dní bude automaticky ukončeno naplánovanou akcí vypršení platnosti předplatného.\n"
+"Pokud se zvolenou platební metodou nepodařilo obnovit předplatné po uplynutí této doby, předplatné se automaticky ukončí."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__untaxed_amount_invoiced
@@ -4396,6 +4405,8 @@ msgid ""
 "You can not delete a confirmed subscription. You must first close and cancel"
 " it before you can delete it."
 msgstr ""
+"Nelze smazat potvrzené předplatné. Než jej budete moci smazat, musíte "
+"nejprve zavřít a zrušit."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4441,6 +4452,9 @@ msgid ""
 " - Has not started yet.\n"
 " - Has no invoiced period in the future."
 msgstr ""
+"Pro toto předplatné nemůžete vytvořit navýšení prodeje, protože:\n"
+" - Ještě nezačalo.\n"
+" - V budoucnu nemá žádné fakturované období."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4530,6 +4544,8 @@ msgid ""
 "You cannot upsell a subscription whose next invoice date is in the past.\n"
 "Please, invoice directly the %s contract."
 msgstr ""
+"Nemůžete zvýšit předplatné, jehož datum příští faktury je v minulosti.\n"
+"Prosím, fakturujte přímo %s smlouvu."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4539,6 +4555,8 @@ msgid ""
 "You cannot validate a renewal quotation starting before the next invoice "
 "date of the parent contract. Please update the start date after the %s."
 msgstr ""
+"Nemůžete ověřit nabídku obnovení začínající před datem příští faktury "
+"nadřazené smlouvy. Aktualizujte prosím počáteční datum po %s."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
@@ -4573,7 +4591,7 @@ msgstr ""
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Your contract is recurrent"
-msgstr ""
+msgstr "Váš smlouva je opakovaná"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.payment_method_form

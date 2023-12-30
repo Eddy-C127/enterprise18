@@ -10,6 +10,7 @@
 # Martin Trigaux, 2023
 # Yihya Hugirat <hugirat@gmail.com>, 2023
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2023
+# yael terner, 2023
 # 
 msgid ""
 msgstr ""
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2023\n"
+"Last-Translator: yael terner, 2023\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,12 +29,12 @@ msgstr ""
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "<span>Average time</span>"
-msgstr ""
+msgstr "<span>זמן ממוצע</span>"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "<span>In progress</span>"
-msgstr ""
+msgstr "<span>בתהליך</span>"
 
 #. module: pos_preparation_display
 #. odoo-python
@@ -50,7 +51,7 @@ msgstr "אסימון גישה"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__alert_timer
 msgid "Alert timer (min)"
-msgstr ""
+msgstr "טיימר התראה (דקות)"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -67,7 +68,7 @@ msgstr "כלל הקופות"
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_form
 msgid "All categories"
-msgstr ""
+msgstr "כל הקטגוריות"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__order_stage_ids
@@ -80,11 +81,13 @@ msgid ""
 "Archive all preparation display's orders for a fresh start. This will not "
 "affect the PoS order history."
 msgstr ""
+"הכנס לארכיון את כל ההזמנות בהכנה על מנת להתחיל מחדש. זה לא ישפיע על היסטורית"
+" ההזמנות בקופה."
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_display__average_time
 msgid "Average time of all order that not in a done stage."
-msgstr ""
+msgstr "זמן ממוצע מכל הזמנה שלא בשלב בוצע."
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_reset_wizard
@@ -168,7 +171,7 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:pos_preparation_display.action_preparation_display
 msgid ""
 "Different products and categories are sent to different tablets and screens."
-msgstr ""
+msgstr "מוצרים וקטגוריות שונות נשלחות לטאבלטים ומסכים שונים."
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_reset_wizard
@@ -235,7 +238,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__contains_bar_restaurant
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_search
 msgid "Is a Bar/Restaurant"
-msgstr "בר /מסעדה"
+msgstr "בר / מסעדה"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order_stage__done
@@ -246,7 +249,7 @@ msgstr ""
 #: model:ir.actions.server,name:pos_preparation_display.action_pos_preparation_display_kitchen_display
 #: model:ir.ui.menu,name:pos_preparation_display.menu_point_kitchen_display_root
 msgid "Kitchen Display"
-msgstr ""
+msgstr "תצוגת מטבח"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__write_uid
@@ -285,7 +288,7 @@ msgstr "שם"
 #. module: pos_preparation_display
 #: model_terms:ir.actions.act_window,help:pos_preparation_display.action_preparation_display
 msgid "Need a touchscreen interface to manage order ?"
-msgstr ""
+msgstr "צריך ממשק מסך מגע לניהול הזמנה?"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -297,12 +300,12 @@ msgstr "אין נתונים זמינים."
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_form
 msgid "Offer"
-msgstr ""
+msgstr "הצעה"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "Open Preparation Display"
-msgstr ""
+msgstr "פתח תצוגת הכנה"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order_stage__order_id
@@ -322,12 +325,12 @@ msgstr ""
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__average_time
 msgid "Order average time"
-msgstr ""
+msgstr "זמן ממוצע להזמנה"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__order_count
 msgid "Order count"
-msgstr ""
+msgstr "מס' הזמנות"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__displayed
@@ -374,18 +377,18 @@ msgstr "הזמנת קופה"
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_search
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_tree
 msgid "Preparation Display"
-msgstr ""
+msgstr "תצוגת הכנה"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__preparation_display_order_id
 msgid "Preparation Display Order"
-msgstr ""
+msgstr "סדר תצוגת הכנה"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__preparation_display_id
 msgid "Preparation display"
-msgstr ""
+msgstr "תצוגת הכנה"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_order
@@ -400,12 +403,12 @@ msgstr ""
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__category_ids
 msgid "Product categories"
-msgstr ""
+msgstr "קטגוריות מוצר"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_display__category_ids
 msgid "Product categories that will be displayed on this screen."
-msgstr ""
+msgstr "קטגוריות מוצרים שיוצגו במסך זה."
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__product_cancelled
@@ -438,7 +441,7 @@ msgstr "אפס"
 #: code:addons/pos_preparation_display/models/preparation_display.py:0
 #, python-format
 msgid "Reset Preparation Display"
-msgstr ""
+msgstr "אפס תצוגת הכנה"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_reset_wizard
@@ -448,7 +451,7 @@ msgstr ""
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "Reset all orders"
-msgstr ""
+msgstr "אפס את כל ההזמנות"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__attribute_value_ids

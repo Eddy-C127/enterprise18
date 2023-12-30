@@ -5,9 +5,9 @@
 # Translators:
 # karolína schusterová <karolina.schusterova@vdp.sk>, 2023
 # Ivana Bartonkova, 2023
-# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # Jakub Smolka, 2023
 # Wil Odoo, 2023
+# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +63,7 @@ msgstr ""
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "1 missed call"
-msgstr ""
+msgstr "1 zmeškaný hovor"
 
 #. module: voip
 #. odoo-javascript
@@ -84,7 +84,7 @@ msgstr ""
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "2 missed calls"
-msgstr ""
+msgstr "2 zmeškané hovory"
 
 #. module: voip
 #. odoo-javascript
@@ -207,7 +207,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_call_from_another_device
 msgid "Call from another device"
-msgstr ""
+msgstr "Volejte z jiného zařízení"
 
 #. module: voip
 #. odoo-javascript
@@ -298,6 +298,11 @@ msgid ""
 "            • Ask: Always ask whether the softphone or the device's phone must be used\n"
 "        "
 msgstr ""
+"Vyberte metodu, která se použije k uskutečnění hovoru při používání mobilní aplikace:\n"
+"            • VoIP: Vždy používejte softwarový telefon Odoo\n"
+"            • Telefon zařízení: Vždy používejte telefon zařízení\n"
+"            • Zeptat se: Vždy se zeptejte, zda je nutné použít softwarový telefon nebo telefon zařízení\n"
+"        "
 
 #. module: voip
 #. odoo-javascript
@@ -392,7 +397,7 @@ msgstr "Demo"
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__phone
 msgid "Device's phone"
-msgstr ""
+msgstr "Telefon zařízení"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__direction
@@ -448,7 +453,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:voip.field_res_users__external_device_number
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__external_device_number
 msgid "External device number"
-msgstr ""
+msgstr "Číslo externího zařízení"
 
 #. module: voip
 #. odoo-javascript
@@ -478,7 +483,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:voip.field_res_users__how_to_call_on_mobile
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__how_to_call_on_mobile
 msgid "How to place calls on mobile"
-msgstr ""
+msgstr "Jak volat na mobil"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__id
@@ -489,7 +494,7 @@ msgstr "ID"
 #: model:ir.model.fields,help:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "If enabled, incoming calls will be automatically declined in Odoo."
-msgstr ""
+msgstr "Je-li zapnuto, budou příchozí hovory v Odoo automaticky odmítnuty."
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__should_call_from_another_device
@@ -499,6 +504,9 @@ msgid ""
 "device number\". Use this option to place the call in Odoo but handle it "
 "from another device - e.g. your desk phone."
 msgstr ""
+"Je-li zapnuto, volání v Odoo převede hovor na „číslo externího zařízení“. "
+"Tuto možnost použijte, chcete-li uskutečnit hovor v Odoo, ale vyřídit jej z "
+"jiného zařízení – např. váš stolní telefon."
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__external_device_number
@@ -507,6 +515,8 @@ msgid ""
 "If the \"Call from another device\" option is enabled, calls placed in Odoo "
 "will be transfered to this phone number."
 msgstr ""
+"Pokud je zapnuta možnost „Volání z jiného zařízení“, hovory uskutečněné v "
+"Odoo budou přesměrovány na toto telefonní číslo."
 
 #. module: voip
 #. odoo-javascript
@@ -544,7 +554,7 @@ msgstr "Ve volací frontě"
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__last_seen_phone_call
 msgid "Last Seen Phone Call"
-msgstr ""
+msgstr "Naposledy viděný telefonát"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__write_uid
@@ -616,6 +626,8 @@ msgid ""
 "No audio recording device available. The application requires a microphone "
 "in order to be used."
 msgstr ""
+"Není k dispozici žádné zařízení pro záznam zvuku. Aplikace vyžaduje k "
+"použití mikrofon."
 
 #. module: voip
 #. odoo-javascript
@@ -667,7 +679,7 @@ msgstr "PBX Server IP"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "PBX or Websocket address is missing. Please check your settings."
-msgstr ""
+msgstr "Chybí adresa PBX nebo Websocket. Zkontrolujte prosím svá nastavení."
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_mail_activity__phone
@@ -691,7 +703,7 @@ msgstr "Telefon:"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Please accept the use of the microphone."
-msgstr ""
+msgstr "Přijměte prosím použití mikrofonu."
 
 #. module: voip
 #. odoo-javascript
@@ -701,6 +713,8 @@ msgid ""
 "Please try again later. If the problem persists, you may want to ask an "
 "administrator to check the configuration."
 msgstr ""
+"Prosím zkuste to znovu později. Pokud problém přetrvává, můžete požádat "
+"správce o kontrolu nastavení."
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_config_settings__mode__prod
@@ -719,13 +733,13 @@ msgstr "Nedávné"
 #: code:addons/voip/static/src/core/registerer.js:0
 #, python-format
 msgid "Registration rejected: %(statusCode)s %(reasonPhrase)s."
-msgstr ""
+msgstr "Registrace zamítnuta: %(statusCode)s %(reasonPhrase)s."
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "Reject incoming calls"
-msgstr ""
+msgstr "Zamítnout příchozí hovory"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__rejected
@@ -813,6 +827,8 @@ msgid ""
 "Some documents cannot be added to the call queue as they do not have a phone"
 " number set: %(record_names)s"
 msgstr ""
+"Některé dokumenty nelze přidat do fronty hovorů, protože nemají nastavené "
+"telefonní číslo: %(record_names)s"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__start_date
@@ -839,7 +855,7 @@ msgstr ""
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_config_settings__pbx_ip
 msgid "The IP address of your PBX Server"
-msgstr ""
+msgstr "IP adresa vašeho PBX serveru"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_config_settings__wsServer
@@ -855,6 +871,9 @@ msgid ""
 "verify the websocket server URL in the General Settings. If the problem "
 "persists, this is probably an issue with the server."
 msgstr ""
+"Chyba může pocházet z transportní vrstvy. Požádejte správce, aby ověřil "
+"adresu URL serveru websocket v části Obecná nastavení. Pokud problém "
+"přetrvává, pravděpodobně se jedná o problém se serverem."
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_voip_call__activity_name
@@ -874,7 +893,7 @@ msgstr ""
 #: model:ir.model.fields,help:voip.field_res_users__voip_secret
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_secret
 msgid "The password that will be used to register with the PBX server."
-msgstr ""
+msgstr "Heslo, které bude použito pro registraci k serveru PBX."
 
 #. module: voip
 #. odoo-javascript
@@ -892,6 +911,9 @@ msgid ""
 "that you are reaching the right server (PBX server IP in the General "
 "Settings) and that the credentials in your user preferences are correct."
 msgstr ""
+"Serveru se nepodařilo ověřit vás. Požádejte správce, aby ověřil, že se "
+"nacházíte na správném serveru (IP serveru PBX v Obecném nastavení) a zda "
+"jsou přihlašovací údaje ve vašich uživatelských předvolbách správné."
 
 #. module: voip
 #. odoo-javascript
@@ -910,6 +932,8 @@ msgid ""
 "The username (typically the extension number) that will be used to register "
 "with the PBX server."
 msgstr ""
+"Uživatelské jméno (obvykle číslo rozšíření), které bude použito pro "
+"registraci na serveru PBX."
 
 #. module: voip
 #. odoo-javascript
@@ -919,6 +943,7 @@ msgid ""
 "The websocket connection with the server has been lost. Please try to "
 "refresh the page."
 msgstr ""
+"Spojení websocket se serverem bylo ztraceno. Zkuste prosím obnovit stránku."
 
 #. module: voip
 #. odoo-javascript
@@ -999,24 +1024,24 @@ msgstr "VoIP"
 #. module: voip
 #: model_terms:ir.ui.view,arch_db:voip.voip_res_users_settings_view_form
 msgid "VoIP Configuration"
-msgstr ""
+msgstr "Nastavení VoIP"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_config_settings__mode
 msgid "VoIP Environment"
-msgstr ""
+msgstr "Prostředí VoIP"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_secret
 msgid "VoIP secret"
-msgstr ""
+msgstr "Tajný klíč VoIP"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__voip_username
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_username
 msgid "VoIP username / Extension number"
-msgstr ""
+msgstr "Uživatelské jméno VoIP / Číslo rozšíření"
 
 #. module: voip
 #: model:ir.ui.menu,name:voip.menu_voip_call_view

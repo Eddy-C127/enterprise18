@@ -717,7 +717,7 @@ msgstr "Laufend"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__is_accessible_to_current_user
 msgid "Is Accessible To Current User"
-msgstr ""
+msgstr "Ist für den aktuellen Benutzer zugänglich"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_is_follower
@@ -990,12 +990,12 @@ msgstr "Offen"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Open Position"
-msgstr ""
+msgstr "Offene Stelle"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Open Positions"
-msgstr ""
+msgstr "Offene Stellen"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1518,6 +1518,9 @@ msgid ""
 "Unsupported search on field is_accessible_to_current_user: %s operator & %s "
 "value. Only = and != operator and boolean values are supported."
 msgstr ""
+"Suche für Feld is_accessible_to_current_user nicht unterstützt: Operator %s "
+"& Wert %s. Nur die Operatoren = und != und boolesche Werte werden "
+"unterstützt."
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__url
@@ -1588,6 +1591,9 @@ msgid ""
 " of the interviewers of this application. If you think that's an error, "
 "please contact your administrator."
 msgstr ""
+"Sie sind nicht berechtigt, auf diesen Bewerbungsdatensatz zuzugreifen, da "
+"Sie nicht einer der Interviewer dieser Bewerbung sind. Wenn Sie glauben, "
+"dass dies ein Fehler ist, wenden Sie sich bitte an Ihren Administrator."
 
 #. module: hr_referral
 #. odoo-python

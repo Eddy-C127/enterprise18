@@ -19,7 +19,7 @@
 # Irina Fedulova <istartlin@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Сергей Шебанин <sergey@shebanin.ru>, 2023
-# Daniel Smorodin, 2023
+# Смородин Даниил, 2023
 # 
 msgid ""
 msgstr ""
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Daniel Smorodin, 2023\n"
+"Last-Translator: Смородин Даниил, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__answered_customer_message_count
 msgid "# Exchanges"
-msgstr ""
+msgstr "Кол-во обменов"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__open_ticket_count
@@ -58,7 +58,7 @@ msgstr "Кол-во политик SLA"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__urgent_ticket
 msgid "# Urgent Ticket"
-msgstr ""
+msgstr "Кол-во срочных заявок"
 
 #. module: helpdesk
 #. odoo-python
@@ -783,7 +783,7 @@ msgstr "Среднее"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__avg_response_hours
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__avg_response_hours
 msgid "Average Hours to Respond"
-msgstr ""
+msgstr "В среднем часов для ответа"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2529,6 +2529,15 @@ msgid ""
 "- Invited portal users and all internal users: all internal users can access the team and all of its tickets without distinction.\n"
 "Portal users can only access the tickets they are following. This access can be modified on each ticket individually by adding or removing the portal user as follower."
 msgstr ""
+"Люди, для которых эта команда технической поддержки  и ее заявки будут видны.\n"
+"\n"
+"- Приглашенные внутренние пользователи: внутренние пользователи имеют доступ к команде и заявкам, на которые они подписаны. Этот доступ можно изменить для каждой заявки отдельно, добавив или удалив пользователя как подписчика.\n"
+"Пользователь с уровнем прав доступа \"служба поддержки\" > \"администратор\" все еще имеет доступ к этой команде и ее заявкам, даже если не является подписчиком.\n"
+"\n"
+"- Все внутренние пользователи: все внутренние пользователи имею доступ к команде и всем ее заявкам без исключений.\n"
+"\n"
+"- Приглашенные пользователи портала и все внутренние пользователи: все внутренние пользователи имею доступ к команде и всем ее заявкам без исключений. \n"
+"Пользователи портала имеют доступ только к заявкам, на которые подписаны. Этот доступ можно изменить для каждой заявки отдельно, добавив или удалив пользователя как подписчика."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2719,7 +2728,7 @@ msgstr "Рейтинги"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__portal_show_rating
 msgid "Ratings on Website"
-msgstr ""
+msgstr "Оценки на веб-сайте"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -2755,6 +2764,8 @@ msgid ""
 "Receive notifications whenever tickets are created, rated or discussed on in"
 " this team"
 msgstr ""
+"Получать уведомления всякий раз, когда заявки создаются, оцениваются или "
+"обсуждаются в этой команде"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_force_thread_id
@@ -2808,7 +2819,7 @@ msgstr "Ремонты"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
 msgid "Reported on"
-msgstr ""
+msgstr "Отчитался"
 
 #. module: helpdesk
 #: model:ir.ui.menu,name:helpdesk.helpdesk_ticket_report_menu_main
@@ -2881,6 +2892,8 @@ msgid ""
 "SLA Policies that will automatically apply to the tickets submitted by this "
 "customer."
 msgstr ""
+"SLA условия, которые будут автоматически применены к заявкам, отправленным "
+"этим клиентом."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -2986,7 +2999,7 @@ msgstr "Доволен"
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 #, python-format
 msgid "Schedule your <b>activity</b>."
-msgstr ""
+msgstr "Запланируйте вашу деятельность."
 
 #. module: helpdesk
 #. odoo-python
@@ -3005,7 +3018,7 @@ msgstr "Поиск правила SLA"
 #: code:addons/helpdesk/controllers/portal.py:0
 #, python-format
 msgid "Search in Assigned to"
-msgstr ""
+msgstr "Искать по ответственным"
 
 #. module: helpdesk
 #. odoo-python
@@ -3116,12 +3129,12 @@ msgstr ""
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_rating
 msgid "Show Customer Ratings"
-msgstr ""
+msgstr "Показать пользовательские оценки"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__show_knowledge_base
 msgid "Show Knowledge Base"
-msgstr ""
+msgstr "Показать базу знаний"
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_sla
@@ -3374,6 +3387,7 @@ msgid ""
 "The time spent in these stages won't be taken into account in the "
 "calculation of the SLA."
 msgstr ""
+"Время, проведенное на этих этапах, не будет учитываться при расчете SLA."
 
 #. module: helpdesk
 #. odoo-python
@@ -3383,6 +3397,9 @@ msgid ""
 "The visibility of the team needs to be set as \"Invited portal users and all"
 " internal users\" in order to use the website form."
 msgstr ""
+"Видимость команды должна быть установлена как \"Приглашенные пользователи "
+"портала и все внутренние пользователи\", чтобы использовать форму на "
+"вебсайте."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
@@ -3458,6 +3475,8 @@ msgid ""
 "This will archive the stages and all of the tickets they contain from the "
 "following teams:"
 msgstr ""
+"Это позволит архивировать этапы и все содержащиеся в них заявки от следующих"
+" команд:"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.mail_activity_type_action_config_helpdesk
@@ -3537,12 +3556,12 @@ msgstr "Крайний срок заявки"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__ticket_ref
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_ref
 msgid "Ticket IDs Sequence"
-msgstr ""
+msgstr "Последовательность IDs заявок"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__ticket_properties
 msgid "Ticket Properties"
-msgstr ""
+msgstr "Свойства заявок"
 
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_team_ticket_rated
@@ -3635,7 +3654,7 @@ msgstr "Поиск заявок"
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_stage__fold
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__fold
 msgid "Tickets in a folded stage are considered as closed."
-msgstr ""
+msgstr "Заявки в свернутом этапе считаются закрытыми."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_helpdesk_sale_timesheet
@@ -3672,6 +3691,8 @@ msgid ""
 "To get things done, plan activities and use the ticket status.<br>\n"
 "                Collaborate efficiently by chatting in real-time or via email."
 msgstr ""
+"Чтобы достичь целей, планируйте действия и используйте статус заявок.<br>\n"
+"Сотрудничайте эффективно, общаясь в чате в режиме реального времени или по электронной почте."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3690,12 +3711,12 @@ msgstr "Действия на сегодня"
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "Today Average Rating"
-msgstr ""
+msgstr "Сегодняшняя средняя оценка"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__total_response_hours
 msgid "Total Exchange Time in Hours"
-msgstr ""
+msgstr "Общее время на обмен в часах"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3714,6 +3735,8 @@ msgid ""
 "Track the performance of your teams, the success rate of your tickets, and "
 "how quickly you reach your service level agreements (SLAs)."
 msgstr ""
+"Отслеживайте производительность вышей команды, показатель успешности заявок "
+"и то, как быстро вы достигаете соглашений об уровне обслуживания (SLA)."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3763,7 +3786,7 @@ msgstr "Типы идеально подходят для классификац
 #: code:addons/helpdesk/models/helpdesk_stage.py:0
 #, python-format
 msgid "Unarchive Tickets"
-msgstr ""
+msgstr "Разархивировать заявки"
 
 #. module: helpdesk
 #. odoo-python
@@ -3893,6 +3916,8 @@ msgid ""
 "We provide 24/7 support, Monday through Friday. Ticket responses are usually provided within 2 working days.<br>\n"
 "            Support is mainly provided in English. We can also assist in Spanish, French, and Dutch."
 msgstr ""
+"Мы предоставляем поддержку 24/7, с понедельника по пятницу. Ответы на заявки обычно предоставляются в течении 2 рабочих дней.<br>\n"
+"Поддержка в основном предоставляется на английском языке. Мы так же можем помочь на испанском, французском и голландском языках."
 
 #. module: helpdesk
 #: model:helpdesk.tag,name:helpdesk.tag_website
@@ -3939,7 +3964,7 @@ msgstr "Рабочих часов до завершения"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_exceeded_hours
 msgid "Working Hours to Reach SLA"
-msgstr ""
+msgstr "Рабочих часов, чтобы достигнуть SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__exceeded_hours
@@ -3947,6 +3972,9 @@ msgid ""
 "Working hours exceeded for reached SLAs compared with deadline. Positive "
 "number means the SLA was reached after the deadline."
 msgstr ""
+"Превышены рабочие часы для достигнутых SLA по сравнению с крайним сроком. "
+"Положительное число означает, что каждый SLA был выполнен после крайнего "
+"срока"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__resource_calendar_id
@@ -3960,6 +3988,7 @@ msgid ""
 "Would you like to unarchive all of the tickets contained in these stages as "
 "well?"
 msgstr ""
+"Хотели бы вы также разархивировать все заявки, содержащиеся в этих этапах"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
@@ -3967,6 +3996,8 @@ msgid ""
 "You cannot delete stages containing tickets. You can either archive them or "
 "first delete all of their tickets."
 msgstr ""
+"Вы не можете удалить этапы, содержащие заявки. Вы можете либо заархивировать"
+" их, либо сначала удалить все их заявки."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
@@ -3974,6 +4005,8 @@ msgid ""
 "You cannot delete stages containing tickets. You should first delete all of "
 "their tickets."
 msgstr ""
+"Вы не можете удалить этапы, содержащие заявки. Сначала необходимо удалить "
+"все их заявки."
 
 #. module: helpdesk
 #: model:ir.model.constraint,message:helpdesk.constraint_res_users_target_closed_not_zero
@@ -4001,12 +4034,12 @@ msgstr "например, Обслуживание клиентов"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 #: model_terms:ir.ui.view,arch_db:helpdesk.quick_create_ticket_form
 msgid "e.g. Product arrived damaged"
-msgstr ""
+msgstr "напр., товар прибыл поврежденным"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_type_view_tree
 msgid "e.g. Question"
-msgstr ""
+msgstr "напр., вопрос"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -4031,7 +4064,7 @@ msgstr "был создан из заявки:"
 #. module: helpdesk
 #: model:ir.actions.server,name:helpdesk.helpdesk_ratings_server_action
 msgid "helpdesk view rating"
-msgstr ""
+msgstr "оценка просмотра службы поддержки"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -4063,3 +4096,4 @@ msgstr "{{ object.display_name }}"
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_data
 msgid "{{rating.res_name if t['is_helpdesk_user'] else ''}}"
 msgstr ""
+"{{rating.res_name if t['является_пользователем_службы_поддержки'] else ''}}"

@@ -714,7 +714,7 @@ msgstr "قيد التنفيذ"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__is_accessible_to_current_user
 msgid "Is Accessible To Current User"
-msgstr ""
+msgstr "يمك الوصول إليه من قِبَل المستخدم الحالي "
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_is_follower
@@ -986,12 +986,12 @@ msgstr "فتح"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Open Position"
-msgstr ""
+msgstr "وظيفة شاغرة "
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Open Positions"
-msgstr ""
+msgstr "وظائف شاغرة "
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1508,6 +1508,8 @@ msgid ""
 "Unsupported search on field is_accessible_to_current_user: %s operator & %s "
 "value. Only = and != operator and boolean values are supported."
 msgstr ""
+"عملية البحث غير مدعومة في الحقل is_accessible_to_current_user: %s مشغل و %s "
+"قيمة. وحدها قيم مشغل وboolean = و != هي المدعومة. "
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__url
@@ -1578,6 +1580,8 @@ msgid ""
 " of the interviewers of this application. If you think that's an error, "
 "please contact your administrator."
 msgstr ""
+"لا يُسمح لك بالوصول إلى سجل هذا التطبيق لأنك أحد القائمين على مقابلة العمل "
+"لطلب التقديم هذا. إذا كنت تظن أنه هناك خطأ ما، يُرجى التواصل مع مديرك. "
 
 #. module: hr_referral
 #. odoo-python

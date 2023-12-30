@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-04 08:55+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Anna, 2023\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
@@ -118,6 +118,20 @@ msgstr "Aadressi kinnitamine"
 msgid "Address validation is only supported for North American addresses."
 msgstr ""
 "Aadressi kinnitamist toetatakse ainult Põhja-Ameerika aadresside puhul."
+
+#. module: account_avatax
+#. odoo-python
+#: code:addons/account_avatax/models/res_company.py:0
+#, python-format
+msgid "Authentication failed."
+msgstr ""
+
+#. module: account_avatax
+#. odoo-python
+#: code:addons/account_avatax/models/res_company.py:0
+#, python-format
+msgid "Authentication success."
+msgstr ""
 
 #. module: account_avatax
 #: model:account.fiscal.position,name:account_avatax.account_fiscal_position_avatax_us
@@ -532,7 +546,7 @@ msgstr "Otsingutoimingut ei toetata"
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_connection_test_result__server_response
 msgid "Server Response"
-msgstr ""
+msgstr "Serveri vastus"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_validate_address__state_id
@@ -566,7 +580,7 @@ msgstr "Sünkroniseerige Avatax'i vabastuskoodid"
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Test Result"
-msgstr ""
+msgstr "Testi tulemust"
 
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_avatax_connection_test_result
@@ -618,7 +632,7 @@ msgstr "See on juba kehtiv aadress."
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__setting_account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_config_settings__setting_account_avatax
 msgid "Use AvaTax"
-msgstr ""
+msgstr "Kasuta AvaTax"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__is_avatax

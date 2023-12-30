@@ -717,7 +717,7 @@ msgstr "En cours"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__is_accessible_to_current_user
 msgid "Is Accessible To Current User"
-msgstr ""
+msgstr "Est accessible à l'utilisateur actuel"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_is_follower
@@ -735,12 +735,12 @@ msgstr "Poste"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_job
 msgid "Job Position"
-msgstr "Poste de travail"
+msgstr "Poste"
 
 #. module: hr_referral
 #: model:ir.actions.act_window,name:hr_referral.action_hr_job_employee_referral
 msgid "Job Positions"
-msgstr "Offres d'emploi"
+msgstr "Postes"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -989,12 +989,12 @@ msgstr "Ouvert"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Open Position"
-msgstr ""
+msgstr "Vacature"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Open Positions"
-msgstr ""
+msgstr "Vacatures"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1516,6 +1516,9 @@ msgid ""
 "Unsupported search on field is_accessible_to_current_user: %s operator & %s "
 "value. Only = and != operator and boolean values are supported."
 msgstr ""
+"Recherche non prise en charge sur le champ is_accessible_to_current_user : "
+"opérateur %s & valeur %s. Seuls les opérateurs = et != et les valeurs "
+"booléens sont pris en charge."
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__url
@@ -1586,6 +1589,9 @@ msgid ""
 " of the interviewers of this application. If you think that's an error, "
 "please contact your administrator."
 msgstr ""
+"Vous n'êtes pas autorisé à accéder à cet enregistrement de candidature, car "
+"vous n'êtes pas l'un des intervieweurs de cette candidature. Si vous pensez "
+"qu'il s'agit d'une erreur, veuillez contacter votre administrateur."
 
 #. module: hr_referral
 #. odoo-python

@@ -981,7 +981,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model,name:planning.model_res_config_settings
 msgid "Config Settings"
-msgstr "Opciones de configuración"
+msgstr "Ajustes de configuración"
 
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_settings
@@ -1745,7 +1745,7 @@ msgstr "Número de ocurrencias"
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_type__x_times
 msgid "Number of Repetitions"
-msgstr "Numero de repeticiones"
+msgstr "Número de repeticiones"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -1844,7 +1844,7 @@ msgstr "Análisis de planificación"
 #. module: planning
 #: model:ir.model,name:planning.model_planning_analysis_report
 msgid "Planning Analysis Report"
-msgstr "Reporte de análisis de planeación"
+msgstr "Informe de análisis de planeación"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
@@ -2146,6 +2146,10 @@ msgid ""
 "Additionally, the employee will only be assigned orders for these roles (with the default planning role having precedence over the other ones).\n"
 "Leave empty for the employee to be assigned shifts regardless of the role."
 msgstr ""
+"Roles que puede desempeñar el empleado. Al crear un turno para este empleado, sólo se mostrarán las plantillas de turnos para estos roles.\n"
+"Del mismo modo, sólo los turnos abiertos disponibles para estos roles se enviarán al empleado cuando se publique la planificación.\n"
+"Además, al empleado sólo se le asignarán órdenes para estos roles (teniendo el rol de planificación por defecto preferencia sobre los demás).\n"
+"Dejar vacío para que al empleado se le asignen turnos independientemente del rol."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
@@ -2430,7 +2434,7 @@ msgstr ""
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 #, python-format
 msgid "The recurring shifts have successfully been created."
-msgstr ""
+msgstr "Los turnos recurrentes se crearon con éxito."
 
 #. module: planning
 #. odoo-python
@@ -2462,7 +2466,7 @@ msgstr "El turno se envió con éxito."
 #, python-format
 msgid ""
 "The shifts have already been published, or there are no shifts to publish."
-msgstr ""
+msgstr "Ya se publicaron los turnos o no hay turnos por publicar."
 
 #. module: planning
 #. odoo-python
