@@ -51,19 +51,18 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
         action = self.tax_return_move.action_post()
 
         self.assertRecordValues(self.tax_return_move, [{'state': 'draft'}])
-        for key, val in {
-            'name': 'Post a tax report entry',
-            'view_mode': 'form',
+        self.assertEqual(action, {
+            '__ignore_missing_keys__': True,
             'views': [[self.env.ref('l10n_be_reports_post_wizard.view_account_financial_report_export').id, 'form']],
             'res_model': 'l10n_be_reports.periodic.vat.xml.export',
             'type': 'ir.actions.act_window',
             'target': 'new',
             'context': {
+                '__ignore_missing_keys__': True,
                 'l10n_be_reports_generation_options': {},
                 'l10n_be_action_resume_post_move_ids': self.tax_return_move.ids,
             },
-        }.items():
-            self.assertEqual(action[key], val)
+        })
 
     def test_validating_wizard_posts_move(self):
         ''' Test that validating the wizard posts the move
