@@ -62,6 +62,7 @@
                                     <td><strong>Email</strong></td>
                                     <td><strong>Contract Type</strong></td>
                                     <td><strong>Working Schedule</strong></td>
+                                    <td><strong>Department</strong></td>
                                     <td/>
                                 </tr>
                                 <tr>
@@ -75,7 +76,7 @@
                                             <span t-out="o._get_l10n_in_company_working_time(return_hours=True)"/>:hh
                                         </t>
                                     </td>
-                                    <td/>
+                                    <td><span t-field="o.department_id"/></td>
                                 </tr>
                                 <tr id="employee_bank_info">
                                     <td><strong>Bank Account</strong></td>
