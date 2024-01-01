@@ -173,8 +173,8 @@ class ShipRocket:
                     'price': rate,
                     'courier_code': courier_code,
                     'warning_message': recommended_by and
-                                       _("Courier is - %s, recommended by %s!", courier_name, recommended_by) or
-                                       _("Courier is - %s", courier_name)
+                                       _("Courier (%s): %s", recommended_by, courier_name) or
+                                       _("Courier: %s", courier_name)
                 })
             else:
                 res.update({'error_found': _('Courier is not available for delivery!')})
