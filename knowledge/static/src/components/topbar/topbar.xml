@@ -154,7 +154,7 @@
                                 <button class="dropdown-item" t-on-click="this.exportToPdf">
                                     <i class="me-2 fa fa-fw fa-lg fa-download"/> Export
                                 </button>
-                                <button class="dropdown-item" t-on-click="deleteArticle"
+                                <button class="dropdown-item" t-on-click="sendToTrash"
                                     t-if="props.record.data.user_can_write and props.record.data.active
                                           and (isInternalUser or props.record.data.category == 'private')">
                                     <i class="me-2 fa fa-fw fa-lg fa-trash"/> Send to Trash
