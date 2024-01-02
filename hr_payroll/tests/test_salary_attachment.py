@@ -8,6 +8,7 @@ class TestSalaryAttachment(TestPayslipBase):
 
     def setUp(self):
         super().setUp()
+        self.current_year = datetime.now().year
         self.toto = self.env['hr.employee'].create({'name': 'Toto'})
         self.current_year = datetime.now().year
         self.env['hr.contract'].create({
