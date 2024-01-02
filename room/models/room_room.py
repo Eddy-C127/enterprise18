@@ -14,6 +14,7 @@ class Room(models.Model):
 
     # Configuration
     name = fields.Char(string="Room Name", required=True, tracking=2)
+    active = fields.Boolean("Active", default=True)
     description = fields.Html(string="Amenities", translate=html_translate)
     office_id = fields.Many2one("room.office", string="Office", required=True, tracking=3)
     room_properties = fields.Properties("Properties", definition="office_id.room_properties_definition")
@@ -22,10 +23,9 @@ class Room(models.Model):
     short_code = fields.Char("Short Code", default=lambda self: str(uuid4())[:8], copy=False, required=True, tracking=1)
     # Technical/Statistics
     access_token = fields.Char("Access Token", default=lambda self: str(uuid4()), copy=False, readonly=True, required=True)
-    bookings_count = fields.Integer("Bookings Count", compute="_compute_bookings_count")
     is_available = fields.Boolean(string="Is Room Currently Available", compute="_compute_is_available")
     next_booking_start = fields.Datetime("Next Booking Start", compute="_compute_next_booking_start")
-    room_booking_url = fields.Char("Room Booking URL", compute="_compute_room_booking_url")
+    room_booking_url = fields.Char("Room Link", compute="_compute_room_booking_url")
     # Frontend design fields
     bookable_background_color = fields.Char("Available Background Color", default="#83c5be")
     booked_background_color = fields.Char("Booked Background Color", default="#dd2d4a")
@@ -36,20 +36,10 @@ class Room(models.Model):
         ("uniq_short_code", "unique(short_code)", "The short code must be unique."),
     ]
 
-    @api.depends("room_booking_ids")
-    def _compute_bookings_count(self):
-        bookings_count_by_room = dict(self.env["room.booking"]._read_group(
-            [("stop_datetime", ">=", fields.Datetime.now()), ("room_id", "in", self.ids)],
-            ["room_id"],
-            ["__count"]
-        ))
-        for room in self:
-            room.bookings_count = bookings_count_by_room.get(room, 0)
-
     @api.depends("office_id")
     def _compute_display_name(self):
         super()._compute_display_name()
-        for room in self:
+        for room in self.filtered(lambda room: room.name and room.office_id):
             room.display_name = f"{room.office_id.name} - {room.name}"
 
     @api.depends("room_booking_ids")

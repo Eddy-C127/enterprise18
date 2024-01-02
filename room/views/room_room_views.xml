@@ -10,6 +10,7 @@
                 <field name="office_id"/>
                 <field name="room_properties"/>
                 <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
                 <filter name="group_by_office_id" context="{'group_by': 'office_id'}"/>
                 <filter name="group_by_company_id" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
                 <filter string="Properties" name="group_by_room_properties" context="{'group_by':'room_properties'}"/>
@@ -25,10 +26,12 @@
         <field name="name">room.room.view.kanban</field>
         <field name="model">room.room</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban sample="1">
                 <field name="is_available"/>
                 <field name="next_booking_start"/>
                 <field name="office_id"/>
+                <field name="active" invisible="1"/>
+                <field name="room_booking_ids" invisible="1" />
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
@@ -43,7 +46,7 @@
                                     <field name="room_properties" widget="properties"/>
                                 </div>
                                 <div class="o_kanban_record_bottom">
-                                    <div t-attf-class="py-1 px-2 text-bg-#{record.is_available.raw_value ? 'success' : 'danger'}">
+                                    <div t-if="record.active.raw_value" t-attf-class="py-1 px-2 text-bg-#{record.is_available.raw_value ? 'success' : 'danger'}">
                                         <t t-if="record.is_available.raw_value">Available</t>
                                         <t t-else="">Busy</t>
                                         <!-- Show time if next booking is today, otherwise show date -->
@@ -69,7 +72,7 @@
         <field name="name">room.room.view.list</field>
         <field name="model">room.room</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree sample="1">
                 <field name="name"/>
                 <field name="office_id"/>
                 <field name="is_available" string="Is Currently Available"/>
@@ -84,36 +87,41 @@
         <field name="model">room.room</field>
         <field name="arch" type="xml">
             <form>
+                <field name="active" invisible="1"/>
+                <field name="room_booking_ids" invisible="1" />
                 <field name="is_available" invisible="1"/>
                 <header>
-                    <button string="Open" type="object" name="action_open_booking_view"/>
+                    <button string="Open" type="object" name="action_open_booking_view"  invisible="not active"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_view_bookings" type="object"
                                 class="oe_stat_button" icon="fa-calendar">
-                            <div class="o_form_field o_stat_info">
-                                <span class="o_stat_text">
-                                    <field class="o_stat_value me-1" name="bookings_count"/>
-                                    <span invisible="bookings_count == 1">Bookings</span>
-                                    <span invisible="bookings_count != 1">Booking</span>
-                                </span>
+                            <div class="o_stat_info">
+                                <div invisible="not next_booking_start" >
+                                    <span class="o_stat_text">Next Meeting</span>
+                                    <field class="o_stat_value" name="next_booking_start"/>
+                                </div>
+                                <span invisible="next_booking_start">No Upcoming Meetings</span>
                             </div>
                         </button>
                     </div>
-                    <div class="badge rounded-pill text-bg-success float-end fs-6 border-0" invisible="not is_available">
-                        Available
-                    </div>
-                    <div class="badge rounded-pill text-bg-danger float-end fs-6 border-0" invisible="is_available">
-                        Busy
+                    <div invisible="not name or not active">
+                        <div class="badge rounded-pill text-bg-success float-end fs-6 border-0" invisible="not is_available">
+                            Available
+                        </div>
+                        <div class="badge rounded-pill text-bg-danger float-end fs-6 border-0" invisible="is_available">
+                            Busy
+                        </div>
                     </div>
                     <div class="oe_title mb24">
                         <label for="name"/>
                         <h1>
-                            <field name="name" placeholder="Room Name"/>
+                            <field name="name" placeholder="e.g. Blue Meeting Room"/>
                         </h1>
                         <div class="o_row">
-                            <field name="office_id"/>
+                            <field name="office_id" placeholder="e.g. Headquarters"/>
                         </div>
                     </div>
                     <group>
@@ -121,7 +129,7 @@
                             <field name="short_code"/>
                         </group>
                         <group>
-                            <field name="room_booking_url" widget="CopyClipboardChar"/>
+                            <field name="room_booking_url" widget="CopyClipboardChar" invisible="not active"/>
                         </group>
                     </group>
                     <field name="room_properties" columns="2"/>
@@ -138,7 +146,7 @@
                             </group>
                         </page>
                         <page name="Amenities">
-                            <field name="description" placeholder="E.g. projector, capacity 6 people"/>
+                            <field name="description" placeholder="e.g. projector, capacity 6 people"/>
                         </page>
                     </notebook>
                 </sheet>
