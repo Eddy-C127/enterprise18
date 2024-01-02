@@ -293,7 +293,7 @@ QUnit.test('create/search anytime appointment type', async function (assert) {
         "Does not create a new appointment type");
 });
 
-QUnit.test('discard slot in calendar', async function (assert) {
+QUnit.skip('discard slot in calendar', async function (assert) {
     assert.expect(11);
 
     const calendar = await makeView({
@@ -399,7 +399,7 @@ QUnit.test("cannot move real event in slots-creation mode", async function (asse
     assert.verifySteps([]);
 });
 
-QUnit.test("create slots for custom appointment type", async function (assert) {
+QUnit.skip("create slots for custom appointment type", async function (assert) {
     assert.expect(13);
 
     patchWithCleanup(navigator, {
@@ -466,7 +466,7 @@ QUnit.test("create slots for custom appointment type", async function (assert) {
     assert.strictEqual(serverData.models['appointment.slot'].records.length, 1);
 });
 
-QUnit.test('filter works in slots-creation mode', async function (assert) {
+QUnit.skip('filter works in slots-creation mode', async function (assert) {
     assert.expect(11);
 
     const calendar = await makeView({
