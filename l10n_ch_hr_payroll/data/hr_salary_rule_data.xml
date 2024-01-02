@@ -735,30 +735,6 @@ result_name = inputs['TRAININGALW'].name
         <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
     </record>
 
-    <record id="l10n_ch_employees_family_allowance" model="hr.salary.rule">
-        <field name="category_id" ref="hr_payroll.ALW"/>
-        <field name="name">Family Allowance</field>
-        <field name="code">FAMILYALW</field>
-        <field name="l10n_ch_code">3030</field>
-        <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'FAMILYALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['FAMILYALW'].amount
-result_name = inputs['FAMILYALW'].name
-        </field>
-        <field name="l10n_ch_aanp_included" eval="False"/>
-        <field name="l10n_ch_ac_included" eval="False"/>
-        <field name="l10n_ch_comp_ac_included" eval="False"/>
-        <field name="l10n_ch_ijm_included" eval="False"/>
-        <field name="l10n_ch_source_tax_included" eval="True"/>
-        <field name="l10n_ch_wage_statement">3</field>
-        <field name="l10n_ch_yearly_statement">Q</field>
-        <field name="l10n_ch_13th_month_included" eval="False"/>
-        <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
-    </record>
-
     <record id="l10n_ch_employees_birth_allowance" model="hr.salary.rule">
         <field name="category_id" ref="hr_payroll.ALW"/>
         <field name="name">Birth Allowance</field>
@@ -1761,6 +1737,30 @@ result_name = inputs['TRAVEXP'].name
         <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
     </record>
 
+    <record id="l10n_ch_employees_family_allowance" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">Family Allowance</field>
+        <field name="code">FAMILYALW</field>
+        <field name="l10n_ch_code">3030</field>
+        <field name="sequence">150</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'FAMILYALW' in inputs</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = inputs['FAMILYALW'].amount
+result_name = inputs['FAMILYALW'].name
+        </field>
+        <field name="l10n_ch_aanp_included" eval="False"/>
+        <field name="l10n_ch_ac_included" eval="False"/>
+        <field name="l10n_ch_comp_ac_included" eval="False"/>
+        <field name="l10n_ch_ijm_included" eval="False"/>
+        <field name="l10n_ch_source_tax_included" eval="True"/>
+        <field name="l10n_ch_wage_statement">3</field>
+        <field name="l10n_ch_yearly_statement">Q</field>
+        <field name="l10n_ch_13th_month_included" eval="False"/>
+        <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
+    </record>
+
     <record id="l10n_ch_employees_car_expense" model="hr.salary.rule">
         <field name="category_id" ref="hr_payroll.ALW"/>
         <field name="name">Car Expense</field>
@@ -1974,4 +1974,3 @@ result_name = inputs['INDMAT'].name
         <value eval="{'l10n_ch_code': '6500'}"/>
     </function>
 </odoo>
-

@@ -34,13 +34,29 @@
         <td></td>
     </xpath>
 
+    <xpath expr="//th[@id='line_header_hours']" position="attributes">
+        <attribute name="class">text-end</attribute>
+    </xpath>
+
+    <xpath expr="//th[@id='line_header_days']" position="attributes">
+        <attribute name="class">text-end</attribute>
+    </xpath>
+
+    <xpath expr="//td[@id='worked_days_hours']" position="attributes">
+        <attribute name="class">text-end</attribute>
+    </xpath>
+
+    <xpath expr="//td[@id='worked_days_days']" position="attributes">
+        <attribute name="class">text-end</attribute>
+    </xpath>
+
     <xpath expr="//t[@id='payslip_lines']" position="before">
         <thead class="o_black_border">
             <tr>
                 <th id="ch_line_header_code">Code</th>
                 <th id="ch_line_header_name">Name</th>
-                <th id="ch_line_header_quantity">Quantity</th>
-                <th id="ch_line_header_rate">Rate</th>
+                <th id="ch_line_header_quantity" class="text-end">Quantity</th>
+                <th id="ch_line_header_rate" class="text-end">Rate</th>
                 <th id="ch_line_header_amount" class="text-end">Amount</th>
             </tr>
         </thead>
@@ -54,12 +70,16 @@
         <td><span t-field="line.salary_rule_id.l10n_ch_code"/></td>
     </xpath>
 
+    <xpath expr="//td[@id='payslip_line_rate']" position="attributes">
+        <attribute name="class">text-end</attribute>
+    </xpath>
+
     <xpath expr="//td[@id='payslip_line_rate']" position="inside">
         <span t-if="line.rate != 100" t-field="line.rate"/>
     </xpath>
 
     <xpath expr="//td[@id='payslip_line_quantity']" position="replace">
-        <td id="payslip_line_amount">
+        <td id="payslip_line_amount" class="text-end">
             <span t-field="line.amount"/>
         </td>
     </xpath>

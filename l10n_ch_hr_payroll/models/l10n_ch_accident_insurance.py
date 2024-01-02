@@ -116,8 +116,10 @@ class l10nChAccidentInsuranceLineRate(models.Model):
     employer_occupational_part = fields.Selection([
         ('0', '0 %'),
         ('50', '50 %'),
+        ('100', '100 %'),
     ], string="Company Occupational Part", default='50')
     employer_non_occupational_part = fields.Selection([
         ('0', '0 %'),
         ('50', '50 %'),
+        ('100', '100 %'),
     ], string="Company Non Occupational Part", default='50')

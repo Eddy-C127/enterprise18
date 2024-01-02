@@ -13,9 +13,9 @@
                 <group name="ch_salary_insurances" string="Insurances" invisible="country_code != 'CH'">
                     <field name="l10n_ch_social_insurance_id"/>
                     <field name="l10n_ch_compensation_fund_id"/>
-                    <field name="l10n_ch_accident_insurance_line_id"/>
-                    <field name="l10n_ch_additional_accident_insurance_line_ids" widget="many2many_tags"/>
-                    <field name="l10n_ch_sickness_insurance_line_ids" widget="many2many_tags"/>
+                    <field name="l10n_ch_accident_insurance_line_id" options="{'no_create':True}"/>
+                    <field name="l10n_ch_additional_accident_insurance_line_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                    <field name="l10n_ch_sickness_insurance_line_ids" widget="many2many_tags" options="{'no_create':True}"/>
                     <field name="l10n_ch_lpp_insurance_id"/>
                 </group>
             </group>
