@@ -334,9 +334,11 @@ QUnit.test('discard slot in calendar', async function (assert) {
         "The calendar is now in a mode to create custom appointment time slots");
     assert.containsN(target, '.fc-event', 2);
     assert.containsNone(target, '.o_calendar_slot');
-
-    // Same behavior as previous next button
-    await click(target.querySelector('.o_datetime_picker .o_date_item_cell:nth-of-type(13)'));
+    
+    // Same behavior as previous next button (+7 days)
+    const currentDayPickerElement = target.querySelector('.o_datetime_picker .o_today.o_selected');
+    const allPickerElement = [...currentDayPickerElement.parentElement.children]
+    await click(allPickerElement[allPickerElement.indexOf(currentDayPickerElement) + 7]);    
     await nextTick();
     assert.containsOnce(target, '.fc-event', 'There is one calendar event');
     assert.containsNone(target, '.o_calendar_slot', 'There is no slot yet');
@@ -448,9 +450,11 @@ QUnit.test("create slots for custom appointment type", async function (assert) {
         "The calendar is now in a mode to create custom appointment time slots");
     assert.containsN(target, '.fc-event', 2);
     assert.containsNone(target, '.o_calendar_slot');
-
-    // Same behavior as previous next button
-    await click(target.querySelector('.o_datetime_picker .o_date_item_cell:nth-of-type(13)'));
+    
+    // Same behavior as previous next button (+7 days)
+    const currentDayPickerElement = target.querySelector('.o_datetime_picker .o_today.o_selected');
+    const allPickerElement = [...currentDayPickerElement.parentElement.children]
+    await click(allPickerElement[allPickerElement.indexOf(currentDayPickerElement) + 7]); 
     assert.containsOnce(target, '.fc-event', 'There is one calendar event');
     assert.containsNone(target, '.o_calendar_slot', 'There is no slot yet');
 
@@ -506,8 +510,10 @@ QUnit.test('filter works in slots-creation mode', async function (assert) {
     assert.strictEqual(calendar.env.calendarState.mode, 'slots-creation',
         "The calendar is now in a mode to create custom appointment time slots");
 
-    // Same behavior as previous next button
-    await click(target.querySelector('.o_datetime_picker .o_date_item_cell:nth-of-type(13)'));
+    // Same behavior as previous next button (+7 days)
+    const currentDayPickerElement = target.querySelector('.o_datetime_picker .o_today.o_selected');
+    const allPickerElement = [...currentDayPickerElement.parentElement.children]
+    await click(allPickerElement[allPickerElement.indexOf(currentDayPickerElement) + 7]); 
     assert.containsOnce(target, '.fc-event');
     assert.containsNone(target, '.o_calendar_slot');
 
