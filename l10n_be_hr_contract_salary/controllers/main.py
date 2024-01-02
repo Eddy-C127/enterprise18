@@ -349,8 +349,25 @@ class HrContractSalary(main.HrContractSalary):
         elif contract.new_bike_model_id:
             initial_values['select_company_bike_depreciated_cost'] = 'new-%s' % contract.new_bike_model_id.id
 
-        initial_values['has_hospital_insurance'] = contract.insurance_amount
-        initial_values['l10n_be_has_ambulatory_insurance'] = contract.l10n_be_ambulatory_insurance_amount
+        hospital_insurance_child_amount = float(request.env['ir.config_parameter'].sudo().get_param('hr_contract_salary.hospital_insurance_amount_child', default=7.2))
+        hospital_insurance_adult_amount = float(request.env['ir.config_parameter'].sudo().get_param('hr_contract_salary.hospital_insurance_amount_adult', default=20.5))
+        ambulatory_insurance_child_amount = float(request.env['ir.config_parameter'].sudo().get_param('hr_contract_salary.ambulatory_insurance_amount_child', default=7.2))
+        ambulatory_insurance_adult_amount = float(request.env['ir.config_parameter'].sudo().get_param('hr_contract_salary.ambulatory_insurance_amount_adult', default=20.5))
+
+        hospital_insurance_child_count = contract.insured_relative_children
+        hospital_insurance_adult_count = contract.insured_relative_adults_total
+        ambulatory_insurance_child_count = contract.l10n_be_ambulatory_insured_children
+        ambulatory_insurance_adult_count = contract.l10n_be_ambulatory_insured_adults_total
+
+        hospital_insurance_amount = request.env['hr.contract']._get_insurance_amount(
+            hospital_insurance_child_amount, hospital_insurance_child_count,
+            hospital_insurance_adult_amount, hospital_insurance_adult_count)
+        ambulatory_insurance_amount = request.env['hr.contract']._get_insurance_amount(
+            ambulatory_insurance_child_amount, ambulatory_insurance_child_count,
+            ambulatory_insurance_adult_amount, ambulatory_insurance_adult_count)
+
+        initial_values['has_hospital_insurance'] = hospital_insurance_amount
+        initial_values['l10n_be_has_ambulatory_insurance'] = ambulatory_insurance_amount
 
         return mapped_benefits, mapped_dependent_benefits, mandatory_benefits, mandatory_benefits_names, benefit_types, dropdown_options, dropdown_group_options, initial_values
 
