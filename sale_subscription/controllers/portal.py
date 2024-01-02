@@ -121,9 +121,6 @@ class CustomerPortal(payment_portal.PaymentPortal):
         enable_token_management = request.env.user.partner_id in (order_sudo.partner_id.child_ids | order_sudo.partner_id)
         display_close = order_sudo.plan_id.sudo().user_closable and order_sudo.subscription_state == '3_progress'
         is_follower = request.env.user.partner_id in order_sudo.message_follower_ids.partner_id
-        if order_sudo.pending_transaction and not message:
-            message = _("This subscription has a pending payment transaction.")
-            message_class = 'alert-warning'
         periods = {'week': 'weeks', 'month': 'months', 'year': 'years'}
         # Calculate the duration when the customer can reopen his subscription
         missing_periods = 1

@@ -161,21 +161,6 @@
             </div>
         </div>
 
-        <span id="transaction_info" position="replace">
-            <div t-if="message and message != 'sign_ok'" t-att-class="'alert ' + message_class" role="alert">
-                <p t-out="message"/>
-            </div>
-            <div t-if="sale_order.get_portal_last_transaction().state == 'pending'">
-                <div class="alert alert-primary m-1">
-                    <span>
-                        Your payment made on the <span t-field="sale_order.get_portal_last_transaction().last_state_change"/> is pending.
-                        Your subscription will be renewed as soon as it is confirmed.<br/>
-                        Don't hesitate to <a href="#discussion">contact us</a> if there is a problem or an emergency.
-                    </span>
-                </div>
-            </div>
-        </span>
-
         <span id="sale_info_title" position="replace">
             <span id="sale_info_title">
                 <h5 class="mb-1">
