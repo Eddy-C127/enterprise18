@@ -13,7 +13,7 @@
             <field name="name">Transportation Allowance</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
             <field name="code">TRAALLOW</field>
-            <field name="sequence">5</field>
+            <field name="sequence">10</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = contract.l10n_ae_transportation_allowance</field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
@@ -22,9 +22,65 @@
             <field name="name">Other Allowances</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
             <field name="code">OTALLOW</field>
-            <field name="sequence">5</field>
+            <field name="sequence">15</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = contract.l10n_ae_other_allowances</field>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+        <record id="uae_salary_arrears_salary_rule" model="hr.salary.rule">
+            <field name="name">Salary Arrears</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">SALARRALLOW</field>
+            <field name="sequence">20</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs.SALARY_ARREARS</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs['SALARY_ARREARS'].amount
+result_name = inputs['SALARY_ARREARS'].name
+            </field>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+        <record id="uae_other_earnings_salary_rule" model="hr.salary.rule">
+            <field name="name">Other Earnings</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">OTHEARALLOW</field>
+            <field name="sequence">25</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs.OTHER_EARNINGS</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs['OTHER_EARNINGS'].amount
+result_name = inputs['OTHER_EARNINGS'].name
+            </field>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+        <record id="uae_salary_deduction_salary_rule" model="hr.salary.rule">
+            <field name="name">Salary Deduction</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">SALDED</field>
+            <field name="sequence">30</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs.SALARY_DEDUCTIONS</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = -inputs['SALARY_DEDUCTIONS'].amount
+result_name = inputs['SALARY_DEDUCTIONS'].name
+            </field>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+        <record id="uae_other_deduction_salary_rule" model="hr.salary.rule">
+            <field name="name">Other Deduction</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">OTHDED</field>
+            <field name="sequence">35</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs.OTHER_DEDUCTIONS</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = -inputs['OTHER_DEDUCTIONS'].amount
+result_name = inputs['OTHER_DEDUCTIONS'].name
+            </field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
         <record id="uae_end_of_service_salary_rule" model="hr.salary.rule">
@@ -73,6 +129,20 @@ else:
             <field name="condition_python">result = employee.active</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = (contract.l10n_ae_number_of_days / 12) * (contract.wage / 30)</field>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+        <record id="uae_total_earnings_salary_rule" model="hr.salary.rule">
+            <field name="name">Total Earnings</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">ALLOWANCE</field>
+            <field name="sequence">197</field>
+            <field name="amount_select">code</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs.ALLOWANCE</field>
+            <field name="amount_python_compute">
+                result = inputs['ALLOWANCE'].amount
+                result_name = inputs['ALLOWANCE'].name
+            </field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
     </data>
