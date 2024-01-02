@@ -483,16 +483,18 @@ class AccountMove(models.Model):
                 if len(taxes_by_document) != 0:
                     taxes_found |= max(taxes_by_document, key=lambda tax: len(tax[1]))[0]
                 else:
-                    purchase_tax = self.journal_id.default_account_id.tax_ids.filtered(lambda tax: tax.type_tax_use == 'purchase')
-                    if len(purchase_tax) == 1 and purchase_tax.amount == taxes and purchase_tax.amount_type == taxes_type:
-                        taxes_found |= purchase_tax
+                    tax_domain = [
+                        *self.env['account.tax']._check_company_domain(self.company_id),
+                        ('amount', '=', taxes),
+                        ('amount_type', '=', taxes_type),
+                        ('type_tax_use', '=', type_tax_use),
+                    ]
+                    default_taxes = self.journal_id.default_account_id.tax_ids
+                    matching_default_tax = default_taxes.filtered_domain(tax_domain)
+                    if matching_default_tax:
+                        taxes_found |= matching_default_tax
                     else:
-                        taxes_records = self.env['account.tax'].search([
-                            *self.env['account.tax']._check_company_domain(self.company_id),
-                            ('amount', '=', taxes),
-                            ('amount_type', '=', taxes_type),
-                            ('type_tax_use', '=', type_tax_use),
-                        ])
+                        taxes_records = self.env['account.tax'].search(tax_domain)
                         if taxes_records:
                             taxes_records_setting_based = taxes_records.filtered(lambda r: not r.price_include)
                             if taxes_records_setting_based:
