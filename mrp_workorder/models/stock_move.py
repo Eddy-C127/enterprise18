@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, api
+from odoo import api, models
 
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
-    def _should_bypass_set_qty_producing(self):
-        production = self.raw_material_production_id or self.production_id
-        if production and (self.has_tracking == 'none' or production.use_auto_consume_components_lots) and ((self.product_id in production.workorder_ids.quality_point_ids.component_id) or self.operation_id):
-            return True
-        return super()._should_bypass_set_qty_producing()
+    @api.depends('workorder_id')
+    def _compute_manual_consumption(self):
+        super()._compute_manual_consumption()
+        for move in self:
+            if move.product_id in move.workorder_id.check_ids.component_id:
+                move.manual_consumption = True
 
     def _action_assign(self, force_qty=False):
         res = super()._action_assign(force_qty=force_qty)
