@@ -1488,6 +1488,12 @@ class Planning(models.Model):
         message = _("The shift has successfully been sent.")
         return self._get_notification_action('success', message)
 
+    def action_save_template(self):
+        """ Used to save template of a shift."""
+        self.ensure_one()
+        if self.allow_template_creation:
+            self.template_creation = True
+
     def action_unpublish(self):
         if not self.env.user.has_group('planning.group_planning_manager'):
             raise AccessError(_('You are not allowed to reset to draft shifts.'))

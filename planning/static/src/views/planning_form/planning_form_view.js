@@ -98,9 +98,9 @@ export class PlanningFormController extends FormController {
                 }
             }
         }
-        if (!this.initialTemplateCreation && shift.data.template_creation) {
+        if (shift.data.allow_template_creation && clickParams.name === 'action_save_template') {
             // then the shift should be saved as a template too.
-            const message = _t("This shift was successfully saved as a template.");
+            const message = _t("This shift is now saved as a template. Use it to easily schedule your shifts.");
             this.notification.add(
                 markup(`<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(message)}</span>`),
                 { type: "success" },

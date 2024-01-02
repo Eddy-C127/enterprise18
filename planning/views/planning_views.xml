@@ -132,8 +132,27 @@
                         </group>
                         <!-- slot_info_right group is used in another module -->
                         <group name="slot_info_right">
-                            <field name="start_datetime" string="Date" widget="daterange" options="{'end_date_field': 'end_datetime'}" />
-                            <field name="end_datetime" invisible="1" />
+                            <label for="start_datetime"/>
+                            <div class="d-inline-flex">
+                                <field name="start_datetime" string="Date" widget="daterange" options="{'end_date_field': 'end_datetime'}" />
+                                <field name="end_datetime" invisible="1" />
+                                <field name="repeat" nolabel="1" style="width: fit-content;font-size:10px;"
+                                        widget="boolean_icon" options="{'icon': 'fa-repeat'}"
+                                        groups="planning.group_planning_manager"/>
+                            </div>
+                            <label for="repeat_interval" invisible="not repeat" />
+                            <div invisible="not repeat" class="d-flex">
+                                <field name="repeat_interval"
+                                        class="me-2" style="max-width: 2rem !important;" />
+                                <field name="repeat_unit"
+                                        class="me-2" style="max-width: 4rem !important;" />
+                                <field name="repeat_type" required="repeat" nolabel="1"
+                                        class="me-2" style="max-width: 15rem !important;" />
+                                <field name="repeat_until" nolabel="1" invisible="repeat_type != 'until'"
+                                        required="repeat_type == 'until' and repeat" class="me-2" />
+                                <field name="repeat_number" class="me-2" invisible="repeat_type != 'x_times'"
+                                        required="repeat_type == 'x_times' and repeat" style="max-width: 2rem !important;"/>
+                            </div>
                             <label for="allocated_hours"/>
                             <div class="o_row">
                                 <field name="allocated_hours" widget="float_time" class="oe_inline" required="resource_type == 'material'"/>
@@ -143,26 +162,8 @@
                             </div>
                         </group>
                     </group>
-                    <div class="my-4" groups="planning.group_planning_manager">
-                        <div class="d-block d-md-flex">
-                            <label for="repeat"/>
-                            <field name="repeat"/>
-                            <div class="o_checkbox_optional_field">
-                                <div invisible="not repeat" class="d-flex">
-                                    <label for="repeat_interval" string="Every"/>
-                                    <field name="repeat_interval" class="ms-2" style="max-width: 4rem;"/>
-                                    <field name="repeat_unit" class="ms-2"/>
-                                    <field name="repeat_type" nolabel="1" class="ms-2" required="repeat"/>
-                                    <field name="repeat_until" class="ms-2" nolabel="1" invisible="repeat_type != 'until'" required="repeat_type == 'until' and repeat"/>
-                                    <field name="repeat_number" class="ms-2" invisible="repeat_type != 'x_times'" required="repeat_type == 'x_times' and repeat" style="max-width: 4rem;"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <field name="slot_properties" columns="2"/>
                     <field name="allow_template_creation" invisible="1"/>
-                    <label for="template_creation" groups="planning.group_planning_manager"></label>
-                    <field name="template_creation" class="ms-2" nolabel="1" groups="planning.group_planning_manager"/>
                     <field name="name" nolabel="1" placeholder="Additional note sent to the employee"/>
                 </sheet>
             </form>
@@ -269,6 +270,7 @@
                     <field name="confirm_delete" invisible="1"/>
                     <field name="is_unassign_deadline_passed" invisible="1"/>
                     <field name="request_to_switch" invisible="1"/>
+                    <field name="allow_template_creation" invisible="1"/>
                     <button string="Save" special="save" data-hotkey="q" class="btn btn-primary ms-1" close="1" groups="planning.group_planning_manager" invisible="confirm_delete"/>
                     <button string="Save" special="save" data-hotkey="q" class="btn btn-primary ms-1" close="1" groups="planning.group_planning_manager" invisible="not confirm_delete" confirm="All subsequent shifts will be deleted. Are you sure you want to continue?" />
                     <button string="Publish &amp; Send" type="object" name="action_send" class="btn btn-primary" close="1"
@@ -291,6 +293,7 @@
 
                     <button name="action_self_unassign" class="btn btn-secondary float-end" type="object" string="I Am Unavailable" data-hotkey="w" close="1"
                         invisible="not is_assigned_to_me or not allow_self_unassign or is_past or is_unassign_deadline_passed or not context.get('search_default_my_shifts')"/>
+                    <button name="action_save_template" class="btn btn-secondary" type="object" icon="fa-cloud-upload" string="Save Template" invisible="not allow_template_creation" groups="planning.group_planning_manager"/>
                     <button string="Discard" special="cancel" data-hotkey="x" class="btn-secondary float-end" close="1" fullscreen="True" groups="planning.group_planning_manager"/>
                     <button name="unlink" type="object" icon="fa-trash" title="Remove" class="btn-secondary float-end d-none d-md-inline" close="1" invisible="not id" groups="planning.group_planning_manager" data-hotkey="d"/>
                 </footer>

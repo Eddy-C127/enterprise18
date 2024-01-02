@@ -17,9 +17,9 @@ registry.category("web_tour.tours").add('planning_test_tour', {
 }, {
     trigger: ".o_field_widget[name='resource_id'] input",
     content: markup("Assign this shift to your <b>resource</b>, or leave it open for the moment."),
-    run: "edit Aaron",
+    run: "edit Mitchell Admin",
 }, {
-    trigger: ".o-autocomplete--dropdown-item > a:contains('Aaron')",
+    trigger: ".o-autocomplete--dropdown-item > a:contains('Mitchell Admin')",
     auto: true,
     in_modal: false,
 }, {
@@ -53,13 +53,9 @@ registry.category("web_tour.tours").add('planning_test_tour', {
         input.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
     }
 }, {
-    trigger: "div[name='template_creation'] input",
+    trigger: "button[name='action_save_template']",
     content: "Save this shift as a template",
-    run: function (actions) {
-        if (!this.anchor.checked) {
-            actions.click();
-        }
-    },
+    run: "click",
 }, {
     trigger: "button[special='save']",
     content: "Save this shift once it is ready.",
@@ -89,7 +85,7 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     trigger: "button[name='action_check_emails']",
     content: markup("<b>Publish & send</b> your planning to make it available to your employees."),
 }, {
-    trigger: ".o_gantt_row_header:contains('Aaron') .o_gantt_progress_bar",
+    trigger: ".o_gantt_row_header:contains('Mitchell Admin') .o_gantt_progress_bar",
     content: "See employee progress bar",
     auto: true,
     run: function () {
