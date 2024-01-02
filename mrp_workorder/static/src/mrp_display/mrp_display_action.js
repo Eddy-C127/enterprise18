@@ -36,7 +36,6 @@ export class MrpDisplayAction extends Component {
                 "product_tracking",
                 "product_uom_id",
                 "qty_producing",
-                "show_serial_mass_produce",
                 "state",
                 "workorder_ids",
                 "date_start",

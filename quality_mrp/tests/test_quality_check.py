@@ -236,20 +236,17 @@ class TestQualityCheck(TestQualityMrpCommon):
                 'location_id': mo.location_src_id.id,
             })._apply_inventory()
         mo.action_assign()
-        action = mo.action_serial_mass_produce_wizard()
-        wizard = Form(self.env['stock.assign.serial'].with_context(**action['context']))
-        wizard.next_serial_number = "sn#1"
-        wizard.next_serial_count = mo.product_qty - 1
-        action = wizard.save().generate_serial_numbers_production()
-
         # 'Pass' Quality Checks of production order.
         self.assertEqual(len(mo.check_ids), 1)
         mo.check_ids.do_pass()
 
-        # Reload the wizard to create backorder (applying generated serial numbers)
-        wizard = Form(self.env['stock.assign.serial'].browse(action['res_id']))
-        wizard.save().create_backorder()
-
+        action = mo.action_mass_produce()
+        wizard = Form(self.env['mrp.batch.produce'].with_context(**action['context']))
+        wizard.lot_name = "sn#1"
+        wizard.lot_qty = mo.product_qty - 1
+        wizard = wizard.save()
+        wizard.action_generate_production_text()
+        wizard.action_prepare()
         # Last MO in sequence is the backorder
         bo = mo.procurement_group_id.mrp_production_ids[-1]
         self.assertEqual(len(bo.check_ids), 1)

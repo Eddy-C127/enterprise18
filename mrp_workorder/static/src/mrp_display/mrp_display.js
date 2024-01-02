@@ -252,7 +252,7 @@ export class MrpDisplay extends Component {
             if (!production.isValidated) {
                 productionIds.push(production.record.resId);
                 const { data } = production.record;
-                if (data.product_tracking == "serial" && !data.show_serial_mass_produce) {
+                if (data.product_tracking == "serial") {
                     kwargs.context = kwargs.context || { skip_redirection: true };
                     if (data.product_qty > 1) {
                         kwargs.context.skip_backorder = true;

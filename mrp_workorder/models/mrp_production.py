@@ -75,9 +75,6 @@ class MrpProduction(models.Model):
 
     def pre_button_mark_done(self):
         res = super().pre_button_mark_done()
-        for production in self:
-            if production.product_tracking in ('lot', 'serial') and not production.lot_producing_id:
-                raise UserError(_('You need to supply a Lot/Serial Number for the final product.'))
         self.workorder_ids.verify_quality_checks()
         return res
 

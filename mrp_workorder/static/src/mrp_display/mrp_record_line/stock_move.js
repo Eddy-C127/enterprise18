@@ -39,7 +39,7 @@ export class StockMove extends Component {
         const move = this.props.record.data;
         const parent = this.props.parent.data;
         let toConsumeQuantity = move.should_consume_qty || move.product_uom_qty;
-        if (parent.product_tracking == "serial" && !parent.show_serial_mass_produce) {
+        if (parent.product_tracking == "serial") {
             toConsumeQuantity /= this.props.parent.data.product_qty;
         }
         return toConsumeQuantity;

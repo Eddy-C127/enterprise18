@@ -395,7 +395,7 @@ export class MrpDisplayRecord extends Component {
     get trackingMode() {
         if (
             this.props.production.data.product_tracking == "serial" &&
-            this.props.production.data.show_serial_mass_produce &&
+            this.props.production.data.product_qty > 1 &&
             !["progress", "to_close"].includes(this.props.production.data.state)
         ) {
             return "mass_produce";
@@ -465,8 +465,7 @@ export class MrpDisplayRecord extends Component {
             const params = {};
             let methodName = "pre_button_mark_done";
             if (this.trackingMode === "mass_produce") {
-                methodName = "action_serial_mass_produce_wizard";
-                params.mark_as_done = true;
+                methodName = "action_mass_produce";
             }
             const action = await this.model.orm.call("mrp.production", methodName, args, params);
             // If there is a wizard while trying to mark as done the production, confirming the
@@ -609,7 +608,7 @@ export class MrpDisplayRecord extends Component {
         const params = {};
         let methodName = "pre_button_mark_done";
         if (this.trackingMode === "mass_produce") {
-            methodName = "action_serial_mass_produce_wizard";
+            methodName = "action_mass_produce";
             params.mark_as_done = true;
         }
         const action = await this.model.orm.call(
