@@ -122,13 +122,10 @@ class HrContractSalary(http.Controller):
         contract_sudo = request.env['hr.contract'].sudo().browse(contract_id)
         if not contract_sudo.employee_id or contract_sudo.employee_id.user_id == request.env.user:
             return contract_sudo
-        try:
-            contract = request.env['hr.contract'].with_context(allowed_company_ids=request.env.user.company_ids.ids).browse(contract_id)
-            contract.check_access_rights('read')
-            contract.check_access_rule('read')
-            return contract_sudo
-        except:
-            return request.env['hr.contract']
+        contract = request.env['hr.contract'].with_context(allowed_company_ids=request.env.user.company_ids.ids).browse(contract_id)
+        contract.check_access_rights('read')
+        contract.check_access_rule('read')
+        return contract_sudo
 
     def _get_default_template_values(self, contract, offer):
         values = self._get_salary_package_values(contract, offer)
