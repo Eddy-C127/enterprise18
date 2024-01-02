@@ -1,9 +1,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Odoo WhatsApp Integration',
+    'name': 'WhatsApp Messaging',
     'category': 'WhatsApp',
-    'summary': 'Integrates Odoo with WhatsApp to use WhatsApp messaging service',
+    'summary': 'Text your Contacts on WhatsApp',
     'version': '1.0',
     'description': """This module integrates Odoo with WhatsApp to use WhatsApp messaging service""",
     'depends': ['mail', 'phone_validation'],

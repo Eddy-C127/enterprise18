@@ -98,12 +98,10 @@ class WhatsAppAccount(models.Model):
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': _("Template Synced"),
+                'title': _("Templates synchronized!"),
                 'type': 'success',
-                'message': _("""Template synchronization Completed.
-                    Template Created count %d
-                    Template Updated count %d
-                    """, template_create_count, template_update_count),
+                'message': _("%(create_count)s were created, %(update_count)s were updated",
+                    create_count=template_create_count, update_count=template_update_count),
                 'next': {'type': 'ir.actions.act_window_close'},
             }
         }
@@ -121,9 +119,8 @@ class WhatsAppAccount(models.Model):
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': _("Testing Credentials"),
                 'type': 'success',
-                'message': _("Credentials are valid."),
+                'message': _("Credentials look good!"),
             }
         }
 

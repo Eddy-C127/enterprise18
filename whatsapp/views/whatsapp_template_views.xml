@@ -46,14 +46,15 @@
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <div class="oe_title">
                         <label for="name"/>
-                        <h1><field name="name" required="1"/></h1>
+                        <h1><field name="name" required="1" placeholder='e.g. "Send Order Document"'/></h1>
                     </div>
                     <group>
                         <group>
                             <field name="active" invisible="1"/>
                             <field name="wa_account_id"
                                 groups="whatsapp.group_whatsapp_admin"
-                                readonly="status != 'draft'"/>
+                                readonly="status != 'draft'"
+                                placeholder="Pick an Account..."/>
                             <field name="model" invisible="1"/>
                             <field name="model_id"/>
                             <field name="phone_field"
@@ -62,7 +63,7 @@
                             <field name="template_type" readonly="status != 'draft'"/>
                             <field name="allowed_user_ids"
                                 widget="many2many_tags_avatar"
-                                placeholder="Users who can use this template.If empty then public."/>
+                                placeholder="Accessible to all Users"/>
                         </group>
                         <group>
                             <field name="template_name"
@@ -89,7 +90,7 @@
                     <notebook>
                         <page id="body" name="Body">
                             <field name="body" widget="whatsapp_text_variables"
-                                placeholder="Your whatsapp message, use {{1}}, {{2}} as placeholders for dynamic variable"
+                                placeholder="Hello {{1}}, here is your order with the reference {{2}} ..."
                                 readonly="status != 'draft'" required="1"/>
                         </page>
                         <page id="buttons" name="Buttons">
@@ -205,6 +206,7 @@
             <field name="arch" type="xml">
                 <search string="Templates">
                     <field name="name"/>
+                    <field name="body" string="Body"/>
                     <field name="model_id"/>
                     <field name="model" invisible="1"/>
                     <separator/>
@@ -231,12 +233,11 @@
         <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_empty_folder">
-                Create or sync WhatsApp Templates.
+                No Templates Found!
             </p>
             <p>
-                You can retrieve templates from Facebook by clicking <strong>Sync Templates</strong> on the <a name="%(whatsapp.whatsapp_account_action)d" type="action" class="oe_link">WhatsApp Business Account</a>.
-                Or create templates here and send them for approval.
-                Please refer the <a href="https://developers.facebook.com/docs/whatsapp/message-templates/guidelines" target="_blank">Template Guidelines</a>
+                Templates created on your <a href="https://business.facebook.com/wa/manage/message-templates" target="_blank">WhatsApp Account</a> will be visible here once they're synced.
+                You can also write new ones from here and submit them for approval, following the <a href="https://developers.facebook.com/docs/whatsapp/message-templates/guidelines" target="_blank">Template Guidelines</a>
             </p>
         </field>
     </record>

@@ -27,34 +27,40 @@
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <div class="oe_title" id='title'>
                         <label for="name" string="Name"/>
-                        <h1 id="name"><field name="name" required="1" placeholder="e.g. Odoo"/></h1>
+                        <h1 id="name"><field name="name" required="1" placeholder='e.g. "Acme Inc. Buisness Account"'/></h1>
                     </div>
-                    <h2>Sending messages <a href="https://www.odoo.com/documentation/17.0/applications/productivity/whatsapp.html" title="Documentation" class="o_doc_link" target="_blank"></a></h2>
-                    <p>This configuration is for sending the WhatsApp</p>
+                    <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">
+                        Sending Messages
+                        <a href="https://www.odoo.com/documentation/master/applications/productivity/whatsapp.html" title="Documentation" class="o_doc_link" target="_blank"></a>
+                    </div>
                     <field name="active" invisible="1"/>
-                    <div class="row mt16 o_settings_container" id="tosend_msg">
-                        <setting documentation="https://developers.facebook.com/docs/whatsapp/cloud-api/get-started#phone-number">
-                            <field name="phone_uid" required="1" placeholder="e.g. 123456789012345"/>
-                        </setting>
-                        <setting>
-                            <field name="account_uid" placeholder="e.g. 123456789012345"/>
-                        </setting>
-                        <setting documentation="https://developers.facebook.com/docs/whatsapp/business-management-api/get-started#system-user-access-tokens">
-                            <field name="token" password="True" placeholder="e.g. EGTRWHRTHETHWRBTEJETHGQEGWRHWR"/>
+                    <div class="row mt16 o_settings_container" id="app_setup">
+                        <setting documentation="https://developers.facebook.com/docs/development/create-an-app">
+                            <field name="app_uid" placeholder="e.g. 123456789012345"/>
                         </setting>
                         <setting>
                             <field name="app_secret" password="True" placeholder="e.g. 00112233445566778899aabbccddeeff"/>
                         </setting>
-                        <setting documentation="https://developers.facebook.com/docs/development/create-an-app">
-                            <field name="app_uid" placeholder="e.g. 123456789012345"/>
+                    </div>
+                    <div class="row mt16 o_settings_container" id="api_setup">
+                        <setting documentation="https://developers.facebook.com/docs/whatsapp/cloud-api/get-started#phone-number">
+                            <field name="phone_uid" required="1" placeholder="e.g. 123456789012345"/>
+                        </setting>
+                        <setting>
+                            <field name="account_uid" placeholder="e.g. 123456789012345" string="WhatsApp Busoness Account ID"/>
+                        </setting>
+                        <setting documentation="https://developers.facebook.com/docs/whatsapp/business-management-api/get-started#system-user-access-tokens">
+                            <field name="token" password="True" placeholder="e.g. EGTRWHRTHETHWRBTEJETHGQEGWRHWR"/>
                         </setting>
                         <div class="content-group">
-                            <button name="button_sync_whatsapp_account_templates" type="object" string="Sync Templates" class="btn-link p-1" icon="fa-refresh"/><br/>
-                            <button name="button_test_connection" type="object" string="Test Connection" icon="oi-arrow-right" class="btn-link p-1"/>
+                            <button name="button_test_connection" type="object" string="Test Credentials" icon="fa-key" class="btn-link p-1"/><br/>
+                            <button name="button_sync_whatsapp_account_templates" type="object" string="Synchronize Templates" class="btn-link p-1" icon="fa-refresh"/>
                         </div>
                     </div>
-                    <h2 class="mt16">Receiving messages <a href="https://www.odoo.com/documentation/17.0/applications/productivity/whatsapp.html" title="Documentation" class="o_doc_link" target="_blank"></a></h2>
-                    <p>This configuration is for receiving the WhatsApp messages.</p>
+                    <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">
+                        Receiving Messages
+                        <a href="https://www.odoo.com/documentation/master/applications/productivity/whatsapp.html" title="Documentation" class="o_doc_link" target="_blank"></a>
+                    </div>
                     <div class="row mt16 o_settings_container" id="toreceive_msg">
                         <setting documentation="https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks">
                             <field name="callback_url" widget="CopyClipboardURL"/>
@@ -63,11 +69,10 @@
                             <field name="webhook_verify_token" widget="CopyClipboardText"/>
                         </setting>
                     </div>
-                    <h2 class="mt16">Control</h2>
-                    <p>Notify users and company where this account can be used</p>
+                    <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">Notifications</div>
                     <div class="row mt16 o_settings_container" id="tocontrol">
                         <setting>
-                            <field name="notify_user_ids" string="Notify users" widget="many2many_tags"/>
+                            <field name="notify_user_ids" string="Default Users" widget="many2many_tags" placeholder="Pick users to notify..."/>
                         </setting>
                         <setting>
                             <field name="allowed_company_ids" string="Allowed companies" widget="many2many_tags" groups="base.group_multi_company" required="1"/>
@@ -97,13 +102,11 @@
         <field name="res_model">whatsapp.account</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
-            <p class="oe_view_nocontent_create">
-                There is no WhatsApp Business Account configured.
+            <p class="o_view_nocontent_smiling_face">
+                No Account Configured yet!
             </p>
             <p>
-                If you have credentials for cloud api then setup here and start using WhatsApp.
-                You can register a WhatsApp Business Account through
-                <a href="https://developers.facebook.com/docs/whatsapp/cloud-api/reference/registration" target="_blank">WhatsApp cloud api</a>
+                Create an Account on the <a href="https://developers.facebook.com/docs/whatsapp/cloud-api/reference/registration" target="_blank">Meta for Developers</a> platform then connect it to your Odoo database
             </p>
         </field>
     </record>

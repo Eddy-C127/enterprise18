@@ -55,14 +55,14 @@ class WhatsAppMessage(models.Model):
         ('error', 'Failed'),
         ('cancel', 'Cancelled')], string="State", default='outgoing')
     failure_type = fields.Selection([
-        ('account', 'Misconfigured or shared account'),
-        ('blacklisted', 'Phone is blacklisted'),
-        ('network', 'Invalid query or unreachable endpoint'),
-        ('phone_invalid', 'Phone number in the wrong format'),
-        ('template', 'Template cannot be used'),
-        ('unknown', 'Unidentified error'),
-        ('whatsapp_recoverable', 'Fixable Whatsapp error'),
-        ('whatsapp_unrecoverable', 'Unfixable Whatsapp error')
+        ('account', 'Account Error'),
+        ('blacklisted', 'Blacklisted Phone Number'),
+        ('network', 'Network Error'),
+        ('phone_invalid', 'Wrong Number Format'),
+        ('template', 'Template Error'),
+        ('unknown', 'Unknown Error'),
+        ('whatsapp_recoverable', 'Identified Error'),
+        ('whatsapp_unrecoverable', 'Other Technical Error')
     ])
     failure_reason = fields.Char(string="Failure Reason", help="Usually an error message from Whatsapp")
     free_text_json = fields.Json(string="Free Text Template Parameters")
@@ -191,19 +191,6 @@ class WhatsAppMessage(models.Model):
         retryable_messages = self.filtered(lambda msg: msg.state == 'error' and msg.failure_type != 'whatsapp_unrecoverable')
         retryable_messages.write({'state': 'outgoing', 'failure_type': False, 'failure_reason': False})
         self.env.ref('whatsapp.ir_cron_send_whatsapp_queue')._trigger()
-        if retryable_messages != self:
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'sticky': True,
-                    'type': 'warning',
-                    'title': _("Some messages are not retryable."),
-                    'message': _(
-                        "Sent messages or messages with unfixable failures cannot be resent."
-                    ),
-                }
-            }
 
     def _send_cron(self):
         """ Send all outgoing messages. """
