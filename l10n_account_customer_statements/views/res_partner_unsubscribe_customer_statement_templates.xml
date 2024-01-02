@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_unsubscribe_customer_statement" name="Unsubscribe Customer Statments">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
+            <div class="row">
+                <div class="col-auto">
+                    <h2>Subscription Cancelled</h2>
+                    Your subscription to our automated customer statements email has been cancelled.
+                    <br />
+                    If you have any questions or need further assistance, please contact our customer service team.
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

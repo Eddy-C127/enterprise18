@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_res_partner_auto_customer_statement" model="ir.ui.view">
+            <field name="name">view_res_partner_auto_customer_statement</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='credit_limits']" position="after">
+                    <group string="Automatic Customer Statements" name="customer_statements"
+                           groups="account.group_account_readonly">
+                        <label for="automatic_customer_statement_enabled"/>
+                        <div class="d-flex gap-2">
+                            <field name="automatic_customer_statement_enabled"/>
+                            <span invisible="not automatic_customer_statement_enabled" class="d-flex gap-2 w-100">
+                                <field name="customer_statement_interval" required="automatic_customer_statement_enabled"/>
+                                <field name="customer_statement_frequency" required="automatic_customer_statement_enabled"/>
+                            </span>
+                        </div>
+                        <field name="next_customer_statement_date" string="Next Date"
+                               invisible="not automatic_customer_statement_enabled"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

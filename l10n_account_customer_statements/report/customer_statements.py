@@ -8,11 +8,12 @@ class CustomerStatementReport(models.AbstractModel):
     _description = "Customer Statements Report"
 
     def _get_report_values(self, docids, data=None):
-        ids = docids or data['context']['active_ids']
+        docs = self.env['res.partner'].browse(docids)
+        options = self.env.context.get('report_options', False)
         return {
-            'doc_ids': ids,
+            'doc_ids': docids,
             'doc_model': 'res.partner',
-            'docs': self.env['res.partner'].browse(ids),
+            'docs': docs,
             'company': self.env.company,
-            **data,
+            **docs._prepare_customer_statement_values(options),
         }

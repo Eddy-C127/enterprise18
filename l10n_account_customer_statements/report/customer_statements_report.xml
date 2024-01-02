@@ -18,10 +18,10 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="row">
-                                        <h2>CUSTOMER STATEMENTS</h2>
+                                        <h2>CUSTOMER STATEMENT</h2>
                                     </div>
                                     <div class="row text-muted">
-                                        <span t-out="from_date" name="from_date"/> TO <span t-out="to_date" name="to_date"/>
+                                        <span t-out="from_date.upper()" name="from_date"/> TO <span t-out="to_date.upper()" name="to_date"/>
                                     </div>
                                 </div>
                                 <div class="col-6 text-end">
@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <!-- Table -->
-                            <t t-set="partner_lines" t-value="lines[str(p.id)]"/>
+                            <t t-set="partner_lines" t-value="lines[p.id]"/>
                             <div class="row mt-5">
                                 <table class="table table-borderless text-nowrap">
                                     <thead class="border border-dark-subtle">
@@ -73,7 +73,7 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <t t-set="balance_due" t-value="balances_due[str(p.id)]"/>
+                            <t t-set="balance_due" t-value="balances_due[p.id]"/>
                             <div class="row">
                                 <div class="col text-end fs-1">
                                     <label for="balance_due">BALANCE DUE: </label>

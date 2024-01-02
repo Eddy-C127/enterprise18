@@ -30,8 +30,7 @@ class TestCustomerStatements(TestAccountReportsCommon):
             'date': {'date_from': '2023-01-01', 'date_to': '2023-01-31'},
             'report_id': self.env.ref('account_reports.partner_ledger_report').id,
         }
-        action = self.partner_a.action_print_customer_statements(options)
-        data = action['context']['report_action']['data']
+        data = self.partner_a._prepare_customer_statement_values(options)
 
         # 1. Ensure consistency of the lines
         self.assertDictEqual(
@@ -86,8 +85,7 @@ class TestCustomerStatements(TestAccountReportsCommon):
             'report_id': self.env.ref('account_reports.partner_ledger_report').id,
             'unreconciled': True,
         }
-        action = self.partner_a.action_print_customer_statements(options)
-        data = action['context']['report_action']['data']
+        data = self.partner_a._prepare_customer_statement_values(options)
 
         # 1. Ensure consistency of the lines
         self.assertDictEqual(
@@ -122,8 +120,7 @@ class TestCustomerStatements(TestAccountReportsCommon):
     @freeze_time('2023-01-25')  # When printing from a customer directly, we print for the current month.
     def test_statement_from_customer(self):
         # Mostly the same, besides that we don't have any options.
-        action = self.partner_a.action_print_customer_statements()
-        data = action['context']['report_action']['data']
+        data = self.partner_a._prepare_customer_statement_values()
 
         # 1. Ensure consistency of the lines
         self.assertDictEqual(

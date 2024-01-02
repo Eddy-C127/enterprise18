@@ -1,17 +1,71 @@
-from collections import defaultdict
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+import uuid
 
-from odoo import _, fields, models
+from collections import defaultdict
+from dateutil.relativedelta import relativedelta
+
+from odoo import _, fields, models, api
 from odoo.exceptions import UserError
 from odoo.tools.misc import format_date
+from odoo.tools.date_utils import end_of
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = ['res.partner']
+
+    next_customer_statement_date = fields.Date(
+        string="Next Statement Date",
+        compute="_compute_next_statement_date",
+        store=True,
+        readonly=False,
+    )
+    automatic_customer_statement_enabled = fields.Boolean(
+        string='Frequency',
+        help='By Enabling this option, customer statements will be sent to this partner at a fixed frequency that you can control.'
+    )
+    customer_statement_interval = fields.Integer(default=1)
+    customer_statement_frequency = fields.Selection(
+        selection=[
+            ('weeks', 'Weeks'),
+            ('months', 'Months'),
+        ],
+        default='months',
+        string="Send Every",
+    )
+    customer_statement_access_token = fields.Char('Security Token', copy=False)
+
+    def _ensure_customer_statement_token(self):
+        """ Get the current record access token """
+        if not self.customer_statement_access_token:
+            self.sudo().write({'customer_statement_access_token': str(uuid.uuid4())})
+        return self.customer_statement_access_token
+
+    @api.depends('customer_statement_interval', 'customer_statement_frequency', 'automatic_customer_statement_enabled')
+    def _compute_next_statement_date(self):
+        """ Default the next statement date to the end of the current month or week. """
+        for partner in self:
+            if not partner.automatic_customer_statement_enabled or not partner.customer_statement_frequency:
+                partner.next_customer_statement_date = False
+                continue
+
+            granularity = 'month' if partner.customer_statement_frequency == 'months' else 'week'
+            partner.next_customer_statement_date = end_of(fields.Date.today(), granularity)
+
+    def _update_next_customer_statement_date(self):
+        for partner in self:
+            partner.next_customer_statement_date += relativedelta(**{
+                partner.customer_statement_frequency: partner.customer_statement_interval
+            })
 
     def action_print_customer_statements(self, options=None):
         """The customer statement is a report that is based on the partner ledger, with a few differences.
         It is commonly sent each month to every customer with purchases during the month.
         """
+        return self.env.ref('l10n_account_customer_statements.action_customer_statements_report').with_context(
+            report_options=options
+        ).report_action(self)
+
+    def _prepare_customer_statement_values(self, options=None):
         def format_monetary(value):
             return self.env['account.report'].format_value(
                 options=options,
@@ -27,14 +81,15 @@ class ResPartner(models.Model):
         partner_lines = defaultdict(list)
         partner_running_balances = defaultdict(float)
         # 0. If we do not have a from and to date, we will default to the current month.
+        yesterday = fields.Date.today() - relativedelta(days=1)
         if options:
-            from_date = options.get("date", {}).get("date_from") or fields.Date.today().replace(day=1)
-            to_date = options.get("date", {}).get("date_to") or fields.Date.today()
+            from_date = options.get("date", {}).get("date_from") or yesterday.replace(day=1)
+            to_date = options.get("date", {}).get("date_to") or yesterday
             unreconciled = options.get("unreconciled", False)
             report = self.env['account.report'].browse(options.get('report_id'))
         else:
-            from_date = fields.Date.today().replace(day=1)
-            to_date = fields.Date.today()
+            from_date = yesterday.replace(day=1)
+            to_date = yesterday
             unreconciled = False
             report = self.env.ref('account_reports.partner_ledger_report')
         # Also prepare report options, as we will use the report sql code to get the line values.
@@ -91,19 +146,14 @@ class ResPartner(models.Model):
                         'balance': format_monetary(partner_running_balances[partner.id]),
                     }
                 )
-
-        return self.env.ref('l10n_account_customer_statements.action_customer_statements_report').report_action(
-            self,
-            data={
-                'from_date': format_date(self.env, from_date, date_format='d MMMM yyyy').upper(),
-                'to_date': format_date(self.env, to_date, date_format='d MMMM yyyy').upper(),
+        return {
+                'from_date': format_date(self.env, from_date, date_format='d MMMM yyyy'),
+                'to_date': format_date(self.env, to_date, date_format='d MMMM yyyy'),
                 'lines': partner_lines,
                 'balances_due': {
                     partner.id: format_monetary(partner_running_balances[partner.id]) for partner in self
                 },
-                'vat_label': {partner.id: partner.country_id.vat_label or 'VAT' for partner in self},
-            },
-        )
+            }
 
     def _get_initial_balances(self, options, report):
         balances = self.env[report.custom_handler_model_name]._get_initial_balance_values(
@@ -130,3 +180,43 @@ class ResPartner(models.Model):
         if is_payment:
             move_type = f"{'⬅' if line_value.get('balance', 0.0) < 0 else '➡'}{_('Payment')}"
         return move_type
+
+    def _get_customer_statement_pdf(self):
+        """
+        Return the pdf of the customer statement report.
+        """
+        self.ensure_one()
+        pdf_file, dummy = self.env['ir.actions.report']._render_qweb_pdf(
+            self.env.ref('l10n_account_customer_statements.action_customer_statements_report').id,
+            res_ids=self.ids,
+        )
+        return self.env['ir.attachment'].create({
+            'name': _("Customer Statement %s.pdf", self.name) if self.name else _("Customer Statement.pdf"),
+            'raw': pdf_file,
+            'res_model': self._name,
+            'res_id': self.id,
+        })
+
+    def _cron_send_customer_statements(self):
+        partners = self.search([
+            ('automatic_customer_statement_enabled', '=', True),
+            ('next_customer_statement_date', '<=', fields.Date.today()),
+        ])
+        yesterday = fields.Date.today() - relativedelta(days=1)
+        from_date = yesterday.replace(day=1)
+        to_date = yesterday
+        for partner in partners:
+            doc_ids = partner._get_customer_statement_pdf()
+            template = self.env.ref(
+                'l10n_account_customer_statements.email_template_customer_statement',
+            )
+            partner._ensure_customer_statement_token()
+            # Pass the dates in the context for the mail template.
+            partner.with_context(
+                from_date=format_date(self.env, from_date, date_format='d MMMM yyyy'),
+                to_date=format_date(self.env, to_date, date_format='d MMMM yyyy'),
+            ).message_post_with_source(
+                source_ref=template,
+                attachment_ids=doc_ids,
+            )
+        partners._update_next_customer_statement_date()

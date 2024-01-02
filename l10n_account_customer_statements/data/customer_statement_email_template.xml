@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_customer_statement" model="mail.template">
+            <field name="name">Customer Statement</field>
+            <field name="subject">Customer Statement</field>
+            <field name="email_from">{{ object.company_id.email_formatted or user.email_formatted }}</field>
+            <field name="email_to">{{ object.email_formatted }}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p>
+                        <t t-if="object.id != object.commercial_partner_id.id">
+                            Dear <t t-out="object.name or ''"/> (<t t-out="object.commercial_partner_id.name or ''"/>),
+                        </t>
+                        <t t-else="">
+                            Dear <t t-out="object.name or ''"/>,
+                        </t>
+                    </p>
+                    <p>
+                        I hope this email finds you well. As part of our commitment to transparency and keeping you informed about your account,
+                        please find attached your Customer Statement for the period of <t t-out="ctx.get('from_date')"/> - <t t-out="ctx.get('to_date')"/>.
+                    </p>
+                    <p>
+                        This statement provides a detailed overview of your account activity, including transactions,
+                        payments, and any outstanding balances. If you have any questions or concerns regarding the
+                        information presented in the statement, please do not hesitate to reach out to our customer
+                        service team.
+                    </p>
+                    <p>
+                        We appreciate your continued partnership and trust in our company.
+                    </p>
+                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;"/>
+                    <p>
+                        To unsubscribe from our automated customer statements, please
+                        <a t-attf-href="{{ website_url }}/customer_statements/unsubscribe/{{object.id}}?access_token={{object.customer_statement_access_token}}">
+                            click here
+                        </a>
+                    </p>
+                </div>
+            </field>
+            <field name="lang">{{ object.lang }}</field>
+        </record>
+    </data>
+</odoo>
