@@ -33,8 +33,21 @@ class TestNlXafExport(TestAccountReportsCommon):
         # Create one invoice for partner B in 2018
         partner_b_invoice1 = cls.init_invoice('out_invoice', products=products, partner=cls.partner_b, invoice_date=fields.Date.from_string('2018-01-01'))
 
+        # Create one MISC entry in 2018
+        bank_account_id = cls.company_data['default_journal_bank'].default_account_id.id
+        receivable_account_id = cls.company_data['default_account_receivable'].id
+        partner_a_misc = cls.env['account.move'].create({
+            'move_type': 'entry',
+            'date': fields.Date.from_string('2018-01-01'),
+            'journal_id': cls.company_data['default_journal_misc'].id,
+            'line_ids': [
+                (0, 0, {'debit': 100.0, 'credit': 0.0, 'account_id': receivable_account_id, 'partner_id': cls.partner_a.id}),
+                (0, 0, {'debit': 0.0, 'credit': 100.0, 'account_id': bank_account_id, 'partner_id': cls.partner_a.id}),
+            ],
+        })
+
         # init_invoice has hardcoded 2019 year's date, we are resetting it to current year's one.
-        (partner_a_invoice1 + partner_a_invoice2 + partner_a_invoice3 + partner_b_invoice1 + partner_a_refund + partner_b_bill).action_post()
+        (partner_a_invoice1 + partner_a_invoice2 + partner_a_invoice3 + partner_b_invoice1 + partner_a_refund + partner_b_bill + partner_a_misc).action_post()
 
     @freeze_time('2019-12-31')
     def test_xaf_export(self):
@@ -87,8 +100,26 @@ class TestNlXafExport(TestAccountReportsCommon):
                     </customersSuppliers>
                     <generalLedger>
                         <ledgerAccount>
+                            <accID>103001</accID>
+                            <accDesc>Bank</accDesc>
+                            <accTp>B</accTp>
+                            <changeInfo>
+                                <userID>___ignore___</userID>
+                                <changeDateTime>___ignore___</changeDateTime>
+                                <changeDescription>___ignore___</changeDescription>
+                            </changeInfo>
+                        </ledgerAccount><ledgerAccount>
                             <accID>110000</accID>
                             <accDesc>Debtors</accDesc>
+                            <accTp>B</accTp>
+                            <changeInfo>
+                                <userID>___ignore___</userID>
+                                <changeDateTime>___ignore___</changeDateTime>
+                                <changeDescription>___ignore___</changeDescription>
+                            </changeInfo>
+                        </ledgerAccount><ledgerAccount>
+                            <accID>110010</accID>
+                            <accDesc>Debtors (copy)</accDesc>
                             <accTp>B</accTp>
                             <changeInfo>
                                 <userID>___ignore___</userID>
@@ -228,13 +259,23 @@ class TestNlXafExport(TestAccountReportsCommon):
                     </periods>
                     <openingBalance>
                         <opBalDate>2019-01-01</opBalDate>
-                        <linesCount>3</linesCount>
-                        <totalDebit>1452.0</totalDebit>
-                        <totalCredit>252.0</totalCredit>
+                        <linesCount>5</linesCount>
+                        <totalDebit>1552.0</totalDebit>
+                        <totalCredit>352.0</totalCredit>
                         <obLine>
+                            <nr>___ignore___</nr>
+                            <accID>110000</accID>
+                            <amnt>100.0</amnt>
+                            <amntTp>D</amntTp>
+                        </obLine><obLine>
                             <nr>___ignore___</nr>
                             <accID>150000</accID>
                             <amnt>252.0</amnt>
+                            <amntTp>C</amntTp>
+                        </obLine><obLine>
+                            <nr>___ignore___</nr>
+                            <accID>103001</accID>
+                            <amnt>100.0</amnt>
                             <amntTp>C</amntTp>
                         </obLine><obLine>
                             <nr>___ignore___</nr>

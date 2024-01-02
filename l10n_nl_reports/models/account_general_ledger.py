@@ -116,8 +116,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             lang = self.env.user.lang or get_lang(self.env).code
             journal_name = f"COALESCE(journal.name->>'{lang}', journal.name->>'en_US')" if \
                 self.pool['account.journal'].name.translate else 'journal.name'
-            account_name = f"COALESCE(account.name->>'{lang}', account.name->>'en_US')" if \
-                self.pool['account.account'].name.translate else 'account.name'
             tax_name = f"COALESCE(tax.name->>'{lang}', tax.name->>'en_US')" if \
                 self.pool['account.tax'].name.translate else 'tax.name'
             for dummy in range(0, count, batch_size):
@@ -155,11 +153,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                            account_move_line.move_name AS line_move_name,
                            account_move_line.amount_currency AS line_amount_currency,
                            account.id AS account_id,
-                           {account_name} AS account_name,
                            account.code AS account_code,
-                           account.write_uid AS account_write_uid,
-                           account.write_date AS account_write_date,
-                           account.internal_group,
                            reconcile.id AS line_reconcile_name,
                            currency.id AS line_currency_id,
                            currency2.id AS line_company_currency_id,
@@ -218,6 +212,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             check_forbidden_countries(report, res_list, iso_country_codes)
 
             vals_dict = {}
+            vals_dict['account_ids'] = set()
             for row in res_list:
                 # Aggregate taxes' values
                 if row['tax_id']:
@@ -226,16 +221,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                         'tax_id': row['tax_id'],
                         'tax_name': row['tax_name'],
                     })
-                # Aggregate accounts' values
-                vals_dict.setdefault('account_data', {})
-                vals_dict['account_data'].setdefault(row['account_id'], {
-                    'account_code': row['account_code'],
-                    'account_name': row['account_name'],
-                    'account_type': acc_tp(row['internal_group']),
-                    'account_write_date': change_date_time(row['account_write_date']),
-                    'account_write_uid': row['account_write_uid'],
-                    'account_xaf_userid': self.env['res.users'].browse(row['account_write_uid']).l10n_nl_report_xaf_userid,
-                })
+                # Get accounts' ids
+                vals_dict['account_ids'].add(row['account_id'])
                 # Aggregate partners' values
                 if row['partner_id']:
                     street_detail = street_split(row['partner_street'])
@@ -381,8 +368,20 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'account_code': query_res['account_code'],
                 'balance': query_res['sum_debit'] - query_res['sum_credit'],
             })
+        opening_balance_account_ids = {line['id'] for line in opening_lines}
 
         vals_dict = get_vals_dict(report)
+        # Aggregate accounts' values
+        vals_dict.setdefault('account_data', {})
+        for acc in self.env['account.account'].browse(vals_dict['account_ids'] | opening_balance_account_ids):
+            vals_dict['account_data'].setdefault(acc['id'], {
+                'account_code': acc.code,
+                'account_name': acc.name,
+                'account_type': acc_tp(acc.internal_group),
+                'account_write_date': change_date_time(acc.write_date),
+                'account_write_uid': acc.write_uid,
+                'account_xaf_userid': acc.write_uid.l10n_nl_report_xaf_userid,
+            })
 
         values = {
             'opening_lines_count': lines_count,
