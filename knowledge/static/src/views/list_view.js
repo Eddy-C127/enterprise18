@@ -2,7 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { registry } from '@web/core/registry';
-
+import { user } from "@web/core/user";
 import { listView } from '@web/views/list/list_view';
 import { ListController } from '@web/views/list/list_controller';
 
@@ -22,7 +22,7 @@ export class KnowledgeArticleController extends ListController {
     getStaticActionMenuItems() {
         const menuItems = super.getStaticActionMenuItems();
         menuItems.duplicate = {
-            isAvailable: () => this.nbSelected && this.userService.isAdmin,
+            isAvailable: () => this.nbSelected && user.isAdmin,
             sequence: 15,
             icon: "fa fa-clone",
             description: _t("Duplicate"),
