@@ -241,6 +241,10 @@ export class UserAgent {
                 sessionDescriptionHandlerOptions: {
                     constraints: this.mediaConstraints,
                 },
+            }).catch((error) => {
+                if (error.name !== "NotAllowedError") {
+                    throw error;
+                }
             });
         } catch (error) {
             console.error(error);
