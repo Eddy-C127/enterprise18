@@ -69,6 +69,17 @@
                 <filter string="My Request" name="filter_my_request" domain="[('request_owner_id', '=', uid)]"/>
                 <filter string="My Approvals to Review" name="filter_approvals_to_review"
                     domain="[('approver_ids.user_id', '=', uid), ('request_status', '=', 'pending')]"/>
+                <separator/>
+                <filter string="Approved" name="filter_approved_requests" domain="[('request_status', '=', 'approved')]"/>
+                <filter string="Refused" name="filter_refused_requests" domain="[('request_status', '=', 'refused')]"/>
+                <separator/>
+                <filter string="Canceled" name="filter_canceled_requests" domain="[('request_status', '=', 'cancel')]"/>
+                <group string="Group By">
+                    <filter string="Status" name="groupby_request_status"
+                        context="{'group_by': 'request_status'}"/>
+                    <filter string="Category" name="groupby_category_id"
+                        context="{'group_by': 'category_id'}"/>
+                </group>
             </search>
         </field>
     </record>
