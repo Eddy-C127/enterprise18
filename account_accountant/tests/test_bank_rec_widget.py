@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from odoo.addons.account_accountant.tests.test_bank_rec_widget_common import TestBankRecWidgetCommon
-from odoo.exceptions import UserError
 from odoo.tests import tagged
 from odoo.tools import html2plaintext
 from odoo import fields, Command
@@ -8,6 +7,7 @@ from odoo import fields, Command
 from freezegun import freeze_time
 from unittest.mock import patch
 import re
+
 
 @tagged('post_install', '-at_install')
 class TestBankRecWidget(TestBankRecWidgetCommon):
@@ -495,6 +495,61 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             {'account_id': inv_line_3.account_id.id,    'amount_currency': 0.0, 'currency_id': foreign_currency.id, 'balance': 100.0,   'reconciled': True},
             {'account_id': income_exchange_account.id,  'amount_currency': 0.0, 'currency_id': foreign_currency.id, 'balance': -100.0,  'reconciled': False},
         ])
+
+    def test_validation_foreign_curr_st_line_comp_curr_payment_partial_exchange_difference(self):
+        comp_curr = self.env.company.currency_id
+        foreign_curr = self.currency_data['currency']
+
+        st_line = self._create_st_line(
+            650.0,
+            date='2017-01-01',
+            foreign_currency_id=foreign_curr.id,
+            amount_currency=800,
+        )
+
+        payment = self.env['account.payment'].create({
+            'partner_id': self.partner_a.id,
+            'payment_type': 'inbound',
+            'partner_type': 'customer',
+            'date': '2017-01-01',
+            'amount': 725.0,
+        })
+        payment.action_post()
+        pay_line, _counterpart_lines, _writeoff_lines = payment._seek_for_lines()
+
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        wizard._action_add_new_amls(pay_line)
+
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',       'amount_currency': 650.0,       'currency_id': comp_curr.id,        'balance': 650.0},
+            {'flag': 'new_aml',         'amount_currency': -650.0,      'currency_id': comp_curr.id,        'balance': -650.0},
+        ])
+
+        # Switch to a full reconciliation.
+        line = wizard.line_ids.filtered(lambda x: x.flag == 'new_aml')
+        wizard._js_action_mount_line_in_edit(line.index)
+        wizard._js_action_apply_line_suggestion(line.index)
+
+        # 725 * 800 / 650 = 892.308
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',       'amount_currency': 650.0,       'currency_id': comp_curr.id,        'balance': 650.0},
+            {'flag': 'new_aml',         'amount_currency': -725.0,      'currency_id': comp_curr.id,        'balance': -725.0},
+            {'flag': 'auto_balance',    'amount_currency': 92.308,      'currency_id': foreign_curr.id,     'balance': 75.0},
+        ])
+
+        # Switch to a partial reconciliation.
+        wizard._js_action_apply_line_suggestion(line.index)
+
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',       'amount_currency': 650.0,       'currency_id': comp_curr.id,        'balance': 650.0},
+            {'flag': 'new_aml',         'amount_currency': -650.0,      'currency_id': comp_curr.id,        'balance': -650.0},
+        ])
+
+        wizard._action_validate()
+        self.assertRecordValues(pay_line, [{'amount_residual': 75.0}])
 
     def test_validation_remove_exchange_difference(self):
         """ Test the case when the foreign currency is missing on the statement line.
