@@ -239,6 +239,7 @@ class UPSRequest:
         return {
             'AttentionName': (partner.name or '')[:35],
             'Name': (partner.parent_id.name or partner.name or '')[:35],
+            'EMailAddress': partner.email or '',
             'ShipperNumber': shipper_no or '',
             'Phone': {
                 'Number': partner.phone or partner.mobile or '',
