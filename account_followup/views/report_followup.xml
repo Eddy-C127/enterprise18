@@ -147,15 +147,7 @@
                         </div>
                     </t>
                     <div class="oe_structure"></div>
-                    <t t-if="(options or {}).get('join_invoices', doc.followup_line_id.join_invoices)">
-                        <t t-foreach="doc._get_invoices_to_print(options)" t-as="o">
-                            <t t-set="lang" t-value="o.user_id.lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
-                            <t t-call="account.report_invoice_document" t-lang="lang"/>
-                        </t>
-                    </t>
-                    <t t-else="">
-                        <div class="oe_structure"></div>
-                    </t>
+                    <!-- The invoice PDFs are attached by extending function _render_qweb_pdf_prepare_streams of ir.actions.report -->
                 </t>
             </t>
         </template>
