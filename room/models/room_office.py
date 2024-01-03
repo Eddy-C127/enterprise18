@@ -10,6 +10,7 @@ class RoomOffice(models.Model):
 
     name = fields.Char(string="Office Name", required=True, translate=True)
     company_id = fields.Many2one("res.company", string="Company", default=lambda self: self.env.company, required=True)
+    room_properties_definition = fields.PropertiesDefinition("Room Properties")
 
     @api.depends("company_id")
     def _compute_display_name(self):

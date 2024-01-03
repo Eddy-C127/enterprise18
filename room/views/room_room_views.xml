@@ -8,9 +8,11 @@
             <search string="Room">
                 <field name="name" string="Room"/>
                 <field name="office_id"/>
+                <field name="room_properties"/>
                 <field name="company_id" groups="base.group_multi_company"/>
                 <filter name="group_by_office_id" context="{'group_by': 'office_id'}"/>
                 <filter name="group_by_company_id" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                <filter string="Properties" name="group_by_room_properties" context="{'group_by':'room_properties'}"/>
                 <searchpanel>
                     <field name="company_id"/>
                     <field name="office_id" select="multi" domain="[['company_id', '=', company_id]]" enable_counters="1" icon="fa-building"/>
@@ -26,6 +28,7 @@
             <kanban>
                 <field name="is_available"/>
                 <field name="next_booking_start"/>
+                <field name="office_id"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
@@ -35,6 +38,9 @@
                                     <strong class="o_kanban_record_title">
                                         <field name="name"/>
                                     </strong>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <field name="room_properties" widget="properties"/>
                                 </div>
                                 <div class="o_kanban_record_bottom">
                                     <div t-attf-class="py-1 px-2 text-bg-#{record.is_available.raw_value ? 'success' : 'danger'}">
@@ -68,6 +74,7 @@
                 <field name="office_id"/>
                 <field name="is_available" string="Is Currently Available"/>
                 <field name="next_booking_start"/>
+                <field name="room_properties"/>
             </tree>
         </field>
     </record>
@@ -117,6 +124,7 @@
                             <field name="room_booking_url" widget="CopyClipboardChar"/>
                         </group>
                     </group>
+                    <field name="room_properties" columns="2"/>
                     <notebook>
                         <page name="Appearance">
                             <group>

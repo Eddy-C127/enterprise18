@@ -16,6 +16,7 @@ class Room(models.Model):
     name = fields.Char(string="Room Name", required=True, tracking=2)
     description = fields.Html(string="Amenities", translate=html_translate)
     office_id = fields.Many2one("room.office", string="Office", required=True, tracking=3)
+    room_properties = fields.Properties("Properties", definition="office_id.room_properties_definition")
     company_id = fields.Many2one(related="office_id.company_id", string="Company", store=True)
     room_booking_ids = fields.One2many("room.booking", "room_id", string="Bookings")
     short_code = fields.Char("Short Code", default=lambda self: str(uuid4())[:8], copy=False, required=True, tracking=1)
