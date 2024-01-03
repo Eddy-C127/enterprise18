@@ -138,6 +138,10 @@ export default class BarcodeModel extends EventBus {
         return true;
     }
 
+    get displayAddProductButton() {
+        return true;
+    }
+
     get displayApplyButton() {
         return false;
     }

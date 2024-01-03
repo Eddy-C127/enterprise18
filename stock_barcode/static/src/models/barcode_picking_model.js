@@ -59,9 +59,19 @@ export default class BarcodePickingModel extends BarcodeModel {
             this.notification(message, { type: "danger" });
             return false;
         } else if (this.askBeforeNewLinesCreation(product)) {
+            const productName = (product.code ? `[${product.code}] ` : "") + product.display_name;
+            if (!this.config.barcode_allow_extra_product) {
+                // No unreserved product can't be added, display a warning.
+                const message = _t(
+                    "The product %s should not be picked in this operation.", productName
+                );
+                this.notification(message, { type: "danger" });
+                return false;
+            }
+            // Unreserved product can be added but a confirmation is needed.
             const body = _t(
                 "Scanned product %s is not reserved for this transfer. Are you sure you want to add it?",
-                (product.code ? `[${product.code}] ` : '') + product.display_name,
+                productName
             );
             const confirmationPromise = new Promise((resolve, reject) => {
                 this.trigger("playSound");
@@ -563,6 +573,10 @@ export default class BarcodePickingModel extends BarcodeModel {
 
     get considerPackageLines() {
         return this._moveEntirePackage() && this.packageLines.length;
+    }
+
+    get displayAddProductButton() {
+        return !this._useReservation || this.config.barcode_allow_extra_product;
     }
 
     get displayCancelButton() {

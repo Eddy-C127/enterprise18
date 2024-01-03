@@ -269,6 +269,10 @@ class StockPicking(models.Model):
 class StockPickingType(models.Model):
     _inherit = 'stock.picking.type'
 
+    barcode_allow_extra_product = fields.Boolean(
+        "Allow extra products", default=True,
+        help="For planned transfers, allow to add non-reserved products"
+    )
     barcode_validation_after_dest_location = fields.Boolean("Force a destination on all products")
     barcode_validation_all_product_packed = fields.Boolean("Force all products to be packed")
     barcode_validation_full = fields.Boolean(
@@ -353,6 +357,7 @@ class StockPickingType(models.Model):
         )
         config = {
             # Boolean fields.
+            'barcode_allow_extra_product': self.barcode_allow_extra_product,
             'barcode_validation_after_dest_location': self.barcode_validation_after_dest_location,
             'barcode_validation_all_product_packed': self.barcode_validation_all_product_packed,
             'barcode_validation_full': not self.restrict_scan_product and self.barcode_validation_full,  # Forced to be False when scanning a product is mandatory.

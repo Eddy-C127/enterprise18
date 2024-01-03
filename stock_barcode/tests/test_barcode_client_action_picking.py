@@ -2135,6 +2135,39 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             {'product_id': self.productlot1.id, 'lot_ids': lot01.ids, 'quantity': 1},
         ])
 
+    def test_setting_barcode_allow_extra_product(self):
+        """ This test ensures we can't add non-reserved product when the picking type is set like
+        that, but we can still scan any product for a picking created on the fly.
+        """
+        self.clean_access_rights()
+        self.picking_type_out.barcode_allow_extra_product = False
+        self.env['stock.quant'].with_context(inventory_mode=True).create({
+            'product_id': self.product1.id,
+            'inventory_quantity': 1,
+            'location_id': self.stock_location.id,
+        }).action_apply_inventory()
+        # Create a delivery for product1 only.
+        delivery = self.env['stock.picking'].create({
+            'name': 'delivery_test',
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+        })
+        self.env['stock.move'].create({
+            'name': 'delivery_test move',
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.supplier_location.id,
+            'product_id': self.product1.id,
+            'product_uom_qty': 1,
+            'picking_id': delivery.id,
+        })
+        delivery.action_confirm()
+        delivery.action_assign()
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action_id.id}"
+        self.start_tour(url, 'test_setting_barcode_allow_extra_product', login='admin', timeout=180)
+
     def test_split_line_reservation(self):
         """ Tests new lines created when a line is split to take
             from qty in a different location than the reserved

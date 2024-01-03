@@ -132,18 +132,23 @@
             <xpath expr="//page[@name='hardware']" position="after">
                 <field name="is_barcode_picking_type" invisible="1"/>
                 <page name="barcode_app" string="Barcode App" invisible="not is_barcode_picking_type">
-                    <group name="restrict_scan_settings" string="Mandatory Scan">
-                        <field name="restrict_scan_source_location" string="Source Location"
-                                groups="stock.group_stock_multi_locations"
-                                invisible="code == 'incoming'"/>
-                        <field name="restrict_scan_product" string="Product"/>
-                        <field name="restrict_scan_tracking_number" string="Lot/Serial"
-                                groups="stock.group_production_lot"/>
-                        <field name="restrict_put_in_pack"
-                                groups="stock.group_tracking_lot" string="Put in Pack"/>
-                        <field name="restrict_scan_dest_location" string="Destination Location"
-                                groups="stock.group_stock_multi_locations"
-                                invisible="code == 'outgoing'"/>
+                    <group>
+                        <group name="restrict_scan_settings" string="Mandatory Scan">
+                            <field name="restrict_scan_source_location" string="Source Location"
+                                   groups="stock.group_stock_multi_locations"
+                                   invisible="code == 'incoming'"/>
+                            <field name="restrict_scan_product" string="Product"/>
+                            <field name="restrict_scan_tracking_number" string="Lot/Serial"
+                                   groups="stock.group_production_lot"/>
+                            <field name="restrict_put_in_pack"
+                                   groups="stock.group_tracking_lot" string="Put in Pack"/>
+                            <field name="restrict_scan_dest_location" string="Destination Location"
+                                   groups="stock.group_stock_multi_locations"
+                                   invisible="code == 'outgoing'"/>
+                        </group>
+                        <group name="barcode_options" string="Options">
+                            <field name="barcode_allow_extra_product"/>
+                        </group>
                     </group>
                     <field name="show_barcode_validation" invisible="1"/>
                     <group name="barcode_validation" string="Final Validation" invisible="not show_barcode_validation">

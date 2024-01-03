@@ -3687,6 +3687,32 @@ registry.category("web_tour.tours").add('test_avoid_useless_line_creation', {tes
     ...stepUtils.discardBarcodeForm(),
 ]});
 
+registry.category("web_tour.tours").add('test_setting_barcode_allow_extra_product', {tests: true, steps: () => [
+    // Scans the delivery to open it.
+    { trigger: '.o_stock_barcode_main_menu', run: 'scan delivery_test' },
+    // Scans the reserved product.
+    { trigger: '.o_barcode_line', run: 'scan product1' },
+    // Try to scan a not-reserved product -> Display a warning.
+    { trigger: '.o_barcode_line.o_selected.o_line_completed', run: 'scan product2' },
+    {
+        trigger: '.o_notification_bar.bg-danger',
+        run: function() {
+            helper.assertErrorMessage("The product product2 should not be picked in this operation.");
+        }
+    },
+    // Valid the delivery, then create another one. Checks any product can be scanned regardless the delivery type config.
+    { trigger: '.o_barcode_client_action', run: 'scan O-BTN.validate' },
+    { trigger: '.o_stock_barcode_main_menu', run: 'scan WH-DELIVERY' },
+    { trigger: '.o_barcode_client_action', run: 'scan product1' },
+    { trigger: '.o_barcode_line', run: 'scan product2' },
+    { trigger: '.o_barcode_line:nth-child(2)', run: function() {
+        const lines = helper.getLines();
+        helper.assert(lines.length, 2);
+        helper.assertLineProduct(lines[0], "product1");
+        helper.assertLineProduct(lines[1], "product2");
+    }},
+]});
+
 registry.category("web_tour.tours").add('test_split_line_reservation', {test: true, steps: () => [
     {
         trigger: '.o_barcode_client_action',
