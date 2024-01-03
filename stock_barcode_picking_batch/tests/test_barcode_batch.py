@@ -617,3 +617,103 @@ class TestBarcodeBatchClientAction(TestBarcodeClientAction):
             {'picking_id': pickings[1].id, 'product_id': self.product1.id, 'state': 'done', 'quantity': 7, 'picked': True},
             {'picking_id': pickings[1].id, 'product_id': self.product2.id, 'state': 'done', 'quantity': 30, 'picked': True},
         ])
+
+    def test_setting_group_lines_by_product(self):
+        """ Checks lines are correctly grouped even when from different pickings
+        in case the parameter `group_lines_by_product` is enabled.
+        """
+        self.clean_access_rights()
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        grp_lot = self.env.ref('stock.group_production_lot')
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0), (4, grp_lot.id, 0)]})
+        self.picking_type_in.group_lines_by_product = True
+
+        # Creates 3 receipts.
+        receipt1 = self.env['stock.picking'].create({
+            'name': 'receipt1',
+            'location_id': self.supplier_location.id,
+            'location_dest_id': self.stock_location.id,
+            'picking_type_id': self.picking_type_in.id,
+            'state': 'draft',
+        })
+        receipt2 = self.env['stock.picking'].create({
+            'name': 'receipt2',
+            'location_id': self.supplier_location.id,
+            'location_dest_id': self.stock_location.id,
+            'picking_type_id': self.picking_type_in.id,
+        })
+        receipt3 = self.env['stock.picking'].create({
+            'name': 'receipt3',
+            'location_id': self.supplier_location.id,
+            'location_dest_id': self.stock_location.id,
+            'picking_type_id': self.picking_type_in.id,
+        })
+        self.env['stock.move'].create([
+            {  # receipt1 moves.
+                'name': 'receipt1 product1 move',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.stock_location.id,
+                'product_id': self.product1.id,
+                'product_uom_qty': 1,
+                'picking_id': receipt1.id,
+            }, {
+                'name': 'receipt1 productlot1 move',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.stock_location.id,
+                'product_id': self.productlot1.id,
+                'product_uom_qty': 4,
+                'picking_id': receipt1.id,
+            }, {  # receipt2 moves.
+                'name': 'receipt2 productlot1 move',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.stock_location.id,
+                'product_id': self.productlot1.id,
+                'product_uom_qty': 2,
+                'product_uom': self.productlot1.uom_id.id,
+                'picking_id': receipt2.id,
+            }, {
+                'name': 'receipt2 product1 move',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.stock_location.id,
+                'product_id': self.product1.id,
+                'product_uom_qty': 2,
+                'product_uom': self.product1.uom_id.id,
+                'picking_id': receipt2.id,
+            }, {
+                'name': 'receipt2 product2 move',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.stock_location.id,
+                'product_id': self.product2.id,
+                'product_uom_qty': 5,
+                'picking_id': receipt2.id,
+            }, {  # receipt3 moves.
+                'name': 'receipt3 product1 move',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.stock_location.id,
+                'product_id': self.product1.id,
+                'product_uom_qty': 3,
+                'picking_id': receipt3.id,
+                'state': 'draft',
+            }, {
+                'name': 'receipt3 product1 move (shelf2)',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.shelf2.id,  # Not the same destination, should not be grouped.
+                'product_id': self.product1.id,
+                'product_uom_qty': 2,
+                'picking_id': receipt3.id,
+                'state': 'draft',
+            }
+        ])
+        receipts = (receipt1 | receipt2 | receipt3)
+        receipts.action_confirm()
+        receipts.action_assign()
+
+        # Creates a new batch and adds receipts in it.
+        batch_receipts = self.env['stock.picking.batch'].create({
+            'name': 'batch receipts test',
+            'picking_ids': receipts.ids,
+        })
+        batch_receipts.action_confirm()
+
+        url = self._get_batch_client_action_url(batch_receipts.id)
+        self.start_tour(url, 'test_setting_group_lines_by_product', login='admin', timeout=180)

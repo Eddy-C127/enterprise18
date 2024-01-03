@@ -28,9 +28,11 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     setData(data) {
+        // Picking type's scan restrictions and other barcode's configuration.
+        this.config = data.data.config || {};
+
         super.setData(...arguments);
         this._useReservation = this.initialState.lines.some(line => !line.picked);
-        this.config = data.data.config || {}; // Picking type's scan restrictions configuration.
         if (!this.displayDestinationLocation) {
             this.config.restrict_scan_dest_location = 'no';
         }

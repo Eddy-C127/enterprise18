@@ -867,3 +867,185 @@ registry.category("web_tour.tours").add('test_pack_and_same_product_several_sml'
     },
     ...stepUtils.validateBarcodeOperation(),
 ]});
+
+registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {test: true, steps: () => [
+    // First, checks all lines are correctly grouped.
+    {
+        trigger: ".o_barcode_client_action",
+        run: function() {
+            const [line1, line2, line3, line4] = helper.getLines();
+            helper.assertLinesCount(4);
+            // First line: 6 product1 (1 receipt1 + 2 receipt2 + 3 receipt3)
+            helper.assertLineProduct(line1, "product1");
+            helper.assertLineQty(line1, "0 / 6");
+            helper.assertButtonShouldBeVisible(line1, "toggle_sublines");
+            // Second line: 5 product2 (receipt2)
+            helper.assertLineProduct(line2, "product2");
+            helper.assertLineQty(line2, "0 / 5");
+            helper.assertButtonShouldBeVisible(line2, "toggle_sublines", false);
+            // Third line: 6 productlot1 (4 receipt1 + 2 receipt2)
+            helper.assertLineProduct(line3, "productlot1");
+            helper.assertLineQty(line3, "0 / 6");
+            helper.assertButtonShouldBeVisible(line3, "toggle_sublines");
+            // Fourth line: 2 product1 (receipt3, goes to Shelf2)
+            helper.assertLineProduct(line4, "product1");
+            helper.assertLineDestinationLocation(line4, ".../Section 2");
+            helper.assertLineQty(line4, "0 / 2");
+            helper.assertButtonShouldBeVisible(line4, "toggle_sublines", false);
+        }
+    },
+    // Unfolds the first grouped line.
+    { trigger: ".o_barcode_line:first-child .o_toggle_sublines" },
+    {
+        trigger: ".o_barcode_line.o_selected .o_sublines .o_barcode_line",
+        run: function() {
+            helper.assertSublinesCount(3);
+            const sublines = document.querySelectorAll(".o_sublines .o_barcode_line");
+            // receipt1
+            helper.assertLineQty(sublines[0], "0 / 1");
+            helper.assertLineBelongTo(sublines[0], "receipt1");
+            // receipt2
+            helper.assertLineQty(sublines[1], "0 / 2");
+            helper.assertLineBelongTo(sublines[1], "receipt2");
+            // receipt3
+            helper.assertLineQty(sublines[2], "0 / 3");
+            helper.assertLineBelongTo(sublines[2], "receipt3");
+        }
+    },
+    // Scan 2x product1 -> receipt1 line should be completed, receipt2 line should be ongoing.
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    {
+        extra_trigger: ".o_sublines .o_barcode_line.o_line_completed",
+        trigger: ".o_sublines .o_barcode_line.o_selected.o_line_not_completed",
+        run: function() {
+            helper.assertSublinesCount(3);
+            const sublines = document.querySelectorAll(".o_sublines .o_barcode_line");
+            // receipt1
+            helper.assertLineQty(sublines[0], "1 / 1");
+            helper.assertLineBelongTo(sublines[0], "receipt1");
+            // receipt2
+            helper.assertLineQty(sublines[1], "1 / 2");
+            helper.assertLineBelongTo(sublines[1], "receipt2");
+            // receipt3
+            helper.assertLineQty(sublines[2], "0 / 3");
+            helper.assertLineBelongTo(sublines[2], "receipt3");
+        }
+    },
+    // Scan 4x product1 to complete the first line.
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    {
+        trigger: ".o_barcode_client_action>.o_barcode_lines>.o_barcode_line.o_line_completed",
+        run: function() {
+            helper.assertSublinesCount(3);
+            const sublines = document.querySelectorAll(".o_sublines .o_barcode_line");
+            // receipt1
+            helper.assertLineQty(sublines[0], "1 / 1");
+            helper.assertLineBelongTo(sublines[0], "receipt1");
+            // receipt2
+            helper.assertLineQty(sublines[1], "2 / 2");
+            helper.assertLineBelongTo(sublines[1], "receipt2");
+            // receipt3
+            helper.assertLineQty(sublines[2], "3 / 3");
+            helper.assertLineBelongTo(sublines[2], "receipt3");
+        }
+    },
+    // Scans two more times product1 -> The last line (the not grouped one) should be selected.
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_line.o_selected.o_line_not_completed", run: "scan product1" },
+    {
+        trigger: ".o_barcode_line.o_selected.o_line_completed",
+        run: function() {
+            const line = helper.getLine({ selected: true });
+            helper.assertLineQty(line, "2 / 2");
+            helper.assertLineProduct(line, "product1");
+            helper.assertLineBelongTo(line, "receipt3");
+        }
+    },
+    // Scans one last time product1 -> An extra line is created using current selected picking and
+    // default locations. The added line should be grouped with other ones too.
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    {
+        trigger: ".o_barcode_line.o_selected.o_line_not_completed",
+        run: function() {
+            const groupedLine = helper.getLine({ selected: true });
+            const selectedSubline = helper.getSubline({ selected: true });
+            helper.assertLineQty(groupedLine, "7 / 6");
+            helper.assertLineProduct(groupedLine, "product1");
+            helper.assertLineQty(selectedSubline, "1");
+            helper.assertLineBelongTo(selectedSubline, "receipt3");
+        }
+    },
+    // Scans 2x product2.
+    { trigger: ".o_barcode_client_action", run: "scan product2" },
+    { trigger: ".o_barcode_client_action", run: "scan product2" },
+    {
+        trigger: ".o_barcode_line[data-barcode='product2'].o_selected.o_line_not_completed",
+        run: function() {
+            const line = helper.getLine({ selected: true });
+            helper.assertLineQty(line, "2 / 5");
+            helper.assertLineProduct(line, "product2");
+            helper.assertLineBelongTo(line, "receipt2");
+        }
+    },
+    // Adds through the form view another line for product2 in receipt3.
+    { trigger: ".o_add_line" },
+    {
+        trigger: "#picking_id_0",
+        run: "text receipt"
+    },
+    { trigger: "a.dropdown-item:contains('receipt3')" },
+    { trigger: "#product_id_0" },
+    {
+        trigger: "input#product_id_0",
+        run: "text product2",
+    },
+    { trigger: "a.dropdown-item:contains('product2')" },
+    {
+        extra_trigger: ".o_field_widget[name='product_id'] input:propValue('product2')",
+        trigger: "button.o_save",
+    },
+    // Checks the added line is grouped with the one from receipt2
+    { trigger: ".o_barcode_line.o_selected .o_toggle_sublines" },
+    {
+        trigger: ".o_barcode_line.o_selected .o_sublines .o_barcode_line",
+        run: function() {
+            helper.assertSublinesCount(2);
+            const sublines = document.querySelectorAll(".o_sublines .o_barcode_line");
+            // receipt2
+            helper.assertLineQty(sublines[0], "2 / 5");
+            helper.assertLineBelongTo(sublines[0], "receipt2");
+            // receipt3 (added line)
+            helper.assertLineQty(sublines[1], "1");
+            helper.assertLineBelongTo(sublines[1], "receipt3");
+        }
+    },
+    // Process productlot1.
+    { trigger: ".o_barcode_client_action", run: "scan productlot1" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan lot1" },
+    { trigger: ".o_barcode_client_action", run: "scan lot1" },
+    { trigger: ".o_barcode_client_action", run: "scan lot2" },
+    { trigger: ".o_barcode_client_action", run: "scan lot2" },
+    { trigger: ".o_barcode_client_action", run: "scan lot3" },
+    { trigger: ".o_barcode_client_action", run: "scan lot3" },
+    { trigger: ".o_barcode_line.o_selected.o_line_completed .o_toggle_sublines" },
+    {
+        trigger: ".o_barcode_line.o_selected .o_sublines .o_barcode_line",
+        run: function() {
+            helper.assertSublinesCount(3);
+            const sublines = document.querySelectorAll(".o_sublines .o_barcode_line");
+            // lot1 receipt1
+            helper.assertLineQty(sublines[0], "2 / 4");
+            helper.assertLineBelongTo(sublines[0], "receipt1");
+            // lot2 receipt2
+            helper.assertLineQty(sublines[1], "2 / 2");
+            helper.assertLineBelongTo(sublines[1], "receipt2");
+            // lot3 receipt2
+            helper.assertLineQty(sublines[2], "2");
+            helper.assertLineBelongTo(sublines[2], "receipt2");
+        }
+    },
+]})

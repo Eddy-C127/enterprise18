@@ -14,6 +14,15 @@ export default class GroupedLineComponent extends LineComponent {
         return this.env.model.groupKey(this.line) === this.env.model.unfoldLineKey;
     }
 
+    get sublineProps() {
+        return {
+            displayUOM: this.props.displayUOM,
+            editLine: this.props.editLine,
+            line: this.subline,
+            subline: true,
+        };
+    }
+
     toggleSublines(ev) {
         ev.stopPropagation();
         this.env.model.toggleSublines(this.line);

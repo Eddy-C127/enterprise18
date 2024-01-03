@@ -135,7 +135,17 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
     }
 
     groupKey(line) {
+        if (this.config.group_lines_by_product) {
+            return super.groupKey(...arguments);
+        }
         return `${line.picking_id.id}_` + super.groupKey(...arguments);
+    }
+
+    lineCannotBeGrouped(line) {
+        if (this.config.group_lines_by_product) {
+            return Boolean(line.lines);
+        }
+        return super.lineCannotBeGrouped(...arguments);
     }
 
     get needPickings() {
@@ -200,7 +210,11 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
         this.colorByPickingId = new Map(pickings.map((p, i) => [p, i * (360 / pickings.length)]));
 
         for (const line of lines) {
-            line.colorLine = this.colorByPickingId.get(line.picking_id);
+            if (!this.config.group_lines_by_product) {
+                // Don't color lines if they are grouped by product/locations (lines from different
+                // pickings can be grouped together so it makes no sense.)
+                line.colorLine = this.colorByPickingId.get(line.picking_id);
+            }
             line.picking_id = line.picking_id && this.cache.getRecord('stock.picking', line.picking_id);
         }
         return lines;
@@ -237,8 +251,11 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
             }
         }
         // Get the line's picking as the default one, or take the batch's first one.
-        const defaultPicking = (line && line.picking_id) || this.picking;
-        defaultValues.colorLine = this.colorByPickingId.get(defaultPicking.id);
+        const defaultPicking = line?.picking_id || this.picking;
+        if (!this.config.group_lines_by_product) {
+            // Don't add the color if lines are grouped by product.
+            defaultValues.colorLine = this.colorByPickingId.get(defaultPicking.id);
+        }
         defaultValues.picking_id = defaultPicking;
         return defaultValues;
     }
@@ -251,7 +268,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
     }
 
     _getScanPackageMessage(line) {
-        if (line.suggested_package) {
+        if (line?.suggested_package) {
             return _t("Scan the package %s", line.suggested_package);
         }
         return super._getScanPackageMessage(...arguments);

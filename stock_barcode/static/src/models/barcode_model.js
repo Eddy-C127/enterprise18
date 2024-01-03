@@ -166,12 +166,17 @@ export default class BarcodeModel extends EventBus {
         return `${line.product_id.id}_${line.location_id.id}`;
     }
 
+    lineCannotBeGrouped(line) {
+        // Don't try to group a line who is not tracked or is already grouped.
+        return line.product_id.tracking === 'none' || line.lines;
+    }
+
     /**
      * Returns the page's lines but with tracked products grouped by product id.
      *
      * @returns
      */
-     get groupedLines() {
+    get groupedLines() {
         if (!this.groups.group_production_lot) {
             return this._sortLine(this.pageLines);
         }
@@ -180,8 +185,7 @@ export default class BarcodeModel extends EventBus {
         const groupedLinesByKey = {};
         for (let index = lines.length - 1; index >= 0; index--) {
             const line = lines[index];
-            if (line.product_id.tracking === 'none' || line.lines) {
-                // Don't try to group this line if it's not tracked or already grouped.
+            if (this.lineCannotBeGrouped(line)) {
                 continue;
             }
             const key = this.groupKey(line);

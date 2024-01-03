@@ -32,3 +32,14 @@ class StockPicking(models.Model):
             )
         else:
             return super()._get_without_quantities_error_message()
+
+
+class StockPickingType(models.Model):
+    _inherit = "stock.picking.type"
+
+    group_lines_by_product = fields.Boolean("Group batch lines", help="Lines of same product at same location appear grouped. Not to use for cluster picking")
+
+    def _get_barcode_config(self):
+        config = super()._get_barcode_config()
+        config['group_lines_by_product'] = self.group_lines_by_product
+        return config
