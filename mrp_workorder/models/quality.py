@@ -564,7 +564,7 @@ class QualityCheck(models.Model):
 
     def _update_lots(self):
         for check in self:
-            if check.component_tracking and check.move_id.picking_type_id.prefill_lot_tablet:
+            if check.component_tracking:
                 check.lot_id = check.move_line_id.lot_id
 
     def do_pass(self):

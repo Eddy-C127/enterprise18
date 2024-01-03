@@ -42,7 +42,7 @@ class QualityCheck(models.Model):
 
     def _update_lot_from_lot_line(self):
         self.ensure_one()
-        return super()._update_lot_from_lot_line() and (not self.production_id or self.move_id.picking_type_id.prefill_lot_tablet)
+        return super()._update_lot_from_lot_line() and not self.production_id
 
 
 class QualityAlert(models.Model):

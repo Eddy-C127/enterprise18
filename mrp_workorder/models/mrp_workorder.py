@@ -496,8 +496,7 @@ class MrpProductionWorkcenterLine(models.Model):
                 'move_line_id': move_line_id.id,
                 'qty_done': move_line_id.quantity or 1.0
             })
-            if move.picking_type_id.prefill_lot_tablet:
-                vals['lot_id'] = move_line_id.lot_id.id
+            vals['lot_id'] = move_line_id.lot_id.id
         return vals
 
     # --------------------------
