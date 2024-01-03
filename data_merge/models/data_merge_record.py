@@ -67,6 +67,8 @@ class DataMergeRecord(models.Model):
             raise NotImplementedError()
 
         cr = self._cr
+        # flush in case record was just created but not yet in database
+        self.env['data_merge.model'].flush_model()
         restrict_model_ids = self.env.context.get('data_merge_model_ids')
         if restrict_model_ids:
             cr.execute(
