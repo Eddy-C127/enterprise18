@@ -103,10 +103,6 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         extra_trigger: 'div.o_dialog input#product_id_0:value("Color")',
         trigger: 'button[name=add_product]',
     },
-    {
-        extra_trigger: 'body:not(.modal-open)',
-        trigger: '.o_mrp_record_line .btn-secondary:contains("2")'
-    },
     { trigger: 'button[barcode_trigger=cloWO]' },
     { trigger: 'button[barcode_trigger=cloMO]' },
     {

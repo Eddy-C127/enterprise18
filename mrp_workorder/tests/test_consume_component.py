@@ -43,7 +43,6 @@ class TestConsumeTrackedComponent(TestConsumeComponentCommon):
         -> No auto-consumption of the 'serial' component
         -> Auto-consumption of other components
         """
-        self.assertTrue(self.picking_type.use_auto_consume_components_lots)
         # Create manufacturing order
         mo_serial = self.create_mo(self.mo_serial_tmpl, 1)
         mo_serial.action_confirm()
@@ -73,7 +72,6 @@ class TestConsumeTrackedComponent(TestConsumeComponentCommon):
         -> No auto-consumption of the 'serial' component
         -> Auto-consumption of other components
         """
-        self.assertTrue(self.picking_type.use_auto_consume_components_lots)
 
         self.quality_point.active = False
 
@@ -106,7 +104,6 @@ class TestConsumeTrackedComponent(TestConsumeComponentCommon):
         -> No auto-consumption of the 'serial' component
         -> Auto-consumption of other components
         """
-        self.assertTrue(self.picking_type.use_auto_consume_components_lots)
 
         self.quality_point.active = True
         self.bom_serial_line_serial.operation_id = self.env['mrp.routing.workcenter']
@@ -139,7 +136,6 @@ class TestConsumeTrackedComponent(TestConsumeComponentCommon):
         -> No Consumption step
         -> Auto-consumption of all components
         """
-        self.assertTrue(self.picking_type.use_auto_consume_components_lots)
 
         self.quality_point.active = False
         self.bom_serial_line_serial.operation_id = self.env['mrp.routing.workcenter']

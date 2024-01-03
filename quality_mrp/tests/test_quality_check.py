@@ -36,10 +36,11 @@ class TestQualityCheck(TestQualityMrpCommon):
         mo_form = Form(self.mrp_production_qc_test1)
         mo_form.qty_producing = self.mrp_production_qc_test1.product_qty - 1
         mo_form.lot_producing_id = self.lot_product_27_0
-        details_operation_form = Form(self.mrp_production_qc_test1.move_raw_ids[0], view=self.env.ref('stock.view_stock_move_operations'))
-        with details_operation_form.move_line_ids.edit(0) as ml:
-            ml.lot_id = self.lot_product_product_drawer_drawer_0
-        details_operation_form.save()
+        for move in self.mrp_production_qc_test1.move_raw_ids:
+            details_operation_form = Form(move, view=self.env.ref('stock.view_stock_move_operations'))
+            with details_operation_form.move_line_ids.edit(0) as ml:
+                ml.lot_id = self.lot_product_product_drawer_drawer_0 if ml.product_id == self.product_product_drawer_drawer else self.lot_product_product_drawer_case_0
+            details_operation_form.save()
 
         self.mrp_production_qc_test1 = mo_form.save()
         self.mrp_production_qc_test1.move_raw_ids[0].picked = True
@@ -171,10 +172,11 @@ class TestQualityCheck(TestQualityMrpCommon):
         production.check_ids.do_pass()
         production.qty_producing = 3.0
         production.lot_producing_id = self.lot_product_27_0
-        details_operation_form = Form(production.move_raw_ids[1], view=self.env.ref('stock.view_stock_move_operations'))
-        with details_operation_form.move_line_ids.edit(0) as ml:
-            ml.lot_id = self.lot_product_product_drawer_case_0
-        details_operation_form.save()
+        for move in production.move_raw_ids:
+            details_operation_form = Form(move, view=self.env.ref('stock.view_stock_move_operations'))
+            with details_operation_form.move_line_ids.edit(0) as ml:
+                ml.lot_id = self.lot_product_product_drawer_drawer_0 if ml.product_id == self.product_product_drawer_drawer else self.lot_product_product_drawer_case_0
+            details_operation_form.save()
         production.move_raw_ids[1].picked = True
         action = production.button_mark_done()
         consumption_warning = Form(self.env['mrp.consumption.warning'].with_context(**action['context']))
@@ -274,10 +276,11 @@ class TestQualityCheck(TestQualityMrpCommon):
         mo_form = Form(self.mrp_production_qc_test1)
         mo_form.qty_producing = self.mrp_production_qc_test1.product_qty
         mo_form.lot_producing_id = self.lot_product_27_0
-        details_operation_form = Form(self.mrp_production_qc_test1.move_raw_ids[0], view=self.env.ref('stock.view_stock_move_operations'))
-        with details_operation_form.move_line_ids.edit(0) as ml:
-            ml.lot_id = self.lot_product_product_drawer_drawer_0 if ml.product_id == self.product_product_drawer_drawer else self.lot_product_product_drawer_case_0
-        details_operation_form.save()
+        for move in self.mrp_production_qc_test1.move_raw_ids:
+            details_operation_form = Form(move, view=self.env.ref('stock.view_stock_move_operations'))
+            with details_operation_form.move_line_ids.edit(0) as ml:
+                ml.lot_id = self.lot_product_product_drawer_drawer_0 if ml.product_id == self.product_product_drawer_drawer else self.lot_product_product_drawer_case_0
+            details_operation_form.save()
 
         self.mrp_production_qc_test1 = mo_form.save()
         self.mrp_production_qc_test1.move_raw_ids[0].picked = True

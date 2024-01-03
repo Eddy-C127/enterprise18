@@ -62,7 +62,7 @@ class TestShopFloor(HttpCase):
             })],
             'bom_line_ids': [
                 (0, 0, {'product_id': leg.id, 'product_qty': 4}),
-                (0, 0, {'product_id': neck.id, 'product_qty': 1})
+                (0, 0, {'product_id': neck.id, 'product_qty': 1, 'manual_consumption': True})
             ]
         })
         steps_common_values = {

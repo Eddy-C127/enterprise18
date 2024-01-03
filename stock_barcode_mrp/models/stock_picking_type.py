@@ -30,5 +30,4 @@ class StockPickingType(models.Model):
 
     def _get_barcode_config(self):
         config = super()._get_barcode_config()
-        config['use_auto_consume_components_lots'] = self.use_auto_consume_components_lots
         return config
