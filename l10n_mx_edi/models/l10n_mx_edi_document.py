@@ -2090,10 +2090,10 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             'SOAPAction': 'http://tempuri.org/IConsultaCFDIService/Consulta',
             'Content-Type': 'text/xml; charset=utf-8',
         }
-        params = f'<![CDATA[?re={tools.html_escape(supplier_rfc or "")}' \
+        params = f'<![CDATA[?id={uuid or ""}' \
+                 f'&re={tools.html_escape(supplier_rfc or "")}' \
                  f'&rr={tools.html_escape(customer_rfc or "")}' \
-                 f'&tt={total or 0.0}' \
-                 f'&id={uuid or ""}]]>'
+                 f'&tt={total or 0.0}]]>'
         envelope = f"""<?xml version="1.0" encoding="UTF-8"?>
             <SOAP-ENV:Envelope
                 xmlns:ns0="http://tempuri.org/"

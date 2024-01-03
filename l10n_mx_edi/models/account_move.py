@@ -310,10 +310,10 @@ class AccountMove(models.Model):
             return {}
 
         barcode_value_params = keep_query(
+            id=cfdi_infos['uuid'],
             re=cfdi_infos['supplier_rfc'],
             rr=cfdi_infos['customer_rfc'],
             tt=cfdi_infos['amount_total'],
-            id=cfdi_infos['uuid'],
         )
         barcode_sello = url_quote_plus(cfdi_infos['sello'][-8:], safe='=/').replace('%2B', '+')
         barcode_value = url_quote_plus(f'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?{barcode_value_params}&fe={barcode_sello}')
