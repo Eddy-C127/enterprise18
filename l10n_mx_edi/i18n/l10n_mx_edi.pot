@@ -97,18 +97,18 @@ msgid "601"
 msgstr ""
 
 #. module: l10n_mx_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_edi.report_payment_document
+msgid "<span class=\"ps-1\">Emitter Acc. Ben.</span>"
+msgstr ""
+
+#. module: l10n_mx_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_edi.report_payment_document
+msgid "<span class=\"ps-1\">Emitter Acc. Ord.</span>"
+msgstr ""
+
+#. module: l10n_mx_edi
 #: model_terms:ir.ui.view,arch_db:l10n_mx_edi.report_invoice_document
 msgid "<span> - </span>"
-msgstr ""
-
-#. module: l10n_mx_edi
-#: model_terms:ir.ui.view,arch_db:l10n_mx_edi.report_payment_document
-msgid "<span> Emitter Acc. Ben.</span>"
-msgstr ""
-
-#. module: l10n_mx_edi
-#: model_terms:ir.ui.view,arch_db:l10n_mx_edi.report_payment_document
-msgid "<span> Emitter Acc. Ord.</span>"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -441,6 +441,17 @@ msgid "Cancel In Error"
 msgstr ""
 
 #. module: l10n_mx_edi
+#: model:ir.model.fields.selection,name:l10n_mx_edi.selection__account_move__l10n_mx_edi_cfdi_state__cancel_requested
+#: model:ir.model.fields.selection,name:l10n_mx_edi.selection__l10n_mx_edi_document__state__invoice_cancel_requested
+msgid "Cancel Requested"
+msgstr ""
+
+#. module: l10n_mx_edi
+#: model:ir.model.fields.selection,name:l10n_mx_edi.selection__l10n_mx_edi_document__state__invoice_cancel_requested_failed
+msgid "Cancel Requested In Error"
+msgstr ""
+
+#. module: l10n_mx_edi
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_bank_statement_line__l10n_mx_edi_invoice_cancellation_reason
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_move__l10n_mx_edi_invoice_cancellation_reason
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_payment__l10n_mx_edi_invoice_cancellation_reason
@@ -522,6 +533,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_res_company__l10n_mx_edi_certificate_ids
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_res_config_settings__l10n_mx_edi_certificate_ids
 msgid "Certificates (MX)"
+msgstr ""
+
+#. module: l10n_mx_edi
+#. odoo-python
+#: code:addons/l10n_mx_edi/wizard/account_move_send.py:0
+#, python-format
+msgid "Check Country on Partner(s)"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -615,6 +633,7 @@ msgstr ""
 #. module: l10n_mx_edi
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/account_move.py:0
+#: code:addons/l10n_mx_edi/models/account_move.py:0
 #, python-format
 msgid "Could not retrieve the %s tax with rate %s%%."
 msgstr ""
@@ -627,14 +646,15 @@ msgid "Could not retrieve the %s withholding tax with rate %s%%."
 msgstr ""
 
 #. module: l10n_mx_edi
-#: model:ir.model,name:l10n_mx_edi.model_res_country
-msgid "Country"
+#. odoo-python
+#: code:addons/l10n_mx_edi/models/account_move.py:0
+#, python-format
+msgid "Could not retrieve the tax with rate %s%%."
 msgstr ""
 
 #. module: l10n_mx_edi
-#: model:ir.model.fields,field_description:l10n_mx_edi.field_res_partner__country_code
-#: model:ir.model.fields,field_description:l10n_mx_edi.field_res_users__country_code
-msgid "Country Code"
+#: model:ir.model,name:l10n_mx_edi.model_res_country
+msgid "Country"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -768,6 +788,11 @@ msgstr ""
 #. module: l10n_mx_edi
 #: model_terms:ir.ui.view,arch_db:l10n_mx_edi.report_invoice_document
 msgid "EKU9003173C9"
+msgstr ""
+
+#. module: l10n_mx_edi
+#: model:ir.model,name:l10n_mx_edi.model_mail_compose_message
+msgid "Email composition wizard"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -1143,6 +1168,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_move__l10n_mx_edi_update_sat_needed
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_payment__l10n_mx_edi_update_sat_needed
 msgid "L10N Mx Edi Update Sat Needed"
+msgstr ""
+
+#. module: l10n_mx_edi
+#: model:ir.model.fields,field_description:l10n_mx_edi.field_account_move_send__l10n_mx_edi_warnings
+msgid "L10N Mx Edi Warnings"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -1738,13 +1768,6 @@ msgid "Solucion Factible"
 msgstr ""
 
 #. module: l10n_mx_edi
-#. odoo-python
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#, python-format
-msgid "Some documents are being sent by another process already."
-msgstr ""
-
-#. module: l10n_mx_edi
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_bank_statement_line__l10n_mx_edi_certificate_id
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_move__l10n_mx_edi_certificate_id
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_payment__l10n_mx_edi_certificate_id
@@ -1779,6 +1802,7 @@ msgstr ""
 #. module: l10n_mx_edi
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/account_move.py:0
+#: code:addons/l10n_mx_edi/models/account_move.py:0
 #, python-format
 msgid "Tax ID %s can not be imported"
 msgstr ""
@@ -1792,13 +1816,6 @@ msgstr ""
 #. module: l10n_mx_edi
 #: model_terms:ir.ui.view,arch_db:l10n_mx_edi.res_config_settings_view_form
 msgid "Testing"
-msgstr ""
-
-#. module: l10n_mx_edi
-#. odoo-javascript
-#: code:addons/l10n_mx_edi/static/src/components/document_state/document_state_field.js:0
-#, python-format
-msgid "Text copied"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -1844,14 +1861,6 @@ msgstr ""
 msgid ""
 "The Global CFDI document was successfully created and signed by the "
 "government."
-msgstr ""
-
-#. module: l10n_mx_edi
-#: model:ir.model.fields,help:l10n_mx_edi.field_res_partner__country_code
-#: model:ir.model.fields,help:l10n_mx_edi.field_res_users__country_code
-msgid ""
-"The ISO country code in two chars. \n"
-"You can use this field for quick search."
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -2120,6 +2129,13 @@ msgid "View Name"
 msgstr ""
 
 #. module: l10n_mx_edi
+#. odoo-python
+#: code:addons/l10n_mx_edi/wizard/account_move_send.py:0
+#, python-format
+msgid "View Partner(s)"
+msgstr ""
+
+#. module: l10n_mx_edi
 #: model:ir.model.fields.selection,name:l10n_mx_edi.selection__account_move__l10n_mx_edi_usage__d06
 #: model:ir.model.fields.selection,name:l10n_mx_edi.selection__res_partner__l10n_mx_edi_usage__d06
 msgid "Voluntary contributions to SAR"
@@ -2165,6 +2181,14 @@ msgstr ""
 #: code:addons/l10n_mx_edi/models/account_move.py:0
 #, python-format
 msgid "You can't register a payment for invoices having different RFCs."
+msgstr ""
+
+#. module: l10n_mx_edi
+#. odoo-python
+#: code:addons/l10n_mx_edi/models/ir_attachment.py:0
+#, python-format
+msgid ""
+"You can't unlink an attachment being an EDI document sent to the government."
 msgstr ""
 
 #. module: l10n_mx_edi
