@@ -39,12 +39,16 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     @api.model_create_multi
-    def create(self, values):
-        self.env["pos_blackbox_be.log"].sudo().create(
-            values[0], "create", self._name, values[0]['name']
-        )
-
-        return super().create(values)
+    def create(self, vals_list):
+        products = super().create(vals_list)
+        for value in vals_list:
+            self.env["pos_blackbox_be.log"].sudo().create([{
+                "action": "create",
+                "model_name": self._name,
+                "record_name": value['name'],
+                "description": "Product %s created" % value['name'],
+            }])
+        return products
 
     @api.ondelete(at_uninstall=False)
     def _unlink_if_workin_workout_deleted(self):
@@ -58,4 +62,9 @@ class ProductTemplate(models.Model):
                 raise UserError(_("Deleting this product is not allowed."))
 
         for product in self:
-            self.env["pos_blackbox_be.log"].sudo().create(product, "delete", product._name, product.name)
+            self.env["pos_blackbox_be.log"].sudo().create([{
+                "action": "delete",
+                "model_name": product._name,
+                "record_name": product.name,
+                "description": "Product %s deleted" % product.name,
+            }])

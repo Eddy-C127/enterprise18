@@ -12,14 +12,16 @@ patch(ReprintReceiptButton.prototype, {
         this.popup = useService("popup");
         this.orm = useService("orm");
     },
-    async _onClick() {
+    async click() {
         if (this.pos.useBlackBoxBe()) {
             await this.popup.add(ErrorPopup, {
                 title: _t("Fiscal Data Module Restriction"),
-                body: _t("You are not allowed to reprint a ticket when using the fiscal data module."),
+                body: _t(
+                    "You are not allowed to reprint a ticket when using the fiscal data module."
+                ),
             });
             return;
         }
-        super._onClick();
-    }
+        await super.click();
+    },
 });

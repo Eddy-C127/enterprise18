@@ -45,6 +45,7 @@ No modified version is certified and supported by Odoo SA.
         ],
     },
     'post_init_hook': '_set_tax_on_work_in_out',
-    'installable': False,
+    'auto_install': ['l10n_be', 'pos_restaurant'],
+    'installable': True,
     'license': 'OEEL-1',
 }

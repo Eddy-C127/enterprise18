@@ -47,8 +47,10 @@ class ReportSaleDetails(models.AbstractModel):
                             [("session_id", "=", session.id), ("amount_total", "<", 0)]
                         )
                     ),
-                    "PF_number": "10",
-                    "PF_amount": session._get_total_proforma(),
+                    "PS_number": session.pro_forma_sales_number,
+                    "PS_amount": session.pro_forma_sales_amount,
+                    "PR_number": session.pro_forma_refund_number,
+                    "PR_amount": session.pro_forma_refund_amount,
                     "Positive_discount_number": len(
                         self.env["pos.order"]
                         .search(

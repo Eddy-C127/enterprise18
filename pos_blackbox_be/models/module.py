@@ -12,6 +12,7 @@ class Module(models.Model):
     def module_uninstall(self):
         for module_to_remove in self:
             if module_to_remove.name == "pos_blackbox_be":
-                raise UserError(_("This module is not allowed to be removed."))
-
+                for config_id in self.env['pos.config'].search([]):
+                    if config_id.certified_blackbox_identifier:
+                        raise UserError(_("This module is not allowed to be removed."))
         return super().module_uninstall()

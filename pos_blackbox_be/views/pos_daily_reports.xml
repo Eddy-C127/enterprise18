@@ -33,6 +33,14 @@
     </record>
 
     <template id="daily_report" inherit_id="point_of_sale.report_saledetails" name="Daily Report">
+        <xpath expr="//div[@id='sales']/h3" position="replace">
+            <h3>Sales (NS)</h3>
+        </xpath>
+
+        <xpath expr="//div[@id='refunds']/h3" position="replace">
+            <h3>Refunds (NR)</h3>
+        </xpath>
+
         <xpath expr="//div[hasclass('text-center')]" position="after">
             <t t-if="isBelgium">
                 <h2>
@@ -84,7 +92,7 @@
             </table>
         </xpath>
 
-        <xpath expr="//t[@id='taxe_refunds']" position="replace">
+        <xpath expr="//div[@id='taxe_refunds']" position="replace">
             <table  class="table table-sm">
                 <thead><tr>
                     <th>Name</th>
@@ -109,64 +117,71 @@
 
         <xpath expr="//div[hasclass('page')]" position="inside">
             <t t-if="isBelgium">
-                <p style="page-break-after:always;"/>
-                <table  class="table">
+                <table class="table table-sm" style="page-break-after: avoid;">
                     <thead><tr>
-                        <th>Name</th>
-                        <th>Value</th>
+                        <th class="text-start">Name</th>
+                        <th class="text-end">Value</th>
                     </tr></thead>
                     <tbody>
                         <tr>
                             <td>Number of NS</td>
-                            <td><t t-esc="NS_number"/></td>
+                            <td class="text-end"><t t-esc="NS_number"/></td>
                         </tr>
                          <tr>
                             <td>Number of NR</td>
-                            <td><t t-esc="NR_number"/></td>
+                            <td class="text-end"><t t-esc="NR_number"/></td>
                         </tr>
                         <tr>
-                            <td>Number of positive discounts</td>
-                            <td><t t-esc="Positive_discount_number"/></td>
+                            <td>NS discounts</td>
+                            <td class="text-end"><t t-esc="Positive_discount_number"/></td>
                         </tr>
                         <tr>
-                            <td>Amount of positive discounts</td>
-                            <td><t t-esc="Positive_discount_amount" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                            <td>Amount of NS discounts</td>
+                            <td class="text-end"><t t-esc="Positive_discount_amount" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
                         </tr>
                         <tr>
-                            <td>Number of negative discounts</td>
-                            <td><t t-esc="Negative_discount_number"/></td>
+                            <td>NR discounts</td>
+                            <td class="text-end"><t t-esc="Negative_discount_number"/></td>
                         </tr>
                         <tr>
-                            <td>Amount of negative discounts</td>
-                            <td><t t-esc="Negative_discount_amount" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                            <td>Amount of NR discounts</td>
+                            <td class="text-end"><t t-esc="Negative_discount_amount" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
                         </tr>
                         <tr>
-                            <td>Number of PRO FORMA</td>
-                            <td><t t-esc="PF_number"/></td>
+                            <td>Number of PRO FORMA (PS)</td>
+                            <td class="text-end"><t t-esc="PS_number"/></td>
                         </tr>
                         <tr>
-                            <td>Amount of PRO FORMA(PS)</td>
-                            <td><t t-esc="PF_amount" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                            <td>Amount of PRO FORMA (PS)</td>
+                            <td class="text-end"><t t-esc="PS_amount" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Number of PRO FORMA (PR)</td>
+                            <td class="text-end"><t t-esc="PR_number"/></td>
+                        </tr>
+                        <tr>
+                            <td>Amount of PRO FORMA (PR)</td>
+                            <td class="text-end"><t t-esc="PR_amount" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
                         </tr>
                         <tr>
                             <td>Number of correction</td>
-                            <td><t t-esc="Correction_number"/></td>
+                            <td class="text-end"><t t-esc="Correction_number"/></td>
                         </tr>
                         <tr>
                             <td>Amount of correction</td>
-                            <td><t t-esc="Correction_amount" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                            <td class="text-end"><t t-esc="Correction_amount" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
                         </tr>
                         <tr>
                             <td>Cash Starting Amount</td>
-                            <td><t t-esc="CashBoxStartAmount"/></td>
+                            <td class="text-end"><t t-esc="CashBoxStartAmount"/></td>
                         </tr>
                         <tr>
                             <td>Cash Ending Amount</td>
-                            <td><t t-esc="CashBoxEndAmount"/></td>
+                            <td class="text-end"><t t-esc="CashBoxEndAmount"/></td>
                         </tr>
                         <tr>
                             <td>Cash box opening number</td>
-                            <td><t t-esc="CashBoxOpening"/></td>
+                            <td class="text-end"><t t-esc="CashBoxOpening"/></td>
                         </tr>
                     </tbody>
                 </table>

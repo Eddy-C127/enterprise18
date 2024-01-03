@@ -4,10 +4,13 @@ import { patch } from "@web/core/utils/patch";
 
 patch(PrintBillButton.prototype, {
     async click() {
-        let order = this.pos.get_order();
+        const order = this.pos.get_order();
         if (this.pos.useBlackBoxBe() && order.get_orderlines().length > 0) {
-            await this.pos.pushProFormaOrder(order);
+            const result = await this.pos.pushProFormaOrder(order, true);
+            if (!result) {
+                return;
+            }
         }
         await super.click();
-    }
- });
+    },
+});

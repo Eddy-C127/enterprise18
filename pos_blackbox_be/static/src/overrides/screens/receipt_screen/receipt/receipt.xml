@@ -15,6 +15,17 @@
             </t>
         </xpath>
 
+        <xpath expr="//div[hasclass('fw-bolder')]//span[hasclass('fs-2')]" position="replace">
+            <t t-if="props.data.useBlackBoxBe">
+                <span class="fw-bolder fs-2" t-esc="props.data.blackboxSequence"/>
+            </t>
+            <t t-else="">
+                <div class="fw-bolder" t-if="props.data.trackingNumber and !props.data.bigTrackingNumber">
+                    <span class="fs-2" t-esc="props.data.trackingNumber" />
+                </div>
+            </t>
+        </xpath>
+
         <xpath expr="//div[hasclass('pos-receipt-contact')]" position="inside">
             <t t-if="props.data.useBlackBoxBe">
                 <div>

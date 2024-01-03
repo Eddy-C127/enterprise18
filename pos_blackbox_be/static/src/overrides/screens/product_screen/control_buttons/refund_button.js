@@ -5,7 +5,7 @@ import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
 import { patch } from "@web/core/utils/patch";
 
 patch(RefundButton.prototype, {
-    _onClick() {
+    click() {
         if (this.pos.useBlackBoxBe() && !this.pos.checkIfUserClocked()) {
             this.pos.env.services.popup.add(ErrorPopup, {
                 'title': this._t("POS error"),
@@ -13,6 +13,6 @@ patch(RefundButton.prototype, {
             });
             return;
         }
-        super._onClick();
-    }
+        super.click();
+    },
 });
