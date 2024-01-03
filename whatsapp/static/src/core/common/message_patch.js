@@ -15,16 +15,12 @@ patch(Message.prototype, {
         const id = Number(ev.target.dataset.oeId);
         if (ev.target.closest(".o_whatsapp_channel_redirect")) {
             ev.preventDefault();
-            let thread = this.store.Thread.get({ model: "discuss.channel", id });
+            let thread = await this.store.Thread.getOrFetch({ model: "discuss.channel", id });
             if (!thread?.hasSelfAsMember) {
                 await this.threadService.orm.call("discuss.channel", "add_members", [[id]], {
                     partner_ids: [this.store.self.id],
                 });
-                thread = this.store.Thread.insert({
-                    id,
-                    model: "discuss.channel",
-                    type: "whatsapp_message",
-                });
+                thread = await this.store.Thread.getOrFetch({ model: "discuss.channel", id });
             }
             this.threadService.open(thread);
             return;
