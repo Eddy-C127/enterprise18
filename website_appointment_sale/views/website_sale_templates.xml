@@ -31,29 +31,28 @@
             <div class="row mx-0 my-2 border o_wappointment_sale_confirmation_card">
                 <t t-set="tz" t-value="request.session.timezone or object.appointment_type_id.appointment_tz"/>
                 <div class="col-5 d-flex justify-content-center">
-                    <div class="w-100 m-2">
-                        <t t-call="website.record_cover">
-                            <t t-set="_record" t-value="object.appointment_type_id"/>
-                            <div class="position-absolute top-0 text-end w-100">
-                                <div class="ms-auto me-3 me-md-4 my-4 bg-white o_wappointment_sale_booking_date">
-                                    <div class="d-flex h-100 text-center">
-                                        <div class="m-auto fw-bold text-uppercase">
-                                            <t t-out="object.start" t-options="{'widget': 'datetime', 'tz_name': tz, 'format': 'LLL'}"/><br/>
-                                            <t t-out="object.start" t-options="{'widget': 'datetime', 'tz_name': tz, 'format': 'dd'}"/>
-                                        </div>
+                    <div class="position-relative w-100 m-2 o_cc o_cc3">
+                        <div t-field="object.appointment_type_id.image_1920" class="d-block h-100 w-100 overflow-hidden ratio ratio-4x3" role="img"
+                            t-options="{'widget': 'image', 'class': 'o_object_fit_cover', 'preview_image': 'image_512'}"/>
+                        <div class="position-absolute top-0 text-end w-100">
+                            <div class="ms-auto me-3 me-md-4 my-4 bg-white o_wappointment_sale_booking_date">
+                                <div class="d-flex h-100 text-center">
+                                    <div class="m-auto fw-bold text-uppercase">
+                                        <t t-out="object.start" t-options="{'widget': 'datetime', 'tz_name': tz, 'format': 'LLL'}"/><br/>
+                                        <t t-out="object.start" t-options="{'widget': 'datetime', 'tz_name': tz, 'format': 'dd'}"/>
                                     </div>
                                 </div>
                             </div>
-                            <small t-if="event" class="bg-success position-absolute bottom-0 w-100 text-end p-3">
-                                <i class="fa fa-check me-2"/>Booked
-                            </small>
-                            <small t-elif="booking.not_available" class="bg-warning position-absolute bottom-0 w-100 text-end p-3">
-                                Please Contact Us
-                            </small>
-                            <small t-else="" class="bg-warning position-absolute bottom-0 w-100 text-end p-3">
-                                Awaiting Payment
-                            </small>
-                        </t>
+                        </div>
+                        <small t-if="event" class="bg-success position-absolute bottom-0 w-100 text-end p-3">
+                            <i class="fa fa-check me-2"/>Booked
+                        </small>
+                        <small t-elif="booking.not_available" class="bg-warning position-absolute bottom-0 w-100 text-end p-3">
+                            Please Contact Us
+                        </small>
+                        <small t-else="" class="bg-warning position-absolute bottom-0 w-100 text-end p-3">
+                            Awaiting Payment
+                        </small>
                     </div>
                 </div>
                 <div class="col-7 d-flex flex-column">

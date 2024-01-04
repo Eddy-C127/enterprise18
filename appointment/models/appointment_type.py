@@ -22,7 +22,7 @@ from ..utils import intervals_overlap
 class AppointmentType(models.Model):
     _name = "appointment.type"
     _description = "Appointment Type"
-    _inherit = ['mail.thread']
+    _inherit = ['image.mixin', 'mail.thread']
     _order = "sequence, id"
 
     @api.model
@@ -54,6 +54,7 @@ class AppointmentType(models.Model):
     appointment_tz = fields.Selection(
         _tz_get, string='Timezone', required=True, default=lambda self: self.env.user.tz,
         help="Timezone where appointment take place")
+    image_1920 = fields.Image("Background Image")  # image.mixin override
     location_id = fields.Many2one('res.partner', string='Location')
     location = fields.Char(
         'Location formatted', compute='_compute_location', compute_sudo=True,
@@ -486,6 +487,9 @@ class AppointmentType(models.Model):
         if same_year and same_month:
             return 'month'
         return 'year'
+
+    def _get_placeholder_filename(self, field):
+        return 'appointment/static/src/img/appointment_cover_0.jpg'
 
     # --------------------------------------
     # Slots Generation

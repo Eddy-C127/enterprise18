@@ -11,7 +11,6 @@ class AppointmentType(models.Model):
         'appointment.type',
         'website.seo.metadata',
         'website.published.multi.mixin',
-        'website.cover_properties.mixin',
         'website.searchable.mixin',
     ]
 
@@ -21,15 +20,6 @@ class AppointmentType(models.Model):
         if result.get('category') in ['custom', 'anytime']:
             result['is_published'] = True
         return result
-
-    def _default_cover_properties(self):
-        res = super()._default_cover_properties()
-        res.update({
-            'background-image': 'url("/website_appointment/static/src/img/appointment_cover_0.jpg")',
-            'resize_class': 'o_record_has_cover o_half_screen_height',
-            'opacity': '0.4',
-        })
-        return res
 
     is_published = fields.Boolean(
         compute='_compute_is_published', default=None,  # force None to avoid default computation from mixin

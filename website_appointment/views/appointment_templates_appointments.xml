@@ -256,15 +256,11 @@
                 <a t-attf-href="/appointment/#{appointment.id}?#{keep_query('filter_appointment_type_ids', 'filter_staff_user_ids', 'invite_token')}"
                     class="text-reset text-decoration-none">
                     <div class="card-img-top position-relative">
-                        <div class="d-block h-100 w-100 overflow-hidden ratio ratio-4x3">
-                            <t t-call="website.record_cover">
-                                <t t-set="_record" t-value="appointment"/>
-                                <t t-set="additionnal_classes" t-value="'position-absolute'"/>
-                                <small t-if="not appointment.website_published" class="o_appointment_unpublished bg-danger position-absolute w-100 text-end" groups="base.group_user">
-                                    <i class="fa fa-ban me-2"/>Unpublished
-                                </small>
-                            </t>
-                        </div>
+                        <div t-field="appointment.image_1920" class="d-block h-100 w-100 overflow-hidden ratio ratio-4x3"
+                            t-options="{'widget': 'image', 'class': 'o_wappointment_cover_image o_object_fit_cover', 'preview_image': 'image_512'}"/>
+                        <small t-if="not appointment.website_published" class="o_appointment_unpublished bg-danger position-absolute w-100 text-end o_cc o_cc3" groups="base.group_user">
+                            <i class="fa fa-ban me-2"/>Unpublished
+                        </small>
                         <div t-if="appointment.assign_method != 'time_auto_assign'" class="o_wappointment_card_staff_users position-absolute bottom-0 d-flex align-items-center pb-3 ps-3">
                             <t t-set="booking_count" t-value="len(appointment.staff_user_ids if appointment.schedule_based_on == 'users' else appointment.resource_ids)"/>
                             <t t-if="booking_count" t-call="website_appointment.appointment_booking_resource_description"/>
