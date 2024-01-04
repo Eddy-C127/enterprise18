@@ -7,20 +7,20 @@ patch(OrderlineNoteButton.prototype, {
     async onClick() {
         const { confirmed, inputNote, oldNote } = await super.onClick();
         const selectedOrderline = this.pos.get_order().get_selected_orderline();
-        const productId = selectedOrderline.product.id;
-        const order = selectedOrderline.order;
+        const productId = selectedOrderline.product_id.id;
+        const order = selectedOrderline.order_id;
 
         if (confirmed) {
-            if (!order.noteHistory) {
-                order.noteHistory = {};
+            if (!order.uiState.noteHistory) {
+                order.uiState.noteHistory = {};
             }
 
-            if (!order.noteHistory[productId]) {
-                order.noteHistory[productId] = [];
+            if (!order.uiState.noteHistory[productId]) {
+                order.uiState.noteHistory[productId] = [];
             }
 
             let added = false;
-            for (const note of order.noteHistory[productId]) {
+            for (const note of order.uiState.noteHistory[productId]) {
                 if (note.lineId === selectedOrderline.id) {
                     note.new = inputNote;
                     added = true;
@@ -28,7 +28,7 @@ patch(OrderlineNoteButton.prototype, {
             }
 
             if (!added) {
-                order.noteHistory[productId].push({
+                order.uiState.noteHistory[productId].push({
                     old: oldNote,
                     new: inputNote || "",
                     lineId: selectedOrderline.id,

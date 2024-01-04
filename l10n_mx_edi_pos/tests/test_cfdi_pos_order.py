@@ -355,7 +355,7 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
                 'pos_order_lines_ui_args': [(self.product, 10)],
                 'payments': [(self.bank_pm1, 11600.0)],
                 'customer': self.partner_mx,
-                'uid': '0001',
+                'uuid': '0001',
             })
         self.assertFalse(order.l10n_mx_edi_cfdi_to_public)  # a MX partner is set on the order
         order.l10n_mx_edi_cfdi_to_public = True  # needed to create a global invoice for this order

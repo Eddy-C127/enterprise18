@@ -6,10 +6,10 @@ import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
 export class PaymentIngenico extends PaymentInterface {
     get_terminal() {
-        return this.payment_method.terminal_proxy;
+        return this.payment_method_id.terminal_proxy;
     }
 
-    send_payment_request(cid) {
+    send_payment_request(uuid) {
         var self = this;
         super.send_payment_request(...arguments);
         const terminal_proxy = self.get_terminal();
@@ -24,21 +24,21 @@ export class PaymentIngenico extends PaymentInterface {
             terminal_proxy.addListener(
                 self._onValueChange.bind(self, resolve, self.pos.get_order())
             );
-            self._send_request(self.get_payment_data(cid));
+            self._send_request(self.get_payment_data(uuid));
         });
     }
 
-    get_payment_data(cid) {
-        var paymentline = this.pos.get_order().get_paymentline(cid);
+    get_payment_data(uuid) {
+        const paymentline = this.pos.get_order().get_paymentline_by_uuid(uuid);
         return {
             messageType: "Transaction",
-            TransactionID: parseInt(this.pos.get_order().uid.replace(/-/g, "")),
-            cid: cid,
+            TransactionID: parseInt(this.pos.get_order().uuid.replace(/-/g, "")),
+            cid: uuid,
             amount: Math.round(paymentline.amount * 100),
         };
     }
 
-    send_payment_cancel(order, cid) {
+    send_payment_cancel(order, uuid) {
         var self = this;
         var terminal = this.get_terminal();
         if (terminal) {
@@ -75,8 +75,8 @@ export class PaymentIngenico extends PaymentInterface {
                 title: _t("Connection to terminal failed"),
                 body: _t("Please check if the terminal is still connected."),
             });
-            if (this.pos.get_order().selected_paymentline) {
-                this.pos.get_order().selected_paymentline.set_payment_status("force_done");
+            if (this.pos.get_order().get_selected_paymentline()) {
+                this.pos.get_order().get_selected_paymentline().set_payment_status("force_done");
             }
         }
     }
@@ -85,8 +85,8 @@ export class PaymentIngenico extends PaymentInterface {
             title: _t("Connection to IoT Box failed"),
             body: _t("Please check if the IoT Box is still connected."),
         });
-        if (this.pos.get_order().selected_paymentline) {
-            this.pos.get_order().selected_paymentline.set_payment_status("force_done");
+        if (this.pos.get_order().get_selected_paymentline()) {
+            this.pos.get_order().get_selected_paymentline().set_payment_status("force_done");
         }
     }
     _showErrorConfig() {
@@ -132,10 +132,8 @@ export class PaymentIngenico extends PaymentInterface {
      * @param {Object} data.Card
      */
     _onValueChange(resolve, order, data) {
-        var line = order.get_paymentline(data.cid);
-        var terminal_proxy = this.pos.models["pos.payment.method"].get(
-            line.payment_method.id
-        ).terminal_proxy;
+        const line = order.get_paymentline_by_uuid(data.cid);
+        const terminal_proxy = line.payment_method_id.terminal_proxy;
         if (
             line &&
             terminal_proxy &&
@@ -153,9 +151,9 @@ export class PaymentIngenico extends PaymentInterface {
 }
 
 export class PaymentWorldline extends PaymentIngenico {
-    send_payment_cancel(order, cid) {
+    send_payment_cancel(order, uuid) {
         if (this.get_terminal()) {
-            this._send_request({ messageType: "Cancel", cid: cid });
+            this._send_request({ messageType: "Cancel", cid: uuid });
         }
 
         return new Promise((resolve) => {
@@ -163,15 +161,15 @@ export class PaymentWorldline extends PaymentIngenico {
         });
     }
 
-    send_payment_request(cid) {
-        var paymentline = this.pos.get_order().get_paymentline(cid);
+    send_payment_request(uuid) {
+        const paymentline = this.pos.get_order().get_paymentline_by_uuid(uuid);
         paymentline.transaction_id = Math.floor(Math.random() * Math.pow(2, 32)); // 4 random bytes
         return super.send_payment_request(...arguments);
     }
 
-    get_payment_data(cid) {
+    get_payment_data(uuid) {
         var data = super.get_payment_data(...arguments);
-        data.actionIdentifier = this.pos.get_order().get_paymentline(cid).transaction_id;
+        data.actionIdentifier = this.pos.get_order().get_paymentline_by_uuid(uuid).transaction_id;
         return data;
     }
 

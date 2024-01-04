@@ -6,8 +6,8 @@ from odoo import models
 class PosOrder(models.Model):
     _inherit = "pos.order"
 
-    def _process_order(self, order, draft, existing_order):
-        order_id = super(PosOrder, self)._process_order(order, draft, existing_order)
+    def _process_order(self, order, existing_order):
+        order_id = super()._process_order(order, existing_order)
         order = self.browse(order_id)
         for line in order.lines:
             if line.sale_order_line_id and line.product_id.rent_ok and line.product_id.tracking != 'none':

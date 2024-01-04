@@ -8,7 +8,6 @@ import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add("PreparationDisplayTour", {
     test: true,
-    url: "/pos/ui",
     steps: () =>
         [
             // First order should send these orderlines to preparation:

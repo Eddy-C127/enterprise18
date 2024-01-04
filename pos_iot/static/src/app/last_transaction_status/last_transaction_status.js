@@ -47,7 +47,7 @@ export class LastTransactionStatusButton extends Component {
             return;
         }
 
-        const status = this.pos.get_order()?.selected_paymentline?.payment_status;
+        const status = this.pos.get_order()?.get_selected_paymentline()?.payment_status;
         if (status && ["waiting", "waitingCard", "waitingCancel"].includes(status)) {
             this.dialog.add(AlertDialog, {
                 title: _t("Electronic payment in progress"),

@@ -1,11 +1,9 @@
 /** @odoo-module */
 import { PosStore } from "@point_of_sale/app/store/pos_store";
-import { Order, Orderline } from "@point_of_sale/app/store/models";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
 const { DateTime } = luxon;
-import { deserializeDateTime } from "@web/core/l10n/dates";
 
 patch(PosStore.prototype, {
     useBlackBoxSweden() {
@@ -111,140 +109,5 @@ patch(PosStore.prototype, {
             }
         }
         return result;
-    },
-});
-
-patch(Order.prototype, {
-    get_specific_tax(amount) {
-        var tax = this.get_tax_details().find((tax) => tax.tax.amount === amount);
-        if (tax) {
-            return tax.amount;
-        }
-        return false;
-    },
-    add_product(product, options) {
-        if (this.pos.useBlackBoxSweden() && product.taxes_id.length === 0) {
-            this.env.services.dialog(AlertDialog, {
-                title: _t("POS error"),
-                body: _t("Product has no tax associated with it."),
-            });
-        } else if (
-            this.pos.useBlackBoxSweden() &&
-            !this.pos.mapTaxValues(product.taxes_id)[0]?.sweden_identification_letter
-        ) {
-            this.env.services.dialog(AlertDialog, {
-                title: _t("POS error"),
-                body: _t(
-                    "Product has an invalid tax amount. Only 25%, 12%, 6% and 0% are allowed."
-                ),
-            });
-        } else if (this.pos.useBlackBoxSweden() && this.pos.get_order().is_refund) {
-            this.env.services.dialog(AlertDialog, {
-                title: _t("POS error"),
-                body: _t("Cannot modify a refund order."),
-            });
-        } else if (this.pos.useBlackBoxSweden() && this.hasNegativeAndPositiveProducts(product)) {
-            this.env.services.dialog(AlertDialog, {
-                title: _t("POS error"),
-                body: _t("You can only make positive or negative order. You cannot mix both."),
-            });
-        } else {
-            return super.add_product(...arguments);
-        }
-        return false;
-    },
-    wait_for_push_order() {
-        var result = super.wait_for_push_order(...arguments);
-        result = Boolean(this.pos.useBlackBoxSweden() || result);
-        return result;
-    },
-    init_from_JSON(json) {
-        super.init_from_JSON(...arguments);
-        this.is_refund = json.is_refund || false;
-    },
-    export_as_JSON() {
-        const json = super.export_as_JSON(...arguments);
-        if (!this.pos.useBlackBoxSweden()) {
-            return json;
-        }
-
-        return Object.assign(json, {
-            receipt_type: this.receipt_type,
-            blackbox_unit_id: this.blackbox_unit_id,
-            blackbox_signature: this.blackbox_signature,
-            blackbox_tax_category_a: this.blackbox_tax_category_a,
-            blackbox_tax_category_b: this.blackbox_tax_category_b,
-            blackbox_tax_category_c: this.blackbox_tax_category_c,
-            blackbox_tax_category_d: this.blackbox_tax_category_d,
-            is_refund: this.is_refund,
-        });
-    },
-    hasNegativeAndPositiveProducts(product) {
-        var isPositive = product.lst_price >= 0;
-        for (const id in this.get_orderlines()) {
-            const line = this.get_orderlines()[id];
-            if (
-                (line.product.lst_price >= 0 && !isPositive) ||
-                (line.product.lst_price < 0 && isPositive)
-            ) {
-                return true;
-            }
-        }
-        return false;
-    },
-    export_for_printing() {
-        const result = super.export_for_printing(...arguments);
-        if (!this.pos.useBlackBoxSweden()) {
-            return result;
-        }
-
-        const order = this.pos.get_order();
-        result.orderlines = result.orderlines.map((l) => ({
-            ...l,
-            price: l.price === "free" ? l.price : l.price + " " + l.taxLetter,
-        }));
-        result.tax_details = result.tax_details.map((t) => ({
-            ...t,
-            tax: { ...t.tax, letter: t.tax.sweden_identification_letter },
-        }));
-        result.useBlackBoxSweden = true;
-        result.blackboxSeData = {
-            posID: this.pos.config.name,
-            orderSequence: order.sequence_number,
-            unitID: order.blackbox_unit_id,
-            blackboxSignature: order.blackbox_signature,
-            isReprint: order.isReprint,
-            originalOrderDate: deserializeDateTime(order.creation_date).toFormat(
-                "HH:mm dd/MM/yyyy"
-            ),
-            productLines: order.orderlines.filter((orderline) => {
-                return orderline.product_type !== "service";
-            }),
-            serviceLines: order.orderlines.filter((orderline) => {
-                return orderline.product_type === "service";
-            }),
-        };
-        return result;
-    },
-});
-
-patch(Orderline.prototype, {
-    export_for_printing() {
-        var json = super.export_for_printing(...arguments);
-
-        var to_return = Object.assign(json, {
-            product_type: this.get_product().type,
-        });
-        return to_return;
-    },
-    getDisplayData() {
-        if (!this.pos.useBlackBoxSweden()) {
-            return super.getDisplayData(...arguments);
-        }
-        return {
-            ...super.getDisplayData(...arguments),
-            taxLetter: this.pos.mapTaxValues(this.product.taxes_id)[0]
-                ?.sweden_identification_letter,
-        };
     },
 });

@@ -47,7 +47,8 @@ patch(ScaleScreen.prototype, {
      */
     onWillUnmount() {
         super.onWillUnmount(...arguments);
-        // FIXME POSREF shouldn't the stop_reading action be awaited before removing the listener?
+        // FIXME action return a promise, but we don't wait for it
+        // its possible that the promise wasn't resolved when we remove the listener
         this.scale.action({ action: "stop_reading" });
         this.scale.removeListener();
     },

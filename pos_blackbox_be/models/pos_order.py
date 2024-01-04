@@ -139,47 +139,18 @@ class PosOrder(models.Model):
         return super(PosOrder, self).write(values)
 
     @api.model
-    def create_from_ui(self, orders, draft=False):
-        res = super().create_from_ui(orders, draft)
-        order_ids = self.env['pos.order'].browse([order['id'] for order in res])
-        for order in order_ids:
-            if order.config_id.iface_fiscal_data_module:
-                order.env["pos_blackbox_be.log"].sudo().create(
-                    order._create_log_description(), "create", order._name, order.pos_reference
-                )
-        return res
+    def sync_from_ui(self, orders):
+        results = super().sync_from_ui(orders)
 
-    @api.model
-    def _order_fields(self, ui_order):
-        fields = super()._order_fields(ui_order)
+        if len(orders) > 0:
+            order_ids = self.env['pos.order'].browse([o['id'] for o in results['pos.order']])
+            for order in order_ids:
+                if order.config_id.iface_fiscal_data_module:
+                    order.env["pos_blackbox_be.log"].sudo().create(
+                        order._create_log_description(), "create", order._name, order.pos_reference
+                    )
 
-        config_id = self.env["pos.session"].browse(fields["session_id"]).config_id
-
-        if config_id.certified_blackbox_identifier:
-            date = ui_order.get("blackbox_date")
-            time = ui_order.get("blackbox_time")
-
-            update_fields = {
-                "blackbox_date": date,
-                "blackbox_time": time,
-                "blackbox_pos_receipt_time": datetime.strptime(
-                    date + " " + time, "%d-%m-%Y %H:%M:%S"
-                ) if date else False,
-                "blackbox_ticket_counters": ui_order.get("blackbox_ticket_counters"),
-                "blackbox_unique_fdm_production_number": ui_order.get("blackbox_unique_fdm_production_number"),
-                "blackbox_vsc_identification_number": ui_order.get("blackbox_vsc_identification_number"),
-                "blackbox_signature": ui_order.get("blackbox_signature"),
-                "blackbox_tax_category_a": ui_order.get("blackbox_tax_category_a"),
-                "blackbox_tax_category_b": ui_order.get("blackbox_tax_category_b"),
-                "blackbox_tax_category_c": ui_order.get("blackbox_tax_category_c"),
-                "blackbox_tax_category_d": ui_order.get("blackbox_tax_category_d"),
-                "plu_hash": ui_order.get("blackbox_plu_hash"),
-                "pos_version": ui_order.get("blackbox_pos_version"),
-            }
-
-            fields.update(update_fields)
-
-        return fields
+        return results
 
 
 class PosOrderLine(models.Model):

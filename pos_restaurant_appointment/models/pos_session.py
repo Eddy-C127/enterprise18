@@ -15,7 +15,7 @@ class PosSession(models.Model):
             params['restaurant.table']['fields'].append('appointment_resource_id')
             params['appointment.resource'] = {
                 'fields': ['pos_table_ids'],
-                'domain': []
+                'domain': lambda data: [('pos_table_ids', 'in', [table['id'] for table in data['restaurant.table']])],
             }
             params['calendar.event'] = {
                 'domain': lambda data: [

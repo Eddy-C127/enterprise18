@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
 import json
 
 from odoo import models, api
@@ -8,18 +6,16 @@ from odoo import models, api
 class PosOrder(models.Model):
     _inherit = 'pos.order'
 
-    @api.model
-    def create_from_ui(self, orders, draft=False):
-        orders = super().create_from_ui(orders, draft=draft)
-        order_ids = self.browse([order['id'] for order in orders])
-        for order in order_ids:
-            if order.state == 'paid':
-                self.env['pos_preparation_display.order'].process_order(order.id)
-        return orders
+    def sync_from_ui(self, orders):
+        data = super().sync_from_ui(orders)
 
-    @api.model
-    def _get_line_note(self, line):
-        return ""
+        if len(orders) > 0:
+            orders = self.browse([o['id'] for o in data["pos.order"]])
+            for order in orders:
+                if order.state == 'paid':
+                    self.env['pos_preparation_display.order'].process_order(order.id)
+
+        return data
 
     def _process_preparation_changes(self, cancelled=False, note_history=None):
         self.ensure_one()
@@ -39,17 +35,16 @@ class PosOrder(models.Model):
         if cancelled:
             for line in pdis_lines:
                 line.product_cancelled = line.product_quantity
-                category_ids.update(line.product_id.pos_categ_ids.ids)
-            return {'change': True, 'sound': sound, 'category_ids': category_ids}
+            return {'change': True, 'sound': False, 'category_ids': category_ids}
 
         # create a dictionary with the key as a tuple of product_id, internal_note and attribute_value_ids
         for pdis_line in pdis_lines:
-            key = (pdis_line.product_id.id, pdis_line.internal_note, json.dumps(pdis_line.attribute_value_ids.ids))
+            key = (pdis_line.product_id.id, pdis_line.internal_note or '', json.dumps(pdis_line.attribute_value_ids.ids))
             line_qty = pdis_line.product_quantity - pdis_line.product_cancelled
             if not quantity_data.get(key):
                 quantity_data[key] = {
                     'attribute_value_ids': pdis_line.attribute_value_ids.ids,
-                    'note': pdis_line.internal_note,
+                    'note': pdis_line.internal_note or '',
                     'product_id': pdis_line.product_id.id,
                     'display': line_qty,
                     'order': 0,
@@ -58,13 +53,13 @@ class PosOrder(models.Model):
                 quantity_data[key]['display'] += line_qty
 
         for line in self.lines.filtered(lambda li: not li.skip_change):
-            line_note = self._get_line_note(line)
+            line_note = line.note or ""
             key = (line.product_id.id, line_note, json.dumps(line.attribute_value_ids.ids))
 
             if not quantity_data.get(key):
                 quantity_data[key] = {
                     'attribute_value_ids': line.attribute_value_ids.ids,
-                    'note': line_note,
+                    'note': line_note or '',
                     'product_id': line.product_id.id,
                     'display': 0,
                     'order': line.qty,
@@ -83,8 +78,8 @@ class PosOrder(models.Model):
                         else:
                             note['used_qty'] += line.product_quantity
 
-                        key = (line.product_id.id, line.internal_note, json.dumps(line.attribute_value_ids.ids))
-                        key_new = (line.product_id.id, note['new'], json.dumps(line.attribute_value_ids.ids))
+                        key = (line.product_id.id, line.internal_note or '', json.dumps(line.attribute_value_ids.ids))
+                        key_new = (line.product_id.id, note['new'] or '', json.dumps(line.attribute_value_ids.ids))
 
                         line.internal_note = note['new']
                         flag_change = True
@@ -110,7 +105,7 @@ class PosOrder(models.Model):
             product = product_ids.filtered(lambda p: p.id == product_id)
             if data['order'] > data['display']:
                 missing_qty = data['order'] - data['display']
-                filtered_lines = self.lines.filtered(lambda li: li.product_id.id == product_id and self._get_line_note(li) == data['note'] and li.attribute_value_ids.ids == data['attribute_value_ids'])
+                filtered_lines = self.lines.filtered(lambda li: li.product_id.id == product_id and (li.note or "") == data['note'] and li.attribute_value_ids.ids == data['attribute_value_ids'])
 
                 for line in filtered_lines:
                     line_qty = 0
@@ -129,7 +124,7 @@ class PosOrder(models.Model):
                         category_ids.update(product.pos_categ_ids.ids)
                         self.env['pos_preparation_display.orderline'].create({
                             'todo': True,
-                            'internal_note': self._get_line_note(line),
+                            'internal_note': line.note or "",
                             'attribute_value_ids': line.attribute_value_ids.ids,
                             'product_id': product_id,
                             'product_quantity': line_qty,

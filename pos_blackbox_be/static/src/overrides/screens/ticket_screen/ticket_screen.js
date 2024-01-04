@@ -21,13 +21,13 @@ patch(TicketScreen.prototype, {
         }
 
         const selectedOrderlineId = this.getSelectedOrderlineId();
-        const orderline = order.orderlines.find((line) => line.id == selectedOrderlineId);
+        const orderline = order.lines.find((line) => line.id == selectedOrderlineId);
         if (!orderline) {
             return this.numberBuffer.reset();
         }
         if (
-            orderline.product.id === this.pos.workOutProduct.id ||
-            orderline.product.id === this.pos.workInProduct.id
+            orderline.product_id.id === this.pos.workOutProduct.id ||
+            orderline.product_id.id === this.pos.workInProduct.id
         ) {
             this.notification.add(_t("Refunding work in/out product is not allowed."));
             return;

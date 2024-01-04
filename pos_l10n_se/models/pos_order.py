@@ -30,23 +30,6 @@ class PosOrder(models.Model):
             if order.config_id.iface_sweden_fiscal_data_module:
                 raise UserError(_("Deleting of registered orders is not allowed."))
 
-    @api.model
-    def _order_fields(self, ui_order):
-        fields = super()._order_fields(ui_order)
-        fields.update({
-            key: ui_order.get(key)
-            for key in [
-                "sweden_blackbox_signature",
-                "sweden_blackbox_unit_id",
-                "sweden_blackbox_tax_category_a",
-                "sweden_blackbox_tax_category_b",
-                "sweden_blackbox_tax_category_c",
-                "sweden_blackbox_tax_category_d",
-            ]
-        })
-
-        return fields
-
     def set_is_reprint(self):
         self.is_reprint = True
 

@@ -14,8 +14,13 @@ patch(PosStore.prototype, {
     // @override - add preparation display categories to global order preparation categories
     get orderPreparationCategories() {
         let categoryIds = super.orderPreparationCategories;
-        if (this.preparationDisplayCategoryIds) {
+        if (this.preparationDisplayCategoryIds.size > 0) {
             categoryIds = new Set([...categoryIds, ...this.preparationDisplayCategoryIds]);
+        } else if (this.data.models["pos_preparation_display.display"].length > 0) {
+            categoryIds = new Set([
+                ...categoryIds,
+                ...this.data.models["pos.category"].map((cat) => cat.id),
+            ]);
         }
         return categoryIds;
     },
@@ -28,23 +33,38 @@ patch(PosStore.prototype, {
         );
     },
 
-    async sendOrderInPreparation(order, cancelled = false) {
-        let result = true;
-
+    async sendOrderInPreparation(o, cancelled = false) {
         if (this.models["pos_preparation_display.display"].length > 0) {
-            result = await order.sendChanges(cancelled);
+            for (const note of Object.values(o.uiState.noteHistory)) {
+                for (const n of note) {
+                    const line = o.get_orderline(n.lineId);
+                    n.qty = line?.get_quantity();
+                }
+            }
+
+            try {
+                await this.data.call("pos_preparation_display.order", "process_order", [
+                    o.id,
+                    cancelled,
+                    o.uiState.noteHistory,
+                ]);
+            } catch (error) {
+                console.warn(error);
+            }
+
+            o.uiState.noteHistory = {};
         }
 
         // We display this error popup only if the PoS is connected,
         // otherwise the user has already received a popup telling him
         // that this functionality will be limited.
-        if (!result && this.data.network.offline) {
+        if (this.data.network.offline) {
             this.dialog.add(AlertDialog, {
                 title: _t("Send failed"),
                 body: _t("Failed in sending the changes to preparation display"),
             });
         }
 
-        return super.sendOrderInPreparation(order, cancelled);
+        return super.sendOrderInPreparation(o, cancelled);
     },
 });

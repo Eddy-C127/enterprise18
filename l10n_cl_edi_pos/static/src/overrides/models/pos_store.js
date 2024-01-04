@@ -1,7 +1,6 @@
 /** @odoo-module */
 
 import { PosStore } from "@point_of_sale/app/store/pos_store";
-import { Order } from "@point_of_sale/app/store/models";
 import { patch } from "@web/core/utils/patch";
 
 patch(PosStore.prototype, {
@@ -11,9 +10,14 @@ patch(PosStore.prototype, {
 
         if (this.isChileanCompany()) {
             this.sii_taxpayer_types = this.data.custom["sii_taxpayer_types"];
-            this.consumidorFinalAnonimoId = this.data.custom["consumidor_final_anonimo_id"];
-
-            this["l10n_latam.identification.type"] = this.data["l10n_latam.identification.type"];
+            this.consumidor_final_anonimo_id = this.models["res.partner"].get(
+                this.data.custom.consumidor_final_anonimo_id
+            );
+            this.config.consumidor_final_anonimo_id = this.models["res.partner"].get(
+                this.data.custom.consumidor_final_anonimo_id
+            );
+            this["l10n_latam.identification.type"] =
+                this.models["l10n_latam.identification.type"].getFirst();
         }
     },
     isChileanCompany() {
@@ -22,8 +26,8 @@ patch(PosStore.prototype, {
     doNotAllowRefundAndSales() {
         return this.isChileanCompany() || super.doNotAllowRefundAndSales(...arguments);
     },
-    _getCreateOrderContext(orders, options) {
-        let context = super._getCreateOrderContext(...arguments);
+    getSyncAllOrdersContext(orders) {
+        let context = super.getSyncAllOrdersContext(...arguments);
         if (this.isChileanCompany()) {
             // FIXME in master: when processing multiple orders, and at least one is an invoice of type Factura,
             //  then we will generate the pdf for all invoices linked to the orders,
@@ -36,59 +40,5 @@ patch(PosStore.prototype, {
             }
         }
         return context;
-    },
-});
-
-patch(Order.prototype, {
-    setup() {
-        super.setup(...arguments);
-        if (this.pos.isChileanCompany()) {
-            this.to_invoice = true;
-            this.invoiceType = "boleta";
-            if (!this.partner) {
-                this.partner = this.pos.models["res.partner"].get(
-                    this.pos.consumidorFinalAnonimoId
-                );
-            }
-            this.voucherNumber = false;
-        }
-    },
-    export_as_JSON() {
-        const json = super.export_as_JSON(...arguments);
-        if (this.pos.isChileanCompany()) {
-            json["invoiceType"] = this.invoiceType ? this.invoiceType : false;
-            json["voucherNumber"] = this.voucherNumber;
-        }
-        return json;
-    },
-    init_from_JSON(json) {
-        super.init_from_JSON(...arguments);
-        this.voucherNumber = json.voucher_number || false;
-    },
-    is_to_invoice() {
-        if (this.pos.isChileanCompany()) {
-            return true;
-        }
-        return super.is_to_invoice(...arguments);
-    },
-    set_to_invoice(to_invoice) {
-        if (this.pos.isChileanCompany()) {
-            this.assert_editable();
-            this.to_invoice = true;
-        } else {
-            super.set_to_invoice(...arguments);
-        }
-    },
-    isFactura() {
-        if (this.invoiceType == "boleta") {
-            return false;
-        }
-        return true;
-    },
-    export_for_printing() {
-        return {
-            ...super.export_for_printing(...arguments),
-            voucherNumber: this.voucherNumber,
-        };
     },
 });

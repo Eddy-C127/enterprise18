@@ -16,7 +16,7 @@ patch(InvoiceButton.prototype, {
                 payload.l10n_mx_edi_cfdi_to_public === true ||
                 payload.l10n_mx_edi_cfdi_to_public === "1";
             order.l10n_mx_edi_usage = payload.l10n_mx_edi_usage;
-            this.pos.data.ormWrite("pos.order", [order.backendId], {
+            this.pos.data.ormWrite("pos.order", [order.id], {
                 l10n_mx_edi_cfdi_to_public: order.l10n_mx_edi_cfdi_to_public,
                 l10n_mx_edi_usage: order.l10n_mx_edi_usage,
             });

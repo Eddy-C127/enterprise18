@@ -20,13 +20,14 @@ patch(IoTLongpolling.prototype, {
         const order = posmodel.get_order();
         if (
             order &&
-            order.selected_paymentline &&
-            order.selected_paymentline.payment_method.use_payment_terminal === "worldline" &&
+            order.get_selected_paymentline() &&
+            order.get_selected_paymentline().payment_method_id.use_payment_terminal ===
+                "worldline" &&
             ["waiting", "waitingCard", "waitingCancel"].includes(
-                order.selected_paymentline.payment_status
+                order.get_selected_paymentline().payment_status
             )
         ) {
-            order.selected_paymentline.set_payment_status("force_done");
+            order.get_selected_paymentline().set_payment_status("force_done");
         }
     },
     _onSuccess(iot_ip, result) {

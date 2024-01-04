@@ -10,10 +10,10 @@ import { _t } from "@web/core/l10n/translation";
 patch(PaymentScreen.prototype, {
     toggleIsToInvoice() {
         if (this.pos.isChileanCompany()) {
-            if (this.currentOrder.invoiceType == "boleta") {
-                this.currentOrder.invoiceType = "factura";
+            if (this.currentOrder.invoice_type == "boleta") {
+                this.currentOrder.invoice_type = "factura";
             } else {
-                this.currentOrder.invoiceType = "boleta";
+                this.currentOrder.invoice_type = "boleta";
             }
             this.render(true);
         } else {
@@ -34,7 +34,7 @@ patch(PaymentScreen.prototype, {
             }
             if (
                 this.currentOrder._isRefundOrder() &&
-                this.currentOrder.get_partner().id === this.pos.consumidorFinalAnonimoId
+                this.currentOrder.get_partner().id === this.pos.consumidor_final_anonimo_id
             ) {
                 this.dialog.add(AlertDialog, {
                     title: _t("Refund not possible"),
@@ -52,7 +52,7 @@ patch(PaymentScreen.prototype, {
             ];
             const missingFields = [];
             const partner = this.currentOrder.get_partner();
-            if (this.currentOrder.invoiceType == "factura" || this.currentOrder._isRefundOrder()) {
+            if (this.currentOrder.invoice_type == "factura" || this.currentOrder._isRefundOrder()) {
                 for (const field of mandatoryFacturaFields) {
                     if (!partner[field]) {
                         missingFields.push(field);
@@ -71,7 +71,7 @@ patch(PaymentScreen.prototype, {
     async validateOrder(isForceValidate) {
         if (
             this.pos.isChileanCompany() &&
-            this.paymentLines.some((line) => line.payment_method.is_card_payment)
+            this.paymentLines.some((line) => line.payment_method_id.is_card_payment)
         ) {
             const voucherNumber = await makeAwaitable(this.dialog, TextInputPopup, {
                 rows: 4,
@@ -86,7 +86,7 @@ patch(PaymentScreen.prototype, {
     },
     shouldDownloadInvoice() {
         return this.pos.isChileanCompany()
-            ? this.pos.selectedOrder.isFactura()
+            ? this.pos.get_order().isFactura()
             : super.shouldDownloadInvoice();
     },
 });

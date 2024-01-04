@@ -40,7 +40,7 @@ patch(Table.prototype, {
             .replace(/ /g, "")
             .split(",");
         const light = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255 > 0.5 ? false : true;
-        const order = this.pos.orders.find((o) => o.tableId === this.props.table.id);
+        const order = this.pos.models["pos.order"].find((o) => o.table_id === this.props.table.id);
 
         if (!order && dateNow > dateStart) {
             style = `color: ${light ? "#FF6767" : "#850000"};`;

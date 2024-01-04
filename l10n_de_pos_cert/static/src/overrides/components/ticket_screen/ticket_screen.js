@@ -9,7 +9,7 @@ patch(TicketScreen.prototype, {
     async _onBeforeDeleteOrder(order) {
         try {
             if (this.pos.isCountryGermanyAndFiskaly() && order.isTransactionStarted()) {
-                await order.cancelTransaction();
+                await this.pos.cancelTransaction(order);
             }
             return super._onBeforeDeleteOrder(...arguments);
         } catch (error) {

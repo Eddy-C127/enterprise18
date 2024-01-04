@@ -8,7 +8,7 @@ patch(PaymentScreen.prototype, {
     async _finalizeValidation() {
         if (this.pos.isRestaurantCountryGermanyAndFiskaly()) {
             try {
-                await this.currentOrder.retrieveAndSendLineDifference();
+                await this.pos.retrieveAndSendLineDifference(this.currentOrder);
             } catch {
                 // do nothing with the error
             }

@@ -8,7 +8,7 @@
                     <select class="detail form-select" t-att="{'disabled': isFieldCommercialAndPartnerIsChild('l10n_latam_identification_type_id')}" name="l10n_latam_identification_type_id"
                         t-model="changes.l10n_latam_identification_type_id"
                         t-att-class="{'border-danger': props.missingFields.includes('l10n_latam_identification_type_id')}">
-                       <t t-foreach="pos['l10n_latam.identification.type']" t-as="l10n_latam_identification_type" t-key="l10n_latam_identification_type.id">
+                       <t t-foreach="pos.models['l10n_latam.identification.type'].getAll()" t-as="l10n_latam_identification_type" t-key="l10n_latam_identification_type.id">
                            <option t-att-value="l10n_latam_identification_type.id">
                                <t t-esc="l10n_latam_identification_type.name" />
                            </option>

@@ -85,21 +85,6 @@ class PosOrder(models.Model):
         compute='_compute_l10n_mx_edi_payment_method_id',
     )
 
-    # -------------------------------------------------------------------------
-    # OVERRIDES
-    # -------------------------------------------------------------------------
-
-    def _order_fields(self, ui_order):
-        # OVERRIDE
-        vals = super()._order_fields(ui_order)
-        if vals['to_invoice'] and self.env['pos.session'].browse(vals['session_id']).company_id.country_id.code == 'MX':
-            # the following fields might not be set for non mexican companies
-            vals.update({
-                'l10n_mx_edi_cfdi_to_public': ui_order.get('l10n_mx_edi_cfdi_to_public'),
-                'l10n_mx_edi_usage': ui_order.get('l10n_mx_edi_usage'),
-            })
-        return vals
-
     def action_pos_order_invoice(self):
         # EXTENDS 'point_of_sale'
         if self.company_id.country_id.code == 'MX':
@@ -123,12 +108,19 @@ class PosOrder(models.Model):
                 order._l10n_mx_edi_cfdi_invoice_try_send()
 
     @api.model
-    def create_from_ui(self, orders, draft=False):
+    def sync_from_ui(self, orders):
         # EXTENDS 'point_of_sale'
-        results = super().create_from_ui(orders, draft=draft)
-        orders = self.browse([x['id'] for x in results])
-        orders._l10n_mx_edi_check_autogenerate_cfdi_refund()
-        return results
+        for order in orders:
+            if order['to_invoice'] and self.env['pos.session'].browse(order['session_id']).company_id.country_id.code == 'MX':
+                order['l10n_mx_edi_cfdi_to_public'] = order.get('l10n_mx_edi_cfdi_to_public', False)
+                order['l10n_mx_edi_usage'] = order.get('l10n_mx_edi_usage', False)
+
+        data = super().sync_from_ui(orders)
+        if len(orders) > 0:
+            orders = self.browse([o['id'] for o in data["pos.order"]])
+            orders._l10n_mx_edi_check_autogenerate_cfdi_refund()
+
+        return data
 
     def _refund(self):
         # EXTENDS 'point_of_sale'

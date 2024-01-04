@@ -46,7 +46,7 @@ patch(PaymentScreen.prototype, {
         if (this.pos.isCountryGermanyAndFiskaly()) {
             if (this.currentOrder.isTransactionInactive()) {
                 try {
-                    await this.currentOrder.createTransaction();
+                    await this.pos.createTransaction(this.currentOrder);
                 } catch (error) {
                     if (error.status === 0) {
                         this.pos.showFiskalyNoInternetConfirmPopup(this);
@@ -60,7 +60,7 @@ patch(PaymentScreen.prototype, {
             }
             if (this.currentOrder.isTransactionStarted()) {
                 try {
-                    await this.currentOrder.finishShortTransaction();
+                    await this.pos.finishShortTransaction(this.currentOrder);
                     await super._finalizeValidation(...arguments);
                 } catch (error) {
                     if (error.status === 0) {

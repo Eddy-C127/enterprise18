@@ -23,22 +23,34 @@ patch(ControlButtons.prototype, {
         });
     },
     async getUserSessionStatus() {
+        let cashier = this.pos.get_cashier();
+
+        if (cashier.model.pythonModel === "hr.employee") {
+            cashier = this.pos.user.id;
+        }
+
         return await this.pos.data.call(
             "pos.session",
             "get_user_session_work_status",
             [this.pos.session.id],
             {
-                user_id: this.pos.get_cashier().id,
+                user_id: cashier.id,
             }
         );
     },
     async setUserSessionStatus(status) {
+        let cashier = this.pos.get_cashier();
+
+        if (cashier.model.pythonModel === "hr.employee") {
+            cashier = this.pos.user.id;
+        }
+
         const users = await this.pos.data.call(
             "pos.session",
             "set_user_session_work_status",
             [this.pos.session.id],
             {
-                user_id: this.pos.get_cashier().id,
+                user_id: cashier,
                 status: status,
             }
         );
@@ -94,12 +106,10 @@ patch(ControlButtons.prototype, {
             data: order.export_for_printing(),
             formatCurrency: this.env.utils.formatCurrency,
         });
-        order.finalized = true;
-        this.pos.db.remove_unpaid_order(order);
+
         if (this.pos.config.module_pos_restaurant) {
             this.pos.showScreen("FloorScreen");
         } else {
-            this.pos.removeOrder(this.pos.get_order());
             this.pos.add_new_order();
             this.pos.showScreen("ProductScreen");
         }

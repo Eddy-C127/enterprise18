@@ -18,34 +18,6 @@ class PosOrder(models.Model):
     l10n_de_fiskaly_signature_public_key = fields.Char(string="Signature Public Key", readonly=True, copy=False)
     l10n_de_fiskaly_client_serial_number = fields.Char(string="Client Serial", readonly=True, copy=False)
 
-    @api.model
-    def _order_fields(self, ui_order):
-        fields = super()._order_fields(ui_order)
-        if self.env.company.l10n_de_is_germany_and_fiskaly():
-            fields['l10n_de_fiskaly_transaction_uuid'] = ui_order['fiskaly_uuid']
-            if 'tss_info' in ui_order:
-                for key, value in ui_order['tss_info'].items():
-                    if value:
-                        fields['l10n_de_fiskaly_'+key] = value
-        return fields
-
-    def _export_for_ui(self, order):
-        json = super()._export_for_ui(order)
-        if self.env.company.is_country_germany:
-            tss_info = {
-                'transaction_number': order.l10n_de_fiskaly_transaction_number,
-                'time_start': order.l10n_de_fiskaly_time_start,
-                'time_end': order.l10n_de_fiskaly_time_end,
-                'certificate_serial': order.l10n_de_fiskaly_certificate_serial,
-                'timestamp_format': order.l10n_de_fiskaly_timestamp_format,
-                'signature_value': order.l10n_de_fiskaly_signature_value,
-                'signature_algorithm': order.l10n_de_fiskaly_signature_algorithm,
-                'signature_public_key': order.l10n_de_fiskaly_signature_public_key,
-                'client_serial_number': order.l10n_de_fiskaly_client_serial_number
-            }
-            json['tss_info'] = tss_info
-        return json
-
     def _l10n_de_payment_types(self):
         """
         Used to retrieve a list of information used in the dsfinvk export json template

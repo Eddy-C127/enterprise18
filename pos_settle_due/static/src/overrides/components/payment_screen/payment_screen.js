@@ -24,9 +24,9 @@ patch(PaymentScreen.prototype, {
             (method) =>
                 this.pos.config.payment_method_ids.includes(method.id) && method.type == "pay_later"
         )[0];
-        const existingPayLaterPayment = order
-            .get_paymentlines()
-            .find((payment) => payment.payment_method.type == "pay_later");
+        const existingPayLaterPayment = order.payment_ids.find(
+            (payment) => payment.payment_method_id.type == "pay_later"
+        );
         if (
             order.get_orderlines().length === 0 &&
             !floatIsZero(change, this.pos.currency.decimal_places) &&
@@ -70,9 +70,9 @@ patch(PaymentScreen.prototype, {
     },
     async afterOrderValidation(suggestToSync = false) {
         await super.afterOrderValidation(...arguments);
-        const hasCustomerAccountAsPaymentMethod = this.currentOrder
-            .get_paymentlines()
-            .find((paymentline) => paymentline.payment_method.type === "pay_later");
+        const hasCustomerAccountAsPaymentMethod = this.currentOrder.payment_ids.find(
+            (paymentline) => paymentline.payment_method_id.type === "pay_later"
+        );
         const partner = this.currentOrder.get_partner();
         if (hasCustomerAccountAsPaymentMethod && partner.total_due !== undefined) {
             this.pos.refreshTotalDueOfPartner(partner);

@@ -8,19 +8,6 @@ class PosOrder(models.Model):
     invoice_type = fields.Char(string="Invoice Type")
     voucher_number = fields.Char(string="Voucher Number")
 
-    def _export_for_ui(self, order):
-        fields = super()._export_for_ui(order)
-        if self.env.company.country_code == 'CL':
-            fields['voucher_number'] = order.voucher_number
-        return fields
-
-    def _order_fields(self, ui_order):
-        fields = super()._order_fields(ui_order)
-        if self.env.company.country_code == 'CL':
-            fields['invoice_type'] = ui_order['invoiceType'] if 'invoiceType' in ui_order else "boleta"
-            fields['voucher_number'] = ui_order['voucherNumber'] if 'voucherNumber' in ui_order else False
-        return fields
-
     def _prepare_invoice_vals(self):
         vals = super()._prepare_invoice_vals()
         if self.amount_total >= 0:
