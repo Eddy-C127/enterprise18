@@ -6,9 +6,6 @@
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='timesheet_ids']" position="attributes">
-                <attribute name="widget">so_line_one2many</attribute>
-            </xpath>
             <xpath expr="//field[@name='timesheet_ids']/tree" position="inside">
                 <field name="timesheet_invoice_id" column_invisible="True"/>
                 <field name="is_so_line_edited" column_invisible="True"/>
