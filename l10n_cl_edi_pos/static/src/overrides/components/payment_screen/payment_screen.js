@@ -82,6 +82,11 @@ patch(PaymentScreen.prototype, {
             }
             this.currentOrder.voucherNumber = voucherNumber;
         }
-        await super.validateOrder(arguments);
+        await super.validateOrder(...arguments);
+    },
+    shouldDownloadInvoice() {
+        return this.pos.isChileanCompany()
+            ? this.pos.selectedOrder.isFactura()
+            : super.shouldDownloadInvoice();
     },
 });
