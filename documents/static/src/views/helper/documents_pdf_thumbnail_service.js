@@ -20,8 +20,8 @@ export const documentsPdfThumbnailService = {
         const checkForThumbnail = async (record) => {
             let initialWorkerSrc = false;
             if (
-                !record.isPdf() ||
-                record.hasThumbnail() ||
+                record.data.thumbnail_status !== "client_generated" ||
+                record.hasStoredThumbnail() ||
                 record.data.thumbnail_status === "error" ||
                 !enabled
             ) {

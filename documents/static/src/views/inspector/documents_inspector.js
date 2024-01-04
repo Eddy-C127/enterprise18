@@ -300,7 +300,7 @@ export class DocumentsInspector extends Component {
             additionalData.isImage ||
             additionalData.isYoutubeVideo ||
             record.data.url_preview_image ||
-            (record.isPdf() && record.hasThumbnail())
+            (record.isPdf() && record.hasStoredThumbnail())
         ) {
             classes.push("o_documents_preview_image");
         } else {

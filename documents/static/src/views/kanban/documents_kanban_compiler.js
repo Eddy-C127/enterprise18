@@ -74,7 +74,8 @@ export class DocumentsKanbanCompiler extends KanbanCompiler {
         // `oe_kanban_previewer` if the file can be seen in the attachment viewer
         elem.setAttribute(
             "t-attf-class",
-            (elem.getAttribute("t-attf-class") || "") + " {{(hasThumbnail or __comp__.props.record.isViewable() or youtubeVideoToken) ? 'oe_kanban_previewer' : ''}}"
+            (elem.getAttribute("t-attf-class") || "") +
+                " {{(hasStoredThumbnail or __comp__.props.record.isViewable() or youtubeVideoToken) ? 'oe_kanban_previewer' : ''}}"
         );
         return elem;
     }

@@ -115,7 +115,7 @@ export const DocumentsRecordMixin = (component) => class extends component {
         return this.data.mimetype === "application/pdf" || this.data.mimetype === "application/pdf;base64";
     }
 
-    hasThumbnail() {
+    hasStoredThumbnail() {
         return this.data.thumbnail_status === "present";
     }
 
