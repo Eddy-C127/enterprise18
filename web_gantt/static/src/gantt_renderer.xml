@@ -260,7 +260,7 @@
 
     <t t-name="web_gantt.GanttRenderer.TotalRow">
         <t t-if="model.metaData.groupedBy.length">
-            <div class="o_gantt_row_sidebar bg-view d-flex align-items-center justify-content-end">
+            <div class="o_gantt_row_sidebar bg-view d-flex align-items-center justify-content-end" t-att-class="{ o_sample_data_disabled: isDisabled()}">
                 <h4
                     class="o_gantt_row_title pe-3 my-0 fw-bold"
                     t-att-title="totalRow.name"
@@ -272,13 +272,14 @@
             <t t-foreach="columns" t-as="column" t-key="column.id">
                 <div
                     class="o_gantt_cell"
-                    t-att-class="{ o_gantt_today: column.isToday }"
+                    t-att-class="{ o_gantt_today: column.isToday, o_sample_data_disabled: isDisabled() }"
                     t-att-style="getGridPosition({ column: column.grid.column, row: 1 })"
                 />
             </t>
             <t t-foreach="totalRow.pills" t-as="pill" t-key="pill.id">
                 <div
                     class="o_gantt_pill_wrapper position-relative p-0 h-100 d-flex align-items-end"
+                    t-att-class="{ o_sample_data_disabled: isDisabled()}"
                     t-att-style="getGridPosition(pill.grid)"
                 >
                     <div class="o_gantt_pill o_gantt_consolidated_pill w-100 d-flex align-items-end justify-content-center"

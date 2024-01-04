@@ -37,17 +37,11 @@
         font-size: 18px;
         background-color: $o-cohort-heading-bg-color;
     }
-
-    .o_view_sample_data {
-        .o_data_table {
-            @include o-sample-data-disabled;
-        }
-    }
 }
 
 // ------- Sample mode -------
 .o_cohort_view .o_view_sample_data {
-    .o_cohort_renderer {
+    .o_data_table {
         @include o-sample-data-disabled;
     }
 }

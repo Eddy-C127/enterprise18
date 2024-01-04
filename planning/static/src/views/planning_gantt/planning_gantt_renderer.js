@@ -340,8 +340,8 @@ export class PlanningGanttRenderer extends GanttRenderer {
     /**
      * @override
      */
-    isDisabled(row) {
-        if (!row.fromServer) {
+    isDisabled(row = null) {
+        if (row && !row.fromServer) {
             return false;
         }
         return super.isDisabled(...arguments);
