@@ -4,7 +4,7 @@ from odoo import api, fields, models, _, _lt, Command
 from odoo.addons.iap.tools import iap_tools
 from odoo.exceptions import AccessError
 from odoo.tools import float_compare, mute_logger
-from odoo.tools.misc import clean_context
+from odoo.tools.misc import clean_context, formatLang
 from difflib import SequenceMatcher
 import logging
 import re
@@ -129,6 +129,10 @@ class AccountMove(models.Model):
         super()._upload_to_extract_success_callback()
         self.extract_attachment_id = self.message_main_attachment_id
 
+    def is_indian_taxes(self):
+        l10n_in = self.env['ir.module.module'].search([('name', '=', 'l10n_in')])
+        return self.company_id.country_id.code == "IN" and l10n_in and l10n_in.state == 'installed'
+
     def _get_user_infos(self):
         user_infos = super()._get_user_infos()
         user_infos.update({
@@ -216,6 +220,21 @@ class AccountMove(models.Model):
                     "total": il.price_total
                 }
                 text_to_send['lines'].append(line)
+            if self.is_indian_taxes():
+                lines = text_to_send['lines']
+                for index, line in enumerate(text_to_send['lines']):
+                    for tax in line['taxes']:
+                        taxes = []
+                        if tax['type'] == 'group':
+                            taxes.extend([{
+                                'amount': tax['amount'] / 2,
+                                'type': 'percent',
+                                'price_include': tax['price_include']
+                            } for _ in range(2)])
+                        else:
+                            taxes.append(tax)
+                        lines[index]['taxes'] = taxes
+                text_to_send['lines'] = lines
         else:
             return None
 
@@ -456,6 +475,18 @@ class AccountMove(models.Model):
         """
         taxes_found = self.env['account.tax']
         type_tax_use = 'purchase' if self.is_purchase_document() else 'sale'
+        if self.is_indian_taxes() and len(taxes_ocr) > 1:
+            total_tax = sum(taxes_ocr)
+            grouped_taxes_records = self.env['account.tax'].search([
+                *self.env['account.tax']._check_company_domain(self.company_id),
+                ('amount', '=', total_tax),
+                ('amount_type', '=', 'group'),
+                ('type_tax_use', '=', type_tax_use),
+            ])
+            for grouped_tax in grouped_taxes_records:
+                children_taxes = grouped_tax.children_tax_ids.mapped('amount')
+                if set(taxes_ocr) == set(children_taxes):
+                    return grouped_tax
         for (taxes, taxes_type) in zip(taxes_ocr, taxes_type_ocr):
             if taxes != 0.0:
                 related_documents = self.env['account.move'].search([
@@ -648,6 +679,7 @@ class AccountMove(models.Model):
         qr_bill_ocr = self._get_ocr_selected_value(ocr_results, 'qr-bill')
         supplier_ocr = self._get_ocr_selected_value(ocr_results, 'supplier', "")
         client_ocr = self._get_ocr_selected_value(ocr_results, 'client', "")
+        total_tax_amount_ocr = self._get_ocr_selected_value(ocr_results, 'total_tax_amount', 0.0)
 
         self.extract_partner_name = client_ocr if self.is_sale_document() else supplier_ocr
 
@@ -795,6 +827,21 @@ class AccountMove(models.Model):
             # Check the tax roundings after the tax lines have been synced
             tax_amount_rounding_error = total_ocr - self.tax_totals['amount_total']
             threshold = len(vals_invoice_lines) * move_form.currency_id.rounding
+            # Check if tax amounts detected by the ocr are correct and
+            # replace the taxes that caused the rounding error in case of indian localization
+            if not move_form.currency_id.is_zero(tax_amount_rounding_error) and self.is_indian_taxes():
+                fixed_rounding_error = total_ocr - total_tax_amount_ocr - self.tax_totals['amount_untaxed']
+                tax_totals = self.tax_totals
+                tax_groups = tax_totals['groups_by_subtotal']['Untaxed Amount']
+                if move_form.currency_id.is_zero(fixed_rounding_error) and tax_groups:
+                    tax = total_tax_amount_ocr / len(tax_groups)
+                    for tax_total in tax_groups:
+                        tax_total.update({
+                            'tax_group_amount': tax,
+                            'formatted_tax_group_amount': formatLang(self.env, tax, currency_obj=self.currency_id),
+                        })
+                    self.tax_totals = tax_totals
+
             if (
                 not move_form.currency_id.is_zero(tax_amount_rounding_error) and
                 float_compare(abs(tax_amount_rounding_error), threshold, precision_digits=2) <= 0
