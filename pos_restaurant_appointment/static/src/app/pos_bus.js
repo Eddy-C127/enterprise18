@@ -4,13 +4,12 @@ import { patch } from "@web/core/utils/patch";
 import { PosBus } from "@point_of_sale/app/bus/pos_bus_service";
 
 patch(PosBus.prototype, {
-    // Override
-    dispatch(message) {
-        super.dispatch(...arguments);
-
-        if (message.type === "TABLE_BOOKING") {
-            this.ws_syncTableBooking(message.payload);
-        }
+    /**
+     * @override
+     */
+    setup() {
+        super.setup(...arguments);
+        this.busService.subscribe("TABLE_BOOKING", (payload) => this.ws_syncTableBooking(payload));
     },
 
     ws_syncTableBooking(data) {

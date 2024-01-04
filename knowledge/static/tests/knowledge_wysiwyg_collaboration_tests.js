@@ -30,8 +30,8 @@ QUnit.module("Knowledge - Collaboration", (hooks) => {
             setup() {
                 const result = super.setup(...arguments);
                 this.busService = {
-                    addEventListener: () => {},
-                    removeEventListener: () => {},
+                    subscribe: () => {},
+                    unsubscribe: () => {},
                     addChannel: () => {},
                     deleteChannel: () => {},
                 };

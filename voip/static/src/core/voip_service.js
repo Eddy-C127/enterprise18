@@ -66,7 +66,13 @@ export class Voip {
             delete this.store.voipConfig;
             this.isReady.resolve();
         });
-        this.busService.addEventListener("notification", this._onBusNotifications.bind(this));
+        this.busService.subscribe("delete_call_activity", (payload) => {
+            const activity = this.store.Activity.insert(payload);
+            this.activityService.delete(activity);
+        });
+        this.busService.subscribe("refresh_call_activities", () => {
+            this.fetchTodayCallActivities();
+        });
         document.body.addEventListener("beforeunload", this._onBeforeUnload.bind(this));
         return reactive(this);
     }
@@ -264,21 +270,6 @@ export class Voip {
         return (ev.returnValue = _t(
             "There is still a call in progress, are you sure you want to leave the page?"
         ));
-    }
-
-    _onBusNotifications({ detail: notifications }) {
-        for (const { payload, type } of notifications) {
-            switch (type) {
-                case "delete_call_activity": {
-                    const activity = this.store.Activity.insert(payload);
-                    this.activityService.delete(activity);
-                    break;
-                }
-                case "refresh_call_activities":
-                    this.fetchTodayCallActivities();
-                    return;
-            }
-        }
     }
 }
 

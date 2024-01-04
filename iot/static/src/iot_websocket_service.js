@@ -55,15 +55,17 @@ export const IotWebsocketService = {
                 if (iot_channel)
                 {
                     bus_service.addChannel(iot_channel);
-                    bus_service.addEventListener("notification", async (message) => {
-                        for (let i in message['detail']) {
-                            if (message['detail'][i]['type'] == "print_confirmation" && ws.jobs[message['detail'][i]['payload']['print_id']]) {
-                                const deviceId = message['detail'][i]['payload']['device_identifier'];
-                                const printId = message['detail'][i]['payload']['print_id'];
-                                delete ws.jobs[printId][ws.jobs[printId].findIndex(element => element && element['identifier'] == deviceId)];
-                            }
-                        }    
-                    })
+                    bus_service.subscribe("print_confirmation", (payload) => {
+                        if (ws.jobs[payload["print_id"]]) {
+                            const deviceId = payload["device_identifier"];
+                            const printId = payload["print_id"];
+                            delete ws.jobs[printId][
+                                ws.jobs[printId].findIndex(
+                                    (element) => element && element["identifier"] == deviceId
+                                )
+                            ];
+                        }
+                    });
                 }
         return ws;
     },

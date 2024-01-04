@@ -21,32 +21,28 @@ const preparationDisplayService = {
         ).ready;
 
         bus_service.addChannel(`preparation_display-${odoo.preparation_display.access_token}`);
-        bus_service.addEventListener("notification", async (message) => {
-            const proms = message.detail.map((detail) => {
-                const datas = detail.payload;
-                // We need to check if the notification is about this preparation display.
-                // Currently, the webservice does not allow to filter the notifications.
-                if (datas.preparation_display_id !== odoo.preparation_display.id) {
-                    return false;
-                }
-
-                switch (detail.type) {
-                    case "load_orders":
-                        return preparationDisplayService.getOrders();
-                    case "change_order_stage":
-                        return preparationDisplayService.wsMoveToNextStage(
-                            datas.order_id,
-                            datas.stage_id,
-                            datas.last_stage_change
-                        );
-                    case "change_orderline_status":
-                        return preparationDisplayService.wsChangeLinesStatus(datas.status);
-                }
-            });
-
-            await Promise.all(proms);
+        bus_service.subscribe("load_orders", (datas) => {
+            if (datas.preparation_display_id !== odoo.preparation_display.id) {
+                return false;
+            }
+            preparationDisplayService.getOrders();
         });
-
+        bus_service.subscribe("change_order_stage", (datas) => {
+            if (datas.preparation_display_id !== odoo.preparation_display.id) {
+                return false;
+            }
+            preparationDisplayService.wsMoveToNextStage(
+                datas.order_id,
+                datas.stage_id,
+                datas.last_stage_change
+            );
+        });
+        bus_service.subscribe("change_orderline_status", (datas) => {
+            if (datas.preparation_display_id !== odoo.preparation_display.id) {
+                return false;
+            }
+            preparationDisplayService.wsChangeLinesStatus(datas.status);
+        });
         return preparationDisplayService;
     },
 };

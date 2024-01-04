@@ -39,9 +39,11 @@ export class SpreadsheetCollaborativeChannel {
         this._queue = [];
         this._channel = this._getChannel();
         this.env.services.bus_service.addChannel(this._channel);
-        this.env.services.bus_service.addEventListener("notification", ({ detail: notifs }) =>
-            this._handleNotifications(this._filterSpreadsheetNotifs(notifs))
-        );
+        this.env.services.bus_service.subscribe("spreadsheet", (payload) => {
+            if (payload.id === this.resId) {
+                this._handleNotification(payload);
+            }
+        });
     }
 
     /**
@@ -81,35 +83,17 @@ export class SpreadsheetCollaborativeChannel {
     }
 
     /**
-     * Filters the received messages to only handle the messages related to
-     * spreadsheet
-     *
-     * @private
-     * @param {Array} notifs
-     *
-     * @returns {Array} notifs which are related to spreadsheet
-     */
-    _filterSpreadsheetNotifs(notifs) {
-        return notifs.filter((notification) => {
-            const { payload, type } = notification;
-            return type === "spreadsheet" && payload.id === this.resId;
-        });
-    }
-
-    /**
      * Either forward the message to the listener if it's already registered,
      * or put it in a queue.
      *
      * @private
-     * @param {Array} notifs
+     * @param {Object} notifs
      */
-    _handleNotifications(notifs) {
-        for (const { payload } of notifs) {
-            if (!this._listener) {
-                this._queue.push(payload);
-            } else {
-                this._listener(payload);
-            }
+    _handleNotification(payload) {
+        if (!this._listener) {
+            this._queue.push(payload);
+        } else {
+            this._listener(payload);
         }
     }
 

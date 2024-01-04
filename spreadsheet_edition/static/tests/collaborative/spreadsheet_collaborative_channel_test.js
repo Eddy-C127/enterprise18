@@ -19,12 +19,16 @@ class MockBusService {
         this.channels.push(name);
     }
 
-    addEventListener(eventName, handler) {
-        this._bus.addEventListener("notif", handler);
+    subscribe(eventName, handler) {
+        this._bus.addEventListener("notif", ({ detail }) => {
+            if (detail.type === eventName) {
+                handler(detail.payload, { id: detail.id });
+            }
+        });
     }
 
     notify(message) {
-        this._bus.trigger("notif", [message]);
+        this._bus.trigger("notif", message);
     }
 }
 
