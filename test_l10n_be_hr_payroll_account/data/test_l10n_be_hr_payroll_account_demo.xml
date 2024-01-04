@@ -1760,69 +1760,6 @@
     </record>
 
     <!--Leave Type-->
-    <!-- Casual leave -->
-    <record id="holiday_status_cl" model="hr.leave.type">
-        <field name="name">Paid Time Off</field>
-        <field name="requires_allocation">yes</field>
-        <field name="employee_requests">no</field>
-        <field name="allocation_validation_type">officer</field>
-        <field name="leave_validation_type">both</field>
-        <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
-        <field name="allocation_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
-        <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
-        <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_legal_leave"></field>
-    </record>
-
-    <!-- Sick leave -->
-    <record id="holiday_status_sl" model="hr.leave.type">
-        <field name="name">Sick Time Off</field>
-        <field name="requires_allocation">no</field>
-        <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
-        <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
-        <field name="support_document">True</field>
-        <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_sick_leave"></field>
-    </record>
-
-    <!-- Compensatory Days -->
-    <record id="holiday_status_comp" model="hr.leave.type">
-        <field name="name">Compensatory Days</field>
-        <field name="requires_allocation">yes</field>
-        <field name="employee_requests">yes</field>
-        <field name="leave_validation_type">both</field>
-        <field name="request_unit">hour</field>
-        <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
-        <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
-        <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_compensatory"></field>
-    </record>
-
-    <!--Unpaid Leave -->
-    <record id="holiday_status_unpaid" model="hr.leave.type">
-        <field name="name">Unpaid</field>
-        <field name="requires_allocation">no</field>
-        <field name="leave_validation_type">both</field>
-        <field name="request_unit">hour</field>
-        <field name="unpaid" eval="True"/>
-        <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_unpaid"/>
-        <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
-        <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_unpaid_leave"></field>
-    </record>
-
-    <record id="hr_holiday_status_dv" model="hr.leave.type">
-        <field name="name">Parental Leaves</field>
-        <field name="requires_allocation">yes</field>
-        <field name="employee_requests">no</field>
-        <field name="allocation_validation_type">officer</field>
-        <field name="leave_validation_type">both</field>
-        <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
-        <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_sick_leave"></field>
-        <field name="icon_id" ref="hr_holidays.icon_11"/>
-    </record>
-
     <record id="holiday_status_phc" model="hr.leave.type">
         <field name="name">Public Holiday Compensation</field>
         <field name="requires_allocation">no</field>
@@ -1843,6 +1780,7 @@
         <field name="work_entry_type_id" ref="l10n_be_hr_payroll.work_entry_type_small_unemployment"/>
     </record>
 
+    <!--Leave Allocations -->
     <record id="hr_holidays_allocation_cl" model="hr.leave.allocation">
         <field name="name">Paid Time Off for Mitchell Admin</field>
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
@@ -1895,7 +1833,7 @@
 
     <record id="hr_holidays_allocation_pl_al" model="hr.leave.allocation">
         <field name="name">Parental Leaves</field>
-        <field name="holiday_status_id" ref="hr_holiday_status_dv"/>
+        <field name="holiday_status_id" ref="hr_holidays.hr_holiday_status_dv"/>
         <field name="number_of_days">10</field>
         <field name="employee_id" ref="employee_al"/>
         <field name="employee_ids" eval="[(4, ref('employee_al'))]"/>
@@ -2247,32 +2185,6 @@
 
     <record id="hr_employee_joseph_noluck" model="hr.employee">
         <field name="contract_id" ref="hr_contract_cdi_joseph_noluck_2"/>
-    </record>
-
-    <record id="holiday_status_paid_time_off_2019" model="hr.leave.type">
-        <field name="name">Paid Time Off 2019</field>
-        <field name="requires_allocation">yes</field>
-        <field name="employee_requests">no</field>
-        <field name="allocation_validation_type">officer</field>
-        <field name="leave_validation_type">both</field>
-        <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
-        <field name="allocation_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
-        <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
-        <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_legal_leave"></field>
-    </record>
-
-    <record id="holiday_status_paid_time_off_2020" model="hr.leave.type">
-        <field name="name">Paid Time Off 2020</field>
-        <field name="requires_allocation">yes</field>
-        <field name="employee_requests">no</field>
-        <field name="allocation_validation_type">officer</field>
-        <field name="leave_validation_type">both</field>
-        <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
-        <field name="allocation_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
-        <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
-        <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_legal_leave"></field>
     </record>
 
     <record id="hr_holidays_allocation_joseph_noluck_2019" model="hr.leave.allocation">
