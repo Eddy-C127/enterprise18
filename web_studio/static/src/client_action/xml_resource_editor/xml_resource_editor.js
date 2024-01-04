@@ -45,7 +45,8 @@ class ViewSelector extends SelectMenu {
             return [];
         }
         const composedChoices = this.state.displayedOptions.filter((opt) =>
-            resource.called_xml_ids.includes(opt.resource.xml_id)
+            resource.called_xml_ids.includes(opt.resource.xml_id) ||
+            resource.called_xml_ids.includes(opt.resource.key)
         );
         if (composedChoices.length) {
             composedChoices.forEach((opt) => (opt.resource.relatedChoice = resource.id));

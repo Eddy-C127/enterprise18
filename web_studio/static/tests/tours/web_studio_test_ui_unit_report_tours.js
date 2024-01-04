@@ -1157,3 +1157,25 @@ registry.category("web_tour.tours").add("web_studio.test_remove_branding_on_copy
         }
     ]
 })
+
+registry.category("web_tour.tours").add("web_studio.test_different_view_document_name", {
+    test: true,
+    steps: () => [
+        {
+            trigger: ".o_web_studio_sidebar button[name='report_edit_sources']",
+        },
+        {
+            trigger: ".o_web_studio_xml_resource_selector .o_select_menu_toggler",
+        },
+        {
+            trigger: ".o_web_studio_xml_resource_selector .o-dropdown--menu",
+            run() {
+                const sources = Array.from(this.$anchor[0].querySelectorAll(".o_select_menu_item")).map(e => e.textContent)
+                assertEqual(
+                    sources.includes("Uses: web_studio.test_report_document (web_studio.test_report_document_1)"),
+                    true
+                )
+            },
+        },
+    ],
+});
