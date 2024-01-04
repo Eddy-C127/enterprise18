@@ -1288,18 +1288,18 @@ QUnit.module("documents", {}, function () {
 
                 await legacyClick($(target).find(".o_kanban_record:contains(yop)")[0]);
 
-                assert.containsNone(target, ".o_document_preview img");
+                assert.containsNone(target, ".o_mimetype_icon[data-mimetype='image/png']");
 
                 await legacyClick($(target).find(".o_kanban_record:contains(burp)")[0]);
 
                 assert.containsNone(target, ".o-FileViewer", "should not have a document preview");
                 assert.containsOnce(
                     target,
-                    ".o_document_preview img",
+                    ".o_mimetype_icon[data-mimetype='image/png']",
                     "should have a clickable image"
                 );
 
-                await legacyClick(target, ".o_document_preview img");
+                await legacyClick(target, ".o_mimetype_icon[data-mimetype='image/png']");
 
                 assert.containsOnce(target, ".o-FileViewer");
                 assert.containsOnce(target, ".o-FileViewer div[aria-label='Close']");
@@ -1352,13 +1352,13 @@ QUnit.module("documents", {}, function () {
 
                     await editInput(target, "div[name=name] input", "foo");
 
-                    await legacyClick(target, ".o_document_preview img");
+                    await legacyClick(target, ".o_mimetype_icon[data-mimetype='image/png']");
                     await nextTick();
                     assert.containsNone(target, ".o-FileViewer");
 
                     def.resolve();
                     await nextTick();
-                    await legacyClick(target, ".o_document_preview img");
+                    await legacyClick(target, ".o_mimetype_icon[data-mimetype='image/png']");
                     await nextTick();
                     assert.containsOnce(target, ".o-FileViewer");
                     await legacyClick(target, ".o-FileViewer div[aria-label='Close']");
