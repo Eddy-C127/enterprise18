@@ -184,6 +184,7 @@ class DataMergeRecord(models.Model):
         hidden_field = lambda key: key in MAGIC_COLUMNS or \
             key not in model_fields or \
             model_fields[key].groups or \
+            not model_fields[key].export_string_translation or \
             IrField(key)['ttype'] == 'binary'
 
         record = self._original_records()
