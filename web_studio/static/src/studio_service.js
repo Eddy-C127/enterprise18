@@ -75,6 +75,11 @@ export const studioService = {
                     // we set them to not editable too.
                     return false;
                 }
+                if (action.view_id && action.view_id[1] === "res.users.preferences.form.inherit") {
+                    // The employee profile view is too complex to handle inside studio.
+                    // @see SELF_READABLE_FIELDS.
+                    return false;
+                }
                 return action.res_model ? true : false;
             }
             return false;
