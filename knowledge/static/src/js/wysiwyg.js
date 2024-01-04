@@ -278,6 +278,10 @@ patch(Wysiwyg.prototype, {
                 this._notifyNewBehavior(articleLinkBlock, restoreSelection);
             },
             parentArticleId: this.options.recordInfo.res_model === 'knowledge.article' ? this.options.recordInfo.res_id : undefined
+        }, {
+            onClose: () => {
+                restoreSelection();
+            }
         });
     },
     /**
