@@ -31,7 +31,7 @@
                             t-on-click="ev => this._onNameClick(ev)"
                             class="o_breadcrumb_article_name_container position-relative text-truncate mx-1">
                             <!-- span forces the input to match the length of its value -->
-                            <span class="pe-2" t-esc="this.props.record.data.name" t-att-title="this.props.record.data.name" />
+                            <span class="pe-2" t-att-title="this.props.record.data.name" t-out="this.props.record.data.name"/>
                             <div class="o_field_widget o_required_modifier o_field_char o_breadcrumb_article_name mb-0">
                                 <input t-if="!(props.record.data.is_locked || !props.record.data.user_can_write || !props.record.data.active || !props.record.resId)" id="name" class="o_input" type="text" autocomplete="off"
                                     t-att-value="props.record.data.name" placeholder="Untitled"/>
