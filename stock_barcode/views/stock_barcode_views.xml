@@ -19,15 +19,6 @@
 
     <!-- Actions -->
 
-    <record id="stock_picking_action_form" model="ir.actions.act_window">
-        <field name="name">Picking</field>
-        <field name="res_model">stock.picking</field>
-        <field name="view_mode">form</field>
-        <field name="context">{
-            'force_detailed_view': True,
-        }</field>
-    </record>
-
     <record id="stock_picking_kanban" model="ir.ui.view">
         <field name="name">stock.barcode.picking.kanban</field>
         <field name="model">stock.picking</field>
@@ -52,7 +43,6 @@
             'contact_display': 'partner_address',
             'search_default_available': 1,
             'search_default_to_do_transfers': 1,
-            'force_detailed_view': True
         }</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -107,9 +97,6 @@
         <field name="view_mode">kanban,form</field>
         <field name="domain">[('code', 'in', ('incoming', 'outgoing', 'internal'))]</field>
         <field name="view_id" ref="stock_picking_type_kanban"/>
-        <field name="context">{
-            'force_detailed_view': True,
-        }</field>
     </record>
 
 
