@@ -101,6 +101,7 @@
                 <filter string="Done" name="done" domain="[('state','=','done')]"/>
                 <separator/>
                 <filter string="Creation Date" name="filter_create_date" date="create_date"/>
+                <filter string="Deadline Date" name="filter_deadline" date="deadline"/>
                 <field name="employee_id"/>
                 <group expand="0" string="Extended Filters...">
                     <field name="deadline"/>
@@ -113,7 +114,8 @@
                     <filter string="Department" name="department" context="{'group_by':'department_id'}"/>
                     <filter string="Status" name="status" context="{'group_by':'state'}"/>
                     <separator/>
-                    <filter string="Date" name="month" context="{'group_by':'create_date:month'}" help="Creation Date"/>
+                    <filter string="Creation Date" name="month" context="{'group_by':'create_date:month'}" help="Creation Date"/>
+                    <filter string="Deadline Date" name="deadline" context="{'group_by':'deadline:month'}" help="Deadline Date"/>
                 </group>
             </search>
         </field>
@@ -125,6 +127,7 @@
         <field name="view_mode">graph,gantt,calendar,pivot</field>
         <field name="context">{'search_default_month':1,'search_default_department':2,'group_by':[]}</field>
         <field name="search_view_id" ref="view_appraisal_report_search"/>
+        <field name="domain">[('employee_id.company_id', 'in', allowed_company_ids)]</field>
     </record>
 
     <menuitem id="menu_hr_appraisal_report" parent="menu_hr_appraisal_root" sequence="20"
