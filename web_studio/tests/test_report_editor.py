@@ -866,3 +866,7 @@ class TestReportEditorUIUnit(HttpCase):
 
     def test_remove_branding_on_copy(self):
         self.start_tour(self.tour_url, "web_studio.test_remove_branding_on_copy", login="admin")
+
+    def test_test_different_view_document_name(self):
+        self.main_view_document_xml_id.name = "test_report_document_1"
+        self.start_tour(self.tour_url, "web_studio.test_different_view_document_name", login="admin")
