@@ -437,7 +437,12 @@ export class DocumentsInspector extends Component {
 
     onDelete() {
         const records = this.props.documents;
-        const callback = () => records[0].model.root.deleteRecords(records);
+        const callback = async () => {
+            const model = records[0].model;
+            await model.root.deleteRecords(records);
+            await model.load();
+            await model.notify();
+        };
         records[0].openDeleteConfirmationDialog(records[0].model.root, callback, true);
     }
 
