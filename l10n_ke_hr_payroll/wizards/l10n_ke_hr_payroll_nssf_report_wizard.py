@@ -43,7 +43,7 @@ class L10nKeHrPayrollNssfReportWizard(models.TransientModel):
         ],
         string='Month',
         required=True,
-        default=lambda self: str(datetime.now().month - 1))
+        default=lambda self: str(datetime.now().month - 1 if datetime.now().month > 1 else 12))
     reference_year = fields.Selection(
         selection='_get_year_selection',
         string='Year',
