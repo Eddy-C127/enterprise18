@@ -309,7 +309,7 @@
         </div>
         <small class="text-uppercase text-muted">Meeting details</small>
         <div class="d-flex flex-column gap-1 mt-2">
-            <div class="d-flex py-1 px-0 bg-transparent o-cc1-text border-0" t-if="appointment_type.location_id">
+            <div class="o_appointment_details_location d-flex py-1 px-0 bg-transparent o-cc1-text border-0" t-if="appointment_type.location_id">
                 <i class="fa fa-map-marker fa-fw me-2 mt-1 text-muted"/>
                 <div>
                     <div t-att-class="str(appointment_type.location_id.contact_address).strip() and 'fw-bold' or ''"
@@ -318,7 +318,7 @@
                             t-options="{'widget': 'contact', 'fields': ['address'], 'no_marker': true}"/>
                 </div>
             </div>
-            <div class="o_appointment_details_location d-flex py-1 px-0 bg-transparent o-cc1-text border-0" t-else="">
+            <div class="d-flex py-1 px-0 bg-transparent o-cc1-text border-0" t-else="">
                 <i class="fa fa-video-camera fa-fw me-2 mt-1 text-muted"/>
                 <span class="o_not_editable">Online</span>
             </div>
