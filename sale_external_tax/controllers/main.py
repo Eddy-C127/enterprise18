@@ -12,7 +12,8 @@ class CustomerPortalExternalTax(CustomerPortal):
 
         # Update taxes before customers see their quotation. This also ensures that tax validation
         # works (e.g. customer has valid address, ...). Otherwise, errors will occur during quote
-        # confirmation.
-        response.qcontext['sale_order']._get_and_set_external_taxes_on_eligible_records()
+        # confirmation. Switch company so that property fields are read correctly.
+        so = response.qcontext['sale_order']
+        so.with_company(so.company_id)._get_and_set_external_taxes_on_eligible_records()
 
         return response

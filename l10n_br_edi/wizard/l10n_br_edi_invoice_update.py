@@ -22,6 +22,35 @@ class L10nBrEDIInvoiceUpdate(models.TransientModel):
         help="When checked an email will be sent informing the customer of the changes and the new EDI documents.",
     )
 
+    def _create_xml_attachment(self, response):
+        return self.env["ir.attachment"].create(
+            {
+                "name": f"{self.move_id.name}_edi_{'cancel' if self.mode == 'cancel' else 'correction'}.xml",
+                "datas": response["xml"]["base64"],
+            }
+        )
+
+    def _log_update(self, success_message, attachments):
+        move = self.move_id
+        if self.send_email:
+            move.with_context(force_send=True, no_new_invoice=True, wizard_mode=self.mode).message_post_with_source(
+                "l10n_br_edi.mail_template_move_update",
+                attachment_ids=attachments.ids,
+            )
+        else:
+            move.with_context(no_new_invoice=True).message_post(
+                body=success_message,
+                attachment_ids=attachments.ids,
+            )
+
+    def _finalize_update(self, iap_args):
+        move = self.move_id
+        if self.mode == "cancel":
+            move.l10n_br_last_edi_status = "cancelled"
+            move.button_cancel()
+        else:
+            move.l10n_br_edi_last_correction_number = iap_args["seq"]
+
     def action_submit(self):
         attachments = self.env["ir.attachment"]
         move = self.move_id
@@ -47,26 +76,6 @@ class L10nBrEDIInvoiceUpdate(models.TransientModel):
                 }
             )
 
-        attachments |= self.env["ir.attachment"].create(
-            {
-                "name": f"{move.name}_edi_{'cancel' if self.mode == 'cancel' else 'correction'}.xml",
-                "datas": response["xml"]["base64"],
-            }
-        )
-
-        if self.send_email:
-            move.with_context(force_send=True, no_new_invoice=True, wizard_mode=self.mode).message_post_with_source(
-                "l10n_br_edi.mail_template_move_update",
-                attachment_ids=attachments.ids,
-            )
-        else:
-            move.with_context(no_new_invoice=True).message_post(
-                body=success_message,
-                attachment_ids=attachments.ids,
-            )
-
-        if self.mode == "cancel":
-            move.l10n_br_last_edi_status = "cancelled"
-            move.button_cancel()
-        else:
-            move.l10n_br_edi_last_correction_number = iap_args["seq"]
+        attachments |= self._create_xml_attachment(response)
+        self._log_update(success_message, attachments)
+        self._finalize_update(iap_args)

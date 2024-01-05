@@ -79,6 +79,10 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
 
             return '%s\n%s\n%s' % (title, response['error']['message'], '\n'.join(inner_errors))
 
+    def _l10n_br_avatax_allow_services(self):
+        """ Override to allow services. """
+        return False
+
     def _l10n_br_avatax_validate_lines(self, lines):
         """ Avoids doing requests to Avatax that are guaranteed to fail. """
         errors = []
@@ -86,11 +90,8 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
             product = line['tempProduct']
             if not product:
                 errors.append(_('- A product is required on each line when using Avatax.'))
-            elif product.detailed_type == 'service':
-                errors.append(_(
-                    '- Avatax only supports consumable products. %s is a service product. Please change the Fiscal Position or the product.',
-                    product.display_name
-                ))
+            elif not self._l10n_br_avatax_allow_services() and product.type == 'service':
+                errors.append(_('- Install the "Brazilian Accounting EDI for services" app to electronically invoice services.'))
             elif not product.l10n_br_ncm_code_id:
                 errors.append(_('- Please configure a Mercosul NCM Code on %s.', product.display_name))
             elif line['lineAmount'] < 0:
@@ -285,6 +286,10 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
             'lines': lines,
         }
 
+    def _l10n_br_get_line_total(self, line_result):
+        """To be overridden for non-goods APIs."""
+        return line_result["lineNetFigure"] - line_result["lineTaxedDiscount"]
+
     def _get_external_taxes(self):
         """ Override. """
         details, summary = super()._get_external_taxes()
@@ -320,7 +325,6 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                         'amount': 1,  # leaving it at the default 0 causes accounting to ignore these
                         'amount_type': 'percent',
                         'price_include': price_include,
-                        'tax_scope': 'consu',  # l10n_br_avatax only supports goods
                         'refund_repartition_line_ids': [
                             repartition_line('base'),
                             repartition_line('tax'),
@@ -359,7 +363,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                 record_id = line_result['lineCode']
                 record = self.env[self._l10n_br_line_model_name()].browse(int(record_id))
                 details[record] = {}
-                details[record]['total'] = line_result['lineNetFigure'] - line_result['lineTaxedDiscount']
+                details[record]['total'] = self._l10n_br_get_line_total(line_result)
                 details[record]['tax_amount'] = 0
                 details[record]['tax_ids'] = self.env['account.tax']
                 for detail in line_result['taxDetails']:

@@ -10,6 +10,7 @@ class CustomerPortalExternalTax(CustomerPortal):
         if 'invoice' not in response.qcontext:
             return response
 
-        response.qcontext['invoice']._get_and_set_external_taxes_on_eligible_records()
+        invoice = response.qcontext['invoice']
+        invoice.with_company(invoice.company_id)._get_and_set_external_taxes_on_eligible_records()
 
         return response

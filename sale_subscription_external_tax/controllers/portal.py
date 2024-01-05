@@ -11,5 +11,6 @@ class CustomerPortalExternalTaxes(CustomerPortal):
         if 'sale_order' not in res.qcontext:
             return res
 
-        res.qcontext['sale_order']._get_and_set_external_taxes_on_eligible_records()
+        order = res.qcontext['sale_order']
+        order.with_company(order.company_id)._get_and_set_external_taxes_on_eligible_records()
         return res
