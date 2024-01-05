@@ -55,20 +55,26 @@ class AccountEdiFormat(models.Model):
             return "%.3f" % amount
         return '%.2f' % amount
 
-    def _l10n_co_edi_prepare_tim_sections(self, taxes_dict, invoice_currency, retention, tax_details=None, actual_tax_details=None):
+    def _l10n_co_edi_prepare_tim_sections(self, taxes_dict, invoice_currency, retention, tax_details=None, actual_tax_details=None, in_COP=False):
         # taxes_dict is no longer used and will be removed in master
         tax_details = tax_details or {}
         actual_tax_details = actual_tax_details or {}
+
+        suffix = '' if in_COP else '_currency'
+        currency_name = 'COP' if in_COP else invoice_currency.name
+        base_amount_field = f'base_amount{suffix}'
+        tax_amount_field = f'tax_amount{suffix}'
 
         # Mapping CO tax type -> TIM section
         new_taxes_dict = defaultdict(lambda: {
             'TIM_1': bool(retention),
             'TIM_2': 0.0,
-            'TIM_3': invoice_currency.name,
+            'TIM_3': currency_name,
             'TIM_4': 0.0,
-            'TIM_5': invoice_currency.name,
+            'TIM_5': currency_name,
             'IMPS': [],
         })
+
         for grouping_key, tax_detail in actual_tax_details['tax_details'].items():
             tax_type = grouping_key['l10n_co_edi_type']
             if tax_type.retention != retention:
@@ -76,18 +82,18 @@ class AccountEdiFormat(models.Model):
             # Construct the IMP and add it to the TIM section (one IMP per tax *rate*)
             tim = new_taxes_dict[tax_type.code]
             if tax_type.code == '05':
-                imp_2 = abs(tax_detail['tax_amount_currency'] * 100 / 15)
+                imp_2 = abs(tax_detail[tax_amount_field] * 100 / 15)
             elif tax_type.code == '34':
                 imp_2 = sum(line.product_id.volume * line.quantity
                             for line in tax_detail['records'])  # Volume
             else:
-                imp_2 = abs(tax_detail['base_amount_currency'])
+                imp_2 = abs(tax_detail[base_amount_field])
             imp = {
                 'IMP_1': tax_type.code,
                 'IMP_2': imp_2,
-                'IMP_3': invoice_currency.name,
-                'IMP_4': abs(tax_detail['tax_amount_currency']),
-                'IMP_5': invoice_currency.name,
+                'IMP_3': currency_name,
+                'IMP_4': abs(tax_detail[tax_amount_field]),
+                'IMP_5': currency_name,
                 'IMP_11': tax_type.name,
             }
             if grouping_key['amount_type'] == 'fixed':
@@ -96,7 +102,7 @@ class AccountEdiFormat(models.Model):
                     'IMP_7': 1,
                     'IMP_8': '94',
                     'IMP_9': grouping_key['amount'],  # Tax rate
-                    'IMP_10': invoice_currency.name,
+                    'IMP_10': currency_name,
                 })
                 if tax_type.code == '22':
                     imp['IMP_8'] = 'BO'
@@ -104,7 +110,7 @@ class AccountEdiFormat(models.Model):
                     imp.update({
                         'IMP_7': imp['IMP_2'],
                         'IMP_8': 'MLT',
-                        'IMP_9': imp['IMP_2'] and float_round(abs(tax_detail['tax_amount_currency']) * 100 / imp['IMP_2'], 2),
+                        'IMP_9': imp['IMP_2'] and float_round(abs(tax_detail[tax_amount_field]) * 100 / imp['IMP_2'], 2),
                     })
             else:
                 imp.update({
@@ -125,6 +131,16 @@ class AccountEdiFormat(models.Model):
 
     def _l10n_co_edi_generate_xml(self, invoice):
         '''Renders the XML that will be sent to Carvajal.'''
+
+        def format_domestic_phone_number(phone):
+            '''The CDE_3 field only allows for 10 characters (since Anexo 1.9).
+            Probably since Colombian telephone numbers are 10 digit numbers when excluding the country prefix (January 2024).
+            '''
+            phone = (phone or '').replace(' ', '')
+            if len(phone) <= 10:
+                return phone
+            phone = re.sub(r'^(\+57|0057)', '', phone)
+            return phone[:10]
 
         def format_monetary(number, currency):
             # Format the monetary values to avoid trailing decimals (e.g. 90.85000000000001).
@@ -258,10 +274,19 @@ class AccountEdiFormat(models.Model):
                         zero_tax_details[tax.l10n_co_edi_type.code] += abs(grouped_tax.get('base_amount'))
         retention_taxes_new = self._l10n_co_edi_prepare_tim_sections(retention_lines_listdict, invoice.currency_id, True, None, tax_details_tim)
         regular_taxes_new = self._l10n_co_edi_prepare_tim_sections(regular_lines_listdict, invoice.currency_id, False, zero_tax_details, tax_details_tim)
-        # The rate should indicate how many pesos is one foreign currency
-        currency_rate = "%.2f" % (tax_details['base_amount'] / tax_details['base_amount_currency'])
 
-        withholding_amount = '%.2f' % (invoice.amount_untaxed + abs(sum(invoice.line_ids.filtered(lambda move: move.tax_line_id and not move.tax_line_id.l10n_co_edi_type.retention).mapped('amount_currency'))))
+        retention_taxes_new_COP = self._l10n_co_edi_prepare_tim_sections(retention_lines_listdict, invoice.currency_id, True, None, tax_details_tim, in_COP=True)
+        regular_taxes_new_COP = self._l10n_co_edi_prepare_tim_sections(retention_lines_listdict, invoice.currency_id, False, zero_tax_details, tax_details_tim, in_COP=True)
+
+        # The rate should indicate how many pesos is one foreign currency
+        currency_rate_number = tax_details['base_amount'] / tax_details['base_amount_currency'] if tax_details['base_amount_currency'] else 1
+        currency_rate = "%.2f" % currency_rate_number
+
+        sign = 1 if invoice.is_outbound() else -1
+
+        regular_tax_lines = invoice.line_ids.filtered(lambda line: line.tax_line_id and not line.tax_line_id.l10n_co_edi_type.retention)
+        withholding_amount = '%.2f' % (invoice.amount_untaxed + abs(sum(regular_tax_lines.mapped('amount_currency'))))
+        withholding_amount_company = '%.2f' % (-sign * invoice.amount_untaxed_signed + sum([sign * line.balance for line in regular_tax_lines]))
 
         # edi_type
         if invoice.move_type == 'out_refund':
@@ -287,16 +312,38 @@ class AccountEdiFormat(models.Model):
         description_code = invoice[description_field] if description_field else None
         description = dict(invoice._fields[description_field].selection).get(description_code) if description_code else None
 
+        invoice_lines = invoice.invoice_line_ids.filtered(lambda line: line.display_type == 'product')
+        invoice_lines_values = {}
+        for line in invoice_lines:
+            price_subtotal = sign * line.balance
+            if line.discount == 100:
+                price_subtotal_before_discount = line.price_unit * line.quantity * currency_rate_number
+            else:
+                price_subtotal_before_discount = price_subtotal / (1 - line.discount / 100)
+            if line.quantity:
+                price_unit = price_subtotal_before_discount / line.quantity
+            else:
+                price_unit = line.price_unit * currency_rate_number
+            invoice_lines_values[line.id] = {
+                'price_unit': price_unit,
+                'price_subtotal': price_subtotal,
+                'discount_amount': price_subtotal_before_discount - price_subtotal,
+                'price_subtotal_before_discount': price_subtotal_before_discount,
+            }
+
         xml_content = self.env['ir.qweb']._render(self._l10n_co_edi_get_electronic_invoice_template(invoice), {
             'invoice': invoice,
+            'sign': sign,
             'edi_type': edi_type,
             'company_partner': invoice.company_id.partner_id,
             'sales_partner': invoice.user_id,
             'invoice_partner': invoice.partner_id.commercial_partner_id,
             'retention_taxes': retention_taxes,
             'retention_taxes_new': retention_taxes_new,
+            'retention_taxes_new_COP': retention_taxes_new_COP,
             'regular_taxes': regular_taxes,
             'regular_taxes_new': regular_taxes_new,
+            'regular_taxes_new_COP': regular_taxes_new_COP,
             'tax_details': tax_details,
             'tax_types': invoice.mapped('line_ids.tax_ids.l10n_co_edi_type'),
             'exempt_tax_dict': exempt_tax_dict,
@@ -307,11 +354,15 @@ class AccountEdiFormat(models.Model):
             'float_compare': float_compare,
             'notas': get_notas(),
             'withholding_amount': withholding_amount,
+            'withholding_amount_company': withholding_amount_company,
+            'invoice_lines': invoice_lines,
+            'invoice_lines_values': invoice_lines_values,
             'validation_time': validation_time,
             'delivery_date': invoice.invoice_date + timedelta(1),
             'description_code': description_code,
             'description': description,
             'format_monetary': format_monetary,
+            'format_domestic_phone_number': format_domestic_phone_number,
             '_l10n_co_edi_get_round_amount': self._l10n_co_edi_get_round_amount
         })
         return b'<?xml version="1.0" encoding="utf-8"?>' + xml_content.encode()
@@ -464,6 +515,11 @@ class AccountEdiFormat(models.Model):
             edi_result.append(_("The Identification Number Type on the company\'s partner should be 'NIT'."))
         if not move.partner_id.commercial_partner_id.l10n_latam_identification_type_id.l10n_co_document_code:
             edi_result.append(_("The Identification Number Type on the customer\'s partner should be 'NIT'."))
+        if move.l10n_co_edi_operation_type == '20' and not move.l10n_co_edi_description_code_credit:
+            edi_result.append(_("Credit Notes that reference an invoice require to have a Credit Note Concept, please fill in this value"))
+
+        if not move.company_id.partner_id.email:
+            edi_result.append(_("Your company's contact should have a reception email set."))
 
         # Sugar taxes
         for line in move.invoice_line_ids:

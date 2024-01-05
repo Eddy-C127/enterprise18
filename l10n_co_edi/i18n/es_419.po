@@ -1553,6 +1553,16 @@ msgid "Created on"
 msgstr "Creado"
 
 #. module: l10n_co_edi
+#: code:addons/l10n_co_edi/models/account_edi_format.py:0
+#, python-format
+msgid ""
+"Credit Notes that reference an invoice require to have a Credit Note "
+"Concept, please fill in this value"
+msgstr ""
+"Las Notas de Crédito que hacen referencia a una factura requieren tener una Nota de Crédito"
+"Concepto, por favor complete este valor"
+
+#. module: l10n_co_edi
 #: model:ir.model.fields,field_description:l10n_co_edi.field_product_product__l10n_co_edi_customs_code
 #: model:ir.model.fields,field_description:l10n_co_edi.field_product_template__l10n_co_edi_customs_code
 msgid "Customs Code"
@@ -6098,6 +6108,12 @@ msgstr ""
 #, python-format
 msgid "You cannot send Documents in Carvajal without an amount."
 msgstr "No se puede enviar Documentos en Carvajal sin un importe."
+
+#. module: l10n_co_edi
+#: code:addons/l10n_co_edi/models/account_edi_format.py:0
+#, python-format
+msgid "Your company's contact should have a reception email set."
+msgstr "El contacto de su compañía debe tener un correo electrónico de recepción establecido."
 
 #. module: l10n_co_edi
 #: model:res.city,name:l10n_co_edi.city_co_197
