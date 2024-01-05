@@ -50,13 +50,15 @@ class ResPartner(models.Model):
             'passport': '41',
             'foreign_id_card': '42',
             'external_id': '50',
-            'residence_document': 'O-99',
+            'residence_document': '47',
+            'PEP': '47',
             'civil_registration': '11',
             'national_citizen_id': '13',
             'niup_id': '91',
             'foreign_colombian_card': '21',
             'foreign_resident_card': '22',
-            'diplomatic_card': 'O-99',
+            'diplomatic_card': '',
+            'PPT': '48',
         }
 
         identification_type = self.l10n_latam_identification_type_id.l10n_co_document_code

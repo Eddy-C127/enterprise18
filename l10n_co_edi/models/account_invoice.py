@@ -10,8 +10,8 @@ DESCRIPTION_CREDIT_CODE = [
     ("2", "Anulación de factura electrónica"),
     ("3", "Rebaja total aplicada"),
     ("4", "Ajuste de precio"),
-    ("5", "Otros"),
-    ("6", "Otros (Inactive)")
+    ("5", "Descuento comercial por pronto pago"),
+    ("6", "Descuento comercial por volumen de ventas")
 ]
 
 DESCRIPTION_DEBIT_CODE = [
@@ -30,7 +30,11 @@ class AccountMove(models.Model):
         ('2', 'Factura de exportación'),
         ('3', 'Documento electrónico de transmisión – tipo 03'),
         ('4', 'Factura electrónica de Venta - tipo 04'),
-    ], required=True, default='1', string='Electronic Invoice Type')
+        ('91', 'Nota Crédito'),
+        ('92', 'Nota Débito'),
+        ('96', 'Eventos (Application Response)'),
+    # TODO: remove 'required' in master
+    ], required=True, default='1', compute='_compute_l10n_co_edi_type', store=True, string='Electronic Invoice Type')
     l10n_co_edi_attachment_url = fields.Char('Electronic Invoice Attachment URL',
                                              help='''Will be included in electronic invoice and can point to
                                              e.g. a ZIP containing additional information about the invoice.''', copy=False)
@@ -39,6 +43,8 @@ class AccountMove(models.Model):
                                                   ('11', 'Mandatos'),
                                                   ('12', 'Transporte'),
                                                   ('13', 'Cambiario'),
+                                                  ('15', 'Compra Divisas'),
+                                                  ('16', 'Venta Divisas'),
                                                   ('20', 'Nota Crédito que referencia una factura electrónica'),
                                                   ('22', 'Nota Crédito sin referencia a facturas'),
                                                   ('23', 'Nota Crédito para facturación electrónica V1 (Decreto 2242)'),
@@ -62,6 +68,17 @@ class AccountMove(models.Model):
     # -------------------------------------------------------------------------
     # Compute
     # -------------------------------------------------------------------------
+
+    @api.depends('move_type', 'l10n_co_edi_debit_note')
+    def _compute_l10n_co_edi_type(self):
+        CO_moves = self.filtered(lambda move: move.company_id.account_fiscal_country_id.code == 'CO')
+        for move in CO_moves:
+            if move.move_type == 'out_refund':
+                move.l10n_co_edi_type = '91'
+            elif move.l10n_co_edi_debit_note:
+                move.l10n_co_edi_type = '92'
+            elif not move.l10n_co_edi_type:
+                move.l10n_co_edi_type = '1'
 
     @api.depends('move_type', 'reversed_entry_id', 'edi_document_ids.state', 'l10n_co_edi_cufe_cude_ref')
     def _compute_operation_type(self):

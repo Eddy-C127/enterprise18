@@ -65,13 +65,14 @@ class TestCoEdiCommon(AccountEdiTestCommon):
             'l10n_co_edi_company': 'test',
             'l10n_co_edi_account': 'test',
             'vat': '213123432-1',
-            'phone': '+1 555 123 8069',
+            'phone': '+57 123 4567890 123',  # Colombian telephone numbers are 10 digit numbers (January 2024); longer here to test shortening
             'website': 'http://www.example.com',
             'email': 'info@yourcompany.example.com',
             'street': 'Route de Ramilies',
             'zip': '1234',
             'city': 'Bogota',
             'state_id': cls.env.ref('base.state_co_01').id,
+            'tax_calculation_rounding_method': 'round_globally',
         })
 
         cls.company_data['company'].partner_id.write({
@@ -153,6 +154,29 @@ class TestCoEdiCommon(AccountEdiTestCommon):
             ]
         }
         cls.invoice = cls.env['account.move'].create(invoice_data)
+
+        # Invoice in non-company currency
+        cls.currency_usd = cls.env.ref('base.USD')
+        cls.currency_usd.active = True
+        cls.env['res.currency.rate'].create({
+            'name': cls.frozen_today,
+            'company_id': cls.company_data['company'].id,
+            'currency_id': cls.currency_usd.id,
+            'rate': 1 / 3919.109578})
+        cls.invoice_multicurrency = cls.env['account.move'].create({
+            **invoice_data,
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': cls.product_a.id,
+                    'quantity': 1,
+                    'price_unit': 252.2,
+                    'discount': 10,
+                    'name': 'Line 1',
+                    'tax_ids': [Command.set((cls.tax + cls.retention_tax).ids)],
+                }),
+            ],
+            'currency_id': cls.currency_usd.id,
+        })
 
         cls.sugar_tax_1 = cls.env['account.tax'].create({
             'name': "IBUA >10gr 50ml",  # arbitrary values
@@ -278,6 +302,7 @@ class TestCoEdiCommon(AccountEdiTestCommon):
         })
 
         cls.expected_invoice_xml = misc.file_open('l10n_co_edi/tests/accepted_invoice.xml', 'rb').read()
+        cls.expected_invoice_multicurrency_xml = misc.file_open('l10n_co_edi/tests/accepted_invoice_multicurrency.xml', 'rb').read()
         cls.expected_sugar_tax_invoice_xml = misc.file_open('l10n_co_edi/tests/accepted_sugar_tax_invoice.xml', 'rb').read()
         cls.expected_credit_note_xml = misc.file_open('l10n_co_edi/tests/accepted_credit_note.xml', 'rb').read()
         cls.expected_invoice_tim_xml = misc.file_open('l10n_co_edi/tests/accepted_invoice_tim.xml', 'rb').read()
