@@ -96,7 +96,7 @@ export class UserAgent {
     get sipJsUserAgentConfig() {
         const isDebug = odoo.debug !== "";
         return {
-            authorizationPassword: this.voip.settings.voip_secret,
+            authorizationPassword: this.voip.store.settings.voip_secret,
             authorizationUsername: this.voip.authorizationUsername,
             delegate: {
                 onDisconnect: (error) => this._onTransportDisconnected(error),
@@ -114,7 +114,7 @@ export class UserAgent {
                 traceSip: isDebug,
             },
             uri: SIP.UserAgent.makeURI(
-                `sip:${this.voip.settings.voip_username}@${this.voip.pbxAddress}`
+                `sip:${this.voip.store.settings.voip_username}@${this.voip.pbxAddress}`
             ),
         };
     }
@@ -395,7 +395,7 @@ export class UserAgent {
             inviteSession.reject({ statusCode: 486 /* Busy Here */ });
             return;
         }
-        if (this.voip.settings.should_auto_reject_incoming_calls) {
+        if (this.voip.store.settings.should_auto_reject_incoming_calls) {
             inviteSession.reject({ statusCode: 488 /* Not Acceptable Here */ });
             return;
         }
