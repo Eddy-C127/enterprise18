@@ -26,6 +26,8 @@ class ApprovalRequest(models.Model):
     category_image = fields.Binary(related='category_id.image')
     approver_ids = fields.One2many('approval.approver', 'request_id', string="Approvers", check_company=True,
         compute='_compute_approver_ids', store=True, readonly=False)
+    user_ids = fields.Many2many('res.users', string="Users",
+        compute='_compute_user_ids', readonly=True)
     company_id = fields.Many2one(
         string='Company', related='category_id.company_id',
         store=True, readonly=True, index=True)
@@ -76,6 +78,11 @@ class ApprovalRequest(models.Model):
     approval_type = fields.Selection(related="category_id.approval_type")
     approver_sequence = fields.Boolean(related="category_id.approver_sequence")
     automated_sequence = fields.Boolean(related="category_id.automated_sequence")
+
+    @api.depends('approver_ids')
+    def _compute_user_ids(self):
+        for request in self:
+            request.user_ids = request.approver_ids.user_id
 
     @api.depends('request_owner_id')
     @api.depends_context('uid')

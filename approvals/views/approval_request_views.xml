@@ -54,7 +54,9 @@
                 <field name="request_owner_id" widget="many2one_avatar_user"/>
                 <field name="category_id"/>
                 <field name="activity_ids" widget="list_activity"/>
+                <field name="user_ids" string="Approvers" widget="many2many_avatar_user"/>
                 <field name="request_status" decoration-info="request_status == 'new'" decoration-warning="request_status == 'pending'" decoration-success="request_status == 'approved'" decoration-danger="request_status == 'refused'" widget="badge"/>
+                <field name="company_id" readonly="True" optional="hide" groups="base.group_multi_company"/>
             </tree>
         </field>
     </record>
@@ -94,7 +96,8 @@
                     <field name="user_status" invisible="1"/>
                     <field name="has_access_to_request" invisible="1"/>
                     <button name="action_confirm" string="Submit" type="object" invisible="not approver_ids or request_status != 'new'" class="btn-primary" data-hotkey="q"/>
-                    <button name="action_approve" string="Approve" type="object" invisible="request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending'" data-hotkey="v"/>
+                    <button name="action_approve" string="Approve" type="object" invisible="not attachment_number or (request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending')" class="btn-primary" data-hotkey="v"/>
+                    <button name="action_approve" string="Approve" type="object" invisible="attachment_number or (request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending')" data-hotkey="v"/>
                     <button name="action_refuse" string="Refuse" type="object" invisible="request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending'" data-hotkey="z"/>
                     <button name="action_withdraw" string="Withdraw" type="object" invisible="request_status == 'new' or user_status in ['waiting', 'pending', 'cancel'] or not user_status" data-hotkey="y"/>
                     <button name="action_draft" string="Back To Draft" type="object" invisible="request_status != 'cancel' or not user_status and not has_access_to_request" data-hotkey="w"/>
@@ -160,6 +163,7 @@
                             </div>
                             <field name="location" invisible="has_location == 'no'" readonly="request_status != 'new'" required="has_location == 'required'" placeholder="e.g. Brussels" />
                             <field name="partner_id" invisible="has_partner == 'no'" readonly="request_status != 'new'" required="has_partner == 'required'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                         <group name="request_details">
                             <field name="quantity" invisible="has_quantity == 'no' or has_product != 'no'" readonly="request_status != 'new'" required="has_quantity == 'required' and has_product == 'no'"/>
