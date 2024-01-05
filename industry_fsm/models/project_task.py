@@ -126,7 +126,11 @@ class Task(models.Model):
 
     def write(self, vals):
         self_fsm = self.filtered('is_fsm')
-        super(Task, self - self_fsm).write(vals.copy())
+        basic_projects = self - self_fsm
+        if basic_projects:
+            res = super(Task, basic_projects).write(vals.copy())
+            if not self_fsm:
+                return res
 
         is_start_date_set = bool(vals.get('planned_date_begin', False))
         is_end_date_set = bool(vals.get("date_deadline", False))
