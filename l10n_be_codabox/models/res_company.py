@@ -13,7 +13,7 @@ class ResCompany(models.Model):
 
     l10n_be_codabox_fiduciary_vat = fields.Char(string="Fiduciary VAT", readonly=False)
     l10n_be_codabox_iap_token = fields.Char(string="IAP Access Token")
-    l10n_be_codabox_is_connected = fields.Boolean(string="Codabox Is Connected")
+    l10n_be_codabox_is_connected = fields.Boolean(string="CodaBox Is Connected")
     l10n_be_codabox_soda_journal = fields.Many2one("account.journal", string="Journal in which SODA's will be imported", domain="[('type', '=', 'bank')]")
 
     # TODO: fix in master by adding account_report module in manifest and changing
@@ -57,9 +57,9 @@ class ResCompany(models.Model):
             if result.get("iap_token"):
                 self.l10n_be_codabox_iap_token = result["iap_token"]
             url = result.get("confirmation_url")
-            if url != self.get_base_url():  # Redirect user to Codabox website to confirm the connection
+            if url != self.get_base_url():  # Redirect user to CodaBox website to confirm the connection
                 return {
-                    "name": _("Codabox"),
+                    "name": _("CodaBox"),
                     "type": "ir.actions.act_url",
                     "url": url,
                     "target": "self",

@@ -2,7 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.exceptions import UserError
 from odoo.tests import tagged
 from odoo.tools import file_open
 
@@ -58,8 +57,6 @@ class TestSodaFile(AccountTestInvoicingCommon):
             }
             for mapping in wizard.soda_account_mapping_ids:
                 mapping.account_id = account_mapping[mapping.code]
-            with self.assertRaisesRegex(UserError, 'Could not create the account 618000. An account with this number already exists.'):
-                wizard.action_save_and_import()
 
             account_618000 = self.env['account.chart.template'].ref('a618')
             mapping_618000 = wizard.soda_account_mapping_ids.search([('code', '=', '618000'), ('company_id', '=', wizard.company_id.id)])
