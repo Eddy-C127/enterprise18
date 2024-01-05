@@ -1445,6 +1445,77 @@ QUnit.module("Views", (hooks) => {
             );
         }
     );
+
+    QUnit.test(
+        "Check correct display of GridTimerButton (keyboard shortcut) when there are more than 26 rows in the grid view",
+        async function (assert) {
+            const pyEnv = getPyEnv();
+            let timesheetId = 6;
+
+            const project_vals = [];
+            for (let i = 0; i <= 26; i++) {
+                project_vals.push( { display_name: `Proj${i}`, allow_timesheets: true } );
+            }
+            let proj_ids = pyEnv["project.project"].create(project_vals);
+
+            const timesheet_vals = [];
+            proj_ids.forEach((id) => {
+                const newTimesheet = {
+                    id: timesheetId++,
+                    project_id: id,
+                    date: serializeDateTime(DateTime.now()),
+                    unit_amount: 1.0,
+                    description: "",
+                };
+                timesheet_vals.push(newTimesheet);
+            });
+            pyEnv.mockServer.models["analytic.line"].records.push(...timesheet_vals);
+
+            const { openView } = await start({
+                serverData,
+                async mockRPC(route, args) {
+                    if (args.method === "get_running_timer") {
+                        return {
+                            step_timer: 30,
+                        };
+                    } else if (args.method === "action_start_new_timesheet_timer") {
+                        return false;
+                    } else if (args.method === "get_daily_working_hours") {
+                        assert.strictEqual(args.model, "res.users");
+                        return {};
+                    } else if (args.method === "get_server_time") {
+                        assert.strictEqual(args.model, "timer.timer");
+                        return serializeDateTime(DateTime.now());
+                    } else if (args.method === "action_timer_unlink") {
+                        return null;
+                    }
+                    return timesheetGridSetup.mockTimesheetGridRPC(route, args);
+                },
+            });
+    
+            await openView({
+                res_model: "analytic.line",
+                views: [[false, "grid"]],
+                context: { group_by: ["project_id", "task_id"] },
+            });
+
+            assert.containsN(target, ".o_grid_row_title", 32, "The view should have 32 total rows rendered.");
+            assert.containsOnce(target, ".btn_start_timer", "No timer should be running.");
+
+            assert.containsN(target, ".btn_timer_line.btn-outline-secondary:has(.fa-play)", 6, "Having 32 total records and only 26 letters for the shortcuts, the last 6 of the GridTimerButton should have fa-play icon instead of a letter");
+            assert.strictEqual(
+                $(".o_grid_row:has(.btn_timer_line.btn-outline-secondary:has(.fa-play)):first").prevAll(".o_grid_row:has(.btn_timer_line)").length,
+                26,
+                "The first fa-play GridTimerButton should be after all the letter shortcut GridTimerButton"
+            );
+            assert.strictEqual(
+                $(".o_grid_row:has(.btn_timer_line.btn-outline-secondary:has(.fa-play)):last").nextAll(".o_grid_row:has(.btn_timer_line)").length,
+                0,
+                "There shouldn't be any GridTimerButton after the last fa-play GridTimerButton"
+            );
+        }
+    );
+
     QUnit.test(
         "Start timer and create a new project and a new task",
         async function (assert) {
