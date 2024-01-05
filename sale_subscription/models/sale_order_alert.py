@@ -185,6 +185,15 @@ class SaleOrderAlert(models.Model):
             return {'template_id': self.template_id.id}
         elif self.action == 'sms':
             return {'sms_template_id': self.sms_template_id.id}
+        elif self.action == 'next_activity':
+            return {
+                'activity_type_id': self.activity_type_id and self.activity_type_id.id,
+                'activity_summary': self.activity_summary,
+                'activity_note': self.activity_note,
+                'activity_date_deadline_range': self.activity_date_deadline_range,
+                'activity_date_deadline_range_type': self.activity_date_deadline_range_type,
+                'activity_user_id': self.activity_user_id and self.activity_user_id.id,
+            }
         return {}
 
     def _create_actions(self):
