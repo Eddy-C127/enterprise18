@@ -56,7 +56,7 @@
                     <!-- Trashed Article Warning Banner-->
                     <div class="alert alert-warning text-center mb-0" role="alert" invisible="not to_delete">
                         This Article is in Trash and will be deleted on the <field class="mb-0" name="deletion_date"/>.
-                        <a role="button" type="object" name="action_unarchive_article"
+                        <a role="button" type="object" name="action_unarchive"
                                 class="text-decoration-underline oe_link alert-link"
                                 invisible="not user_can_write" >
                             Restore
@@ -128,7 +128,7 @@
             <tree default_order="is_user_favorite desc, favorite_count desc"
                   js_class="knowledge_article_view_tree">
                 <header>
-                    <button string="Send to Trash" icon="fa-trash" type="object" context="{'in_tree_view': True}" name="action_send_to_trash" class="btn"/>
+                    <button string="Send to Trash" icon="fa-trash" type="object" name="action_send_to_trash" class="btn"/>
                 </header>
                 <field name="display_name" string="Name"/>
                 <field name="is_user_favorite" column_invisible="True"/>
@@ -373,8 +373,10 @@
                 <filter name="filter_own_privates" string="Private"
                     domain="[('category', '=', 'private'), ('user_has_write_access', '=', True)]"/>
                 <separator/>
-                <filter name="filter_trashed" string="Trashed"
+                <filter name="filter_is_archived" string="Archived"
                     domain="[('active', '=', False)]"/>
+                <filter name="filter_trashed" string="Trashed"
+                    domain="[('active', '=', False), ('to_delete', '=', True)]"/>
                 <group expand="0" string="Group By">
                     <filter name="group_by_category" domain="[]" context="{'group_by': 'category'}"/>
                     <filter name="group_by_menu_article" context="{'group_by': 'root_article_id'}"/>
@@ -455,7 +457,10 @@
         <field name="search_view_id" ref="knowledge_article_view_search_items"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create a new article item
+                Create an Article Item
+            </p><p>
+                Article items are articles that exist inside their parents but are not displayed in the menu.
+                They can be used to handle lists (Buildings, Tasks, ...).
             </p>
         </field>
     </record>
@@ -486,7 +491,10 @@
         <field name="search_view_id" ref="knowledge_article_view_search_items"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create a new article item
+                Create an Article Item
+            </p><p>
+                Article items are articles that exist inside their parents but are not displayed in the menu.
+                They can be used to handle lists (Buildings, Tasks, ...).
             </p>
         </field>
     </record>
@@ -505,7 +513,10 @@
         <field name="search_view_id" ref="knowledge_article_view_search_items"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create a new article item
+                Create an Article Item
+            </p><p>
+                Article items are articles that exist inside their parents but are not displayed in the menu.
+                They can be used to handle lists (Buildings, Tasks, ...).
             </p>
         </field>
     </record>

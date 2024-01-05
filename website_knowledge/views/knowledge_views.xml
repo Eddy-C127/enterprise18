@@ -24,4 +24,18 @@
             </field>
         </field>
     </record>
+
+    <!-- Search view: -->
+    <record id="knowledge_article_view_search" model="ir.ui.view">
+        <field name="name">knowledge.article.view.search.inherit.website</field>
+        <field name="model">knowledge.article</field>
+        <field name="inherit_id" ref="knowledge.knowledge_article_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_own_privates']" position="after">
+                <separator/>
+                <filter name="filter_is_published" string="Is Published"
+                        domain="[('website_published', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

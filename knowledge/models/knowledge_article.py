@@ -54,12 +54,12 @@ class Article(models.Model):
     article_url = fields.Char('Article URL', compute='_compute_article_url', readonly=True)
     # Access rules and members + implied category
     internal_permission = fields.Selection(
-        [('write', 'Can edit'), ('read', 'Can read'), ('none', 'Restricted')],
+        [('write', 'Can edit'), ('read', 'Can read'), ('none', 'No access')],
         string='Internal Permission', required=False,
         help="Default permission for all internal users. "
              "(External users can still have access to this article if they are added to its members)")
     inherited_permission = fields.Selection(
-        [('write', 'Can edit'), ('read', 'Can read'), ('none', 'Restricted')],
+        [('write', 'Can edit'), ('read', 'Can read'), ('none', 'No access')],
         string='Inherited Permission',
         compute="_compute_inherited_permission", compute_sudo=True,
         store=True, recursive=True)
@@ -1030,7 +1030,7 @@ class Article(models.Model):
         return self.search(domain).unlink()
 
     def action_archive(self):
-        return self._action_archive_articles()
+        self._action_archive_articles()
 
     @api.model
     def name_create(self, name):
@@ -1214,6 +1214,14 @@ class Article(models.Model):
         action['res_id'] = article.id
         return action
 
+    def action_redirect_to_parent(self):
+        """ Redirect to the parent article if the user has access to the parent
+            article. Otherwise, redirect to the home page. """
+        self.ensure_one()
+        return self.parent_id.action_home_page() \
+            if self.parent_id and self.parent_id.user_has_access \
+                else self.env['knowledge.article'].action_home_page()
+
     def action_set_lock(self):
         self.is_locked = True
 
@@ -1241,40 +1249,23 @@ class Article(models.Model):
         self.invalidate_recordset(fnames=["is_user_favorite", "favorite_ids"])
         return self[0].is_user_favorite if self else False
 
-    def action_article_archive(self):
-        self.action_archive()
-        return self.env["knowledge.article"].action_home_page()
-
     def action_send_to_trash(self):
-        action_home_page = self._action_archive_articles(send_to_trash=True)
-        # no need to reload when inside the tree view
-        if self.env.context.get('in_tree_view'):
-            return False
-        return action_home_page
+        self._action_archive_articles(send_to_trash=True)
+
     def _action_archive_articles(self, send_to_trash=False):
         """ When archiving
                   * archive the current article and all its writable descendants;
                   * unreachable descendants (none, read) are set as free articles without
                     root;
         :param bool send_to_trash: Article specific archive:
-            after archive, redirect to the home page displaying accessible
-            articles, instead of doing nothing.
         """
         # _detach_unwritable_descendants calls _filter_access_rules_python which returns
         # a sudo-ed recordset
-        writable_descendants = self._detach_unwritable_descendants().with_env(self.env)
-        (self + writable_descendants).filtered('active').toggle_active()
+        articles = self + self._detach_unwritable_descendants().with_env(self.env)
+        articles.filtered('active').toggle_active()
         if send_to_trash:
-            (self + writable_descendants).to_delete = True
-            (self + writable_descendants)._send_trash_notifications()
-            return self.env['knowledge.article'].with_context(res_id=False).action_home_page()
-        return True
-
-    def action_unarchive_article(self):
-        """ Called by the archive action from the form view action menu.
-        """
-        self.ensure_one()
-        self.action_unarchive()
+            articles.to_delete = True
+            articles._send_trash_notifications()
 
     def action_unarchive(self):
         """ When unarchiving
@@ -1290,10 +1281,10 @@ class Article(models.Model):
             the knowledge home page, make the article a root article.
         """
         writable_descendants = self.with_context(active_test=False)._detach_unwritable_descendants().with_env(self.env)
-        res = super(Article, self + writable_descendants).action_unarchive()
-        # Trash management: unarchive removes the article from the trash
-        articles_to_restore = (self + writable_descendants).filtered(lambda article: article.to_delete)
-        articles_to_restore.write({'to_delete': False})
+        articles_to_restore = self + writable_descendants
+        super(Article, articles_to_restore).action_unarchive()
+        # Removes the article from the trash:
+        articles_to_restore.filtered('to_delete').to_delete = False
         for article in self.filtered(lambda article: article.parent_id.to_delete):
             write_values = article._desync_access_from_parents_values()
             # Make it root
@@ -1303,7 +1294,6 @@ class Article(models.Model):
             })
             # sudo to write on members
             article.sudo().write(write_values)
-        return res
 
     def action_join(self):
         self.ensure_one()
@@ -1773,7 +1763,8 @@ class Article(models.Model):
         # Archive private article if remove self member.
         remove_self = member.partner_id == self.env.user.partner_id
         if remove_self and self.category == 'private' and current_membership:
-            return self.action_archive()
+            self.action_archive()
+            return
 
         # If user doesn't gain higher access when removing own member,
         # we should allow to do it.

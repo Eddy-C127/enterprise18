@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-light rounded mx-4 my-3 p-3">
+                        <div class="border rounded mx-4 my-3 p-3">
                             <div class="h4 m-0">
                                 <span class="pe-1">
                                     <t t-if="slot.record.data.icon" t-out="slot.record.data.icon"/>
@@ -66,7 +66,7 @@
             </div>
             <t t-set-slot="footer">
                 <button t-if="groups.length > 0" t-on-click="onLoadTemplate" class="btn btn-primary" data-hotkey="q">Load Template</button>
-                <button t-on-click="() => this.props.close()" class="btn text-uppercase" data-hotkey="x">Discard</button>
+                <button t-on-click="() => this.props.close()" class="btn" data-hotkey="x">Discard</button>
             </t>
         </Dialog>
     </t>

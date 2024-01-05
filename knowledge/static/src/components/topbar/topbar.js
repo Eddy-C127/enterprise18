@@ -271,7 +271,7 @@ class KnowledgeTopbar extends Component {
     }
 
     async unarchiveArticle() {
-        await this.orm.call('knowledge.article', 'action_unarchive_article', [this.props.record.resId]);
+        await this.orm.call('knowledge.article', 'action_unarchive', [this.props.record.resId]);
         await this.props.record.load();
     }
 
@@ -283,13 +283,10 @@ class KnowledgeTopbar extends Component {
         await this.props.record.update({is_article_item: newArticleItemStatus});
     }
 
-    async deleteArticle() {
-        this.actionService.doAction(
-            await this.orm.call(
-                'knowledge.article',
-                'action_send_to_trash',
-                [this.props.record.resId]
-            ),
+    async sendToTrash() {
+        await this.orm.call('knowledge.article', 'action_send_to_trash', [this.props.record.resId]);
+        await this.actionService.doAction(
+            await this.orm.call('knowledge.article', 'action_redirect_to_parent', [this.props.record.resId]),
             {stackPosition: 'replaceCurrentAction'}
         );
     }

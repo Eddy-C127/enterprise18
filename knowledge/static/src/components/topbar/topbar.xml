@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="knowledge.KnowledgeTopbar">
-        <div class="o_knowledge_header d-flex gap-2 flex-column justify-content-end flex-sm-row align-items-sm-center border-bottom d-print-none bg-view px-0 py-2 ps-sm-3 pe-sm-2">
+        <div class="o_knowledge_header d-flex gap-2 flex-column justify-content-end flex-sm-row align-items-sm-center border-bottom d-print-none px-0 py-2 ps-sm-3 pe-sm-2">
             <div class="d-flex flex-grow-1 min-w-0 gap-1 px-2 px-sm-0 pt-2 pt-sm-0">
                 <a role="button" class="d-md-none btn btn-light align-self-start px-2 py-1" t-on-click="() => this.env.toggleAsideMobile()">
                     <i class="fa fa-lg fa-bars" title="Toggle aside menu"/>
@@ -75,9 +75,7 @@
                     </button>
                 </div>
                 <div class="d-flex gap-1">
-                    <a role="button" t-on-click="() => this.env.createArticle('private')" class="btn btn-light btn-create text-nowrap" data-hotkey="n">
-                        <i class="fa fa-fw fs-6 fa-plus-circle me-1"/>New
-                    </a>
+                    <a role="button" t-on-click="() => this.env.createArticle('private')" class="btn btn-primary btn-create text-nowrap" data-hotkey="n">New</a>
                     <div class="o-dropdown dropdown o-dropdown--no-caret" t-if="props.record.resId and props.record.data.active">
                         <a t-ref="sharePanel_button" role="button" class="btn btn-light btn-share dropdown-toggle" id="dropdown_share_panel" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hotkey="s">
                             <i class="fa fa-fw fs-6 fa-share-alt me-1"/>
@@ -156,7 +154,7 @@
                                 <button class="dropdown-item" t-on-click="this.exportToPdf">
                                     <i class="me-2 fa fa-fw fa-lg fa-download"/> Export
                                 </button>
-                                <button class="dropdown-item" t-on-click="deleteArticle"
+                                <button class="dropdown-item" t-on-click="sendToTrash"
                                     t-if="props.record.data.user_can_write and props.record.data.active
                                           and (isInternalUser or props.record.data.category == 'private')">
                                     <i class="me-2 fa fa-fw fa-lg fa-trash"/> Send to Trash
