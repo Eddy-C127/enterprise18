@@ -256,10 +256,11 @@ class KnowledgeTopbar extends Component {
                         recordModel: this.props.record.resModel,
                         versionedFieldName: versionedFieldName,
                         historyMetadata: historyMetadata,
-                        restoreRequested: (html) => {
+                        restoreRequested: (html, close) => {
                             const restoredData = {};
                             restoredData[versionedFieldName] = html;
                             this.props.record.update(restoredData);
+                            close();
                         }
                     },
                     {
