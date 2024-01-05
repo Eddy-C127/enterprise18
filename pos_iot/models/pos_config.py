@@ -8,7 +8,7 @@ class PosConfig(models.Model):
     _inherit = 'pos.config'
 
     iface_print_via_proxy = fields.Boolean(compute="_compute_print_via_proxy")
-    iface_printer_id = fields.Many2one('iot.device', domain="[('type', '=', 'printer'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
+    iface_printer_id = fields.Many2one('iot.device', domain="['&', ('type', '=', 'printer'), ('subtype', '=', 'receipt_printer'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
     iface_customer_facing_display_via_proxy = fields.Boolean(compute="_compute_customer_facing_display_via_proxy")
     iface_display_id = fields.Many2one('iot.device', domain="[('type', '=', 'display'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
     iface_scan_via_proxy = fields.Boolean(compute="_compute_scan_via_proxy")

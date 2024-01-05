@@ -139,6 +139,7 @@
                             <field name="iot_ip" invisible="True"/>
                             <field name="identifier" readonly="True"/>
                             <field name="type"/>
+                            <field name="subtype" invisible= "type != 'printer'"/>
                             <field name="is_scanner" invisible="type not in ['keyboard', 'scanner']" widget="boolean_toggle"/>
                             <field name="manufacturer" invisible="manufacturer == ''"/>
                             <field name="connection"/>

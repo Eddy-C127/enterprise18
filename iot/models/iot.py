@@ -73,6 +73,12 @@ class IotDevice(models.Model):
     manual_measurement = fields.Boolean('Manual Measurement', compute="_compute_manual_measurement", help="Manually read the measurement from the device")
     is_scanner = fields.Boolean(string='Is Scanner', compute="_compute_is_scanner", inverse="_set_scanner",
         help="Manually switch the device type between keyboard and scanner")
+    subtype = fields.Selection([
+        ('receipt_printer', 'Receipt Printer'),
+        ('label_printer', 'Label Printer'),
+        ('office_printer', 'Office Printer'),
+        ('', '')],
+        default='', help='Subtype of device.')
 
     @api.depends('iot_id')
     def _compute_display_name(self):

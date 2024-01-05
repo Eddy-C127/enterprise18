@@ -120,12 +120,14 @@ class IoTController(http.Controller):
                             'type': data_device['type'],
                             'manufacturer': data_device['manufacturer'],
                             'connection': data_device['connection'],
+                            'subtype': data_device.get('subtype', ''),
                         })
-                    elif device and device.type != data_device.get('type'):
+                    elif device and device.type != data_device.get('type') or (device.subtype == '' and device.type == 'printer'):
                         device.write({
                         'name': data_device.get('name'),
                         'type': data_device.get('type'),
-                        'manufacturer': data_device.get('manufacturer')
+                        'manufacturer': data_device.get('manufacturer'),
+                        'subtype': data_device.get('subtype', '')
                         })
 
                     connected_iot_devices |= device
