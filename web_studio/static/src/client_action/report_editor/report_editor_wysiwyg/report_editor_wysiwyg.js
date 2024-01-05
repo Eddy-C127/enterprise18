@@ -122,9 +122,9 @@ class FieldDynamicPlaceholder extends Component {
             return {
                 value: k,
                 label: `${k} (${v.name})`,
-            }
-        }
-        return sortBy(entries, sortFn, "desc").map(e => mapFn(e));
+            };
+        };
+        return sortBy(entries, sortFn, "desc").map((e) => mapFn(e));
     }
 
     validate(...args) {
@@ -146,7 +146,11 @@ class FieldDynamicPlaceholder extends Component {
         let defaultVar = this.sortedVariables.find((v) => {
             return ["doc", "o"].includes(v.value);
         });
-        defaultVar = defaultVar || this.sortedVariables.find((v) => this.props.availableQwebVariables[v.value].model === this.props.resModel);
+        defaultVar =
+            defaultVar ||
+            this.sortedVariables.find(
+                (v) => this.props.availableQwebVariables[v.value].model === this.props.resModel
+            );
         return defaultVar && defaultVar.value;
     }
 }
@@ -213,7 +217,7 @@ function computeTableLayout(table) {
     }
 }
 
-const ODOO_BRANDING_ATTR = ["data-oe-model", "data-oe-id", "data-oe-xpath", "data-oe-field"];
+const CUSTOM_BRANDING_ATTR = ["ws-view-id", "ws-call-key", "ws-call-group-key", "ws-real-children"];
 function visitNode(el, callback) {
     const els = [el];
     while (els.length) {
@@ -380,7 +384,7 @@ export class ReportEditorWysiwyg extends Component {
             powerboxCommands: this.getPowerboxCommands(),
             allowCommandVideo: false,
             editorPlugins: [QWebPlugin],
-            savableSelector: "[data-oe-model='ir.ui.view']",
+            savableSelector: "[ws-view-id]",
             autostart: true,
             sideAttach: true,
             getContextFromParentRect: () => {
@@ -408,21 +412,32 @@ export class ReportEditorWysiwyg extends Component {
         const editableClone = this.wysiwyg.$editable.clone()[0];
 
         this.wysiwyg._saveElement = async ($el) => {
-            const viewId = $el.data("oe-id");
+            const el = $el[0].cloneNode(true);
+            const viewId = el.getAttribute("ws-view-id");
             if (!viewId) {
                 return;
             }
+            Array.from(el.querySelectorAll("[t-call]")).forEach((el) => {
+                el.replaceChildren();
+            });
 
-            // FIXME: don't escape, otherwise the non-breakable spaces will be escaped too
-            //const escaped_html = this.wysiwyg._getEscapedElement($el).prop("outerHTML");
-            const escaped_html = $el[0].outerHTML;
+            Array.from(el.querySelectorAll("[oe-origin-t-out]")).forEach((el) => {
+                el.replaceChildren();
+            });
 
-            htmlParts[viewId] = htmlParts[viewId] || {};
+            const callGroupKey = el.getAttribute("ws-call-group-key");
+            const type = callGroupKey ? "in_t_call" : "full";
 
-            const xpath = $el.data("oe-xpath");
-            htmlParts[viewId][xpath || "entire_view"] = escaped_html;
+            const escaped_html = el.outerHTML;
+            htmlParts[viewId] = htmlParts[viewId] || [];
+
+            htmlParts[viewId].push({
+                call_key: el.getAttribute("ws-call-key"),
+                call_group_key: callGroupKey,
+                type,
+                html: escaped_html,
+            });
         };
-
         // Clean technical title
         if (odoo.debug) {
             editableClone.querySelectorAll("*[t-field],*[t-out],*[t-esc]").forEach((e) => {
@@ -446,6 +461,9 @@ export class ReportEditorWysiwyg extends Component {
     }
 
     domChangesDirtyMutations(odooEditor, records) {
+        if (this.wysiwyg.savingContent) {
+            return;
+        }
         records = odooEditor.filterMutationRecords(records);
 
         for (const record of records) {
@@ -463,7 +481,7 @@ export class ReportEditorWysiwyg extends Component {
                         return;
                     }
                     visitNode(el, (node) => {
-                        ODOO_BRANDING_ATTR.forEach((attr) => {
+                        CUSTOM_BRANDING_ATTR.forEach((attr) => {
                             node.removeAttribute(attr);
                         });
                         node.classList.remove("o_dirty");
@@ -482,23 +500,11 @@ export class ReportEditorWysiwyg extends Component {
                 continue;
             }
 
-            target = target.closest(`[data-oe-model='ir.ui.view']`);
+            target = target.closest(`[ws-view-id]`);
             if (!target) {
                 continue;
             }
-
-            const viewId = target.getAttribute("data-oe-id");
-            if (
-                target.parentElement.closest(
-                    `.o_dirty[data-oe-model='ir.ui.view'][data-oe-id='${viewId}']`
-                )
-            ) {
-                continue;
-            }
             target.classList.add("o_dirty");
-            target
-                .querySelectorAll(`[data-oe-model='ir.ui.view'][data-oe-id='${viewId}'].o_dirty`)
-                .forEach((n) => n.classList.remove("o_dirty"));
         }
     }
 
