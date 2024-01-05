@@ -222,8 +222,8 @@
             <input type="hidden" name="default_end_date" t-if="wso and wso.has_rented_products" t-att-value="wso.rental_return_date"/>
             <div class="s_website_form_datetime input-group date col-md-8 ps-0 o_daterange_picker"
                  title="The period must be the same for all products of your cart.&#10;You must change the period on your cart or create different orders if you want different periods.">
-                <input type="text" name="renting_start_date" class="form-control" t-att-disabled="wso and wso.has_rented_products"/>
-                <input type="text" name="renting_end_date" class="form-control" t-att-disabled="wso and wso.has_rented_products"/>
+                <input type="text" name="renting_start_date" class="form-control" placeholder="Start Date" t-att-disabled="wso and wso.has_rented_products"/>
+                <input type="text" name="renting_end_date" class="form-control" placeholder="End Date" t-att-disabled="wso and wso.has_rented_products"/>
                 <button class="input-group-text fa fa-calendar alert-info"/>
                 <button t-if="request.params.get('start_date') and request.params.get('end_date')" class="input-group-text fa fa-times alert-danger clear-daterange"/>
             </div>
