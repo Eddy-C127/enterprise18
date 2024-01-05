@@ -760,7 +760,7 @@ export class AccountReportController {
                 callOnSectionsSource,
             ],
         );
-        if (dispatchReportAction.help)
+        if (dispatchReportAction?.help)
             dispatchReportAction.help = owl.markup(dispatchReportAction.help)
 
         return dispatchReportAction ? this.actionService.doAction(dispatchReportAction) : null;
