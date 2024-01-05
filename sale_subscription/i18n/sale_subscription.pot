@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -73,13 +73,6 @@ msgstr ""
 msgid ""
 "<b>Congratulations</b>, your first subscription quotation is ready to be "
 "sent!"
-msgstr ""
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid ""
-"<b>No suitable payment method could be found.</b><br/>\n"
-"                                    If you believe that is an error, please contact the website administrator."
 msgstr ""
 
 #. module: sale_subscription
@@ -230,11 +223,6 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_so_portal_template
 msgid "<i class=\"oi oi-arrow-right me-1\"/>Back to your subscription"
-msgstr ""
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "<i class=\"oi oi-arrow-right\"/> Add payment providers"
 msgstr ""
 
 #. module: sale_subscription
@@ -627,7 +615,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 msgid ""
-"A canceled SO cannot be in progress. You should close %s before canceling "
+"A cancelled SO cannot be in progress. You should close %s before cancelling "
 "it."
 msgstr ""
 
@@ -653,11 +641,6 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__arr_change_normalized
 msgid "ARR Change (normalized)"
-msgstr ""
-
-#. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
-msgid "Abandoned Cart"
 msgstr ""
 
 #. module: sale_subscription
@@ -1045,6 +1028,13 @@ msgid "Change customer"
 msgstr ""
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid "Check reopened subscription"
+msgstr ""
+
+#. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 msgid "Choose a product name.<br/><i>(e.g. eLearning Access)</i>"
@@ -1083,7 +1073,6 @@ msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_so_portal_template
 msgid "Close"
 msgstr ""
@@ -1272,9 +1261,8 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_quotes
 msgid ""
-"Create subscriptions to manage recurring invoicing and payments. Subscriptions can\n"
-"                be time-bounded or not. In case of a limited period, they are flagged as to be renewed\n"
-"                one month from the end date."
+"Create subscriptions to manage recurring invoicing and payments from your "
+"customers."
 msgstr ""
 
 #. module: sale_subscription
@@ -1391,11 +1379,6 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log__create_date
 msgid "Date"
-msgstr ""
-
-#. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_order__next_invoice_date
-msgid "Date of Next Invoice"
 msgstr ""
 
 #. module: sale_subscription
@@ -1554,6 +1537,12 @@ msgstr ""
 #. module: sale_subscription
 #: model:sale.order.close.reason,name:sale_subscription.close_reason_end_of_contract
 msgid "End of contract"
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid "Error during renewal of contract %s %s %s"
 msgstr ""
 
 #. module: sale_subscription
@@ -2037,7 +2026,6 @@ msgstr ""
 
 #. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.sale_order_log_analysis_action
-#: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_analysis_report
 msgid "MRR Analysis"
 msgstr ""
 
@@ -2096,6 +2084,11 @@ msgid "MRR Range Min"
 msgstr ""
 
 #. module: sale_subscription
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_analysis_report
+msgid "MRR Timeline"
+msgstr ""
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_tree
 msgid "MRR change"
 msgstr ""
@@ -2118,7 +2111,6 @@ msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "Manage Payment Method"
 msgstr ""
 
@@ -2172,13 +2164,6 @@ msgid "Messages"
 msgstr ""
 
 #. module: sale_subscription
-#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_plan__billing_period_value
-msgid ""
-"Minimum duration before this rule is applied. If set to 0, it represents a "
-"fixed temporal price."
-msgstr ""
-
-#. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 msgid ""
@@ -2194,6 +2179,13 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__model_name
 msgid "Model Name"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
 msgstr ""
 
 #. module: sale_subscription
@@ -2309,6 +2301,7 @@ msgid "Next Billing Date:"
 msgstr ""
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order__next_invoice_date
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_tree
 msgid "Next Invoice"
 msgstr ""
@@ -2334,6 +2327,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 msgid "No Payment Method"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_upsell
+msgid "No Upsell Found"
 msgstr ""
 
 #. module: sale_subscription
@@ -2555,6 +2553,18 @@ msgid "Payment method:"
 msgstr ""
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid "Payment not recorded"
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid "Payment recorded: %s"
+msgstr ""
+
+#. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
 msgid ""
 "Payment reminder for subscription {{ object.client_order_ref or object.name "
@@ -2639,7 +2649,6 @@ msgid "Print"
 msgstr ""
 
 #. module: sale_subscription
-#: model:ir.model,name:sale_subscription.model_product_template
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__product_tmpl_id
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -2884,6 +2893,14 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__recurring_total
 msgid "Recurring Revenue"
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
 msgstr ""
 
 #. module: sale_subscription
@@ -3359,6 +3376,22 @@ msgid "Subscription"
 msgstr ""
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid ""
+"Subscription %s has been canceled. The parent order %s has been reopened.\n"
+"                                                You should close %s if the customer churned, or renew it if the customer continue the service.\n"
+"                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
+"                                                created subscription and renew %s instead"
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid "Subscription %s has been reopened. The end date has been removed"
+msgstr ""
+
+#. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_payment_transaction__subscription_action
 msgid "Subscription Action"
 msgstr ""
@@ -3570,14 +3603,6 @@ msgid "Subscriptions Analysis"
 msgstr ""
 
 #. module: sale_subscription
-#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action
-#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_quotes
-msgid ""
-"Subscriptions can be automatically generated from sales orders in Sales or eCommerce\n"
-"                apps."
-msgstr ""
-
-#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "Subscriptions that are not assigned to an account manager."
 msgstr ""
@@ -3657,6 +3682,14 @@ msgid "The company of the plan is different from the company of the pricelist"
 msgstr ""
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+msgid ""
+"The deferred settings are not properly set. Please complete them to generate"
+" subscription deferred revenues"
+msgstr ""
+
+#. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
 msgid "The duration can't be negative or 0."
 msgstr ""
@@ -3729,7 +3762,7 @@ msgstr ""
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
-msgid "The renewal %s has been canceled."
+msgid "The renewal %s has been cancelled."
 msgstr ""
 
 #. module: sale_subscription
@@ -3757,13 +3790,19 @@ msgstr ""
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
-msgid "The upsell %s has been canceled."
+msgid "The upsell %s has been cancelled."
 msgstr ""
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 msgid "The upsell %s has been confirmed."
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
+msgid "There are multiple pricings for an unique product, plan and pricelist."
 msgstr ""
 
 #. module: sale_subscription
@@ -3774,12 +3813,6 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is an"
-msgstr ""
-
-#. module: sale_subscription
-#. odoo-python
-#: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
-msgid "There is multiple pricings for an unique product, plan and pricelist."
 msgstr ""
 
 #. module: sale_subscription
@@ -4054,6 +4087,13 @@ msgid "Upsell Quote"
 msgstr ""
 
 #. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_upsell
+msgid ""
+"Upsell orders allow you to add or remove products to ongoing subscriptions.\n"
+"                It can be created by clicking on the Upsell button from an active subscription."
+msgstr ""
+
+#. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.sale_subscription_action_upsell
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_upsell
 msgid "Upsells"
@@ -4070,11 +4110,21 @@ msgid "Use Calendar"
 msgstr ""
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use employee work schedule"
+msgstr ""
+
+#. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
 msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
 "                work done, expenses and/or sales orders. Odoo will automatically manage\n"
 "                the alerts for the renewal of the subscriptions to the right salesperson."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use the user's working schedule."
 msgstr ""
 
 #. module: sale_subscription
@@ -4098,6 +4148,11 @@ msgstr ""
 msgid ""
 "Want recurring billing via subscription management? Get started by clicking "
 "here"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
+msgid "Warehouse"
 msgstr ""
 
 #. module: sale_subscription
@@ -4130,11 +4185,6 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__webhook_uuid
 msgid "Webhook UUID"
-msgstr ""
-
-#. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
-msgid "Website"
 msgstr ""
 
 #. module: sale_subscription
@@ -4305,7 +4355,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 msgid ""
-"You cannot set to draft a canceled quotation linked to invoiced "
+"You cannot set to draft a cancelled quotation linked to invoiced "
 "subscriptions. Please create a new quotation."
 msgstr ""
 
@@ -4571,11 +4621,4 @@ msgid ""
 "{{ object.company_id.name }}: Your subscription {{ object.name }} needs your"
 " attention. If you have some concerns about it, please contact {{ "
 "object.user_id.name }}, your contact person."
-msgstr ""
-
-#. module: sale_subscription
-#. odoo-python
-#: code:addons/sale_subscription/models/sale_order.py:0
-#, python-format
-msgid "Recurring period must be a positive number. Please ensure the input is a valid positive numeric value."
 msgstr ""

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,7 @@ msgid ""
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\"/>"
 msgstr ""
@@ -49,6 +50,7 @@ msgid "<i class=\"fa fa-fw fa-lg fa-cube me-3\" title=\"Counted Quantity\"/>"
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "<i class=\"fa fa-fw fa-lg fa-cube me-3\" title=\"Quantity\"/>"
 msgstr ""
@@ -73,6 +75,13 @@ msgid ""
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
+msgid ""
+"<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Scrap "
+"Location\"/>"
+msgstr ""
+
+#. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "<i class=\"fa fa-fw fa-lg fa-map-marker me-3\" title=\"Location\"/>"
 msgstr ""
@@ -85,6 +94,7 @@ msgid ""
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "<i class=\"fa fa-fw fa-lg fa-tags me-3\" title=\"Product\"/>"
@@ -123,6 +133,11 @@ msgstr ""
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print storage locations"
+msgstr ""
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
+msgid "<span>Replenish Quantities</span>"
 msgstr ""
 
 #. module: stock_barcode
@@ -333,6 +348,7 @@ msgid "Configure Product Barcodes"
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -405,6 +421,7 @@ msgid "Destination location must be scanned"
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -848,6 +865,7 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -908,6 +926,7 @@ msgid "Qty Done"
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Quantity"
 msgstr ""
@@ -1212,11 +1231,17 @@ msgid "Scrap"
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
+msgid "Scrap Location"
+msgstr ""
+
+#. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Select a Product"
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "Serial/Lot Number"
@@ -1249,6 +1274,11 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 msgid "Stay on transfer"
+msgstr ""
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_move
+msgid "Stock Move"
 msgstr ""
 
 #. module: stock_barcode
@@ -1379,6 +1409,7 @@ msgid "Type barcode you want to scan here"
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode_kanban
 msgid "Unit of Measure"

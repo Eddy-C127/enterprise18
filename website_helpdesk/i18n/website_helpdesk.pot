@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -140,6 +140,8 @@ msgstr ""
 
 #. module: website_helpdesk
 #. odoo-javascript
+#. odoo-python
+#: code:addons/website_helpdesk/controllers/main.py:0
 #: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
 msgid "Description"
 msgstr ""
@@ -221,6 +223,12 @@ msgid "No results found. Please try another search."
 msgstr ""
 
 #. module: website_helpdesk
+#. odoo-python
+#: code:addons/website_helpdesk/controllers/main.py:0
+msgid "Other Information"
+msgstr ""
+
+#. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.knowledge_base
 msgid "Search for articles, best practices and more..."
 msgstr ""
@@ -255,14 +263,14 @@ msgid "Thank you for contacting us, our team will get right on it!"
 msgstr ""
 
 #. module: website_helpdesk
-#: model:ir.model.fields,help:website_helpdesk.field_helpdesk_team__website_url
-msgid "The full URL to access the document through the website."
+#. odoo-python
+#: code:addons/website_helpdesk/models/helpdesk.py:0
+msgid "The companies of the team and the website should match."
 msgstr ""
 
 #. module: website_helpdesk
-#. odoo-python
-#: code:addons/website_helpdesk/models/helpdesk.py:0
-msgid "The team company and the website company should match"
+#: model:ir.model.fields,help:website_helpdesk.field_helpdesk_team__website_url
+msgid "The full URL to access the document through the website."
 msgstr ""
 
 #. module: website_helpdesk

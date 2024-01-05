@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-08 07:02+0000\n"
+"PO-Revision-Date: 2024-01-08 07:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-msgid "%s has %s tasks at the same time."
+msgid "%(user)s has %(amount)s tasks at the same time."
 msgstr ""
 
 #. module: project_enterprise
@@ -277,7 +277,9 @@ msgstr ""
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
-msgid "This task cannot be planned before Tasks %s, on which it depends."
+msgid ""
+"This task cannot be planned before the following tasks on which it depends: "
+"%(task_list)s"
 msgstr ""
 
 #. module: project_enterprise
@@ -285,7 +287,7 @@ msgstr ""
 #: code:addons/project_enterprise/models/project_task.py:0
 msgid ""
 "This user isn't expected to have any tasks assigned during this period "
-"because they don't have any running contract. Planned hours :"
+"because they don't have any running contract. Planned hours:"
 msgstr ""
 
 #. module: project_enterprise

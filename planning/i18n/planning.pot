@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -362,13 +362,13 @@ msgid ""
 msgstr ""
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
-msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "<span class=\"ms-0 me-4\">Edit</span>"
 msgstr ""
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
-msgid "<span class=\"ms-2 me-4\">Edit</span>"
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
+msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
 msgstr ""
 
 #. module: planning
@@ -457,6 +457,11 @@ msgid ""
 msgstr ""
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
+msgid "<span class=\"o_stat_text\">Planning</span>"
+msgstr ""
+
+#. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "<span>Doris Cole <span class=\"text-muted\">(Bartender)</span></span>"
 msgstr ""
@@ -493,6 +498,12 @@ msgstr ""
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
 msgid ""
 "A recurrence repeating itself until a certain date must have its limit set"
+msgstr ""
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning_recurrency.py:0
+msgid "A shift must be in the same company as its recurrence."
 msgstr ""
 
 #. module: planning
@@ -591,12 +602,6 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_allow_self_unassign
 msgid "Allow Unassignment"
-msgstr ""
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning_recurrency.py:0
-msgid "An shift must be in the same company as its recurrency."
 msgstr ""
 
 #. module: planning
@@ -1087,7 +1092,7 @@ msgstr ""
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_recurrency.py:0
-msgid "Every %s week(s) until %s"
+msgid "Every %(repeat_interval)s week(s) until %(repeat_until)s"
 msgstr ""
 
 #. module: planning
@@ -1165,6 +1170,8 @@ msgid "Hours"
 msgstr ""
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__user
 msgid "Human"
 msgstr ""
@@ -1347,6 +1354,8 @@ msgid "Marc Demo"
 msgstr ""
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
 msgid "Material"
 msgstr ""
@@ -1427,7 +1436,7 @@ msgstr ""
 #. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
-msgid "No Email Address For Some Employees"
+msgid "No Email Address for Some Employees"
 msgstr ""
 
 #. module: planning
@@ -1851,6 +1860,7 @@ msgstr ""
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_roles
 #: model:ir.model.fields,field_description:planning.field_hr_employee__planning_role_ids
+#: model:ir.model.fields,field_description:planning.field_planning_slot__resource_roles
 #: model:ir.model.fields,field_description:planning.field_resource_resource__role_ids
 #: model:ir.ui.menu,name:planning.planning_menu_settings_role
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
@@ -2080,7 +2090,7 @@ msgstr ""
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-msgid "The company does not allow you to self unassign."
+msgid "The company does not allow you to unassign yourself from shifts."
 msgstr ""
 
 #. module: planning
@@ -2402,20 +2412,13 @@ msgstr ""
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-msgid "You can not cancel a request to switch made by another user."
-msgstr ""
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid ""
-"You can not request to switch a shift that is assigned to another user."
-msgstr ""
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
 msgid "You can not unassign another employee than yourself."
+msgstr ""
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You cannot cancel a request to switch made by another user."
 msgstr ""
 
 #. module: planning
@@ -2427,19 +2430,25 @@ msgstr ""
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
+msgid "You cannot request to switch a shift that is assigned to another user."
+msgstr ""
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
 msgid "You cannot switch a shift that is in the past."
 msgstr ""
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-msgid "You don't have the right to cancel a request to switch."
+msgid "You don't have the right to assign yourself to shifts."
 msgstr ""
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-msgid "You don't have the right to self assign."
+msgid "You don't have the right to cancel a request to switch."
 msgstr ""
 
 #. module: planning

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-12 11:19+0000\n"
-"PO-Revision-Date: 2023-10-12 11:19+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgid "COD Funding Option"
 msgstr ""
 
 #. module: delivery_ups_rest
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_product_packaging__package_carrier_type
+#: model:ir.model.fields,field_description:delivery_ups_rest.field_stock_package_type__package_carrier_type
 msgid "Carrier"
 msgstr ""
 
@@ -59,10 +59,10 @@ msgid "Contact"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid "Could not decode response"
 msgstr ""
 
@@ -77,14 +77,6 @@ msgid "Create an app"
 msgstr ""
 
 #. module: delivery_ups_rest
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_delivery_carrier__display_name
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_product_packaging__display_name
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_res_partner__display_name
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_sale_order__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: delivery_ups_rest
 #: model_terms:ir.ui.view,arch_db:delivery_ups_rest.view_delivery_carrier_form
 msgid "Duties paid by"
 msgstr ""
@@ -95,8 +87,8 @@ msgid "EPL"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/delivery_ups.py:0
-#, python-format
 msgid ""
 "Error:\n"
 "%s"
@@ -115,14 +107,6 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model_terms:ir.ui.view,arch_db:delivery_ups_rest.view_delivery_carrier_form
 msgid "How to setup UPS?"
-msgstr ""
-
-#. module: delivery_ups_rest
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_delivery_carrier__id
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_product_packaging__id
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_res_partner__id
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_sale_order__id
-msgid "ID"
 msgstr ""
 
 #. module: delivery_ups_rest
@@ -148,14 +132,6 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model_terms:ir.ui.view,arch_db:delivery_ups_rest.view_delivery_carrier_form
 msgid "Label Format"
-msgstr ""
-
-#. module: delivery_ups_rest
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_delivery_carrier____last_update
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_product_packaging____last_update
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_res_partner____last_update
-#: model:ir.model.fields,field_description:delivery_ups_rest.field_sale_order____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: delivery_ups_rest
@@ -204,25 +180,20 @@ msgid "Package Weight Unit"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid "Packages %s do not have a positive shipping weight."
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid "Please provide at least one item to ship."
 msgstr ""
 
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_package_weight_unit__lbs
 msgid "Pounds"
-msgstr ""
-
-#. module: delivery_ups_rest
-#: model:ir.model,name:delivery_ups_rest.model_product_packaging
-msgid "Product Packaging"
 msgstr ""
 
 #. module: delivery_ups_rest
@@ -236,14 +207,14 @@ msgid "Recipient"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid "Recipient Phone must be at least 10 alphanumeric characters."
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/delivery_ups.py:0
-#, python-format
 msgid ""
 "Return label generated<br/><b>Tracking Numbers:</b> %s<br/><b>Packages:</b> "
 "%s"
@@ -275,22 +246,22 @@ msgid "Sender"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/delivery_ups.py:0
-#, python-format
 msgid "Shipment #%s has been cancelled"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/delivery_ups.py:0
-#, python-format
 msgid ""
 "Shipment created into UPS<br/><b>Tracking Numbers:</b> "
 "%s<br/><b>Packages:</b> %s"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid "Shipper Phone must be at least 10 alphanumeric characters."
 msgstr ""
 
@@ -300,46 +271,57 @@ msgid "Shipping Methods"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid "Something went wrong, please try again later!!"
 msgstr ""
 
 #. module: delivery_ups_rest
+#: model:ir.model,name:delivery_ups_rest.model_stock_package_type
+msgid "Stock package type"
+msgstr ""
+
+#. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid ""
 "The address of your company is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid ""
 "The address of your warehouse is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid ""
 "The delivery cannot be done because the weight of your product %s is "
 "missing."
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid ""
 "The estimated price cannot be computed because the weight of your product %s"
 " is missing."
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
+msgid "The name of the customer should be no more than 35 characters."
+msgstr ""
+
+#. module: delivery_ups_rest
+#. odoo-python
+#: code:addons/delivery_ups_rest/models/ups_request.py:0
 msgid ""
 "The recipient address is missing or wrong.\n"
 "(Missing field(s) : %s)"
@@ -361,8 +343,23 @@ msgstr ""
 
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__delivery_type__ups_rest
-#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__product_packaging__package_carrier_type__ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__stock_package_type__package_carrier_type__ups_rest
 msgid "UPS"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__02
+msgid "UPS 2nd Day"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__59
+msgid "UPS 2nd Day AM"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__12
+msgid "UPS 3-day Select"
 msgstr ""
 
 #. module: delivery_ups_rest
@@ -393,8 +390,28 @@ msgid "UPS Configuration"
 msgstr ""
 
 #. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__03
+msgid "UPS Ground"
+msgstr ""
+
+#. module: delivery_ups_rest
 #: model:ir.model.fields,field_description:delivery_ups_rest.field_delivery_carrier__ups_label_file_type
 msgid "UPS Label File Type"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__01
+msgid "UPS Next Day"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__14
+msgid "UPS Next Day AM"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__13
+msgid "UPS Next Day Air Saver"
 msgstr ""
 
 #. module: delivery_ups_rest
@@ -408,8 +425,38 @@ msgid "UPS Saturday Delivery"
 msgstr ""
 
 #. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__65
+msgid "UPS Saver"
+msgstr ""
+
+#. module: delivery_ups_rest
 #: model:ir.model.fields,field_description:delivery_ups_rest.field_delivery_carrier__ups_default_service_type
 msgid "UPS Service Type"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__11
+msgid "UPS Standard"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__08
+msgid "UPS Worldwide Expedited"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__07
+msgid "UPS Worldwide Express"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__96
+msgid "UPS Worldwide Express Freight"
+msgstr ""
+
+#. module: delivery_ups_rest
+#: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__54
+msgid "UPS Worldwide Express Plus"
 msgstr ""
 
 #. module: delivery_ups_rest
@@ -418,8 +465,8 @@ msgid "UPS account number"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid ""
 "UPS address lines can only contain a maximum of 35 characters. You can split"
 " the contacts addresses on multiple lines to try to avoid this limitation."
@@ -436,20 +483,20 @@ msgid "Ups Package Weight Unit"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid "Warehouse Phone must be at least 10 alphanumeric characters."
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/sale_order.py:0
-#, python-format
 msgid "You must enter an UPS account number."
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
-#, python-format
 msgid "You must setup a client ID and secret on the carrier first"
 msgstr ""
 
@@ -459,8 +506,8 @@ msgid "ZPL"
 msgstr ""
 
 #. module: delivery_ups_rest
+#. odoo-python
 #: code:addons/delivery_ups_rest/models/sale_order.py:0
-#, python-format
 msgid "[UPS] UPS Billing will remain to the customer"
 msgstr ""
 

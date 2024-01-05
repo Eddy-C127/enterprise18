@@ -4,16 +4,26 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-08 07:03+0000\n"
+"PO-Revision-Date: 2024-01-08 07:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: sale_planning
+#: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_form_inherit_sale_planning
+msgid ""
+"<span class=\"fa fa-exclamation-triangle text-warning\" title=\"The sales "
+"order associated with this shift has been canceled. We recommend either "
+"updating the sales order item or unscheduling this shift in line with the "
+"cancellation of the sales order.\" invisible=\"sale_order_state != "
+"'cancel'\"/>"
+msgstr ""
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.view_order_form_inherit_sale_planning
@@ -107,6 +117,13 @@ msgid ""
 msgstr ""
 
 #. module: sale_planning
+#: model:ir.model,name:sale_planning.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
+msgstr ""
+
+#. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
 msgid "My Sales Orders"
 msgstr ""
@@ -119,7 +136,7 @@ msgstr ""
 #. module: sale_planning
 #: model:ir.model.constraint,message:sale_planning.constraint_planning_slot_check_datetimes_set_or_plannable_slot
 msgid ""
-"Only slots linked to a sale order with a plannable service can be "
+"Only slots linked to a Sales Order with a plannable service can be "
 "unscheduled."
 msgstr ""
 
@@ -199,11 +216,6 @@ msgid "Planning Slot"
 msgstr ""
 
 #. module: sale_planning
-#: model:ir.model,name:sale_planning.model_product_template
-msgid "Product"
-msgstr ""
-
-#. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_analysis_report__role_product_ids
 msgid "Role Product"
 msgstr ""
@@ -229,6 +241,11 @@ msgstr ""
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_sale_order_line
 msgid "Sales Order Line"
+msgstr ""
+
+#. module: sale_planning
+#: model:ir.model.fields,field_description:sale_planning.field_planning_slot__sale_order_state
+msgid "Sales Order State"
 msgstr ""
 
 #. module: sale_planning
@@ -280,11 +297,25 @@ msgid "The open shifts and sales orders have been successfully assigned."
 msgstr ""
 
 #. module: sale_planning
+#. odoo-javascript
+#: code:addons/sale_planning/static/src/views/sale_planning_gantt/sale_planning_gantt_renderer.js:0
+msgid ""
+"There are no hours left to plan, or there are no resources available at the "
+"time."
+msgstr ""
+
+#. module: sale_planning
+#. odoo-javascript
+#: code:addons/sale_planning/static/src/views/sale_planning_gantt/sale_planning_gantt_renderer.js:0
+msgid "There are no sales order items to plan."
+msgstr ""
+
+#. module: sale_planning
 #. odoo-python
 #: code:addons/sale_planning/models/planning_slot.py:0
 msgid ""
-"This Sale Order Item doesn't have a target value of planned hours. Planned "
-"hours :"
+"This Sales Order Item doesn't have a target value of planned hours. Planned "
+"hours:"
 msgstr ""
 
 #. module: sale_planning

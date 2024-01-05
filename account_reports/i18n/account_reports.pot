@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 09:27+0000\n"
-"PO-Revision-Date: 2023-12-11 09:27+0000\n"
+"POT-Creation-Date: 2024-01-08 07:02+0000\n"
+"PO-Revision-Date: 2024-01-08 07:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -176,7 +176,6 @@ msgstr ""
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "Account Code / Tag"
 msgstr ""
 
@@ -367,6 +366,8 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "All"
@@ -765,12 +766,16 @@ msgid "Communication"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model,name:account_reports.model_res_company
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__company_ids
 msgid "Companies"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__company_id
 msgid "Company"
 msgstr ""
@@ -781,6 +786,12 @@ msgstr ""
 msgid ""
 "Company %s already belongs to a tax unit in %s. A company can at most be "
 "part of one tax unit per country."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "Company Currency"
 msgstr ""
 
 #. module: account_reports
@@ -1350,6 +1361,9 @@ msgid "File Name"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Filters"
 msgstr ""
@@ -1540,6 +1554,8 @@ msgid "Hierarchy and Subtotals"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__horizontal_group_id
 msgid "Horizontal Group"
 msgstr ""
@@ -1627,6 +1643,12 @@ msgid "Include Payments"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "Including Analytic Simulations"
+msgstr ""
+
+#. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
 #: model:account.report.line,name:account_reports.account_financial_report_totalincome0
 msgid "Income"
@@ -1679,7 +1701,6 @@ msgstr ""
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
-#, python-format
 msgid "Integer Rounding"
 msgstr ""
 
@@ -1812,6 +1833,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 msgid "Journal items with archived tax tags"
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "Journals"
 msgstr ""
 
 #. module: account_reports
@@ -2134,7 +2161,6 @@ msgstr ""
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
-#, python-format
 msgid "Not Started"
 msgstr ""
 
@@ -2176,6 +2202,8 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Only Show Unreconciled Entries"
 msgstr ""
@@ -2198,6 +2226,8 @@ msgid "Operating Income"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Options"
@@ -2239,6 +2269,12 @@ msgid "Partner"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "Partner Categories"
+msgstr ""
+
+#. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
 #: model:ir.actions.client,name:account_reports.action_account_report_partner_ledger
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_partner_ledger
@@ -2272,6 +2308,8 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 msgid "Partners"
@@ -2379,6 +2417,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 msgid "Post"
+msgstr ""
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
+msgid ""
+"Posting this entry will also update and post the unposted closings of the "
+"depending companies."
 msgstr ""
 
 #. module: account_reports
@@ -2608,6 +2653,12 @@ msgid ""
 msgstr ""
 
 #. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+msgid "Split Horizontally"
+msgstr ""
+
+#. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_tax_periodicity_reminder_day
 msgid "Start from"
 msgstr ""
@@ -2657,6 +2708,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_end_date
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_end_date
 msgid "Tax Closing End Date"
+msgstr ""
+
+#. module: account_reports
+#: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_show_multi_closing_warning
+#: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_show_multi_closing_warning
+#: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_show_multi_closing_warning
+msgid "Tax Closing Show Multi Closing Warning"
 msgstr ""
 
 #. module: account_reports
@@ -2804,6 +2862,15 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_move.py:0
+msgid ""
+"The attachments of the tax report can be found on the <a href='#' data-oe-"
+"model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
+" company."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/models/account_tax.py:0
 msgid ""
 "The country detected for this VAT number does not match the one set on this "
@@ -2844,6 +2911,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_tax_unit_ids
 msgid "The tax units this company belongs to."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "The used operator is not supported for this expression."
 msgstr ""
 
 #. module: account_reports
@@ -2895,14 +2968,6 @@ msgstr ""
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
-msgid "The used operator is not supported for this expression."
-msgstr ""
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "This account is reported in multiple lines of the report"
 msgstr ""
 
@@ -2947,7 +3012,6 @@ msgstr ""
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "This report already has a menuitem."
 msgstr ""
 
@@ -2967,10 +3031,9 @@ msgstr ""
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid ""
-"This tag is reported in a line of the report but is not linked to any account"
-" of the Chart of Accounts"
+"This tag is reported in a line of the report but is not linked to any "
+"account of the Chart of Accounts"
 msgstr ""
 
 #. module: account_reports
@@ -3184,6 +3247,12 @@ msgstr ""
 msgid ""
 "Whether or not we have to make provisions for the selected foreign "
 "currencies."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "With Draft Entries"
 msgstr ""
 
 #. module: account_reports

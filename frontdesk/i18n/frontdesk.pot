@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/frontdesk/models/frontdesk_visitor.py:0
 msgid "%s just checked-in."
+msgstr ""
+
+#. module: frontdesk
+#. odoo-javascript
+#: code:addons/frontdesk/static/src/js/tours/frontdesk.js:0
+msgid "<b>Congratulations!!!</b> You have created your first visitor."
 msgstr ""
 
 #. module: frontdesk
@@ -112,7 +118,7 @@ msgstr ""
 
 #. module: frontdesk
 #: model:ir.model.fields.selection,name:frontdesk.selection__frontdesk_visitor__state__canceled
-msgid "Canceled"
+msgid "Cancelled"
 msgstr ""
 
 #. module: frontdesk
@@ -324,6 +330,12 @@ msgid "Email Template"
 msgstr ""
 
 #. module: frontdesk
+#. odoo-javascript
+#: code:addons/frontdesk/static/src/js/tours/frontdesk.js:0
+msgid "Enter the visitor's name."
+msgstr ""
+
+#. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_search
 msgid "Favorite"
 msgstr ""
@@ -383,6 +395,12 @@ msgid ""
 "object.phone else '' }} {{ '(%s)' % object.company if object.company else ''"
 " }} wants to meet you at {{ object.station_id.name }}. Please let them know "
 "you'll be there shortly."
+msgstr ""
+
+#. module: frontdesk
+#. odoo-javascript
+#: code:addons/frontdesk/static/src/js/tours/frontdesk.js:0
+msgid "Here, you'll see list of all the visitors."
 msgstr ""
 
 #. module: frontdesk
@@ -467,6 +485,12 @@ msgid "Latest Check In"
 msgstr ""
 
 #. module: frontdesk
+#. odoo-javascript
+#: code:addons/frontdesk/static/src/js/tours/frontdesk.js:0
+msgid "Let's add a new visitor."
+msgstr ""
+
+#. module: frontdesk
 #: model:ir.model.fields.selection,name:frontdesk.selection__frontdesk_frontdesk__theme__light
 msgid "Light"
 msgstr ""
@@ -475,6 +499,14 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/frontdesk/static/src/host_page/many2one/many2one.js:0
 msgid "Loading..."
+msgstr ""
+
+#. module: frontdesk
+#. odoo-javascript
+#: code:addons/frontdesk/static/src/js/tours/frontdesk.js:0
+msgid ""
+"Looking for a better way to manage your visitors? \n"
+" It begins right here."
 msgstr ""
 
 #. module: frontdesk
@@ -492,6 +524,26 @@ msgstr ""
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_drink__name
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_visitor__name
 msgid "Name"
+msgstr ""
+
+#. module: frontdesk
+#: model_terms:ir.actions.act_window,help:frontdesk.action_frontdesk_drink
+msgid "No drinks to offer to visitors. Let's add one!"
+msgstr ""
+
+#. module: frontdesk
+#: model_terms:ir.actions.act_window,help:frontdesk.action_frontdesk_frontdesk
+#: model_terms:ir.actions.act_window,help:frontdesk.action_frontdesk_frontdesk_tree
+msgid "No stations found. Let's create one!"
+msgstr ""
+
+#. module: frontdesk
+#: model_terms:ir.actions.act_window,help:frontdesk.action_frontdesk_visitor
+#: model_terms:ir.actions.act_window,help:frontdesk.action_open_drink_to_serve_visitor
+#: model_terms:ir.actions.act_window,help:frontdesk.action_open_guest_on_site_visitor
+#: model_terms:ir.actions.act_window,help:frontdesk.action_open_planned_visitor
+#: model_terms:ir.actions.act_window,help:frontdesk.action_open_station_visitor
+msgid "No visitors yet. Let's add one!"
 msgstr ""
 
 #. module: frontdesk
@@ -531,6 +583,15 @@ msgstr ""
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
 msgid "Notify the host on guest arrival"
+msgstr ""
+
+#. module: frontdesk
+#: model_terms:ir.actions.act_window,help:frontdesk.action_frontdesk_visitor
+#: model_terms:ir.actions.act_window,help:frontdesk.action_open_drink_to_serve_visitor
+#: model_terms:ir.actions.act_window,help:frontdesk.action_open_guest_on_site_visitor
+#: model_terms:ir.actions.act_window,help:frontdesk.action_open_planned_visitor
+#: model_terms:ir.actions.act_window,help:frontdesk.action_open_station_visitor
+msgid "Odoo helps you to track all information related to your visitors."
 msgstr ""
 
 #. module: frontdesk
@@ -667,8 +728,20 @@ msgid "SMS Template"
 msgstr ""
 
 #. module: frontdesk
+#. odoo-javascript
+#: code:addons/frontdesk/static/src/js/tours/frontdesk.js:0
+msgid "Save the visitor."
+msgstr ""
+
+#. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__access_token
 msgid "Security Token"
+msgstr ""
+
+#. module: frontdesk
+#. odoo-javascript
+#: code:addons/frontdesk/static/src/js/tours/frontdesk.js:0
+msgid "Select or create a station on the fly from where the visitor arrived."
 msgstr ""
 
 #. module: frontdesk

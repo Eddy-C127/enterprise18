@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1772,6 +1772,7 @@ msgid "Answer questions frequently asked by your employees"
 msgstr ""
 
 #. module: knowledge
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search_items
 msgid "Archived"
 msgstr ""
@@ -1933,6 +1934,15 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__cover_image_id
 msgid "Article cover"
+msgstr ""
+
+#. module: knowledge
+#: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action_item_calendar
+#: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action
+#: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action_stages
+msgid ""
+"Article items are articles that exist inside their parents but are not displayed in the menu.\n"
+"                They can be used to handle lists (Buildings, Tasks, ...)."
 msgstr ""
 
 #. module: knowledge
@@ -2561,16 +2571,16 @@ msgid "Create a new article in workspace"
 msgstr ""
 
 #. module: knowledge
-#: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action_item_calendar
-#: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action
-#: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action_stages
-msgid "Create a new article item"
-msgstr ""
-
-#. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_product_catalog
 msgid ""
 "Create a simple catalog to provide technical details about your products."
+msgstr ""
+
+#. module: knowledge
+#: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action_item_calendar
+#: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action
+#: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action_stages
+msgid "Create an Article Item"
 msgstr ""
 
 #. module: knowledge
@@ -4018,14 +4028,6 @@ msgid "Move to Workspace"
 msgstr ""
 
 #. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-msgid ""
-"Move to target of %(article_name)s is ambiguous, you should specify the "
-"category."
-msgstr ""
-
-#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
@@ -4104,6 +4106,11 @@ msgid "New property could not be created."
 msgstr ""
 
 #. module: knowledge
+#: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr ""
@@ -4157,6 +4164,8 @@ msgid "No Members yet!"
 msgstr ""
 
 #. module: knowledge
+#: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__inherited_permission__none
+#: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__internal_permission__none
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article_member__permission__none
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_invite__permission__none
 msgid "No access"
@@ -4788,12 +4797,6 @@ msgid "Restrict own access"
 msgstr ""
 
 #. module: knowledge
-#: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__inherited_permission__none
-#: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__internal_permission__none
-msgid "Restricted"
-msgstr ""
-
-#. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_desync_on_root
 msgid "Root articles cannot be desynchronized."
 msgstr ""
@@ -5316,7 +5319,6 @@ msgstr ""
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
 msgid ""
 "The destination placement of %(article_name)s is ambiguous, you should "
 "specify the category."

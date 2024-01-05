@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -420,7 +420,6 @@ msgstr ""
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
-#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_merge_wizard_view_form
 msgid "Discard"
 msgstr ""
@@ -589,6 +588,11 @@ msgid "Launch the <b>timer</b> to start a new activity."
 msgstr ""
 
 #. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
+msgid "Log Time"
+msgstr ""
+
+#. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_merge_wizard_view_form
 msgid "Merge"
 msgstr ""
@@ -746,6 +750,11 @@ msgid "Resume"
 msgstr ""
 
 #. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
+msgid "Resume Timer"
+msgstr ""
+
+#. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__timesheet_rounding
 msgid "Round up"
 msgstr ""
@@ -753,11 +762,6 @@ msgstr ""
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
 msgid "Rounding applied when tracking your time using the timer"
-msgstr ""
-
-#. module: timesheet_grid
-#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
-msgid "Save"
 msgstr ""
 
 #. module: timesheet_grid
@@ -917,7 +921,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/timesheet_grid/models/task.py:0
 msgid ""
-"This project isn't expected to have task during this period. Planned hours :"
+"This project isn't expected to have tasks during this period. Planned hours:"
 msgstr ""
 
 #. module: timesheet_grid
@@ -1007,8 +1011,16 @@ msgstr ""
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
 msgid ""
-"Timesheets before the %s (included) have been validated, and can no longer "
-"be %s."
+"Timesheets before the %(date)s (included) have been validated, and can no "
+"longer be deleted."
+msgstr ""
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
+msgid ""
+"Timesheets before the %(date)s (included) have been validated, and can no "
+"longer be modified."
 msgstr ""
 
 #. module: timesheet_grid
@@ -1181,7 +1193,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
 msgid ""
-"You cannot delete a validated entry. Please, contact your manager or your "
+"You cannot delete a validated entry. Please contact your manager or your "
 "timesheet approver."
 msgstr ""
 
@@ -1215,7 +1227,6 @@ msgstr ""
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
-#, python-format
 msgid ""
 "Your timesheet entry is missing a project. Please either group the Grid view"
 " by project or enter your timesheets through another view."
@@ -1245,21 +1256,9 @@ msgid "days"
 msgstr ""
 
 #. module: timesheet_grid
-#. odoo-python
-#: code:addons/timesheet_grid/models/analytic.py:0
-msgid "deleted"
-msgstr ""
-
-#. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 msgid "min"
-msgstr ""
-
-#. module: timesheet_grid
-#. odoo-python
-#: code:addons/timesheet_grid/models/analytic.py:0
-msgid "modified"
 msgstr ""
 
 #. module: timesheet_grid

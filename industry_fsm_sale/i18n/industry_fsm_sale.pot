@@ -4,16 +4,23 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-08 07:02+0000\n"
+"PO-Revision-Date: 2024-01-08 07:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: industry_fsm_sale
+#. odoo-python
+#: code:addons/industry_fsm_sale/models/project_task.py:0
+#: code:addons/industry_fsm_sale/models/project_task.py:0
+msgid "%(project_name)s - %(task_name)s"
+msgstr ""
 
 #. module: industry_fsm_sale
 #. odoo-javascript
@@ -34,6 +41,14 @@ msgid ""
 "                            When your task is marked as done, your stock will be updated automatically. Simply choose a warehouse\n"
 "                            in your profile from where to draw stock.\n"
 "                        </p>"
+msgstr ""
+
+#. module: industry_fsm_sale
+#: model_terms:ir.ui.view,arch_db:industry_fsm_sale.project_view_form_inherit
+msgid ""
+"<span invisible=\"not is_fsm\">\n"
+"                    Define the service and the rate at which an employee's time is billed based on their expertise, skills or experience.\n"
+"                </span>"
 msgstr ""
 
 #. module: industry_fsm_sale
@@ -300,6 +315,13 @@ msgid "Material Quantity"
 msgstr ""
 
 #. module: industry_fsm_sale
+#: model:ir.model,name:industry_fsm_sale.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
+msgstr ""
+
+#. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.view_task_form2_inherit
 msgid "New Quotation"
 msgstr ""
@@ -340,7 +362,6 @@ msgid "Pricelist"
 msgstr ""
 
 #. module: industry_fsm_sale
-#: model:ir.model,name:industry_fsm_sale.model_product_template
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.industry_fsm_sale_product_catalog_kanban_view
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.worksheet_time_and_material
 msgid "Product"
@@ -477,12 +498,6 @@ msgstr ""
 msgid ""
 "The timesheet product is required when the fsm project can be billed and "
 "timesheets are allowed."
-msgstr ""
-
-#. module: industry_fsm_sale
-#. odoo-python
-#: code:addons/industry_fsm_sale/models/sale_order.py:0
-msgid "This Sales Order has been created from Task: %s"
 msgstr ""
 
 #. module: industry_fsm_sale

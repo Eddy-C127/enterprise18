@@ -4,16 +4,22 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: crm_helpdesk
+#. odoo-python
+#: code:addons/crm_helpdesk/wizard/helpdesk_ticket_to_lead.py:0
+msgid "An archived ticket cannot be converted into a lead."
+msgstr ""
 
 #. module: crm_helpdesk
 #: model_terms:ir.ui.view,arch_db:crm_helpdesk.helpdesk_ticket_to_lead_view_form
@@ -119,14 +125,14 @@ msgid "Lead Converted"
 msgstr ""
 
 #. module: crm_helpdesk
-#: model:ir.model,name:crm_helpdesk.model_crm_lead_convert2ticket
-msgid "Lead convert to Ticket"
+#. odoo-python
+#: code:addons/crm_helpdesk/wizard/helpdesk_ticket_to_lead.py:0
+msgid "Lead Created"
 msgstr ""
 
 #. module: crm_helpdesk
-#. odoo-python
-#: code:addons/crm_helpdesk/wizard/helpdesk_ticket_to_lead.py:0
-msgid "Lead created"
+#: model:ir.model,name:crm_helpdesk.model_crm_lead_convert2ticket
+msgid "Lead convert to Ticket"
 msgstr ""
 
 #. module: crm_helpdesk
@@ -156,18 +162,6 @@ msgid "Team"
 msgstr ""
 
 #. module: crm_helpdesk
-#. odoo-python
-#: code:addons/crm_helpdesk/wizard/helpdesk_ticket_to_lead.py:0
-msgid "The archived ticket can not converted as lead."
-msgstr ""
-
-#. module: crm_helpdesk
-#. odoo-python
-#: code:addons/crm_helpdesk/wizard/helpdesk_ticket_to_lead.py:0
-msgid "This lead has been created from ticket: %s"
-msgstr ""
-
-#. module: crm_helpdesk
 #: model:ir.model.fields,field_description:crm_helpdesk.field_helpdesk_ticket_to_lead__ticket_id
 msgid "Ticket"
 msgstr ""
@@ -179,12 +173,12 @@ msgid "Ticket Converted"
 msgstr ""
 
 #. module: crm_helpdesk
-#: model:ir.model.fields,field_description:crm_helpdesk.field_crm_lead_convert2ticket__ticket_type_id
-msgid "Ticket Type"
+#. odoo-python
+#: code:addons/crm_helpdesk/wizard/crm_lead_convert2ticket.py:0
+msgid "Ticket Created"
 msgstr ""
 
 #. module: crm_helpdesk
-#. odoo-python
-#: code:addons/crm_helpdesk/wizard/crm_lead_convert2ticket.py:0
-msgid "Ticket created"
+#: model:ir.model.fields,field_description:crm_helpdesk.field_crm_lead_convert2ticket__ticket_type_id
+msgid "Ticket Type"
 msgstr ""

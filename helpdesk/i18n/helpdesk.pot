@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-08 07:01+0000\n"
+"PO-Revision-Date: 2024-01-08 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,13 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 msgid "(any of these tags)"
+msgstr ""
+
+#. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.ticket_invitation_follower
+msgid ""
+",\n"
+"    <br/><br/>"
 msgstr ""
 
 #. module: helpdesk
@@ -645,6 +652,7 @@ msgstr ""
 #. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_graph_main
 msgid "Assigned"
 msgstr ""
 
@@ -729,8 +737,7 @@ msgid "Average"
 msgstr ""
 
 #. module: helpdesk
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__avg_response_hours
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__avg_response_hours
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__avg_response_hours
 msgid "Average Hours to Respond"
 msgstr ""
 
@@ -856,9 +863,7 @@ msgid "Close Ticket"
 msgstr ""
 
 #. module: helpdesk
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__close_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__close_date
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__close_date
 msgid "Close date"
 msgstr ""
 
@@ -905,6 +910,12 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "Closed in Last 7 days"
+msgstr ""
+
+#. module: helpdesk
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__close_date
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__close_date
+msgid "Closing Date"
 msgstr ""
 
 #. module: helpdesk
@@ -1027,11 +1038,6 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_action_success
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_action_team_performance
 msgid "Create tickets to get statistics."
-msgstr ""
-
-#. module: helpdesk
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__create_date
-msgid "Created On"
 msgstr ""
 
 #. module: helpdesk
@@ -1444,8 +1450,9 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid ""
-"Get in touch with your website visitors. Create and search tickets from your"
-" conversations. Answer in an instant by using canned responses."
+"Get in touch with your website visitors, and engage them with scripted "
+"chatbot conversations. Create and search tickets from your conversations. "
+"Answer in an instant by using canned responses."
 msgstr ""
 
 #. module: helpdesk
@@ -1552,6 +1559,11 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_reached_late
 msgid "Has SLA reached late"
+msgstr ""
+
+#. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.ticket_invitation_follower
+msgid "Hello"
 msgstr ""
 
 #. module: helpdesk
@@ -1678,6 +1690,7 @@ msgid "History"
 msgstr ""
 
 #. module: helpdesk
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_open_hours
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_open_hours
 msgid "Hours Open"
 msgstr ""
@@ -1691,7 +1704,6 @@ msgid "Hours to Assign"
 msgstr ""
 
 #. module: helpdesk
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_close_hours
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_cohort
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_graph_main
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_pivot_main
@@ -1699,15 +1711,21 @@ msgid "Hours to Close"
 msgstr ""
 
 #. module: helpdesk
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__first_response_hours
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__first_response_hours
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__first_response_hours
 msgid "Hours to First Response"
 msgstr ""
 
 #. module: helpdesk
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__avg_response_hours
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__avg_response_hours
+msgid "Hours to Respond"
+msgstr ""
+
+#. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_deadline_hours
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_deadline_hours
-msgid "Hours to SLA Deadline"
+msgid "Hours until SLA Deadline"
 msgstr ""
 
 #. module: helpdesk
@@ -2092,11 +2110,13 @@ msgstr ""
 #. module: helpdesk
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
+#: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "My Performance"
 msgstr ""
 
 #. module: helpdesk
 #. odoo-javascript
+#: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
@@ -2250,7 +2270,7 @@ msgstr ""
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_status_failed
-msgid "Number of SLA Failed"
+msgid "Number of SLAs Failed"
 msgstr ""
 
 #. module: helpdesk
@@ -2953,8 +2973,8 @@ msgid "Settings"
 msgstr ""
 
 #. module: helpdesk
-#: model:ir.actions.server,name:helpdesk.model_helpdesk_ticket_action_share
-msgid "Share"
+#: model:ir.actions.act_window,name:helpdesk.portal_share_action
+msgid "Share Ticket"
 msgstr ""
 
 #. module: helpdesk
@@ -3311,7 +3331,6 @@ msgstr ""
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_action_dashboard
-#: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_analysis_action
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_analysis_dashboard_action
 #: model:ir.model,name:helpdesk.model_helpdesk_ticket_report_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_pivot_analysis
@@ -3336,14 +3355,15 @@ msgid "Ticket Count"
 msgstr ""
 
 #. module: helpdesk
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__create_date
-msgid "Ticket Create Date"
-msgstr ""
-
-#. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_team_ticket_new
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_new
 msgid "Ticket Created"
+msgstr ""
+
+#. module: helpdesk
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__create_date
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__create_date
+msgid "Ticket Creation Date"
 msgstr ""
 
 #. module: helpdesk
@@ -3427,6 +3447,7 @@ msgstr ""
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
+#: model:ir.actions.act_window,name:helpdesk.helpdesk_ticket_analysis_action
 #: model:ir.ui.menu,name:helpdesk.helpdesk_ticket_report_menu
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_report_analysis_view_tree
@@ -3578,8 +3599,10 @@ msgid "Unarchive Tickets"
 msgstr ""
 
 #. module: helpdesk
+#. odoo-javascript
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
+#: code:addons/helpdesk/static/src/views/helpdesk_ticket_graph/helpdesk_ticket_graph_model.js:0
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
 msgid "Unassigned"
@@ -3735,12 +3758,18 @@ msgstr ""
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_close_hours
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_close_hours
 msgid "Working Hours to Close"
 msgstr ""
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_exceeded_hours
 msgid "Working Hours to Reach SLA"
+msgstr ""
+
+#. module: helpdesk
+#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_deadline_hours
+msgid "Working Hours until SLA Deadline"
 msgstr ""
 
 #. module: helpdesk
@@ -3786,6 +3815,17 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_action_sla
 msgid "You completed all your tickets on time."
+msgstr ""
+
+#. module: helpdesk
+#. odoo-python
+#: code:addons/helpdesk/models/helpdesk_ticket.py:0
+msgid "You have been invited to follow %s"
+msgstr ""
+
+#. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.ticket_invitation_follower
+msgid "You have been invited to follow Ticket Document :"
 msgstr ""
 
 #. module: helpdesk

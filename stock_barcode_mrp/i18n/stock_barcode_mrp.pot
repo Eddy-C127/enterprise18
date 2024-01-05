@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-08 07:03+0000\n"
+"PO-Revision-Date: 2024-01-08 07:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,36 +23,19 @@ msgid ""
 msgstr ""
 
 #. module: stock_barcode_mrp
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
-msgid ""
-"<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\" "
-"invisible=\"tracking not in ['serial', 'lot']\"/>"
-msgstr ""
-
-#. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 msgid "<i class=\"fa fa-fw fa-lg fa-cube me-3\" title=\"Quantity\"/>"
 msgstr ""
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 msgid ""
 "<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Destination "
 "Location\"/>"
 msgstr ""
 
 #. module: stock_barcode_mrp
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
-msgid ""
-"<i class=\"fa fa-fw fa-lg fa-map-marker text-center me-3\" title=\"Source "
-"Location\"/>"
-msgstr ""
-
-#. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 msgid "<i class=\"fa fa-fw fa-lg fa-tags me-3\" title=\"Product\"/>"
 msgstr ""
 
@@ -117,7 +100,6 @@ msgstr ""
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_barcode_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 msgid "Confirm"
 msgstr ""
 
@@ -138,14 +120,12 @@ msgstr ""
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 msgid "Destination Location"
 msgstr ""
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_barcode_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 msgid "Discard"
 msgstr ""
 
@@ -234,7 +214,6 @@ msgstr ""
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 msgid "Product"
 msgstr ""
 
@@ -255,7 +234,6 @@ msgstr ""
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 msgid "Quantity"
 msgstr ""
 
@@ -290,20 +268,15 @@ msgid "Scan your final product or more components"
 msgstr ""
 
 #. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+msgid "Scrap"
+msgstr ""
+
+#. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.stock_move_line_product_selector
 msgid "Serial/Lot Number"
-msgstr ""
-
-#. module: stock_barcode_mrp
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
-msgid "Source Location"
-msgstr ""
-
-#. module: stock_barcode_mrp
-#: model:ir.model,name:stock_barcode_mrp.model_stock_move
-msgid "Stock Move"
 msgstr ""
 
 #. module: stock_barcode_mrp
@@ -350,7 +323,6 @@ msgstr ""
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
-#: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
 msgid "Unit of Measure"
 msgstr ""
 
