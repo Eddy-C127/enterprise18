@@ -200,6 +200,48 @@ class AccountMove(models.Model):
     def _l10n_br_edi_get_xml_attachment_name(self):
         return f"{self.name}_edi.xml"
 
+    def _l10n_br_edi_set_successful_status(self):
+        """Can be overridden for invoices that are processed asynchronously."""
+        self.l10n_br_last_edi_status = "accepted"
+
+    def _l10n_br_edi_attachments_from_response(self, response):
+        # Unset old ones because otherwise `_compute_linked_attachment_id()` will set the oldest
+        # attachment, not this new one.
+        self.invoice_pdf_report_id.res_field = False
+        self.l10n_br_edi_xml_attachment_id.res_field = False
+
+        # Creating the e-invoice PDF like this prevents the standard invoice PDF from being generated.
+        invoice_pdf = self.env["ir.attachment"].create(
+            {
+                "res_model": "account.move",
+                "res_id": self.id,
+                "res_field": "invoice_pdf_report_file",
+                "name": self._get_invoice_report_filename(),
+                "datas": response["pdf"]["base64"],
+            }
+        )
+        # make sure latest PDF shows to the right of the chatter
+        invoice_pdf.register_as_main_attachment(force=True)
+
+        invoice_xml = self.env["ir.attachment"].create(
+            {
+                "res_model": "account.move",
+                "res_id": self.id,
+                "res_field": "l10n_br_edi_xml_attachment_file",
+                "name": self._l10n_br_edi_get_xml_attachment_name(),
+                "datas": response["xml"]["base64"],
+            }
+        )
+        self.invalidate_recordset(
+            fnames=[
+                "invoice_pdf_report_id",
+                "invoice_pdf_report_file",
+                "l10n_br_edi_xml_attachment_id",
+                "l10n_br_edi_xml_attachment_file",
+            ]
+        )
+        return invoice_pdf | invoice_xml
+
     def _l10n_br_edi_send(self):
         """Sends the e-invoice and returns an array of error strings."""
         for invoice in self:
@@ -213,31 +255,12 @@ class AccountMove(models.Model):
                     invoice.l10n_br_last_edi_status = "error"
                     return [api_error]
                 else:
-                    invoice.l10n_br_last_edi_status = "accepted"
+                    invoice._l10n_br_edi_set_successful_status()
                     invoice.l10n_br_access_key = response["key"]
 
-                    # Creating the e-invoice PDF like this prevents the standard invoice PDF from being generated.
-                    invoice_pdf = self.env["ir.attachment"].create(
-                        {
-                            "res_model": "account.move",
-                            "res_id": invoice.id,
-                            "res_field": "invoice_pdf_report_file",
-                            "name": invoice._get_invoice_report_filename(),
-                            "datas": response["pdf"]["base64"],
-                        }
-                    )
-                    invoice_xml = self.env["ir.attachment"].create(
-                        {
-                            "res_model": "account.move",
-                            "res_id": invoice.id,
-                            "res_field": "l10n_br_edi_xml_attachment_file",
-                            "name": invoice._l10n_br_edi_get_xml_attachment_name(),
-                            "datas": response["xml"]["base64"],
-                        }
-                    )
                     self.with_context(no_new_invoice=True).message_post(
                         body=_("E-invoice submitted successfully."),
-                        attachment_ids=(invoice_pdf | invoice_xml).ids,
+                        attachment_ids=invoice._l10n_br_edi_attachments_from_response(response).ids,
                     )
 
                     # Now that the invoice is submitted and accepted we no longer need the saved tax computation data.

@@ -19,7 +19,7 @@ from odoo.tools import json
 
 
 @tagged("post_install_l10n", "post_install", "-at_install")
-class TestL10nBREDI(AccountTestInvoicingCommon):
+class TestL10nBREDICommon(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref="br"):
         super().setUpClass(chart_template_ref)
@@ -113,6 +113,9 @@ class TestL10nBREDI(AccountTestInvoicingCommon):
         ) as patched_fn:
             yield patched_fn
 
+
+@tagged("post_install_l10n", "post_install", "-at_install")
+class TestL10nBREDI(TestL10nBREDICommon):
     def test_l10n_br_edi_is_enabled_checkbox(self):
         self.wizard.l10n_br_edi_is_enabled = False
         self.wizard.checkbox_download = False
@@ -229,3 +232,17 @@ class TestL10nBREDI(AccountTestInvoicingCommon):
             "_l10n_br_iap_correct_invoice_goods", invoice_1_correct_fail_response
         ), self.assertRaisesRegex(ValidationError, re.escape(invoice_1_correct_fail_response["status"]["desc"])):
             wizard.action_submit()
+
+    def test_new_invoice_attachments(self):
+        """Test that newly set invoice PDFs or XMLs are reflected in the fields."""
+        def set_new_attachments(invoice, response):
+            new_attachments = invoice._l10n_br_edi_attachments_from_response(response)
+            new_pdf_attachment = new_attachments.filtered(lambda attachment: ".pdf" in attachment.name)
+            new_xml_attachment = new_attachments.filtered(lambda attachment: ".xml" in attachment.name)
+
+            self.assertEqual(invoice.invoice_pdf_report_id, new_pdf_attachment)
+            self.assertEqual(invoice.l10n_br_edi_xml_attachment_id, new_xml_attachment)
+            self.assertEqual(invoice.message_main_attachment_id, new_pdf_attachment)
+
+        set_new_attachments(self.invoice, invoice_1_submit_success_response)
+        set_new_attachments(self.invoice, invoice_1_submit_success_response)
