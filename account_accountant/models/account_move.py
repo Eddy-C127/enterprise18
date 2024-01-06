@@ -647,13 +647,17 @@ class AccountMoveLine(models.Model):
                   FROM ranking
               GROUP BY prediction
               ORDER BY ranking DESC, count DESC
+                 LIMIT 2
             """, {
                 'lang': psql_lang,
                 'description': parsed_description,
             })
-            result = self.env.cr.dictfetchone()
+            result = self.env.cr.dictfetchall()
             if result:
-                return result['prediction']
+                # Only confirm the prediction if it's at least 10% better than the second one
+                if len(result) > 1 and result[0]['ranking'] < 1.1 * result[1]['ranking']:
+                    return False
+                return result[0]['prediction']
         except Exception:
             # In case there is an error while parsing the to_tsquery (wrong character for example)
             # We don't want to have a blocking traceback, instead return False
