@@ -5,14 +5,14 @@
 # Translators:
 # Piia Paurson <piia@avalah.ee>, 2023
 # Birgit Vijar, 2023
+# Patrick-Jordan Kiudorv, 2023
 # Eneli Õigus <enelioigus@gmail.com>, 2023
 # Triine Aavik <triine@avalah.ee>, 2023
 # JanaAvalah, 2023
+# Rivo Zängov <eraser@eraser.ee>, 2023
 # Leaanika Randmets, 2023
 # Martin Trigaux, 2023
-# Patrick-Jordan Kiudorv, 2023
 # Arma Gedonsky <armagedonsky@hot.ee>, 2023
-# Rivo Zängov <eraser@eraser.ee>, 2023
 # Mihkel avalah, 2023
 # Anna, 2023
 # 
@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Anna, 2023\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
@@ -309,9 +309,7 @@ msgstr "Kui kontrollitud, siis uued sõnumid nõuavad Teie tähelepanu."
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
-#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
-#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Kui valitud, on mõningate sõnumitel saatmiserror."
 
@@ -539,12 +537,6 @@ msgid "Rooms"
 msgstr "Jututoad"
 
 #. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
-#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Sõnumi kohaletoimetamise viga"
-
-#. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 #, python-format
@@ -571,20 +563,12 @@ msgid "Short Code"
 msgstr "Lühikood"
 
 #. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
-#, python-format
-msgid "Start"
-msgstr "Alusta"
-
-#. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__start_datetime
 msgid "Start Datetime"
 msgstr ""
 
 #. module: room
 #. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
 #, python-format
 msgid "Stop"
@@ -630,15 +614,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_kanban
 msgid "Until"
 msgstr "Kuni"
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
-msgid "Website Messages"
-msgstr "Veebilehe sõnumid"
-
-#. module: room
-#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,help:room.field_room_room__website_message_ids
-msgid "Website communication history"
-msgstr "Veebilehe suhtluse ajalugu"

@@ -4,16 +4,16 @@
 # 
 # Translators:
 # a75f12d3d37ea5bf159c4b3e85eb30e7_0fa6927, 2023
-# Wil Odoo, 2023
 # Maitê Dietze, 2023
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Maitê Dietze, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,15 +90,6 @@ msgid ""
 msgstr ""
 "<b>Parabéns</b>! Sua primeira cotação de assinatura está pronta para ser "
 "enviada."
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid ""
-"<b>No suitable payment method could be found.</b><br/>\n"
-"                                    If you believe that is an error, please contact the website administrator."
-msgstr ""
-"<b>Não foi possível encontrar uma opção de pagamento adequada.</b><br/>\n"
-"                                  Se você acredita que isso é um erro, entre em contato com o administrador do site."
 
 #. module: sale_subscription
 #: model:mail.template,body_html:sale_subscription.mail_template_subscription_alert
@@ -344,11 +335,6 @@ msgstr "<i class=\"fa fa-print\"/> Imprimir"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_so_portal_template
 msgid "<i class=\"oi oi-arrow-right me-1\"/>Back to your subscription"
 msgstr "<i class=\"oi oi-arrow-right me-1\"/>Voltar para sua assinatura"
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "<i class=\"oi oi-arrow-right\"/> Add payment providers"
-msgstr "<i class=\"oi oi-arrow-right\"/> Adicionar provedores de pagamento"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -1055,11 +1041,6 @@ msgid "ARR Change (normalized)"
 msgstr "Mudança na RRA (normalizado)"
 
 #. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
-msgid "Abandoned Cart"
-msgstr "Carrinho abandonado"
-
-#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Action"
 msgstr "Ação"
@@ -1478,6 +1459,7 @@ msgstr "Mudar cliente"
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
+#: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Check reopened subscription"
 msgstr "Verificar assinatura reaberta"
@@ -1523,7 +1505,6 @@ msgstr "Encerrável"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_so_portal_template
 msgid "Close"
 msgstr "Fechar"
@@ -2516,6 +2497,11 @@ msgid "MRR"
 msgstr "RRM"
 
 #. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_order_log_analysis_action
+msgid "MRR Analysis"
+msgstr "Análise de RRM"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "MRR Between"
 msgstr "RRM entre"
@@ -2598,7 +2584,6 @@ msgstr "RRM:"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "Manage Payment Method"
 msgstr "Gerenciar forma de pagamento"
 
@@ -2658,15 +2643,6 @@ msgid "Messages"
 msgstr "Mensagens"
 
 #. module: sale_subscription
-#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_plan__billing_period_value
-msgid ""
-"Minimum duration before this rule is applied. If set to 0, it represents a "
-"fixed temporal price."
-msgstr ""
-"Duração mínima antes de aplicar esta regra. Se definido como 0, representa "
-"um preço temporal fixo."
-
-#. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
@@ -2686,6 +2662,13 @@ msgstr "Modelo"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__model_name
 msgid "Model Name"
 msgstr "Nome do modelo"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__model_id
@@ -3156,7 +3139,6 @@ msgid "Print"
 msgstr "Imprimir"
 
 #. module: sale_subscription
-#: model:ir.model,name:sale_subscription.model_product_template
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__product_tmpl_id
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -3404,6 +3386,17 @@ msgstr "Preço recorrente"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__recurring_total
 msgid "Recurring Revenue"
 msgstr "Receita recorrente"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""
+"O período recorrente deve ser um número positivo. Certifique-se de que a "
+"entrada é um valor numérico positivo válido."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4384,6 +4377,13 @@ msgid "The upsell %s has been confirmed."
 msgstr "O upsell %s foi confirmado."
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
+#, python-format
+msgid "There are multiple pricings for an unique product, plan and pricelist."
+msgstr "Há vários preços para um único produto, plano e lista de preços."
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
 msgstr "Há uma"
@@ -4392,13 +4392,6 @@ msgstr "Há uma"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is an"
 msgstr "Há"
-
-#. module: sale_subscription
-#. odoo-python
-#: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
-#, python-format
-msgid "There are multiple pricings for an unique product, plan and pricelist."
-msgstr "Há vários preços para um único produto, plano e lista de preços."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
@@ -4795,11 +4788,6 @@ msgstr "Não queremos que nos deixe."
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__webhook_uuid
 msgid "Webhook UUID"
 msgstr "UUID do Webhook"
-
-#. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
-msgid "Website"
-msgstr "Site"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids
@@ -5316,14 +5304,3 @@ msgstr ""
 "{{ object.company_id.name }}: Sua assinatura {{ object.name }} precisa da "
 "sua atenção. Caso tenha dúvidas sobre isso, entre em contato com {{ "
 "object.user_id.name }}, o seu ponto de contato."
-
-#. module: sale_subscription
-#. odoo-python
-#: code:addons/sale_subscription/models/sale_order.py:0
-#, python-format
-msgid ""
-"Recurring period must be a positive number. Please ensure the input is a "
-"valid positive numeric value."
-msgstr ""
-"O período recorrente deve ser um número positivo. Certifique-se de que a "
-"entrada é um valor numérico positivo válido."

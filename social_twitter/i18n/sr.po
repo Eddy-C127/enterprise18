@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Milan Bojovic <mbojovic@outlook.com>, 2023\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
@@ -150,6 +150,14 @@ msgstr "Naziv za prikaz"
 #: model:ir.model.fields,field_description:social_twitter.field_social_post__has_twitter_accounts
 #: model:ir.model.fields,field_description:social_twitter.field_social_post_template__has_twitter_accounts
 msgid "Display Twitter Preview"
+msgstr ""
+
+#. module: social_twitter
+#. odoo-javascript
+#: code:addons/social_twitter/static/src/js/stream_post_comments.js:0
+#, python-format
+msgid ""
+"Easy, tiger! No spamming allowed. Let's stick to three replies per Tweet."
 msgstr ""
 
 #. module: social_twitter
@@ -642,17 +650,6 @@ msgstr ""
 #, python-format
 msgid "You are not authenticated"
 msgstr ""
-
-#. module: social_twitter
-#. odoo-javascript
-#: code:addons/social_twitter/static/src/js/stream_post_comments.js:0
-#, python-format
-msgid ""
-"You can comment only three times a tweet as it may be considered as spamming"
-" by Twitter"
-msgstr ""
-"Možete da komentarišete samo tri puta po tvitu jer to može biti tretirano "
-"kao spam od strane Twitter-a"
 
 #. module: social_twitter
 #: model:ir.model.constraint,message:social_twitter.constraint_social_stream_post_tweet_uniq

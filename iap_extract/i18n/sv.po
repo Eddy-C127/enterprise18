@@ -13,16 +13,16 @@
 # Simon S, 2023
 # Daniel Löfgren, 2023
 # Kim Asplund <kim.asplund@gmail.com>, 2023
-# Lasse L, 2023
 # Anders Wallenquist <anders.wallenquist@vertel.se>, 2023
+# Lasse L, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>, 2023\n"
+"Last-Translator: Lasse L, 2023\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -162,7 +162,6 @@ msgstr "Om markerad så finns det meddelanden som kräver din uppmärksamhet."
 
 #. module: iap_extract
 #: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_error
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Om markerad, en del meddelanden har leveransfel."
 
@@ -254,11 +253,6 @@ msgid "Ratings"
 msgstr "Betyg"
 
 #. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "SMS leveransfel"
-
-#. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
@@ -341,16 +335,6 @@ msgstr "Väntande utvinning"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__waiting_validation
 msgid "Waiting validation"
 msgstr "Väntar på validering"
-
-#. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website Messages"
-msgstr "Webbplatsmeddelanden"
-
-#. module: iap_extract
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website communication history"
-msgstr "Webbplatsens kommunikationshistorik"
 
 #. module: iap_extract
 #. odoo-python

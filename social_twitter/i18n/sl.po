@@ -12,15 +12,15 @@
 # Tadej Lupšina <tadej@hbs.si>, 2023
 # Martin Trigaux, 2023
 # Jasmina Macur <jasmina@hbs.si>, 2023
-# Katja Deržič, 2023
+# Katja Deržič, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Katja Deržič, 2023\n"
+"Last-Translator: Katja Deržič, 2024\n"
 "Language-Team: Slovenian (https://app.transifex.com/odoo/teams/41243/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -161,6 +161,14 @@ msgstr "Prikaži predogled Twitterja"
 
 #. module: social_twitter
 #. odoo-javascript
+#: code:addons/social_twitter/static/src/js/stream_post_comments.js:0
+#, python-format
+msgid ""
+"Easy, tiger! No spamming allowed. Let's stick to three replies per Tweet."
+msgstr ""
+
+#. module: social_twitter
+#. odoo-javascript
 #: code:addons/social_twitter/static/src/xml/social_twitter_templates.xml:0
 #, python-format
 msgid "Empty tweet"
@@ -259,7 +267,7 @@ msgstr ""
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_media__media_type
 msgid "Media Type"
-msgstr ""
+msgstr "Vrsta medija"
 
 #. module: social_twitter
 #: model:social.stream.type,name:social_twitter.stream_type_twitter_user_mentions
@@ -648,15 +656,6 @@ msgstr ""
 #: code:addons/social_twitter/models/social_stream_post.py:0
 #, python-format
 msgid "You are not authenticated"
-msgstr ""
-
-#. module: social_twitter
-#. odoo-javascript
-#: code:addons/social_twitter/static/src/js/stream_post_comments.js:0
-#, python-format
-msgid ""
-"You can comment only three times a tweet as it may be considered as spamming"
-" by Twitter"
 msgstr ""
 
 #. module: social_twitter

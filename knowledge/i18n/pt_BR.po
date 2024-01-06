@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Maitê Dietze, 2023\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
@@ -4818,16 +4818,6 @@ msgid "Move to Workspace"
 msgstr "Mover para o espaço de trabalho"
 
 #. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"Move to target of %(article_name)s is ambiguous, you should specify the "
-"category."
-msgstr ""
-"Mover para destino de %(article_name)s é ambíguo. Especifique a categoria."
-
-#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Prazo da minha atividade"
@@ -6289,6 +6279,17 @@ msgid "The article '%s' needs at least one member with 'Write' access."
 msgstr "O artigo \"%s\" precisa ter pelo menos um membro com acesso \"Editar\"."
 
 #. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"The destination placement of %(article_name)s is ambiguous, you should "
+"specify the category."
+msgstr ""
+"O posicionamento de destino de %(article_name)s é ambíguo. Especifique a "
+"categoria."
+
+#. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 #, python-format
@@ -6305,17 +6306,6 @@ msgstr ""
 "O podcast lança suas conversas técnicas para todos as mentes tecnológicas ouvintes por aí! O\n"
 "                            novo episódio da série recebe Géry, a mente genial por trás do OWL, o framework JS\n"
 "                            mais rápido do mundo. 🚀"
-
-#. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"The destination placement of %(article_name)s is ambiguous, you should "
-"specify the category."
-msgstr ""
-"O posicionamento de destino de %(article_name)s é ambíguo. Especifique a "
-"categoria."
 
 #. module: knowledge
 #. odoo-javascript

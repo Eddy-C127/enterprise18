@@ -3,17 +3,17 @@
 # 	* hr_referral
 # 
 # Translators:
-# Wil Odoo, 2023
-# Junko Augias, 2023
 # Ryoko Tsuda <ryoko@quartile.co>, 2023
+# Junko Augias, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -309,9 +309,24 @@ msgid "Cost"
 msgstr "原価"
 
 #. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_friend_configuration
+msgid "Create a new friend"
+msgstr "新しい友達を作成"
+
+#. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_level_configuration
+msgid "Create a new level"
+msgstr "新しいレベルを作成"
+
+#. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_alert_configuration
 msgid "Create new alerts"
 msgstr "新しいアラートを作成"
+
+#. module: hr_referral
+#: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_points
+msgid "Create new reward points"
+msgstr "新しいリワードポイントを作成"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__create_uid
@@ -702,7 +717,7 @@ msgstr "進行中"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__is_accessible_to_current_user
 msgid "Is Accessible To Current User"
-msgstr ""
+msgstr "現在のユーザにアクセス可能"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_is_follower
@@ -972,16 +987,6 @@ msgid "Open"
 msgstr "開く"
 
 #. module: hr_referral
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Open Position"
-msgstr ""
-
-#. module: hr_referral
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Open Positions"
-msgstr ""
-
-#. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
 msgid "Point icon"
 msgstr "ポイントアイコン"
@@ -1059,6 +1064,11 @@ msgstr "プロダクト"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__name
 msgid "Product Name"
 msgstr "プロダクト名"
+
+#. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
+msgid "Ratings"
+msgstr "評価"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
@@ -1486,6 +1496,8 @@ msgid ""
 "Unsupported search on field is_accessible_to_current_user: %s operator & %s "
 "value. Only = and != operator and boolean values are supported."
 msgstr ""
+"フィールドis_accessible_to_current_userでの検索はサポートされていません: %s演算子  & %s値。 = および != "
+"演算子およびブーリアン値のみサポートされています。"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__url
@@ -1555,7 +1567,7 @@ msgid ""
 "You are not allowed to access this application record because you're not one"
 " of the interviewers of this application. If you think that's an error, "
 "please contact your administrator."
-msgstr ""
+msgstr "この応募の面接者ではないため、この応募記録にアクセスすることはできません。エラーと思われる場合は、管理者にご連絡下さい。"
 
 #. module: hr_referral
 #. odoo-python

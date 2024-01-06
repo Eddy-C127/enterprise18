@@ -3,17 +3,17 @@
 # 	* mrp_workorder
 # 
 # Translators:
-# Wil Odoo, 2023
 # Sergio Zanchetta <primes2h@gmail.com>, 2023
-# Marianna Ciofani, 2023
+# Marianna Ciofani, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-06 08:38+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Marianna Ciofani, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -657,6 +657,16 @@ msgid "In Progress"
 msgstr "In corso"
 
 #. module: mrp_workorder
+#: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder__move_line_id
+#: model:ir.model.fields,help:mrp_workorder.field_quality_check__move_line_id
+msgid ""
+"In case of Quality Check by Quantity, Move Line on which the Quality Check "
+"applies"
+msgstr ""
+"Nel caso di controllo qualità per quantità, riga movimento alla quale si "
+"applica il controllo qualità"
+
+#. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.add_quality_check_from_tablet
 msgid "Instruction"
 msgstr "Istruzione"
@@ -843,7 +853,7 @@ msgstr "Scadenza mie attività"
 #: code:addons/mrp_workorder/static/src/mrp_display/control_panel.js:0
 #, python-format
 msgid "My WO"
-msgstr "Il mio ordine di lavoro"
+msgstr "I miei ordini di lavoro"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_workorder_form_view_filter_my_work_orders
@@ -884,6 +894,11 @@ msgstr "Nuovo titolo suggerito:"
 #, python-format
 msgid "Next"
 msgstr "Succ"
+
+#. module: mrp_workorder
+#: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Prossimo evento del calendario delle attività"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_date_deadline
@@ -1394,6 +1409,7 @@ msgstr "Configura una nuova immagine"
 #: model:ir.actions.client,name:mrp_workorder.action_mrp_display
 #: model:ir.model.fields,field_description:mrp_workorder.field_res_config_settings__group_mrp_wo_shop_floor
 #: model:ir.ui.menu,name:mrp_workorder.menu_mrp_workorder_root
+#: model:ir.ui.menu,name:mrp_workorder.menu_shop_floor
 msgid "Shop Floor"
 msgstr "Linea di produzione"
 

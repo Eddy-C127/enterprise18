@@ -5,17 +5,16 @@
 # Translators:
 # Wil Odoo, 2023
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2023
-# Iran Villalobos López, 2023
 # Lucia Pacheco, 2023
-# Fernanda Alvarez, 2023
+# Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Fernanda Alvarez, 2023\n"
+"Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -944,7 +943,7 @@ msgid ""
 "Contacts in copy will be notified by email once the document is either fully"
 " signed or refused."
 msgstr ""
-"Una vez que el documento esté totalmente firmado o sea rechazado, se "
+"Una vez que el documento esté firmado en su totalidad o sea rechazado, se "
 "notificará por correo electrónico a los contactos en copia."
 
 #. module: sign
@@ -1812,7 +1811,7 @@ msgstr "Es usuario signatario"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
-msgstr "John Doe"
+msgstr "Juan Pérez"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -1898,7 +1897,7 @@ msgstr "Enviemos la solicitud por correo electrónico."
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__redirect_url_text
 msgid "Link Label"
-msgstr "Descripción del enlace"
+msgstr "Etiqueta del enlace"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__activity_id
@@ -2807,7 +2806,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Show standard terms & conditions on signature requests"
 msgstr ""
-"Mostrar los términos y condiciones estándar en las solicitudes de firma"
+"Mostrar los términos y condiciones generales en las solicitudes de firma"
 
 #. module: sign
 #. odoo-javascript
@@ -3370,8 +3369,8 @@ msgid ""
 "Technical name of the field on the partner model to auto-complete this "
 "signature field at the time of signature."
 msgstr ""
-"Nombre técnico del campo en el modelo del contacto para autocompletar este "
-"campo de firma al momento de la firma."
+"Nombre técnico del campo en el modelo del contacto para completar en "
+"automático este campo de firma al momento de la firma."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__template_id
@@ -3384,12 +3383,6 @@ msgstr "Plantilla"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.js:0
-#, python-format
-msgid "Template \"%s\""
-msgstr "Plantilla \"%s\""
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.js:0
 #: code:addons/sign/static/src/views/hooks.js:0
 #, python-format
@@ -3964,7 +3957,7 @@ msgstr "Usar diseño"
 #: model_terms:ir.actions.act_window,help:sign.sign_template_tag_action
 msgid "Use Tags to manage your Sign Templates and Sign Requests"
 msgstr ""
-"Utilice las etiquetas para manejar sus plantillas y solicitudes de firmas"
+"Utilice las etiquetas para gestionar sus plantillas y solicitudes de firmas"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_duplicate_template_with_pdf
@@ -4247,7 +4240,7 @@ msgid ""
 "Administrator."
 msgstr ""
 "No tiene acceso a estos documentos, póngase en contacto con el administrador"
-" de firmas."
+" de Firma electrónica."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
@@ -4356,8 +4349,8 @@ msgid ""
 "document. The final document will be encrypted with the same password."
 msgstr ""
 "Su archivo está protegido, es necesario contar con la contraseña del PDF "
-"para generar el documento final. Se encriptará el documento final con la "
-"misma contraseña."
+"para generar el documento final. El documento final se cifrará con la misma "
+"contraseña."
 
 #. module: sign
 #. odoo-javascript
@@ -4595,4 +4588,4 @@ msgstr "{{green_report_el_title}}"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el_pdf
 msgid "{{green_report_el_title}} Summary"
-msgstr "{{green_report_el_title}} Resumen"
+msgstr "Resumen {{green_report_el_title}}"

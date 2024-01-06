@@ -4,7 +4,6 @@
 # 
 # Translators:
 # Tamás Németh <ntomasz81@gmail.com>, 2023
-# krnkris, 2023
 # gezza <geza.nagy@oregional.hu>, 2023
 # Gergő Kertész <gergo.kertesz@maxflow.hu>, 2023
 # 
@@ -12,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Gergő Kertész <gergo.kertesz@maxflow.hu>, 2023\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
@@ -32,6 +31,13 @@ msgid ""
 msgstr ""
 
 #. module: sale_project_forecast
+#: model:ir.model,name:sale_project_forecast.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
+msgstr ""
+
+#. module: sale_project_forecast
 #: model:ir.model.fields,field_description:sale_project_forecast.field_product_product__planning_enabled
 #: model:ir.model.fields,field_description:sale_project_forecast.field_product_template__planning_enabled
 msgid "Plan Services"
@@ -41,11 +47,6 @@ msgstr ""
 #: model:ir.model,name:sale_project_forecast.model_planning_slot
 msgid "Planning Shift"
 msgstr "Műszaktervezés"
-
-#. module: sale_project_forecast
-#: model:ir.model,name:sale_project_forecast.model_product_template
-msgid "Product"
-msgstr "Termék"
 
 #. module: sale_project_forecast
 #: model:ir.model.fields,field_description:sale_project_forecast.field_planning_slot__sale_line_id

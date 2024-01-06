@@ -5,17 +5,17 @@
 # Translators:
 # Albena Mincheva <albena_vicheva@abv.bg>, 2023
 # Ivan Goychev <igoychev.projects@gmail.com>, 2023
+# Ивайло Малинов <iv.malinov@gmail.com>, 2023
 # Boyan Rabchev <boyan.rabchev@plana.solutions>, 2023
 # Martin Trigaux, 2023
 # KeyVillage, 2023
-# Ивайло Малинов <iv.malinov@gmail.com>, 2023
 # Maria Boyadjieva <marabo2000@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Maria Boyadjieva <marabo2000@gmail.com>, 2023\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
@@ -304,9 +304,7 @@ msgstr "Ако е отметнато, новите съобщения ще из�
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
-#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
-#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Ако е отметнато, някои съобщения имат грешка при доставката."
 
@@ -534,12 +532,6 @@ msgid "Rooms"
 msgstr ""
 
 #. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
-#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "SMS грешка при доставка"
-
-#. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 #, python-format
@@ -566,20 +558,12 @@ msgid "Short Code"
 msgstr "Кратък код"
 
 #. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
-#, python-format
-msgid "Start"
-msgstr "Стартирайте"
-
-#. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__start_datetime
 msgid "Start Datetime"
 msgstr ""
 
 #. module: room
 #. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
 #, python-format
 msgid "Stop"
@@ -625,15 +609,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_kanban
 msgid "Until"
 msgstr "Докато"
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
-msgid "Website Messages"
-msgstr "Съобщения в уебсайт"
-
-#. module: room
-#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,help:room.field_room_room__website_message_ids
-msgid "Website communication history"
-msgstr "История на комуникацията на уебсайт"

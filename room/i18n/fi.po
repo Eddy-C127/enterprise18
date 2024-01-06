@@ -3,6 +3,7 @@
 # 	* room
 # 
 # Translators:
+# Svante Suominen <svante.suominen@web-veistamo.fi>, 2023
 # Miika Nissi <miika.nissi@tawasta.fi>, 2023
 # Veikko Väätäjä <veikko.vaataja@gmail.com>, 2023
 # Jussi Lehto <jussi@gulfeo.com>, 2023
@@ -10,20 +11,18 @@
 # Johanna Valkonen <miujohanna@gmail.com>, 2023
 # Mikko Salmela <salmemik@gmail.com>, 2023
 # Jenni Heikkilä <jenni.heikkila@sv-oy.fi>, 2023
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
 # Eino Mäkitalo <eino.makitalo@netitbe.fi>, 2023
-# Svante Suominen <svante.suominen@web-veistamo.fi>, 2023
 # Martin Trigaux, 2023
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
-# Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2023
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -315,9 +314,7 @@ msgstr "Jos valittu, uudet viestit vaativat huomiotasi."
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
-#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
-#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Jos valittu, joitakin viestejä ei ole toimitettu."
 
@@ -545,12 +542,6 @@ msgid "Rooms"
 msgstr "Huoneet"
 
 #. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
-#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Tekstiviestin toimitusvirhe"
-
-#. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 #, python-format
@@ -577,20 +568,12 @@ msgid "Short Code"
 msgstr "Lyhyt koodi"
 
 #. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
-#, python-format
-msgid "Start"
-msgstr "Aloita"
-
-#. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__start_datetime
 msgid "Start Datetime"
 msgstr "Aloituspäivämäärä"
 
 #. module: room
 #. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
 #, python-format
 msgid "Stop"
@@ -640,15 +623,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_kanban
 msgid "Until"
 msgstr "Kunnes"
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
-msgid "Website Messages"
-msgstr "Verkkosivun ilmoitukset"
-
-#. module: room
-#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,help:room.field_room_room__website_message_ids
-msgid "Website communication history"
-msgstr "Verkkosivun viestihistoria"

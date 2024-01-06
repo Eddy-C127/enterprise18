@@ -7,24 +7,24 @@
 # jabiri7, 2023
 # Susanna Pujol, 2023
 # Albert Parera, 2023
+# Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
 # Sandra Franch <sandra.franch@upc.edu>, 2023
 # Carles Antoli <carlesantoli@hotmail.com>, 2023
 # Arnau Ros, 2023
 # marcescu, 2023
 # Óscar Fonseca <tecnico@pyming.com>, 2023
+# Josep Anton Belchi, 2023
 # Quim - eccit <quim@eccit.com>, 2023
 # Martin Trigaux, 2023
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2023
-# Josep Anton Belchi, 2023
-# Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Manel Fernandez Ramirez <manelfera@outlook.com>, 2023\n"
+"Last-Translator: Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2023\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -312,9 +312,7 @@ msgstr ""
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
-#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
-#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si està marcat, alguns missatges tenen un error d'entrega."
 
@@ -542,12 +540,6 @@ msgid "Rooms"
 msgstr "Sales"
 
 #. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
-#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Error de lliurament SMS"
-
-#. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 #, python-format
@@ -574,20 +566,12 @@ msgid "Short Code"
 msgstr "Codi curt"
 
 #. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
-#, python-format
-msgid "Start"
-msgstr "Inicia"
-
-#. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__start_datetime
 msgid "Start Datetime"
 msgstr ""
 
 #. module: room
 #. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
 #, python-format
 msgid "Stop"
@@ -633,15 +617,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_kanban
 msgid "Until"
 msgstr "Fins"
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
-msgid "Website Messages"
-msgstr "Missatges del lloc web"
-
-#. module: room
-#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,help:room.field_room_room__website_message_ids
-msgid "Website communication history"
-msgstr "Historial de comunicacions del lloc web"

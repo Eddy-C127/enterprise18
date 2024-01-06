@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Sarah Park, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -4704,15 +4704,6 @@ msgid "Move to Workspace"
 msgstr "저장공간으로 이동"
 
 #. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"Move to target of %(article_name)s is ambiguous, you should specify the "
-"category."
-msgstr "%(article_name)s 대상으로 이동할 수 없습니다. 카테고리를 지정해야 합니다."
-
-#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "내 활동 마감일"
@@ -6144,6 +6135,15 @@ msgstr "미래 창업 박람회"
 #, python-format
 msgid "The article '%s' needs at least one member with 'Write' access."
 msgstr " '%s' 게시물에는 '쓰기' 권한을 가진 구성원이 한 명 이상 있어야 합니다."
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"The destination placement of %(article_name)s is ambiguous, you should "
+"specify the category."
+msgstr "%(article_name)s 최종 위치가 정확하지 않습니다. 카테고리를 지정하세요."
 
 #. module: knowledge
 #. odoo-javascript

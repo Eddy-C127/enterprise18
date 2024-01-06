@@ -20,19 +20,19 @@
 # Konsta Aavaranta, 2023
 # Mikko Salmela <salmemik@gmail.com>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
-# Martin Trigaux, 2023
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2023
 # Mikko Närjänen <mikko.narjanen@web-veistamo.fi>, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 09:27+0000\n"
+"POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -421,6 +421,8 @@ msgstr "Erääntyneet saatavat"
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
@@ -861,13 +863,19 @@ msgid "Communication"
 msgstr "Viestintä"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model,name:account_reports.model_res_company
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__company_ids
+#, python-format
 msgid "Companies"
 msgstr "Yritykset"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__company_id
+#, python-format
 msgid "Company"
 msgstr "Yritys"
 
@@ -881,6 +889,13 @@ msgid ""
 msgstr ""
 "Yritys %s kuuluu jo veroyksikköön %s. Yritys voi kuulua enintään yhteen "
 "veroyksikköön maata kohden."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Company Currency"
+msgstr "Yrityksen valuutta"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1497,7 +1512,11 @@ msgid "File Name"
 msgstr "Tiedostonimi"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+#, python-format
 msgid "Filters"
 msgstr "Suotimet"
 
@@ -1705,7 +1724,10 @@ msgid "Hierarchy and Subtotals"
 msgstr "Hierarkia ja välisummat"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__horizontal_group_id
+#, python-format
 msgid "Horizontal Group"
 msgstr "Vaakasuora ryhmä"
 
@@ -1796,6 +1818,13 @@ msgstr ""
 #, python-format
 msgid "Include Payments"
 msgstr "Sisällytä maksut"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Including Analytic Simulations"
+msgstr "Sisällytä analyyttiset simulaatiot"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -2005,6 +2034,13 @@ msgstr "Päiväkirjaraportin mukautettu käsittelijä"
 #, python-format
 msgid "Journal items with archived tax tags"
 msgstr "Päiväkirjamerkinnät, joissa on arkistoituja verotunnisteita"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Journals"
+msgstr "Päiväkirjat"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2408,6 +2444,8 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Only Show Unreconciled Entries"
@@ -2432,8 +2470,11 @@ msgid "Operating Income"
 msgstr "Liiketoiminnan tuotot"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+#, python-format
 msgid "Options"
 msgstr "Vaihtoehdot"
 
@@ -2475,6 +2516,13 @@ msgid "Partner"
 msgstr "Kumppani"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Partner Categories"
+msgstr ""
+
+#. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
 #: model:ir.actions.client,name:account_reports.action_account_report_partner_ledger
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_partner_ledger
@@ -2510,6 +2558,8 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 #, python-format
@@ -2626,6 +2676,13 @@ msgstr "Asema"
 #, python-format
 msgid "Post"
 msgstr "Kirjaa"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
+msgid ""
+"Posting this entry will also update and post the unposted closings of the "
+"depending companies."
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -2928,6 +2985,13 @@ msgid "Tax Closing End Date"
 msgstr "Verotuksen päättymispäivä"
 
 #. module: account_reports
+#: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_show_multi_closing_warning
+#: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_show_multi_closing_warning
+#: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_show_multi_closing_warning
+msgid "Tax Closing Show Multi Closing Warning"
+msgstr ""
+
+#. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_general_ledger.py:0
 #, python-format
@@ -3086,6 +3150,16 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_move.py:0
+#, python-format
+msgid ""
+"The attachments of the tax report can be found on the <a href='#' data-oe-"
+"model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
+" company."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/models/account_tax.py:0
 #, python-format
 msgid ""
@@ -3134,6 +3208,13 @@ msgstr "Valittu raporttirivi ei kohdistu päiväkirjamerkintään tai -erään."
 #: model:ir.model.fields,help:account_reports.field_res_company__account_tax_unit_ids
 msgid "The tax units this company belongs to."
 msgstr "Veroyksiköt, joihin tämä yritys kuuluu."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "The used operator is not supported for this expression."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -3190,13 +3271,6 @@ msgid ""
 "Chart of Accounts"
 msgstr ""
 "Tämä tili ilmoitetaan raportin rivillä, mutta sitä ei ole tilikartassa"
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
-#, python-format
-msgid "The used operator is not supported for this expression."
-msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -3516,6 +3590,13 @@ msgid ""
 "Whether or not we have to make provisions for the selected foreign "
 "currencies."
 msgstr "Tuleeko tehdä varauksia valittuja valuuttoja varten."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "With Draft Entries"
+msgstr "Luonnosmerkinnöillä"
 
 #. module: account_reports
 #. odoo-python

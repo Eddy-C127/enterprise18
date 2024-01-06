@@ -17,20 +17,20 @@
 # Piia Paurson <piia@avalah.ee>, 2023
 # Algo Kärp <algokarp@gmail.com>, 2023
 # Helen Sulaoja <helen@avalah.ee>, 2023
-# JanaAvalah, 2023
 # Triine Aavik <triine@avalah.ee>, 2023
 # Katrin Kampura, 2023
 # Martin Trigaux, 2023
 # Mihkel avalah, 2023
-# Leaanika Randmets, 2023
+# JanaAvalah, 2024
+# Leaanika Randmets, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-06 08:38+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Leaanika Randmets, 2023\n"
+"Last-Translator: Leaanika Randmets, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -672,6 +672,16 @@ msgid "In Progress"
 msgstr "Töös"
 
 #. module: mrp_workorder
+#: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder__move_line_id
+#: model:ir.model.fields,help:mrp_workorder.field_quality_check__move_line_id
+msgid ""
+"In case of Quality Check by Quantity, Move Line on which the Quality Check "
+"applies"
+msgstr ""
+"Kogusetele kehtiva kvaliteedikontrolli puhu teisaldage rida, millele "
+"kvaliteedikontroll rakendub"
+
+#. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.add_quality_check_from_tablet
 msgid "Instruction"
 msgstr "Tööjuhend"
@@ -895,6 +905,11 @@ msgstr "Uue pealkirja ettepanek:"
 #, python-format
 msgid "Next"
 msgstr "Järgmine"
+
+#. module: mrp_workorder
+#: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Järgmine tegevus kalendris"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_date_deadline
@@ -1404,6 +1419,7 @@ msgstr "Määra uus pilt"
 #: model:ir.actions.client,name:mrp_workorder.action_mrp_display
 #: model:ir.model.fields,field_description:mrp_workorder.field_res_config_settings__group_mrp_wo_shop_floor
 #: model:ir.ui.menu,name:mrp_workorder.menu_mrp_workorder_root
+#: model:ir.ui.menu,name:mrp_workorder.menu_shop_floor
 msgid "Shop Floor"
 msgstr "Shop Floor"
 

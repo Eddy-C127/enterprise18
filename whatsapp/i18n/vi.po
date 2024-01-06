@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Wil Odoo, 2023
 # Thi Huong Nguyen, 2023
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -378,13 +378,6 @@ msgid "Cancelled"
 msgstr "Đã hủy"
 
 #. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Cannot get field value from %(variable_type)s template variable"
-msgstr "Không thể lấy giá trị trường từ biến mẫu %(variable_type)s "
-
-#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ca
 msgid "Catalan"
 msgstr "Catalan"
@@ -635,6 +628,11 @@ msgid "Each whatsapp message should correspond to a single message uuid."
 msgstr "Mỗi tin nhắn Whatsapp phải tương ứng với một uuid tin nhắn."
 
 #. module: whatsapp
+#: model:ir.model,name:whatsapp.model_mail_thread
+msgid "Email Thread"
+msgstr "Luồng email"
+
+#. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/components/phone_field/phone_field.js:0
 #, python-format
@@ -685,13 +683,6 @@ msgstr "Lý do không thành công"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__failure_type
 msgid "Failure Type"
 msgstr "Loại lỗi"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Fetching field value for template variable must use a single record"
-msgstr "Việc tìm nạp giá trị trường cho biến mẫu phải sử dụng một tập dữ liệu"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_variable__field_name
@@ -1006,20 +997,6 @@ msgid "Invalid Phone Number Count"
 msgstr "Số lượng số điện thoại không hợp lệ"
 
 #. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Invalid field chain %r"
-msgstr "Chuỗi trường không hợp lệ %r"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Invalid field name: %r"
-msgstr "Tên trường không hợp lệ: %r"
-
-#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__network
 msgid "Invalid query or unreachable endpoint"
 msgstr "Truy vấn không hợp lệ hoặc endpoint không thể truy cập được"
@@ -1305,11 +1282,6 @@ msgid "Model Name"
 msgstr "Tên mô hình"
 
 #. module: whatsapp
-#: model:ir.model.fields,help:whatsapp.field_whatsapp_template__model_id
-msgid "Model on which the Server action for sending WhatsApp will be created."
-msgstr "Mô hình mà hành động máy chủ gửi WhatsApp sẽ được tạo."
-
-#. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
 msgid "My Templates"
 msgstr "Mẫu của tôi"
@@ -1343,6 +1315,13 @@ msgid "No results found"
 msgstr "Không có kết quả"
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/tools/whatsapp_api.py:0
+#, python-format
+msgid "Non-descript Error"
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__none
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__quality__none
 msgid "None"
@@ -1352,13 +1331,6 @@ msgstr "Không"
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__nb
 msgid "Norwegian"
 msgstr "Na Uy"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Not able to get the value of field %r"
-msgstr "Không thể lấy giá trị của trường %r"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__notify_user_ids
@@ -2026,17 +1998,6 @@ msgstr ""
 "Không có tập dữ liệu nào để chuẩn bị bản demo pdf trong mô hình %(model)s"
 
 #. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
-#, python-format
-msgid ""
-"There is wrong configration in template %s \n"
-" %s"
-msgstr ""
-"Có cấu hình không chính xác trong mẫu %s \n"
-" %s"
-
-#. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "There might be other templates that still need the Multi"
 msgstr "Có thể có các mẫu khác vẫn cần Multi"
@@ -2431,28 +2392,9 @@ msgstr "Vàng"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid ""
-"You are not allowed to use %r in Phone Field, contact your administrator to "
-"configure it."
-msgstr ""
-"Bạn không được phép sử dụng %r trong Trường điện thoại, hãy liên hệ với quản"
-" trị viên để cấu hình."
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template.py:0
-#, python-format
-msgid ""
 "You are not allowed to use %(field)s in phone field, contact your "
 "administrator to configure it."
 msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "You are not allowed to use this field, contact your administrator."
-msgstr ""
-"Bạn không được phép sử dụng trường này, hãy liên hệ với quản trị viên."
 
 #. module: whatsapp
 #. odoo-python
@@ -2475,14 +2417,6 @@ msgstr "Bạn không thể hủy tin nhắn đang trong danh sách chờ."
 #, python-format
 msgid "You can not resend message which is not in failed state."
 msgstr "Bạn không thể gửi lại tin nhắn không ở trạng thái không thành công."
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template.py:0
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "You can not select field of %r."
-msgstr "Bạn không thể chọn trường của %r."
 
 #. module: whatsapp
 #. odoo-python
@@ -2573,10 +2507,3 @@ msgstr "phần giữ chỗ=\"e.g. https://www.example.com\"/&gt;"
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_composer_view_form
 msgid "recipients have an invalid phone number and will be skipped."
 msgstr "người nhận có số điện thoại không hợp lệ và sẽ bị bỏ qua."
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/tools/whatsapp_api.py:0
-#, python-format
-msgid "{error_code} - Non-descript Error"
-msgstr "{error_code} - Lỗi không đặc tả"

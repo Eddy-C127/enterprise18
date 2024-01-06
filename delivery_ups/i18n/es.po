@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Larissa Manderfeld, 2023
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2023\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -233,7 +233,7 @@ msgstr "Por favor, proporciona una ciudad válida en la dirección del almacén.
 #, python-format
 msgid "Please provide a valid Country in recipient's address."
 msgstr ""
-"Por favor, proporciona un país válido en la dirección del destinatario."
+"Por favor, proporcione un país válido en la dirección del destinatario."
 
 #. module: delivery_ups
 #. odoo-python
@@ -263,7 +263,7 @@ msgstr ""
 #, python-format
 msgid "Please provide a valid city in the recipient address."
 msgstr ""
-"Por favor, proporciona una ciudad válida en la dirección del destinatario."
+"Por favor, proporcione una ciudad válida en la dirección del destinatario."
 
 #. module: delivery_ups
 #. odoo-python
@@ -297,7 +297,7 @@ msgstr ""
 #, python-format
 msgid "Please provide a valid phone number for the recipient."
 msgstr ""
-"Por favor, proporciona un número de teléfono válido para el destinatario."
+"Por favor, proporcione un número de teléfono válido para el destinatario."
 
 #. module: delivery_ups
 #. odoo-python
@@ -335,7 +335,8 @@ msgstr ""
 #, python-format
 msgid "Please provide a valid state in the recipient address."
 msgstr ""
-"Por favor, proporciona un estado válido en la dirección del destinatario."
+"Por favor, proporcione una provincia válida en la dirección del "
+"destinatario."
 
 #. module: delivery_ups
 #. odoo-python
@@ -359,7 +360,7 @@ msgstr ""
 #, python-format
 msgid "Please provide a valid street in the recipient address."
 msgstr ""
-"Por favor, proporciona una calle válida en la dirección del destinatario."
+"Por favor, proporcione una calle válida en la dirección del destinatario."
 
 #. module: delivery_ups
 #. odoo-python
@@ -381,7 +382,7 @@ msgstr "Por favor, proporciona un número de teléfono válido para el almacén.
 #, python-format
 msgid "Please provide a valid zip code in the recipient address."
 msgstr ""
-"Por favor, proporciona un código postal válido en la dirección del "
+"Por favor, proporcione un código postal válido en la dirección del "
 "destinatario."
 
 #. module: delivery_ups
@@ -408,7 +409,7 @@ msgstr ""
 #, python-format
 msgid "Please provide a valid zipcode in the recipient address."
 msgstr ""
-"Por favor, proporciona un código postal válido en la dirección del "
+"Por favor, proporcione un código postal válido en la dirección del "
 "destinatario."
 
 #. module: delivery_ups
@@ -763,7 +764,6 @@ msgid "Tracking Numbers:"
 msgstr "Números de rastreo:"
 
 #. module: delivery_ups
-#: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__delivery_type__ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__stock_package_type__package_carrier_type__ups
 msgid "UPS"
 msgstr "UPS"
@@ -774,6 +774,7 @@ msgid "UPS Access Key"
 msgstr "Clave de Acceso de UPS"
 
 #. module: delivery_ups
+#: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_shipper_number
 #: model:ir.model.fields,field_description:delivery_ups.field_res_partner__property_ups_carrier_account
 #: model:ir.model.fields,field_description:delivery_ups.field_res_users__property_ups_carrier_account
 msgid "UPS Account Number"
@@ -796,9 +797,14 @@ msgid "UPS Label File Type"
 msgstr "Tipo de Etiqueta de Archivo UPS"
 
 #. module: delivery_ups
+#: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__delivery_type__ups
+msgid "UPS Legacy"
+msgstr ""
+
+#. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_default_package_type_id
-msgid "UPS Package Type"
-msgstr "Tipo de paquete de UPS"
+msgid "UPS Legacy Package Type"
+msgstr ""
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_passwd
@@ -823,15 +829,10 @@ msgid "UPS Service Type"
 msgstr "Tipo de Servicio de UPS"
 
 #. module: delivery_ups
-#: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_shipper_number
-msgid "UPS Shipper Number"
-msgstr "Número envío de UPS"
-
-#. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.res_config_settings_view_form_sale
 #: model_terms:ir.ui.view,arch_db:delivery_ups.res_config_settings_view_form_stock
 msgid "UPS Shipping Methods"
-msgstr "Métodos de envío de UPS"
+msgstr "Métodos de envío UPS"
 
 #. module: delivery_ups
 #: model:delivery.carrier,name:delivery_ups.delivery_carrier_ups_us

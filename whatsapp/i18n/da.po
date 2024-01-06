@@ -7,15 +7,15 @@
 # Mads Søndergaard, 2023
 # lhmflexerp <lhm@flexerp.dk>, 2023
 # Sanne Kristensen <sanne@vkdata.dk>, 2023
-# Martin Trigaux, 2023
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -361,13 +361,6 @@ msgid "Cancelled"
 msgstr "Annulleret"
 
 #. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Cannot get field value from %(variable_type)s template variable"
-msgstr ""
-
-#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ca
 msgid "Catalan"
 msgstr ""
@@ -613,6 +606,11 @@ msgid "Each whatsapp message should correspond to a single message uuid."
 msgstr ""
 
 #. module: whatsapp
+#: model:ir.model,name:whatsapp.model_mail_thread
+msgid "Email Thread"
+msgstr "E-mail-tråd"
+
+#. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/components/phone_field/phone_field.js:0
 #, python-format
@@ -662,13 +660,6 @@ msgstr "Årsag til fejl"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__failure_type
 msgid "Failure Type"
-msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Fetching field value for template variable must use a single record"
 msgstr ""
 
 #. module: whatsapp
@@ -979,20 +970,6 @@ msgid "Invalid Phone Number Count"
 msgstr ""
 
 #. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Invalid field chain %r"
-msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Invalid field name: %r"
-msgstr ""
-
-#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__network
 msgid "Invalid query or unreachable endpoint"
 msgstr ""
@@ -1274,11 +1251,6 @@ msgid "Model Name"
 msgstr "Modelnavn"
 
 #. module: whatsapp
-#: model:ir.model.fields,help:whatsapp.field_whatsapp_template__model_id
-msgid "Model on which the Server action for sending WhatsApp will be created."
-msgstr ""
-
-#. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
 msgid "My Templates"
 msgstr "Mine skabeloner"
@@ -1312,6 +1284,13 @@ msgid "No results found"
 msgstr ""
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/tools/whatsapp_api.py:0
+#, python-format
+msgid "Non-descript Error"
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__none
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__quality__none
 msgid "None"
@@ -1320,13 +1299,6 @@ msgstr "Ingen"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__nb
 msgid "Norwegian"
-msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Not able to get the value of field %r"
 msgstr ""
 
 #. module: whatsapp
@@ -1984,15 +1956,6 @@ msgid "There is no record for preparing demo pdf in model %(model)s"
 msgstr ""
 
 #. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
-#, python-format
-msgid ""
-"There is wrong configration in template %s \n"
-" %s"
-msgstr ""
-
-#. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "There might be other templates that still need the Multi"
 msgstr ""
@@ -2374,24 +2337,8 @@ msgstr "Gul"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid ""
-"You are not allowed to use %r in Phone Field, contact your administrator to "
-"configure it."
-msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template.py:0
-#, python-format
-msgid ""
 "You are not allowed to use %(field)s in phone field, contact your "
 "administrator to configure it."
-msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "You are not allowed to use this field, contact your administrator."
 msgstr ""
 
 #. module: whatsapp
@@ -2414,14 +2361,6 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "You can not resend message which is not in failed state."
-msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template.py:0
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "You can not select field of %r."
 msgstr ""
 
 #. module: whatsapp
@@ -2506,11 +2445,4 @@ msgstr ""
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_composer_view_form
 msgid "recipients have an invalid phone number and will be skipped."
-msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/tools/whatsapp_api.py:0
-#, python-format
-msgid "{error_code} - Non-descript Error"
 msgstr ""

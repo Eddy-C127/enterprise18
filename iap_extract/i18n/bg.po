@@ -5,17 +5,17 @@
 # Translators:
 # Martin Trigaux, 2023
 # Ivan Goychev <igoychev.projects@gmail.com>, 2023
-# KeyVillage, 2023
 # Ивайло Малинов <iv.malinov@gmail.com>, 2023
 # Maria Boyadjieva <marabo2000@gmail.com>, 2023
+# KeyVillage, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Maria Boyadjieva <marabo2000@gmail.com>, 2023\n"
+"Last-Translator: KeyVillage, 2023\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -155,7 +155,6 @@ msgstr "Ако е отметнато, новите съобщения ще из�
 
 #. module: iap_extract
 #: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_error
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Ако е отметнато, някои съобщения имат грешка при доставката."
 
@@ -247,11 +246,6 @@ msgid "Ratings"
 msgstr "Оценявания"
 
 #. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "SMS грешка при доставка"
-
-#. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
@@ -334,16 +328,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__waiting_validation
 msgid "Waiting validation"
 msgstr "Очаква потвърждение"
-
-#. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website Messages"
-msgstr "Съобщения в уебсайт"
-
-#. module: iap_extract
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website communication history"
-msgstr "История на комуникацията на уебсайт"
 
 #. module: iap_extract
 #. odoo-python

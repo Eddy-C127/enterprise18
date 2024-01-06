@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Rasareeyar Lappiam, 2023
+# Rasareeyar Lappiam, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2023\n"
+"Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -159,7 +159,6 @@ msgstr "ถ้าเลือก ข้อความใหม่จะต้�
 
 #. module: iap_extract
 #: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_error
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "ถ้าเลือก ข้อความบางข้อความมีข้อผิดพลาดในการส่ง"
 
@@ -251,11 +250,6 @@ msgid "Ratings"
 msgstr "การให้คะแนน"
 
 #. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "ข้อผิดพลาดในการส่ง SMS"
-
-#. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
@@ -284,6 +278,8 @@ msgid ""
 "The 'invoice_ocr' IAP account token is invalid. Please delete it to let Odoo"
 " generate a new one or fill it with a valid token."
 msgstr ""
+"โทเค็นบัญชี IAP 'invoice_ocr' ไม่ถูกต้อง โปรดลบออกเพื่อให้ Odoo "
+"สร้างอันใหม่หรือใช้โทเค็นที่ถูกต้อง"
 
 #. module: iap_extract
 #. odoo-python
@@ -336,16 +332,6 @@ msgstr "รอการดึง"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__waiting_validation
 msgid "Waiting validation"
 msgstr "กำลังรอการตรวจสอบ"
-
-#. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website Messages"
-msgstr "ข้อความเว็บไซต์"
-
-#. module: iap_extract
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website communication history"
-msgstr "ประวัติการสื่อสารของเว็บไซต์"
 
 #. module: iap_extract
 #. odoo-python

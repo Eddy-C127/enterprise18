@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -449,6 +449,13 @@ msgid "Mode and credentials"
 msgstr "モードおよび認証情報"
 
 #. module: sale_ebay
+#: model:ir.model,name:sale_ebay.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
+msgstr ""
+
+#. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_category__name
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_item_condition__name
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__name
@@ -517,11 +524,6 @@ msgstr "ポリシーID"
 #: model:ir.model.fields,field_description:sale_ebay.field_product_template__ebay_private_listing
 msgid "Private Listing"
 msgstr "プライベート掲載リスト"
-
-#. module: sale_ebay
-#: model:ir.model,name:sale_ebay.model_product_template
-msgid "Product"
-msgstr "プロダクト"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form

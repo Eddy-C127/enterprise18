@@ -3,18 +3,19 @@
 # 	* iap_extract
 # 
 # Translators:
-# Jakub Smolka, 2023
 # Ivana Bartonkova, 2023
+# Jakub Smolka, 2023
 # Wil Odoo, 2023
 # Tomáš Píšek, 2023
+# Aleš Fiala <f.ales1@seznam.cz>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tomáš Píšek, 2023\n"
+"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -154,7 +155,6 @@ msgstr "Pokud zaškrtnuto, nové zprávy vyžadují vaši pozornost."
 
 #. module: iap_extract
 #: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_error
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Pokud zaškrtnuto, některé zprávy mají chybu při doručení."
 
@@ -163,14 +163,14 @@ msgstr "Pokud zaškrtnuto, některé zprávy mají chybu při doručení."
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Invalid PDF (Conversion error)"
-msgstr ""
+msgstr "Neplatné PDF (Chyba převodu)"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Invalid PDF (Unable to get page count)"
-msgstr ""
+msgstr "Neplatné PDF (Nelze získat počet stránek)"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_is_follower
@@ -246,11 +246,6 @@ msgid "Ratings"
 msgstr "Hodnocení"
 
 #. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Chyba doručení SMS"
-
-#. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
@@ -279,6 +274,8 @@ msgid ""
 "The 'invoice_ocr' IAP account token is invalid. Please delete it to let Odoo"
 " generate a new one or fill it with a valid token."
 msgstr ""
+"Token účtu IAP 'invoice_ocr' je neplatný. Smažte jej, aby mohl Odoo "
+"vygenerovat nový, nebo jej vyplňte platným tokenem."
 
 #. module: iap_extract
 #. odoo-python
@@ -292,7 +289,7 @@ msgstr "Dokument nebyl nalezen"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The document has been rejected because it is too small"
-msgstr ""
+msgstr "Dokument byl odmítnut, protože je příliš malý"
 
 #. module: iap_extract
 #. odoo-python
@@ -331,16 +328,6 @@ msgstr "Čekání na vyčtení"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__waiting_validation
 msgid "Waiting validation"
 msgstr "Čekání na ověření"
-
-#. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website Messages"
-msgstr "Webové zprávy"
-
-#. module: iap_extract
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website communication history"
-msgstr "Webová historie komunikace"
 
 #. module: iap_extract
 #. odoo-python

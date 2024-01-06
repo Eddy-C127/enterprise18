@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Rasareeyar Lappiam, 2023
+# Rasareeyar Lappiam, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2023\n"
+"Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,6 +90,8 @@ msgid ""
 "<b class=\"o_gantt_header o_gantt_row_sidebar position-sticky top-0 bg-view "
 "d-flex align-items-center justify-content-center\">Schedule</b>"
 msgstr ""
+"<b class=\"o_gantt_header o_gantt_row_sidebar position-sticky top-0 bg-view "
+"d-flex align-items-center justify-content-center\">กำหนดการ</b>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -97,6 +99,8 @@ msgid ""
 "<b class=\"o_gantt_header_scale d-flex align-items-center justify-content-"
 "center\">12 February 2023 - 18 February 2023</b>"
 msgstr ""
+"<b class=\"o_gantt_header_scale d-flex align-items-center justify-content-"
+"center\">12 กุมภาพันธ์ 2566 - 18 กุมภาพันธ์ 2566</b>"
 
 #. module: planning
 #: model_terms:digest.tip,tip_description:planning.digest_tip_planning_0
@@ -491,13 +495,13 @@ msgid ""
 msgstr ""
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
-msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "<span class=\"ms-0 me-4\">Edit</span>"
 msgstr ""
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
-msgid "<span class=\"ms-2 me-4\">Edit</span>"
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
+msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
 msgstr ""
 
 #. module: planning
@@ -583,6 +587,11 @@ msgid ""
 "<span class=\"o_start_date\"/>\n"
 "                                    <i class=\"mx-1 fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>\n"
 "                                    <span class=\"o_end_date\"/>"
+msgstr ""
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
+msgid "<span class=\"o_stat_text\">Planning</span>"
 msgstr ""
 
 #. module: planning
@@ -1038,6 +1047,9 @@ msgid ""
 "Create open shifts for the roles you need to complete a mission. Then, "
 "assign those open shifts to the resources that are available."
 msgstr ""
+"กำหนดหน้าที่ของทรัพยากรของคุณ (เช่น เชฟ บาร์เทนเดอร์ พนักงานเสิร์ฟ...) "
+"สร้างกะงานแบบเปิดสำหรับหน้าที่ที่คุณต้องการเพื่อทำภารกิจให้สำเร็จ จากนั้น "
+"มอบหมายกะงานที่เปิดอยู่เหล่านั้นให้กับทรัพยากรที่มีอยู่"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1046,6 +1058,9 @@ msgid ""
 "Create open shifts for the roles you will be needing to complete a mission. "
 "Then, assign those open shifts to the resources that are available."
 msgstr ""
+"กำหนดหน้าที่ของทรัพยากรของคุณ (เช่น เชฟ บาร์เทนเดอร์ พนักงานเสิร์ฟ...) "
+"สร้างกะงานแบบเปิดสำหรับหน้าที่ที่คุณจะต้องใช้เพื่อทำภารกิจให้สำเร็จ จากนั้น "
+"มอบหมายกะงานที่เปิดอยู่เหล่านั้นให้กับทรัพยากรที่มีอยู่"
 
 #. module: planning
 #. odoo-javascript
@@ -1311,9 +1326,12 @@ msgid "Hours"
 msgstr "ชั่วโมง"
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__user
+#, python-format
 msgid "Human"
-msgstr ""
+msgstr "มนุษย์"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -1498,9 +1516,12 @@ msgid "Marc Demo"
 msgstr "Marc Demo"
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
+#, python-format
 msgid "Material"
-msgstr ""
+msgstr "วัสดุ"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_resources
@@ -2081,14 +2102,14 @@ msgstr "กำหนดการตามหน้าที่"
 msgid ""
 "Schedule your human and material resources across roles, projects and sales "
 "orders."
-msgstr "กำหนดเวลาทรัพยากรบุคคลและวัสดุของคุณตามหน้าที่ โปรเจกต์ และใบสั่งขาย"
+msgstr "กำหนดเวลาทรัพยากรบุคคลและวัสดุของคุณตามหน้าที่ โปรเจ็กต์ และใบสั่งขาย"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_hr_employee__employee_token
 #: model:ir.model.fields,field_description:planning.field_planning_planning__access_token
 #: model:ir.model.fields,field_description:planning.field_planning_slot__access_token
 msgid "Security Token"
-msgstr "โทเคนความปลอดภัย"
+msgstr "โทเค็นความปลอดภัย"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -2573,6 +2594,10 @@ msgid ""
 "needing to complete a mission. Then, assign those open shifts to the "
 "resources that are available.</i>"
 msgstr ""
+"เขียนหน้าที่ที่พนักงานของคุณจะทำ (เช่น พ่อครัว บาร์เทนเดอร์ พนักงานเสิร์ฟ "
+"ฯลฯ) เคล็ดลับ: "
+"สร้างกะงานแบบเปิดสำหรับหน้าที่ที่คุณจะต้องใช้เพื่อทำภารกิจสำเร็จ จากนั้น "
+"มอบหมายกะงานที่เปิดอยู่เหล่านั้นให้กับทรัพยากรที่มีอยู่"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__year
@@ -2696,18 +2721,18 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "e.g. Bartender"
-msgstr ""
+msgstr "เช่น บาร์เทนเดอร์"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
 msgid "e.g. Cleaner"
-msgstr ""
+msgstr "เช่น พนักงานทำความสะอาด"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_form_view_inherit
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_tree_view_inherit
 msgid "e.g. Crane"
-msgstr ""
+msgstr "เช่น รถเครน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified

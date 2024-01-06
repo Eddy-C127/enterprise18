@@ -3,18 +3,18 @@
 # 	* account_reports
 # 
 # Translators:
-# Wil Odoo, 2023
-# Martin Trigaux, 2023
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
 # Jolien De Paepe, 2023
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Martin Trigaux, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 09:27+0000\n"
+"POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jolien De Paepe, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -409,6 +409,8 @@ msgstr "Ouderdomsanalyse klanten"
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
@@ -850,13 +852,19 @@ msgid "Communication"
 msgstr "Communicatie"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model,name:account_reports.model_res_company
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__company_ids
+#, python-format
 msgid "Companies"
 msgstr "Bedrijven"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__company_id
+#, python-format
 msgid "Company"
 msgstr "Bedrijf"
 
@@ -870,6 +878,13 @@ msgid ""
 msgstr ""
 "Bedrijf %s behoort al tot een belastingeenheid in %s. Een bedrijf kan per "
 "land maximaal deel uitmaken van één fiscale eenheid."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Company Currency"
+msgstr "Bedrijfsvaluta"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1488,7 +1503,11 @@ msgid "File Name"
 msgstr "Bestandsnaam"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+#, python-format
 msgid "Filters"
 msgstr "Filters"
 
@@ -1698,7 +1717,10 @@ msgid "Hierarchy and Subtotals"
 msgstr "Hiërarchie en subtotalen"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__horizontal_group_id
+#, python-format
 msgid "Horizontal Group"
 msgstr "Horizontale groep"
 
@@ -1789,6 +1811,13 @@ msgstr "Inclusief concept boekingen"
 #, python-format
 msgid "Include Payments"
 msgstr "Inclusief betalingen"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Including Analytic Simulations"
+msgstr "Inclusief kostenplaatssimulaties"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -1998,6 +2027,13 @@ msgstr "Aangepaste handler voor dagboekrapportage"
 #, python-format
 msgid "Journal items with archived tax tags"
 msgstr "Boekingen met gearchiveerde btw-labels"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Journals"
+msgstr "Dagboeken"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2402,6 +2438,8 @@ msgstr "Alleen factureringsbeheerders mogen vergrendelingsdatums wijzigen!"
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Only Show Unreconciled Entries"
@@ -2426,8 +2464,11 @@ msgid "Operating Income"
 msgstr "Operationele omzet"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+#, python-format
 msgid "Options"
 msgstr "Opties"
 
@@ -2469,6 +2510,13 @@ msgid "Partner"
 msgstr "Relatie"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Partner Categories"
+msgstr ""
+
+#. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
 #: model:ir.actions.client,name:account_reports.action_account_report_partner_ledger
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_partner_ledger
@@ -2504,6 +2552,8 @@ msgstr "Relatie is goed"
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 #, python-format
@@ -2620,6 +2670,13 @@ msgstr "Positie"
 #, python-format
 msgid "Post"
 msgstr "Posten"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
+msgid ""
+"Posting this entry will also update and post the unposted closings of the "
+"depending companies."
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -2924,6 +2981,13 @@ msgid "Tax Closing End Date"
 msgstr "BTW afsluitdatum"
 
 #. module: account_reports
+#: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_show_multi_closing_warning
+#: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_show_multi_closing_warning
+#: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_show_multi_closing_warning
+msgid "Tax Closing Show Multi Closing Warning"
+msgstr ""
+
+#. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_general_ledger.py:0
 #, python-format
@@ -3084,6 +3148,16 @@ msgstr "Het rekeningdekkingsrapport is niet beschikbaar voor dit rapport."
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_move.py:0
+#, python-format
+msgid ""
+"The attachments of the tax report can be found on the <a href='#' data-oe-"
+"model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
+" company."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/models/account_tax.py:0
 #, python-format
 msgid ""
@@ -3138,6 +3212,13 @@ msgstr ""
 #: model:ir.model.fields,help:account_reports.field_res_company__account_tax_unit_ids
 msgid "The tax units this company belongs to."
 msgstr "De fiscale eenheden waartoe dit bedrijf behoort."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "The used operator is not supported for this expression."
+msgstr "De gebruikte operator wordt niet ondersteund voor deze uitdrukking."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3195,13 +3276,6 @@ msgid ""
 msgstr ""
 "Deze rekening wordt vermeld in een regel van het rapport, maar bestaat niet "
 "in het grootboekschema"
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
-#, python-format
-msgid "The used operator is not supported for this expression."
-msgstr "De gebruikte operator wordt niet ondersteund voor deze uitdrukking."
 
 #. module: account_reports
 #. odoo-python
@@ -3545,6 +3619,13 @@ msgid ""
 "currencies."
 msgstr ""
 "Of we voorzieningen moeten treffen voor de geselecteerde vreemde valuta."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "With Draft Entries"
+msgstr "Met conceptboekingen"
 
 #. module: account_reports
 #. odoo-python

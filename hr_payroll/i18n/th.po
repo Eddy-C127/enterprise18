@@ -5,15 +5,15 @@
 # Translators:
 # Wichanon Jamwutthipreecha, 2023
 # Wil Odoo, 2023
-# Rasareeyar Lappiam, 2023
+# Rasareeyar Lappiam, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2023\n"
+"Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +43,7 @@ msgstr "# สลิปเงินเดือน"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "$100"
-msgstr ""
+msgstr "$100"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -322,11 +322,6 @@ msgstr "<span>วัน</span>"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_rule_parameter_view_form
 msgid "<span>Versions</span>"
 msgstr ""
-
-#. module: hr_payroll
-#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Basic Salary</strong>"
-msgstr "<strong>เงินเดือนพื้นฐาน</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -687,6 +682,11 @@ msgstr "พื้นฐาน"
 #, python-format
 msgid "Basic Salary"
 msgstr "เงินเดือนขั้นพื้นฐาน"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "Basic Salary ("
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__basic_wage
@@ -1539,13 +1539,13 @@ msgstr "ทำซ้ำ"
 #: model:ir.actions.server,name:hr_payroll.action_edit_payslip_lines
 #, python-format
 msgid "Edit Payslip Lines"
-msgstr "แก้ไขไลน์สลิปเงินเดือน"
+msgstr "แก้ไขรายการสลิปเงินเดือน"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__edit_payslip_lines_wizard_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__edit_payslip_lines_wizard_id
 msgid "Edit Payslip Lines Wizard"
-msgstr "ตัวช่วยแก้ไขไลน์สลิปเงินเดือน"
+msgstr "ตัวช่วยแก้ไขรายการสลิปเงินเดือน"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_edit_payslip_worked_days_line
@@ -1555,12 +1555,12 @@ msgstr "ตัวช่วยแก้ไขวันทำงานของต
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_edit_payslip_lines_wizard
 msgid "Edit payslip lines wizard"
-msgstr "ตัวช่วยแก้ไขไลน์เงินเดือน"
+msgstr "ตัวช่วยแก้ไขรายการสลิปเงินเดือน"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_edit_payslip_line
 msgid "Edit payslip lines wizard line"
-msgstr "ไลน์ตัวช่วยแก้ไขไลน์สลิปเงินเดือน"
+msgstr "รายการตัวช่วยแก้ไขรายการสลิปเงินเดือน"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__edited
@@ -1570,7 +1570,7 @@ msgstr "แก้ไขแล้ว"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_edit_payslip_lines_form_wizard
 msgid "Edition of Payslip Lines in the Payslip"
-msgstr "ตัวแก้ไขของไลน์สลิปเงินเดือนในสลิปเงินเดือน"
+msgstr "ตัวแก้ไขของรายการสลิปเงินเดือนในสลิปเงินเดือน"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -2173,6 +2173,10 @@ msgid ""
 "Meal Voucher having fixed amount of 1€ per worked day can have its quantity "
 "defined in expression like worked_days['WORK100'].number_of_days."
 msgstr ""
+"ใช้ในการคำนวณหาเปอร์เซ็นต์และจำนวนคงที่ เช่น "
+"กฎสำหรับบัตรรับประทานอาหารที่มีจำนวนเงินคงที่ 1€ "
+"ต่อวันทำงานสามารถกำหนดปริมาณได้ในตัวสั่งงาน เช่น "
+"work_days['WORK100'].number_of_days"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_input__amount
@@ -2181,6 +2185,9 @@ msgid ""
 " basic salary per product can defined in expression like: result = "
 "inputs['SALEURO'].amount * contract.wage * 0.01."
 msgstr ""
+"มันถูกใช้ในการคำนวณ เช่น กฎสำหรับพนักงานขายที่มีค่าคอมมิชชัน 1%% "
+"ของเงินเดือนพื้นฐานต่อผลิตภัณฑ์สามารถกำหนดไว้ในตัวสั่งงาน เช่น result = "
+"inputs['SALEURO'].amount * Contract.wage * 0.01"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__job_id
@@ -2273,7 +2280,7 @@ msgstr "อัปเดตครั้งล่าสุดเมื่อ"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_form
 msgid "Line Name"
-msgstr "ชื่อไลน์"
+msgstr "ชื่อรายการ"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__lines_count
@@ -2713,7 +2720,7 @@ msgstr "ข้อมูลเข้าอื่น ๆ"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__input_line_type_ids
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input___allowed_input_type_ids
 msgid "Other Input Line"
-msgstr "ไลน์ขาเข้าอื่น ๆ"
+msgstr "รายการขาเข้าอื่น"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payslip_entry_type_view
@@ -3267,7 +3274,8 @@ msgstr "คำนวณใหม่ทั้งแผ่น"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Recompute the payslip lines only, not the worked days / input lines"
-msgstr "คำนวณไลน์สลิปเงินเดือนใหม่เท่านั้น ไม่ใช่วันทำงาน / ไลน์ข้อมูลขาเข้า"
+msgstr ""
+"คำนวณรายการสลิปเงินเดือนใหม่เท่านั้น ไม่ใช่วันทำงาน / รายการข้อมูลขาเข้า"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4218,7 +4226,7 @@ msgstr "ขึ้น"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__use_worked_day_lines
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__use_worked_day_lines
 msgid "Use Worked Day Lines"
-msgstr "ใช้ไลน์วันทำงาน"
+msgstr "ใช้รายการวันทำงาน"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line__sequence
@@ -4354,7 +4362,7 @@ msgstr "วิธีการปัดเศษประเภทรายกา
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "We have to improve our Payroll flow with the new Odoo process"
-msgstr ""
+msgstr "เราต้องปรับปรุงขั้นตอนการจ่ายเงินเดือนด้วยกระบวนการใหม่ของ Odoo"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__website_message_ids
@@ -4536,7 +4544,7 @@ msgstr "วันทำงานและอินพุต"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__worked_days_line_ids
 msgid "Worked Days Lines"
-msgstr "ไลน์วันทำงาน"
+msgstr "รายการวันทำงาน"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_structure__use_worked_day_lines
@@ -4705,7 +4713,7 @@ msgstr "คุณต้องเลือกพนักงานเพื่อ
 #: code:addons/hr_payroll/models/hr_payslip_line.py:0
 #, python-format
 msgid "You must set a contract to create a payslip line."
-msgstr "คุณต้องกำหนดสัญญาเพื่อสร้างไลน์สลิปเงินเดือน"
+msgstr "คุณต้องกำหนดสัญญาเพื่อสร้างรายการสลิปเงินเดือน"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4747,7 +4755,7 @@ msgstr "เช่น การจ่ายปกติ"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "https://www.odoo.com/fr_FR/slides/slide/manage-payroll-1002"
-msgstr ""
+msgstr "https://www.odoo.com/fr_FR/slides/slide/manage-payroll-1002"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip

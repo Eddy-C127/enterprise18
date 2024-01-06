@@ -15,15 +15,15 @@
 # Tadej Lupšina <tadej@hbs.si>, 2023
 # Matjaz Mozetic <m.mozetic@matmoz.si>, 2023
 # Jasmina Macur <jasmina@hbs.si>, 2023
-# Katja Deržič, 2023
+# Katja Deržič, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Katja Deržič, 2023\n"
+"Last-Translator: Katja Deržič, 2024\n"
 "Language-Team: Slovenian (https://app.transifex.com/odoo/teams/41243/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1931,7 +1931,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_stage_view_search
 #, python-format
 msgid "Article"
-msgstr ""
+msgstr "Članek"
 
 #. module: knowledge
 #. odoo-python
@@ -2035,7 +2035,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__article_ids
 msgid "Articles using cover"
-msgstr ""
+msgstr "Članki z naslovnico"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3028,7 +3028,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_form
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search
 msgid "Favorite"
-msgstr ""
+msgstr "Priljubljeno"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_favorite
@@ -3629,7 +3629,7 @@ msgstr "Povabi znance"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_favorite__is_article_active
 msgid "Is Article Active"
-msgstr ""
+msgstr "Je članek aktiven"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_user_favorite
@@ -4196,15 +4196,6 @@ msgid "Move to Workspace"
 msgstr ""
 
 #. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"Move to target of %(article_name)s is ambiguous, you should specify the "
-"category."
-msgstr ""
-
-#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Rok dejavnosti"
@@ -4638,7 +4629,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__permission
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__permission
 msgid "Permission"
-msgstr ""
+msgstr "Dovoljenje"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -5581,6 +5572,15 @@ msgid "The article '%s' needs at least one member with 'Write' access."
 msgstr ""
 
 #. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"The destination placement of %(article_name)s is ambiguous, you should "
+"specify the category."
+msgstr ""
+
+#. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 #, python-format
@@ -5593,15 +5593,6 @@ msgid ""
 "The podcast launches its new technical talks, for all tech-savvy listeners out there! This\n"
 "                            new episode of the series features Géry, the mastermind behind OWL, the world fastest JS\n"
 "                            framework. 🚀"
-msgstr ""
-
-#. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"The destination placement of %(article_name)s is ambiguous, you should "
-"specify the category."
 msgstr ""
 
 #. module: knowledge

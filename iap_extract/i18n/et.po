@@ -6,12 +6,11 @@
 # Eneli Õigus <enelioigus@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Algo Kärp <algokarp@gmail.com>, 2023
+# Patrick-Jordan Kiudorv, 2023
 # Arma Gedonsky <armagedonsky@hot.ee>, 2023
 # Triine Aavik <triine@avalah.ee>, 2023
 # Leaanika Randmets, 2023
 # JanaAvalah, 2023
-# Patrick-Jordan Kiudorv, 2023
-# Rivo Zängov <eraser@eraser.ee>, 2023
 # Piia Paurson <piia@avalah.ee>, 2023
 # Mihkel avalah, 2023
 # Anna, 2023
@@ -20,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Anna, 2023\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
@@ -162,7 +161,6 @@ msgstr "Kui kontrollitud, siis uued sõnumid nõuavad Teie tähelepanu."
 
 #. module: iap_extract
 #: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_error
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Kui valitud, on mõningate sõnumitel saatmiserror."
 
@@ -254,11 +252,6 @@ msgid "Ratings"
 msgstr "Hinnangud"
 
 #. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Sõnumi kohaletoimetamise viga"
-
-#. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
@@ -339,16 +332,6 @@ msgstr "Ootab väljavõtteid"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__waiting_validation
 msgid "Waiting validation"
 msgstr "Ootab kinnitamist"
-
-#. module: iap_extract
-#: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website Messages"
-msgstr "Veebilehe sõnumid"
-
-#. module: iap_extract
-#: model:ir.model.fields,help:iap_extract.field_extract_mixin__website_message_ids
-msgid "Website communication history"
-msgstr "Veebilehe suhtluse ajalugu"
 
 #. module: iap_extract
 #. odoo-python

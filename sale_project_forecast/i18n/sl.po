@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Tomaž Jug <tomaz@editor.si>, 2023\n"
 "Language-Team: Slovenian (https://app.transifex.com/odoo/teams/41243/sl/)\n"
@@ -31,6 +31,13 @@ msgid ""
 msgstr ""
 
 #. module: sale_project_forecast
+#: model:ir.model,name:sale_project_forecast.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
+msgstr ""
+
+#. module: sale_project_forecast
 #: model:ir.model.fields,field_description:sale_project_forecast.field_product_product__planning_enabled
 #: model:ir.model.fields,field_description:sale_project_forecast.field_product_template__planning_enabled
 msgid "Plan Services"
@@ -40,11 +47,6 @@ msgstr ""
 #: model:ir.model,name:sale_project_forecast.model_planning_slot
 msgid "Planning Shift"
 msgstr "Izmena načrtovanja"
-
-#. module: sale_project_forecast
-#: model:ir.model,name:sale_project_forecast.model_product_template
-msgid "Product"
-msgstr "Izdelek"
 
 #. module: sale_project_forecast
 #: model:ir.model.fields,field_description:sale_project_forecast.field_planning_slot__sale_line_id

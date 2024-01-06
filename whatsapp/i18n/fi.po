@@ -8,7 +8,6 @@
 # Jussi Lehto <jussi@gulfeo.com>, 2023
 # Sari Mäyrä <sari.mayra@sv-oy.fi>, 2023
 # Svante Suominen <svante.suominen@web-veistamo.fi>, 2023
-# Kari Lindgren <kari.lindgren@emsystems.fi>, 2023
 # Johanna Valkonen <miujohanna@gmail.com>, 2023
 # Jenni Heikkilä <jenni.heikkila@sv-oy.fi>, 2023
 # Teija Hölttä <teija.holtta@gmail.com>, 2023
@@ -22,14 +21,15 @@
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2023
 # Tommi Rintala <tommi.rintala@gmail.com>, 2023
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Kari Lindgren <kari.lindgren@emsystems.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -396,13 +396,6 @@ msgid "Cancelled"
 msgstr "Peruttu"
 
 #. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Cannot get field value from %(variable_type)s template variable"
-msgstr "Kentän arvoa ei saada %(variable_type)s-mallin muuttujasta"
-
-#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ca
 msgid "Catalan"
 msgstr "katalaani"
@@ -656,6 +649,11 @@ msgstr ""
 "Jokaisen WhatsApp-viestin pitäisi vastata yhtä viestin UUID-tunnistetta."
 
 #. module: whatsapp
+#: model:ir.model,name:whatsapp.model_mail_thread
+msgid "Email Thread"
+msgstr "Sähköpostiviestiketju"
+
+#. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/components/phone_field/phone_field.js:0
 #, python-format
@@ -706,13 +704,6 @@ msgstr "Epäonnistumisen syy"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__failure_type
 msgid "Failure Type"
 msgstr "Epäonnistumisen tyyppi"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Fetching field value for template variable must use a single record"
-msgstr "Mallimuuttujan kentän arvon hakemisessa on käytettävä yhtä tietuetta"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_variable__field_name
@@ -1029,20 +1020,6 @@ msgid "Invalid Phone Number Count"
 msgstr "Virheellisten puhelinnumeroiden määrä"
 
 #. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Invalid field chain %r"
-msgstr "Virheellinen kenttäketju %r"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Invalid field name: %r"
-msgstr "Virheellinen kentän nimi: %r"
-
-#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__network
 msgid "Invalid query or unreachable endpoint"
 msgstr "Virheellinen kysely tai saavuttamaton päätepiste"
@@ -1330,12 +1307,6 @@ msgid "Model Name"
 msgstr "Mallin nimi"
 
 #. module: whatsapp
-#: model:ir.model.fields,help:whatsapp.field_whatsapp_template__model_id
-msgid "Model on which the Server action for sending WhatsApp will be created."
-msgstr ""
-"Malli, johon luodaan WhatsAppin lähettämiseen tarkoitettu palvelintoiminto."
-
-#. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
 msgid "My Templates"
 msgstr "Omat mallipohjat"
@@ -1369,6 +1340,13 @@ msgid "No results found"
 msgstr "Hakutuloksia ei löytynyt"
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/tools/whatsapp_api.py:0
+#, python-format
+msgid "Non-descript Error"
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__none
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__quality__none
 msgid "None"
@@ -1378,13 +1356,6 @@ msgstr "Ei mitään"
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__nb
 msgid "Norwegian"
 msgstr "Norja"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Not able to get the value of field %r"
-msgstr "Kentän %r arvoa ei saada"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__notify_user_ids
@@ -2051,17 +2022,6 @@ msgid "There is no record for preparing demo pdf in model %(model)s"
 msgstr "Mallissa %(model)s ei ole tietuetta demo pdf:n valmistelusta"
 
 #. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
-#, python-format
-msgid ""
-"There is wrong configration in template %s \n"
-" %s"
-msgstr ""
-"Mallissa on väärät asetukset %s\n"
-" %s"
-
-#. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "There might be other templates that still need the Multi"
 msgstr "Saattaa olla muitakin malleja, jotka tarvitsevat vielä useaa (Multi)"
@@ -2456,27 +2416,9 @@ msgstr "Keltainen"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid ""
-"You are not allowed to use %r in Phone Field, contact your administrator to "
-"configure it."
-msgstr ""
-"Et saa käyttää %r-kohtaa Puhelinkentässä, ota yhteys järjestelmänvalvojaan "
-"sen määrittämiseksi."
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template.py:0
-#, python-format
-msgid ""
 "You are not allowed to use %(field)s in phone field, contact your "
 "administrator to configure it."
 msgstr ""
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "You are not allowed to use this field, contact your administrator."
-msgstr "Et saa käyttää tätä kenttää, ota yhteys järjestelmänvalvojaan."
 
 #. module: whatsapp
 #. odoo-python
@@ -2500,14 +2442,6 @@ msgstr "Et voi peruuttaa jonossa olevaa viestiä."
 msgid "You can not resend message which is not in failed state."
 msgstr ""
 "Et voi lähettää uudelleen viestiä, joka ei ole epäonnistuneessa tilassa."
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template.py:0
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "You can not select field of %r."
-msgstr "Et voi valita kenttää %r."
 
 #. module: whatsapp
 #. odoo-python
@@ -2597,10 +2531,3 @@ msgstr "placeholder=\"esim. https://www.example.com\"/&gt;"
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_composer_view_form
 msgid "recipients have an invalid phone number and will be skipped."
 msgstr "vastaanottajilla on virheellinen puhelinnumero, ja ne ohitetaan."
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/tools/whatsapp_api.py:0
-#, python-format
-msgid "{error_code} - Non-descript Error"
-msgstr "{error_code} - Ei-kuvaileva virhe"

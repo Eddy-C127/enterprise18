@@ -22,19 +22,19 @@
 # Harcogourmet, 2023
 # Josep Anton Belchi, 2023
 # jabiri7, 2023
-# Óscar Fonseca <tecnico@pyming.com>, 2023
-# Ivan Espinola, 2023
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
+# Óscar Fonseca <tecnico@pyming.com>, 2023
 # RGB Consulting <odoo@rgbconsulting.com>, 2023
 # Martin Trigaux, 2023
+# Ivan Espinola, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Ivan Espinola, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -108,13 +108,6 @@ msgid ""
 "sent!"
 msgstr ""
 "<b>Felicitats</b>, el vostre primer pressupost esta llest per ser enviat!"
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid ""
-"<b>No suitable payment method could be found.</b><br/>\n"
-"                                    If you believe that is an error, please contact the website administrator."
-msgstr ""
 
 #. module: sale_subscription
 #: model:mail.template,body_html:sale_subscription.mail_template_subscription_alert
@@ -264,11 +257,6 @@ msgstr "<i class=\"fa fa-print\"/> Imprimir"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_so_portal_template
 msgid "<i class=\"oi oi-arrow-right me-1\"/>Back to your subscription"
-msgstr ""
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "<i class=\"oi oi-arrow-right\"/> Add payment providers"
 msgstr ""
 
 #. module: sale_subscription
@@ -695,11 +683,6 @@ msgid "ARR Change (normalized)"
 msgstr ""
 
 #. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
-msgid "Abandoned Cart"
-msgstr "Cistella abandonada"
-
-#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Action"
 msgstr "Acció"
@@ -1105,6 +1088,7 @@ msgstr ""
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
+#: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Check reopened subscription"
 msgstr ""
@@ -1151,7 +1135,6 @@ msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_so_portal_template
 msgid "Close"
 msgstr "Tancar"
@@ -2136,6 +2119,11 @@ msgid "MRR"
 msgstr "MRR"
 
 #. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_order_log_analysis_action
+msgid "MRR Analysis"
+msgstr "Anàlisi MRR"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "MRR Between"
 msgstr "MRR entre"
@@ -2218,7 +2206,6 @@ msgstr "MRR:"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "Manage Payment Method"
 msgstr "Gestionar mètode de pagament"
 
@@ -2275,15 +2262,6 @@ msgid "Messages"
 msgstr "Missatges"
 
 #. module: sale_subscription
-#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_plan__billing_period_value
-msgid ""
-"Minimum duration before this rule is applied. If set to 0, it represents a "
-"fixed temporal price."
-msgstr ""
-"Durada mínima abans que s'apliqui aquesta regla. Si s'estableix a 0, "
-"representa un preu temporal fix."
-
-#. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
@@ -2303,6 +2281,13 @@ msgstr "Model"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__model_name
 msgid "Model Name"
 msgstr "Nom del model"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__model_id
@@ -2773,7 +2758,6 @@ msgid "Print"
 msgstr "Imprimir"
 
 #. module: sale_subscription
-#: model:ir.model,name:sale_subscription.model_product_template
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__product_tmpl_id
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -3021,6 +3005,15 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__recurring_total
 msgid "Recurring Revenue"
 msgstr "Ingressos recurrents"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Recurring period must be a positive number. Please ensure the input is a "
+"valid positive numeric value."
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-python
@@ -3983,6 +3976,13 @@ msgid "The upsell %s has been confirmed."
 msgstr ""
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
+#, python-format
+msgid "There are multiple pricings for an unique product, plan and pricelist."
+msgstr ""
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
 msgstr ""
@@ -3990,13 +3990,6 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is an"
-msgstr ""
-
-#. module: sale_subscription
-#. odoo-python
-#: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
-#, python-format
-msgid "There are multiple pricings for an unique product, plan and pricelist."
 msgstr ""
 
 #. module: sale_subscription
@@ -4384,11 +4377,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__webhook_uuid
 msgid "Webhook UUID"
 msgstr ""
-
-#. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
-msgid "Website"
-msgstr "Lloc web"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids
@@ -4886,12 +4874,3 @@ msgstr ""
 "{{ object.companyid.name }}: La vostra subscripció {{ object.name }} "
 "necessita la vostra atenció. Si teniu alguna preocupació sobre això, "
 "contacteu amb {{ object.userid.name }}, la vostra persona de contacte."
-
-#. module: sale_subscription
-#. odoo-python
-#: code:addons/sale_subscription/models/sale_order.py:0
-#, python-format
-msgid ""
-"Recurring period must be a positive number. Please ensure the input is a "
-"valid positive numeric value."
-msgstr ""

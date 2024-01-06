@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: ILMIR <karamov@it-projects.info>, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
@@ -4380,17 +4380,6 @@ msgid "Move to Workspace"
 msgstr "Переместить в Каталог"
 
 #. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"Move to target of %(article_name)s is ambiguous, you should specify the "
-"category."
-msgstr ""
-"Перемещение к %(article_name)s не вполне корректно, необходимо указать "
-"категорию."
-
-#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Крайний срок моего действия"
@@ -5770,6 +5759,15 @@ msgstr ""
 "Для статьи '%s' требуется как минимум один участник с доступом 'Запись'."
 
 #. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"The destination placement of %(article_name)s is ambiguous, you should "
+"specify the category."
+msgstr ""
+
+#. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 #, python-format
@@ -5782,15 +5780,6 @@ msgid ""
 "The podcast launches its new technical talks, for all tech-savvy listeners out there! This\n"
 "                            new episode of the series features Géry, the mastermind behind OWL, the world fastest JS\n"
 "                            framework. 🚀"
-msgstr ""
-
-#. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"The destination placement of %(article_name)s is ambiguous, you should "
-"specify the category."
 msgstr ""
 
 #. module: knowledge

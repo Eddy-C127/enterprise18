@@ -6,6 +6,7 @@
 # Ivana Bartonkova, 2023
 # Jakub Smolka, 2023
 # Wil Odoo, 2023
+# Aleš Fiala <f.ales1@seznam.cz>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +28,8 @@ msgstr ""
 #, python-format
 msgid "<b>Deselect this page</b> as we plan to process all bills first."
 msgstr ""
+"<b>Zrušit výběr této stránky</b>, protože plánujeme nejprve zpracovat "
+"všechny přijaté faktury."
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_documents_workflow_rule
@@ -87,14 +90,14 @@ msgstr "Zkontrolujte je"
 #: code:addons/documents_account/static/src/js/tour.js:0
 #, python-format
 msgid "Click on a card to <b>select the document</b>."
-msgstr ""
+msgstr "Kliknutím na kartu <b>vyberte dokument</b>."
 
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
 #, python-format
 msgid "Click on a thumbnail to <b>preview the document</b>."
-msgstr ""
+msgstr "Kliknutím na miniaturu <b>zobrazíte náhled dokumentu</b>."
 
 #. module: documents_account
 #. odoo-javascript
@@ -104,6 +107,8 @@ msgid ""
 "Click on the <b>page separator</b>: we don't want to split these two pages "
 "as they belong to the same document."
 msgstr ""
+"Klikněte na <b>oddělovač stránek</b>: nechceme tyto dvě stránky rozdělit, "
+"protože patří do stejného dokumentu."
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_res_company
@@ -276,6 +281,8 @@ msgid ""
 "Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter "
 "documents and structure your process.</i>"
 msgstr ""
+"Pojďme zpracovat dokumenty ve vaší doručené poště.<br/><i>Tip: Použijte "
+"značky k filtrování dokumentů a strukturování procesu.</i>"
 
 #. module: documents_account
 #. odoo-javascript
@@ -289,7 +296,7 @@ msgstr "Zpracujme tyto faktury: přeměňte je na dodavatelské faktury."
 #: code:addons/documents_account/static/src/js/tour.js:0
 #, python-format
 msgid "Let's process this document, coming from our scanner."
-msgstr ""
+msgstr "Pojďme zpracovat tento dokument z našeho skeneru."
 
 #. module: documents_account
 #. odoo-javascript
@@ -299,6 +306,8 @@ msgid ""
 "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your "
 "process, according to the workspace.</i>"
 msgstr ""
+"Označme tento e-mail jako legální<br/> <i>Tipy: akce lze přizpůsobit vašemu "
+"procesu v závislosti na pracovním prostoru.</i>"
 
 #. module: documents_account
 #: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_entry
@@ -367,6 +376,8 @@ msgstr "Prodejní účet"
 msgid ""
 "Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
 msgstr ""
+"Chcete se stát <b>bezpapírovou společností</b>? Pojďme objevit Odoo "
+"dokumenty."
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__folder_id
@@ -382,6 +393,8 @@ msgid ""
 "Wow... 6 documents processed in a few seconds, You're good.<br/>The tour is "
 "complete. Try uploading your own documents now."
 msgstr ""
+"Páni... 6 dokumentů zpracovaných za pár sekund, jste dobrý.<br/>Prohlídka je"
+" dokončena. Zkuste nyní nahrát své vlastní dokumenty."
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_res_config_settings__account_folder

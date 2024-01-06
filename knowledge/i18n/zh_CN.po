@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
@@ -4672,15 +4672,6 @@ msgid "Move to Workspace"
 msgstr "移至工作区"
 
 #. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"Move to target of %(article_name)s is ambiguous, you should specify the "
-"category."
-msgstr "移动到目标%(article_name)s是模糊的，您应该指定类别。"
-
-#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "我的活动截止时间"
@@ -6112,6 +6103,15 @@ msgid "The article '%s' needs at least one member with 'Write' access."
 msgstr "文章”%s“需要至少一位有“写入”权限的成员。"
 
 #. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"The destination placement of %(article_name)s is ambiguous, you should "
+"specify the category."
+msgstr ""
+
+#. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 #, python-format
@@ -6128,15 +6128,6 @@ msgstr ""
 "播客为所有精通技术的听众推出了新的技术讲座！本\n"
 "                            新一集的主讲人是 Géry，他是世界上最快的 JS 框架 OWL 背后的策划人。\n"
 "                            框架的主谋。🚀"
-
-#. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"The destination placement of %(article_name)s is ambiguous, you should "
-"specify the category."
-msgstr ""
 
 #. module: knowledge
 #. odoo-javascript

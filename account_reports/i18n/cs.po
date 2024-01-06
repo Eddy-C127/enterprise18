@@ -4,18 +4,19 @@
 # 
 # Translators:
 # Ivana Bartonkova, 2023
-# Wil Odoo, 2023
 # Jakub Smolka, 2023
-# Aleš Fiala <f.ales1@seznam.cz>, 2023
 # Tomáš Píšek, 2023
+# Aleš Fiala <f.ales1@seznam.cz>, 2024
+# karolína schusterová <karolina.schusterova@vdp.sk>, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 09:27+0000\n"
+"POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tomáš Píšek, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -408,6 +409,8 @@ msgstr "Věková struktura pohledávek"
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
@@ -848,13 +851,19 @@ msgid "Communication"
 msgstr "Komunikace"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model,name:account_reports.model_res_company
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__company_ids
+#, python-format
 msgid "Companies"
 msgstr "Společnosti"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__company_id
+#, python-format
 msgid "Company"
 msgstr "Společnost"
 
@@ -868,6 +877,13 @@ msgid ""
 msgstr ""
 "Společnosti %s již patří do daňové jednotky v %s. Společnost může být "
 "nejvýše součástí jedné daňové jednotky v jedné zemi."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Company Currency"
+msgstr "Měna společnosti"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1485,7 +1501,11 @@ msgid "File Name"
 msgstr "Název souboru"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+#, python-format
 msgid "Filters"
 msgstr "Filtry"
 
@@ -1695,7 +1715,10 @@ msgid "Hierarchy and Subtotals"
 msgstr "Hierarchie a mezisoučty"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__horizontal_group_id
+#, python-format
 msgid "Horizontal Group"
 msgstr "Horizontální skupina"
 
@@ -1786,6 +1809,13 @@ msgstr "Zahrnout nezaúčtované doklady"
 #, python-format
 msgid "Include Payments"
 msgstr "Zahrnout parametry"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Including Analytic Simulations"
+msgstr "Včetně analytických simulací"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -1995,6 +2025,13 @@ msgstr "Vlastní zpracování výkazu účetních deníků"
 #, python-format
 msgid "Journal items with archived tax tags"
 msgstr "Položky deníku se štítky archivovaných daní"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Journals"
+msgstr "Účetní deníky"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2396,6 +2433,8 @@ msgstr "Změnit data uzamčení mohou pouze správci fakturace!"
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Only Show Unreconciled Entries"
@@ -2420,8 +2459,11 @@ msgid "Operating Income"
 msgstr "Provozní zisk"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+#, python-format
 msgid "Options"
 msgstr "Možnosti"
 
@@ -2463,6 +2505,13 @@ msgid "Partner"
 msgstr "Partner"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Partner Categories"
+msgstr ""
+
+#. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
 #: model:ir.actions.client,name:account_reports.action_account_report_partner_ledger
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_partner_ledger
@@ -2498,6 +2547,8 @@ msgstr "Partner je dobrý"
 
 #. module: account_reports
 #. odoo-javascript
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 #, python-format
@@ -2614,6 +2665,13 @@ msgstr "Pozice"
 #, python-format
 msgid "Post"
 msgstr "Zaúčtovat"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
+msgid ""
+"Posting this entry will also update and post the unposted closings of the "
+"depending companies."
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -2916,6 +2974,13 @@ msgid "Tax Closing End Date"
 msgstr "Datum ukončení daňové povinnosti"
 
 #. module: account_reports
+#: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_show_multi_closing_warning
+#: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_show_multi_closing_warning
+#: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_show_multi_closing_warning
+msgid "Tax Closing Show Multi Closing Warning"
+msgstr ""
+
+#. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_general_ledger.py:0
 #, python-format
@@ -3077,6 +3142,16 @@ msgstr "Přehled o pokrytí účtů není pro tento výkaz dostupný."
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_move.py:0
+#, python-format
+msgid ""
+"The attachments of the tax report can be found on the <a href='#' data-oe-"
+"model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
+" company."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/models/account_tax.py:0
 #, python-format
 msgid ""
@@ -3126,6 +3201,13 @@ msgstr "Vybraná položka výkazu necílí na účetní záznam ani na účetní
 #: model:ir.model.fields,help:account_reports.field_res_company__account_tax_unit_ids
 msgid "The tax units this company belongs to."
 msgstr "Daňové jednotky, do kterých tato jednotka patří."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "The used operator is not supported for this expression."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -3180,13 +3262,6 @@ msgid ""
 "This account is reported in a line of the report but does not exist in the "
 "Chart of Accounts"
 msgstr "Tento účet je uveden v položce výkazu, ale v účtové osnově neexistuje"
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
-#, python-format
-msgid "The used operator is not supported for this expression."
-msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -3519,6 +3594,13 @@ msgid ""
 "Whether or not we have to make provisions for the selected foreign "
 "currencies."
 msgstr "Bez ohledu na to, zda musíme provést rezervy pro vybrané cizí měny."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "With Draft Entries"
+msgstr "S koncepty"
 
 #. module: account_reports
 #. odoo-python
