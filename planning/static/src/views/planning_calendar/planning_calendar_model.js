@@ -11,6 +11,7 @@ export class PlanningCalendarModel extends CalendarModel {
             getHighlightPlannedIds: () => this.env.searchModel.highlightPlannedIds,
             getContext: () => this.env.searchModel._context,
         }).getHighlightIds;
+        this.meta.scale = this.env.isSmall? "day" : this.meta.scale;
     }
 
     get defaultFilterLabel() {
