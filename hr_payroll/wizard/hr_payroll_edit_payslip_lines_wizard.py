@@ -95,7 +95,7 @@ class HrPayrollEditPayslipLine(models.TransientModel):
     total = fields.Float(compute='_compute_total', string='Total', digits='Payroll', store=True)
     slip_id = fields.Many2one(related="edit_payslip_lines_wizard_id.payslip_id", string='Pay Slip')
     struct_id = fields.Many2one(related="slip_id.struct_id")
-    category_id = fields.Many2one(related='salary_rule_id.category_id', readonly=True, store=True)
+    category_id = fields.Many2one(related='salary_rule_id.category_id', readonly=True)
 
     edit_payslip_lines_wizard_id = fields.Many2one('hr.payroll.edit.payslip.lines.wizard', required=True, ondelete='cascade')
 

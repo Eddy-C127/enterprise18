@@ -29,8 +29,8 @@ class HrPayslipLine(models.Model):
     amount_fix = fields.Float(related='salary_rule_id.amount_fix', readonly=True)
     amount_percentage = fields.Float(related='salary_rule_id.amount_percentage', readonly=True)
     appears_on_payslip = fields.Boolean(related='salary_rule_id.appears_on_payslip', readonly=True)
-    category_id = fields.Many2one(related='salary_rule_id.category_id', readonly=True, store=True)
-    partner_id = fields.Many2one(related='salary_rule_id.partner_id', readonly=True, store=True)
+    category_id = fields.Many2one(related='salary_rule_id.category_id', readonly=True)
+    partner_id = fields.Many2one(related='salary_rule_id.partner_id', readonly=True)
 
     date_from = fields.Date(string='From', related="slip_id.date_from", store=True)
     date_to = fields.Date(string='To', related="slip_id.date_to", store=True)

@@ -706,18 +706,23 @@ class HrPayslip(models.Model):
             to_date = fields.Date.today()
 
         self.env['hr.payslip'].flush_model(['employee_id', 'state', 'date_from', 'date_to'])
-        self.env['hr.payslip.line'].flush_model(['total', 'slip_id', 'category_id'])
+        self.env['hr.payslip.line'].flush_model(['total', 'slip_id', 'salary_rule_id'])
         self.env['hr.salary.rule.category'].flush_model(['code'])
 
         self.env.cr.execute("""
             SELECT sum(pl.total)
-            FROM hr_payslip as hp, hr_payslip_line as pl, hr_salary_rule_category as rc
+            FROM
+                hr_payslip as hp,
+                hr_payslip_line as pl,
+                hr_salary_rule_category as rc,
+                hr_salary_rule as sr
             WHERE hp.employee_id = %s
             AND hp.state in ('done', 'paid')
             AND hp.date_from >= %s
             AND hp.date_to <= %s
             AND hp.id = pl.slip_id
-            AND rc.id = pl.category_id
+            AND sr.id = pl.salary_rule_id
+            AND rc.id = sr.category_id
             AND rc.code = %s""", (self.employee_id.id, from_date, to_date, code))
         res = self.env.cr.fetchone()
         return res and res[0] or 0.0
