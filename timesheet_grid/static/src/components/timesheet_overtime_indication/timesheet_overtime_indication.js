@@ -28,17 +28,17 @@ export class TimesheetOvertimeIndication extends EmployeeOvertimeIndication {
 
     get title() {
         if (this.props.name === "project_id") {
-            return _t(
-                "Difference between the number of %s allocated to the project and the number of %s recorded",
-                this.props.allocated_hours,
-                this.props.worked_hours
-            );
+            return _t("Difference between the allocated %(uom)s (%(allocated_hours)s) and the %(uom)s spent (%(worked_hours)s) on the project", {
+                uom: this.props.uom,
+                allocated_hours: this.props.allocated_hours,
+                worked_hours: this.props.worked_hours,
+            });
         } else if (this.props.name === "task_id") {
-            return _t(
-                "Difference between the number of %s allocated to the task and the number of %s recorded",
-                this.props.allocated_hours,
-                this.props.worked_hours
-            );
+            return _t("Difference between the allocated %(uom)s (%(allocated_hours)s) and the %(uom)s spent (%(worked_hours)s) on the task", {
+                uom: this.props.uom,
+                allocated_hours: this.props.allocated_hours,
+                worked_hours: this.props.worked_hours,
+            });
         } else {
             return _t("Difference between the time allocated and the time recorded");
         }

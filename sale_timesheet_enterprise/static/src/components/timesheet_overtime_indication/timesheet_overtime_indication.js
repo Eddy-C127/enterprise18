@@ -9,12 +9,12 @@ patch(
     TimesheetOvertimeIndication.prototype,
     {
         get title() {
-            if (this.props.name === "project_id") {
-                return _t(
-                    "Difference between the number of %s ordered on the sales order item and the number of %s delivered",
-                    this.props.allocated_hours,
-                    this.props.worked_hours
-                );
+            if (this.props.name === "so_line") {
+                return _t("Difference between the allocated %(uom)s (%(allocated_hours)s) on the sales order line and the %(uom)s spent (%(worked_hours)s) on all related projects and tasks", {
+                    uom: this.props.uom,
+                    allocated_hours: this.props.allocated_hours,
+                    worked_hours: this.props.worked_hours,
+                });
             }
             return super.title;
         },
