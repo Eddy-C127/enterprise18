@@ -118,9 +118,6 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return product_
 
         with patch(
-            'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
         ), patch(
@@ -130,7 +127,6 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
             new=find_matching_product_mock,
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             self.account._sync_orders(auto_commit=False)
             order = self.env['sale.order'].search([('amazon_order_ref', '=', '123456789')])
             picking = self.env['stock.picking'].search([('sale_id', '=', order.id)])
@@ -160,9 +156,6 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return product_
 
         with patch(
-            'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
         ), patch(
@@ -172,7 +165,6 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
             new=find_matching_product_mock,
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             self.account._sync_orders(auto_commit=False)
             order = self.env['sale.order'].search([('amazon_order_ref', '=', '123456789')])
             picking = self.env['stock.picking'].search([('sale_id', '=', order.id)])
@@ -202,9 +194,6 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return product_
 
         with patch(
-            'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
         ), patch(
@@ -214,7 +203,6 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
             new=find_matching_product_mock,
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             self.account._sync_orders(auto_commit=False)
             order = self.env['sale.order'].search([('amazon_order_ref', '=', '123456789')])
             picking = self.env['stock.picking'].search([('sale_id', '=', order.id)])
@@ -243,9 +231,6 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return product_
 
         with patch(
-            'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
         ), patch(
@@ -255,7 +240,6 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
             new=find_matching_product_mock,
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             self.account._sync_orders(auto_commit=False)
             order = self.env['sale.order'].search([('amazon_order_ref', '=', '123456789')])
             picking = self.env['stock.picking'].search([('sale_id', '=', order.id)])
@@ -289,11 +273,8 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return response_
 
         with patch(
-            'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK,
-        ), patch('odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
-
+            'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
+        ):
             # Set up the test pickings
             self.picking.update({'amazon_sync_status': 'error', 'state': 'cancel'})
             # Create a new picking
@@ -343,11 +324,8 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             return response_
 
         with patch(
-            'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK,
-        ), patch('odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
-
+            'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
+        ):
             # Set up the test pickings
             self.picking.update({'amazon_sync_status': 'error'})
 

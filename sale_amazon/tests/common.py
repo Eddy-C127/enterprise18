@@ -4,18 +4,6 @@ from unittest.mock import patch
 
 from odoo.tests import TransactionCase
 
-AWS_RESPONSE_MOCK = {
-    'AssumeRoleResponse': {
-        'AssumeRoleResult': {
-            'Credentials': {
-                'AccessKeyId': 'dummy_access_key',
-                'SecretAccessKey': 'dummy_secret_key',
-                'SessionToken': 'dummy_session_token',
-            },
-        },
-    },
-}
-
 ORDER_BUYER_INFO_MOCK = {
     'BuyerEmail': 'iliketurtles@marketplace.amazon.com',
     'BuyerName': 'Gederic Frilson',

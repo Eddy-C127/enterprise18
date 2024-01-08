@@ -149,7 +149,6 @@ def make_sp_api_request(account, operation, path_parameter='', payload=None, met
     else:  # The operation requires an RDT to access restricted data.
         refresh_restricted_data_token(account)
         access_token = account.restricted_data_token
-    refresh_aws_credentials(account)
 
     # Build the request headers
     host = url_parse(domain).netloc
@@ -159,9 +158,7 @@ def make_sp_api_request(account, operation, path_parameter='', payload=None, met
         'Content-Type': 'application/json; charset=utf-8',
         'host': host,
         'x-amz-access-token': access_token,
-        'x-amz-security-token': account.aws_session_token,
         'x-amz-date': now.strftime('%Y%m%dT%H%M%SZ'),
-        'Authorization': compute_authorization_header(account, host, path, method, payload, now),
     }
     try:
         if method == 'GET':
@@ -245,105 +242,6 @@ def refresh_restricted_data_token(account):
                 seconds=response_content['expiresIn']
             ),
         })
-
-
-def refresh_aws_credentials(accounts):
-    """ Request new AWS credentials if they are expired and save them on the accounts.
-
-    If multiple accounts are provided, the AWS credentials of the first account are refreshed and
-    copied to the other accounts. Since the credentials are the same for all accounts, we can thus
-    avoid making redundant requests.
-
-    :param recordset accounts: The accounts for which the AWS credentials must be requested, as an
-                               `amazon.account` recordset.
-    :return: None
-    """
-    if not accounts:
-        return
-
-    aws_credentials_expiry = accounts[0].aws_credentials_expiry
-    if datetime.utcnow() > aws_credentials_expiry - timedelta(minutes=5):
-        endpoint = const.PROXY_ENDPOINTS['aws_tokens']
-        payload = {
-            'Action': 'AssumeRole',
-            'Version': '2011-06-15',
-        }
-        response_content = make_proxy_request(endpoint, accounts.env, payload=payload)
-        aws_credentials = response_content['AssumeRoleResponse']['AssumeRoleResult']['Credentials']
-        accounts.write({
-            'aws_access_key': aws_credentials['AccessKeyId'],
-            'aws_secret_key': aws_credentials['SecretAccessKey'],
-            'aws_session_token': aws_credentials['SessionToken'],
-            'aws_credentials_expiry': datetime.utcnow() + timedelta(hours=1),
-        })
-
-
-def compute_authorization_header(account, host, path, method, payload, request_datetime):
-    """ Compute the authorization header of an SP-API request.
-
-    :param recordset account: The Amazon account on behalf of which the request is made, as an
-                              `amazon.account` record.
-    :param string host: The domain of the request.
-    :param string path: The URL path of the request.
-    :param string method: The HTTP method of the request.
-    :param dict payload: The payload of the request.
-    :param datetime request_datetime: The datetime of the request.
-    :return: The authorization header of the request. For example, a typical return value could be:
-             'AWS4-HMAC-SHA256 ' \
-             'Credential=AKIAY7OS2NMOYQMG6/20210621/us-east-1/execute-api/aws4_request, ' \
-             'SignedHeaders=host;x-amz-date;x-amz-security-token, ' \
-             'Signature=e37bcfd80a7baefea5968e0c6344083c8c429af76e924f7eff050c193843'
-    :rtype: str
-    """
-    # 0. Set the scope variables.
-    formatted_request_date = request_datetime.strftime('%Y%m%d')
-    formatted_request_datetime = request_datetime.strftime('%Y%m%dT%H%M%SZ')
-    region = account.base_marketplace_id.region
-    service = 'execute-api'
-    credential_scope = '/'.join([formatted_request_date, region, service, 'aws4_request'])
-
-    # 1. Create a Canonical_request
-    if method == 'GET':
-        canonical_query_string = url_encode((k, payload[k]) for k in sorted(payload.keys()))
-    else:
-        canonical_query_string = ''  # `body_string` is populated instead.
-    canonical_headers = f'host:{host}\n' \
-                        f'x-amz-date:{formatted_request_datetime}\n' \
-                        f'x-amz-security-token:{account.aws_session_token}\n'
-    signed_headers = 'host;x-amz-date;x-amz-security-token'
-    body_string = '' if method == 'GET' else json.dumps(payload)
-    payload_hash = hashlib.sha256(body_string.encode()).hexdigest()
-    canonical_request = '\n'.join([
-        method,
-        path or '/',
-        canonical_query_string,         # sorted parameters with key-value
-        canonical_headers,              # sorted headers signed with key-value
-        signed_headers,                 # sorted headers with only key
-        payload_hash                    # hashed parameters
-    ])
-    canonical_request_hash = hashlib.sha256(canonical_request.encode()).hexdigest()
-
-    # 2. Create a string to sign.
-    algorithm = 'AWS4-HMAC-SHA256'
-    signing_string = '\n'.join(
-        [algorithm, formatted_request_datetime, credential_scope, canonical_request_hash]
-    )
-
-    # 3. Calculate the signature.
-    k_date = hmac.new(
-        ('AWS4' + account.aws_secret_key).encode(), formatted_request_date.encode(), hashlib.sha256
-    ).digest()
-    k_region = hmac.new(k_date, region.encode(), hashlib.sha256).digest()
-    k_service = hmac.new(k_region, service.encode(), hashlib.sha256).digest()
-    k_signing = hmac.new(k_service, 'aws4_request'.encode(), hashlib.sha256).digest()
-    signature = hmac.new(k_signing, signing_string.encode(), hashlib.sha256).hexdigest()
-
-    # 4. Add the signing information.
-    authorization_header = f'{algorithm} ' \
-                           f'Credential={account.aws_access_key}/{credential_scope}, ' \
-                           f'SignedHeaders={signed_headers}, ' \
-                           f'Signature={signature}'
-    return authorization_header
 
 
 #=== FEEDS MANAGEMENT ===#
@@ -511,10 +409,6 @@ def preserve_credentials(account):
     fields_to_preserve = [
         'access_token',
         'access_token_expiry',
-        'aws_access_key',
-        'aws_secret_key',
-        'aws_session_token',
-        'aws_credentials_expiry',
         'restricted_data_token',
         'restricted_data_token_expiry',
     ]
