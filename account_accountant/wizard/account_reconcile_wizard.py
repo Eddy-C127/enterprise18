@@ -275,7 +275,7 @@ class AccountReconcileWizard(models.TransientModel):
                 for residual_values in residual_amounts.values()
                 if residual_values
             )
-            wizard.amount = amls.company_currency_id.round(wizard.amount_currency / rate)
+            wizard.amount = amls.company_currency_id.round(wizard.amount_currency / rate) if rate else 0.0
 
     @api.depends('move_line_ids.move_id', 'date')
     def _compute_lock_date_violated_warning_message(self):
