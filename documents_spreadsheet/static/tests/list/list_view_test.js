@@ -538,7 +538,7 @@ QUnit.module("document_spreadsheet > list view", {
             "B2",
             getCellFormula(model, "B2").replace(`ODOO.LIST(1`, `ODOO.LIST("5)`)
         ); //Invalid id
-        assert.ok(getEvaluatedCell(model, "B2").error.message);
+        assert.ok(getEvaluatedCell(model, "B2").message);
         assert.notOk(root.isVisible(env));
     });
 

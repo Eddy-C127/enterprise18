@@ -426,7 +426,7 @@ QUnit.module(
                     "B4",
                     getCellFormula(model, "B4").replace(`ODOO.PIVOT(1`, `ODOO.PIVOT("5)`)
                 ); //Invalid id
-                assert.ok(getEvaluatedCell(model, "B4").error.message);
+                assert.ok(getEvaluatedCell(model, "B4").message);
                 assert.notOk(root.isVisible(env));
             }
         );
