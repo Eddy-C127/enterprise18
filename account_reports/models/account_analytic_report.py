@@ -160,7 +160,12 @@ class AccountReport(models.AbstractModel):
 
             INSERT INTO analytic_temp_account_move_line ({all_fields})
             SELECT {table}
-            FROM (SELECT * FROM account_analytic_line WHERE general_account_id IS NOT NULL) AS account_analytic_line
+            FROM (SELECT * FROM account_analytic_line WHERE general_account_id IS NOT NULL) AS account_analytic_line;
+
+            -- Create a supporting index to avoid seq.scans
+            CREATE INDEX IF NOT EXISTS analytic_temp_account_move_line__composite_idx ON analytic_temp_account_move_line (analytic_distribution, journal_id, date, company_id);
+            -- Update statistics for correct planning
+            ANALYZE analytic_temp_account_move_line
         """).format(
             all_fields=sql.SQL(', ').join(sql.Identifier(fname) for fname in stored_fields),
             table=sql.SQL(', ').join(selected_fields),
