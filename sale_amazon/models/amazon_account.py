@@ -400,7 +400,6 @@ class AmazonAccount(models.Model):
         :return: None
         """
         accounts = self or self.search([])
-        amazon_utils.refresh_aws_credentials(accounts)  # Prevent redundant refresh requests.
         for account in accounts:
             account = account[0]  # Avoid pre-fetching after each cache invalidation.
             amazon_utils.ensure_account_is_set_up(account)
@@ -499,7 +498,6 @@ class AmazonAccount(models.Model):
         """
         self.ensure_one()
         amazon_utils.ensure_account_is_set_up(self)
-        amazon_utils.refresh_aws_credentials(self)
 
         order_data = amazon_utils.make_sp_api_request(
             self, 'getOrder', path_parameter=amazon_order_ref
@@ -1112,8 +1110,6 @@ class AmazonAccount(models.Model):
         if not accounts:
             return
 
-        amazon_utils.refresh_aws_credentials(accounts)  # Prevent redundant refresh requests.
-
         # Cache `free_qty` of all products to avoid recomputing it for each offer.
         accounts.offer_ids.product_id.filtered(lambda p: p.type == 'product')._compute_quantities()
 
@@ -1148,10 +1144,6 @@ class AmazonAccount(models.Model):
         pickings_by_account = self.env['stock.picking']._get_pickings_by_account(
             'processing', tuple(self.ids)
         )
-
-        # Refresh AWS credentials only once.
-        accounts = self.filtered(lambda a: a in accounts_with_offers or a in pickings_by_account)
-        amazon_utils.refresh_aws_credentials(accounts)
 
         # Syn feeds status.
         for account in accounts_with_offers:

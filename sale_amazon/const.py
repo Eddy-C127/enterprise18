@@ -11,7 +11,6 @@ PROXY_URL = 'https://iap-services.odoo.com/'
 # The endpoints of the Amazon proxy.
 PROXY_ENDPOINTS = {
     'authorization': '/amazon/v1/forward_authorization_request',  # Exchange LWA tokens
-    'aws_tokens': '/amazon/v1/forward_aws_credentials_request',  # Request AWS credentials
 }
 
 

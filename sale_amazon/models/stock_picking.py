@@ -156,11 +156,6 @@ class StockPicking(models.Model):
         """
         pickings_by_account = self._get_pickings_by_account('pending', account_ids)
 
-        # Prevent redundant refresh requests.
-        accounts = self.env['amazon.account'].browse(account.id for account in pickings_by_account)
-        if pickings_by_account:
-            amazon_utils.refresh_aws_credentials(accounts)
-
         for account, pickings in pickings_by_account.items():
             amazon_utils.ensure_account_is_set_up(account)
             pickings._confirm_shipment(account)

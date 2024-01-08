@@ -89,9 +89,6 @@ class TestAmazon(common.TestAmazonCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
         ), patch(
@@ -101,7 +98,6 @@ class TestAmazon(common.TestAmazonCommon):
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
             new=find_matching_product_mock,
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             self.account._sync_orders(auto_commit=False)
             self.assertEqual(
                 self.account.last_orders_sync,
@@ -182,12 +178,8 @@ class TestAmazon(common.TestAmazonCommon):
             return response_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             self.get_order_items_count = 0
             self.account._sync_orders(auto_commit=False)
             self.assertEqual(
@@ -210,12 +202,8 @@ class TestAmazon(common.TestAmazonCommon):
                 raise amazon_utils.AmazonRateLimitError(operation_)
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             last_order_sync_copy = self.account.last_orders_sync
             self.account._sync_orders(auto_commit=False)
             self.assertEqual(
@@ -228,21 +216,16 @@ class TestAmazon(common.TestAmazonCommon):
     @mute_logger('odoo.addons.sale_amazon.models.amazon_account')
     def test_sync_orders_abort(self):
         """ Test the orders synchronization cancellation with no active marketplace. """
-        with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
-            last_order_sync_copy = self.account.last_orders_sync
-            self.account.active_marketplace_ids = False
-            with self.assertRaises(UserError):
-                self.account._sync_orders(auto_commit=False)
-            self.assertEqual(
-                self.account.last_orders_sync,
-                last_order_sync_copy,
-                msg="The last_order_sync field should not have been modified if there is no active "
-                    "marketplace selected for the account.",
-            )
+        last_order_sync_copy = self.account.last_orders_sync
+        self.account.active_marketplace_ids = False
+        with self.assertRaises(UserError):
+            self.account._sync_orders(auto_commit=False)
+        self.assertEqual(
+            self.account.last_orders_sync,
+            last_order_sync_copy,
+            msg="The last_order_sync field should not have been modified if there is no active "
+                "marketplace selected for the account.",
+        )
 
     @mute_logger('odoo.addons.sale_amazon.models.amazon_account')
     def test_sync_orders_fba(self):
@@ -277,15 +260,11 @@ class TestAmazon(common.TestAmazonCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ), patch(
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
             new=find_matching_product_mock,
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             self.account._sync_orders(auto_commit=False)
             order = self.env['sale.order'].search([('amazon_order_ref', '=', '123456789')])
             self.assertEqual(order.amazon_channel, 'fba')
@@ -331,9 +310,6 @@ class TestAmazon(common.TestAmazonCommon):
             return product_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ), patch(
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._recompute_subtotal',
@@ -342,7 +318,6 @@ class TestAmazon(common.TestAmazonCommon):
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
             new=find_matching_product_mock,
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             europe_mp = self.env['amazon.marketplace'].search([('api_ref', '=', 'A13V1IB3VIYZZH')])
             self.account.base_marketplace_id = europe_mp.id
             self.account.available_marketplace_ids = [europe_mp.id]
@@ -394,13 +369,8 @@ class TestAmazon(common.TestAmazonCommon):
                 return base_response_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
-
             # Sync an order created on Amazon.
             order_created = False
             self.account._sync_orders(auto_commit=False)
@@ -434,13 +404,8 @@ class TestAmazon(common.TestAmazonCommon):
             return response_
 
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK,
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ):
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
-
             # Sync an order created on Amazon.
             self.order_canceled = False
             self.account._sync_orders(auto_commit=False)
@@ -462,8 +427,7 @@ class TestAmazon(common.TestAmazonCommon):
         """ Test that the inventory synchronization is skipped when the account has disabled it. """
         self.account.synchronize_inventory = False
         with patch(
-            'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK
+            'odoo.addons.sale_amazon.utils.submit_feed', return_value='An_amazing_id'
         ) as mock:
             self.assertEqual(self.account.offer_ids, self.offer)
             self.assertEqual(self.offer.amazon_sync_status, False)
@@ -481,10 +445,8 @@ class TestAmazon(common.TestAmazonCommon):
         """ Test the inventory availability confirmation synchronization. """
         self.account.synchronize_inventory = True
         with patch(
-            'odoo.addons.sale_amazon.utils.make_proxy_request',
-            return_value=common.AWS_RESPONSE_MOCK
-        ), patch('odoo.addons.sale_amazon.utils.submit_feed', return_value='An_amazing_id') as mock:
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
+                'odoo.addons.sale_amazon.utils.submit_feed', return_value='An_amazing_id'
+        ) as mock:
             self.assertEqual(self.account.offer_ids, self.offer)
             self.assertEqual(self.offer.amazon_sync_status, False)
             self.account._sync_inventory()
@@ -500,15 +462,11 @@ class TestAmazon(common.TestAmazonCommon):
     def test_sync_pickings(self):
         """ Test the pickings confirmation synchronization. """
         with patch(
-                'odoo.addons.sale_amazon.utils.make_proxy_request',
-                return_value=common.AWS_RESPONSE_MOCK
-        ), patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda account_, operation_, **_kwargs: common.OPERATIONS_RESPONSES_MAP[operation_],
         ), patch(
             'odoo.addons.sale_amazon.utils.submit_feed', new=Mock(return_value='An_amazing_id'),
         ) as mock:
-            self.account.aws_credentials_expiry = '1970-01-01'  # The field is not stored.
             self.account._sync_orders(auto_commit=False)
             order = self.env['sale.order'].search([('amazon_order_ref', '=', '123456789')])
             picking = self.env['stock.picking'].search([('sale_id', '=', order.id)])
