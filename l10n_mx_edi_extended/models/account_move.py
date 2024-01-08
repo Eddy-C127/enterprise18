@@ -2,6 +2,7 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 from odoo.tools.sql import column_exists, create_column
+from odoo.tools import float_round
 
 import re
 from collections import defaultdict
@@ -197,13 +198,13 @@ class AccountMove(models.Model):
             ext_trade_values['total_usd'] = 0.0
             ext_trade_values['mercancia_list'] = []
             for product, product_values in product_values_map.items():
-                total_usd = usd.round(product_values['total'] * to_usd_rate)
+                total_usd = float_round(product_values['total'] * to_usd_rate, precision_digits=4)
                 ext_trade_values['mercancia_list'].append({
                     'no_identificacion': product.default_code,
                     'fraccion_arancelaria': product.l10n_mx_edi_tariff_fraction_id.code,
                     'cantidad_aduana': product_values['quantity'],
                     'unidad_aduana': product.l10n_mx_edi_umt_aduana_id.l10n_mx_edi_code_aduana,
-                    'valor_unitario_udana': usd.round(product_values['price_unit'] * to_usd_rate),
+                    'valor_unitario_udana': float_round(product_values['price_unit'] * to_usd_rate, precision_digits=6),
                     'valor_dolares': total_usd,
                 })
                 ext_trade_values['total_usd'] += total_usd
@@ -290,7 +291,7 @@ class AccountMoveLine(models.Model):
     def _compute_l10n_mx_edi_price_unit_umt(self):
         for line in self:
             if line.l10n_mx_edi_qty_umt:
-                line.l10n_mx_edi_price_unit_umt = round(line.quantity * line.price_unit / line.l10n_mx_edi_qty_umt, 2)
+                line.l10n_mx_edi_price_unit_umt = line.quantity * line.price_unit / line.l10n_mx_edi_qty_umt
             else:
                 line.l10n_mx_edi_price_unit_umt = line.price_unit
 
