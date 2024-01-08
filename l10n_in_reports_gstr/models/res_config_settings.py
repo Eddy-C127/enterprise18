@@ -19,11 +19,6 @@ class ResConfigSettings(models.TransientModel):
         string="Is auto refresh token",
         related="company_id.l10n_in_gstr_gst_auto_refresh_token",
         readonly=False)
-    l10n_in_gstr_gst_production_env = fields.Boolean(
-        string="Indian GST Testing Environment",
-        related="company_id.l10n_in_gstr_gst_production_env",
-        readonly=False
-    )
 
     def l10n_in_gstr_gst_send_otp(self):
         self.l10n_in_check_gst_number()

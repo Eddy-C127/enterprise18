@@ -1717,7 +1717,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 'dbuuid': self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
             }
         )
-        default_endpoint = DEFAULT_IAP_ENDPOINT if company.sudo().l10n_in_gstr_gst_production_env else DEFAULT_IAP_TEST_ENDPOINT
+        default_endpoint = DEFAULT_IAP_ENDPOINT if company.sudo().l10n_in_edi_production_env else DEFAULT_IAP_TEST_ENDPOINT
         endpoint = self.env["ir.config_parameter"].sudo().get_param("l10n_in_reports_gstr.endpoint", default_endpoint)
         url = "%s%s" % (endpoint, url)
         try:
