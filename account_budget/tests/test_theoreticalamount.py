@@ -12,13 +12,7 @@ class TestTheoreticalAmount(TestAccountBudgetCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        
-        cls.budget_post = cls.env['account.budget.post'].create({
-            'name': 'Sales',
-            'account_ids': [(4, cls.copy_account(cls.company_data['default_account_revenue']).id)],
-        })
-
-        cls.crossovered_budget = cls.env['crossovered.budget'].create({
+        cls.budget_analytic = cls.env['budget.analytic'].create({
             'name': 'test budget name',
             'date_from': '2018-01-01',
             'date_to': '2018-12-31',
@@ -30,47 +24,29 @@ class TestTheoreticalAmount(TestAccountBudgetCommon):
             budget_line.invalidate_model(['theoritical_amount'])
 
     def test_aggregates(self):
-        model = self.env['crossovered.budget.lines']
-        field_names = ['practical_amount', 'theoritical_amount', 'percentage']
+        model = self.env['budget.line']
+        field_names = ['achieved_amount', 'theoritical_amount', 'theoritical_percentage']
         self.assertEqual(
             model.fields_get(field_names, ['aggregator']),
             {
-                'practical_amount': {'aggregator': 'sum'},
+                'achieved_amount': {'aggregator': 'sum'},
                 'theoritical_amount': {'aggregator': 'sum'},
-                'percentage': {'aggregator': 'avg'}
+                'theoritical_percentage': {'aggregator': 'avg'}
             },
             f"Fields {', '.join(map(repr, field_names))} must be flagged as aggregatable.",
         )
 
-    def test_theoritical_amount_without_paid_date(self):
-        line = self.env['crossovered.budget.lines'].create({
-            'crossovered_budget_id': self.crossovered_budget.id,
-            'general_budget_id': self.budget_post.id,
+    def test_theoritical_amount(self):
+        line = self.env['budget.line'].create({
+            'budget_analytic_id': self.budget_analytic.id,
             'date_from': '2018-01-01',
             'date_to': '2018-12-31',
-            'planned_amount': -365,
+            'budget_amount': 365,
         })
 
-        self.assertTheoricalAmountAt(line, '2018-01-01', -1.0)
-        self.assertTheoricalAmountAt(line, '2018-01-02', -2.0)
-        self.assertTheoricalAmountAt(line, '2018-01-03', -3.0)
-        self.assertTheoricalAmountAt(line, '2018-01-11', -11.0)
-        self.assertTheoricalAmountAt(line, '2018-02-20', -51.0)
-        self.assertTheoricalAmountAt(line, '2018-12-31', -365.0)
-
-    def test_theoritical_amount_with_paid_date(self):
-        paid_date_line = self.env['crossovered.budget.lines'].create({
-            'crossovered_budget_id': self.crossovered_budget.id,
-            'general_budget_id': self.budget_post.id,
-            'date_from': '2018-01-01',
-            'date_to': '2018-12-31',
-            'planned_amount': -365,
-            'paid_date':  '2018-09-09',
-        })
-
-        self.assertTheoricalAmountAt(paid_date_line, '2018-01-01', 0.0)
-        self.assertTheoricalAmountAt(paid_date_line, '2018-01-02', 0.0)
-        self.assertTheoricalAmountAt(paid_date_line, '2018-09-08', 0.0)
-        self.assertTheoricalAmountAt(paid_date_line, '2018-09-09', 0.0)
-        self.assertTheoricalAmountAt(paid_date_line, '2018-09-10', -365.0)
-        self.assertTheoricalAmountAt(paid_date_line, '2018-12-31', -365.0)
+        self.assertTheoricalAmountAt(line, '2018-01-01', 1.0)
+        self.assertTheoricalAmountAt(line, '2018-01-02', 2.0)
+        self.assertTheoricalAmountAt(line, '2018-01-03', 3.0)
+        self.assertTheoricalAmountAt(line, '2018-01-11', 11.0)
+        self.assertTheoricalAmountAt(line, '2018-02-20', 51.0)
+        self.assertTheoricalAmountAt(line, '2018-12-31', 365.0)

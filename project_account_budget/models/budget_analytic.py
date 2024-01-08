@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, models
 
 
-class CrossoveredBudget(models.Model):
-    _inherit = 'crossovered.budget'
+class BudgetAnalytic(models.Model):
+    _inherit = 'budget.analytic'
 
     @api.model_create_multi
     def create(self, vals_list):

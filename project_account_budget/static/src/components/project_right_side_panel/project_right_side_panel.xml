@@ -24,18 +24,18 @@
                 <table t-else="" class="table table-sm table-striped table-hover mb-0">
                     <thead class="bg-100 align-middle">
                         <tr>
-                            <th>Budgetary Positions</th>
+                            <th>Budget</th>
                             <th class="text-end">Allocated</th>
                             <th class="text-end">Spent</th>
                             <th class="text-end">Remaining</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <t t-foreach="state.data.budget_items.data" t-as="budgetary_position" t-key="budgetary_position.id">
+                        <t t-foreach="state.data.budget_items.data" t-as="budget_item" t-key="budget_item.id">
                             <tr>
                                 <td>
-                                    <a t-if="budgetary_position.action" class="o_rightpanel_button"
-                                        t-on-click="() => this.onProjectActionClick(budgetary_position.action)"
+                                    <a t-if="budget_item.action" class="o_rightpanel_button"
+                                        t-on-click="() => this.onProjectActionClick(budget_item.action)"
                                     >
                                         <t t-call="project_account_budget.BudgetName"/>
                                     </a>
@@ -43,14 +43,14 @@
                                         <t t-call="project_account_budget.BudgetName"/>
                                     </t>
                                 </td>
-                                <td class="text-end align-middle" t-att-class="budgetary_position.allocated === 0 ? 'text-500' : ''"><t t-out="formatMonetary(budgetary_position.allocated)"/></td>
-                                <td class="text-end align-middle" t-att-class="budgetary_position.spent === 0 ? 'text-500' : ''"><t t-out="formatMonetary(budgetary_position.spent)"/></td>
-                                <t t-set="budget_remaining" t-value="budgetary_position.allocated - budgetary_position.spent"/>
-                                <td class="text-end align-middle" t-attf-class="text-bold text-{{ budgetary_position.progress &gt;= 0.25 ? 'success' : budgetary_position.progress &gt;= 0 ? 'warning' : 'danger' }}">
+                                <td class="text-end align-middle" t-att-class="budget_item.allocated === 0 ? 'text-500' : ''"><t t-out="formatMonetary(budget_item.allocated)"/></td>
+                                <td class="text-end align-middle" t-att-class="budget_item.spent === 0 ? 'text-500' : ''"><t t-out="formatMonetary(budget_item.spent)"/></td>
+                                <t t-set="budget_remaining" t-value="budget_item.allocated - budget_item.spent"/>
+                                <td class="text-end align-middle" t-attf-class="text-bold text-{{ budget_item.progress &gt;= 0.25 ? 'success' : budget_item.progress &gt;= 0 ? 'warning' : 'danger' }}">
                                     <t t-out="formatMonetary(budget_remaining)"/>
                                 </td>
                             </tr>
-                            <t t-foreach="budgetary_position['budgets']" t-as="budget" t-key="budget.id">
+                            <t t-foreach="budget_item['budgets']" t-as="budget" t-key="budget.id">
                                 <tr>
                                     <td><span class="ms-3"><small t-out="budget.name"/></span></td>
                                     <td class="text-end align-middle" t-att-class="budget.allocated === 0 ? 'text-500' : ''"><small t-out="formatMonetary(budget.allocated)"/></td>
@@ -80,11 +80,11 @@
     </t>
 
     <t t-name="project_account_budget.BudgetName">
-        <t t-if="budgetary_position.name">
-            <t t-out="budgetary_position.name"/>
+        <t t-if="budget_item.name">
+            <t t-out="budget_item.name"/>
         </t>
         <t t-else="">
-            <i>No Budgetary Position</i>
+            <i>No Budget</i>
         </t>
     </t>
 

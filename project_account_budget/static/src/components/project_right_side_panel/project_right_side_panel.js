@@ -26,7 +26,7 @@ patch(ProjectRightSidePanel.prototype, {
         this.openFormViewDialog({
             context,
             title: _t('New Budget'),
-            resModel: 'crossovered.budget',
+            resModel: 'budget.analytic',
             onRecordSaved: async () => {
                 await this.loadBudgets();
             },

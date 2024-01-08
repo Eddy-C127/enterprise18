@@ -3,63 +3,48 @@
 from collections import defaultdict
 import json
 
-from odoo import api, fields, models, _
+from odoo import fields, models, _
 from odoo.osv import expression
+
 
 class Project(models.Model):
     _inherit = "project.project"
 
-    total_planned_amount = fields.Monetary(compute="_compute_total_planned_amount", export_string_translation=False)
-    total_practical_amount = fields.Monetary(related='analytic_account_id.total_practical_amount', export_string_translation=False)
-    total_budget_progress = fields.Monetary("Budget Spent", compute="_compute_total_budget_progress", export_string_translation=False)
-    budget = fields.Integer('Total planned amount', compute='_compute_budget', default=0, export_string_translation=False)
+    total_budget_amount = fields.Monetary('Total planned amount', compute='_compute_budget', default=0, export_string_translation=False)
+    total_budget_progress = fields.Float("Budget Spent", compute="_compute_budget", export_string_translation=False)
 
-    @api.depends('analytic_account_id')
     def _compute_budget(self):
-        budget_items = self.env['crossovered.budget.lines'].sudo()._read_group([
-            ('analytic_account_id', 'in', self.analytic_account_id.ids),
-        ], ['analytic_account_id'], ['planned_amount:sum'])
-        budget_items_by_account_analytic = {analytic_account.id: planned_amount_sum for analytic_account, planned_amount_sum in budget_items}
-        for project in self:
-            project.budget = budget_items_by_account_analytic.get(project.analytic_account_id.id, 0.0)
-
-    def _compute_total_planned_amount(self):
-        budget_read_group = self.env['crossovered.budget.lines'].sudo()._read_group(
+        budget_items = self.env['budget.line'].sudo()._read_group(
             [
-                ('crossovered_budget_id.state', 'not in', ['draft', 'cancel']),
-                ('analytic_account_id', 'in', self.analytic_account_id.ids)
+                ('account_id', 'in', self.analytic_account_id.ids),
             ],
-            ['analytic_account_id'],
-            ['planned_amount:sum'],
+            groupby=['account_id'],
+            aggregates=['budget_amount:sum', 'achieved_amount:sum'],
         )
-        planned_amount_per_account_id = {
-            analytic_account.id: planned_amount_sum
-            for analytic_account, planned_amount_sum in budget_read_group
-        }
+        budget_items_by_account_analytic = {}
+        for analytic_account, budget_amount_sum, achieved_amount_sum in budget_items:
+            budget_items_by_account_analytic[analytic_account.id] = {
+                'budget_amount': budget_amount_sum,
+                'achieved_amount': achieved_amount_sum,
+            }
         for project in self:
-            project.total_planned_amount = planned_amount_per_account_id.get(project.analytic_account_id.id, 0)
-
-    @api.depends('total_practical_amount', 'total_planned_amount')
-    def _compute_total_budget_progress(self):
-        for project in self:
-            project.total_budget_progress = project.total_planned_amount and\
-                (project.total_practical_amount - project.total_planned_amount) / abs(project.total_planned_amount)
+            total_budget_amount = budget_items_by_account_analytic.get(project.analytic_account_id.id, {}).get('budget_amount', 0.0)
+            total_achieved_amount = budget_items_by_account_analytic.get(project.analytic_account_id.id, {}).get('achieved_amount', 0.0)
+            project.total_budget_progress = total_budget_amount and (total_achieved_amount - total_budget_amount) / total_budget_amount
+            project.total_budget_amount = total_budget_amount
 
     def action_view_budget_lines(self, domain=None):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "res_model": "crossovered.budget.lines",
+            "res_model": "budget.line",
             "domain": expression.AND([
-                [('analytic_account_id', '=', self.analytic_account_id.id), ('crossovered_budget_id.state', 'not in', ['draft', 'cancel'])],
+                [('account_id', '=', self.analytic_account_id.id), ('budget_analytic_id.state', 'not in', ['draft', 'cancel'])],
                 domain or [],
             ]),
             'context': {'create': False, 'edit': False},
             "name": _("Budget Items"),
             'view_mode': 'tree',
-            'views': [
-                [self.env.ref('project_account_budget.crossovered_budget_lines_view_tree_inherit').id, 'tree']
-            ]
         }
 
     # ----------------------------
@@ -82,18 +67,18 @@ class Project(models.Model):
         self.ensure_one()
         if not self.analytic_account_id:
             return
-        budget_lines = self.env['crossovered.budget.lines'].sudo()._read_group(
+        budget_lines = self.env['budget.line'].sudo()._read_group(
             [
-                ('analytic_account_id', '=', self.analytic_account_id.id),
-                ('crossovered_budget_id', '!=', False),
-                ('crossovered_budget_id.state', 'not in', ['draft', 'cancel']),
+                ('account_id', '=', self.analytic_account_id.id),
+                ('budget_analytic_id', '!=', False),
+                ('budget_analytic_id.state', 'not in', ['draft', 'cancel']),
             ],
-            ['general_budget_id', 'crossovered_budget_id', 'company_id'],
-            ['planned_amount:sum', 'practical_amount:sum', 'id:array_agg'],
+            ['budget_analytic_id', 'company_id'],
+            ['budget_amount:sum', 'achieved_amount:sum', 'id:array_agg'],
         )
         has_company_access = False
         for line in budget_lines:
-            if line[2].id in self.env.context.get('allowed_company_ids', []):
+            if line[1].id in self.env.context.get('allowed_company_ids', []):
                 has_company_access = True
                 break
         total_allocated = total_spent = 0.0
@@ -112,10 +97,10 @@ class Project(models.Model):
             }
         )
 
-        for general_budget, crossovered_budget, dummy, allocated, spent, ids in budget_lines:
-            budget_data = budget_data_per_budget[general_budget]
-            budget_data['id'] = general_budget.id
-            budget_data['name'] = general_budget.display_name
+        for budget_analytic, dummy, allocated, spent, ids in budget_lines:
+            budget_data = budget_data_per_budget[budget_analytic]
+            budget_data['id'] = budget_analytic.id
+            budget_data['name'] = budget_analytic.display_name
             budget_data['allocated'] += allocated
             budget_data['spent'] += spent
             total_allocated += allocated
@@ -123,8 +108,8 @@ class Project(models.Model):
 
             if can_see_budget_items:
                 budget_item = {
-                    'id': crossovered_budget.id,
-                    'name': crossovered_budget.display_name,
+                    'id': budget_analytic.id,
+                    'name': budget_analytic.display_name,
                     'allocated': allocated,
                     'spent': spent,
                     'progress': allocated and (spent - allocated) / abs(allocated),
@@ -157,6 +142,6 @@ class Project(models.Model):
             'can_add_budget': can_add_budget,
         }
         if can_add_budget:
-            budget_items['form_view_id'] = self.env.ref('project_account_budget.crossovered_budget_view_form_dialog').id
+            budget_items['form_view_id'] = self.env.ref('project_account_budget.view_budget_analytic_form_dialog').id
             budget_items['company_id'] = self.company_id.id or self.env.company.id
         return budget_items
