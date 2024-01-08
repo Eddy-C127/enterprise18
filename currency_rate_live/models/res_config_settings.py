@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-from lxml import etree
-from dateutil.relativedelta import relativedelta
-import re
 import logging
-from pytz import timezone
-from urllib.parse import urlencode, quote
+import re
+from itertools import islice
+from urllib.parse import quote, urlencode
 
 import requests
+from dateutil.relativedelta import relativedelta
+from lxml import etree
+from pytz import timezone
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools.translate import _
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from odoo.addons.account.tools import LegacyHTTPAdapter
+from odoo.exceptions import UserError
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+from odoo.tools.translate import _
 
 BANXICO_DATE_FORMAT = '%d/%m/%Y'
 CBUAE_URL = "https://centralbank.ae/umbraco/Surface/Exchange/GetExchangeRateAllCurrency"
@@ -138,6 +139,7 @@ CURRENCY_PROVIDER_SELECTION = [
     ([], 'ecb', 'European Central Bank'),
     (['IN'], 'xe_com', 'xe.com'),
     (['AE'], 'cbuae', '[AE] Central Bank of the UAE'),
+    (['BG'], 'bnb', '[BG] Bulgaria National Bank'),
     (['BR'], 'bbr', '[BR] Central Bank of Brazil'),
     (['CA'], 'boc', '[CA] Bank of Canada'),
     (['CH'], 'fta', '[CH] Federal Tax Administration of Switzerland'),
@@ -853,6 +855,39 @@ class ResCompany(models.Model):
         if rslt and 'CZK' in available_currency_names:
             rslt['CZK'] = (1.0, last_update)
         return rslt
+
+    def _parse_bnb_data(self, available_currencies):
+        """ This method is used to update the currencies by using BNB (Bulgaria National Bank) service API.
+            Rates are given against BGN in an XML file.
+            Source: https://www.bnb.bg/AboutUs/AUFAQ/Contr_Exchange_Rates_FAQ?toLang=_EN
+
+            If a currency has no rate, it will be skipped.
+        """
+        request_url = "https://www.bnb.bg/Statistics/StExternalSector/StExchangeRates/StERForeignCurrencies/index.htm?download=xml&search=&lang=EN"
+
+        try:
+            response = requests.get(request_url, timeout=10)
+            response.raise_for_status()
+            rowset = etree.fromstring(response.content)
+        except (requests.RequestException, etree.ParseError):
+            # connection error, the request wasn't successful or the content could not be parsed
+            return False
+
+        available_currency_names = available_currencies.mapped('name')
+        result = {}
+
+        # Skip the first ROW node that does not contain currency information
+        for row in islice(rowset.iterfind('.//ROW'), 1, None):
+            code = row.findtext('CODE')
+            rate = row.findtext('REVERSERATE')
+            curr_date = datetime.datetime.strptime(row.findtext('CURR_DATE'), '%d.%m.%Y').date()
+
+            if code in available_currency_names and rate:
+                result[code] = (float(rate), curr_date)
+
+        if result and 'BGN' in available_currency_names:
+            result['BGN'] = (1.0, curr_date)
+        return result
 
     @api.model
     def run_update_currency(self):
