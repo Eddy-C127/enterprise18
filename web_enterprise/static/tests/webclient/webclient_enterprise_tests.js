@@ -6,6 +6,7 @@ import {
     editInput,
     getFixture,
     nextTick,
+    setBrowserLocation,
     patchWithCleanup,
     mount,
 } from "@web/../tests/helpers/utils";
@@ -542,7 +543,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
 
     QUnit.test("initial action crashes", async (assert) => {
         assert.expectErrors();
-        browser.location.hash = "#action=__test__client__action__&menu_id=1";
+        await setBrowserLocation({ hash: "#action=__test__client__action__&menu_id=1" });
         const ClientAction = registry.category("actions").get("__test__client__action__");
         class Override extends ClientAction {
             setup() {
