@@ -21,8 +21,8 @@ from ..models.account_invoice import OCR_VERSION
 class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.user.groups_id |= cls.env.ref('base.group_system')
 
@@ -649,7 +649,7 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
                 'user_company_VAT': invoice.company_id.vat,
                 'user_company_country_code': invoice.company_id.country_id.code,
                 'user_company_name': invoice.company_id.name,
-                'user_email': self.user.email,
+                'user_email': self.env.user.email,
                 'user_lang': self.env.ref('base.user_root').lang,
             },
             'webhook_url': f'{invoice.get_base_url()}/account_invoice_extract/request_done',

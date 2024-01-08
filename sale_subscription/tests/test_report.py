@@ -7,6 +7,12 @@ from odoo.tests import tagged
 @tagged('post_install', '-at_install')
 class TestSubscription(TestSubscriptionCommon):
 
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.other_currency = cls.setup_other_currency('CAD')
+        cls.company_data_2 = cls.setup_other_company()
+
     def test_report_multi_currency(self):
         sub_a = self.subscription.create({
             'name': 'Company1 - Currency1',
@@ -34,9 +40,9 @@ class TestSubscription(TestSubscriptionCommon):
             })]
         })
         sub_b.write({
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
         })
-        self.currency_data['currency'].write({
+        self.other_currency.write({
             'rate_ids': [(0, 0, {
                 'rate': 2,
             })]
@@ -97,9 +103,9 @@ class TestSubscription(TestSubscriptionCommon):
             })]
         })
         sub_c.write({
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
         })
-        self.currency_data['currency'].write({
+        self.other_currency.write({
             'rate_ids': [(0, 0, {
                 'rate': 2,
                 'company_id': self.company_data_2['company'].id,

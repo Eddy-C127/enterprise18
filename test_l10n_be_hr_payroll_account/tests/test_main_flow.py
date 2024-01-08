@@ -36,8 +36,8 @@ def additional_groups(user, groups):
 class TestHR(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.user = cls.create_user_employee(login='fgh', groups='sign.group_sign_user')
         cls.user_leave_team_leader = cls.create_user_employee(login='sef', groups='base.group_user')
         cls.user.employee_id.leave_manager_id = cls.user_leave_team_leader

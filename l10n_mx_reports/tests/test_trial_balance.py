@@ -10,10 +10,10 @@ from odoo.exceptions import RedirectWarning
 class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('mx')
+    def setUpClass(cls):
+        super().setUpClass()
 
-        cls.company_data['company'].country_id = cls.env.ref('base.mx')
         cls.company_data['company'].vat = 'EKU9003173C9'
 
         # Entries in 2020 to test initial balance
@@ -67,12 +67,6 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
         (cls.move_2021_01 + cls.move_2021_02).action_post()
 
         cls.report = cls.env.ref('account_reports.trial_balance_report')
-
-    @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        # OVERRIDE account
-        mx_country_id = cls.env.ref('base.mx').id
-        return super().setup_company_data(company_name, chart_template=chart_template, country_id=mx_country_id, **kwargs)
 
     def test_generate_coa_xml(self):
         """ This test will generate a COA report and verify that every

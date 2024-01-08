@@ -20,8 +20,8 @@ class TestSubscriptionCommon(TestSaleCommon):
         self.patch(SO, '_subscription_launch_cron_parallel', _subscription_launch_cron_single)
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.ref('base.main_company').currency_id = cls.env.ref('base.USD')
 

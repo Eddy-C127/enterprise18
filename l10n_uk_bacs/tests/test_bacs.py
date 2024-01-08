@@ -15,8 +15,9 @@ import base64
 class TestBACS(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env.user.groups_id |= cls.env.ref('account.group_validate_bank_account')
         cls.env.ref('base.GBP').active = True
 
         cls.bank_barclays = cls.env['res.bank'].create({

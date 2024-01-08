@@ -10,8 +10,9 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 class TestDiot(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('mx')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env.companies.tax_exigibility = True
         cls.env.companies.totals_below_sections = True  # TODO should be automatic
 

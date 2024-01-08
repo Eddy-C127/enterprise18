@@ -10,8 +10,8 @@ from odoo.tests import tagged, Form
 class TestReleaseToPayInvoice(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.partner = cls.env['res.partner'].create({'name': 'Zizizapartner'})
         cls.product = cls.env['product.product'].create({

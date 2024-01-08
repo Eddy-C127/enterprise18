@@ -11,8 +11,8 @@ from odoo.tests import tagged
 class TestL10AccountMoveReversal(TestL10nClEdiCommon):
     @classmethod
     @patch('odoo.tools.xml_utils._check_with_xsd', _check_with_xsd_patch)
-    def setUpClass(cls, chart_template_ref='cl'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.invoice = cls.env['account.move'].with_context(default_move_type='out_invoice').create({
             'partner_id': cls.partner_sii.id,

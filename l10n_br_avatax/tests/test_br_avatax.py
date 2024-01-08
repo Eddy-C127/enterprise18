@@ -20,8 +20,9 @@ DUMMY_SANDBOX_KEY = "DUMMY_KEY"
 @tagged('post_install_l10n', '-at_install', 'post_install')
 class TestAvalaraBrCommon(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref='br'):
-        res = super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountTestInvoicingCommon.setup_country('br')
+    def setUpClass(cls):
+        res = super().setUpClass()
         cls._setup_credentials()
 
         cls.fp_avatax = cls.env['account.fiscal.position'].create({

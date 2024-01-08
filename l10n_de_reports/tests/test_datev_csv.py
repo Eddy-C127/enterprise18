@@ -12,8 +12,9 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestDatevCSV(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref='de_skr03')
+    @AccountTestInvoicingCommon.setup_chart_template('de_skr03')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.account_3400 = cls.env['account.account'].search([
             ('code', '=', 3400),

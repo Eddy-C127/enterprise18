@@ -9,15 +9,14 @@ from odoo.tests import tagged
 class TestDeferredFleet(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.expense_accounts = [cls.env['account.account'].create({
             'name': f'Expense {i}',
             'code': f'EXP{i}',
             'account_type': 'expense',
         }) for i in range(3)]
 
-        cls.company = cls.company_data['company']
         cls.company.deferred_journal_id = cls.company_data['default_journal_misc'].id
         cls.company.deferred_expense_account_id = cls.company_data['default_account_deferred_expense'].id
 

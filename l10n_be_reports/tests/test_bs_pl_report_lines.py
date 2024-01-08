@@ -7,10 +7,12 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 class TestBsPlReportLines(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.setup_company_data('BE Company', 'be_comp')
-        cls.setup_company_data('BE Association', 'be_asso')
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.chart_template_ref = 'be_comp'
+        cls.setup_other_company(name='BE Company')
+        cls.chart_template_ref = 'be_asso'
+        cls.setup_other_company(name='BE Association')
 
     def test_similar_lines_balance_sheet(self):
         bs_versions = ('comp_acon', 'comp_acap', 'comp_fcon', 'comp_fcap', 'asso_a', 'asso_f')

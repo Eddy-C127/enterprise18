@@ -23,10 +23,10 @@ class BulgarianTaxReportTest(TestAccountReportsCommon):
         81 or 82. At that point, everything starts over for a period of 3 months.
     """
     @classmethod
-    def setUpClass(cls, chart_template_ref="bg"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('bg')
+    def setUpClass(cls):
+        super().setUpClass()
 
-        cls.company_data['company'].country_id = cls.env.ref('base.bg')
         cls.report = cls.env.ref('l10n_bg.l10n_bg_tax_report')
 
         cls.account_453100 = cls.env['account.account'].search([('code', '=like', '4531%')], limit=1)

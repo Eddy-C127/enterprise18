@@ -6,8 +6,8 @@ from odoo.exceptions import UserError
 @tagged("-at_install", "post_install")
 class TestAvataxUniqueCode(TestAccountAvataxCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        res = super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        res = super().setUpClass()
         cls.partner_1 = cls.env["res.partner"].create({"name": "partner bob"})
         cls.partner_2 = cls.env["res.partner"].create({"name": "partner alice"})
         return res

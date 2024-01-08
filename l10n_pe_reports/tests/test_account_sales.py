@@ -7,10 +7,10 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 @tagged("post_install", "post_install_l10n", "-at_install")
 class TestPeSales(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref="pe"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('pe')
+    def setUpClass(cls):
+        super().setUpClass()
 
-        cls.company_data["company"].country_id = cls.env.ref("base.pe")
         cls.company_data["company"].vat = "20512528458"
         cls.partner_a.write({"country_id": cls.env.ref("base.pe").id, "vat": "20557912879", "l10n_latam_identification_type_id": cls.env.ref("l10n_pe.it_RUC").id})
         cls.partner_b.write({"country_id": cls.env.ref("base.pe").id, "vat": "20557912879", "l10n_latam_identification_type_id": cls.env.ref("l10n_pe.it_RUC").id})

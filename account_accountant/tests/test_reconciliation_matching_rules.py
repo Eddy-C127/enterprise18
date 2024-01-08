@@ -11,20 +11,14 @@ from odoo import Command
 class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         #################
         # Company setup #
         #################
-        cls.currency_data_2 = cls.setup_multi_currency_data({
-            'name': 'Dark Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Dark Choco',
-            'currency_subunit_label': 'Dark Cacao Powder',
-        }, rate2016=10.0, rate2017=20.0)
-
-        cls.company = cls.company_data['company']
+        cls.other_currency = cls.setup_other_currency('EUR')
+        cls.other_currency_2 = cls.setup_other_currency('CAD', rates=[('2016-01-01', 10.0), ('2017-01-01', 20.0)])
 
         cls.account_pay = cls.company_data['default_account_payable']
         cls.current_assets_account = cls.env['account.account'].search([
@@ -881,7 +875,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
             'name': 'test_match_multi_currencies',
             'code': 'xxxx',
             'type': 'bank',
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
         })
 
         matching_rule = self.env['account.reconcile.model'].create({
@@ -902,7 +896,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
             'date': '2016-01-01',
             'payment_ref': 'line',
             'partner_id': partner.id,
-            'foreign_currency_id': self.currency_data_2['currency'].id,
+            'foreign_currency_id': self.other_currency_2.id,
             'amount': 300.0,  # Rate is 3 GOL = 1 USD in 2016.
             'amount_currency': 900.0,  # Rate is 10 DAR = 1 USD in 2016 but the rate used by the bank is 9:1.
         })
@@ -917,7 +911,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
                 (0, 0, {
                     'account_id': self.company_data['default_account_receivable'].id,
                     'partner_id': partner.id,
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'debit': 100.0,
                     'credit': 0.0,
                     'amount_currency': 200.0,
@@ -926,7 +920,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
                 (0, 0, {
                     'account_id': self.company_data['default_account_receivable'].id,
                     'partner_id': partner.id,
-                    'currency_id': self.currency_data_2['currency'].id,
+                    'currency_id': self.other_currency_2.id,
                     'debit': 14.0,
                     'credit': 0.0,
                     'amount_currency': 280.0,
@@ -951,7 +945,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
     @freeze_time('2020-01-01')
     def test_matching_with_write_off_foreign_currency(self):
         journal_foreign_curr = self.company_data['default_journal_bank'].copy()
-        journal_foreign_curr.currency_id = self.currency_data['currency']
+        journal_foreign_curr.currency_id = self.other_currency
 
         reco_model = self._create_reconcile_model(
             auto_reconcile=True,
@@ -1217,12 +1211,12 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
 
         # Create bank statement in foreign currency
         partner = self.env['res.partner'].create({'name': 'Bernard Gagnant'})
-        invoice_line = self._create_invoice_line(300, partner, 'out_invoice', currency=self.currency_data_2['currency'])
+        invoice_line = self._create_invoice_line(300, partner, 'out_invoice', currency=self.other_currency_2)
         bank_line_2 = self.env['account.bank.statement.line'].create({
             'journal_id': self.bank_journal.id,
             'partner_id': False,
             'payment_ref': False,
-            'foreign_currency_id': self.currency_data_2['currency'].id,
+            'foreign_currency_id': self.other_currency_2.id,
             'amount': 15.0,
             'amount_currency': 300.0,
         })
@@ -1267,7 +1261,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
             })
 
         with self.subTest(test='multi_currencies'):
-            foreign_curr = self.currency_data_2['currency']
+            foreign_curr = self.other_currency_2
             invl = self._create_invoice_line(300, self.partner_1, 'out_invoice', currency=foreign_curr)
             st_line = self._create_st_line(
                 amount=15.0, foreign_currency_id=foreign_curr.id, amount_currency=300.0,

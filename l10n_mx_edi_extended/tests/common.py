@@ -6,8 +6,8 @@ from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon
 class TestMxExtendedEdiCommon(TestMxEdiCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env.company.write({
             'street': "Campobasso Sur 3201 - 9001",
             'state_id': cls.env.ref('base.state_mx_ags').id,

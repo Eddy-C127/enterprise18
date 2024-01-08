@@ -17,8 +17,9 @@ class TestRoSaftReport(TestAccountReportsCommon):
     """
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='ro'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('ro')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data['company'].write({
             'name': 'Romanian Company',
@@ -27,7 +28,6 @@ class TestRoSaftReport(TestAccountReportsCommon):
             'vat': 'RO1234567897',
             'company_registry': '1234567897',
             'phone': '+40 723545439',
-            'country_id': cls.env.ref('base.ro').id,
             'account_storno': True,
             'l10n_ro_saft_tax_accounting_basis': 'A',
         })
@@ -71,13 +71,7 @@ class TestRoSaftReport(TestAccountReportsCommon):
             'currency_id': cls.env.ref('base.RON').id,
         })
 
-        cls.env.ref('base.EUR').active = True
-        cls.env['res.currency.rate'].search([]).unlink()
-        cls.env['res.currency.rate'].create({
-            'name': '2023-01-01',
-            'rate': 0.2,
-            'currency_id': cls.env.ref('base.EUR').id,
-        })
+        cls.setup_other_currency('EUR', rates=[('2023-01-01', 0.2)])
 
         cls.product_a.write({
             'default_code': 'PA',

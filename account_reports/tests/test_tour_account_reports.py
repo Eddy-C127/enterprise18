@@ -11,8 +11,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
 class TestTourAccountReports(AccountTestInvoicingHttpCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         with freeze_time('2020-01-01'):
             today = fields.Date.today()

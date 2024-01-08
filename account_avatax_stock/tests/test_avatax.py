@@ -7,8 +7,8 @@ class TestAccountAvalaraStock(TestAccountAvataxCommon):
     """https://developer.avalara.com/certification/avatax/sales-tax-badge/"""
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        res = super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        res = super().setUpClass()
         cls.shipping_partner = cls.env["res.partner"].create({
             'name': "Shipping Partner",
             'street': "234 W 18th Ave",

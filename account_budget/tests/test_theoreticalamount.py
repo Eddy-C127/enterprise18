@@ -10,8 +10,8 @@ from freezegun import freeze_time
 class TestTheoreticalAmount(TestAccountBudgetCommon):
     
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         
         cls.budget_post = cls.env['account.budget.post'].create({
             'name': 'Sales',

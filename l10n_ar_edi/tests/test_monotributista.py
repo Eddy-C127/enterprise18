@@ -7,20 +7,21 @@ from . import common
 class TestMono(common.TestEdi):
 
     @classmethod
-    def setUpClass(cls, afip_ws):
+    def setUpClass(cls):
         # Issue ['C', 'E'] and  Receive ['B', 'C', 'I']
-        super(TestMono, cls).setUpClass(afip_ws)
+        super().setUpClass()
         # Login in "Monotributista" Company
         cls.env.user.write({'company_id': cls.company_mono.id})
-        cls._create_afip_connections(cls, cls.company_mono, afip_ws, 'test_cert2.crt')
+        cls._create_afip_connections(cls, cls.company_mono, cls.afip_ws, 'test_cert2.crt')
 
 
 @tagged('fe', 'mono', 'external_l10n', '-at_install', 'post_install', '-standard', 'external')
 class TestFE(TestMono):
 
     @classmethod
+    @common.TestEdi.setup_afip_ws('wsfe')
     def setUpClass(cls):
-        super(TestFE, cls).setUpClass('wsfe')
+        super().setUpClass()
         cls.partner = cls.res_partner_adhoc
         cls.journal = cls._create_journal(cls, 'wsfe')
         cls.document_type.update({
@@ -67,37 +68,3 @@ class TestFE(TestMono):
     def test_09_credit_note_c_product_service(self):
         invoice = self._test_case('invoice_c', 'product_service')
         self._test_case_credit_note('credit_note_c', invoice)
-
-
-# @tagged('fe', 'mono', 'external_l10n', '-at_install', 'post_install', '-standard', 'external')
-# class TestMiPyME(TestMono):
-
-#     @classmethod
-#     def setUpClass(cls):
-#         super(TestMiPyME, cls).setUpClass('wsfe')
-#         cls.partner = cls.res_partner_adhoc
-#         cls.journal = cls._create_journal(cls, 'wsfe')
-#         cls.document_type.update({
-#             'invoice_mipyme_c': cls.env.ref('l10n_ar.dc_fce_c_f')})
-
-#     def test_10_invoice_mipyme_c_product(self):
-#         self._test_case('invoice_mipyme_c', 'product')
-
-#     def test_11_invoice_mipyme_c_service(self):
-#         self._test_case('invoice_mipyme_c', 'service')
-
-#     def test_12_invoice_mipyme_c_product_service(self):
-#         self._test_case('invoice_mipyme_c', 'product_service')
-
-
-# @tagged('fex', 'mono', 'external_l10n', '-at_install', 'post_install', '-standard', 'external')
-# class TestFEX(common.TestFex, TestMono):
-
-#     def test_01_invoice_e_product(self):
-#         self._test_case('invoice_e', 'product')
-
-#     def test_02_invoice_e_service(self):
-#         self._test_case('invoice_e', 'service')
-
-#     def test_03_invoice_e_product_service(self):
-#         self._test_case('invoice_e', 'product_service')

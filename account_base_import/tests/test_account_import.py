@@ -13,8 +13,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestBaseImport(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         coa_file = "account_base_import/static/src/xls/coa_import.xlsx"
         journal_items_file = "account_base_import/static/src/xls/journal_items_import.xlsx"
         duplicate_journals_file = "account_base_import/static/src/xls/duplicate_journals_import.xlsx"

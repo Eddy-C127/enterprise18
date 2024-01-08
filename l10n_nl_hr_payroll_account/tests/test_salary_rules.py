@@ -12,9 +12,9 @@ from odoo.tools.float_utils import float_compare
 class TestPayslipValidation(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='nl'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company_data['company'].country_id = cls.env.ref('base.nl')
+    @AccountTestInvoicingCommon.setup_country('nl')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.user.tz = 'Europe/Amsterdam'
 

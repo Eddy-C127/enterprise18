@@ -11,8 +11,9 @@ from freezegun import freeze_time
 class TestNoSaftReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='no'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('no')
+    def setUpClass(cls):
+        super().setUpClass()
 
         (cls.partner_a + cls.partner_b).write({
             'city': 'Garnich',
@@ -26,7 +27,6 @@ class TestNoSaftReport(TestAccountReportsCommon):
             'zip': 'N-0104',
             'company_registry': '123456',
             'phone': '+47 11 11 11 11',
-            'country_id': cls.env.ref('base.no').id,
             'l10n_no_bronnoysund_number': '987654325',
         })
 

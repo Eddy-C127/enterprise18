@@ -42,8 +42,10 @@ class TestCoEdiCommon(AccountEdiTestCommon):
 
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='co', edi_format_ref='l10n_co_edi.edi_carvajal'):
-        super().setUpClass(chart_template_ref=chart_template_ref, edi_format_ref=edi_format_ref)
+    @AccountEdiTestCommon.setup_country('co')
+    @AccountEdiTestCommon.setup_edi_format('l10n_co_edi.edi_carvajal')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.frozen_today = datetime.datetime(year=2020, month=8, day=27, hour=0, minute=0, second=0, tzinfo=timezone('utc'))
 
@@ -91,17 +93,18 @@ class TestCoEdiCommon(AccountEdiTestCommon):
             'l10n_co_edi_dian_authorization_date': cls.frozen_today,
         })
 
-        cls.company_data_2['company'].write({
-            'country_id': cls.env.ref('base.co').id,
-            'phone': '(870)-931-0505',
-            'website': 'http://wwww.company_2.com',
-            'email': 'company_2@example.com',
-            'street': 'Route de Eghezée',
-            'zip': '4567',
-            'city': 'Medellín',
-            'state_id': cls.env.ref('base.state_co_02').id,
-            'vat': '213.123.432-1',
-        })
+        cls.company_data_2 = cls.setup_other_company(
+            name='company_2_data',
+            country_id=cls.env.ref('base.co').id,
+            phone='(870)-931-0505',
+            website='http://wwww.company_2.com',
+            email='company_2@example.com',
+            street='Route de Eghezée',
+            zip='4567',
+            city='Medellín',
+            state_id=cls.env.ref('base.state_co_02').id,
+            vat='213.123.432-1',
+        )
 
         cls.company_data_2['company'].partner_id.write({
             'l10n_latam_identification_type_id': cls.env.ref('l10n_co.rut').id,

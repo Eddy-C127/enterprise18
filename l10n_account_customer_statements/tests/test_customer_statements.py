@@ -11,8 +11,8 @@ from odoo.tools.misc import NON_BREAKING_SPACE
 class TestCustomerStatements(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.partner_b.write({
             'property_payment_term_id': cls.pay_terms_a.id,
             'property_supplier_payment_term_id': cls.pay_terms_a.id,

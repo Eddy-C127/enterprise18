@@ -8,9 +8,10 @@ from odoo.exceptions import ValidationError
 class TestAccountBatchPayment(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
+        cls.other_currency = cls.setup_other_currency('EUR')
         company_id = cls.company_data['default_journal_bank'].company_id
 
         cls.payment_debit_account_id = cls.copy_account(company_id.account_journal_payment_debit_account_id)
@@ -40,7 +41,7 @@ class TestAccountBatchPayment(AccountTestInvoicingCommon):
                 'partner_type': 'supplier',
                 'partner_id': self.partner_a.id,
                 'destination_account_id': self.partner_a.property_account_payable_id.id,
-                'currency_id': self.currency_data['currency'].id,
+                'currency_id': self.other_currency.id,
                 'partner_bank_id': self.partner_bank_account.id,
             })
 

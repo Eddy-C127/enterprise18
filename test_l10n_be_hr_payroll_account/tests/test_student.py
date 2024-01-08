@@ -21,10 +21,9 @@ class TestStudent(AccountTestInvoicingCommon):
         self.assertEqual(len(error), 0, '\n' + '\n'.join(error))
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-
-        cls.company_data['company'].country_id = cls.env.ref('base.be')
+    @AccountTestInvoicingCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.new_calendar = cls.env['resource.calendar'].create({
             'name': 'O h/w calendar',

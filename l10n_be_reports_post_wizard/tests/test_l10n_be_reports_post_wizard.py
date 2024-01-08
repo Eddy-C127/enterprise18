@@ -13,8 +13,16 @@ from odoo.tests import tagged
 class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company.update({
+            'vat': 'BE0477472701',
+        })
+        cls.company.partner_id.update({
+            'email': 'jsmith@mail.com',
+            'phone': '+32475123456',
+        })
 
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
@@ -32,18 +40,6 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
             'date': end_of_last_month,
             'tax_closing_end_date': end_of_last_month,
         })
-
-    @classmethod
-    def setup_company_data(cls, company_name, **kwargs):
-        res = super().setup_company_data(company_name, **kwargs)
-        res['company'].update({
-            'vat': 'BE0477472701',
-        })
-        res['company'].partner_id.update({
-            'email': 'jsmith@mail.com',
-            'phone': '+32475123456',
-        })
-        return res
 
     def test_posting_opens_wizard(self):
         ''' Test that posting the tax report opens the wizard

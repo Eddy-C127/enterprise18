@@ -13,8 +13,9 @@ class TestSLSPGeneration(TestAccountReportsCommon):
     # pylint: disable=C0326
 
     @classmethod
-    def setUpClass(cls, chart_template_ref="ph"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('ph')
+    def setUpClass(cls):
+        super().setUpClass()
 
         # Start by setting up test partners/company
 

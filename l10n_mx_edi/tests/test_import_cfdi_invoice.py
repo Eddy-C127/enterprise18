@@ -89,6 +89,8 @@ class TestImportCFDIInvoice(TestMxEdiCommon):
                 },
             },
         ]
+
+        self.product.company_id = False  # So it can be imported
         for subtest in subtests:
             xml_file = subtest['xml_file']
 

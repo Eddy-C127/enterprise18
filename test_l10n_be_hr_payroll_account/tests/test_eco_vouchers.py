@@ -12,9 +12,9 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestEcoVouchers(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company_data['company'].country_id = cls.env.ref('base.be')
+    @AccountTestInvoicingCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
 
     def test_eco_vouchers(self):
         # The reference year is 2021, so the reference period is 01/06/2020 -> 31/05/2021 (12 months)

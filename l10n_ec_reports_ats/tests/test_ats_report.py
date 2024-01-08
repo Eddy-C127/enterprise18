@@ -13,8 +13,8 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 class TestAtsReport(TestEcEdiCommon, TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='ec', edi_format_ref='l10n_ec_edi.ecuadorian_edi_format'):
-        super().setUpClass(chart_template_ref=chart_template_ref, edi_format_ref=edi_format_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         # For ATS report, the partner company must be have RUC identification type
         cls.company_data['company'].partner_id.write({'l10n_latam_identification_type_id': cls.env.ref('l10n_ec.ec_ruc').id})

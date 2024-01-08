@@ -5,9 +5,9 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 
 class AccountSalesReportCommon(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.partner_a = cls.env['res.partner'].create({
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.partner_a.write({
             'name': 'Partner A',
             'country_id': cls.env.ref('base.fr').id,
             "vat": "FR23334175221",
@@ -16,6 +16,10 @@ class AccountSalesReportCommon(TestAccountReportsCommon):
             'name': 'Partner B',
             'country_id': cls.env.ref('base.be').id,
             "vat": "BE0477472701",
+        })
+        cls.company.partner_id.update({
+            'email': 'jsmith@mail.com',
+            'phone': '+32475123456',
         })
 
     def _create_invoices(self, data, is_refund=False):

@@ -12,12 +12,12 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestSEPAFile(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company_data['company'].country_id = cls.env.ref('base.be')
+    @AccountTestInvoicingCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.company_data['company'].sepa_orgid_id = "123456789"
 
-        cls.company = cls.env.company
+        cls.env.user.groups_id |= cls.env.ref('account.group_validate_bank_account')
 
         cls.address_home = cls.env['res.partner'].create([{
             'name': "Test Employee",

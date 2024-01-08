@@ -6,8 +6,8 @@ from odoo.tests import tagged, Form
 class TestProduct(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.product = cls.env['product.product'].create({'name': 'A product'})
         cls.intrastat_code = cls.env['account.intrastat.code'].sudo().create({
             'name': 'An Intrastat Code',

@@ -10,8 +10,9 @@ from odoo import Command, fields
 class TestEvatXmlReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='no'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('no')
+    def setUpClass(cls):
+        super().setUpClass()
 
         (cls.partner_a + cls.partner_b).write({
             'city': 'Garnich',
@@ -23,7 +24,6 @@ class TestEvatXmlReport(TestAccountReportsCommon):
         cls.company_data['company'].write({
             'city': 'OSLO',
             'zip': 'N-0104',
-            'country_id': cls.env.ref('base.no').id,
             'l10n_no_bronnoysund_number': '987654325',
             'vat': 'NO072274687MVA',
         })

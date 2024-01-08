@@ -11,8 +11,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged('post_install', '-at_install')
 class TestDeferredManagement(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.expense_accounts = [cls.env['account.account'].create({
             'name': f'Expense {i}',
             'code': f'EXP{i}',
@@ -24,7 +24,6 @@ class TestDeferredManagement(AccountTestInvoicingCommon):
             'account_type': 'income',
         }) for i in range(3)]
 
-        cls.company = cls.company_data['company']
         cls.company.deferred_journal_id = cls.company_data['default_journal_misc'].id
         cls.company.deferred_expense_account_id = cls.company_data['default_account_deferred_expense'].id
         cls.company.deferred_revenue_account_id = cls.company_data['default_account_deferred_revenue'].id

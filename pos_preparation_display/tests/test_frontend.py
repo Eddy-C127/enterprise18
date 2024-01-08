@@ -8,9 +8,6 @@ import odoo.tests
 
 @odoo.tests.tagged('post_install', '-at_install')
 class TestUi(TestPointOfSaleHttpCommon):
-    @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
 
     def test_01_preparation_display(self):
 

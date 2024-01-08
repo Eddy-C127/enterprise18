@@ -12,8 +12,8 @@ from odoo import fields, Command
 class TestIntrastatReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         # Create a fictional intrastat country
         country = cls.env['res.country'].create({
             'name': 'Squamuglia',
@@ -516,7 +516,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
                 'partner_id': self.partner_a.id,
                 'invoice_date': '2016-04-01',
                 'intrastat_country_id': self.env.ref('base.be').id,
-                'currency_id': self.currency_data['currency'].id,
+                'currency_id': self.other_currency.id,
                 'invoice_line_ids': [
                     Command.create({
                         'product_id': self.spanish_rioja.id,
@@ -532,7 +532,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
                 'partner_id': self.partner_a.id,
                 'invoice_date': '2017-04-01',
                 'intrastat_country_id': self.env.ref('base.be').id,
-                'currency_id': self.currency_data['currency'].id,
+                'currency_id': self.other_currency.id,
                 'invoice_line_ids': [
                     Command.create({
                         'product_id': self.spanish_rioja.id,
@@ -548,7 +548,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
                 'partner_id': self.partner_a.id,
                 'invoice_date': '2017-05-01',
                 'intrastat_country_id': self.env.ref('base.be').id,
-                'currency_id': self.currency_data['currency'].id,
+                'currency_id': self.other_currency.id,
                 'invoice_line_ids': [
                     Command.create({
                         'product_id': self.spanish_rioja.id,

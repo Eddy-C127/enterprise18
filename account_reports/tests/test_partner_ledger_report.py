@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=C0326
-from unittest.mock import patch
-
 from .common import TestAccountReportsCommon
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests import tagged
 
 import json
@@ -13,18 +11,15 @@ import json
 @tagged('post_install', '-at_install')
 class TestPartnerLedgerReport(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.partner_category_a = cls.env['res.partner.category'].create({'name': 'partner_categ_a'})
         cls.partner_category_b = cls.env['res.partner.category'].create({'name': 'partner_categ_b'})
 
-        cls.partner_a = cls.env['res.partner'].create(
-            {'name': 'partner_a', 'company_id': False, 'category_id': [(6, 0, [cls.partner_category_a.id, cls.partner_category_b.id])]})
-        cls.partner_b = cls.env['res.partner'].create(
-            {'name': 'partner_b', 'company_id': False, 'category_id': [(6, 0, [cls.partner_category_a.id])]})
-        cls.partner_c = cls.env['res.partner'].create(
-            {'name': 'partner_c', 'company_id': False, 'category_id': [(6, 0, [cls.partner_category_b.id])]})
+        cls.partner_a.write({'category_id': [Command.set([cls.partner_category_a.id, cls.partner_category_b.id])]})
+        cls.partner_b.write({'category_id': [Command.set([cls.partner_category_a.id])]})
+        cls.partner_c = cls._create_partner(name='partner_c', category_id=[Command.set([cls.partner_category_b.id])])
 
         # Entries in 2016 for company_1 to test the initial balance.
         cls.move_2016_1 = cls.env['account.move'].create({

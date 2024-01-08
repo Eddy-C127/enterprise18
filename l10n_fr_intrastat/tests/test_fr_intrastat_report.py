@@ -12,9 +12,9 @@ from freezegun import freeze_time
 class TestFRIntrastatReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='fr'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company_data['company'].country_id = cls.env.ref('base.fr')
+    @TestAccountReportsCommon.setup_country('fr')
+    def setUpClass(cls):
+        super().setUpClass()
         italy = cls.env.ref('base.it')
         cls.company_data['company'].write({
             'vat': 'FR23334175221',

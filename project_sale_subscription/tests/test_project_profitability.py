@@ -11,11 +11,11 @@ from odoo.addons.sale_subscription.tests.common_sale_subscription import TestSub
 
 
 @tagged('-at_install', 'post_install')
-class TestSaleSubscriptionProjectProfitability(TestSubscriptionCommon, TestProjectProfitabilityCommon):
+class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, TestSubscriptionCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True}
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company_data_2 = cls.setup_other_company()
 
         cls.project.write({
             'partner_id': cls.user_portal.partner_id.id,
@@ -24,7 +24,7 @@ class TestSaleSubscriptionProjectProfitability(TestSubscriptionCommon, TestProje
         })
 
         cls.product_no_tax = cls.sub_product_tmpl.product_variant_id
-        cls.subscription_tmpl_foreign_company = cls.env['sale.order.template'].with_context(context_no_mail).create({
+        cls.subscription_tmpl_foreign_company = cls.env['sale.order.template'].create({
             'name': 'Subscription template without discount',
             'note': "This is the template description",
             'plan_id': cls.plan_month.id,
@@ -41,7 +41,7 @@ class TestSaleSubscriptionProjectProfitability(TestSubscriptionCommon, TestProje
             })]
         })
 
-        cls.subscription_foreign, cls.subscription_main_with_foreign_template = cls.env['sale.order'].with_context(context_no_mail).create([{
+        cls.subscription_foreign, cls.subscription_main_with_foreign_template = cls.env['sale.order'].create([{
             'name': 'TestSubscription',
             'is_subscription': True,
             'plan_id': cls.plan_month.id,

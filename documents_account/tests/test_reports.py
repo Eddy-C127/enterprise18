@@ -8,8 +8,8 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 @tagged('post_install', '-at_install')
 class TestReports(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.report = cls.env.ref('account_reports.balance_sheet')
 

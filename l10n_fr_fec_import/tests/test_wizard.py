@@ -45,16 +45,15 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
     # ----------------------------------------
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='fr'):
+    @AccountTestInvoicingCommon.setup_country('fr')
+    def setUpClass(cls):
         """ Setup all the prerequisite entities for the CSV import tests to run """
 
-        super().setUpClass(chart_template_ref=chart_template_ref)
+        super().setUpClass()
 
         # Company -------------------------------------
-        cls.company = cls.company_data['company']
+        cls.company_data_2 = cls.setup_other_company(vat='FR15437982937')
         cls.company_export = cls.company_data_2['company']
-        cls.company_export.vat = 'FR15437982937'
-        cls.company.account_fiscal_country_id = cls.env.ref('base.fr')
 
         # Wizard --------------------------------------
         cls.wizard = cls.env['account.fec.import.wizard'].create({'company_id': cls.company.id})
@@ -409,7 +408,7 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
     def test_fec_import_multicompany(self):
         self.wizard._import_files(['account.account', 'account.journal', 'res.partner'])
 
-        fr_company2 = self.setup_company_data("Company FR 2", chart_template=self.company.chart_template)['company']
+        fr_company2 = self.setup_other_company(name="Company FR 2")['company']
         wizard2 = self.env['account.fec.import.wizard'].with_company(fr_company2).create({'company_id': fr_company2.id})
         self._attach_file_to_wizard(self.test_content, wizard2)
         wizard2._import_files()

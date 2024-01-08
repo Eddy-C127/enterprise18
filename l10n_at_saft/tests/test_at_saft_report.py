@@ -11,8 +11,9 @@ from freezegun import freeze_time
 class TestAtSaftReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='at'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('at')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data['company'].write({
             'city': 'Innsbruck',
@@ -23,7 +24,6 @@ class TestAtSaftReport(TestAccountReportsCommon):
             'website': 'www.example.com',
             'email': 'info@example.com',
             'street': 'Am Bahnhof 10/A/4/15',
-            'country_id': cls.env.ref('base.at').id,
             'l10n_at_oenace_code': 'OENACE-CODE',
             'l10n_at_profit_assessment_method': 'par_4_abs_1',
         })

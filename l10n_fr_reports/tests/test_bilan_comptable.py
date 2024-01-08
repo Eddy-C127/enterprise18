@@ -10,8 +10,9 @@ from odoo import fields, Command
 class TestBilanComptable(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='fr'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('fr')
+    def setUpClass(cls):
+        super().setUpClass()
 
     def _get_line(self, lines, line_id):
         return [

@@ -9,20 +9,18 @@ from odoo.tests import Form, tagged
 class TestBillsPrediction(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
-        cls.company_data['company'].predict_bill_product = True
+        cls.company.predict_bill_product = True
 
         cls.test_partners = cls.env['res.partner'].create([{'name': 'test partner %s' % i} for i in range(7)])
-
-        expense_type = 'expense'
 
         accounts_data = [{
             'code': 'test%s' % i,
             'name': name,
-            'account_type': expense_type,
-            'company_id': cls.company_data['company'].id,
+            'account_type': 'expense',
+            'company_id': cls.company.id,
         } for i, name in enumerate((
             "Test Maintenance and Repair",
             "Test Purchase of services, studies and preparatory work",

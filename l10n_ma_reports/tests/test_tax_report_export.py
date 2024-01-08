@@ -6,12 +6,12 @@ from odoo.tests import tagged
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class TestAccountMaExport(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref='ma'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('ma')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data['company'].write({
             'vat': 'MA122233411',
-            'country_id': cls.env.ref('base.ma').id,
         })
 
         cls.partner_ma = cls.env['res.partner'].create({
@@ -77,7 +77,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
             'date': '2019-01-01',
             'invoice_date': '2019-01-01',
             'partner_id': self.partner_ma.id,
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'invoice_line_ids': [Command.create({
                 'product_id': self.product_a.id,
                 'price_unit': 1000.0,
@@ -138,7 +138,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
                 'date': '2019-01-01',
                 'invoice_date': '2019-01-01',
                 'partner_id': self.partner_ma.id,
-                'currency_id': self.currency_data['currency'].id,
+                'currency_id': self.other_currency.id,
                 'invoice_line_ids': [Command.create({
                     'product_id': self.product_a.id,
                     'price_unit': 1000.0,
@@ -150,7 +150,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
                 'date': '2019-01-01',
                 'invoice_date': '2019-01-01',
                 'partner_id': partner_ma_with_ice.id,
-                'currency_id': self.currency_data['currency'].id,
+                'currency_id': self.other_currency.id,
                 'invoice_line_ids': [Command.create({
                     'product_id': self.product_a.id,
                     'price_unit': 1000.0,
@@ -216,7 +216,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
             'date': '2019-01-01',
             'invoice_date': '2019-01-01',
             'partner_id': self.partner_ma.id,
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'invoice_line_ids': [Command.create({
                 'product_id': self.product_a.id,
                 'price_unit': 1000.0,
@@ -248,7 +248,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
             'date': '2019-01-01',
             'invoice_date': '2019-01-01',
             'partner_id': foreign_customer.id,
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'invoice_line_ids': [Command.create({
                 'product_id': self.product_a.id,
                 'price_unit': 1000.0,

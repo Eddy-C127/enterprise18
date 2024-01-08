@@ -8,8 +8,9 @@ from odoo.tests import tagged
 class TestFrenchFiscalRounding(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='fr'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('fr')
+    def setUpClass(cls):
+        super().setUpClass()
 
         # purchase and sales VAT
         cls.tva_20_percent_vente = cls.env.ref(f"account.{cls.company_data['company'].id}_tva_normale")

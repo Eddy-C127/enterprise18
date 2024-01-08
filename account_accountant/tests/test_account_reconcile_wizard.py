@@ -12,8 +12,8 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
     """ Tests the account reconciliation and its wizard. """
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.receivable_account = cls.company_data['default_account_receivable']
         cls.payable_account = cls.company_data['default_account_payable']
@@ -34,13 +34,8 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
         cls.misc_journal = cls.company_data['default_journal_misc']
         cls.test_date = fields.Date.from_string('2016-01-01')
         cls.company_currency = cls.company_data['currency']
-        cls.foreign_currency = cls.currency_data['currency']
-        cls.foreign_currency_2 = cls.setup_multi_currency_data(default_values={
-            'name': 'Dark Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Dark Choco',
-            'currency_subunit_label': 'Dark Cacao Powder',
-        }, rate2016=6.0, rate2017=4.0)['currency']
+        cls.foreign_currency = cls.setup_other_currency('EUR')
+        cls.foreign_currency_2 = cls.setup_other_currency('XAF', rates=[('2016-01-01', 6.0), ('2017-01-01', 4.0)])
 
     # -------------------------------------------------------------------------
     # HELPERS
@@ -200,12 +195,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
 
     def test_write_off_one_foreign_currency_change_rate(self):
         """ Tests that write-off use the correct rate from/at wizard's date. """
-        foreign_currency = self.setup_multi_currency_data(default_values={
-            'name': 'Diamond',
-            'symbol': '💎',
-            'currency_unit_label': 'Diamond',
-            'currency_subunit_label': 'Carbon',
-        }, rate2016=1/2, rate2017=1/3)['currency']
+        foreign_currency = self.setup_other_currency('CAD', rounding=0.001, rates=[('2016-01-01', 0.5), ('2017-01-01', 1 / 3)])
         new_date = fields.Date.from_string('2017-02-01')
         line_1 = self.create_line_for_reconciliation(-2000.0, -2000.0, self.company_currency, '2017-01-01')  # conversion in 2017 => -666.67🍫
         line_2 = self.create_line_for_reconciliation(2000.0, 1000.0, foreign_currency, '2016-01-01')

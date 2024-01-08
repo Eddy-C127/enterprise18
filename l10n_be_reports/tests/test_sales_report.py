@@ -10,26 +10,17 @@ from freezegun import freeze_time
 class BelgiumSalesReportTest(AccountSalesReportCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass('be_comp')
+    @AccountSalesReportCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.partner_b.update({
             'country_id': cls.env.ref('base.de').id,
             "vat": "DE123456788",
         })
-        cls.report = cls.env.ref('l10n_be_reports.belgian_ec_sales_report')
-
-    @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].update({
-            'country_id': cls.env.ref('base.be').id,
+        cls.company.update({
             'vat': 'BE0477472701',
         })
-        res['company'].partner_id.update({
-            'email': 'jsmith@mail.com',
-            'phone': '+32475123456',
-        })
-        return res
+        cls.report = cls.env.ref('l10n_be_reports.belgian_ec_sales_report')
 
     @freeze_time('2019-12-31')
     def test_ec_sales_report(self):

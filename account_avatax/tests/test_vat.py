@@ -7,8 +7,8 @@ class TestAccountAvalaraVAT(TestAccountAvataxCommon):
     """https://developer.avalara.com/certification/avatax/VAT-badge/"""
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        res = super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        res = super().setUpClass()
         cls.shipping_partner = cls.partner.copy({
             'name': 'Delivery Partner',
             'street': '1000 Market St',

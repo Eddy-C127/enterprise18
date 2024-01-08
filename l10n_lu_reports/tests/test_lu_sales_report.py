@@ -15,8 +15,14 @@ from freezegun import freeze_time
 class LuxembourgSalesReportTest(AccountSalesReportCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='lu'):
-        super().setUpClass(chart_template_ref)
+    @AccountSalesReportCommon.setup_country('lu')
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company.update({
+            'vat': 'LU75425064',
+            'ecdf_prefix': '1234AB',
+            'matr_number': '1111111111111',
+        })
 
         cls.l_tax = cls.env['account.tax'].search([('name', '=', '0% IC S G'), ('company_id', '=', cls.company_data['company'].id)])
         cls.t_tax = cls.env['account.tax'].search([('name', '=', '0% ICT G'), ('company_id', '=', cls.company_data['company'].id)])
@@ -54,17 +60,6 @@ class LuxembourgSalesReportTest(AccountSalesReportCommon):
         ]
         for date in invoice_dates:
             cls.post_example_invoices(invoices, date)
-
-    @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].update({
-            'country_id': cls.env.ref('base.lu').id,
-            'vat': 'LU75425064',
-            'ecdf_prefix': '1234AB',
-            'matr_number': '1111111111111',
-        })
-        return res
 
     @freeze_time('2019-12-31')
     def test_ec_sales_report(self):

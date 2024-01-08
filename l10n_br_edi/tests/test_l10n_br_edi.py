@@ -21,8 +21,9 @@ from odoo.tools import json
 @tagged("post_install_l10n", "post_install", "-at_install")
 class TestL10nBREDICommon(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref="br"):
-        super().setUpClass(chart_template_ref)
+    @AccountTestInvoicingCommon.setup_country('br')
+    def setUpClass(cls):
+        super().setUpClass()
         company = cls.company_data["company"]
         company.partner_id.write(
             {

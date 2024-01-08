@@ -11,8 +11,9 @@ from odoo.tests import tagged
 class TestLtSaftReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='lt'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('lt')
+    def setUpClass(cls):
+        super().setUpClass()
 
         (cls.partner_a + cls.partner_b).write({
             'city': 'Garnich',
@@ -27,7 +28,6 @@ class TestLtSaftReport(TestAccountReportsCommon):
             'zip': 'LT-01000',
             'company_registry': '123456',
             'phone': '+370 11 11 11 11',
-            'country_id': cls.env.ref('base.lt').id,
             'vat': 'LT949170611'
         })
 

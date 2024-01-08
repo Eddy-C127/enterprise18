@@ -10,13 +10,13 @@ from odoo import tools
 class TestIeVat3Export(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='ie'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('ie')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data['company'].write({
             'name': 'Irish Company',
             'vat': 'IE1519572A',
-            'country_id': cls.env.ref('base.ie').id,
         })
 
         cls.partner_a.write({

@@ -10,8 +10,8 @@ from odoo.tests import tagged
 @tagged('post_install', '-at_install')
 class TestTaxReportCarryover(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_1 = cls.company_data['company']
         cls.company_2 = cls.company_data_2['company']

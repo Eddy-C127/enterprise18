@@ -13,12 +13,11 @@ from odoo.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_c
 class TestSubscriptionStockCommon(TestSubscriptionCommon, ValuationReconciliationTestCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
-        context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True}
-        SaleOrder = cls.env['sale.order'].with_context(context_no_mail)
-        Product = cls.env['product.product'].with_context(context_no_mail)
+        SaleOrder = cls.env['sale.order']
+        Product = cls.env['product.product']
 
         cls.uom_unit = cls.env.ref('uom.product_uom_unit')
 

@@ -176,7 +176,7 @@ class TestAccountAvalaraInternal(TestAccountAvalaraInternalCommon):
     def test_invoice_multi_company(self):
         invoice, response = self._create_invoice_01_and_expected_response()
 
-        company_2 = self.company_data_2['company']
+        company_2 = self.setup_other_company()['company']
         company_2.account_fiscal_country_id = self.env.ref('base.be')
         self.env.user.company_id = company_2
         with self._capture_request(return_value=response):
@@ -222,12 +222,13 @@ class TestAccountAvalaraInternal(TestAccountAvalaraInternalCommon):
 
     def test_multi_currency_exempted_tax(self):
         """ Test an invoice in another currency having 2 taxes computed from AvaTax whose one is exempted"""
+        currency = self.setup_other_currency('EUR')
         # create an invoice of 100 in a currency with a rate of 2.0
         invoice = self.env['account.move'].create({
             'move_type': 'out_invoice',
             'partner_id': self.partner.id,
             'fiscal_position_id': self.fp_avatax.id,
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': currency.id,
             'invoice_date': '2021-01-01',
             'invoice_line_ids': [
                 (0, 0, {
@@ -310,8 +311,8 @@ class TestAccountAvalaraSalesTaxAdministration(TestAccountAvataxCommon):
     """https://developer.avalara.com/certification/avatax/sales-tax-badge/"""
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        res = super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        res = super().setUpClass()
         cls.config = cls.env['res.config.settings'].create({})
         return res
 

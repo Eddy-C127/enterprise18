@@ -10,8 +10,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
 @tagged('post_install', '-at_install')
 class TestAccountReportsTours(AccountTestInvoicingHttpCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.report = cls.env.ref('account_reports.balance_sheet')
         cls.report.column_ids.sortable = True

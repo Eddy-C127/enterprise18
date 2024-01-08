@@ -14,11 +14,12 @@ from odoo.tools.misc import formatLang
 class TestAccountReportsCommon(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-
-        cls.company_data_2['company'].currency_id = cls.currency_data['currency']
-        cls.company_data_2['currency'] = cls.currency_data['currency']
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.other_currency = cls.setup_other_currency('CAD')
+        cls.company_data_2 = cls.setup_other_company()
+        cls.company_data_2['company'].currency_id = cls.other_currency
+        cls.company_data_2['currency'] = cls.other_currency
 
     @classmethod
     def _generate_options(cls, report, date_from, date_to, default_options=None):

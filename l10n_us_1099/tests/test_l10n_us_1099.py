@@ -8,8 +8,8 @@ from freezegun import freeze_time
 @tagged('post_install_l10n', "post_install", "-at_install")
 class Test1099(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.company.write({
             "street": "1 W Seneca St",
@@ -49,6 +49,7 @@ class Test1099(AccountTestInvoicingCommon):
             limit=1
         )
 
+        cls.company_data_2 = cls.setup_other_company()
         company_2_id = cls.company_data_2["company"].id
         cls.liquidity_account_comp2 = cls.env["account.account"].search(
             [

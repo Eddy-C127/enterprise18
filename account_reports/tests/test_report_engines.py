@@ -11,8 +11,8 @@ from unittest.mock import patch
 class TestReportEngines(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.company_data['company'].totals_below_sections = False
 
         cls.garbage_account = cls.env['account.account'].create({
@@ -787,7 +787,6 @@ class TestReportEngines(TestAccountReportsCommon):
 
     def test_engine_aggregation(self):
         self.env.company.account_fiscal_country_id = self.fake_country
-        self.currency_data['currency'].name = 'GOL'
 
         # Test division by zero.
         test1 = self._prepare_test_report_line(
@@ -814,7 +813,7 @@ class TestReportEngines(TestAccountReportsCommon):
             name='test2_3', code='test2_3',
         )
         test2_4 = self._prepare_test_report_line(
-            self._prepare_test_expression_aggregation('test1.tax_tags', subformula='if_above(GOL(3600.0))'),
+            self._prepare_test_expression_aggregation('test1.tax_tags', subformula='if_above(CAD(3600.0))'),
             name='test2_4', code='test2_4',
         )
         test3_1 = self._prepare_test_report_line(
@@ -834,7 +833,7 @@ class TestReportEngines(TestAccountReportsCommon):
             name='test4_1', code='test4_1',
         )
         test4_2 = self._prepare_test_report_line(
-            self._prepare_test_expression_aggregation('test1.tax_tags + test1.domain', subformula='if_between(GOL(0), GOL(3000))'),
+            self._prepare_test_expression_aggregation('test1.tax_tags + test1.domain', subformula='if_between(CAD(0), CAD(3000))'),
             name='test4_2', code='test4_2',
         )
 

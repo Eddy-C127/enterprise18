@@ -11,8 +11,9 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestCreditTime(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountTestInvoicingCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.company.partner_id.tz = "Europe/Brussels"
         cls.env['resource.calendar'].search([]).tz = "Europe/Brussels"

@@ -14,8 +14,8 @@ NOTHING = object()
 
 class TestAvataxCommon(TransactionCase):
     @classmethod
-    def setUpClass(cls, *args, **kwargs):
-        res = super().setUpClass(*args, **kwargs)
+    def setUpClass(cls):
+        res = super().setUpClass()
         cls.env.company.avalara_api_id = os.getenv("AVALARA_LOGIN_ID") or "AVALARA_LOGIN_ID"
         cls.env.company.avalara_api_key = os.getenv("AVALARA_API_KEY") or "AVALARA_API_KEY"
         cls.env.company.avalara_environment = 'sandbox'
@@ -111,8 +111,8 @@ class TestAvataxCommon(TransactionCase):
 
 class TestAccountAvataxCommon(TestAvataxCommon, AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        res = super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        res = super().setUpClass()
         cls.product = cls.env["product.product"].create({
             'name': "Product",
             'default_code': 'PROD1',

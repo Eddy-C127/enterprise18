@@ -6,21 +6,11 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestBankRecWidgetCommon(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-
-        cls.currency_data_2 = cls.setup_multi_currency_data(default_values={
-            'name': 'Dark Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Dark Choco',
-            'currency_subunit_label': 'Dark Cacao Powder',
-        }, rate2016=6.0, rate2017=4.0)
-        cls.currency_data_3 = cls.setup_multi_currency_data(default_values={
-            'name': 'Black Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Black Choco',
-            'currency_subunit_label': 'Black Cacao Powder',
-        }, rate2016=12.0, rate2017=8.0)
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.other_currency = cls.setup_other_currency('EUR')
+        cls.other_currency_2 = cls.setup_other_currency('CAD', rounding=0.001, rates=[('2016-01-01', 6.0), ('2017-01-01', 4.0)])
+        cls.other_currency_3 = cls.setup_other_currency('XAF', rounding=0.001, rates=[('2016-01-01', 12.0), ('2017-01-01', 8.0)])
 
     @classmethod
     def _create_invoice_line(cls, move_type, **kwargs):

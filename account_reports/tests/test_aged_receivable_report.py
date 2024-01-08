@@ -10,14 +10,14 @@ from odoo.tests import tagged
 class TestAgedReceivableReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.partner_category_a = cls.env['res.partner.category'].create({'name': 'partner_categ_a'})
         cls.partner_category_b = cls.env['res.partner.category'].create({'name': 'partner_categ_b'})
 
-        cls.partner_a = cls.env['res.partner'].create({'name': 'partner_a', 'company_id': False, 'category_id': [Command.set([cls.partner_category_a.id, cls.partner_category_b.id])]})
-        cls.partner_b = cls.env['res.partner'].create({'name': 'partner_b', 'company_id': False, 'category_id': [Command.set([cls.partner_category_a.id])]})
+        cls.partner_a.write({'category_id': [Command.set([cls.partner_category_a.id, cls.partner_category_b.id])]})
+        cls.partner_b.write({'category_id': [Command.set([cls.partner_category_a.id])]})
 
         receivable_1 = cls.company_data['default_account_receivable']
         receivable_2 = cls.copy_account(cls.company_data['default_account_receivable'])
@@ -733,7 +733,7 @@ class TestAgedReceivableReport(TestAccountReportsCommon):
     def test_aged_receivable_partial_reconcile_currency(self):
         """ Check that 'Amount Currency' column values are displayed and computed correctly. """
         foreign_partner = self.env['res.partner'].create({'name': 'foreign_partner'})
-        currency = self.currency_data['currency']
+        currency = self.other_currency
         currency.active = True
         self.env.company.totals_below_sections = False
 
@@ -773,7 +773,7 @@ class TestAgedReceivableReport(TestAccountReportsCommon):
             [   0,                                               1,                  2,           3,        6,       12],
             [
                 ('foreign_partner',                             '',                 '',          '',     50.0,     50.0),
-                ('INV/2023/00001 INV/2023/00001',     '05/01/2023',              100.0,       'Gol',     50.0,       ''),
+                ('INV/2023/00001 INV/2023/00001',     '05/01/2023',              100.0,       'CAD',     50.0,       ''),
             ],
 			options,
             currency_map={
@@ -791,7 +791,7 @@ class TestAgedReceivableReport(TestAccountReportsCommon):
             [   0,                                               1,                  2,           3,        6,       7,       12],
             [
                 ('foreign_partner',                             '',                 '',          '',      0.0,    45.0,     45.0),
-                ('INV/2023/00001 INV/2023/00001',     '05/01/2023',               90.0,       'Gol',      0.0,    45.0,       ''),
+                ('INV/2023/00001 INV/2023/00001',     '05/01/2023',               90.0,       'CAD',      0.0,    45.0,       ''),
             ],
 			options,
             currency_map={

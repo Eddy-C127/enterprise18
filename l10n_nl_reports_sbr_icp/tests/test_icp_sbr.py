@@ -14,12 +14,12 @@ from odoo.tests import tagged
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class TestNlICPSBR(AccountSalesReportCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref='nl'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountSalesReportCommon.setup_country('nl')
+    def setUpClass(cls):
+        super().setUpClass()
 
         company_vals = {
             'vat': 'NL123456782B90',
-            'country_id': cls.env.ref('base.nl').id,
         }
         omzetbelasting_module = cls.env['ir.module.module']._get('l10n_nl_reports_sbr_ob_nummer')
         if omzetbelasting_module.state == 'installed':
@@ -144,12 +144,12 @@ class TestNlICPSBR(AccountSalesReportCommon):
 @skipIf(not os.getenv("NL_SBR_CERT"), "No SBR certificate")
 class TestNlSBRFlow(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref='l10n_nl.l10nnl_chart_template'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('nl')
+    def setUpClass(cls):
+        super().setUpClass()
 
         company_vals = {
             'vat': 'NL123456782B90',
-            'country_id': cls.env.ref('base.nl').id,
         }
         omzetbelasting_module = cls.env['ir.module.module']._get('l10n_nl_reports_sbr_ob_nummer')
         if omzetbelasting_module.state == 'installed':

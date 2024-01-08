@@ -12,8 +12,8 @@ from odoo.tests import tagged
 class TestAccountDisallowedExpensesFleetReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.dna_category = cls.env['account.disallowed.expenses.category'].create({
             'code': '2345',

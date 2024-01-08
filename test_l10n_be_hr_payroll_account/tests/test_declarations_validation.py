@@ -12,11 +12,11 @@ from odoo.tools.float_utils import float_compare
 class TestPayslipValidation(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountTestInvoicingCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data['company'].write({
-            'country_id': cls.env.ref('base.be').id,
             'vat': 'BE0897223670',
             'phone': '0471098765',
             'street': 'Test street',

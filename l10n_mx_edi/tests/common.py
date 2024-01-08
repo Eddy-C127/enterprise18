@@ -19,8 +19,9 @@ from unittest import SkipTest
 class TestMxEdiCommon(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountTestInvoicingCommon.setup_country('mx')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.frozen_today = datetime.datetime(year=2017, month=1, day=1, hour=0, minute=0, second=0, tzinfo=timezone('utc'))
 
@@ -97,7 +98,7 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
         (cls.tax_8_ieps + cls.tax_53_ieps).l10n_mx_tax_type = 'ieps'
         cls.tax_10_ret_isr.l10n_mx_tax_type = 'isr'
 
-        cls.product = cls._create_product()
+        cls.product = cls._create_product(default_code='product_mx')
 
         cls.payment_term = cls.env['account.payment.term'].create({
             'name': 'test l10n_mx_edi',
@@ -159,52 +160,22 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
 
         cls.payment_method_efectivo = cls.env.ref('l10n_mx_edi.payment_method_efectivo')
 
-        # The XSD only allows specific currency names.
-        cls.env.ref('base.USD').name = 'FUSD'
-        cls.env.ref('base.BHD').name = 'FEUR'
-        cls.currency_data['currency'].write({
-            'name': 'BHD',
-            'l10n_mx_edi_decimal_places': 3,
-        })
-        cls.env['res.currency'].flush_model(['name'])
-        cls.fake_usd_data = cls.setup_multi_currency_data(default_values={
-            'name': 'USD',
-            'symbol': '$',
-            'rounding': 0.01,
-            'l10n_mx_edi_decimal_places': 2,
-        }, rate2016=6.0, rate2017=4.0)
+        cls.other_currency = cls.setup_other_currency('BHD')
+        cls.other_currency_2 = cls.setup_other_currency('USD', rates=[('2016-01-01', 6.0), ('2017-01-01', 4.0), ('2018-01-01', 8.0)])
 
         # Rates.
         cls.env['res.currency.rate'].create({
             'name': '2018-01-01',
             'rate': 4.0,
-            'currency_id': cls.currency_data['currency'].id,
-            'company_id': cls.env.company.id,
-        })
-        cls.env['res.currency.rate'].create({
-            'name': '2018-01-01',
-            'rate': 8.0,
-            'currency_id': cls.fake_usd_data['currency'].id,
+            'currency_id': cls.other_currency.id,
             'company_id': cls.env.company.id,
         })
 
         cls.comp_curr = cls.company_data['currency']
-        cls.foreign_curr_1 = cls.currency_data['currency'] # 3:1 in 2016, 2:1 in 2017, 4:1 in 2018
-        cls.foreign_curr_2 = cls.fake_usd_data['currency'] # 6:1 in 2016, 4:1 in 2017, 8:1 in 2018
+        cls.foreign_curr_1 = cls.other_currency  # 3:1 in 2016, 2:1 in 2017, 4:1 in 2018
+        cls.foreign_curr_2 = cls.other_currency_2  # 6:1 in 2016, 4:1 in 2017, 8:1 in 2018
 
         cls.uuid = 0
-
-    def setup_usd_rates(self, *rates):
-        usd = self.fake_usd_data['currency']
-        usd.sudo().rate_ids.unlink()
-        self.env['res.currency.rate'].create([
-            {
-                'name': rate_date,
-                'inverse_company_rate': rate,
-                'currency_id': usd.id,
-            }
-            for rate_date, rate in rates
-        ])
 
     @contextmanager
     def with_mocked_pac_method(self, method_name, method_replacement):
@@ -310,19 +281,19 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
 
     @classmethod
     def _create_product(cls, **kwargs):
-        return cls.env['product.product'].create({
-            'name': 'product_mx',
-            'weight': 2,
-            'default_code': "product_mx",
-            'uom_po_id': cls.env.ref('uom.product_uom_kgm').id,
-            'uom_id': cls.env.ref('uom.product_uom_kgm').id,
-            'lst_price': 1000.0,
-            'property_account_income_id': cls.company_data['default_account_revenue'].id,
-            'property_account_expense_id': cls.company_data['default_account_expense'].id,
-            'unspsc_code_id': cls.env.ref('product_unspsc.unspsc_code_01010101').id,
-            'taxes_id': [Command.set(cls.tax_16.ids)],
-            **kwargs,
-        })
+        return super()._create_product(
+            **{
+                'weight': 2,
+                'lst_price': 1000.0,
+                'unspsc_code_id': cls.env.ref('product_unspsc.unspsc_code_01010101').id,
+                'name': 'product_mx',
+                'company_id': cls.env.company.id,
+                **kwargs,
+                # override of the uoms
+                'uom_po_id': cls.env.ref('uom.product_uom_kgm').id,
+                'uom_id': cls.env.ref('uom.product_uom_kgm').id,
+            }
+        )
 
     def _create_invoice(self, **kwargs):
         invoice = self.env['account.move'].create({
@@ -427,8 +398,8 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
 class TestMxEdiCommonExternal(TestMxEdiCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.frozen_today = fields.datetime.now() - relativedelta(hours=8) # Mexico timezone
 
         try:

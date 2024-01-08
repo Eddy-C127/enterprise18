@@ -7,8 +7,9 @@ from odoo.tests import tagged
 class TestAustraliaTparReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref="au"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('au')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.partner_a.vat = '22 225 459 588'
         cls.partner_b.vat = '11 225 459 588'

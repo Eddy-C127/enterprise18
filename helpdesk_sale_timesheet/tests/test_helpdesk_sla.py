@@ -9,8 +9,8 @@ from odoo.addons.sale_timesheet.tests.common import TestCommonSaleTimesheet
 class TestSaleTimesheetInTicket(TestCommonSaleTimesheet):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.helpdesk_team = cls.env['helpdesk.team'].create({
             'name': 'Test Team',
             'use_helpdesk_timesheet': True,

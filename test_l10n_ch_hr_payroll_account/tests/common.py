@@ -9,19 +9,17 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='ch'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountTestInvoicingCommon.setup_country('ch')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data['company'].write({
-            'country_id': cls.env.ref('base.ch').id,
             'street': 'Rue du Paradis',
             'zip': '6870',
             'city': 'Eghezee',
             'vat': 'BE0897223670',
             'phone': '061928374',
         })
-
-        cls.company = cls.env.company
 
         admin = cls.env['res.users'].search([('login', '=', 'admin')])
         admin.company_ids |= cls.company

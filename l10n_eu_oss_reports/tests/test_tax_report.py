@@ -10,8 +10,8 @@ from odoo.tests import tagged
 class OSSTaxReportTest(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.company.account_fiscal_country_id = cls.env.ref('base.be')
         cls.env.company.vat = 'BE0477472701'
@@ -183,8 +183,8 @@ class OSSTaxReportTest(TestAccountReportsCommon):
 class TestTaxReportOSSNoMapping(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.company_data['company'].account_fiscal_country_id = cls.env.ref('base.be')
         cls.company_data['company'].vat = 'BE0477472701'
 

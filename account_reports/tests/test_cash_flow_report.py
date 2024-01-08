@@ -10,8 +10,8 @@ from odoo import Command
 @tagged('post_install', '-at_install')
 class TestCashFlowReport(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.report = cls.env.ref('account_reports.cash_flow_report')
 

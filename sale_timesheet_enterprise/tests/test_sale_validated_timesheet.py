@@ -21,8 +21,8 @@ class TestSaleValidatedTimesheet(TestCommonSaleTimesheet):
     """
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         # create SO
         cls.sale_order = cls.env['sale.order'].with_context(tracking_disable=True).create({

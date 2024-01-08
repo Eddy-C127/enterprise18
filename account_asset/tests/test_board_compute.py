@@ -12,8 +12,8 @@ from odoo import fields
 class TestAccountAssetNew(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.car = cls.create_asset(value=60000, periodicity="yearly", periods=5, method="linear", salvage_value=0)
 
     @classmethod

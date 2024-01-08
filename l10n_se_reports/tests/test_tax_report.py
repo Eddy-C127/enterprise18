@@ -10,21 +10,10 @@ from freezegun import freeze_time
 class SwedishTaxReportTest(AccountSalesReportCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='se'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-
-    @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].update({
-            'country_id': cls.env.ref('base.se').id,
-            'vat': 'SE123456789701',
-        })
-        res['company'].partner_id.update({
-            'email': 'jsmith@mail.com',
-            'phone': '+32475123456',
-        })
-        return res
+    @AccountSalesReportCommon.setup_country('se')
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company.vat = 'SE123456789701'
 
     @freeze_time('2019-12-31')
     def test_generate_xml(self):

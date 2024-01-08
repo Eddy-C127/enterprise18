@@ -11,15 +11,10 @@ from odoo.exceptions import UserError
 class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
-        cls.currency_data_2 = cls.setup_multi_currency_data({
-            'name': 'Dark Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Dark Choco',
-            'currency_subunit_label': 'Dark Cacao Powder',
-        }, rate2016=10.0, rate2017=20.0)
+        cls.other_currency_2 = cls.setup_other_currency('XAF', rates=[('2016-01-01', 10.0), ('2017-01-01', 20.0)])
 
         cls.expense_account_1 = cls.company_data['default_account_expense']
         cls.expense_account_2 = cls.copy_account(cls.company_data['default_account_expense'])
@@ -27,28 +22,28 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
         cls.env['res.currency.rate'].create({
             'name': '2023-01-20',
             'rate': 1,
-            'currency_id': cls.currency_data['currency'].id,
+            'currency_id': cls.other_currency.id,
             'company_id': cls.company_data['company'].id,
         })
 
         cls.env['res.currency.rate'].create({
             'name': '2023-01-25',
             'rate': 2,
-            'currency_id': cls.currency_data['currency'].id,
+            'currency_id': cls.other_currency.id,
             'company_id': cls.company_data['company'].id,
         })
 
         cls.env['res.currency.rate'].create({
             'name': '2023-01-30',
             'rate': 4,
-            'currency_id': cls.currency_data['currency'].id,
+            'currency_id': cls.other_currency.id,
             'company_id': cls.company_data['company'].id,
         })
 
         cls.env['res.currency.rate'].create({
             'name': '2023-01-20',
             'rate': 1,
-            'currency_id': cls.currency_data_2['currency'].id,
+            'currency_id': cls.other_currency_2.id,
             'company_id': cls.company_data['company'].id,
         })
 
@@ -102,7 +97,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
                     'quantity': quantity,
                     'price_unit': price_unit,
                     'tax_ids': [Command.clear()],
-                    'currency_id': cls.currency_data['currency'].id,
+                    'currency_id': cls.other_currency.id,
                 }),
             ],
         })
@@ -110,8 +105,8 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
         return move
 
     def test_multi_currencies(self):
-        """ In this test we will do two moves with same currency (Gol) and 3 payments for the first move with
-            3 different currencies (Gol, Dar, USD)
+        """ In this test we will do two moves with same currency (CAD) and 3 payments for the first move with
+            3 different currencies (CAD, Dar, USD)
         """
         first_bill = self.create_move_one_line(
             partner_id=self.partner_a.id,
@@ -119,7 +114,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=800.0
@@ -131,7 +126,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=200.0
@@ -142,7 +137,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             400,
             '2023-01-21',
             account_type=self.company_data['default_account_payable'].account_type,
-            currency=self.currency_data['currency']
+            currency=self.other_currency
         )
 
         self.pay_move(
@@ -150,7 +145,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             250,
             '2023-01-21',
             account_type=self.company_data['default_account_payable'].account_type,
-            currency=self.currency_data_2['currency']
+            currency=self.other_currency_2
         )
 
         self.pay_move(
@@ -172,21 +167,21 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                      -200.0,                 -200.0,                   -50.0,          150.0),
+                ('CAD (1 USD = 4.0 CAD)',                      -200.0,                 -200.0,                   -50.0,          150.0),
                 ('211000 Account Payable',                     -200.0,                 -200.0,                   -50.0,          150.0),
                 ('BILL/2023/01/0002',                          -200.0,                 -200.0,                   -50.0,          150.0),
                 ('Total 211000 Account Payable',               -200.0,                 -200.0,                   -50.0,          150.0),
-                ('Total Gol',                                  -200.0,                 -200.0,                   -50.0,          150.0),
+                ('Total CAD',                                  -200.0,                 -200.0,                   -50.0,          150.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
     def test_same_currency(self):
         """ In this test we will do two moves with same currency and a bank statement line to reconcile the first payment.
-            The payment and the move have the same currency (Gol)
+            The payment and the move have the same currency (CAD)
         """
         first_bill = self.create_move_one_line(
             partner_id=self.partner_a.id,
@@ -194,7 +189,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=800.0
@@ -206,7 +201,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=200.0
@@ -216,7 +211,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             'journal_id': self.company_data['default_journal_bank'].id,
             'payment_ref': 'payment_move_line',
             'partner_id': self.partner_a.id,
-            'foreign_currency_id': self.currency_data['currency'].id,
+            'foreign_currency_id': self.other_currency.id,
             'amount': -400,
             'amount_currency': -800,
             'date': '2023-01-01',
@@ -237,15 +232,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                    '',                       '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                      -200.0,                -200.0,                    -50.0,          150.0),
+                ('CAD (1 USD = 4.0 CAD)',                      -200.0,                -200.0,                    -50.0,          150.0),
                 ('211000 Account Payable',                     -200.0,                -200.0,                    -50.0,          150.0),
                 ('BILL/2023/01/0002',                          -200.0,                -200.0,                    -50.0,          150.0),
                 ('Total 211000 Account Payable',               -200.0,                -200.0,                    -50.0,          150.0),
-                ('Total Gol',                                  -200.0,                -200.0,                    -50.0,          150.0),
+                ('Total CAD',                                  -200.0,                -200.0,                    -50.0,          150.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -262,7 +257,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-01',
             invoice_date='2023-01-01',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=800.0
@@ -275,7 +270,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_sale'].id,
             date='2023-01-01',
             invoice_date='2023-01-01',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.copy_account(self.company_data['default_account_revenue']).id,
             quantity=1,
             price_unit=100.0
@@ -285,7 +280,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             'journal_id': self.company_data['default_journal_bank'].id,
             'payment_ref': 'payment_move_line',
             'partner_id': self.partner_a.id,
-            'foreign_currency_id': self.currency_data['currency'].id,
+            'foreign_currency_id': self.other_currency.id,
             'amount': -300,
             'amount_currency': -600,
             'date': '2023-01-01',
@@ -305,23 +300,23 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                      -100.0,                  -50.0,                   -25.0,           25.0),
+                ('CAD (1 USD = 4.0 CAD)',                      -100.0,                  -50.0,                   -25.0,           25.0),
                 ('121000 Account Receivable',                   100.0,                   50.0,                    25.0,          -25.0),
                 ('INV/2023/00001 INV/2023/00001',               100.0,                   50.0,                    25.0,          -25.0),
                 ('Total 121000 Account Receivable',             100.0,                   50.0,                    25.0,          -25.0),
                 ('211000 Account Payable',                     -200.0,                 -100.0,                   -50.0,           50.0),
                 ('BILL/2023/01/0001',                          -200.0,                 -100.0,                   -50.0,           50.0),
                 ('Total 211000 Account Payable',               -200.0,                 -100.0,                   -50.0,           50.0),
-                ('Total Gol',                                  -100.0,                  -50.0,                   -25.0,           25.0),
+                ('Total CAD',                                  -100.0,                  -50.0,                   -25.0,           25.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
         oldest_line_id = self.report._get_generic_line_id('account.report.line', self.env.ref('account_reports.multicurrency_revaluation_to_adjust').id)
-        old_line_id = self.report._get_generic_line_id('res.currency', self.currency_data['currency'].id, markup='groupby:currency_id', parent_line_id=oldest_line_id)
+        old_line_id = self.report._get_generic_line_id('res.currency', self.other_currency.id, markup='groupby:currency_id', parent_line_id=oldest_line_id)
         line_id = self.report._get_generic_line_id('account.account', first_bill.line_ids.account_id.filtered(lambda account: account.account_type == 'liability_payable').id, markup='groupby:account_id', parent_line_id=old_line_id)
 
         self.env['account.multicurrency.revaluation.report.handler'].action_multi_currency_revaluation_toggle_provision(options, {'line_id': line_id})
@@ -334,22 +329,22 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                       100.0,                   50.0,                    25.0,          -25.0),
+                ('CAD (1 USD = 4.0 CAD)',                       100.0,                   50.0,                    25.0,          -25.0),
                 ('121000 Account Receivable',                   100.0,                   50.0,                    25.0,          -25.0),
                 ('INV/2023/00001 INV/2023/00001',               100.0,                   50.0,                    25.0,          -25.0),
                 ('Total 121000 Account Receivable',             100.0,                   50.0,                    25.0,          -25.0),
-                ('Total Gol',                                   100.0,                   50.0,                    25.0,          -25.0),
+                ('Total CAD',                                   100.0,                   50.0,                    25.0,          -25.0),
 
                 ('Excluded Accounts',                              '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                      -200.0,                 -100.0,                   -50.0,           50.0),
+                ('CAD (1 USD = 4.0 CAD)',                      -200.0,                 -100.0,                   -50.0,           50.0),
                 ('211000 Account Payable',                     -200.0,                 -100.0,                   -50.0,           50.0),
                 ('BILL/2023/01/0001',                          -200.0,                 -100.0,                   -50.0,           50.0),
                 ('Total 211000 Account Payable',               -200.0,                 -100.0,                   -50.0,           50.0),
-                ('Total Gol',                                  -200.0,                 -100.0,                   -50.0,           50.0),
+                ('Total CAD',                                  -200.0,                 -100.0,                   -50.0,           50.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -363,7 +358,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=1000.0,
@@ -380,15 +375,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 1.0 Gol)',                     -1000.0,                -1000.0,                 -1000.0,            0.0),
+                ('CAD (1 USD = 1.0 CAD)',                     -1000.0,                -1000.0,                 -1000.0,            0.0),
                 ('211000 Account Payable',                    -1000.0,                -1000.0,                 -1000.0,            0.0),
                 ('BILL/2023/01/0001',                         -1000.0,                -1000.0,                 -1000.0,            0.0),
                 ('Total 211000 Account Payable',              -1000.0,                -1000.0,                 -1000.0,            0.0),
-                ('Total Gol',                                 -1000.0,                -1000.0,                 -1000.0,            0.0),
+                ('Total CAD',                                 -1000.0,                -1000.0,                 -1000.0,            0.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -410,7 +405,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=1000.0,
@@ -425,15 +420,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                              '',                    '',                      '',             ''),
-                ('Gol (1 USD = 2.0 Gol)',                      -1000.0,               -1000.0,                  -500.0,          500.0),
+                ('CAD (1 USD = 2.0 CAD)',                      -1000.0,               -1000.0,                  -500.0,          500.0),
                 ('211000 Account Payable',                     -1000.0,               -1000.0,                  -500.0,          500.0),
                 ('BILL/2023/01/0001',                          -1000.0,               -1000.0,                  -500.0,          500.0),
                 ('Total 211000 Account Payable',               -1000.0,               -1000.0,                  -500.0,          500.0),
-                ('Total Gol',                                  -1000.0,               -1000.0,                  -500.0,          500.0),
+                ('Total CAD',                                  -1000.0,               -1000.0,                  -500.0,          500.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -443,7 +438,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             500,
             '2023-01-26',
             account_type=self.company_data['default_account_payable'].account_type,
-            currency=self.currency_data['currency']
+            currency=self.other_currency
         )
 
         # Second payment at a later date to fully paid the bill
@@ -452,7 +447,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             500,
             '2023-02-01',
             account_type=self.company_data['default_account_payable'].account_type,
-            currency=self.currency_data['currency']
+            currency=self.other_currency
         )
 
         options = self._generate_options(self.report, '2023-01-01', '2023-01-31')
@@ -464,15 +459,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                      -500.0,                 -500.0,                  -125.0,          375.0),
+                ('CAD (1 USD = 4.0 CAD)',                      -500.0,                 -500.0,                  -125.0,          375.0),
                 ('211000 Account Payable',                     -500.0,                 -500.0,                  -125.0,          375.0),
                 ('BILL/2023/01/0001',                          -500.0,                 -500.0,                  -125.0,          375.0),
                 ('Total 211000 Account Payable',               -500.0,                 -500.0,                  -125.0,          375.0),
-                ('Total Gol',                                  -500.0,                 -500.0,                  -125.0,          375.0),
+                ('Total CAD',                                  -500.0,                 -500.0,                  -125.0,          375.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -487,7 +482,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=1000.0,
@@ -515,7 +510,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=1000.0,
@@ -539,15 +534,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 2.0 Gol)',                      -400.0,                 -400.0,                  -200.0,          200.0),
+                ('CAD (1 USD = 2.0 CAD)',                      -400.0,                 -400.0,                  -200.0,          200.0),
                 ('211000 Account Payable',                     -400.0,                 -400.0,                  -200.0,          200.0),
                 ('BILL/2023/01/0001',                          -400.0,                 -400.0,                  -200.0,          200.0),
                 ('Total 211000 Account Payable',               -400.0,                 -400.0,                  -200.0,          200.0),
-                ('Total Gol',                                  -400.0,                 -400.0,                  -200.0,          200.0),
+                ('Total CAD',                                  -400.0,                 -400.0,                  -200.0,          200.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -561,15 +556,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                      -400.0,                 -400.0,                  -100.0,          300.0),
+                ('CAD (1 USD = 4.0 CAD)',                      -400.0,                 -400.0,                  -100.0,          300.0),
                 ('211000 Account Payable',                     -400.0,                 -400.0,                  -100.0,          300.0),
                 ('BILL/2023/01/0001',                          -400.0,                 -400.0,                  -100.0,          300.0),
                 ('Total 211000 Account Payable',               -400.0,                 -400.0,                  -100.0,          300.0),
-                ('Total Gol',                                  -400.0,                 -400.0,                  -100.0,          300.0),
+                ('Total CAD',                                  -400.0,                 -400.0,                  -100.0,          300.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -584,7 +579,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=1000.0,
@@ -614,15 +609,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 2.0 Gol)',                     -1000.0,                -1000.0,                  -500.0,          500.0),
+                ('CAD (1 USD = 2.0 CAD)',                     -1000.0,                -1000.0,                  -500.0,          500.0),
                 ('211000 Account Payable',                    -1000.0,                -1000.0,                  -500.0,          500.0),
                 ('BILL/2023/01/0001',                         -1000.0,                -1000.0,                  -500.0,          500.0),
                 ('Total 211000 Account Payable',              -1000.0,                -1000.0,                  -500.0,          500.0),
-                ('Total Gol',                                 -1000.0,                -1000.0,                  -500.0,          500.0),
+                ('Total CAD',                                 -1000.0,                -1000.0,                  -500.0,          500.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -637,7 +632,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=1000.0,
@@ -674,15 +669,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                                          1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                                                     '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                                              1000.0,                  500.0,                   250.0,         -250.0),
+                ('CAD (1 USD = 4.0 CAD)',                                              1000.0,                  500.0,                   250.0,         -250.0),
                 ('211000 Account Payable',                                             1000.0,                  500.0,                   250.0,         -250.0),
                 ('RBILL/2023/01/0001 (Reversal of: BILL/2023/01/0001)',                1000.0,                  500.0,                   250.0,         -250.0),
                 ('Total 211000 Account Payable',                                       1000.0,                  500.0,                   250.0,         -250.0),
-                ('Total Gol',                                                          1000.0,                  500.0,                   250.0,         -250.0),
+                ('Total CAD',                                                          1000.0,                  500.0,                   250.0,         -250.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -715,7 +710,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=1000.0,
@@ -731,16 +726,16 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                     -1000.0,                -1000.0,                  -250.0,          750.0),
+                ('CAD (1 USD = 4.0 CAD)',                     -1000.0,                -1000.0,                  -250.0,          750.0),
                 ('211000 Account Payable',                    -1000.0,                -1000.0,                  -250.0,          750.0),
                 ('BILL/2023/01/0001 installment #1',           -300.0,                 -300.0,                   -75.0,          225.0),
                 ('BILL/2023/01/0001 installment #2',           -700.0,                 -700.0,                  -175.0,          525.0),
                 ('Total 211000 Account Payable',              -1000.0,                -1000.0,                  -250.0,          750.0),
-                ('Total Gol',                                 -1000.0,                -1000.0,                  -250.0,          750.0),
+                ('Total CAD',                                 -1000.0,                -1000.0,                  -250.0,          750.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -760,15 +755,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                      -700.0,                 -700.0,                  -175.0,          525.0),
+                ('CAD (1 USD = 4.0 CAD)',                      -700.0,                 -700.0,                  -175.0,          525.0),
                 ('211000 Account Payable',                     -700.0,                 -700.0,                  -175.0,          525.0),
                 ('BILL/2023/01/0001 installment #2',           -700.0,                 -700.0,                  -175.0,          525.0),
                 ('Total 211000 Account Payable',               -700.0,                 -700.0,                  -175.0,          525.0),
-                ('Total Gol',                                  -700.0,                 -700.0,                  -175.0,          525.0),
+                ('Total CAD',                                  -700.0,                 -700.0,                  -175.0,          525.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -782,16 +777,16 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 2.0 Gol)',                     -1000.0,                -1000.0,                  -500.0,          500.0),
+                ('CAD (1 USD = 2.0 CAD)',                     -1000.0,                -1000.0,                  -500.0,          500.0),
                 ('211000 Account Payable',                    -1000.0,                -1000.0,                  -500.0,          500.0),
                 ('BILL/2023/01/0001 installment #1',           -300.0,                 -300.0,                  -150.0,          150.0),
                 ('BILL/2023/01/0001 installment #2',           -700.0,                 -700.0,                  -350.0,          350.0),
                 ('Total 211000 Account Payable',              -1000.0,                -1000.0,                  -500.0,          500.0),
-                ('Total Gol',                                 -1000.0,                -1000.0,                  -500.0,          500.0),
+                ('Total CAD',                                 -1000.0,                -1000.0,                  -500.0,          500.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -805,7 +800,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=1000.0
@@ -818,13 +813,13 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             'line_ids': [
                 Command.create({
                     'partner_id': self.partner_a.id,
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'amount_currency': 1000.0,
                     'account_id': self.company_data['default_account_payable'].id,
                 }),
                 Command.create({
                     'partner_id': self.partner_b.id,
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'amount_currency': -1000.0,
                     'account_id': self.company_data['default_account_payable'].id,
                 }),
@@ -845,15 +840,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                     -1000.0,                -1000.0,                  -250.0,          750.0),
+                ('CAD (1 USD = 4.0 CAD)',                     -1000.0,                -1000.0,                  -250.0,          750.0),
                 ('211000 Account Payable',                    -1000.0,                -1000.0,                  -250.0,          750.0),
                 ('MISC/2023/01/0001',                         -1000.0,                -1000.0,                  -250.0,          750.0),
                 ('Total 211000 Account Payable',              -1000.0,                -1000.0,                  -250.0,          750.0),
-                ('Total Gol',                                 -1000.0,                -1000.0,                  -250.0,          750.0),
+                ('Total CAD',                                 -1000.0,                -1000.0,                  -250.0,          750.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -863,20 +858,20 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             Check the report, unreconcile the credit note and
             check the report again.
         """
-        # Create a customer invoice with a rate of 1 USD = 1 Gol
+        # Create a customer invoice with a rate of 1 USD = 1 CAD
         invoice = self.create_move_one_line(
             partner_id=self.partner_a.id,
             move_type='out_invoice',
             journal_id=self.company_data['default_journal_sale'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_revenue'].id,
             quantity=1,
             price_unit=1000.0,
         )
 
-        # Reverse the customer invoice with a rate of 1 USD = 2 Gol to create a partial credit note
+        # Reverse the customer invoice with a rate of 1 USD = 2 CAD to create a partial credit note
         move_reversal = self.env['account.move.reversal'].with_context(active_model='account.move', active_ids=invoice.ids).create({
             'journal_id': invoice.journal_id.id,
             'date': '2023-01-26',
@@ -887,7 +882,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
         credit_note.action_post()
         line_to_reconciles = (invoice + credit_note).line_ids.filtered(lambda l: l.account_type == self.company_data['default_account_receivable'].account_type)
 
-        #  Checking the report after reconciliation between the invoice and the credit note (Rate 1 USD = 4 Gol)
+        #  Checking the report after reconciliation between the invoice and the credit note (Rate 1 USD = 4 CAD)
         options = self._generate_options(self.report, '2023-01-01', '2023-01-30')
         options['unfold_all'] = True
         self.assertLinesValues(
@@ -897,15 +892,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                       700.0,                  700.0,                   175.0,         -525.0),
+                ('CAD (1 USD = 4.0 CAD)',                       700.0,                  700.0,                   175.0,         -525.0),
                 ('121000 Account Receivable',                   700.0,                  700.0,                   175.0,         -525.0),
                 ('INV/2023/00001 INV/2023/00001',               700.0,                  700.0,                   175.0,         -525.0),
                 ('Total 121000 Account Receivable',             700.0,                  700.0,                   175.0,         -525.0),
-                ('Total Gol',                                   700.0,                  700.0,                   175.0,         -525.0),
+                ('Total CAD',                                   700.0,                  700.0,                   175.0,         -525.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -916,7 +911,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
         ])
         partial.unlink()
 
-        # Check the report in february, the exchange diff should disappear as it was computed in january (Rate 1 USD = 4 Gol)
+        # Check the report in february, the exchange diff should disappear as it was computed in january (Rate 1 USD = 4 CAD)
         options = self._generate_options(self.report, '2023-01-01', '2023-02-15')
         options['unfold_all'] = True
         self.assertLinesValues(
@@ -926,16 +921,16 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                                      1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                                                 '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                                           700.0,                  850.0,                   175.0,         -675.0),
+                ('CAD (1 USD = 4.0 CAD)',                                           700.0,                  850.0,                   175.0,         -675.0),
                 ('121000 Account Receivable',                                       700.0,                  850.0,                   175.0,         -675.0),
                 ('RINV/2023/00001 (Reversal of: INV/2023/00001)',                  -300.0,                 -150.0,                   -75.0,           75.0),
                 ('INV/2023/00001 INV/2023/00001',                                  1000.0,                 1000.0,                   250.0,         -750.0),
                 ('Total 121000 Account Receivable',                                 700.0,                  850.0,                   175.0,         -675.0),
-                ('Total Gol',                                                       700.0,                  850.0,                   175.0,         -675.0),
+                ('Total CAD',                                                       700.0,                  850.0,                   175.0,         -675.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -956,14 +951,14 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
                     'name': 'expense line',
                     'debit': 300.0,
                     'credit': 0.0,
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'amount_currency': 900,
                     'account_id': self.company_data['default_account_expense'].id,
                 }),
                 Command.create({
                     'name': 'payable line',
                     'partner_id': self.partner_a.id,
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'debit': 0.0,
                     'credit': 300.0,
                     'amount_currency': -900.0,
@@ -983,15 +978,15 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                      -900.0,                 -300.0,                  -225.0,           75.0),
+                ('CAD (1 USD = 4.0 CAD)',                      -900.0,                 -300.0,                  -225.0,           75.0),
                 ('211000 Account Payable',                     -900.0,                 -300.0,                  -225.0,           75.0),
                 ('MISC/2023/01/0001 payable line',             -900.0,                 -300.0,                  -225.0,           75.0),
                 ('Total 211000 Account Payable',               -900.0,                 -300.0,                  -225.0,           75.0),
-                ('Total Gol',                                  -900.0,                 -300.0,                  -225.0,           75.0),
+                ('Total CAD',                                  -900.0,                 -300.0,                  -225.0,           75.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -1007,9 +1002,9 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             'code': '201',
             'account_type': 'liability_current',
             'reconcile': True,
-            'currency_id': self.currency_data['currency'].id
+            'currency_id': self.other_currency.id
         })
-        self.company_data['default_journal_bank'].currency_id = self.currency_data['currency'].id
+        self.company_data['default_journal_bank'].currency_id = self.other_currency.id
 
         entry = self.env['account.move'].create({
             'move_type': 'entry',
@@ -1020,13 +1015,13 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
                     'name': 'liability line',
                     'debit': 50.0,
                     'credit': 0.0,
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'amount_currency': 100.0,
                     'account_id': special_liability_current_account.id,
                 }),
                 Command.create({
                     'name': 'revenue line',
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'debit': 0.0,
                     'credit': 50.0,
                     'amount_currency': -100.0,
@@ -1039,7 +1034,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
         self.env['account.bank.statement.line'].create({
             'journal_id': self.company_data['default_journal_bank'].id,
             'payment_ref': 'payment_move_line',
-            'foreign_currency_id': self.currency_data['currency'].id,
+            'foreign_currency_id': self.other_currency.id,
             'amount': -10.0,
             'amount_currency': -30.0,
             'date': '2023-01-23',
@@ -1054,13 +1049,13 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
                     'name': 'liability line',
                     'debit': 0.0,
                     'credit': 10.0,
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'amount_currency': -30.0,
                     'account_id': special_liability_current_account.id,
                 }),
                 Command.create({
                     'name': 'revenue line',
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'debit': 10.0,
                     'credit': 0.0,
                     'amount_currency': 30.0,
@@ -1080,7 +1075,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                        90.0,                   40.0,                    22.5,          -17.5),
+                ('CAD (1 USD = 4.0 CAD)',                        90.0,                   40.0,                    22.5,          -17.5),
                 ('101401 Bank',                                  20.0,                    0.0,                     5.0,            5.0),
                 ('BNK1/2023/00002 revenue line',                 30.0,                   10.0,                     7.5,           -2.5),
                 ('BNK1/2023/00001 payment_move_line',           -10.0,                  -10.0,                    -2.5,            7.5),
@@ -1089,11 +1084,11 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
                 ('BNK1/2023/00002 liability line',              -30.0,                  -10.0,                    -7.5,            2.5),
                 ('MISC/2023/01/0001 liability line',            100.0,                   50.0,                    25.0,          -25.0),
                 ('Total 201 201 GOL',                            70.0,                   40.0,                    17.5,          -22.5),
-                ('Total Gol',                                    90.0,                   40.0,                    22.5,          -17.5),
+                ('Total CAD',                                    90.0,                   40.0,                    22.5,          -17.5),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -1110,7 +1105,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [   0,                                                  1,                      2,                       3,              4],
             [
                 ('Accounts To Adjust',                             '',                     '',                      '',             ''),
-                ('Gol (1 USD = 4.0 Gol)',                        90.0,                   35.0,                    22.5,          -12.5),
+                ('CAD (1 USD = 4.0 CAD)',                        90.0,                   35.0,                    22.5,          -12.5),
                 ('101401 Bank',                                  20.0,                    0.0,                     5.0,            5.0),
                 ('BNK1/2023/00002 revenue line',                 30.0,                   10.0,                     7.5,           -2.5),
                 ('BNK1/2023/00001 payment_move_line',           -10.0,                  -10.0,                    -2.5,            7.5),
@@ -1118,11 +1113,11 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
                 ('201 201 GOL',                                  70.0,                   35.0,                    17.5,          -17.5),
                 ('MISC/2023/01/0001 liability line',             70.0,                   35.0,                    17.5,          -17.5),
                 ('Total 201 201 GOL',                            70.0,                   35.0,                    17.5,          -17.5),
-                ('Total Gol',                                    90.0,                   35.0,                    22.5,          -12.5),
+                ('Total CAD',                                    90.0,                   35.0,                    22.5,          -12.5),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )
 
@@ -1132,14 +1127,14 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             This test will check that the exclusion of the account_type present in a p&l are not displayed.
         """
 
-        self.company_data['default_account_expense'].currency_id = self.currency_data['currency'].id
+        self.company_data['default_account_expense'].currency_id = self.other_currency.id
         self.create_move_one_line(
             partner_id=self.partner_a.id,
             move_type='in_invoice',
             journal_id=self.company_data['default_journal_purchase'].id,
             date='2023-01-21',
             invoice_date='2023-01-21',
-            currency_id=self.currency_data['currency'].id,
+            currency_id=self.other_currency.id,
             account_id=self.company_data['default_account_expense'].id,
             quantity=1,
             price_unit=1000.0
@@ -1154,14 +1149,14 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
             [0,                                                     1,                       2,                       3,             4],
             [
                 ('Accounts To Adjust',                             '',                      '',                      '',            ''),
-                ('Gol (1 USD = 2.0 Gol)',                     -1000.0,                 -1000.0,                  -500.0,         500.0),
+                ('CAD (1 USD = 2.0 CAD)',                     -1000.0,                 -1000.0,                  -500.0,         500.0),
                 ('211000 Account Payable',                    -1000.0,                 -1000.0,                  -500.0,         500.0),
                 ('BILL/2023/01/0001',                         -1000.0,                 -1000.0,                  -500.0,         500.0),
                 ('Total 211000 Account Payable',              -1000.0,                 -1000.0,                  -500.0,         500.0),
-                ('Total Gol',                                 -1000.0,                 -1000.0,                  -500.0,         500.0),
+                ('Total CAD',                                 -1000.0,                 -1000.0,                  -500.0,         500.0),
             ],
             options,
             currency_map={
-                1: {'currency': self.currency_data['currency']},
+                1: {'currency': self.other_currency},
             },
         )

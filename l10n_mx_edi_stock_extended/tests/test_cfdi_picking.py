@@ -10,8 +10,8 @@ from .common import TestMXEdiStockCommon
 class TestCFDIPickingXml(TestMXEdiStockCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env.company.partner_id.city_id = cls.env.ref('l10n_mx_edi_extended.res_city_mx_chh_032').id
 
     @freeze_time('2017-01-01')

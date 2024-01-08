@@ -14,8 +14,9 @@ from odoo import Command, fields
 class LuxembourgElectronicReportTest(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='lu'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('lu')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data['company'].write({
             'ecdf_prefix': '1234AB',

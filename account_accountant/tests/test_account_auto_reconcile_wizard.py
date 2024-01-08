@@ -9,11 +9,11 @@ class TestAccountAutoReconcileWizard(AccountTestInvoicingCommon):
     """ Tests the account automatic reconciliation and its wizard. """
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.comp_curr = cls.company_data['currency']
-        cls.foreign_curr = cls.currency_data['currency']
+        cls.foreign_curr = cls.setup_other_currency('EUR')
 
         cls.misc_journal = cls.company_data['default_journal_misc']
         cls.partners = cls.partner_a + cls.partner_b

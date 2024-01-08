@@ -27,8 +27,10 @@ def mocked_l10n_pe_edi_post_invoice_web_service(edi_format, invoice, edi_filenam
 class TestPeEdiCommon(AccountEdiTestCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='pe', edi_format_ref='l10n_pe_edi.edi_pe_ubl_2_1'):
-        super().setUpClass(chart_template_ref=chart_template_ref, edi_format_ref=edi_format_ref)
+    @AccountEdiTestCommon.setup_country('pe')
+    @AccountEdiTestCommon.setup_edi_format('l10n_pe_edi.edi_pe_ubl_2_1')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.frozen_today = datetime(year=2017, month=1, day=1, hour=0, minute=0, second=0, tzinfo=timezone('utc'))
 
@@ -36,9 +38,7 @@ class TestPeEdiCommon(AccountEdiTestCommon):
         cls.maxDiff = None
 
         # Replace USD by the fake currency created in setup (GOL).
-        cls.env.ref('base.USD').name = "OLD_USD"
-        cls.currency_data['currency'].name = 'USD'
-        cls.currency_data['currency'].rounding = 0.01
+        cls.other_currency = cls.setup_other_currency('USD', rounding=0.01)
 
         # ==== Config ====
 
@@ -152,7 +152,7 @@ class TestPeEdiCommon(AccountEdiTestCommon):
                     listAgencyName="PE:SUNAT"
                     listName="Tipo de Documento"
                     listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01">01</InvoiceTypeCode>
-                <Note languageLocaleID="1000">NUEVE MIL CUATROCIENTOS CUARENTA Y 00/100 GOLD</Note>
+                <Note languageLocaleID="1000">NUEVE MIL CUATROCIENTOS CUARENTA Y 00/100 DOLLARS</Note>
                 <DocumentCurrencyCode>USD</DocumentCurrencyCode>
                 <OrderReference>
                     <ID>___ignore___</ID>
@@ -780,7 +780,7 @@ class TestPeEdiCommon(AccountEdiTestCommon):
             'partner_id': self.partner_a.id,
             'invoice_date': '2017-01-01',
             'date': '2017-01-01',
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'l10n_latam_document_type_id': self.env.ref('l10n_pe.document_type01').id,
             'invoice_line_ids': [(0, 0, {
                 'product_id': self.product.id,
@@ -803,7 +803,7 @@ class TestPeEdiCommon(AccountEdiTestCommon):
             'partner_id': self.partner_a.id,
             'invoice_date': '2017-01-01',
             'date': '2017-01-01',
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'reversed_entry_id': invoice.id,
             'l10n_latam_document_type_id': self.env.ref('l10n_pe.document_type07').id,
             'l10n_pe_edi_refund_reason': '01',
@@ -828,7 +828,7 @@ class TestPeEdiCommon(AccountEdiTestCommon):
             'partner_id': self.partner_a.id,
             'invoice_date': '2017-01-01',
             'date': '2017-01-01',
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'debit_origin_id': invoice.id,
             'l10n_latam_document_type_id': self.env.ref('l10n_pe.document_type08').id,
             'l10n_pe_edi_charge_reason': '01',

@@ -61,6 +61,7 @@ class TestExpenseExtractProcess(TestExpenseCommon, TestExtractMixin):
 
         usd_currency = self.env.ref('base.USD')
         eur_currency = self.env.ref('base.EUR')
+        eur_currency.rate_ids.unlink()
         eur_currency.active = True
 
         with self._mock_iap_extract(

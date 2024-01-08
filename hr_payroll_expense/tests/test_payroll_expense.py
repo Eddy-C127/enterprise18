@@ -16,7 +16,7 @@ from odoo.tests import tagged
 class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
+    def setUpClass(cls):
         super().setUpClass()
 
         cls.payslip_run.company_id = cls.company_data['company'].id

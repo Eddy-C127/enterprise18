@@ -9,9 +9,9 @@ from odoo.tests import tagged
 class TestBankCashReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref="pe"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company_data["company"].country_id = cls.env.ref("base.pe")
+    @TestAccountReportsCommon.setup_country('pe')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.company_data["company"].vat = "20512528458"
 
     @freeze_time('2024-01-01')

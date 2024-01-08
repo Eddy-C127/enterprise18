@@ -8,11 +8,11 @@ from odoo.tests import tagged, HttpCase
 class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env['account.reconcile.model']\
-            .search([('company_id', '=', cls.company_data['company'].id)])\
+            .search([('company_id', '=', cls.company.id)])\
             .write({'past_months_limit': None})
 
     def test_tour_bank_rec_widget(self):

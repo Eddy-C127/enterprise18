@@ -14,8 +14,10 @@ from freezegun import freeze_time
 class TestEcEdiCommon(AccountEdiTestCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='ec', edi_format_ref='l10n_ec_edi.ecuadorian_edi_format'):
-        super().setUpClass(chart_template_ref=chart_template_ref, edi_format_ref=edi_format_ref)
+    @AccountEdiTestCommon.setup_country('ec')
+    @AccountEdiTestCommon.setup_edi_format('l10n_ec_edi.ecuadorian_edi_format')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.frozen_today = datetime(year=2022, month=1, day=25, hour=0, minute=0, second=0, tzinfo=timezone('utc'))
 
@@ -29,7 +31,6 @@ class TestEcEdiCommon(AccountEdiTestCommon):
             'street': "Avenida Machala 42",
             'zip': "090514",
             'city': "Guayaquil",
-            'country_id': cls.env.ref('base.ec').id,
             'l10n_ec_legal_name': "EC Test Company (official)",
         })
 

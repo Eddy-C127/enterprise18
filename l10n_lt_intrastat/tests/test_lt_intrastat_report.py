@@ -11,9 +11,9 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 class TestLTIntrastatReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='lt'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company_data['company'].country_id = cls.env.ref('base.lt')
+    @TestAccountReportsCommon.setup_country('lt')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.company_data['company'].company_registry = '0123456789'
         italy = cls.env.ref('base.it')
         cls.report = cls.env.ref('account_intrastat.intrastat_report')

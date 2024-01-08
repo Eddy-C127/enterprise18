@@ -13,14 +13,11 @@ from freezegun import freeze_time
 class TestFinancialReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         # ==== Partners ====
-
-        cls.partner_a = cls.env['res.partner'].create({'name': 'partner_a', 'company_id': False})
-        cls.partner_b = cls.env['res.partner'].create({'name': 'partner_b', 'company_id': False})
-        cls.partner_c = cls.env['res.partner'].create({'name': 'partner_c', 'company_id': False})
+        cls.partner_c = cls._create_partner(name='partner_c')
 
         # ==== Accounts ====
 
@@ -534,22 +531,8 @@ class TestFinancialReport(TestAccountReportsCommon):
 
     def test_financial_report_comparison_multi_company_currency_multi_rates(self):
         # Set up a new company with a new foreign currency and a new partner.
-        other_currency = self.env['res.currency'].create({
-            'name': 'TEST',
-            'symbol': 'T',
-        })
-        other_company_data = self.setup_company_data('other_company_data', currency_id=other_currency.id)
-        self.env['res.currency.rate'].create([
-            {
-                'currency_id': other_currency.id,
-                'name': '2021-01-01',
-                'rate': 3.0,
-            }, {
-                'currency_id': other_currency.id,
-                'name': '2022-01-01',
-                'rate': 2.0,
-            }
-        ])
+        other_currency = self.setup_other_currency('EUR', rates=[('2021-01-01', 3.0), ('2022-01-01', 2.0)])
+        other_company_data = self.setup_other_company(name='other_company_data', currency_id=other_currency.id)
         partner = self.env['res.partner'].create({'name': 'I am a partner', 'company_id': False})
 
         # Create and post a journal entry linked to the new partner, for the new company.

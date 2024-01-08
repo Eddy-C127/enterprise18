@@ -13,8 +13,8 @@ from odoo.exceptions import UserError
 class TestTaxReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         # Create country data
 
@@ -235,6 +235,19 @@ class TestTaxReport(TestAccountReportsCommon):
         cls.init_invoice('in_invoice', partner=cls.test_fpos_foreign_partner, invoice_date='2021-02-01', post=True, amounts=[1000], taxes=cls.test_fpos_tax_purchase)
         cls.init_invoice('in_refund', partner=cls.test_fpos_foreign_partner, invoice_date='2021-03-02', post=True, amounts=[600], taxes=cls.test_fpos_tax_purchase)
         cls.init_invoice('in_refund', partner=cls.test_fpos_foreign_partner, invoice_date='2021-05-02', post=True, amounts=[10000], taxes=cls.test_fpos_tax_purchase)
+
+    @classmethod
+    def _instantiate_basic_test_tax_group(cls, company=None, country=None):
+        company = company or cls.env.company
+        vals = {
+            'name': 'Test tax group',
+            'company_id': company.id,
+            'tax_receivable_account_id': cls.company_data['default_account_receivable'].sudo().copy({'company_id': company.id}).id,
+            'tax_payable_account_id': cls.company_data['default_account_payable'].sudo().copy({'company_id': company.id}).id,
+        }
+        if country:
+            vals['country_id'] = country.id
+        return cls.env['account.tax.group'].sudo().create(vals)
 
     @classmethod
     def _add_basic_tax_for_report(cls, tax_report, percentage, type_tax_use, tax_group, tax_repartition, company=None):
@@ -1737,8 +1750,7 @@ class TestTaxReport(TestAccountReportsCommon):
 
         company_1 = self.company_data['company']
         company_2 = self.company_data_2['company']
-        company_data_3 = self.setup_company_data("Company 3", chart_template=company_1.chart_template)
-        company_3 = company_data_3['company']
+        company_3 = self.setup_other_company(name="Company 3")['company']
         unit_companies = company_1 + company_2
         all_companies = unit_companies + company_3
 
@@ -1867,10 +1879,8 @@ class TestTaxReport(TestAccountReportsCommon):
         company_1 = self.company_data['company']
         company_2 = self.company_data_2['company']
         company_2.currency_id = company_1.currency_id
-        company_data_3 = self.setup_company_data("Company 3", chart_template=company_1.chart_template)
-        company_3 = company_data_3['company']
-        company_data_4 = self.setup_company_data("Company 4", chart_template=company_1.chart_template)
-        company_4 = company_data_4['company']
+        company_3 = self.setup_other_company(name="Company 3")['company']
+        company_4 = self.setup_other_company(name="Company 4")['company']
         unit_companies = company_1 + company_2 + company_3
         all_companies = unit_companies + company_4
 
@@ -2761,7 +2771,7 @@ class TestTaxReport(TestAccountReportsCommon):
 
     def test_tax_report_multi_company_post_closing(self):
         # Branches
-        root_company = self.setup_company_data("Root Company", chart_template=self.env.company.chart_template)['company']
+        root_company = self.setup_other_company(name="Root Company")['company']
         branch_1 = self.env['res.company'].create({'name': "Branch 1", 'parent_id': root_company.id})
         branch_1_1 = self.env['res.company'].create({'name': "Branch 1.1", 'parent_id': branch_1.id})
         branch_2 = self.env['res.company'].create({'name': "Branch 2", 'parent_id': root_company.id})
@@ -2769,8 +2779,8 @@ class TestTaxReport(TestAccountReportsCommon):
         branch_companies.account_tax_periodicity_journal_id = root_company.account_tax_periodicity_journal_id.id
 
         # Tax unit
-        unit_part_1 = self.setup_company_data("Unit part 1", chart_template=self.env.company.chart_template)['company']
-        unit_part_2 = self.setup_company_data("Unit part 2", chart_template=self.env.company.chart_template)['company']
+        unit_part_1 = self.setup_other_company(name="Unit part 1")['company']
+        unit_part_2 = self.setup_other_company(name="Unit part 2")['company']
 
         tax_unit = self.env['account.tax.unit'].create({
             'name': "One unit to rule them all",

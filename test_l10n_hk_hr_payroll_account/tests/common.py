@@ -14,13 +14,9 @@ class TestL10NHkHrPayrollAccountCommon(AccountTestInvoicingCommon):
         return None
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='hk'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-
-        cls.company_data['company'].write({
-            'country_id': cls.env.ref('base.hk').id,
-        })
-        cls.company = cls.env.company
+    @AccountTestInvoicingCommon.setup_country('hk')
+    def setUpClass(cls):
+        super().setUpClass()
 
         admin = cls.env['res.users'].search([('login', '=', 'admin')])
         admin.company_ids |= cls.company

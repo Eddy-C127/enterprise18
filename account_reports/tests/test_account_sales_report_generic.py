@@ -12,16 +12,12 @@ from freezegun import freeze_time
 class AccountSalesReportTest(AccountSalesReportCommon):
 
     @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
+    def collect_company_accounting_data(cls, company):
+        res = super().collect_company_accounting_data(company)
         res['company'].update({
             'country_id': cls.env.ref('base.us').id,
             'vat': 'US123456789047',
             #  Country outside of EU to avoid local reports being chosen over this one (wanted behaviour)
-        })
-        res['company'].partner_id.update({
-            'email': 'jsmith@mail.com',
-            'phone': '+32475123456',
         })
         return res
 

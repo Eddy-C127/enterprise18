@@ -10,8 +10,8 @@ from odoo.tests import tagged
 class TestJournalAuditReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         ##############
         # Bank entries
@@ -63,18 +63,13 @@ class TestJournalAuditReport(TestAccountReportsCommon):
         cls.move_2017_2.action_post()
 
         # Invoice in 2017 for company_1, with foreign currency to test a sale journal at current date.
-        cls.currency_data = cls.setup_multi_currency_data({
-            'name': 'Dark Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Dark Choco',
-            'currency_subunit_label': 'Dark Cacao Powder',
-        }, rate2016=2.0, rate2017=2.0)
+        cls.other_currency = cls.setup_other_currency('EUR', rounding=0.001, rates=[('2016-01-01', 2.0), ('2017-01-01', 2.0)])
         cls.move_2017_3 = cls.env['account.move'].create({
             'move_type': 'out_invoice',
             'partner_id': cls.partner_a.id,
             'invoice_date': '2017-01-01',
             'journal_id': cls.company_data['default_journal_sale'].id,
-            'currency_id': cls.currency_data['currency'].id,
+            'currency_id': cls.other_currency.id,
             'payment_reference': 'ref234',
             'invoice_line_ids': [Command.create({
                 'quantity': 1,
@@ -91,7 +86,7 @@ class TestJournalAuditReport(TestAccountReportsCommon):
             'partner_id': cls.partner_a.id,
             'invoice_date': '2017-01-01',
             'journal_id': cls.company_data['default_journal_sale'].id,
-            'currency_id': cls.currency_data['currency'].id,
+            'currency_id': cls.other_currency.id,
             'invoice_line_ids': [Command.create({
                 'quantity': 1,
                 'price_unit': 2000.0,
@@ -174,10 +169,10 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 ('INV/2017/00002',                      '2017-01-01',             '121000 partner_a',       1500.0,         0.0,                  '',                 ''),
                 ('ref234',                              '',                       '400000 Product Sales',   0.0,            1500.0,               '',                 ''),
                 # Because there is a payment_reference, we need to add a line for the amount in currency
-                ('Amount in currency: 3,000.000\xa0🍫', ''                                                                                                              ),
+                ('Amount in currency: 3,000.000\xa0€', ),
                 ('INV/2017/00003',                      '2017-01-01',             '121000 partner_a',       1000.0,         0.0,                  '',                 ''),
                 # No payment_reference, so the amount in currency is added in the name of the second line.
-                ('Amount in currency: 2,000.000\xa0🍫', '',                       '400000 Product Sales',   0.0,            1000.0,               '',                 ''),
+                ('Amount in currency: 2,000.000\xa0€',  '',                       '400000 Product Sales',   0.0,            1000.0,               '',                 ''),
                 # Invoice with taxes
                 ('INV/2017/00004',                      '2017-01-01',             '121000 partner_a',       1650.0,         0.0,                  '',                 ''),
                 ('ref345',                              '',                       '400000 Product Sales',   0.0,            1500.0,               'T: Tax 10%',       ''),
@@ -268,7 +263,7 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                     'debit': 0.0,
                     'credit': 175.0,
                     'name': '2017_6_2',
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'amount_currency': -150,
                     'account_id': self.company_data['default_account_revenue'].id
                 }),
@@ -286,7 +281,7 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 ('Name',                                '',                       'Account',                'Debit',        'Credit',             'Balance',          'Amount In Currency'),
                 ('',                                    '',                       '',                       '',             'Starting Balance:',  '$\xa0100.00',      ''),
                 ('BNK1/2017/00001',                     '',                       '400000 Product Sales',   0.0,            200.00,               '$\xa0300.00',      ''),
-                ('BNK1/2017/00002',                     '',                       '400000 Product Sales',   0.0,            175.00,               '$\xa0475.00',      '150.000\xa0🍫'),
+                ('BNK1/2017/00002',                     '',                       '400000 Product Sales',   0.0,            175.00,               '$\xa0475.00',      '150.000\xa0€'),
                 ('',                                    '',                       '',                       '',             'Ending Balance:',    '$\xa0475.00',      ''),
                 ('Global Tax Summary',                                                                                                                                  ),
                 ('',                                                                                                                                                    ),
@@ -310,7 +305,7 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 Command.create(
                     {'debit': 175.0, 'credit': 0.0, 'name': '2017_6_1', 'account_id': self.liquidity_account.id}),
                 Command.create({'debit': 0.0, 'credit': 175.0, 'name': '2017_6_2',
-                                'currency_id': self.currency_data['currency'].id, 'amount_currency': -150,
+                                'currency_id': self.other_currency.id, 'amount_currency': -150,
                                 'account_id': self.company_data['default_account_revenue'].id}),
             ],
         })
@@ -374,10 +369,10 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 ('INV/2017/00002',                      '2017-01-01',             '121000 partner_a',       1500.0,         0.0,           '',                        ''),
                 ('ref234',                              '',                       '400000 Product Sales',   0.0,            1500.0,        '',                        ''),
                 # Because there is a payment_reference, we need to add a line for the amount in currency
-                ('Amount in currency: 3,000.000\xa0🍫',                                                                                                                 ),
+                ('Amount in currency: 3,000.000\xa0€',                                                                                                                 ),
                 ('INV/2017/00003',                      '2017-01-01',             '121000 partner_a',       1000.0,         0.0,           '',                        ''),
                 # No payment_reference, so the amount in currency is added in the name of the second line.
-                ('Amount in currency: 2,000.000\xa0🍫', '',                       '400000 Product Sales',   0.0,            1000.0,        '',                        ''),
+                ('Amount in currency: 2,000.000\xa0€', '',                       '400000 Product Sales',   0.0,            1000.0,        '',                        ''),
                 # Invoice with taxes
                 ('INV/2017/00004',                      '2017-01-01',             '121000 partner_a',       1650.0,         0.0,           '',                        ''),
                 ('ref345',                              '',                       '400000 Product Sales',   0.0,            1500.0,        'T: Tax 10%',              ''),
@@ -444,10 +439,10 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 ('INV/2017/00002',                      '2017-01-01',             '121000 partner_a',       1500.0,         0.0,                  '',                 ''),
                 ('ref234',                              '',                       '400000 Product Sales',   0.0,            1500.0,               '',                 ''),
                 # Because there is a payment_reference, we need to add a line for the amount in currency
-                ('Amount in currency: 3,000.000\xa0🍫',                                                                                                                 ),
+                ('Amount in currency: 3,000.000\xa0€',                                                                                                                 ),
                 ('INV/2017/00003',                      '2017-01-01',             '121000 partner_a',       1000.0,         0.0,                  '',                 ''),
                 # No payment_reference, so the amount in currency is added in the name of the second line.
-                ('Amount in currency: 2,000.000\xa0🍫', '',                       '400000 Product Sales',   0.0,            1000.0,               '',                 ''),
+                ('Amount in currency: 2,000.000\xa0€', '',                       '400000 Product Sales',   0.0,            1000.0,               '',                 ''),
                 # Invoice with taxes
                 ('INV/2017/00004',                      '2017-01-01',             '121000 partner_a',       1650.0,         0.0,                  '',                 ''),
                 ('ref345',                              '',                       '400000 Product Sales',   0.0,            1500.0,               'T: Tax 10%',       ''),

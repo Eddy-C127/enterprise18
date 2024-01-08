@@ -17,8 +17,8 @@ from odoo.addons.website.tools import MockRequest
 class TestSubscriptionPaymentFlows(TestSubscriptionCommon, PaymentHttpCommon):
 
     @classmethod
-    def setUpClass(cls, **kwargs):
-        super().setUpClass(**kwargs)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.order = cls.env['sale.order'].create({
             'partner_id': cls.partner.id,
         })

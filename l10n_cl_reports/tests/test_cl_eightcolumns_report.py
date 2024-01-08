@@ -8,8 +8,9 @@ from odoo.tests import tagged
 class TestClEightColumnsReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='cl'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('cl')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.partner_a.write({
             'country_id': cls.env.ref('base.cl').id,
             'l10n_cl_sii_taxpayer_type': '1',

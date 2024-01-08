@@ -19,7 +19,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
         """ This test verifies that duplicate transactions are filtered """
         self.BankStatementLine.with_context(skip_statement_line_cron_trigger=True).create({
             'date': '2023-08-01',
-            'journal_id': self.gold_bank_journal.id,
+            'journal_id': self.euro_bank_journal.id,
             'online_transaction_identifier': 'ABCD01',
             'payment_ref': 'transaction_ABCD01',
             'amount': 10.0,
@@ -61,7 +61,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                     'online_transaction_identifier': 'ABCD01',
                     'amount': 10.0,
                     'online_account_id': self.account_online_account.id,
-                    'journal_id': self.gold_bank_journal.id,
+                    'journal_id': self.euro_bank_journal.id,
                     'partner_name': None,
                 },
                 {
@@ -70,7 +70,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                     'online_transaction_identifier': 'ABCD02',
                     'amount': 10.0,
                     'online_account_id': self.account_online_account.id,
-                    'journal_id': self.gold_bank_journal.id,
+                    'journal_id': self.euro_bank_journal.id,
                     'partner_name': None,
                 },
             ]
@@ -92,7 +92,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                     'online_transaction_identifier': 'ABCD01',
                     'amount': -25.0,
                     'online_account_id': self.account_online_account.id,
-                    'journal_id': self.gold_bank_journal.id,
+                    'journal_id': self.euro_bank_journal.id,
                     'partner_name': None,
                 },
             ]
@@ -126,7 +126,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                         'amount': 10.0,
                         'partner_name': None,
                         'online_account_id': self.account_online_account.id,
-                        'journal_id': self.gold_bank_journal.id,
+                        'journal_id': self.euro_bank_journal.id,
                     },
                     {
                         'payment_ref': 'transaction_ABCD02',
@@ -135,7 +135,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                         'amount': 10.0,
                         'partner_name': None,
                         'online_account_id': self.account_online_account.id,
-                        'journal_id': self.gold_bank_journal.id,
+                        'journal_id': self.euro_bank_journal.id,
                     }
                 ],
                 'pendings': [
@@ -146,7 +146,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                         'amount': 10.0,
                         'partner_name': None,
                         'online_account_id': self.account_online_account.id,
-                        'journal_id': self.gold_bank_journal.id,
+                        'journal_id': self.euro_bank_journal.id,
                     },
                     {
                         'payment_ref': 'transaction_ABCD04_pending',
@@ -155,7 +155,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                         'amount': 10.0,
                         'partner_name': None,
                         'online_account_id': self.account_online_account.id,
-                        'journal_id': self.gold_bank_journal.id,
+                        'journal_id': self.euro_bank_journal.id,
                     }
                 ]
             }
@@ -206,7 +206,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
         with freeze_time(datetime.now() + timedelta(seconds=(limit_time - 10))):
             # Call to fetch_transaction should be skipped, and the cron should not try to fetch either
             self.account_online_link._fetch_transactions()
-            self.gold_bank_journal._cron_fetch_waiting_online_transactions()
+            self.euro_bank_journal._cron_fetch_waiting_online_transactions()
             patched_refresh.assert_not_called()
             patched_transactions.assert_not_called()
 
@@ -219,7 +219,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
             test_env = self.env(cr=test_cr)
             with freeze_time(datetime.now() + timedelta(seconds=(limit_time + 100))):
                 # Call to fetch_transaction should be started by the cron when the time limit is exceeded and still in processing
-                self.gold_bank_journal.with_env(test_env)._cron_fetch_waiting_online_transactions()
+                self.euro_bank_journal.with_env(test_env)._cron_fetch_waiting_online_transactions()
                 patched_refresh.assert_not_called()
                 patched_transactions.assert_called_once()
 

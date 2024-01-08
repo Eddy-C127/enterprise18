@@ -9,8 +9,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class AccountAutoTransferTestCase(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.journal = cls.env['account.journal'].create({'type': 'bank', 'name': 'bank', 'code': 'BANK'})
         cls.transfer_model = cls.env['account.transfer.model'].create({
             'name': 'Test Transfer',

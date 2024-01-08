@@ -12,8 +12,8 @@ import json
 @tagged('post_install', '-at_install')
 class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         # Entries in 2016 for company_1 to test the initial balance.
         cls.move_2016_1 = cls.env['account.move'].create({
@@ -395,7 +395,7 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
             'name': 'foreign_curr_account',
             'code': 'test',
             'account_type': 'liability_current',
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'company_id': self.company_data['company'].id,
         })
 
@@ -417,7 +417,7 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'debit': 0.0,
                     'credit': 100.0,
                     'amount_currency': -300.0,
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'account_id': foreign_curr_account.id,
                 }),
             ],
@@ -442,7 +442,7 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'debit': 0.0,
                     'credit': 1000.0,
                     'amount_currency': -2000.0,
-                    'currency_id': self.currency_data['currency'].id,
+                    'currency_id': self.other_currency.id,
                     'account_id': foreign_curr_account.id,
                 }),
             ],
@@ -475,7 +475,7 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
                 ('Total',                               '',             22650.0,        22650.0,        0.0),
             ],
             options,
-            currency_map={4: {'currency': self.currency_data['currency']}},
+            currency_map={4: {'currency': self.other_currency}},
         )
 
     def test_general_ledger_filter_search_bar_print(self):

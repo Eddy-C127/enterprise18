@@ -20,8 +20,13 @@ class TestSubscription(TestSubscriptionCommon):
         self.env.flush_all()
         self.cr.flush()
 
+    @classmethod
+    def default_env_context(cls):
+        return {}
+
     def setUp(self):
         super(TestSubscription, self).setUp()
+        self.other_currency = self.setup_other_currency('CAD')
         self.env.ref('base.group_user').write({"implied_ids": [(4, self.env.ref('sale_management.group_sale_order_template').id)]})
         self.flush_tracking()
 
@@ -1362,7 +1367,7 @@ class TestSubscription(TestSubscriptionCommon):
             'price_include': True,
             'tax_group_id': tax_group_1.id,
         })
-        other_company_data = self.setup_company_data("Company 3", chart_template=self.env.company.chart_template)
+        other_company_data = self.setup_other_company(name="Company 3")
         tax_group_2 = self.env['account.tax.group'].create({
             'name': 'Test tax group',
             'company_id': other_company_data['company'].id,
@@ -1432,7 +1437,7 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(self.subscription.currency_id.name, 'USD')
         line = self.subscription.order_line
         self.assertEqual(line.price_unit, 50, 'Price unit should not have changed')
-        currency = self.currency_data['currency']
+        currency = self.other_currency
         self.product.currency_id = currency
         self.pricing_month.currency_id = currency
         line._compute_price_unit()

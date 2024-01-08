@@ -426,7 +426,7 @@ class TestEdiXmls(TestPeEdiCommon):
                 'partner_id': self.partner_a.id,
                 'invoice_date': '2017-01-01',
                 'date': '2017-01-01',
-                'currency_id': self.currency_data['currency'].id,
+                'currency_id': self.other_currency.id,
                 'invoice_payment_term_id': self.env.ref("account.account_payment_term_end_following_month").id,
                 'l10n_latam_document_type_id': self.env.ref('l10n_pe.document_type01').id,
                 'l10n_pe_edi_operation_type': '1001',
@@ -464,7 +464,7 @@ class TestEdiXmls(TestPeEdiCommon):
                     listAgencyName="PE:SUNAT"
                     listName="Tipo de Documento"
                     listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01">01</InvoiceTypeCode>
-                <Note languageLocaleID="1000">MIL CIENTO SESENTA Y OCHO Y 20/100 GOLD</Note>
+                <Note languageLocaleID="1000">MIL CIENTO SESENTA Y OCHO Y 20/100 DOLLARS</Note>
                 <Note languageLocaleID="2006">Leyenda: Operacion sujeta a detraccion</Note>
                 <DocumentCurrencyCode>USD</DocumentCurrencyCode>
                 <OrderReference>

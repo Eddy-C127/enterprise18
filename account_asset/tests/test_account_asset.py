@@ -2253,7 +2253,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         """ Test that the closing invoice's currency is taken into account when selling an asset. """
         closing_invoice = self.env['account.move'].create({
             'move_type': 'out_invoice',
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'invoice_line_ids': [Command.create({'price_unit': 5000})]
         })
         self.env['asset.modify'].create({

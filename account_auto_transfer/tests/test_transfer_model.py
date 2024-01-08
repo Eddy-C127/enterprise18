@@ -19,8 +19,8 @@ from odoo.tests import tagged
 class TransferModelTestFunctionalCase(AccountAutoTransferTestCase):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         # Model with 4 lines of 20%, 20% is left in origin accounts
         cls.functional_transfer = cls.env['account.transfer.model'].create({
             'name': 'Test Functional Model',

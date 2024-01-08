@@ -12,12 +12,12 @@ from odoo.tests import tagged
 class TestNlXafExport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='nl'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('nl')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.company.write({
             'vat': 'NL123456782B90',
-            'country_id': cls.env.ref('base.nl').id,
         })
 
         products = [cls.product_a, cls.product_b]

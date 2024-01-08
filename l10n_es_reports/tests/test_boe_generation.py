@@ -13,8 +13,9 @@ class TestBOEGeneration(TestAccountReportsCommon):
     """
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super(TestBOEGeneration, cls).setUpClass(chart_template_ref='es_pymes')
+    @TestAccountReportsCommon.setup_country('es')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.spanish_partner = cls.env['res.partner'].create({
             'name': "Bernardo Ganador",

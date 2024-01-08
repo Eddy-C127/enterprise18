@@ -12,8 +12,8 @@ from odoo import Command
 class TestAccountFollowupReports(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.partner_a.email = 'partner_a@mypartners.xyz'
 

@@ -8,11 +8,11 @@ from odoo.tests import tagged
 class TestLibrosExport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='es_pymes'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('es')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.maxDiff = None
-        cls.company_data['company'].write({
-            'country_id': cls.env.ref('base.es').id,
+        cls.company.write({
             'name': 'Los Pollos Hermanos',
             'vat': 'ESA12345674',
             'l10n_es_reports_iae_group': 'A036533',

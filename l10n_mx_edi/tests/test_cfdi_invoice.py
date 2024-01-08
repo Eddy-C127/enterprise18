@@ -17,7 +17,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
         invoice = self._create_invoice(currency_id=self.foreign_curr_1.id)
 
         # Change the currency to prove that the rate is computed based on the invoice
-        self.currency_data['rates'].rate = 10
+        self.other_currency.rate_ids.rate = 10
 
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_invoice_try_send()
@@ -151,7 +151,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
     def test_invoice_negative_lines_dispatch_same_product(self):
         """ Ensure the distribution of negative lines is done on the same product first. """
         product1 = self.product
-        product2 = self._create_product()
+        product2 = self._create_product(default_code='product_mx')
 
         invoice = self._create_invoice(
             invoice_line_ids=[
@@ -211,7 +211,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
     def test_invoice_negative_lines_dispatch_same_taxes(self):
         """ Ensure the distribution of negative lines is done exclusively on lines having the same taxes. """
         product1 = self.product
-        product2 = self._create_product()
+        product2 = self._create_product(default_code='product_mx')
 
         invoice = self._create_invoice(
             invoice_line_ids=[
@@ -544,6 +544,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
         self.cr.precommit.run()  # load the CoA
 
         branch = self.env.company.child_ids
+        self.product.company_id = branch.id
         invoice = self._create_invoice(company_id=branch.id)
 
         with self.with_mocked_pac_sign_success():
@@ -680,6 +681,8 @@ class TestCFDIInvoice(TestMxEdiCommon):
         original_fiscal_folio = invoice.l10n_mx_edi_cfdi_uuid
         invoice.l10n_mx_edi_cfdi_uuid = "DEMOFOLIOFISCAL"  # Prevent blocking duplicate fiscal folio
 
+        self.product.company_id = False  # So it can be imported
+
         new_invoice = self._upload_document_on_journal(
             journal=self.company_data['default_journal_sale'],
             content=invoice.l10n_mx_edi_document_ids.attachment_id.raw.decode(),
@@ -755,6 +758,8 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_invoice_try_send()
+
+        self.product.company_id = False  # So it can be imported
 
         new_bill = self._upload_document_on_journal(
             journal=self.company_data['default_journal_purchase'],
@@ -954,14 +959,14 @@ class TestCFDIInvoice(TestMxEdiCommon):
     def test_cfdi_rounding_3(self):
         date_1 = '2017-01-02'
         date_2 = '2017-01-01'
-        self.setup_usd_rates((date_1, 17.187), (date_2, 17.0357))
+        self.setup_other_currency('USD', rates=[(date_1, 1 / 17.187), (date_2, 1 / 17.0357)])
 
         def run(rounding_method):
             with freeze_time(date_1):
                 invoice = self._create_invoice(
                     invoice_date=date_1,
                     date=date_1,
-                    currency_id=self.fake_usd_data['currency'].id,
+                    currency_id=self.other_currency_2.id,
                     invoice_line_ids=[
                         Command.create({
                             'product_id': self.product.id,
@@ -979,7 +984,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
                 payment = self._create_payment(
                     invoice,
                     payment_date=date_2,
-                    currency_id=self.fake_usd_data['currency'].id,
+                    currency_id=self.other_currency_2.id,
                 )
                 with self.with_mocked_pac_sign_success():
                     payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
@@ -990,14 +995,14 @@ class TestCFDIInvoice(TestMxEdiCommon):
     def test_cfdi_rounding_4(self):
         date_1 = '2017-01-02'
         date_2 = '2017-01-01'
-        self.setup_usd_rates((date_1, 16.9912), (date_2, 17.068))
+        self.setup_other_currency('USD', rates=[(date_1, 1 / 16.9912), (date_2, 1 / 17.068)])
 
         def run(rounding_method):
             with freeze_time(date_1):
                 invoice1 = self._create_invoice(
                     invoice_date=date_1,
                     date=date_1,
-                    currency_id=self.fake_usd_data['currency'].id,
+                    currency_id=self.other_currency_2.id,
                     invoice_line_ids=[
                         Command.create({
                             'product_id': self.product.id,
@@ -1015,7 +1020,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
                 invoice2 = self._create_invoice(
                     invoice_date=date_2,
                     date=date_2,
-                    currency_id=self.fake_usd_data['currency'].id,
+                    currency_id=self.other_currency_2.id,
                     invoice_line_ids=[
                         Command.create({
                             'product_id': self.product.id,
@@ -1034,7 +1039,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
                 payment = self._create_payment(
                     invoices,
                     amount=7276.68,
-                    currency_id=self.fake_usd_data['currency'].id,
+                    currency_id=self.other_currency_2.id,
                     payment_date=date_2,
                 )
                 with self.with_mocked_pac_sign_success():

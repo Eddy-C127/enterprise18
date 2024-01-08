@@ -9,8 +9,8 @@ from freezegun import freeze_time
 class TestGermanIsoCreditTransfer(TestSepaCommonCreditTransfer):
 
     @classmethod
-    def setup_company_data(cls, company_name, chart_template='de_skr03', **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
+    def collect_company_accounting_data(cls, company):
+        res = super().collect_company_accounting_data(company)
         cls.german_bank = cls.env['res.bank'].create({
             'name': 'Deutsche Bank',
             'bic': 'DEUTBEBE',
@@ -23,8 +23,9 @@ class TestGermanIsoCreditTransfer(TestSepaCommonCreditTransfer):
         return res
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='de_skr03'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestSepaCommonCreditTransfer.setup_chart_template('de_skr03')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env.ref('base.EUR').active = True
         cls.german_partner = cls.env['res.partner'].create({
             'name': 'German Customer',
@@ -52,9 +53,10 @@ class TestGermanIsoCreditTransfer(TestSepaCommonCreditTransfer):
 
 @tagged('post_install', '-at_install')
 class TestAustrianIsoCreditTransfer(TestSepaCommonCreditTransfer):
+
     @classmethod
-    def setup_company_data(cls, company_name, chart_template='at', **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
+    def collect_company_accounting_data(cls, company):
+        res = super().collect_company_accounting_data(company)
         res['company'].update({'vat': 'ATU12345675'})
         cls.austrian_bank = cls.env['res.bank'].create({
             'name': 'UNICREDIT BANK AUSTRIA AG',
@@ -67,8 +69,9 @@ class TestAustrianIsoCreditTransfer(TestSepaCommonCreditTransfer):
         return res
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='at'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestSepaCommonCreditTransfer.setup_country('at')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env.ref('base.EUR').active = True
         cls.austrian_partner = cls.env['res.partner'].create({
             'name': 'Austrian Customer',
@@ -97,8 +100,8 @@ class TestAustrianIsoCreditTransfer(TestSepaCommonCreditTransfer):
 class TestSwedishIsoCreditTransfer(TestSepaCommonCreditTransfer):
 
     @classmethod
-    def setup_company_data(cls, company_name, chart_template='se', **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
+    def collect_company_accounting_data(cls, company):
+        res = super().collect_company_accounting_data(company)
         cls.swedish_bank = cls.env['res.bank'].create({
             'name': 'SwedBank',
             'bic': 'SWEDSESSXXX',
@@ -118,8 +121,9 @@ class TestSwedishIsoCreditTransfer(TestSepaCommonCreditTransfer):
         return res
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='se'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestSepaCommonCreditTransfer.setup_country('se')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env.ref('base.SEK').active = True
         cls.swedish_partner = cls.env['res.partner'].create({
             'name': 'Swedish Partner',
@@ -148,8 +152,8 @@ class TestSwedishIsoCreditTransfer(TestSepaCommonCreditTransfer):
 class TestSwissIsoCreditTransfer(TestSepaCommonCreditTransfer):
 
     @classmethod
-    def setup_company_data(cls, company_name, chart_template='ch', **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
+    def collect_company_accounting_data(cls, company):
+        res = super().collect_company_accounting_data(company)
         cls.swiss_bank = cls.env['res.bank'].create({
             'name': 'ONE SWISS BANK SA',
             'bic': 'BQBHCHGG',
@@ -165,8 +169,9 @@ class TestSwissIsoCreditTransfer(TestSepaCommonCreditTransfer):
         return res
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='ch'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestSepaCommonCreditTransfer.setup_country('ch')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env.ref('base.CHF').active = True
         cls.swiss_partner = cls.env['res.partner'].create({
             'name': 'Easy Clean Lausanne',

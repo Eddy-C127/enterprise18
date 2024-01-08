@@ -12,17 +12,12 @@ from freezegun import freeze_time
 class GermanySalesReportTest(AccountSalesReportCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass('de_skr03')
-
-    @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].update({
-            'country_id': cls.env.ref('base.de').id,
+    @AccountSalesReportCommon.setup_chart_template('de_skr03')
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company.update({
             'vat': 'DE123456788',
         })
-        return res
 
     @freeze_time('2019-12-31')
     def test_ec_sales_report(self):

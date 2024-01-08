@@ -7,8 +7,9 @@ from freezegun import freeze_time
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class TestAccountInvoice(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref="es_pymes"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_chart_template('es_pymes')
+    def setUpClass(cls):
+        super().setUpClass()
 
     def setUp(self):
         super().setUp()

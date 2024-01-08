@@ -13,15 +13,15 @@ from odoo.tools import pycompat
 class TestDKReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='dk'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company_data['company'].write({
+    @TestAccountReportsCommon.setup_country('dk')
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company.write({
             'city': 'Aalborg',
             'zip': '9430',
             'vat': 'DK12345674',
             'phone': '+45 32 12 34 56',
             'street': 'Paradisæblevej, 10',
-            'country_id': cls.env.ref('base.dk').id,
         })
         cls.env['res.partner.bank'].create({
             'acc_type': 'iban',

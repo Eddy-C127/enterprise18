@@ -11,8 +11,14 @@ from odoo.addons.account_reports.tests.account_sales_report_common import Accoun
 class EstonianTaxReportTest(AccountSalesReportCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='ee'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountSalesReportCommon.setup_country('ee')
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.company.write({
+            'vat': 'EE123456780',
+            'company_registry': '12345678',
+        })
 
         cls.partner_ee_1 = cls.env['res.partner'].create({
             'name': 'Partner EE 1',
@@ -154,16 +160,6 @@ class EstonianTaxReportTest(AccountSalesReportCommon):
                 ], limit=1),
         }
         cls.taxes['vat_in_22_partial'].l10n_ee_kmd_inf_code = '11'
-
-    @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].update({
-            'country_id': cls.env.ref('base.ee').id,
-            'vat': 'EE123456780',
-            'company_registry': '12345678',
-        })
-        return res
 
     @freeze_time('2023-02-01')
     def test_generate_xml_purchase(self):

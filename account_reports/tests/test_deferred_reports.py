@@ -9,8 +9,8 @@ from odoo.tests import tagged, HttpCase, Form
 @tagged('post_install', '-at_install')
 class TestDeferredReports(TestAccountReportsCommon, HttpCase):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.deferred_expense_report = cls.env.ref('account_reports.deferred_expense_report')
         cls.deferred_revenue_report = cls.env.ref('account_reports.deferred_revenue_report')
         cls.handler = cls.env['account.deferred.expense.report.handler']

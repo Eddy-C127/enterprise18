@@ -7,8 +7,9 @@ from . import common
 class TestFe(common.TestEdi):
 
     @classmethod
+    @common.TestEdi.setup_afip_ws('wsfe')
     def setUpClass(cls):
-        super(TestFe, cls).setUpClass('wsfe')
+        super().setUpClass()
         cls.partner = cls.res_partner_adhoc
         cls.journal = cls._create_journal(cls, 'wsfe')
         cls._create_test_invoices_like_demo(cls)

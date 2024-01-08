@@ -8,8 +8,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.vanilla_company1 = cls.env['res.company'].create({'name': "Vanilla1"})
         cls.vanilla_company2 = cls.env['res.company'].create({'name': "Vanilla2"})

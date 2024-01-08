@@ -9,11 +9,12 @@ from odoo.tests.common import tagged
 class TestAllReportsGeneration(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         # do not disable buttons because of multiple companies selected
         cls.env = cls.env(context={'allowed_company_ids': cls.env.company.ids})
+        cls.setup_other_currency('EUR')
 
         cls.reports = cls.env['account.report'].with_context(active_test=False).search([])
         # The consolidation report needs a consolidation.period to be open, which we won't have by default.

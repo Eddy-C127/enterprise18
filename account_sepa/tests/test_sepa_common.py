@@ -5,22 +5,19 @@ from odoo.tests import tagged
 @tagged('post_install', '-at_install')
 class TestSepaCommonCreditTransfer(AccountTestInvoicingCommon):
     @classmethod
-    def setup_company_data(cls, company_name, chart_template, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].update({
-            'country_id': cls.env.ref("base.%s" % chart_template[0:2]).id,
+    def collect_company_accounting_data(cls, company):
+        company.update({
             'street': '4 Privet Drive',
             'city': 'Little Whinging',
             'zip': 1997,
-            'currency_id': cls.env.ref('base.EUR').id,
             'sepa_orgid_id': '0123456789',
             'sepa_initiating_party_name': 'Grunnings'
         })
-        return res
+        return super().collect_company_accounting_data(company)
 
     @classmethod
-    def setUpClass(cls, chart_template_ref):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.sepa_ct = cls.company_data['default_journal_bank'].outbound_payment_method_line_ids.filtered(lambda l: l.code == 'sepa_ct')
         cls.sepa_ct_method = cls.env.ref('account_sepa.account_payment_method_sepa_ct')
 

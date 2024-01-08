@@ -12,11 +12,11 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged('-at_install', 'post_install_l10n', 'post_install')
 class AccountTestSIEImport(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        cls.chart_template = chart_template_ref or 'se'
-        super().setUpClass(cls.chart_template)
+    @AccountTestInvoicingCommon.setup_country('se')
+    def setUpClass(cls):
+        super().setUpClass()
 
-        cls.company = cls.setup_company_data('SIE test company', chart_template=cls.chart_template)['company']
+        cls.company = cls.setup_other_company(name='SIE test company')['company']
         cls.env.user.write({
             'company_ids': [cls.company.id],
             'company_id': cls.company.id,

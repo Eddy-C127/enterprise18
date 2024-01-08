@@ -14,8 +14,8 @@ from odoo.tests import tagged
 class MoveModelLineTestCase(AccountAutoTransferTestCase):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls._assign_origin_accounts(cls)
 
     def test__get_transfer_move_lines_values_same_aaccounts(self):

@@ -13,8 +13,11 @@ from odoo.tests import tagged
 class TestResPartner(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountTestInvoicingCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company_data_2 = cls.setup_other_company()
+        cls.other_currency = cls.setup_other_currency('CAD')
 
         cls.invoice = cls.init_invoice('in_invoice')
 
@@ -76,7 +79,7 @@ class TestResPartner(AccountTestInvoicingCommon):
             'partner_id': partner_id.id,
             'invoice_payment_term_id': False,
             'invoice_date': fields.Date.from_string(date),
-            'currency_id': cls.currency_data['currency'].id,
+            'currency_id': cls.other_currency.id,
             'invoice_line_ids': [
                 Command.create({
                     'product_id': product_id.id,
@@ -866,7 +869,7 @@ class TestResPartner(AccountTestInvoicingCommon):
             'move_type': 'in_invoice',
             'partner_id': self.partner_b.id,
             'invoice_date': fields.Date.from_string('2000-06-01'),
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'invoice_line_ids': [
                 Command.create({
                     'name': f"{account_id.name} - Test invoice line",
@@ -903,7 +906,7 @@ class TestResPartner(AccountTestInvoicingCommon):
             'move_type': 'in_invoice',
             'partner_id': self.partner_b.id,
             'invoice_date': fields.Date.from_string('2000-06-01'),
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'invoice_line_ids': [
                 Command.create({
                     'name': f"{account_id.name} - Test invoice line",
@@ -949,7 +952,7 @@ class TestResPartner(AccountTestInvoicingCommon):
         ])
 
     def test_281_50_bill_in_currency(self):
-        foreign_currency = self.currency_data['currency']
+        foreign_currency = self.other_currency
         bill = self.env['account.move'].create({
             'move_type': 'in_invoice',
             'partner_id': self.partner_b.id,
@@ -1035,7 +1038,7 @@ class TestResPartner(AccountTestInvoicingCommon):
             'partner_id': partner_id.id,
             'invoice_payment_term_id': False,
             'invoice_date': fields.Date.from_string('2000-05-12'),
-            'currency_id': self.currency_data['currency'].id,
+            'currency_id': self.other_currency.id,
             'invoice_line_ids': [
                 Command.create({
                     'product_id': product_id.id,

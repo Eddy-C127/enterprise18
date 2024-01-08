@@ -13,8 +13,10 @@ from odoo.tools.misc import file_path
 class TestSEPACreditTransferUpdate(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.env.user.groups_id |= cls.env.ref('account.group_validate_bank_account')
 
         cls.company_data['company'].write({
             'country_id': cls.env.ref('base.be').id,

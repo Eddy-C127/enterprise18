@@ -7,8 +7,8 @@ from odoo.tests import tagged, HttpCase
 class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.st_line1 = cls._create_st_line(1000.0, payment_ref="line1", sequence=1)
         cls.st_line2 = cls._create_st_line(1000.0, payment_ref="line2", sequence=2)

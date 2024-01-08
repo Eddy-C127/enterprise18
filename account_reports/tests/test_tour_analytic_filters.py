@@ -8,8 +8,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
 class TestTourAccountAnalyticFilters(AccountTestInvoicingHttpCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.user.groups_id += cls.env.ref(
             'analytic.group_analytic_accounting')

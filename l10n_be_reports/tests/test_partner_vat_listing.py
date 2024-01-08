@@ -12,8 +12,16 @@ from freezegun import freeze_time
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class BelgiumPartnerVatListingTest(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company.update({
+            'vat': 'BE0477472701',
+        })
+        cls.company.partner_id.update({
+            'email': 'jsmith@mail.com',
+            'phone': '+32475123456',
+        })
 
         cls.partner_a_be = cls.env['res.partner'].create({
             'name': 'Partner A (BE)',
@@ -34,19 +42,6 @@ class BelgiumPartnerVatListingTest(TestAccountReportsCommon):
         })
 
         cls.report = cls.env.ref('l10n_be_reports.l10n_be_partner_vat_listing')
-
-    @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].update({
-            'country_id': cls.env.ref('base.be').id,
-            'vat': 'BE0477472701',
-        })
-        res['company'].partner_id.update({
-            'email': 'jsmith@mail.com',
-            'phone': '+32475123456',
-        })
-        return res
 
     @classmethod
     def create_and_post_account_move(cls, move_type, partner_id, invoice_date, product_quantity, product_price_unit):

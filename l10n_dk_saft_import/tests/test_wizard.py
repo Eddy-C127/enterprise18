@@ -10,17 +10,11 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged('-at_install', 'post_install_l10n', 'post_install')
 class AccountTestSAFTImport(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        cls.chart_template = chart_template_ref or 'dk'
-        super().setUpClass(cls.chart_template)
+    @AccountTestInvoicingCommon.setup_country('dk')
+    def setUpClass(cls):
+        super().setUpClass()
 
-        cls.company = cls.setup_company_data('SAF-T test company', chart_template=cls.chart_template)['company']
-        cls.env.user.write({
-            'company_ids': [cls.company.id],
-            'company_id': cls.company.id,
-        })
-
-        cls.currency = cls.env.ref('base.DKK')
+        cls.company.write({'name': 'SAF-T test company'})
 
         with file_open('l10n_dk_saft_import/tests/data/saft_example_dk.xml') as f:
             cls.saft_filedata = b64encode(f.read().encode())

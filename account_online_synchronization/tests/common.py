@@ -10,14 +10,15 @@ from unittest.mock import MagicMock
 class AccountOnlineSynchronizationCommon(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.other_currency = cls.setup_other_currency('EUR')
 
-        cls.gold_bank_journal = cls.env['account.journal'].create({
-            'name': 'Gold Bank Journal',
+        cls.euro_bank_journal = cls.env['account.journal'].create({
+            'name': 'Euro Bank Journal',
             'type': 'bank',
-            'code': 'GOLB',
-            'currency_id': cls.currency_data['currency'].id,
+            'code': 'EURB',
+            'currency_id': cls.other_currency.id,
         })
         cls.account_online_link = cls.env['account.online.link'].create({
             'name': 'Test Bank',
@@ -28,7 +29,7 @@ class AccountOnlineSynchronizationCommon(AccountTestInvoicingCommon):
         cls.account_online_account = cls.env['account.online.account'].create({
             'name': 'MyBankAccount',
             'account_online_link_id': cls.account_online_link.id,
-            'journal_ids': [Command.set(cls.gold_bank_journal.id)]
+            'journal_ids': [Command.set(cls.euro_bank_journal.id)]
         })
         cls.BankStatementLine = cls.env['account.bank.statement.line']
 

@@ -13,8 +13,9 @@ from odoo.tests import Form, tagged
 class TestPayrollSuperStream(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='au'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountTestInvoicingCommon.setup_country('au')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.account_21400 = cls.env['account.account'].search([
             ('company_id', '=', cls.company_data['company'].id),
             ('code', '=', 21400)

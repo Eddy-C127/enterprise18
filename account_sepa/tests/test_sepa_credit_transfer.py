@@ -13,9 +13,11 @@ from odoo.tools.misc import file_path
 class TestSEPACreditTransfer(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env.ref('base.EUR').active = True
+
+        cls.env.user.groups_id |= cls.env.ref('account.group_validate_bank_account')
 
         # tests doesn't go through the sanitization (_ is invalid)
         cls.partner_a.name = sanitize_communication(cls.partner_a.name)

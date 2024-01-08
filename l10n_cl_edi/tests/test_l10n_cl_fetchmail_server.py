@@ -15,8 +15,9 @@ from .common import TestL10nClEdiCommon, _check_with_xsd_patch
 @patch('odoo.tools.xml_utils._check_with_xsd', _check_with_xsd_patch)
 class TestFetchmailServer(TestL10nClEdiCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref='cl'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company_data_2 = cls.setup_other_company()
         purchase_journal = cls.env['account.journal'].search([
             ('type', '=', 'purchase'),
             ('company_id', '=', cls.company_data['company'].id)

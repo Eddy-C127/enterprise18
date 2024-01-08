@@ -10,19 +10,19 @@ from odoo.tests import tagged
 class TestSaleTimesheetEnterpriseRanking(TestCommonSaleTimesheet):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.period_start = datetime(2023, 4, 1, 7, 0, 0)
         cls.period_end = datetime(2023, 4, 30, 18, 0, 0)
         cls.today = datetime(2023, 4, 25, 7, 0, 0)
-        cls.so = cls.env['sale.order'].with_context(tracking_disable=True).create({
+        cls.so = cls.env['sale.order'].create({
             'company_id': cls.employee_user.company_id.id,
             'partner_id': cls.partner_a.id,
             'partner_invoice_id': cls.partner_a.id,
             'partner_shipping_id': cls.partner_a.id,
             'pricelist_id': cls.company_data['default_pricelist'].id,
         })
-        cls.sol = cls.env['sale.order.line'].with_context(tracking_disable=True).create({
+        cls.sol = cls.env['sale.order.line'].create({
             'product_id': cls.product_order_timesheet3.id,
             'product_uom_qty': 10,
             'order_id': cls.so.id,

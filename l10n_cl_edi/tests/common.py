@@ -17,12 +17,11 @@ def _check_with_xsd_patch(xml_to_validate, xsd_fname, env, prefix=None):
 
 class TestL10nClEdiCommon(AccountEdiTestCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref='cl'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountEdiTestCommon.setup_country('cl')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data['company'].write({
-            'country_id': cls.env.ref('base.cl').id,
-            'currency_id': cls.env.ref('base.CLP').id,
             'name': 'Blanco Martin & Asociados EIRL',
             'street': 'Apoquindo 6410',
             'city': 'Les Condes',

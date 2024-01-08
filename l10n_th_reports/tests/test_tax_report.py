@@ -13,21 +13,14 @@ from odoo.tests import tagged
 class L10nThaiTaxReportTest(AccountSalesReportCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass('th')
+    @AccountSalesReportCommon.setup_country('th')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.partner_b.write({
             'country_id': cls.env.ref('base.th').id,
             "vat": "12345678",
             "company_registry": "12345678"
         })
-
-    @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].write({
-            'country_id': cls.env.ref('base.th').id,
-        })
-        return res
 
     def compare_xlsx_data(self, report_data, expected_data):
         report_file = io.BytesIO(report_data)

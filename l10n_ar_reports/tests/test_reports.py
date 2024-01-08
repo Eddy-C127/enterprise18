@@ -302,8 +302,8 @@ class TestReports(TestAr, TestAccountReportsCommon):
         invoices.action_post()
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='ar_ri'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.journal = cls._create_journal(cls, 'preprinted', data={'l10n_ar_afip_pos_number': 37928})
         cls.maxDiff = None
         cls.report = cls.env.ref('l10n_ar_reports.l10n_ar_vat_book_report')

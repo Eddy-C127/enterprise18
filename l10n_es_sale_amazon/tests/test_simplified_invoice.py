@@ -11,10 +11,10 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestAmazonES(TestAmazonCommon, AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='es_full'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountTestInvoicingCommon.setup_chart_template('es_full')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.company_data['company'].write({
-            'country_id': cls.env.ref('base.es').id,
             'street': 'C. de Embajadores, 68-116',
             'state_id': cls.env.ref('base.state_es_m').id,
             'city': 'Madrid',

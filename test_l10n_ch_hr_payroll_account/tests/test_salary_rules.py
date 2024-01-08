@@ -14,8 +14,8 @@ from odoo.tools.float_utils import float_compare
 class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='ch'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.work_contact = cls.env['res.partner'].create([{
             'name': "Test Employee",
             'company_id': cls.env.company.id,

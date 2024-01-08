@@ -83,6 +83,8 @@ class HrExpense(models.Model):
             if total_ocr and not self.total_amount_currency:
                 self.total_amount_currency = total_ocr
 
+            self.flush_model()
+
             if currency_ocr and (not self.currency_id or self.currency_id == self.env.company.currency_id):
                 for comparison in ['=ilike', 'ilike']:
                     possible_currencies = self.env["res.currency"].search([

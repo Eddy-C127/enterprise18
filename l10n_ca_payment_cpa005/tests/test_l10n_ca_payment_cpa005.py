@@ -12,8 +12,8 @@ from freezegun import freeze_time
 @freeze_time("2020-11-30 19:45:00")
 class TestCPA005(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data["company"].write({"l10n_ca_cpa005_short_name": "COMP_NAME", "name": "Long Company Name"})
 

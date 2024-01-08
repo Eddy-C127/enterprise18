@@ -10,14 +10,14 @@ from odoo.tests import tagged
 class TestAgedPayableReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.partner_category_a = cls.env['res.partner.category'].create({'name': 'partner_categ_a'})
         cls.partner_category_b = cls.env['res.partner.category'].create({'name': 'partner_categ_b'})
 
-        cls.partner_a = cls.env['res.partner'].create({'name': 'partner_a', 'company_id': False, 'category_id': [Command.set([cls.partner_category_a.id, cls.partner_category_b.id])]})
-        cls.partner_b = cls.env['res.partner'].create({'name': 'partner_b', 'company_id': False, 'category_id': [Command.set([cls.partner_category_a.id])]})
+        cls.partner_a.write({'category_id': [Command.set([cls.partner_category_a.id, cls.partner_category_b.id])]})
+        cls.partner_b.write({'category_id': [Command.set([cls.partner_category_a.id])]})
 
         payable_1 = cls.company_data['default_account_payable']
         payable_2 = cls.company_data['default_account_payable'].copy()

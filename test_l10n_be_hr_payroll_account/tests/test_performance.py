@@ -18,13 +18,13 @@ _logger = logging.getLogger(__name__)
 class TestPayslipValidation(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @AccountTestInvoicingCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.EMPLOYEES_COUNT = 100
 
         cls.company_data['company'].write({
-            'country_id': cls.env.ref('base.be').id,
             'l10n_be_company_number': '0477472701',
             'l10n_be_revenue_code': '1293',
             'street': 'Rue du Paradis',
@@ -32,11 +32,6 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'city': 'Eghezee',
             'vat': 'BE0897223670',
             'phone': '061928374',
-        })
-
-        cls.company = cls.env.company
-
-        cls.company.write({
             'documents_hr_settings': True,
         })
 

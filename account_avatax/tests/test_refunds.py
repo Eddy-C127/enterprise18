@@ -7,8 +7,8 @@ class TestAccountAvalaraRefunds(TestAccountAvataxCommon):
     """https://developer.avalara.com/certification/avatax/refunds-credit-memos-badge/"""
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        res = super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        res = super().setUpClass()
         cls.product = cls.env["product.product"].create({
             'name': "Product",
             'list_price': 15.00,

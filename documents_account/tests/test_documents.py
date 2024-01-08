@@ -16,8 +16,8 @@ TEXT = base64.b64encode(bytes("workflow bridge account", 'utf-8'))
 class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.folder_a = cls.env['documents.folder'].create({
             'name': 'folder A',
         })

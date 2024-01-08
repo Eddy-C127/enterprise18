@@ -6,8 +6,8 @@ from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon
 class TestMXEdiStockCommon(TestMxEdiCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         # Adjust Demo Data since the PAC's only sign documents with valid companies
         cls.env['res.company']\

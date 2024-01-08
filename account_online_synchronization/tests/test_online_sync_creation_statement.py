@@ -13,8 +13,8 @@ from unittest.mock import MagicMock, patch
 class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.account = cls.env['account.account'].create({
             'name': 'Fixed Asset Account',
@@ -40,12 +40,12 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         self.BankStatementLine._online_sync_bank_statement(transactions, self.account_online_account)
         # Since ending balance is 1000$ and we only have 20$ of transactions and that it is the first statement
         # it should create a statement before this one with the initial statement line
-        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.gold_bank_journal.id)], order='date asc')
+        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.euro_bank_journal.id)], order='date asc')
         self.assertEqual(len(created_st_lines), 3, 'Should have created an initial bank statement line and two for the synchronization')
         transactions = self._create_online_transactions(['2016-01-05'])
         self.account_online_account.balance = 2000
         self.BankStatementLine._online_sync_bank_statement(transactions, self.account_online_account)
-        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.gold_bank_journal.id)], order='date asc')
+        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.euro_bank_journal.id)], order='date asc')
         self.assertRecordValues(
             created_st_lines,
             [
@@ -62,7 +62,7 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         self.BankStatementLine._online_sync_bank_statement(transactions, self.account_online_account)
         # Since ending balance is 20$ and we only have 20$ of transactions and that it is the first statement
         # it should NOT create a initial statement before this one
-        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.gold_bank_journal.id)], order='date asc')
+        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.euro_bank_journal.id)], order='date asc')
         self.assertRecordValues(
             created_st_lines,
             [
@@ -79,12 +79,12 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         self.BankStatementLine._online_sync_bank_statement(transactions, self.account_online_account)
         # Since ending balance is 1000$ and we only have 20$ of transactions and that it is the first statement
         # it should create a statement before this one with the initial statement line
-        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.gold_bank_journal.id)], order='date asc')
+        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.euro_bank_journal.id)], order='date asc')
         self.assertEqual(len(created_st_lines), 2, 'Should have created two bank statement lines for the synchronization')
         transactions = self._create_online_transactions(['2016-01-05'])
         self.account_online_account.balance = -30
         self.BankStatementLine._online_sync_bank_statement(transactions, self.account_online_account)
-        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.gold_bank_journal.id)], order='date asc')
+        created_st_lines = self.BankStatementLine.search([('journal_id', '=', self.euro_bank_journal.id)], order='date asc')
         self.assertRecordValues(
             created_st_lines,
             [
@@ -123,12 +123,12 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         bank_account_1 = create_bank_account('BE48485444456727', self.company_data['company'].partner_id.id)
         bank_account_2 = create_bank_account('BE23798242487491', self.company_data['company'].partner_id.id)
 
-        bank_journal_with_account_gol = create_journal('Bank with account', 'bank', 'BJWA1', self.currency_data['currency'].id)
+        bank_journal_with_account_gol = create_journal('Bank with account', 'bank', 'BJWA1', self.other_currency.id)
         bank_journal_with_account_usd = create_journal('Bank with account USD', 'bank', 'BJWA3', self.env.ref('base.USD').id, bank_account_2.id)
 
-        online_account_1 = create_online_account('OnlineAccount1', self.account_online_link.id, 'BE48485444456727', self.currency_data['currency'].id)
-        online_account_2 = create_online_account('OnlineAccount2', self.account_online_link.id, 'BE61954856342317', self.currency_data['currency'].id)
-        online_account_3 = create_online_account('OnlineAccount3', self.account_online_link.id, 'BE23798242487495', self.currency_data['currency'].id)
+        online_account_1 = create_online_account('OnlineAccount1', self.account_online_link.id, 'BE48485444456727', self.other_currency.id)
+        online_account_2 = create_online_account('OnlineAccount2', self.account_online_link.id, 'BE61954856342317', self.other_currency.id)
+        online_account_3 = create_online_account('OnlineAccount3', self.account_online_link.id, 'BE23798242487495', self.other_currency.id)
 
         patched_fetch_transactions.return_value = True
         patched_get_consent.return_value = True
@@ -147,7 +147,7 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         account_link_journal_wizard.sync_now()
         actual_number = self.env['account.journal'].search_count([])
         self.assertEqual(actual_number, previous_number+1, "should have created a new journal")
-        self.assertEqual(online_account_2.journal_ids.currency_id, self.currency_data['currency'])
+        self.assertEqual(online_account_2.journal_ids.currency_id, self.other_currency)
         self.assertEqual(online_account_2.journal_ids.bank_account_id.sanitized_acc_number, sanitize_account_number('BE61954856342317'))
 
         # Test assigning to a journal in another currency
@@ -155,7 +155,7 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         account_link_journal_wizard.with_context(active_model='account.journal', active_id=bank_journal_with_account_usd.id).sync_now()
         self.assertEqual(online_account_3.id, bank_journal_with_account_usd.account_online_account_id.id)
         self.assertEqual(bank_journal_with_account_usd.bank_account_id, bank_account_2, "Bank Account should not have changed")
-        self.assertEqual(bank_journal_with_account_usd.currency_id, self.currency_data['currency'], "Currency should have changed")
+        self.assertEqual(bank_journal_with_account_usd.currency_id, self.other_currency, "Currency should have changed")
 
     @patch('odoo.addons.account_online_synchronization.models.account_online.AccountOnlineLink._fetch_odoo_fin')
     def test_fetch_transaction_date_start(self, patched_fetch):
@@ -167,7 +167,7 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
             'start_date': False,
             'account_id': False,
             'last_transaction_identifier': False,
-            'currency_code': 'Gol',
+            'currency_code': 'EUR',
             'provider_data': False,
             'account_data': False,
             'include_pendings': False,
@@ -195,7 +195,7 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         # Add first transactions to the list again
         transactions.append(transactions[0])
         self.BankStatementLine._online_sync_bank_statement(transactions, self.account_online_account)
-        bnk_stmt_lines = self.BankStatementLine.search([('online_transaction_identifier', '!=', False), ('journal_id', '=', self.gold_bank_journal.id)])
+        bnk_stmt_lines = self.BankStatementLine.search([('online_transaction_identifier', '!=', False), ('journal_id', '=', self.euro_bank_journal.id)])
         self.assertEqual(len(bnk_stmt_lines), 2, 'Should only have created two lines')
 
     @patch('odoo.addons.account_online_synchronization.models.account_online.requests')

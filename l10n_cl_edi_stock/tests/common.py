@@ -10,11 +10,11 @@ from odoo.tools import misc, relativedelta
 class TestL10nClEdiStockCommon(ValuationReconciliationTestCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref='cl')
+    @ValuationReconciliationTestCommon.setup_country('cl')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.company.write({
-            'country_id': cls.env.ref('base.cl').id,
             'name': 'Blanco Martin & Asociados EIRL',
             'street': 'Apoquindo 6410',
             'city': 'Les Condes',

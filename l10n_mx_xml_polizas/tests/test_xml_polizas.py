@@ -12,9 +12,9 @@ from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon
 class AccountXmlPolizasWizard(TestMxEdiCommon, TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
+    def setUpClass(cls):
         """ Set up the test class for its own tests """
-        super().setUpClass(chart_template_ref=chart_template_ref)
+        super().setUpClass()
 
         # Setup the company
         cls.company = cls.company_data['company']

@@ -12,8 +12,9 @@ from freezegun import freeze_time
 class TestLuSaftReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='lu'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('lu')
+    def setUpClass(cls):
+        super().setUpClass()
 
         (cls.partner_a + cls.partner_b).write({
             'city': 'Garnich',
@@ -213,7 +214,7 @@ class TestLuSaftReport(TestAccountReportsCommon):
                         <Products>
                             <Product>
                                 <ProductCode>PA</ProductCode>
-                                <ProductGroup>All</ProductGroup>
+                                <ProductGroup>Test Category</ProductGroup>
                                 <Description>product_a</Description>
                                 <UOMBase>Units</UOMBase>
                             </Product>

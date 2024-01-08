@@ -13,15 +13,15 @@ _logger = logging.getLogger(__name__)
 class TestReports(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref="in"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('in')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.maxDiff = None
         cls.company_data["company"].write({
             "state_id": cls.env.ref("base.state_in_gj").id,
             "street": "street1",
             "city": "city1",
             "zip": "123456",
-            "country_id": cls.env.ref("base.in").id,
             })
         cls.partner_a.write({
             "vat": "24BBBFF5679L8ZR",

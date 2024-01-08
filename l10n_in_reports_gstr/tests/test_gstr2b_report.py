@@ -40,15 +40,15 @@ class TestReports(TestAccountReportsCommon):
         return cls.env.ref('account.%s_%s' % (cls.company_data['company'].id, trailing_xmlid))
 
     @classmethod
-    def setUpClass(cls, chart_template_ref="in"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('in')
+    def setUpClass(cls):
+        super().setUpClass()
         cls.company_data["company"].write({
             "vat": "24AAGCC7144L6ZE",
             "state_id": cls.env.ref("base.state_in_gj").id,
             "street": "street1",
             "city": "city1",
             "zip": "123456",
-            "country_id": cls.env.ref("base.in").id,
         })
         cls.partner_b.write({
             "vat": "27BBBFF5679L8ZR",

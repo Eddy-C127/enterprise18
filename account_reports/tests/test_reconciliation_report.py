@@ -8,15 +8,11 @@ from odoo.tests import tagged
 class TestReconciliationReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
-        cls.currency_data_2 = cls.setup_multi_currency_data({
-            'name': 'Dark Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Dark Choco',
-            'currency_subunit_label': 'Dark Cacao Powder',
-        }, rate2016=10.0, rate2017=20.0)
+        cls.other_currency = cls.setup_other_currency('EUR')
+        cls.other_currency_2 = cls.setup_other_currency('GBP', rates=[('2016-01-01', 10.0), ('2017-01-01', 20.0)])
 
     def test_reconciliation_report_single_currency(self):
         """
@@ -159,8 +155,8 @@ class TestReconciliationReport(TestAccountReportsCommon):
         self.env.user.groups_id |= self.env.ref('base.group_no_one')
 
         company_currency = self.company_data['currency']  # USD
-        journal_currency = self.currency_data['currency']  # Gol
-        choco_currency = self.currency_data_2['currency']  # Dar
+        journal_currency = self.other_currency  # EUR
+        choco_currency = self.other_currency_2  # GBP
 
         # ==== Journal with a foreign currency ====
 

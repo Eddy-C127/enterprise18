@@ -11,8 +11,8 @@ from odoo.tests import tagged, Form
 class TestTaxReportDefaultPart(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.revenue_1 = cls.company_data['default_account_revenue']
         cls.revenue_2 = cls.copy_account(cls.revenue_1)

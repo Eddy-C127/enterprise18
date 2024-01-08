@@ -13,16 +13,26 @@ _logger = logging.getLogger(__name__)
 @tagged('external_l10n', '-at_install', 'post_install', '-standard', 'external')
 class TestEdi(TestAr):
 
+    @staticmethod
+    def setup_afip_ws(afip_ws):
+        def _decorator(function):
+            def wrapper(self):
+                self.afip_ws = afip_ws
+                function(self)
+            return wrapper
+
+        return _decorator
+
     @classmethod
-    def setUpClass(cls, afip_ws, chart_template_ref='ar_ri'):
-        super(TestEdi, cls).setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.company_ri.write({
             'l10n_ar_afip_ws_environment': 'testing',
         })
         cls.company_mono.write({
             'l10n_ar_afip_ws_environment': 'testing',
         })
-        cls._create_afip_connections(cls, cls.company_ri, afip_ws, 'test_cert1.crt')
+        cls._create_afip_connections(cls, cls.company_ri, cls.afip_ws, 'test_cert1.crt')
 
     # Initialition
 

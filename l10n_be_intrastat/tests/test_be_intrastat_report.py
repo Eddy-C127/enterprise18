@@ -10,9 +10,9 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 class TestBEIntrastatReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company_data['company'].country_id = cls.env.ref('base.be')
+    @TestAccountReportsCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
         italy = cls.env.ref('base.it')
         cls.company_data['company'].company_registry = '0123456789'
         cls.report = cls.env.ref('account_intrastat.intrastat_report')

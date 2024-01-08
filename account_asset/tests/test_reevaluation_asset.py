@@ -12,8 +12,8 @@ from odoo import fields
 class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.account_depreciation_expense = cls.company_data['default_account_assets'].copy()
         cls.asset_counterpart_account_id = cls.company_data['default_account_expense'].copy()
         cls.degressive_asset = cls.create_asset(

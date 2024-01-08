@@ -11,8 +11,8 @@ from odoo.tests import tagged
 class TestBalanceSheetReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.report = cls.env.ref('account_reports.balance_sheet')
 
     def test_report_lines_ordering(self):

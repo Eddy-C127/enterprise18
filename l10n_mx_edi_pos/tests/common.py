@@ -7,8 +7,8 @@ from odoo.addons.point_of_sale.tests.common import TestPoSCommon
 class TestMxEdiPosCommon(TestMxEdiCommon, TestPoSCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.config = cls.basic_config
 
         cls.product.write({

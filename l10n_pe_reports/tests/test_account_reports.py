@@ -7,10 +7,13 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 @tagged("post_install", "post_install_l10n", "-at_install")
 class TestPeSales(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref="pe"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('pe')
+    def setUpClass(cls):
+        super().setUpClass()
 
-        cls.company_data["company"].country_id = cls.env.ref("base.pe")
+        (cls.company_data['default_journal_sale'] + cls.company_data['default_journal_purchase']).write({
+            'l10n_latam_use_documents': False,
+        })
 
         move_types = ["out_invoice", "out_refund", "in_invoice", "in_refund"]
         date_invoice = "2022-07-01"

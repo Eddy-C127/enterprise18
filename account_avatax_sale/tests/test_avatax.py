@@ -8,8 +8,8 @@ from .mocked_so_response import generate_response
 @tagged("-at_install", "post_install")
 class TestSaleAvalara(TestAccountAvataxCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        res = super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        res = super().setUpClass()
 
         # This tax is deliberately wrong with an amount of 1. This is
         # used to make sure we use the tax values that Avatax returns
@@ -148,8 +148,8 @@ class TestAccountAvalaraSalesTaxItemsIntegration(TestAccountAvataxCommon):
     """https://developer.avalara.com/certification/avatax/sales-tax-badge/"""
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        res = super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        res = super().setUpClass()
         shipping_partner = cls.env["res.partner"].create({
             'name': "Shipping Partner",
             'street': "234 W 18th Ave",

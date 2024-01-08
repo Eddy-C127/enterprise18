@@ -10,21 +10,12 @@ from odoo.tests import tagged
 class BelgiumGeneralLedgerTest(AccountSalesReportCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='be_comp'):
-        super().setUpClass(chart_template_ref)
-
-    @classmethod
-    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
-        res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].update({
-            'country_id': cls.env.ref('base.be').id,
+    @AccountSalesReportCommon.setup_country('be')
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company.update({
             'vat': 'BE0477472701',
         })
-        res['company'].partner_id.update({
-            'email': 'jsmith@mail.com',
-            'phone': '+32475123456',
-        })
-        return res
 
     @freeze_time('2023-01-01')
     def test_annual_account_export(self):

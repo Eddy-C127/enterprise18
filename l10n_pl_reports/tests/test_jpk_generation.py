@@ -12,8 +12,9 @@ from freezegun import freeze_time
 class TestJpkExport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='pl'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    @TestAccountReportsCommon.setup_country('pl')
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.company_data['company'].write({
             'name': 'Polish Company',
@@ -22,7 +23,6 @@ class TestJpkExport(TestAccountReportsCommon):
             'vat': 'PL1234567883',
             'email': 'test@mail.com',
             'l10n_pl_reports_tax_office_id': cls.env.ref('l10n_pl.pl_tax_office_0206'),
-            'country_id': cls.env.ref('base.pl').id,
         })
 
         cls.partner_a.write({
