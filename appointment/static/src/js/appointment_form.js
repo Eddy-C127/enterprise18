@@ -13,6 +13,30 @@ publicWidget.registry.appointmentForm = publicWidget.Widget.extend({
     },
 
     /**
+     * Restore the attendee data from the local storage if the attendee doesn't have any partner data.
+     */
+    start: function () {
+        return this._super(...arguments).then(() => {
+            this.hasFormDefaultValues = this._getAttendeeFormData().some(([_, value]) => value !== '');
+            if (!this.hasFormDefaultValues && localStorage.getItem('appointment.form.values')) {
+                const attendeeData = JSON.parse(localStorage.getItem('appointment.form.values'));
+                const form = this.el.querySelector('form.appointment_submit_form');
+                for (const [name, value] of Object.entries(attendeeData)) {
+                    const input = form.querySelector(`input[name="${name}"]`);
+                    if (input) {
+                        input.value = value;
+                    }
+                }
+            }
+        });
+    },
+
+    _getAttendeeFormData: function() {
+        const formData = new FormData(this.el.querySelector('form.appointment_submit_form'));
+        return Array.from(formData).filter(([key]) => ['name', 'phone', 'email'].includes(key));
+    },
+
+    /**
      * This function will show the guest email textarea where user can enter the
      * emails of the guests if allow_guests option is enabled.
      */
@@ -40,6 +64,12 @@ publicWidget.registry.appointmentForm = publicWidget.Widget.extend({
             }
         }
         if (appointmentForm.reportValidity()) {
+            if (!this.hasFormDefaultValues) {
+                const attendeeData = this._getAttendeeFormData();
+                if (attendeeData.length) {
+                    localStorage.setItem('appointment.form.values', JSON.stringify(Object.fromEntries(attendeeData)));
+                }
+            }
             appointmentForm.submit();
         }
     },
