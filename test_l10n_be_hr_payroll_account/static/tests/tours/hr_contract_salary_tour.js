@@ -1003,11 +1003,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             trigger:
                 "div.o_field_widget.o_required_modifier.o_field_many2one_avatar_user.o_field_many2one_avatar[name=hr_responsible_id]",
             run: function (actions) {
-                actions.text("Marc Demo", this.$anchor.find("input"));
+                actions.text("Mitchell", this.$anchor.find("input"));
             },
         },
         {
-            trigger: ".ui-autocomplete > li > a:contains('Marc Demo')",
+            trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin')",
             auto: true,
         },
         {

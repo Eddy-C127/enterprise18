@@ -51,7 +51,7 @@ class Testl10nBeHrPayrollAccountUi(common.TestPayrollAccountCommon):
         self.assertFalse(vehicle, 'A vehicle has not been created')
 
         # We now fully sign the offer to see if the vehicle to order is created correctly
-        self.start_tour("/", 'hr_contract_salary_tour_counter_sign', login='demo', timeout=350, step_delay=300)
+        self.start_tour("/", 'hr_contract_salary_tour_counter_sign', login='admin', timeout=350, step_delay=300)
 
         vehicle = self.env['fleet.vehicle'].search([('company_id', '=', self.company_id.id), ('model_id', '=', model_corsa.id)])
         self.assertTrue(vehicle, 'A vehicle has been created')
