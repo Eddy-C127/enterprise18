@@ -518,12 +518,13 @@ class TestAmazon(common.TestAmazonCommon):
             'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
             new=find_matching_product_mock,
         ):
+            partner = self.env['res.partner'].create({'name': 'Gederic Frilson'})
             currency = self.env['res.currency'].create({'name': 'QUA', 'symbol': 'Q'})
             pricelist = self.env['product.pricelist'].create({
                 'name': 'QUA pricelist', 'currency_id': currency.id,
             })
             self.env['sale.order'].create({
-                'partner_id': self.env.ref('base.res_partner_1').id,
+                'partner_id': partner.id,
                 'pricelist_id': pricelist.id,
                 'amazon_order_ref': 'replaced_order',
             })
