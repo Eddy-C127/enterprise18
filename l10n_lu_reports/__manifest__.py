@@ -14,7 +14,6 @@ Necessary master data is also included.
     'category': 'Accounting/Localizations/Reporting',
     'depends': ['l10n_lu', 'account_asset', 'account_reports', 'account_saft'],
     'data': [
-        'data/account.account.tag.csv',
         'data/account_financial_html_report_pl.xml',
         'data/account_financial_html_report_pl_abr.xml',
         'data/account_financial_html_report_bs.xml',
