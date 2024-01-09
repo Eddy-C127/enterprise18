@@ -16,10 +16,7 @@ export class WhatsappCoreWeb {
     }
 
     setup() {
-        this.messagingService.isReady.then((data) => {
-            if (data.settings?.is_discuss_sidebar_category_whatsapp_open) {
-                this.store.discuss.whatsapp.isOpen = true;
-            }
+        this.messagingService.isReady.then(() => {
             this.busService.subscribe(
                 "discuss.channel/whatsapp_channel_valid_until_changed",
                 (payload) => {
@@ -33,13 +30,6 @@ export class WhatsappCoreWeb {
                     }
                 }
             );
-            this.busService.subscribe("res.users.settings", (payload) => {
-                if (payload) {
-                    this.store.discuss.whatsapp.isOpen =
-                        payload.is_discuss_sidebar_category_whatsapp_open ??
-                        this.store.discuss.whatsapp.isOpen;
-                }
-            });
         });
     }
 }

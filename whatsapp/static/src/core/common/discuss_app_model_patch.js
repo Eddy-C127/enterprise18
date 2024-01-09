@@ -14,7 +14,6 @@ patch(DiscussApp, {
             id: "whatsapp",
             name: _t("WhatsApp"),
             hideWhenEmpty: true,
-            isOpen: false,
             canView: false,
             canAdd: true,
             addTitle: _t("Search WhatsApp Channel"),
