@@ -73,8 +73,22 @@ export class LastTransactionStatusButton extends Component {
     }
 
     _onLastTransactionStatus(data) {
+        // If the response data has a cid,
+        // it's not a response to a Last Transaction Status request
+        if (data.cid)
+            return;
+
         this.state.pending = false;
-        this.popup.add(LastTransactionPopup, data.value);
+
+        if (data.Error) {
+            this.popup.add(ErrorPopup, {
+                title: _t('Failed to request last transaction status'),
+                body: data.Error,
+            });
+        }
+        else {
+            this.popup.add(LastTransactionPopup, data.value);
+        }
     }
 }
 
