@@ -428,6 +428,10 @@ patch(Wysiwyg.prototype, {
                     itemCalendarProps,
                 });
             }
+        }, {
+            onClose: () => {
+                restoreSelection();
+            }
         });
     },
 
