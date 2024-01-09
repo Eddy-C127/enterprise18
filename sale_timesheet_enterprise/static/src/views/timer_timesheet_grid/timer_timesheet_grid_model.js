@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { browser } from "@web/core/browser/browser";
 import { patch } from "@web/core/utils/patch";
 import { reactive } from "@odoo/owl";
 import { user } from "@web/core/user";
@@ -9,7 +10,7 @@ patch(TimerTimesheetGridDataPoint.prototype, {
     async _initialiseData() {
         await super._initialiseData();
         this.data.leaderboard = reactive({});
-        this.data.leaderboardType = localStorage.getItem("leaderboardType") || "billing_rate";
+        this.data.leaderboardType = browser.localStorage.getItem("leaderboardType") || "billing_rate";
     },
 
     async _getLeaderboardData() {
@@ -58,7 +59,7 @@ patch(TimerTimesheetGridDataPoint.prototype, {
 
     changeLeaderboardType(type) {
         this.data.leaderboardType = type;
-        localStorage.setItem("leaderboardType", type);
+        browser.localStorage.setItem("leaderboardType", type);
 
         this.data.leaderboard.leaderboard = this.sortAndFilterLeaderboard(this.data.leaderboard.stored_leaderboard, type);
         this.data.leaderboard.current_employee = this.setCurrentEmployeeIndexFromLeaderboard(this.data.leaderboard.leaderboard, this.data.leaderboard.current_employee_id);

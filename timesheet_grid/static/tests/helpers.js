@@ -116,7 +116,26 @@ export class TimesheetGridSetupHelper {
             };
         } else if (args.method === "get_daily_working_hours") {
             return get_daily_working_hours();
+        } else if (args.method === "get_timesheet_ranking_data") {
+            return {
+                "leaderboard": [],
+                "employee_id": false,
+                "billing_rate_target": false,
+                "total_time_target": false,
+                "show_leaderboard": true,
+            };
         }
+    }
+
+    async mockTimesheetTimerGridRPC(route, args) {
+        if (args.method === "get_running_timer") {
+            return {
+                step_timer: 30,
+            };
+        } else if (args.method === "action_start_new_timesheet_timer") {
+            return false;
+        }
+        return this.mockTimesheetGridRPC(...arguments);
     }
 
     async setupTimesheetGrid() {

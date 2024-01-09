@@ -40,7 +40,7 @@
                                             id="employee.id"
                                         />
                                         <div class="d-flex flex-column align-items-center">
-                                            <span class="text-center fs-4 fw-bolder mt-1" t-esc="employee.name"/>
+                                            <span class="text-center fs-4 fw-bolder mt-1 o_employee_name" t-esc="employee.name"/>
                                             <span class="small text-center">
                                                 <t t-if="state.type === 'billing_rate'" t-esc="getBillingRateText(state.leaderboard[employee_index])"/>
                                                 <t t-else="" t-esc="getTotalTimeText(state.leaderboard[employee_index])"/>
@@ -69,7 +69,7 @@
                                             rank="employee_index + 4"
                                             id="employee.id"
                                         />
-                                        <td t-esc="employee.name"/>
+                                        <td class="o_employee_name" t-esc="employee.name"/>
                                         <td class="text-end small">
                                             <t t-if="state.type === 'billing_rate'" t-esc="getBillingRateText(state.leaderboard[employee_index + 3])"/>
                                             <t t-else="" t-esc="getTotalTimeText(state.leaderboard[employee_index + 3])"/>

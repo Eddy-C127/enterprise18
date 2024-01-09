@@ -2,6 +2,7 @@
 
 import { reactive } from "@odoo/owl";
 
+import { browser } from "@web/core/browser/browser";
 import { patch } from "@web/core/utils/patch";
 import { user } from "@web/core/user";
 
@@ -12,10 +13,10 @@ const { DateTime } = luxon;
 patch(TimesheetTimerRendererHook.prototype, {
     setup() {
         super.setup();
-        if (!localStorage.getItem("leaderboardType")) {
-            localStorage.setItem("leaderboardType", "billing_rate");
+        if (!browser.localStorage.getItem("leaderboardType")) {
+            browser.localStorage.setItem("leaderboardType", "billing_rate");
         }
-        this.leaderboardType = localStorage.getItem("leaderboardType");
+        this.leaderboardType = browser.localStorage.getItem("leaderboardType");
         this.leaderboard = reactive({});
     },
 
@@ -60,7 +61,7 @@ patch(TimesheetTimerRendererHook.prototype, {
 
     changeLeaderboardType(type) {
         this.leaderboardType = type;
-        localStorage.setItem("leaderboardType", type);
+        browser.localStorage.setItem("leaderboardType", type);
         this.leaderboard.leaderboard = this._sortAndFilterLeaderboard(this.leaderboard.stored_leaderboard, type);
         this.leaderboard.current_employee = this._setCurrentEmployeeIndexFromLeaderboard(this.leaderboard.leaderboard, this.leaderboard.current_employee_id);
 

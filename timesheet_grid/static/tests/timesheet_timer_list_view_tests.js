@@ -40,6 +40,13 @@ QUnit.module("timesheet_grid", (hooks) => {
                     return {
                         step_timer: 30,
                     };
+                } else if (args.method === "get_timesheet_ranking_data") {
+                    return {
+                        "leaderboard": [],
+                        "employee_id": false,
+                        "billing_rate_target": false,
+                        "total_time_target": false,
+                    };
                 }
             },
         });
