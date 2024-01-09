@@ -16,7 +16,7 @@ from odoo.osv.expression import AND
 from odoo.tools import float_round, date_utils, convert_file, format_amount
 from odoo.tools.float_utils import float_compare
 from odoo.tools.misc import format_date
-from odoo.tools.safe_eval import safe_eval
+from odoo.tools.safe_eval import safe_eval, datetime as safe_eval_datetime, dateutil as safe_eval_dateutil
 
 _logger = logging.getLogger(__name__)
 
@@ -750,12 +750,13 @@ class HrPayslip(models.Model):
         return {
             'float_round': float_round,
             'float_compare': float_compare,
-            "relativedelta": relativedelta,
-            "ceil": math.ceil,
-            "floor": math.floor,
+            'relativedelta': safe_eval_dateutil.relativedelta.relativedelta,
+            'ceil': math.ceil,
+            'floor': math.floor,
             'UserError': UserError,
-            'date': date,
-            'datetime': datetime,
+            'date': safe_eval_datetime.date,
+            'datetime': safe_eval_datetime.datetime,
+            'defaultdict': defaultdict,
         }
 
     def _get_localdict(self):
@@ -1304,19 +1305,21 @@ class HrPayslip(models.Model):
 
         for warning in self.env['hr.payroll.dashboard.warning'].search([]):
             localdict = {
-                'self': self.env['hr.payslip'],
-                'last_batches': last_batches,
-                'date': date,
-                'datetime': datetime,
-                'relativedelta': relativedelta,
-                'defaultdict': defaultdict,
+                'date': safe_eval_datetime.date,
+                'datetime': safe_eval_datetime.datetime,
+                'relativedelta': safe_eval_dateutil.relativedelta.relativedelta,
                 'warning_count': 0,
                 'warning_records': self.env['base'],
                 'warning_action': False,
                 'additional_context': {},
             }
+            globaldict = {
+                'self': self.env['hr.payslip'],
+                'last_batches': last_batches,
+                'defaultdict': defaultdict,
+            }
             try:
-                safe_eval(warning.evaluation_code, locals_dict=localdict, mode='exec', nocopy=True)
+                safe_eval(warning.evaluation_code, locals_dict=localdict, globals_dict=globaldict, mode='exec', nocopy=True)
             except Exception as e:
                 raise UserError(_("Wrong warning computation code defined for:\n- Warning: %s\n- Error: %s", warning.name, e))
             if localdict['warning_count']:
