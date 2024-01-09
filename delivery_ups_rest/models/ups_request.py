@@ -209,7 +209,7 @@ class UPSRequest:
                 package_service_options['COD'] = {
                     'CODFundsCode': cod_info['funds_code'],
                     'CODAmount': {
-                        'MonetaryValue': cod_info['monetary_value'],
+                        'MonetaryValue': str(cod_info['monetary_value']),
                         'CurrencyCode': cod_info['currency'],
                     }
                 }
