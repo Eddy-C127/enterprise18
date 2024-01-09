@@ -6,7 +6,7 @@ import datetime
 import logging
 from pathlib import Path
 from time import sleep
-from threading import Thread
+from queue import Queue
 
 from odoo.addons.hw_drivers.driver import Driver
 from odoo.addons.hw_drivers.event_manager import event_manager
@@ -76,6 +76,8 @@ class WorldlineDriver(Driver):
         self.device_manufacturer = 'Worldline'
         self.cid = None
         self.owner = None
+        self.queue_actions = Queue()
+        self.terminal_busy = False
 
         self._actions.update({
             '': self._action_default,
@@ -88,13 +90,29 @@ class WorldlineDriver(Driver):
         return True
 
     def _action_default(self, data):
-        _logger.debug('_action_default %s %s', data['messageType'], data)
-        if data['messageType'] == 'Transaction':
-            Thread(target=self.processTransaction, args=(data.copy(), self.data['owner'])).start()
+        data_message_type = data.get('messageType')
+        data['owner'] = self.data.get('owner')
+        _logger.debug('_action_default %s %s', data_message_type, data)
+        if data_message_type in ['Transaction', 'LastTransactionStatus']:
+            if self.terminal_busy:
+                self.send_status(error="The terminal is currently busy. Try again later.", request_data=data)
+            else:
+                self.terminal_busy = True
+                self.queue_actions.put(data)
         elif data['messageType'] == 'Cancel':
-            Thread(target=self.cancelTransaction).start()
-        elif data['messageType'] == 'LastTransactionStatus':
-            Thread(target=self.lastTransactionStatus).start()
+            self.cancelTransaction(data)
+
+    def run(self):
+        while True:
+            # If the queue is empty, the call of "get" will block and wait for it to get an item
+            action = self.queue_actions.get()
+            action_type = action.get('messageType')
+            _logger.debug("Starting next action in queue: %s", action_type)
+            if action_type == 'Transaction':
+                self.processTransaction(action)
+            elif action_type == 'LastTransactionStatus':
+                self.lastTransactionStatus(action)
+            self.terminal_busy = False
 
     def _check_transaction_delay(self):
         # After a payment has been processed, the display on the terminal still shows some
@@ -108,17 +126,14 @@ class WorldlineDriver(Driver):
             _logger.info('Previous transaction is too recent, will sleep for %.2f seconds', delay_diff)
             sleep(delay_diff)
 
-    def processTransaction(self, transaction, owner):
-        self.cid = transaction['cid']
-        self.owner = owner
-
+    def processTransaction(self, transaction):
         if transaction['amount'] <= 0:
-            return self.send_status(error='The terminal cannot process negative or null transactions.')
+            return self.send_status(error='The terminal cannot process negative or null transactions.', request_data=transaction)
 
         # Force to wait before starting the transaction if necessary
         self._check_transaction_delay()
         # Notify transaction start
-        self.send_status(stage='WaitingForCard')
+        self.send_status(stage='WaitingForCard', request_data=transaction)
 
         # Transaction
         merchant_receipt = ctypes.create_string_buffer(BUFFER_SIZE)
@@ -151,6 +166,7 @@ class WorldlineDriver(Driver):
                 ticket_merchant=merchant_receipt.value,
                 card=card.value,
                 transaction_id=transaction['actionIdentifier'],
+                request_data=transaction,
             )
         elif result == 0:
             error_code = error_code.value.decode('utf-8')
@@ -158,18 +174,18 @@ class WorldlineDriver(Driver):
             if error_code not in IGNORE_ERRORS:
                 error_msg = '%s (Error code: %s)' % (TERMINAL_ERRORS.get(error_code, 'Transaction was not processed correctly'), error_code)
                 logging.info(error_msg)
-                self.send_status(error=error_msg)
+                self.send_status(error=error_msg, request_data=transaction)
             # Transaction was cancelled
             else:
-                self.send_status(stage='Cancel')
+                self.send_status(stage='Cancel', request_data=transaction)
         elif result == -1:
             # Terminal disconnection, check status manually
-            self.send_status(disconnected=True)
+            self.send_status(disconnected=True, request_data=transaction)
 
-    def cancelTransaction(self):
+    def cancelTransaction(self, transaction):
         # Force to wait before starting the transaction if necessary
         self._check_transaction_delay()
-        self.send_status(stage='waitingCancel')
+        self.send_status(stage='waitingCancel', request_data=transaction)
 
         error_code = ctypes.create_string_buffer(BUFFER_SIZE)
         _logger.info("cancel transaction request")
@@ -180,9 +196,9 @@ class WorldlineDriver(Driver):
             error_code = error_code.value.decode('utf-8')
             error_msg = '%s (Error code: %s)' % (TERMINAL_ERRORS.get(error_code, 'Transaction could not be cancelled'), error_code)
             _logger.info(error_msg)
-            self.send_status(stage='Cancel', error=error_msg)
+            self.send_status(stage='Cancel', error=error_msg, request_data=transaction)
 
-    def lastTransactionStatus(self):
+    def lastTransactionStatus(self, request_data):
         action_identifier = ctypes.c_ulong()
         amount = ctypes.c_double()
         time = ctypes.create_string_buffer(BUFFER_SIZE)
@@ -192,19 +208,20 @@ class WorldlineDriver(Driver):
         _logger.debug("end last transaction status request")
 
         if result:
-            self.send_status(value={
-                'action_identifier': action_identifier.value,
-                'amount': amount.value,
-                'time': time.value,
-            })
+            self.send_status(
+                value={
+                    'action_identifier': action_identifier.value,
+                    'amount': amount.value,
+                    'time': time.value,
+                },
+                request_data=request_data,
+            )
         else:
             error_code = error_code.value.decode('utf-8')
-            error_msg = '%s (Error code: %s)' % (TERMINAL_ERRORS.get(error_code, 'Transaction was not processed correctly'), error_code)
-            self.send_status(value={
-                'error': error_msg,
-            })
+            error_msg = '%s (Error code: %s)' % (TERMINAL_ERRORS.get(error_code, 'Last Transaction Status request failed'), error_code)
+            self.send_status(error=error_msg, request_data=request_data)
 
-    def send_status(self, value='', response=False, stage=False, ticket=False, ticket_merchant=False, card=False, transaction_id=False, error=False, disconnected=False):
+    def send_status(self, value='', response=False, stage=False, ticket=False, ticket_merchant=False, card=False, transaction_id=False, error=False, disconnected=False, request_data=False):
         self.data = {
             'value': value,
             'Stage': stage,
@@ -215,8 +232,8 @@ class WorldlineDriver(Driver):
             'PaymentTransactionID': transaction_id,
             'Error': error,
             'Disconnected': disconnected,
-            'owner': self.owner or self.data['owner'],
-            'cid': self.cid,
+            'owner': request_data.get('owner'),
+            'cid': request_data.get('cid'),
         }
         # TODO: add `stacklevel=2` in image with python version > 3.8
         _logger.debug('send_status data: %s', self.data, stack_info=True)
