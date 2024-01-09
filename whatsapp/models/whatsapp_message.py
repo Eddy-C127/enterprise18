@@ -3,11 +3,11 @@
 import re
 import logging
 import markupsafe
-from markupsafe import Markup
+from markupsafe import Markup, escape
 
 from datetime import timedelta
 
-from odoo import models, fields, api, _, Command
+from odoo import models, fields, api, _
 from odoo.addons.phone_validation.tools import phone_validation
 from odoo.addons.whatsapp.tools import phone_validation as wa_phone_validation
 from odoo.addons.whatsapp.tools.retryable_codes import WHATSAPP_RETRYABLE_ERROR_CODES
@@ -336,28 +336,30 @@ class WhatsAppMessage(models.Model):
         if not channel:
             return
 
-        model_name = False
-        if self.mail_message_id.model:
-            model_name = self.env['ir.model']._get(self.mail_message_id.model).display_name
-        if model_name:
-            info = _("Template %(template_name)s was sent from %(model_name)s",
-                     template_name=self.wa_template_id.name, model_name=model_name)
+        # same user, different model: print full content of message into conversation
+        if channel.is_member:
+            body = self.body
+            message_type = "comment"
+        # diffrent user from any model: warn chat is about to be moved into a new conversation
         else:
-            info = _("Template %(template_name)s was sent from another model",
-                     template_name=self.wa_template_id.name)
-
-        record_name = self.mail_message_id.record_name
-        if not record_name and self.mail_message_id.res_id:
-            record_name = self.env[self.mail_message_id.model].browse(self.mail_message_id.res_id).display_name
-
-        url = f"{self.get_base_url()}/web#model={self.mail_message_id.model}&id={self.mail_message_id.res_id}"
+            record_name = self.mail_message_id.record_name
+            if self.mail_message_id.model and self.mail_message_id.res_id:
+                if not record_name:
+                    record_name = self.env[self.mail_message_id.model].browse(self.mail_message_id.res_id).display_name
+                url = f"{self.get_base_url()}/web#model={self.mail_message_id.model}&id={self.mail_message_id.res_id}"
+                record_link = f"<a target='_blank' href='{url}'>{escape(record_name)}</a>"
+            else:
+                record_link = record_name or _("another document")
+            body = Markup(
+                _("A new template was sent on %(record_link)s.<br>"
+                  "Future replies will be transferred to a new chat.",
+                  record_link=record_link
+            ))
+            message_type = "notification"
         channel.sudo().message_post(
-            message_type='notification',
-            body=Markup('<p>{info} <a target="_blank" href="{url}">{record_name}</a></p>').format(
-                info=info,
-                url=url,
-                record_name=record_name,
-            ),
+            body=body,
+            message_type=message_type,
+            subtype_xmlid='mail.mt_comment',
         )
 
     @api.model

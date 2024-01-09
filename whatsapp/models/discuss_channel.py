@@ -209,7 +209,7 @@ class DiscussChannel(models.Model):
                         base_url=self.get_base_url(), channel_id=channel.id)
                     related_record.message_post(
                         author_id=self.env.ref('base.partner_root').id,
-                        body=Markup('<p>{info}<a target="_blank" class="o_whatsapp_channel_redirect"'
+                        body=Markup('<p>{info} <a target="_blank" class="o_whatsapp_channel_redirect"'
                                     'data-oe-id="{channel_id}" href="{url}">{channel_name}</a></p>').format(
                                         info=info, url=url, channel_id=channel.id, channel_name=channel.display_name),
                         message_type='comment',

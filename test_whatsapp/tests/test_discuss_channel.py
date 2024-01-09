@@ -10,45 +10,65 @@ from odoo.tests import tagged, users
 @tagged('wa_message')
 class DiscussChannel(WhatsAppFullCase, MockIncomingWhatsApp):
 
-    @users('user_wa_admin')
     def test_channel_info_link(self):
-        """ Test information posted on channels. Use case: first a message is
-        sent to the customer, he replies, then another message is posted using a
-        template. Record information should be displayed in channel. """
+        """ Test information posted on channels. Flow
+
+          * a message is sent to the customer;
+          * they reply;
+          * then another message is posted using a template. This has two
+            use cases: either the same user, either another user
+          * check record information that should be displayed in channel.
+        """
         template = self.whatsapp_template.with_user(self.env.user)
+        template_as_admin = self.whatsapp_template.with_user(self.user_wa_admin)
+        template_as_emp = self.whatsapp_template.with_user(self.user_employee)
         test_record = self.test_base_record_nopartner.with_env(self.env)
 
-        composer = self._instanciate_wa_composer_from_records(template, test_record)
-        with self.mockWhatsappGateway():
-            composer.action_send_whatsapp_template()
+        for reply_template, reply_user, expected_body, error_msg in [
+            (
+                template_as_admin,
+                self.user_wa_admin,
+                '<p>Hello World</p>', "Should contain the HTML body of the template sent"
+            ), (
+                template_as_emp,
+                self.user_employee,
+                f'<p>A new template was sent on <a target="_blank" '
+                f'href="{test_record.get_base_url()}/web#model={test_record._name}&amp;id={test_record.id}">'
+                f'{escape(test_record.display_name)}</a>.<br>'
+                f'Future replies will be transferred to a new chat.</p>',
+                "Should contain channel switch message with related document link"
+            ),
+        ]:
+            with self.subTest(reply_template=template, reply_user=reply_user):
+                composer = self._instanciate_wa_composer_from_records(template, test_record)
+                with self.mockWhatsappGateway():
+                    composer.action_send_whatsapp_template()
 
-        with self.mockWhatsappGateway():
-            self._receive_whatsapp_message(self.whatsapp_account, 'Hello', '32499123456')
+                with self.mockWhatsappGateway():
+                    self._receive_whatsapp_message(self.whatsapp_account, 'Hello', '32499123456')
 
-        composer = self._instanciate_wa_composer_from_records(template, test_record)
-        with self.mockWhatsappGateway():
-            composer.action_send_whatsapp_template()
+                composer = self._instanciate_wa_composer_from_records(reply_template, test_record, reply_user)
+                with self.mockWhatsappGateway():
+                    composer.action_send_whatsapp_template()
 
-        discuss_channel = self.assertWhatsAppDiscussChannel(
-            "32499123456",
-            wa_msg_count=1, msg_count=3,
-            wa_message_fields_values={
-                'state': 'sent',
-            },
-        )
-        (second_info, answer, first_info) = discuss_channel.message_ids
-        self.assertEqual(
-            second_info.body,
-            f'<p>Template {template.name} was sent from WhatsApp Base Test <a target="_blank" '
-            f'href="{test_record.get_base_url()}/web#model={test_record._name}&amp;id={test_record.id}">'
-            f'{escape(test_record.display_name)}</a></p>',
-            "Should contain a link and display_name to the new record from which the template was sent")
-        self.assertEqual(answer.body, '<p>Hello</p>')
-        self.assertIn(
-            first_info.body,
-            f'<p>Related WhatsApp Base Test: <a target="_blank" href="{test_record.get_base_url()}/web#'
-            f'model={test_record._name}&amp;id={test_record.id}">{escape(test_record.display_name)}</a></p>',
-            "Should contain a link and display_name to the new record from which the template was sent")
+                discuss_channel = self.assertWhatsAppDiscussChannel(
+                    "32499123456",
+                    wa_msg_count=1, msg_count=3,
+                    wa_message_fields_values={
+                        'state': 'sent',
+                    },
+                )
+
+                (second_info, answer, first_info) = discuss_channel.message_ids
+                self.assertEqual(second_info.body, expected_body, error_msg)
+                self.assertEqual(answer.body, '<p>Hello</p>')
+                self.assertIn(
+                    first_info.body,
+                    f'<p>Related WhatsApp Base Test: <a target="_blank" href="{test_record.get_base_url()}/web#'
+                    f'model={test_record._name}&amp;id={test_record.id}">{escape(test_record.display_name)}</a></p>',
+                    "Should contain a link and display_name to the new record from which the template was sent"
+                )
+                discuss_channel.sudo().unlink()
 
     @users('user_wa_admin')
     def test_channel_info_link_noname(self):
