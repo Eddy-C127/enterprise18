@@ -20,9 +20,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             'css_custom_class': 'aged_partner_balance',
             'components': {
                 'AccountReportLineName': 'account_reports.AgedPartnerBalanceLineName',
-            },
-            'templates': {
-                "AccountReportFilters": 'account_reports.AccountReportAgingFilters',
+                'AccountReportFilters': 'account_reports.AgedPartnerBalanceFilters',
             },
         }
 
@@ -43,6 +41,14 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
 
         options['order_column'] = (previous_options or {}).get('order_column') or default_order_column
         options['aging_based_on'] = (previous_options or {}).get('aging_based_on') or 'base_on_maturity_date'
+        options['aging_interval'] = (previous_options or {}).get('aging_interval') or 30
+
+        # Set aging column names
+        interval = options['aging_interval']
+        for column in options['columns']:
+            for i in range(4):
+                if column['expression_label'] == f'period{i + 1}':
+                    column['name'] = f'{interval * i + 1}-{interval * (i + 1)}'
 
     def _custom_line_postprocessor(self, report, options, lines):
         partner_lines_map = {}
@@ -92,14 +98,12 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
 
         aging_date_field = 'invoice_date' if options['aging_based_on'] == 'base_on_invoice_date' else 'date_maturity'
         date_to = fields.Date.from_string(options['date']['date_to'])
-        periods = [
-            (False, fields.Date.to_string(date_to)),
-            (minus_days(date_to, 1), minus_days(date_to, 30)),
-            (minus_days(date_to, 31), minus_days(date_to, 60)),
-            (minus_days(date_to, 61), minus_days(date_to, 90)),
-            (minus_days(date_to, 91), minus_days(date_to, 120)),
-            (minus_days(date_to, 121), False),
-        ]
+        interval = options['aging_interval']
+        periods = [(False, fields.Date.to_string(date_to))]
+        for i in range(5):
+            start_date = minus_days(date_to, (interval * i) + 1)
+            end_date = minus_days(date_to, interval * (i + 1)) if i < 4 else False
+            periods.append((start_date, end_date))
 
         def build_result_dict(report, query_res_lines):
             rslt = {f'period{i}': 0 for i in range(len(periods))}

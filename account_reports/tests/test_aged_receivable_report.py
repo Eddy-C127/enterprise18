@@ -798,3 +798,38 @@ class TestAgedReceivableReport(TestAccountReportsCommon):
                 2: {'currency': currency},
             },
         )
+
+    def test_aged_receivable_aging_interval(self):
+        options = self._generate_options(self.report, '2017-02-01', '2017-02-01')
+        initial_report_lines = self.report._get_lines(options)
+
+        # With the default interval of 30
+        self.assertLinesValues(
+            self.report.sort_lines(initial_report_lines, options),
+            #   Name                    Expected Date   Not Due On   1 - 30       31 - 60      62 - 90      91 - 120     Older       Total
+            [   0,                                 3,       4,          5,           6,           7,          8,          9,          10],
+            [
+                ('Aged Receivable',               '',   150.0,      150.0,       150.0,       900.0,      450.0,      150.0,      1950.0),
+                ('partner_a',                     '',   100.0,      100.0,       100.0,       600.0,      300.0,      100.0,      1300.0),
+                ('partner_b',                     '',    50.0,       50.0,        50.0,       300.0,      150.0,       50.0,       650.0),
+                ('Total Aged Receivable',         '',   150.0,      150.0,       150.0,       900.0,      450.0,      150.0,      1950.0),
+            ],
+            options
+        )
+
+        options['aging_interval'] = 60
+        report_lines = self.report._get_lines(options)
+
+        # With the interval of 60
+        self.assertLinesValues(
+            self.report.sort_lines(report_lines, options),
+            #   Name                    Expected Date   Not Due On   1 - 60     61 - 120    121 - 180   181 - 240     Older         Total
+            [   0,                                 3,       4,          5,          6,          7,          8,          9,          10],
+            [
+                ('Aged Receivable',               '',   150.0,      300.0,     1350.0,         0.0,       0.0,      150.0,      1950.0),
+                ('partner_a',                     '',   100.0,      200.0,      900.0,         0.0,       0.0,      100.0,      1300.0),
+                ('partner_b',                     '',    50.0,      100.0,      450.0,         0.0,       0.0,       50.0,       650.0),
+                ('Total Aged Receivable',         '',   150.0,      300.0,     1350.0,         0.0,       0.0,      150.0,      1950.0),
+            ],
+            options
+        )
