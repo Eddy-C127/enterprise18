@@ -71,18 +71,20 @@ class TestMerge(TransactionCase):
         """
         self.env.user.write({'groups_id': [(4, self.env.ref('account.group_account_user').id)]})
         self._enable_merge('res.partner')
+        self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'invoice_date': '2023-07-21',
+            'partner_id': self.partner_b.id,
+            'invoice_line_ids': [Command.create({'name': 'test line', 'price_unit': 1000})],
+        }).action_post()
+
         self.customer_invoice_journal.restrict_mode_hash_table = True
 
         move = self.env['account.move'].create({
             'move_type': 'out_invoice',
             'invoice_date': '2023-07-22',
             'partner_id': self.partner_b.id,
-            'invoice_line_ids': [
-                Command.create({
-                    'name': 'test line',
-                    'price_unit': 1000,
-                }),
-            ],
+            'invoice_line_ids': [Command.create({'name': 'test line', 'price_unit': 1000})],
         })
         move.action_post()
 
