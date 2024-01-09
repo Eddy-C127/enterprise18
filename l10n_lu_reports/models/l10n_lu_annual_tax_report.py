@@ -2,8 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from collections import defaultdict
 from odoo import _, api, fields, models
-from ..models.l10n_lu_tax_report_data import MULTI_COLUMN_FIELDS, YEARLY_ANNEX_MAPPING
-
+from ..models.l10n_lu_tax_report_data import MULTI_COLUMN_FIELDS
 
 class LuAnnualTaxReportCustomHandler(models.AbstractModel):
     _name = 'l10n_lu.annual.tax.report.handler'
@@ -59,7 +58,7 @@ class LuReportAppendixA(models.AbstractModel):
         model, active_id = self.env['account.report']._get_model_info_from_id(ln['id'])
         if model == 'account.account':
             account = self.env['account.account'].browse(active_id)
-            return account.code, account.name
+            return account.tag_ids, account.name
         return False, False
 
     @api.model
@@ -74,12 +73,11 @@ class LuReportAppendixA(models.AbstractModel):
                 invoiced_index = i
 
         for ln in lines:
-            account_code, account_name = self._get_account_details(ln)
-            if account_code:
-                # Search all mathing line codes: the present account must have a code lying between the borders
-                # defined by the domain
-                matching = [code for domain, code in YEARLY_ANNEX_MAPPING.items() if
-                            int(domain[0]) <= int(account_code) and int(domain[1]) > int(account_code)]
+            account_tag_ids, account_name = self._get_account_details(ln)
+            if account_tag_ids:
+                # The tags are formatted to end with the code. So in the loop we get this code and concatenate to L10N_LU_TAX
+                # Which will be used in the appendix A of the report.
+                matching = ["L10N_LU_TAX_" + tag.get_external_id()[tag.id].split("_")[-1] for tag in account_tag_ids]
                 for code in matching:
                     vat_excluded = ln['columns'][excluded_index]['no_format']
                     vat_invoiced = ln['columns'][invoiced_index]['no_format']
@@ -91,7 +89,7 @@ class LuReportAppendixA(models.AbstractModel):
                             'report_section_412': vat_excluded,
                             'report_section_413': vat_invoiced,
                         })
-                    elif result:
+                    elif result and f'{code}_vat_excluded' in result and f'{code}_vat_invoiced' in result:
                         result[f'{code}_vat_excluded'] += vat_excluded
                         result[f'{code}_vat_invoiced'] += vat_invoiced
 

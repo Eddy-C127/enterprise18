@@ -379,7 +379,63 @@ class LuxembourgElectronicReportTest(TestAccountReportsCommon):
         )
 
     @freeze_time('2022-12-31')
-    def test_annual_report_default_values(self):
+    def test_annual_report_appendix_A_default_values(self):
+        tax = self.env['account.tax'].search([('name', '=', '17% S'), ('company_id', '=', self.company_data['company'].id)], limit=1)
+        account = self.env['account.account'].create({
+            'name': 'test account',
+            'account_type': 'expense',
+            'code': '603135',
+            'reconcile': False,
+            'tag_ids': [Command.set(self.env.ref('l10n_lu.account_tag_appendix_289').ids)],
+        })
+
+        move_vals = {
+            'move_type': 'out_invoice',
+            'journal_id': self.company_data['default_journal_sale'].id,
+            'partner_id': self.partner_a.id,
+            'invoice_date': '2022-12-12',
+            'date': '2022-12-12',
+            'invoice_line_ids': [(0, 0, {
+                'product_id': self.product_a.id,
+                'quantity': 1.0,
+                'name': 'Starship Enterprise',
+                'price_unit': 100,
+                'tax_ids': tax.ids,
+                'account_id': account.id,
+            })]
+        }
+        move = self.env['account.move'].create(move_vals)
+        move.action_post()
+
+        # We check the appendix A before lock date
+        report = self.env.ref('l10n_lu_reports.l10n_lu_annual_tax_report_section_appendix_a')
+        previous_options = {
+            'date': {
+                'date_from': '2022-01-01',
+                'date_to': '2022-12-31',
+            }
+        }
+        options = report.get_options(previous_options)
+        report_lines = report._get_lines(options)
+        # Line "14. Gas" should be equal to 0
+        self.assertEqual(report_lines[18]['columns'][1]['no_format'], 0.0) # Percent
+        self.assertTrue(report_lines[18]['columns'][2]['is_zero']) # Vat excluded
+        self.assertTrue(report_lines[18]['columns'][3]['is_zero']) # Vat invoiced
+
+        # Set the lock date to generate the default value
+        lock_date_wizard = self.env['account.change.lock.date'].create({
+            'tax_lock_date': fields.Date.from_string('2022-12-31'),
+        })
+        lock_date_wizard.change_lock_date()
+
+        # Check the values after setting the general lock date.
+        report_lines = report._get_lines(options)
+        self.assertEqual(report_lines[18]['columns'][1]['no_format'], 100.0)
+        self.assertEqual(report_lines[18]['columns'][2]['no_format'], -100.0)
+        self.assertEqual(report_lines[18]['columns'][3]['no_format'], -17.0)
+
+    @freeze_time('2022-12-31')
+    def test_annual_report_section_1_default_values(self):
         tax = self.env['account.tax'].search([('name', '=', '0% EC S'), ('company_id', '=', self.company_data['company'].id)], limit=1)
         # create a specific account that is used for precomputing default values
         account = self.env['account.account'].create({
