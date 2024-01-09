@@ -141,9 +141,12 @@ QUnit.test("Disabled composer should be enabled after message from whatsapp user
     // stimulate the notification sent after receiving a message from whatsapp user
     const [channel] = pyEnv["discuss.channel"].searchRead([["id", "=", channelId]]);
 
-    pyEnv["bus.bus"]._sendone(channel, "discuss.channel/whatsapp_channel_valid_until_changed", {
-        id: channelId,
-        whatsapp_channel_valid_until: DateTime.utc().plus({ days: 1 }).toSQL(),
+    pyEnv["bus.bus"]._sendone(channel, "mail.record/insert", {
+        Thread: {
+            id: channelId,
+            model: "discuss.channel",
+            whatsapp_channel_valid_until: DateTime.utc().plus({ days: 1 }).toSQL(),
+        },
     });
     await contains(".o-mail-Composer-actions");
     await contains("button[title='Attach files']");

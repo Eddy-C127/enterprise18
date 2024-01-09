@@ -120,9 +120,12 @@ class DiscussChannel(models.Model):
         new_msg = super().message_post(message_type=message_type, **kwargs)
         if self.channel_type == 'whatsapp' and message_type == 'whatsapp_message':
             if new_msg.author_id == self.whatsapp_partner_id:
-                self.env['bus.bus']._sendone(self, 'discuss.channel/whatsapp_channel_valid_until_changed', {
-                    'id': self.id,
-                    'whatsapp_channel_valid_until': self.whatsapp_channel_valid_until,
+                self.env['bus.bus']._sendone(self, "mail.record/insert", {
+                    "Thread": {
+                        'id': self.id,
+                        "model": "discuss.channel",
+                        'whatsapp_channel_valid_until': self.whatsapp_channel_valid_until,
+                    },
                 })
             if not new_msg.wa_message_ids:
                 whatsapp_message = self.env['whatsapp.message'].create({
