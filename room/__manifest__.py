@@ -5,7 +5,7 @@
     'name': 'Meeting Rooms',
     'summary': 'Manage Meeting Rooms',
     'description': 'Experience the Ease of Booking Meeting Rooms with Real-Time Availability Display.',
-    'category': 'Services/Room',
+    'category': 'Productivity/Room',
     'version': '1.0',
     'depends': ['mail'],
     'data': [

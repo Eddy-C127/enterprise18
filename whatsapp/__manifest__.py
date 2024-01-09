@@ -2,7 +2,7 @@
 
 {
     'name': 'WhatsApp Messaging',
-    'category': 'WhatsApp',
+    'category': 'Marketing/WhatsApp',
     'summary': 'Text your Contacts on WhatsApp',
     'version': '1.0',
     'description': """This module integrates Odoo with WhatsApp to use WhatsApp messaging service""",
