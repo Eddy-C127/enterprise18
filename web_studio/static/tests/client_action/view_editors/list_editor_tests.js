@@ -2477,5 +2477,82 @@ QUnit.module(
             );
             await click(target, ".o_web_studio_sidebar input#readonly");
         });
+
+        QUnit.test("change 'editable' and 'open_form_view' attribute", async function (assert) {
+            assert.expect(9);
+
+            let count = 0;
+
+            await createViewEditor({
+                serverData,
+                arch: '<tree><field column_invisible="1" name="display_name"/></tree>',
+                resModel: "coucou",
+                type: "list",
+                mockRPC: {
+                    "/web_studio/edit_view": (route, args) => {
+                        count++;
+                        if (count === 1) {
+                            assert.strictEqual(args.operations[0].new_attrs.editable, "bottom");
+                            const newArch =
+                                '<tree editable="bottom"><field column_invisible="1" name="display_name"/></tree>';
+                            return createMockViewResult(serverData, "list", newArch, "coucou");
+                        } else {
+                            assert.strictEqual(args.operations[1].new_attrs.open_form_view, true);
+                            const newArch =
+                                '<tree editable="bottom" open_form_view="true"><field column_invisible="1" name="display_name"/></tree>';
+                            return createMockViewResult(serverData, "list", newArch, "coucou");
+                        }
+                    },
+                },
+            });
+
+            await click(target.querySelector(".nav-tabs > li:nth-child(2) a"));
+            assert.strictEqual(
+                currentSidebarTab(),
+                "View",
+                "the View tab should be active in list view"
+            );
+            assert.containsN(
+                target,
+                ".o_web_studio_sidebar_checkbox",
+                4,
+                "four boolean properties can be edited in the sidebar"
+            );
+
+            await editAnySelect(
+                target,
+                ".o_web_studio_sidebar .o_web_studio_property_editable .o_select_menu",
+                "Add record at the bottom"
+            );
+            assert.containsN(
+                target,
+                ".o_web_studio_sidebar_checkbox",
+                6,
+                "six boolean properties can be edited in the sidebar"
+            );
+            assert.strictEqual(
+                target.querySelectorAll(".o_web_studio_sidebar_checkbox")[4].textContent.trim(),
+                "Enable Mass Editing",
+                "'multi_edit' attribute is visible when 'editing' attribute is set on the view"
+            );
+            assert.strictEqual(
+                target.querySelectorAll(".o_web_studio_sidebar_checkbox")[5].textContent.trim(),
+                "Show link to record",
+                "'open_form_view' attribute is visible when 'editing' attribute is set on the view"
+            );
+            assert.containsNone(
+                target,
+                ".o_list_renderer .o_list_record_open_form_view",
+                "'View' button are not present in the list view"
+            );
+
+            await click(target.querySelectorAll(".o_web_studio_sidebar_checkbox input")[5]);
+            assert.containsN(
+                target,
+                ".o_list_renderer .o_list_record_open_form_view",
+                2,
+                "'View' button are present in the list view"
+            );
+        });
     }
 );

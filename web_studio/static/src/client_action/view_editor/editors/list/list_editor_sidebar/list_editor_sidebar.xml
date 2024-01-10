@@ -44,12 +44,22 @@
                     When Creating Record
                 </Property>
                 <Property
+                    t-if="archInfo.editable"
                     name="'multi_edit'"
                     type="'boolean'"
                     value="archInfo.multiEdit === true"
                     onChange.bind="onAttributeChanged"
                 >
                     Enable Mass Editing
+                </Property>
+                <Property
+                    t-if="archInfo.editable"
+                    name="'open_form_view'"
+                    type="'boolean'"
+                    value="archInfo.openFormView === true"
+                    onChange.bind="onAttributeChanged"
+                >
+                    Show link to record
                 </Property>
                 <Property
                     name="'sort_by'"

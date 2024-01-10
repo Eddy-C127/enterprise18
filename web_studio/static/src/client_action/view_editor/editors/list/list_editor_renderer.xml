@@ -73,6 +73,14 @@
       <attribute name="data-button-group">1</attribute>
       <attribute name="t-att-data-studio-xpath">column.studioXpath</attribute>
     </xpath>
+
+    <xpath expr="//t[@t-if='props.onOpenFormView']" position="attributes">
+      <attribute name="t-if">props.archInfo.openFormView</attribute>
+    </xpath>
+
+    <xpath expr="//button[@name='Open in form view']" position="attributes">
+      <attribute name="class" add="disabled" separator=" "/>
+    </xpath>
   </t>
 
   <t t-name="web_studio.ListEditor.StudioHook">
