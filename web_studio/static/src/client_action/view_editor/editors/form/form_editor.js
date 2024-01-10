@@ -14,9 +14,22 @@ import { getStudioNoFetchFields } from "../utils";
 class EditorArchParser extends formView.ArchParser {
     parse() {
         const archInfo = super.parse(...arguments);
+        this.omitStudioNoFetchFields(archInfo);
+        return archInfo;
+    }
+
+    omitStudioNoFetchFields(archInfo) {
         const noFetch = getStudioNoFetchFields(archInfo.fieldNodes);
         archInfo.fieldNodes = omit(archInfo.fieldNodes, ...noFetch.fieldNodes);
-        return archInfo;
+
+        for (const fieldNode of Object.values(archInfo.fieldNodes)) {
+            if (fieldNode.views) {
+                for (const fieldArchInfo of Object.values(fieldNode.views)) {
+                    this.omitStudioNoFetchFields(fieldArchInfo);
+                }
+            }
+        }
+
     }
 }
 

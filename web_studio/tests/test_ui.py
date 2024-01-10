@@ -119,6 +119,16 @@ def watch_edit_view(test, on_edit_view):
     test.patch(WebStudioController, "edit_view", edit_view_mocked)
     test.addCleanup(clear_routing)
 
+def watch_create_new_field(test, on_create_new_field):
+    create_new_field = WebStudioController.create_new_field
+
+    def create_new_field_mocked(*args, **kwargs):
+        response = create_new_field(*args, **kwargs)
+        on_create_new_field(*args, **kwargs)
+        return response
+
+    test.patch(WebStudioController, "create_new_field", create_new_field_mocked)
+
 
 @odoo.tests.tagged('post_install', '-at_install')
 class TestStudioUIUnit(odoo.tests.HttpCase):
@@ -487,6 +497,38 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 </xpath>
             </data>
         """)
+
+    def test_studio_no_fetch_subview(self):
+
+        doesNotHaveGroup = self.env["res.groups"].create({
+            "name": "studio does not have"
+        })
+        doesNotHaveGroupXmlId = self.env["ir.model.data"].create({
+            "name": "studio_test_doesnothavegroup",
+            "model": "res.groups",
+            "module": "web_studio",
+            "res_id": doesNotHaveGroup.id,
+        })
+
+        def create_new_field_mocked(*args, **kwargs):
+            # For this test we need to patch groups from the phone field. Unfortunately it seems
+            # that the patch is erased each time we create a new field so we have to patch after.
+            self.patch(type(self.env["res.partner"]).phone, "groups", doesNotHaveGroupXmlId.complete_name)
+
+        watch_create_new_field(self, create_new_field_mocked)
+        self.patch(type(self.env["res.partner"]).phone, "groups", doesNotHaveGroupXmlId.complete_name)
+
+        self.testView.write({
+            "arch": '''
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            '''
+        })
+
+        self.start_tour("/web", 'web_studio_no_fetch_subview', login="admin")
 
     def test_elements_with_groups_form(self):
         operations = []
