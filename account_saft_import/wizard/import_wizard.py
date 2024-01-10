@@ -492,9 +492,13 @@ class SaftImportWizard(models.TransientModel):
         data = self._get_data()
 
         # skip_invoice_sync to avoid creating twice the tax lines
-        self.env['account.chart.template'].with_context(skip_invoice_sync=True)._load_data(data)
+        created_vals = self.env['account.chart.template'].with_context(skip_invoice_sync=True)._load_data(data)
 
-        return {
-            "type": "ir.actions.client",
-            "tag": "reload",
-        }
+        import_summary = self.env['account.import.summary'].create({
+            'import_summary_account_ids': created_vals.get("account.account"),
+            'import_summary_journal_ids': created_vals.get("account.journal"),
+            'import_summary_move_ids': created_vals.get("account.move"),
+            'import_summary_partner_ids': created_vals.get("res.partner"),
+            'import_summary_tax_ids': created_vals.get("account.tax"),
+        })
+        return import_summary.action_open_summary_view()

@@ -12,6 +12,7 @@ Import Data From Winbooks
     'external_dependencies': {'python': ['dbfread']},
     'data': [
         'security/ir.model.access.csv',
+        'wizard/account_import_summary_views.xml',
         'wizard/import_wizard_views.xml',
     ],
     'license': 'OEEL-1',

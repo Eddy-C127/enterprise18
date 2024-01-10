@@ -162,7 +162,7 @@ class WinbooksImportWizard(models.TransientModel):
         partner_ids = ResPartner.create(partner_data_dict.values())
         for partner in partner_ids:
             partner_data[partner.ref] = partner.id
-        return partner_data
+        return partner_data, partner_ids
 
     def _import_account(self, dbf_records):
         """Import accounts from *_acf*.dbf files.
@@ -282,7 +282,7 @@ class WinbooksImportWizard(models.TransientModel):
             # keep the list in memory so that we can deprecate later
             if is_deprecated:
                 account_deprecated_ids += account
-        return account_data, account_central, account_deprecated_ids, account_tax
+        return account_data, account_central, account_deprecated_ids, account_tax, account_ids
 
     def _post_process_account(self, account_data, vatcode_data, account_tax):
         """Post process the accounts after the taxes creation to add the taxes
@@ -306,6 +306,7 @@ class WinbooksImportWizard(models.TransientModel):
             '5': 'general',
         }
         journal_data = {}
+        journals = self.env['account.journal']
         AccountJournal = self.env['account.journal']
         for rec in dbf_records:
             if not rec.get('DBKID'):
@@ -330,7 +331,8 @@ class WinbooksImportWizard(models.TransientModel):
                     data['default_account_id'] = self.env['ir.property']._get('property_account_expense_categ_id', 'product.category').id
                 journal = AccountJournal.create(data)
             journal_data[rec.get('DBKID')] = journal.id
-        return journal_data
+            journals += journal
+        return journal_data, journals
 
     def _import_move(self, dbf_records, pdffiles, account_data, account_central, journal_data, partner_data, vatcode_data, param_data):
         """Import the journal entries from *_act*.dfb and @scandbk.zip files.
@@ -551,7 +553,7 @@ class WinbooksImportWizard(models.TransientModel):
                     }
                     attachment_data_list.append(attachment_data)
         self.env['ir.attachment'].create(attachment_data_list)
-        return {f"{m.date.year}_{m.ref}" : m for m in move_ids}
+        return {f"{m.date.year}_{m.ref}" : m for m in move_ids}, move_ids
 
     def _import_analytic_account(self, dbf_records):
         """Import the analytic accounts from *_anf*.dbf files.
@@ -561,6 +563,7 @@ class WinbooksImportWizard(models.TransientModel):
         _logger.info("Import Analytic Accounts")
         analytic_account_data = {}
         analytic_plan_dict = {}
+        analytic_account = self.env['account.analytic.account']
         AccountAnalyticAccount = self.env['account.analytic.account']
         AccountAnalyticPlan = self.env['account.analytic.plan']
         for rec in dbf_records:
@@ -580,7 +583,7 @@ class WinbooksImportWizard(models.TransientModel):
                 }
                 analytic_account = AccountAnalyticAccount.create(data)
             analytic_account_data[rec.get('NUMBER')] = analytic_account.id
-        return analytic_account_data
+        return analytic_account_data, analytic_account
 
     def _import_analytic_account_line(self, dbf_records, analytic_account_data, account_data, move_data, param_data):
         """Import the analytic lines from the *_ant*.dbf files.
@@ -622,7 +625,7 @@ class WinbooksImportWizard(models.TransientModel):
                     new_analytic_line = data.copy()
                     new_analytic_line['account_id'] = analytic_account_data.get(rec.get(analytic))
                     analytic_line_data_list.append(new_analytic_line)
-        self.env['account.analytic.line'].create(analytic_line_data_list)
+        return self.env['account.analytic.line'].create(analytic_line_data_list)
 
     def _import_vat(self, dbf_records, account_central):
         """Import the taxes from *codevat.dbf files.
@@ -696,7 +699,7 @@ class WinbooksImportWizard(models.TransientModel):
         tax_ids = AccountTax.create(data_list)
         for tax_id, code in zip(tax_ids, code_list):
             vatcode_data[code] = tax_id.id
-        return vatcode_data
+        return vatcode_data, tax_ids
 
     def _import_param(self, dbf_records):
         """Import parameters from *_param.dbf files.
@@ -784,13 +787,13 @@ class WinbooksImportWizard(models.TransientModel):
                 param_data = self._import_param(param_recs)
 
                 dbk_recs = get_dbfrecords(lambda file: "dbk" in file.lower() and file.lower().endswith('.dbf'))
-                journal_data = self._import_journal(dbk_recs)
+                journal_data, journal_ids = self._import_journal(dbk_recs)
 
                 acf_recs = get_dbfrecords(lambda file: file.lower().endswith("_acf.dbf"))
-                account_data, account_central, account_deprecated_ids, account_tax = self._import_account(acf_recs)
+                account_data, account_central, account_deprecated_ids, account_tax, account_ids = self._import_account(acf_recs)
 
                 vat_recs = get_dbfrecords(lambda file: file.lower().endswith("_codevat.dbf"))
-                vatcode_data = self._import_vat(vat_recs, account_central)
+                vatcode_data, tax_ids = self._import_vat(vat_recs, account_central)
 
                 self._post_process_account(account_data, vatcode_data, account_tax)
 
@@ -798,21 +801,31 @@ class WinbooksImportWizard(models.TransientModel):
                 civility_data, category_data = self._import_partner_info(table_recs)
 
                 csf_recs = get_dbfrecords(lambda file: file.lower().endswith("_csf.dbf"))
-                partner_data = self._import_partner(csf_recs, civility_data, category_data, account_data)
+                partner_data, partner_ids = self._import_partner(csf_recs, civility_data, category_data, account_data)
 
                 act_recs = get_dbfrecords(lambda file: file.lower().endswith("_act.dbf"))
-                move_data = self._import_move(act_recs, pdffiles, account_data, account_central, journal_data, partner_data, vatcode_data, param_data)
+                move_data, move_ids = self._import_move(act_recs, pdffiles, account_data, account_central, journal_data, partner_data, vatcode_data, param_data)
 
                 anf_recs = get_dbfrecords(lambda file: file.lower().endswith("_anf.dbf"))
-                analytic_account_data = self._import_analytic_account(anf_recs)
+                analytic_account_data, analytic_account_ids = self._import_analytic_account(anf_recs)
 
                 ant_recs = get_dbfrecords(lambda file: file.lower().endswith("_ant.dbf"))
-                self._import_analytic_account_line(ant_recs, analytic_account_data, account_data, move_data, param_data)
+                analytic_account_line_ids = self._import_analytic_account_line(ant_recs, analytic_account_data, account_data, move_data, param_data)
 
                 self._post_import(account_deprecated_ids)
                 _logger.info("Completed")
                 self.env['onboarding.onboarding.step'].sudo().action_validate_step('account.onboarding_onboarding_step_chart_of_accounts')
+
+                import_summary = self.env['account.import.summary'].create({
+                    'import_summary_account_ids': account_ids,
+                    'import_summary_journal_ids': journal_ids,
+                    'import_summary_move_ids': move_ids,
+                    'import_summary_partner_ids': partner_ids,
+                    'import_summary_tax_ids': tax_ids,
+                    'import_summary_analytic_ids': analytic_account_ids,
+                    'import_summary_analytic_line_ids': analytic_account_line_ids,
+                })
             finally:
                 for fd in pdffiles.values():
                     fd.close()
-        return True
+        return import_summary.action_open_summary_view()

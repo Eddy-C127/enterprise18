@@ -744,7 +744,11 @@ class FecImportWizard(models.TransientModel):
                     self._setup_bank_journal(journal)
                 journal.type = journal_type
 
-        return {
-            "type": "ir.actions.client",
-            "tag": "reload",
-        }
+        import_summary = self.env['account.import.summary'].create({
+            'import_summary_account_ids': created_vals.get("account.account"),
+            'import_summary_journal_ids': created_vals.get("account.journal"),
+            'import_summary_move_ids': created_vals.get("account.move"),
+            'import_summary_partner_ids': created_vals.get("res.partner"),
+            'import_summary_tax_ids': created_vals.get("account.tax"),
+        })
+        return import_summary.action_open_summary_view()

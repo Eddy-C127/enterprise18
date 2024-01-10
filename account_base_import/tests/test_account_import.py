@@ -10,7 +10,7 @@ from odoo.tools import file_open
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 @tagged("post_install", "-at_install")
-class TestXLSXImport(AccountTestInvoicingCommon):
+class TestBaseImport(AccountTestInvoicingCommon):
 
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
@@ -46,6 +46,24 @@ class TestXLSXImport(AccountTestInvoicingCommon):
             preview["options"]
         )
 
+    def _create_records(self, res_model, amount=1):
+        vals = []
+        for i in range(amount):
+            match res_model:
+                case 'account.account':
+                    vals.append({'code': f"9999{i}", 'name': f"Test Account {i}"})
+                case 'account.journal':
+                    vals.append({'code': f"TBNK{i}", 'name': f"Test Journal {i}", 'type': 'bank'})
+                case 'account.move':
+                    vals.append({'move_type': 'entry', 'name': f"Test Move {i}"})
+                case 'res.partner':
+                    vals.append({'name': f"Test Partner {i}"})
+                case 'account.tax':
+                    vals.append({'name': f"Test Tax {i}"})
+                case _:
+                    raise
+        return self.env[res_model].create(vals)
+
     @unittest.skipUnless(can_import("xlrd.xlsx"), "XLRD module not available")
     def test_account_xlsx_import(self):
         existing_id = self.env["account.account"].with_context(import_file=True).create({"code":"550003", "name": "Existing Account"}).id
@@ -79,3 +97,26 @@ class TestXLSXImport(AccountTestInvoicingCommon):
         account_move_lines = self.env["account.move.line"].browse(result["ids"])
         self.assertEqual(len(account_move_lines.mapped("move_id").ids), 3, "3 moves should have been created")
         self.assertEqual(sorted(account_move_lines.mapped("journal_id.code")), ["GEN1", "OD26_", "OD_BL"], "The journals should be set correctly")
+
+    def test_import_summary_fields(self):
+        import_summary = self.env['account.import.summary'].create({
+            'import_summary_account_ids': self._create_records('account.account', 3),
+            'import_summary_journal_ids': self._create_records('account.journal', 5),
+            'import_summary_move_ids': self._create_records('account.move', 2),
+            'import_summary_partner_ids': self._create_records('res.partner', 4),
+            'import_summary_tax_ids': self._create_records('account.tax', 6),
+        })
+        self.assertRecordValues(import_summary, [{
+            'import_summary_len_account': 3,
+            'import_summary_len_journal': 5,
+            'import_summary_len_move': 2,
+            'import_summary_len_partner': 4,
+            'import_summary_len_tax': 6,
+            'import_summary_have_data': True,
+        }])
+
+    def test_import_summary_have_data(self):
+        import_summary = self.env['account.import.summary'].create({})
+        self.assertFalse(import_summary.import_summary_have_data)
+        import_summary = self.env['account.import.summary'].create({'import_summary_move_ids': self._create_records('account.move')})
+        self.assertTrue(import_summary.import_summary_have_data)

@@ -10,10 +10,12 @@ Accounting Import
     """,
     'depends': ['account_accountant', 'base_import'],
     'data': [
+        'security/ir.model.access.csv',
         'views/account_import_views.xml',
         'views/account_account_views.xml',
         'views/account_move_views.xml',
         'views/res_partner_views.xml',
+        'wizard/account_import_summary_views.xml',
         'wizard/setup_wizards_views.xml',
         'views/res_config_settings_views.xml',
     ],
