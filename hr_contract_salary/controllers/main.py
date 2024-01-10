@@ -936,6 +936,8 @@ class HrContractSalary(http.Controller):
                 # YTI FIXME: Clean that brol
                 elif item.name == 'l10n_be_group_insurance_rate':
                     new_value = 1 if item.name in new_contract and new_contract[item.name] else 0
+                elif item.name == "ip_wage_rate":
+                    new_value = new_values if new_contract.ip else 0
                 else:
                     new_values = new_contract.mapped(item.name)
                     if not new_values or isinstance(new_values, models.BaseModel):
