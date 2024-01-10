@@ -10,7 +10,7 @@ import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_d
 import { Component, onMounted } from "@odoo/owl";
 
 
-class L10nBeCodaboxSettingsButtons extends Component {
+export class L10nBeCodaboxSettingsButtons extends Component {
     static props = {
         ...standardWidgetProps,
     };
@@ -18,45 +18,22 @@ class L10nBeCodaboxSettingsButtons extends Component {
 
     setup() {
         super.setup();
+        this.orm = useService("orm");
         this.dialogService = useService("dialog");
+        this.notification = useService("notification");
         onMounted(() => {
-            document.querySelector('[name="l10n_be_codabox_fiduciary_vat"]').addEventListener('change', this._onFiduVatChange.bind(this));
+            const observer = new MutationObserver(this._onConnectionStatusChanged.bind(this));
+            const targetNode = document.getElementById('codabox_connection_status');
+            observer.observe(targetNode, { childList: true, subtree: true });
+            this._handleButtonsDisplay(this.props.record.data.l10n_be_codabox_is_connected);
         });
     }
 
-    _onFiduVatChange() {
-        const vat_input = document.querySelector('[name="l10n_be_codabox_fiduciary_vat"] > input');
-        const revoke_button = document.querySelector('[name="l10nBeCodaboxRevokeButton"]');
-        if (revoke_button === null) {
-            return; // Never connected, button is not rendered
-        }
-        if (vat_input.value) {
-            revoke_button.classList.remove('o_hidden');
-        } else {
-            revoke_button.classList.add('o_hidden');
-        }
+    async saveResConfigSettings(){
+        return await this.env.model.root.save({ reload: false });
     }
 
-    async l10nBeCodaboxConnect() {
-        await this._callConfigMethod("l10n_be_codabox_connect", true);
-    }
-
-    async l10nBeCodaboxRevoke() {
-        this.dialogService.add(ConfirmationDialog, {
-            body: _t(
-                "This will revoke your access between Codabox and Odoo."
-            ),
-            confirm: async () => {
-                await this._callConfigMethod("l10n_be_codabox_revoke", false);
-            },
-            cancel: () => { },
-        });
-    }
-
-    async _callConfigMethod(methodName, save) {
-        if (save) {
-            await this.env.model.root.save({ reload: false });
-        }
+    async _callConfigMethod(methodName) {
         this.env.onClickViewButton({
             clickParams: {
                 name: methodName,
@@ -66,6 +43,60 @@ class L10nBeCodaboxSettingsButtons extends Component {
             getResParams: () =>
                 pick(this.env.model.root, "context", "evalContext", "resModel", "resId", "resIds"),
         });
+    }
+
+    async l10nBeCodaboxConnect() {
+        await this.saveResConfigSettings();
+        await this._callConfigMethod("l10n_be_codabox_connect");
+    }
+
+
+    async l10nBeCodaboxRevoke() {
+        await this.saveResConfigSettings();
+        const nb_connections_remaining = await this.orm.call("res.company", "l10n_be_codabox_get_number_connections_remaining", [this.props.record.data.company_id[0]]);
+        if (nb_connections_remaining === 0) {
+            await this._callConfigMethod("l10n_be_codabox_revoke");  // Will raise an error
+            return;
+        }
+        let message = _t("This will revoke your access between CodaBox and Odoo for this company.");
+        if (nb_connections_remaining === 1) {
+            message = _t(
+                "This will revoke your last access between CodaBox and Odoo.\n" +
+                "To be able to connect again to Odoo later on, you will have to " +
+                "revoke the connection from myCodaBox platform too."
+            );
+        }
+        this.dialogService.add(ConfirmationDialog, {
+            body: message,
+            confirm: async () => {
+                await this._callConfigMethod("l10n_be_codabox_revoke");
+            },
+            cancel: () => { },
+        });
+    }
+
+    _onConnectionStatusChanged(mutationList, observer) {
+        const connectionStatusNode = document.getElementById('codabox_connection_status');
+        for (const mutation of mutationList) {
+            if (
+                mutation.target === connectionStatusNode
+                && mutation.addedNodes.length > 0
+            ){
+                this._handleButtonsDisplay(mutation.addedNodes[0].classList.contains('text-success'));
+            }
+        }
+    }
+
+    _handleButtonsDisplay(isConnected) {
+        const l10nBeCodaboxConnectButton = document.querySelector("[name='l10nBeCodaboxConnectButton']");
+        const l10nBeCodaboxRevokeButton = document.querySelector("[name='l10nBeCodaboxRevokeButton']");
+        l10nBeCodaboxConnectButton.classList.remove('d-none');
+        l10nBeCodaboxRevokeButton.classList.remove('d-none');
+        if (isConnected) {
+            l10nBeCodaboxConnectButton.classList.add('d-none');
+        } else {
+            l10nBeCodaboxRevokeButton.classList.add('d-none');
+        }
     }
 }
 

@@ -30,7 +30,7 @@ class AccountJournal(models.Model):
         except etree.XMLSyntaxError:
             return False
 
-    def _l10n_be_parse_soda_file(self, attachments):
+    def _l10n_be_parse_soda_file(self, attachments, skip_wizard=False):
         self.ensure_one()
         # We keep a dict mapping the SODA reference to a dict with a list of `entries` and an `attachment_id`
         # {
@@ -67,8 +67,12 @@ class AccountJournal(models.Model):
             # account.move.ref is SocialNumber+SequenceNumber : check that this move has not already been imported
             ref = "%s-%s" % (parsed_attachment.find('.//Source').text, parsed_attachment.find('.//SeqNumber').text)
             existing_move = self.env['account.move'].search([('ref', '=', ref)])
-            if existing_move.id and self._context.get('raise_no_imported_file', True):
-                raise UserError(_('The entry %s has already been uploaded (%s).', ref, existing_move.name))
+            if existing_move:
+                if self._context.get('raise_no_imported_file', True):
+                    raise UserError(
+                        _('The entry %s has already been uploaded (%s).', ref, existing_move.name))
+                else:
+                    return
             soda_files[ref] = {
                 'entries': [],
                 'attachment_id': attachment.id,
@@ -91,6 +95,8 @@ class AccountJournal(models.Model):
             'company_id': self.company_id.id,
             'journal_id': self.id,
         })
+        if skip_wizard:
+            return wizard._action_save_and_import()
         return {
             'name': _('SODA Import'),
             'type': 'ir.actions.act_window',
