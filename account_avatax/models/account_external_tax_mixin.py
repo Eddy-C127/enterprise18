@@ -111,7 +111,14 @@ class AccountExternalTaxMixin(models.AbstractModel):
         for record in self.filtered(lambda r: r._perform_address_validation()):
             partner = record.partner_id
             country = partner.country_id
-            if not country or (country.zip_required and not partner.zip) or (country.state_required and not partner.state_id):
+            if (
+                partner != self.env.ref('base.public_partner')
+                and (
+                    not country
+                    or (country.zip_required and not partner.zip)
+                    or (country.state_required and not partner.state_id)
+                )
+            ):
                 incomplete_partner_to_records.setdefault(partner, []).append(record)
 
         if incomplete_partner_to_records:
