@@ -469,12 +469,7 @@
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
             <cohort string="Tickets" date_start="create_date" date_stop="close_date" interval="day" sample="1">
-                <field name="rating_last_value" string="Rating (1-5)"/>
-                <field name="close_hours" string="Working Hours to Close"/>
-                <field name="assign_hours" string="Working Hours to Assign"/>
                 <field name="color" invisible="1"/>
-                <field name="answered_customer_message_count" invisible="1"/>
-                <field name="total_response_hours" invisible="1"/>
             </cohort>
         </field>
     </record>

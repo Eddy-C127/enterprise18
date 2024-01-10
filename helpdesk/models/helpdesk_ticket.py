@@ -105,17 +105,17 @@ class HelpdeskTicket(models.Model):
     ticket_ref = fields.Char(string='Ticket IDs Sequence', copy=False, readonly=True, index=True)
     # next 4 fields are computed in write (or create)
     assign_date = fields.Datetime("First assignment date")
-    assign_hours = fields.Float("Time to first assignment (hours)", compute='_compute_assign_hours', store=True)
+    assign_hours = fields.Float("Time to first assignment (hours)", compute='_compute_assign_hours', store=True, aggregator="avg")
     close_date = fields.Datetime("Close date", copy=False)
-    close_hours = fields.Float("Time to close (hours)", compute='_compute_close_hours', store=True)
-    open_hours = fields.Integer("Open Time (hours)", compute='_compute_open_hours', search='_search_open_hours')
+    close_hours = fields.Float("Time to close (hours)", compute='_compute_close_hours', store=True, aggregator="avg")
+    open_hours = fields.Integer("Open Time (hours)", compute='_compute_open_hours', search='_search_open_hours', aggregator="avg")
     # SLA relative
     sla_ids = fields.Many2many('helpdesk.sla', 'helpdesk_sla_status', 'ticket_id', 'sla_id', string="SLAs", copy=False)
     sla_status_ids = fields.One2many('helpdesk.sla.status', 'ticket_id', string="SLA Status")
     sla_reached_late = fields.Boolean("Has SLA reached late", compute='_compute_sla_reached_late', compute_sudo=True, store=True)
     sla_reached = fields.Boolean("Has SLA reached", compute='_compute_sla_reached', compute_sudo=True, store=True)
     sla_deadline = fields.Datetime("SLA Deadline", compute='_compute_sla_deadline', compute_sudo=True, store=True)
-    sla_deadline_hours = fields.Float("Working Hours until SLA Deadline", compute='_compute_sla_deadline', compute_sudo=True, store=True)
+    sla_deadline_hours = fields.Float("Working Hours until SLA Deadline", compute='_compute_sla_deadline', compute_sudo=True, store=True, aggregator="avg")
     sla_fail = fields.Boolean("Failed SLA Policy", compute='_compute_sla_fail', search='_search_sla_fail')
     sla_success = fields.Boolean("Success SLA Policy", compute='_compute_sla_success', search='_search_sla_success')
 
@@ -130,11 +130,11 @@ class HelpdeskTicket(models.Model):
     # customer portal: include comment and (incoming/outgoing) emails in communication history
     website_message_ids = fields.One2many(domain=lambda self: [('model', '=', self._name), ('message_type', 'in', ['email', 'comment', 'email_outgoing'])], export_string_translation=False)
 
-    first_response_hours = fields.Float("Hours to First Response")
-    avg_response_hours = fields.Float("Average Hours to Respond")
+    first_response_hours = fields.Float("Hours to First Response", aggregator="avg")
+    avg_response_hours = fields.Float("Average Hours to Respond", aggregator="avg")
     oldest_unanswered_customer_message_date = fields.Datetime("Oldest Unanswered Customer Message Date", export_string_translation=False)
-    answered_customer_message_count = fields.Integer('# Exchanges')
-    total_response_hours = fields.Float("Total Exchange Time in Hours")
+    answered_customer_message_count = fields.Integer('# Exchanges', aggregator="avg")
+    total_response_hours = fields.Float("Total Exchange Time in Hours", aggregator="avg")
     display_extra_info = fields.Boolean(compute="_compute_display_extra_info", export_string_translation=False)
 
     @api.depends('stage_id', 'kanban_state')

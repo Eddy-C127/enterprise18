@@ -24,7 +24,7 @@ class HelpdeskTicket(models.Model):
              "Remove the sales order item in order to make this ticket non-billable.\n"
              "You can also change or remove the sales order item of each timesheet entry individually.")
     remaining_hours_available = fields.Boolean(related="sale_line_id.remaining_hours_available", export_string_translation=False)
-    remaining_hours_so = fields.Float('Time Remaining on SO', compute='_compute_remaining_hours_so', search='_search_remaining_hours_so')
+    remaining_hours_so = fields.Float('Time Remaining on SO', compute='_compute_remaining_hours_so', search='_search_remaining_hours_so', aggregator="avg")
 
     @api.depends('sale_line_id', 'timesheet_ids', 'timesheet_ids.unit_amount')
     def _compute_remaining_hours_so(self):

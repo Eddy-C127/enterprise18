@@ -154,16 +154,4 @@
             </field>
         </field>
     </record>
-
-    <record id="helpdesk_ticket_view_cohort_inherit_helpdesk_timesheet" model="ir.ui.view">
-        <field name='name'>helpdesk.ticket.cohort.inherit.timesheet</field>
-        <field name="model">helpdesk.ticket</field>
-        <field name="priority">70</field>
-        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_cohort"/>
-        <field name="arch" type="xml">
-            <field name='assign_hours' position="after">
-                <field name="total_hours_spent" string="Time Spent (Timesheets)"/>
-            </field>
-        </field>
-    </record>
 </odoo>

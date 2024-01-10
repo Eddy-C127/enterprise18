@@ -14,7 +14,7 @@ class HelpdeskTicket(models.Model):
              "Remove the sales order item to make your timesheet entries non billable.")
     use_helpdesk_timesheet = fields.Boolean('Timesheet activated on Team', related='team_id.use_helpdesk_timesheet', readonly=True)
     display_timesheet_timer = fields.Boolean("Display Timesheet Time", compute='_compute_display_timesheet_timer')
-    total_hours_spent = fields.Float("Time Spent", compute='_compute_total_hours_spent', default=0, compute_sudo=True, store=True)
+    total_hours_spent = fields.Float("Time Spent", compute='_compute_total_hours_spent', default=0, compute_sudo=True, store=True, aggregator="avg")
     display_timer_start_secondary = fields.Boolean(compute='_compute_display_timer_buttons', export_string_translation=False)
     display_timer = fields.Boolean(compute='_compute_display_timer', export_string_translation=False)
     encode_uom_in_days = fields.Boolean(compute='_compute_encode_uom_in_days', export_string_translation=False)

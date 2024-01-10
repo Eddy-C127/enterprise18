@@ -41,7 +41,7 @@ class HelpdeskSLAReport(models.Model):
     sla_fail = fields.Boolean("SLA Status Failed", aggregator='bool_or', readonly=True)
     sla_success = fields.Boolean("SLA Status Success", aggregator='bool_or', readonly=True)
     sla_exceeded_hours = fields.Integer("Working Hours until SLA Deadline", aggregator='avg', readonly=True, help="Day to reach the stage of the SLA, without taking the working calendar into account")
-    sla_status_failed = fields.Integer("Number of SLAs Failed", readonly=True)
+    sla_status_failed = fields.Integer("Number of SLAs Failed", readonly=True, aggregator="avg")
     active = fields.Boolean("Active", readonly=True)
     rating_last_value = fields.Float("Rating (1-5)", aggregator="avg", readonly=True)
     rating_avg = fields.Float('Average Rating', readonly=True, aggregator='avg')
