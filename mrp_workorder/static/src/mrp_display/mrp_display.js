@@ -268,7 +268,7 @@ export class MrpDisplay extends Component {
             const action = await this.orm.call(
                 "mrp.production",
                 "button_mark_done",
-                productionIds,
+                [productionIds],
                 kwargs
             );
             if (action && typeof action === "object") {
