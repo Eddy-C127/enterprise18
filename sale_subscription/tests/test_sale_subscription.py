@@ -2392,7 +2392,6 @@ class TestSubscription(TestSubscriptionCommon):
             downpayment = self.env['sale.advance.payment.inv'].with_context(context).create({
                 'advance_payment_method': 'fixed',
                 'fixed_amount': 10,
-                'deposit_account_id': self.company_data['default_account_revenue'].id
             })
             downpayment.create_invoices()
             downpayment_line = self.subscription.order_line.filtered(lambda l: l.is_downpayment and not l.display_type)
@@ -2432,7 +2431,6 @@ class TestSubscription(TestSubscriptionCommon):
             downpayment = self.env['sale.advance.payment.inv'].with_context(context).create({
                 'advance_payment_method': 'fixed',
                 'fixed_amount': 10,
-                'deposit_account_id': self.company_data['default_account_revenue'].id
             })
             downpayment.create_invoices()
             downpayment_line = self.subscription.order_line.filtered(lambda l: l.is_downpayment and not l.display_type)

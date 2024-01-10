@@ -27,8 +27,3 @@ class SaleAdvancePaymentInv(models.TransientModel):
     @api.model
     def _get_deposit_category(self):
         return self.env['product.tic.category'].search([('code', '=', '10005')], limit=1)
-
-    def _prepare_down_payment_product_values(self):
-        values = super()._prepare_down_payment_product_values()
-        values['tic_category_id'] = self._get_deposit_category().id
-        return values
