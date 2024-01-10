@@ -110,6 +110,10 @@ class MrpProductionWorkcenterLine(models.Model):
                         check._update_component_quantity()
         return res
 
+    def unlink(self):
+        self.check_ids.sudo().unlink()
+        return super().unlink()
+
     def action_back(self):
         self.ensure_one()
         if self._should_be_pending():
