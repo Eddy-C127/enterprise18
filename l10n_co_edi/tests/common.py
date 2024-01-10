@@ -84,6 +84,11 @@ class TestCoEdiCommon(AccountEdiTestCommon):
             'l10n_co_edi_dian_authorization_number': 42,
             'l10n_co_edi_dian_authorization_date': cls.frozen_today,
         })
+        cls.company_data['default_journal_purchase'].write({
+            'l10n_co_edi_dian_authorization_end_date': cls.frozen_today,
+            'l10n_co_edi_dian_authorization_number': 42,
+            'l10n_co_edi_dian_authorization_date': cls.frozen_today,
+        })
 
         cls.company_data_2['company'].write({
             'country_id': cls.env.ref('base.co').id,
@@ -266,7 +271,14 @@ class TestCoEdiCommon(AccountEdiTestCommon):
         ]
         cls.invoice_tim = cls.env['account.move'].create(invoice_data)
 
+        cls.in_invoice = cls.env['account.move'].create({
+            **invoice_data,
+            'move_type': 'in_invoice',
+            'invoice_date': cls.frozen_today,
+        })
+
         cls.expected_invoice_xml = misc.file_open('l10n_co_edi/tests/accepted_invoice.xml', 'rb').read()
         cls.expected_sugar_tax_invoice_xml = misc.file_open('l10n_co_edi/tests/accepted_sugar_tax_invoice.xml', 'rb').read()
         cls.expected_credit_note_xml = misc.file_open('l10n_co_edi/tests/accepted_credit_note.xml', 'rb').read()
         cls.expected_invoice_tim_xml = misc.file_open('l10n_co_edi/tests/accepted_invoice_tim.xml', 'rb').read()
+        cls.expected_in_invoice_xml = misc.file_open('l10n_co_edi/tests/accepted_in_invoice.xml', 'rb').read()

@@ -130,3 +130,7 @@ class TestColombianInvoice(TestCoEdiCommon):
 
         with self.mock_carvajal():
             self.l10n_co_assert_generated_file_equal(invoice, expected_invoice_taxes_withholded)
+
+    def test_vendor_bill(self):
+        with self.mock_carvajal():
+            self.l10n_co_assert_generated_file_equal(self.in_invoice, self.expected_in_invoice_xml)
