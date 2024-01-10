@@ -35,6 +35,12 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
         cls.test_date = fields.Date.from_string('2016-01-01')
         cls.company_currency = cls.company_data['currency']
         cls.foreign_currency = cls.currency_data['currency']
+        cls.foreign_currency_2 = cls.setup_multi_currency_data(default_values={
+            'name': 'Dark Chocolate Coin',
+            'symbol': '🍫',
+            'currency_unit_label': 'Dark Choco',
+            'currency_subunit_label': 'Dark Cacao Powder',
+        }, rate2016=6.0, rate2017=4.0)['currency']
 
     # -------------------------------------------------------------------------
     # HELPERS
@@ -166,15 +172,9 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
 
     def test_write_off_mixed_foreign_currencies(self):
         """ Write off with multiple currencies should reconcile in company currency."""
-        foreign_currency_2 = self.setup_multi_currency_data(default_values={
-            'name': 'Dark Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Dark Choco',
-            'currency_subunit_label': 'Dark Cacao Powder',
-        }, rate2016=6.0, rate2017=4.0)['currency']
         line_1 = self.create_line_for_reconciliation(1000.0, 1000.0, self.company_currency, '2016-01-01')
         line_2 = self.create_line_for_reconciliation(-500.0, -1500.0, self.foreign_currency, '2016-01-01')
-        line_3 = self.create_line_for_reconciliation(-400.0, -2400.0, foreign_currency_2, '2016-01-01')
+        line_3 = self.create_line_for_reconciliation(-400.0, -2400.0, self.foreign_currency_2, '2016-01-01')
         wizard_input_values = {
             'journal_id': self.misc_journal.id,
             'account_id': self.write_off_account.id,
@@ -192,15 +192,15 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
 
     def test_write_off_one_foreign_currency_change_rate(self):
         """ Tests that write-off use the correct rate from/at wizard's date. """
-        choco_currency = self.setup_multi_currency_data(default_values={
-            'name': 'Dark Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Dark Choco',
-            'currency_subunit_label': 'Dark Cacao Powder',
+        foreign_currency = self.setup_multi_currency_data(default_values={
+            'name': 'Diamond',
+            'symbol': '💎',
+            'currency_unit_label': 'Diamond',
+            'currency_subunit_label': 'Carbon',
         }, rate2016=1/2, rate2017=1/3)['currency']
         new_date = fields.Date.from_string('2017-02-01')
         line_1 = self.create_line_for_reconciliation(-2000.0, -2000.0, self.company_currency, '2017-01-01')  # conversion in 2017 => -666.67🍫
-        line_2 = self.create_line_for_reconciliation(2000.0, 1000.0, choco_currency, '2016-01-01')
+        line_2 = self.create_line_for_reconciliation(2000.0, 1000.0, foreign_currency, '2016-01-01')
         wizard_input_values = {
             'journal_id': self.misc_journal.id,
             'account_id': self.write_off_account.id,
@@ -210,24 +210,18 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
         }
         expected_values = [
             {'account_id': self.receivable_account.id, 'name': 'Write-Off',
-             'balance': -1000.0, 'amount_currency': -333.333, 'currency_id': choco_currency.id},
+             'balance': -1000.0, 'amount_currency': -333.333, 'currency_id': foreign_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
-             'balance': 1000.0, 'amount_currency': 333.333, 'currency_id': choco_currency.id},
+             'balance': 1000.0, 'amount_currency': 333.333, 'currency_id': foreign_currency.id},
         ]
         self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, expected_values)
 
     def test_write_off_mixed_foreign_currencies_change_rate(self):
         """ Tests that write-off use the correct rate from/at wizard's date. """
-        foreign_currency_2 = self.setup_multi_currency_data(default_values={
-            'name': 'Dark Chocolate Coin',
-            'symbol': '🍫',
-            'currency_unit_label': 'Dark Choco',
-            'currency_subunit_label': 'Dark Cacao Powder',
-        }, rate2016=6.0, rate2017=4.0)['currency']
         new_date = fields.Date.from_string('2017-02-01')
         line_1 = self.create_line_for_reconciliation(1000.0, 1000.0, self.company_currency, '2016-01-01')
         line_2 = self.create_line_for_reconciliation(-500.0, -1500.0, self.foreign_currency, '2016-01-01')
-        line_3 = self.create_line_for_reconciliation(-400.0, -2400.0, foreign_currency_2, '2016-01-01')
+        line_3 = self.create_line_for_reconciliation(-400.0, -2400.0, self.foreign_currency_2, '2016-01-01')
         wizard_input_values = {
             'journal_id': self.misc_journal.id,
             'account_id': self.write_off_account.id,
@@ -497,3 +491,55 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             lines,
             [{'amount_residual': 0.0, 'amount_residual_currency': 0.0, 'reconciled': True}] * len(lines),
         )
+
+    def test_write_off_kpmg_case(self):
+        """ Test that write-off does a full reconcile with 2 foreign currencies using a custom exchange rate. """
+        new_date = fields.Date.from_string('2017-02-01')
+        line_1 = self.create_line_for_reconciliation(1000.0, 1500.0, self.foreign_currency, '2016-01-01')
+        line_2 = self.create_line_for_reconciliation(-900.0, -5400.0, self.foreign_currency_2, '2016-01-01')
+        wizard_input_values = {
+            'journal_id': self.misc_journal.id,
+            'account_id': self.write_off_account.id,
+            'label': 'Write-Off Test Label',
+            'allow_partials': False,
+            'date': new_date,
+        }
+        self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, [
+            {
+                'account_id': self.receivable_account.id,
+                'balance': -100.0,
+                'amount_currency': -150.0,
+                'currency_id': self.foreign_currency.id,
+            },
+            {
+                'account_id': self.write_off_account.id,
+                'balance': 100.0,
+                'amount_currency': 150.0,
+                'currency_id': self.foreign_currency.id,
+            },
+        ])
+
+    def test_write_off_multi_curr_multi_residuals_force_partials(self):
+        """ Test that we raise an error when trying to reconcile lines with multiple residuals.
+         Here debit1 will be reconciled with credit1 first as they have the same currency.
+         Then residual of debit1 will try to reconcile with debit2 which is impossible
+         => 2 residuals both in foreign currency, we don't know in which currency we should make the write-off
+         => We should only allow partial reconciliation. """
+        debit_1 = self.create_line_for_reconciliation(2000.0, 12000.0, self.foreign_currency_2, '2016-01-01')
+        credit_1 = self.create_line_for_reconciliation(-1000.0, -6000.0, self.foreign_currency_2, '2016-01-01')
+        debit_2 = self.create_line_for_reconciliation(2000.0, 3000.0, self.foreign_currency, '2016-01-01')
+        wizard = self.env['account.reconcile.wizard'].with_context(
+            active_model='account.move.line',
+            active_ids=(debit_1 + debit_2 + credit_1).ids,
+        ).new()
+        self.assertRecordValues(wizard, [{'force_partials': True, 'allow_partials': True}])
+
+    def test_write_off_multi_curr_multi_residuals_exch_diff_force_partials(self):
+        debit_1 = self.create_line_for_reconciliation(2000.0, 0.0, self.foreign_currency_2, '2016-01-01')
+        credit_1 = self.create_line_for_reconciliation(-1000.0, 0.0, self.foreign_currency_2, '2016-01-01')
+        debit_2 = self.create_line_for_reconciliation(2000.0, 0.0, self.foreign_currency, '2016-01-01')
+        wizard = self.env['account.reconcile.wizard'].with_context(
+            active_model='account.move.line',
+            active_ids=(debit_1 + debit_2 + credit_1).ids,
+        ).new()
+        self.assertRecordValues(wizard, [{'force_partials': True, 'allow_partials': True}])

@@ -60,7 +60,8 @@ class AccountReconcileWizard(models.TransientModel):
         string='Currency to use for reconciliation',
         compute='_compute_reco_wizard_data')
     single_currency_mode = fields.Boolean(compute='_compute_single_currency_mode')
-    allow_partials = fields.Boolean(string="Allow partials", default=False)
+    allow_partials = fields.Boolean(string="Allow partials", compute='_compute_allow_partials', store=True, readonly=False)
+    force_partials = fields.Boolean(compute='_compute_reco_wizard_data')
     display_allow_partials = fields.Boolean(compute='_compute_display_allow_partials')
     date = fields.Date(string='Date', compute='_compute_date', store=True, readonly=False)
     journal_id = fields.Many2one(
@@ -125,6 +126,11 @@ class AccountReconcileWizard(models.TransientModel):
         for wizard in self:
             wizard.single_currency_mode = wizard.reco_currency_id == wizard.company_currency_id
 
+    @api.depends('force_partials')
+    def _compute_allow_partials(self):
+        for wizard in self:
+            wizard.allow_partials = wizard.display_allow_partials and wizard.force_partials
+
     @api.depends('move_line_ids')
     def _compute_display_allow_partials(self):
         for wizard in self:
@@ -158,9 +164,9 @@ class AccountReconcileWizard(models.TransientModel):
         """ We need a write-off if the balance is not 0 and if we don't allow partial reconciliation."""
         for wizard in self:
             wizard.is_write_off_required = not wizard.company_currency_id.is_zero(wizard.amount) \
-                                                or not wizard.reco_currency_id.is_zero(wizard.amount_currency)
+                or not wizard.reco_currency_id.is_zero(wizard.amount_currency)
 
-    @api.depends('move_line_ids.account_id', 'move_line_ids.currency_id', 'company_currency_id', 'date')
+    @api.depends('move_line_ids')
     def _compute_reco_wizard_data(self):
         """ Compute various data needed for the reco wizard.
         1. The currency to use for the reconciliation:
@@ -172,40 +178,74 @@ class AccountReconcileWizard(models.TransientModel):
         4. Write-off amounts.
         """
 
-        def _get_transfer_accounts(move_lines):
+        def get_transfer_data(move_lines):
             amounts_per_account = defaultdict(float)
             for line in move_lines:
                 amounts_per_account[line.account_id] += line.amount_residual
             if abs(amounts_per_account[accounts[0]]) < abs(amounts_per_account[accounts[1]]):
-                return accounts[0], accounts[1]
+                transfer_from_account, transfer_to_account = accounts[0], accounts[1]
             else:
-                return accounts[1], accounts[0]
+                transfer_from_account, transfer_to_account = accounts[1], accounts[0]
 
-        def _get_transfer_warning_message(transfer_amount_currency, reco_currency, transfer_from_account, transfer_to_account):
-            amount_formatted = formatLang(self.env, abs(transfer_amount_currency), currency_obj=reco_currency)
-            return _(
+            amls_to_transfer = amls.filtered(lambda aml: aml.account_id == transfer_from_account)
+            transfer_foreign_curr = amls.currency_id - amls.company_currency_id
+            if len(transfer_foreign_curr) == 1:
+                transfer_currency = transfer_foreign_curr
+                transfer_amount_currency = sum(aml.amount_currency for aml in amls_to_transfer)
+            else:
+                transfer_currency = amls.company_currency_id
+                transfer_amount_currency = sum(aml.balance for aml in amls_to_transfer)
+
+            if transfer_amount_currency == 0.0 and transfer_currency != amls.company_currency_id:
+                # handle the transfer of exchange diff
+                transfer_currency = amls.company_currency_id
+                transfer_amount_currency = sum(aml.balance for aml in amls_to_transfer)
+
+            amount_formatted = formatLang(self.env, abs(transfer_amount_currency), currency_obj=transfer_currency)
+            transfer_warning_message = _(
                 'An entry will transfer %(amount)s from %(from_account)s to %(to_account)s.',
                 amount=amount_formatted,
                 from_account=transfer_from_account.display_name if transfer_amount_currency < 0 else transfer_to_account.display_name,
                 to_account=transfer_to_account.display_name if transfer_amount_currency < 0 else transfer_from_account.display_name,
             )
+            return {
+                'transfer_from_account_id': transfer_from_account,
+                'reco_account_id': transfer_to_account,
+                'transfer_warning_message': transfer_warning_message,
+            }
+
+        def get_reco_currency(amls, aml_values_map):
+            company_currency = amls.company_currency_id
+            foreign_currencies = amls.currency_id - company_currency
+            if len(foreign_currencies) == 0:
+                return company_currency
+            elif len(foreign_currencies) == 1:
+                return foreign_currencies
+            else:
+                lines_with_residuals = self.env['account.move.line']
+                for residual, residual_values in aml_values_map.items():
+                    if residual_values['amount_residual'] or residual_values['amount_residual_currency']:
+                        lines_with_residuals += residual
+                        if lines_with_residuals and len(lines_with_residuals.currency_id - company_currency) > 1:
+                            # there is more than one residual and more than one currency in them
+                            return False
+                return (lines_with_residuals.currency_id - company_currency) or company_currency
 
         for wizard in self:
             amls = wizard.move_line_ids._origin
             accounts = amls.account_id  # there is only 1 or 2 possible accounts
 
-            # Compute transfer account
+            wizard.reco_currency_id = False
+            wizard.amount_currency = wizard.amount = 0.0
+            wizard.force_partials = True
+            wizard.transfer_from_account_id = wizard.transfer_warning_message = False
             wizard.is_transfer_required = len(accounts) == 2
             if wizard.is_transfer_required:
-                transfer_from_account, transfer_to_account = _get_transfer_accounts(amls)
-                wizard.reco_account_id = transfer_to_account
+                wizard.update(get_transfer_data(amls))
             else:
                 wizard.reco_account_id = accounts
 
             # Compute the residual amounts for each account.
-            foreign_currencies = amls.currency_id - amls.company_currency_id
-            reco_currency = foreign_currencies if len(foreign_currencies) == 1 else amls.company_currency_id
-
             shadowed_aml_values = {
                 aml: {'account_id': wizard.reco_account_id}
                 for aml in amls
@@ -238,6 +278,10 @@ class AccountReconcileWizard(models.TransientModel):
                 .with_context(no_exchange_difference=self._context.get('no_exchange_difference') or disable_partial_exchange_diff) \
                 ._prepare_reconciliation_plan(plan, aml_values_map, shadowed_aml_values=shadowed_aml_values)
 
+            reco_currency = get_reco_currency(amls, aml_values_map)
+            if not reco_currency:
+                continue
+
             residual_amounts = {
                 aml: aml._prepare_move_line_residual_amounts(aml_values, reco_currency, shadowed_aml_values=shadowed_aml_values)
                 for aml, aml_values in aml_values_map.items()
@@ -249,19 +293,7 @@ class AccountReconcileWizard(models.TransientModel):
                 wizard.reco_currency_id = amls.company_currency_id
                 reco_currency = wizard.reco_currency_id
             else:
-                raise UserError(_("Couldn't find an appropriate currency to reconcile selected lines."))
-
-            # Compute transfer data
-            if wizard.is_transfer_required:
-                transfer_amount_currency = 0.0
-                for aml in amls.filtered(lambda aml: aml.account_id == transfer_from_account):
-                    transfer_amount_currency += aml.amount_currency if aml.currency_id == reco_currency else aml.balance
-
-                wizard.transfer_from_account_id = transfer_from_account
-                wizard.transfer_warning_message = _get_transfer_warning_message(transfer_amount_currency, reco_currency, transfer_from_account, transfer_to_account)
-            else:
-                wizard.transfer_from_account_id = None
-                wizard.transfer_warning_message = None
+                continue
 
             # Compute write-off amounts
             most_recent_line = max(amls, key=lambda aml: aml.date)
@@ -276,6 +308,7 @@ class AccountReconcileWizard(models.TransientModel):
                 if residual_values
             )
             wizard.amount = amls.company_currency_id.round(wizard.amount_currency / rate) if rate else 0.0
+            wizard.force_partials = False
 
     @api.depends('move_line_ids.move_id', 'date')
     def _compute_lock_date_violated_warning_message(self):
@@ -285,7 +318,7 @@ class AccountReconcileWizard(models.TransientModel):
             if date_after_lock:
                 lock_date_violated_warning_message = _(
                     'The date you set violates the lock date of one of your entry. It will be overriden by the following date : %(replacement_date)s',
-                    replacement_date=date_after_lock
+                    replacement_date=date_after_lock,
                 )
             wizard.lock_date_violated_warning_message = lock_date_violated_warning_message
 
