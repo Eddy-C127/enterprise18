@@ -1659,7 +1659,7 @@ class L10nInGSTReturnPeriod(models.Model):
             process_json(json_payload_list)
         else:
             self.sudo().write({
-                "gstr2b_status": "error",
+                "gstr2b_blocking_level": "error",
                 "gstr2b_error": "Shomehow this GSTR2B attachment is not json",
             })
 
