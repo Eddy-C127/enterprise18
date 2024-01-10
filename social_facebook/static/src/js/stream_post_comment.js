@@ -2,6 +2,7 @@
 
 import { StreamPostComment } from '@social/js/stream_post_comment';
 import { StreamPostCommentsReplyFacebook } from './stream_post_comments_reply';
+import { formatFacebookReactions } from './utils';
 
 import { sprintf } from '@web/core/utils/strings';
 
@@ -44,4 +45,10 @@ export class StreamPostCommentFacebook extends StreamPostComment {
         return sprintf('https://www.facebook.com/%s', this.comment.id);
     }
 
+    /**
+     * Return the reactions and the count for each of them.
+     */
+    get facebookReactions() {
+        return formatFacebookReactions(this.comment.reactions);
+    }
 }

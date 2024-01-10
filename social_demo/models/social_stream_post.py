@@ -154,11 +154,12 @@ class DemoSocialStreamPost(models.Model):
         if not all(res_partner for res_partner in [res_partner_2, res_partner_3, res_partner_4, res_partner_10]):
             return []
 
+        is_facebook = self.account_id.media_type == "facebook"
         return [{
             'id': 1,
             'created_time': datetime.now().strftime("%Y-%m-%d 13:12:30"),
             'formatted_created_time': datetime.now().strftime("%d/%m/%Y"),
-            'likes': {'summary': {'total_count': 53}},
+            'likes': None if is_facebook else {'summary': {'total_count': 53}},
             'from': {
                 'name': 'The Jackson Group',
                 'profile_image_url_https': '/web/image/res.partner/%s/avatar_128' % res_partner_10.id,
@@ -166,12 +167,14 @@ class DemoSocialStreamPost(models.Model):
             },
             'message': 'Great products!',
             'user_likes': True,
+            'reactions': {"LIKE": 40, "LOVE": 10, "CARE": 3} if is_facebook else None,
             'comments': {'data': self._get_demo_sub_comments()},
         }, {
             'id': 2,
             'created_time': datetime.now().strftime("%Y-%m-%d 12:12:30"),
             'formatted_created_time': datetime.now().strftime("%d/%m/%Y"),
-            'likes': {'summary': {'total_count': 4}},
+            'likes': None if is_facebook else {'summary': {'total_count': 4}},
+            'reactions': {"LIKE": 3, "CARE": 1} if is_facebook else None,
             'from': {
                 'name': 'Deco Addict',
                 'profile_image_url_https': '/web/image/res.partner/%s/avatar_128' % res_partner_2.id,
@@ -190,11 +193,13 @@ class DemoSocialStreamPost(models.Model):
         if not all(res_partner for res_partner in [res_partner_2, res_partner_3, res_partner_4, res_partner_10]):
             return []
 
+        is_facebook = self.account_id.media_type == "facebook"
         return [{
             'id': 3,
             'formatted_created_time': '10/02/2019',
             'created_time': '2019-02-10T10:12:30+0000',
-            'likes': {'summary': {'total_count': 21}},
+            'likes': None if is_facebook else {'summary': {'total_count': 21}},
+            'reactions': {"LIKE": 15, "CARE": 1} if is_facebook else None,
             'from': {
                 'name': 'Ready Mat',
                 'profile_image_url_https': '/web/image/res.partner/%s/avatar_128' % res_partner_4.id,
@@ -205,7 +210,8 @@ class DemoSocialStreamPost(models.Model):
             'id': 4,
             'created_time': '2019-02-10T12:12:30+0000',
             'formatted_created_time': '10/02/2019',
-            'likes': {'summary': {'total_count': 13}},
+            'likes': None if is_facebook else {'summary': {'total_count': 13}},
+            'reactions': {"LIKE": 10, "LOVE": 2} if is_facebook else None,
             'from': {
                 'name': 'Gemini Furniture',
                 'profile_image_url_https': '/web/image/res.partner/%s/avatar_128' % res_partner_3.id,

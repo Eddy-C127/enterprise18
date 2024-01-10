@@ -37,6 +37,7 @@ return '<kanban class="o_social_stream_post_kanban"' +
     '    <field name="facebook_author_id"/>' +
     '    <field name="facebook_likes_count"/>' +
     '    <field name="facebook_user_likes"/>' +
+    '    <field name="facebook_reactions_count"/>' +
     '    <field name="facebook_comments_count"/>' +
     '    <field name="facebook_shares_count"/>' +
     '    <field name="facebook_reach"/>' +
@@ -227,6 +228,7 @@ QUnit.module('Facebook Comments', (hooks) => {
                         facebook_author_id: {type: 'integer'},
                         facebook_likes_count: {type: 'integer'},
                         facebook_user_likes: {type: 'boolean'},
+                        facebook_reactions_count: {type: 'char'},
                         facebook_comments_count: {type: 'integer'},
                         facebook_shares_count: {type: 'integer'},
                         facebook_reach: {type: 'integer'},
@@ -271,6 +273,7 @@ QUnit.module('Facebook Comments', (hooks) => {
                         facebook_author_id: 1,
                         facebook_likes_count: 5,
                         facebook_user_likes: true,
+                        facebook_reactions_count: '{"LIKE": 5}',
                         facebook_comments_count: 15,
                         facebook_shares_count: 3,
                         facebook_reach: 18,
@@ -289,6 +292,7 @@ QUnit.module('Facebook Comments', (hooks) => {
                         facebook_author_id: 2,
                         facebook_likes_count: 10,
                         facebook_user_likes: false,
+                        facebook_reactions_count: '{"LIKE": 10}',
                         facebook_comments_count: 25,
                         facebook_shares_count: 4,
                         facebook_page_id: 1,
@@ -307,6 +311,7 @@ QUnit.module('Facebook Comments', (hooks) => {
                         facebook_author_id: 3,
                         facebook_likes_count: 0,
                         facebook_user_likes: false,
+                        facebook_reactions_count: "{}",
                         facebook_comments_count: 0,
                         facebook_shares_count: 0,
                         facebook_page_id: 1,
@@ -427,11 +432,7 @@ QUnit.module('Facebook Comments', (hooks) => {
                             },
                             user_likes: false,
                             message: 'Root Comment',
-                            likes: {
-                                summary: {
-                                    total_count: 3
-                                }
-                            },
+                            reactions: {'LIKE': 3},
                             comments: {
                                 data: [{
                                     from: {
@@ -444,11 +445,7 @@ QUnit.module('Facebook Comments', (hooks) => {
                                     },
                                     user_likes: true,
                                     message: 'Sub Comment 1',
-                                    likes: {
-                                        summary: {
-                                            total_count: 5
-                                        }
-                                    }
+                                    reactions: {'LIKE': 5},
                                 }, {
                                     from: {
                                         id: 3,
@@ -460,11 +457,7 @@ QUnit.module('Facebook Comments', (hooks) => {
                                     },
                                     user_likes: false,
                                     message: 'Sub Comment 2',
-                                    likes: {
-                                        summary: {
-                                            total_count: 10
-                                        }
-                                    }
+                                    reactions: {'LIKE': 10},
                                 }]
                             }
                         }]

@@ -54,11 +54,26 @@ patch(StreamPostKanbanRecord.prototype, {
 
     _onFacebookPostLike() {
         const userLikes = this.record.facebook_user_likes.raw_value;
-        rpc('/social_facebook/like_post', {
+        rpc("/social_facebook/like_post", {
             stream_post_id: this.record.id.raw_value,
-            like: !userLikes
+            like: !userLikes,
         });
-        this._updateLikesCount('facebook_user_likes', 'facebook_likes_count');
+        this._updateLikesCount("facebook_user_likes", "facebook_likes_count");
     },
 
+    /**
+     * Prepare `additionnalValues` to update the reactions count.
+     */
+    _prepareLikeAdditionnalValues(likesCount, userLikes) {
+        const additionnalValues = super._prepareLikeAdditionnalValues(likesCount, userLikes);
+
+        if (this.record.media_type.raw_value === "facebook") {
+            const reactionsCount = JSON.parse(this.record.facebook_reactions_count.raw_value);
+            reactionsCount["LIKE"] = userLikes
+                ? (reactionsCount["LIKE"] || 0) + 1
+                : Math.max(0, (reactionsCount["LIKE"] || 0) - 1);
+            additionnalValues.facebook_reactions_count = JSON.stringify(reactionsCount);
+        }
+        return additionnalValues;
+    },
 });

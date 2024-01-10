@@ -9,6 +9,7 @@ import urllib.parse
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+from odoo.addons.social_facebook.models.social_stream import SocialStreamFacebook
 from werkzeug.urls import url_join
 
 _logger = logging.getLogger(__name__)
@@ -17,11 +18,12 @@ _logger = logging.getLogger(__name__)
 class SocialStreamPostFacebook(models.Model):
     _inherit = 'social.stream.post'
 
-    FACEBOOK_COMMENT_FIELDS = 'id,from.fields(id,name,picture),message,message_tags,created_time,attachment,comments.fields(id,from.fields(id,name,picture),message,created_time,attachment,user_likes,like_count),user_likes,like_count'
+    FACEBOOK_COMMENT_FIELDS = f'id,from.fields(id,name,picture),message,message_tags,created_time,attachment,comments.fields(id,from.fields(id,name,picture),message,created_time,attachment,user_likes,like_count,{SocialStreamFacebook.FACEBOOK_REACTIONS_FIELDS}),user_likes,like_count,{SocialStreamFacebook.FACEBOOK_REACTIONS_FIELDS}'
 
     facebook_post_id = fields.Char('Facebook Post ID', index=True)
     facebook_author_id = fields.Char('Facebook Author ID')
     facebook_likes_count = fields.Integer('Likes')
+    facebook_reactions_count = fields.Char('Reactions Count')  # contains a JSON like {"LIKE": 1337, "CARE": 1234}
     facebook_user_likes = fields.Boolean('User Likes')
     facebook_comments_count = fields.Integer('Comments')
     facebook_shares_count = fields.Integer('Shares')
@@ -172,7 +174,10 @@ class SocialStreamPostFacebook(models.Model):
             # overwrite comment keys
             'formatted_created_time': self._format_facebook_published_date(comment),
             'message': self.stream_id._format_facebook_message(comment.get('message'), comment.get('message_tags')),
-            'likes': {'summary': {'total_count': comment.get('like_count', 0)}},
+            'reactions': {
+                reaction: comment.get(reaction, {}).get('summary', {}).get('total_count', 0)
+                for reaction in self.env['social.stream'].FACEBOOK_REACTIONS
+            }
         }
         if "from" not in comment:
             comment["from"] = {"name": _("Unknown")}
