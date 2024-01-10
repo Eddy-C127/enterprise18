@@ -206,21 +206,22 @@ class ResCompany(models.Model):
                  successfully, False if at least one wasn't.
         '''
         active_currencies = self.env['res.currency'].search([])
+        rslt = True
         for (currency_provider, companies) in self._group_by_provider().items():
             parse_function = getattr(companies, '_parse_' + currency_provider + '_data')
             try:
                 parse_results = parse_function(active_currencies)
                 companies._generate_currency_rates(parse_results)
-                return True
             except Exception as error:
                 if self._context.get('suppress_errors'):
                     _logger.warning(error)
                     _logger.warning('Unable to connect to the online exchange rate platform %s. The web service may be temporarily down. Please try again in a moment.', currency_provider)
-                    return False
+                    rslt = False
                 elif isinstance(error, UserError):
                     raise error
                 else:
                     raise UserError(_('Unable to connect to the online exchange rate platform %s. The web service may be temporarily down. Please try again in a moment.', currency_provider))
+        return rslt
 
     def _group_by_provider(self):
         """ Returns a dictionnary grouping the companies in self by currency
