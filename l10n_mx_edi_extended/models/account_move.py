@@ -62,14 +62,17 @@ class AccountMove(models.Model):
     # CFDI
     # -------------------------------------------------------------------------
 
-    def _l10n_mx_edi_add_invoice_cfdi_values(self, cfdi_values, percentage_paid=None):
+    def _l10n_mx_edi_add_invoice_cfdi_values(self, cfdi_values, percentage_paid=None, global_invoice=False):
         # EXTENDS 'l10n_mx_edi'
         self.ensure_one()
 
         if self.journal_id.l10n_mx_address_issued_id:
             cfdi_values['issued_address'] = self.journal_id.l10n_mx_address_issued_id
 
-        super()._l10n_mx_edi_add_invoice_cfdi_values(cfdi_values, percentage_paid=percentage_paid)
+        super()._l10n_mx_edi_add_invoice_cfdi_values(cfdi_values, percentage_paid=percentage_paid, global_invoice=global_invoice)
+        if cfdi_values.get('errors'):
+            return
+
         cfdi_values['exportacion'] = self.l10n_mx_edi_external_trade_type or '01'
 
         # External Trade
@@ -212,7 +215,6 @@ class AccountMove(models.Model):
             # Invoice lines.
             for line_vals in cfdi_values['conceptos_list']:
                 line_vals['informacion_aduanera_list'] = line_vals['line']['record']._l10n_mx_edi_get_custom_numbers()
-
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"

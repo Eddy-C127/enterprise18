@@ -735,6 +735,116 @@ class L10nMxEdiDocument(models.Model):
         return True
 
     @api.model
+    def _dispatch_cfdi_base_lines(self, base_lines):
+        """ Process the base lines passed as parameter and try to distribute the negative ones across the
+        others since negative lines are not allowed in the CFDI.
+
+        :param base_lines:              A list of dictionaries representing the base lines.
+        :return: A dictionary containing:
+            * cfdi_lines:               A list of dictionaries representing the remaining base lines for the CFDI
+                                        after the distribution of the negative lines.
+            * orphan_negative_lines:    A list of remaining negative lines that failed to be distributed.
+        """
+        results = {
+            'cfdi_lines': [],
+            'orphan_negative_lines': [],
+        }
+        for base_line in base_lines:
+            net_price_subtotal = base_line['gross_price_subtotal'] - base_line['discount']
+
+            line_values = {
+                **base_line,
+                'transferred_values_list': [dict(x) for x in base_line['transferred_values_list']],
+                'withholding_values_list': [dict(x) for x in base_line['withholding_values_list']],
+            }
+
+            if net_price_subtotal < 0.0:
+                results['orphan_negative_lines'].append(line_values)
+            else:
+                results['cfdi_lines'].append(line_values)
+
+        if self._is_cfdi_negative_lines_allowed():
+            # Try to distribute orphan_negative_lines.
+            for neg_base_line in list(results['orphan_negative_lines']):
+                currency = neg_base_line['currency']
+                net_price_subtotal = neg_base_line['gross_price_subtotal'] - neg_base_line['discount']
+
+                # Hard constraints: same currency, partner and taxes.
+                candidates = [
+                    candidate
+                    for candidate in results['cfdi_lines']
+                    if (
+                        neg_base_line['currency'] == candidate['currency']
+                        and neg_base_line['partner'] == candidate['partner']
+                        and neg_base_line['taxes'] == candidate['taxes']
+                    )
+                ]
+
+                # Ordering by priority:
+                # - same document
+                # - prior records first
+                # - same product
+                # - same amount
+                # - biggest amount
+                sorted_candidates = sorted(candidates, key=lambda candidate: (
+                    neg_base_line.get('document_id') != candidate.get('document_id'),
+                    candidate.get('record_id') not in neg_base_line.get('prior_record_ids', []),
+                    (
+                        not candidate['product']
+                        or not neg_base_line['product']
+                        or candidate['product'] != neg_base_line['product']
+                    ),
+                    currency.compare_amounts(
+                        candidate['gross_price_subtotal'] - candidate['discount'],
+                        -net_price_subtotal
+                    ) != 0,
+                    -candidate['price_subtotal'],
+                ))
+
+                # Dispatch.
+                for candidate in sorted_candidates:
+                    net_price_subtotal = neg_base_line['gross_price_subtotal'] - neg_base_line['discount']
+                    other_net_price_subtotal = candidate['gross_price_subtotal'] - candidate['discount']
+                    discount_to_distribute = min(other_net_price_subtotal, -net_price_subtotal)
+
+                    candidate['discount'] += discount_to_distribute
+                    neg_base_line['discount'] -= discount_to_distribute
+
+                    remaining_to_distribute = neg_base_line['gross_price_subtotal'] - neg_base_line['discount']
+                    is_zero = currency.is_zero(remaining_to_distribute)
+
+                    def get_tax_key(tax_values):
+                        return frozendict({k: v for k, v in tax_values.items() if k not in ('base', 'importe')})
+
+                    for key in ('transferred_values_list', 'withholding_values_list'):
+                        for tax_values in neg_base_line[key]:
+                            if is_zero:
+                                base = tax_values['base']
+                                tax = tax_values['importe']
+                            else:
+                                distribute_ratio = abs(discount_to_distribute / net_price_subtotal)
+                                base = currency.round(tax_values['base'] * distribute_ratio)
+                                tax = currency.round(tax_values['importe'] * distribute_ratio)
+
+                            tax_key = get_tax_key(tax_values)
+                            other_tax_values = next(x for x in candidate[key] if get_tax_key(x) == tax_key)
+                            other_tax_values['base'] += base
+                            other_tax_values['importe'] += tax
+                            tax_values['base'] -= base
+                            tax_values['importe'] -= tax
+
+                    # Check if there is something left on the other line.
+                    remaining_amount = candidate['discount'] - candidate['gross_price_subtotal']
+                    if candidate['currency'].is_zero(remaining_amount):
+                        results['cfdi_lines'].remove(candidate)
+
+                    if is_zero:
+                        results['orphan_negative_lines'].remove(neg_base_line)
+                        break
+
+        return results
+
+    @api.model
     def _preprocess_cfdi_base_lines(self, currency, base_lines, tax_details_transferred, tax_details_withholding):
         """ Decode the current invoice lines into dictionaries and try to distribute the negative ones across the
         others since negative lines are not allowed in the CFDI.
@@ -745,28 +855,48 @@ class L10nMxEdiDocument(models.Model):
         :param tax_details_withholding: The computed taxes results for withholding taxes.
         :return: A list of dictionaries representing the invoice lines values to consider for the CFDI.
         """
-        prepared_line_values_list = []
-        for line in base_lines:
-            record = line['record']
-            discount = line['discount']
-            price_unit = line['price_unit']
-            quantity = line['quantity']
-            price_subtotal = line['price_subtotal']
+        # TO BE REMOVED IN MASTER
+
+        # Mimic '_add_base_lines_taxes_amounts'
+        for base_line in base_lines:
+            base_line['tax_details_transferred'] = list(tax_details_transferred['tax_details_per_record'][base_line['record']]['tax_details'].values())
+            base_line['tax_details_withholding'] = list(tax_details_withholding['tax_details_per_record'][base_line['record']]['tax_details'].values())
+
+        return self._dispatch_cfdi_base_lines(base_lines)['cfdi_lines']
+
+    @api.model
+    def _add_base_lines_tax_amounts(self, base_lines):
+        """ Add the taxes to each base line.
+
+        :param base_lines: A list of dictionaries representing the lines of the document.
+                           (see '_convert_to_tax_base_line_dict' in account.tax).
+        """
+        tax_details_transferred = self._get_taxes_cfdi_values(
+            base_lines,
+            filter_tax_values=lambda _base_line, tax_values: tax_values['tax_repartition_line'].tax_id.amount >= 0.0,
+        )
+        tax_details_withholding = self._get_taxes_cfdi_values(
+            base_lines,
+            filter_tax_values=lambda _base_line, tax_values: tax_values['tax_repartition_line'].tax_id.amount < 0.0,
+        )
+        for base_line in base_lines:
+            discount = base_line['discount']
+            currency = base_line['currency']
+            price_unit = base_line['price_unit']
+            quantity = base_line['quantity']
+            price_subtotal = base_line['price_subtotal']
 
             if discount == 100.0:
                 gross_price_subtotal_before_discount = currency.round(price_unit * quantity)
             else:
                 gross_price_subtotal_before_discount = currency.round(price_subtotal / (1 - discount / 100.0))
 
-            line_values = {
-                'line': line,
-                'gross_price_subtotal': gross_price_subtotal_before_discount,
-                'discount': gross_price_subtotal_before_discount - price_subtotal,
-            }
+            base_line['gross_price_subtotal'] = gross_price_subtotal_before_discount
+            base_line['discount'] = gross_price_subtotal_before_discount - price_subtotal
 
-            # Taxes.
-            line_values['transferred_values_list'] = transferred_values_list = []
-            for tax_details in tax_details_transferred['tax_details_per_record'][record]['tax_details'].values():
+            # Transferred Taxes.
+            base_line['transferred_values_list'] = []
+            for tax_details in list(tax_details_transferred['tax_details_per_record'][base_line['record']]['tax_details'].values()):
                 tax_values = {
                     'base': tax_details['base_amount_currency'],
                     'importe': tax_details['tax_amount_currency'],
@@ -781,10 +911,11 @@ class L10nMxEdiDocument(models.Model):
                 else:
                     tax_values['tasa_o_cuota'] = None
 
-                transferred_values_list.append(tax_values)
+                base_line['transferred_values_list'].append(tax_values)
 
-            line_values['withholding_values_list'] = withholding_values_list = []
-            for tax_details in tax_details_withholding['tax_details_per_record'][record]['tax_details'].values():
+            # Withholding Taxes.
+            base_line['withholding_values_list'] = []
+            for tax_details in list(tax_details_withholding['tax_details_per_record'][base_line['record']]['tax_details'].values()):
                 tax_values = {
                     'base': tax_details['base_amount_currency'],
                     'importe': -tax_details['tax_amount_currency'],
@@ -799,84 +930,7 @@ class L10nMxEdiDocument(models.Model):
                 else:
                     tax_values['tasa_o_cuota'] = None
 
-                withholding_values_list.append(tax_values)
-
-            prepared_line_values_list.append(line_values)
-
-        if not self._is_cfdi_negative_lines_allowed():
-            return prepared_line_values_list
-
-        to_distribute = []
-        lines_to_exclude = set()
-        to_keep = []
-        for line_values in prepared_line_values_list:
-            if line_values['line']['price_subtotal'] < 0.0:
-                to_distribute.append(line_values)
-            else:
-                to_keep.append(line_values)
-
-        for line_values in to_distribute:
-            line = line_values['line']
-            net_price_subtotal = line_values['discount'] - line_values['gross_price_subtotal']
-
-            # Try to distribute on the others lines.
-            # Put the discount on the biggest lines first and if possible, on the line having the same amount.
-            candidates = [candidate for candidate in to_keep if candidate['line']['record'] not in lines_to_exclude]
-            candidates = reversed(sorted(
-                candidates,
-                key=lambda candidate: (
-                    currency.compare_amounts(candidate['gross_price_subtotal'] - candidate['discount'], net_price_subtotal) == 0,
-                    candidate['line']['price_subtotal']
-                ),
-            ))
-
-            for other_line_values in candidates:
-                other_line = other_line_values['line']
-
-                # Check if it's a candidate to distribute.
-                if line['taxes'].flatten_taxes_hierarchy() != other_line['taxes'].flatten_taxes_hierarchy():
-                    continue
-
-                net_price_subtotal = line_values['discount'] - line_values['gross_price_subtotal']
-                other_net_price_subtotal = other_line_values['gross_price_subtotal'] - other_line_values['discount']
-                discount_to_distribute = min(other_net_price_subtotal, net_price_subtotal)
-
-                other_line_values['discount'] += discount_to_distribute
-                line_values['discount'] -= discount_to_distribute
-
-                remaining_to_distribute = line_values['discount'] - line_values['gross_price_subtotal']
-                is_zero = currency.is_zero(remaining_to_distribute)
-
-                def get_tax_key(tax_values):
-                    return frozendict({k: v for k, v in tax_values.items() if k not in ('base', 'importe')})
-
-                for key in ('transferred_values_list', 'withholding_values_list'):
-                    for tax_values in line_values[key]:
-                        if is_zero:
-                            base = tax_values['base']
-                            tax = tax_values['importe']
-                        else:
-                            distribute_ratio = abs(discount_to_distribute / net_price_subtotal)
-                            base = currency.round(tax_values['base'] * distribute_ratio)
-                            tax = currency.round(tax_values['importe'] * distribute_ratio)
-
-                        tax_key = get_tax_key(tax_values)
-                        other_tax_values = next(x for x in other_line_values[key] if get_tax_key(x) == tax_key)
-                        other_tax_values['base'] += base
-                        other_tax_values['importe'] += tax
-                        tax_values['base'] -= base
-                        tax_values['importe'] -= tax
-
-                # Check if there is something left on the other line.
-                remaining_amount = other_line_values['discount'] - other_line_values['gross_price_subtotal']
-                if other_line['record'].currency_id.is_zero(remaining_amount):
-                    lines_to_exclude.add(other_line['record'])
-
-                if is_zero:
-                    lines_to_exclude.add(line['record'])
-                    break
-
-        return [x for x in prepared_line_values_list if x['line']['record'] not in lines_to_exclude]
+                base_line['withholding_values_list'].append(tax_values)
 
     @api.model
     def _add_base_lines_cfdi_values(self, cfdi_values, base_lines, percentage_paid=None):
@@ -890,36 +944,22 @@ class L10nMxEdiDocument(models.Model):
         currency = cfdi_values['currency']
         tax_objected = cfdi_values['objeto_imp']
 
-        # Prepare taxes amounts.
-        tax_details_transferred = self._get_taxes_cfdi_values(
-            base_lines,
-            filter_tax_values=lambda _base_line, tax_values: tax_values['tax_repartition_line'].tax_id.amount >= 0.0,
-        )
-        tax_details_withholding = self._get_taxes_cfdi_values(
-            base_lines,
-            filter_tax_values=lambda _base_line, tax_values: tax_values['tax_repartition_line'].tax_id.amount < 0.0,
-        )
-
-        # Prepare invoice lines and distribution of negative lines accross the others.
-        invoice_lines = self._preprocess_cfdi_base_lines(currency, base_lines, tax_details_transferred, tax_details_withholding)
-
         # Invoice lines.
         cfdi_values['conceptos_list'] = line_values_list = []
-        for line_values in invoice_lines:
-            line = line_values['line']
+        for line in base_lines:
             product = line['product']
             quantity = line['quantity']
             uom = line['uom']
-            discount = line_values['discount']
+            discount = line['discount']
 
             if percentage_paid:
                 for key in ('transferred_values_list', 'withholding_values_list'):
-                    for tax_values in line_values[key]:
+                    for tax_values in line[key]:
                         tax_values['base'] = currency.round(tax_values['base'] * percentage_paid)
                         tax_values['importe'] = currency.round(tax_values['importe'] * percentage_paid)
 
-            transferred_values_list = line_values['transferred_values_list']
-            withholding_values_list = line_values['withholding_values_list']
+            transferred_values_list = line['transferred_values_list']
+            withholding_values_list = line['withholding_values_list']
 
             is_refund_gi = cfdi_values['receptor']['uso_cfdi'] == 'G02'
             if is_refund_gi:
@@ -953,7 +993,7 @@ class L10nMxEdiDocument(models.Model):
                 cfdi_line_values['objeto_imp'] = tax_objected
             else:
                 cfdi_line_values['objeto_imp'] = '01'
-            cfdi_line_values['importe'] = line_values['gross_price_subtotal']
+            cfdi_line_values['importe'] = line['gross_price_subtotal']
             if cfdi_line_values['objeto_imp'] == '02':
                 cfdi_line_values['traslados_list'] = transferred_values_list
                 cfdi_line_values['retenciones_list'] = withholding_values_list
@@ -1010,9 +1050,9 @@ class L10nMxEdiDocument(models.Model):
             cfdi_values['descuento'] = None
 
         # Cleanup attributes for Exento taxes.
-        for line_values in invoice_lines:
+        for line in base_lines:
             for key in ('transferred_values_list', 'withholding_values_list'):
-                for tax_values in line_values[key]:
+                for tax_values in line[key]:
                     if tax_values['tipo_factor'] == 'Exento':
                         tax_values['importe'] = None
         for key in ('retenciones_list', 'traslados_list'):

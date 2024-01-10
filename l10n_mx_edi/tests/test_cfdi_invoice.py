@@ -146,96 +146,390 @@ class TestCFDIInvoice(TestMxEdiCommon):
         self._assert_invoice_cfdi(invoice, 'test_invoice_addenda')
 
     @freeze_time('2017-01-01')
-    def test_invoice_negative_discount_line(self):
-        discount_product = self.env['product.product'].create({
-            'name': "discount_product",
-            'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_01010101').id,
-        })
+    def test_invoice_negative_lines_dispatch_same_product(self):
+        """ Ensure the distribution of negative lines is done on the same product first. """
+        product1 = self.product
+        product2 = self._create_product()
 
         invoice = self._create_invoice(
             invoice_line_ids=[
                 Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 2000.0,
-                    'quantity': 5,
-                    'discount': 20.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
+                    'product_id': product1.id,
+                    'quantity': 5.0,
+                    'tax_ids': [],
                 }),
                 Command.create({
-                    'product_id': discount_product.id,
-                    'price_unit': -2000.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
+                    'product_id': product2.id,
+                    'quantity': -5.0,
+                    'tax_ids': [],
+                }),
+                Command.create({
+                    'product_id': product2.id,
+                    'quantity': 12.0,
+                    'tax_ids': [],
                 }),
             ],
         )
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_negative_discount_line')
+        self._assert_invoice_cfdi(invoice, 'test_invoice_negative_lines_dispatch_same_product')
 
     @freeze_time('2017-01-01')
-    def test_invoice_negative_discount_line_on_multiple_lines(self):
-        discount_product = self.env['product.product'].create({
-            'name': "discount_product",
-            'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_01010101').id,
-        })
-
+    def test_invoice_negative_lines_dispatch_same_amount(self):
+        """ Ensure the distribution of negative lines is done on the same amount. """
         invoice = self._create_invoice(
             invoice_line_ids=[
                 Command.create({
                     'product_id': self.product.id,
-                    'price_unit': 2000.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
+                    'quantity': 12.0,
+                    'tax_ids': [],
                 }),
                 Command.create({
                     'product_id': self.product.id,
-                    'price_unit': 1000.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
+                    'quantity': 3.0,
+                    'tax_ids': [],
                 }),
                 Command.create({
-                    'product_id': discount_product.id,
-                    'price_unit': -2500.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
+                    'product_id': self.product.id,
+                    'quantity': 6.0,
+                    'tax_ids': [],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': -3.0,
+                    'tax_ids': [],
                 }),
             ],
         )
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_negative_discount_line_on_multiple_lines')
+        self._assert_invoice_cfdi(invoice, 'test_invoice_negative_lines_dispatch_same_amount')
 
     @freeze_time('2017-01-01')
-    def test_invoice_negative_full_discount_lines(self):
+    def test_invoice_negative_lines_dispatch_same_taxes(self):
+        """ Ensure the distribution of negative lines is done exclusively on lines having the same taxes. """
+        product1 = self.product
+        product2 = self._create_product()
+
         invoice = self._create_invoice(
             invoice_line_ids=[
                 Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 1000.0,
+                    'product_id': product1.id,
+                    'quantity': 12.0,
+                    'tax_ids': [],
+                }),
+                Command.create({
+                    'product_id': product1.id,
+                    'quantity': 3.0,
+                    'tax_ids': [],
+                }),
+                Command.create({
+                    'product_id': product2.id,
+                    'quantity': 6.0,
                     'tax_ids': [Command.set(self.tax_16.ids)],
                 }),
                 Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': -2000.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 3000.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': 2000.0,
-                    'tax_ids': [Command.set(self.tax_16.ids)],
-                }),
-                Command.create({
-                    'product_id': self.product.id,
-                    'price_unit': -1000.0,
+                    'product_id': product1.id,
+                    'quantity': -3.0,
                     'tax_ids': [Command.set(self.tax_16.ids)],
                 }),
             ],
         )
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self._assert_invoice_cfdi(invoice, 'test_invoice_negative_full_discount_lines')
+        self._assert_invoice_cfdi(invoice, 'test_invoice_negative_lines_dispatch_same_taxes')
+
+    @freeze_time('2017-01-01')
+    def test_invoice_negative_lines_dispatch_biggest_amount(self):
+        """ Ensure the distribution of negative lines is done on the biggest amount. """
+        invoice = self._create_invoice(
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 3.0,
+                    'tax_ids': [],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 12.0,
+                    'discount': 10.0, # price_subtotal: 10800
+                    'tax_ids': [],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 8.0,
+                    'discount': 20.0, # price_subtotal: 6400
+                    'tax_ids': [],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': -22.0,
+                    'discount': 22.0, # price_subtotal: 17160
+                    'tax_ids': [],
+                }),
+            ],
+        )
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+        self._assert_invoice_cfdi(invoice, 'test_invoice_negative_lines_dispatch_biggest_amount')
+
+    @freeze_time('2017-01-01')
+    def test_invoice_negative_lines_zero_total(self):
+        """ Test an invoice completely refunded by the negative lines. """
+        invoice = self._create_invoice(
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 12.0,
+                    'tax_ids': [],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': -12.0,
+                    'tax_ids': [],
+                }),
+            ],
+        )
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [{
+            'move_id': invoice.id,
+            'state': 'invoice_sent',
+            'attachment_id': False,
+            'cancel_button_needed': False,
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_invoice_negative_lines_orphan_negative_line(self):
+        """ Test an invoice in which a negative line failed to be distributed. """
+        invoice = self._create_invoice(
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 12.0,
+                    'tax_ids': [Command.set(self.tax_16.ids)],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': -2.0,
+                    'tax_ids': [],
+                }),
+            ],
+        )
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [{
+            'move_id': invoice.id,
+            'state': 'invoice_sent_failed',
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_negative_lines_zero_total(self):
+        """ Test an invoice completely refunded by the negative lines. """
+        invoice = self._create_invoice(
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 12.0,
+                    'tax_ids': [],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': -12.0,
+                    'tax_ids': [],
+                }),
+            ],
+        )
+
+        with self.with_mocked_pac_sign_success():
+            self.env['l10n_mx_edi.global_invoice.create'] \
+                .with_context(invoice.l10n_mx_edi_action_create_global_invoice()['context']) \
+                .create({})\
+                .action_create_global_invoice()
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [{
+            'invoice_ids': invoice.ids,
+            'state': 'ginvoice_sent',
+            'attachment_id': False,
+            'cancel_button_needed': False,
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_negative_lines_orphan_negative_line(self):
+        """ Test a global invoice containing an invoice having a negative line that failed to be distributed. """
+        invoice = self._create_invoice(
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 12.0,
+                    'tax_ids': [Command.set(self.tax_16.ids)],
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': -2.0,
+                    'tax_ids': [],
+                }),
+            ],
+        )
+
+        with self.with_mocked_pac_sign_success():
+            self.env['l10n_mx_edi.global_invoice.create'] \
+                .with_context(invoice.l10n_mx_edi_action_create_global_invoice()['context']) \
+                .create({})\
+                .action_create_global_invoice()
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [{
+            'invoice_ids': invoice.ids,
+            'state': 'ginvoice_sent_failed',
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_including_partial_refund(self):
+        invoice = self._create_invoice(
+            l10n_mx_edi_cfdi_to_public=True,
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 10.0,
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': -2.0,
+                }),
+            ],
+        )
+        refund = self._create_invoice(
+            l10n_mx_edi_cfdi_to_public=True,
+            move_type='out_refund',
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 3.0,
+                }),
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': -1.0,
+                }),
+            ],
+            reversed_entry_id=invoice.id,
+        )
+
+        invoices = invoice + refund
+        with self.with_mocked_pac_sign_success():
+            # Calling the global invoice on the invoice will include the refund automatically.
+            self.env['l10n_mx_edi.global_invoice.create']\
+                .with_context(invoice.l10n_mx_edi_action_create_global_invoice()['context'])\
+                .create({})\
+                .action_create_global_invoice()
+        self._assert_global_invoice_cfdi_from_invoices(invoices, 'test_global_invoice_including_partial_refund')
+
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [{
+            'invoice_ids': invoices.ids,
+            'state': 'ginvoice_sent',
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_including_full_refund(self):
+        invoice = self._create_invoice(
+            l10n_mx_edi_cfdi_to_public=True,
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 10.0,
+                }),
+            ],
+        )
+        refund = self._create_invoice(
+            l10n_mx_edi_cfdi_to_public=True,
+            move_type='out_refund',
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 10.0,
+                }),
+            ],
+            reversed_entry_id=invoice.id,
+        )
+
+        invoices = invoice + refund
+        with self.with_mocked_pac_sign_success():
+            self.env['l10n_mx_edi.global_invoice.create']\
+                .with_context(invoices.l10n_mx_edi_action_create_global_invoice()['context'])\
+                .create({})\
+                .action_create_global_invoice()
+
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [{
+            'invoice_ids': invoices.ids,
+            'state': 'ginvoice_sent',
+            'attachment_id': False,
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_not_allowed_refund(self):
+        refund = self._create_invoice(
+            l10n_mx_edi_cfdi_to_public=True,
+            move_type='out_refund',
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 3.0,
+                }),
+            ],
+        )
+        with self.assertRaises(UserError):
+            self.env['l10n_mx_edi.global_invoice.create']\
+                .with_context(refund.l10n_mx_edi_action_create_global_invoice()['context'])\
+                .create({})\
+                .action_create_global_invoice()
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_refund_after(self):
+        invoice = self._create_invoice(
+            l10n_mx_edi_cfdi_to_public=True,
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 10.0,
+                }),
+            ],
+        )
+
+        with self.with_mocked_pac_sign_success():
+            self.env['l10n_mx_edi.global_invoice.create']\
+                .with_context(invoice.l10n_mx_edi_action_create_global_invoice()['context'])\
+                .create({})\
+                .action_create_global_invoice()
+
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [{
+            'invoice_ids': invoice.ids,
+            'state': 'ginvoice_sent',
+        }])
+
+        refund = self._create_invoice(
+            l10n_mx_edi_cfdi_to_public=True,
+            move_type='out_refund',
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'quantity': 3.0,
+                }),
+            ],
+            reversed_entry_id=invoice.id,
+        )
+        with self.assertRaises(UserError):
+            self.env['l10n_mx_edi.global_invoice.create'] \
+                .with_context(invoice.l10n_mx_edi_action_create_global_invoice()['context']) \
+                .create({})
+        with self.with_mocked_pac_sign_success():
+            self.env['account.move.send']\
+                .with_context(active_model=refund._name, active_ids=refund.ids)\
+                .create({})\
+                .action_send_and_print()
+        self._assert_invoice_cfdi(refund, 'test_global_invoice_refund_after')
+
+        self.assertRecordValues(refund.l10n_mx_edi_invoice_document_ids, [{
+            'move_id': refund.id,
+            'invoice_ids': refund.ids,
+            'state': 'invoice_sent',
+        }])
 
     @freeze_time('2017-01-01')
     def test_invoice_tax_rounding(self):

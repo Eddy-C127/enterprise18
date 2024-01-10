@@ -1,6 +1,5 @@
 from .common import TestMxEdiPosCommon
 
-from odoo import Command
 from odoo.exceptions import UserError
 from odoo.tests import tagged
 
@@ -11,7 +10,240 @@ from freezegun import freeze_time
 class TestCFDIPosOrder(TestMxEdiPosCommon):
 
     @freeze_time('2017-01-01')
-    def test_global_invoice_workflow(self):
+    def test_global_invoice_negative_lines_zero_total(self):
+        """ Test a pos order completely refunded by the negative lines. """
+        with self.with_pos_session():
+            order = self._create_order({
+                'pos_order_lines_ui_args': [
+                    (self.product, 12.0),
+                    (self.product, -12.0),
+                ],
+                'payments': [(self.bank_pm1, 0.0)],
+            })
+
+        with self.with_mocked_pac_sign_success():
+            self.env['l10n_mx_edi.global_invoice.create'] \
+                .with_context(order.l10n_mx_edi_action_create_global_invoice()['context']) \
+                .create({})\
+                .action_create_global_invoice()
+        self.assertRecordValues(order, [{'l10n_mx_edi_cfdi_state': 'global_sent'}])
+        self.assertRecordValues(order.l10n_mx_edi_document_ids, [{
+            'pos_order_ids': order.ids,
+            'state': 'ginvoice_sent',
+            'attachment_id': False,
+            'cancel_button_needed': False,
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_zero_line(self):
+        """ Test a pos order with a line of zero. """
+        with self.with_pos_session():
+            order = self._create_order({
+                'pos_order_lines_ui_args': [
+                    (self.product, 10.0),
+                    (self.product, 0.0),
+                ],
+                'payments': [(self.bank_pm1, 11600.0)],
+            })
+
+        with self.with_mocked_pac_sign_success():
+            self.env['l10n_mx_edi.global_invoice.create'] \
+                .with_context(order.l10n_mx_edi_action_create_global_invoice()['context']) \
+                .create({})\
+                .action_create_global_invoice()
+        self._assert_global_invoice_cfdi_from_orders(order, 'test_global_invoice_zero_line')
+        self.assertRecordValues(order.l10n_mx_edi_document_ids, [{
+            'pos_order_ids': order.ids,
+            'state': 'ginvoice_sent',
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_negative_lines_orphan_negative_line(self):
+        """ Test a global invoice containing a pos order having a negative line that failed to be distributed. """
+        product1 = self.product
+        product2 = self._create_product(taxes_id=[])
+
+        with self.with_pos_session():
+            order = self._create_order({
+                'pos_order_lines_ui_args': [
+                    (product1, 12.0),
+                    (product2, -2.0),
+                ],
+                'payments': [(self.bank_pm1, 11920.0)],
+            })
+
+        with self.with_mocked_pac_sign_success():
+            self.env['l10n_mx_edi.global_invoice.create'] \
+                .with_context(order.l10n_mx_edi_action_create_global_invoice()['context']) \
+                .create({})\
+                .action_create_global_invoice()
+        self.assertRecordValues(order.l10n_mx_edi_document_ids, [{
+            'pos_order_ids': order.ids,
+            'state': 'ginvoice_sent_failed',
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_including_complex_partial_refund_chain(self):
+        with self.with_pos_session():
+            order = self._create_order({
+                'pos_order_lines_ui_args': [
+                    (self.product, 10.0), # -2 from order1, -2 from refund1
+                    (self.product, -2.0),
+                ],
+                'payments': [(self.bank_pm1, 9280.0)],
+            })
+            refund = self._create_order({
+                'pos_order_lines_ui_args': [
+                    {
+                        'product': self.product,
+                        'quantity': -2.0,
+                        'refunded_orderline_id': order.lines[0].id,
+                    },
+                ],
+                'payments': [(self.bank_pm1, -2320.0)],
+            })
+
+        orders = order + refund
+        with self.with_mocked_pac_sign_success():
+            # Calling the global invoice on the order will include the refund automatically.
+            self.env['l10n_mx_edi.global_invoice.create']\
+                .with_context(order.l10n_mx_edi_action_create_global_invoice()['context'])\
+                .create({})\
+                .action_create_global_invoice()
+        self._assert_global_invoice_cfdi_from_orders(orders, 'test_global_invoice_including_complex_partial_refund_chain_1')
+
+        self.assertRecordValues(orders.l10n_mx_edi_document_ids, [{
+            'pos_order_ids': orders.ids,
+            'state': 'ginvoice_sent',
+        }])
+
+        # New refund after the global invoice.
+        with self.with_pos_session(), self.with_mocked_pac_sign_success():
+            refund2 = self._create_order({
+                'pos_order_lines_ui_args': [
+                    {
+                        'product': self.product,
+                        'quantity': -1.0,
+                        'refunded_orderline_id': order.lines[0].id,
+                    },
+                ],
+                'payments': [(self.bank_pm1, -1160.0)],
+            })
+        self._assert_order_cfdi(refund2, 'test_global_invoice_including_complex_partial_refund_chain_2')
+
+        # Ask for an invoice.
+        order.partner_id = self.customer
+        with self.with_pos_session(), self.with_mocked_pac_sign_success():
+            order.action_pos_order_invoice()
+        self._assert_order_cfdi(order, 'test_global_invoice_including_complex_partial_refund_chain_3')
+
+        # You can't make a global invoice since the order is invoiced.
+        with self.assertRaises(UserError):
+            self.env['l10n_mx_edi.global_invoice.create'] \
+                .with_context(order.l10n_mx_edi_action_create_global_invoice()['context']) \
+                .create({})
+
+        # Sign it.
+        invoice = order.account_move
+        self.env['account.move.send'] \
+            .with_context(active_model=invoice._name, active_ids=invoice.ids) \
+            .create({}) \
+            .action_send_and_print()
+        self.assertRecordValues(invoice, [{'l10n_mx_edi_cfdi_state': 'sent'}])
+
+        # Nothing changed on the order.
+        self.assertRecordValues(order, [{'l10n_mx_edi_cfdi_state': 'global_sent'}])
+        self.assertRecordValues(order.l10n_mx_edi_document_ids.sorted(), [
+            {
+                'pos_order_ids': order.ids,
+                'state': 'invoice_sent',
+            },
+            {
+                'pos_order_ids': orders.ids,
+                'state': 'ginvoice_sent',
+            },
+        ])
+
+        # Ask for a credit note.
+        refund.partner_id = self.customer
+        with self.with_pos_session(), self.with_mocked_pac_sign_success():
+            refund.action_pos_order_invoice()
+        self._assert_order_cfdi(refund, 'test_global_invoice_including_complex_partial_refund_chain_4')
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_including_full_refund(self):
+        with self.with_pos_session():
+            order = self._create_order({
+                'pos_order_lines_ui_args': [
+                    (self.product, 10.0),
+                ],
+                'payments': [(self.bank_pm1, 11600.0)],
+            })
+            refund = self._create_order({
+                'pos_order_lines_ui_args': [
+                    {
+                        'product': self.product,
+                        'quantity': -10.0,
+                        'refunded_orderline_id': order.lines[0].id,
+                    },
+                ],
+                'payments': [(self.bank_pm1, -11600.0)],
+            })
+
+        orders = order + refund
+        with self.with_mocked_pac_sign_success():
+            self.env['l10n_mx_edi.global_invoice.create']\
+                .with_context(order.l10n_mx_edi_action_create_global_invoice()['context'])\
+                .create({})\
+                .action_create_global_invoice()
+
+        self.assertRecordValues(orders.l10n_mx_edi_document_ids, [{
+            'pos_order_ids': orders.ids,
+            'state': 'ginvoice_sent',
+            'attachment_id': False,
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_refund_after(self):
+        with self.with_pos_session():
+            order = self._create_order({
+                'pos_order_lines_ui_args': [
+                    (self.product, 10.0),
+                ],
+                'payments': [(self.bank_pm1, 11600.0)],
+            })
+
+        with self.with_mocked_pac_sign_success():
+            self.env['l10n_mx_edi.global_invoice.create']\
+                .with_context(order.l10n_mx_edi_action_create_global_invoice()['context'])\
+                .create({})\
+                .action_create_global_invoice()
+
+        self.assertRecordValues(order.l10n_mx_edi_document_ids, [{
+            'pos_order_ids': order.ids,
+            'state': 'ginvoice_sent',
+        }])
+
+        with self.with_pos_session(), self.with_mocked_pac_sign_success():
+            refund = self._create_order({
+                'pos_order_lines_ui_args': [
+                    {
+                        'product': self.product,
+                        'quantity': -3.0,
+                        'refunded_orderline_id': order.lines[0].id,
+                    },
+                ],
+                'payments': [(self.bank_pm1, -3480.0)],
+            })
+        self._assert_order_cfdi(refund, 'test_global_invoice_refund_after')
+
+        self.assertRecordValues(refund.l10n_mx_edi_document_ids, [{
+            'pos_order_ids': refund.ids,
+            'state': 'invoice_sent',
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_documents(self):
         with self.with_pos_session() as _session:
             order1 = self._create_order({
                 'pos_order_lines_ui_args': [(self.product, 1)],
@@ -59,37 +291,6 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
                 )
             sent_doc_values['sat_state'] = 'valid'
             self.assertRecordValues(orders.l10n_mx_edi_document_ids, [sent_doc_values])
-
-    @freeze_time('2017-01-01')
-    def test_global_invoice_misc_business_values(self):
-        """ Create orders for anonymous customers and create Global Invoice. """
-        product1 = self._create_product(taxes_id=[])
-        product2 = self._create_product(lst_price=2000.0)
-        product3 = self.product
-
-        with self.with_pos_session() as _session:
-            order1 = self._create_order({
-                'pos_order_lines_ui_args': [
-                    (product1, 1),
-                    (product2, 5, 20.0),
-                    (product3, 10),
-                ],
-                'payments': [(self.bank_pm1, 21880.0)],
-            })
-            order2 = self._create_order({
-                'pos_order_lines_ui_args': [
-                    (product3, 2, 10.0),
-                ],
-                'payments': [(self.bank_pm1, 2088.0)],
-            })
-
-        orders = order1 + order2
-        with self.with_mocked_pac_sign_success():
-            self.env['l10n_mx_edi.global_invoice.create'] \
-                .with_context(orders.l10n_mx_edi_action_create_global_invoice()['context'])\
-                .create({}) \
-                .action_create_global_invoice()
-        self._assert_global_invoice_cfdi_from_orders(orders, 'test_global_invoice_misc_business_values')
 
     @freeze_time('2017-01-01')
     def test_invoiced_order_then_refund(self):
@@ -145,114 +346,6 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
         self.assertRecordValues(refund, [{
             'l10n_mx_edi_cfdi_origin': f'03|{invoice.l10n_mx_edi_cfdi_uuid}',
         }])
-
-    @freeze_time('2017-01-01')
-    def test_global_invoiced_order_then_refund_then_invoiced(self):
-        self.product_0 = self._create_product(lst_price=0.0)
-        with self.with_pos_session() as _session:
-            # Create an order, then make a global invoice and sign it.
-            order = self._create_order({
-                'pos_order_lines_ui_args': [(self.product, 10), (self.product_0, 10)],
-                'payments': [(self.bank_pm1, 11600.0)],
-                'customer': self.partner_mx,
-                'uid': '0001',
-            })
-
-        with self.with_mocked_pac_sign_success():
-            self.env['l10n_mx_edi.global_invoice.create'] \
-                .with_context(order.l10n_mx_edi_action_create_global_invoice()['context'])\
-                .create({}) \
-                .action_create_global_invoice()
-        self._assert_global_invoice_cfdi_from_orders(order, 'test_global_invoiced_order_then_refund_then_invoiced_1')
-        self.assertRecordValues(order, [{'l10n_mx_edi_cfdi_state': 'global_sent'}])
-
-        order_sent_doc_values = {
-            'pos_order_ids': order.ids,
-            'state': 'ginvoice_sent',
-        }
-        self.assertRecordValues(order.l10n_mx_edi_document_ids, [order_sent_doc_values])
-
-        with self.with_pos_session() as _session, self.with_mocked_pac_sign_success():
-            # Refund the order.
-            refund_order = order._refund()
-
-        self._assert_order_cfdi(refund_order, 'test_global_invoiced_order_then_refund_then_invoiced_2')
-        self.assertRecordValues(refund_order, [{'l10n_mx_edi_cfdi_state': 'sent'}])
-
-        refund_sent_doc_values = {
-            'pos_order_ids': refund_order.ids,
-            'state': 'invoice_sent',
-        }
-        self.assertRecordValues(refund_order.l10n_mx_edi_document_ids, [refund_sent_doc_values])
-
-        # You can't make a global invoice for it since a document has already been generated automatically.
-        with self.assertRaises(UserError):
-            self.env['l10n_mx_edi.global_invoice.create'] \
-                .with_context(refund_order.l10n_mx_edi_action_create_global_invoice()['context']) \
-                .create({})
-
-        # You are not able to create an invoice for it.
-        with self.assertRaises(UserError):
-            refund_order.action_pos_order_invoice()
-
-        # Invoice.
-        with self.with_pos_session() as _session, self.with_mocked_pac_sign_success():
-            order.action_pos_order_invoice()
-
-            # Sign it.
-            invoice = order.account_move
-            self.env['account.move.send'] \
-                .with_context(active_model=invoice._name, active_ids=invoice.ids) \
-                .create({}) \
-                .action_send_and_print()
-        self.assertRecordValues(invoice, [{'l10n_mx_edi_cfdi_state': 'sent'}])
-
-        # Nothing changed on the order.
-        self.assertRecordValues(order.l10n_mx_edi_document_ids, [order_sent_doc_values])
-
-    @freeze_time('2017-01-01')
-    def test_global_invoiced_order_with_refund_line_then_refund(self):
-        with self.with_pos_session() as _session:
-            # Create an order, then make a global invoice and sign it.
-            order = self._create_order({
-                'pos_order_lines_ui_args': [(self.product, 10), (self.product, -2)],
-                'payments': [(self.bank_pm1, 9280.0)],
-                'customer': self.partner_mx,
-                'uid': '0001',
-            })
-
-        with self.with_mocked_pac_sign_success():
-            self.env['l10n_mx_edi.global_invoice.create'] \
-                .with_context(order.l10n_mx_edi_action_create_global_invoice()['context'])\
-                .create({}) \
-                .action_create_global_invoice()
-        self._assert_global_invoice_cfdi_from_orders(order, 'test_global_invoiced_order_with_refund_lines_1')
-        self.assertRecordValues(order, [{'l10n_mx_edi_cfdi_state': 'global_sent'}])
-
-        order_sent_doc_values = {
-            'pos_order_ids': order.ids,
-            'state': 'ginvoice_sent',
-        }
-        self.assertRecordValues(order.l10n_mx_edi_document_ids, [order_sent_doc_values])
-
-        with self.with_pos_session() as _session, self.with_mocked_pac_sign_success():
-            # Refund the order.
-            refund_order = order._refund()
-
-        self._assert_order_cfdi(refund_order, 'test_global_invoiced_order_with_refund_lines_2')
-        self.assertRecordValues(refund_order, [{'l10n_mx_edi_cfdi_state': 'sent'}])
-
-        refund_sent_doc_values = {
-            'pos_order_ids': refund_order.ids,
-            'state': 'invoice_sent',
-        }
-        self.assertRecordValues(refund_order.l10n_mx_edi_document_ids, [refund_sent_doc_values])
-
-        # You can't make a global invoice for it since a document has already been generated automatically.
-        with self.assertRaises(UserError):
-            self.env['l10n_mx_edi.global_invoice.create'] \
-                .with_context(refund_order.l10n_mx_edi_action_create_global_invoice()['context']) \
-                .create({})
 
     @freeze_time('2017-01-01')
     def test_global_invoiced_order_then_invoiced_then_refund_then_cancel_it(self):
