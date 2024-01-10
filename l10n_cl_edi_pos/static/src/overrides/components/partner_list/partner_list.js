@@ -10,7 +10,7 @@ patch(PartnerList.prototype, {
         if (this.pos.isChileanCompany()) {
             this.props.partner.l10n_latam_identification_type_id = [
                 this.pos["l10n_latam.identification.type"][0].id,
-                this.pos.l10n_latam_identification_types[0].name,
+                this.pos["l10n_latam.identification.type"][0].name,
             ];
         }
     },

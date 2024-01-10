@@ -4,11 +4,11 @@
         <xpath expr="//div[hasclass('partner-details-box')]" position="inside">
             <t t-if="pos.isChileanCompany()">
                 <div class="partner-detail col">
-                    <span class="label">Identification Type</span>
-                    <select class="detail" t-att="{'disabled': isFieldCommercialAndPartnerIsChild('l10n_latam_identification_type_id')}" name="l10n_latam_identification_type_id"
+                    <label class="label form-label ">Identification Type</label>
+                    <select class="detail form-select" t-att="{'disabled': isFieldCommercialAndPartnerIsChild('l10n_latam_identification_type_id')}" name="l10n_latam_identification_type_id"
                         t-model="changes.l10n_latam_identification_type_id"
                         t-att-class="{'border-danger': props.missingFields.includes('l10n_latam_identification_type_id')}">
-                       <t t-foreach="pos.l10n_latam_identification_types" t-as="l10n_latam_identification_type" t-key="l10n_latam_identification_type.id">
+                       <t t-foreach="pos['l10n_latam.identification.type']" t-as="l10n_latam_identification_type" t-key="l10n_latam_identification_type.id">
                            <option t-att-value="l10n_latam_identification_type.id">
                                <t t-esc="l10n_latam_identification_type.name" />
                            </option>
@@ -16,8 +16,8 @@
                    </select>
                 </div>
                 <div class="partner-detail col">
-                    <span class="label">Tax Payer Type</span>
-                    <select class="detail" t-att="{'disabled': isFieldCommercialAndPartnerIsChild('l10n_cl_sii_taxpayer_type')}" name="l10n_cl_sii_taxpayer_type"
+                    <label class="label form-label">Tax Payer Type</label>
+                    <select class="detail form-select" t-att="{'disabled': isFieldCommercialAndPartnerIsChild('l10n_cl_sii_taxpayer_type')}" name="l10n_cl_sii_taxpayer_type"
                         t-model="changes.l10n_cl_sii_taxpayer_type"
                         t-att-class="{'border-danger': props.missingFields.includes('l10n_cl_sii_taxpayer_type')}">
                        <t t-foreach="pos.sii_taxpayer_types" t-as="sii_taxpayer_type" t-key="sii_taxpayer_type[0]">
@@ -29,15 +29,15 @@
                    </select>
                 </div>
                 <div class="partner-detail col">
-                    <span class="label">Giro</span>
-                    <input class="detail" t-att="{'disabled': isFieldCommercialAndPartnerIsChild('l10n_cl_activity_description')}" name="l10n_cl_activity_description"
+                    <label class="label form-label">Giro</label>
+                    <input class="detail form-control" t-att="{'disabled': isFieldCommercialAndPartnerIsChild('l10n_cl_activity_description')}" name="l10n_cl_activity_description"
                            t-model="changes.l10n_cl_activity_description"
                            placeholder="Describe your activity here..."
                            t-att-class="{'border-danger': props.missingFields.includes('l10n_cl_activity_description')}" />
                 </div>
                 <div class="partner-detail col">
-                    <span class="label">DTE Email</span>
-                    <input class="detail" t-att="{'disabled': isFieldCommercialAndPartnerIsChild('l10n_cl_dte_email')}" name="l10n_cl_dte_email" type="email"
+                    <label class="label form-label">DTE Email</label>
+                    <input class="detail form-control" t-att="{'disabled': isFieldCommercialAndPartnerIsChild('l10n_cl_dte_email')}" name="l10n_cl_dte_email" type="email"
                            t-model="changes.l10n_cl_dte_email"
                            t-att-class="{'border-danger': props.missingFields.includes('l10n_cl_dte_email')}"/>
                 </div>
