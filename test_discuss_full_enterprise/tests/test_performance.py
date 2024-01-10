@@ -7,7 +7,7 @@ old_method = TestDiscussFullPerformance._get_init_messaging_result
 
 def _get_init_messaging_result(self):
     res = old_method(self)
-    res['settings'].update({
+    res["Store"]["settings"].update({
         'homemenu_config': False,
         'how_to_call_on_mobile': 'ask',
         'external_device_number': False,
@@ -18,14 +18,16 @@ def _get_init_messaging_result(self):
         'voip_username': False,
         'is_discuss_sidebar_category_whatsapp_open': True,
     })
-    res['voipConfig'] = {
-        'mode': 'demo',
-        'missedCalls': 0,
-        'pbxAddress': "localhost",
-        'webSocketUrl': self.env["ir.config_parameter"].sudo().get_param("voip.wsServer", default="ws://localhost"),
-    }
-    res['hasDocumentsUserGroup'] = False
-    res['helpdesk_livechat_active'] = False
+    res["Store"].update({
+        "hasDocumentsUserGroup": False,
+        "helpdesk_livechat_active": False,
+        "voipConfig": {
+            'mode': 'demo',
+            'missedCalls': 0,
+            'pbxAddress': "localhost",
+            'webSocketUrl': self.env["ir.config_parameter"].sudo().get_param("voip.wsServer", default="ws://localhost"),
+        },
+    })
     return res
 
 

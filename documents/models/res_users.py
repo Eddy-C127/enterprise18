@@ -9,5 +9,5 @@ class Users(models.Model):
 
     def _init_messaging(self):
         res = super()._init_messaging()
-        res['hasDocumentsUserGroup'] = self.env.user.has_group('documents.group_documents_user')
+        res["Store"]["hasDocumentsUserGroup"] = self.env.user.has_group("documents.group_documents_user")
         return res

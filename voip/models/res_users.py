@@ -77,15 +77,13 @@ class ResUsers(models.Model):
         if not self.env.user._is_internal():
             return res
         get_param = self.env["ir.config_parameter"].sudo().get_param
-        return {
-            **res,
-            "voipConfig": {
-                "mode": get_param("voip.mode", default="demo"),
-                "missedCalls": self.env["voip.call"]._get_number_of_missed_calls(),
-                "pbxAddress": get_param("voip.pbx_ip", default="localhost"),
-                "webSocketUrl": get_param("voip.wsServer", default="ws://localhost"),
-            },
+        res["Store"]["voipConfig"] = {
+            "mode": get_param("voip.mode", default="demo"),
+            "missedCalls": self.env["voip.call"]._get_number_of_missed_calls(),
+            "pbxAddress": get_param("voip.pbx_ip", default="localhost"),
+            "webSocketUrl": get_param("voip.wsServer", default="ws://localhost"),
         }
+        return res
 
     def _reflect_change_in_res_users_settings(self):
         """

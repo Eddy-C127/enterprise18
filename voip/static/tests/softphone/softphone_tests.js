@@ -14,7 +14,7 @@ const mockMissedCalls = (numberOfMissedCalls) =>
     async function (route, _args, originalRpc) {
         if (route === "/mail/init_messaging") {
             const res = await originalRpc(...arguments);
-            res.voipConfig.missedCalls = numberOfMissedCalls;
+            res.Store.voipConfig.missedCalls = numberOfMissedCalls;
             return res;
         }
     };

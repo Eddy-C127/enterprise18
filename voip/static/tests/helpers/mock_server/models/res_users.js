@@ -10,15 +10,14 @@ patch(MockServer.prototype, {
      * @override
      */
     _mockResUsers_InitMessaging(...args) {
+        const res = super._mockResUsers_InitMessaging(...args);
         const getConfig = (key) =>
             this.getRecords("ir.config_parameter", [["key", "=", key]])[0].value;
-        return {
-            ...super._mockResUsers_InitMessaging(...args),
-            voipConfig: {
-                mode: getConfig("voip.mode"),
-                pbxAddress: getConfig("voip.pbx_ip"),
-                webSocketUrl: getConfig("voip.wsServer"),
-            },
+        res.Store.voipConfig = {
+            mode: getConfig("voip.mode"),
+            pbxAddress: getConfig("voip.pbx_ip"),
+            webSocketUrl: getConfig("voip.wsServer"),
         };
+        return res;
     },
 });
