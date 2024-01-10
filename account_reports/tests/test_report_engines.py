@@ -1328,19 +1328,46 @@ class TestReportEngines(TestAccountReportsCommon):
             options,
         )
 
-    def test_engine_external_default_value(self):
-        # Create the report with one default and one non-default line
-        # Both will have the same account code in the formula to compare the values
+    def test_engine_external_default_value_tax_closing_fiscalyear_lock_date(self):
+        def lock_via_fiscalyear_lock_date(non_tax_report, tax_report, report_options_map):
+            lock_date_wizard = self.env['account.change.lock.date'].create({
+                'fiscalyear_lock_date': fields.Date.from_string('2020-01-02'),
+            })
+            lock_date_wizard.change_lock_date()
+
+        self._run_external_engine_default_test_case(False, True, lock_via_fiscalyear_lock_date)
+
+    def test_engine_external_default_value_tax_closing_tax_lock_date(self):
+        def lock_via_tax_lock_date(non_tax_report, tax_report, report_options_map):
+            lock_date_wizard = self.env['account.change.lock.date'].create({
+                'tax_lock_date': fields.Date.from_string('2020-01-02'),
+            })
+            lock_date_wizard.change_lock_date()
+
+        self._run_external_engine_default_test_case(True, False, lock_via_tax_lock_date)
+
+    def test_engine_external_default_value_tax_closing(self):
+        def lock_via_tax_closing(non_tax_report, tax_report, report_options_map):
+            tax_closing_action = self.env['account.tax.report.handler'].action_periodic_vat_entries(report_options_map[tax_report])
+            closing_move_id = tax_closing_action['res_id']
+            self.env['account.move'].browse(closing_move_id).action_post()
+
+        self._run_external_engine_default_test_case(True, False, lock_via_tax_closing)
+
+    def _run_external_engine_default_test_case(self, impact_tax_report, impact_non_tax_report, lock_operation_function):
+        """ Common helper to run the tests of _default expressions
+        """
         test_line_1 = self._prepare_test_report_line(
-            self._prepare_test_expression_account_codes('1'),
+            self._prepare_test_expression_account_codes('10'),
             groupby='account_id',
         )
         test_line_2 = self._prepare_test_report_line(
             self._prepare_test_expression_external('sum', {}),
-            self._prepare_test_expression_account_codes('1', label='_default_balance'),
+            self._prepare_test_expression_account_codes('10', label='_default_balance'),
         )
 
-        report = self._create_report([test_line_1, test_line_2])
+        non_tax_report = self._create_report([test_line_1, test_line_2], name="non_tax_report")
+        tax_report = self._create_report([test_line_1, test_line_2], root_report_id=self.env.ref('account.generic_tax_report').id, name="tax_report")
 
         # Create the journal entries.
         self._create_test_account_moves([
@@ -1349,51 +1376,67 @@ class TestReportEngines(TestAccountReportsCommon):
             self._prepare_test_account_move_line(-600.0, account_code='314159'),
         ])
 
-        # Check the values.
-        options = self._generate_options(
-            report,
-            '2020-01-01', '2020-01-02',
-            default_options={
-                'unfold_all': True,
-            }
-        )
-        report_lines = report._get_lines(options)
+        report_options_map = {
+            report: self._generate_options(
+                report,
+                '2020-01-01', '2020-01-31',
+                default_options={
+                    'unfold_all': True,
+                }
+            )
+            for report in [non_tax_report, tax_report]
+        }
 
-        # Default values should not have been created without the lock date being set
-        self.assertLinesValues(
-            # pylint: disable=bad-whitespace
-            report_lines,
-            [0,                             1],
-            [
-                ('test_line_1',         700.0),
-                ('100001 100001',      1000.0),
-                ('101002 101002',      -300.0),
-                ('test_line_2',           0.0),
-            ],
-            options,
-        )
+        # Check the values before locking
+        for report in [non_tax_report, tax_report]:
+            with self.subTest(report=report.name):
+                options = report_options_map[report]
+                self.assertLinesValues(
+                    # pylint: disable=bad-whitespace
+                    report._get_lines(options),
+                    [0,                             1],
+                    [
+                        ('test_line_1',         700.0),
+                        ('100001 100001',      1000.0),
+                        ('101002 101002',      -300.0),
+                        ('test_line_2',           0.0),
+                    ],
+                    options,
+                )
 
-        lock_date_wizard = self.env['account.change.lock.date'].create({
-            'fiscalyear_lock_date': fields.Date.from_string('2020-01-02'),
-        })
-        lock_date_wizard.change_lock_date()
-        # Check the values after setting the general lock date.
-        report_lines = report._get_lines(options)
+        # Run the lock operation
+        lock_operation_function(non_tax_report, tax_report, report_options_map)
 
-        # Now that the lock date is set, the default values are generated
-        # The amount on test line 2 should match the total amount on test line 1
-        self.assertLinesValues(
-            # pylint: disable=bad-whitespace
-            report_lines,
-            [0,                             1],
-            [
-                ('test_line_1',         700.0),
-                ('100001 100001',      1000.0),
-                ('101002 101002',      -300.0),
-                ('test_line_2',         700.0),
-            ],
-            options,
-        )
+        # Check the values after locking
+        for report, impacted in [(non_tax_report, impact_non_tax_report), (tax_report, impact_tax_report)]:
+            with self.subTest(report=report.name):
+                options = report_options_map[report]
+                if impacted:
+                    self.assertLinesValues(
+                        # pylint: disable=bad-whitespace
+                        report._get_lines(options),
+                        [0,                             1],
+                        [
+                            ('test_line_1',         700.0),
+                            ('100001 100001',      1000.0),
+                            ('101002 101002',      -300.0),
+                            ('test_line_2',         700.0),
+                        ],
+                        options,
+                    )
+                else:
+                    self.assertLinesValues(
+                        # pylint: disable=bad-whitespace
+                        report._get_lines(options),
+                        [0,                             1],
+                        [
+                            ('test_line_1',         700.0),
+                            ('100001 100001',      1000.0),
+                            ('101002 101002',      -300.0),
+                            ('test_line_2',           0.0),
+                        ],
+                        options,
+                    )
 
     def test_change_expression_engine_to_tax_tags(self):
         """
