@@ -125,6 +125,26 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         self.assertEqual(report_data, expected)
 
     @freeze_time('2023-06-30')
+    def test_vat_tax_report_branch_name(self):
+        self.partner_b.is_company = True
+        tax_1 = self.env.ref(f'account.{self.company_data["company"].id}_tax_wht_co_3')
+        tax_2 = self.env.ref(f'account.{self.company_data["company"].id}_tax_output_vat')
+        self.init_invoice("out_invoice", self.partner_b, "2023-05-20", amounts=[1000, 1000], taxes=[tax_1, tax_2], post=True)
+
+        report = self.env.ref('l10n_th.tax_report')
+        options = report.get_options()
+
+        report_data = self.env['l10n_th.tax.report.handler'].l10n_th_print_sale_tax_report(options)['file_content']
+        expected = [
+            ['No.', 'Tax Invoice No.', 'Reference', 'Invoice Date', 'Contact Name', 'Tax ID', 'Company Information', 'Total Amount', 'Total Excluding VAT Amount', 'Vat Amount'],
+            [1.0, 'INV/2023/00001', '', 45066.0, 'Partner B', '12345678', 'Branch 12345678', 2080.0, 2000.0, 140.0],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', 'Total', 2080.0, 2000.0, 140]
+        ]
+        self.compare_xlsx_data(report_data, expected)
+
+    @freeze_time('2023-06-30')
     def test_vat_sales_tax_report(self):
         tax_1 = self.env.ref(f'account.{self.company_data["company"].id}_tax_wht_co_3')
         tax_2 = self.env.ref(f'account.{self.company_data["company"].id}_tax_output_vat')

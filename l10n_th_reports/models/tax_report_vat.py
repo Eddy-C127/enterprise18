@@ -103,7 +103,7 @@ class AccountGenericTaxReport(models.AbstractModel):
         company_name = company.name
         vat = company.vat or ''
 
-        infos = [date, company_name, vat, company.partner_id._l10n_th_get_branch_name()]
+        infos = [date, company_name, vat, company.partner_id.l10n_th_branch_name]
         for info in infos:
             sheet.merge_range(y_offset, 0, y_offset, 9, info, center_style)
             y_offset += 1
@@ -137,7 +137,7 @@ class AccountGenericTaxReport(models.AbstractModel):
             sheet.write(y_offset, 3, move.date, date_default_style)
             sheet.write(y_offset, 4, move.partner_id.name or '', default_style)
             sheet.write(y_offset, 5, move.partner_id.vat or '', default_style)
-            sheet.write(y_offset, 6, move.partner_id._l10n_th_get_branch_name(), default_style)
+            sheet.write(y_offset, 6, move.partner_id.l10n_th_branch_name, default_style)
             sheet.write(y_offset, 7, amount_total, currency_default_style)
             sheet.write(y_offset, 8, amount_untaxed_signed, currency_default_style)
             sheet.write(y_offset, 9, amount_tax, currency_default_style)
