@@ -100,8 +100,11 @@ class AccountMove(models.Model):
                 ('id', '!=', move.id),
             ], limit=1)
 
+            report, options = move._get_report_options_from_tax_closing_entry()
+
             if not open_previous_closing and (not move.company_id.tax_lock_date or move.tax_closing_end_date > move.company_id.tax_lock_date):
                 move.company_id.sudo().tax_lock_date = move.tax_closing_end_date
+                self.env['account.report']._generate_default_external_values(options['date']['date_from'], options['date']['date_to'], True)
 
             sender_company = report._get_sender_company_for_export(options)
             company_ids = report.get_report_company_ids(options)
