@@ -20,11 +20,11 @@
                     </div>
                 </setting>
             </setting>
-            <setting id="down_payments" position="after">
+            <block name="invoicing_setting_container" position="inside">
                 <setting id="invoice_consolidation" help="Consolidate all of a customer's subscriptions that are due to be billed on the same day onto a single invoice.">
                     <field name="invoice_consolidation"/>
                 </setting>
-            </setting>
+            </block>
         </field>
     </record>
 

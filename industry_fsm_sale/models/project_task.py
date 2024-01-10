@@ -325,9 +325,6 @@ class Task(models.Model):
         ]
         if self.project_id and self.timesheet_product_id:
             domain = expression.AND([domain, [('id', '!=', self.timesheet_product_id.id)]])
-        deposit_product = self.company_id.sale_down_payment_product_id
-        if deposit_product:
-            domain = expression.AND([domain, [('id', '!=', deposit_product.id)]])
 
         kanban_view = self.env.ref('industry_fsm_sale.industry_fsm_sale_product_catalog_kanban_view')
         search_view = self.env.ref('industry_fsm_sale.industry_fsm_sale_product_catalog_inherit_search_view')
