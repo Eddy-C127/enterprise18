@@ -557,7 +557,7 @@ class AccountMoveLine(models.Model):
             active_model='account.move.line',
             active_ids=self.ids,
         ).new({})
-        return wizard._action_open_wizard() if wizard.is_write_off_required else wizard.reconcile()
+        return wizard._action_open_wizard() if (wizard.is_write_off_required or wizard.force_partials) else wizard.reconcile()
 
     def _get_predict_postgres_dictionary(self):
         lang = self._context.get('lang') and self._context.get('lang')[:2]
