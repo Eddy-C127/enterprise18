@@ -31,8 +31,7 @@ export class MapModel extends Model {
             groupByKey: false,
             isGrouped: false,
             numberOfLocatedRecords: 0,
-            partnerIds: [],
-            partners: [],
+            partners: {},
             partnerToCache: [],
             recordGroups: [],
             records: [],
@@ -90,19 +89,12 @@ export class MapModel extends Model {
      */
     _addPartnerToRecord(metaData, data) {
         for (const record of data.records) {
-            for (const partner of data.partners) {
-                let recordPartnerId;
-                if (metaData.resModel === "res.partner" && metaData.resPartnerField === "id") {
-                    recordPartnerId = record.id;
-                } else {
-                    recordPartnerId = record[metaData.resPartnerField].id;
-                }
-
-                if (recordPartnerId == partner.id) {
-                    record.partner = partner;
-                    data.numberOfLocatedRecords++;
-                }
+            if (metaData.resModel === "res.partner" && metaData.resPartnerField === "id") {
+                record.partner = data.partners[record.id];
+            } else {
+                record.partner = data.partners[record[metaData.resPartnerField].id];
             }
+            data.numberOfLocatedRecords++;
         }
     }
 
@@ -146,8 +138,7 @@ export class MapModel extends Model {
             groupByKey: metaData.groupBy.length ? metaData.groupBy[0] : false,
             isGrouped: metaData.groupBy.length > 0,
             numberOfLocatedRecords: 0,
-            partnerIds: [],
-            partners: [],
+            partners: {},
             partnerToCache: [],
             recordGroups: [],
             records: [],
@@ -191,18 +182,23 @@ export class MapModel extends Model {
             data.recordGroups = [];
         }
 
-        data.partnerIds = [];
         if (metaData.resModel === "res.partner" && metaData.resPartnerField === "id") {
             for (const record of data.records) {
-                data.partnerIds.push(record.id);
-                record.partner_id = [record.id];
+                if (!data.partners[record.id]) {
+                    data.partners[record.id] = { ...record };
+                }
             }
         } else {
-            this._fillPartnerIds(metaData, data);
+            for (const record of data.records) {
+                const partner = record[metaData.resPartnerField];
+                if (partner && !data.partners[partner.id]) {
+                    data.partners[partner.id] = partner;
+                }
+            }
         }
+        this._addPartnerToRecord(metaData, data);
 
-        data.partnerIds = [...new Set(data.partnerIds)];
-        await this._partnerFetching(metaData, data);
+        await this._updatePartnerCoordinate(metaData, data);
 
         return data;
     }
@@ -218,10 +214,22 @@ export class MapModel extends Model {
             ? metaData.fieldNames.concat(data.groupByKey.split(":")[0])
             : metaData.fieldNames;
         const specification = {};
+        const fieldsToAdd = {
+            contact_address_complete: {},
+            partner_latitude: {},
+            partner_longitude: {},
+        };
         for (const fieldName of fieldNames) {
             specification[fieldName] = {};
-            if (["many2one", "one2many", "many2many"].includes(metaData.fields[fieldName].type)) {
+            if (metaData.resPartnerField === "id") {
+                Object.assign(specification, fieldsToAdd);
+            } else if (
+                ["many2one", "one2many", "many2many"].includes(metaData.fields[fieldName].type)
+            ) {
                 specification[fieldName].fields = { display_name: {} };
+                if (fieldName === metaData.resPartnerField) {
+                    Object.assign(specification[fieldName].fields, fieldsToAdd);
+                }
             }
         }
         const orderBy = [];
@@ -272,20 +280,6 @@ export class MapModel extends Model {
     }
 
     /**
-     * @protected
-     * @param {number[]} ids contains the ids from the partners
-     * @returns {Promise}
-     */
-    _fetchRecordsPartner(metaData, data, ids) {
-        const domain = [
-            ["contact_address_complete", "!=", "False"],
-            ["id", "in", ids],
-        ];
-        const fields = ["contact_address_complete", "partner_latitude", "partner_longitude"];
-        return this.orm.searchRead("res.partner", domain, fields);
-    }
-
-    /**
      * Fetch the route from the mapbox api.
      *
      * @protected
@@ -304,18 +298,6 @@ export class MapModel extends Model {
         const token = metaData.mapBoxToken;
         const encodedUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${address}?access_token=${token}&steps=true&geometries=geojson`;
         return this.http.get(encodedUrl);
-    }
-
-    /**
-     * @protected
-     * @param {Object[]} records the records that are going to be filtered
-     */
-    _fillPartnerIds(metaData, data) {
-        for (const record of data.records) {
-            if (record[metaData.resPartnerField]) {
-                data.partnerIds.push(record[metaData.resPartnerField].id);
-            }
-        }
     }
 
     /**
@@ -377,7 +359,9 @@ export class MapModel extends Model {
                 } else if (fieldType === "boolean") {
                     id = name = value ? _t("Yes") : _t("No");
                 } else if (fieldType === "selection") {
-                    const selected = metaData.fields[fieldName].selection.find((o) => o[0] === value);
+                    const selected = metaData.fields[fieldName].selection.find(
+                        (o) => o[0] === value
+                    );
                     id = name = selected ? selected[1] : value;
                 } else if (fieldType === "many2one" && value) {
                     id = value.id;
@@ -406,7 +390,7 @@ export class MapModel extends Model {
      */
     _maxBoxAPI(metaData, data) {
         const promises = [];
-        for (const partner of data.partners) {
+        for (const partner of Object.values(data.partners)) {
             if (
                 partner.contact_address_complete &&
                 (!partner.partner_latitude || !partner.partner_longitude)
@@ -530,7 +514,7 @@ export class MapModel extends Model {
     _openStreetMapAPIAsync(metaData, data) {
         // Group partners by address to reduce address list
         const addressPartnerMap = new Map();
-        for (const partner of data.partners) {
+        for (const partner of Object.values(data.partners)) {
             if (
                 partner.contact_address_complete &&
                 (!partner.partner_latitude || !partner.partner_longitude)
@@ -586,7 +570,7 @@ export class MapModel extends Model {
                     data.fetchingCoordinates = i < partnersList.length - 1;
                     this._notifyFetchedCoordinate(metaData, data);
                 } catch {
-                    for (const partner of data.partners) {
+                    for (const partner of Object.values(data.partners)) {
                         partner.fetchingCoordinate = false;
                     }
                     data.fetchingCoordinates = false;
@@ -603,19 +587,13 @@ export class MapModel extends Model {
     }
 
     /**
-     * Fetches the partner which ids are contained in the the array partnerids
      * if the token is set it uses the mapBoxApi to fetch address and route
      * if not is uses the openstreetmap api to fetch the address.
      *
      * @protected
-     * @param {number[]} partnerIds this array contains the ids from the partner that are linked to records
      * @returns {Promise}
      */
-    async _partnerFetching(metaData, data) {
-        data.partners = data.partnerIds.length
-            ? await this.keepLast.add(this._fetchRecordsPartner(metaData, data, data.partnerIds))
-            : [];
-        this._addPartnerToRecord(metaData, data);
+    async _updatePartnerCoordinate(metaData, data) {
         if (data.useMapBoxAPI) {
             return this.keepLast
                 .add(this._maxBoxAPI(metaData, data))

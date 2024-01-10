@@ -357,7 +357,14 @@ QUnit.module("Views", (hooks) => {
                 if (route === "/web/dataset/call_kw/project.task/web_search_read") {
                     assert.strictEqual(model, "project.task", "The model should be project.task");
                     const specification = kwargs.specification;
-                    assert.deepEqual(specification.partner_id, { fields: { display_name: {} } });
+                    assert.deepEqual(specification.partner_id, {
+                        fields: {
+                            contact_address_complete: {},
+                            display_name: {},
+                            partner_latitude: {},
+                            partner_longitude: {},
+                        },
+                    });
                     assert.deepEqual(specification.display_name, {});
                 } else if (route === "/web/dataset/call_kw/res.partner/search_read") {
                     assert.ok(false, "Should not search_read the partners if there are no partner");
@@ -772,7 +779,7 @@ QUnit.module("Views", (hooks) => {
             "path",
             "There should be one route showing"
         );
-        assert.equal(
+        assert.deepEqual(
             map.model.data.records[0].partner,
             map.model.data.records[1].partner,
             "The records should have the same partner object as a property"
@@ -839,7 +846,7 @@ QUnit.module("Views", (hooks) => {
      * no route
      */
     QUnit.test("Create a view with res.partner", async function (assert) {
-        assert.expect(7);
+        assert.expect(5);
         patchWithCleanup(session, { map_box_token: MAP_BOX_TOKEN });
 
         serverData.models["res.partner"].records = [
@@ -865,15 +872,13 @@ QUnit.module("Views", (hooks) => {
                 switch (route) {
                     case "/web/dataset/call_kw/res.partner/web_search_read":
                         assert.strictEqual(model, "res.partner", "The model should be res.partner");
-                        break;
-                    case "/web/dataset/call_kw/res.partner/search_read":
-                        assert.strictEqual(
-                            model,
-                            "res.partner",
-                            "The model should be res.partner as well"
-                        );
-                        assert.strictEqual(kwargs.domain[1][2][0], 1);
-                        assert.strictEqual(kwargs.domain[1][2][1], 2);
+                        assert.deepEqual(kwargs.specification, {
+                            contact_address_complete: {},
+                            display_name: {},
+                            id: {},
+                            partner_latitude: {},
+                            partner_longitude: {},
+                        });
                         break;
                 }
             },
