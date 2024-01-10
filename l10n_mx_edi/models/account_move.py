@@ -276,6 +276,35 @@ class AccountMove(models.Model):
             'currency_type': currency_type,
         }
 
+    def _l10n_mx_edi_check_invoices_for_global_invoice(self, origin=None):
+        """ Ensure the current records are eligible for the creation of a global invoice.
+
+        :param origin: The origin of the GI when cancelling an existing one.
+        """
+        failed_invoices = self.filtered(lambda x: x.state != 'posted')
+        if failed_invoices:
+            invoices_str = ", ".join(failed_invoices.mapped('name'))
+            raise UserError(_("Invoices %s are not posted.", invoices_str))
+        if len(self.company_id) != 1 or len(self.journal_id) != 1:
+            raise UserError(_("You can only process invoices sharing the same company and journal."))
+
+        refunds = self.reversal_move_id
+        invoices = self | refunds
+        failed_invoices = invoices.filtered(lambda x: (
+            (
+                not origin
+                and (
+                    not x.l10n_mx_edi_is_cfdi_needed
+                    or x.l10n_mx_edi_cfdi_state in ('sent', 'global_sent')
+                )
+            )
+            or (x.move_type == 'out_refund' and x.reversed_entry_id not in self)
+        ))
+        if failed_invoices:
+            invoices_str = ", ".join(failed_invoices.mapped('name'))
+            raise UserError(_("Invoices %s are already sent or not eligible for CFDI.", invoices_str))
+        return invoices
+
     @api.model
     def _l10n_mx_edi_write_cfdi_origin(self, code, uuids):
         ''' Format the code and uuids passed as parameter in order to fill the l10n_mx_edi_cfdi_origin field.
@@ -856,12 +885,6 @@ class AccountMove(models.Model):
                     "Invoice lines having a negative amount are not allowed to generate the CFDI. "
                     "Please create a credit note instead.",
                 ))
-            # Discount line without taxes is not allowed.
-            if negative_lines.filtered(lambda line: not line.tax_ids):
-                errors.append(_(
-                    "Invoice lines having a negative amount without a tax set is not allowed to "
-                    "generate the CFDI.",
-                ))
         invalid_unspcs_products = invoice_lines.product_id.filtered(lambda product: not product.unspsc_code_id)
         if invalid_unspcs_products:
             errors.append(_(
@@ -870,8 +893,9 @@ class AccountMove(models.Model):
             ))
         return errors
 
-    def _l10n_mx_edi_add_invoice_cfdi_values(self, cfdi_values, percentage_paid=None):
+    def _l10n_mx_edi_add_invoice_cfdi_values(self, cfdi_values, percentage_paid=None, global_invoice=False):
         self.ensure_one()
+        Document = self.env['l10n_mx_edi.document']
 
         base_lines = [
             {
@@ -881,19 +905,44 @@ class AccountMove(models.Model):
             }
             for invl in self._l10n_mx_edi_cfdi_invoice_line_ids()
         ]
+        Document._add_base_lines_tax_amounts(base_lines)
+        if global_invoice and self.reversal_move_id:
+            refund_base_lines = [
+                {
+                    **invl._convert_to_tax_base_line_dict(),
+                    'uom': invl.product_uom_id,
+                    'name': invl.name,
+                }
+                for invl in self.reversal_move_id._l10n_mx_edi_cfdi_invoice_line_ids()
+            ]
+            for refund_base_line in refund_base_lines:
+                refund_base_line['quantity'] *= -1
+                refund_base_line['price_subtotal'] *= -1
+            Document._add_base_lines_tax_amounts(refund_base_lines)
+            base_lines += refund_base_lines
+
+        # Manage the negative lines.
+        lines_dispatching = Document._dispatch_cfdi_base_lines(base_lines)
+        if lines_dispatching['orphan_negative_lines']:
+            cfdi_values['errors'] = [_("Failed to distribute some negative lines")]
+            return
+        cfdi_lines = lines_dispatching['cfdi_lines']
+        if not cfdi_lines:
+            cfdi_values['errors'] = ['empty_cfdi']
+            return
 
         self._l10n_mx_edi_add_common_cfdi_values(cfdi_values)
         cfdi_values['tipo_de_comprobante'] = 'I' if self.move_type == 'out_invoice' else 'E'
-        self.env['l10n_mx_edi.document']._add_customer_cfdi_values(
+        Document._add_customer_cfdi_values(
             cfdi_values,
             customer=self.partner_id,
             usage=self.l10n_mx_edi_usage,
             to_public=self.l10n_mx_edi_cfdi_to_public,
         )
-        self.env['l10n_mx_edi.document']._add_tax_objected_cfdi_values(cfdi_values, base_lines)
-        self.env['l10n_mx_edi.document']._add_base_lines_cfdi_values(
+        Document._add_tax_objected_cfdi_values(cfdi_values, cfdi_lines)
+        Document._add_base_lines_cfdi_values(
             cfdi_values,
-            base_lines,
+            cfdi_lines,
             percentage_paid=percentage_paid,
         )
 
@@ -1206,6 +1255,22 @@ class AccountMove(models.Model):
         }
         return self.env['l10n_mx_edi.document']._create_update_invoice_document_from_invoice(self, document_values)
 
+    def _l10n_mx_edi_cfdi_invoice_document_empty(self):
+        """ Create/update the invoice document for an empty invoice.
+
+        :return: The created/updated document.
+        """
+        self.ensure_one()
+
+        document_values = {
+            'move_id': self.id,
+            'invoice_ids': [Command.set(self.ids)],
+            'state': 'invoice_sent',
+            'sat_state': 'skip',
+            'message': None,
+        }
+        return self.env['l10n_mx_edi.document']._create_update_invoice_document_from_invoice(self, document_values)
+
     def _l10n_mx_edi_cfdi_invoice_document_cancel_failed(self, error, cfdi, cancel_reason):
         """ Create/update the invoice document for 'cancel_failed'.
 
@@ -1399,6 +1464,19 @@ class AccountMove(models.Model):
         }
         return self.env['l10n_mx_edi.document']._create_update_global_invoice_document_from_invoices(self, document_values)
 
+    def _l10n_mx_edi_cfdi_global_invoice_document_empty(self):
+        """ Create/update the global invoice document for an empty cfdi.
+
+        :return:                The created/updated document.
+        """
+        document_values = {
+            'invoice_ids': [Command.set(self.ids)],
+            'state': 'ginvoice_sent',
+            'sat_state': 'skip',
+            'message': None,
+        }
+        return self.env['l10n_mx_edi.document']._create_update_global_invoice_document_from_invoices(self, document_values)
+
     def _l10n_mx_edi_cfdi_global_invoice_document_cancel_failed(self, error, cfdi, cancel_reason):
         """ Create/update the invoice document for 'cancel_failed'.
 
@@ -1460,7 +1538,10 @@ class AccountMove(models.Model):
             self._l10n_mx_edi_add_invoice_cfdi_values(cfdi_values)
 
         def on_failure(error, cfdi_filename=None, cfdi_str=None):
-            self._l10n_mx_edi_cfdi_invoice_document_sent_failed(error, cfdi_filename=cfdi_filename, cfdi_str=cfdi_str)
+            if error == 'empty_cfdi':
+                self._l10n_mx_edi_cfdi_invoice_document_empty()
+            else:
+                self._l10n_mx_edi_cfdi_invoice_document_sent_failed(error, cfdi_filename=cfdi_filename, cfdi_str=cfdi_str)
 
         def on_success(_cfdi_values, cfdi_filename, cfdi_str, populate_return=None):
             addenda = self.partner_id.l10n_mx_edi_addenda or self.commercial_partner_id.l10n_mx_edi_addenda
@@ -1846,31 +1927,56 @@ class AccountMove(models.Model):
         """
         cfdi_date = fields.Date.context_today(self)
 
-        if any(x.move_type != 'out_invoice' or x.state != 'posted' for x in self):
-            raise UserError(_("You can only process posted invoices."))
-        if len(self.company_id) != 1 or len(self.journal_id) != 1:
-            raise UserError(_("You can only process invoices sharing the same company and journal."))
-        if not origin and any(not x.l10n_mx_edi_is_cfdi_needed or x.l10n_mx_edi_cfdi_state in ('sent', 'global_sent') for x in self):
-            raise UserError(_("Some invoices are already sent or not eligible for CFDI."))
+        invoices = self._l10n_mx_edi_check_invoices_for_global_invoice(origin=origin)
 
         # == Check the config ==
         errors = []
-        for invoice in self:
+        for invoice in invoices:
             errors += invoice._l10n_mx_edi_cfdi_check_invoice_config()
         if errors:
-            self._l10n_mx_edi_cfdi_global_invoice_document_sent_failed("\n".join(set(errors)))
+            invoices._l10n_mx_edi_cfdi_global_invoice_document_sent_failed("\n".join(set(errors)))
             return
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(self)
+        self.env['l10n_mx_edi.document']._with_locked_records(invoices)
 
         # == Send ==
         def on_populate(cfdi_values):
+            invoices_per_error = defaultdict(lambda: self.env['account.move'])
             inv_cfdi_values_list = []
-            for invoice in self:
+            for invoice in invoices:
+
+                # The refund are managed by the invoice.
+                if invoice.reversed_entry_id:
+                    continue
+
                 inv_cfdi_values = dict(cfdi_values)
-                invoice._l10n_mx_edi_add_invoice_cfdi_values(inv_cfdi_values)
-                inv_cfdi_values_list.append(inv_cfdi_values)
+                invoice._l10n_mx_edi_add_invoice_cfdi_values(inv_cfdi_values, global_invoice=True)
+
+                inv_errors = inv_cfdi_values.get('errors')
+                if inv_errors:
+                    for error in inv_cfdi_values['errors']:
+
+                        # The invoice is empty. Skip it.
+                        if error == 'empty_cfdi':
+                            break
+
+                        invoices_per_error[error] |= invoice
+                else:
+                    inv_cfdi_values_list.append(inv_cfdi_values)
+
+            if invoices_per_error:
+                errors = []
+                for error, invoices_in_error in invoices_per_error.items():
+                    invoices_str = ",".join(invoices_in_error.mapped('name'))
+                    errors.append(_("On %s: %s", invoices_str, error))
+                cfdi_values['errors'] = errors
+                return
+
+            # The global invoice is empty.
+            if not inv_cfdi_values_list:
+                cfdi_values['errors'] = ['empty_cfdi']
+                return
 
             cfdi_values.update(
                 **self.env['l10n_mx_edi.document']._get_global_invoice_cfdi_values(
@@ -1880,11 +1986,15 @@ class AccountMove(models.Model):
                     origin=origin,
                 )
             )
+
             self.env['l10n_mx_edi.document']._with_locked_records(cfdi_values['sequence'])
             return cfdi_values['sequence']
 
         def on_failure(error, cfdi_filename=None, cfdi_str=None):
-            self._l10n_mx_edi_cfdi_global_invoice_document_sent_failed(error, cfdi_filename=cfdi_filename, cfdi_str=cfdi_str)
+            if error == 'empty_cfdi':
+                self._l10n_mx_edi_cfdi_global_invoice_document_empty()
+            else:
+                self._l10n_mx_edi_cfdi_global_invoice_document_sent_failed(error, cfdi_filename=cfdi_filename, cfdi_str=cfdi_str)
 
         def on_success(cfdi_values, cfdi_filename, cfdi_str, populate_return=None):
             # Consume the next sequence number.
