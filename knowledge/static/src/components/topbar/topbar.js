@@ -312,9 +312,6 @@ class KnowledgeTopbar extends Component {
      */
     async _onNameClick(event) {
         this.env.ensureArticleName();
-        window.setTimeout(() => {
-            event.target.select();
-        });
     }
 
 }
