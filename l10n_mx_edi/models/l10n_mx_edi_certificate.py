@@ -40,6 +40,7 @@ class Certificate(models.Model):
         string="Company",
         required=True,
         default=lambda self: self.env.company,
+        ondelete='cascade',
     )
     key = fields.Binary(
         string='Certificate Key',
