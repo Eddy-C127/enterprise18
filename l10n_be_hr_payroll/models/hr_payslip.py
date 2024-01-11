@@ -619,19 +619,6 @@ class Payslip(models.Model):
         return super()._get_data_files_to_update() + [(
             'l10n_be_hr_payroll', [
                 'data/hr_rule_parameters_data.xml',
-                'data/cp200/employee_double_holidays_data.xml',
-                'data/cp200/employee_pfi_data.xml',
-                'data/cp200/employee_salary_data.xml',
-                'data/cp200/employee_termination_fees_data.xml',
-                'data/cp200/employee_termination_holidays_N1_data.xml',
-                'data/cp200/employee_termination_holidays_N_data.xml',
-                'data/cp200/employee_thirteen_month_data.xml',
-                'data/cp200/employee_warrant_salary_data.xml',
-                'data/student/student_regular_pay_data.xml',
-                'views/281_10_xml_export_template.xml',
-                'views/281_45_xml_export_template.xml',
-                'report/hr_281_10_templates.xml',
-                'report/hr_281_45_templates.xml',
             ])]
 
     def _get_ffe_contribution_rate(self, worker_count):
