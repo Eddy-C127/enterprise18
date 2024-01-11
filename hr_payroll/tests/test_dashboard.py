@@ -217,7 +217,7 @@ class TestDashboard(TransactionCase):
         fr_lang = self.env['res.lang'].search([['code', '=', 'fr_FR']])
         if 'website' in self.env:
             self.env['website'].search([]).write({'language_ids': fr_lang.ids, 'default_lang_id': fr_lang.id})
-        self.env['res.users'].search([]).write({'lang' : 'fr_FR'})
+        self.env['res.users'].with_context(active_test=False).search([]).write({'lang' : 'fr_FR'})
         self.env['res.partner'].search([]).write({'lang' : 'fr_FR'})
 
         self.env['res.lang'].search([['code', '=', 'en_US']]).active = False
