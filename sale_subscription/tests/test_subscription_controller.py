@@ -396,3 +396,19 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
                 self.assertEqual(renewal_so.state, 'sale')
                 self.assertEqual(renewal_so.invoice_count, 1, "Only one invoice from previous subscription should be registered")
                 self.assertEqual(renewal_so.next_invoice_date, datetime.date.today() + datetime.timedelta(days=31))
+
+    def test_portal_quote_document(self):
+        product_document = self.env['product.document'].create({
+            'name': 'doc.txt',
+            'active': True,
+            'datas': 'TXkgYXR0YWNobWVudA==',
+            'res_model': 'product.product',
+            'res_id': self.sub_product_tmpl.product_variant_ids.id,
+            'attached_on': 'sale_order',
+        })
+        self.subscription.action_confirm()
+        response = self.url_open(
+            self.subscription.get_portal_url('/document/' + str(product_document.id))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual("My attachment", response.text)

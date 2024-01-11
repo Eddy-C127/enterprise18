@@ -162,6 +162,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
             'payment_action_id': request.env.ref('payment.action_payment_provider').id,
             'display_payment_message': display_payment_message,
             'backend_url': backend_url,
+            'product_documents': order_sudo._get_product_documents(),
         }
 
         portal_page_values = self._get_page_view_values(
@@ -186,6 +187,12 @@ class CustomerPortal(payment_portal.PaymentPortal):
             **payment_context,
         }
         return request.render("sale_subscription.subscription_portal_template", rendering_context)
+
+    @http.route([
+        '/my/orders/<int:order_id>/document/<int:document_id>',
+        '/my/subscriptions/<int:order_id>/document/<int:document_id>'])
+    def portal_quote_document(self, *args, **kwargs):
+        return super().portal_quote_document(*args, **kwargs)
 
     @http.route(['/my/subscriptions/<int:order_id>/close', '/my/subscription/<int:order_id>/close'], type='http', methods=["POST"], auth="public", website=True)
     def close_account(self, order_id, access_token=None, **kw):
