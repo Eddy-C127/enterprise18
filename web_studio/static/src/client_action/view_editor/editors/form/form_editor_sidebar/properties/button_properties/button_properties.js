@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { Component, onWillStart, onWillUpdateProps, useState } from "@odoo/owl";
+import { _t } from "@web/core/l10n/translation";
 import { CheckBox } from "@web/core/checkbox/checkbox";
 import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_selector_dialog";
 import { rpc } from "@web/core/network/rpc";
@@ -83,6 +84,12 @@ export class ButtonProperties extends Component {
                 delete this.state.approvalSpec;
             }
         });
+    }
+
+    get classTooltip() {
+        return _t(
+            "Use Bootstrap classes to customize the style of the button. E.g.: 'btn-primary' or 'btn-secondary'"
+        );
     }
 
     onChangeAttribute(value, name) {

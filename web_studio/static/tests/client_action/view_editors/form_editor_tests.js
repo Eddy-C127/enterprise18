@@ -277,6 +277,84 @@ QUnit.module("View Editors", (hooks) => {
         assert.verifySteps(["edit view"]);
     });
 
+    QUnit.test(
+        "Form editor view buttons label and class are editable from the sidebar",
+        async function (assert) {
+            let count = 0;
+
+            await createViewEditor({
+                serverData,
+                mockRPC: function (route, args) {
+                    if (route === "/web_studio/edit_view") {
+                        assert.deepEqual(args.operations[0].target.xpath_info, [
+                            {
+                                tag: "form",
+                                indice: 1,
+                            },
+                            {
+                                tag: "header",
+                                indice: 1,
+                            },
+                            {
+                                tag: "button",
+                                indice: 1,
+                            },
+                        ]);
+                        if (count === 0) {
+                            assert.deepEqual(args.operations[0].new_attrs, { string: "MyLabel" });
+                        } else {
+                            assert.deepEqual(args.operations[1].new_attrs, {
+                                class: "btn-secondary",
+                            });
+                        }
+                        count++;
+                        assert.step("edit view");
+                    }
+                },
+                type: "form",
+                resModel: "coucou",
+                arch: /*xml*/ `
+                        <form>
+                            <header>
+                                <button string="Test" type="object" class="oe_highlight"/>
+                            </header>
+                            <sheet>
+                                <field name="name"/>
+                            </sheet>
+                        </form>
+                    `,
+            });
+
+            assert.containsOnce(
+                target,
+                ".o_web_studio_editor_manager .o_web_studio_view_renderer",
+                "There should be one view renderer"
+            );
+            assert.containsOnce(
+                target,
+                ".o_web_studio_editor_manager .o_web_studio_sidebar",
+                "There should be one sidebar"
+            );
+
+            await click(target, ".o_form_renderer .o_statusbar_buttons > button");
+            assert.strictEqual(
+                target.querySelector("input[name=string]").value,
+                "Test",
+                "Current label is displayed in the sidebar"
+            );
+
+            await editInput(target, "input[name=string]", "MyLabel");
+            assert.verifySteps(["edit view"]);
+            assert.strictEqual(
+                target.querySelector("input[name=class]").value,
+                "oe_highlight",
+                "Current class is displayed in the sidebar"
+            );
+            await editInput(target, "input[name=class]", "btn-secondary");
+            assert.verifySteps(["edit view"]);
+        }
+    );
+
     QUnit.test("optional field not in form editor", async function (assert) {
         assert.expect(1);
 
@@ -3379,34 +3457,43 @@ QUnit.module("View Editors", (hooks) => {
         );
     });
 
-    QUnit.test('Restrict drag and drop of notebook and group in a inner group', async function (assert) {
-        const arch = `<form>
+    QUnit.test(
+        "Restrict drag and drop of notebook and group in a inner group",
+        async function (assert) {
+            const arch = `<form>
             <sheet>
                 <group>
                     <field name='display_name'/>
                 </group>
             </sheet>
         </form>`;
-        let editViewCount = 0;
-        await createViewEditor({
-            serverData,
-            type: "form",
-            resModel: "coucou",
-            arch: arch,
-            mockRPC: function (route, args) {
-                if (route === "/web_studio/edit_view") {
-                    editViewCount++;
-                    return createMockViewResult(serverData, "form", arch, "coucou");
-                }
-            },
-        });
-        await dragAndDrop(target.querySelector('.o_web_studio_field_type_container .o_web_studio_field_tabs'), target.querySelector('.o_inner_group .o_wrap_field'));
-        assert.strictEqual(editViewCount, 0,
-            "the notebook cannot be dropped inside a group");
-        await dragAndDrop(target.querySelector('.o_web_studio_field_type_container .o_web_studio_field_columns'), target.querySelector('.o_inner_group .o_wrap_field'));
-        assert.strictEqual(editViewCount, 0,
-            "the group cannot be dropped inside a group");
-    });
+            let editViewCount = 0;
+            await createViewEditor({
+                serverData,
+                type: "form",
+                resModel: "coucou",
+                arch: arch,
+                mockRPC: function (route, args) {
+                    if (route === "/web_studio/edit_view") {
+                        editViewCount++;
+                        return createMockViewResult(serverData, "form", arch, "coucou");
+                    }
+                },
+            });
+            await dragAndDrop(
+                target.querySelector(".o_web_studio_field_type_container .o_web_studio_field_tabs"),
+                target.querySelector(".o_inner_group .o_wrap_field")
+            );
+            assert.strictEqual(editViewCount, 0, "the notebook cannot be dropped inside a group");
+            await dragAndDrop(
+                target.querySelector(
+                    ".o_web_studio_field_type_container .o_web_studio_field_columns"
+                ),
+                target.querySelector(".o_inner_group .o_wrap_field")
+            );
+            assert.strictEqual(editViewCount, 0, "the group cannot be dropped inside a group");
+        }
+    );
 });
 
 QUnit.module("View Editors", (hooks) => {

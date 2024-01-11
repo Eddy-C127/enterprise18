@@ -36,6 +36,23 @@
         </Property>
         <RainbowEffect effect="this.props.node.attrs.effect" onChange.bind="onChangeAttribute" />
     </t>
+    <Property
+        name="'string'"
+        type="'string'"
+        value="this.props.node.attrs.string"
+        onChange.bind="onChangeAttribute"
+    >
+        Label
+    </Property>
+    <Property
+        name="'class'"
+        type="'string'"
+        value="this.props.node.attrs.class"
+        tooltip="classTooltip"
+        onChange.bind="onChangeAttribute"
+    >
+        Class
+    </Property>
     <LimitGroupVisibility node="props.node" />
     <SidebarPropertiesToolbox />
 </t>
