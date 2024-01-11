@@ -166,9 +166,9 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
                 "mail_message_id": operator_message,
             },
         )
-        operator_whatsapp_message = self._new_wa_msg
 
-        # send using template -> replies will create a new channel linked to the document
+        # send using template -> replies will be associated to existing active
+        # channel of customer, not linked to a new channel as before 17.4
         composer = self._instanciate_wa_composer_from_records(whatsapp_template, test_record)
         with self.mockWhatsappGateway():
             composer.action_send_whatsapp_template()
@@ -177,11 +177,12 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
                 self.whatsapp_account, "Hello, why are you sending me this?", "32499123456",
             )
 
+        # message should be correctly associated to existing discuss conversation
         document_discuss_channel = self.assertWhatsAppDiscussChannel(
             "32499123456",
-            channel_domain=[("id", "!=", no_document_discuss_channel.id)],
-            msg_count=2,
-            wa_msg_count=1,
+            channel_domain=[("id", "=", no_document_discuss_channel.id)],
+            msg_count=4,
+            wa_msg_count=3,
         )
 
         with self.mockWhatsappGateway():
@@ -189,29 +190,75 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
                 body="Hello, sorry it was a mistake.",
                 message_type="whatsapp_message")
 
-        # message should be correctly associated to existing discuss conversation
-        self.assertEqual(len(document_discuss_channel.message_ids), 3)
+        self.assertEqual(len(document_discuss_channel.message_ids), 5)
 
-        # reply to the original discussion (the one not linked to a document)
-        # -> should correctly match the associated discuss channel
-        self._receive_whatsapp_message(
-            self.whatsapp_account,
-            "You mentioned I could ask questions here, can you explain your products please?",
-            "32499123456",
-            additional_message_values={"context": {"id": operator_whatsapp_message.msg_uid}}
+    @users('admin')
+    def test_conversation_match_multi_user(self):
+        """Test a conversation with multiple users and models. All the templates
+        related conversations initiated by a user should be associated to a
+        single channel. If another user starts a new conversation using template
+        it should be associated to a new channel."""
+        test_record_1 = self.test_base_record_nopartner.with_env(self.env)
+        test_record_2 = self.env['whatsapp.test.nothread'].create({
+            "name": "Test Record 2",
+            "phone": "+32 499 12 34 56",  # same number as test_record_1 but formatted differently
+        })
+        whatsapp_template_1 = self.whatsapp_template.with_env(self.env)
+        whatsapp_template_2 = whatsapp_template_1.copy({
+            "model_id": self.env["ir.model"]._get_id("whatsapp.test.nothread"),
+            "name": "No Responsible Template",
+            "status": "approved",
+            "template_name": "no_responsible_template",
+        })
+
+        # send first template + answer
+        discuss_channel = self.simulate_conversation(
+            whatsapp_template_1, test_record_1, "32499123456",
+            exp_msg_count=2, exp_wa_msg_count=1,
         )
-        no_document_whatsapp_messages = no_document_discuss_channel.message_ids.filtered(
-            lambda m: m.message_type == 'whatsapp_message')
-        self.assertEqual(len(no_document_whatsapp_messages), 3,
-                         'Should be customer init + operator response + customer response')
-        self.assertEqual(len(no_document_discuss_channel.message_ids), 4,
-                         'Should be a regular message mentioning a template was sent to the customer')
-        document_whatsapp_messages = no_document_discuss_channel.message_ids.filtered(
-            lambda m: m.message_type == 'whatsapp_message')
-        self.assertEqual(len(document_discuss_channel.message_ids), 3,
-                         'Should be template + customer response + operator response')
-        self.assertEqual(len(document_whatsapp_messages), 3,
-                         'There should only be whatsapp messages in the latest template conversations')
+        template_1_wa_msg = self._new_wa_msg
+
+        # sending template of different model with first user should be linked
+        # to same channel
+        self.simulate_conversation(
+            whatsapp_template_2, test_record_2, "32499123456",
+            exp_channel_domain=[("id", "=", discuss_channel.id)],
+            exp_msg_count=4, exp_wa_msg_count=2,
+        )
+
+        # receive a message as a reply to whatsapp_template_1 message should be
+        # properly linked in same channel
+        self.simulate_conversation(
+            False, test_record_1, "32499123456",
+            exp_channel_domain=[("id", "=", discuss_channel.id)],
+            exp_msg_count=5, exp_wa_msg_count=3,
+            receive_message_values={"context": {"id": template_1_wa_msg.msg_uid}}
+        )
+
+        # another user sends template -> new channel
+        new_discuss_channel = self.simulate_conversation(
+            whatsapp_template_1, test_record_1, "32499123456",
+            template_with_user=self.user_salesperson_2,
+            exp_channel_domain=[("id", "!=", discuss_channel.id)],
+            exp_msg_count=2, exp_wa_msg_count=1,
+        )
+
+        # receive a message as a reply to whatsapp_template_1 message should be
+        # properly linked in first channel even if another channel exists with
+        # the customer
+        self.simulate_conversation(
+            False, test_record_1, "32499123456",
+            exp_channel_domain=[("id", "=", discuss_channel.id)],
+            exp_msg_count=7, exp_wa_msg_count=4,
+            receive_message_values={"context": {"id": template_1_wa_msg.msg_uid}}
+        )
+
+        # sending template with first user should be associated to new channel
+        new_discuss_channel = self.simulate_conversation(
+            whatsapp_template_1, test_record_1, "32499123456",
+            exp_channel_domain=[("id", "not in", [discuss_channel.id, new_discuss_channel.id])],
+            exp_msg_count=2, exp_wa_msg_count=1,
+        )
 
     @users('user_wa_admin')
     def test_conversation_match_multi_account(self):

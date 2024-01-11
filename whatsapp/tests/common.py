@@ -306,6 +306,36 @@ class WhatsAppCase(MockOutgoingWhatsApp):
             'wa_template_id': template.id,
         })
 
+    def send_template(self, template, records, with_user=False):
+        composer = self._instanciate_wa_composer_from_records(
+            template, records,
+            with_user=with_user,
+        )
+        with self.mockWhatsappGateway():
+            composer.action_send_whatsapp_template()
+        return composer
+
+    def simulate_conversation(self, template, record, receive_phone_number,
+                              template_with_user=False,
+                              receive_message_values=None,
+                              exp_channel_domain=None,
+                              exp_msg_count=1, exp_wa_msg_count=1):
+        if template:
+            self.send_template(template, record, with_user=template_with_user)
+
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(
+                self.whatsapp_account, "Hello, why are you sending me this?", receive_phone_number,
+                additional_message_values=receive_message_values
+            )
+
+        return self.assertWhatsAppDiscussChannel(
+            receive_phone_number,
+            channel_domain=exp_channel_domain,
+            msg_count=exp_msg_count,
+            wa_msg_count=exp_wa_msg_count,
+        )
+
     # ------------------------------------------------------------
     # MESSAGE FIND AND ASSERTS
     # ------------------------------------------------------------

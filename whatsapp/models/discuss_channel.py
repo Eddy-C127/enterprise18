@@ -173,17 +173,6 @@ class DiscussChannel(models.Model):
                 whatsapp_account=wa_account_id,
             ).partner_id
 
-            if 'message_ids' in related_record:
-                record_messages = related_record.message_ids
-            else:
-                record_messages = self.env['mail.message'].search([
-                    ('model', '=', related_record._name),
-                    ('res_id', '=', related_record.id),
-                    ('message_type', '!=', 'user_notification'),
-                ])
-            channel_domain += [
-                ('whatsapp_mail_message_id', 'in', record_messages.ids),
-            ]
         channel = self.sudo().search(channel_domain, order='create_date desc', limit=1)
         if responsible_partners:
             channel = channel.filtered(lambda c: all(r in c.channel_member_ids.partner_id for r in responsible_partners))
