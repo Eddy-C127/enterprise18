@@ -1,29 +1,37 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 from stdnum.cl import rut
 
-from odoo import _, tools, http
+from odoo import _
+from odoo.http import request, route
+from odoo.tools import single_email_re, str2bool
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.http import request
 
 
 class L10nCLWebsiteSale(WebsiteSale):
 
+    def _get_extra_billing_info_route(self, order_sudo):
+        if (
+            order_sudo.company_id.country_id.code == 'CL'
+            and str2bool(request.env['ir.config_parameter'].sudo().get_param('sale.automatic_invoice'))
+        ):
+            return '/shop/l10n_cl_invoicing_info'
+
+        return super()._get_extra_billing_info_route(order_sudo)
+
     def _l10n_cl_is_extra_info_needed(self):
+        IrConfigParameter = request.env['ir.config_parameter'].sudo()
         order = request.website.sale_get_order()
-        return order.company_id.country_code == 'CL' \
-               and request.env['ir.config_parameter'].sudo().get_param('sale.automatic_invoice') == 'True'
+        return (
+            order.company_id.country_code == 'CL'
+            and str2bool(IrConfigParameter.get_param('sale.automatic_invoice'))
+        )
 
-    @http.route()
-    def address(self, **kw):
-        if self._l10n_cl_is_extra_info_needed():
-            kw['callback'] = "/shop/l10n_cl_invoicing_info"
-        return super().address(**kw)
-
-    @http.route()
-    def checkout(self, **kw):
-        if self._l10n_cl_is_extra_info_needed() and kw.get('express'):
-            kw.pop('express')
-        return super().checkout(**kw)
+    @route()
+    def shop_checkout(self, try_skip_step=False, **query_params):
+        if self._l10n_cl_is_extra_info_needed() and try_skip_step:
+            try_skip_step = False
+        return super().shop_checkout(try_skip_step=try_skip_step, query_params=query_params)
 
     def _checkout_invoice_info_form_empty(self, **kw):
         return [key for key, value in kw.items() if value.strip() == '']
@@ -34,7 +42,7 @@ class L10nCLWebsiteSale(WebsiteSale):
             errors['vat'] = _('The RUT %s is not valid', kw.get('vat'))
         if kw.get('l10n_cl_type_document') == 'invoice' and order.partner_id.country_id.code != 'CL':
             errors['cl'] = _('You need to be a resident of Chile in order to request an invoice')
-        if kw.get('l10n_cl_dte_email', '') and not tools.single_email_re.match(kw.get('l10n_cl_dte_email')):
+        if kw.get('l10n_cl_dte_email') and not single_email_re.match(kw.get('l10n_cl_dte_email')):
             errors['dte_email'] = _('Invalid DTE email! Please enter a valid email address.')
         return errors
 
@@ -55,7 +63,7 @@ class L10nCLWebsiteSale(WebsiteSale):
             order.partner_id.vat = kw.get('vat')
             order.partner_id.l10n_cl_dte_email = kw.get('l10n_cl_dte_email')
 
-    @http.route(['/shop/l10n_cl_invoicing_info'], type='http', auth="public", methods=['GET', 'POST'], website=True, sitemap=False)
+    @route('/shop/l10n_cl_invoicing_info', type='http', auth='public', methods=['GET', 'POST'], website=True, sitemap=False)
     def l10n_cl_invoicing_info(self, **kw):
         order = request.website.sale_get_order()
         values = {
@@ -78,9 +86,9 @@ class L10nCLWebsiteSale(WebsiteSale):
             values['default_value'].update(l10n_cl_type_document='ticket')
         return request.render('l10n_cl_edi_website_sale.l10n_cl_edi_invoicing_info', values)
 
-    def _check_billing_partner_mandatory_fields(self, partner):
+    def _check_billing_address(self, partner_sudo):
         # In case of 'ticket' l10n_cl_document_type, the invoicing partner is a generic anonymous
         # one that cannot and shouldn't be edited by the customer.
-        if partner.id == request.env['ir.model.data']._xmlid_to_res_id('l10n_cl.par_cfa'):
+        if partner_sudo.id == request.env['ir.model.data']._xmlid_to_res_id('l10n_cl.par_cfa'):
             return True
-        return super()._check_billing_partner_mandatory_fields(partner)
+        return super()._check_billing_address(partner_sudo)

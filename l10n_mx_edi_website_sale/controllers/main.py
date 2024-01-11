@@ -1,38 +1,38 @@
-# coding: utf-8
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+from odoo import _
+from odoo.http import request, route
+
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.http import request
-from odoo import http, _
 
 
 class WebsiteSaleL10nMX(WebsiteSale):
+
+    def _get_extra_billing_info_route(self, order_sudo):
+        if order_sudo.company_id.country_id.code == 'MX':
+            return '/shop/l10n_mx_invoicing_info'
+
+        return super()._get_extra_billing_info_route(order_sudo)
 
     def _l10n_mx_edi_is_extra_info_needed(self):
         order = request.website.sale_get_order()
         return order.company_id.country_code == 'MX'
 
-    @http.route()
-    def address(self, **kw):
-        # Extends 'website_sale'
-        # Redirect to '/shop/l10n_mx_invoicing_info' tab
-        if self._l10n_mx_edi_is_extra_info_needed():
-            kw['callback'] = "/shop/l10n_mx_invoicing_info"
-        return super().address(**kw)
-
-    @http.route()
-    def checkout(self, **kw):
+    @route()
+    def shop_checkout(self, try_skip_step=False, **query_params):
         # Extends 'website_sale'
         # Prevent express checkout
-        if self._l10n_mx_edi_is_extra_info_needed() and kw.get('express'):
-            kw.pop('express')
-        return super().checkout(**kw)
+        if self._l10n_mx_edi_is_extra_info_needed() and try_skip_step:
+            try_skip_step = False
+        return super().shop_checkout(try_skip_step=try_skip_step, query_params=query_params)
 
-    @http.route(['/shop/l10n_mx_invoicing_info'], type='http', auth="public", website=True, sitemap=False)
+    @route('/shop/l10n_mx_invoicing_info', type='http', auth='public', website=True, sitemap=False)
     def l10n_mx_invoicing_info(self, **kw):
         if not self._l10n_mx_edi_is_extra_info_needed():
             return request.redirect("/shop/confirm_order")
 
         order = request.website.sale_get_order()
-        redirection = self.checkout_redirection(order)
+        redirection = self._check_cart(order)
         if redirection:
             return redirection
 
