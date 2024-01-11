@@ -154,6 +154,12 @@ class L10nInGSTReturnPeriod(models.Model):
             if record.tax_unit_id and record.tax_unit_id.main_company_id != record.company_id:
                 raise ValidationError(_('Vat Unit main company is different than this period company.'))
 
+    @api.constrains('month', 'quarter', 'year')
+    def _check_gstr_status(self):
+        for record in self:
+            if record.gstr1_status != 'to_send' or record.gstr2b_status != 'not_recived':
+                raise UserError("You cannot change GST filing period after sending/receiving GSTR data")
+
     @api.onchange('year')
     def _check_isyear(self):
         if self.year and len(self.year) != 4 or not self.year.isnumeric():
@@ -289,6 +295,12 @@ class L10nInGSTReturnPeriod(models.Model):
             msg = _("The NIC portal connection has expired. To re-initiate the connection, you can send an OTP request From configuration.")
         if msg:
             raise RedirectWarning(msg, action.id, _('Go to the configuration panel'))
+
+    @api.ondelete(at_uninstall=False)
+    def _restrict_delete_on_gstr_status(self):
+        for record in self:
+            if record.gstr1_status != 'to_send' or record.gstr2b_status != 'not_recived':
+                raise UserError("You cannot delete GST Return Period after sending/receiving GSTR data")
 
     def open_invoice_action(self):
         domain = [
