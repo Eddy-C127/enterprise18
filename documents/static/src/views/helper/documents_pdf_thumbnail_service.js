@@ -5,6 +5,8 @@ import { useBus } from "@web/core/utils/hooks";
 import { Mutex } from "@web/core/utils/concurrency";
 import { loadBundle } from "@web/core/assets";
 import { useComponent } from "@odoo/owl";
+import { rpc } from "@web/core/network/rpc";
+
 
 export const documentsPdfThumbnailService = {
     dependencies: ["orm"],
@@ -20,9 +22,8 @@ export const documentsPdfThumbnailService = {
         const checkForThumbnail = async (record) => {
             let initialWorkerSrc = false;
             if (
-                !record.isPdf() ||
-                record.hasThumbnail() ||
-                record.data.thumbnail_status === "error" ||
+                record.data.thumbnail_status !== "client_generated" ||
+                record.hasStoredThumbnail() ||
                 !enabled
             ) {
                 return;
@@ -41,10 +42,10 @@ export const documentsPdfThumbnailService = {
                 enabled = false;
                 return;
             }
-            const writeData = {};
+            let thumbnail = undefined;
             try {
                 const pdf = await window.pdfjsLib.getDocument(
-                    `/documents/pdf_content/${record.resId}`
+                    `/documents/content/${record.resId}?is_document_preview=1`
                 ).promise;
                 const page = await pdf.getPage(1);
 
@@ -59,23 +60,22 @@ export const documentsPdfThumbnailService = {
                     viewport: page.getViewport({ scale }),
                 }).promise;
 
-                writeData.thumbnail = canvas
-                    .toDataURL("image/jpeg")
-                    .replace("data:image/jpeg;base64,", "");
-                writeData.thumbnail_status = "present";
+                thumbnail = canvas.toDataURL("image/jpeg").replace("data:image/jpeg;base64,", "");
             } catch (_error) {
                 if (
                     _error.name !== "UnexpectedResponseException" &&
                     _error.status &&
                     _error.status !== 403
                 ) {
-                    writeData.thumbnail_status = "error";
+                    thumbnail = false;
                 }
             } finally {
-                if (Object.keys(writeData).length) {
-                    await orm.write("documents.document", [record.resId], writeData);
-                    record.data.thumbnail_status = writeData.thumbnail_status;
-                    if (writeData.thumbnail) {
+                if (thumbnail !== undefined) {
+                    await rpc(`/documents/document/${record.resId}/update_thumbnail`, {
+                        thumbnail,
+                    });
+                    record.data.thumbnail_status = thumbnail ? "present" : "error";
+                    if (thumbnail) {
                         env.bus.trigger("documents-new-pdf-thumbnail", { record });
                     }
                 }

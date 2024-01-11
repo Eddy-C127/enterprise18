@@ -5,6 +5,7 @@ import { patch } from "@web/core/utils/patch";
 
 patch(Attachment.prototype, {
     documentId: null,
+    documentData: null,
 
     get urlRoute() {
         if (this.documentId) {
@@ -13,6 +14,16 @@ patch(Attachment.prototype, {
                 : `/web/content/${this.documentId}`;
         }
         return super.urlRoute;
+    },
+
+    get defaultSource() {
+        if (this.isPdf && this.documentId) {
+            const encodedRoute = encodeURIComponent(
+                `/documents/content/${this.documentId}?is_document_preview=1`
+            );
+            return `/web/static/lib/pdfjs/web/viewer.html?file=${encodedRoute}#pagemode=none`;
+        }
+        return super.defaultSource;
     },
 
     get urlQueryParams() {

@@ -81,8 +81,7 @@
                              t-attf-class="#{record.is_multipage.raw_value ? 'o_kanban_stack' : ''}" t-att-data-id="record.id.raw_value">
                             <t t-set="fileRequest" t-value="record.type.raw_value === 'empty'"/>
                             <div class="o_kanban_image" t-attf-class="#{fileRequest ? 'o_request_image' : ''}">
-                                <t t-set="isPdf" t-value="['application/pdf', 'application/pdf;base64'].includes(record.mimetype.value)"/>
-                                <t t-set="hasThumbnail" t-value="(isPdf &amp;&amp; record.thumbnail_status.raw_value === 'present') || new RegExp('image.*(gif|jpeg|jpg|png|webp)').test(record.mimetype.value)"/>
+                                <t t-set="hasStoredThumbnail" t-value="record.thumbnail_status.raw_value === 'present'"/>
                                 <!-- should be made more generic if we support different websites for videos -->
                                 <t t-set="youtubeUrlMatch" t-value="record.url.raw_value ? record.url.raw_value.match('youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]{11})') : false"/>
                                 <t t-set="youtubeVideoToken" t-value="youtubeUrlMatch ? youtubeUrlMatch.length > 1 ? youtubeUrlMatch[1] : false : false"/>
@@ -96,7 +95,7 @@
                                             <span class="o_url_image fa fa-link fa-3x text-muted"/>
                                         </t>
                                     </a>
-                                    <t t-elif="hasThumbnail">
+                                    <t t-elif="hasStoredThumbnail">
                                         <t t-set="unique" t-value="record.checksum.value ? record.checksum.value.slice(-8) : ''"/>
                                         <div class="o_documents_image">
                                             <img t-attf-src="/documents/image/#{record.id.raw_value}?field=thumbnail&amp;unique=#{unique}" alt="Document preview"/>
@@ -105,7 +104,7 @@
                                     <div t-elif="fileRequest" class="fa fa-upload fa-3x text-muted">
                                         <input type="file" class="o_input_file o_hidden o_kanban_replace_document"/>
                                     </div>
-                                    <div t-else="!hasThumbnail" class="o_image o_image_thumbnail" t-att-data-mimetype="record.mimetype.value"/>
+                                    <div t-else="!hasStoredThumbnail" class="o_image o_image_thumbnail" t-att-data-mimetype="record.mimetype.value"/>
                                 </div>
                             </div>
                             <div class="o_kanban_details flex-grow-1 flex-shrink-1 flex-auto">

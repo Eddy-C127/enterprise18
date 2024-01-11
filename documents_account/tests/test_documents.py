@@ -210,6 +210,27 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         move.partner_id = partner_2
         self.assertEqual(self.document_txt.partner_id, partner_2)
 
+    def test_embedded_pdf(self):
+        document = self.env['documents.document'].create({
+            'name': 'test',
+            'folder_id': self.folder_a.id,
+            'datas': base64.b64encode(b'<test> </test>'),
+        })
+        self.assertEqual(document.mimetype, 'application/xml')
+        self.assertFalse(document._extract_pdf_from_xml())
+        self.assertFalse(document.thumbnail_status)
+        self.assertFalse(document.has_embedded_pdf)
+
+        document = self.env['documents.document'].create({
+            'name': 'test',
+            'folder_id': self.folder_a.id,
+            'datas': base64.b64encode(b'<test> <Attachment>JVBERi0gRmFrZSBQREYgY29udGVudA==</Attachment> </test>'),
+        })
+        self.assertEqual(document.mimetype, 'application/xml')
+        self.assertEqual(document._extract_pdf_from_xml(), b'%PDF- Fake PDF content')
+        self.assertEqual(document.thumbnail_status, 'client_generated')
+        self.assertTrue(document.has_embedded_pdf)
+
     def test_workflow_create_misc_entry(self):
         misc_entry_rule = self.env.ref('documents_account.misc_entry_rule')
         misc_entry_rule.journal_id = misc_entry_rule.suitable_journal_ids[0]
