@@ -45,7 +45,7 @@ class TestAllReportsGeneration(AccountTestInvoicingCommon):
         # Test values for the fields that become mandatory when doing exports on the reports, depending on the country
         l10n_pl_reports_tax_office = self.env.ref('l10n_pl.pl_tax_office_0215', raise_if_not_found=False)
         company_test_values = {
-            'LU': {'ecdf_prefix': '1234AB', 'matr_number': '1111111111111', 'vat': 'LU12345613'},
+            'LU': {'vat': 'LU12345613'},
             'BR': {'vat': '01234567891251'},
             'AR': {'vat': '30714295698'},
             'AU': {'vat': '11225459588', 'street': 'Arrow Street', 'zip': '1348', 'city': 'Starling City', 'state_id': self.env.ref('base.state_au_1').id},
@@ -53,6 +53,13 @@ class TestAllReportsGeneration(AccountTestInvoicingCommon):
             'NO': {'vat': 'NO123456785', 'l10n_no_bronnoysund_number': '987654325'},
             'PL': {'l10n_pl_reports_tax_office_id': l10n_pl_reports_tax_office and l10n_pl_reports_tax_office.id},
         }
+
+        # ecdf_prefix and matr_number only exist in enterprise
+        if self.env['ir.module.module']._get('l10n_lu_reports').state == 'installed':
+            company_test_values['LU'].update({
+                'ecdf_prefix': '1234AB',
+                'matr_number': '1111111111111',
+            })
 
         partner_test_values = {
             'AR': {'l10n_latam_identification_type_id': (self.env.ref('l10n_ar.it_cuit', raise_if_not_found=False) or {'id': None})['id']},
