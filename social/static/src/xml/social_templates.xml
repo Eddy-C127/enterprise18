@@ -260,7 +260,8 @@
                             <span class="o_social_likes_count" t-esc="comment.likes.summary.total_count"/>
                         </span>
 
-                        <div t-attf-class="d-flex flex-column {{ bubble_design ? 'bg-200 py-1 ps-3 pe-1 me-2 o_social_bubble_radius' : '' }}">
+                        <div t-if="comment.message || comment.attachment"
+                            t-attf-class="d-flex flex-grow-1 {{ bubble_design and comment.message ? 'bg-200 py-1 ps-3 pe-1 me-2 o_social_bubble_radius' : '' }}">
                             <t t-set="originalMessage" t-value="_htmlEscape(comment.message)"/>
                             <div t-attf-class="d-flex flex-grow-1 justify-content-start align-items-center">
                                 <div>

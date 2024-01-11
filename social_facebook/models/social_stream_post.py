@@ -99,6 +99,10 @@ class SocialStreamPostFacebook(models.Model):
             if "from" not in comment:
                 comment["from"] = {"name": _("Unknown")}
 
+            if comment.get('attachment', {}).get('type') == 'sticker':
+                # stickers are just image
+                comment['attachment']['type'] = 'photo'
+
             inner_comments = comment.get('comments', {}).get('data', [])
             if not inner_comments:
                 comment['comments'] = {'data': []}
@@ -108,6 +112,9 @@ class SocialStreamPostFacebook(models.Model):
                 inner_comment['message'] = self.stream_id._format_facebook_message(inner_comment.get('message'), inner_comment.get('message_tags'))
                 if "from" not in inner_comment:
                     inner_comment["from"] = {"name": _("Unknown")}
+
+                if inner_comment.get('attachment', {}).get('type') == 'sticker':
+                    inner_comment['attachment']['type'] = 'photo'
 
         return {
             'comments': result_json.get('data'),
