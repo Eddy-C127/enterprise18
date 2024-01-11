@@ -23,8 +23,14 @@
             </div>
         </div>
         <div class="o_side_panel_section">
-            <div class="o_side_panel_title">Dimensions</div>
-            <t t-foreach="def.dimensions" t-as="gp" t-key="gp">
+            <div class="o_side_panel_title">Columns</div>
+            <t t-foreach="def.colGroupBys" t-as="gp" t-key="gp">
+                <div t-esc="gp"/>
+            </t>
+        </div>
+        <div class="o_side_panel_section">
+            <div class="o_side_panel_title">Rows</div>
+            <t t-foreach="def.rowGroupBys" t-as="gp" t-key="gp">
                 <div t-esc="gp"/>
             </t>
         </div>

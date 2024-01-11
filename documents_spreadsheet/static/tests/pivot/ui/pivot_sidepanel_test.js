@@ -44,8 +44,8 @@ QUnit.module(
             assert.equal(title, "Pivot properties");
 
             const sections = target.querySelectorAll(".o_side_panel_section");
-            assert.equal(sections.length, 5, "it should have 5 sections");
-            const [pivotName, pivotModel, domain, dimensions, measures] = sections;
+            assert.equal(sections.length, 6, "it should have 6 sections");
+            const [pivotName, pivotModel, domain, columns, rows, measures] = sections;
 
             assert.equal(pivotName.children[0].innerText, "Pivot name");
             assert.equal(pivotName.children[1].innerText, "(#1) Partner by Foo");
@@ -63,9 +63,11 @@ QUnit.module(
             assert.ok(measures.children[3].innerText.startsWith("Last updated at"));
             assert.equal(measures.children[4].innerText, "Refresh values");
 
-            assert.equal(dimensions.children[0].innerText, "Dimensions");
-            assert.equal(dimensions.children[1].innerText, "Bar");
-            assert.equal(dimensions.children[2].innerText, "Foo");
+            assert.equal(columns.children[0].innerText, "Columns");
+            assert.equal(columns.children[1].innerText, "Foo");
+
+            assert.equal(rows.children[0].innerText, "Rows");
+            assert.equal(rows.children[1].innerText, "Bar");
 
             env.openSidePanel("ALL_PIVOTS_PANEL");
             await nextTick();
@@ -86,8 +88,8 @@ QUnit.module(
             await nextTick();
 
             const sections = target.querySelectorAll(".o_side_panel_section");
-            assert.equal(sections.length, 6, "it should have 6 sections");
-            const pivotSorting = sections[4];
+            assert.equal(sections.length, 7, "it should have 7 sections");
+            const pivotSorting = sections[5];
 
             assert.equal(pivotSorting.children[0].innerText, "Sorting");
             assert.equal(pivotSorting.children[1].innerText, "Probability (ascending)");
@@ -105,8 +107,8 @@ QUnit.module(
             await nextTick();
 
             const sections = target.querySelectorAll(".o_side_panel_section");
-            assert.equal(sections.length, 6, "it should have 6 sections");
-            const pivotSorting = sections[4];
+            assert.equal(sections.length, 7, "it should have 7 sections");
+            const pivotSorting = sections[5];
 
             assert.equal(pivotSorting.children[0].innerText, "Sorting");
             assert.equal(pivotSorting.children[1].innerText, "Probability (descending)");
@@ -123,15 +125,15 @@ QUnit.module(
             await nextTick();
 
             let sections = target.querySelectorAll(".o_side_panel_section");
-            assert.equal(sections.length, 6, "it should have 6 sections");
-            let pivotSorting = sections[4];
+            assert.equal(sections.length, 7, "it should have 7 sections");
+            let pivotSorting = sections[5];
 
             assert.equal(pivotSorting.children[0].innerText, "Sorting");
             assert.equal(pivotSorting.children[1].innerText, "Probability (ascending)");
             await click(target, ".o_refresh_measures");
             sections = target.querySelectorAll(".o_side_panel_section");
-            assert.equal(sections.length, 6, "it should have 6 sections");
-            pivotSorting = sections[4];
+            assert.equal(sections.length, 7, "it should have 7 sections");
+            pivotSorting = sections[5];
             assert.equal(pivotSorting.children[0].innerText, "Sorting");
             assert.equal(pivotSorting.children[1].innerText, "Probability (ascending)");
         });
@@ -203,9 +205,11 @@ QUnit.module(
                 env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: "1" });
                 await nextTick();
                 const sections = target.querySelectorAll(".o_side_panel_section");
-                const fields = sections[3];
-                assert.equal(fields.children[1].innerText, "Bar");
-                const measures = sections[4];
+                const columns = sections[3];
+                assert.equal(columns.children[1].innerText, "Foo");
+                const rows = sections[4];
+                assert.equal(rows.children[1].innerText, "Bar");
+                const measures = sections[5];
                 assert.equal(measures.children[1].innerText, "Probability");
             }
         );

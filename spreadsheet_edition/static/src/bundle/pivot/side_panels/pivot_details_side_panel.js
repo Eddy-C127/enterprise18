@@ -45,7 +45,10 @@ export class PivotDetailsSidePanel extends Component {
             model: definition.model,
             modelDisplayName: this.modelDisplayName,
             domain: new Domain(definition.domain).toString(),
-            dimensions: [...definition.rowGroupBys, ...definition.colGroupBys].map((fieldName) =>
+            colGroupBys: definition.colGroupBys.map((fieldName) =>
+                this.dataSource.getFormattedGroupBy(fieldName)
+            ),
+            rowGroupBys: definition.rowGroupBys.map((fieldName) =>
                 this.dataSource.getFormattedGroupBy(fieldName)
             ),
             measures: definition.measures.map((measure) =>
