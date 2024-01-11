@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import copy
+import datetime
 import logging as logger
 import re
 import urllib.parse
@@ -22,8 +23,17 @@ class MailThread(models.AbstractModel):
     _inherit = 'mail.thread'
 
     def _notify_thread(self, message, msg_vals=False, **kwargs):
-        recipients_data = super(MailThread, self)._notify_thread(message, msg_vals=msg_vals, **kwargs)
-        self._notify_thread_by_ocn(message, recipients_data, msg_vals, **kwargs)
+        """ Main notification method. Override to add support of sending OCN
+        notifications. """
+        recipients_data = super()._notify_thread(message, msg_vals=msg_vals, **kwargs)
+
+        # if scheduled for later: add in queue instead of generating notifications
+        scheduled_date = kwargs.pop('scheduled_date', None)
+        if scheduled_date:
+            parsed_datetime = self.env['mail.mail']._parse_scheduled_datetime(scheduled_date)
+            scheduled_date = parsed_datetime.replace(tzinfo=None) if parsed_datetime else False
+        if not scheduled_date or scheduled_date <= datetime.datetime.utcnow():
+            self._notify_thread_by_ocn(message, recipients_data, msg_vals, **kwargs)
         return recipients_data
 
     def _notify_thread_by_ocn(self, message, recipients_data, msg_vals=False, **kwargs):
