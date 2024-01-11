@@ -2250,8 +2250,16 @@ QUnit.module(
                     return { add: (message) => assert.step(`notification: ${message}`) };
                 },
             };
-
             registry.category("services").add("notification", notificationService, { force: true });
+            registry.category("services").add("error", { start() {} });
+
+            const handler = (ev) => {
+                assert.strictEqual(ev.reason.message, "Boom");
+                assert.step("error");
+                ev.preventDefault();
+            };
+            window.addEventListener("unhandledrejection", handler);
+            registerCleanup(() => window.removeEventListener("unhandledrejection", handler));
 
             let triggerError = true;
             await createViewEditor({
@@ -2286,6 +2294,7 @@ QUnit.module(
             assert.verifySteps([
                 "edit_view",
                 "notification: This operation caused an error, probably because a xpath was broken",
+                "error",
             ]);
 
             assert.containsOnce(

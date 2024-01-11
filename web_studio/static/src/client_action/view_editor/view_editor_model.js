@@ -767,6 +767,11 @@ export class ViewEditorModel extends Reactive {
                 title: _t("Error"),
             }
         );
+
+        Promise.resolve().then(() => {
+            throw error;
+        });
+
         this.resetSidebar("view");
         this.bus.trigger("error");
     }
