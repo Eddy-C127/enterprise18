@@ -46,8 +46,8 @@
     </template>
 
     <template id="footer" inherit_id="website_helpdesk.footer">
-        <xpath expr="//p[@id='footer_buttons']" position="inside">
-            <a class="btn btn-secondary btn-lg" href="/forum" t-if="team.use_website_helpdesk_forum and not hide_community_button">Ask the Community</a>
+        <xpath expr="//div[@id='footer_buttons']" position="inside">
+            <a class="btn btn-secondary btn-lg text-nowrap" href="/forum" t-if="team.use_website_helpdesk_forum and not hide_community_button">Ask the Community</a>
         </xpath>
     </template>
 </odoo>

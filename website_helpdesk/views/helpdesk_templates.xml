@@ -167,38 +167,39 @@
     </template>
 
     <template id="navbar" name="Search Bar">
-        <nav class="navbar navbar-light border-top shadow-sm d-print-none">
-            <div class="container">
-                <div class="d-flex flex-column flex-wrap flex-md-row justify-content-between gap-2 w-100">
-                    <h4 class="navbar-brand align-self-center w-lg-auto my-0 me-auto">Help Center</h4>
-                    <ul class="o_whelpdesk_topbar_filters nav"/>
-                    <div class="d-flex align-items-center flex-wrap w-100 w-lg-auto pe-0 ms-lg-2">
-                        <t t-call="website_helpdesk.search_box">
-                            <t t-set="search" t-value="search" />
-                            <t t-set="display_detail" t-value="'false'" />
-                        </t>
-                    </div>
+        <div class="container">
+            <a class="d-inline-block d-print-none mt-4 mb-2" title="Back to help" t-attf-href="/helpdesk/{{slug(team)}}/knowledgebase"><i class="fa fa-chevron-left me-2"/>Back to help</a>
+            <div class="d-flex flex-wrap align-items-center justify-content-between w-100 mb-2">
+                <h5 class="flex-grow-1 w-100 w-sm-auto mb-2 mb-sm-0">
+                    <span class="text-muted">Results for</span> <q><t t-out="search"/></q>
+                </h5>
+                <ul class="o_whelpdesk_topbar_filters nav d-print-none flex-nowrap gap-2"/>
+                <div class="d-print-none d-flex align-items-center flex-wrap w-100 w-lg-auto pe-0 ms-lg-2">
+                    <t t-call="website_helpdesk.search_box">
+                        <t t-set="search" t-value="search" />
+                        <t t-set="display_detail" t-value="'false'" />
+                    </t>
                 </div>
             </div>
-        </nav>
+        </div>
     </template>
 
     <template id="navbar_search_date" inherit_id="website_helpdesk.navbar" name="Filter by Date" active="True">
         <xpath expr="//ul[hasclass('o_whelpdesk_topbar_filters')]" position="inside">
-            <li class="nav-item dropdown me-2 my-1 border rounded">
-                <a href="#" role="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-                    <i class="fa fa-calendar text-primary me-2"/>
+            <li class="nav-item dropdown my-1">
+                <a href="#" role="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" title="Filter by date">
+                    <i class="fa fa-calendar me-2"/>
                     <t t-if="current_date" t-out="current_date" />
                     <t t-else="">
                         By Date
                     </t>
                 </a>
                 <div class="dropdown-menu">
-                    <a t-attf-class="dropdown-item o_dropdown_reset_tags {{'active' if not current_date else ''}}" t-attf-href="?{{keep_query('search', 'type', 'tag')}}">
+                    <a t-attf-class="dropdown-item o_dropdown_reset_tags {{'active' if not current_date else ''}}" t-attf-href="?{{keep_query('search', 'type', 'tag')}}" title="All dates">
                         All
                     </a>
                     <t t-foreach="available_dates.items()" t-as="date">
-                        <a t-attf-href="?{{ keep_query('*', date=date[0]) }}" t-attf-class="dropdown-item {{'active' if searches.get('date') == date[0] else ''}}">
+                        <a t-attf-href="?{{ keep_query('*', date=date[0]) }}" t-attf-class="dropdown-item {{'active' if searches.get('date') == date[0] else ''}}" t-att-title="date[1]">
                             <t t-out="date[1]"/>
                         </a>
                     </t>
@@ -209,20 +210,20 @@
 
     <template id="navbar_search_type" inherit_id="website_helpdesk.navbar" name="Filter by Type" active="True">
         <xpath expr="//ul[hasclass('o_whelpdesk_topbar_filters')]" position="inside">
-            <li class="nav-item dropdown me-2 my-1 border rounded" t-if="len(available_types) > 1">
-                <a href="#" role="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-                    <i class="fa fa-folder-open text-primary me-2"/>
+            <li class="nav-item dropdown my-1" t-if="len(available_types) > 1">
+                <a href="#" role="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" title="Filter by type">
+                    <i class="fa fa-folder-open me-2"/>
                     <t t-if="current_type" t-out="current_type" />
                     <t t-else="">
                         By Type
                     </t>
                 </a>
                 <div class="dropdown-menu">
-                    <a t-attf-class="dropdown-item o_dropdown_reset_tags {{'active' if not current_type else ''}}" t-attf-href="?{{keep_query('search', 'date', 'tag')}}">
+                    <a t-attf-class="dropdown-item o_dropdown_reset_tags {{'active' if not current_type else ''}}" t-attf-href="?{{keep_query('search', 'date', 'tag')}}" title="All types">
                         All Types
                     </a>
                     <t t-foreach="available_types.items()" t-as="type">
-                        <a t-attf-href="?{{ keep_query('*', type=type[0]) }}" t-attf-class="dropdown-item {{'active' if searches.get('type') == type[0] else ''}}">
+                        <a t-attf-href="?{{ keep_query('*', type=type[0]) }}" t-attf-class="dropdown-item {{'active' if searches.get('type') == type[0] else ''}}" t-att-title="type[1]">
                             <t t-out="type[1]"/>
                         </a>
                     </t>
@@ -233,20 +234,20 @@
 
     <template id="navbar_search_tag" inherit_id="website_helpdesk.navbar" name="Filter by Tags" active="True">
         <xpath expr="//ul[hasclass('o_whelpdesk_topbar_filters')]" position="inside">
-            <li class="nav-item dropdown my-1 border rounded" t-if="len(available_tags) > 1">
-                <a href="#" role="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-                    <i class="fa fa-tag text-primary me-2"/>
+            <li class="nav-item dropdown my-1" t-if="len(available_tags) > 1">
+                <a href="#" role="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" title="Filter by tags">
+                    <i class="fa fa-tag me-2"/>
                     <t t-if="current_tag" t-out="current_tag" />
                     <t t-else="">
                         By Tags
                     </t>
                 </a>
                 <div class="dropdown-menu whelpdesk_tags_dropdown overflow-auto">
-                    <a t-attf-class="dropdown-item o_dropdown_reset_tags {{'active' if not current_tag else ''}}" t-attf-href="?{{keep_query('search', 'date', 'type')}}">
+                    <a t-attf-class="dropdown-item o_dropdown_reset_tags {{'active' if not current_tag else ''}}" t-attf-href="?{{keep_query('search', 'date', 'type')}}" title="All tags">
                         All Tags
                     </a>
                     <t t-foreach="available_tags" t-as="tag">
-                        <a t-attf-href="?{{ keep_query('*', tag=tag) }}" t-attf-class="dropdown-item {{'active' if searches.get('tag') == tag else ''}}">
+                        <a t-attf-href="?{{ keep_query('*', tag=tag) }}" t-attf-class="dropdown-item {{'active' if searches.get('tag') == tag else ''}}" t-att-title="tag">
                             <t t-out="tag"/>
                         </a>
                     </t>
@@ -294,19 +295,13 @@
             <t t-set="additional_title"><t t-out="team.name" /></t>
             <div id="wrap" class="oe_structure oe_empty d-flex justify-content-between h-100 flex-column">
                 <div id="whelpdesk_top">
-                    <t t-call="website_helpdesk.navbar" />
-                    <section class="s_text_block pt24 o_colored_level pb4" data-snippet="s_text_block" data-name="Text" style="">
-                        <div class="s_allow_columns container">
-                            <h5>
-                                <span class="text-600">Search results for</span> <q><t t-out="search" /></q>
-                            </h5>
-                        </div>
-                    </section>
                     <div class="oe_structure" id="oe_structure_whelpdesk_knowledge_1" />
-                    <section class="py-3 whelpdesk_search_results">
-                        <div class="s_allow_columns container">
+                    <t t-call="website_helpdesk.navbar" />
+                    <section class="whelpdesk_search_results">
+                        <div class="s_allow_columns container mb-5">
                             <t t-if="not results">
-                                <p class="text-center">No results found. Please try another search.</p>
+                                <h4 class="text-center mt-5">No results found for <q><t t-out="search"/></q></h4>
+                                <p class="text-center">Please try another search  or <a title="Back to help" t-attf-href="/helpdesk/{{slug(team)}}/knowledgebase">go back to help page</a></p>
                             </t>
                             <div t-foreach="results" t-as="result" t-key="result_index" class="whelpdesk_result">
                                 <t t-call="{{ result['template'] }}">
@@ -326,18 +321,14 @@
     </template>
 
     <template id="footer" name="Knowledge Base: Footer">
-        <section class="s_call_to_action o_cc o_cc3 o_colored_level py-4 mt64" data-snippet="s_call_to_action" data-name="Call to Action">
+        <section class="s_call_to_action o_cc o_cc3 o_colored_level py-5 mt-5" data-snippet="s_call_to_action" data-name="Call to Action">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="o_colored_level pb0 pt16 col-lg-8 justify-content-center">
-                        <h3>
-                            <span class="h4-fs">Can't find your answer? Our support team is here to help.</span>
-                        </h3>
+                <div class="d-block d-lg-flex align-items-center gap-2">
+                    <div class="o_colored_level flex-grow-1">
+                        <h4>Can't find your answer? Our support team is here to help.</h4>
                     </div>
-                    <div class="o_colored_level col-lg-4 align-items-center">
-                        <p class="mb-0 text-center text-lg-end" id="footer_buttons">
-                            <a class="btn btn-primary btn-lg my-1" t-attf-href="{{team.website_url}}?contact_form=1">Contact Us</a>
-                        </p>
+                    <div class="o_colored_level d-flex flex-wrap flex-sm-nowrap gap-2 mt-4 mt-lg-0" id="footer_buttons">
+                        <a class="btn btn-primary btn-lg text-nowrap" title="Contact us" t-attf-href="{{team.website_url}}?contact_form=1">Contact Us</a>
                     </div>
                 </div>
             </div>

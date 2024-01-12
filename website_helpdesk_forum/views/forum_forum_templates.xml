@@ -17,12 +17,12 @@
                     </t>
                     <time t-field="record.create_date" class="ps-2 border-start" t-options='{"format": "d MMM yyyy"}'/>, by <a t-attf-href="/forum/user/{{record.create_uid.id}}?forum_id={{record.forum_id.id}}&amp;forum_origin={{team.website_url}}" class="fw-bold" t-out="record.create_uid.name"/>
                     <t t-if="record.child_count">
-                    | <a t-att-href="url" class="fw-bold"><t t-out="record.child_count"/> Answers</a>
+                    • <a t-att-href="url" class="fw-bold"><t t-out="record.child_count"/> Answers</a>
                     </t>
                     <t t-else="">
-                    | 0 Answer
+                    • 0 Answer
                     </t>
-                    | <t t-out="record.views"/> Views
+                    • <t t-out="record.views"/> Views
                 </small>
                 <div class="whelpdesk_search_description mt-3 text-break text-muted overflow-hidden" t-if="not is_html_empty(record.content)" t-out="record.content"/>
                 <p class="d-flex gap-1 flex-wrap mt-3 mb-0" t-if="record.tag_ids">
