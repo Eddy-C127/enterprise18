@@ -2,7 +2,10 @@
 
 import { registerCleanup } from "@web/../tests/helpers/cleanup";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
-import { makeFakeLocalizationService, patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
+import {
+    makeFakeLocalizationService,
+    patchUserWithCleanup,
+} from "@web/../tests/helpers/mock_services";
 import {
     getFixture,
     nextTick,
@@ -20,7 +23,7 @@ import { browser } from "@web/core/browser/browser";
 import testUtils from "@web/../tests/legacy/helpers/test_utils";
 import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_menu/enterprise_subscription_service";
 import { session } from "@web/session";
-import { templates } from "@web/core/templates";
+import { getTemplate } from "@web/core/templates";
 
 import { App, EventBus } from "@odoo/owl";
 const patchDate = testUtils.mock.patchDate;
@@ -36,7 +39,7 @@ async function createHomeMenu(homeMenuProps, config = {}) {
     const app = new App(HomeMenu, {
         env,
         props: homeMenuProps,
-        templates,
+        getTemplate,
         test: true,
     });
     const homeMenu = await app.mount(target);

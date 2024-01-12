@@ -3,7 +3,7 @@
 import { App, Component, xml, whenReady, useEffect, useComponent } from "@odoo/owl";
 import { MainComponentsContainer } from "@web/core/main_components_container";
 import { useService } from "@web/core/utils/hooks";
-import { templates } from "@web/core/templates";
+import { getTemplate } from "@web/core/templates";
 import { makeEnv, startServices } from "@web/env";
 import { SignRefusalDialog } from "@sign/dialogs/dialogs";
 import { SignablePDFIframe } from "./signable_PDF_iframe";
@@ -231,7 +231,7 @@ export async function initDocumentToSign(parent) {
         name: "Signable Document",
         env,
         props: { parent, PDFIframeClass: SignablePDFIframe },
-        templates,
+        getTemplate,
         dev: env.debug,
         translatableAttributes: ["data-tooltip"],
         translateFn: _t,

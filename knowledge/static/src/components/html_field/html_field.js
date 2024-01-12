@@ -3,7 +3,7 @@
 import { HtmlField, htmlField } from "@web_editor/js/backend/html_field";
 import { patch } from "@web/core/utils/patch";
 import { loadBundle } from "@web/core/assets";
-import { templates } from "@web/core/templates";
+import { getTemplate } from "@web/core/templates";
 import {
     copyOids,
     decodeDataBehaviorProps,
@@ -516,7 +516,7 @@ const HtmlFieldPatch = {
             })(this.__owl__.app);
             anchor.oKnowledgeBehavior = new App(Behavior, {
                 ...config,
-                templates,
+                getTemplate,
                 props,
             });
             this.behaviorState.appAnchors.add(anchor);
