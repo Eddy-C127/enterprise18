@@ -417,9 +417,9 @@ class AppointmentController(http.Controller):
 
         try:
             appointment_types.check_access_rights('read')
-            appointment_types.check_access_rule('read')
         except exceptions.AccessError:
             raise Forbidden()
+        appointment_types = appointment_types._filter_access_rules('read')
 
         if domain:
             appointment_types = appointment_types.filtered_domain(domain)
