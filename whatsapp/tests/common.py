@@ -122,6 +122,41 @@ class MockIncomingWhatsApp(common.HttpCase):
             digestmod=hashlib.sha256,
         ).hexdigest()
 
+    def _receive_message_update(self, account, display_phone_number, extra_value=None):
+        """ Simulate reception of a message update from WhatsApp API.
+
+        param account: whatsapp.account
+        param display_phone_number: phone number from which message was created
+          (e.g. "+91 12345 67891")
+        param extra_value: extra data added in "value" of "changes", to send in the request
+          (e.g. "statuses": [{"status": "failed"}, ...])
+        """
+        data = json.dumps({
+            "entry": [{
+                "id": account.account_uid,
+                "changes": [{
+                    "field": "messages",
+                    "value": dict(
+                        {
+                            "messaging_product": "whatsapp",
+                            "metadata": {
+                                "display_phone_number": display_phone_number,
+                                "phone_number_id": account.phone_uid,
+                            },
+                        }, **(extra_value or {}))
+                }]
+            }]
+        })
+
+        return self._make_webhook_request(
+            account,
+            message_data=data,
+            headers={
+                "Content-Type": "application/json",
+                "X-Hub-Signature-256": f"sha256={self._get_message_signature(account, data)}",
+            }
+        )
+
     def _receive_template_update(self, field, account, data):
         """ Simulate reception of a template update from WhatsApp API.
 
