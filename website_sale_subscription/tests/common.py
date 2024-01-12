@@ -56,10 +56,12 @@ class TestWebsiteSaleSubscriptionCommon(TestSubscriptionCommon):
         cls.pricelist_111 = Pricelist.create({
             'name': 'Pricelist111',
             'selectable': True,
+            'company_id': False,
         })
         cls.pricelist_222 = Pricelist.create({
             'name': 'Pricelist222',
             'selectable': True,
+            'company_id': False,
         })
         Pricing.create([
             {
