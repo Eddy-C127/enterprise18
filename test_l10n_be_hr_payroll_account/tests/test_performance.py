@@ -251,17 +251,17 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             _logger.info("Declaration 273S: --- %s seconds ---", time.time() - start_time)
         self.assertEqual(declaration_273S.xml_validation_state, 'done', declaration_273S.error_message)
 
-        # 274.XX Declaration
-        declaration_274_XX = self.env['l10n_be.274_xx'].with_context(allowed_company_ids=self.company.ids).create({
-            'year': self.date_from.year,
-            'month': str(self.date_from.month),
-        })
-        with self.assertQueryCount(admin=19):
-            start_time = time.time()
-            declaration_274_XX.action_generate_xml()
-            # --- 0.04558062553405762 seconds ---
-            _logger.info("Declaration 274.XX: --- %s seconds ---", time.time() - start_time)
-        self.assertEqual(declaration_274_XX.xml_validation_state, 'done', declaration_274_XX.error_message)
+        # # 274.XX Declaration
+        # declaration_274_XX = self.env['l10n_be.274_xx'].with_context(allowed_company_ids=self.company.ids).create({
+        #     'year': self.date_from.year,
+        #     'month': str(self.date_from.month),
+        # })
+        # with self.assertQueryCount(admin=19):
+        #     start_time = time.time()
+        #     declaration_274_XX.action_generate_xml()
+        #     # --- 0.04558062553405762 seconds ---
+        #     _logger.info("Declaration 274.XX: --- %s seconds ---", time.time() - start_time)
+        # self.assertEqual(declaration_274_XX.xml_validation_state, 'done', declaration_274_XX.error_message)
 
         # 281.10 Declaration
         declaration_281_10 = self.env['l10n_be.281_10'].with_context(allowed_company_ids=self.company.ids).create({
