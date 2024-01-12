@@ -609,6 +609,8 @@ class WebStudioController(http.Controller):
                     'relation': 'res.currency',
                     'field_description': 'Currency',
                 })
+                # delete the 'related' attribute from currency if it comes from a related monetary
+                currency_op['node']['field_description'].pop('related', None)
                 values['currency_field'] = 'x_studio_currency_id'
                 op['target']['attrs'] = {'name': 'x_studio_currency_id'}
             else:
