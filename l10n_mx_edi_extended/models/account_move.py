@@ -240,7 +240,7 @@ class AccountMoveLine(models.Model):
              "It is based in the SAT catalog.")
     l10n_mx_edi_qty_umt = fields.Float(
         string="Qty UMT",
-        digits='Product Unit of Measure',
+        digits=(16, 3),
         readonly=False, store=True,
         compute='_compute_l10n_mx_edi_qty_umt',
         help="Quantity expressed in the UMT from product. It is used in the attribute 'CantidadAduana' in the CFDI")
@@ -283,7 +283,7 @@ class AccountMoveLine(models.Model):
             if product_aduana_code == uom_aduana_code:
                 line.l10n_mx_edi_qty_umt = line.quantity
             elif '01' in (product_aduana_code or ''):
-                line.l10n_mx_edi_qty_umt = round(line.product_id.weight * line.quantity, 3)
+                line.l10n_mx_edi_qty_umt = line.product_id.weight * line.quantity
             else:
                 line.l10n_mx_edi_qty_umt = None
 
