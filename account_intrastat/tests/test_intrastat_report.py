@@ -389,3 +389,37 @@ class TestIntrastatReport(TestAccountReportsCommon):
             ],
             options,
         )
+
+    def test_xi_invoice_with_xu_product(self):
+        """ Test a report from an invoice made for Northern Ireland with a product from United Kingdom.
+        """
+        self.product_no_supplementary_unit.product_tmpl_id.intrastat_origin_country_id = self.env.ref('base.uk').id
+        invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': '2024-01-10',
+            'date': '2024-01-10',
+            'company_id': self.company_data['company'].id,
+            'intrastat_country_id': self.env.ref('account_intrastat.xi').id,
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': self.product_no_supplementary_unit.id,
+                    'quantity': 1,
+                    'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                    'price_unit': 10,
+                }),
+            ]
+        })
+        invoice.action_post()
+        options = self._generate_options(self.report, '2024-01-01', '2024-01-31', default_options={'country_format': 'code'})
+        lines = self.report._get_lines(options)
+        self.assertLinesValues(
+            lines,
+            #    Name                CommodityFlow      Country   OriginCountry
+            #
+            [    0,                  1,                 2,        6   ],
+            [
+                ('INV/2024/00001',   '19 (Dispatch)',   'XI',     'XU'),
+            ],
+            options,
+        )
