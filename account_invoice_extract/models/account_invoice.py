@@ -61,7 +61,7 @@ class AccountMove(models.Model):
             )
 
     extract_word_ids = fields.One2many("account.invoice_extract.words", inverse_name="invoice_id", copy=False)
-    extract_attachment_id = fields.Many2one('ir.attachment', readonly=True, ondelete='set null', copy=False)
+    extract_attachment_id = fields.Many2one('ir.attachment', readonly=True, ondelete='set null', copy=False, index='btree_not_null')
     extract_can_show_banners = fields.Boolean("Can show the ocr banners", compute=_compute_show_banners)
 
     extract_detected_layout = fields.Integer("Extract Detected Layout Id", readonly=True)
