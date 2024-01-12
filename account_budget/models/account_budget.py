@@ -24,25 +24,11 @@ class AccountBudgetPost(models.Model):
     company_id = fields.Many2one('res.company', 'Company', required=True,
         default=lambda self: self.env.company)
 
-    def _check_account_ids(self, vals):
-        # Raise an error to prevent the account.budget.post to have not specified account_ids.
-        # This check is done on create because require=True doesn't work on Many2many fields.
-        if 'account_ids' in vals:
-            account_ids = self.new({'account_ids': vals['account_ids']}, origin=self).account_ids
-        else:
-            account_ids = self.account_ids
-        if not account_ids:
-            raise ValidationError(_('The budget must have at least one account.'))
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            self._check_account_ids(vals)
-        return super().create(vals_list)
-
-    def write(self, vals):
-        self._check_account_ids(vals)
-        return super(AccountBudgetPost, self).write(vals)
+    @api.constrains('account_ids')
+    def _check_account_ids(self):
+        for budget in self:
+            if not budget.account_ids:
+                raise ValidationError(_('The budget must have at least one account.'))
 
 
 class CrossoveredBudget(models.Model):
