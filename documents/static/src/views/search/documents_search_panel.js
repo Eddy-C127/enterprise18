@@ -35,10 +35,12 @@ export class DocumentsSearchPanel extends SearchPanel {
     static template = !uiUtils.isSmall() ? "documents.SearchPanel" : "web.SearchPanel";
     static subTemplates = !uiUtils.isSmall()
         ? {
+              section: "documents.SearchPanel.Section",
               category: "documents.SearchPanel.Category",
               filtersGroup: "documents.SearchPanel.FiltersGroup",
           }
         : {
+              section: "documents.SearchPanel.Section.Small",
               category: "documents.SearchPanel.Category.Small",
               filtersGroup: "documents.SearchPanel.FiltersGroup.Small",
           };

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="documents.SearchPanelContent" t-inherit="web.SearchPanelContent" t-inherit-mode="primary">
+        <xpath expr="//section" position="attributes">
+            <attribute name="t-att-data-section-id">section.id</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='web.SearchPanel.Section']" position="replace">
+            <t t-call="documents.SearchPanel.Section"/>
+        </xpath>
+    </t>
+
+    <t t-name="documents.SearchPanel.Section" t-inherit="web.SearchPanel.Section" t-inherit-mode="primary">
         <xpath expr="//label[hasclass('o_search_panel_label')]" position="inside">
             <div class="ms-auto">
                 <t t-if="supportedEditionFields.includes(section.fieldName)">
@@ -9,9 +18,6 @@
                     </div>
                 </t>
             </div>
-        </xpath>
-        <xpath expr="//section" position="attributes">
-            <attribute name="t-att-data-section-id">section.id</attribute>
         </xpath>
     </t>
 
@@ -66,7 +72,7 @@
         </xpath>
     </t>
 
-    <t t-name="documents.SearchPanelContent.Small" t-inherit="documents.SearchPanelContent" t-inherit-mode="primary">
+    <t t-name="documents.SearchPanel.Section.Small" t-inherit="documents.SearchPanel.Section" t-inherit-mode="primary">
         <xpath expr="//li[contains(@class, 'o_search_panel_filter_group')]" position="attributes">
             <attribute name="t-on-touchstart">(ev) => this.onSectionValueTouchStart(ev, section, null, groupId)</attribute>
             <attribute name="t-on-touchend">(ev) => this.onSectionValueTouchEnd()</attribute>
@@ -75,8 +81,8 @@
     </t>
 
     <t t-name="documents.SearchPanel.Small" t-inherit="web.SearchPanel.Small" t-inherit-mode="primary">
-        <xpath expr="//t[@t-call='web.SearchPanelContent']" position="replace">
-            <t t-call="documents.SearchPanelContent.Small"/>
+        <xpath expr="//t[@t-call='web.SearchPanel.Section']" position="replace">
+            <t t-call="documents.SearchPanel.Section.Small"/>
         </xpath>
     </t>
 

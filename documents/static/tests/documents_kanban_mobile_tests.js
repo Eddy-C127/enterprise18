@@ -61,7 +61,7 @@ QUnit.module("documents", {}, function () {
         function () {
             QUnit.module("DocumentsKanbanViewMobile", function () {
                 QUnit.test("basic rendering on mobile", async function (assert) {
-                    assert.expect(11);
+                    assert.expect(13);
 
                     const pyEnv = await startServer();
                     const documentsFolderId1 = pyEnv["documents.folder"].create({
@@ -119,18 +119,13 @@ QUnit.module("documents", {}, function () {
                         "there should be no button left in the ControlPanel's left part"
                     );
 
-                    // open search panel
-                    await click(target, ".o_search_panel_current_selection");
-                    await nextTick();
-                    // select global view
                     let searchPanel = document.querySelector(".o_search_panel");
-                    await click(
-                        searchPanel,
-                        ".o_search_panel_category_value:nth-of-type(1) header"
+                    await click(searchPanel, ".o-dropdown:first-child");
+                    await click(target, ".o_search_panel_category_value:nth-of-type(1) header");
+                    assert.strictEqual(
+                        searchPanel.querySelector(".o-dropdown:first-child").textContent,
+                        "Workspace"
                     );
-                    // close search panel
-                    await click(searchPanel, ".o_mobile_search_footer");
-
                     assert.containsOnce(
                         target.querySelector(".o_cp_buttons"),
                         ".o_documents_kanban_upload.pe-none.opacity-25",
@@ -152,16 +147,14 @@ QUnit.module("documents", {}, function () {
                         "the share button should be enabled on global view when documents are selected"
                     );
 
-                    // open search panel
-                    await click(target, ".o_search_panel_current_selection");
                     // select first folder
                     searchPanel = document.querySelector(".o_search_panel");
-                    await click(
-                        searchPanel,
-                        ".o_search_panel_category_value:nth-of-type(2) header"
+                    await click(searchPanel, ".o-dropdown:first-child");
+                    await click(target, ".o_search_panel_category_value:nth-of-type(2) header");
+                    assert.strictEqual(
+                        searchPanel.querySelector(".o-dropdown:first-child").textContent,
+                        "Workspace1"
                     );
-                    // close search panel
-                    await click(searchPanel, ".o_mobile_search_footer");
                     assert.notOk(
                         target.querySelector(".o_documents_kanban_upload").disabled,
                         "the upload button should be enabled when a folder is selected"
@@ -308,7 +301,7 @@ QUnit.module("documents", {}, function () {
 
             QUnit.module("DocumentsListViewMobile", function () {
                 QUnit.test("basic rendering on mobile", async function (assert) {
-                    assert.expect(11);
+                    assert.expect(13);
 
                     const pyEnv = await startServer();
                     const documentsFolderId1 = pyEnv["documents.folder"].create({
@@ -359,17 +352,13 @@ QUnit.module("documents", {}, function () {
                         "> .btn",
                         "there should be no button left in the ControlPanel's left part"
                     );
-                    // open search panel
-                    await click(target, ".o_search_panel_current_selection");
-                    await nextTick();
-                    // select global view
                     let searchPanel = document.querySelector(".o_search_panel");
-                    await click(
-                        searchPanel,
-                        ".o_search_panel_category_value:nth-of-type(1) header"
+                    await click(searchPanel, ".o-dropdown:first-child");
+                    await click(target, ".o_search_panel_category_value:nth-of-type(1) header");
+                    assert.strictEqual(
+                        searchPanel.querySelector(".o-dropdown:first-child").textContent,
+                        "Workspace"
                     );
-                    // close search panel
-                    await click(searchPanel, ".o_mobile_search_footer");
                     assert.containsOnce(
                         target.querySelector(".o_cp_buttons"),
                         ".o_documents_kanban_upload.pe-none.opacity-25",
@@ -390,16 +379,14 @@ QUnit.module("documents", {}, function () {
                         "the share button should be enabled on global view when documents are selected"
                     );
 
-                    // open search panel
-                    await click(target, ".o_search_panel_current_selection");
                     // select first folder
                     searchPanel = document.querySelector(".o_search_panel");
-                    await click(
-                        searchPanel,
-                        ".o_search_panel_category_value:nth-of-type(2) header"
+                    await click(searchPanel, ".o-dropdown:first-child");
+                    await click(target, ".o_search_panel_category_value:nth-of-type(2) header");
+                    assert.strictEqual(
+                        searchPanel.querySelector(".o-dropdown:first-child").textContent,
+                        "Workspace1"
                     );
-                    // close search panel
-                    await click(searchPanel, ".o_mobile_search_footer");
                     assert.notOk(
                         target.querySelector(".o_documents_kanban_upload").disabled,
                         "the upload button should be enabled when a folder is selected"
