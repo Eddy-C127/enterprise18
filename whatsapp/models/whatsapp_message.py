@@ -256,6 +256,8 @@ class WhatsAppMessage(models.Model):
                     raise WhatsAppError(failure_type='phone_invalid')
                 if self.env['phone.blacklist'].sudo().search([('number', 'ilike', number), ('active', '=', True)]):
                     raise WhatsAppError(failure_type='blacklisted')
+
+                # based on template
                 if whatsapp_message.wa_template_id:
                     message_type = 'template'
                     if whatsapp_message.wa_template_id.status != 'approved' or whatsapp_message.wa_template_id.quality == 'red':
@@ -266,15 +268,21 @@ class WhatsAppMessage(models.Model):
 
                     RecordModel = self.env[whatsapp_message.mail_message_id.model].with_user(whatsapp_message.create_uid)
                     from_record = RecordModel.browse(whatsapp_message.mail_message_id.res_id)
+
+                    # if retrying message then we need to unlink previous attachment
+                    # in case of header with report in order to generate it again
+                    if whatsapp_message.wa_template_id.report_id and whatsapp_message.wa_template_id.header_type == 'document' and whatsapp_message.mail_message_id.attachment_ids:
+                        whatsapp_message.mail_message_id.attachment_ids.unlink()
+
+                    # generate sending values, components and attachments
                     send_vals, attachment = whatsapp_message.wa_template_id._get_send_template_vals(
-                        record=from_record, free_text_json=whatsapp_message.free_text_json,
-                        attachment=whatsapp_message.mail_message_id.attachment_ids)
-                    if attachment:
-                        # If retrying message then we need to remove previous attachment and add new attachment.
-                        if whatsapp_message.mail_message_id.attachment_ids and whatsapp_message.wa_template_id.header_type == 'document' and whatsapp_message.wa_template_id.report_id:
-                            whatsapp_message.mail_message_id.attachment_ids.unlink()
-                        if attachment not in whatsapp_message.mail_message_id.attachment_ids:
-                            whatsapp_message.mail_message_id.attachment_ids = [Command.link(attachment.id)]
+                        record=from_record,
+                        free_text_json=whatsapp_message.free_text_json,
+                        attachment=whatsapp_message.mail_message_id.attachment_ids,
+                    )
+                    if attachment and attachment not in whatsapp_message.mail_message_id.attachment_ids:
+                        whatsapp_message.mail_message_id.attachment_ids = [(4, attachment.id)]
+                # no template
                 elif whatsapp_message.mail_message_id.attachment_ids:
                     attachment_vals = whatsapp_message._prepare_attachment_vals(whatsapp_message.mail_message_id.attachment_ids[0], wa_account_id=whatsapp_message.wa_account_id)
                     message_type = attachment_vals.get('type')
