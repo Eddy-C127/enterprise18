@@ -28,7 +28,7 @@ class L10nMxEdiGlobalInvoiceCreate(models.Model):
                     raise_error = True
                     break
 
-                if not order.refunded_order_ids:
+                if not order.refunded_order_id:
                     all_are_refund = False
 
             if raise_error or all_are_refund:

@@ -102,10 +102,8 @@ class PosOrder(models.Model):
     def action_pos_order_invoice(self):
         # EXTENDS 'point_of_sale'
         if self.company_id.country_id.code == 'MX':
-            if len(self.refunded_order_ids.account_move) > 1:
-                raise UserError(_("You cannot refund multiple invoices at once."))
-            if any(not x.account_move for x in self.refunded_order_ids):
-                raise UserError(_("You cannot invoice this refund since the related orders are not invoiced yet."))
+            if self.refunded_order_id and not self.refunded_order_id.account_move:
+                raise UserError(_("You cannot invoice this refund since the related order is not invoiced yet."))
         action_values = super().action_pos_order_invoice()
 
         for order in self:
@@ -122,7 +120,7 @@ class PosOrder(models.Model):
             if (
                 order.company_id.country_id.code == 'MX'
                 and not order.l10n_mx_edi_cfdi_state
-                and any(x.l10n_mx_edi_cfdi_state == 'global_sent' for x in order.refunded_order_ids)
+                and order.refunded_order_id and order.refunded_order_id.l10n_mx_edi_cfdi_state == 'global_sent'
             ):
                 order._l10n_mx_edi_cfdi_invoice_try_send()
 
@@ -150,8 +148,8 @@ class PosOrder(models.Model):
                 'l10n_mx_edi_usage': self.env.context.get('default_l10n_mx_edi_usage') or self.l10n_mx_edi_usage,
                 'l10n_mx_edi_payment_method_id': self.l10n_mx_edi_payment_method_id.id,
             })
-            if self.refunded_order_ids.account_move:
-                vals['l10n_mx_edi_cfdi_origin'] = '03|' + self.refunded_order_ids.account_move.l10n_mx_edi_cfdi_uuid
+            if self.refunded_order_id.account_move:
+                vals['l10n_mx_edi_cfdi_origin'] = '03|' + self.refunded_order_id.account_move.l10n_mx_edi_cfdi_uuid
         return vals
 
     # -------------------------------------------------------------------------
@@ -174,7 +172,7 @@ class PosOrder(models.Model):
             order.l10n_mx_edi_cfdi_state = None
             order.l10n_mx_edi_cfdi_attachment_id = None
             for doc in order.l10n_mx_edi_document_ids.sorted():
-                if doc.state == 'invoice_sent' and order.refunded_order_ids:
+                if doc.state == 'invoice_sent' and order.refunded_order_id:
                     order.l10n_mx_edi_cfdi_sat_state = doc.sat_state
                     order.l10n_mx_edi_cfdi_state = 'sent'
                     order.l10n_mx_edi_cfdi_attachment_id = doc.attachment_id
@@ -211,13 +209,13 @@ class PosOrder(models.Model):
             else:
                 order.l10n_mx_edi_cfdi_uuid = None
 
-    @api.depends('payment_ids', 'refunded_order_ids')
+    @api.depends('payment_ids', 'refunded_order_id')
     def _compute_l10n_mx_edi_payment_method_id(self):
         for order in self:
             order.l10n_mx_edi_payment_method_id = order.payment_ids\
                 .sorted(lambda p: -p.amount).payment_method_id.l10n_mx_edi_payment_method_id[:1]
-            if not order.l10n_mx_edi_payment_method_id and order.refunded_order_ids:
-                order.l10n_mx_edi_payment_method_id = order.refunded_order_ids.l10n_mx_edi_payment_method_id[:1]
+            if not order.l10n_mx_edi_payment_method_id and order.refunded_order_id:
+                order.l10n_mx_edi_payment_method_id = order.refunded_order_id.l10n_mx_edi_payment_method_id[:1]
 
     # -------------------------------------------------------------------------
     # CFDI Generation
@@ -283,8 +281,7 @@ class PosOrder(models.Model):
             cfdi_values['tipo_de_comprobante'] = 'E'
             if is_refund:
                 # The order is a refund.
-                origin_uuids = set(self.refunded_order_ids.mapped('l10n_mx_edi_cfdi_uuid'))
-                Document._add_document_origin_cfdi_values(cfdi_values, f"01|{','.join(origin_uuids)}")
+                Document._add_document_origin_cfdi_values(cfdi_values, f"01|{self.refunded_order_id.l10n_mx_edi_cfdi_uuid}")
             else:
                 # Refund of the pos order itself.
                 Document._add_document_origin_cfdi_values(cfdi_values, f'01|{self.l10n_mx_edi_cfdi_uuid}')
@@ -569,7 +566,7 @@ class PosOrder(models.Model):
             raise UserError(_("You can only process orders sharing the same company."))
 
         # == Check the config ==
-        orders = self.filtered(lambda order: not order.refunded_order_ids)
+        orders = self.filtered(lambda order: not order.refunded_order_id)
         orders |= self.env['pos.order.line'].search([('refunded_orderline_id.order_id', 'in', orders.ids)]).order_id
         errors = []
         for order in orders:
@@ -587,7 +584,7 @@ class PosOrder(models.Model):
             for order in orders:
 
                 # The refund are managed by the refunded order.
-                if order.refunded_order_ids:
+                if order.refunded_order_id:
                     continue
 
                 inv_cfdi_values = dict(cfdi_values)
