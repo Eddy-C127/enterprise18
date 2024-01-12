@@ -137,9 +137,10 @@
                             <field name="favorited_ids" widget="many2many_tags" options="{'color_field': 'color'}" invisible="1"/>
                             <field name="template_tags" widget="many2many_tags" options="{'color_field': 'color'}" placeholder="Add document tags here"/>
                             <field name="validity" readonly="state not in ['shared', 'sent']"/>
-                            <label for="reminder"/>
-                            <div class="d-flex">
-                                <span>Send a reminder every </span><field name="reminder" class="oe_inline o_field_highlight mx-1" readonly="state not in ['shared', 'sent']"/><span> days</span>.
+                            <label for="reminder_enabled" string="Reminder"/>
+                            <div class="col">
+                                <field name="reminder_enabled" class="oe_inline mb-0" nolabel="1" widget="boolean_toggle" options="{'autosave': False}"/> Send a reminder
+                                <span invisible="not reminder_enabled">every<field name="reminder" class="text-center mb-0 o_sign_reminder_field" readonly="state not in ['shared', 'sent']"/> days.</span>
                             </div>
                         </group>
                     </group>

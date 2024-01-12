@@ -115,8 +115,15 @@ class SignRequest(models.Model):
     need_my_signature = fields.Boolean(compute='_compute_need_my_signature', search='_search_need_my_signature')
 
     validity = fields.Date(string='Valid Until')
-    reminder = fields.Integer(string='Reminder', default=0)
+    reminder_enabled = fields.Boolean(default=False)
+    reminder = fields.Integer(string='Reminder', default=7)
     last_reminder = fields.Date(string='Last reminder', default=lambda self: fields.Date.today())
+
+    @api.constrains('reminder_enabled', 'reminder')
+    def _check_reminder(self):
+        for request in self:
+            if request.reminder_enabled and request.reminder <= 0:
+                raise UserError(_("We can only send reminders in the future - as soon as we find a way to send reminders in the past we'll notify you.\nIn the mean time, please make sure to input a positive number of days for the reminder interval."))
 
     @api.depends_context('uid')
     def _compute_need_my_signature(self):
@@ -398,7 +405,7 @@ class SignRequest(models.Model):
         WHERE sr.state = 'sent'
         AND (
             sr.validity < '{today}' 
-            OR (sr.reminder > 0 AND sr.last_reminder + sr.reminder * ('1 day'::interval) <= '{today}')
+            OR (sr.reminder_enabled AND sr.last_reminder + sr.reminder * ('1 day'::interval) <= '{today}')
         )
         ''')
         res = self.env.cr.fetchall()

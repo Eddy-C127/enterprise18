@@ -17,9 +17,10 @@
                     <group invisible="context.get('sign_directly_without_mail', False)" string="Options">
                         <field name="filename" placeholder="Name for the file" colspan="2"/>
                         <field name="validity"/>
-                        <label for="reminder"/>
+                        <label for="reminder_enabled" string="Reminder"/>
                         <div class="col">
-                            Send a reminder every <field name="reminder" class="o_field_highlight" style="width: 3rem;"/> days.
+                            <field name="reminder_enabled" class="oe_inline mb-0" nolabel="1" widget="boolean_toggle" options="{'autosave': False}"/> Send a reminder
+                            <span invisible="not reminder_enabled">every<field name="reminder" class="text-center mb-0 o_sign_reminder_field"/> days.</span>
                         </div>
                     </group>
                     <group invisible="not context.get('sign_directly_without_mail', False)" string="Options">

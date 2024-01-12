@@ -65,7 +65,8 @@ class SignSendRequest(models.TransientModel):
     filename = fields.Char("Filename", required=True)
 
     validity = fields.Date(string='Valid Until', default=lambda self: fields.Date.today() + relativedelta(months=6))
-    reminder = fields.Integer(string='Reminder', help='Number of day between two reminder', default=7)
+    reminder_enabled = fields.Boolean(default=False)
+    reminder = fields.Integer(string='Reminder', default=7)
 
     @api.onchange('validity')
     def _onchange_validity(self):
@@ -144,6 +145,7 @@ class SignSendRequest(models.TransientModel):
             'attachment_ids': [Command.set(attachment_ids.ids)],
             'validity': self.validity,
             'reminder': self.reminder,
+            'reminder_enabled': self.reminder_enabled,
         })
         sign_request.message_subscribe(partner_ids=cc_partner_ids)
         return sign_request
