@@ -1087,6 +1087,58 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.start_tour("/web?debug=tests", 'web_studio_monetary_change_currency_name', login="admin")
         self.assertEqual(currency.field_description, "NewCurrency")
 
+    def test_related_monetary_creation(self):
+        res_partner_model_id = self.env["ir.model"].search([("model", "=", "res.partner")]).id
+        self.create_empty_app()
+        self.env["ir.model.fields"].create({
+            "name": "x_studio_currency_test",
+            "model": "res.partner",
+            "model_id": res_partner_model_id,
+            "ttype": "many2one",
+            "relation": "res.currency",
+        })
+        self.env["ir.model.fields"].create({
+            "name": "x_studio_monetary_test",
+            "model": "res.partner",
+            "model_id": res_partner_model_id,
+            "ttype": "monetary",
+            "currency_field": "x_studio_currency_test",
+        })
+        self.testView.arch = '''<form>
+            <group>
+                <field name="name"/>
+                <field name="x_studio_currency_test"/>
+                <field name="x_studio_monetary_test"/>
+            </group>
+        </form>'''
+
+        self.env["ir.model.fields"].create({
+            "name": "x_test",
+            "model": "x_test_model",
+            "model_id": self.newModel.id,
+            "ttype": "many2one",
+            "relation": "res.partner",
+        })
+        self.newView.arch = '''
+        <form>
+            <group>
+                <field name="x_name" />
+                <field name="x_test"/>
+            </group>
+        </form>
+        '''
+        self.start_tour("/web?debug=tests", 'web_studio_related_monetary_creation', login="admin")
+        # There is only one currency and there is a new monetary
+        fields = self.env["x_test_model"]._fields
+        currency_name_list = list(filter(lambda key: fields[key]._description_type == 'many2one' and fields[key]._description_relation == 'res.currency', fields.keys()))
+        monetary_name_list = list(filter(lambda key: fields[key].type == 'monetary', fields.keys()))
+        self.assertEqual(len(currency_name_list), 1)
+        self.assertEqual(len(monetary_name_list), 1)
+        # The monetary has been created and is a related field
+        self.assertEqual(self.env['x_test_model']._fields[monetary_name_list[0]].related, "x_test.x_studio_monetary_test")
+        # A currency has been created because there was none in the model/view
+        self.assertEqual(currency_name_list[0], 'x_studio_currency_id')
+
     def test_monetary_change_currency_field(self):
         self.create_empty_app()
         self.env["ir.model.fields"].create({
