@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Jolien De Paepe, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -784,7 +785,7 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__base_marketplace_id
 msgid "Home Marketplace"
-msgstr "Page d'accueil Marketplace"
+msgstr "Marketplace initiale"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__id
@@ -912,6 +913,15 @@ msgid "Marketplaces"
 msgstr "Marketplaces"
 
 #. module: sale_amazon
+#: model:ir.model,name:sale_amazon.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
+msgstr ""
+"Modèle ajoutant les champs nécessaires aux produits à utiliser avec des "
+"étiquettes électroniques de Pricer"
+
+#. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__name
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_marketplace__name
 msgid "Name"
@@ -940,7 +950,7 @@ msgstr "Nombre d'offres"
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_product_template_view_form
 #, python-format
 msgid "Offers"
-msgstr "Nos offres"
+msgstr "Offres"
 
 #. module: sale_amazon
 #. odoo-python
@@ -979,7 +989,6 @@ msgid "Processing"
 msgstr "En cours de traitement"
 
 #. module: sale_amazon
-#: model:ir.model,name:sale_amazon.model_product_template
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_offer__product_id
 msgid "Product"
 msgstr "Produit"
@@ -1261,7 +1270,7 @@ msgstr "L'email chiffré du client. Ne transfère pas les mails."
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__base_marketplace_id
 msgid "The home marketplace of this account; used for authentication only."
 msgstr ""
-"La page d'accueil de la marketplace de ce compte ; uniquement utilisé pour "
+"La marketplace initiale de ce compte ; uniquement utilisé pour "
 "l'authentification."
 
 #. module: sale_amazon

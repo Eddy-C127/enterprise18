@@ -3,9 +3,9 @@
 # 	* account_reports
 # 
 # Translators:
-# Junko Augias, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2473,7 +2473,7 @@ msgstr "取引先"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Partner Categories"
-msgstr ""
+msgstr "取引先カテゴリ"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
@@ -2635,7 +2635,7 @@ msgstr "記帳"
 msgid ""
 "Posting this entry will also update and post the unposted closings of the "
 "depending companies."
-msgstr ""
+msgstr "この仕訳を記帳することで、各社の未記帳の決算も更新され、記帳されます。"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -2940,7 +2940,7 @@ msgstr "申告期限"
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_show_multi_closing_warning
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_show_multi_closing_warning
 msgid "Tax Closing Show Multi Closing Warning"
-msgstr ""
+msgstr "税締切、複数締切表示"
 
 #. module: account_reports
 #. odoo-python
@@ -3106,6 +3106,8 @@ msgid ""
 "model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
 " company."
 msgstr ""
+"税務報告書の添付書類は、代表会社の<a href='#' data-oe-model='account.move' data-oe-"
+"id='%s'>決算仕訳</a>に記載されています。"
 
 #. module: account_reports
 #. odoo-python

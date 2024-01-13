@@ -7,8 +7,8 @@
 # Ivana Bartonkova, 2023
 # karolína schusterová <karolina.schusterova@vdp.sk>, 2023
 # Wil Odoo, 2023
-# Tomáš Píšek, 2023
 # Aleš Fiala <f.ales1@seznam.cz>, 2024
+# Tomáš Píšek, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2024\n"
+"Last-Translator: Tomáš Píšek, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,13 +95,10 @@ msgstr "<b>Přetažením</b> karty změníte fázi svého požadavku."
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 #, python-format
 msgid ""
-"<b>Log notes</b> for internal communications (you will only notify the persons you specifically tag). \n"
-"    Use <b>@ mentions</b> to ping a colleague \n"
-"    or <b># mentions</b> to contact a group of people."
+"<b>Log notes</b> for internal communications (you will only notify the "
+"persons you specifically tag). Use <b>@ mentions</b> to ping a colleague or "
+"<b># mentions</b> to contact a group of people."
 msgstr ""
-"<b>Záznamové poznámky</b> pro interní komunikaci (upozorníte pouze osoby, které konkrétně označíte).\n"
-"    Pomocí <b>@ zmínek</b> můžete pingnout kolegu\n"
-"    nebo <b># zmínek</b> kontaktovat skupiny lidí."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -589,7 +586,7 @@ msgstr "Alias domény"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_full_name
 msgid "Alias Email"
-msgstr ""
+msgstr "E-mailový alias"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_email_from
@@ -604,12 +601,12 @@ msgstr "Název aliasu"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_status
 msgid "Alias Status"
-msgstr ""
+msgstr "Stav aliasu"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_status
 msgid "Alias status assessed on the last message received."
-msgstr ""
+msgstr "Stav aliasu při poslední doručené zprávě."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_model_id
@@ -1375,6 +1372,9 @@ msgid ""
 "By default, the email will be sent from the email alias of the helpdesk team.\n"
 "Otherwise it will be sent from the company's email address, or from the catchall (as defined in the System Parameters)."
 msgstr ""
+"E-mail se automaticky odešle zákazníkovi, když tiket dosáhne této fáze.\n"
+"Ve výchozím nastavení bude e-mail odeslán z e-mailového aliasu týmu helpdesku.\n"
+"V opačném případě bude odeslán z e-mailové adresy společnosti nebo z obchodního místa (jak je definováno v Systémových parametrech)."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__email_cc
@@ -1779,7 +1779,7 @@ msgstr "Hodiny do první reakce"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_deadline_hours
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_deadline_hours
 msgid "Hours to SLA Deadline"
-msgstr ""
+msgstr "Hodiny do uzávěrky SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__id
@@ -1835,6 +1835,8 @@ msgid ""
 "If enabled, portal users will have access to your customer satisfaction statistics from the last 30 days in their portal.\n"
 "They will only have access to the ratings themselves, and not to the written feedback if any was left. You can also manually hide ratings of your choosing."
 msgstr ""
+"Pokud je povoleno, uživatelé portálu budou mít přístup ke statistikám spokojenosti zákazníků za posledních 30 dní na jejich portálu.\n"
+"Budou mít přístup pouze k samotným hodnocením, nikoli k písemné zpětné vazbě, pokud nějaká zůstala. Hodnocení dle vlastního výběru můžete také ručně skrýt."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_bounced_content
@@ -1908,6 +1910,8 @@ msgid ""
 "It is necessary to enable customer ratings in the settings of your helpdesk "
 "team so that they can be displayed on the portal."
 msgstr ""
+"Hodnocení zákazníků je nutné povolit v nastavení vašeho helpdeskového týmu, "
+"aby bylo možné je zobrazovat na portálu."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__duration_tracking
@@ -2011,7 +2015,7 @@ msgstr "Aktivity po termínu"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_data
 msgid "Latest Ratings"
-msgstr ""
+msgstr "Nejnovější hodnocení"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2036,6 +2040,8 @@ msgid ""
 "Let's go back to the <b>kanban view</b> to get an overview of your next "
 "tickets."
 msgstr ""
+"Vraťme se k <b>zobrazení kanban</b>, abychom získali přehled o vašich "
+"příštích tiketech."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2052,7 +2058,7 @@ msgstr "Živý chat"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_incoming_local
 msgid "Local-part based incoming detection"
-msgstr ""
+msgstr "Detekce příchozích na základě místní části"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
@@ -2091,6 +2097,8 @@ msgid ""
 "Maximum number of working hours a ticket should take to reach the target "
 "stage, starting from the date it was created."
 msgstr ""
+"Maximální počet pracovních hodin, které by tiket měl trvat, než dosáhne "
+"cílové fáze, počínaje datem, kdy byl vytvořen."
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.rating_rating_action_helpdesk
@@ -2098,6 +2106,8 @@ msgid ""
 "Measure your customer satisfaction by sending rating requests when your "
 "tickets are solved."
 msgstr ""
+"Změřte svou spokojenost zákazníků zasláním žádostí o hodnocení, když jsou "
+"vaše tikety vyřešeny."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__medium_id
@@ -2231,6 +2241,8 @@ msgid ""
 "New tickets will automatically be assigned to the team members that are "
 "available, according to their working hours and their time off."
 msgstr ""
+"Nové tikety budou automaticky přiřazeny členům týmu, kteří jsou k dispozici,"
+" podle jejich pracovní doby a volna."
 
 #. module: helpdesk
 #. odoo-python
@@ -2238,11 +2250,6 @@ msgstr ""
 #, python-format
 msgid "Newest"
 msgstr "Nejnovější"
-
-#. module: helpdesk
-#: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Další aktivita z kalendáře"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__activity_date_deadline
@@ -2268,7 +2275,7 @@ msgstr "Nebyly nalezeny žádné zásady SLA. Vytvořme si jeden!"
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.mail_activity_type_action_config_helpdesk
 msgid "No activity types found. Let's create one!"
-msgstr ""
+msgstr "Nebyly nalezeny žádné typy aktivit. Vytvořme si jeden!"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_sla_report_analysis_action
@@ -2304,7 +2311,7 @@ msgstr "Nebyly nalezeny žádné týmy"
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_team_action
 msgid "No teams found. Let's create one!"
-msgstr ""
+msgstr "Nebyly nalezeny žádné týmy. Vytvořme si jeden!"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_my_ticket_action_no_create
@@ -2340,12 +2347,12 @@ msgstr "Počet akcí"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_status_failed
 msgid "Number of SLA Failed"
-msgstr ""
+msgstr "Počet neúspěšných SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage_delete_wizard__ticket_count
 msgid "Number of Tickets"
-msgstr ""
+msgstr "Počet tiketů"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_has_error_counter
@@ -2368,12 +2375,12 @@ msgstr "Počet zpráv s chybou při doručení"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "Number of open tickets with at least one SLA failed."
-msgstr ""
+msgstr "Počet otevřených tiketů s alespoň jedním neúspěšným SLA."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__partner_open_ticket_count
 msgid "Number of other open tickets from the same partner"
-msgstr ""
+msgstr "Počet dalších otevřených tiketů od stejného partnera"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__partner_ticket_count
@@ -2394,7 +2401,7 @@ msgstr "OK"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__oldest_unanswered_customer_message_date
 msgid "Oldest Unanswered Customer Message Date"
-msgstr ""
+msgstr "Datum nejstarší nezodpovězené zákaznické zprávy"
 
 #. module: helpdesk
 #: model:helpdesk.stage,name:helpdesk.stage_on_hold
@@ -2503,6 +2510,15 @@ msgid ""
 "- Invited portal users and all internal users: all internal users can access the team and all of its tickets without distinction.\n"
 "Portal users can only access the tickets they are following. This access can be modified on each ticket individually by adding or removing the portal user as follower."
 msgstr ""
+"Lidé, kterým bude tento tým helpdesku a jeho tikety viditelný.\n"
+"\n"
+"- Pozvaní interní uživatelé: interní uživatelé mají přístup k týmu a tiketům, které sledují. Tento přístup lze upravit u každého tiketu jednotlivě přidáním nebo odebráním uživatele jako sledujícího.\n"
+"Uživatel s úrovní přístupových práv helpdesk > administrátor má stále přístup k tomuto týmu a jeho tiketům, i když nejsou explicitně součástí sledujících.\n"
+"\n"
+"- Všichni interní uživatelé: všichni interní uživatelé mají přístup k týmu a všem jeho tiketům bez rozdílu.\n"
+"\n"
+"- Pozvaní uživatelé portálu a všichni interní uživatelé: všichni interní uživatelé mají přístup k týmu a všem jeho tiketům bez rozdílu.\n"
+"Uživatelé portálu mají přístup pouze k tiketům, které sledují. Tento přístup lze upravit u každého tiketu jednotlivě přidáním nebo odebráním uživatele portálu jako sledujícího."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2601,7 +2617,7 @@ msgstr "URL portálového přístupu"
 #, python-format
 msgid ""
 "Portal users will be removed from the followers of the team and its tickets."
-msgstr ""
+msgstr "Uživatelé portálu budou odebráni ze sledujících týmu a jeho tiketů."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__priority
@@ -2613,7 +2629,7 @@ msgstr "Priorita"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__privacy_visibility_warning
 msgid "Privacy Visibility Warning"
-msgstr ""
+msgstr "Upozornění na viditelnost soukromí"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__properties
@@ -2690,7 +2706,7 @@ msgstr "Hodnocení"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__portal_show_rating
 msgid "Ratings on Website"
-msgstr ""
+msgstr "Hodnocení na webové stránce"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -2726,6 +2742,8 @@ msgid ""
 "Receive notifications whenever tickets are created, rated or discussed on in"
 " this team"
 msgstr ""
+"Přijímejte notifikace vždy, když jsou v tomto týmu vytvořeny, ohodnoceny "
+"nebo diskutovány tikety."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_force_thread_id
@@ -2779,7 +2797,7 @@ msgstr "Opravy"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
 msgid "Reported on"
-msgstr ""
+msgstr "Nahlášeno dne"
 
 #. module: helpdesk
 #: model:ir.ui.menu,name:helpdesk.helpdesk_ticket_report_menu_main
@@ -2852,6 +2870,8 @@ msgid ""
 "SLA Policies that will automatically apply to the tickets submitted by this "
 "customer."
 msgstr ""
+"Zásady SLA, které se automaticky použijí na tikety předložené tímto "
+"zákazníkem."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -2957,7 +2977,7 @@ msgstr "Spokojený"
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 #, python-format
 msgid "Schedule your <b>activity</b>."
-msgstr ""
+msgstr "Naplánuje si svou <b>aktivitu</b>."
 
 #. module: helpdesk
 #. odoo-python
@@ -2976,7 +2996,7 @@ msgstr "Hledat Zásady SLA"
 #: code:addons/helpdesk/controllers/portal.py:0
 #, python-format
 msgid "Search in Assigned to"
-msgstr ""
+msgstr "Hledat v části Přiřazeno k"
 
 #. module: helpdesk
 #. odoo-python
@@ -3087,12 +3107,12 @@ msgstr ""
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_rating
 msgid "Show Customer Ratings"
-msgstr ""
+msgstr "Zobrazit hodnocení zákazníků"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__show_knowledge_base
 msgid "Show Knowledge Base"
-msgstr ""
+msgstr "Zobrazit databázi znalostí"
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_sla
@@ -3199,7 +3219,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__duration_tracking
 msgid "Status time"
-msgstr ""
+msgstr "Čas"
 
 #. module: helpdesk
 #. odoo-python
@@ -3340,7 +3360,7 @@ msgstr "Tým nepovoluje uzavírání požadavků prostřednictvím portálu"
 msgid ""
 "The time spent in these stages won't be taken into account in the "
 "calculation of the SLA."
-msgstr ""
+msgstr "Čas strávený v těchto fázích nebude při výpočtu SLA zohledněn."
 
 #. module: helpdesk
 #. odoo-python
@@ -3350,6 +3370,8 @@ msgid ""
 "The visibility of the team needs to be set as \"Invited portal users and all"
 " internal users\" in order to use the website form."
 msgstr ""
+"Viditelnost týmu musí být nastavena jako \"Pozvaní uživatelé portálu a "
+"všichni interní uživatelé\", aby bylo možné používat webový formulář."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
@@ -3422,6 +3444,8 @@ msgid ""
 "This will archive the stages and all of the tickets they contain from the "
 "following teams:"
 msgstr ""
+"Tím se archivují fáze a všechny tikety, které obsahují, z následujících "
+"týmů:"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.mail_activity_type_action_config_helpdesk
@@ -3429,6 +3453,8 @@ msgid ""
 "Those represent the different categories of things you have to do (e.g. "
 "\"Call\" or \"Send email\")."
 msgstr ""
+"Ty představují různé kategorie věcí, které musíte udělat (např. „Zavolat“ "
+"nebo „Poslat e-mail“)."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3499,12 +3525,12 @@ msgstr "Uzávěrka požadavků"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__ticket_ref
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_ref
 msgid "Ticket IDs Sequence"
-msgstr ""
+msgstr "Posloupnost ID tiketu"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__ticket_properties
 msgid "Ticket Properties"
-msgstr ""
+msgstr "Vlastnosti tiketu"
 
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_team_ticket_rated
@@ -3597,7 +3623,7 @@ msgstr "Vyhledávání požadavků"
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_stage__fold
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__fold
 msgid "Tickets in a folded stage are considered as closed."
-msgstr ""
+msgstr "Tikety ve složené fázi jsou považovány za uzavřené."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_helpdesk_sale_timesheet
@@ -3634,6 +3660,8 @@ msgid ""
 "To get things done, plan activities and use the ticket status.<br>\n"
 "                Collaborate efficiently by chatting in real-time or via email."
 msgstr ""
+"Chcete-li věci dokončit, naplánujte si aktivity a použijte stav tiketu.<br>\n"
+"                Spolupracujte efektivně chatováním v reálném čase nebo e-mailem."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3652,12 +3680,12 @@ msgstr "Dnešní aktivity"
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "Today Average Rating"
-msgstr ""
+msgstr "Průměrné hodnocení dnes"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__total_response_hours
 msgid "Total Exchange Time in Hours"
-msgstr ""
+msgstr "Celkový čas výměny v hodinách"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3676,6 +3704,8 @@ msgid ""
 "Track the performance of your teams, the success rate of your tickets, and "
 "how quickly you reach your service level agreements (SLAs)."
 msgstr ""
+"Sledujte výkon svých týmů, úspěšnost svých tiketů a jak rychle dosáhnete "
+"svých smluv o úrovni služeb (SLA)."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3725,7 +3755,7 @@ msgstr "Typy jsou ideální pro kategorizaci vašich požadavků."
 #: code:addons/helpdesk/models/helpdesk_stage.py:0
 #, python-format
 msgid "Unarchive Tickets"
-msgstr ""
+msgstr "Zrušit archivaci tiketů"
 
 #. module: helpdesk
 #. odoo-python
@@ -3802,11 +3832,10 @@ msgstr "Použijte výnosy"
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 #, python-format
 msgid ""
-"Use the chatter to <b>send emails</b> and communicate efficiently with your customers. \n"
-"    Add new people to the followers' list to make them aware of the progress of this ticket."
+"Use the chatter to <b>send emails</b> and communicate efficiently with your "
+"customers. Add new people to the followers' list to make them aware of the "
+"progress of this ticket."
 msgstr ""
-"Pomocí chatování <b>posílejte e-maily</b> a efektivně komunikujte se svými zákazníky.\n"
-"    Přidejte nové lidi do seznamu sledujících, aby byli informováni o průběhu tohoto požadavku."
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_res_users
@@ -3854,6 +3883,8 @@ msgid ""
 "We provide 24/7 support, Monday through Friday. Ticket responses are usually provided within 2 working days.<br>\n"
 "            Support is mainly provided in English. We can also assist in Spanish, French, and Dutch."
 msgstr ""
+"Poskytujeme podporu 24/7, od pondělí do pátku. Odpovědi na tikety jsou obvykle poskytovány do 2 pracovních dnů.<br>\n"
+"            Podpora je poskytována převážně v angličtině. Můžeme také pomoci ve španělštině, francouzštině a holandštině."
 
 #. module: helpdesk
 #: model:helpdesk.tag,name:helpdesk.tag_website
@@ -3900,7 +3931,7 @@ msgstr "Pracovní doba do zavírací hodiny"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_exceeded_hours
 msgid "Working Hours to Reach SLA"
-msgstr ""
+msgstr "Pracovní doba pro dosažení SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__exceeded_hours
@@ -3908,6 +3939,8 @@ msgid ""
 "Working hours exceeded for reached SLAs compared with deadline. Positive "
 "number means the SLA was reached after the deadline."
 msgstr ""
+"Překročena pracovní doba pro dosažené SLA ve srovnání s termínem. Kladné "
+"číslo znamená, že SLA byla uzavřena po uplynutí lhůty."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__resource_calendar_id
@@ -3919,7 +3952,7 @@ msgstr "Pracovní doba, která se používá pro stanovení lhůty zásad SLA."
 msgid ""
 "Would you like to unarchive all of the tickets contained in these stages as "
 "well?"
-msgstr ""
+msgstr "Chcete také zrušit archivaci všech tiketů obsažených v těchto fázích?"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
@@ -3927,6 +3960,8 @@ msgid ""
 "You cannot delete stages containing tickets. You can either archive them or "
 "first delete all of their tickets."
 msgstr ""
+"Fáze obsahující tikety nelze odstranit. Můžete je buď archivovat, nebo "
+"nejprve smazat všechny jejich tikety."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
@@ -3934,6 +3969,8 @@ msgid ""
 "You cannot delete stages containing tickets. You should first delete all of "
 "their tickets."
 msgstr ""
+"Fáze obsahující tikety nelze odstranit. Nejprve byste měli odstranit všechny"
+" jejich tikety."
 
 #. module: helpdesk
 #: model:ir.model.constraint,message:helpdesk.constraint_res_users_target_closed_not_zero
@@ -3961,12 +3998,12 @@ msgstr "např. péče o zákazníky"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 #: model_terms:ir.ui.view,arch_db:helpdesk.quick_create_ticket_form
 msgid "e.g. Product arrived damaged"
-msgstr ""
+msgstr "např. Produkt dorazil poškozený"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_type_view_tree
 msgid "e.g. Question"
-msgstr ""
+msgstr "např. Otázka"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3991,7 +4028,7 @@ msgstr "byl vytvořen z požadavku:"
 #. module: helpdesk
 #: model:ir.actions.server,name:helpdesk.helpdesk_ratings_server_action
 msgid "helpdesk view rating"
-msgstr ""
+msgstr "helpdesk zobrazit hodnocení"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -4022,4 +4059,4 @@ msgstr "{{ object.display_name }}"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_data
 msgid "{{rating.res_name if t['is_helpdesk_user'] else ''}}"
-msgstr ""
+msgstr "{{rating.res_name if t['is_helpdesk_user'] else ''}}"

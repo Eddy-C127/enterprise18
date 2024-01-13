@@ -9,16 +9,16 @@
 # Tamás Dombos, 2023
 # gezza <geza.nagy@oregional.hu>, 2023
 # Martin Trigaux, 2023
-# krnkris, 2023
 # Tamás Németh <ntomasz81@gmail.com>, 2023
+# krnkris, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 14:01+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tamás Németh <ntomasz81@gmail.com>, 2023\n"
+"Last-Translator: krnkris, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -226,15 +226,6 @@ msgid ""
 msgstr ""
 
 #. module: account_followup
-#: model:ir.model.constraint,message:account_followup.constraint_account_followup_followup_line_uniq_name
-msgid ""
-"A follow-up action name must be unique. This name is already set to another "
-"action."
-msgstr ""
-"Az emlékeztető akció nevének egyedinek kell lennie. Ez a név már "
-"használatban van egy másik akciónál."
-
-#. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__account_followup_followup_line__activity_default_responsible_type__account_manager
 msgid "Account Manager"
 msgstr "Partner menedzser"
@@ -410,11 +401,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_followup.followup_filter_info_template
 msgid "Date:"
 msgstr "Dátum:"
-
-#. module: account_followup
-#: model:ir.model.constraint,message:account_followup.constraint_account_followup_followup_line_days_uniq
-msgid "Days of the follow-up lines must be different per company"
-msgstr "Az emlékeztető sorok napjainak eltérőnek kell lennie vállalatonként"
 
 #. module: account_followup
 #. odoo-python
@@ -651,14 +637,6 @@ msgid "In need of action"
 msgstr "Akció szükséges"
 
 #. module: account_followup
-#. odoo-python
-#: code:addons/account_followup/models/account_followup_report.py:0
-#: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_form_view
-#, python-format
-msgid "Invoice No."
-msgstr "Számla sorsz."
-
-#. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_form_view
 msgid "Invoices"
 msgstr "Számlák"
@@ -844,6 +822,14 @@ msgstr "Automatikus fizetési emlékeztetők feldolgozása"
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_form_view
 msgid "Reconcile"
 msgstr "Egyeztetés"
+
+#. module: account_followup
+#. odoo-python
+#: code:addons/account_followup/models/account_followup_report.py:0
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_form_view
+#, python-format
+msgid "Reference"
+msgstr "Hivatkozás"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form

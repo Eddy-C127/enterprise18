@@ -694,8 +694,8 @@ msgid ""
 "<i class=\"fa fa-w fa-info-circle\"/> All external users you selected won't "
 "be added to the members."
 msgstr ""
-"<i class=\"fa fa-w fa-info-circle\"/>Todos los usuarios externos que ud "
-"seleccionó no serán agregados como miembros"
+"<i class=\"fa fa-w fa-info-circle\"/> Todos los usuarios externos que haya "
+"seleccionado no se añadirán a los miembros."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_kanban
@@ -1390,6 +1390,13 @@ msgid ""
 msgstr ""
 "<span style=\"font-size: 14px;\">¿Necesita este documento en alguna parte? "
 "Regrese aquí haciendo clic en el icono 📗 en el chatter.</span>"
+
+#. module: knowledge
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
+msgid ""
+"<span style=\"font-size: 14px;\">Not sure how to do it? Check the video "
+"below 👇</span>"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -3170,7 +3177,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Cover"
-msgstr "Cubrir"
+msgstr "Portada"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__attachment_url
@@ -3710,6 +3717,13 @@ msgid "Gender(s): W"
 msgstr "Sexo(s): f"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#, python-format
+msgid "Generate an Article with AI"
+msgstr ""
+
+#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_search
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_member_view_search
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_stage_view_search
@@ -3971,7 +3985,7 @@ msgstr ""
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__message_needaction
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_thread__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
+msgstr "Si está marcada, hay nuevos mensajes que requieren su atención."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__message_has_error
@@ -3979,7 +3993,7 @@ msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_thread__message_has_error
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_thread__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+msgstr "Si está marcada, algunos mensajes tienen error de envío."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -4093,7 +4107,7 @@ msgstr "Insertar"
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert Link"
-msgstr "Inserta vínculo"
+msgstr "Insertar enlace"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4328,7 +4342,7 @@ msgstr "Calendario de elementos"
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Item Cards"
-msgstr "Tarjetas de elemento"
+msgstr "Tarjetas de elementos"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4362,7 +4376,7 @@ msgstr "JPG"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Job Position:"
-msgstr "Puesto de Trabajo:"
+msgstr "Puesto de trabajo:"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
@@ -4429,7 +4443,7 @@ msgstr "Información"
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article
 msgid "Knowledge Article"
-msgstr "Artículo de conocimiento"
+msgstr "Artículo de Información"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_cover
@@ -4721,7 +4735,7 @@ msgstr "Mensaje"
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_has_error
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__message_has_error
 msgid "Message Delivery error"
-msgstr "Error de Envío de Mensaje"
+msgstr "Error de envío de mensaje"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_ids
@@ -5160,7 +5174,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_views.xml:0
 #, python-format
 msgid "Open"
-msgstr "Abierto"
+msgstr "Abrir"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5204,7 +5218,7 @@ msgid ""
 "                        (Text, Selection, ...)."
 msgstr ""
 "Organice su base de datos con campos personalizados\n"
-"                        (Texto, selección, ...)."
+"                        (Texto, selección,...)."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos
@@ -5248,7 +5262,7 @@ msgstr "Artículo principal"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__parent_path
 msgid "Parent Path"
-msgstr "Ruta padre"
+msgstr "Ruta principal"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_form
@@ -5709,7 +5723,7 @@ msgstr "Proyectos SEO y SEA (uso de palabras clave...)"
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_has_sms_error
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "Error de entrega del SMS"
+msgstr "Error de envío del SMS"
 
 #. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_sales
@@ -5751,7 +5765,7 @@ msgstr "Guardar posición"
 #. module: knowledge
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_article
 msgid "Search"
-msgstr "Búsqueda"
+msgstr "Buscar"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_search
@@ -5763,7 +5777,7 @@ msgstr "Buscar favoritos"
 #: code:addons/knowledge/static/src/xml/form_controller.xml:0
 #, python-format
 msgid "Search Knowledge Articles"
-msgstr "Buscar en artículos de información"
+msgstr "Buscar en artículos de Información"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_member_view_search
@@ -6184,7 +6198,7 @@ msgstr "Categorías de plantilla"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_category_id
 msgid "Template Category"
-msgstr "Categoría de la plantilla"
+msgstr "Categoría de plantilla"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_category_sequence
@@ -6204,7 +6218,7 @@ msgstr "Elementos de la plantilla"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_preview
 msgid "Template Preview"
-msgstr "Vista previa plantilla"
+msgstr "Vista previa de la plantilla"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_sequence
@@ -6856,6 +6870,13 @@ msgid "Write"
 msgstr "Editar"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
+#, python-format
+msgid "Write an article about"
+msgstr ""
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid ""
 "Write it without any article(<em><s>the</s> YourCompany, <s>a</s> "
@@ -6945,6 +6966,15 @@ msgstr "No puede guardar este artículo como favorito"
 #, python-format
 msgid "You can't leave an article for which you are the last writer"
 msgstr "No puede abandonar un artículo del cual es el último autor"
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
+"Article Item. Convert %(item_name)s into an Article first."
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -7156,26 +7186,26 @@ msgstr "portada"
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.js:0
 #, python-format
 msgid "e.g. Buildings"
-msgstr "por ejemplo, edificios"
+msgstr "p. ej. edificios"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "e.g. Meetings"
-msgstr "por ejemplo, reuniones"
+msgstr "p. ej. reuniones"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_stage_view_form
 msgid "e.g. Ongoing"
-msgstr "por ejemplo, en curso"
+msgstr "p. ej. en curso"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.js:0
 #, python-format
 msgid "e.g. Todos"
-msgstr "por ejemplo, actividades pendientes"
+msgstr "p. ej. actividades pendientes"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
@@ -7247,7 +7277,7 @@ msgstr "leer"
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "search"
-msgstr "Buscar"
+msgstr "buscar"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_mail_invite

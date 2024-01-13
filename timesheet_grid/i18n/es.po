@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Larissa Manderfeld, 2023
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2023\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -947,7 +947,7 @@ msgstr "Recordatorio para validar las hojas de asistencia de su equipo"
 #: model:ir.actions.server,name:timesheet_grid.invalidate_timesheet_action
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_form_view
 msgid "Reset to draft"
-msgstr "Cambiar a borrador"
+msgstr "Restablecer a borrador"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_form
@@ -1125,7 +1125,7 @@ msgstr "Los hojas de asistencia se han fusionado correctamente."
 #: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
 msgid "The timesheets have successfully been reset to draft."
-msgstr "Las hojas de tiempo se han restablecido con éxito en el borrador."
+msgstr "Las hojas de asistencia se han restablecido correctamente a borrador."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1156,7 +1156,7 @@ msgid ""
 "There are no timesheets to reset to draft or they have already been "
 "invoiced."
 msgstr ""
-"No hay partes de horas que restablecer a borradores o ya se facturaron."
+"No hay hojas de asistencia que restablecer a borradores o ya se facturaron."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1404,7 +1404,8 @@ msgstr "Horas extraordinarias semanales"
 #: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line__user_can_validate
 msgid ""
 "Whether or not the current user can validate/reset to draft the record."
-msgstr "Si el usuario actual puede validar/resetear a borrador el registro."
+msgstr ""
+"Si el usuario actual puede validar/restablecer a borrador el registro."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1422,8 +1423,8 @@ msgid ""
 "You can only reset to draft the timesheets of employees of whom you are the "
 "manager or the timesheet approver."
 msgstr ""
-"Solo puede resetear a borrador las hojas de asistencia de los empleados de "
-"los que es el responsable o aprobador."
+"Solo puede restablecer a borrador las hojas de asistencia de los empleados "
+"de los que es el responsable o aprobador."
 
 #. module: timesheet_grid
 #. odoo-python

@@ -3,10 +3,10 @@
 # 	* account_reports
 # 
 # Translators:
-# Jolien De Paepe, 2023
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Jolien De Paepe, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -279,7 +279,7 @@ msgstr "Boekhoudkundige rapportages"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic_groupby.xml:0
 #, python-format
 msgid "Accounts"
-msgstr "Kostenplaatsen"
+msgstr "Rekeningen"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -476,7 +476,7 @@ msgstr "Bedrag in valuta: %s"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic.xml:0
 #, python-format
 msgid "Analytic Filter"
-msgstr "Kostenplaatsfilter"
+msgstr "Analytische filter"
 
 #. module: account_reports
 #. odoo-javascript
@@ -484,7 +484,7 @@ msgstr "Kostenplaatsfilter"
 #: model:ir.model.fields,field_description:account_reports.field_account_report__filter_analytic_groupby
 #, python-format
 msgid "Analytic Group By"
-msgstr "Groeperen op kostenplaats"
+msgstr "Groeperen op analytische rekeningen"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1796,7 +1796,7 @@ msgstr "Inactief"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Include Analytic Simulations"
-msgstr "Inclusief kostenplaatssimulaties"
+msgstr "Inclusief analytische simulaties"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1817,7 +1817,7 @@ msgstr "Inclusief betalingen"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Including Analytic Simulations"
-msgstr "Inclusief kostenplaatssimulaties"
+msgstr "Inclusief analytische simulaties"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -2514,7 +2514,7 @@ msgstr "Relatie"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Partner Categories"
-msgstr ""
+msgstr "Relatiecategorieën"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
@@ -2677,6 +2677,8 @@ msgid ""
 "Posting this entry will also update and post the unposted closings of the "
 "depending companies."
 msgstr ""
+"Het boeken van deze boeking zal ook de ongeboekte afsluitingen van de "
+"afhankelijke bedrijven bijwerken en boeken."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -2985,7 +2987,7 @@ msgstr "BTW afsluitdatum"
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_show_multi_closing_warning
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_show_multi_closing_warning
 msgid "Tax Closing Show Multi Closing Warning"
-msgstr ""
+msgstr "Btw-afsluiting Toon waarschuwing meerdere afsluitingen"
 
 #. module: account_reports
 #. odoo-python
@@ -3155,6 +3157,9 @@ msgid ""
 "model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
 " company."
 msgstr ""
+"De bijlagen van het belastingrapport zijn te vinden op de <a href='#' data-"
+"oe-model='account.move' data-oe-id='%s'>afsluitboeking</a> van het "
+"vertegenwoordigde bedrijf."
 
 #. module: account_reports
 #. odoo-python
@@ -3851,7 +3856,7 @@ msgstr "die niet in het buitenland zijn gevestigd."
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_date.xml:0
 #, python-format
 msgid "to"
-msgstr "aan"
+msgstr "t/m"
 
 #. module: account_reports
 #. odoo-javascript

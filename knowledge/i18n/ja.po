@@ -921,7 +921,7 @@ msgstr ""
 "            — これは\n"
 "            <span style=\"font-weight: bolder;\"><font class=\"text-o-color-2\">あなたのものです</font></span>、\n"
 "            ご自分用にしておきましょう。\n"
-"            (<span style=\"font-style: italic;\">下書き、 Todoリスト..</span>)\n"
+"            (<span style=\"font-style: italic;\">ドラフト、 Todoリスト..</span>)\n"
 "        </span>"
 
 #. module: knowledge
@@ -1363,6 +1363,13 @@ msgid ""
 msgstr ""
 "<span style=\"font-size: "
 "14px;\">このドキュメントがどこかで必要ですか？チャターの📗アイコンをクリックしてここに戻って来て下さい。</span>"
+
+#. module: knowledge
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
+msgid ""
+"<span style=\"font-size: 14px;\">Not sure how to do it? Check the video "
+"below 👇</span>"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -3603,6 +3610,13 @@ msgstr "性別: 男性"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Gender(s): W"
 msgstr "性別: 女性"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#, python-format
+msgid "Generate an Article with AI"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_search
@@ -6668,6 +6682,13 @@ msgid "Write"
 msgstr "書く"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
+#, python-format
+msgid "Write an article about"
+msgstr ""
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid ""
 "Write it without any article(<em><s>the</s> YourCompany, <s>a</s> "
@@ -6756,6 +6777,15 @@ msgstr "この記事のお気に入りは保存できません。"
 #, python-format
 msgid "You can't leave an article for which you are the last writer"
 msgstr "自分が最後の執筆者である記事を残すことはできません。"
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
+"Article Item. Convert %(item_name)s into an Article first."
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
