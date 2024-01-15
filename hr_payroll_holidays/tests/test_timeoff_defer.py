@@ -102,7 +102,7 @@ class TestTimeoffDefer(TestPayrollHolidaysBase):
         payslip.compute_sheet()
         self.assertEqual(payslip.state, 'verify')
 
-        self.env['hr.leave'].with_user(self.vlad).create({
+        leave_1 = self.env['hr.leave'].with_user(self.vlad).create({
             'name': 'Tennis',
             'holiday_status_id': self.leave_type.id,
             'employee_id': self.emp.id,
@@ -110,44 +110,42 @@ class TestTimeoffDefer(TestPayrollHolidaysBase):
             'request_date_to': '2022-01-12',
         })
         payslip.action_payslip_done()
+        self.assertEqual(payslip.state, 'done')
 
-        # A Simple User can't request a leave if a payslip is paid
-        with self.assertRaises(ValidationError):
-            self.env['hr.leave'].with_user(self.vlad).create({
-                'name': 'Tennis',
-                'holiday_status_id': self.leave_type.id,
-                'employee_id': self.emp.id,
-                'request_date_from': '2022-01-19',
-                'request_date_to': '2022-01-19',
-            })
+        leave_1.sudo().action_validate()
+        self.assertEqual(leave_1.payslip_state, 'blocked', 'Leave should be to defer')
 
-        # Check overlapping periods with no payslip
-        with self.assertRaises(ValidationError):
-            self.env['hr.leave'].with_user(self.vlad).create({
-                'name': 'Tennis',
-                'holiday_status_id': self.leave_type.id,
-                'employee_id': self.emp.id,
-                'request_date_from': '2022-01-31',
-                'request_date_to': '2022-02-01',
-            })
-
-        with self.assertRaises(ValidationError):
-            self.env['hr.leave'].with_user(self.vlad).create({
-                'name': 'Tennis',
-                'holiday_status_id': self.leave_type.id,
-                'employee_id': self.emp.id,
-                'request_date_from': '2021-01-31',
-                'request_date_to': '2022-01-03',
-            })
-
-        # But a time off officer can
-        self.env['hr.leave'].with_user(self.joseph).create({
+        # A Simple User can request a leave if a payslip is paid
+        leave_2 = self.env['hr.leave'].with_user(self.vlad).create({
             'name': 'Tennis',
             'holiday_status_id': self.leave_type.id,
             'employee_id': self.emp.id,
             'request_date_from': '2022-01-19',
             'request_date_to': '2022-01-19',
         })
+        leave_2.sudo().action_validate()
+        self.assertEqual(leave_2.payslip_state, 'blocked', 'Leave should be to defer')
+
+        # Check overlapping periods with no payslip
+        leave_3 = self.env['hr.leave'].with_user(self.vlad).create({
+            'name': 'Tennis',
+            'holiday_status_id': self.leave_type.id,
+            'employee_id': self.emp.id,
+            'request_date_from': '2022-01-31',
+            'request_date_to': '2022-02-01',
+        })
+        leave_3.sudo().action_validate()
+        self.assertEqual(leave_3.payslip_state, 'blocked', 'Leave should be to defer')
+
+        leave_4 = self.env['hr.leave'].with_user(self.vlad).create({
+            'name': 'Tennis',
+            'holiday_status_id': self.leave_type.id,
+            'employee_id': self.emp.id,
+            'request_date_from': '2021-01-31',
+            'request_date_to': '2022-01-03',
+        })
+        leave_4.sudo().action_validate()
+        self.assertEqual(leave_4.payslip_state, 'blocked', 'Leave should be to defer')
 
     def test_report_to_next_month(self):
         self.emp.contract_ids.generate_work_entries(date(2022, 1, 1), date(2022, 2, 28))
