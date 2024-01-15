@@ -68,6 +68,10 @@ class PaymentTransaction(models.Model):
         for tx in self:
             if len(tx.sale_order_ids) > 1 or tx.invoice_ids or not tx.sale_order_ids.is_subscription:
                 continue
+            elif tx.renewal_state in ['draft', 'pending', 'cancel']:
+                # tx should be in an authorized renewal_state otherwise _reconcile_after_done will not be called
+                # but this is a safety to prevent issue when the code is called manually
+                continue
             tx_to_invoice += tx
             draft_invoices = tx.sale_order_ids.order_line.invoice_lines.move_id.filtered(lambda am: am.state == 'draft')
             if draft_invoices:
