@@ -127,7 +127,7 @@ class AccountReport(models.Model):
     def action_audit_cell(self, options, params):
         action = super().action_audit_cell(options, params)
         if options.get('report_cash_basis'):
-            action['domain'].append(('move_id.payment_state', 'in', ('in_payment', 'paid', 'partial', 'reversed')))
+            action['domain'].append(('move_id.impacting_cash_basis', '=', True))
         return action
 
 

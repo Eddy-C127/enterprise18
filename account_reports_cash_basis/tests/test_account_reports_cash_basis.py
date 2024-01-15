@@ -395,15 +395,42 @@ class TestAccountReports(TestAccountReportsCommon):
             options,
         )
 
-    def test_cash_basis_audit_cells(self):
-        def _get_audit_params_from_report_line(options, report_line_id, report_line_dict):
+    # ------------------------------------------------------
+    # Audit Cell of Reports with Cash Basis Filter Activated
+    # ------------------------------------------------------
+
+    def _get_line_from_xml_id(self, lines, report, xml_id):
+        line_id = self.env.ref(xml_id).id
+        line = next(x for x in lines if report._get_model_info_from_id(x['id']) == ('account.report.line', line_id))
+        return line
+
+    def _audit_line(self, options, report, line_xml_id):
+        def _get_audit_params_from_report_line(options, report_line_id, report_line):
             return {
                 'report_line_id': report_line_id,
-                'calling_line_dict_id': report_line_dict['id'],
+                'calling_line_dict_id': report_line['id'],
                 'expression_label': 'balance',
                 'column_group_key': next(iter(options['column_groups'])),
             }
+        lines = report._get_lines(options)
+        line = self._get_line_from_xml_id(lines, report, line_xml_id)
+        return report.action_audit_cell(options, _get_audit_params_from_report_line(options, self.env.ref(line_xml_id).id, line))
 
+    def _create_misc_entry(self, invoice_date, debit_account_id, credit_account_id):
+        new_misc = self.env['account.move'].create({
+            'move_type': 'entry',
+            'date': invoice_date,
+            'journal_id': self.company_data['default_journal_misc'].id,
+            'line_ids': [
+                Command.create({'debit': 1000.0, 'credit': 0.0, 'account_id': debit_account_id}),
+                Command.create({'debit': 0.0, 'credit': 1000.0, 'account_id': credit_account_id}),
+            ],
+        })
+        new_misc.action_post()
+        return new_misc
+
+    def test_cash_basis_audit_cell_invoices(self):
+        # Ensure lines from invoices are part of the audit with cash basis only when a payment in linked to the invoice
         report = self.env.ref('account_reports.profit_and_loss')
         invoice_date = '2023-07-01'
         invoice_1 = self.init_invoice('out_invoice', amounts=[1000.0], taxes=[], partner=self.partner_a, invoice_date=invoice_date, post=True)
@@ -415,14 +442,108 @@ class TestAccountReports(TestAccountReportsCommon):
         )._create_payments()
 
         options = self._generate_options(report, '2023-07-01', '2023-07-31')
-        lines = report._get_lines(options)
-        operating_income_line_id = self.env.ref('account_reports.account_financial_report_income0').id
-        operating_income_line_dict = [x for x in lines if report._get_model_info_from_id(x['id']) == ('account.report.line', operating_income_line_id)][0]
-        action_dict = report.action_audit_cell(options, _get_audit_params_from_report_line(options, operating_income_line_id, operating_income_line_dict))
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+
         expected_move_lines = moves.line_ids.filtered(lambda l: l.account_id == self.revenue_account_1)
-        self.assertEqual(moves.line_ids.filtered_domain(action_dict['domain']), expected_move_lines)
+        self.assertEqual(moves.line_ids.search(audit_domain), expected_move_lines, "Revenue lines of both move should be returned")
 
         options['report_cash_basis'] = True
-        action_dict = report.action_audit_cell(options, _get_audit_params_from_report_line(options, operating_income_line_id, operating_income_line_dict))
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+
         expected_move_lines = invoice_1.line_ids.filtered(lambda l: l.account_id == self.revenue_account_1)
-        self.assertEqual(moves.line_ids.filtered_domain(action_dict['domain']), expected_move_lines)
+        self.assertEqual(self.env['account.move.line'].search(audit_domain), expected_move_lines,
+                         "Revenue line of only paid invoice should be returned")
+
+    def test_cash_basis_audit_cell_misc_without_receivable(self):
+        # Ensure lines from misc entries without receivable are always part of the audit with cash basis
+        report = self.env.ref('account_reports.profit_and_loss')
+        misc_without_receivable = self._create_misc_entry('2023-07-01', self.company_data['default_account_expense'].id, self.revenue_account_1.id)
+        options = self._generate_options(report, '2023-07-01', '2023-07-31', default_options={'report_cash_basis': True})
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+        expected_move_lines = misc_without_receivable.line_ids.filtered(lambda l: l.account_id == self.revenue_account_1)
+        self.assertEqual(self.env['account.move.line'].search(audit_domain), expected_move_lines,
+                         "Misc entry lines should be returned, as the move has no receivable or payable line")
+
+    def test_cash_basis_audit_cell_bank_statement(self):
+        # Ensure lines from move on bank journal are displayed when auditing the balance sheet with cash basis
+        report = self.env.ref('account_reports.balance_sheet')
+        bank_entry = self.env['account.move'].create({
+            'move_type': 'entry',
+            'date': '2023-01-23',
+            'journal_id': self.company_data['default_journal_bank'].id,
+            'line_ids': [
+                Command.create({
+                    'name': 'Liability payable line',
+                    'debit': 0.0,
+                    'credit': 10.0,
+                    'currency_id': self.currency_data['currency'].id,
+                    'amount_currency': -30.0,
+                    'account_id': self.company_data['default_account_payable'].id,
+                }),
+                Command.create({
+                    'name': 'revenue line',
+                    'currency_id': self.currency_data['currency'].id,
+                    'debit': 10.0,
+                    'credit': 0.0,
+                    'amount_currency': 30.0,
+                    'account_id': self.company_data['default_journal_bank'].default_account_id.id,
+                }),
+            ],
+        })
+        bank_entry.action_post()
+        options = self._generate_options(report, '2023-07-01', '2023-07-31', default_options={'report_cash_basis': True})
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_bank_view0')['domain']
+        asset_cash_line = bank_entry.line_ids.filtered(lambda l: l.account_type == 'asset_cash')
+        self.assertTrue(asset_cash_line in self.env['account.move.line'].search(audit_domain),
+                        "Bank entry lines should be present in the audit with cash basis")
+
+    def test_cash_basis_audit_cell_misc_with_receivable(self):
+        # Ensure lines from misc entries with receivable are part of the audit with cash basis only when a payment in linked to the misc
+        report = self.env.ref('account_reports.profit_and_loss')
+        invoice_date = '2023-07-01'
+        misc_with_receivable = self._create_misc_entry(invoice_date, self.receivable_account_1.id, self.revenue_account_1.id)
+        self._create_misc_entry(invoice_date, self.receivable_account_1.id, self.revenue_account_1.id)
+
+        options = self._generate_options(report, '2023-07-01', '2023-07-31', default_options={'report_cash_basis': True})
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+        self.assertEqual(self.env['account.move.line'].search(audit_domain), self.env['account.move.line'],
+                         "No line should be returned, as the misc entry has a receivable line that is not reconciled")
+
+        payment = self.env['account.move'].create({
+            'move_type': 'entry',
+            'date': invoice_date,
+            'journal_id': self.liquidity_journal_1.id,
+            'line_ids': [
+                Command.create({'debit': 0.0,       'credit': 1000.0,   'account_id': self.receivable_account_1.id}),
+                Command.create({'debit': 1000.0,    'credit': 0.0,      'account_id': self.liquidity_account.id}),
+            ],
+        })
+        payment.action_post()
+        self._reconcile_on((misc_with_receivable + payment).line_ids, self.receivable_account_1)
+
+        expected_move_lines = misc_with_receivable.line_ids.filtered(lambda l: l.account_id == self.revenue_account_1)
+        self.assertEqual(self.env['account.move.line'].search(audit_domain), expected_move_lines,
+                         "The revenue line of the misc entry should be returned, as the misc entry has a receivable line that is reconciled")
+
+    def test_cash_basis_audit_cell_reconcilable_tax_account(self):
+        """ Ensure that when a tax account is reconcilable, and the tax line of an invoice is reconciled, then the
+        lines of the invoice are not displayed in the audit of the accounting report with cash basis activated.
+        Moves that contain receivable or payable lines are displayed in the audit only if the
+        partial is specifically reconciled with the receivable or payable line.
+        """
+        report = self.env.ref('account_reports.profit_and_loss')
+        invoice_date = '2023-07-01'
+        tax_account = self.tax_sale_a.invoice_repartition_line_ids.account_id
+        tax_account.reconcile = True
+
+        misc = self._create_misc_entry('2023-07-01', tax_account.id, self.revenue_account_1.id)
+        invoice = self.init_invoice('out_invoice', amounts=[1000.0], taxes=[self.tax_sale_a], partner=self.partner_a, invoice_date=invoice_date, post=True)
+        self._reconcile_on((misc + invoice).line_ids, tax_account)
+
+        options = self._generate_options(report, '2023-07-01', '2023-07-31', default_options={'report_cash_basis': True})
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+
+        expected_move_lines = misc.line_ids.filtered(lambda l: l.account_id == self.revenue_account_1)
+        self.assertEqual(self.env['account.move.line'].search(audit_domain), expected_move_lines)
+        self.assertEqual(self.env['account.move.line'].search(audit_domain), expected_move_lines,
+                         "Only the misc revenue line should be returned, not the invoice one")
