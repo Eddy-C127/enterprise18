@@ -8,6 +8,15 @@ import { patchWithCleanup } from "@web/../tests/helpers/utils";
 
 QUnit.module("user_agent_service");
 
+// allow test data to be overridden in other modules
+export const settingsData = {
+    voip_secret: "super secret password",
+    voip_username: "1337",
+};
+export const expectedValues = {
+    authorizationUsername: settingsData.voip_username,
+};
+
 QUnit.test("SIP.js user agent configuration is set correctly.", async (assert) => {
     patchWithCleanup(window, {
         SIP: {
@@ -27,20 +36,13 @@ QUnit.test("SIP.js user agent configuration is set correctly.", async (assert) =
     });
     const pyEnv = await startServer();
     pyEnv["res.users.settings"].create({
-        voip_secret: "super secret password",
-        voip_username: "1337",
-        onsip_auth_username: "when voip_onsip is installed",
+        ...settingsData,
         user_id: pyEnv.currentUserId,
     });
     const { env } = await start();
     const config = env.services["voip.user_agent"].sipJsUserAgentConfig;
     assert.equal(config.authorizationPassword, "super secret password");
-    assert.equal(
-        config.authorizationUsername,
-        "onsip_auth_username" in env.services["mail.store"].settings
-            ? "when voip_onsip is installed"
-            : "1337"
-    );
+    assert.equal(config.authorizationUsername, expectedValues.authorizationUsername);
     assert.equal(config.uri.raw.user, "1337");
     assert.equal(config.uri.raw.host, "pbx.example.com");
 });
