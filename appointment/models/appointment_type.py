@@ -87,8 +87,7 @@ class AppointmentType(models.Model):
     avatars_display = fields.Selection(
         [('hide', 'No Picture'), ('show', 'Show Pictures')],
         string='Front-End Display', compute='_compute_avatars_display', readonly=False, store=True,
-        help="""This option toggles the display of avatars of the staff members or resources during the frontend appointment process.
-        When choosing amongst several possibilities, a selection screen will also be used, if website is installed.""")
+        help="""Display the Users'/Resources' picture on the Website.""")
     category = fields.Selection([
         ('recurring', 'Recurring'),
         ('punctual', 'Punctual'),

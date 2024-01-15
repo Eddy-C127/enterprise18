@@ -71,8 +71,11 @@
             width: 32px;
             height: 32px;
         }
-        .o_m2m_avatar_empty span {
-            margin-top: 8px;
+        .o_m2m_avatar_empty {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: var(--Tag-font-size, #{$font-size-sm});
         }
     }
     // Ungrouped specific
