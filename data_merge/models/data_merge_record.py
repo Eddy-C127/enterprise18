@@ -118,13 +118,10 @@ class DataMergeRecord(models.Model):
         )
 
         subqueries = []
+        subqueries_params = []
         if models_no_company and false_company_domain_is_true:
-            subqueries.append(
-                cr.mogrify(
-                    "SELECT id FROM data_merge_record WHERE res_model_id IN %s",
-                    [tuple(r[1] for r in models_no_company)],
-                ).decode(),
-            )
+            subqueries.append("SELECT id FROM data_merge_record WHERE res_model_id IN %s")
+            subqueries_params += [tuple(r[1] for r in models_no_company)]
 
         template_query = """
         SELECT dmr.id
@@ -142,18 +139,15 @@ class DataMergeRecord(models.Model):
             from_clause, where_clause, where_params = exp.query.get_sql()
             assert from_clause.startswith(f'"{Model._table}"')
 
-            subqueries.append(
-                cr.mogrify(
-                    template_query.format(
-                        model_table=Model._table,
-                        where_clause=where_clause,
-                        extra_joins=from_clause[len(f'"{Model._table}"'):],
-                    ),
-                    where_params + [model_id],
-                ).decode(),
-            )
+            subqueries.append(template_query.format(
+                model_table=Model._table,
+                where_clause=where_clause,
+                extra_joins=from_clause[len(f'"{Model._table}"'):]
+            ))
+            subqueries_params += where_params + [model_id]
+
         if subqueries:
-            query.add_where("data_merge_record.id IN ({})".format("\nUNION\n".join(subqueries)), [])
+            query.add_where("data_merge_record.id IN ({})".format("\nUNION\n".join(subqueries)), subqueries_params)
             return [('id', 'in', query)]
         else:
             # there was a nonempty models_info but no subqueries
