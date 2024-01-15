@@ -132,20 +132,8 @@ class WebsiteAppointment(AppointmentController):
         """
             Compute specific data for the cards layout like the search bar and the pager.
         """
-
-        appointment_type_ids = kwargs.get('filter_appointment_type_ids')
-        domain = kwargs.get('domain') or self._appointments_base_domain(
-            appointment_type_ids,
-            search=kwargs.get('search'),
-            invite_token=kwargs.get('invite_token'),
-            additional_domain=self._appointment_website_domain(),
-        )
-
-        website = request.website
-
         APPOINTMENTS_PER_PAGE = 12
-
-        Appointment = request.env['appointment.type']
+        website = request.website
         appointment_count = len(appointment_types)
 
         pager = website.pager(
@@ -156,15 +144,13 @@ class WebsiteAppointment(AppointmentController):
             step=APPOINTMENTS_PER_PAGE,
             scope=5,
         )
-
-        # Use appointment_types to keep the sudo if needed
-        appointment_types = Appointment.sudo().search(domain, limit=APPOINTMENTS_PER_PAGE, offset=pager['offset'])
+        appointment_types = appointment_types[pager['offset']:pager['offset'] + APPOINTMENTS_PER_PAGE]
 
         return {
             'appointment_types': appointment_types,
             'current_search': kwargs.get('search'),
             'pager': pager,
-            'filter_appointment_type_ids': appointment_type_ids,
+            'filter_appointment_type_ids': kwargs.get('filter_appointment_type_ids'),
             'filter_staff_user_ids': kwargs.get('filter_staff_user_ids'),
             'invite_token': kwargs.get('invite_token'),
             'search_count': appointment_count,

@@ -397,7 +397,7 @@ class AppointmentController(http.Controller):
         """
         appointment_type_ids = json.loads(unquote_plus(appointment_type_ids or "[]"))
         if not appointment_type_ids and domain is not False:
-            appointment_type_ids = request.env['appointment.type'].sudo().search(domain).ids
+            appointment_type_ids = request.env['appointment.type'].search(domain).ids
         elif not appointment_type_ids:
             raise ValueError()
 

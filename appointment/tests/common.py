@@ -10,7 +10,7 @@ from odoo.addons.appointment.models.res_partner import Partner
 from odoo.addons.calendar.models.calendar_event import Meeting
 from odoo.addons.resource.models.resource_calendar import ResourceCalendar
 from odoo.addons.mail.tests.common import mail_new_test_user, MailCommon
-from odoo.tests import common
+from odoo.tests import common, tagged
 
 
 class AppointmentCommon(MailCommon, common.HttpCase):
@@ -278,3 +278,45 @@ class AppointmentCommon(MailCommon, common.HttpCase):
             self._mock_partner_calendar_check = mock_partner_cal
             self._mock_cal_work_intervals = mock_cal_wit
             yield
+
+
+@tagged('security')
+class AppointmentSecurityCommon(AppointmentCommon):
+
+    @classmethod
+    def setUpClass(cls):
+        super(AppointmentSecurityCommon, cls).setUpClass()
+        cls.apt_user = mail_new_test_user(cls.env, login='apt_user', tz="UTC", groups='base.group_user,appointment.group_appointment_user')
+        cls.internal_user = mail_new_test_user(cls.env, login="internal_user", tz="UTC", groups="base.group_user")
+        cls.public_user = mail_new_test_user(cls.env, login="public_user", tz="UTC", groups="base.group_public")
+        cls.common_slot_config = {
+            'weekday': '1',
+            'start_hour': 5,
+            'end_hour': 6,
+        }
+        slots_configuration = [
+            (0, False, {'weekday': weekday,
+                        'start_hour': hour,
+                        'end_hour': hour + 1,
+                    })
+            for weekday in ['1', '2']
+            for hour in range(8, 14)
+        ]
+        cls.apt_type_apt_manager, cls.apt_type_apt_user, cls.apt_type_internal_user, cls.apt_type_no_staff = cls.env['appointment.type'].create([{
+            'name': "Appointment with Manager as staff",
+            'slot_ids': slots_configuration,
+            'staff_user_ids': [(4, cls.apt_manager.id)],
+        }, {
+            'name': "Appointment with User as staff",
+            'slot_ids': slots_configuration,
+            'staff_user_ids': [(4, cls.apt_user.id)],
+        }, {
+            'name': "Appointment with Internal as staff",
+            'slot_ids': slots_configuration,
+            'staff_user_ids': [(4, cls.internal_user.id)],
+        }, {
+            'name': "Appointment without staff",
+            'slot_ids': slots_configuration,
+            'staff_user_ids': False,
+        }])
+        cls.all_apt_types = cls.apt_type_apt_manager + cls.apt_type_apt_user + cls.apt_type_internal_user + cls.apt_type_resource + cls.apt_type_no_staff
