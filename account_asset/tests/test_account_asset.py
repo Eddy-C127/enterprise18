@@ -1161,6 +1161,44 @@ class TestAccountAsset(TestAccountReportsCommon):
             'account_id': self.env.company.loss_account_id.id,
         }])
 
+    def test_asset_sale_same_account_as_invoice(self):
+        """Test the sale of an asset with an invoice that has the same account as the Depreciation Account"""
+        closing_invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'invoice_line_ids': [
+                Command.create({
+                    'account_id': self.truck.account_depreciation_id.id,
+                    'price_unit': self.truck.book_value - 100
+                })
+            ]
+        })
+        self.env['asset.modify'].create({
+            'asset_id': self.truck.id,
+            'invoice_line_ids': closing_invoice.invoice_line_ids,
+            'date': fields.Date.today() + relativedelta(months=-6, days=-1),
+            'modify_action': 'sell',
+        }).sell_dispose()
+        closing_move = self.truck.depreciation_move_ids.filtered(lambda l: l.state == 'draft')
+        self.assertRecordValues(closing_move.line_ids, [{
+            'debit': 0,
+            'credit': 10000,
+            'account_id': self.truck.account_asset_id.id,
+        }, {
+            'debit': 4500,
+            'credit': 0,
+            'account_id': self.truck.account_depreciation_id.id,
+        }, {
+            'debit': 5400,
+            'credit': 0,
+            'account_id': closing_invoice.invoice_line_ids.account_id.id,
+        }, {
+            'debit': 100,
+            'credit': 0,
+            'account_id': self.env.company.loss_account_id.id,
+        }])
+
+        self.assertEqual(closing_move.depreciation_value, 3000, "Should be the remaining amount before the sale")
+
     def test_asset_modify_dispose(self):
         """Test the loss of the remaining book_value when an asset is disposed using the wizard"""
         self.env['asset.modify'].create({

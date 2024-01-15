@@ -68,14 +68,11 @@ class AccountMove(models.Model):
                     and float_compare(-line.balance, asset.original_value, precision_rounding=asset.currency_id.rounding) == 0
                     for line in move.line_ids
                 ):
-                    account = asset.account_depreciation_id
                     asset_depreciation = (
                         asset.original_value
                         - asset.salvage_value
-                        - sum(
-                            move.line_ids.filtered(lambda l: l.account_id == account).mapped(
-                                'debit' if asset.original_value > 0 else 'credit'
-                            )
+                        - (
+                            move.line_ids[1].debit if asset.original_value > 0 else move.line_ids[1].credit
                         ) * (-1 if asset.original_value < 0 else 1)
                     )
             else:
