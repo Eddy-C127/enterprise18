@@ -138,7 +138,7 @@
         <field name="model">calendar.event</field>
         <field name="arch" type="xml">
             <gantt class="o_appointment_ressource_booking_gantt"
-                create="1" delete="1" plan="1"
+                create="1" delete="1" plan="0"
                 date_start="start"
                 date_stop="stop"
                 default_group_by="appointment_resource_id"

@@ -386,6 +386,7 @@ class AppointmentType(models.Model):
         action['context'].update({
             'default_scale': self._get_gantt_scale(),
             'default_appointment_type_id': self.id,
+            'default_duration': self.appointment_duration,
             'default_partner_ids': [],
             'search_default_appointment_type_id': self.id,
             'default_mode': "month" if nbr_appointments_week_later else "week",
