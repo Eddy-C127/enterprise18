@@ -192,6 +192,7 @@ class AppointmentUITest(AppointmentUICommon):
         expected_contexts = [{
             'default_scale': 'day',
             'default_appointment_type_id': appointment_types[0].id,
+            'default_duration': appointment_types[0].appointment_duration,
             'search_default_appointment_type_id': appointment_types[0].id,
             'default_mode': 'week',
             'default_partner_ids': [],
@@ -202,6 +203,7 @@ class AppointmentUITest(AppointmentUICommon):
             'appointment_default_add_organizer_to_attendees': True,
             'default_scale': 'day',
             'default_appointment_type_id': appointment_types[1].id,
+            'default_duration': appointment_types[1].appointment_duration,
             'search_default_appointment_type_id': appointment_types[1].id,
             'default_mode': 'week',
             'default_partner_ids': [],
@@ -211,6 +213,7 @@ class AppointmentUITest(AppointmentUICommon):
             'appointment_default_add_organizer_to_attendees': False,
             'default_scale': 'day',
             'default_appointment_type_id': appointment_types[2].id,
+            'default_duration': appointment_types[2].appointment_duration,
             'search_default_appointment_type_id': appointment_types[2].id,
             'default_mode': 'month',
             'default_partner_ids': [],

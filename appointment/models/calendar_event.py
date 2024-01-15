@@ -3,6 +3,7 @@
 
 import uuid
 import logging
+from datetime import datetime, timedelta
 
 from odoo import _, api, Command, fields, models, SUPERUSER_ID
 from odoo.tools import html2plaintext, email_normalize, email_split_tuples
@@ -16,8 +17,14 @@ class CalendarEvent(models.Model):
     @api.model
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
+        # If the event has an apt type, set the event stop datetime to match the apt type duration
+        if res.get('appointment_type_id') and res.get('duration') and res.get('start') and 'stop' in fields_list:
+            res['stop'] = res['start'] + timedelta(hours=res['duration'])
         if not self.env.context.get('booking_gantt_create_record', False):
             return res
+        # Round the stop datetime to the nearest minute when coming from the gantt view
+        if res.get('stop') and isinstance(res['stop'], datetime) and res['stop'].second != 0:
+            res['stop'] = datetime.min + round((res['stop'] - datetime.min) / timedelta(minutes=1)) * timedelta(minutes=1)
         user_id = res.get('user_id')
         resource_id = res.get('appointment_resource_id') or self.env.context.get('default_appointment_resource_id')
         # get a relevant appointment type for ease of use when coming from a view that groups by resource

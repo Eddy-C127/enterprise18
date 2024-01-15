@@ -23,6 +23,20 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
 
     /**
      * @override
+     * If multiple columns have been selected, remove the default duration from the context so that
+     * the stop matches the end of the selection instead of being redefined to match the appointment duration.
+     */
+    onCreate(rowId, columnStart, columnStop) {
+        const { start, stop } = this.getColumnStartStop(columnStart, columnStop);
+        const context = this.model.getDialogContext({rowId, start, stop, withDefault: true});
+        if (columnStart != columnStop){
+            delete context['default_duration'];
+        }
+        this.props.create(context);
+    }
+
+    /**
+     * @override
      */
     enrichPill(pill) {
         const enrichedPill = super.enrichPill(pill);
