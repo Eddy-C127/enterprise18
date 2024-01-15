@@ -1620,16 +1620,16 @@ class SaleOrder(models.Model):
             transaction = self._do_payment(payment_token, invoice, auto_commit=auto_commit)
             # commit change as soon as we try the payment, so we have a trace in the payment_transaction table
 
-            # if transaction is a success, post a message
+            # if no transaction or failure, log error, rollback and remove invoice
             if not transaction or transaction.renewal_state == 'cancel':
                 self._handle_subscription_payment_failure(invoice, transaction)
                 self._subscription_commit_cursor(auto_commit)
                 return
-            else: #  transaction.renewal_state in ['pending', 'authorized', 'done']
+            # if transaction is a success, post a message
+            elif transaction.renewal_state == 'authorized':
                 self._subscription_commit_cursor(auto_commit)
                 invoice._post()
                 self._subscription_commit_cursor(auto_commit)
-            # if no transaction or failure, log error, rollback and remove invoice
 
         except Exception as e:
             last_tx_sudo = (self.transaction_ids - existing_transactions).sudo()
