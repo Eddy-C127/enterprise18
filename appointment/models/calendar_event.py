@@ -36,12 +36,6 @@ class CalendarEvent(models.Model):
                 appointment_types = self.env['appointment.type'].search([('staff_user_ids', 'in', user_id)])
             if appointment_types:
                 res['appointment_type_id'] = appointment_types[0].id
-        if 'name' in fields_list and 'name' not in res:
-            if resource_id:
-                res.setdefault('name', _('Booking for %(resource_name)s', resource_name=self.env['appointment.resource'].browse(resource_id).name))
-            elif res.get('appointment_type_id'):
-                appointment_type = self.env['appointment.type'].browse(res['appointment_type_id'])
-                res.setdefault('name', appointment_type.display_name)
         if self.env.context.get('appointment_default_add_organizer_to_attendees') and 'partner_ids' in fields_list:
             organizer_partner = self.env['res.users'].browse(res.get('user_id', [])).partner_id
             if organizer_partner:
