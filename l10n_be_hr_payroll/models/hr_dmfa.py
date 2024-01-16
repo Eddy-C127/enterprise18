@@ -641,6 +641,8 @@ class DMFAOccupation(DMFANode):
                 self.reorganisation_measure = 3
             else:
                 self.reorganisation_measure = 4
+        elif contract.time_credit and contract.time_credit_type_id.code == "LEAVE281":
+            self.reorganisation_measure = 5
         else:
             self.reorganisation_measure = -1
 
