@@ -1058,7 +1058,7 @@ class HrDMFAReport(models.Model):
 
         # GO File
         # =======
-        self.dmfa_go = base64.b64encode('go')
+        self.dmfa_go = base64.b64encode(b'go')
 
     def generate_dmfa_pdf_report(self):
         dmfa_pdf, dummy = self.env["ir.actions.report"].sudo()._render_qweb_pdf(
