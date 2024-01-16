@@ -91,12 +91,31 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             if model == 'account.account':
                 account_ids_to_expand.append(model_id)
 
+        limit_to_load = report.load_more_limit if report.load_more_limit and not options.get('export_mode') else None
+        has_more_per_account_id = {}
+
+        unlimited_aml_results_per_account_id = self._get_aml_values(report, options, account_ids_to_expand)[0]
+        if limit_to_load:
+            # Apply the load_more_limit.
+            # load_more_limit cannot be passed to the call to _get_aml_values, otherwise it won't be applied per account but on the whole result.
+            # We gain perf from batching, but load every result ; then we need to filter them.
+
+            aml_results_per_account_id = {}
+            for account_id, account_aml_results in unlimited_aml_results_per_account_id.items():
+                account_values = {}
+                for key, value in account_aml_results.items():
+                    if len(account_values) == limit_to_load:
+                        has_more_per_account_id[account_id] = True
+                        break
+                    account_values[key] = value
+                aml_results_per_account_id[account_id] = account_values
+        else:
+            aml_results_per_account_id = unlimited_aml_results_per_account_id
+
         return {
             'initial_balances': self._get_initial_balance_values(report, account_ids_to_expand, options),
-
-            # load_more_limit canno( be passed to this call, otherwise it won't be applied per account but on the whole result.
-            # We gain perf from batching, but load every result, even if the limit restricts them later.
-            'aml_values': self._get_aml_values(report, options, account_ids_to_expand)[0],
+            'aml_results': aml_results_per_account_id,
+            'has_more': has_more_per_account_id,
         }
 
     def _tax_declaration_lines(self, report, options, tax_type):
@@ -678,9 +697,9 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         # Get move lines
         limit_to_load = report.load_more_limit + 1 if report.load_more_limit and options['export_mode'] != 'print' else None
-        has_more = False
         if unfold_all_batch_data:
-            aml_results = unfold_all_batch_data['aml_values'][model_id]
+            aml_results = unfold_all_batch_data['aml_results'][model_id]
+            has_more = unfold_all_batch_data['has_more'].get(model_id, False)
         else:
             aml_results, has_more = self._get_aml_values(report, options, [model_id], offset=offset, limit=limit_to_load)
             aml_results = aml_results[model_id]
