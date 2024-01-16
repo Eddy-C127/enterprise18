@@ -94,6 +94,40 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(prod2_ml[1].location_id, self.shelf1)
         self.assertEqual(prod2_ml[1].location_dest_id, self.shelf3)
 
+    def test_picking_scan_package_confirmation(self):
+        """
+        This test ensures that whenever a product is already scanned in a package,
+        if we scan the package, a confirmation is asked before adding the content of the package.
+        """
+        self.clean_access_rights()
+        grp_pack = self.env.ref('stock.group_tracking_lot')
+        self.env.user.write({'groups_id': [(4, grp_pack.id, 0)]})
+        package1 = self.env['stock.quant.package'].create({'name': 'package001'})
+
+        self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 1, package_id=package1)
+        self.env['stock.quant']._update_available_quantity(self.product2, self.stock_location, 1, package_id=package1)
+
+        delivery_with_move = self.env['stock.picking'].create({
+            'name': "Delivery with Stock Move",
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+            'move_ids': [(0, 0, {
+                'name': 'scan_package_confirmation',
+                'location_id': self.stock_location.id,
+                'location_dest_id': self.customer_location.id,
+                'product_id': self.product1.id,
+                'product_uom': self.uom_unit.id,
+                'product_uom_qty': 2
+            })],
+        })
+        delivery_with_move.action_confirm()
+        delivery_with_move.action_assign()
+
+        action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode.stock_barcode_picking_client_action")
+        url = '/web#action=%s&active_id=%s' % (action['id'], delivery_with_move.id)
+        self.start_tour(url, 'test_picking_scan_package_confirmation', login='admin', timeout=180)
+
     def test_internal_picking_from_scratch_with_package(self):
         """ Opens an empty internal picking, scans the source (shelf1), then scans
         the products (product1 and product2), scans a existing empty package to
