@@ -4,46 +4,60 @@
     <record id="project_task_user_view_pivot" model="ir.ui.view">
         <field name="name">report.project.task.user.pivot</field>
         <field name="model">report.project.task.user.fsm</field>
+        <field name="inherit_id" ref="project.view_task_project_user_fsm_pivot_base"/>
+        <field name="mode">primary</field>
+        <field name="priority">10</field>
         <field name="arch" type="xml">
-            <pivot string="Tasks Analysis" display_quantity="1" sample="1" disable_linking="1">
-                <field name="project_id"/>
+            <field name="project_id" position="after">
                 <field name="create_date" type="row"/>
-                <field name="effective_hours" widget="timesheet_uom"/>
-                <field name="remaining_hours" widget="timesheet_uom"/>
-                <field name="allocated_hours" widget="timesheet_uom"/>
-                <field name="overtime" widget="timesheet_uom"/>
-                <field name="working_hours_open" widget="timesheet_uom" type="measure"/>
-                <field name="working_hours_close" widget="timesheet_uom" type="measure"/>
-                <field name="total_hours_spent" widget="timesheet_uom" type="measure"/>
-                <field name="working_days_open" string="Working Days to Assign"/>
-                <field name="working_days_close" string="Working Days to Close"/>
-                <field name="nbr" invisible="1"/>
-                <field name="delay_endings_days" invisible="1"/>
-                <field name="remaining_hours_percentage" invisible="1"/>
-            </pivot>
+            </field>
+            <field name="project_id" position="attributes">
+                <attribute name="type"/>
+            </field>
+            <field name="allocated_hours" position="attributes">
+                <attribute name="type"/>
+            </field>
+            <field name="total_hours_spent" position="attributes">
+                <attribute name="type"/>
+            </field>
+            <field name="remaining_hours" position="attributes">
+                <attribute name="type"/>
+            </field>
+            <field name="overtime" position="attributes">
+                <attribute name="type"/>
+            </field>
+            <field name="working_hours_open" position="attributes">
+                <attribute name="type">measure</attribute>
+            </field>
+            <field name="working_hours_close" position="attributes">
+                <attribute name="type">measure</attribute>
+            </field>
+            <field name="total_hours_spent" position="attributes">
+                <attribute name="type">measure</attribute>
+            </field>
         </field>
     </record>
 
     <record id="project_task_user_view_graph" model="ir.ui.view">
         <field name="name">report.project.task.user.graph</field>
         <field name="model">report.project.task.user.fsm</field>
+        <field name="inherit_id" ref="project.view_task_project_user_fsm_graph_base"/>
+        <field name="mode">primary</field>
+        <field name="priority">10</field>
         <field name="arch" type="xml">
-            <graph string="Tasks Analysis" sample="1" js_class="hr_timesheet_graphview" disable_linking="1">
+            <field name="project_id" position="before">
                 <field name="create_date"/>
-                <field name="project_id"/>
-                <field name="nbr" invisible="1"/>
-                <field name="delay_endings_days"/>
-                <field name="effective_hours" widget="timesheet_uom"/>
-                <field name="remaining_hours" widget="timesheet_uom"/>
-                <field name="working_days_close" string="Working Days to Close"/>
-                <field name="working_days_open" string="Working Days to Assign"/>
-                <field name="allocated_hours" widget="timesheet_uom"/>
-                <field name="overtime" widget="timesheet_uom"/>
-                <field name="total_hours_spent" widget="timesheet_uom"/>
-                <field name="working_hours_close" widget="timesheet_uom"/>
-                <field name="working_hours_open" widget="timesheet_uom"/>
-                <field name="remaining_hours_percentage" invisible="1"/>
-            </graph>
+            </field>
+            <field name="stage_id" position="replace"/>
+            <field name="allocated_hours" position="attributes">
+                <attribute name="type"/>
+            </field>
+            <field name="effective_hours" position="attributes">
+                <attribute name="type"/>
+            </field>
+            <field name="remaining_hours" position="attributes">
+                <attribute name="type"/>
+            </field>
         </field>
     </record>
 
