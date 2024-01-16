@@ -3507,6 +3507,20 @@ registry.category("web_tour.tours").add("test_scrap", {test: true, steps: () => 
     },
 ]});
 
+registry.category("web_tour.tours").add("test_picking_scan_package_confirmation", {test: true, steps: () => [
+    // Scan product 1
+    { trigger: '.o_barcode_client_action', run: 'scan product1' },
+    // Scan Package 1 to trigger the scan confirmation
+    { trigger: '.o_barcode_line .qty-done:contains("1")', run: 'scan package001' },
+    // Cancel the package scan
+    { trigger: ".modal-content button.btn-secondary" },
+    // Scan Package 1 to trigger the scan confirmation
+    { trigger: '.o_barcode_line .qty-done:contains("1")', run: 'scan package001' },
+    // Confirm the package scan, thus the line quantity will be increased
+    { trigger: ".modal-content button.btn-primary" },
+    { trigger: '.o_barcode_line .qty-done:contains("2")', isCheck: true },
+]});
+
 registry.category("web_tour.tours").add('test_show_entire_package', {test: true, steps: () => [
     { trigger: 'button.button_operations' },
     { trigger: '.o_kanban_record:contains(Delivery Orders)' },

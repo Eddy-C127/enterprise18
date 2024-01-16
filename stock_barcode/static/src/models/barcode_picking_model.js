@@ -3,6 +3,7 @@
 import BarcodeModel from '@stock_barcode/models/barcode_model';
 import { BackorderDialog } from '../components/backorder_dialog';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
+import { Deferred } from "@web/core/utils/concurrency";
 import { _t } from "@web/core/l10n/translation";
 import { escape } from '@web/core/utils/strings';
 import { session } from '@web/session';
@@ -1340,6 +1341,22 @@ export default class BarcodePickingModel extends BarcodeModel {
             barcodeData.error = _t("This package is already scanned.");
             return;
         }
+
+        if (alreadyExisting) {
+            const userConfirmation = new Deferred();
+            this.dialogService.add(ConfirmationDialog, {
+                body: _t("You have already scanned %s items of this package. Do you want to scan the whole package?", alreadyExisting),
+                title: _t("Scanning package"),
+                cancel: () => userConfirmation.resolve(false),
+                confirm: () => userConfirmation.resolve(true),
+                close: () => userConfirmation.resolve(false),
+            });
+            if (!(await userConfirmation)) {
+                barcodeData.stopped = true;
+                return;
+            }
+        }
+
         // For each quants, creates or increments a barcode line.
         for (const quant of quants) {
             const product = this.cache.getRecord('product.product', quant.product_id);
