@@ -27,9 +27,8 @@ class ManufacturingOrder(models.Model):
     def action_open_barcode_client_action(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode_mrp.stock_barcode_mo_client_action")
-        action = dict(action, target='fullscreen')
-        action['context'] = {'active_id': self.id}
-        return action
+        context = {'active_id': self.id}
+        return dict(action, context=context)
 
     def set_lot_producing(self):
         """ Special mo barcode action to produce and return SN/lot data compatible with barcode app.

@@ -19,7 +19,7 @@ class StockPickingBatch(models.Model):
         """
         self.ensure_one()
         action = self.env['ir.actions.actions']._for_xml_id('stock_barcode_picking_batch.stock_barcode_picking_batch_client_action')
-        return dict(action, context={'active_id': self.id}, target='fullscreen')
+        return dict(action, context={'active_id': self.id})
 
     def action_open_batch_picking(self):
         """ Method to open the form view of the current record from a button on the kanban view.

@@ -39,6 +39,7 @@
         <field name="res_model">stock.picking</field>
         <field name="view_mode">kanban,form</field>
         <field name="view_id" ref="stock_barcode.stock_picking_kanban"/>
+        <field name="target">fullscreen</field>
         <field name="context">{
             'contact_display': 'partner_address',
             'search_default_available': 1,
@@ -97,6 +98,7 @@
         <field name="view_mode">kanban,form</field>
         <field name="domain">[('code', 'in', ('incoming', 'outgoing', 'internal'))]</field>
         <field name="view_id" ref="stock_picking_type_kanban"/>
+        <field name="target">fullscreen</field>
     </record>
 
 

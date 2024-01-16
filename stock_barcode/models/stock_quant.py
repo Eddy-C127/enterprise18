@@ -68,7 +68,7 @@ class StockQuant(models.Model):
         """ Open the mobile view specialized in handling barcodes on mobile devices.
         """
         action = self.env['ir.actions.actions']._for_xml_id('stock_barcode.stock_barcode_inventory_client_action')
-        return dict(action, target='fullscreen')
+        return action
 
     @api.model
     def get_existing_quant_and_related_data(self, domain):

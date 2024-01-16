@@ -93,6 +93,7 @@
         <field name="name">Batch Transfers</field>
         <field name="res_model">stock.picking.batch</field>
         <field name="view_mode">kanban,form</field>
+        <field name="target">fullscreen</field>
         <field name="context">{
             'search_default_in_progress': 1,
             'search_default_to_do_transfers': 1,

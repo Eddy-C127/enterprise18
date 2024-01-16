@@ -59,9 +59,8 @@ class StockPicking(models.Model):
         """
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode.stock_barcode_picking_client_action")
-        action = dict(action, target='fullscreen')
-        action['context'] = {'active_id': self.id}
-        return action
+        context = {'active_id': self.id}
+        return dict(action, context=context)
 
     def action_create_return_picking(self):
         """

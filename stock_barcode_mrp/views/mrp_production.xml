@@ -200,6 +200,7 @@
         <field name="res_model">mrp.production</field>
         <field name="view_mode">kanban,form</field>
         <field name="view_id" ref="stock_barcode_mrp.mrp_barcode_kanban"/>
+        <field name="target">fullscreen</field>
         <field name="context">{
             'search_default_filter_confirmed': 1,
             'search_default_filter_to_close': 1,

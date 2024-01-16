@@ -3,12 +3,14 @@
         <field name="name">Barcode Picking Client Action</field>
         <field name="tag">stock_barcode_client_action</field>
         <field name="res_model">stock.picking</field>
+        <field name="target">fullscreen</field>
     </record>
 
     <record id="stock_barcode_inventory_client_action" model="ir.actions.client">
         <field name="name">Barcode Inventory Client Action</field>
         <field name="tag">stock_barcode_client_action</field>
         <field name="res_model">stock.quant</field>
+        <field name="target">fullscreen</field>
     </record>
 
     <data noupdate="1">
