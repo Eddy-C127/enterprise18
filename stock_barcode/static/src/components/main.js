@@ -227,7 +227,12 @@ class MainComponent extends Component {
     async exit(ev) {
         if (this.state.view === "barcodeLines") {
             await this.env.model.save();
-            this.env.config.historyBack();
+            if (this.env.config.breadcrumbs.length === 1) {
+                // Bring back to the Barcode App home menu when there is no breadcrumb.
+                this.action.doAction("stock_barcode.stock_barcode_action_main_menu");
+            } else {
+                this.env.config.historyBack();
+            }
         } else {
             this.toggleBarcodeLines();
         }
