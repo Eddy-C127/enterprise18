@@ -5,6 +5,7 @@
     'category': 'Hidden',
     'summary': 'Test Suite for Discuss Enterprise',
     'depends': [
+        'account_accountant',
         'account_invoice_extract',
         'approvals',
         'documents',
@@ -15,6 +16,7 @@
         'voip',
         'voip_onsip',
         'website_helpdesk_livechat',
+        'web_studio',
         'whatsapp',
     ],
     'license': 'OEEL-1',

@@ -11,8 +11,8 @@ import { click, contains } from "@web/../tests/utils";
  * @returns {function}
  */
 const mockMissedCalls = (numberOfMissedCalls) =>
-    async function (route, _args, originalRpc) {
-        if (route === "/mail/init_messaging") {
+    async function (route, args, originalRpc) {
+        if (route === "/mail/action" && args.init_messaging) {
             const res = await originalRpc(...arguments);
             res.Store.voipConfig.missedCalls = numberOfMissedCalls;
             return res;

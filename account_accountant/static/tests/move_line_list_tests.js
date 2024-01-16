@@ -3,7 +3,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { getOrigin } from "@web/core/utils/urls";
-import { click, contains } from "@web/../tests/utils";
+import { assertSteps, click, contains, step } from "@web/../tests/utils";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
@@ -11,8 +11,6 @@ import { ROUTES_TO_IGNORE as MAIL_ROUTES_TO_IGNORE } from "@mail/../tests/helper
 
 const ROUTES_TO_IGNORE = [
     "/bus/im_status",
-    "/mail/init_messaging",
-    "/mail/load_message_failures",
     "/web/dataset/call_kw/account.move.line/get_views",
     ...MAIL_ROUTES_TO_IGNORE,
 ];
@@ -60,7 +58,7 @@ QUnit.module("Views", {}, function () {
         },
     });
 
-    const OpenPreparedView = async (assert, size) => {
+    const OpenPreparedView = async (size) => {
         const views = {
             "account.move.line,false,list": `<tree editable='bottom' js_class='account_move_line_list'>
                          <field name='id'/>
@@ -78,10 +76,13 @@ QUnit.module("Views", {}, function () {
                 if (route.includes("/web/static/lib/pdfjs/web/viewer.html")) {
                     return Promise.resolve();
                 }
-                const method = args.method || route;
-                assert.step(method + "/" + args.model);
+                step(`${route} - ${JSON.stringify(args)}`);
             },
         });
+        await assertSteps([
+            '/mail/action - {"init_messaging":true}',
+            '/mail/data - {"failures":true}',
+        ]);
         await openView({
             context: {
                 group_by: ["move_id"],
@@ -91,33 +92,131 @@ QUnit.module("Views", {}, function () {
         });
     };
 
-    QUnit.test("No preview on small devices", async (assert) => {
-        await OpenPreparedView(assert, SIZES.XL);
+    QUnit.test("No preview on small devices", async () => {
+        const pyEnv = await startServer();
+        await OpenPreparedView(SIZES.XL);
         await contains(".o_move_line_list_view");
-        assert.verifySteps(["web_read_group/account.move.line"]);
+        await assertSteps([
+            `/web/dataset/call_kw/account.move.line/web_read_group - ${JSON.stringify({
+                model: "account.move.line",
+                method: "web_read_group",
+                args: [],
+                kwargs: {
+                    orderby: "",
+                    lazy: true,
+                    offset: 0,
+                    limit: 80,
+                    context: {
+                        lang: "en",
+                        tz: "taht",
+                        uid: pyEnv.currentUserId,
+                        group_by: ["move_id"],
+                    },
+                    groupby: ["move_id"],
+                    domain: [],
+                    fields: ["id", "name", "move_id", "move_attachment_ids"],
+                },
+            })}`,
+        ]);
         // weak test, no guarantee to wait long enough for the potential attachment preview to show
         await contains(".o_attachment_preview", { count: 0 }); // The preview component shouldn't be mounted for small screens
         await click(":nth-child(1 of .o_group_header)");
         await contains(".o_data_row", { count: 2 });
-        assert.verifySteps(["web_search_read/account.move.line"]);
+        await assertSteps([
+            `/web/dataset/call_kw/account.move.line/web_search_read - ${JSON.stringify({
+                model: "account.move.line",
+                method: "web_search_read",
+                args: [],
+                kwargs: {
+                    specification: {
+                        id: {},
+                        name: {},
+                        move_id: { fields: { display_name: {} } },
+                        move_attachment_ids: { fields: { mimetype: {} } },
+                    },
+                    offset: 0,
+                    order: "",
+                    limit: 80,
+                    context: {
+                        lang: "en",
+                        tz: "taht",
+                        uid: pyEnv.currentUserId,
+                        bin_size: true,
+                        group_by: ["move_id"],
+                        default_move_id: 1,
+                    },
+                    count_limit: 10001,
+                    domain: [["move_id", "=", 1]],
+                },
+            })}`,
+        ]);
         await click(":nth-child(1 of .o_data_row) :nth-child(2 of .o_data_cell)");
         await contains(":nth-child(1 of .o_data_row) :nth-child(2 of .o_data_cell) input");
         // weak test, no guarantee to wait long enough for the potential attachment preview to show
         await contains(".o_attachment_preview", { count: 0 }); // The preview component shouldn't be mounted for small screens even when clicking on a line without attachment
         await click(":nth-child(2 of .o_group_header)");
         await contains(".o_data_row", { count: 4 });
-        assert.verifySteps(["web_search_read/account.move.line"]);
+        await assertSteps([
+            `/web/dataset/call_kw/account.move.line/web_search_read - ${JSON.stringify({
+                model: "account.move.line",
+                method: "web_search_read",
+                args: [],
+                kwargs: {
+                    specification: {
+                        id: {},
+                        name: {},
+                        move_id: { fields: { display_name: {} } },
+                        move_attachment_ids: { fields: { mimetype: {} } },
+                    },
+                    offset: 0,
+                    order: "",
+                    limit: 80,
+                    context: {
+                        lang: "en",
+                        tz: "taht",
+                        uid: pyEnv.currentUserId,
+                        bin_size: true,
+                        group_by: ["move_id"],
+                        default_move_id: 2,
+                    },
+                    count_limit: 10001,
+                    domain: [["move_id", "=", 2]],
+                },
+            })}`,
+        ]);
         await click(":nth-child(4 of .o_data_row) :nth-child(2 of .o_data_cell)");
         await contains(":nth-child(4 of .o_data_row) :nth-child(2 of .o_data_cell) input");
         // weak test, no guarantee to wait long enough for the potential attachment preview to show
         await contains(".o_attachment_preview", { count: 0 }); // The preview component shouldn't be mounted for small screens even when clicking on a line with attachment
-        assert.verifySteps([], "no extra rpc should be done");
+        await assertSteps([], "no extra rpc should be done");
     });
 
-    QUnit.test("Fetch and preview of attachments on big devices", async (assert) => {
-        await OpenPreparedView(assert, SIZES.XXL);
+    QUnit.test("Fetch and preview of attachments on big devices", async () => {
+        const pyEnv = await startServer();
+        await OpenPreparedView(SIZES.XXL);
         await contains(".o_move_line_list_view");
-        assert.verifySteps(["web_read_group/account.move.line"]);
+        await assertSteps([
+            `/web/dataset/call_kw/account.move.line/web_read_group - ${JSON.stringify({
+                model: "account.move.line",
+                method: "web_read_group",
+                args: [],
+                kwargs: {
+                    orderby: "",
+                    lazy: true,
+                    offset: 0,
+                    limit: 80,
+                    context: {
+                        lang: "en",
+                        tz: "taht",
+                        uid: pyEnv.currentUserId,
+                        group_by: ["move_id"],
+                    },
+                    groupby: ["move_id"],
+                    domain: [],
+                    fields: ["id", "name", "move_id", "move_attachment_ids"],
+                },
+            })}`,
+        ]);
         await contains(".o_attachment_preview");
         await contains(".o_attachment_preview p", {
             text: "Choose a line to preview its attachments.",
@@ -125,14 +224,68 @@ QUnit.module("Views", {}, function () {
         await contains(".o_attachment_preview iframe", { count: 0 });
         await click(":nth-child(1 of .o_group_header)");
         await contains(".o_data_row", { count: 2 });
-        assert.verifySteps(["web_search_read/account.move.line"]);
+        await assertSteps([
+            `/web/dataset/call_kw/account.move.line/web_search_read - ${JSON.stringify({
+                model: "account.move.line",
+                method: "web_search_read",
+                args: [],
+                kwargs: {
+                    specification: {
+                        id: {},
+                        name: {},
+                        move_id: { fields: { display_name: {} } },
+                        move_attachment_ids: { fields: { mimetype: {} } },
+                    },
+                    offset: 0,
+                    order: "",
+                    limit: 80,
+                    context: {
+                        lang: "en",
+                        tz: "taht",
+                        uid: pyEnv.currentUserId,
+                        bin_size: true,
+                        group_by: ["move_id"],
+                        default_move_id: 1,
+                    },
+                    count_limit: 10001,
+                    domain: [["move_id", "=", 1]],
+                },
+            })}`,
+        ]);
         await click(":nth-child(1 of .o_data_row) :nth-child(2 of .o_data_cell)");
         await contains(".o_attachment_preview iframe", { count: 0 });
         await contains(".o_attachment_preview p", { text: "No attachments linked." });
         await click(":nth-child(2 of .o_group_header)");
         await contains(".o_data_row", { count: 4 });
         await contains(".o_attachment_preview p", { text: "No attachments linked." });
-        assert.verifySteps(["web_search_read/account.move.line"]);
+        await assertSteps([
+            `/web/dataset/call_kw/account.move.line/web_search_read - ${JSON.stringify({
+                model: "account.move.line",
+                method: "web_search_read",
+                args: [],
+                kwargs: {
+                    specification: {
+                        id: {},
+                        name: {},
+                        move_id: { fields: { display_name: {} } },
+                        move_attachment_ids: { fields: { mimetype: {} } },
+                    },
+                    offset: 0,
+                    order: "",
+                    limit: 80,
+                    context: {
+                        lang: "en",
+                        tz: "taht",
+                        uid: pyEnv.currentUserId,
+                        bin_size: true,
+                        group_by: ["move_id"],
+                        default_move_id: 2,
+                    },
+                    count_limit: 10001,
+                    domain: [["move_id", "=", 2]],
+                },
+            })}`,
+        ]);
         await click(":nth-child(4 of .o_data_row) :nth-child(2 of .o_data_cell)");
         await contains(".o_attachment_preview p", { count: 0 });
         await contains(
@@ -140,7 +293,7 @@ QUnit.module("Views", {}, function () {
                 getOrigin() + "/web/content/1"
             )}#pagemode=none']`
         );
-        assert.verifySteps([], "no extra rpc should be done");
+        await assertSteps([], "no extra rpc should be done");
         await click(":nth-child(3 of .o_group_header)");
         await contains(".o_data_row", { count: 6 });
         // weak test, no guarantee to wait long enough for the potential attachment to change
@@ -149,7 +302,34 @@ QUnit.module("Views", {}, function () {
                 getOrigin() + "/web/content/1"
             )}#pagemode=none']`
         ); // The previewer content shouldn't change without clicking on another line from another account.move
-        assert.verifySteps(["web_search_read/account.move.line"]);
+        await assertSteps([
+            `/web/dataset/call_kw/account.move.line/web_search_read - ${JSON.stringify({
+                model: "account.move.line",
+                method: "web_search_read",
+                args: [],
+                kwargs: {
+                    specification: {
+                        id: {},
+                        name: {},
+                        move_id: { fields: { display_name: {} } },
+                        move_attachment_ids: { fields: { mimetype: {} } },
+                    },
+                    offset: 0,
+                    order: "",
+                    limit: 80,
+                    context: {
+                        lang: "en",
+                        tz: "taht",
+                        uid: pyEnv.currentUserId,
+                        bin_size: true,
+                        group_by: ["move_id"],
+                        default_move_id: 3,
+                    },
+                    count_limit: 10001,
+                    domain: [["move_id", "=", 3]],
+                },
+            })}`,
+        ]);
         await click(":nth-child(5 of .o_data_row) :nth-child(2 of .o_data_cell)");
         await contains(":nth-child(5 of .o_data_row) :nth-child(2 of .o_data_cell) input");
         await contains(
@@ -157,10 +337,10 @@ QUnit.module("Views", {}, function () {
                 getOrigin() + "/web/content/2"
             )}#pagemode=none']`
         );
-        assert.verifySteps([], "no extra rpc should be done");
+        await assertSteps([], "no extra rpc should be done");
         await click(":nth-child(1 of .o_data_row) :nth-child(2 of .o_data_cell)");
         await contains(".o_attachment_preview iframe", { count: 0 });
         await contains(".o_attachment_preview p");
-        assert.verifySteps([], "no extra rpc should be done");
+        await assertSteps([], "no extra rpc should be done");
     });
 });
