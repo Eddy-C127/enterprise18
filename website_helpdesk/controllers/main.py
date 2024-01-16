@@ -9,7 +9,7 @@ from odoo.http import request
 from odoo.osv import expression
 
 from odoo.addons.website.controllers import form
-from odoo.addons.base.models.ir_qweb_fields import nl2br_enclose
+from odoo.addons.base.models.ir_qweb_fields import nl2br, nl2br_enclose
 from odoo.tools import html2plaintext
 
 class WebsiteHelpdesk(http.Controller):
@@ -156,25 +156,27 @@ class WebsiteForm(form.WebsiteForm):
             attachments.generate_access_token()
             message = ticket.message_ids.filtered(lambda m: m.attachment_ids == attachments)
             message.is_internal = False
-            message.subtype_id = request.env.ref('mail.mt_comment')
+            message.subtype_id.internal = False
 
     def insert_record(self, request, model, values, custom, meta=None):
         res = super().insert_record(request, model, values, custom, meta=meta)
-        if not (custom or meta) or model.model != 'helpdesk.ticket':
+        if model.model != 'helpdesk.ticket':
             return res
         ticket = request.env['helpdesk.ticket'].sudo().browse(res)
-        custom = "<b>" + custom.replace(' :', ':</b>').replace('\n', '\n<b>').replace('\r\n<b>', '\r\n')
-        custom_label = "<h4>%s</h4>\n\n" % _("Other Information")  # Title for custom fields
+        custom_label = nl2br_enclose(_("Other Information"), 'h4') # Title for custom fields
         default_field = model.website_form_default_field_id
         default_field_data = values.get(default_field.name, '')
-        default_field_content = "<h4>%s</h4>\n<p>%s</p>" % (_("Description"), html2plaintext(default_field_data))
-        custom_content = (f"{default_field_content} \n\n\n" if default_field_data else '') \
-                        + (f"{custom_label} {custom} \n\n " if custom else '') \
+        default_field_content = nl2br_enclose(default_field.name.capitalize(), 'h4') + nl2br_enclose(html2plaintext(default_field_data), 'p')
+        custom_content = (default_field_content if default_field_data else '') \
+                        + (custom_label + custom if custom else '') \
                         + (self._meta_label + meta if meta else '')
 
         if default_field.name:
+            if default_field.ttype == 'html':
+                custom_content = nl2br(custom_content)
+            ticket[default_field.name] = custom_content
             ticket._message_log(
-                body=nl2br_enclose(custom_content, 'p'),
+                body=custom_content,
                 message_type='comment',
             )
         return res
