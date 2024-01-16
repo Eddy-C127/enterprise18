@@ -594,13 +594,17 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             ))
 
         line_id = report._get_generic_line_id('account.account', account.id)
+        is_in_unfolded_lines = any(
+            report._get_res_id_from_line_id(line_id, 'account.account') == account.id
+            for line_id in options.get('unfolded_lines')
+        )
         return {
             'id': line_id,
             'name': f'{account.code} {account.name}',
             'columns': line_columns,
             'level': 1,
             'unfoldable': has_lines,
-            'unfolded': has_lines and (line_id in options.get('unfolded_lines') or options.get('unfold_all')),
+            'unfolded': has_lines and (is_in_unfolded_lines or options.get('unfold_all')),
             'expand_function': '_report_expand_unfoldable_line_general_ledger',
         }
 
