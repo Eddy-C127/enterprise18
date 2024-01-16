@@ -21,7 +21,7 @@ class StockReport(models.Model):
         ('incoming', 'Vendors'),
         ('outgoing', 'Customers'),
         ('internal', 'Internal')], string="Type", readonly=True)
-    operation_type = fields.Char("Operation Type", readonly=True, translate=True)
+    operation_type_id = fields.Many2one('stock.picking.type', string="Operation Type", readonly=True)
     product_id = fields.Many2one('product.product', "Product", readonly=True)
     picking_name = fields.Char("Picking Name", readonly=True)
     reference = fields.Char("Reference", readonly=True)
@@ -58,7 +58,7 @@ class StockReport(models.Model):
             sp.delay > 0 as is_late,
             sp.cycle_time as cycle_time,
             spt.code as picking_type_code,
-            spt.name as operation_type,
+            spt.id as operation_type_id,
             p.id as product_id,
             sm.reference as reference,
             sm.picking_id as picking_id,
@@ -121,7 +121,7 @@ class StockReport(models.Model):
             sp.delay,
             sp.cycle_time,
             spt.code,
-            spt.name,
+            spt.id,
             p.id,
             is_late,
             cat.id
