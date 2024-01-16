@@ -1374,6 +1374,11 @@
             <field name="rule_parameter_id" ref="rule_parameter_cp200_global_rate"/>
             <field name="date_from" eval="datetime(2022, 1, 1).date()"/>
         </record>
+        <record id="rule_parameter_cp200_global_rate_2024" model="hr.rule.parameter.value">
+            <field name="parameter_value">38.09</field>
+            <field name="rule_parameter_id" ref="rule_parameter_cp200_global_rate"/>
+            <field name="date_from" eval="datetime(2023, 10, 1).date()"/>
+        </record>
 
         <record id="rule_parameter_cp200_special_ffe_rate" model="hr.rule.parameter">
             <field name="name">CP200: Special FFE Rate</field>
