@@ -890,6 +890,35 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
 
         assertViewArchEqual(self, arch, expected)
 
+    def test_set_tree_column_conditional_invisibility(self):
+        self.testViewList = self.env["ir.ui.view"].create({
+            "name": "simple partner",
+            "model": "res.partner",
+            "type": "tree",
+            "arch": '''
+                <tree>
+                    <field name="display_name" />
+                    <field name="title" />
+                </tree>
+            '''
+        })
+        self.testAction.write({
+            "view_ids": [
+                Command.clear(),
+                Command.create({"view_id": self.testViewList.id, "view_mode": "tree"}),
+            ]
+        })
+        self.start_tour("/web?debug=tests", 'web_studio_set_tree_node_conditional_invisibility', login="admin", timeout=200)
+        arch = self.env[self.testViewList.model].with_context(studio=True).get_view(self.testViewList.id, self.testViewList.type)["arch"]
+        expected = '''
+            <tree>
+                <field name="display_name"/>
+                <field name="title" invisible="{title_modifiers}"/>
+             </tree>
+        '''.format(title_modifiers="display_name == &quot;Robert&quot;")
+
+        assertViewArchEqual(self, arch, expected)
+
     def test_studio_view_is_last(self):
         # The studio view created should have, in all cases, a priority greater than all views
         # that are part of the inheritance

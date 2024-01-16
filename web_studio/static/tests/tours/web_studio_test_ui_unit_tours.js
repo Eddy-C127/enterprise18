@@ -325,6 +325,44 @@ registry.category("web_tour.tours").add("web_studio_field_with_group", {
     ],
 });
 
+registry.category("web_tour.tours").add("web_studio_set_tree_node_conditional_invisibility", {
+    test: true,
+    sequence: 260,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+        },
+        {
+            trigger: ".o_web_studio_navbar_item button",
+            extra_trigger: ".o_list_view",
+        },
+        {
+            trigger: ".o_web_studio_list_view_editor th[data-name='title']",
+        },
+        {
+            trigger: ".o_web_studio_sidebar_checkbox:nth-child(1) .o_web_studio_attrs",
+        },
+        {
+            trigger: ".o_model_field_selector_value",
+        },
+        {
+            trigger: ".o_model_field_selector_popover_item_name:contains('Display Name')",
+            in_modal: false,
+        },
+        {
+            trigger: ".o_tree_editor_condition input.o_input",
+            run: "text Robert",
+        },
+        {
+            trigger: ".modal-footer .btn-primary",
+        },
+        {
+            trigger: ".o_web_studio_list_view_editor th[data-name='title']",
+            isCheck: true,
+        },
+    ],
+});
+
 registry.category("web_tour.tours").add("web_studio_elements_with_groups_form", {
     test: true,
     sequence: 260,
