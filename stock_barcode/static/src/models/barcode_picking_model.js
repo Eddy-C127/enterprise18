@@ -36,6 +36,8 @@ export default class BarcodePickingModel extends BarcodeModel {
 
         super.setData(...arguments);
         this._useReservation = this.initialState.lines.some(line => !line.picked);
+        const { use_create_lots, use_existing_lots } = this.record.picking_type_id || {};
+        this.useTrackingNumber = use_create_lots || use_existing_lots;
         if (!this.useScanDestinationLocation) {
             this.config.restrict_scan_dest_location = 'no';
         }
@@ -102,11 +104,17 @@ export default class BarcodePickingModel extends BarcodeModel {
         )) {
             return false;
         }
+        const parentLine = this._getParentLine(line)
+        if (parentLine && parentLine.product_id.tracking !== 'none' && parentLine.reserved_uom_qty === parentLine.qty_done) {
+            return false;
+        }
         return super.getDisplayIncrementBtn(...arguments);
     }
 
     getDisplayIncrementBtnForSerial(line) {
-        return !this.config.restrict_scan_tracking_number && super.getDisplayIncrementBtnForSerial(...arguments);
+        return !this.useTrackingNumber || (
+            !this.config.restrict_scan_tracking_number &&
+            super.getDisplayIncrementBtnForSerial(...arguments));
     }
 
     getIncrementQuantity(line) {
@@ -614,7 +622,7 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     get useScanSourceLocation() {
-        return super.useScanSourceLocation && this.config.restrict_scan_source_location 
+        return super.useScanSourceLocation && this.config.restrict_scan_source_location;
     }
 
     get useScanDestinationLocation() {

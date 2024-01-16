@@ -168,6 +168,7 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         data.actionId = this.actionId || data.actionId;
         super.setData(...arguments);
         this.headerViewId = data.data.header_view_id;
+        this.useTrackingNumber = true;
     }
 
     _getName() {

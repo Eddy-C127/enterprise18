@@ -220,7 +220,8 @@ class StockBarcodeController(http.Controller):
         ], limit=1)
         if picking_type:
             picking = request.env['stock.picking']._create_new_picking(picking_type)
-            return picking._get_client_action()
+            action = picking.action_open_picking_client_action()
+            return {'action': action}
         return False
 
     def _try_open_picking(self, barcode):
@@ -276,8 +277,8 @@ class StockBarcodeController(http.Controller):
                     'location_dest_id': dest_loc.id,
                 })
                 picking.action_confirm()
-
-                return picking._get_client_action()
+                action = picking.action_open_picking_client_action()
+                return {'action': action}
             else:
                 return {'warning': _('No internal operation type. Please configure one in warehouse settings.')}
         return False

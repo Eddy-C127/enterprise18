@@ -27,6 +27,7 @@ export default class BarcodeModel extends EventBus {
         this.lastScanned = { packageId: false, product: false, sourceLocation: false };
         this._currentLocation = false; // Reminds the current source when the scanned one is forgotten.
         this.needSourceConfirmation = false;
+        this.useTrackingNumber = true;
     }
 
     setData(data) {
@@ -72,11 +73,7 @@ export default class BarcodeModel extends EventBus {
     }
 
     getDisplayIncrementBtn(line) {
-        const parentLine = this._getParentLine(line)
-        if (parentLine && parentLine.product_id.tracking !== 'none' && parentLine.reserved_uom_qty === parentLine.qty_done) {
-            return false;
-        }
-        if (line.product_id.tracking === "serial" && (this.record.picking_type_id.use_create_lots || this.record.picking_type_id.use_existing_lots)) {
+        if (line.product_id.tracking === "serial") {
             return this.getDisplayIncrementBtnForSerial(line);
         } else {
             return (!this.getQtyDemand(line) || this.getQtyDemand(line) > this.getQtyDone(line));
@@ -264,6 +261,10 @@ export default class BarcodeModel extends EventBus {
 
     lineIsFaulty(line) {
         throw new Error('Not Implemented');
+    }
+
+    lineIsTracked(line) {
+        return this.useTrackingNumber && line.product_id.tracking !== 'none';
     }
 
     get location() {

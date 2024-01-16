@@ -340,13 +340,12 @@ export default class BarcodeQuantModel extends BarcodeModel {
 
     _convertDataToFieldsParams(args) {
         const params = {};
-        const argsPackage = args.package || args.resultPackage;
         // Set the fields in `params` only if they are in `args`.
         args.quantity && (params.inventory_quantity = args.quantity);
         args.lot && (params.lot_id = args.lot);
         args.lotName && (params.lot_name = args.lotName);
         args.owner && (params.owner_id = args.owner);
-        argsPackage && (params.package_id = argsPackage);
+        args.package && (params.package_id = args.package);
         args.product && (params.product_id = args.product);
         args.product && args.product.uom_id && (params.product_uom_id = args.product.uom_id);
         return params;
@@ -479,9 +478,9 @@ export default class BarcodeQuantModel extends BarcodeModel {
         const quants = res.records['stock.quant'];
         if (!quants.length) { // Empty package => Assigns it to the last scanned line.
             const currentLine = this.selectedLine || this.lastScannedLine;
-            if (currentLine && !currentLine.package_id && !currentLine.result_package_id) {
+            if (currentLine && !currentLine.package_id) {
                 const fieldsParams = this._convertDataToFieldsParams({
-                    resultPackage: recPackage,
+                    package: recPackage,
                 });
                 await this.updateLine(currentLine, fieldsParams);
                 barcodeData.stopped = true;
@@ -525,7 +524,6 @@ export default class BarcodeQuantModel extends BarcodeModel {
                     quantity: quant.quantity,
                     lot: quant.lot_id,
                     package: quant.package_id,
-                    resultPackage: quant.package_id,
                     owner: quant.owner_id,
                 });
                 const newLine = await this._createNewLine({ fieldsParams });
