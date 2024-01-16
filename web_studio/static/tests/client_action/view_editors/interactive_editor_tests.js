@@ -329,7 +329,7 @@ QUnit.module("View Editors", () => {
                             );
                             assert.strictEqual(
                                 args.operations[1].node.field_description.store,
-                                true,
+                                false,
                                 "store arg should be correct"
                             );
                         } else if (nbEdit === 2) {

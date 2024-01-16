@@ -108,7 +108,7 @@ class RelatedChainBuilderModel {
             copy: false,
             string: lastField.string,
             type: fieldType,
-            store: ["one2many", "many2many"].includes(fieldType) ? false : lastField.store,
+            store: false,
         };
 
         if (["many2one", "many2many", "one2many"].includes(fieldType)) {
