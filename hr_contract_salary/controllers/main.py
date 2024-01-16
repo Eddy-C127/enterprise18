@@ -263,8 +263,8 @@ class HrContractSalary(http.Controller):
         contract = request.env['hr.contract'].sudo().browse(contract_id)
         return request.render("hr_contract_salary.salary_package_thank_you", {
             'responsible_name': contract.hr_responsible_id.partner_id.name or contract.job_id.user_id.partner_id.name,
-            'responsible_email': contract.hr_responsible_id.partner_id.email or contract.job_id.user_id.partner_id.email,
-            'responsible_phone': contract.hr_responsible_id.partner_id.phone or contract.job_id.user_id.partner_id.phone,
+            'responsible_email': contract.hr_responsible_id.work_email or contract.job_id.user_id.partner_id.email,
+            'responsible_phone': contract.hr_responsible_id.work_phone or contract.job_id.user_id.partner_id.phone,
         })
 
     def _get_personal_infos_countries(self, contract, personal_info):
