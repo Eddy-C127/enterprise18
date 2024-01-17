@@ -169,14 +169,3 @@ class Certificate(models.Model):
                 crypto.load_privatekey(crypto.FILETYPE_PEM, key_pem)
             except Exception:
                 raise ValidationError(_('The certificate key and/or password is/are invalid.'))
-
-    @api.ondelete(at_uninstall=True)
-    def _unlink_except_invoices(self):
-        # TODO: missing type ?
-        if self.env['l10n_mx_edi.document'].sudo().search([
-            ('state', '=', 'sent'),
-        ], limit=1):
-            raise UserError(_(
-                'You cannot remove a certificate if at least an invoice has been signed. '
-                'Expired Certificates will not be used as Odoo uses the latest valid certificate. '
-                'To not use it, you can unlink it from the current company certificates.'))
