@@ -17,9 +17,6 @@
         'views/res_config_settings_views.xml',
         'wizard/soda_import_wizard.xml',
     ],
-    'demo': [
-        'demo/demo_data.xml',
-    ],
     'assets': {
         'web.assets_backend': [
             'l10n_be_codabox_bridge/static/src/components/**/*',
