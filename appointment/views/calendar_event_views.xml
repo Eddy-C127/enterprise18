@@ -101,7 +101,9 @@
                     <group>
                         <group colspan="2">
                             <field name="partner_ids" widget="many2many_tags_avatar"
-                                   placeholder="Select attendees..." context="{'force_email':True}"
+                                   placeholder="Select attendees..."
+                                   options="{'no_quick_create': True}"
+                                   context="{'form_view_ref': 'base.view_partner_simple_form'}"
                                    class="oe_inline o_required_modifier o_field_highlight"  colspan="2"/>
                         </group>
                         <group>
