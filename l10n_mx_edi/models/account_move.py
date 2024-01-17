@@ -689,7 +689,8 @@ class AccountMove(models.Model):
 
     def _post(self, soft=True):
         # OVERRIDE
-        certificate_date = self.env['l10n_mx_edi.certificate'].sudo().get_mx_current_datetime()
+        mexico_tz = self.env['l10n_mx_edi.certificate'].sudo()._get_timezone()
+        certificate_date = datetime.now(mexico_tz)
 
         for move in self.filtered('l10n_mx_edi_is_cfdi_needed'):
 
@@ -780,7 +781,6 @@ class AccountMove(models.Model):
         self.ensure_one()
         Document = self.env['l10n_mx_edi.document']
         Document._add_base_cfdi_values(cfdi_values)
-        Document._add_certificate_cfdi_values(cfdi_values)
         Document._add_currency_cfdi_values(cfdi_values, self.currency_id)
         Document._add_document_name_cfdi_values(cfdi_values, self.name)
         Document._add_document_origin_cfdi_values(cfdi_values, self.l10n_mx_edi_cfdi_origin)

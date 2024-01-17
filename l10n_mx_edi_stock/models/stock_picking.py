@@ -235,7 +235,6 @@ class Picking(models.Model):
         issued_address = cfdi_values['issued_address']
 
         self.env['l10n_mx_edi.document']._add_base_cfdi_values(cfdi_values)
-        self.env['l10n_mx_edi.document']._add_certificate_cfdi_values(cfdi_values)
         self.env['l10n_mx_edi.document']._add_currency_cfdi_values(cfdi_values, company.currency_id)
         self.env['l10n_mx_edi.document']._add_document_name_cfdi_values(cfdi_values, self.name)
         self.env['l10n_mx_edi.document']._add_document_origin_cfdi_values(cfdi_values, self.l10n_mx_edi_cfdi_origin)
