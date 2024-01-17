@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta, datetime
+from typing import Dict, List
 import pytz
 
 from odoo import Command, fields, models, api, _
@@ -282,6 +283,11 @@ class Task(models.Model):
                 'target': 'new',
             }
         return self.partner_id.action_partner_navigate()
+
+    def web_read(self, specification: Dict[str, Dict]) -> List[Dict]:
+        if len(self) == 1 and 'partner_id' in specification and 'show_address_if_fsm' in specification['partner_id'].get('context', {}):
+            specification['partner_id']['context']['show_address'] = self.is_fsm
+        return super().web_read(specification)
 
     # ---------------------------------------------------------
     # Business Methods
