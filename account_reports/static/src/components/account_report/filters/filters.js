@@ -240,6 +240,8 @@ export class AccountReportFilters extends Component {
     async toggleHideZeroLines() {
         // Avoid calling the database when this filter is toggled; as the exact same lines would be returned; just reassign visibility.
         await this.controller.toggleOption('hide_0_lines', false);
+
+        this.controller.saveSessionOptions(this.controller.options);
         this.controller.assignLinesVisibility(this.controller.lines);
     }
 }
