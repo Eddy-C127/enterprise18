@@ -237,6 +237,33 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
         return this.picking && this.cache.getRecord('stock.location', this.picking.location_dest_id);
     }
 
+    _findLine(barcodeData) {
+        // With batch pickings, we can have multiple grouped lines for the same tracked product if
+        // different pickings use the same tracked product. This override ensures once the user
+        // started to scan lot/serial numbers for a grouped line, we complete it before looking for
+        // another grouped line, even if the scanned LN/SN is reserved in another picking.
+        const {lot, lotName, product} = barcodeData;
+        const dataLotName = lotName || (lot && lot.name) || false;
+        if (this.selectedLine && this.selectedLine.product_id.id === product.id && dataLotName) {
+            const parentLine = this._getParentLine(this.selectedLine);
+            if (parentLine && this._lineIsNotComplete(parentLine)) {
+                let foundLine = false;
+                for (const line of parentLine.lines) {
+                    const lineLotName = line.lot_name || (line.lot_id && line.lot_id.name) || false;
+                    if (dataLotName && (
+                            (lineLotName && dataLotName === lineLotName) ||
+                            this._canOverrideTrackingNumber(line, dataLotName)
+                    )) {
+                        foundLine = line;
+                        break;
+                    }
+                }
+                return foundLine;
+            }
+        }
+        return super._findLine(...arguments);
+    }
+
     _getNewLineDefaultValues(fieldsParams) {
         // Adds the default picking id and its corresponding color on the line.
         const defaultValues = super._getNewLineDefaultValues(...arguments);
@@ -272,6 +299,17 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
 
     _incrementTrackedLine() {
         return !(this.picking.use_create_lots || this.picking.use_existing_lots);
+    }
+
+    _lineCannotBeTaken(line) {
+        // Don't take another line if the selected one is not complete and are from different pickings.
+        const selectedLine = this._getParentLine(this.selectedLine) || this.selectedLine;
+        return (
+            selectedLine &&
+            line.product_id.id === selectedLine.product_id.id &&
+            selectedLine.qty_done < selectedLine.reserved_uom_qty &&
+            line.picking_id.id != selectedLine.picking_id.id
+        );
     }
 
     _moveEntirePackage() {
