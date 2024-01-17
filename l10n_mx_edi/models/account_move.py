@@ -673,7 +673,8 @@ class AccountMove(models.Model):
 
     def _post(self, soft=True):
         # OVERRIDE
-        certificate_date = self.env['l10n_mx_edi.certificate'].sudo().get_mx_current_datetime()
+        mexico_tz = self.env['l10n_mx_edi.certificate'].sudo()._get_timezone()
+        certificate_date = datetime.now(mexico_tz)
 
         for move in self.filtered('l10n_mx_edi_is_cfdi_needed'):
 
