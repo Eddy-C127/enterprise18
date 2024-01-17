@@ -39,7 +39,7 @@ class CalendarEvent(models.Model):
         if self.env.context.get('appointment_default_add_organizer_to_attendees') and 'partner_ids' in fields_list:
             organizer_partner = self.env['res.users'].browse(res.get('user_id', [])).partner_id
             if organizer_partner:
-                res['partner_ids'] = organizer_partner.ids
+                res['partner_ids'] = [Command.set(organizer_partner.ids)]
         return res
 
     def _default_access_token(self):
