@@ -124,20 +124,29 @@ class WebStudioController(http.Controller):
         }
 
     def _get_studio_action_reports(self, model, **kwargs):
+        report_name_blacklist = [
+            "account_followup.report_followup_print_all",
+            "stock.report_lot_label",
+            "stock.report_picking_type_label",
+            "product.report_producttemplatelabel",
+            "product.report_producttemplatelabel_dymo",
+            "stock.report_reception_report_label",
+            "mrp.label_production_view_pdf",
+        ]
+        report_domain = expression.AND([
+            # One can edit only reports backed by persisting models
+            [("model_id.transient", "=", False)],
+            [("model_id.abstract", "=", False)],
+            [("report_type", "not in", ['qweb-text'])],
+            [("report_name", "not in", report_name_blacklist)],
+        ])
         return {
             'name': _('Reports'),
             'type': 'ir.actions.act_window',
             'res_model': 'ir.actions.report',
             'views': [[False, 'kanban'], [False, 'form']],
             'target': 'current',
-            # One can edit only reports backed by persisting models
-            'domain': [
-                '&',
-                ("model_id.transient", "=", False),
-                ("model_id.abstract", "=", False),
-                ("report_type", "not in", ['qweb-text']),
-                ("report_name", "not in", ["account_followup.report_followup_print_all"])
-            ],
+            'domain': report_domain,
             'context': {
                 'default_model': model.model,
                 'search_default_model': model.model,
