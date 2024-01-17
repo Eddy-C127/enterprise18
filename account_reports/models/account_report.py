@@ -1597,7 +1597,7 @@ class AccountReport(models.Model):
         This was introduced as an improvement in stable and will become a proper _init_options in master, together with a new field on the report.
         """
         options['integer_rounding'] = integer_rounding
-        if self._context.get('print_mode'):
+        if options.get('export_mode') == 'file':
             options['integer_rounding_enabled'] = True
         else:
             options['integer_rounding_enabled'] = (previous_options or {}).get('integer_rounding_enabled', True)
