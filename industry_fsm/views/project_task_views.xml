@@ -55,7 +55,7 @@
             </xpath>
             <field name="is_fsm" string="is FSM?" invisible="1"/>
             <field name="partner_id" position="attributes">
-                <attribute name="context">{'show_address': is_fsm, 'res_partner_search_mode': 'customer'}</attribute>
+                <attribute name="context">{'show_address_if_fsm': 1, 'res_partner_search_mode': 'customer'}</attribute>
                 <attribute name="invisible">not project_id</attribute>
                 <attribute name="required">is_fsm</attribute>
             </field>
