@@ -31,7 +31,7 @@ class TestWebsiteHelpdeskLivechat(HttpCase, HelpdeskCommon):
         channel_info = self.make_jsonrpc_request("/im_livechat/get_session", {
             'anonymous_name': 'Visitor',
             'channel_id': self.livechat_channel.id,
-        })
+        })["Thread"]
         discuss_channel = self.env['discuss.channel'].browse(channel_info['id']).with_user(self.helpdesk_manager)
 
         self.assertFalse(self.env['helpdesk.ticket'].search([('team_id', '=', self.test_team.id)]), 'The team should start with no tickets')

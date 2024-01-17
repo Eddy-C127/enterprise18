@@ -36,7 +36,7 @@ export class Softphone {
                 activity.activity_category === "phonecall" &&
                 ["today", "overdue"].includes(activity.state) &&
                 ["phone", "mobile"].some((field) => activity[field]) &&
-                activity.user_id[0] === this.store.self.user.id &&
+                activity.user_id[0] === this.store.self.userId &&
                 (!this.searchBarInputValue ||
                     [
                         activity.partner.name,
