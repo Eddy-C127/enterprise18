@@ -1478,9 +1478,9 @@ class TestReportEngines(TestAccountReportsCommon):
             up_options
         )
 
-        # In print mode, the rounding should always be applied, even if it was previously disabled
-        print_mode_options = report.with_context(print_mode=True)._custom_options_add_integer_rounding(
-            {**main_options},
+        # In file export mode, the rounding should always be applied, even if it was previously disabled
+        print_mode_options = report._custom_options_add_integer_rounding(
+            {**main_options, 'export_mode': 'file'},
             'HALF-UP',
             previous_options={'integer_rounding_enabled': False},
         )

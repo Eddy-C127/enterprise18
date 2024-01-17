@@ -242,7 +242,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
             query_domain = []
 
-            if self.env.context.get('print_mode') and options.get('filter_search_bar'):
+            if options.get('export_mode') == 'print' and options.get('filter_search_bar'):
                 query_domain.append(('account_id', 'ilike', options['filter_search_bar']))
 
             if options_group.get('include_current_year_in_unaff_earnings'):
