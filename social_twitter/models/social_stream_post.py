@@ -97,17 +97,11 @@ class SocialStreamPostTwitter(models.Model):
     # ========================================================
 
     def _twitter_comment_add(self, stream, comment_id, message, attachment):
-        """Create a reply to a tweet.
-
-        We need to manually set the message in the result object, because sometimes
-        the twitter API adds the users at the beginning of the message, even if we
-        already added them (so the API response is different from the created tweet).
-        """
+        """Create a reply to a tweet."""
         self.ensure_one()
         tweet_id = comment_id or self.twitter_tweet_id
         tweet = self._twitter_post_tweet(stream, message, attachment, reply={'in_reply_to_tweet_id': tweet_id})
         tweet['in_reply_to_tweet_id'] = tweet_id
-        tweet['message'] = message
         return tweet
 
     def _twitter_comment_fetch(self, page=1):
