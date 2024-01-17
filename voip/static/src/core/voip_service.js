@@ -110,13 +110,6 @@ export class Voip {
         );
     }
 
-    /** @returns {string} */
-    get cleanedExternalDeviceNumber() {
-        return this.store.settings.external_device_number
-            ? cleanPhoneNumber(this.store.settings.external_device_number)
-            : "";
-    }
-
     /** @returns {boolean} */
     get hasPendingRequest() {
         return Boolean(this._activityRpc || this._contactRpc || this._recentCallsRpc);
@@ -127,6 +120,14 @@ export class Voip {
         return Boolean(
             window.RTCPeerConnection && window.MediaStream && browser.navigator.mediaDevices
         );
+    }
+
+    /** @returns {boolean} */
+    get hasValidExternalDeviceNumber() {
+        if (!this.settings.external_device_number) {
+            return false;
+        }
+        return cleanPhoneNumber(this.settings.external_device_number) !== "";
     }
 
     /**
@@ -152,7 +153,7 @@ export class Voip {
     get willCallFromAnotherDevice() {
         return (
             this.store.settings.should_call_from_another_device &&
-            this.cleanedExternalDeviceNumber !== ""
+            this.hasValidExternalDeviceNumber
         );
     }
 

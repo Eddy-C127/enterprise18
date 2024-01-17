@@ -4,6 +4,7 @@
 import { reactive } from "@odoo/owl";
 
 import { Registerer } from "@voip/core/registerer";
+import { cleanPhoneNumber } from "@voip/utils/utils";
 
 import { loadBundle } from "@web/core/assets";
 import { browser } from "@web/core/browser/browser";
@@ -221,27 +222,35 @@ export class UserAgent {
     invite(phoneNumber) {
         let calleeUri;
         if (this.voip.willCallFromAnotherDevice) {
-            calleeUri = SIP.UserAgent.makeURI(
-                `sip:${this.voip.cleanedExternalDeviceNumber}@${this.voip.pbxAddress}`
-            );
+            calleeUri = this.makeUri(this.voip.store.settings.external_device_number);
             this.session.transferTarget = phoneNumber;
         } else {
-            calleeUri = SIP.UserAgent.makeURI(`sip:${phoneNumber}@${this.voip.pbxAddress}`);
+            calleeUri = this.makeUri(phoneNumber);
         }
-        const inviter = new SIP.Inviter(this.__sipJsUserAgent, calleeUri);
-        inviter.delegate = this.sessionDelegate;
-        inviter.stateChange.addListener((state) => this._onSessionStateChange(state));
-        this.session.sipSession = inviter;
-        this.session.sipSession.invite({
-            requestDelegate: {
-                onAccept: (response) => this._onOutgoingInvitationAccepted(response),
-                onProgress: (response) => this._onOutgoingInvitationProgress(response),
-                onReject: (response) => this._onOutgoingInvitationRejected(response),
-            },
-            sessionDescriptionHandlerOptions: {
-                constraints: this.mediaConstraints,
-            },
-        });
+        try {
+            const inviter = new SIP.Inviter(this.__sipJsUserAgent, calleeUri);
+            inviter.delegate = this.sessionDelegate;
+            inviter.stateChange.addListener((state) => this._onSessionStateChange(state));
+            this.session.sipSession = inviter;
+            this.session.sipSession.invite({
+                requestDelegate: {
+                    onAccept: (response) => this._onOutgoingInvitationAccepted(response),
+                    onProgress: (response) => this._onOutgoingInvitationProgress(response),
+                    onReject: (response) => this._onOutgoingInvitationRejected(response),
+                },
+                sessionDescriptionHandlerOptions: {
+                    constraints: this.mediaConstraints,
+                },
+            });
+        } catch (error) {
+            console.error(error);
+            this.voip.triggerError(
+                _t(
+                    "An error occurred trying to invite the following number: %(phoneNumber)s\n\nError: %(error)s",
+                    { phoneNumber, error: error.message }
+                )
+            );
+        }
     }
 
     /** @param {Object} data */
@@ -270,6 +279,15 @@ export class UserAgent {
                 this._onOutgoingInvitationAccepted();
             }, 3000);
         }
+    }
+
+    /**
+     * @param {string} phoneNumber
+     * @returns {SIP.URI}
+     */
+    makeUri(phoneNumber) {
+        const sanitizedNumber = cleanPhoneNumber(phoneNumber);
+        return SIP.UserAgent.makeURI(`sip:${sanitizedNumber}@${this.voip.pbxAddress}`);
     }
 
     async rejectIncomingCall() {
@@ -303,7 +321,7 @@ export class UserAgent {
             this.hangup();
             return;
         }
-        const transferTarget = SIP.UserAgent.makeURI(`sip:${number}@${this.voip.pbxAddress}`);
+        const transferTarget = this.makeUri(number);
         this.session.sipSession.refer(transferTarget, {
             requestDelegate: {
                 onAccept: (response) => this._onReferAccepted(response),
