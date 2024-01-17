@@ -57,19 +57,20 @@ class HrPayslipRunSepaWizard(models.TransientModel):
         employee_bank_data = [emp for emp in self.env['hr.employee']._get_account_holder_employees_data() if
                               emp["id"] in employees.ids]
 
-        invalid_employee_ids = self.env['hr.employee']._get_invalid_iban_employee_ids(employee_bank_data)
+        if employee_bank_data:
+            user_error_message = ""
 
-        user_error_message = ""
-        if invalid_employee_ids:
-            user_error_message += (_('Invalid bank account for the following employees:\n%s', '\n'.join(self.env['hr.employee'].browse(invalid_employee_ids).mapped('name'))))
-
-        untrusted_banks_employee_ids = self.env['hr.employee']._get_untrusted_bank_employee_ids(employee_bank_data)
-        if untrusted_banks_employee_ids:
+            invalid_employee_ids = self.env['hr.employee']._get_invalid_iban_employee_ids(employee_bank_data)
             if invalid_employee_ids:
-                user_error_message += "\n\n"
-            user_error_message += _('Untrusted bank account for the following employees:\n%s', '\n'.join(self.env['hr.employee'].browse(untrusted_banks_employee_ids).mapped('name')))
+                user_error_message += (_('Invalid bank account for the following employees:\n%s', '\n'.join(self.env['hr.employee'].browse(invalid_employee_ids).mapped('name'))))
 
-        if user_error_message:
-            raise UserError(user_error_message)
+            untrusted_banks_employee_ids = self.env['hr.employee']._get_untrusted_bank_employee_ids(employee_bank_data)
+            if untrusted_banks_employee_ids:
+                if invalid_employee_ids:
+                    user_error_message += "\n\n"
+                user_error_message += _('Untrusted bank account for the following employees:\n%s', '\n'.join(self.env['hr.employee'].browse(untrusted_banks_employee_ids).mapped('name')))
+
+            if user_error_message:
+                raise UserError(user_error_message)
 
         payslips.sudo()._create_xml_file(self.journal_id, self.file_name)
