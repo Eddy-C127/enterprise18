@@ -16,6 +16,11 @@
                 <field name="user_id"/>
                 <field name="activity_state"/>
                 <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
+                <header>
+                    <button type="action" name="stock_barcode.stock_barcode_action_main_menu"
+                            class="btn-secondary btn-link order-first px-0"
+                            icon="fa-chevron-left" title="Go to the main menu" display="always"/>
+                </header>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click">
