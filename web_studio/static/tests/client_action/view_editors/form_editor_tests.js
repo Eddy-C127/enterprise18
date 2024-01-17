@@ -3388,6 +3388,44 @@ QUnit.module("View Editors", (hooks) => {
         assert.strictEqual(editViewCount, 0,
             "the group cannot be dropped inside a group");
     });
+
+    QUnit.test("edit_view route includes the context of the action", async (assert) => {
+        registry.category("services").add("enterprise_subscription", {
+            start() {
+                return {};
+            },
+        });
+        const action = {
+            type: "ir.actions.act_window",
+            xml_id: "coucou_action",
+            res_model: "coucou",
+            res_id: 1,
+            views: [[1, "form"]],
+            context: { action_key: "some_context_value" },
+        };
+
+        serverData.views = {
+            "coucou,1,form": /*xml */ `
+               <form>
+                   <field name="display_name" />
+               </form>`,
+            "coucou,false,search": `<search />`,
+        };
+
+        const mockRPC = (route, args) => {
+            if (route === "/web_studio/edit_view") {
+                assert.step("edit_view");
+                assert.strictEqual(args.context.action_key, "some_context_value");
+            }
+        };
+
+        const webClient = await createEnterpriseWebClient({ serverData, mockRPC });
+        await doAction(webClient, action);
+        await openStudio(target);
+        await click(target, ".o_web_studio_form_view_editor div[name='display_name']");
+        await editInput(target, ".o_web_studio_sidebar input[name='string']", "new Label");
+        assert.verifySteps(["edit_view"]);
+    });
 });
 
 QUnit.module("View Editors", (hooks) => {
