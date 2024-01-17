@@ -497,12 +497,23 @@ class L10nMxEdiDocument(models.Model):
             * root_company:     The company used to interact with the SAT.
             * issued_address:   The company's address.
         """
-        root_company = company.sudo().parent_ids[::-1].filtered('l10n_mx_edi_certificate_ids')[:1]
-        return {
+        root_company = company.sudo().parent_ids[::-1].filtered('l10n_mx_edi_certificate_ids')[:1] or company
+
+        cfdi_values = {
             'company': company,
             'issued_address': company.partner_id.commercial_partner_id,
             'root_company': root_company,
         }
+
+        if root_company.l10n_mx_edi_pac:
+            pac_test_env = root_company.l10n_mx_edi_pac_test_env
+            pac_password = root_company.sudo().l10n_mx_edi_pac_password
+            if not pac_test_env and not pac_password:
+                cfdi_values['errors'] = [_("No PAC credentials specified.")]
+        else:
+            cfdi_values['errors'] = [_("No PAC specified.")]
+
+        return cfdi_values
 
     @api.model
     def _add_certificate_cfdi_values(self, cfdi_values):
@@ -512,6 +523,10 @@ class L10nMxEdiDocument(models.Model):
         """
         root_company = cfdi_values['root_company']
         certificate = root_company.l10n_mx_edi_certificate_ids._get_valid_certificate()
+        if not certificate:
+            cfdi_values['errors'] = [_("No valid certificate found")]
+            return
+
         supplier = root_company.partner_id.commercial_partner_id.with_user(self.env.user)
         cfdi_values.update({
             'certificate': certificate,
@@ -1365,9 +1380,9 @@ class L10nMxEdiDocument(models.Model):
         }
 
     @api.model
-    def _finkok_cancel(self, company, credentials, uuid, cancel_reason, cancel_uuid=None):
-        certificates = company.l10n_mx_edi_certificate_ids
-        certificate = certificates.sudo()._get_valid_certificate()
+    def _finkok_cancel(self, cfdi_values, credentials, uuid, cancel_reason, cancel_uuid=None):
+        company = cfdi_values['root_company']
+        certificate = cfdi_values['certificate']
         cer_pem = certificate._get_pem_cer(certificate.content)
         key_pem = certificate._get_pem_key(certificate.key, certificate.password)
         try:
@@ -1481,12 +1496,11 @@ class L10nMxEdiDocument(models.Model):
         return {'errors': errors}
 
     @api.model
-    def _solfact_cancel(self, company, credentials, uuid, cancel_reason, cancel_uuid=None):
+    def _solfact_cancel(self, cfdi_values, credentials, uuid, cancel_reason, cancel_uuid=None):
+        certificate = cfdi_values['certificate']
         uuid_param = f"{uuid}|{cancel_reason}|"
         if cancel_uuid:
             uuid_param += cancel_uuid
-        certificates = company.l10n_mx_edi_certificate_ids
-        certificate = certificates.sudo()._get_valid_certificate()
         cer_pem = certificate._get_pem_cer(certificate.content)
         key_pem = certificate._get_pem_key(certificate.key, certificate.password)
         key_password = certificate.password
@@ -1680,13 +1694,13 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             return {'errors': errors}
 
     @api.model
-    def _sw_cancel(self, company, credentials, uuid, cancel_reason, cancel_uuid=None):
+    def _sw_cancel(self, cfdi_values, credentials, uuid, cancel_reason, cancel_uuid=None):
+        company = cfdi_values['root_company']
+        certificate = cfdi_values['certificate']
         headers = {
             'Authorization': "bearer " + credentials['token'],
             'Content-Type': "application/json"
         }
-        certificates = company.l10n_mx_edi_certificate_ids
-        certificate = certificates.sudo()._get_valid_certificate()
         payload_dict = {
             'rfc': company.vat,
             'b64Cer': certificate.content.decode('UTF-8'),
@@ -1984,10 +1998,15 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         """
         # == Check the config ==
         cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(company)
+        if cfdi_values.get('errors'):
+            on_failure("\n".join(cfdi_values['errors']))
+            return
+
         root_company = cfdi_values['root_company']
-        errors = root_company._l10n_mx_edi_cfdi_check_config()
-        if errors:
-            on_failure("\n".join(errors))
+
+        self.env['l10n_mx_edi.document']._add_certificate_cfdi_values(cfdi_values)
+        if cfdi_values.get('errors'):
+            on_failure("\n".join(cfdi_values['errors']))
             return
 
         # == CFDI values ==
@@ -2048,12 +2067,15 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         self.ensure_one()
 
         cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(company)
+        if cfdi_values.get('errors'):
+            on_failure("\n".join(cfdi_values['errors']))
+            return
+
         root_company = cfdi_values['root_company']
 
-        # == Check the config ==
-        errors = root_company._l10n_mx_edi_cfdi_check_config()
-        if errors:
-            on_failure("\n".join(errors))
+        self.env['l10n_mx_edi.document']._add_certificate_cfdi_values(cfdi_values)
+        if cfdi_values.get('errors'):
+            on_failure("\n".join(cfdi_values['errors']))
             return
 
         # == Check credentials ==
@@ -2067,7 +2089,7 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         substitution_doc = self._get_substitution_document()
         cancel_uuid = substitution_doc.attachment_uuid
         cancel_results = getattr(self.env['l10n_mx_edi.document'], f'_{pac_name}_cancel')(
-            root_company,
+            cfdi_values,
             credentials,
             self.attachment_uuid,
             cancel_reason,

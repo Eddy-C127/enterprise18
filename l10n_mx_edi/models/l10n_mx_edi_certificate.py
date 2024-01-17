@@ -101,8 +101,7 @@ class Certificate(models.Model):
         return cer_pem, certificate
 
     def _get_valid_certificate(self):
-        '''Search for a valid certificate that is available and not expired.
-        '''
+        '''Search for a valid certificate that is available and not expired. '''
         tz = self._get_timezone()
         now = datetime.now(tz)
         for record in self:

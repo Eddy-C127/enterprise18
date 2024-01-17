@@ -293,7 +293,6 @@ class PosOrder(models.Model):
             Document._add_document_origin_cfdi_values(cfdi_values, None)
 
         Document._add_base_cfdi_values(cfdi_values)
-        Document._add_certificate_cfdi_values(cfdi_values)
         Document._add_currency_cfdi_values(cfdi_values, self.currency_id)
         Document._add_document_name_cfdi_values(cfdi_values, self.name)
         Document._add_customer_cfdi_values(
