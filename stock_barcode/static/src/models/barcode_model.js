@@ -773,7 +773,7 @@ export default class BarcodeModel extends EventBus {
      *
      * @param {string} barcode
      * @param {Object} filters For some models, different records can have the same barcode
-     *      (`stock.production.lot` for example). In this case, these filters can help to get only
+     *      (`stock.lot` for example). In this case, these filters can help to get only
      *      the wanted record by filtering by record's field's value.
      * @returns {Object} Containing following data:
      *      - {string} barcode: the scanned barcode
@@ -1425,6 +1425,9 @@ export default class BarcodeModel extends EventBus {
                     // and the line wasn't explicitly selected.
                     continue;
             }
+            if (this._lineCannotBeTaken(line)) {
+                continue;
+            }
             if (this._lineIsNotComplete(line)) {
                 if (this.lineCanBeTakenFromTheCurrentLocation(line)) {
                     // Found a uncompleted compatible line, stop searching if it has the same location
@@ -1432,6 +1435,8 @@ export default class BarcodeModel extends EventBus {
                     foundLine = line;
                     if ((this.lineIsInTheCurrentLocation(line)) &&
                         (this.tracking === 'none' || !dataLotName || dataLotName === lineLotName)) {
+                        // In case of tracked product, stop searching only if no
+                        // LN/SN was scanned or if it's the same.
                         break;
                     }
                 } else if (this.needSourceConfirmation && foundLine && !this._lineIsNotComplete(foundLine)) {
@@ -1444,20 +1449,60 @@ export default class BarcodeModel extends EventBus {
                     continue;
                 }
             }
-            // The line matches but there could be a better candidate, so keep searching.
-            // If multiple lines can match, prioritises the one at the right location (if a location
-            // source was previously selected) or the selected one if relevant.
-            const currentLocationId = this.lastScanned.sourceLocation && this.lastScanned.sourceLocation.id;
-            if (this.selectedLine && this.selectedLine.virtual_id === line.virtual_id && (
-                !currentLocationId || !foundLine || foundLine.location_id.id != currentLocationId)) {
-                foundLine = this.lineCanBeTakenFromTheCurrentLocation(line) ? line : foundLine;
-            } else if (!foundLine || (currentLocationId &&
-                       foundLine.location_id.id != currentLocationId &&
-                       line.location_id.id == currentLocationId)) {
-                foundLine = this.lineCanBeTakenFromTheCurrentLocation(line) ? line : foundLine;
+            // If all the previous checks were passed, the line can be considered
+            // as the found line. That said, if another line was already found,
+            // it can be tricky to know which one we want to prioritize.
+            if (!foundLine) {
+                // The line matches but there could be a better candidate, so keep searching.
+                // If multiple lines can match, prioritises the one at the right location (if a
+                // location source was previously selected) or the selected one if relevant.
+                const currentLocationId = this.lastScanned.sourceLocation && this.lastScanned.sourceLocation.id;
+                if (this.selectedLine && this.selectedLine.virtual_id === line.virtual_id && (
+                    !currentLocationId || !foundLine || foundLine.location_id.id != currentLocationId)) {
+                    foundLine = this.lineCanBeTakenFromTheCurrentLocation(line) ? line : foundLine;
+                } else if (!foundLine || (currentLocationId &&
+                        foundLine.location_id.id != currentLocationId &&
+                        line.location_id.id == currentLocationId)) {
+                    foundLine = this.lineCanBeTakenFromTheCurrentLocation(line) ? line : foundLine;
+                }
+            } else if (this._lineIsNotComplete(foundLine)) {
+                // If previous line is not completed, no reason to prioritize the current one.
+                continue;
+            } else if (this._lineIsNotComplete(line)) {
+                // If previous line is completed and current one is not, prioritize the current one.
+                foundLine = line;
+            } else if (this.lineIsSelected(line) ||
+                (!this.lineIsSelected(foundLine) && this.lineBelongsToSelectedLine(line))
+            ) {
+                // If both previous found line and current line are completed, prioritize the
+                // current one only if it's the selected line (or on of its sublines.)
+                foundLine = line;
             }
         }
         return foundLine;
+    }
+
+    lineBelongsToSelectedLine(line) {
+        if (!this.selectedLine) {
+            return false;
+        }
+        const selectedGroupedLine = this._getParentLine(this.selectedLine);
+        return selectedGroupedLine && selectedGroupedLine.virtual_ids.includes(line.virtual_id);
+    }
+
+    /**
+     * Intended to be used only by `_findLine`.
+     * Depending of the model, they can have additional conditions to know if a
+     * line can be took when a barcode is scanned. This method is meant to be overriden.
+     * @param {Object} _line
+     * @returns {Boolean}
+     */
+    _lineCannotBeTaken(line) {
+        return !this.lineCanBeTakenFromTheCurrentLocation(line);
+    }
+
+    lineIsSelected(line) {
+        return this.selectedLine && this.selectedLine.virtual_id === line.virtual_id;
     }
 
     _shouldSearchForAnotherLot(barcodeData, filters) {
@@ -1478,12 +1523,10 @@ export default class BarcodeModel extends EventBus {
         if (dataLotName && lineLotName && dataLotName !== lineLotName) {
             return true;
         }
-        // If the line is a part of a group, we check if the group is fulfilled.
         const parentLine = this._getParentLine(line);
-        if (parentLine) {
-            return this.getQtyDone(parentLine) >= this.getQtyDemand(parentLine);
-        }
-        return false;
+        // If the line is a part of a group, we check if the group is fulfilled.
+        const currentLine = parentLine || line;
+        return this.getQtyDone(currentLine) >= this.getQtyDemand(currentLine);
     }
 
     get _uniqueVirtualId() {

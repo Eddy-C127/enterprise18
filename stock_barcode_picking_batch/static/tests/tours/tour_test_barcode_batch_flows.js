@@ -614,6 +614,133 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_2_move_enti
     },
 ]});
 
+registry.category("web_tour.tours").add('test_barcode_batch_scan_lots', {test: true, steps: () => [
+    // RECEIPT PART:
+    // Open the batch receipt by scanning it.
+    { trigger: '.o_stock_barcode_main_menu', run: 'scan test_barcode_batch_scan_lots - receipt' },
+    // Scan productlot1 then 3x lot1
+    { trigger: '.o_barcode_line', run: 'scan productlot1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan lot1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan lot1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan lot1' },
+    {
+        trigger: '.o_barcode_line.o_selected .qty-done:contains(3)',
+        run: function () {
+            helper.assertLinesCount(2);
+            helper.assertLineBelongTo(0, "receipt_1");
+            helper.assertLineBelongTo(1, "receipt_2");
+            helper.assertLineQty(0, "3 / 4");
+            helper.assertLineQty(1, "0 / 4");
+        },
+    },
+    // Now scan 1x lot2. It should create a new line for receipt_1 since the line is uncompleted.
+    { trigger: '.o_barcode_client_action', run: 'scan lot2' },
+    // Scan again 2x lot2. It should increment the receipt_2 line now the receipt_1 line is complete
+    { trigger: '.o_barcode_line.o_selected.o_line_completed', run: 'scan lot2' },
+    { trigger: '.o_barcode_line.o_selected:not(.o_line_completed)', run: 'scan lot2' },
+    {
+        trigger: '.o_barcode_line.o_selected .qty-done:contains(2)',
+        run: function () {
+            helper.assertLinesCount(2);
+            helper.assertLineBelongTo(0, "receipt_1");
+            helper.assertLineBelongTo(1, "receipt_2");
+            helper.assertLineQty(0, "4 / 4");
+            helper.assertLineQty(1, "2 / 4");
+        },
+    },
+    // Scan 2x lot3 to complete the batch.
+    { trigger: '.o_barcode_client_action', run: 'scan lot3' },
+    { trigger: '.o_barcode_client_action', run: 'scan lot3' },
+    {
+        trigger: '.o_barcode_line.o_selected.o_line_completed .o_line_button.o_toggle_sublines',
+        run: 'click',
+    },
+    {
+        trigger: '.o_barcode_line.o_selected.o_line_completed .o_sublines',
+        run: function () {
+            helper.assertLinesCount(2);
+            helper.assertSublinesCount(2);
+            const sublines = helper.getSublines();
+            helper.assertLineBelongTo(0, "receipt_1");
+            helper.assertLineBelongTo(1, "receipt_2");
+            helper.assertLineQty(0, "4 / 4");
+            helper.assertLineQty(1, "4 / 4");
+            helper.assertLineQty(sublines[0], "2 / 4");
+            helper.assertLineQty(sublines[1], "2");
+            helper.assertLinesTrackingNumbers(sublines, ["lot2", "lot3"]);
+        },
+    },
+    { trigger: '.o_barcode_client_action', run: 'scan OBTVALI' },
+    { trigger: '.o_notification_bar.bg-success' },
+
+    // DELIVERY PART:
+    // Now, open the batch delivery.
+    { trigger: '.o_stock_barcode_main_menu', run: 'scan test_barcode_batch_scan_lots - delivery' },
+    {
+        trigger: '.o_barcode_line',
+        run: function () {
+            helper.assertLinesCount(2);
+            const lines = helper.getLines();
+            helper.assertLineBelongTo(0, "delivery_1");
+            helper.assertLineBelongTo(1, "delivery_2");
+            helper.assertLineQty(0, "0 / 3");
+            helper.assertLineQty(1, "0 / 3");
+            helper.assertLinesTrackingNumbers(lines, ["lot1", "lot2"]);
+        },
+    },
+    // First, scan productlot1. The first line (for delivery_1) should be selected.
+    { trigger: '.o_barcode_client_action', run: 'scan productlot1' },
+    // Then, scan lot which is reserved for delivery_2 but will be assigned to
+    // delivery_1 since it's its line who is selected.
+    { trigger: '.o_barcode_line.o_selected', run: 'scan lot2' },
+    // Then, scan lot3 which isn't reserved and scan again lot2 to complete delivery_1.
+    { trigger: '.o_barcode_line.o_selected', run: 'scan lot3' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan lot2' },
+    {
+        trigger: '.o_barcode_line.o_selected.o_line_completed .o_line_button.o_toggle_sublines',
+        run: 'click',
+    },
+    {
+        trigger: '.o_barcode_line.o_selected.o_line_completed .o_sublines',
+        run: function () {
+            helper.assertLinesCount(2);
+            helper.assertSublinesCount(2);
+            const sublines = helper.getSublines();
+            helper.assertLineBelongTo(0, "delivery_1");
+            helper.assertLineBelongTo(3, "delivery_2");
+            helper.assertLineQty(0, "3 / 3");
+            helper.assertLineQty(3, "0 / 3");
+            helper.assertLineQty(sublines[0], "2 / 3");
+            helper.assertLineQty(sublines[1], "1");
+            helper.assertLinesTrackingNumbers(sublines, ["lot2", "lot3"]);
+        },
+    },
+    // Scan lot1, lot2 and lot3 to complete delivery_2.
+    { trigger: '.o_barcode_client_action', run: 'scan lot2' },
+    { trigger: '.o_barcode_line.o_selected:not(.o_line_completed)', run: 'scan lot1' },
+    { trigger: '.o_barcode_client_action', run: 'scan lot3' },
+    {
+        trigger: '.o_barcode_line.o_selected.o_line_completed .o_line_button.o_toggle_sublines',
+        run: 'click',
+    },
+    {
+        trigger: '.o_barcode_line.o_selected.o_line_completed .o_sublines',
+        run: function () {
+            const sublines = helper.getSublines();
+            helper.assertLineBelongTo(0, "delivery_1");
+            helper.assertLineBelongTo(1, "delivery_2");
+            helper.assertLineQty(0, "3 / 3");
+            helper.assertLineQty(1, "3 / 3");
+            helper.assertLineQty(sublines[0], "1 / 3");
+            helper.assertLineQty(sublines[1], "1");
+            helper.assertLineQty(sublines[2], "1");
+            helper.assertLinesTrackingNumbers(sublines, ["lot2", "lot1", "lot3"]);
+        },
+    },
+    { trigger: '.o_barcode_client_action', run: 'scan OBTVALI' },
+    { trigger: '.o_notification_bar.bg-success' },
+]});
+
 registry.category("web_tour.tours").add('test_batch_create', {test: true, steps: () => [
     {
         trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")',

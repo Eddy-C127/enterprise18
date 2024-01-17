@@ -1288,9 +1288,10 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     _lineIsNotComplete(line) {
-        const isNotComplete = line.reserved_uom_qty && line.qty_done < line.reserved_uom_qty;
-        if (!isNotComplete && line.lines) { // Grouped lines/package lines have multiple sublines.
-            for (const subline of line.lines) {
+        const currentLine = (line.product_id.tracking !== "none" && this._getParentLine(line)) || line;
+        const isNotComplete = currentLine.reserved_uom_qty && currentLine.qty_done < currentLine.reserved_uom_qty;
+        if (!isNotComplete && currentLine.lines) { // Grouped lines/package lines have multiple sublines.
+            for (const subline of currentLine.lines) {
                 // For tracked product, a line with `qty_done` but no tracking number is considered as not complete.
                 if (subline.product_id.tracking != 'none') {
                     if (subline.qty_done && !(subline.lot_id || subline.lot_name)) {
