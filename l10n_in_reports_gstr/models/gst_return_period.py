@@ -55,6 +55,7 @@ class L10nInGSTReturnPeriod(models.Model):
     name = fields.Char(compute="_compute_name", string="Period")
     return_period_month_year = fields.Char(compute="_compute_rtn_period_month_year", string="Return Period", store=True)
     tax_unit_id = fields.Many2one("account.tax.unit", string="VAT Units")
+    display_tax_unit = fields.Boolean(compute="_compute_display_tax_unit")
     company_id = fields.Many2one("res.company", string="Company", default=lambda self: self.env.company, required=True)
     company_ids = fields.Many2many(related="tax_unit_id.company_ids", string="Companies")
     start_date = fields.Date("Start Date", compute="_compute_period_dates", store=True)
@@ -282,6 +283,9 @@ class L10nInGSTReturnPeriod(models.Model):
     def _compute_gstr3b_status(self):
         for return_period in self:
             return_period.gstr3b_status = return_period.gstr3b_closing_entry.state == 'posted' and 'filed' or 'not_filed'
+
+    def _compute_display_tax_unit(self):
+        self.display_tax_unit = self.env['account.tax.unit'].search_count([], limit=1) > 0
 
     def _check_config(self):
         company = self.company_id

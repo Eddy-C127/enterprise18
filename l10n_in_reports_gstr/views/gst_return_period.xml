@@ -56,7 +56,8 @@
                     <group class="mt8">
                         <group>
                             <field name="company_id" readonly="tax_unit_id not in ('', False)"/>
-                            <field name="tax_unit_id"/>
+                            <field name="display_tax_unit" invisible="1"/>
+                            <field name="tax_unit_id" invisible="not display_tax_unit"/>
                             <field name="periodicity"/>
                         </group>
                     </group>
