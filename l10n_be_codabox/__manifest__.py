@@ -24,8 +24,5 @@
             'l10n_be_codabox/static/src/components/**/*',
         ],
     },
-    'demo': [
-        'demo/demo_data.xml',
-    ],
     'license': 'OEEL-1',
 }
