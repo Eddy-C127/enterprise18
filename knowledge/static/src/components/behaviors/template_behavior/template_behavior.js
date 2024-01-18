@@ -97,7 +97,7 @@ export class TemplateBehavior extends AbstractBehavior {
         }
         const blob = [new ClipboardItem({
             "text/html": new Blob([this.templateContent.el.innerHTML], { type: "text/html" }),
-            "text/plain": new Blob([this.templateContent.el.innerHTML], { type: "text/plain" }),
+            "text/plain": new Blob([this.templateContent.el.innerText], { type: "text/plain" }),
         })];
         try {
             await browser.navigator.clipboard.write(blob);
