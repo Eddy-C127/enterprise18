@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from contextlib import contextmanager
+import json
+import markupsafe
 
 from odoo import _, api, fields, models, Command
 from odoo.addons.web.controllers.utils import clean_action
@@ -206,10 +208,71 @@ class BankRecWidget(models.Model):
             wizard.journal_currency_id = wizard.st_line_id.journal_id.currency_id \
                                          or wizard.st_line_id.journal_id.company_id.currency_id
 
+    def _format_transaction_details(self):
+        """ Format the 'transaction_details' field of the statement line to be more readable for the end user.
+
+        Example:
+            {
+                "debtor": {
+                    "name": None,
+                    "private_id": None,
+                },
+                "debtor_account": {
+                    "iban": "BE84103080286059",
+                    "bank_transaction_code": None,
+                    "credit_debit_indicator": "DBIT",
+                    "status": "BOOK",
+                    "value_date": "2022-12-29",
+                    "transaction_date": None,
+                    "balance_after_transaction": None,
+                },
+            }
+
+        Becomes:
+            debtor_account:
+                iban: BE84103080286059
+                credit_debit_indicator: DBIT
+                status: BOOK
+                value_date: 2022-12-29
+
+        :return: An html representation of the transaction details.
+        """
+        self.ensure_one()
+        details = self.st_line_id.transaction_details
+        if not details:
+            return
+
+        if isinstance(details, str):
+            details = json.loads(details)
+
+        def node_to_html(header, node):
+            if not node:
+                return ""
+
+            if isinstance(node, dict):
+                li_elements = markupsafe.Markup("").join(node_to_html(f"{k}: ", v) for k, v in node.items())
+                value = li_elements and markupsafe.Markup('<ol>%s</ol>') % li_elements
+            elif isinstance(node, (tuple, list)):
+                li_elements = markupsafe.Markup("").join(node_to_html(f"{i}: ", v) for i, v in enumerate(node, start=1))
+                value = li_elements and markupsafe.Markup('<ol>%s</ol>') % li_elements
+            else:
+                value = node
+
+            if not value:
+                return ""
+
+            return markupsafe.Markup('<li style="list-style-type: none"><span><span class="fw-bolder">%(header)s</span>%(value)s</span></li>') % {
+                'header': header,
+                'value': value,
+            }
+
+        main_html = node_to_html('', details)
+        return markupsafe.Markup("<ol>%s</ol>") % main_html
+
     @api.depends('st_line_id')
     def _compute_st_line_transaction_details(self):
         for wizard in self:
-            wizard.st_line_transaction_details = wizard.st_line_id.transaction_details
+            wizard.st_line_transaction_details = wizard._format_transaction_details()
 
     @api.depends('st_line_id')
     def _compute_transaction_currency_id(self):
