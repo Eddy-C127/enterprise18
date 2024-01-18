@@ -120,7 +120,8 @@ class HrPayslip(models.Model):
             'debit': debit,
             'credit': credit,
             'analytic_distribution': (line.salary_rule_id.analytic_account_id and {line.salary_rule_id.analytic_account_id.id: 100}) or
-                                     (line.slip_id.contract_id.analytic_account_id.id and {line.slip_id.contract_id.analytic_account_id.id: 100})
+                                     (line.slip_id.contract_id.analytic_account_id.id and {line.slip_id.contract_id.analytic_account_id.id: 100}),
+            'tax_tag_ids': line.debit_tag_ids.ids if account_id == line.salary_rule_id.account_debit.id else line.credit_tag_ids.ids,
         }
 
     def _prepare_slip_lines(self, date, line_ids):
@@ -144,8 +145,8 @@ class HrPayslip(models.Model):
                 debit = amount if amount > 0.0 else 0.0
                 credit = -amount if amount < 0.0 else 0.0
 
-                debit_line = self._get_existing_lines(
-                    line_ids + new_lines, line, debit_account_id, debit, credit)
+                debit_line = next(self._get_existing_lines(
+                    line_ids + new_lines, line, debit_account_id, debit, credit), False)
 
                 if not debit_line:
                     debit_line = self._prepare_line_values(line, debit_account_id, date, debit, credit)
@@ -158,8 +159,8 @@ class HrPayslip(models.Model):
             if credit_account_id: # If the rule has a credit account.
                 debit = -amount if amount < 0.0 else 0.0
                 credit = amount if amount > 0.0 else 0.0
-                credit_line = self._get_existing_lines(
-                    line_ids + new_lines, line, credit_account_id, debit, credit)
+                credit_line = next(self._get_existing_lines(
+                    line_ids + new_lines, line, credit_account_id, debit, credit), False)
 
                 if not credit_line:
                     credit_line = self._prepare_line_values(line, credit_account_id, date, debit, credit)
@@ -193,6 +194,15 @@ class HrPayslip(models.Model):
         else:
             adjust_credit['credit'] = debit_sum - credit_sum
 
+    def _check_debit_credit_tags(self, line_vals, line, account_id):
+        return (
+            account_id != line.salary_rule_id.account_debit.id
+            or sorted(line_vals['tax_tag_ids']) == sorted(line.debit_tag_ids.ids)
+        ) and (
+            account_id != line.salary_rule_id.account_credit.id
+            or sorted(line_vals['tax_tag_ids']) == sorted(line.credit_tag_ids.ids)
+        )
+
     def _get_existing_lines(self, line_ids, line, account_id, debit, credit):
         existing_lines = (
             line_id for line_id in line_ids if
@@ -209,8 +219,9 @@ class HrPayslip(models.Model):
                     or line_id['analytic_distribution'] and line.slip_id.contract_id.analytic_account_id.id in line_id['analytic_distribution']
 
                 )
+            and self._check_debit_credit_tags(line_id, line, account_id)
         )
-        return next(existing_lines, False)
+        return existing_lines
 
     def _create_account_move(self, values):
         return self.env['account.move'].sudo().create(values)

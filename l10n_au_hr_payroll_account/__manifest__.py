@@ -20,6 +20,7 @@ Accounting Data for Australian Payroll Rules.
         "data/account_chart_template_data.xml",
         "data/ir_sequence_data.xml",
         "views/l10n_au_super_stream_views.xml",
+        "views/hr_contract_views.xml",
         "security/ir.model.access.csv",
         "wizard/hr_payroll_aba_wizard_views.xml",
     ],

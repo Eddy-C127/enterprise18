@@ -161,13 +161,12 @@ class TestPerformance(AccountTestInvoicingCommon):
         # Payslip Computation
         with self.assertQueryCount(admin=724):  # query count patch l10n_au_hr_payroll
             start_time = time.time()
-            with self.profile():
-                payslips.compute_sheet()
+            payslips.compute_sheet()
             # --- 2.032362699508667 seconds ---
             _logger.info("Payslips Computation: --- %s seconds ---", time.time() - start_time)
 
         # Payslip Validation
-        with self.assertQueryCount(admin=3255):
+        with self.assertQueryCount(admin=3453):
             start_time = time.time()
             payslips.action_payslip_done()
             # --- 0.3815627098083496 seconds ---

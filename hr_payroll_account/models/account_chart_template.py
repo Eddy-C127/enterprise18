@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, _
+from odoo import api, Command, models, _
 from odoo.exceptions import ValidationError
 
-from odoo.addons.account.models.chart_template import template
+from odoo.addons.account.models.chart_template import template, TAX_TAG_DELIMITER
 
 
 class AccountChartTemplate(models.AbstractModel):
@@ -23,10 +23,11 @@ class AccountChartTemplate(models.AbstractModel):
     def _configure_payroll_account(self, companies, country_code, account_codes=None, rules_mapping=None, default_account=None):
         # companies: Recordset of the companies to configure
         # country_code: list containing all the needed accounts code
-        # rule_mapping: dictionary of the debit/credit accounts for each related rule
+        # rule_mapping: dictionary of the debit/credit accounts and tax tags for each related rule
         # default_account: Defaut account to specify on the created journals
         structures = self.env['hr.payroll.structure'].search([('country_id.code', '=', country_code)])
         AccountAccount = self.env['account.account']
+        rule_tag_mapper = self._get_tag_mapper(self.env['res.country'].search([('code', '=', country_code)]).id)
         if not companies or not structures:
             return
         for company in companies:
@@ -59,6 +60,10 @@ class AccountChartTemplate(models.AbstractModel):
                     vals['account_credit'] = accounts.get(rule_mapping['credit'], AccountAccount).id
                 if 'debit' in rule_mapping:
                     vals['account_debit'] = accounts.get(rule_mapping['debit'], AccountAccount).id
+                if 'debit_tags' in rule_mapping:
+                    vals['debit_tag_ids'] = [Command.set(rule_tag_mapper(*rule_mapping['debit_tags'].split(TAX_TAG_DELIMITER)))]
+                if 'credit_tags' in rule_mapping:
+                    vals['credit_tag_ids'] = [Command.set(rule_tag_mapper(*rule_mapping['credit_tags'].split(TAX_TAG_DELIMITER)))]
                 if vals:
                     rule.with_company(company).write(vals)
 

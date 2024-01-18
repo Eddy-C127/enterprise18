@@ -69,7 +69,7 @@ class AccountChartTemplate(models.AbstractModel):
         ])
         #  Schedule 4
         structure_schedule_4 = self.env.ref('l10n_au_hr_payroll.hr_payroll_structure_au_return_to_work')
-        schedule_4_rule_withholding = self.env.ref("l10n_au_hr_payroll.l10n_au_withholding_total_return_to_work_structure_4")
+        schedule_4_rule_net_withholding = self.env.ref("l10n_au_hr_payroll.l10n_au_withholding_total_return_to_work_structure_4")
         schedule_4_rule_super = self.env.ref("l10n_au_hr_payroll.l10n_au_super_contribution_structure_4")
         schedule_4_rule_child_support = self.env.ref("l10n_au_hr_payroll.l10n_au_child_support_return_to_work_structure_4")
         schedule_4_rule_net = self.env['hr.salary.rule'].search([
@@ -90,7 +90,7 @@ class AccountChartTemplate(models.AbstractModel):
         schedule_7_11_rule_child_support = self.env.ref("l10n_au_hr_payroll.l10n_au_termination_child_support")
         #  Schedule 15
         structure_schedule_15 = self.env.ref('l10n_au_hr_payroll.hr_payroll_structure_au_whm')
-        schedule_15_rule_withholding = self.env.ref("l10n_au_hr_payroll.l10n_au_withholding_whm_structure_15")
+        schedule_15_rule_net_withholding = self.env.ref("l10n_au_hr_payroll.l10n_au_withholding_net_structure_15")
         schedule_15_rule_super = self.env.ref("l10n_au_hr_payroll.l10n_au_super_contribution_structure_15")
         schedule_15_rule_net = self.env['hr.salary.rule'].search([
             ('struct_id', '=', structure_schedule_15.id),
@@ -109,10 +109,13 @@ class AccountChartTemplate(models.AbstractModel):
             schedule_1_rule_withholding_net: {
                 "credit": "62430",
                 "debit": "21420",
+                "debit_tags": "+W2",
+                "credit_tags": "+W1",
             },
             schedule_1_rule_net: {
                 "credit": "21300",
                 "debit": "62430",
+                "debit_tags": "+W1",
             },
             schedule_1_rule_super: {
                 "credit": "21400",
@@ -121,11 +124,14 @@ class AccountChartTemplate(models.AbstractModel):
             schedule_1_rule_child_support: {
                 "credit": "62460",
                 "debit": "21500",
+                "credit_tags": "+W1",
             },
             #  Schedule 2
             schedule_2_rule_net_withholding: {
                 "credit": "62430",
                 "debit": "21420",
+                "debit_tags": "+W2",
+                "credit_tags": "+W1",
             },
             schedule_2_rule_super: {
                 "credit": "21400",
@@ -134,15 +140,19 @@ class AccountChartTemplate(models.AbstractModel):
             schedule_2_rule_child_support: {
                 "credit": "62460",
                 "debit": "21500",
+                "credit_tags": "+W1",
             },
             schedule_2_rule_net: {
                 "credit": "21300",
                 "debit": "62430",
+                "debit_tags": "+W1",
             },
             # Schedule 3
             schedule_3_rule_net_withholding: {
                 "credit": "62430",
                 "debit": "21420",
+                "debit_tags": "+W2",
+                "credit_tags": "+W1",
             },
             schedule_3_rule_super: {
                 "credit": "21400",
@@ -151,19 +161,24 @@ class AccountChartTemplate(models.AbstractModel):
             schedule_3_rule_child_support: {
                 "credit": "62460",
                 "debit": "21500",
+                "credit_tags": "+W1",
             },
             schedule_3_rule_net: {
                 "credit": "21300",
                 "debit": "62430",
+                "debit_tags": "+W1",
             },
             # Shedule 3 - Promo
             schedule_3_rule_promo_net_withholding: {
                 "credit": "62430",
                 "debit": "21420",
+                "debit_tags": "+W2",
+                "credit_tags": "+W1",
             },
             schedule_3_rule_promo_child_support: {
                 "credit": "62460",
                 "debit": "21500",
+                "credit_tags": "+W1",
             },
             schedule_3_rule_promo_super: {
                 "credit": "21400",
@@ -172,15 +187,19 @@ class AccountChartTemplate(models.AbstractModel):
             schedule_3_rule_promo_net: {
                 "credit": "21300",
                 "debit": "62430",
+                "debit_tags": "+W1",
             },
             # Schedule 4
-            schedule_4_rule_withholding: {
+            schedule_4_rule_net_withholding: {
                 "credit": "62430",
                 "debit": "21420",
+                "debit_tags": "+W2",
+                "credit_tags": "+W1",
             },
             schedule_4_rule_net: {
                 "credit": "21300",
                 "debit": "62430",
+                "debit_tags": "+W1",
             },
             schedule_4_rule_super: {
                 "credit": "21400",
@@ -189,11 +208,14 @@ class AccountChartTemplate(models.AbstractModel):
             schedule_4_rule_child_support: {
                 "credit": "62460",
                 "debit": "21500",
+                "credit_tags": "+W1",
             },
             # Schedule 5
             schedule_5_rule_withholding: {
                 "credit": "62430",
                 "debit": "21420",
+                "debit_tags": "+W2",
+                "credit_tags": "+W1",
             },
             schedule_5_rule_super: {
                 "credit": "21400",
@@ -202,28 +224,36 @@ class AccountChartTemplate(models.AbstractModel):
             schedule_5_rule_net: {
                 "credit": "21300",
                 "debit": "62430",
+                "debit_tags": "+W1",
             },
             # Schedule 7 / 11
             schedule_7_11_rule_withholding: {
                 "credit": "62430",
                 "debit": "21420",
+                "debit_tags": "+W2",
+                "credit_tags": "+W1",
             },
             schedule_7_11_rule_net: {
                 "credit": "21300",
                 "debit": "62430",
+                "debit_tags": "+W1",
             },
             schedule_7_11_rule_child_support: {
                 "credit": "62460",
                 "debit": "21500",
+                "credit_tags": "+W1",
             },
             # Schedule 15
-            schedule_15_rule_withholding: {
+            schedule_15_rule_net_withholding: {
                 "credit": "62430",
                 "debit": "21420",
+                "debit_tags": "+W2",
+                "credit_tags": "+W1",
             },
             schedule_15_rule_net: {
                 "credit": "21300",
                 "debit": "62430",
+                "debit_tags": "+W1",
             },
             schedule_15_rule_super: {
                 "credit": "21400",
@@ -233,10 +263,13 @@ class AccountChartTemplate(models.AbstractModel):
             no_tfn_rule_withholding: {
                 "credit": "62430",
                 "debit": "21420",
+                "debit_tags": "+W2",
+                "credit_tags": "+W1",
             },
             no_tfn_rule_net: {
                 "credit": "21300",
                 "debit": "62430",
+                "debit_tags": "+W1",
             },
         }
 
