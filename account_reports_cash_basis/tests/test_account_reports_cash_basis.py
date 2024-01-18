@@ -375,11 +375,14 @@ class TestAccountReports(TestAccountReportsCommon):
             options,
         )
 
-        load_more_1 = report._expand_unfoldable_line('_report_expand_unfoldable_line_general_ledger',
-              lines[5]['id'], lines[7]['groupby'], options,
-              lines[7]['progress'],
-              lines[7]['offset'],
-              None,
+        load_more_1 = report.get_expanded_lines(
+            options,
+            lines[5]['id'],
+            lines[7]['groupby'],
+            '_report_expand_unfoldable_line_general_ledger',
+            lines[7]['progress'],
+            lines[7]['offset'],
+            None,
         )
 
         self.assertLinesValues(

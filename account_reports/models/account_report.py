@@ -2169,7 +2169,30 @@ class AccountReport(models.Model):
             if warnings is not None:
                 self.env[self.custom_handler_model_name]._customize_warnings(self, options, all_column_groups_expression_totals, warnings)
 
+        # Format values in columns of lines that will be displayed
+        self._format_column_values(options, lines)
+
         return lines
+
+    def _format_column_values(self, options, line_dict_list):
+        for line_dict in line_dict_list:
+            for column_dict in line_dict['columns']:
+                if 'name' in column_dict:
+                    # Columns which have already received a name are assumed to be already formatted; nothing needs to be done for them.
+                    # This gives additional flexibility to custom reports, if needed.
+                    continue
+
+                if not column_dict or (column_dict['blank_if_zero'] and column_dict['is_zero']):
+                    rslt = ''
+                else:
+                    rslt = self.format_value(
+                        options,
+                        column_dict['no_format'],
+                        column_dict['figure_type'],
+                        format_params=column_dict['format_params'],
+                    )
+
+                column_dict['name'] = rslt
 
     def _generate_common_warnings(self, options, warnings):
         # Display a warning if we're displaying only the data of the current company, but it's also part of a tax unit
@@ -2271,7 +2294,7 @@ class AccountReport(models.Model):
                 figure_type = expression.figure_type or col_expression_to_figure_type.get(expression.label) or 'none'
                 expressions_detail[engine_label].append((
                     expression.label,
-                    {'formula': expression.formula, 'subformula': expression.subformula, 'value': self.format_value(options, column_group_totals[expression]['value'], figure_type=figure_type, blank_if_zero=False)}
+                    {'formula': expression.formula, 'subformula': expression.subformula, 'value': self.format_value(options, column_group_totals[expression]['value'], figure_type)}
                 ))
 
             # Sort results so that they can be rendered nicely in the UI
@@ -2307,7 +2330,7 @@ class AccountReport(models.Model):
             carryover_expr_label = '_carryover_%s' % column_expr_label
             carryover_value = target_line_res_dict.get(carryover_expr_label, {}).get('value', 0)
             if self.env.company.currency_id.compare_amounts(0, carryover_value) != 0:
-                info_popup_data['carryover'] = self.format_value(options, carryover_value, figure_type='monetary')
+                info_popup_data['carryover'] = self.format_value(options, carryover_value, 'monetary')
 
                 carryover_expression = line_expressions_map[carryover_expr_label]
                 if carryover_expression.carryover_target:
@@ -2316,7 +2339,7 @@ class AccountReport(models.Model):
 
             applied_carryover_value = target_line_res_dict.get('_applied_carryover_%s' % column_expr_label, {}).get('value', 0)
             if self.env.company.currency_id.compare_amounts(0, applied_carryover_value) != 0:
-                info_popup_data['applied_carryover'] = self.format_value(options, applied_carryover_value, figure_type='monetary')
+                info_popup_data['applied_carryover'] = self.format_value(options, applied_carryover_value, 'monetary')
                 info_popup_data['allow_carryover_audit'] = self.user_has_groups('base.group_no_one')
                 info_popup_data['expression_id'] = line_expressions_map['_applied_carryover_%s' % column_expr_label]['id']
                 info_popup_data['column_group_key'] = column_data['column_group_key']
@@ -2393,6 +2416,12 @@ class AccountReport(models.Model):
         blank_if_zero = column_expression.blank_if_zero or col_data.get('blank_if_zero', False)
         figure_type = column_expression.figure_type or col_data.get('figure_type', 'string')
 
+        format_params = {}
+        if figure_type == 'monetary' and currency:
+            format_params['currency_id'] = currency.id
+        elif figure_type in ('float', 'percentage'):
+            format_params['digits'] = digits
+
         return {
             'auditable': col_value is not None and column_expression.auditable,
             'blank_if_zero': blank_if_zero,
@@ -2407,10 +2436,10 @@ class AccountReport(models.Model):
             'is_zero': col_value is None or (
                 isinstance(col_value, (int, float))
                 and figure_type in ('float', 'integer', 'monetary')
-                and self.is_zero(col_value, currency=currency, figure_type=figure_type, digits=digits)
+                and self._is_value_zero(col_value, figure_type, format_params)
             ),
-            'name': self.format_value(options, col_value, currency=currency, blank_if_zero=blank_if_zero, figure_type=figure_type, digits=digits),
             'no_format': col_value,
+            'format_params': format_params,
             'report_line_id': report_line_id,
             'sortable': col_data.get('sortable', False),
         }
@@ -4365,6 +4394,7 @@ class AccountReport(models.Model):
         if self.custom_handler_model_id:
             lines = self.env[self.custom_handler_model_name]._custom_line_postprocessor(self, options, lines)
 
+        self._format_column_values(options, lines)
         return lines
 
     def _expand_unfoldable_line(self, expand_function_name, line_dict_id, groupby, options, progress, offset, horizontal_split_side, unfold_all_batch_data=None):
@@ -4642,7 +4672,7 @@ class AccountReport(models.Model):
         return matched_prefix
 
     @api.model
-    def format_value(self, options, value, currency=False, blank_if_zero=False, figure_type=None, digits=1):
+    def format_value(self, options, value, figure_type, format_params=None):
         """ Formats a value for display in a report (not especially numerical). figure_type provides the type of formatting we want.
         """
         if value is None:
@@ -4654,33 +4684,38 @@ class AccountReport(models.Model):
         if isinstance(value, str) or figure_type == 'string':
             return str(value)
 
+        if format_params is None:
+            format_params = {}
+
+        formatLang_params = {}
+
         if figure_type == 'monetary':
+            currency = self.env['res.currency'].browse(format_params['currency_id']) if 'currency_id' in format_params else self.env.company.currency_id
             if options.get('multi_currency'):
-                digits = None
-                currency = currency or self.env.company.currency_id
+                formatLang_params['currency_obj'] = currency
             else:
-                digits = (currency or self.env.company.currency_id).decimal_places
-                currency = None
+                formatLang_params['digits'] = currency.decimal_places
+
         elif figure_type == 'integer':
-            currency = None
-            digits = 0
+            formatLang_params['digits'] = 0
+
         elif figure_type == 'boolean':
             return _("Yes") if bool(value) else _("No")
+
         elif figure_type in ('date', 'datetime'):
             return format_date(self.env, value)
-        else:
-            currency = None
 
-        if self.is_zero(value, currency=currency, figure_type=figure_type, digits=digits):
-            if blank_if_zero:
-                return ''
-            # don't print -0.0 in reports
+        else:
+            formatLang_params['digits'] = format_params.get('digits', 1)
+
+        if self._is_value_zero(value, figure_type, format_params):
+            # Make sure -0.0 becomes 0.0
             value = abs(value)
 
         if self._context.get('no_format'):
             return value
 
-        formatted_amount = formatLang(self.env, value, currency_obj=currency, digits=digits)
+        formatted_amount = formatLang(self.env, value, **formatLang_params)
 
         if figure_type == 'percentage':
             return f"{formatted_amount}%"
@@ -4688,14 +4723,17 @@ class AccountReport(models.Model):
         return formatted_amount
 
     @api.model
-    def is_zero(self, amount, currency=False, figure_type=None, digits=1):
-        if figure_type == 'monetary':
-            currency = currency or self.env.company.currency_id
-            return currency.is_zero(amount)
+    def _is_value_zero(self, amount, figure_type, format_params):
+        if amount is None:
+            return True
 
-        if figure_type == 'integer':
-            digits = 0
-        return float_is_zero(amount, precision_digits=digits)
+        if figure_type == 'monetary':
+            currency = self.env['res.currency'].browse(format_params['currency_id']) if 'currency_id' in format_params else self.env.company.currency_id
+            return currency.is_zero(amount)
+        elif figure_type in ('float', 'integer'):
+            return float_is_zero(amount, precision_digits=format_params.get('digits', 0))
+        else:
+            return False
 
     def format_date(self, options, dt_filter='date'):
         date_from = fields.Date.from_string(options[dt_filter]['date_from'])

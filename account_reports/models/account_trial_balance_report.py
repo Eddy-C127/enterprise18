@@ -12,8 +12,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
     _description = 'Trial Balance Custom Handler'
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-        def _update_column(line, column_key, new_value, blank_if_zero=False):
-            line['columns'][column_key]['name'] = self.env['account.report'].format_value(options, new_value, figure_type='monetary', blank_if_zero=blank_if_zero)
+        def _update_column(line, column_key, new_value):
             line['columns'][column_key]['no_format'] = new_value
 
         def _update_balance_columns(line, debit_column_key, credit_column_key, total_diff_values_key):
@@ -80,7 +79,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
                     ('initial_balance', 'initial_balance', 'end_balance', 'end_balance')
             ):
                 if index is not None:
-                    _update_column(total_line, index, total_line['columns'][index]['no_format'] - total_diff_values[balance_key], blank_if_zero=False)
+                    _update_column(total_line, index, total_line['columns'][index]['no_format'] - total_diff_values[balance_key])
 
         return [(0, line) for line in lines]
 

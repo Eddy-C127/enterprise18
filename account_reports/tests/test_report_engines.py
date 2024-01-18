@@ -1174,13 +1174,15 @@ class TestReportEngines(TestAccountReportsCommon):
         )
 
         load_more_line = lines[-1]
-        load_more_res = report._get_custom_report_function(load_more_line['expand_function'], 'expand_unfoldable_line')(
+        load_more_res = report.get_expanded_lines(
+            options,
             load_more_line['id'],
             load_more_line['groupby'],
-            options,
+            load_more_line['expand_function'],
             load_more_line['progress'],
-            load_more_line['offset']
-        )['lines']
+            load_more_line['offset'],
+            None,
+        )
 
         self.assertLinesValues(
             # pylint: disable=bad-whitespace

@@ -156,11 +156,15 @@ class TestPartnerLedgerReport(TestAccountReportsCommon):
             options,
         )
 
-        load_more_1 = self.report._expand_unfoldable_line('_report_expand_unfoldable_line_partner_ledger',
-                                                          report_lines[0]['id'], report_lines[4]['groupby'], options,
-                                                          report_lines[4]['progress'],
-                                                          report_lines[4]['offset'],
-                                                          None)
+        load_more_1 = self.report.get_expanded_lines(
+            options,
+            report_lines[0]['id'],
+            report_lines[4]['groupby'],
+            '_report_expand_unfoldable_line_partner_ledger',
+            report_lines[4]['progress'],
+            report_lines[4]['offset'],
+            None,
+        )
 
         self.assertLinesValues(
             load_more_1,
@@ -174,11 +178,15 @@ class TestPartnerLedgerReport(TestAccountReportsCommon):
             options,
         )
 
-        load_more_2 = self.report._expand_unfoldable_line('_report_expand_unfoldable_line_partner_ledger',
-                                                          report_lines[0]['id'], load_more_1[2]['groupby'], options,
-                                                          load_more_1[2]['progress'],
-                                                          load_more_1[2]['offset'],
-                                                          None)
+        load_more_2 = self.report.get_expanded_lines(
+            options,
+            report_lines[0]['id'],
+            load_more_1[2]['groupby'],
+            '_report_expand_unfoldable_line_partner_ledger',
+            load_more_1[2]['progress'],
+            load_more_1[2]['offset'],
+            None,
+        )
 
         self.assertLinesValues(
             load_more_2,

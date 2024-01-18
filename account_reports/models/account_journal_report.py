@@ -615,10 +615,9 @@ class JournalReportCustomHandler(models.AbstractModel):
                     self.env['account.report'].format_value(
                         options,
                         values[column_group_key]['amount_currency_total'],
-                        currency=self.env['res.currency'].browse(values[column_group_key]['move_currency']),
-                        blank_if_zero=False,
-                        figure_type='monetary'
-                    )
+                        'monetary',
+                        format_params={'currency_id': values[column_group_key]['move_currency']},
+                    ),
                 )
             if line_index == 0:
                 res = values[column_group_key]['reference'] or amount_currency_name
@@ -652,7 +651,7 @@ class JournalReportCustomHandler(models.AbstractModel):
                 tax_val = _('T: %s', ', '.join(values['taxes']))
             elif values['tax_base_amount']:
                 # Display the base amount on wich this tax line is based off, formatted as such: "B: $0.0"
-                tax_val = _('B: %s', report.format_value(options, values['tax_base_amount'], blank_if_zero=False, figure_type='monetary'))
+                tax_val = _('B: %s', report.format_value(options, values['tax_base_amount'], 'monetary'))
             additional_col = [
                 report._build_column_dict(tax_val, {'figure_type': 'string', 'expression_label': 'additional_col_1'}, options=options),
                 report._build_column_dict(', '.join(values['tax_grids']), {'figure_type': 'string', 'expression_label': 'additional_col_2'}, options=options),
@@ -913,12 +912,12 @@ class JournalReportCustomHandler(models.AbstractModel):
         opposite = {'+': '-', '-': '+'}
         for country_name, tag_id, name, balance, sign in query_res:
             res[country_name][name]['tag_id'] = tag_id
-            res[country_name][name][sign] = report.format_value(options, balance, blank_if_zero=False, figure_type='monetary')
+            res[country_name][name][sign] = report.format_value(options, balance, 'monetary')
             # We need them formatted, to ensure they are displayed correctly in the report. (E.g. 0.0, not 0)
             if not opposite[sign] in res[country_name][name]:
-                res[country_name][name][opposite[sign]] = report.format_value(options, 0, blank_if_zero=False, figure_type='monetary')
+                res[country_name][name][opposite[sign]] = report.format_value(options, 0, 'monetary')
             res[country_name][name][sign + '_no_format'] = balance
-            res[country_name][name]['impact'] = report.format_value(options, res[country_name][name].get('+_no_format', 0) - res[country_name][name].get('-_no_format', 0), blank_if_zero=False, figure_type='monetary')
+            res[country_name][name]['impact'] = report.format_value(options, res[country_name][name].get('+_no_format', 0) - res[country_name][name].get('-_no_format', 0), 'monetary')
 
         return res
 
@@ -963,8 +962,8 @@ class JournalReportCustomHandler(models.AbstractModel):
         res = defaultdict(list)
         for tax in taxes:
             res[tax.country_id.name].append({
-                'base_amount': report.format_value(options, tax_values[tax.id]['base_amount'], blank_if_zero=False, figure_type='monetary'),
-                'tax_amount': report.format_value(options, tax_values[tax.id]['tax_amount'], blank_if_zero=False, figure_type='monetary'),
+                'base_amount': report.format_value(options, tax_values[tax.id]['base_amount'], 'monetary'),
+                'tax_amount': report.format_value(options, tax_values[tax.id]['tax_amount'], 'monetary'),
                 'name': tax.name,
                 'line_id': report._get_generic_line_id('account.tax', tax.id)
             })

@@ -70,7 +70,6 @@ class ResPartner(models.Model):
             return self.env['account.report'].format_value(
                 options=options,
                 value=value,
-                currency=self.env.company.currency_id,
                 figure_type='monetary',
             )
 
