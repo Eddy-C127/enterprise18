@@ -38,14 +38,14 @@ class HrContract(models.Model):
             ("V", "(V) Voluntary agreement"),
             ("D", "(D) Death beneficiary"),
             ("N", "(N) Non-employee")],
-        string="Employment Basis Code",
+        string="Employment Code",
         default="F",
         required=True,
         compute="_compute_l10n_au_employment_basis_code",
         readonly=False,
         store=True)
     l10n_au_tax_treatment_category = fields.Selection(
-        related="structure_type_id.l10n_au_tax_treatment_category")
+        related="structure_type_id.l10n_au_tax_treatment_category", string="Category")
     l10n_au_tax_treatment_option = fields.Selection(
         [
             ("T", "(T) Tax-free Threshold"),
@@ -66,8 +66,8 @@ class HrContract(models.Model):
             ("Z", "(Z) Non-employee"),
         ],
         default="T", required=True, compute="_compute_l10n_au_tax_treatment_option",
-        readonly=False, string="Tax Treatment Option")
-    l10n_au_tax_treatment_code = fields.Char(string="Tax Treatment Code", store=True,
+        readonly=False, string="Option")
+    l10n_au_tax_treatment_code = fields.Char(string="Code", store=True,
         compute="_compute_l10n_au_tax_treatment_code")
     l10n_au_cessation_type_code = fields.Selection(
         [

@@ -26,9 +26,13 @@
                                 required="l10n_au_income_stream_type in ['FEI', 'IAA', 'WHM']"
                             />
                             <field name="l10n_au_cessation_type_code" invisible="not date_end"/>
-                            <field name="l10n_au_withholding_variation"/>
-                            <field name="l10n_au_withholding_variation_amount"
-                                invisible="not l10n_au_withholding_variation"/>
+                            <label for="l10n_au_withholding_variation"/>
+                            <div class="o_row">
+                                <field name="l10n_au_withholding_variation"/>
+                                <span invisible="not l10n_au_withholding_variation" class="d-flex">
+                                    <field name="l10n_au_withholding_variation_amount" class="w-25"/>%
+                                </span>
+                            </div>
                         </group>
                         <group name="tax_treatment" string="Tax Treatment" invisible="country_code != 'AU'">
                             <field name="l10n_au_employment_basis_code"/>
