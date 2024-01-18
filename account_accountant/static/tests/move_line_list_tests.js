@@ -79,10 +79,7 @@ QUnit.module("Views", {}, function () {
                 step(`${route} - ${JSON.stringify(args)}`);
             },
         });
-        await assertSteps([
-            '/mail/action - {"init_messaging":true}',
-            '/mail/data - {"failures":true}',
-        ]);
+        await assertSteps(['/mail/action - {"init_messaging":true,"failures":true}']);
         await openView({
             context: {
                 group_by: ["move_id"],

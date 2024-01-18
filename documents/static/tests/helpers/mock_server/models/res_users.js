@@ -10,7 +10,7 @@ patch(MockServer.prototype, {
      * @override
      */
     _mockResUsers_InitMessaging(ids) {
-        const res = super._mockResUsers_InitMessaging(ids);
+        const res = super._mockResUsers_InitMessaging(...arguments);
         res.Store.hasDocumentsUserGroup = true;
         return res;
     },

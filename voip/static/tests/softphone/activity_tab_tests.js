@@ -39,7 +39,7 @@ QUnit.test("Today call activities are displayed in the “Next Activities” tab
             user_id: pyEnv.currentUserId,
         },
     ]);
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await contains(".o-voip-ActivitiesTab .list-group-item-action", { count: 2 });
     await contains(".o-voip-ActivitiesTab .list-group-item-action", {

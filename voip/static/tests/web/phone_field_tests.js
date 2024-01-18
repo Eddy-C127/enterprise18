@@ -5,7 +5,7 @@ import { addFakeModel } from "@bus/../tests/helpers/model_definitions_helpers";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 
-import { click, contains } from "@web/../tests/utils";
+import { assertSteps, click, contains, step } from "@web/../tests/utils";
 import { nextTick } from "@web/../tests/helpers/utils";
 
 const views = {
@@ -26,11 +26,23 @@ QUnit.module("phone field");
 QUnit.test("Click on PhoneField link triggers a call.", async (assert) => {
     const pyEnv = await startServer();
     const fakeId = pyEnv["fake"].create({ phone: "+36 55 369 678" });
-    const { openFormView } = await start({ serverData: { views } });
-    openFormView("fake", fakeId, {
+    const { openFormView } = await start({
+        async mockRPC(route, args, originalRpc) {
+            if (route === "/mail/action" && args.init_messaging) {
+                const res = await originalRpc(...arguments);
+                step(`/mail/action - ${JSON.stringify(args)}`);
+                return res;
+            }
+        },
+        serverData: { views },
+    });
+    await openFormView("fake", fakeId, {
         waitUntilDataLoaded: false,
         waitUntilMessagesLoaded: false,
     });
+    await assertSteps(['/mail/action - {"init_messaging":true,"failures":true}']);
+    await new Promise(setTimeout);
+    // click after init messaging because unreliable async code in voip
     await click(".o_field_phone a[href='tel:+3655369678']");
     assert.strictEqual(
         pyEnv["voip.call"].searchCount([["phone_number", "=", "+36 55 369 678"]]),

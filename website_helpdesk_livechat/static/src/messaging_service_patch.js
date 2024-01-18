@@ -7,8 +7,8 @@ import { registry } from "@web/core/registry";
 import { patch } from "@web/core/utils/patch";
 
 patch(Messaging.prototype, {
-    initMessagingCallback(data) {
-        super.initMessagingCallback(data);
+    initMessagingCallback() {
+        super.initMessagingCallback();
         if (this.store.helpdesk_livechat_active) {
             registry
                 .category("discuss.channel_commands")

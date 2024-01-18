@@ -2,6 +2,7 @@
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
+import { Store } from "@mail/core/common/store_service";
 import { start } from "@mail/../tests/helpers/test_utils";
 
 import { browser } from "@web/core/browser/browser";
@@ -47,6 +48,7 @@ QUnit.test("Switch audio input", async () => {
     });
     const { advanceTime } = await start({ hasTimeControl: true });
     await click(".o_menu_systray button[title='Open Softphone']");
+    await advanceTime(Store.FETCH_DATA_DEBOUNCE_DELAY);
     await click(".nav-link", { text: "Contacts" });
     await contains(".o-voip-ContactsTab b", { text: "Gwonam" });
     await click("button[title='Call']");

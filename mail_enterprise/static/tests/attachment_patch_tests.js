@@ -35,6 +35,7 @@ QUnit.test("'backbutton' event should close attachment viewer", async () => {
     });
     const { openDiscuss } = await start();
     await openDiscuss();
+    await contains("button.active", { text: "Inbox" });
     await click("button", { text: "Channel" });
     await click(".o-mail-NotificationItem", { text: "channel" });
     await click(".o-mail-AttachmentImage");
