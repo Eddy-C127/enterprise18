@@ -24,6 +24,11 @@
         'report/helpdesk_sla_analysis_views.xml',
     ],
     'demo': ['data/helpdesk_sale_timesheet_demo.xml'],
+    'assets': {
+        'web.assets_tests': [
+            'helpdesk_sale_timesheet/static/tests/tours/**/*',
+        ],
+    },
     'license': 'OEEL-1',
     'post_init_hook': '_helpdesk_sale_timesheet_post_init'
 }
