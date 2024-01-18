@@ -294,7 +294,8 @@
                         <t t-set="team" t-value="t['team']"/>
                         <t t-set="ratings" t-value="t['ratings']"/>
                         <t t-set="stats" t-value="t['stats']"/>
-                        <div class="oe_structure" id="oe_structure_helpdesk_team_rating_1"/>
+                        <t t-set="editor_message">DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL HELPDESK TEAMS</t>
+                        <div class="oe_structure oe_empty" id="oe_structure_helpdesk_team_rating_1" t-att-data-editor-message="editor_message"/>
                         <div class="container oe_website_rating_team">
                             <div class="row mb32">
                                 <div class="col-lg-8">
@@ -305,7 +306,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="oe_structure" id="oe_structure_helpdesk_team_rating_2"/>
+                        <div class="oe_structure oe_empty" id="oe_structure_helpdesk_team_rating_2" t-att-data-editor-message="editor_message"/>
                     </t>
                 </div>
             </t>

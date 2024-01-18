@@ -6,8 +6,9 @@
         <t t-call="website.layout">
             <t t-set="additional_title">Submit a Ticket</t>
             <div id="wrap" class="container mt-4">
+                <t t-set="editor_message">DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL HELPDESK TEAMS</t>
                 <div class="row mb16">
-                    <div class="oe_structure w-100 mb-2" id="oe_structure_website_helpdesk_team_1"/>
+                    <div class="oe_structure oe_empty w-100 mb-2" id="oe_structure_website_helpdesk_team_1" t-att-data-editor-message="editor_message"/>
                     <div class="col-md-9">
                         <h2 class="o_page_header mt0 d-none" id="team-page"/>
                     </div>
@@ -18,7 +19,7 @@
                         </div>
                     </div>
                     <div class="col-md-4" id="right-column">
-                        <div class="oe_structure" id="oe_structure_website_helpdesk_team_2"/>
+                        <div class="oe_structure oe_empty" id="oe_structure_website_helpdesk_team_2" t-att-data-editor-message="editor_message"/>
                         <t t-if="not is_html_empty(team.description)">
                             <div class="card bg-secondary mt-2 w-75 pull-right" id="about_team">
                                 <h6 class="card-header"><b>About our team</b></h6>
@@ -27,10 +28,10 @@
                             </div>
                             </div>
                         </t>
-                        <div class="oe_structure" id="oe_structure_website_helpdesk_team_3"/>
+                        <div class="oe_structure oe_empty" id="oe_structure_website_helpdesk_team_3" t-att-data-editor-message="editor_message"/>
                     </div>
                 </div>
-                <div class="oe_structure" id="oe_structure_website_helpdesk_team_4"/>
+                <div class="oe_structure oe_empty" id="oe_structure_website_helpdesk_team_4" t-att-data-editor-message="editor_message"/>
             </div>
         </t>
     </template>
@@ -275,13 +276,14 @@
                         <t t-set="autocomplete" t-value="1" />
                     </t>
                 </div>
-                <div class="oe_structure" id="oe_structure_website_helpdesk_kb_1"/>
+                <t t-set="editor_message">DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS THE KNOWLEDGE PAGE OF ALL HELPDESK TEAMS</t>
+                <div class="oe_structure oe_empty" id="oe_structure_website_helpdesk_kb_1" t-att-data-editor-message="editor_message"/>
                 <section class="s_features o_colored_level" data-snippet="s_features" data-name="Features">
                     <div class="container">
                         <div id="o_knowledge_base_sections" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center"/>
                     </div>
                 </section>
-                <div class="oe_structure" id="oe_structure_website_helpdesk_kb_2"/>
+                <div class="oe_structure oe_empty" id="oe_structure_website_helpdesk_kb_2" t-att-data-editor-message="editor_message"/>
                 <t t-call="website_helpdesk.footer" />
             </div>
         </t>
