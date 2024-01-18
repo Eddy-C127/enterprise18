@@ -13,6 +13,10 @@ class product_template(models.Model):
     product_subscription_pricing_ids = fields.One2many('sale.subscription.pricing', 'product_template_id', string="Custom Subscription Pricings", auto_join=True, copy=True)
     display_subscription_pricing = fields.Char('Display Price', compute='_compute_display_subscription_pricing')
 
+    @api.model
+    def _get_incompatible_types(self):
+        return ['recurring_invoice'] + super()._get_incompatible_types()
+
     @api.onchange('recurring_invoice')
     def _onchange_recurring_invoice(self):
         """
