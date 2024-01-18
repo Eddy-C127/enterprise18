@@ -6,7 +6,8 @@ import datetime
 from lxml import etree
 
 class DutchReportCustomHandler(models.AbstractModel):
-    _inherit = 'l10n_nl.tax.report.handler'
+    _name = 'l10n_nl.tax.report.handler'
+    _inherit = 'account.tax.report.handler'
     _description = 'Dutch Report Custom Handler'
 
     def _custom_options_initializer(self, report, options, previous_options=None):

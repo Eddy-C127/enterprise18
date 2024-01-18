@@ -1592,16 +1592,14 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: INTEGER ROUNDING
     ####################################################
-    def _custom_options_add_integer_rounding(self, options, integer_rounding, previous_options=None):
-        """ Helper function to be called in a _custom_options_initializer by reports needing to use the integer_rounding feature.
-        This was introduced as an improvement in stable and will become a proper _init_options in master, together with a new field on the report.
-        """
-        options['integer_rounding'] = integer_rounding
-        if options.get('export_mode') == 'file':
-            options['integer_rounding_enabled'] = True
-        else:
-            options['integer_rounding_enabled'] = (previous_options or {}).get('integer_rounding_enabled', True)
-        return options
+    def _init_options_integer_rounding(self, options, previous_options=None):
+        if self.integer_rounding:
+            options['integer_rounding'] = self.integer_rounding
+            if options.get('export_mode') == 'file':
+                options['integer_rounding_enabled'] = True
+            else:
+                options['integer_rounding_enabled'] = (previous_options or {}).get('integer_rounding_enabled', True)
+            return options
 
     ####################################################
     # OPTIONS: CORE
@@ -1690,6 +1688,8 @@ class AccountReport(models.Model):
             self._init_options_date: 30,
             self._init_options_horizontal_groups: 40,
             self._init_options_comparison: 50,
+            self._init_options_export_mode: 60,
+            self._init_options_integer_rounding: 70,
 
             'default': 200,
 
@@ -2446,8 +2446,23 @@ class AccountReport(models.Model):
 
     def _get_dynamic_lines(self, options, all_column_groups_expression_totals, warnings=None):
         if self.custom_handler_model_id:
-            return self.env[self.custom_handler_model_name]._dynamic_lines_generator(self, options, all_column_groups_expression_totals, warnings=warnings)
+            rslt = self.env[self.custom_handler_model_name]._dynamic_lines_generator(self, options, all_column_groups_expression_totals, warnings=warnings)
+            self._apply_integer_rounding_to_dynamic_lines(options, (line for _sequence, line in rslt))
+            return rslt
         return []
+
+    def _apply_integer_rounding_to_dynamic_lines(self, options, dynamic_lines):
+        if options.get('integer_rounding_enabled'):
+            for line in dynamic_lines:
+                for column_dict in line.get('columns', []):
+                    if 'name' not in column_dict and column_dict.get('figure_type') == 'monetary' and column_dict.get('no_format'):
+                        # If 'name' is already in it, no need to round the amount ; it is forced by the custom report already
+                        column_dict['no_format'] = float_round(
+                            column_dict['no_format'],
+                            precision_digits=0,
+                            rounding_method=options['integer_rounding'],
+                        )
+
 
     def _compute_expression_totals_for_each_column_group(self, expressions, options, groupby_to_expand=None, forced_all_column_groups_expression_totals=None, offset=0, limit=None, include_default_vals=False, warnings=None):
         """
@@ -2655,10 +2670,10 @@ class AccountReport(models.Model):
                         in_monetary_column = any(
                             col['expression_label'] == expression.label
                             for col in column_group_options['columns']
-                            if col['figure_type'] in ('monetary', 'monetary_without_symbol')
+                            if col['figure_type'] == 'monetary'
                         )
 
-                        if (in_monetary_column and not expression.figure_type) or expression.figure_type in ('monetary', 'monetary_without_symbol'):
+                        if (in_monetary_column and not expression.figure_type) or expression.figure_type == 'monetary':
                             expression_value = float_round(expression_value, precision_digits=0, rounding_method=column_group_options['integer_rounding'])
 
                     expression_result = {
@@ -4412,6 +4427,12 @@ class AccountReport(models.Model):
         if horizontal_split_side:
             for line in rslt:
                 line['horizontal_split_side'] = horizontal_split_side
+
+        # Apply integer rounding to the result if needed.
+        # The groupby expansion function is the only one guaranteed to call the expressions computation,
+        # so the values computed for it will already have been rounded if integer rounding is enabled. No need to round them again.
+        if expand_function_name != '_report_expand_unfoldable_line_with_groupby':
+            self._apply_integer_rounding_to_dynamic_lines(options, rslt)
 
         if expansion_result.get('has_more'):
             # We only add load_more line for groupby

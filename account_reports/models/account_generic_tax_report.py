@@ -45,6 +45,10 @@ class AccountTaxReportHandler(models.AbstractModel):
     # -------------------------------------------------------------------------
 
     def action_periodic_vat_entries(self, options):
+        # When integer_rounding is available, we always want it for tax closing (as it means it's a legal requirement)
+        if options.get('integer_rounding'):
+            options['integer_rounding_enabled'] = True
+
         # Return action to open form view of newly created entry
         report = self.env.ref('account.generic_tax_report')
         moves = self.env['account.move']

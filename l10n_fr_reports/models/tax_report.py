@@ -14,8 +14,6 @@ class FrenchReportCustomHandler(models.AbstractModel):
             representing the sum of the roundings on each line of the tax report.
         """
         report = self.env['account.report'].browse(options['report_id'])
-        # Ensure that integer_rounding_enabled is True ('Integer Rounding' option might not be ticked in the report)
-        report._custom_options_add_integer_rounding(options, 'HALF-UP')
 
         # Ignore if the rounding accounts cannot be found
         if not company.l10n_fr_rounding_difference_profit_account_id or not company.l10n_fr_rounding_difference_loss_account_id:
@@ -68,8 +66,6 @@ class FrenchReportCustomHandler(models.AbstractModel):
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
-
-        report._custom_options_add_integer_rounding(options, 'HALF-UP', previous_options=previous_options)
 
         options['buttons'].append({
             'name': _('EDI VAT'),
