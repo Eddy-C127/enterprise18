@@ -585,7 +585,7 @@
 
             <!-- st_line_transaction_details -->
             <div class="o_group row align-items-start">
-                <div t-if="line.data.flag === 'liquidity' and data.st_line_transaction_details and data.st_line_transaction_details != '' and hasGroupNoOne">
+                <div t-if="data.st_line_transaction_details and data.st_line_transaction_details != ''">
                     <div name="st_line_transaction_details"
                          class="o_wrap_field d-flex d-sm-contents flex-column mb-3 mb-sm-0">
                         <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
