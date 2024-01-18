@@ -2,17 +2,18 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import date
+from freezegun import freeze_time
 
 from odoo import Command
 from odoo.tests.common import TransactionCase
-from odoo.tests import tagged
+
 
 class TestPayrollCommon(TransactionCase):
 
     @classmethod
     def setUpClass(cls):
-        super(TestPayrollCommon, cls).setUpClass()
-
+      super(TestPayrollCommon, cls).setUpClass()
+      with freeze_time('2023-01-01'):
         today = date.today()
         cls.belgian_company = cls.env['res.company'].create({
             'name': 'My Belgian Company - Test',
