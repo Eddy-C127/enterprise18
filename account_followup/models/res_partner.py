@@ -308,7 +308,7 @@ class ResPartner(models.Model):
 
         today = fields.Date.context_today(self)
         previous_levels = self.env['account_followup.followup.line'].search([('delay', '<=', followup_line.delay), ('company_id', '=', self.env.company.id)])
-        for aml in self._get_included_unreconciled_aml_ids():
+        for aml in self._get_included_unreconciled_aml_ids().filtered('date_maturity'):
             eligible_levels = previous_levels.filtered(lambda level: (today - aml.date_maturity).days >= level.delay)
             if eligible_levels:
                 aml.followup_line_id = max(eligible_levels, key=lambda level: level.delay)
