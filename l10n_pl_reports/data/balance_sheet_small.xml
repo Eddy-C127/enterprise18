@@ -35,7 +35,7 @@
                             <record id="l10n_pl_small_bs_assets_a_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">pl_small_assets_a_1.balance + pl_small_assets_a_2.balance + pl_small_assets_a_3.balance + pl_small_assets_a_4.balance</field>
+                                <field name="formula">pl_small_assets_a_1.balance + pl_small_assets_a_2.balance + pl_small_assets_a_3.balance + pl_small_assets_a_5.balance</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -78,6 +78,9 @@
                             <record id="l10n_pl_small_bs_assets_a_3" model="account.report.line">
                                 <field name="name">III. Long-term investments</field>
                                 <field name="code">pl_small_assets_a_3</field>
+                                <field name="account_codes_formula" eval="False"/>
+                                <field name="groupby" eval="False"/>
+                                <field name="foldable" eval="False"/>
                                 <field name="expression_ids">
                                     <record id="l10n_pl_small_bs_assets_a_3_balance" model="account.report.expression">
                                         <field name="label">balance</field>
@@ -111,9 +114,9 @@
                                     </record>
                                 </field>
                             </record>
-                            <record id="l10n_pl_small_bs_assets_a_4" model="account.report.line">
+                            <record id="l10n_pl_small_bs_assets_a_5" model="account.report.line">
                                 <field name="name">IV. Long-term accruals</field>
-                                <field name="code">pl_small_assets_a_4</field>
+                                <field name="code">pl_small_assets_a_5</field>
                                 <field name="groupby">account_id</field>
                                 <field name="foldable" eval="True"/>
                                 <field name="account_codes_formula">03.000.8 + 03.000.9</field>
