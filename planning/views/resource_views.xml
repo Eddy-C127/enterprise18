@@ -84,6 +84,12 @@
             <xpath expr="//field[@name='name']" position="attributes">
                 <attribute name="placeholder">e.g. Crane</attribute>
             </xpath>
+            <xpath expr="//field[@name='calendar_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id' and @optional='show']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -159,7 +165,7 @@
         <field name="res_model">resource.resource</field>
         <field name="view_mode">tree,kanban,form</field>
         <field name="domain">[('resource_type', '=', 'material')]</field>
-        <field name="context">{'default_resource_type': 'material'}</field>
+        <field name="context">{'default_resource_type': 'material', 'from_planning': True}</field>
         <field name="search_view_id" ref="resource_resource_search_view_inherit"/>
         <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('resource_resource_tree_view_inherit')}),

@@ -11,6 +11,13 @@ class ResourceResource(models.Model):
     def _default_color(self):
         return randint(1, 11)
 
+    @api.model
+    def default_get(self, fields):
+        res = super().default_get(fields)
+        if res.get('resource_type', '') == 'material' and 'calendar_id' in fields and self._context.get('from_planning'):
+            res['calendar_id'] = False
+        return res
+
     color = fields.Integer(default=_default_color)
     avatar_128 = fields.Image(compute='_compute_avatar_128')
     role_ids = fields.Many2many('planning.role', 'resource_resource_planning_role_rel',
@@ -78,3 +85,8 @@ class ResourceResource(models.Model):
         ])
         planning_slots._manage_archived_resources(departure_date)
         return res
+
+    @api.onchange('company_id')
+    def _onchange_company_id(self):
+        if self.resource_type != 'material' or not self.env.context.get('from_planning'):
+            super()._onchange_company_id()
