@@ -339,3 +339,19 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
             {'amount_residual_currency': 500.0},
             {'amount_residual_currency': 400.0},
         ])
+
+    def test_send_followup_no_due_date(self):
+        """
+        test sending a followup report with an empty due date field
+        """
+        self.create_followup(delay=0)
+        self.create_invoice('2022-01-01')
+        self.partner_a.unreconciled_aml_ids.write({
+            'date_maturity': False,
+        })
+
+        self.partner_a._execute_followup_partner(options={
+            'partner_id': self.partner_a.id,
+            'manual_followup': True,
+            'snailmail': False,
+        })
