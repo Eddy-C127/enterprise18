@@ -4,12 +4,10 @@
     transition: background-color .2s ease-in-out;
     background-color: $o-gray-100;
 
-    ul.o_knowledge_comment_anchor {
-        max-height: 4rem;
-        > li {
+    .o_knowledge_comment_anchor {
+        > div {
             border-left: 2px solid darkgoldenrod;
         }
-        overflow-y: hidden;
     }
 
     &:not(.commenting) .o_knowledge_comment_box_thread, &:not(.commenting) ul {

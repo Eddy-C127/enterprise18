@@ -11,6 +11,15 @@ from werkzeug.exceptions import Forbidden
 
 class ArticleThreadController(KnowledgeController):
 
+    @http.route('/knowledge/thread/create', type='json', auth='user')
+    def create_thread(self, article_id, article_anchor_text=""):
+        article_thread = request.env['knowledge.article.thread'].create({
+            'article_id': article_id,
+            'article_anchor_text': article_anchor_text,
+        })
+
+        return {'id': article_thread.id, 'article_anchor_text': article_thread.article_anchor_text}
+
     @http.route('/knowledge/thread/resolve', type='http', auth='user')
     def resolve_thread(self, res_id, token):
         _, thread, redirect = MailController._check_token_and_record_or_redirect('knowledge.article.thread', int(res_id), token)

@@ -23,13 +23,17 @@
                 t-attf-src="/web/image?model=res.partner&amp;field=avatar_128&amp;id={{ state.lastPartnerId }}"/>
         </div>
         <t t-elif="props.anchors.length or props.forceFullSize">
-            <ul t-if="props.forceFullSize" class="o_knowledge_comment_anchor list-unstyled" t-on-click="showAnchors">
-                <t t-foreach="state.quotes" t-as="quote" t-key="quote_index">
-                    <li class="ps-2 opacity-75 word-break">
-                        <t t-out="quote"/>
-                    </li>
-                </t>
-            </ul>
+            <div t-if="props.forceFullSize and textArticleAnchorText" t-attf-class="o_knowledge_comment_anchor list-unstyled ps-1 {{ showReadMore ? 'mb-0' : '' }}" t-on-click="showAnchors">
+                <div class="ps-2 opacity-75 word-break" t-out="textArticleAnchorText"/>
+            </div>
+            <t t-if="showReadMore and props.forceFullSize">
+                <button t-if="!state.readingMore" class="btn btn-link" t-on-click="() => this.state.readingMore = true">
+                    Read More
+                </button>
+                <button t-else="" class="btn btn-link" t-on-click="() => this.state.readingMore = false">
+                    Read Less
+                </button>
+            </t>
             <t t-if="!props.isCreationMode">
                 <div class="p-0 o_knowledge_comment_box_thread">
                     <Thread thread="state.thread" showDates="false"

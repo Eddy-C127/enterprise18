@@ -3,6 +3,7 @@
 
 from odoo.tests.common import tagged
 from odoo.addons.base.tests.common import HttpCaseWithUserDemo
+from odoo.addons.knowledge.tests.test_knowledge_article_business import KnowledgeCommonBusinessCase
 
 
 @tagged('post_install', '-at_install', 'knowledge', 'knowledge_tour', 'knowledge_comments')
@@ -22,6 +23,12 @@ class TestKnowledgeArticleTours(HttpCaseWithUserDemo):
 
         cls.test_article_thread = cls.env['knowledge.article.thread'].create({
             'article_id': cls.test_article.id,
+            'article_anchor_text': """
+                <span data-id="1"
+                    class="knowledge-thread-comment knowledge-thread-highlighted-comment">
+                    Lorem ipsum dolor
+                </span>
+            """,
         })
         cls.test_article_thread.message_post(
             body="Marc, can you check this?",
@@ -68,3 +75,28 @@ class TestKnowledgeArticleTours(HttpCaseWithUserDemo):
         self.assertEqual(len(new_thread), 1)
         self.assertEqual(len(new_thread.message_ids), 1)
         self.assertIn("My Knowledge Comment", new_thread.message_ids[0].body)
+
+
+class TestKnowledgeArticleThreadCrud(KnowledgeCommonBusinessCase):
+
+    def test_knowledge_article_thread_create_w_unsafe_anchors(self):
+        new_thread = self.env['knowledge.article.thread'].create({
+            'article_id': self.article_workspace.id,
+            'article_anchor_text': """
+                <span data-id="1"
+                    class="knowledge-thread-comment knowledge-thread-highlighted-comment">
+                    <iframe src="www.pwned.com">Anchor</iframe><script src="www.extrapwned.com"/>Text
+                </span>
+            """,
+        })
+        self.assertEqual("Anchor Text", new_thread.article_anchor_text)
+
+        new_thread.write({
+            'article_anchor_text': """
+                <span data-id="3"
+                    class="knowledge-thread-comment knowledge-thread-highlighted-comment">
+                    <iframe src="javascript:alert(1)">Should be</iframe><script src="www.extrapwned.com"/>Purified
+                </span>
+            """
+        })
+        self.assertEqual("Should be Purified", new_thread.article_anchor_text)
