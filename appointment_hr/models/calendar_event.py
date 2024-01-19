@@ -18,18 +18,18 @@ class CalendarEvent(models.Model):
         if not user_events:
             return
 
-        calendar_ids = user_events.partner_ids.employee_ids.resource_calendar_id
-        calendar_to_employees = user_events.partner_ids.employee_ids.grouped('resource_calendar_id')
+        calendar_ids = user_events.partner_ids.user_ids.employee_ids.resource_calendar_id
+        calendar_to_employees = user_events.partner_ids.user_ids.employee_ids.grouped('resource_calendar_id')
 
         for start, stop, events in interval_from_events(user_events):
-            group_calendars = calendar_ids.filtered(lambda calendar: calendar in events.partner_ids.employee_ids.resource_calendar_id)
+            group_calendars = calendar_ids.filtered(lambda calendar: calendar in events.partner_ids.user_ids.employee_ids.resource_calendar_id)
             calendar_to_unavailabilities = {
                 calendar: calendar._unavailable_intervals_batch(
                     timezone_datetime(start), timezone_datetime(stop), calendar_to_employees[calendar].resource_id
                 ) for calendar in group_calendars
             }
             for event in events:
-                partner_employees = event.partner_ids.employee_ids
+                partner_employees = event.partner_ids.user_ids.employee_ids
                 event_partners_on_leave = self.env['res.partner']
                 for employee in partner_employees:
                     if not employee.resource_calendar_id or not employee.resource_id:
