@@ -251,361 +251,17 @@
             </record>
         </field>
         <field name="line_ids">
-            <record id="account_financial_html_report_line_bs_lt_credit" model="account.report.line">
-                <field name="name">TOTAL EQUITY AND LIABILITIES</field>
-                <field name="code">BS_CREDIT</field>
-                <field name="foldable" eval="False"/>
-                <field name="hierarchy_level">0</field>
-                <field name="aggregation_formula">BS_D_.balance + BS_E_.balance + BS_F_.balance + BS_G_.balance + BS_H_.balance</field>
-                <field name="hierarchy_level">0</field>
-                <field name="children_ids">
-                    <record id="account_financial_html_report_line_bs_lt_d" model="account.report.line">
-                        <field name="name">EQUITY </field>
-                        <field name="code">BS_D_</field>
-                        <field name="aggregation_formula">BS_D_1_.balance + BS_D_2_.balance + BS_D_3_.balance + BS_D_4_.balance + BS_D_5_.balance + BS_D_6_.balance</field>
-                        <field name="children_ids">
-                            <record id="account_financial_html_report_line_bs_lt_d_1" model="account.report.line">
-                                <field name="name">CAPITAL</field>
-                                <field name="code">BS_D_1_</field>
-                                <field name="aggregation_formula">BS_D_1_1_.balance - BS_D_1_2_.balance - BS_D_1_3_.balance</field>
-                                <field name="children_ids">
-                                    <record id="account_financial_html_report_line_bs_lt_d_1_1" model="account.report.line">
-                                        <field name="name">Authorized (subscribed) or primary capital</field>
-                                        <field name="code">BS_D_1_1_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-301</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_d_1_2" model="account.report.line">
-                                        <field name="name">Subscribed capital unpaid (–)</field>
-                                        <field name="code">BS_D_1_2_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">302</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_d_1_3" model="account.report.line">
-                                        <field name="name">Own shares (–)</field>
-                                        <field name="code">BS_D_1_3_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">305 + 308 + 303</field>
-                                    </record>
-                                </field>
-                            </record>
-                            <record id="account_financial_html_report_line_bs_lt_d_2" model="account.report.line">
-                                <field name="name">SHARE PREMIUM ACCOUNT</field>
-                                <field name="code">BS_D_2_</field>
-                                <field name="groupby">account_id</field>
-                                <field name="foldable" eval="True"/>
-                                <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_2_share_premium'))])</field>
-                            </record>
-                            <record id="account_financial_html_report_line_bs_lt_d_3" model="account.report.line">
-                                <field name="name">REVALUATION RESERVE</field>
-                                <field name="code">BS_D_3_</field>
-                                <field name="groupby">account_id</field>
-                                <field name="foldable" eval="True"/>
-                                <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_3_revaluation_reserve'))])</field>
-                            </record>
-                            <record id="account_financial_html_report_line_bs_lt_d_4" model="account.report.line">
-                                <field name="name">RESERVES</field>
-                                <field name="code">BS_D_4_</field>
-                                <field name="aggregation_formula">BS_D_4_1_.balance + BS_D_4_2_.balance + BS_D_4_3_.balance</field>
-                                <field name="children_ids">
-                                    <record id="account_financial_html_report_line_bs_lt_d_4_1" model="account.report.line">
-                                        <field name="name">Compulsory reserve or emergency (reserve) capital</field>
-                                        <field name="code">BS_D_4_1_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-33</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_d_4_2" model="account.report.line">
-                                        <field name="name">Reserve for acquiring own shares</field>
-                                        <field name="code">BS_D_4_2_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_4_2'))])</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_d_4_3" model="account.report.line">
-                                        <field name="name">Other reserves</field>
-                                        <field name="code">BS_D_4_3_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_4_3'))])</field>
-                                    </record>
-                                </field>
-                            </record>
-                            <record id="account_financial_html_report_line_bs_lt_d_5" model="account.report.line">
-                                <field name="name">RETAINED PROFIT (LOSS)</field>
-                                <field name="code">BS_D_5_</field>
-                                <field name="aggregation_formula">BS_D_5_1_.balance + BS_D_5_2_.balance</field>
-                                <field name="children_ids">
-                                    <record id="account_financial_html_report_line_bs_lt_d_5_1" model="account.report.line">
-                                        <field name="name">Profit (loss) for the reporting year </field>
-                                        <field name="code">BS_D_5_1_</field>
-                                        <field name="action_id" ref="account_financial_report_l10n_lt_pl_action"/>
-                                        <field name="expression_ids">
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_balance_account_codes" model="account.report.expression">
-                                                <field name="label">balance_account_codes</field>
-                                                <field name="engine">account_codes</field>
-                                                <field name="formula">-341</field>
-                                            </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_balance_aggregate" model="account.report.expression">
-                                                <field name="label">balance_aggregate</field>
-                                                <field name="engine">aggregation</field>
-                                                <field name="formula">BS_D_5_1_.bs_pl_balance</field>
-                                            </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_balance" model="account.report.expression">
-                                                <field name="label">balance</field>
-                                                <field name="engine">aggregation</field>
-                                                <field name="formula">BS_D_5_1_.balance_account_codes + BS_D_5_1_.balance_aggregate</field>
-                                            </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_bs_pl_balance" model="account.report.expression">
-                                                <field name="label">bs_pl_balance</field>
-                                                <field name="engine">account_codes</field>
-                                                <field name="formula">-6 - 5</field>
-                                                <field name="date_scope">from_fiscalyear</field>
-                                            </record>
-                                        </field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_d_5_2" model="account.report.line">
-                                        <field name="name">Profit (loss) brought forward</field>
-                                        <field name="code">BS_D_5_2_</field>
-                                        <field name="expression_ids">
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_balance_account_codes" model="account.report.expression">
-                                                <field name="label">balance_account_codes</field>
-                                                <field name="engine">account_codes</field>
-                                                <field name="formula">-342</field>
-                                            </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_balance_aggregate" model="account.report.expression">
-                                                <field name="label">balance_aggregate</field>
-                                                <field name="engine">aggregation</field>
-                                                <field name="formula">BS_D_5_2_.bs_ppl_balance</field>
-                                            </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_balance" model="account.report.expression">
-                                                <field name="label">balance</field>
-                                                <field name="engine">aggregation</field>
-                                                <field name="formula">BS_D_5_2_.balance_account_codes + BS_D_5_2_.balance_aggregate</field>
-                                            </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_bs_ppl_balance" model="account.report.expression">
-                                                <field name="label">bs_ppl_balance</field>
-                                                <field name="engine">account_codes</field>
-                                                <field name="formula">-6 - 5</field>
-                                                <field name="date_scope">to_beginning_of_fiscalyear</field>
-                                            </record>
-                                        </field>
-                                    </record>
-                                </field>
-                            </record>
-                            <record id="account_financial_html_report_line_bs_lt_d_6" model="account.report.line">
-                                <field name="name">COMMON SUMMARY OF ACCOUNTS</field>
-                                <field name="code">BS_D_6_</field>
-                                <field name="account_codes_formula">-390</field>
-                            </record>
-                        </field>
-                    </record>
-                    <record id="account_financial_html_report_line_bs_lt_e" model="account.report.line">
-                        <field name="name">GRANTS, SUBSIDIES</field>
-                        <field name="code">BS_E_</field>
-                        <field name="groupby">account_id</field>
-                        <field name="foldable" eval="True"/>
-                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_e_grants_subsidies'))])</field>
-                    </record>
-                    <record id="account_financial_html_report_line_bs_lt_f" model="account.report.line">
-                        <field name="name">PROVISIONS</field>
-                        <field name="code">BS_F_</field>
-                        <field name="aggregation_formula">BS_F_1_.balance + BS_F_2_.balance + BS_F_3_.balance</field>
-                        <field name="children_ids">
-                            <record id="account_financial_html_report_line_bs_lt_f_1" model="account.report.line">
-                                <field name="name">Provisions for pensions and similar obligations</field>
-                                <field name="code">BS_F_1_</field>
-                                <field name="groupby">account_id</field>
-                                <field name="foldable" eval="True"/>
-                                <field name="account_codes_formula">-411</field>
-                            </record>
-                            <record id="account_financial_html_report_line_bs_lt_f_2" model="account.report.line">
-                                <field name="name">Provisions for taxation</field>
-                                <field name="code">BS_F_2_</field>
-                                <field name="groupby">account_id</field>
-                                <field name="foldable" eval="True"/>
-                                <field name="account_codes_formula">-412</field>
-                            </record>
-                            <record id="account_financial_html_report_line_bs_lt_f_3" model="account.report.line">
-                                <field name="name">Other provisions</field>
-                                <field name="code">BS_F_3_</field>
-                                <field name="groupby">account_id</field>
-                                <field name="foldable" eval="True"/>
-                                <field name="account_codes_formula">-413</field>
-                            </record>
-                        </field>
-                    </record>
-                    <record id="account_financial_html_report_line_bs_lt_g" model="account.report.line">
-                        <field name="name">AMOUNTS PAYABLE AND OTHER LIABILITIES</field>
-                        <field name="code">BS_G_</field>
-                        <field name="aggregation_formula">BS_G_1_.balance + BS_G_2_.balance</field>
-                        <field name="children_ids">
-                            <record id="account_financial_html_report_line_bs_lt_g_1" model="account.report.line">
-                                <field name="name">AMOUNTS PAYABLE AFTER ONE YEAR AND OTHER LONG-TERM LIABILITIES</field>
-                                <field name="code">BS_G_1_</field>
-                                <field name="aggregation_formula">BS_G_1_1_.balance + BS_G_1_2_.balance + BS_G_1_3_.balance + BS_G_1_4_.balance + BS_G_1_5_.balance + BS_G_1_6_.balance + BS_G_1_7_.balance + BS_G_1_8_.balance</field>
-                                <field name="children_ids">
-                                    <record id="account_financial_html_report_line_bs_lt_g_1_1" model="account.report.line">
-                                        <field name="name">Debenture loans</field>
-                                        <field name="code">BS_G_1_1_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-421</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_1_2" model="account.report.line">
-                                        <field name="name">Amounts owed to credit institutions</field>
-                                        <field name="code">BS_G_1_2_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-422</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_1_3" model="account.report.line">
-                                        <field name="name">Payments received on account</field>
-                                        <field name="code">BS_G_1_3_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-423</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_1_4" model="account.report.line">
-                                        <field name="name">Trade creditors</field>
-                                        <field name="code">BS_G_1_4_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-424</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_1_5" model="account.report.line">
-                                        <field name="name">Amounts payable under the bills and checks </field>
-                                        <field name="code">BS_G_1_5_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_5'))])</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_1_6" model="account.report.line">
-                                        <field name="name">Amounts payable to the entities of the entities group</field>
-                                        <field name="code">BS_G_1_6_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_6'))])</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_1_7" model="account.report.line">
-                                        <field name="name">Amounts payable to the associated entities</field>
-                                        <field name="code">BS_G_1_7_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_7'))])</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_1_8" model="account.report.line">
-                                        <field name="name">Other amounts payable and long-term liabilities</field>
-                                        <field name="code">BS_G_1_8_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-428</field>
-                                    </record>
-                                </field>
-                            </record>
-                            <record id="account_financial_html_report_line_bs_lt_g_2" model="account.report.line">
-                                <field name="name">AMOUNTS PAYABLE AND OTHER LIABILITIES</field>
-                                <field name="code">BS_G_2_</field>
-                                <field name="aggregation_formula">BS_G_2_1_.balance + BS_G_2_2_.balance + BS_G_2_3_.balance + BS_G_2_4_.balance + BS_G_2_5_.balance + BS_G_2_6_.balance + BS_G_2_7_.balance + BS_G_2_8_.balance + BS_G_2_9_.balance + BS_G_2_10_.balance</field>
-                                <field name="children_ids">
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_1" model="account.report.line">
-                                        <field name="name">Debenture loans</field>
-                                        <field name="code">BS_G_2_1_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-440</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_10" model="account.report.line">
-                                        <field name="name">Other amounts payable and short-term liabilities</field>
-                                        <field name="code">BS_G_2_10_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-449</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_2" model="account.report.line">
-                                        <field name="name">Amounts owed to credit institutions</field>
-                                        <field name="code">BS_G_2_2_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-441</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_3" model="account.report.line">
-                                        <field name="name">Payments received on account</field>
-                                        <field name="code">BS_G_2_3_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-442</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_4" model="account.report.line">
-                                        <field name="name">Trade creditors</field>
-                                        <field name="code">BS_G_2_4_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-443</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_5" model="account.report.line">
-                                        <field name="name">Amounts payable under the bills and checks </field>
-                                        <field name="code">BS_G_2_5_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_5'))])</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_6" model="account.report.line">
-                                        <field name="name">Amounts payable to the entities of the entities group</field>
-                                        <field name="code">BS_G_2_6_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_6'))])</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_7" model="account.report.line">
-                                        <field name="name">Amounts payable to the associated entities</field>
-                                        <field name="code">BS_G_2_7_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_7'))])</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_8" model="account.report.line">
-                                        <field name="name">Liabilities of tax on profit</field>
-                                        <field name="code">BS_G_2_8_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-447</field>
-                                    </record>
-                                    <record id="account_financial_html_report_line_bs_lt_g_2_9" model="account.report.line">
-                                        <field name="name">Liabilities related to employment relations</field>
-                                        <field name="code">BS_G_2_9_</field>
-                                        <field name="groupby">account_id</field>
-                                        <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-448</field>
-                                    </record>
-                                </field>
-                            </record>
-                        </field>
-                    </record>
-                    <record id="account_financial_html_report_line_bs_lt_h" model="account.report.line">
-                        <field name="name">ACCRUALS AND DEFERRED INCOME</field>
-                        <field name="code">BS_H_</field>
-                        <field name="groupby">account_id</field>
-                        <field name="foldable" eval="True"/>
-                        <field name="account_codes_formula">-49</field>
-                    </record>
-                </field>
-            </record>
             <record id="account_financial_html_report_line_bs_lt_debit" model="account.report.line">
                 <field name="name">TOTAL ASSETS</field>
                 <field name="code">BS_DEBIT</field>
                 <field name="aggregation_formula">BS_A_.balance + BS_B_.balance + BS_C_.balance</field>
-                <field name="hierarchy_level">0</field>
                 <field name="children_ids">
                     <record id="account_financial_html_report_line_bs_lt_a" model="account.report.line">
                         <field name="name">FIXED ASSETS</field>
                         <field name="code">BS_A_</field>
                         <field name="foldable" eval="False"/>
                         <field name="aggregation_formula">BS_A_1_.balance + BS_A_2_.balance + BS_A_3_.balance + BS_A_4_.balance</field>
-                        <field name="hierarchy_level">0</field>
+                        <field name="hierarchy_level">3</field>
                         <field name="children_ids">
                             <record id="account_financial_html_report_line_bs_lt_a_1" model="account.report.line">
                                 <field name="name">INTANGIBLE ASSETS</field>
@@ -959,6 +615,349 @@
                         <field name="groupby">account_id</field>
                         <field name="foldable" eval="True"/>
                         <field name="account_codes_formula">29</field>
+                    </record>
+                </field>
+            </record>
+            <record id="account_financial_html_report_line_bs_lt_credit" model="account.report.line">
+                <field name="name">TOTAL EQUITY AND LIABILITIES</field>
+                <field name="code">BS_CREDIT</field>
+                <field name="hierarchy_level">0</field>
+                <field name="foldable" eval="False"/>
+                <field name="aggregation_formula">BS_D_.balance + BS_E_.balance + BS_F_.balance + BS_G_.balance + BS_H_.balance</field>
+                <field name="hierarchy_level">0</field>
+                <field name="children_ids">
+                    <record id="account_financial_html_report_line_bs_lt_d" model="account.report.line">
+                        <field name="name">EQUITY </field>
+                        <field name="code">BS_D_</field>
+                        <field name="aggregation_formula">BS_D_1_.balance + BS_D_2_.balance + BS_D_3_.balance + BS_D_4_.balance + BS_D_5_.balance + BS_D_6_.balance</field>
+                        <field name="children_ids">
+                            <record id="account_financial_html_report_line_bs_lt_d_1" model="account.report.line">
+                                <field name="name">CAPITAL</field>
+                                <field name="code">BS_D_1_</field>
+                                <field name="aggregation_formula">BS_D_1_1_.balance - BS_D_1_2_.balance - BS_D_1_3_.balance</field>
+                                <field name="children_ids">
+                                    <record id="account_financial_html_report_line_bs_lt_d_1_1" model="account.report.line">
+                                        <field name="name">Authorized (subscribed) or primary capital</field>
+                                        <field name="code">BS_D_1_1_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-301</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_d_1_2" model="account.report.line">
+                                        <field name="name">Subscribed capital unpaid (–)</field>
+                                        <field name="code">BS_D_1_2_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">302</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_d_1_3" model="account.report.line">
+                                        <field name="name">Own shares (–)</field>
+                                        <field name="code">BS_D_1_3_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">305 + 308 + 303</field>
+                                    </record>
+                                </field>
+                            </record>
+                            <record id="account_financial_html_report_line_bs_lt_d_2" model="account.report.line">
+                                <field name="name">SHARE PREMIUM ACCOUNT</field>
+                                <field name="code">BS_D_2_</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_2_share_premium'))])</field>
+                            </record>
+                            <record id="account_financial_html_report_line_bs_lt_d_3" model="account.report.line">
+                                <field name="name">REVALUATION RESERVE</field>
+                                <field name="code">BS_D_3_</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_3_revaluation_reserve'))])</field>
+                            </record>
+                            <record id="account_financial_html_report_line_bs_lt_d_4" model="account.report.line">
+                                <field name="name">RESERVES</field>
+                                <field name="code">BS_D_4_</field>
+                                <field name="aggregation_formula">BS_D_4_1_.balance + BS_D_4_2_.balance + BS_D_4_3_.balance</field>
+                                <field name="children_ids">
+                                    <record id="account_financial_html_report_line_bs_lt_d_4_1" model="account.report.line">
+                                        <field name="name">Compulsory reserve or emergency (reserve) capital</field>
+                                        <field name="code">BS_D_4_1_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-33</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_d_4_2" model="account.report.line">
+                                        <field name="name">Reserve for acquiring own shares</field>
+                                        <field name="code">BS_D_4_2_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_4_2'))])</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_d_4_3" model="account.report.line">
+                                        <field name="name">Other reserves</field>
+                                        <field name="code">BS_D_4_3_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_4_3'))])</field>
+                                    </record>
+                                </field>
+                            </record>
+                            <record id="account_financial_html_report_line_bs_lt_d_5" model="account.report.line">
+                                <field name="name">RETAINED PROFIT (LOSS)</field>
+                                <field name="code">BS_D_5_</field>
+                                <field name="aggregation_formula">BS_D_5_1_.balance + BS_D_5_2_.balance</field>
+                                <field name="children_ids">
+                                    <record id="account_financial_html_report_line_bs_lt_d_5_1" model="account.report.line">
+                                        <field name="name">Profit (loss) for the reporting year </field>
+                                        <field name="code">BS_D_5_1_</field>
+                                        <field name="action_id" ref="account_financial_report_l10n_lt_pl_action"/>
+                                        <field name="expression_ids">
+                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_balance_account_codes" model="account.report.expression">
+                                                <field name="label">balance_account_codes</field>
+                                                <field name="engine">account_codes</field>
+                                                <field name="formula">-341</field>
+                                            </record>
+                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_balance_aggregate" model="account.report.expression">
+                                                <field name="label">balance_aggregate</field>
+                                                <field name="engine">aggregation</field>
+                                                <field name="formula">BS_D_5_1_.bs_pl_balance</field>
+                                            </record>
+                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_balance" model="account.report.expression">
+                                                <field name="label">balance</field>
+                                                <field name="engine">aggregation</field>
+                                                <field name="formula">BS_D_5_1_.balance_account_codes + BS_D_5_1_.balance_aggregate</field>
+                                            </record>
+                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_bs_pl_balance" model="account.report.expression">
+                                                <field name="label">bs_pl_balance</field>
+                                                <field name="engine">account_codes</field>
+                                                <field name="formula">-6 - 5</field>
+                                                <field name="date_scope">from_fiscalyear</field>
+                                            </record>
+                                        </field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_d_5_2" model="account.report.line">
+                                        <field name="name">Profit (loss) brought forward</field>
+                                        <field name="code">BS_D_5_2_</field>
+                                        <field name="expression_ids">
+                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_balance_account_codes" model="account.report.expression">
+                                                <field name="label">balance_account_codes</field>
+                                                <field name="engine">account_codes</field>
+                                                <field name="formula">-342</field>
+                                            </record>
+                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_balance_aggregate" model="account.report.expression">
+                                                <field name="label">balance_aggregate</field>
+                                                <field name="engine">aggregation</field>
+                                                <field name="formula">BS_D_5_2_.bs_ppl_balance</field>
+                                            </record>
+                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_balance" model="account.report.expression">
+                                                <field name="label">balance</field>
+                                                <field name="engine">aggregation</field>
+                                                <field name="formula">BS_D_5_2_.balance_account_codes + BS_D_5_2_.balance_aggregate</field>
+                                            </record>
+                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_bs_ppl_balance" model="account.report.expression">
+                                                <field name="label">bs_ppl_balance</field>
+                                                <field name="engine">account_codes</field>
+                                                <field name="formula">-6 - 5</field>
+                                                <field name="date_scope">to_beginning_of_fiscalyear</field>
+                                            </record>
+                                        </field>
+                                    </record>
+                                </field>
+                            </record>
+                            <record id="account_financial_html_report_line_bs_lt_d_6" model="account.report.line">
+                                <field name="name">COMMON SUMMARY OF ACCOUNTS</field>
+                                <field name="code">BS_D_6_</field>
+                                <field name="account_codes_formula">-390</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="account_financial_html_report_line_bs_lt_e" model="account.report.line">
+                        <field name="name">GRANTS, SUBSIDIES</field>
+                        <field name="code">BS_E_</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_e_grants_subsidies'))])</field>
+                    </record>
+                    <record id="account_financial_html_report_line_bs_lt_f" model="account.report.line">
+                        <field name="name">PROVISIONS</field>
+                        <field name="code">BS_F_</field>
+                        <field name="aggregation_formula">BS_F_1_.balance + BS_F_2_.balance + BS_F_3_.balance</field>
+                        <field name="children_ids">
+                            <record id="account_financial_html_report_line_bs_lt_f_1" model="account.report.line">
+                                <field name="name">Provisions for pensions and similar obligations</field>
+                                <field name="code">BS_F_1_</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="account_codes_formula">-411</field>
+                            </record>
+                            <record id="account_financial_html_report_line_bs_lt_f_2" model="account.report.line">
+                                <field name="name">Provisions for taxation</field>
+                                <field name="code">BS_F_2_</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="account_codes_formula">-412</field>
+                            </record>
+                            <record id="account_financial_html_report_line_bs_lt_f_3" model="account.report.line">
+                                <field name="name">Other provisions</field>
+                                <field name="code">BS_F_3_</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="account_codes_formula">-413</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="account_financial_html_report_line_bs_lt_g" model="account.report.line">
+                        <field name="name">AMOUNTS PAYABLE AND OTHER LIABILITIES</field>
+                        <field name="code">BS_G_</field>
+                        <field name="aggregation_formula">BS_G_1_.balance + BS_G_2_.balance</field>
+                        <field name="children_ids">
+                            <record id="account_financial_html_report_line_bs_lt_g_1" model="account.report.line">
+                                <field name="name">AMOUNTS PAYABLE AFTER ONE YEAR AND OTHER LONG-TERM LIABILITIES</field>
+                                <field name="code">BS_G_1_</field>
+                                <field name="aggregation_formula">BS_G_1_1_.balance + BS_G_1_2_.balance + BS_G_1_3_.balance + BS_G_1_4_.balance + BS_G_1_5_.balance + BS_G_1_6_.balance + BS_G_1_7_.balance + BS_G_1_8_.balance</field>
+                                <field name="children_ids">
+                                    <record id="account_financial_html_report_line_bs_lt_g_1_1" model="account.report.line">
+                                        <field name="name">Debenture loans</field>
+                                        <field name="code">BS_G_1_1_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-421</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_1_2" model="account.report.line">
+                                        <field name="name">Amounts owed to credit institutions</field>
+                                        <field name="code">BS_G_1_2_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-422</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_1_3" model="account.report.line">
+                                        <field name="name">Payments received on account</field>
+                                        <field name="code">BS_G_1_3_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-423</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_1_4" model="account.report.line">
+                                        <field name="name">Trade creditors</field>
+                                        <field name="code">BS_G_1_4_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-424</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_1_5" model="account.report.line">
+                                        <field name="name">Amounts payable under the bills and checks </field>
+                                        <field name="code">BS_G_1_5_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_5'))])</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_1_6" model="account.report.line">
+                                        <field name="name">Amounts payable to the entities of the entities group</field>
+                                        <field name="code">BS_G_1_6_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_6'))])</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_1_7" model="account.report.line">
+                                        <field name="name">Amounts payable to the associated entities</field>
+                                        <field name="code">BS_G_1_7_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_7'))])</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_1_8" model="account.report.line">
+                                        <field name="name">Other amounts payable and long-term liabilities</field>
+                                        <field name="code">BS_G_1_8_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-428</field>
+                                    </record>
+                                </field>
+                            </record>
+                            <record id="account_financial_html_report_line_bs_lt_g_2" model="account.report.line">
+                                <field name="name">AMOUNTS PAYABLE AND OTHER LIABILITIES</field>
+                                <field name="code">BS_G_2_</field>
+                                <field name="aggregation_formula">BS_G_2_1_.balance + BS_G_2_2_.balance + BS_G_2_3_.balance + BS_G_2_4_.balance + BS_G_2_5_.balance + BS_G_2_6_.balance + BS_G_2_7_.balance + BS_G_2_8_.balance + BS_G_2_9_.balance + BS_G_2_10_.balance</field>
+                                <field name="children_ids">
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_1" model="account.report.line">
+                                        <field name="name">Debenture loans</field>
+                                        <field name="code">BS_G_2_1_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-440</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_2" model="account.report.line">
+                                        <field name="name">Amounts owed to credit institutions</field>
+                                        <field name="code">BS_G_2_2_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-441</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_3" model="account.report.line">
+                                        <field name="name">Payments received on account</field>
+                                        <field name="code">BS_G_2_3_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-442</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_4" model="account.report.line">
+                                        <field name="name">Trade creditors</field>
+                                        <field name="code">BS_G_2_4_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-443</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_5" model="account.report.line">
+                                        <field name="name">Amounts payable under the bills and checks </field>
+                                        <field name="code">BS_G_2_5_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_5'))])</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_6" model="account.report.line">
+                                        <field name="name">Amounts payable to the entities of the entities group</field>
+                                        <field name="code">BS_G_2_6_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_6'))])</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_7" model="account.report.line">
+                                        <field name="name">Amounts payable to the associated entities</field>
+                                        <field name="code">BS_G_2_7_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_7'))])</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_8" model="account.report.line">
+                                        <field name="name">Liabilities of tax on profit</field>
+                                        <field name="code">BS_G_2_8_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-447</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_9" model="account.report.line">
+                                        <field name="name">Liabilities related to employment relations</field>
+                                        <field name="code">BS_G_2_9_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-448</field>
+                                    </record>
+                                    <record id="account_financial_html_report_line_bs_lt_g_2_10" model="account.report.line">
+                                        <field name="name">Other amounts payable and short-term liabilities</field>
+                                        <field name="code">BS_G_2_10_</field>
+                                        <field name="groupby">account_id</field>
+                                        <field name="foldable" eval="True"/>
+                                        <field name="account_codes_formula">-449</field>
+                                    </record>
+                                </field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="account_financial_html_report_line_bs_lt_h" model="account.report.line">
+                        <field name="name">ACCRUALS AND DEFERRED INCOME</field>
+                        <field name="code">BS_H_</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="account_codes_formula">-49</field>
                     </record>
                 </field>
             </record>
