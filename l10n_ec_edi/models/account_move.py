@@ -96,6 +96,12 @@ class AccountMove(models.Model):
         compute='_compute_l10n_ec_withhold_wth_fields',
         help="The withholding lines in a withhold",
     )
+    l10n_ec_related_withhold_line_ids = fields.One2many(
+        comodel_name='account.move.line',
+        inverse_name='l10n_ec_withhold_invoice_id',
+        string="Related withhold lines",
+        help="The withhold lines related to this invoice",
+    )
     # Technical field for the number of invoices linked to a withhold
     l10n_ec_withhold_origin_invoice_count = fields.Integer(
         compute='_compute_l10n_ec_withhold_wth_fields',
