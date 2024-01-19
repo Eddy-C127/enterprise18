@@ -12,7 +12,7 @@ QUnit.module("documents", {}, function () {
         const { env } = await start({
             async mockRPC(route, args) {
                 if (args.method === "systray_get_activities") {
-                    return [];
+                    return {};
                 }
             },
         });
