@@ -2201,9 +2201,10 @@ class AccountReport(models.Model):
 
         # Check whether there are unposted entries for the selected period or not (if the report allows it)
         if options.get('date') and options.get('all_entries') is not None:
-            date_to = options['date'].get('date_to') or options['date'].get('date') or fields.Date.today()
-            period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
-            if self.env['account.move'].search_count(period_domain):
+            if self.env['account.move'].search_count(
+                [('state', '=', 'draft'), ('date', '<=', options['date']['date_to'])],
+                limit=1,
+            ):
                 warnings['account_reports.common_warning_draft_in_period'] = {}
 
     def _fully_unfold_lines_if_needed(self, lines, options):
