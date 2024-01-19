@@ -1618,11 +1618,11 @@ class SaleOrder(models.Model):
                              self.ids,
                              ', '.join(self.mapped(lambda order: order.client_order_ref or order.name)),
                              payment_state)
-            error_message = self._get_traceback_body(e, error_message)
+            body = self._get_traceback_body(e, error_message)
             _logger.exception(error_message)
             self._subscription_rollback_cursor(auto_commit)
             mail = Mail.sudo().create([{
-                'body_html': error_message, 'subject': error_message,
+                'body_html': body, 'subject': error_message,
                 'email_to': order._get_subscription_mail_payment_context().get('responsible_email'), 'auto_delete': True
             } for order in self])
             mail.send()
