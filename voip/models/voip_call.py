@@ -34,8 +34,8 @@ class VoipCall(models.Model):
     # Since activities are deleted from the database once marked as done, the
     # activity name is saved here in order to be preserved.
     activity_name = fields.Char(help="The name of the activity related to this phone call, if any.")
-    partner_id = fields.Many2one("res.partner", "Contact")
-    user_id = fields.Many2one("res.users", "Responsible", default=lambda self: self.env.uid)
+    partner_id = fields.Many2one("res.partner", "Contact", index=True)
+    user_id = fields.Many2one("res.users", "Responsible", default=lambda self: self.env.uid, index=True)
 
     @api.depends("state", "partner_id.name")
     def _compute_display_name(self):
