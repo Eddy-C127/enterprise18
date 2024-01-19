@@ -6,6 +6,7 @@ from math import floor
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 PERIODS_PER_YEAR = {
     "daily": 260,
@@ -36,6 +37,7 @@ class HrPayslip(models.Model):
         ("normal", "Non-Genuine Redundancy"),
         ("genuine", "Genuine Redundancy"),
     ], required=True, default="normal", string="Termination Type")
+    l10n_au_is_termination = fields.Boolean("Termination Payslip")
 
     def _get_base_local_dict(self):
         res = super()._get_base_local_dict()
@@ -48,20 +50,21 @@ class HrPayslip(models.Model):
         return res
 
     def _get_daily_wage(self):
+        schedule_pay = self.contract_id.schedule_pay
         wage = self.contract_id.wage
-        match self.struct_id.schedule_pay:
-            case "daily":
-                return wage
-            case "weekly":
-                return wage / 5
-            case "bi-weekly":
-                return wage / 10
-            case "monthly":
-                return wage * 3 / 13 / 5
-            case "quarterly":
-                return wage / 13 / 5
-            case _:
-                return wage
+
+        if schedule_pay == "daily":
+            return wage
+        elif schedule_pay == "weekly":
+            return wage / 5
+        elif schedule_pay == "bi-weekly":
+            return wage / 10
+        elif schedule_pay == "monthly":
+            return wage * 3 / 13 / 5
+        elif schedule_pay == "quarterly":
+            return wage / 13 / 5
+        else:
+            return wage
 
     def _compute_input_line_ids(self):
         for payslip in self:
@@ -243,43 +246,130 @@ class HrPayslip(models.Model):
         return period_amount
 
     def _l10n_au_compute_termination_withhold(self, employee_id, ytd_total):
+        """
+        Compute the withholding amount for the termination payment.
+
+        It is done in x steps:
+            - We first work out the smallest cap that will apply to this withholding computation
+            - We use this cap to work out the withholding amount
+
+        Currently missing feature in the computation:
+            - Multiple payments for a single termination. This could happen and will affect the cap.
+            - Death benefits. The withholding amount is impacted by a number of factor, like the beneficiary of the payment.
+            - Foreign residents tax treaties, which should exempt a foreign resident from a country with a treaty from the withholding tax.
+            - Tax free component.
+                An ETP has a tax-free component if part of the payment relate to invalidity or employment before 1 July 1983
+            - Handling delayed withholding.
+
+        The withholding amount is rounded up to the nearest dollar.
+        If no TFN is provided, the cents are ignored when calculating the withholding amount.
+        """
         self.ensure_one()
-        etp_withholding = self._rule_parameter("l10n_au_etp_withholding")
+
+        # 1) Working out the smallest cap.
+        # ================================
+        # We first calculate the whole-of-income cap by subtracting the sum of taxable payments made to the employee from $180000
+        # We then compare the whole-of-income cap with the ETP cap amount. This amount changes every year.
+        # If both caps are equal, we use the whole-of-income cap. Otherwise, we use the smallest of the two caps.
+
+        whole_of_income_cap = (self._rule_parameter("l10n_au_whoic_cap")
+                               - ytd_total["slip_lines"]["Taxable Salary"]["total"])
         etp_cap = self._rule_parameter("l10n_au_etp_cap")
-        etp_whoic_cap = self._rule_parameter("l10n_au_whoic_cap") - ytd_total["slip_lines"]["Gross"]["total"]
+        smallest_withholding_cap = min(whole_of_income_cap, etp_cap)
+
+        # 2) Working out the withholding amount
+        # =====================================
+        # An ETP can be made up of a tax-free component and a taxable component from which we much withheld an amount.
+        # The tax-free component is exempt from any withholding.
+
+        # The withheld will be different if the employee as given its TFN to the employer.
+        # In this case, we apply the amount calculated by applying the table rounded up to the nearest dollar.
+
+        # For a foreign resident, it will depend on whether there is a tax treaty with their country of residence.
+        # If the ETP is only assessable in the other country, no withholding is required.
+        # It the ETP is assessable in Australia, the withholding is using the same table but requires to exclude the Medicare levy of 2%
+
+        # When a TFN has not been provided, you must withhold 47% to a resident and 45% to a foreign resident.
+        # =====================================
+
+        # a) Compute the preservation age.
+        # The withholding amount varies depending on whether the employee has reached their preservation age by the
+        # end of the income year in which the payment is made.
+
+        if not employee_id.birthday:
+            raise UserError(_("In order to process a termination payment, a birth date should be set on the private information tab of the employee's form view."))
+
+        tfn_provided = employee_id.l10n_au_scale != '4'
+        is_non_resident = employee_id.is_non_resident
+        life_benefits_etp_rates = self._rule_parameter("l10n_au_etp_withholding_life_benefits")
+        over_the_cap_rate = life_benefits_etp_rates['over_cap']
+        no_tfn_rate = life_benefits_etp_rates['no_tfn']
+
+        # These two payments are subjects to a tax-free limit.
         genuine_redundancy = self.env.ref("l10n_au_hr_payroll.input_genuine_redundancy")
         early_retirement = self.env.ref("l10n_au_hr_payroll.input_early_retirement_scheme")
 
-        preservation_age = datetime.strptime(self._rule_parameter("l10n_au_preservation_age"), "%Y-%m-%d").date()
-        under_over = (employee_id.birthday or date.today()) > preservation_age
+        preservation_ages = self._rule_parameter("l10n_au_preservation_age")
+        # The preservation age is determined based on the financial year in which the employee was born.
+        birth_financial_year = self.contract_id._l10n_au_get_financial_year_start(employee_id.birthday).year
+        years_list = list(preservation_ages['years'].values())
+        if birth_financial_year < years_list[0]:
+            preservation_age = preservation_ages['before']
+        elif birth_financial_year > years_list[-1]:
+            preservation_age = preservation_ages['after']
+        else:
+            preservation_age = preservation_ages['years'][str(birth_financial_year)]
 
-        base = self._rule_parameter("l10n_au_tax_free_base")
-        yearly = self._rule_parameter("l10n_au_tax_free_year")
+        is_of_or_over_preservation_age = relativedelta(date.today(), employee_id.birthday).years >= preservation_age
+
+        # b) Some payments have a tax free limit, which depends on the completed years of services.
         complete_years_of_service = relativedelta(self.date_to, employee_id.first_contract_date).years
-        tax_free_base_limit = base + yearly * complete_years_of_service
+        base_tax_free_limit = self._rule_parameter("l10n_au_tax_free_base")
+        tax_free_limit = base_tax_free_limit + (complete_years_of_service * self._rule_parameter("l10n_au_tax_free_year"))
 
-        rate_over_cap = etp_withholding["over_cap"]
+        # c) tax-free component.
+        tax_free_amount = 0.0
 
-        withholding = 0.0
-        non_taxable_amount = 0.0
-        for inpt in self.input_line_ids.sorted(key=lambda i: i.input_type_id.l10n_au_etp_cap, reverse=True):
-            if not inpt.input_type_id.l10n_au_is_etp:
+        # d) Compute the withholding.
+        withholding_amount = 0.0
+        # We need to always deal with the payment subject to the ETP cap first.
+        for input_line in self.input_line_ids.sorted(key=lambda i: 0 if i.input_type_id.l10n_au_etp_type == 'excluded' else 1):
+            if not input_line.input_type_id.l10n_au_is_etp:
                 continue
-            taxable_amount = inpt.amount
-            # 1. if the input is a genuine_redundancy or early retirement, calculate the taxable amount
-            if inpt.input_type_id in [genuine_redundancy, early_retirement]:
-                non_taxable_amount = min(tax_free_base_limit, inpt.amount)
-                taxable_amount = max(0, inpt.amount - tax_free_base_limit)
-            # 2. get the correct cap and calculate taxable amount under and over cap
-            rate_up_to_cap = etp_withholding[inpt.input_type_id.l10n_au_etp_type]["over" if under_over else "under"]
-            cap_to_use = min(etp_cap, etp_whoic_cap)
-            amount_under_cap = min(cap_to_use, taxable_amount)
-            amount_over_cap = max(0, taxable_amount - cap_to_use)
-            # 3. calculate withholding
-            withholding += amount_under_cap * rate_up_to_cap / 100
-            withholding += amount_over_cap * rate_over_cap / 100
+            taxable_amount = input_line.amount
+            applicable_tax_free_limit = 0
+            # We check if the payment is subject to a tax-free limit.
+            if input_line.input_type_id in {genuine_redundancy, early_retirement}:
+                applicable_tax_free_limit = tax_free_limit
+
+            tax_free_amount += min(applicable_tax_free_limit, input_line.amount)
+            taxable_amount = max(0, taxable_amount - applicable_tax_free_limit)
+            # Besides that, the remaining taxable amounts are all subjects to withholding.
+            # If no tfn has been provided, the rate will be fixed to 47% (for residents) or 45% (for non-residents)
+            if not tfn_provided:
+                applicable_rate = no_tfn_rate
+            else:
+                age_group = 'over' if is_of_or_over_preservation_age else 'under'
+                applicable_rate = life_benefits_etp_rates[input_line.input_type_id.l10n_au_etp_type][age_group]
+
+            # If a foreign resident's ETP is assessable in Australia, Adjust the rate to exclude the Medicare levy of 2%.
+            if is_non_resident:
+                applicable_rate -= 2
+            # Depending on the type of payment, we either use the ETP cap, or the smallest ETP cap computed earlier.
+            applicable_cap = etp_cap if input_line.input_type_id.l10n_au_etp_type == 'excluded' else smallest_withholding_cap
+            # Separate between the amount below the cap, and the amount above the cap (if any)
+            taxable_amount_under_cap = min(applicable_cap, taxable_amount)
+            taxable_amount_over_cap = taxable_amount - taxable_amount_under_cap
+            # Then apply the rates accordingly.
+            if tfn_provided:
+                withholding_amount += taxable_amount_under_cap * (applicable_rate / 100)
+                withholding_amount += taxable_amount_over_cap * (over_the_cap_rate / 100)
+            else:  # When no tfn is provided, ignore the cents when computing the withholding amount.
+                withholding_amount += int(taxable_amount_under_cap * (applicable_rate / 100))
+                withholding_amount += int(taxable_amount_over_cap * (over_the_cap_rate / 100))
             etp_cap -= taxable_amount
-        return round(withholding), non_taxable_amount
+
+        return round(withholding_amount), tax_free_amount
 
     def _l10n_au_get_leaves_for_withhold(self):
         self.ensure_one()
@@ -298,8 +388,10 @@ class HrPayslip(models.Model):
             "leaves_amount": 0.0,
         }
         leaves = self.env["hr.leave.allocation"].search([
-            ("employee_id", "=", self.employee_id.id),
             ("state", "=", "validate"),
+            ("holiday_status_id.l10n_au_leave_type", "in", ['annual', 'long_service']),
+            ("employee_id", "=", self.employee_id.id),
+            ("date_from", "<=", self.contract_id.date_end or self.date_to),
         ])
         daily_wage = self._get_daily_wage()
         for leave in leaves:
@@ -307,6 +399,9 @@ class HrPayslip(models.Model):
                 continue
             leave_type = leaves_by_date[leave.holiday_status_id.l10n_au_leave_type]
             amount = (leave.number_of_days - leave.leaves_taken) * daily_wage
+            if leave.holiday_status_id.l10n_au_leave_type == 'annual' and self.contract_id.l10n_au_leave_loading == 'regular':
+                amount *= 1 + (self.contract_id.l10n_au_leave_loading_rate / 100)
+
             if leave.date_from < cutoff_dates[0]:
                 leave_type["pre_1978"] += amount
             elif leave.date_from < cutoff_dates[1]:
@@ -316,18 +411,29 @@ class HrPayslip(models.Model):
             leaves_by_date["leaves_amount"] += amount
         return leaves_by_date
 
-    def _l10n_au_calculate_marginal_withhold(self, year_slips, leave_amount, coefficients):
+    def _l10n_au_get_unused_leave_hours(self):
+        # Only annual and long service leaves are to be taken into account for termination payments
+        leaves = self.env["hr.leave.allocation"].search([
+            ("state", "=", "validate"),
+            ("holiday_status_id.l10n_au_leave_type", "in", ['annual', 'long_service']),
+            ("employee_id", "=", self.employee_id.id),
+            ("date_from", "<=", self.contract_id.date_end or self.date_to),
+        ])
+        unused_days = sum([(leave.number_of_days - leave.leaves_taken) for leave in leaves])
+        return unused_days * self.contract_id.resource_calendar_id.hours_per_day
+
+    def _l10n_au_calculate_marginal_withhold(self, leave_amount, coefficients, basic_amount):
         self.ensure_one()
         period = self.contract_id.schedule_pay
         amount_per_period = leave_amount / PERIODS_PER_YEAR[period]
 
-        normal_withhold = self._l10n_au_compute_withholding_amount(self.basic_wage, period, coefficients)
-        leave_withhold = self._l10n_au_compute_withholding_amount(self.basic_wage + amount_per_period, period, coefficients)
+        normal_withhold = self._l10n_au_compute_withholding_amount(basic_amount, period, coefficients)
+        leave_withhold = self._l10n_au_compute_withholding_amount(basic_amount + amount_per_period, period, coefficients)
 
         extra_withhold = leave_withhold - normal_withhold
         return extra_withhold * PERIODS_PER_YEAR[period]
 
-    def _l10n_au_calculate_long_service_leave_withholding(self, year_slips, leave_withholding_rate, long_service_leaves):
+    def _l10n_au_calculate_long_service_leave_withholding(self, leave_withholding_rate, long_service_leaves, basic_amount):
         self.ensure_one()
         coefficients = self._rule_parameter("l10n_au_withholding_coefficients")["regular"]
         pre_1978 = long_service_leaves["pre_1978"]
@@ -342,11 +448,11 @@ class HrPayslip(models.Model):
         else:
             flat_part += post_1993
 
-        marginal_withhold = round(self._l10n_au_calculate_marginal_withhold(year_slips, marginal_part, coefficients))
+        marginal_withhold = round(self._l10n_au_calculate_marginal_withhold(marginal_part, coefficients, basic_amount))
         flat_withhold = round(flat_part * float(leave_withholding_rate) / 100)
         return flat_withhold + marginal_withhold
 
-    def _l10n_au_calculate_annual_leave_withholding(self, year_slips, leave_withholding_rate, annual_leaves):
+    def _l10n_au_calculate_annual_leave_withholding(self, leave_withholding_rate, annual_leaves, basic_amount):
         self.ensure_one()
         coefficients = self._rule_parameter("l10n_au_withholding_coefficients")["regular"]
         pre_1993 = annual_leaves["pre_1993"]
@@ -360,22 +466,22 @@ class HrPayslip(models.Model):
         else:
             flat_part += post_1993
 
-        marginal_withhold = round(self._l10n_au_calculate_marginal_withhold(year_slips, marginal_part, coefficients))
+        marginal_withhold = round(self._l10n_au_calculate_marginal_withhold(marginal_part, coefficients, basic_amount))
         flat_withhold = round(flat_part * float(leave_withholding_rate) / 100)
 
         return flat_withhold + marginal_withhold
 
-    def _l10n_au_compute_unused_leaves_withhold(self, year_slips):
+    def _l10n_au_compute_unused_leaves_withhold(self, basic_amount):
         self.ensure_one()
         leaves = self._l10n_au_get_leaves_for_withhold()
         l10n_au_leave_withholding = self._rule_parameter("l10n_au_leave_withholding")
         withholding = 0.0
         # 2. Calculate long service leave withholding
         long_service_leaves = leaves["long_service"]
-        withholding += self._l10n_au_calculate_long_service_leave_withholding(year_slips, l10n_au_leave_withholding, long_service_leaves)
+        withholding += self._l10n_au_calculate_long_service_leave_withholding(l10n_au_leave_withholding, long_service_leaves, basic_amount)
         # 3. Calculate annual leave withholding
         annual_leaves = leaves["annual"]
-        withholding += self._l10n_au_calculate_annual_leave_withholding(year_slips, l10n_au_leave_withholding, annual_leaves)
+        withholding += self._l10n_au_calculate_annual_leave_withholding(l10n_au_leave_withholding, annual_leaves, basic_amount)
         return leaves["leaves_amount"], withholding, 0.0
 
     def _l10n_au_compute_child_support(self, net_earnings):

@@ -11,7 +11,7 @@
                 <h5 class="mt-1 mb-2 p-0">
                     <strong><t t-esc="o.employee_id.name"/></strong>
                 </h5><br/>
-                <div class="row mb-5">
+                <div class="row mb-3">
                     <div class="col-8">
                         <span>
                             <strong>Pay Frequency: </strong>
@@ -45,11 +45,11 @@
                     <div class="col-4 text-end">
 
                         <span t-if="o.paid_date">Payment Date: <t t-esc="o.paid_date"/></span><br/>
-                        <span>Gross Pay: <t t-esc="o.line_ids.filtered(lambda line: line.code == 'GROSS').total"
+                        <span>Gross Pay: <t t-esc="sum(o.line_ids.filtered(lambda line: line.code in ('GROSS', 'ETP.GROSS', 'ETP.LEAVE.GROSS')).mapped('total'))"
                             t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/></span><br/>
                         <span>Net Pay: <t t-esc="o.line_ids.filtered(lambda line: line.code == 'NET').total"
                             t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/></span><br/>
-                        <span>Super Payments: <t t-esc="sum(o.line_ids.filtered(lambda line: line.code == 'SUPER').mapped('total'))"
+                        <span>Super Payments: <t t-esc="sum(o.line_ids.filtered(lambda line: line.code in ('SUPER', 'SUPER.CONTRIBUTION')).mapped('total'))"
                             t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/></span><br/>
                     </div>
                 </div>
@@ -65,28 +65,30 @@
                     </thead>
                     <tbody>
                         <t t-set="year_to_date_totals" t-value="o.with_context(l10n_au_include_current_slip=True)._l10n_au_get_year_to_date_totals()"/>
+                        <t t-set="unused_leaves" t-value="o._l10n_au_get_unused_leave_hours()"/>
                         <t t-set="total_hours" t-value="0.0"/>
                         <!-- show the detail of the worked lines -->
                         <tr t-if="o.use_worked_day_lines">
                             <td colspan="5"><strong>Worked Days</strong></td>
                         </tr>
+                        <!-- class="align-middle" is required for a proper PDF positioning of hours and currency symbols-->
                         <tr t-if="o.use_worked_day_lines" t-foreach="o.worked_days_line_ids" t-as="worked_line">
-                            <td>
+                            <td class="align-middle">
                                 <t t-esc="worked_line.name"/>
                             </td>
-                            <td>
+                            <td class="text-end align-middle">
                                 <t t-esc="worked_line.number_of_hours" t-options="{'widget': 'float_time'}"/>
                                 <t t-set="total_hours" t-value="total_hours + worked_line.number_of_hours"/>
                             </td>
-                            <td>
+                            <td class="text-end align-middle">
                                 <t t-esc="worked_line._get_l10n_au_hourly_rate()"
                                     t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                             </td>
-                            <td>
+                            <td class="text-end align-middle">
                                 <t t-esc="worked_line.amount"
                                     t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                             </td>
-                            <td>
+                            <td class="text-end align-middle">
                                 <t t-esc="year_to_date_totals['worked_days'][worked_line.work_entry_type_id]['amount']"
                                     t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                             </td>
@@ -97,21 +99,22 @@
                         <!-- Hide Medicare Adjustment line if the amount is 0 -->
                         <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip and
                             not (line.salary_rule_id == env.ref('l10n_au_hr_payroll.l10n_au_medicare_structure_1') and line.amount == 0))"
-                            t-as="line">
-                            <td><t t-esc="line.name"/></td>
-                            <td>
-                                <t t-if="line.category_id.code == 'BASIC'" t-esc="total_hours" t-options="{'widget': 'float_time'}"/>
+                            t-as="line" class="align-middle">
+                            <td class="align-middle"><t t-esc="line.name"/></td>
+                            <td class="text-end align-middle">
+                                <t t-if="line.code == 'LEAVE'" t-esc="unused_leaves" t-options="{'widget': 'float_time'}"/>
+                                <t t-elif="line.code == 'BASIC'" t-esc="total_hours" t-options="{'widget': 'float_time'}"/>
                             </td>
-                            <td>
+                            <td class="text-end align-middle">
                                 <t t-if="line.category_id.name == 'BASIC'"
                                     t-esc="line.amount"
                                     t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"
                                 />
                             </td>
-                            <td>
+                            <td class="text-end align-middle">
                                 <t t-esc="line.total" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                             </td>
-                            <td>
+                            <td class="text-end align-middle">
                                 <t t-esc="year_to_date_totals['slip_lines'][line.category_id.name]['total']"
                                     t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                             </td>

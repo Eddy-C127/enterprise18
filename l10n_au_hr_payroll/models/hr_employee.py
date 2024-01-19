@@ -60,9 +60,6 @@ class HrEmployee(models.Model):
         groups="hr.group_hr_user")
     l10n_au_training_loan = fields.Boolean(
         string="HELP / STSL",
-        compute="_compute_l10n_au_training_loan",
-        store=True,
-        readonly=False,
         groups="hr.group_hr_user",
         help="Whether the employee is a Study Training Support Loan (STSL) recipient")
     l10n_au_medicare_exemption = fields.Selection(
@@ -172,12 +169,6 @@ class HrEmployee(models.Model):
             elif employee.l10n_au_scale == "6":
                 employee.l10n_au_medicare_exemption = "H"
 
-    @api.depends("contract_id.l10n_au_tax_treatment_category")
-    def _compute_l10n_au_training_loan(self):
-        forbidden_categories = ["R", "A", "S", "F"]
-        for employee in self:
-            employee.l10n_au_training_loan = employee.contract_id.l10n_au_tax_treatment_category not in forbidden_categories
-
     @api.depends("marital", "children")
     def _compute_l10n_au_medicare_reduction(self):
         for employee in self:
@@ -196,3 +187,16 @@ class HrEmployee(models.Model):
         employee_accounts = self.l10n_au_super_account_ids.filtered(
             lambda account: account.date_from <= date).sorted('date_from')
         return employee_accounts[0] if employee_accounts else False
+
+    def action_terminate_contract(self):
+        self.ensure_one()
+        ctx = self.env.context.copy()
+        ctx['default_employee_id'] = self.id
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'l10n_au.termination.payment',
+            'views': [[self.env.ref("l10n_au_hr_payroll.l10n_au_termination_payment_view_form").id, 'form']],
+            'view_mode': 'form',
+            'target': 'new',
+            'context': ctx
+        }

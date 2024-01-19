@@ -101,7 +101,8 @@
         <field name="name">Roger Payslip September Termination</field>
         <field name="date_from" eval="datetime(2023, 9, 1).date()"/>
         <field name="date_to" eval="datetime(2023, 9, 30).date()"/>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_termination"/>
+        <field name="l10n_au_is_termination" eval="True"/>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
         <field name="input_line_ids" eval="[(5, 0, 0),
             (0, 0, {'input_type_id': ref('l10n_au_hr_payroll.input_severance_pay'), 'amount': 15000}),
             (0, 0, {'input_type_id': ref('l10n_au_hr_payroll.input_golden_handshake'), 'amount': 20000}),
@@ -123,14 +124,21 @@
         <field name="name">Annual Leave</field>
         <field name="l10n_au_leave_type">annual</field>
         <field name="leave_validation_type">no_validation</field>
-        <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_legal_leave"/>
+        <field name="work_entry_type_id" ref="l10n_au_hr_payroll.l10n_au_work_entry_paid_time_off"/>
     </record>
     <record id="hr_leave_type_long_service" model="hr.leave.type">
         <field name="company_id" ref="base.demo_company_au"/>
         <field name="name">Long Service Leave</field>
         <field name="l10n_au_leave_type">long_service</field>
         <field name="leave_validation_type">no_validation</field>
-        <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_legal_leave"/>
+        <field name="work_entry_type_id" ref="l10n_au_hr_payroll.l10n_au_work_entry_long_service_leave"/>
+    </record>
+    <record id="hr_leave_type_personal_leave" model="hr.leave.type">
+        <field name="company_id" ref="base.demo_company_au"/>
+        <field name="name">Personal Leave</field>
+        <field name="l10n_au_leave_type">personal</field>
+        <field name="leave_validation_type">both</field>
+        <field name="work_entry_type_id" ref="l10n_au_hr_payroll.l10n_au_work_entry_personal_leave"/>
     </record>
 
     <record id="hr_leave_allocation_long_service_pre_78" model="hr.leave.allocation">

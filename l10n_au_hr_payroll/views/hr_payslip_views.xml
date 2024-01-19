@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <filter name="group_by_company_id" position="after">
                 <filter name="period_filter" string="Pay Period" context="{'group_by': 'l10n_au_schedule_pay'}"/>
+                <filter name="final_pay" string="Final Pay" domain="[('l10n_au_is_termination', '=', True)]"/>
             </filter>
         </field>
     </record>
@@ -16,10 +17,12 @@
         <field name="model">hr.payslip</field>
         <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//sheet/div" position="before">
+                <field name="l10n_au_is_termination" invisible="1"/>
+                <widget name="web_ribbon" title="Final Pay" bg_color="text-bg-danger" invisible="not l10n_au_is_termination"/>
+            </xpath>
             <field name="struct_id" position="after">
-                <field name="structure_code" invisible="1"/>
-                <field name="l10n_au_termination_type"
-                    invisible="structure_code != 'AUTERM'"/>
+                <field name="l10n_au_termination_type" invisible="not l10n_au_is_termination"/>
             </field>
             <field name="input_line_ids" position="after">
                 <group invisible="country_code != 'AU'">
@@ -28,6 +31,7 @@
             </field>
             <xpath expr="//page[@name='account_info']/group" position="after">
                 <group name="l10n_au" string="Australia" invisible="country_code != 'AU'">
+                    <field name="l10n_au_is_termination" widget="boolean_toggle"/>
                     <field name="l10n_au_income_stream_type" invisible="1"/>
                     <field name="l10n_au_foreign_tax_withheld"
                         invisible="l10n_au_income_stream_type not in ['FEI', 'IAA', 'WHM']"/>

@@ -420,20 +420,24 @@ class TestPayroll(TestPayrollCommon):
         employee_id, contract_id = self.create_employee_and_contract(5000, {'schedule_pay': 'monthly'})
         # Allocate Holidays
         self.env['hr.leave.allocation'].create([{
-            'name': 'Paid Time Off 2023',
-            'holiday_status_id': self.env.ref('l10n_au_hr_payroll.hr_leave_type_annual_au').id,
+            'name': 'Paid Time Off 2023-24',
+            'holiday_status_id': self.annual_leave_type.id,
             'number_of_days': 15,
             'employee_id': employee_id.id,
             'state': 'confirm',
-            'date_from': date(2023, 1, 1),
-            'date_to': date(2023, 12, 31),
+            'date_from': date(2023, 7, 1),
+            'date_to': date(2024, 6, 30),
         }]).action_validate()
+
+        # This would be done by the wizard.
+        contract_id.date_end = date(2023, 8, 31)
 
         payslip_term = self.env["hr.payslip"].create({
             "name": "Termination Payment",
             "employee_id": employee_id.id,
             "contract_id": contract_id.id,
-            "struct_id": self.env.ref("l10n_au_hr_payroll.hr_payroll_structure_au_termination").id,
+            "l10n_au_is_termination": True,
+            "struct_id": self.env.ref("l10n_au_hr_payroll.hr_payroll_structure_au_regular").id,
             "l10n_au_termination_type": "genuine",
             "date_from": date(2023, 8, 1),
             "date_to": date(2023, 8, 31),
@@ -446,5 +450,5 @@ class TestPayroll(TestPayrollCommon):
         # Scenario 1: Tax free threshold claimed
         payslip_term.compute_sheet()
         lbc = self.lines_by_code(payslip_term.line_ids)
-        self.assertEqual(lbc["LEAVE"]["total"], 3461.54, "Incorrect Leave base")
-        self.assertEqual(-lbc["LEAVE.WITHHOLD"]["total"], 1108, "Withhold incorrect for genuine redundancy.")
+        self.assertEqual(lbc["ETP.LEAVE.GROSS"]["total"], 3461.54, "Incorrect Leave base")
+        self.assertEqual(-lbc["ETP.LEAVE.WITHHOLD"]["total"], 1108, "Withhold incorrect for genuine redundancy.")

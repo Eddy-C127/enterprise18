@@ -414,6 +414,14 @@ class TestPayrollCommon(TransactionCase):
             for entry_type in cls.env['hr.work.entry.type'].search([])
         }
 
+        cls.annual_leave_type = cls.env['hr.leave.type'].create({
+            'name': 'Annual Leave',
+            'company_id': cls.australian_company.id,
+            'l10n_au_leave_type': 'annual',
+            'leave_validation_type': 'no_validation',
+            'work_entry_type_id': cls.env.ref('l10n_au_hr_payroll.l10n_au_work_entry_paid_time_off').id,
+        })
+
     def create_employee_and_contract(self, wage, contract_info=False):
         if not contract_info:
             contract_info = {}
@@ -426,7 +434,7 @@ class TestPayrollCommon(TransactionCase):
             "private_city": "Sydney",
             "private_country_id": self.env.ref("base.au").id,
             "work_phone": "123456789",
-            "birthday": date.today() - relativedelta(years=22),
+            "birthday": contract_info.get('birthday', date.today() - relativedelta(years=22)),
             # fields modified in the tests
             "marital": "single",
             "l10n_au_tfn_declaration": contract_info.get('tfn_declaration', 'provided'),
@@ -447,7 +455,7 @@ class TestPayrollCommon(TransactionCase):
             "employee_id": employee_id.id,
             "resource_calendar_id": self.resource_calendar.id,
             "company_id": self.australian_company.id,
-            "date_start": date(2023, 7, 1),
+            "date_start": contract_info.get('contract_date_start', date(2023, 7, 1)),
             "date_end": False,
             "wage_type": contract_info.get('wage_type', 'monthly'),
             "wage": contract_info.get('wage', wage),
@@ -472,12 +480,13 @@ class TestPayrollCommon(TransactionCase):
         employee_id.contract_id = contract_id
         return employee_id, contract_id
 
-    def _create_employee(self, contract_info):
+    def _create_employee(self, contract_info, loan=True):
         employee, contract = self.create_employee_and_contract(5000, contract_info)
         contract._compute_wages()
+        employee.l10n_au_training_loan = loan
         return employee, contract
 
-    def _test_payslip(self, employee, contract, expected_lines, expected_worked_days=False, input_lines=False, payslip_date_from=False, payslip_date_to=False):
+    def _test_payslip(self, employee, contract, expected_lines, expected_worked_days=False, input_lines=False, payslip_date_from=False, payslip_date_to=False, is_termination=False):
         """ This method is to be called in order to test a payslip.
         It will be using the default_payroll_structure field and _prepare_payslip method to set things up, so these
         are expected to be overriden for each class testing a specific structure.
@@ -493,6 +502,7 @@ class TestPayrollCommon(TransactionCase):
             "date_from": payslip_date_from or date(2023, 7, 1),
             "date_to": payslip_date_to or date(2023, 7, 31),
             "input_line_ids": [Command.create(input_line) for input_line in input_lines] if input_lines else [],
+            "l10n_au_is_termination": is_termination,
         })
 
         # 2) Recompute the payslip.

@@ -6,6 +6,31 @@
     </record>
 
     <!-- Time Off Entries -->
+    <!-- We need a unique work entry type for each time off -->
+    <record id="l10n_au_work_entry_paid_time_off" model="hr.work.entry.type">
+        <field name="name">Paid Time Off</field>
+        <field name="color">5</field>
+        <field name="code">AU.PT</field>
+        <field name="is_leave" eval="True"/>
+        <field name="l10n_au_is_ote" eval="True"/>
+    </record>
+
+    <record id="l10n_au_work_entry_long_service_leave" model="hr.work.entry.type">
+        <field name="name">Long Service Leave</field>
+        <field name="color">5</field>
+        <field name="code">AU.LS</field>
+        <field name="is_leave" eval="True"/>
+        <field name="l10n_au_is_ote" eval="True"/>
+    </record>
+
+    <record id="l10n_au_work_entry_personal_leave" model="hr.work.entry.type">
+        <field name="name">Personal Leave</field>
+        <field name="color">5</field>
+        <field name="code">AU.PL</field>
+        <field name="is_leave" eval="True"/>
+        <field name="l10n_au_is_ote" eval="True"/>
+    </record>
+
     <record id="l10n_au_work_entry_type_other" model="hr.work.entry.type">
         <field name="name">Other Paid Leave</field>
         <field name="color">5</field>

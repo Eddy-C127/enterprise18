@@ -53,35 +53,14 @@
 
     <!-- Termination -->
     <!-- ETP -->
-    <record id="rule_category_etp_gross" model="hr.salary.rule.category">
-        <field name="name">Gross ETP</field>
-        <field name="code">ETP.GROSS</field>
+    <record id="rule_category_etp_base" model="hr.salary.rule.category">
+        <field name="name">Base ETP</field>
+        <field name="code">ETP.BASE</field>
     </record>
 
     <record id="rule_category_tax_free_component" model="hr.salary.rule.category">
         <field name="name">Tax Free component of ETP</field>
         <field name="code">ETP.FREE</field>
-    </record>
-
-    <record id="rule_category_etp_base" model="hr.salary.rule.category">
-        <field name="name">ETP Base</field>
-        <field name="code">ETP.BASE</field>
-    </record>
-
-    <record id="rule_category_etp_withhold" model="hr.salary.rule.category">
-        <field name="name">ETP Withholding</field>
-        <field name="code">ETP.WITHHOLD</field>
-    </record>
-
-    <!-- Leaves -->
-    <record id="rule_category_leave_base" model="hr.salary.rule.category">
-        <field name="name">Leave Base</field>
-        <field name="code">LEAVE.BASE</field>
-    </record>
-
-    <record id="rule_category_leave_withhold" model="hr.salary.rule.category">
-        <field name="name">Leave Withholding</field>
-        <field name="code">LEAVE.WITHHOLD</field>
     </record>
 
     <!-- Child Support -->

@@ -11,6 +11,16 @@ SATURDAY_CASUAL_LOADING_COEF = 1.50
 SUNDAY_CASUAL_LOADING_COEF = 1.75
 PUBLIC_HOLIDAY_CASUAL_LOADING_COEF = 2.5
 
+CESSATION_TYPE_CODE = [
+    ("V", "(V) Voluntary Cessation"),
+    ("I", "(I) Ill Health"),
+    ("D", "(D) Deceased"),
+    ("R", "(R) Redundancy"),
+    ("F", "(F) Dismissal"),
+    ("C", "(C) Contract Cessation"),
+    ("T", "(T) Transfer"),
+]
+
 
 class HrContract(models.Model):
     _inherit = 'hr.contract'
@@ -36,7 +46,7 @@ class HrContract(models.Model):
         "hr.leave.type",
         string="Leave Types for Leave Loading",
         help="Leave Types that should be taken into account for leave loading, both regular and lump sum.")
-    l10n_au_leave_loading_rate = fields.Float(string="Leave Loading Rate")
+    l10n_au_leave_loading_rate = fields.Float(string="Leave Loading Rate (%)")
     l10n_au_employment_basis_code = fields.Selection(
         selection=[
             ("F", "(F) Full time"),
@@ -78,15 +88,7 @@ class HrContract(models.Model):
     l10n_au_tax_treatment_code = fields.Char(string="Code", store=True,
         compute="_compute_l10n_au_tax_treatment_code")
     l10n_au_cessation_type_code = fields.Selection(
-        [
-            ("V", "(V) Voluntary Cessation"),
-            ("I", "(I) Ill Health"),
-            ("D", "(D) Deceased"),
-            ("R", "(R) Redundancy"),
-            ("F", "(F) Dismissal"),
-            ("C", "(C) Contract Cessation"),
-            ("T", "(T) Transfer"),
-        ],
+        CESSATION_TYPE_CODE,
         string="Cessation Type",
         help="""
             "V": an employee resignation, retirement, domestic or pressing necessity or abandonment of employment.

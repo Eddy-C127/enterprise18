@@ -47,10 +47,10 @@ Australian Payroll Rules.
         "data/salary_rules/hr_salary_rule_no_tfn_data.xml",
         "data/salary_rules/hr_salary_rule_regular_data.xml",
         "data/salary_rules/hr_salary_rule_return_to_work_data.xml",
-        "data/salary_rules/hr_salary_rule_termination_data.xml",
         "data/salary_rules/hr_salary_rule_whm_data.xml",
         "data/hr_work_entry_type_data.xml",
         "data/hr_payroll_dashboard_warning_data.xml",
+        "wizards/l10n_au_termination_payment.xml"
     ],
     "assets": {
         "web.assets_backend": [

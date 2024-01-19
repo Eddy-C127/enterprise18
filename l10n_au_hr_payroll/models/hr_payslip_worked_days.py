@@ -15,8 +15,8 @@ class HrPayslipWorkedDays(models.Model):
             if wd.payslip_id.date_from + wd.payslip_id._get_schedule_timedelta() != wd.payslip_id.date_to:
                 wage = wd.payslip_id.contract_id.hourly_wage if wd.payslip_id.contract_id else 0
                 wd.amount = wage * wd.number_of_hours
-            if not wd.payslip_id.edited and wd.is_paid and wd.work_entry_type_id.is_leave \
-                    and wd.contract_id.l10n_au_leave_loading == "regular":
+            uses_leave_loading = wd.contract_id.l10n_au_leave_loading == "regular" and wd.work_entry_type_id.code == 'AU.PT'
+            if not wd.payslip_id.edited and wd.is_paid and uses_leave_loading:
                 wd.amount *= 1 + (wd.contract_id.l10n_au_leave_loading_rate / 100)
                 continue
             rate = 1 + wd.contract_id.l10n_au_casual_loading + wd.work_entry_type_id.l10n_au_penalty_rate
@@ -24,6 +24,7 @@ class HrPayslipWorkedDays(models.Model):
         return res
 
     def _get_l10n_au_hourly_rate(self):
+        self.ensure_one()
         if not self or not self.payslip_id.contract_id._is_struct_from_country("AU"):
             return 0
         if self.payslip_id.date_from + self.payslip_id._get_schedule_timedelta() != self.payslip_id.date_to \
@@ -31,7 +32,10 @@ class HrPayslipWorkedDays(models.Model):
             wage = self.payslip_id.contract_id.hourly_wage
         else:
             wage = self.payslip_id.contract_id.contract_wage / (self.payslip_id.sum_worked_hours or 1) if self.is_paid else 0
-        if not self.payslip_id.edited and self.is_paid and self.work_entry_type_id.is_leave and self.contract_id.l10n_au_leave_loading == "regular":
+
+        uses_leave_loading = self.contract_id.l10n_au_leave_loading == "regular" and self.work_entry_type_id.code == 'AU.PT'
+        if not self.payslip_id.edited and self.is_paid and uses_leave_loading:
             wage *= 1 + (self.contract_id.l10n_au_leave_loading_rate / 100)
+            return wage
         rate = 1 + self.contract_id.l10n_au_casual_loading + self.work_entry_type_id.l10n_au_penalty_rate
         return wage * rate

@@ -387,6 +387,7 @@
         <field name="parameter_value">5994</field>
     </record>
 
+    <!-- Preservation age is based on the employee date of birth. Depending on it, the age will vary. -->
     <record id="rule_parameter_preservation_age" model="hr.rule.parameter">
         <field name="name">Preservation Age Table</field>
         <field name="code">l10n_au_preservation_age</field>
@@ -395,29 +396,68 @@
     <record id="rule_parameter_preservation_age_2023" model="hr.rule.parameter.value">
         <field name="rule_parameter_id" ref="rule_parameter_preservation_age"/>
         <field name="date_from" eval="datetime(2023, 7, 1).date()"/>
-        <field name="parameter_value">'1964-06-30'</field>
+        <field name="parameter_value">{
+            "before": 55,
+            "years": {
+                "1960": 56,
+                "1961": 57,
+                "1962": 58,
+                "1963": 59,
+            },
+            "after": 60,
+        }</field>
     </record>
 
-    <record id="rule_parameter_etp_withholding" model="hr.rule.parameter">
-        <field name="name">ETP withholding rates</field>
-        <field name="code">l10n_au_etp_withholding</field>
+    <!-- Excluded are the rates used by payments excluding the whole of income amount.
+    Non-excluded is of course the payments including the whole of income amount.
+
+    Under and over in each section relate to the preservation age of the employee.
+    If the employee is of preservation age, the over rate is used.
+
+    over_cap should only be used for the part of the amount that is higher than the applicable cap,
+    as computed.
+    -->
+    <record id="rule_parameter_etp_withholding_life_benefits" model="hr.rule.parameter">
+        <field name="name">ETP withholding rates for life benefits</field>
+        <field name="code">l10n_au_etp_withholding_life_benefits</field>
         <field name="country_id" ref="base.au"/>
     </record>
-
-    <record id="rule_parameter_etp_withholding_2023" model="hr.rule.parameter.value">
-        <field name="rule_parameter_id" ref="rule_parameter_etp_withholding"/>
+    <record id="rule_parameter_etp_withholding_life_benefits_2023" model="hr.rule.parameter.value">
+        <field name="rule_parameter_id" ref="rule_parameter_etp_withholding_life_benefits"/>
         <field name="date_from" eval="datetime(2023, 7, 1).date()"/>
         <field name="parameter_value">{
-            'excluded': {
-                'under': 32.0,
-                'over': 17.0,
+            "excluded": {
+                "under": 32.0,
+                "over": 17.0,
             },
-            'non_excluded': {
-                'under': 32.0,
-                'over': 17.0,
+            "non_excluded": {
+                "under": 32.0,
+                "over": 17.0,
             },
-            'over_cap': 47.0
-            }</field>
+            "no_tfn": 47.0,
+            "over_cap": 47.0,
+        }</field>
+    </record>
+
+    <record id="rule_parameter_etp_withholding_death_benefits" model="hr.rule.parameter">
+        <field name="name">ETP withholding rates for death benefits</field>
+        <field name="code">l10n_au_etp_withholding_death_benefits</field>
+        <field name="country_id" ref="base.au"/>
+    </record>
+    <record id="rule_parameter_etp_withholding_death_benefits_2023" model="hr.rule.parameter.value">
+        <field name="rule_parameter_id" ref="rule_parameter_etp_withholding_death_benefits"/>
+        <field name="date_from" eval="datetime(2023, 7, 1).date()"/>
+        <field name="parameter_value">{
+            "dependants": {
+                "up_to_cap": 0.0,
+                "over_cap": 47.0,
+            },
+            "non_dependants": {
+                "up_to_cap": 32.0,
+                "over_cap": 47.0,
+            },
+            "trustee_of_estate": 0.0,
+        }</field>
     </record>
 
     <record id="rule_parameter_leave_withholding" model="hr.rule.parameter">

@@ -6,6 +6,10 @@
         <field name="priority" eval="110"/>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="contract_id" invisible="1"/>
+                <button string="Terminate Employee" name="action_terminate_contract" type="object" class="text-danger" invisible="not contract_id" groups="hr_contract.group_hr_contract_manager" />
+            </xpath>
             <xpath expr="//page[@name='hr_settings']//group" position="inside">
                 <group name="l10n_au_personal" string="Personal Information" invisible="company_country_code != 'AU'">
                     <field name="is_non_resident"/>

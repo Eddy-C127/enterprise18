@@ -9,7 +9,10 @@ class HolidaysType(models.Model):
     l10n_au_leave_type = fields.Selection(
         selection=[
             ("annual", "Annual"),
-            ("long_service", "Long Service")],
-        default="annual",
+            ("long_service", "Long Service"),
+            ("personal", "Personal Leave"),
+        ],
+        default="personal",
         required=True,
-        string="Australian Leave Type")
+        string="Unused Leave Type"
+    )

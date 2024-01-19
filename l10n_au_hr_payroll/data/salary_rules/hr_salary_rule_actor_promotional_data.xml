@@ -39,6 +39,73 @@ result = -contract.l10n_au_workplace_giving
 
     <!-- Taxable Salary, Sequence 100 -->
 
+    <!-- Sources
+        https://www.ato.gov.au/
+        https://oac.chris21.com/OAC_ichrisp/Help/ichrisUG/646250.htm
+    -->
+    <!-- the 3 following rules take advantage of the fact that any variable declared in the compute function
+    is added to the global dictionnary. Because we need to separate taxable and non-taxable components of the
+    ETP payment, the variables are calculated once but used in different rules.-->
+    <record id="l10n_au_termination_etp_gross_structure_3_promo" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.BASIC"/>
+        <field name="name">Gross ETP</field>
+        <field name="code">ETP.GROSS</field>
+        <field name="sequence">101</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = payslip.l10n_au_is_termination and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+etp_withholding, tax_free_component = payslip._l10n_au_compute_termination_withhold(employee, ytd_total)
+result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp).mapped('amount'))
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
+    </record>
+
+    <record id="l10n_au_termination_etp_tax_free_structure_3_promo" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_tax_free_component"/>
+        <field name="name">Tax-Free ETP</field>
+        <field name="code">TAX.FREE</field>
+        <field name="sequence">102</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = payslip.l10n_au_is_termination and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = tax_free_component
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
+        <field name="appears_on_payslip">False</field>
+    </record>
+
+    <record id="l10n_au_termination_etp_structure_3_promo" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_etp_base"/>
+        <field name="name">Base ETP</field>
+        <field name="code">ETP.BASE</field>
+        <field name="sequence">103</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = payslip.l10n_au_is_termination and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp).mapped('amount')) - tax_free_component
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
+        <field name="appears_on_payslip">False</field>
+    </record>
+
+    <record id="l10n_au_termination_leave_structure_3_promo" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.BASIC"/>
+        <field name="name">Unused Leaves</field>
+        <field name="code">ETP.LEAVE.GROSS</field>
+        <field name="sequence">105</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = payslip.l10n_au_is_termination</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+leave_amount, _, _ = payslip._l10n_au_compute_unused_leaves_withhold(categories['BASIC'])
+result = leave_amount
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
+    </record>
+
     <record id="l10n_au_withholding_structure_3_promo" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_net_withholding"/>
         <field name="name">PAYG Withholding</field>
@@ -62,6 +129,35 @@ else:
         result_rate = params["normal"]
 result = categories['GROSS']
 result_rate *= -1
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
+    </record>
+
+    <record id="l10n_au_termination_etp_withholding_structure_3_promo" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
+        <field name="name">ETP Withholding</field>
+        <field name="code">ETP.WITHHOLD</field>
+        <field name="sequence">160</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = payslip.l10n_au_is_termination and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -etp_withholding
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
+    </record>
+
+    <record id="l10n_au_termination_leave_withholding_structure_3_promo" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
+        <field name="name">Unused Leaves Withholding</field>
+        <field name="code">ETP.LEAVE.WITHHOLD</field>
+        <field name="sequence">162</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = payslip.l10n_au_is_termination</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+_, leave_withholding, _ = payslip._l10n_au_compute_unused_leaves_withhold(categories['BASIC'])
+result = -leave_withholding
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
     </record>
