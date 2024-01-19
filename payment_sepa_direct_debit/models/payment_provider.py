@@ -17,20 +17,6 @@ class PaymentProvider(models.Model):
 
     #=== COMPUTE METHODS ===#
 
-    @api.depends('code')
-    def _compute_view_configuration_fields(self):
-        """ Override of payment to hide the credentials page.
-
-        :return: None
-        """
-        super()._compute_view_configuration_fields()
-        self.filtered(lambda p: p.custom_mode == 'sepa_direct_debit').update({
-            'show_credentials_page': False,
-            'show_allow_tokenization': False,
-            'show_done_msg': False,
-            'show_cancel_msg': False,
-        })
-
     def _compute_feature_support_fields(self):
         """ Override of `payment` to enable additional features. """
         super()._compute_feature_support_fields()

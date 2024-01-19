@@ -19,6 +19,11 @@
         <field name="model">payment.provider</field>
         <field name="inherit_id" ref="payment_custom.payment_provider_form"/>
         <field name="arch" type="xml">
+            <field name="allow_tokenization" position="attributes">
+                <attribute
+                    name="invisible" separator=" or " add="custom_mode == 'sepa_direct_debit'"
+                />
+            </field>
             <group name="payment_followup" position="attributes">
                 <attribute name="invisible">code == 'custom' and custom_mode != 'sepa_direct_debit'</attribute>
             </group>
