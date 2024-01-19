@@ -745,8 +745,7 @@ class HelpdeskTicket(models.Model):
                 continue
             values = email_normalized_to_values.setdefault(email_normalized, {})
             values.update({
-                'name': record.partner_name or (
-                        Partner._parse_partner_name(record.partner_email)[0] or record.partner_email),
+                'name': record.partner_name or tools.parse_contact_from_email(record.partner_email)[0] or record.partner_email,
                 'phone': record.partner_phone,
             })
         return email_normalized_to_values
