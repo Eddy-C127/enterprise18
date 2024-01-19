@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from unittest.mock import patch
+
 from odoo.exceptions import AccessError
 from odoo.tests import tagged, JsonRpcException
 from odoo.tools import mute_logger
 
 from odoo.addons.payment.tests.http_common import PaymentHttpCommon
+from odoo.addons.sale.controllers.portal import CustomerPortal as SaleCustomerPortal
+from odoo.addons.sale_subscription.tests.test_sale_subscription import TestSubscriptionCommon
+from odoo.addons.website.tools import MockRequest
 
 
 @tagged('post_install', '-at_install')
-class TestSubscriptionPaymentFlows(PaymentHttpCommon):
+class TestSubscriptionPaymentFlows(TestSubscriptionCommon, PaymentHttpCommon):
 
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpClass(cls, **kwargs):
+        super().setUpClass(**kwargs)
         cls.order = cls.env['sale.order'].create({
             'partner_id': cls.partner.id,
         })
@@ -31,6 +36,19 @@ class TestSubscriptionPaymentFlows(PaymentHttpCommon):
         })
         # Portal access rule currently relies on mail follower(s) of the order
         cls.order._message_subscribe(partner_ids=[cls.user_with_so_access.partner_id.id])
+
+    def test_tokenization_support_is_required(self):
+        """ Test that tokenization support is required from both payment providers and payment
+        methods when paying for a subscription on the portal. """
+        if self.env['ir.module.module']._get('website').state != 'installed':
+            self.skipTest("The website module is required to run this test with a request mock.")
+
+        with MockRequest(self.env), patch(
+            'odoo.addons.payment.models.payment_method.PaymentMethod'
+            '._get_compatible_payment_methods'
+        ) as patched:
+            SaleCustomerPortal()._get_payment_values(self.subscription)
+            self.assertTrue(patched.call_args.kwargs.get('force_tokenization'))
 
     def _my_sub_assign_token(self, **values):
         url = self._build_url(f"/my/subscriptions/assign_token/{self.order.id}")
