@@ -1273,4 +1273,14 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.deepEqual(getCell(model, "A11").style, styleSubSubHeader);
         assert.deepEqual(getCell(model, "A12").style, styleMainheader);
     });
+
+    QUnit.test("Pivot export from an action with an xml ID", async function (assert) {
+        const { actions } = getBasicServerData();
+        const { xml_id: actionXmlId } = Object.values(actions)[0];
+        const { model, pivotId } = await createSpreadsheetFromPivotView({ actionXmlId });
+        assert.deepEqual(
+            model.getters.getPivotDefinition(pivotId).actionXmlId,
+            "spreadsheet.partner_action"
+        );
+    });
 });

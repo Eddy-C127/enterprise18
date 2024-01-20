@@ -16,6 +16,7 @@ patch(ListRenderer.prototype, {
     setup() {
         super.setup(...arguments);
         this.dialogService = useService("dialog");
+        this.actionService = useService("action");
         useBus(this.env.bus, "insert-list-spreadsheet", this.insertListSpreadsheet.bind(this));
     },
 
@@ -34,7 +35,7 @@ patch(ListRenderer.prototype, {
                 order: model.fields[sortBy.name].string,
             });
         }
-        const { list, fields } = this.getListForSpreadsheet(name);
+        const { list, fields } = await this.getListForSpreadsheet(name);
 
         // if some records are selected, we replace the domain with a "id in [selection]" clause
         if (selection.length > 0) {
@@ -44,6 +45,7 @@ patch(ListRenderer.prototype, {
             preProcessingAsyncAction: "insertList",
             preProcessingAsyncActionData: { list, threshold, fields },
         };
+
         const params = {
             threshold,
             type: "LIST",
@@ -66,8 +68,10 @@ patch(ListRenderer.prototype, {
             .map((col) => ({ name: col.name, type: fields[col.name].type }));
     },
 
-    getListForSpreadsheet(name) {
+    async getListForSpreadsheet(name) {
         const model = this.env.model.root;
+        const { actionId } = this.env.config;
+        const { xml_id } = actionId ? await this.actionService.loadAction(actionId) : {};
         return {
             list: {
                 model: model.resModel,
@@ -76,6 +80,7 @@ patch(ListRenderer.prototype, {
                 context: omit(model.context, ...Object.keys(user.context)),
                 columns: this.getColumnsForSpreadsheet(),
                 name,
+                actionXmlId: xml_id,
             },
             fields: model.fields,
         };

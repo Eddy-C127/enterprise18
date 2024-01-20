@@ -28,7 +28,7 @@ patch(PivotRenderer.prototype, {
         });
     },
 
-    onInsertInSpreadsheet() {
+    async onInsertInSpreadsheet() {
         let name = this.model.metaData.title;
         const groupBy =
             this.model.metaData.fullColGroupBys[0] || this.model.metaData.fullRowGroupBys[0];
@@ -48,6 +48,9 @@ patch(PivotRenderer.prototype, {
                 });
             }
         }
+        const { actionId } = this.env.config;
+        const { xml_id } = actionId ? await this.actionService.loadAction(actionId) : {};
+
         const actionOptions = {
             preProcessingAsyncAction: "insertPivot",
             preProcessingAsyncActionData: {
@@ -65,6 +68,7 @@ patch(PivotRenderer.prototype, {
                     ),
                 },
                 name,
+                actionXmlId: xml_id,
             },
         };
         const params = {

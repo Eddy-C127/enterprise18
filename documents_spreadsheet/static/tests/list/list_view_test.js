@@ -351,8 +351,8 @@ QUnit.module(
             );
 
             patchWithCleanup(ListRenderer.prototype, {
-                getListForSpreadsheet() {
-                    const result = super.getListForSpreadsheet(...arguments);
+                async getListForSpreadsheet() {
+                    const result = await super.getListForSpreadsheet(...arguments);
                     assert.deepEqual(
                         result.list.context,
                         {
@@ -629,6 +629,38 @@ QUnit.module(
             assert.notOk(root.isVisible(env));
         });
 
+        QUnit.test(
+            "'See records' loads a specific action if set in the list definition",
+            async function (assert) {
+                const { actions } = getBasicServerData();
+                const { xml_id: actionXmlId } = Object.values(actions)[0];
+                const { webClient, model } = await createSpreadsheetFromListView({ actionXmlId });
+                const actionService = webClient.env.services.action;
+                const env = {
+                    ...webClient.env,
+                    model,
+                    services: {
+                        ...model.config.custom.env.services,
+                        action: { ...actionService,
+                            doAction: (params) => {
+                                assert.ok(params.id);
+                                assert.ok(params.xml_id);
+                                assert.step(params.res_model);
+                                assert.step(params.res_id.toString());
+                            },
+                        },
+                    },
+                };
+                selectCell(model, "C3");
+                await nextTick();
+                const root = cellMenuRegistry
+                    .getAll()
+                    .find((item) => item.id === "list_see_record");
+                await root.execute(env);
+                assert.verifySteps(["partner", "2"]);
+            }
+        );
+
         QUnit.test("Update the list title from the side panel", async function (assert) {
             const { model, env, fixture } = await createSpreadsheetFromListView();
             const [listId] = model.getters.getListIds();
@@ -855,6 +887,13 @@ QUnit.module(
                 fixture.querySelector(".o_sp_en_display_name").innerText,
                 "(#2) Partners by Foo"
             );
+        });
+
+        QUnit.test("List export from an action with an xml ID", async function (assert) {
+            const { actions } = getBasicServerData();
+            const { xml_id: actionXmlId } = Object.values(actions)[0];
+            const { model } = await createSpreadsheetFromListView({ actionXmlId });
+            assert.deepEqual(model.getters.getListDefinition("1").actionXmlId, "spreadsheet.partner_action");
         });
     }
 );

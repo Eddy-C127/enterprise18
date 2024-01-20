@@ -444,5 +444,35 @@ QUnit.module(
                 assert.notOk(root.isVisible(env));
             }
         );
+
+        QUnit.test("'See records' loads a specific action if set in the pivot definition", async function (assert) {
+            const { actions } = getBasicServerData();
+            const { xml_id: actionXmlId } = Object.values(actions)[0];
+
+            const { webClient, model } = await createSpreadsheetFromPivotView({ actionXmlId });
+            const actionService = webClient.env.services.action;
+            const env = {
+                ...webClient.env,
+                model,
+                services: {
+                    ...model.config.custom.env.services,
+                    action: { ...actionService,
+                        doAction: (params) => {
+                            assert.ok(params.id);
+                            assert.ok(params.xml_id);
+                            assert.step(params.res_model);
+                            assert.step(JSON.stringify(params.domain));
+                        },
+                    },
+                },
+            };
+            selectCell(model, "C3");
+            await nextTick();
+            let root = cellMenuRegistry
+                .getAll()
+                .find((item) => item.id === "pivot_see_records");
+            await root.execute(env);
+            assert.verifySteps(["partner", `[["foo","=",2],["bar","=",false]]`]);
+        });
     }
 );

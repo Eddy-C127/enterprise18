@@ -33,6 +33,7 @@ import { onMounted } from "@odoo/owl";
  * @param {function} [params.mockRPC] Mock rpc function
  * @param {any[]} [params.domain] Domain of the pivot
  * @param {object} [params.additionalContext] additional context for the action
+ * @param {string} [params.actionXmlId] If set, the pivot view will be loaded from this action - will ignore model and domain
  * @returns {Promise<object>} Webclient
  */
 export async function spawnPivotViewForSpreadsheet(params = {}) {
@@ -44,7 +45,7 @@ export async function spawnPivotViewForSpreadsheet(params = {}) {
 
     await doAction(
         webClient,
-        {
+        params.actionXmlId || {
             name: "pivot view",
             res_model: params.model || "partner",
             type: "ir.actions.act_window",
@@ -52,6 +53,7 @@ export async function spawnPivotViewForSpreadsheet(params = {}) {
             domain: params.domain,
         },
         {
+            viewType: "pivot",
             additionalContext: params.additionalContext || {},
         }
     );
@@ -62,6 +64,7 @@ export async function spawnPivotViewForSpreadsheet(params = {}) {
  * @typedef {object} CreatePivotTestParams
  * @property {Array} [domain] Domain of the pivot
  * @property {string} [model] pivot resModel
+ * @property {string} [actionXmlId] xmlId of the action to load the pivot view from - model and domain will be ignored
  * @property {number} [documentId] ID of an existing document
  * @property {function} [actions] Actions to execute on the pivot view
  *                                before inserting in spreadsheet
@@ -92,6 +95,7 @@ export async function createSpreadsheetFromPivotView(params = {}) {
         mockRPC: params.mockRPC,
         domain: params.domain,
         additionalContext: params.additionalContext || {},
+        actionXmlId: params.actionXmlId,
     });
     const target = getFixture();
     if (params.actions) {

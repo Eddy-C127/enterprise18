@@ -31,6 +31,7 @@ export function insertPivot(pivotData) {
         colGroupBys: pivotData.metaData.fullColGroupBys,
         rowGroupBys: pivotData.metaData.fullRowGroupBys,
         name: pivotData.name,
+        actionXmlId: pivotData.actionXmlId,
     });
     /**
      * @param {import("@spreadsheet").OdooSpreadsheetModel} model

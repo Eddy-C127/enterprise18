@@ -32,6 +32,7 @@ export function insertList({ list, threshold, fields, name }) {
             orderBy: list.orderBy,
         },
         name,
+        actionXmlId: list.actionXmlId,
     };
     return async (model) => {
         if (!this.isEmptySpreadsheet) {

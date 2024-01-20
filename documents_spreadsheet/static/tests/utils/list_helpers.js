@@ -37,6 +37,7 @@ import { onMounted } from "@odoo/owl";
  * @param {Function} [params.mockRPC] Mock rpc function
  * @param {object} [params.additionalContext] additional action context
  * @param {object[]} [params.orderBy] orderBy argument
+ * @param {string} [params.actionXmlId] If set, the list view will be loaded from this action - will ignore model and domain
  * @returns {Promise<object>} Webclient
  */
 export async function spawnListViewForSpreadsheet(params = {}) {
@@ -49,7 +50,7 @@ export async function spawnListViewForSpreadsheet(params = {}) {
 
     await doAction(
         webClient,
-        {
+        params.actionXmlId || {
             name: "Partners",
             res_model: model || "partner",
             type: "ir.actions.act_window",
@@ -58,7 +59,10 @@ export async function spawnListViewForSpreadsheet(params = {}) {
                 group_by: params.groupBy || [],
             },
         },
-        { additionalContext: params.additionalContext || {} }
+        {
+            viewType: "list",
+            additionalContext: params.additionalContext || {},
+        }
     );
 
     /** sort the view by field */
@@ -84,6 +88,7 @@ export async function spawnListViewForSpreadsheet(params = {}) {
  * @param {(fixture: HTMLElement) => Promise<void>} [params.actions] orderBy argument
  * @param {object} [params.additionalContext] additional action context
  * @param {number} [params.linesNumber]
+ * @param {string} [actionXmlId] xmlId of the action to load the list view from - model and domain will be ignored
  *
  * @returns {Promise<{model: Model, webClient: object, env: object}>}
  */
@@ -106,6 +111,7 @@ export async function createSpreadsheetFromListView(params = {}) {
         mockRPC: params.mockRPC,
         orderBy: params.orderBy,
         additionalContext: params.additionalContext,
+        actionXmlId: params.actionXmlId,
     });
     const fixture = getFixture();
     if (params.actions) {
