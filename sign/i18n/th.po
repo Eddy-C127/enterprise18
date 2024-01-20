@@ -294,6 +294,11 @@ msgid ""
 " is complete. The link is private, only those that receive the link will be "
 "able to sign it.</span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"not "
+"share_link\">การแชร์จะสร้างสำเนาของไฟล์เพื่อลงนาม "
+"สามารถเข้าถึงไฟล์นั้นได้ตามลิงค์ด้านล่าง "
+"ผู้ใช้สาธารณะทุกคนที่ใช้ลิงก์จะสร้างเอกสารเมื่อลายเซ็นเสร็จสมบูรณ์ "
+"ลิงก์เป็นแบบส่วนตัว เฉพาะผู้ที่ได้รับลิงก์เท่านั้นจึงจะสามารถเซ็นได้</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -338,6 +343,9 @@ msgid ""
 "            They will be able to access this document and sign it as yourself.<br/>\n"
 "            <span>Your IP address and localization are associated to your signature to ensure traceability.</span>"
 msgstr ""
+"<strong>คำเตือน</strong> อย่าส่งต่ออีเมลนี้ให้บุคคลอื่น!<br/>\n"
+"            พวกเขาจะสามารถเข้าถึงเอกสารนี้และลงนามในชื่อของคุณเองได้<br/>\n"
+"            <span>ที่อยู่ IP และการแปลเป็นภาษาท้องถิ่นของคุณเชื่อมโยงกับลายเซ็นของคุณเพื่อให้แน่ใจว่าสามารถตรวจสอบย้อนกลับได้</span>"
 
 #. module: sign
 #. odoo-javascript
@@ -611,7 +619,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__group_ids
 msgid "Authorized Groups"
-msgstr ""
+msgstr "กลุ่มที่ได้รับอนุญาต"
 
 #. module: sign
 #. odoo-javascript
@@ -1626,6 +1634,9 @@ msgid ""
 "having sent the request. Useful to replace a signatory who is out of office,"
 " etc."
 msgstr ""
+"หากทำเครื่องหมาย "
+"ผู้รับเอกสารที่มีบทบาทนี้สามารถเปลี่ยนแปลงได้หลังจากส่งคำขอแล้ว "
+"มีประโยชน์เมื่อทดแทนผู้ลงนามที่ไม่อยู่ในตำแหน่ง ฯลฯ"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__message_has_error
@@ -1642,6 +1653,11 @@ msgid ""
 "                        </code> \n"
 "                        menu."
 msgstr ""
+"หากคุณไม่ต้องการรับการแจ้งเตือนเหล่านี้อีกต่อไป คุณสามารถปิดใช้งานขั้นตอนการตรวจสอบสิทธิ์เพิ่มเติมได้ใน \n"
+"                        <code>\n"
+"                            ลายเซ็น &gt; การกำหนดค่า &gt; เมนูหน้าที่\n"
+"                        </code> \n"
+"                        "
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
@@ -3186,6 +3202,8 @@ msgid ""
 "Specify the order for each signer. The signature request only gets sent to                                     the next signers in the sequence when all signers from the previous level have                                     signed the document.\n"
 "                                    "
 msgstr ""
+"ระบุลำดับของผู้ลงนามแต่ละคน คำร้องขอลายเซ็นจะถูกส่งไปยัง                                     ผู้ลงนามคนถัดไปตามลำดับเท่านั้น เมื่อผู้ลงนามทั้งหมดจากระดับก่อนหน้า                                     ได้ลงนามในเอกสารแล้ว\n"
+"                                    "
 
 #. module: sign
 #: model:sign.item.role,name:sign.sign_item_role_default
@@ -3345,6 +3363,10 @@ msgid ""
 "        Terms as Web Page - A link will be pasted at the bottom of every signature request email, leading to your content.\n"
 "        "
 msgstr ""
+"ข้อกำหนดในอีเมล - ข้อความจะปรากฏที่ด้านล่างของอีเมลขอลายเซ็นทุกฉบับ\n"
+"\n"
+"        ข้อกำหนดในฐานะหน้าเว็บ - ลิงก์จะถูกวางที่ด้านล่างของอีเมลขอลายเซ็นทุกฉบับ ซึ่งจะนำไปสู่เนื้อหาของคุณ\n"
+"        "
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__text
@@ -3453,6 +3475,9 @@ msgid ""
 "that signature values or the underlying PDF document may have been modified "
 "after the fact."
 msgstr ""
+"ไม่สามารถยืนยันความสมบูรณ์ของประวัติของเอกสารได้ "
+"ซึ่งอาจหมายความว่าค่าของลายเซ็นหรือเอกสาร PDF "
+"ที่เกี่ยวข้องอาจมีการปรับเปลี่ยนภายหลังข้อเท็จจริง"
 
 #. module: sign
 #. odoo-python
@@ -3545,6 +3570,10 @@ msgid ""
 "number of contacts in copy if the sign request is signed) = total of pages. "
 "We assume that one page weights 0.005 kilograms."
 msgstr ""
+"จำนวนแผ่นงานทั้งหมดที่คุณบันทึกไว้จะขึ้นอยู่กับ: จำนวนคำขอลงนามที่ส่ง x "
+"จำนวนแผ่นงานในเอกสาร x (จำนวนผู้ติดต่อที่ต้องลงนาม + "
+"จำนวนผู้ติดต่อในสำเนาหากคำขอลงนามได้รับการลงนาม) = จำนวนหน้าทั้งหมด "
+"เราถือว่าหนึ่งหน้ามีน้ำหนัก 0.005 กิโลกรัม"
 
 #. module: sign
 #. odoo-python
@@ -4111,6 +4140,8 @@ msgid ""
 "You have templates or requests using a role with an extra-authentication step with few credits remaining.<br/>\n"
 "                To remove this warning, disable the extra-authentication step in the <code>Configuration &gt; Roles</code> menu, or buy credits."
 msgstr ""
+"คุณมีเทมเพลตหรือคำขอที่ใช้บทบาทที่มีขั้นตอนการตรวจสอบสิทธิ์พิเศษซึ่งมีเครดิตเหลืออยู่เล็กน้อย<br/>\n"
+"                หากต้องการลบคำเตือนนี้ ให้ปิดใช้งานขั้นตอนการตรวจสอบสิทธิ์เพิ่มเติมในส่วน<code>การกำหนดค่า &gt; เมนูบทบาท</code>หรือซื้อเครดิต"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request

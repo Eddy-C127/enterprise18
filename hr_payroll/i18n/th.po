@@ -246,6 +246,9 @@ msgid ""
 "                            Save your Salary Rule in order to add Parameter Values.\n"
 "                        </span>"
 msgstr ""
+"<span class=\"bg-white opacity-75 w-100 h-100 o_salary_rule_overlay position-absolute top-0 end-0 w-100 h-100 text-center d-flex justify-content-center flex-column fs-3\">\n"
+"                            บันทึกกฎเงินเดือนของคุณเพื่อเพิ่มค่าพารามิเตอร์\n"
+"                        </span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_resource_calendar_view_form
@@ -3693,6 +3696,10 @@ msgid ""
 "generated for all the selected employees, based on their contracts "
 "configuration."
 msgstr ""
+"กำหนดโครงสร้างเฉพาะหากคุณต้องการสร้างสลิปเงินเดือนพิเศษ (เช่น โบนัสสิ้นปี) "
+"หากคุณปล่อยฟิลด์นี้ว่างไว้ "
+"ระบบจะสร้างสลิปเงินเดือนปกติสำหรับพนักงานที่เลือกทั้งหมด "
+"โดยขึ้นอยู่กับการกำหนดค่าสัญญาของพวกเขา"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -4353,6 +4360,11 @@ msgid ""
 "\n"
 "Missing work entries are like the Bermuda Triangle for paychecks. Let's keep your colleague's earnings from vanishing into thin air!"
 msgstr ""
+"โปรดระวังช่องว่างในปฏิทินของ %(employee_name)s\n"
+"\n"
+"กรุณากรอกข้อมูลงานที่ขาดหายไปของ %(employee_name)s:%(time_intervals_str)s \n"
+"\n"
+"มาช่วยกันรักษาข้อมูลรายได้ของเพื่อนร่วมงานของคุณไม่ให้หายไป!"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_work_entry_type__round_days_type

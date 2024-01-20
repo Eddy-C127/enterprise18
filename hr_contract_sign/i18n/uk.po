@@ -149,6 +149,10 @@ msgid ""
 "                - Private takes the email defined in Private Information\n"
 "                - If the selected email is not defined, the available one will be used."
 msgstr ""
+"Електронна адреса, яка використовується для надсилання запиту на підпис.\n"
+"- Робоча використовує електронну пошту, визначену в \"робочій електронній пошті\"\n"
+"- Приватна приймає адресу електронної пошти, визначену в Приватній інформації\n"
+"- Якщо вибрана електронна адреса не визначена, буде використано доступну."
 
 #. module: hr_contract_sign
 #: model:ir.model,name:hr_contract_sign.model_hr_employee
@@ -214,7 +218,7 @@ msgstr "Останнє оновлення"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__mail_displayed
 msgid "Mail Displayed"
-msgstr ""
+msgstr "Віображена пошта"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
@@ -356,7 +360,7 @@ msgstr "Користувач"
 #. module: hr_contract_sign
 #: model:ir.model.fields.selection,name:hr_contract_sign.selection__hr_contract_sign_document_wizard__mail_to__work
 msgid "Work"
-msgstr ""
+msgstr "Робоча"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign

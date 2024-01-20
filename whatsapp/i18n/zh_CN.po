@@ -4,9 +4,9 @@
 # 
 # Translators:
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
-# Chloe Wang, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
 # Wil Odoo, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,14 +51,14 @@ msgstr "%(template_name)s [%(account_name)s]"
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path"
-msgstr ""
+msgstr "%(field)s似乎不是有效的字段路径"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path on %(model)s"
-msgstr ""
+msgstr "%(field)s在%(model)s模型上似乎不是有效的字段路径"
 
 #. module: whatsapp
 #. odoo-python
@@ -437,7 +437,7 @@ msgstr "配置元账户"
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
 msgid "Configure Templates"
-msgstr ""
+msgstr "配置模板"
 
 #. module: whatsapp
 #. odoo-python
@@ -1290,7 +1290,7 @@ msgstr "未找到 WhatsApp 消息。"
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
 msgid "No approved WhatsApp Templates are available for this model."
-msgstr ""
+msgstr "此型号没有可用的已批准 WhatsApp 模板。"
 
 #. module: whatsapp
 #. odoo-javascript
@@ -1304,7 +1304,7 @@ msgstr "未找到结果"
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "Non-descript Error"
-msgstr ""
+msgstr "非描述性错误"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__none
@@ -1581,7 +1581,7 @@ msgstr "拒绝"
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
 msgid "Related %(model_name)s: "
-msgstr ""
+msgstr "相关%(model_name)s："
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__model
@@ -1830,7 +1830,7 @@ msgstr "模板"
 msgid ""
 "Template %(template_name)s holds a wrong configuration for 'phone field'\n"
 "%(error_msg)s"
-msgstr ""
+msgstr "模板%(template_name)s的 '电话字段' 配置错误。%(error_msg)s"
 
 #. module: whatsapp
 #. odoo-python
@@ -2199,7 +2199,7 @@ msgstr "佤族模板"
 #: code:addons/whatsapp/models/models.py:0
 #, python-format
 msgid "We were not able to fetch value of field '%(field)s'"
-msgstr ""
+msgstr "我们无法获取字段'%(field)s'的值"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__webhook_verify_token
@@ -2366,7 +2366,7 @@ msgstr "黄色"
 msgid ""
 "You are not allowed to use %(field)s in phone field, contact your "
 "administrator to configure it."
-msgstr ""
+msgstr "不允许在电话字段中使用%(field)s，请联系管理员进行配置。"
 
 #. module: whatsapp
 #. odoo-python
@@ -2374,7 +2374,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You are not allowed to use field %(field)s, contact your administrator."
-msgstr ""
+msgstr "不允许使用字段%(field)s，请联系管理员。"
 
 #. module: whatsapp
 #. odoo-python
@@ -2396,7 +2396,7 @@ msgstr "您不能重新发送未处于失败状态的邮件。"
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "You can not select field of %(model)s."
-msgstr ""
+msgstr "您不可选择%(model)s的字段。"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action

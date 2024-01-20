@@ -741,6 +741,9 @@ msgid ""
 "- When the benefit is set: Unique creation the first time the employee will take the benefit\n"
 "- When the benefit is modified: Activity will be created for each change regarding the benefit."
 msgstr ""
+"Визначте, коли система створює нову дію:\n"
+"- Коли перевага встановлена: унікальне створення, коли вперше працівник отримає винагороду\n"
+"- Коли пільга змінюється: дія буде створена для кожної зміни щодо переваги."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__sign_frenquency
@@ -749,6 +752,9 @@ msgid ""
 "- When the benefit is set: Unique signature request the first time the employee will take the benefit\n"
 "- When the benefit is modified: Signature request will be created for each change regarding the benefit."
 msgstr ""
+"Визначте, коли система створює новий запит на підпис:\n"
+"- Коли перевага встановлена: унікальний запит на підпис під час першого отримання працівником винагороди\n"
+"- Коли перевага змінюється: запит на підпис буде створено для кожної зміни щодо переваги."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__department_id
@@ -822,6 +828,9 @@ msgid ""
 "signatures related to the benefit. eg: A company car policy to approve if "
 "you choose a company car."
 msgstr ""
+"Вибрані тут документи будуть вимагатися від працівника для додаткових "
+"підписів, пов’язаних із перевагою, наприклад: Політика щодо службових "
+"автомобілів, яку потрібно затвердити, якщо ви обираєте службовий автомобіль."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_sign_document_wizard__sign_template_ids
@@ -1083,7 +1092,7 @@ msgstr "Приховати персональну інформацію дочі�
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__hide_description
 msgid "Hide the description if the benefit is not taken."
-msgstr ""
+msgstr "Сховати опис, якщо перевага не береться."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__id
@@ -1138,7 +1147,7 @@ msgstr "Зображення"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__image_1920_filename
 msgid "Image 1920 Filename"
-msgstr ""
+msgstr "Назва файлу зображення 1920"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__impacts_monthly_total
@@ -1292,7 +1301,7 @@ msgstr "Чоловік"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__benefit_ids
 msgid "Mandatory Benefits"
-msgstr ""
+msgstr "Обовʼязкові переваги"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__manual_field
@@ -1645,6 +1654,12 @@ msgid ""
 "Sum of Benefits value: You can pick in all benefits and compute a sum of them\n"
 "Monthly Total: The information will be a total of all the informations in the category Monthly Benefits"
 msgstr ""
+"Виберіть спосіб обчислення цінності інформації:\n"
+"Фіксоване значення: установіть статичне визначене значення для всіх посилань\n"
+"Вартість контракту: отримати значення з поля в записі контракту\n"
+"Значення платіжної відомості: отримати значення з поля в записі платіжної відомості\n"
+"Сума переваг: ви можете вибрати всі переваги та обчислити їх суму\n"
+"Усього за місяць: інформація буде сукупною для всієї інформації в категорії «Щомісячні виплати»."
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_place_of_birth
@@ -2169,7 +2184,7 @@ msgstr "Немає доступної функції, щоб налаштува�
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_diff_email_template
 msgid "There were no changes since previous contract."
-msgstr ""
+msgstr "Не було жодних змін з попереднього контракту."
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
@@ -2313,13 +2328,13 @@ msgstr "Історія бесіди на сайті"
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__activity_creation_type__onchange
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__sign_frenquency__always
 msgid "When the benefit is modified"
-msgstr ""
+msgstr "Коли перевагу буде змінено"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__activity_creation_type__always
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__sign_frenquency__onchange
 msgid "When the benefit is set"
-msgstr ""
+msgstr "Коли перевагу буде встановлено"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__show_name

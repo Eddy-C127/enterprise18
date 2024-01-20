@@ -3,8 +3,8 @@
 # 	* appointment
 # 
 # Translators:
-# Wil Odoo, 2023
 # Abe Manyo, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Abe Manyo, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -976,6 +976,16 @@ msgid "Add a Leave"
 msgstr "Tambahkan Cuti"
 
 #. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/gantt/gantt_renderer.js:0
+#: code:addons/appointment/static/src/views/gantt/gantt_renderer.xml:0
+#: code:addons/appointment/static/src/views/list/list_renderer.js:0
+#: code:addons/appointment/static/src/views/list/list_renderer.xml:0
+#, python-format
+msgid "Add Closing Day(s)"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated_card
 msgid "Add a function here..."
@@ -1508,6 +1518,11 @@ msgid "Booking for %(resource_name)s"
 msgstr "Booking untuk %(resource_name)s"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "Booking Name"
+msgstr "Nama Booking"
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Bookings"
@@ -1724,9 +1739,21 @@ msgid "Copy Link & Close"
 msgstr "Salin Link & Tutup"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
+msgid "Create Closing Day(s)"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
 msgid "Create an Appointment Resource"
 msgstr "Buat Sumber Daya Appointment"
+
+#. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid ""
+"Create invites on the fly from your calendar and share them with anyone by "
+"using the Share Availabilities button."
+msgstr ""
 
 #. module: appointment
 #. odoo-python
@@ -1972,6 +1999,11 @@ msgid "Every"
 msgstr "Setiap"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "Extra Comments..."
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Extra Message on Confirmation"
 msgstr "Pesan Tambahan pada Konfirmasi"
@@ -2144,6 +2176,11 @@ msgid ""
 msgstr ""
 "Bila kosong, semua user akan dianggap tersedia.\n"
 "Bila diisi, hanya user terpilih yang akan dianggap untuk timeslot ini."
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
+msgid "If empty, the meeting is considered as taking place online"
+msgstr ""
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2513,6 +2550,11 @@ msgid "New Appointments Default"
 msgstr "Appointment Default Baru"
 
 #. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_answer_input_action_from_question
+msgid "No Answers yet!"
+msgstr "Belum ada Jawaban!"
+
+#. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action
 msgid "No Appointment Configured"
 msgstr "Tidak ada Appointment yang Dikonfigurasi"
@@ -2522,6 +2564,11 @@ msgstr "Tidak ada Appointment yang Dikonfigurasi"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
 msgstr "Tidak ada Appointment atau Sumber Daya yang ditemukan."
+
+#. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid "No Custom Availabilities Shared!"
+msgstr ""
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -2735,6 +2782,11 @@ msgstr "Pilih Jadwal Kerja..."
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Pick a work schedule to further restrict opening hours."
 msgstr "Pilih jadwal keja untuk lebih lanjut membatasi jam buka."
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
+msgid "Pick a schedule to restrict openings"
+msgstr ""
 
 #. module: appointment
 #. odoo-javascript
@@ -3470,12 +3522,8 @@ msgstr "Ini adalah pratinjau formulir appointment pelanggan."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
-msgid ""
-"This option toggles the display of avatars of the staff members or resources during the frontend appointment process.\n"
-"        When choosing amongst several possibilities, a selection screen will also be used, if website is installed."
+msgid "Display the Users'/Resources' picture on the Website."
 msgstr ""
-"Opsi ini mengaktifkan tampilan avatar dari member staff atau sumber daya pada proses front-end appointment.\n"
-"        Saat memilih di antara beberapa kemungkinkan, layar seleksi akan digunakan, bila website diinstal."
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
@@ -3726,6 +3774,11 @@ msgstr "contoh \"Pada meeting ini, kami akan...\""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "e.g. \"I feel nauseous...\""
 msgstr "contoh \"saya merasa mual...\""
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "e.g. \"John Doe - Tennis Court Booking\""
+msgstr ""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

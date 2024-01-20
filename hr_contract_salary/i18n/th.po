@@ -70,6 +70,15 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <h2>ขอแสดงความยินดี!</h2>\n"
+"    คุณสามารถกำหนดค่าแพ็คเกจเงินเดือนของคุณได้โดยคลิกที่ลิงค์ด้านล่าง<br>\n"
+"    ลิงค์จะหมดอายุเมื่อ <t t-out=\"ctx.get('validity_end')\"></t>\n"
+"    <div style=\"padding: 16px 0px 16px 0px;\">\n"
+"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">กำหนดค่าแพ็คเกจของคุณ</a>\n"
+"    </div>\n"
+"</div>\n"
+"        "
 
 #. module: hr_contract_salary
 #: model:mail.template,body_html:hr_contract_salary.mail_template_send_offer_applicant
@@ -84,6 +93,15 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <h2>ขอแสดงความยินดี!</h2>\n"
+"    คุณสามารถกำหนดค่าแพ็คเกจเงินเดือนของคุณได้โดยคลิกที่ลิงค์ด้านล่าง<br>\n"
+"    ลิงค์จะหมดอายุเมื่อ <t t-out=\"ctx.get('validity_end')\"></t>\n"
+"    <div style=\"padding: 16px 0px 16px 0px;\">\n"
+"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}?token={{ctx.get('access_token')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">กำหนดค่าแพ็คเกจของคุณ</a>\n"
+"    </div>\n"
+"</div>\n"
+"        "
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
@@ -127,6 +145,8 @@ msgid ""
 "<span class=\"text-muted fst-italic\" invisible=\"contract_id\">An offer template need to be selected to have an offer link.</span>\n"
 "                        <span class=\"text-muted fst-italic\" invisible=\"not display_warning_message\">An applicant name needs to be set to have an offer link.</span>"
 msgstr ""
+"<span class=\"text-muted fst-italic\" invisible=\"contract_id\">ต้องเลือกเทมเพลตข้อเสนอจึงจะมีลิงก์ข้อเสนอ</span>\n"
+"                        <span class=\"text-muted fst-italic\" invisible=\"not display_warning_message\">ต้องตั้งชื่อผู้สมัครจึงจะมีลิงก์ข้อเสนอได้</span>"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
@@ -143,6 +163,12 @@ msgid ""
 "                                    There are currently no requested fields.\n"
 "                                </span>"
 msgstr ""
+"<span>\n"
+"                                    ฟิลด์นี้สามารถแก้ไขได้โดยผู้ดูแลระบบเซิร์ฟเวอร์เท่านั้น โปรดติดต่อพวกเขาหากจำเป็นต้องแก้ไขฟิลด์เหล่านี้\n"
+"                                </span>\n"
+"                                <span invisible=\"requested_documents_fields_string\">\n"
+"                                    ขณะนี้ไม่มีช่องที่ร้องขอ\n"
+"                                </span>"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
@@ -244,6 +270,9 @@ msgid ""
 "current one to be editable. Before edition, the current benefit is always "
 "set to false."
 msgstr ""
+"ต้องเลือกสิทธิประโยชน์ทั้งหมดในฟิลด์นี้ "
+"เป็นเงื่อนไขสำหรับรายการปัจจุบันที่จะสามารถแก้ไขได้ ในฉบับก่อนหน้า "
+"สิทธิประโยชน์ปัจจุบันจะตั้งค่าเป็นเท็จเสมอ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__always
@@ -422,6 +451,9 @@ msgid ""
 "- Employee signs his contract: Activity is created as soon as the employee signed the contract\n"
 "- Contract is countersigned: HR responsible have signed the contract and conclude the process."
 msgstr ""
+"เลือกเวลาที่จะสร้างกิจกรรม:\n"
+"- พนักงานลงนามในสัญญา: กิจกรรมจะถูกสร้างขึ้นทันทีที่พนักงานลงนามในสัญญา\n"
+"- สัญญาลงนามรับสนอง: ฝ่ายทรัพยากรบุคคลที่รับผิดชอบได้ลงนามในสัญญาและสรุปกระบวนการแล้ว"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_city
@@ -690,6 +722,9 @@ msgid ""
 "- When the benefit is set: Unique creation the first time the employee will take the benefit\n"
 "- When the benefit is modified: Activity will be created for each change regarding the benefit."
 msgstr ""
+"กำหนดเมื่อระบบสร้างกิจกรรมใหม่:\n"
+"- เมื่อกำหนดสิทธิประโยชน์: การสร้างที่ไม่ซ้ำกันในครั้งแรกที่พนักงานจะรับผลประโยชน์\n"
+"- เมื่อแก้ไขสิทธิประโยชน์: กิจกรรมจะถูกสร้างขึ้นสำหรับการเปลี่ยนแปลงแต่ละรายการที่เกี่ยวข้องกับสิทธิประโยชน์"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__sign_frenquency
@@ -698,6 +733,9 @@ msgid ""
 "- When the benefit is set: Unique signature request the first time the employee will take the benefit\n"
 "- When the benefit is modified: Signature request will be created for each change regarding the benefit."
 msgstr ""
+"กำหนดเมื่อระบบสร้างคำขอเข้าสู่ระบบใหม่:\n"
+"- เมื่อกำหนดสิทธิประโยชน์: ขอลายเซ็นเฉพาะในครั้งแรกที่พนักงานจะรับผลประโยชน์\n"
+"- เมื่อแก้ไขสิทธิประโยชน์: คำขอลายเซ็นจะถูกสร้างขึ้นสำหรับการเปลี่ยนแปลงแต่ละรายการที่เกี่ยวข้องกับสิทธิประโยชน์"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__department_id
@@ -771,6 +809,8 @@ msgid ""
 "signatures related to the benefit. eg: A company car policy to approve if "
 "you choose a company car."
 msgstr ""
+"เอกสารที่เลือกที่นี่จะถูกขอให้พนักงานเซ็นชื่อเพิ่มเติมที่เกี่ยวข้องกับสวัสดิการ"
+" เช่น นโยบายรถของบริษัทที่ต้องอนุมัติหากคุณเลือกรถบริษัท"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_sign_document_wizard__sign_template_ids
@@ -1107,6 +1147,8 @@ msgid ""
 "In addition to your legal leaves, you can chose up to 30 extra days off.\n"
 "            The amount of annual time off (legal leaves) you get depends on your work schedule in the previous year. A full-time work schedule through the 12 months of the last year, under your contract, will grant you 20 annual time off (legal leaves)."
 msgstr ""
+"นอกจากการลาตามกฎหมายแล้ว คุณสามารถเลือกวันหยุดเพิ่มเติมได้สูงสุด 30 วัน\n"
+"            จำนวนวันหยุดประจำปี (ลาตามกฎหมาย) ที่คุณได้รับขึ้นอยู่กับตารางการทำงานของคุณในปีที่แล้ว ตารางการทำงานเต็มเวลาจนถึง 12 เดือนของปีที่แล้วภายใต้สัญญาของคุณ จะทำให้คุณได้รับวันหยุดประจำปี 20 ครั้ง (ลาตามกฎหมาย)"
 
 #. module: hr_contract_salary
 #. odoo-javascript
@@ -1582,6 +1624,12 @@ msgid ""
 "Sum of Benefits value: You can pick in all benefits and compute a sum of them\n"
 "Monthly Total: The information will be a total of all the informations in the category Monthly Benefits"
 msgstr ""
+"เลือกวิธีคำนวณค่าของข้อมูล:\n"
+"ค่าคงที่: ตั้งค่าคงที่ที่กำหนดสำหรับลิงก์ทั้งหมด\n"
+"มูลค่าสัญญา: รับมูลค่าจากฟิลด์ในบันทึกสัญญา\n"
+"มูลค่าสลิปเงินเดือน: รับค่าจากฟิลด์ในบันทึกสลิปเงินเดือน\n"
+"มูลค่าผลรวมของผลประโยชน์: คุณสามารถเลือกผลประโยชน์ทั้งหมดและคำนวณผลรวมของผลประโยชน์เหล่านั้นได้\n"
+"ยอดรวมรายเดือน: ข้อมูลจะเป็นข้อมูลรวมทั้งหมดในหมวดหมู่สิทธิประโยชน์รายเดือน"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_place_of_birth

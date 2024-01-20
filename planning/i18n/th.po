@@ -123,6 +123,8 @@ msgid ""
 " duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its"
 " period."
 msgstr ""
+"<b>ลากและวาง</b>กะงานของคุณเพื่อกำหนดเวลาใหม่ <i>เคล็ดลับ: กด CTRL (หรือ "
+"Cmd) เพื่อทำซ้ำแทน</i> <b>ปรับขนาด</b>ของกะงานเพื่อแก้ไขช่วงเวลา"
 
 #. module: planning
 #. odoo-javascript
@@ -801,6 +803,9 @@ msgid ""
 "open shifts for the roles you will be needing to complete a mission. Then, "
 "assign those open shifts to the resources that are available.</i>"
 msgstr ""
+"มอบหมาย<b>ทรัพยากร</b>หรือปล่อยให้เปิดไว้ชั่วคราว <i>เคล็ดลับ: "
+"สร้างกะเปิดสำหรับบทบาทที่คุณจะต้องเพื่อทำภารกิจให้สำเร็จ จากนั้น "
+"มอบหมายกะที่เปิดอยู่เหล่านั้นให้กับทรัพยากรที่พร้อมใช้งาน</i>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
@@ -1140,6 +1145,8 @@ msgid ""
 "the shift. Press CTRL (or Cmd on Mac) while dragging a shift to duplicate "
 "it."
 msgstr ""
+"ลากกะงานไปที่วันอื่นเพื่อจัดกำหนดการใหม่ หรือลากไปที่แถวอื่นเพื่อกำหนดกะใหม่"
+" กด CTRL (หรือ Cmd บน Mac) ขณะลาก Shift เพื่อทำซ้ำ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__duration
@@ -1916,6 +1923,8 @@ msgid ""
 "you need to schedule beyond this limit, please set the recurrence to repeat "
 "forever instead."
 msgstr ""
+"กะงานที่เกิดซ้ำไม่สามารถวางแผนได้นานเกินกว่า 999 วันในอนาคต "
+"หากคุณต้องการกำหนดเวลาเกินขีดจำกัดนี้ โปรดตั้งค่าการเกิดซ้ำให้ทำซ้ำตลอดไปแทน"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__slot_ids
@@ -2025,6 +2034,8 @@ msgid ""
 "Role that will be selected by default when creating a shift for this employee.\n"
 "This role will also have precedence over the other roles of the employee when planning orders."
 msgstr ""
+"บทบาทที่จะถูกเลือกตามค่าเริ่มต้นเมื่อสร้างกะงานสำหรับพนักงานรายนี้\n"
+"บทบาทนี้จะมีความสำคัญเหนือบทบาทอื่นๆ ของพนักงานเมื่อวางแผนใบสั่งงาน"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_resource_resource__default_role_id
@@ -2032,6 +2043,8 @@ msgid ""
 "Role that will be selected by default when creating a shift for this resource.\n"
 "This role will also have precedence over the other roles of the resource when planning shifts."
 msgstr ""
+"บทบาทที่จะถูกเลือกตามค่าเริ่มต้นเมื่อสร้างกะงานสำหรับทรัพยากรนี้\n"
+"บทบาทนี้จะมีความสำคัญเหนือกว่าบทบาทอื่นๆ ของทรัพยากรเมื่อวางแผนกะงาน"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_roles
@@ -2051,6 +2064,10 @@ msgid ""
 "Additionally, the employee will only be assigned orders for these roles (with the default planning role having precedence over the other ones).\n"
 "Leave empty for the employee to be assigned shifts regardless of the role."
 msgstr ""
+"บทบาทที่พนักงานสามารถกรอกได้ เมื่อสร้างกะงานสำหรับพนักงานรายนี้ ระบบจะแสดงเฉพาะเทมเพลตกะงานสำหรับบทบาทเหล่านี้\n"
+"ในทำนองเดียวกัน เฉพาะกะงานที่เปิดอยู่สำหรับบทบาทเหล่านี้เท่านั้นที่จะถูกส่งไปยังพนักงานเมื่อมีการเผยแพร่กำหนดการ\n"
+"นอกจากนี้ พนักงานจะได้รับมอบหมายคำสั่งซื้อสำหรับบทบาทเหล่านี้เท่านั้น (โดยบทบาทการวางแผนเริ่มต้นจะมีลำดับความสำคัญเหนือบทบาทอื่นๆ)\n"
+"เว้นว่างไว้เพื่อให้พนักงานได้รับมอบหมายกะงานโดยไม่คำนึงถึงบทบาท"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
@@ -2483,6 +2500,10 @@ msgid ""
 "passes by in order to always get shifts 6 months ahead. This value can be "
 "modified from the settings of Planning, in debug mode."
 msgstr ""
+"เพื่อหลีกเลี่ยงไม่ให้ฐานข้อมูลและปัญหาด้านประสิทธิภาพของคุณเสียหาย "
+"กะจะถูกสร้างขึ้นในช่วง 6 เดือนข้างหน้าเท่านั้น จากนั้นจะค่อยๆ "
+"สร้างขึ้นเมื่อเวลาผ่านไปเพื่อให้ได้รับกะงานล่วงหน้า 6 เดือนข้างหน้าเสมอ "
+"ค่านี้สามารถแก้ไขได้จากการตั้งค่าการวางแผน ในโหมดดีบัก"
 
 #. module: planning
 #. odoo-javascript

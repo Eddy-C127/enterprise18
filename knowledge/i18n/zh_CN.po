@@ -6,6 +6,7 @@
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1357,7 +1358,7 @@ msgstr "<span style=\"font-size: 14px;\">需要这份文件？点击聊天中的
 msgid ""
 "<span style=\"font-size: 14px;\">Not sure how to do it? Check the video "
 "below 👇</span>"
-msgstr ""
+msgstr "<span style=\"font-size: 14px;\">不知道应该如何做？查看下面的视频 👇</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -2226,6 +2227,13 @@ msgstr "所有评论"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "All Models 📖"
 msgstr "所有型号 📖"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
+#, python-format
+msgid "All changes saved"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3595,7 +3603,7 @@ msgstr "性别：男"
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
 #, python-format
 msgid "Generate an Article with AI"
-msgstr ""
+msgstr "使用 AI 生成文章"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_search
@@ -6123,7 +6131,7 @@ msgstr "文章”%s“需要至少一位有“写入”权限的成员。"
 msgid ""
 "The destination placement of %(article_name)s is ambiguous, you should "
 "specify the category."
-msgstr ""
+msgstr "%(article_name)s的目标位置不明确，应指定类别。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6762,6 +6770,7 @@ msgid ""
 "You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
 "Article Item. Convert %(item_name)s into an Article first."
 msgstr ""
+"你不能将%(article_name)s移动到%(item_name)s下，因为%(item_name)s是一个文章项目。请先将%(item_name)s转换为文章。"
 
 #. module: knowledge
 #. odoo-javascript

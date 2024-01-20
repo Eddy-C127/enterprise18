@@ -3,8 +3,9 @@
 # 	* social_crm
 # 
 # Translators:
-# Milan Bojovic, 2023
+# Milan Bojovic <mbojovic@outlook.com>, 2023
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
+# コフスタジオ, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023\n"
+"Last-Translator: コフスタジオ, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,16 +27,18 @@ msgid ""
 "<span class=\"o_stat_text\" invisible=\"not use_leads\">Leads</span>\n"
 "                        <span class=\"o_stat_text\" invisible=\"use_leads\">Opportunities</span>"
 msgstr ""
+"<span class=\"o_stat_text\" invisible=\"not use_leads\">Klijent</span>i\n"
+"                        <span class=\"o_stat_text\" invisible=\"use_leads\">Prilike</span>"
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_description
 msgid "<span>at</span>"
-msgstr ""
+msgstr "<span>na</span>"
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_description
 msgid "<span>posted on</span>"
-msgstr ""
+msgstr "<span>posted on</span>"
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_view_form
@@ -45,7 +48,7 @@ msgstr "Otkaži"
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__conversion_source
 msgid "Conversion Source"
-msgstr ""
+msgstr "Conversion Source"
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_view_form
@@ -56,12 +59,12 @@ msgstr "Konvertuj"
 #: model:ir.actions.act_window,name:social_crm.social_post_to_lead_action
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_view_form
 msgid "Convert Post to Lead"
-msgstr ""
+msgstr "Convert Post to Lead"
 
 #. module: social_crm
 #: model:ir.model,name:social_crm.model_social_post_to_lead
 msgid "Convert Social Post to Lead"
-msgstr ""
+msgstr "Convert Social Post to Lead"
 
 #. module: social_crm
 #. odoo-javascript
@@ -110,7 +113,7 @@ msgstr "Od komentara"
 #. module: social_crm
 #: model:ir.model.fields.selection,name:social_crm.selection__social_post_to_lead__conversion_source__stream_post
 msgid "From a stream post"
-msgstr ""
+msgstr "From a stream post"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__id
@@ -130,12 +133,12 @@ msgstr "Poslednji put ažurirano"
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post__leads_opportunities_count
 msgid "Leads / Opportunities count"
-msgstr ""
+msgstr "Leads / Opportunities count"
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_view_kanban
 msgid "Leads:"
-msgstr ""
+msgstr "Leads:"
 
 #. module: social_crm
 #: model:ir.model.fields.selection,name:social_crm.selection__social_post_to_lead__action__exist
@@ -145,27 +148,27 @@ msgstr "Poveži sa postojećim kupcem"
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_view_kanban
 msgid "Opportunities:"
-msgstr ""
+msgstr "Prilike:"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__author_name
 msgid "Post Author Name"
-msgstr ""
+msgstr "Post Author Name"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__post_content
 msgid "Post Content"
-msgstr ""
+msgstr "Post Content"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__post_datetime
 msgid "Post Datetime"
-msgstr ""
+msgstr "Post Datetime"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__post_link
 msgid "Post Link"
-msgstr ""
+msgstr "Post Link"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__action
@@ -177,12 +180,12 @@ msgstr "Povezani kupac"
 #: code:addons/social_crm/wizard/social_post_to_lead.py:0
 #, python-format
 msgid "Request from %s"
-msgstr ""
+msgstr "Request from %s"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__social_account_id
 msgid "Social Account"
-msgstr ""
+msgstr "Društveni nalog"
 
 #. module: social_crm
 #: model:ir.model,name:social_crm.model_social_post
@@ -192,31 +195,31 @@ msgstr "Objava na društvenoj mreži"
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__social_stream_post_id
 msgid "Social Stream Post"
-msgstr ""
+msgstr "Social Stream Post"
 
 #. module: social_crm
 #. odoo-python
 #: code:addons/social_crm/wizard/social_post_to_lead.py:0
 #, python-format
 msgid "The lead has been created successfully."
-msgstr ""
+msgstr "The lead has been created successfully."
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post__use_leads
 msgid "Use Leads"
-msgstr ""
+msgstr "koristi prilike"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__utm_campaign_id
 msgid "Utm Campaign"
-msgstr ""
+msgstr "Utm Campaign"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__utm_medium_id
 msgid "Utm Medium"
-msgstr ""
+msgstr "Utm Medium"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__utm_source_id
 msgid "Utm Source"
-msgstr ""
+msgstr "Utm Source"

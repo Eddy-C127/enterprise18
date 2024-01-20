@@ -3,8 +3,9 @@
 # 	* sale_renting_sign
 # 
 # Translators:
-# Milan Bojovic, 2023
+# Milan Bojovic <mbojovic@outlook.com>, 2023
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
+# コフスタジオ, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023\n"
+"Last-Translator: コフスタジオ, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,12 +24,12 @@ msgstr ""
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_sale_order__sign_request_count
 msgid "# of Signature Requests"
-msgstr ""
+msgstr "# of Signature Requests"
 
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.message_signature_link
 msgid "A document has been signed and a copy attached to this order:"
-msgstr ""
+msgstr "A document has been signed and a copy attached to this order:"
 
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_sign_wizard_view_form
@@ -58,12 +59,12 @@ msgstr "Kreirano"
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_res_config_settings__rental_sign_tmpl_id
 msgid "Default Document"
-msgstr ""
+msgstr "Default Document"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_res_company__rental_sign_tmpl_id
 msgid "Default Document Template for Rentals"
-msgstr ""
+msgstr "Default Document Template for Rentals"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_rental_sign_wizard__display_name
@@ -73,12 +74,12 @@ msgstr "Naziv za prikaz"
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_rental_sign_wizard__template_id
 msgid "Document Template"
-msgstr ""
+msgstr "Document Template"
 
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_order_inherit_rental_sign
 msgid "Document(s) Signed"
-msgstr ""
+msgstr "Document(s) Signed"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_rental_sign_wizard__id
@@ -112,38 +113,39 @@ msgstr "Porudžbenica"
 #: model:ir.model.fields,help:sale_renting_sign.field_res_config_settings__rental_sign_tmpl_id
 msgid "Set a default document template for all rentals in the current company"
 msgstr ""
+"Set a default document template for all rentals in the current company"
 
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_sign_wizard_view_form
 msgid "Sign Document"
-msgstr ""
+msgstr "Potpiši dokument"
 
 #. module: sale_renting_sign
 #: model:ir.actions.act_window,name:sale_renting_sign.rental_sign_documents
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_order_inherit_rental_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_sign_wizard_view_form
 msgid "Sign Documents"
-msgstr ""
+msgstr "Sign Documents"
 
 #. module: sale_renting_sign
 #: model:ir.model,name:sale_renting_sign.model_rental_sign_wizard
 msgid "Sign Documents from a SO"
-msgstr ""
+msgstr "Sign Documents from a SO"
 
 #. module: sale_renting_sign
 #: model:ir.model,name:sale_renting_sign.model_sign_send_request
 msgid "Sign send request"
-msgstr ""
+msgstr "Sign send request"
 
 #. module: sale_renting_sign
 #: model:ir.model,name:sale_renting_sign.model_sign_request
 msgid "Signature Request"
-msgstr ""
+msgstr "Zahtev za potpis"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_sale_order__sign_request_ids
 msgid "Signature Requests"
-msgstr ""
+msgstr "Zahtevi za potpis"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,help:sale_renting_sign.field_res_company__rental_sign_tmpl_id
@@ -152,8 +154,11 @@ msgid ""
 "from a rental order. You should select a template accessible to all Sign "
 "users."
 msgstr ""
+"This document template will be selected by default when signing documents "
+"from a rental order. You should select a template accessible to all Sign "
+"users."
 
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.res_config_settings_view_form
 msgid "Upload Template"
-msgstr ""
+msgstr "Upload Template"

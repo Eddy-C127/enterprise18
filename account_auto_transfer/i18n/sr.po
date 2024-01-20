@@ -6,7 +6,7 @@
 # Martin Trigaux, 2023
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
 # Milan Bojovic <mbojovic@outlook.com>, 2023
-# Jelena Stamatović, 2024
+# コフスタジオ, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Jelena Stamatović, 2024\n"
+"Last-Translator: コフスタジオ, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "<span> to </span>"
-msgstr ""
+msgstr "<span> to </span>"
 
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_chart_template
@@ -35,17 +35,17 @@ msgstr "Šablon računovodstvenog plana"
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_transfer_model
 msgid "Account Transfer Model"
-msgstr ""
+msgstr "Model za prenos računa"
 
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_transfer_model_line
 msgid "Account Transfer Model Line"
-msgstr ""
+msgstr "Model linije za prenos računa"
 
 #. module: account_auto_transfer
 #: model:ir.actions.server,name:account_auto_transfer.ir_cron_auto_transfer_ir_actions_server
 msgid "Account automatic transfers: Perform transfers"
-msgstr ""
+msgstr "Automatski transferi računa: Izvršite transfere"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -58,6 +58,8 @@ msgid ""
 "Adds a condition to only transfer the sum of the lines from the origin "
 "accounts that match these analytic accounts to the destination account"
 msgstr ""
+"Dodaje uslov da se samo prenese zbir linija sa računa porekla koji se "
+"podudaraju sa ovim analitičkim računima na odredišni račun."
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,help:account_auto_transfer.field_account_transfer_model_line__partner_ids
@@ -65,30 +67,32 @@ msgid ""
 "Adds a condition to only transfer the sum of the lines from the origin "
 "accounts that match these partners to the destination account"
 msgstr ""
+"Dodaje uslov da se samo prenese suma linija sa računa porekla koja se "
+"podudara sa ovim partnerima na račun odredišta."
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__analytic_account_ids
 msgid "Analytic Filter"
-msgstr ""
+msgstr "Analitički filter"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Automated Transfer"
-msgstr ""
+msgstr "Automatski transfer"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (%s%% from account %s)"
-msgstr ""
+msgstr "Automatski transfer (%s%% sa računa %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (-%s%%)"
-msgstr ""
+msgstr "Automatski transfer (-%s%%)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -97,20 +101,22 @@ msgstr ""
 msgid ""
 "Automatic Transfer (entries with analytic account(s): %s and partner(s): %s)"
 msgstr ""
+"Automatski transfer (unos sa analitičkim računom(ima): %s i partner(ima): "
+"%s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (entries with analytic account(s): %s)"
-msgstr ""
+msgstr "Automatski transfer (unos(i) sa analitičkim računom/računima: %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (entries with partner(s): %s)"
-msgstr ""
+msgstr "Automatski transfer (unos sa partnerom(ima) %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -120,33 +126,35 @@ msgid ""
 "Automatic Transfer (from account %s with analytic account(s): %s and "
 "partner(s): %s)"
 msgstr ""
+"Automatski transfer (sa računa %s sa analitičkim računom(ima): %s i "
+"partneri(ma): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (from account %s with analytic account(s): %s)"
-msgstr ""
+msgstr "Automatski transfer (sa računa %s sa analitičkim računom(ma): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (from account %s with partner(s): %s)"
-msgstr ""
+msgstr "Automatski transfer (sa računa %s sa partneri(ma): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (to account %s)"
-msgstr ""
+msgstr "Automatski transfer (na račun %s)"
 
 #. module: account_auto_transfer
 #: model:ir.actions.act_window,name:account_auto_transfer.transfer_model_action
 #: model:ir.ui.menu,name:account_auto_transfer.menu_auto_transfer
 msgid "Automatic Transfers"
-msgstr ""
+msgstr "Automatski transferi"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__company_id
@@ -156,12 +164,12 @@ msgstr "Kompanija"
 #. module: account_auto_transfer
 #: model:ir.model.fields,help:account_auto_transfer.field_account_transfer_model__company_id
 msgid "Company related to this journal"
-msgstr ""
+msgstr "Kompanija povezana sa ovim izveštajem"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Compute Transfer"
-msgstr ""
+msgstr "Izračunajte transfer"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__create_uid
@@ -183,17 +191,17 @@ msgstr "Opis"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__account_id
 msgid "Destination Account"
-msgstr ""
+msgstr "Ciljni račun"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__line_ids
 msgid "Destination Accounts"
-msgstr ""
+msgstr "Ciljni računi"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__journal_id
 msgid "Destination Journal"
-msgstr ""
+msgstr "Odredišni izveštaj"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -224,7 +232,7 @@ msgstr "Generisani unosi"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__move_ids
 msgid "Generated Moves"
-msgstr ""
+msgstr "Generisani potezi"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__id
@@ -237,7 +245,7 @@ msgstr "ID"
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 #, python-format
 msgid "IFRS Automatic Transfers"
-msgstr ""
+msgstr "IFRS Automatski transferi"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -276,22 +284,22 @@ msgstr "Mesečno"
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 #, python-format
 msgid "Monthly IFRS rent expense transfer"
-msgstr ""
+msgstr "Mesečni IFRS transfer troškova zakupa"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__move_ids_count
 msgid "Move Ids Count"
-msgstr ""
+msgstr "Broj premeštanja identifikatora"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Move Model"
-msgstr ""
+msgstr "Premesti model"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_tree
 msgid "Move Models"
-msgstr ""
+msgstr "Premesti modele"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__name
@@ -301,25 +309,25 @@ msgstr "Naziv"
 #. module: account_auto_transfer
 #: model:ir.model.constraint,message:account_auto_transfer.constraint_account_transfer_model_line_unique_account_by_transfer_model
 msgid "Only one account occurrence by transfer model"
-msgstr ""
+msgstr "Samo jedan račun po modelu transfera"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__account_ids
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Origin Accounts"
-msgstr ""
+msgstr "Računi porekla"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_bank_statement_line__transfer_model_id
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_move__transfer_model_id
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_payment__transfer_model_id
 msgid "Originating Model"
-msgstr ""
+msgstr "Izvorni model"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__partner_ids
 msgid "Partner Filter"
-msgstr ""
+msgstr "Filter partnera"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__percent
@@ -329,12 +337,12 @@ msgstr "Procenat"
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Percent (%)"
-msgstr ""
+msgstr "Procenat (%)"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__percent_is_readonly
 msgid "Percent Is Readonly"
-msgstr ""
+msgstr "Procenat je samo za čitanje"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,help:account_auto_transfer.field_account_transfer_model_line__percent
@@ -342,6 +350,7 @@ msgid ""
 "Percentage of the sum of lines from the origin accounts will be transferred "
 "to the destination account"
 msgstr ""
+"Procenat sume linija sa početnih računa će biti prenet na odredišni račun."
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -376,14 +385,14 @@ msgstr "Država"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__date_stop
 msgid "Stop Date"
-msgstr ""
+msgstr "Datum prestanka"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "The analytic filter %s is duplicated"
-msgstr ""
+msgstr "Analitički filter %s je dupliran."
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -393,30 +402,31 @@ msgid ""
 "The partner filter %s in combination with the analytic filter %s is "
 "duplicated"
 msgstr ""
+"Partner filter %s u kombinaciji sa analitičkim filterom %s je dupliran."
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "The partner filter %s is duplicated"
-msgstr ""
+msgstr "Partner filter %s je dupliran."
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "The total percentage (%s) should be less or equal to 100!"
-msgstr ""
+msgstr "Ukupan procenat (%s) treba da bude manji ili jednak 100!"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__total_percent
 msgid "Total Percent"
-msgstr ""
+msgstr "Ukupan procenat"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__transfer_model_id
 msgid "Transfer Model"
-msgstr ""
+msgstr "Prenos modela"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -433,14 +443,14 @@ msgstr "Godišnje"
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 #, python-format
 msgid "Yearly liabilites auto transfers"
-msgstr ""
+msgstr "Godišnji prenosi obaveza automatski."
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/account_move_line.py:0
 #, python-format
 msgid "You cannot set Tax on Automatic Transfer's entries."
-msgstr ""
+msgstr "Ne možete postaviti porez na unose automatskog transfera."
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -450,6 +460,8 @@ msgid ""
 "You cannot delete an automatic transfer that has draft moves attached "
 "('%s'); delete them before deleting this transfer."
 msgstr ""
+"Ne možete izbrisati automatski transfer koji ima pridružene nacrte('%s'); "
+"izbrišite ih pre brisanja ovog transfera."
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -459,8 +471,10 @@ msgid ""
 "You cannot delete an automatic transfer that has posted moves attached "
 "('%s')."
 msgstr ""
+"Ne možete izbrisati automatski transfer koji ima pridružene izvršene poteze "
+"('%s')."
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "e.g. Monthly Expense Transfer"
-msgstr ""
+msgstr "npr. Mesečni transfer troškova"

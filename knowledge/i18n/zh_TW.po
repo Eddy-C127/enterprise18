@@ -1359,7 +1359,7 @@ msgstr "<span style=\"font-size: 14px;\">需要這份文件？按聊天視窗中
 msgid ""
 "<span style=\"font-size: 14px;\">Not sure how to do it? Check the video "
 "below 👇</span>"
-msgstr ""
+msgstr "<span style=\"font-size: 14px;\">不知道應該如何做？看看下方的影片 👇</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -2226,6 +2226,13 @@ msgid "All Models 📖"
 msgstr "所有款式 📖"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
+#, python-format
+msgid "All changes saved"
+msgstr ""
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "All my activities will always be encoded in our CRM"
 msgstr "所有活動都會記錄在我們的客戶關係管理系統中"
@@ -2252,7 +2259,7 @@ msgstr "一兩個小時（例如看病等）"
 msgid ""
 "Analyze what went wrong and the underlying causes. Extract insights to avoid"
 " making similar mistakes in the future."
-msgstr ""
+msgstr "分析出錯的項目及背後根本原因。總結重要資訊，避免再犯類似錯誤。"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_hr_faq
@@ -2271,7 +2278,7 @@ msgstr "已封存"
 msgid ""
 "Are you sure you want to delete this cover? It will be removed from every "
 "article it is used in."
-msgstr ""
+msgstr "確定刪除此封面圖片？所有使用此封面圖片的文章，都會將其刪除。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2280,7 +2287,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to leave your private Article? As you are its last "
 "member, it will be moved to the Trash."
-msgstr ""
+msgstr "確定要離開你的私人文章？由於你是最後一位成員，離開文章後它將會移至垃圾桶。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2289,7 +2296,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to move \"%s%s\" to private? Only you will be able to "
 "access it."
-msgstr ""
+msgstr "確定要將 %s%s 移至「私人」？只有你才可存取。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2298,7 +2305,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to move \"%s%s\" to the Workspace? It will be shared "
 "with all internal users."
-msgstr ""
+msgstr "確定要將 %s%s 移至工作區？它將與所有內部用戶分享。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2307,7 +2314,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to move \"%s%s\" under \"%s%s\"? It will be shared "
 "with the same persons."
-msgstr ""
+msgstr "確定要將 %s%s 移至 %s%s 之下？它將與相同的人員分享。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2316,14 +2323,14 @@ msgstr ""
 msgid ""
 "Are you sure you want to remove your member? By leaving an article, you may "
 "lose access to it."
-msgstr ""
+msgstr "確定要移除你的會員？若留下一篇文章，你可能會失去對它的存取權限。"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Are you sure you want to remove your own \"Write\" access?"
-msgstr ""
+msgstr "確定要刪除自己的「寫入」權限？"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2332,7 +2339,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to restore access? This means this article will now "
 "inherit any access set on its parent articles."
-msgstr ""
+msgstr "確定要恢復存取權限？這表示此文章現在會繼承其母項的任何存取權限集。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2341,14 +2348,14 @@ msgstr ""
 msgid ""
 "Are you sure you want to restrict access to this article? This means it will"
 " no longer inherit access rights from its parents."
-msgstr ""
+msgstr "確定要限制此文章的存取權限？此操作表示該文章不會再從其母級文章繼承存取權限。"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_view.js:0
 #, python-format
 msgid "Are you sure you want to send this article to the trash?"
-msgstr ""
+msgstr "確定將此文章移至垃圾桶？"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2357,7 +2364,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to set the internal permission to \"none\"? If you do,"
 " you will no longer have access to the article."
-msgstr ""
+msgstr "確定要將內部權限設為「無」？如果設為「無」，你也無法再存取該文章。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2366,7 +2373,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to set your permission to \"none\"? If you do, you "
 "will no longer have access to the article."
-msgstr ""
+msgstr "確定要將權限設為「無」？如果這樣做，你也無法再存取該文章。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2389,7 +2396,7 @@ msgstr "文章"
 msgid ""
 "Article '%s' should always have a writer: inherit write permission, or have "
 "a member with write access"
-msgstr ""
+msgstr "文章 %s 應該永遠有一名寫入者。可將文章設為繼承寫入權限，或設置一名具有寫入權限的成員。"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_thread
@@ -2481,7 +2488,7 @@ msgstr "篇文章"
 #, python-format
 msgid ""
 "Articles %s cannot be updated as this would create a recursive hierarchy."
-msgstr ""
+msgstr "未能更新文章 %s，因為這會引致循環的層級結構。"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__article_ids
@@ -2493,7 +2500,7 @@ msgstr "使用封面圖片的文章"
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 #, python-format
 msgid "As a reader, you can't leave a Workspace article"
-msgstr ""
+msgstr "作為讀取者，你不可離開工作區文章"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2501,7 +2508,7 @@ msgstr ""
 #, python-format
 msgid ""
 "As an administrator, you can always modify this article and its members."
-msgstr ""
+msgstr "作為管理員，你可隨時修改這篇文章及其成員資料。"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_attachment_count
@@ -2547,12 +2554,12 @@ msgstr "根據"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Be assertive but listen to what is being said"
-msgstr ""
+msgstr "要堅定，但也要聆聽別人意見"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action
 msgid "Be the first one to unleash the power of Knowledge!"
-msgstr ""
+msgstr "成為釋放知識力量的第一人！"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__body
@@ -2562,7 +2569,7 @@ msgstr "內文"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Booklets for a total price &gt; $1000"
-msgstr ""
+msgstr "小冊子，總價錢 &gt; $1000"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_brand_assets
@@ -2662,7 +2669,7 @@ msgstr "建立項目清單"
 msgid ""
 "Build fictional representation of your customers to better tailor your "
 "advertising messages for them. "
-msgstr ""
+msgstr "為客戶建立虛擬形象，以便更好地為他們製作個人化廣告訊息。"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
@@ -2709,21 +2716,21 @@ msgstr "可編輯"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_article_visible_by_everyone
 msgid "Can everyone see the Article?"
-msgstr ""
+msgstr "大家能看到這篇文章嗎？"
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article_member.py:0
 #, python-format
 msgid "Can not update the article or partner of a member."
-msgstr ""
+msgstr "未能更新成員的文章或合作夥伴。"
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article_favorite.py:0
 #, python-format
 msgid "Can not update the article or user of a favorite."
-msgstr ""
+msgstr "未能更新最愛文章或使用者。"
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__inherited_permission__read
@@ -2736,12 +2743,12 @@ msgstr "可讀取"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__user_has_access_parent_path
 msgid "Can the user join?"
-msgstr ""
+msgstr "使用者可以加入嗎？"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_article_visible
 msgid "Can the user see the article?"
-msgstr ""
+msgstr "使用者可否看到文章？"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2761,7 +2768,7 @@ msgstr "取消"
 msgid ""
 "Cannot create an article under article %(parent_name)s which is a non-"
 "private parent"
-msgstr ""
+msgstr "未能在文章 %(parent_name)s 下建立新文章，因該文章為非私人母項文章。"
 
 #. module: knowledge
 #. odoo-python
@@ -2770,7 +2777,7 @@ msgstr ""
 msgid ""
 "Cannot move %(article_name)s as a root of the 'shared' section since access "
 "rights can not be inferred without a parent."
-msgstr ""
+msgstr "未能將 %(article_name)s 作為「分享」部份的根文章移動，因為沒有了母項就不能推斷出存取權限。"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -2811,19 +2818,19 @@ msgstr "原因"
 msgid ""
 "Centralize account insights in one document for comprehensive monitoring and"
 " follow-up."
-msgstr ""
+msgstr "將帳戶相關的深入資訊集中在同一份文件中，以便全面監控及跟進。"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_meeting_minutes
 msgid ""
 "Centralize team meetings in a single article, while making sure notes are "
 "handled efficiently."
-msgstr ""
+msgstr "將團隊會議集中在一篇文章中，同時確保高效處理筆記。"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Challenges &amp; Competitive Landscape<br>"
-msgstr ""
+msgstr "挑戰與競爭格局<br>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -2845,26 +2852,26 @@ msgstr "變更 3"
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Change Permission"
-msgstr ""
+msgstr "更改權限"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Change cover"
-msgstr ""
+msgstr "更改封面圖片"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__child_ids
 msgid "Child Articles and Items"
-msgstr ""
+msgstr "子項文章及項目"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.js:0
 #, python-format
 msgid "Choose a nice cover"
-msgstr ""
+msgstr "選擇一幅美觀的封面圖片"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2872,14 +2879,14 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
 #, python-format
 msgid "Choose an Article..."
-msgstr ""
+msgstr "選擇一篇文章⋯"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Click and hold to reposition"
-msgstr ""
+msgstr "點按並按住，以更改位置"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2890,7 +2897,7 @@ msgstr ""
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 #, python-format
 msgid "Clipboard"
-msgstr ""
+msgstr "剪貼簿"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2948,12 +2955,12 @@ msgstr "公司架構："
 msgid ""
 "Compiled below are tips &amp; tricks collected among our veterans to help "
 "newcomers get started. We hope it will help you sign deals."
-msgstr ""
+msgstr "以下收集了我們資深同事提供的技巧及心得，幫助新人開展工作。希望能幫助你成功簽單、達成銷售！"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Complicated buying process"
-msgstr ""
+msgstr "複雜的購買過程"
 
 #. module: knowledge
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_configuration
@@ -2982,33 +2989,33 @@ msgstr "聯絡我們"
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos_contact_our_lawyer
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos_contact_our_lawyer
 msgid "Contact our Lawyer"
-msgstr ""
+msgstr "聯絡我們的律師"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
 #, python-format
 msgid "Content copied to clipboard."
-msgstr ""
+msgstr "內容已複製至剪貼簿。"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Contract Due Date:"
-msgstr ""
+msgstr "合約到期日："
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Convert into Article"
-msgstr ""
+msgstr "轉換為文章"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Convert into Article Item"
-msgstr ""
+msgstr "轉換為文章項目"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3027,7 +3034,7 @@ msgstr "複製到剪貼簿"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Costing too much money"
-msgstr ""
+msgstr "成本太高"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3036,7 +3043,7 @@ msgstr ""
 msgid ""
 "Could not move \"%s%s\" in the shared section. Only shared articles can be "
 "moved in this section."
-msgstr ""
+msgstr "未能移動「共享」部份中的 %s%s。此範圍只能移動共享文章。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3045,7 +3052,7 @@ msgstr ""
 msgid ""
 "Could not move \"%s%s\" under \"%s%s\", because you do not have write "
 "permission on the latter."
-msgstr ""
+msgstr "未能將 %s%s 移至 %s%s 之下，因為你沒有後者的寫入權限。"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3053,6 +3060,8 @@ msgid ""
 "Could you please let me know on which number I could reach you so that we could get in touch?<br>\n"
 "                        It should not take longer than 15 minutes."
 msgstr ""
+"請告訴我可以聯繫到你的電話號碼，方便我們聯絡。<br>\n"
+"                        應該不會超過 15 分鐘。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3064,17 +3073,17 @@ msgstr "封面"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__attachment_url
 msgid "Cover URL"
-msgstr ""
+msgstr "封面圖片網址"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__attachment_id
 msgid "Cover attachment"
-msgstr ""
+msgstr "封面圖片附件"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__cover_image_url
 msgid "Cover url"
-msgstr ""
+msgstr "封面圖片網址"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__cover_image_position
@@ -3090,7 +3099,7 @@ msgstr "封面圖片垂直移位"
 #: code:addons/knowledge/static/src/xml/knowledge_command_palette.xml:0
 #, python-format
 msgid "Create \""
-msgstr ""
+msgstr "建立 \""
 
 #. module: knowledge
 #. odoo-javascript
@@ -3104,34 +3113,34 @@ msgstr "建立 \"%s\""
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Create a Copy"
-msgstr ""
+msgstr "建立副本"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
 #, python-format
 msgid "Create a nested article"
-msgstr ""
+msgstr "建立巢狀結構文章"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
 #, python-format
 msgid "Create a new article in workspace"
-msgstr ""
+msgstr "在工作區建立新文章"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action_item_calendar
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action_stages
 msgid "Create a new article item"
-msgstr ""
+msgstr "建立新的文章項目"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_product_catalog
 msgid ""
 "Create a simple catalog to provide technical details about your products."
-msgstr ""
+msgstr "建立一個簡單的產品目錄，提供有關產品的技術詳情。"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action
@@ -3177,23 +3186,23 @@ msgstr "建立於"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Current Contract:"
-msgstr ""
+msgstr "目前合約："
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Current Satisfaction:"
-msgstr ""
+msgstr "目前滿意度："
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_marketing_customer_personas
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Customer Personas"
-msgstr ""
+msgstr "客戶性格"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "DESIGN PROTOTYPE"
-msgstr ""
+msgstr "設計原型"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3202,7 +3211,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Date Properties"
-msgstr ""
+msgstr "日期屬性"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3210,7 +3219,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.js:0
 #, python-format
 msgid "Date and Time Properties"
-msgstr ""
+msgstr "日期及時間屬性"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
@@ -3220,22 +3229,22 @@ msgstr "親愛的"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Decision 1"
-msgstr ""
+msgstr "決定 1"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Decision 2"
-msgstr ""
+msgstr "決定 2"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Decision 3"
-msgstr ""
+msgstr "決定 3"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Decision 4"
-msgstr ""
+msgstr "決定 4"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3249,14 +3258,14 @@ msgstr "預設存取權限"
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Default Scale"
-msgstr ""
+msgstr "預設範圍"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__internal_permission
 msgid ""
 "Default permission for all internal users. (External users can still have "
 "access to this article if they are added to its members)"
-msgstr ""
+msgstr "所有內部使用者的預設權限。（至於外部使用者，如果獲加入該文章的成員中，他們也有存取該文章的權限。）"
 
 #. module: knowledge
 #. odoo-python
@@ -3266,21 +3275,23 @@ msgid ""
 "Deleted articles are stored in Trash an extra <b>%(threshold)s</b> days\n"
 "                 before being permanently removed for your database"
 msgstr ""
+"刪除的文章會在垃圾桶內額外儲存多 <b>%(threshold)s</b> 天，\n"
+"                 然後才會從你的資料庫永久刪除。"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__deletion_date
 msgid "Deletion Date"
-msgstr ""
+msgstr "刪除日期"
 
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_permission_on_desync
 msgid "Desynchronized articles must have internal permission."
-msgstr ""
+msgstr "已取消同步的文章，必須有內部許可權限。"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_desynchronized
 msgid "Desyncronized with parents"
-msgstr ""
+msgstr "已取消與母項同步"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3309,12 +3320,12 @@ msgstr "顯示名稱"
 msgid ""
 "Distribute brand digital assets while ensuring compliance with company "
 "policies and guidelines."
-msgstr ""
+msgstr "將品牌的數碼資產分發傳閱，同時確保符合公司政策及指引。"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Diving in"
-msgstr ""
+msgstr "立即開始"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -3565,24 +3576,24 @@ msgstr "Full Width"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__full_width
 msgid "Full width"
-msgstr ""
+msgstr "全寬"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Gender(s):"
-msgstr ""
+msgstr "性別："
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Gender(s): M"
-msgstr ""
+msgstr "性別：男"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Gender(s): W"
-msgstr ""
+msgstr "性別：女"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3617,7 +3628,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__user_has_access
 msgid "Has Access"
-msgstr ""
+msgstr "擁有存取權限"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_message
@@ -3628,17 +3639,17 @@ msgstr "有訊息"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__user_has_write_access
 msgid "Has Write Access"
-msgstr ""
+msgstr "擁有寫入權限"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_item_children
 msgid "Has article item children?"
-msgstr ""
+msgstr "有文章項目子項？"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_article_children
 msgid "Has normal article children?"
-msgstr ""
+msgstr "有正常文章子項？"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__user_has_access_parent_path
@@ -3872,37 +3883,37 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "Improvements 🔬"
-msgstr ""
+msgstr "改進 🔬"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Income:"
-msgstr ""
+msgstr "收入："
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 msgid "Income: $109,160"
-msgstr ""
+msgstr "收入：$109,160"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Income: $142,170"
-msgstr ""
+msgstr "收入：$142,170"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Income: $293,650"
-msgstr ""
+msgstr "收入：$293,650"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Income: $68,170"
-msgstr ""
+msgstr "收入：$68,170"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Inconsistent customer experience"
-msgstr ""
+msgstr "不穩定的客戶體驗"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3914,12 +3925,12 @@ msgstr "索引"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "Industrial ⚙-"
-msgstr ""
+msgstr "工業 ⚙-"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Industry:"
-msgstr ""
+msgstr "行業："
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -3935,12 +3946,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__inherited_permission
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__article_permission
 msgid "Inherited Permission"
-msgstr ""
+msgstr "已繼承的權限"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__inherited_permission_parent_id
 msgid "Inherited Permission Parent Article"
-msgstr ""
+msgstr "已繼承權限的母項文章"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3969,21 +3980,21 @@ msgstr "插入影片"
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Insert a Calendar View"
-msgstr ""
+msgstr "插入日曆檢視畫面"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert a Calendar view of article items"
-msgstr ""
+msgstr "插入文章項目的日曆檢視畫面"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert a Card view of article items"
-msgstr ""
+msgstr "插入文章項目的卡片檢視畫面"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4018,7 +4029,7 @@ msgstr "加入文章項目清單。"
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert a Video"
-msgstr ""
+msgstr "插入影片"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4045,27 +4056,27 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Interests:"
-msgstr ""
+msgstr "興趣："
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Interests: Cooking"
-msgstr ""
+msgstr "興趣：烹飪"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Interests: Music"
-msgstr ""
+msgstr "興趣：音樂"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 msgid "Interests: Politics"
-msgstr ""
+msgstr "興趣：政治"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Interests: Science"
-msgstr ""
+msgstr "興趣：科學"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4073,14 +4084,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__internal_permission
 #, python-format
 msgid "Internal Permission"
-msgstr ""
+msgstr "內部權限"
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Invitation to access an article"
-msgstr ""
+msgstr "邀請存取文章"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4105,7 +4116,7 @@ msgstr "邀請人員"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_favorite__is_article_active
 msgid "Is Article Active"
-msgstr ""
+msgstr "文章是否有效"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_user_favorite
@@ -4121,22 +4132,22 @@ msgstr "是關注人"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_article_item
 msgid "Is Item?"
-msgstr ""
+msgstr "是項目？"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_template
 msgid "Is Template"
-msgstr ""
+msgstr "是範本"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_item_parent
 msgid "Is the parent an Item?"
-msgstr ""
+msgstr "母項是否屬於「項目」？"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "Issue Summary"
-msgstr ""
+msgstr "問題概述"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -4167,26 +4178,26 @@ msgstr "項目 2"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Item 3"
-msgstr ""
+msgstr "項目 3"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Item 4"
-msgstr ""
+msgstr "項目 4"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Item Calendar"
-msgstr ""
+msgstr "項目日曆"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Item Cards"
-msgstr ""
+msgstr "項目卡片"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4205,7 +4216,7 @@ msgstr "項目清單"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__stage_id
 msgid "Item Stage"
-msgstr ""
+msgstr "項目階段"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_calendar_items
@@ -4215,7 +4226,7 @@ msgstr "項目"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "JPG"
-msgstr ""
+msgstr "JPG"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -4232,26 +4243,26 @@ msgstr "加入"
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
 #, python-format
 msgid "Join a hidden article"
-msgstr ""
+msgstr "加入已隱藏文章"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 msgid "Julius"
-msgstr ""
+msgstr "Julius"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "Kanban of %s"
-msgstr ""
+msgstr "%s 的看板"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "Kanban of Article Items"
-msgstr ""
+msgstr "文章項目看板"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_shared_todos
@@ -4288,7 +4299,7 @@ msgstr "知識庫文章"
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_cover
 msgid "Knowledge Cover"
-msgstr ""
+msgstr "知識庫封面圖片"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4299,17 +4310,17 @@ msgstr ""
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Knowledge Databases"
-msgstr ""
+msgstr "知識庫資料庫"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_invite
 msgid "Knowledge Invite Wizard"
-msgstr ""
+msgstr "知識庫邀請精靈"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_stage
 msgid "Knowledge Stage"
-msgstr ""
+msgstr "知識庫階段"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_tree
@@ -4323,7 +4334,7 @@ msgstr "最後編輯日期"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Last Edited"
-msgstr ""
+msgstr "最後編輯"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__last_edition_uid
@@ -4373,19 +4384,19 @@ msgstr "退出"
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 #, python-format
 msgid "Leave Article"
-msgstr ""
+msgstr "離開文章"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Leave Private Article"
-msgstr ""
+msgstr "離開私人文章"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Leaves &amp; Time Off"
-msgstr ""
+msgstr "假期及休假管理"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -4411,35 +4422,35 @@ msgstr "插入其他文章的連結。"
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "List of %s"
-msgstr ""
+msgstr "%s 清單"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "List of Article Items"
-msgstr ""
+msgstr "文章項目列表"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.xml:0
 #, python-format
 msgid "Load Template"
-msgstr ""
+msgstr "載入範本"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
 #, python-format
 msgid "Load a Template"
-msgstr ""
+msgstr "載入範本"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Lock Content"
-msgstr ""
+msgstr "鎖定內容"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_locked
@@ -4471,7 +4482,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Lose Access"
-msgstr ""
+msgstr "失去存取權限"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_personal_organizer
@@ -4776,7 +4787,7 @@ msgstr "下一活動類型"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Next Meeting: <font class=\"text-400\">@Date</font>"
-msgstr ""
+msgstr "下次會議：<font class=\"text-400\">@日期</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
@@ -6102,7 +6113,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.js:0
 #, python-format
 msgid "The start date property is required."
-msgstr ""
+msgstr "必須有開始日期屬性。"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__root_article_id
@@ -6703,14 +6714,14 @@ msgstr ""
 #: code:addons/knowledge/controllers/main.py:0
 #, python-format
 msgid "You cannot change the internal permission of this article."
-msgstr ""
+msgstr "你不可更改此文章的內部權限。"
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/controllers/main.py:0
 #, python-format
 msgid "You cannot change the permission of this member."
-msgstr ""
+msgstr "你不可變更此成員的權限。"
 
 #. module: knowledge
 #. odoo-python
@@ -6754,7 +6765,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You have to be editor on %(article_name)s to change its internal permission."
-msgstr ""
+msgstr "要更改 %(article_name)s 的內部權限，你必須是文章的編輯者。"
 
 #. module: knowledge
 #. odoo-python

@@ -7,7 +7,7 @@
 # Martin Trigaux, 2023
 # Wil Odoo, 2023
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
-# Jolien De Paepe, 2023
+# Jolien De Paepe, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jolien De Paepe, 2023\n"
+"Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1337,6 +1337,8 @@ msgid ""
 "<span style=\"font-size: 14px;\">Not sure how to do it? Check the video "
 "below 👇</span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">Weet je niet zeker hoe het moet? Bekijk dan"
+" zeker onderstaande video 👇</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -2170,6 +2172,13 @@ msgstr "Alle reacties"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "All Models 📖"
 msgstr "Alle modellen 📖"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
+#, python-format
+msgid "All changes saved"
+msgstr "Alle wijzigingen opgeslagen"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3605,7 +3614,7 @@ msgstr "Geslacht(en): W"
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
 #, python-format
 msgid "Generate an Article with AI"
-msgstr ""
+msgstr "Genereer een artikel met AI"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_search
@@ -6746,7 +6755,7 @@ msgstr "Schrijven"
 #: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
 #, python-format
 msgid "Write an article about"
-msgstr ""
+msgstr "Schrijf een artikel over"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6847,6 +6856,8 @@ msgid ""
 "You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
 "Article Item. Convert %(item_name)s into an Article first."
 msgstr ""
+"Je kan %(article_name)s niet onder %(item_name)s verplaatsen, aangezien "
+"%(item_name)s een artikelitem is. Zet eerst %(item_name)s om in een artikel."
 
 #. module: knowledge
 #. odoo-javascript

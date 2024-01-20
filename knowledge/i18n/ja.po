@@ -1369,7 +1369,7 @@ msgstr ""
 msgid ""
 "<span style=\"font-size: 14px;\">Not sure how to do it? Check the video "
 "below 👇</span>"
-msgstr ""
+msgstr "<span style=\"font-size: 14px;\">やり方がわからない場合は、以下の動画をご覧下さい 👇</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -2246,6 +2246,13 @@ msgstr "全てのコメント"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "All Models 📖"
 msgstr "全モデル📖"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
+#, python-format
+msgid "All changes saved"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3616,7 +3623,7 @@ msgstr "性別: 女性"
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
 #, python-format
 msgid "Generate an Article with AI"
-msgstr ""
+msgstr "AIで記事を作成"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_search
@@ -6686,7 +6693,7 @@ msgstr "書く"
 #: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
 #, python-format
 msgid "Write an article about"
-msgstr ""
+msgstr "以下についての記事を書く:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6786,6 +6793,8 @@ msgid ""
 "You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
 "Article Item. Convert %(item_name)s into an Article first."
 msgstr ""
+"%(article_name)s を "
+"%(item_name)sの下に移動することはできません。%(item_name)sは記事項目であるためです。%(item_name)sをまずは記事に変換して下さい。"
 
 #. module: knowledge
 #. odoo-javascript

@@ -744,6 +744,9 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'users'\">Impossible to share a link for an appointment type that has no user assigned.</span>\n"
 "                    <span invisible=\"schedule_based_on != 'resources'\">Impossible to share a link for an appointment type that has no resource assigned.</span>"
 msgstr ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                    <span invisible=\"schedule_based_on != 'users'\">ไม่สามารถแชร์ลิงก์สำหรับประเภทการนัดหมายที่ไม่มีการกำหนดผู้ใช้ได้</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">ไม่สามารถแชร์ลิงก์สำหรับประเภทการนัดหมายที่ไม่มีการกำหนดทรัพยากรได้</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -752,6 +755,9 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'users'\">You need to be part of an appointment type to be able to share a personal link.</span>\n"
 "                    <span invisible=\"schedule_based_on != 'resources'\">You can't create a personal link for an appointment type based on resources.</span>"
 msgstr ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                    <span invisible=\"schedule_based_on != 'users'\">คุณต้องเป็นส่วนหนึ่งของประเภทการนัดหมายจึงจะแชร์ลิงก์ส่วนตัวได้</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">คุณไม่สามารถสร้างลิงก์ส่วนตัวสำหรับประเภทการนัดหมายตามทรัพยากรได้</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_date
@@ -948,6 +954,16 @@ msgstr ""
 #, python-format
 msgid "Add a Leave"
 msgstr "เพิ่มการลา"
+
+#. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/gantt/gantt_renderer.js:0
+#: code:addons/appointment/static/src/views/gantt/gantt_renderer.xml:0
+#: code:addons/appointment/static/src/views/list/list_renderer.js:0
+#: code:addons/appointment/static/src/views/list/list_renderer.xml:0
+#, python-format
+msgid "Add Closing Day(s)"
+msgstr ""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -1477,6 +1493,11 @@ msgid "Booking for %(resource_name)s"
 msgstr "จองสำหรับ %(resource_name)s"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "Booking Name"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Bookings"
@@ -1690,9 +1711,21 @@ msgid "Copy Link & Close"
 msgstr "คัดลอกลิงก์และปิด"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
+msgid "Create Closing Day(s)"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
 msgid "Create an Appointment Resource"
 msgstr "สร้างทรัพยากรของการนัดหมาย"
+
+#. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid ""
+"Create invites on the fly from your calendar and share them with anyone by "
+"using the Share Availabilities button."
+msgstr ""
 
 #. module: appointment
 #. odoo-python
@@ -1932,6 +1965,11 @@ msgid "Every"
 msgstr "ทุก"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "Extra Comments..."
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Extra Message on Confirmation"
 msgstr "ข้อความเพิ่มเติมในการยืนยัน"
@@ -2102,6 +2140,11 @@ msgid ""
 msgstr ""
 "หากว่างเปล่า จะถือว่าผู้ใช้ทุกคนว่าง\n"
 "หากตั้งค่าไว้ ระบบจะพิจารณาเฉพาะผู้ใช้ที่เลือกสำหรับช่องนี้"
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
+msgid "If empty, the meeting is considered as taking place online"
+msgstr ""
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2464,6 +2507,11 @@ msgid "New Appointments Default"
 msgstr "การนัดหมายใหม่เป็นค่าเริ่มต้น"
 
 #. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_answer_input_action_from_question
+msgid "No Answers yet!"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action
 msgid "No Appointment Configured"
 msgstr "ไม่มีการกำหนดค่าการนัดหมาย"
@@ -2473,6 +2521,11 @@ msgstr "ไม่มีการกำหนดค่าการนัดหม
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
 msgstr "ไม่พบการนัดหมายหรือทรัพยากร"
+
+#. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid "No Custom Availabilities Shared!"
+msgstr ""
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -2680,6 +2733,11 @@ msgstr "เลือกตารางงาน..."
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Pick a work schedule to further restrict opening hours."
+msgstr ""
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
+msgid "Pick a schedule to restrict openings"
 msgstr ""
 
 #. module: appointment
@@ -3405,12 +3463,8 @@ msgstr "นี่คือตัวอย่างแบบฟอร์มนั
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
-msgid ""
-"This option toggles the display of avatars of the staff members or resources during the frontend appointment process.\n"
-"        When choosing amongst several possibilities, a selection screen will also be used, if website is installed."
+msgid "Display the Users'/Resources' picture on the Website."
 msgstr ""
-"ตัวเลือกนี้จะสลับการแสดงรูปประจำตัวของพนักงานหรือทรัพยากรในระหว่างขั้นตอนการนัดหมายการทำงานเบื้องหน้า\n"
-"         เมื่อเลือกความเป็นไปได้หลายรายการ หน้าจอาำหรับการเลือกจะถูกนำมาใช้ หากได้ติดตั้งเว็บไซต์แล้ว"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
@@ -3540,6 +3594,17 @@ msgid ""
 "\n"
 "            - Anytime: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
+"ใช้เพื่อกำหนดประเภทของการนัดหมายนี้\n"
+"\n"
+"        สามารถเป็นหนึ่งใน:\n"
+"\n"
+"            - การเกิดซ้ำ: หมวดหมู่เริ่มต้น, ช่วงเวลาที่เกิดซ้ำรายสัปดาห์ เข้าถึงได้จากเว็บไซต์\n"
+"\n"
+"            - การตรงต่อเวลา: ช่องที่เกิดซ้ำจะถูกจำกัดระหว่าง 2 วันที่และเวลา เข้าถึงได้จากเว็บไซต์\n"
+"\n"
+"            - กำหนดเอง: ผู้ใช้จะสร้างและแบ่งปันประเภทการนัดหมายแบบกำหนดเองกับผู้ใช้รายอื่นพร้อมช่วงเวลาที่เลือกเอง\n"
+"\n"
+"            - ทุกเวลา: ผู้ใช้จะสร้างและแบ่งปันประเภทการนัดหมายที่ครอบคลุมช่วงเวลาทั้งหมดให้กับผู้ใช้รายอื่น"
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user
@@ -3649,6 +3714,11 @@ msgstr "เช่น \"ในระหว่างการประชุมค
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "e.g. \"I feel nauseous...\""
 msgstr "เช่น \"ฉันรู้สึกคลื่นไส้...\""
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "e.g. \"John Doe - Tennis Court Booking\""
+msgstr ""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

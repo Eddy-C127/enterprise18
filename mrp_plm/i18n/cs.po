@@ -1121,11 +1121,14 @@ msgid ""
 "              Gather the related documentation and receive the necessary approvals\n"
 "              before applying your changes."
 msgstr ""
+"Spravujte své produkty a změny kusovníků pomocí změnového řízení.\n"
+"              Před použitím změn shromážděte příslušnou dokumentaci a získejte\n"
+"              potřebná schválení."
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__upd_time_cycle_manual
 msgid "Manual Duration Change"
-msgstr ""
+msgstr "Minimální doba trvání změny"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__production_id
@@ -1159,7 +1162,7 @@ msgstr ""
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_tag_view_search
 msgid "Mrp Eco Tags"
-msgstr ""
+msgstr "Štítky výroby změnového řízení"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__my_activity_date_deadline
@@ -1169,12 +1172,12 @@ msgstr "Termín mé aktivity"
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_search
 msgid "My Change Orders"
-msgstr ""
+msgstr "Moje změnová řízení"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_type_dashboard_view_kanban
 msgid "My Validations"
-msgstr ""
+msgstr "Moje ověření"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_stage__name
@@ -1191,7 +1194,7 @@ msgstr "Nové"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__new_bom_id
 msgid "New Bill of Materials"
-msgstr ""
+msgstr "Nové kusovník"
 
 #. module: mrp_plm
 #. odoo-python
@@ -1208,12 +1211,12 @@ msgstr "Nový kusovník"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__new_operation_id
 msgid "New Consumed in Operation"
-msgstr ""
+msgstr "Nové spotřebováno v provozu"
 
 #. module: mrp_plm
 #: model:mrp.eco.type,name:mrp_plm.ecotype0
 msgid "New Product Introduction"
-msgstr ""
+msgstr "Představení nového produktu"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__new_uom_id
@@ -1223,17 +1226,17 @@ msgstr "Nová MJ produktu"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__new_time_cycle_manual
 msgid "New manual duration"
-msgstr ""
+msgstr "Nová manuální doba trvání"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__operation_id
 msgid "New or Previous Operation"
-msgstr ""
+msgstr "Nové nebo předchozí operace"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__new_product_qty
 msgid "New revision quantity"
-msgstr ""
+msgstr "Nová revize množství"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__activity_calendar_event_id
@@ -1279,7 +1282,7 @@ msgstr "Normální"
 #. module: mrp_plm
 #: model:ir.model.fields.selection,name:mrp_plm.selection__mrp_eco_approval__status__none
 msgid "Not Yet"
-msgstr ""
+msgstr "Zatím ne"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__note
@@ -1314,12 +1317,13 @@ msgstr "Počet zpráv s chybou při doručení"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__old_time_cycle_manual
 msgid "Old manual duration"
-msgstr ""
+msgstr "Stará manuální doba trvání"
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco_stage__final_stage
 msgid "Once the changes are applied, the ECOs will be moved to this stage."
 msgstr ""
+"Jakmile jsou změny aplikovány, přesunou se změnová řízení do této fáze."
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__operation_name
@@ -1329,7 +1333,7 @@ msgstr "Úkon"
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Operation Changes"
-msgstr ""
+msgstr "Provozní změny"
 
 #. module: mrp_plm
 #. odoo-python
@@ -1352,7 +1356,7 @@ msgstr ""
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_document__origin_attachment_id
 msgid "Origin Attachment"
-msgstr ""
+msgstr "Původní příloha"
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco__legend_blocked
@@ -1361,6 +1365,8 @@ msgid ""
 "Override the default value displayed for the blocked state for kanban "
 "selection, when the ECO is in that stage."
 msgstr ""
+"Přepínejte výchozí hodnotu zobrazenou pro zablokovaný stav pro výběr kanban,"
+" když je změnové řízení v této fázi."
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco__legend_done
@@ -1369,6 +1375,8 @@ msgid ""
 "Override the default value displayed for the done state for kanban "
 "selection, when the ECO is in that stage."
 msgstr ""
+"Přepínejte výchozí hodnotu zobrazenou pro dokončený stav pro výběr kanban, "
+"když je změnové řízení v této fázi."
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco__legend_normal
@@ -1377,6 +1385,8 @@ msgid ""
 "Override the default value displayed for the normal state for kanban "
 "selection, when the ECO is in that stage."
 msgstr ""
+"Přepínejte výchozí hodnotu zobrazenou pro normální stav pro výběr kanban, "
+"když je změnové řízení v této fázi."
 
 #. module: mrp_plm
 #: model:ir.ui.menu,name:mrp_plm.menu_mrp_plm_dashboard
@@ -1392,7 +1402,7 @@ msgstr "PLM"
 #. module: mrp_plm
 #: model:ir.actions.act_window,name:mrp_plm.mrp_eco_type_action_dashboard
 msgid "PLM Overview"
-msgstr ""
+msgstr "Přehled PLM"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_type__alias_parent_model_id
@@ -1436,17 +1446,17 @@ msgstr "Přechozí kusovník"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__old_operation_id
 msgid "Previous Consumed in Operation"
-msgstr ""
+msgstr "Předchozí spotřebováno v provozu"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__previous_change_ids
 msgid "Previous ECO Changes"
-msgstr ""
+msgstr "Předchozí změny změnového řízení"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Previous Eco Bom Changes"
-msgstr ""
+msgstr "Předchozí změny kusovníku změn. říz."
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__old_uom_id
@@ -1456,7 +1466,7 @@ msgstr "Předchozí MJ produktu"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__old_product_qty
 msgid "Previous revision quantity"
-msgstr ""
+msgstr "Předchozí revize množství"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__priority
@@ -1476,7 +1486,7 @@ msgstr "Produkt"
 #: code:addons/mrp_plm/models/mrp_eco.py:0
 #, python-format
 msgid "Product Only"
-msgstr ""
+msgstr "Pouze produkty"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
@@ -1496,7 +1506,7 @@ msgstr "Výrobní příkaz"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_bom__active
 msgid "Production Ready"
-msgstr ""
+msgstr "Výroba připravena"
 
 #. module: mrp_plm
 #: model:ir.ui.menu,name:mrp_plm.menu_mrp_plm_products
@@ -1534,12 +1544,14 @@ msgstr "Připraveno"
 #: model:ir.model.fields.selection,name:mrp_plm.selection__mrp_eco__state__rebase
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_search
 msgid "Rebase"
-msgstr ""
+msgstr "Přeskládání"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Rebase new revision of BoM with previous eco bom and old bom changes."
 msgstr ""
+"Obnovte novou revizi kusovníku s předchozími změnami změnového a starého "
+"kusovníku."
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_type__alias_force_thread_id
@@ -1635,7 +1647,7 @@ msgstr "Nastavit úvodní obrázek"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__allow_apply_change
 msgid "Show Apply Change"
-msgstr ""
+msgstr "Zobrazit Použít změnu"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_search
@@ -1663,7 +1675,7 @@ msgstr "Fáze"
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Start Revision"
-msgstr ""
+msgstr "Spustit revizi"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_search
@@ -1701,7 +1713,7 @@ msgstr ""
 msgid ""
 "System will automatically resolved the conflict(s) and apply changes. Do you"
 " agree?"
-msgstr ""
+msgstr "Systém automaticky vyřeší konflikt(y) a použije změny. Souhlasíte?"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_tag__name
@@ -1750,18 +1762,18 @@ msgstr "Předloha"
 #. module: mrp_plm
 #: model:res.groups,comment:mrp_plm.group_plm_manager
 msgid "The PLM manager manages products lifecycle management"
-msgstr ""
+msgstr "PLM manažer řídí správu životního cyklu produktů"
 
 #. module: mrp_plm
 #: model:res.groups,comment:mrp_plm.group_plm_user
 msgid "The PLM user uses products lifecycle management"
-msgstr ""
+msgstr "Uživatel PLM používá řízení životního cyklu produktů"
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_product_product__version
 #: model:ir.model.fields,help:mrp_plm.field_product_template__version
 msgid "The current version of the product."
-msgstr ""
+msgstr "Aktuální verze produktu."
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco_type__alias_model_id
@@ -1935,7 +1947,7 @@ msgstr "např. Úžasný produkt 2.0"
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_stage_view_form
 msgid "e.g. Engineering Department"
-msgstr ""
+msgstr "např. Technické oddělení"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_type_view_form

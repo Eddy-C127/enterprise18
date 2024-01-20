@@ -3,18 +3,19 @@
 # 	* documents_product
 # 
 # Translators:
-# Milan Bojovic, 2023
+# Milan Bojovic <mbojovic@outlook.com>, 2023
 # Uros Kalajdzic <ukalajdzic@gmail.com>, 2023
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
 # Martin Trigaux, 2023
+# コフスタジオ, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: コフスタジオ, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +35,7 @@ msgstr ""
 #. module: documents_product
 #: model_terms:ir.ui.view,arch_db:documents_product.res_config_settings_view_form
 msgid "Centralize files attached to products"
-msgstr ""
+msgstr "Centralize files attached to products"
 
 #. module: documents_product
 #: model:ir.model,name:documents_product.model_res_company
@@ -54,7 +55,7 @@ msgstr "Kreiraj"
 #. module: documents_product
 #: model:documents.tag,name:documents_product.documents_product_sheet_tag
 msgid "DataSheets"
-msgstr ""
+msgstr "DataSheets"
 
 #. module: documents_product
 #: model_terms:ir.ui.view,arch_db:documents_product.res_config_settings_view_form
@@ -74,18 +75,25 @@ msgstr "Dokumenti"
 #. module: documents_product
 #: model:ir.model.fields,field_description:documents_product.field_res_company__documents_product_settings
 msgid "Documents Product Settings"
-msgstr ""
+msgstr "Dokumenti Postavke proizvoda"
 
 #. module: documents_product
 #. odoo-python
 #: code:addons/documents_product/models/document.py:0
 #, python-format
 msgid "Invalid %s search"
-msgstr ""
+msgstr "Nevažeća %s pretraga"
 
 #. module: documents_product
 #: model:documents.tag,name:documents_product.documents_product_msds_tag
 msgid "MSDS"
+msgstr "MSDS"
+
+#. module: documents_product
+#: model:ir.model,name:documents_product.model_product_template
+msgid ""
+"Model adding the necessary fields to products to use with Pricer electronic "
+"tags"
 msgstr ""
 
 #. module: documents_product
@@ -99,7 +107,6 @@ msgid "Plans"
 msgstr "Planovi"
 
 #. module: documents_product
-#: model:ir.model,name:documents_product.model_product_template
 #: model:ir.model.fields,field_description:documents_product.field_documents_document__product_template_id
 #: model:ir.model.fields,field_description:documents_product.field_res_config_settings__documents_product_settings
 msgid "Product"
@@ -120,12 +127,12 @@ msgstr "Varijanta proizvoda"
 #. module: documents_product
 #: model:ir.model.fields,field_description:documents_product.field_res_company__product_folder
 msgid "Product Workspace"
-msgstr ""
+msgstr "Product Workspace"
 
 #. module: documents_product
 #: model:ir.model.fields.selection,name:documents_product.selection__documents_workflow_rule__create_model__product_template
 msgid "Product template"
-msgstr ""
+msgstr "Šabloni proizvoda"
 
 #. module: documents_product
 #: model:documents.folder,name:documents_product.documents_product_folder
@@ -135,7 +142,7 @@ msgstr "Proizvod"
 #. module: documents_product
 #: model:documents.tag,name:documents_product.documents_product_specs_tag
 msgid "Specs"
-msgstr ""
+msgstr "Specs"
 
 #. module: documents_product
 #: model_terms:ir.ui.view,arch_db:documents_product.res_config_settings_view_form
@@ -145,4 +152,4 @@ msgstr "Radni prostor"
 #. module: documents_product
 #: model:ir.model.fields,field_description:documents_product.field_res_config_settings__product_folder
 msgid "product default workspace"
-msgstr ""
+msgstr "product default workspace"

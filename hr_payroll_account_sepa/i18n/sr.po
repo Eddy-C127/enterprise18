@@ -3,9 +3,10 @@
 # 	* hr_payroll_account_sepa
 # 
 # Translators:
-# Milan Bojovic, 2023
+# Milan Bojovic <mbojovic@outlook.com>, 2023
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
 # Martin Trigaux, 2023
+# コフスタジオ, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: コフスタジオ, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +26,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip_run_sepa_wizard__journal_id
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip_sepa_wizard__journal_id
 msgid "Bank Journal"
-msgstr ""
+msgstr "Bank Journal"
 
 #. module: hr_payroll_account_sepa
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account_sepa.hr_payslip_run_sepa_view_form
@@ -73,7 +74,7 @@ msgstr "Zaposleni"
 #: code:addons/hr_payroll_account_sepa/models/hr_payslip.py:0
 #, python-format
 msgid "Employees With Invalid Bank Accounts"
-msgstr ""
+msgstr "Employees With Invalid Bank Accounts"
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
@@ -122,12 +123,12 @@ msgstr ""
 #. module: hr_payroll_account_sepa
 #: model:ir.model,name:hr_payroll_account_sepa.model_hr_payslip_run_sepa_wizard
 msgid "HR Payslip Run SEPA Wizard"
-msgstr ""
+msgstr "HR Payslip Run SEPA Wizard"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model,name:hr_payroll_account_sepa.model_hr_payslip_sepa_wizard
 msgid "HR Payslip SEPA Wizard"
-msgstr ""
+msgstr "HR Payslip SEPA Wizard"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip_run_sepa_wizard__id
@@ -144,6 +145,8 @@ msgid ""
 "Invalid bank account for the following employees:\n"
 "%s"
 msgstr ""
+"Invalid bank account for the following employees:\n"
+"%s"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip_run_sepa_wizard__write_uid
@@ -160,7 +163,7 @@ msgstr "Poslednji put ažurirano"
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_payslip__sepa_export_filename
 msgid "Name of the export file generated for this payslip"
-msgstr ""
+msgstr "Name of the export file generated for this payslip"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model,name:hr_payroll_account_sepa.model_hr_payslip
@@ -170,7 +173,7 @@ msgstr ""
 #. module: hr_payroll_account_sepa
 #: model:ir.model,name:hr_payroll_account_sepa.model_hr_payslip_run
 msgid "Payslip Batches"
-msgstr ""
+msgstr "Payslip Batches"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip__sepa_export
@@ -189,7 +192,7 @@ msgstr ""
 #: code:addons/hr_payroll_account_sepa/models/hr_payslip.py:0
 #, python-format
 msgid "Some employees (%s) don't have a bank account."
-msgstr ""
+msgstr "Some employees (%s) don't have a bank account."
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
@@ -222,6 +225,8 @@ msgid ""
 "The journal '%s' requires a proper IBAN account to pay via SEPA. Please "
 "configure it first."
 msgstr ""
+"The journal '%s' requires a proper IBAN account to pay via SEPA. Please "
+"configure it first."
 
 #. module: hr_payroll_account_sepa
 #: model:ir.actions.server,name:hr_payroll_account_sepa.trust_employee_bank
@@ -231,7 +236,7 @@ msgstr ""
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip__sepa_uetr
 msgid "UETR"
-msgstr ""
+msgstr "UETR"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_payslip__sepa_uetr

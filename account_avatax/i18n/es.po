@@ -107,12 +107,12 @@ msgstr "Cuenta que se usará para los impuestos en Avatax para las facturas."
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_account_fiscal_position__avatax_refund_account_id
 msgid "Account that will be used by Avatax taxes for refunds."
-msgstr "Cuenta que se usará para los impuestos en Avatax para las reembolsos."
+msgstr "Cuenta que se usará para los impuestos en AvaTax para los reembolsos."
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
 msgid "Address Validation"
-msgstr "Validación de direcciones"
+msgstr "Validación de la dirección"
 
 #. module: account_avatax
 #. odoo-python
@@ -120,7 +120,7 @@ msgstr "Validación de direcciones"
 #, python-format
 msgid "Address validation is only supported for North American addresses."
 msgstr ""
-"La validación de direcciones solo funciona con direcciones de Norteamérica."
+"La validación de la dirección solo funciona con direcciones de Norteamérica."
 
 #. module: account_avatax
 #. odoo-python
@@ -561,7 +561,7 @@ msgstr "Respuesta del servidor"
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_validate_address__state_id
 #: model_terms:ir.ui.view,arch_db:account_avatax.avatax_validate_address_view_form
 msgid "State"
-msgstr "Estado"
+msgstr "Provincia"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_validate_address__street
@@ -696,7 +696,7 @@ msgid ""
 "Validate and correct the addresses of partners in North America with "
 "Avalara."
 msgstr ""
-"Validar y corregir las direcciones de partners en Norteamérica con Avalara."
+"Valide y corrija las direcciones de contactos en Norteamérica con Avalara."
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.avatax_validate_address_view_form
@@ -716,7 +716,7 @@ msgstr "Validar país"
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_validate_address__validated_state_id
 msgid "Validated State"
-msgstr "Validar estado"
+msgstr "Validar provincia"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_validate_address__validated_street

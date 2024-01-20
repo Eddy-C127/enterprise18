@@ -980,6 +980,16 @@ msgid "Add a Leave"
 msgstr "Ajouter un congé"
 
 #. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/gantt/gantt_renderer.js:0
+#: code:addons/appointment/static/src/views/gantt/gantt_renderer.xml:0
+#: code:addons/appointment/static/src/views/list/list_renderer.js:0
+#: code:addons/appointment/static/src/views/list/list_renderer.xml:0
+#, python-format
+msgid "Add Closing Day(s)"
+msgstr "Ajouter des jours de fermeture"
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated_card
 msgid "Add a function here..."
@@ -1516,6 +1526,11 @@ msgid "Booking for %(resource_name)s"
 msgstr "Réservation pour %(resource_name)s"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "Booking Name"
+msgstr "Nom de la réservation"
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Bookings"
@@ -1731,9 +1746,23 @@ msgid "Copy Link & Close"
 msgstr "Copier le lien & Fermer"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
+msgid "Create Closing Day(s)"
+msgstr "Créer des jours de fermeture"
+
+#. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
 msgid "Create an Appointment Resource"
 msgstr "Créer une ressource de rendez-vous"
+
+#. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid ""
+"Create invites on the fly from your calendar and share them with anyone by "
+"using the Share Availabilities button."
+msgstr ""
+"Créez des invitations à la volée à partir de votre calendrier et partagez-"
+"les avec n'importe qui en utilisant le bouton Partager les disponibilités."
 
 #. module: appointment
 #. odoo-python
@@ -1981,6 +2010,11 @@ msgid "Every"
 msgstr "Tou(te)s les"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "Extra Comments..."
+msgstr "Remarques supplémentaires..."
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Extra Message on Confirmation"
 msgstr "Message supplémentaire lors de la confirmation"
@@ -2155,6 +2189,12 @@ msgid ""
 msgstr ""
 "Si vide, tous les utilisateurs sont considérés comme disponibles.\n"
 "Si défini, seuls les utilisateurs sélectionnés seront pris en compte pour ce créneau."
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
+msgid "If empty, the meeting is considered as taking place online"
+msgstr ""
+"Si ce champ est vide, la réunion considérée comme se déroulant en ligne"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2528,6 +2568,11 @@ msgid "New Appointments Default"
 msgstr "Nouveaux rendez-vous par défaut"
 
 #. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_answer_input_action_from_question
+msgid "No Answers yet!"
+msgstr "Pas encore de réponses !"
+
+#. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action
 msgid "No Appointment Configured"
 msgstr "Aucun rendez-vous configuré"
@@ -2537,6 +2582,11 @@ msgstr "Aucun rendez-vous configuré"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
 msgstr "Aucun rendez-vous ou ressource n'a été trouvé."
+
+#. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid "No Custom Availabilities Shared!"
+msgstr "Aucune disponibilité personnalisée partagée !"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -2752,6 +2802,11 @@ msgid "Pick a work schedule to further restrict opening hours."
 msgstr ""
 "Sélectionnez un horaire de travail pour restreindre davantage les heures "
 "d'ouverture."
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
+msgid "Pick a schedule to restrict openings"
+msgstr "Choisissez un horaire pour limiter les ouvertures"
 
 #. module: appointment
 #. odoo-javascript
@@ -3495,12 +3550,8 @@ msgstr "Ceci est un aperçu du formulaire de rendez-vous client."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
-msgid ""
-"This option toggles the display of avatars of the staff members or resources during the frontend appointment process.\n"
-"        When choosing amongst several possibilities, a selection screen will also be used, if website is installed."
-msgstr ""
-"Cette option permet d'afficher ou non les avatars des membres du personnel pendant le processus de prise de rendez-vous en frontend. \n"
-"Lorsqu'on choisit entre plusieurs possibilités, un écran de sélection sera utilisé si l'application Site Web est installée."
+msgid "Display the Users'/Resources' picture on the Website."
+msgstr "Afficher l'image des utilisateurs/ressources sur le site web."
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
@@ -3754,6 +3805,11 @@ msgstr "par ex. \"Au cours de cette réunion, nous allons...\""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "e.g. \"I feel nauseous...\""
 msgstr "par ex. \"je me sens mal...\""
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "e.g. \"John Doe - Tennis Court Booking\""
+msgstr "par ex. \"John Doe - Réservation de la court de tennis\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

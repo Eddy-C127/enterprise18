@@ -856,6 +856,16 @@ msgid "Add a Leave"
 msgstr "Thêm lịch tạm ngừng sử dụng"
 
 #. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/gantt/gantt_renderer.js:0
+#: code:addons/appointment/static/src/views/gantt/gantt_renderer.xml:0
+#: code:addons/appointment/static/src/views/list/list_renderer.js:0
+#: code:addons/appointment/static/src/views/list/list_renderer.xml:0
+#, python-format
+msgid "Add Closing Day(s)"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated_card
 msgid "Add a function here..."
@@ -1387,6 +1397,11 @@ msgid "Booking for %(resource_name)s"
 msgstr "Đặt lịch cho %(resource_name)s"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "Booking Name"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Bookings"
@@ -1601,9 +1616,21 @@ msgid "Copy Link & Close"
 msgstr "Sao chép liên kết & đóng"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
+msgid "Create Closing Day(s)"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
 msgid "Create an Appointment Resource"
 msgstr "Tạo một cơ sở hạ tầng/vật chất của cuộc hẹn"
+
+#. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid ""
+"Create invites on the fly from your calendar and share them with anyone by "
+"using the Share Availabilities button."
+msgstr ""
 
 #. module: appointment
 #. odoo-python
@@ -1847,6 +1874,11 @@ msgid "Every"
 msgstr "Mỗi"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "Extra Comments..."
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Extra Message on Confirmation"
 msgstr "Thông tin Bổ sung khi Xác nhận"
@@ -2018,6 +2050,11 @@ msgid ""
 msgstr ""
 "Nếu trống, tất cả người dùng được coi là có thể tham gia.\n"
 "Nếu được cài đặt, chỉ những người dùng đã chọn mới có thể tham gia khung giờ này."
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
+msgid "If empty, the meeting is considered as taking place online"
+msgstr ""
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2388,6 +2425,11 @@ msgid "New Appointments Default"
 msgstr "Mặc định Cuộc hẹn Mới"
 
 #. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_answer_input_action_from_question
+msgid "No Answers yet!"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action
 msgid "No Appointment Configured"
 msgstr "Không có Cuộc hẹn được Cấu hình"
@@ -2397,6 +2439,11 @@ msgstr "Không có Cuộc hẹn được Cấu hình"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
 msgstr "Không tìm thấy Lịch hẹn hay Cơ sở hạ tầng/vật chất nào."
+
+#. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid "No Custom Availabilities Shared!"
+msgstr ""
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -2607,6 +2654,11 @@ msgstr "Chọn Lịch trình làm việc..."
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Pick a work schedule to further restrict opening hours."
 msgstr "Chọn lịch làm việc để tăng cường hạn chế giờ bắt đầu."
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
+msgid "Pick a schedule to restrict openings"
+msgstr ""
 
 #. module: appointment
 #. odoo-javascript
@@ -3343,12 +3395,8 @@ msgstr "Đây là bản xem trước của biểu mẫu cuộc hẹn khách hàn
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
-msgid ""
-"This option toggles the display of avatars of the staff members or resources during the frontend appointment process.\n"
-"        When choosing amongst several possibilities, a selection screen will also be used, if website is installed."
+msgid "Display the Users'/Resources' picture on the Website."
 msgstr ""
-"Tùy chọn này bật/tắt hiển thị hình đại diện của nhân viên hoặc cơ sở hạ tầng/vật chất trong quá trình front-end của cuộc hẹn.\n"
-"        Khi chọn giữa nhiều tuỳ chọn khả dụng, màn hình lựa chọn cũng sẽ được sử dụng nếu trang web được cài đặt."
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
@@ -3601,6 +3649,11 @@ msgstr "VD: \"Trong cuộc họp này, chúng ta sẽ...\""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "e.g. \"I feel nauseous...\""
 msgstr "VD: \"Tôi cảm thấy nôn nao...\""
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid "e.g. \"John Doe - Tennis Court Booking\""
+msgstr ""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
