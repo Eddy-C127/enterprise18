@@ -1099,9 +1099,14 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         ])
 
     def test_delivery_reserved_lots_1(self):
+        """ Creates a delivery for product tracked by lots and having some
+        quantities in stock. Checks reserved lots are correctly visible in the
+        Barcode app and that they can be processed alongside not reserved lots.
+        """
         self.clean_access_rights()
         grp_lot = self.env.ref('stock.group_production_lot')
         self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
+        self.picking_type_out.show_reserved_sns = True
 
         delivery_picking = self.env['stock.picking'].create({
             'location_id': self.stock_location.id,
@@ -1116,17 +1121,18 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             'location_dest_id': self.customer_location.id,
             'product_id': self.productlot1.id,
             'product_uom': self.uom_unit.id,
-            'product_uom_qty': 3,
+            'product_uom_qty': 5,
             'picking_id': delivery_picking.id,
         })
 
-        # Add lot1 et lot2 sur productlot1
+        # Creates lot1, lot2 and lot3 for productlot1.
         lotObj = self.env['stock.lot']
         lot1 = lotObj.create({'name': 'lot1', 'product_id': self.productlot1.id})
         lot2 = lotObj.create({'name': 'lot2', 'product_id': self.productlot1.id})
+        lot3 = lotObj.create({'name': 'lot3', 'product_id': self.productlot1.id})
 
-        self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, 1, lot_id=lot1)
-        self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, 2, lot_id=lot2)
+        self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, 2, lot_id=lot1)
+        self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, 3, lot_id=lot2)
 
         delivery_picking.action_confirm()
         delivery_picking.action_assign()
@@ -1135,12 +1141,11 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
 
         self.start_tour(url, 'test_delivery_reserved_lots_1', login='admin', timeout=180)
 
-        self.env.invalidate_all()
-        lines = delivery_picking.move_line_ids
-        self.assertEqual(lines[0].lot_id.name, 'lot1')
-        self.assertEqual(lines[1].lot_id.name, 'lot2')
-        self.assertEqual(lines[0].qty_done, 1)
-        self.assertEqual(lines[1].qty_done, 2)
+        self.assertRecordValues(delivery_picking.move_line_ids, [
+            {'lot_id': lot1.id, 'quantity': 2, 'picked': True},
+            {'lot_id': lot2.id, 'quantity': 2, 'picked': True},
+            {'lot_id': lot3.id, 'quantity': 1, 'picked': True},
+        ])
 
     def test_delivery_different_products_with_same_lot_name(self):
         self.clean_access_rights()

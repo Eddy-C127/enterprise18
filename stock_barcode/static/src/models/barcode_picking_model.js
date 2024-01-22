@@ -101,16 +101,16 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     getDisplayIncrementBtn(line) {
+        if (!super.getDisplayIncrementBtn(...arguments)) {
+            return false;
+        }
         if (this.config.restrict_scan_product && line.product_id.barcode && !this.getQtyDone(line) && (
             !this.lastScanned.product || this.lastScanned.product.id != line.product_id.id
         )) {
             return false;
         }
-        const parentLine = this._getParentLine(line)
-        if (parentLine && parentLine.product_id.tracking !== 'none' && parentLine.reserved_uom_qty === parentLine.qty_done) {
-            return false;
-        }
-        return super.getDisplayIncrementBtn(...arguments);
+        line = (line.product_id.tracking === "lot" && this._getParentLine(line)) || line;
+        return (!this.getQtyDemand(line) || this.getQtyDemand(line) > this.getQtyDone(line));
     }
 
     getDisplayIncrementBtnForSerial(line) {
@@ -120,10 +120,13 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     getIncrementQuantity(line) {
-        let quantityToFormat = this.getQtyDemand(line) - this.getQtyDone(line);
-        if (quantityToFormat < 0.0) {
-            quantityToFormat = 1.0;
+        let remainingQty = this.getQtyDemand(line) - this.getQtyDone(line);
+        const parentLine = (line.product_id.tracking === "lot" && this._getParentLine(line)) || line;
+        if (parentLine) {
+            const parentRemainingQty = this.getQtyDemand(parentLine) - this.getQtyDone(parentLine);
+            remainingQty = Math.min(remainingQty, parentRemainingQty);
         }
+        const quantityToFormat = remainingQty <= 0 ? 1 : remainingQty;
         return parseFloat(formatFloat(quantityToFormat, { digits: [false, this.precision], thousandsSep: "", decimalPoint: "." }));
     }
 

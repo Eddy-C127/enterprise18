@@ -1927,36 +1927,72 @@ registry.category("web_tour.tours").add('test_delivery_from_scratch_with_sn_1', 
 ]});
 
 registry.category("web_tour.tours").add('test_delivery_reserved_lots_1', {test: true, steps: () => [
-
+    { trigger: '.o_barcode_client_action', run: 'scan productlot1' },
+    { trigger: '.o_barcode_line.o_selected .o_toggle_sublines', run: 'click' },
     {
-        trigger: '.o_barcode_client_action',
-        run: 'scan productlot1',
+        trigger: '.o_sublines',
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assertSublinesCount(2);
+            const sublines = helper.getSublines();
+            helper.assertLineQty(sublines[0], "0 / 2");
+            helper.assert(sublines[0].querySelector('button.o_add_quantity').innerText, "+2");
+            helper.assertLineQty(sublines[1], "0 / 3");
+            helper.assert(sublines[1].querySelector('button.o_add_quantity').innerText, "+3");
+        },
     },
-
+    { trigger: '.o_barcode_client_action', run: 'scan lot1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan lot3' },
     {
-        trigger: '.o_barcode_client_action',
-        run: 'scan lot2',
+        trigger: '.o_sublines .o_barcode_line:nth-child(3)',
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assertSublinesCount(3);
+            const sublines = helper.getSublines();
+            // Check lines and "Add quantity" buttons quantities are correctly updated.
+            helper.assertLineQty(sublines[0], "1 / 2");
+            helper.assert(sublines[0].querySelector('button.o_add_quantity').innerText, "+1");
+            helper.assertLineQty(sublines[1], "1");
+            helper.assert(sublines[1].querySelector('button.o_add_quantity').innerText, "+1");
+            helper.assertLineQty(sublines[2], "0 / 3");
+            helper.assert(sublines[2].querySelector('button.o_add_quantity').innerText, "+3");
+        },
     },
-
+    { trigger: '.o_barcode_client_action', run: 'scan lot1' },
     {
-        trigger: '.o_barcode_client_action',
-        run: 'scan lot1',
+        trigger: '.o_sublines .o_barcode_line.o_selected.o_line_completed',
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assertSublinesCount(3);
+            const sublines = helper.getSublines();
+            helper.assertLineQty(sublines[0], "2 / 2");
+            helper.assert(sublines[0].querySelector('button.o_add_quantity').innerText, "+1");
+            helper.assertLineQty(sublines[1], "1");
+            helper.assert(sublines[1].querySelector('button.o_add_quantity').innerText, "+1");
+            helper.assertLineQty(sublines[2], "0 / 3");
+            helper.assert(sublines[2].querySelector('button.o_add_quantity').innerText, "+2");
+        },
     },
-
+    { trigger: '.o_barcode_client_action', run: 'scan lot2' },
+    { trigger: '.o_barcode_line.o_selected:not(.o_line_completed)', run: 'scan lot2' },
     {
-        trigger: '.o_barcode_client_action',
-        run: 'scan lot2',
+        trigger: '.o_barcode_lines > .o_barcode_line.o_line_completed',
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assertSublinesCount(3);
+            const sublines = helper.getSublines();
+            // Since the reservation is completed, no "Add Quantity" buttons should be displayed.
+            helper.assertLineQty(sublines[0], "2 / 2");
+            helper.assertButtonShouldBeVisible(sublines[0], "add_quantity", false);
+            helper.assertLineQty(sublines[1], "1");
+            helper.assertButtonShouldBeVisible(sublines[1], "add_quantity", false);
+            helper.assertLineQty(sublines[2], "2 / 3");
+            helper.assertButtonShouldBeVisible(sublines[2], "add_quantity", false);
+        },
     },
-    // Open the form view to trigger a save
-    {
-        trigger: '.o_add_line',
-        run: "click",
-    },
-
-    {
-        trigger: '.o_field_widget[name="product_id"]',
-        run: "click",
-    },
+    // Open the form view to trigger a save.
+    { trigger: '.o_add_line', run: "click" },
+    { trigger: '.o_field_widget[name="product_id"]' },
     ...stepUtils.discardBarcodeForm(),
 ]});
 
@@ -3192,8 +3228,8 @@ registry.category("web_tour.tours").add('test_picking_type_mandatory_scan_comple
         run: function() {
             const lot001Line = helper.getSubline({ completed: true});
             const lot002Line = helper.getSubline({ completed: false});
-            helper.assert(Boolean(lot001Line.querySelector('.btn.o_add_quantity')), false,
-                "The two lot-001 were scanned, the button to add the quantity should be hidden.");
+            helper.assert(Boolean(lot001Line.querySelector('.btn.o_add_quantity')), true,
+                "The lot-001 button to add the quantity should still be visible because parent line is not complete.");
             helper.assert(lot002Line.querySelector('.btn.o_add_quantity').disabled, true);
         }
     },

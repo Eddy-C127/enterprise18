@@ -148,7 +148,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
     }
 
     getDisplayIncrementBtn(line) {
-        return line.product_id.tracking !== 'serial' && this.selectedLineVirtualId &&
+        return super.getDisplayIncrementBtn(...arguments) && this.selectedLineVirtualId &&
             line.virtual_id === this.selectedLineVirtualId;
     }
 
