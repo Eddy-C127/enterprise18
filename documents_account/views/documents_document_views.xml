@@ -17,7 +17,7 @@
         <field name="inherit_id" ref="documents.documents_view_list"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="before">
-                <field name="has_embedded_pdf" invisible="1"/>
+                <field name="has_embedded_pdf" column_invisible="True"/>
             </xpath>
         </field>
     </record>
