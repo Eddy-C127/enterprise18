@@ -1528,6 +1528,13 @@ class AccountMove(models.Model):
     # CFDI: FLOWS
     # -------------------------------------------------------------------------
 
+    def _l10n_mx_edi_cfdi_invoice_retry_send(self):
+        """ Retry generating the PDF and CFDI for the current invoice. """
+        self.ensure_one()
+        option_vals = self.env['account.move.send']._get_wizard_vals_restrict_to({'l10n_mx_edi_checkbox_cfdi': True})
+        move_send = self.env['account.move.send'].new(option_vals)
+        self.env['account.move.send']._process_send_and_print(moves=self, wizard=move_send)
+
     def _l10n_mx_edi_cfdi_invoice_try_send(self):
         """ Try to generate and send the CFDI for the current invoice. """
         self.ensure_one()

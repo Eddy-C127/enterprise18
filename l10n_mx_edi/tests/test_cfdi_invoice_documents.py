@@ -24,7 +24,7 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
                 'sat_state': False,
                 'cancellation_reason': False,
                 'cancel_button_needed': False,
-                'retry_button_needed': False,
+                'retry_button_needed': True,
             },
         ])
         self.assertRecordValues(invoice, [{'l10n_mx_edi_cfdi_state': None}])
@@ -42,7 +42,7 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
                 'sat_state': False,
                 'cancellation_reason': False,
                 'cancel_button_needed': False,
-                'retry_button_needed': False,
+                'retry_button_needed': True,
             },
         ])
         self.assertRecordValues(invoice, [{'l10n_mx_edi_cfdi_state': None}])

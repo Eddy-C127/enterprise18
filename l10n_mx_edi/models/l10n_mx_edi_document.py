@@ -236,8 +236,8 @@ class L10nMxEdiDocument(models.Model):
         """
         return {
             'invoice_sent_failed': (
-                lambda x: not x.move_id, # Force the user to go back to send & print in order to generate the invoice PDF.
-                lambda x: x._get_source_records()._l10n_mx_edi_cfdi_invoice_try_send(),
+                None,
+                lambda x: x._action_retry_invoice_try_send(),
             ),
             'invoice_cancel_failed': (
                 None,
@@ -374,6 +374,15 @@ class L10nMxEdiDocument(models.Model):
         """ Cancel the document. """
         self.ensure_one()
         return self._get_cancel_button_map()[self.state][2](self)
+
+    def _action_retry_invoice_try_send(self):
+        """ Retry the sending of an invoice CFDI document that failed to be sent. """
+        self.ensure_one()
+        records = self._get_source_records()
+        if self.move_id:
+            records._l10n_mx_edi_cfdi_invoice_retry_send()
+        else:
+            records._l10n_mx_edi_cfdi_invoice_try_send()
 
     def _action_retry_invoice_try_cancel(self):
         """ Retry the cancellation of a the invoice cfdi document that failed to be cancelled. """
