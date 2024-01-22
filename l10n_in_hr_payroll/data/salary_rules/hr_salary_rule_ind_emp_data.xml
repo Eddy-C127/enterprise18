@@ -150,6 +150,7 @@ Now difference of income tax between payment year and actual year would be allow
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 esicf_percent = payslip._rule_parameter('l10n_in_esicf_percent')
+gross = categories['GROSS']
 result = gross * esicf_percent
         </field>
         <field name="sequence" eval="110"/>

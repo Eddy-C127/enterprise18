@@ -182,12 +182,13 @@ result = - categories['BASIC'] * 0.12 if  ((categories['BASIC']) &lt; 15000) els
         <field name="name">Attachment of Salary</field>
         <field name="category_id" ref="hr_payroll.DED"/>
         <field name="sequence" eval="174"/>
-        <field name="amount_select">code</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">'ATTACH_SALARY' in inputs</field>
+        <field name="condition_python">result = 'ATTACH_SALARY' in inputs</field>
+        <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -inputs['ATTACH_SALARY'].amount
-result_name = -inputs['ATTACH_SALARY'].name</field>
+result_name = -inputs['ATTACH_SALARY'].name
+        </field>
         <field name="struct_id" ref="l10n_in_hr_payroll.hr_payroll_structure_in_employee_salary"/>
     </record>
 
@@ -198,7 +199,7 @@ result_name = -inputs['ATTACH_SALARY'].name</field>
         <field name="sequence" eval="174"/>
         <field name="amount_select">code</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">'ASSIG_SALARY' in inputs</field>
+        <field name="condition_python">result = 'ASSIG_SALARY' in inputs</field>
         <field name="amount_python_compute">
 result = -inputs['ASSIG_SALARY'].amount
 result_name = inputs['ASSIG_SALARY'].name</field>
