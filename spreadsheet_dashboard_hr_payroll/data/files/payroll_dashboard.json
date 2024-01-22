@@ -339,7 +339,8 @@
                             ],
                             "measure": "net_wage",
                             "order": null,
-                            "resModel": "hr.payroll.report"
+                            "resModel": "hr.payroll.report",
+                            "mode": "line"
                         },
                         "searchParams": {
                             "comparison": null,
@@ -360,10 +361,33 @@
                                 "offset": -1
                             },
                             "74f6a928-ecb5-4350-9a5e-39a6edc250d4": {
-                                "chain": "department_id",
+                                "chain": "job_id",
+                                "type": "many2one"
+                            },
+                            "cc3ddb0d-417c-441f-95bb-dc16ab4f11fe": {
+                                "chain": "company_id",
                                 "type": "many2one"
                             }
                         }
+                    }
+                },
+                {
+                    "id": "1020f2c2-4cb2-4713-8a4d-2d22a3e30008",
+                    "x": 395,
+                    "y": 140,
+                    "width": 192,
+                    "height": 121,
+                    "tag": "chart",
+                    "data": {
+                        "baselineColorDown": "#DC6965",
+                        "baselineColorUp": "#00A04A",
+                        "baselineMode": "text",
+                        "title": "FTE",
+                        "type": "scorecard",
+                        "background": "#F3F3F3",
+                        "baseline": "Data!B16",
+                        "baselineDescr": "Employees",
+                        "keyValue": "Data!B17"
                     }
                 }
             ],
@@ -373,13 +397,14 @@
             "headerGroups": {
                 "ROW": [],
                 "COL": []
-            }
+            },
+            "dataValidationRules": []
         },
         {
             "id": "1e571810-7579-4ae9-82c1-a7c0ab6d5d94",
             "name": "Data",
             "colNumber": 26,
-            "rowNumber": 103,
+            "rowNumber": 102,
             "rows": {},
             "cols": {
                 "0": {
@@ -444,6 +469,22 @@
                     "style": 2,
                     "content": "Average Hours per Days of Work"
                 },
+                "A16": {
+                    "style": 2,
+                    "content": "Employees"
+                },
+                "A17": {
+                    "style": 2,
+                    "content": "FTE"
+                },
+                "A18": {
+                    "style": 2,
+                    "content": "Employees (%)"
+                },
+                "A19": {
+                    "style": 2,
+                    "content": "FTE (%)"
+                },
                 "B1": {
                     "style": 2,
                     "content": "Current"
@@ -454,15 +495,15 @@
                 },
                 "B3": {
                     "style": 5,
-                    "content": "=B6/B2"
+                    "content": "=iferror(B6/B2)"
                 },
                 "B4": {
                     "style": 5,
-                    "content": "=B7/B2"
+                    "content": "=iferror(B7/B2)"
                 },
                 "B5": {
                     "style": 5,
-                    "content": "=B8/B2"
+                    "content": "=iferror(B8/B2)"
                 },
                 "B6": {
                     "style": 5,
@@ -500,7 +541,27 @@
                 },
                 "B15": {
                     "style": 5,
-                    "content": "=B10/B9"
+                    "content": "=iferror(B10/B9)"
+                },
+                "B16": {
+                    "style": 5,
+                    "format": 1,
+                    "content": "=ODOO.PIVOT(5,\"__count\")"
+                },
+                "B17": {
+                    "style": 5,
+                    "format": 2,
+                    "content": "=(ODOO.PIVOT(7,\"work_time_rate\"))"
+                },
+                "B18": {
+                    "style": 5,
+                    "format": 3,
+                    "content": "=iferror(B16/B16)"
+                },
+                "B19": {
+                    "style": 5,
+                    "format": 3,
+                    "content": "=iferror(B17/B16)"
                 },
                 "C1": {
                     "style": 2,
@@ -512,15 +573,15 @@
                 },
                 "C3": {
                     "style": 5,
-                    "content": "=C6/C2"
+                    "content": "=iferror(C6/C2)"
                 },
                 "C4": {
                     "style": 5,
-                    "content": "=C7/C2"
+                    "content": "=iferror(C7/C2)"
                 },
                 "C5": {
                     "style": 5,
-                    "content": "=C8/C2"
+                    "content": "=iferror(C8/C2)"
                 },
                 "C6": {
                     "style": 5,
@@ -558,7 +619,21 @@
                 },
                 "C15": {
                     "style": 5,
-                    "content": "=C10/C9"
+                    "content": "=iferror(C10/C9)"
+                },
+                "C16": {
+                    "style": 5,
+                    "format": 1
+                },
+                "C17": {
+                    "style": 5,
+                    "format": 1
+                },
+                "C18": {
+                    "style": 5
+                },
+                "C19": {
+                    "style": 5
                 },
                 "D1": {
                     "style": 2,
@@ -620,6 +695,20 @@
                     "style": 5,
                     "content": "=FORMAT.LARGE.NUMBER(B15)"
                 },
+                "D16": {
+                    "style": 5,
+                    "format": 1
+                },
+                "D17": {
+                    "style": 5,
+                    "format": 1
+                },
+                "D18": {
+                    "style": 5
+                },
+                "D19": {
+                    "style": 5
+                },
                 "E1": {
                     "style": 2,
                     "content": "Previous"
@@ -679,6 +768,20 @@
                 "E15": {
                     "style": 5,
                     "content": "=FORMAT.LARGE.NUMBER(C15)"
+                },
+                "E16": {
+                    "style": 5,
+                    "format": 1
+                },
+                "E17": {
+                    "style": 5,
+                    "format": 1
+                },
+                "E18": {
+                    "style": 5
+                },
+                "E19": {
+                    "style": 5
                 }
             },
             "conditionalFormats": [],
@@ -689,7 +792,8 @@
             "headerGroups": {
                 "ROW": [],
                 "COL": []
-            }
+            },
+            "dataValidationRules": []
         }
     ],
     "entities": {},
@@ -715,7 +819,11 @@
             "fontSize": 16
         }
     },
-    "formats": {},
+    "formats": {
+        "1": "0",
+        "2": "0.00",
+        "3": "0%"
+    },
     "borders": {
         "1": {
             "bottom": {
@@ -743,23 +851,30 @@
             "formulaArgSeparator": ","
         }
     },
-    "odooVersion": 5,
+    "odooVersion": 6,
     "globalFilters": [
         {
             "id": "856ca699-dd18-47ea-a8c7-bb48a37e0f9f",
             "type": "date",
             "label": "Period",
             "defaultValue": "last_year",
-            "rangeType": "relative",
-            "defaultsToCurrentPeriod": false
+            "rangeType": "relative"
         },
         {
             "id": "74f6a928-ecb5-4350-9a5e-39a6edc250d4",
             "type": "relation",
-            "label": "Department",
+            "label": "Job position",
             "defaultValue": [],
             "defaultValueDisplayNames": [],
-            "modelName": "hr.department"
+            "modelName": "hr.job"
+        },
+        {
+            "id": "cc3ddb0d-417c-441f-95bb-dc16ab4f11fe",
+            "type": "relation",
+            "label": "Companies",
+            "defaultValue": [],
+            "defaultValueDisplayNames": [],
+            "modelName": "res.company"
         }
     ],
     "pivots": {
@@ -801,8 +916,9 @@
                     "type": "datetime",
                     "offset": 0
                 },
-                "74f6a928-ecb5-4350-9a5e-39a6edc250d4": {
-                    "chain": "department_id",
+                "74f6a928-ecb5-4350-9a5e-39a6edc250d4": {},
+                "cc3ddb0d-417c-441f-95bb-dc16ab4f11fe": {
+                    "chain": "company_id",
                     "type": "many2one"
                 }
             }
@@ -855,7 +971,11 @@
                     "offset": -1
                 },
                 "74f6a928-ecb5-4350-9a5e-39a6edc250d4": {
-                    "chain": "department_id",
+                    "chain": "job_id",
+                    "type": "many2one"
+                },
+                "cc3ddb0d-417c-441f-95bb-dc16ab4f11fe": {
+                    "chain": "company_id",
                     "type": "many2one"
                 }
             }
@@ -910,16 +1030,81 @@
                     "offset": 0
                 },
                 "74f6a928-ecb5-4350-9a5e-39a6edc250d4": {
-                    "chain": "department_id",
+                    "chain": "job_id",
+                    "type": "many2one"
+                },
+                "cc3ddb0d-417c-441f-95bb-dc16ab4f11fe": {
+                    "chain": "company_id",
                     "type": "many2one"
                 }
             }
+        },
+        "5": {
+            "colGroupBys": [],
+            "context": {
+                "search_default_group_by_state": 1
+            },
+            "domain": [
+                "&",
+                [
+                    "employee_id",
+                    "!=",
+                    false
+                ],
+                [
+                    "state",
+                    "=",
+                    "open"
+                ]
+            ],
+            "id": "5",
+            "measures": [
+                {
+                    "field": "__count"
+                }
+            ],
+            "model": "hr.contract",
+            "rowGroupBys": [],
+            "name": "Employee Contract",
+            "sortedColumn": null,
+            "fieldMatching": {}
+        },
+        "7": {
+            "colGroupBys": [],
+            "context": {
+                "search_default_group_by_state": 1
+            },
+            "domain": [
+                "&",
+                [
+                    "employee_id",
+                    "!=",
+                    false
+                ],
+                [
+                    "state",
+                    "=",
+                    "open"
+                ]
+            ],
+            "id": "7",
+            "measures": [
+                {
+                    "field": "work_time_rate"
+                }
+            ],
+            "model": "hr.contract",
+            "rowGroupBys": [],
+            "name": "Employee Contract",
+            "sortedColumn": null,
+            "fieldMatching": {}
         }
     },
-    "pivotNextId": 5,
+    "pivotNextId": 8,
     "lists": {},
     "listNextId": 1,
     "chartOdooMenusReferences": {
-        "cdb5d177-1c7b-4e89-9fb2-6f12ba98807c": "hr_work_entry_contract_enterprise.menu_hr_payroll_root"
+        "cdb5d177-1c7b-4e89-9fb2-6f12ba98807c": "hr_work_entry_contract_enterprise.menu_hr_payroll_root",
+        "1020f2c2-4cb2-4713-8a4d-2d22a3e30008": "hr_payroll.hr_menu_all_contracts"
     }
 }

@@ -5,7 +5,7 @@
             "id": "sheet1",
             "name": "Dashboard",
             "colNumber": 7,
-            "rowNumber": 63,
+            "rowNumber": 163,
             "rows": {
                 "12": {
                     "size": 40
@@ -50,7 +50,7 @@
             "cells": {
                 "A13": {
                     "style": 1,
-                    "content": "[New Employees by Month](odoo://view/{\"viewType\":\"graph\",\"action\":{\"domain\":[],\"context\":{\"group_by\":[\"date:month\"],\"graph_measure\":\"count_new_employee\",\"graph_mode\":\"bar\",\"graph_groupbys\":[\"date:month\"]},\"modelName\":\"hr.contract.employee.report\",\"views\":[[false,\"pivot\"],[false,\"graph\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Employees Analysis\"})",
+                    "content": "[Variation on Employees by Month](odoo://view/{\"viewType\":\"graph\",\"action\":{\"domain\":[],\"context\":{\"group_by\":[\"date:month\"],\"graph_measure\":\"count_new_employee\",\"graph_mode\":\"bar\",\"graph_groupbys\":[\"date:month\"]},\"modelName\":\"hr.contract.employee.report\",\"views\":[[false,\"pivot\"],[false,\"graph\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Employees Analysis\"})",
                     "border": 1
                 },
                 "A25": {
@@ -678,13 +678,14 @@
                     "tag": "chart",
                     "data": {
                         "type": "bar",
-                        "dataSetsHaveTitle": false,
+                        "dataSetsHaveTitle": true,
                         "dataSets": [
-                            "Data!L3:L27"
+                            "Data!L3:L28",
+                            "Data!N3:N28"
                         ],
                         "legendPosition": "none",
                         "verticalAxisPosition": "left",
-                        "labelRange": "Data!I3:I27",
+                        "labelRange": "Data!I4:I28",
                         "title": "",
                         "stacked": false,
                         "aggregated": false
@@ -701,11 +702,11 @@
                         "type": "line",
                         "dataSetsHaveTitle": false,
                         "dataSets": [
-                            "Data!P3:P27"
+                            "Data!P4:P28"
                         ],
                         "legendPosition": "none",
                         "verticalAxisPosition": "left",
-                        "labelRange": "Data!I3:I27",
+                        "labelRange": "Data!I4:I28",
                         "title": "",
                         "labelsAsText": true,
                         "stacked": true,
@@ -720,13 +721,14 @@
             "headerGroups": {
                 "ROW": [],
                 "COL": []
-            }
+            },
+            "dataValidationRules": []
         },
         {
             "id": "0467c29d-1d03-4f8e-a8f0-d90c86e0bb6b",
             "name": "Data",
-            "colNumber": 26,
-            "rowNumber": 113,
+            "colNumber": 38,
+            "rowNumber": 1113,
             "rows": {},
             "cols": {
                 "0": {
@@ -856,15 +858,15 @@
                 },
                 "B2": {
                     "style": 9,
-                    "content": "=M27-O27"
+                    "content": "=M28-O28"
                 },
                 "B3": {
                     "style": 6,
-                    "content": "=L27"
+                    "content": "=L28"
                 },
                 "B4": {
                     "style": 6,
-                    "content": "=N27"
+                    "content": "=N28"
                 },
                 "B5": {
                     "style": 6,
@@ -873,15 +875,15 @@
                 },
                 "B6": {
                     "style": 6,
-                    "content": "=R27+T27-V27-X27"
+                    "content": "=R28+T28-V28-X28"
                 },
                 "B7": {
                     "style": 6,
-                    "content": "=S27"
+                    "content": "=S28"
                 },
                 "B8": {
                     "style": 6,
-                    "content": "=R27"
+                    "content": "=R28"
                 },
                 "B9": {
                     "style": 6,
@@ -889,11 +891,11 @@
                 },
                 "B10": {
                     "style": 6,
-                    "content": "=U27"
+                    "content": "=U28"
                 },
                 "B11": {
                     "style": 6,
-                    "content": "=W27"
+                    "content": "=W28"
                 },
                 "B12": {
                     "style": 6,
@@ -903,7 +905,7 @@
                 "B13": {
                     "style": 6,
                     "format": 2,
-                    "content": "=B12/(R27+V27)"
+                    "content": "=B12/(R28+V28)"
                 },
                 "B15": {
                     "style": 7,
@@ -953,19 +955,19 @@
                 },
                 "C2": {
                     "style": 9,
-                    "content": "=M26-O26"
+                    "content": "=M27-O27"
                 },
                 "C3": {
                     "style": 6,
-                    "content": "=L26"
+                    "content": "=L27"
                 },
                 "C4": {
                     "style": 6,
-                    "content": "=N26"
+                    "content": "=N27"
                 },
                 "C5": {
                     "style": 6,
-                    "content": "=P26"
+                    "content": "=P27"
                 },
                 "C6": {
                     "style": 6,
@@ -973,11 +975,11 @@
                 },
                 "C7": {
                     "style": 6,
-                    "content": "=S26"
+                    "content": "=S27"
                 },
                 "C8": {
                     "style": 6,
-                    "content": "=R26"
+                    "content": "=R27"
                 },
                 "C9": {
                     "style": 6,
@@ -985,11 +987,11 @@
                 },
                 "C10": {
                     "style": 6,
-                    "content": "=U26"
+                    "content": "=U27"
                 },
                 "C11": {
                     "style": 6,
-                    "content": "=W26"
+                    "content": "=W27"
                 },
                 "C12": {
                     "style": 6,
@@ -1000,34 +1002,34 @@
                     "format": 2
                 },
                 "C17": {
-                    "content": "=B17/$B$27"
+                    "content": "=iferror(B17/$B$27)"
                 },
                 "C18": {
-                    "content": "=B18/$B$27"
+                    "content": "=iferror(B18/$B$27)"
                 },
                 "C19": {
-                    "content": "=B19/$B$27"
+                    "content": "=iferror(B19/$B$27)"
                 },
                 "C20": {
-                    "content": "=B20/$B$27"
+                    "content": "=iferror(B20/$B$27)"
                 },
                 "C21": {
-                    "content": "=B21/$B$27"
+                    "content": "=iferror(B21/$B$27)"
                 },
                 "C22": {
-                    "content": "=B22/$B$27"
+                    "content": "=iferror(B22/$B$27)"
                 },
                 "C23": {
-                    "content": "=B23/$B$27"
+                    "content": "=iferror(B23/$B$27)"
                 },
                 "C24": {
-                    "content": "=B24/$B$27"
+                    "content": "=iferror(B24/$B$27)"
                 },
                 "C25": {
-                    "content": "=B25/$B$27"
+                    "content": "=iferror(B25/$B$27)"
                 },
                 "C26": {
-                    "content": "=B26/$B$27"
+                    "content": "=iferror(B26/$B$27)"
                 },
                 "D1": {
                     "style": 2,
@@ -1135,362 +1137,361 @@
                     "style": 6,
                     "content": "=iferror(FORMAT.LARGE.NUMBER(C13),\" \")"
                 },
-                "I3": {
-                    "format": 3,
-                    "content": "=K3"
+                "F35": {
+                    "format": 3
                 },
                 "I4": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K4"
                 },
                 "I5": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K5"
                 },
                 "I6": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K6"
                 },
                 "I7": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K7"
                 },
                 "I8": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K8"
                 },
                 "I9": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K9"
                 },
                 "I10": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K10"
                 },
                 "I11": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K11"
                 },
                 "I12": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K12"
                 },
                 "I13": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K13"
                 },
                 "I14": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K14"
                 },
                 "I15": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K15"
                 },
                 "I16": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K16"
                 },
                 "I17": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K17"
                 },
                 "I18": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K18"
                 },
                 "I19": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K19"
                 },
                 "I20": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K20"
                 },
                 "I21": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K21"
                 },
                 "I22": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K22"
                 },
                 "I23": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K23"
                 },
                 "I24": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K24"
                 },
                 "I25": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K25"
                 },
                 "I26": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K26"
                 },
                 "I27": {
-                    "format": 3,
+                    "format": 4,
                     "content": "=K27"
                 },
-                "J3": {
-                    "content": "-24"
+                "I28": {
+                    "format": 4,
+                    "content": "=K28"
                 },
                 "J4": {
-                    "content": "-23"
+                    "content": "-24"
                 },
                 "J5": {
-                    "content": "-22"
+                    "content": "-23"
                 },
                 "J6": {
-                    "content": "-21"
+                    "content": "-22"
                 },
                 "J7": {
-                    "content": "-20"
+                    "content": "-21"
                 },
                 "J8": {
-                    "content": "-19"
+                    "content": "-20"
                 },
                 "J9": {
-                    "content": "-18"
+                    "content": "-19"
                 },
                 "J10": {
-                    "content": "-17"
+                    "content": "-18"
                 },
                 "J11": {
-                    "content": "-16"
+                    "content": "-17"
                 },
                 "J12": {
-                    "content": "-15"
+                    "content": "-16"
                 },
                 "J13": {
-                    "content": "-14"
+                    "content": "-15"
                 },
                 "J14": {
-                    "content": "-13"
+                    "content": "-14"
                 },
                 "J15": {
-                    "content": "-12"
+                    "content": "-13"
                 },
                 "J16": {
-                    "content": "-11"
+                    "content": "-12"
                 },
                 "J17": {
-                    "content": "-10"
+                    "content": "-11"
                 },
                 "J18": {
-                    "content": "-9"
+                    "content": "-10"
                 },
                 "J19": {
-                    "content": "-8"
+                    "content": "-9"
                 },
                 "J20": {
-                    "content": "-7"
+                    "content": "-8"
                 },
                 "J21": {
-                    "content": "-6"
+                    "content": "-7"
                 },
                 "J22": {
-                    "content": "-5"
+                    "content": "-6"
                 },
                 "J23": {
-                    "content": "-4"
+                    "content": "-5"
                 },
                 "J24": {
-                    "content": "-3"
+                    "content": "-4"
                 },
                 "J25": {
-                    "content": "-2"
+                    "content": "-3"
                 },
                 "J26": {
-                    "content": "-1"
+                    "content": "-2"
                 },
                 "J27": {
-                    "content": "=_t(\"This month\")"
+                    "content": "-1"
                 },
                 "J28": {
+                    "content": "=_t(\"This month\")"
+                },
+                "J29": {
                     "content": "=_t(\"Today\")"
                 },
                 "K2": {
                     "content": "Before"
                 },
-                "K3": {
-                    "content": "=EDATE($K$27,J3)"
-                },
                 "K4": {
-                    "content": "=EDATE($K$27,J4)"
+                    "content": "=EDATE($K$28,J4)"
                 },
                 "K5": {
-                    "content": "=EDATE($K$27,J5)"
+                    "content": "=EDATE($K$28,J5)"
                 },
                 "K6": {
-                    "content": "=EDATE($K$27,J6)"
+                    "content": "=EDATE($K$28,J6)"
                 },
                 "K7": {
-                    "content": "=EDATE($K$27,J7)"
+                    "content": "=EDATE($K$28,J7)"
                 },
                 "K8": {
-                    "content": "=EDATE($K$27,J8)"
+                    "content": "=EDATE($K$28,J8)"
                 },
                 "K9": {
-                    "content": "=EDATE($K$27,J9)"
+                    "content": "=EDATE($K$28,J9)"
                 },
                 "K10": {
-                    "content": "=EDATE($K$27,J10)"
+                    "content": "=EDATE($K$28,J10)"
                 },
                 "K11": {
-                    "content": "=EDATE($K$27,J11)"
+                    "content": "=EDATE($K$28,J11)"
                 },
                 "K12": {
-                    "content": "=EDATE($K$27,J12)"
+                    "content": "=EDATE($K$28,J12)"
                 },
                 "K13": {
-                    "content": "=EDATE($K$27,J13)"
+                    "content": "=EDATE($K$28,J13)"
                 },
                 "K14": {
-                    "content": "=EDATE($K$27,J14)"
+                    "content": "=EDATE($K$28,J14)"
                 },
                 "K15": {
-                    "content": "=EDATE($K$27,J15)"
+                    "content": "=EDATE($K$28,J15)"
                 },
                 "K16": {
-                    "content": "=EDATE($K$27,J16)"
+                    "content": "=EDATE($K$28,J16)"
                 },
                 "K17": {
-                    "content": "=EDATE($K$27,J17)"
+                    "content": "=EDATE($K$28,J17)"
                 },
                 "K18": {
-                    "content": "=EDATE($K$27,J18)"
+                    "content": "=EDATE($K$28,J18)"
                 },
                 "K19": {
-                    "content": "=EDATE($K$27,J19)"
+                    "content": "=EDATE($K$28,J19)"
                 },
                 "K20": {
-                    "content": "=EDATE($K$27,J20)"
+                    "content": "=EDATE($K$28,J20)"
                 },
                 "K21": {
-                    "content": "=EDATE($K$27,J21)"
+                    "content": "=EDATE($K$28,J21)"
                 },
                 "K22": {
-                    "content": "=EDATE($K$27,J22)"
+                    "content": "=EDATE($K$28,J22)"
                 },
                 "K23": {
-                    "content": "=EDATE($K$27,J23)"
+                    "content": "=EDATE($K$28,J23)"
                 },
                 "K24": {
-                    "content": "=EDATE($K$27,J24)"
+                    "content": "=EDATE($K$28,J24)"
                 },
                 "K25": {
-                    "content": "=EDATE($K$27,J25)"
+                    "content": "=EDATE($K$28,J25)"
                 },
                 "K26": {
-                    "content": "=EDATE($K$27,J26)"
+                    "content": "=EDATE($K$28,J26)"
                 },
                 "K27": {
-                    "content": "=date(YEAR(K28), MONTH(K28), 1)"
+                    "content": "=EDATE($K$28,J27)"
                 },
                 "K28": {
-                    "content": "=TODAY()"
+                    "content": "=date(YEAR(K29), MONTH(K29), 1)"
                 },
-                "L1": {
-                    "style": 2,
-                    "content": "New Employees"
+                "K29": {
+                    "content": "=TODAY()"
                 },
                 "L2": {
                     "content": "=ODOO.PIVOT(21,\"__count\")"
                 },
                 "L3": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",K3)"
+                    "style": 2,
+                    "content": "New Employees"
                 },
                 "L4": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"10/2021\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",K4)"
                 },
                 "L5": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"11/2021\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"10/2021\")"
                 },
                 "L6": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"12/2021\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"11/2021\")"
                 },
                 "L7": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"01/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"12/2021\")"
                 },
                 "L8": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"02/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"01/2022\")"
                 },
                 "L9": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"03/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"02/2022\")"
                 },
                 "L10": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"04/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"03/2022\")"
                 },
                 "L11": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"05/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"04/2022\")"
                 },
                 "L12": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"06/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"05/2022\")"
                 },
                 "L13": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"07/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"06/2022\")"
                 },
                 "L14": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"08/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"07/2022\")"
                 },
                 "L15": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"09/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"08/2022\")"
                 },
                 "L16": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"10/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"09/2022\")"
                 },
                 "L17": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"11/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"10/2022\")"
                 },
                 "L18": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"12/2022\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"11/2022\")"
                 },
                 "L19": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"01/2023\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"12/2022\")"
                 },
                 "L20": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"02/2023\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"01/2023\")"
                 },
                 "L21": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"03/2023\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"02/2023\")"
                 },
                 "L22": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"04/2023\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"03/2023\")"
                 },
                 "L23": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"05/2023\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"04/2023\")"
                 },
                 "L24": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"06/2023\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"05/2023\")"
                 },
                 "L25": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"07/2023\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"06/2023\")"
                 },
                 "L26": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"08/2023\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"07/2023\")"
                 },
                 "L27": {
-                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"09/2023\")"
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"08/2023\")"
                 },
-                "M1": {
-                    "style": 2,
-                    "content": "Cumul"
+                "L28": {
+                    "content": "=ODOO.PIVOT(21,\"__count\",\"first_contract_date:month\",\"09/2023\")"
                 },
                 "M2": {
                     "style": 8,
-                    "content": "=L2-sum(L3:L27)"
+                    "content": "=L2-sum(L4:L28)"
                 },
                 "M3": {
-                    "style": 8,
-                    "content": "=M2+L3"
+                    "style": 2,
+                    "content": "Cumul"
                 },
                 "M4": {
                     "style": 8,
-                    "content": "=M3+L4"
+                    "content": "=M2+L4"
                 },
                 "M5": {
                     "style": 8,
@@ -1584,103 +1585,103 @@
                     "style": 8,
                     "content": "=M26+L27"
                 },
-                "N1": {
-                    "style": 2,
-                    "content": "Departure"
+                "M28": {
+                    "style": 8,
+                    "content": "=M27+L28"
                 },
                 "N2": {
                     "content": "=ODOO.PIVOT(22,\"__count\")-ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"false\")"
                 },
                 "N3": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"09/2021\")"
+                    "style": 2,
+                    "content": "Departure"
                 },
                 "N4": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"10/2021\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"09/2021\")"
                 },
                 "N5": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"11/2021\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"10/2021\")"
                 },
                 "N6": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"12/2021\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"11/2021\")"
                 },
                 "N7": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"01/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"12/2021\")"
                 },
                 "N8": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"02/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"01/2022\")"
                 },
                 "N9": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"03/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"02/2022\")"
                 },
                 "N10": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"04/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"03/2022\")"
                 },
                 "N11": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"05/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"04/2022\")"
                 },
                 "N12": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"06/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"05/2022\")"
                 },
                 "N13": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"07/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"06/2022\")"
                 },
                 "N14": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"08/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"07/2022\")"
                 },
                 "N15": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"09/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"08/2022\")"
                 },
                 "N16": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"10/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"09/2022\")"
                 },
                 "N17": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"11/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"10/2022\")"
                 },
                 "N18": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"12/2022\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"11/2022\")"
                 },
                 "N19": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"01/2023\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"12/2022\")"
                 },
                 "N20": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"02/2023\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"01/2023\")"
                 },
                 "N21": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"03/2023\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"02/2023\")"
                 },
                 "N22": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"04/2023\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"03/2023\")"
                 },
                 "N23": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"05/2023\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"04/2023\")"
                 },
                 "N24": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"06/2023\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"05/2023\")"
                 },
                 "N25": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"07/2023\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"06/2023\")"
                 },
                 "N26": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"08/2023\")"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"07/2023\")"
                 },
                 "N27": {
-                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",I27)"
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",\"08/2023\")"
                 },
-                "O1": {
-                    "style": 2,
-                    "content": "Cumul"
+                "N28": {
+                    "content": "=ODOO.PIVOT(22,\"__count\",\"departure_date:month\",I28)"
                 },
                 "O2": {
                     "style": 8,
-                    "content": "=N2-sum(N3:N27)"
+                    "content": "=N2-sum(N4:N28)"
                 },
                 "O3": {
-                    "style": 8,
-                    "content": "=O2+N3"
+                    "style": 2,
+                    "content": "Cumul"
                 },
                 "O4": {
                     "style": 8,
-                    "content": "=O3+N4"
+                    "content": "=O2+N4"
                 },
                 "O5": {
                     "style": 8,
@@ -1774,20 +1775,20 @@
                     "style": 8,
                     "content": "=O26+N27"
                 },
-                "P1": {
-                    "style": 2,
-                    "content": "Turnover"
+                "O28": {
+                    "style": 8,
+                    "content": "=O27+N28"
                 },
                 "P2": {
                     "format": 1
                 },
                 "P3": {
-                    "format": 1,
-                    "content": "=IFERROR(((L3+N3)/2)/(M2-O2))"
+                    "style": 2,
+                    "content": "Turnover"
                 },
                 "P4": {
                     "format": 1,
-                    "content": "=IFERROR(((L4+N4)/2)/(M3-O3))"
+                    "content": "=IFERROR(((L4+N4)/2)/(M2-O2))"
                 },
                 "P5": {
                     "format": 1,
@@ -1881,15 +1882,16 @@
                     "format": 1,
                     "content": "=IFERROR(((L27+N27)/2)/(M26-O26))"
                 },
-                "Q1": {
-                    "style": 2,
-                    "content": "Contracts "
+                "P28": {
+                    "format": 1,
+                    "content": "=IFERROR(((L28+N28)/2)/(M27-O27))"
                 },
                 "Q2": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"open\")"
                 },
                 "Q3": {
-                    "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"open\",\"date_start:month\",I3)"
+                    "style": 2,
+                    "content": "Contracts "
                 },
                 "Q4": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"open\",\"date_start:month\",I4)"
@@ -1963,21 +1965,20 @@
                 "Q27": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"open\",\"date_start:month\",I27)"
                 },
-                "R1": {
-                    "style": 2,
-                    "content": "Cumul"
+                "Q28": {
+                    "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"open\",\"date_start:month\",I28)"
                 },
                 "R2": {
                     "style": 8,
-                    "content": "=Q2-sum(Q3:Q27)"
+                    "content": "=Q2-sum(Q4:Q28)"
                 },
                 "R3": {
-                    "style": 8,
-                    "content": "=R2+Q3"
+                    "style": 2,
+                    "content": "Cumul"
                 },
                 "R4": {
                     "style": 8,
-                    "content": "=R3+Q4"
+                    "content": "=R2+Q4"
                 },
                 "R5": {
                     "style": 8,
@@ -2071,15 +2072,16 @@
                     "style": 8,
                     "content": "=R26+Q27"
                 },
-                "S1": {
-                    "style": 2,
-                    "content": "New Contracts "
+                "R28": {
+                    "style": 8,
+                    "content": "=R27+Q28"
                 },
                 "S2": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"draft\")"
                 },
                 "S3": {
-                    "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"draft\",\"date_start:month\",I3)"
+                    "style": 2,
+                    "content": "New Contracts "
                 },
                 "S4": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"draft\",\"date_start:month\",I4)"
@@ -2153,21 +2155,20 @@
                 "S27": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"draft\",\"date_start:month\",I27)"
                 },
-                "T1": {
-                    "style": 2,
-                    "content": "Cumul"
+                "S28": {
+                    "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"draft\",\"date_start:month\",I28)"
                 },
                 "T2": {
                     "style": 8,
-                    "content": "=S2-sum(S3:S27)"
+                    "content": "=S2-sum(S4:S28)"
                 },
                 "T3": {
-                    "style": 8,
-                    "content": "=T2+S3"
+                    "style": 2,
+                    "content": "Cumul"
                 },
                 "T4": {
                     "style": 8,
-                    "content": "=T3+S4"
+                    "content": "=T2+S4"
                 },
                 "T5": {
                     "style": 8,
@@ -2261,15 +2262,16 @@
                     "style": 8,
                     "content": "=T26+S27"
                 },
-                "U1": {
-                    "style": 2,
-                    "content": "Expired"
+                "T28": {
+                    "style": 8,
+                    "content": "=T27+S28"
                 },
                 "U2": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"close\")"
                 },
                 "U3": {
-                    "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"close\",\"date_start:month\",I3)"
+                    "style": 2,
+                    "content": "Expired"
                 },
                 "U4": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"close\",\"date_start:month\",I4)"
@@ -2343,21 +2345,20 @@
                 "U27": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"close\",\"date_start:month\",I27)"
                 },
-                "V1": {
-                    "style": 2,
-                    "content": "Cumul"
+                "U28": {
+                    "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"close\",\"date_start:month\",I28)"
                 },
                 "V2": {
                     "style": 8,
-                    "content": "=U2-sum(U3:U27)"
+                    "content": "=U2-sum(U4:U28)"
                 },
                 "V3": {
-                    "style": 8,
-                    "content": "=V2+U3"
+                    "style": 2,
+                    "content": "Cumul"
                 },
                 "V4": {
                     "style": 8,
-                    "content": "=V3+U4"
+                    "content": "=V2+U4"
                 },
                 "V5": {
                     "style": 8,
@@ -2451,15 +2452,16 @@
                     "style": 8,
                     "content": "=V26+U27"
                 },
-                "W1": {
-                    "style": 2,
-                    "content": "Cancelled"
+                "V28": {
+                    "style": 8,
+                    "content": "=V27+U28"
                 },
                 "W2": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"cancel\")"
                 },
                 "W3": {
-                    "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"cancel\",\"date_start:month\",I3)"
+                    "style": 2,
+                    "content": "Cancelled"
                 },
                 "W4": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"cancel\",\"date_start:month\",I4)"
@@ -2533,21 +2535,20 @@
                 "W27": {
                     "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"cancel\",\"date_start:month\",I27)"
                 },
-                "X1": {
-                    "style": 2,
-                    "content": "Cumul"
+                "W28": {
+                    "content": "=ODOO.PIVOT(23,\"__count\",\"state\",\"cancel\",\"date_start:month\",I28)"
                 },
                 "X2": {
                     "style": 8,
-                    "content": "=W2-sum(W3:W27)"
+                    "content": "=W2-sum(W4:W28)"
                 },
                 "X3": {
-                    "style": 8,
-                    "content": "=X2+W3"
+                    "style": 2,
+                    "content": "Cumul"
                 },
                 "X4": {
                     "style": 8,
-                    "content": "=X3+W4"
+                    "content": "=X2+W4"
                 },
                 "X5": {
                     "style": 8,
@@ -2640,6 +2641,10 @@
                 "X27": {
                     "style": 8,
                     "content": "=X26+W27"
+                },
+                "X28": {
+                    "style": 8,
+                    "content": "=X27+W28"
                 }
             },
             "conditionalFormats": [],
@@ -2654,7 +2659,8 @@
             "headerGroups": {
                 "ROW": [],
                 "COL": []
-            }
+            },
+            "dataValidationRules": []
         }
     ],
     "entities": {},
@@ -2699,7 +2705,8 @@
     "formats": {
         "1": "0.00%",
         "2": "0",
-        "3": "mmmm yyyy"
+        "3": "#,##0",
+        "4": "mmmm yyyy"
     },
     "borders": {
         "1": {
@@ -2734,8 +2741,14 @@
             "formulaArgSeparator": ","
         }
     },
-    "odooVersion": 5,
+    "odooVersion": 6,
     "globalFilters": [
+        {
+            "id": "d9698d62-24b9-4afe-b55f-371ea9c9cb19",
+            "type": "date",
+            "label": "Date",
+            "rangeType": "from_to"
+        },
         {
             "id": "c565eee4-374b-4779-8c12-f59634a490bf",
             "type": "relation",
@@ -2745,12 +2758,20 @@
             "modelName": "hr.department"
         },
         {
-            "id": "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0",
+            "id": "4b226847-bd33-4c77-8f0f-69c77b04b898",
             "type": "relation",
-            "label": "Employee",
+            "label": "Job Position",
             "defaultValue": [],
             "defaultValueDisplayNames": [],
-            "modelName": "hr.employee"
+            "modelName": "hr.job"
+        },
+        {
+            "id": "50cd1288-ab3f-4ac2-ad27-74a87954b81b",
+            "type": "relation",
+            "label": "Company",
+            "defaultValue": [],
+            "defaultValueDisplayNames": [],
+            "modelName": "res.company"
         }
     ],
     "pivots": {
@@ -2791,8 +2812,17 @@
                     "chain": "department_id",
                     "type": "many2one"
                 },
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
+                "d9698d62-24b9-4afe-b55f-371ea9c9cb19": {
+                    "chain": "contract_start",
+                    "type": "date",
+                    "offset": 0
+                },
+                "4b226847-bd33-4c77-8f0f-69c77b04b898": {
+                    "chain": "employee_id.job_id",
+                    "type": "many2one"
+                },
+                "50cd1288-ab3f-4ac2-ad27-74a87954b81b": {
+                    "chain": "company_id",
                     "type": "many2one"
                 }
             }
@@ -2845,110 +2875,17 @@
                     "chain": "department_id",
                     "type": "many2one"
                 },
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
-                    "type": "many2one"
-                }
-            }
-        },
-        "4": {
-            "colGroupBys": [],
-            "context": {
-                "search_default_year": true
-            },
-            "domain": [],
-            "id": "4",
-            "measures": [
-                {
-                    "field": "wage"
+                "d9698d62-24b9-4afe-b55f-371ea9c9cb19": {
+                    "chain": "date_start",
+                    "type": "date",
+                    "offset": 0
                 },
-                {
-                    "field": "count_new_employee"
-                },
-                {
-                    "field": "count_employee_exit"
-                },
-                {
-                    "field": "age_sum"
-                }
-            ],
-            "model": "hr.contract.employee.report",
-            "rowGroupBys": [],
-            "name": "Employees Analysis",
-            "sortedColumn": null,
-            "fieldMatching": {
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
+                "4b226847-bd33-4c77-8f0f-69c77b04b898": {
+                    "chain": "job_id",
                     "type": "many2one"
                 },
-                "c565eee4-374b-4779-8c12-f59634a490bf": {
-                    "chain": "department_id",
-                    "type": "many2one"
-                }
-            }
-        },
-        "5": {
-            "colGroupBys": [],
-            "context": {
-                "search_default_year": true
-            },
-            "domain": [],
-            "id": "5",
-            "measures": [
-                {
-                    "field": "wage"
-                },
-                {
-                    "field": "count_new_employee"
-                },
-                {
-                    "field": "count_employee_exit"
-                }
-            ],
-            "model": "hr.contract.employee.report",
-            "rowGroupBys": [],
-            "name": "Employees Analysis",
-            "sortedColumn": null,
-            "fieldMatching": {
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
-                    "type": "many2one"
-                },
-                "c565eee4-374b-4779-8c12-f59634a490bf": {
-                    "chain": "department_id",
-                    "type": "many2one"
-                }
-            }
-        },
-        "8": {
-            "colGroupBys": [],
-            "context": {},
-            "domain": [
-                [
-                    "employee_id",
-                    "!=",
-                    false
-                ]
-            ],
-            "id": "8",
-            "measures": [
-                {
-                    "field": "__count"
-                }
-            ],
-            "model": "hr.contract",
-            "rowGroupBys": [
-                "state"
-            ],
-            "name": "Employee Contract by Status",
-            "sortedColumn": null,
-            "fieldMatching": {
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
-                    "type": "many2one"
-                },
-                "c565eee4-374b-4779-8c12-f59634a490bf": {
-                    "chain": "department_id",
+                "50cd1288-ab3f-4ac2-ad27-74a87954b81b": {
+                    "chain": "company_id",
                     "type": "many2one"
                 }
             }
@@ -2978,12 +2915,21 @@
             "name": "Employee Contract by Status",
             "sortedColumn": null,
             "fieldMatching": {
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
-                    "type": "many2one"
-                },
                 "c565eee4-374b-4779-8c12-f59634a490bf": {
                     "chain": "department_id",
+                    "type": "many2one"
+                },
+                "d9698d62-24b9-4afe-b55f-371ea9c9cb19": {
+                    "chain": "first_contract_date",
+                    "type": "date",
+                    "offset": 0
+                },
+                "4b226847-bd33-4c77-8f0f-69c77b04b898": {
+                    "chain": "job_id",
+                    "type": "many2one"
+                },
+                "50cd1288-ab3f-4ac2-ad27-74a87954b81b": {
+                    "chain": "company_id",
                     "type": "many2one"
                 }
             }
@@ -3026,12 +2972,21 @@
                 "order": "asc"
             },
             "fieldMatching": {
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "parent_id",
-                    "type": "many2one"
-                },
                 "c565eee4-374b-4779-8c12-f59634a490bf": {
                     "chain": "department_id",
+                    "type": "many2one"
+                },
+                "d9698d62-24b9-4afe-b55f-371ea9c9cb19": {
+                    "chain": "first_contract_date",
+                    "type": "date",
+                    "offset": 0
+                },
+                "4b226847-bd33-4c77-8f0f-69c77b04b898": {
+                    "chain": "job_id",
+                    "type": "many2one"
+                },
+                "50cd1288-ab3f-4ac2-ad27-74a87954b81b": {
+                    "chain": "company_id",
                     "type": "many2one"
                 }
             }
@@ -3059,180 +3014,21 @@
             "name": "Employees Analysis",
             "sortedColumn": null,
             "fieldMatching": {
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
-                    "type": "many2one"
-                },
-                "c565eee4-374b-4779-8c12-f59634a490bf": {
-                    "chain": "department_id",
-                    "type": "many2one"
-                }
-            }
-        },
-        "14": {
-            "colGroupBys": [],
-            "context": {
-                "params": {
-                    "model": "hr.contract.employee.report",
-                    "view_type": "pivot"
-                }
-            },
-            "domain": [],
-            "id": "14",
-            "measures": [
-                {
-                    "field": "__count"
-                },
-                {
-                    "field": "age_sum"
-                }
-            ],
-            "model": "hr.contract.employee.report",
-            "rowGroupBys": [],
-            "name": "Employees Analysis",
-            "sortedColumn": null,
-            "fieldMatching": {
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
-                    "type": "many2one"
-                },
-                "c565eee4-374b-4779-8c12-f59634a490bf": {
-                    "chain": "department_id",
-                    "type": "many2one"
-                }
-            }
-        },
-        "17": {
-            "colGroupBys": [],
-            "context": {
-                "params": {
-                    "model": "hr.employee",
-                    "view_type": "pivot"
-                },
-                "chat_icon": true
-            },
-            "domain": [],
-            "id": "17",
-            "measures": [
-                {
-                    "field": "__count"
-                }
-            ],
-            "model": "hr.employee",
-            "rowGroupBys": [],
-            "name": "New Employees Over Time",
-            "sortedColumn": null,
-            "fieldMatching": {
                 "c565eee4-374b-4779-8c12-f59634a490bf": {
                     "chain": "department_id",
                     "type": "many2one"
                 },
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {}
-            }
-        },
-        "18": {
-            "colGroupBys": [],
-            "context": {
-                "params": {
-                    "model": "hr.employee",
-                    "view_type": "pivot"
+                "d9698d62-24b9-4afe-b55f-371ea9c9cb19": {
+                    "chain": "contract_start",
+                    "type": "date",
+                    "offset": 0
                 },
-                "chat_icon": true
-            },
-            "domain": [],
-            "id": "18",
-            "measures": [
-                {
-                    "field": "__count"
-                }
-            ],
-            "model": "hr.employee",
-            "rowGroupBys": [
-                "first_contract_date:month"
-            ],
-            "name": "New Employees Over Time by First Contract Date (Month)",
-            "sortedColumn": null,
-            "fieldMatching": {
-                "c565eee4-374b-4779-8c12-f59634a490bf": {
-                    "chain": "department_id",
+                "4b226847-bd33-4c77-8f0f-69c77b04b898": {
+                    "chain": "employee_id.job_id",
                     "type": "many2one"
                 },
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {}
-            }
-        },
-        "19": {
-            "colGroupBys": [],
-            "context": {
-                "params": {
-                    "model": "hr.contract",
-                    "view_type": "pivot"
-                }
-            },
-            "domain": [
-                [
-                    "employee_id",
-                    "!=",
-                    false
-                ]
-            ],
-            "id": "19",
-            "measures": [
-                {
-                    "field": "__count"
-                }
-            ],
-            "model": "hr.contract",
-            "rowGroupBys": [
-                "state"
-            ],
-            "name": "Employee Contract by Status",
-            "sortedColumn": null,
-            "fieldMatching": {
-                "c565eee4-374b-4779-8c12-f59634a490bf": {
-                    "chain": "department_id",
-                    "type": "many2one"
-                },
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
-                    "type": "many2one"
-                }
-            }
-        },
-        "20": {
-            "colGroupBys": [],
-            "context": {
-                "params": {
-                    "model": "hr.contract",
-                    "view_type": "pivot"
-                },
-                "search_default_group_by_state": 1
-            },
-            "domain": [
-                [
-                    "employee_id",
-                    "!=",
-                    false
-                ]
-            ],
-            "id": "20",
-            "measures": [
-                {
-                    "field": "__count"
-                }
-            ],
-            "model": "hr.contract",
-            "rowGroupBys": [
-                "state"
-            ],
-            "name": "Employee Contract by Status",
-            "sortedColumn": null,
-            "fieldMatching": {
-                "c565eee4-374b-4779-8c12-f59634a490bf": {
-                    "chain": "department_id",
-                    "type": "many2one"
-                },
-                "225a0c77-b0e6-49b9-bd81-1fa61c7b57b0": {
-                    "chain": "employee_id",
+                "50cd1288-ab3f-4ac2-ad27-74a87954b81b": {
+                    "chain": "company_id",
                     "type": "many2one"
                 }
             }
@@ -3258,6 +3054,19 @@
             "fieldMatching": {
                 "c565eee4-374b-4779-8c12-f59634a490bf": {
                     "chain": "department_id",
+                    "type": "many2one"
+                },
+                "d9698d62-24b9-4afe-b55f-371ea9c9cb19": {
+                    "chain": "first_contract_date",
+                    "type": "date",
+                    "offset": 0
+                },
+                "4b226847-bd33-4c77-8f0f-69c77b04b898": {
+                    "chain": "job_id",
+                    "type": "many2one"
+                },
+                "50cd1288-ab3f-4ac2-ad27-74a87954b81b": {
+                    "chain": "company_id",
                     "type": "many2one"
                 }
             }
@@ -3292,7 +3101,21 @@
             ],
             "name": "New Employees Over Time by Departure Date (Month)",
             "sortedColumn": null,
-            "fieldMatching": {}
+            "fieldMatching": {
+                "d9698d62-24b9-4afe-b55f-371ea9c9cb19": {
+                    "chain": "first_contract_date",
+                    "type": "date",
+                    "offset": 0
+                },
+                "4b226847-bd33-4c77-8f0f-69c77b04b898": {
+                    "chain": "job_id",
+                    "type": "many2one"
+                },
+                "50cd1288-ab3f-4ac2-ad27-74a87954b81b": {
+                    "chain": "company_id",
+                    "type": "many2one"
+                }
+            }
         },
         "23": {
             "colGroupBys": [],
@@ -3317,10 +3140,24 @@
             ],
             "name": "Employee Contract by Status",
             "sortedColumn": null,
-            "fieldMatching": {}
+            "fieldMatching": {
+                "d9698d62-24b9-4afe-b55f-371ea9c9cb19": {
+                    "chain": "first_contract_date",
+                    "type": "date",
+                    "offset": 0
+                },
+                "4b226847-bd33-4c77-8f0f-69c77b04b898": {
+                    "chain": "job_id",
+                    "type": "many2one"
+                },
+                "50cd1288-ab3f-4ac2-ad27-74a87954b81b": {
+                    "chain": "company_id",
+                    "type": "many2one"
+                }
+            }
         }
     },
-    "pivotNextId": 24,
+    "pivotNextId": 25,
     "lists": {},
     "listNextId": 1,
     "chartOdooMenusReferences": {
