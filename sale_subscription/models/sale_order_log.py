@@ -106,8 +106,8 @@ class SaleOrderLog(models.Model):
     def _create_reopen_log(self, values):
         # We reopened a churned contract. We delete the churn log to keep the formal MRR.
         sub = self.env['sale.order'].browse(values['order_id'])
-        churn_logs = sub.order_log_ids.filtered(lambda log: log.event_type == '2_churn')
-        churn_log = churn_logs and churn_logs[-1]
+        churn_logs = sub.order_log_ids.filtered(lambda log: log.event_type == '2_churn').sorted('event_date', reverse=True)
+        churn_log = churn_logs[:1]
         previous_mrr = 0
         if churn_log:
             previous_mrr = - churn_log.amount_signed

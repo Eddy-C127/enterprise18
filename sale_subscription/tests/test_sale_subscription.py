@@ -3175,7 +3175,7 @@ class TestSubscription(TestSubscriptionCommon):
             'plan_id': self.plan_year.id,
             'product_template_id': self.product.product_tmpl_id.id
         })
-        template = self.subscription_tmpl = self.env['sale.order.template'].create({
+        template = self.env['sale.order.template'].create({
             'name': 'Subscription template with time-based pricing on optional product',
             'note': "This is the template description",
             'plan_id': self.plan_year.id,
@@ -3436,3 +3436,78 @@ class TestSubscription(TestSubscriptionCommon):
             'subscription_state': '6_churn',
             'action': 'next_activity',
         }])
+
+    def test_multiple_churn_log(self):
+        with freeze_time("2024-01-22"):
+            subscription = self.env['sale.order'].create({
+                'name': 'TestSubscription',
+                'is_subscription': True,
+                'partner_id': self.user_portal.partner_id.id,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+                'plan_id': self.plan_month.id,
+                'sale_order_template_id': self.subscription_tmpl.id,
+            })
+            subscription._onchange_sale_order_template_id()
+            self.flush_tracking()
+            subscription.action_confirm()
+            self.flush_tracking()
+            self.env['sale.order']._cron_recurring_create_invoice()
+            self.flush_tracking()
+            # create crappy logs to simulate issues on history logs
+            self.env['sale.order.log'].sudo().create([
+                {
+                    'event_type': '2_churn',
+                    'event_date': fields.Date.today() + relativedelta(days=6),
+                    'order_id': subscription.id,
+                    'origin_order_id': subscription.id,
+                    'amount_signed': - subscription.recurring_monthly,
+                    'recurring_monthly': 0,
+                    'currency_id': subscription.currency_id.id,
+                    'subscription_state': '6_churn',
+                }, {
+                    'event_type': '2_churn',
+                    'event_date': fields.Date.today(),
+                    'order_id': subscription.id,
+                    'origin_order_id': subscription.id,
+                    'amount_signed': - subscription.recurring_monthly,
+                    'recurring_monthly': 0,
+                    'currency_id': subscription.currency_id.id,
+                    'subscription_state': '6_churn',
+                }, {
+                    'event_type': '0_creation',
+                    'event_date': fields.Date.today() + relativedelta(days=5),
+                    'order_id': subscription.id,
+                    'origin_order_id': subscription.id,
+                    'amount_signed': subscription.recurring_monthly,
+                    'recurring_monthly': subscription.recurring_monthly,
+                    'currency_id': subscription.currency_id.id,
+                    'subscription_state': '3_progress',
+                }
+            ])
+        with freeze_time("2024-02-02"):
+            subscription.set_close()
+            self.flush_tracking()
+        order_log_ids = subscription.order_log_ids.sorted('id')
+        sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
+            for log in order_log_ids]
+
+        self.assertEqual(sub_data, [
+            ('0_creation', datetime.date(2024, 1, 22), '3_progress', 21.0, 21.0),
+            ('2_churn', datetime.date(2024, 1, 28), '6_churn', -21.0, 0.0), # weird order by design to make sure it does not affect the business logic
+            ('2_churn', datetime.date(2024, 1, 22), '6_churn', -21.0, 0.0), # order by date is correct
+            ('0_creation', datetime.date(2024, 1, 27), '3_progress', 21.0, 21.0),
+            ('2_churn', datetime.date(2024, 2, 2), '6_churn', -21.0, 0.0),
+        ])
+
+        with freeze_time("2024-02-03"):
+            subscription.reopen_order()
+        self.flush_tracking()
+        order_log_ids = subscription.order_log_ids.sorted('id')
+        sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
+                    for log in order_log_ids]
+        self.assertEqual(sub_data, [
+            ('0_creation', datetime.date(2024, 1, 22), '3_progress', 21.0, 21.0),
+            ('2_churn', datetime.date(2024, 1, 28), '6_churn', -21.0, 0.0), # weird order by id, order by date is more logical
+            ('2_churn', datetime.date(2024, 1, 22), '6_churn', -21.0, 0.0),
+            ('0_creation', datetime.date(2024, 1, 27), '3_progress', 21.0, 21.0),
+        ], "The last churn is removed")
