@@ -173,6 +173,18 @@
                                                 t-out="formatDateField(line.data.date)"/>
                                         </t>
                                     </t>
+                                    <t t-if="column[0] === 'analytic_distribution'">
+                                        <td class="o_data_cell o_field_cell o_field_widget o_field_analytic_distribution" field="analytic_distribution">
+                                            <div class="o_field_tags d-inline-flex flex-wrap mw-100">
+                                                <AnalyticDistribution
+                                                    name="'analytic_distribution'"
+                                                    record="line"
+                                                    readonly="true"
+                                                    t-key="getKey(line.data)"
+                                                />
+                                            </div>
+                                        </td>
+                                    </t>
                                     <t t-if="column[0] === 'taxes'" name="col_taxes">
                                         <td class="o_data_cell o_field_cell o_field_widget o_field_many2many_tags"
                                             field="tax_ids">
