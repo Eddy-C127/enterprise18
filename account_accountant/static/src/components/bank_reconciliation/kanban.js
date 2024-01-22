@@ -682,6 +682,9 @@ export class BankRecKanbanController extends KanbanController {
             ["partner", _t("Partner")],
             ["date", _t("Date")],
         ];
+        if(lineIdsRecords.some((x) => Boolean(Object.keys(x.data.analytic_distribution).length))){
+            columns.push(["analytic_distribution", this.env._t("Analytic")]);
+        }
         if(lineIdsRecords.some((x) => x.data.tax_ids.records.length)){
             columns.push(["taxes", _t("Taxes")]);
         }
@@ -695,6 +698,10 @@ export class BankRecKanbanController extends KanbanController {
         );
 
         return columns;
+    }
+
+    getKey(lineData) {
+        return `${lineData.index} ${JSON.stringify(lineData.analytic_distribution)}`;
     }
 
     checkBankRecLineRequiredField(line, invalidFields, fieldName, condition){
