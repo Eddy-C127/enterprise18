@@ -4134,11 +4134,7 @@ QUnit.module("View Editors", (hooks) => {
                 mockRPC,
             });
 
-            assert.verifySteps([
-                "/web/webclient/load_menus",
-                "/web/dataset/call_kw/res.users/systray_get_activities",
-                "/mail/action",
-            ]);
+            assert.verifySteps(["/web/webclient/load_menus", "/mail/action"]);
 
             await doAction(webClient, "studio.coucou_action");
             assert.verifySteps([

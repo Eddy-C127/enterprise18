@@ -67,6 +67,7 @@ QUnit.module("Views", {}, function () {
                      </tree>`,
         };
         patchUiSize({ size: size });
+        const pyEnv = await startServer();
         const { openView } = await start({
             serverData: { views },
             mockRPC: function (route, args) {
@@ -79,7 +80,14 @@ QUnit.module("Views", {}, function () {
                 step(`${route} - ${JSON.stringify(args)}`);
             },
         });
-        await assertSteps(['/mail/action - {"init_messaging":true,"failures":true}']);
+        await assertSteps([
+            `/mail/action - ${JSON.stringify({
+                init_messaging: true,
+                failures: true,
+                systray_get_activities: true,
+                context: { lang: "en", tz: "taht", uid: pyEnv.currentUserId },
+            })}`,
+        ]);
         await openView({
             context: {
                 group_by: ["move_id"],

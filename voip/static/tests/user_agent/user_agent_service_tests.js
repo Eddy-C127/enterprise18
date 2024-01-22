@@ -49,7 +49,14 @@ QUnit.test("SIP.js user agent configuration is set correctly.", async (assert) =
             }
         },
     });
-    await assertSteps(['/mail/action - {"init_messaging":true,"failures":true}']);
+    await assertSteps([
+        `/mail/action - ${JSON.stringify({
+            init_messaging: true,
+            failures: true,
+            systray_get_activities: true,
+            context: { lang: "en", tz: "taht", uid: pyEnv.currentUserId },
+        })}`,
+    ]);
     await new Promise(setTimeout);
     // check after init messaging to wait for data to be received
     const config = env.services["voip.user_agent"].sipJsUserAgentConfig;

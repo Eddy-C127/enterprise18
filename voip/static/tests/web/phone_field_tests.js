@@ -40,7 +40,14 @@ QUnit.test("Click on PhoneField link triggers a call.", async (assert) => {
         waitUntilDataLoaded: false,
         waitUntilMessagesLoaded: false,
     });
-    await assertSteps(['/mail/action - {"init_messaging":true,"failures":true}']);
+    await assertSteps([
+        `/mail/action - ${JSON.stringify({
+            init_messaging: true,
+            failures: true,
+            systray_get_activities: true,
+            context: { lang: "en", tz: "taht", uid: pyEnv.currentUserId },
+        })}`,
+    ]);
     await new Promise(setTimeout);
     // click after init messaging because unreliable async code in voip
     await click(".o_field_phone a[href='tel:+3655369678']");
