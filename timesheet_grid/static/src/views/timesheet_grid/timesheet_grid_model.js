@@ -84,10 +84,6 @@ export class TimesheetGridDataPoint extends GridDataPoint {
 
     _getPreviousWeekTimesheetDomain() {
         return [
-            ["project_id.allow_timesheets", "=", true],
-            "|",
-                ["task_id.active", "=", true],
-                ["task_id", "=", false],
             [
                 this.columnFieldName,
                 ">=",
