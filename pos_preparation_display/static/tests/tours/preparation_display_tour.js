@@ -1,5 +1,6 @@
 /** @odoo-module */
 
+import * as PreparationDisplay from "@pos_preparation_display/../tests/tours/helpers/PreparationDisplayTourMethods";
 import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/helpers/PaymentScreenTourMethods";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/helpers/ReceiptScreenTourMethods";
@@ -59,3 +60,30 @@ registry.category("web_tour.tours").add("PreparationDisplayPrinterTour", {
             Dialog.is({title:"Printing failed"}),
         ].flat(),
 });
+
+registry
+    .category("web_tour.tours")
+    .add("PreparationDisplayTourConfigurableProduct", {
+        test: true,
+        steps: () => [
+            Dialog.confirm("Open session"),
+            ProductScreen.clickDisplayedProduct("Configurable Chair"),
+            Dialog.confirm(),
+            ProductScreen.totalAmountIs("11.0"),
+            ProductScreen.clickPayButton(),
+            PaymentScreen.clickPaymentMethod("Bank"),
+            PaymentScreen.changeIs("0.0"),
+            PaymentScreen.validateButtonIsHighlighted(true),
+            PaymentScreen.clickValidate(),
+            ReceiptScreen.isShown(),
+        ].flat(),
+    });
+
+registry
+    .category("web_tour.tours")
+    .add("PreparationDisplayTourProductName", {
+        test: true,
+        steps: () => [
+                PreparationDisplay.containsProduct("Configurable Chair (Red, Metal, Leather)")
+            ].flat(),
+    });

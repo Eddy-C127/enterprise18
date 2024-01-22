@@ -13,6 +13,7 @@ class PosPreparationDisplayOrderline(models.Model):
     product_cancelled = fields.Integer("Quantity of cancelled product")
     preparation_display_order_id = fields.Many2one(
         'pos_preparation_display.order', required=True, index=True, ondelete='cascade')
+    full_product_name = fields.Char("Full product name")
 
     def change_line_status(self, status):
         orderlines_status = []

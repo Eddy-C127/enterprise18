@@ -53,6 +53,15 @@
 
             'pos_preparation_display/static/src/app/**/*',
         ],
+        'pos_preparation_display.assets_tour_tests': [
+            'web/static/lib/jquery/jquery.js',
+            'web_tour/static/src/tour_pointer/**/*.xml',
+            'web_tour/static/src/tour_pointer/**/*.js',
+            'web_tour/static/src/tour_service/**/*',
+
+            'point_of_sale/static/tests/tours/**/*',
+            'pos_preparation_display/static/tests/tours/**/*',
+        ],
         'point_of_sale._assets_pos': [
             'pos_preparation_display/static/src/override/**/*.js',
         ],

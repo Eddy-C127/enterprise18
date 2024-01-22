@@ -74,6 +74,7 @@ class PosOrder(models.Model):
                         'product_id': change['product_id'],
                         'product_quantity': quantity,
                         'product_category_ids': product.pos_categ_ids.ids,
+                        'full_product_name': change['name'],
                     })
 
         return self._prepare_preparation_order(preparation_display_orderline_ids)

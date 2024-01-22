@@ -186,7 +186,7 @@ class PosPreparationDisplayOrder(models.Model):
                     'internal_note': orderline.internal_note,
                     'attribute_ids': orderline.attribute_value_ids.ids,
                     'product_id': orderline.product_id.id,
-                    'product_name': orderline.product_id.display_name,
+                    'product_name': orderline.full_product_name or orderline.product_id.display_name,
                     'product_quantity': orderline.product_quantity,
                     'product_cancelled': orderline.product_cancelled,
                     'product_category_ids': orderline.product_id.pos_categ_ids.ids,
