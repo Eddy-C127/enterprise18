@@ -93,6 +93,7 @@ class L10nBe28145(models.Model):
                 ('date_from', '>=', date(int(sheet.year), 1, 1)),
                 ('state', 'in', ['done', 'paid']),
                 ('company_id', '=', sheet.company_id.id),
+                ('employee_id.employee_type', '!=', 'trainee'),
             ])
             all_employees = all_payslips.mapped('employee_id')
             sheet.write({
@@ -142,7 +143,7 @@ class L10nBe28145(models.Model):
         if invalid_employees:
             raise UserError(_('Some employee has no contract:\n%s', '\n'.join(invalid_employees.mapped('name'))))
 
-        invalid_employees = employees.filtered(lambda e: not e._is_niss_valid())
+        invalid_employees = employees.filtered(lambda e: e.employee_type != 'trainee' and not e._is_niss_valid())
         if invalid_employees:
             raise UserError(_('Invalid NISS number for those employees:\n %s', '\n'.join(invalid_employees.mapped('name'))))
 
