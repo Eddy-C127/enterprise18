@@ -38,6 +38,7 @@ class ResourceCalendarLeaves(models.Model):
             ('start_datetime', '<=', global_leave_end_date),
             ('end_datetime', '>=', global_leave_start_date),
             ('resource_type', '!=', 'material'),
+            ('resource_id', '!=', False),
         ]
         if resource_ids:
             domain = expression.OR([
