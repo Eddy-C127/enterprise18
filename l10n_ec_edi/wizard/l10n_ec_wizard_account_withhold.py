@@ -463,16 +463,12 @@ class L10nEcWizardAccountWithholdLine(models.TransientModel):
         for line in self:
             base = amount_vat = amount_base = 0.0
             if line.invoice_id:
-                if not withhold_data[line.invoice_id.id]:
-                    withhold_data[line.invoice_id.id] = self.wizard_id._prepare_withhold_line_data(line.invoice_id)
-                if line.wizard_id.withhold_type == 'in_withhold' and line.taxsupport_code and withhold_data[line.invoice_id.id]:
-                    amounts = list(filter(
-                        lambda l: l['invoice_id'] == line.invoice_id.id
-                                  and l['taxsupport_code'] == line.taxsupport_code
-                                  and l['tax_id'] == line.tax_id.id,
-                    withhold_data[line.invoice_id.id]))
-                    if amounts:
-                        amount_base = amounts[0]['base']
+                if line.wizard_id.withhold_type == 'in_withhold' and line.taxsupport_code:
+                    tax_supports = line.invoice_id._origin._l10n_ec_get_inv_taxsupports_and_amounts()
+                    taxsupportamounts = tax_supports.get(line.taxsupport_code)
+                    if taxsupportamounts:
+                        amount_base = taxsupportamounts['amount_base']
+                        amount_vat = taxsupportamounts['amount_vat']
                 else:
                     amount_base = abs(line.invoice_id.amount_untaxed_signed)
                     amount_vat = abs(line.invoice_id.amount_tax_signed)
@@ -482,14 +478,15 @@ class L10nEcWizardAccountWithholdLine(models.TransientModel):
                     previous_related_lines = line.wizard_id.withhold_line_ids.filtered(
                         lambda r: r.invoice_id == line.invoice_id._origin
                         and r.taxsupport_code == line.taxsupport_code
-                        and r.tax_id == line.tax_id
+                        and r.tax_id.tax_group_id.l10n_ec_type == l10n_ec_type
                         and r != line
                     )
-                    if previous_related_lines:
+                    if previous_related_lines and len(self) == 1:
+                        # When we have just a line it means the user is adding or modifying a withholding line in the widget
                         # Odoo onchanges creates a new object to replace line with it, following line removes the new object (last element in the list)
                         previous_related_lines = previous_related_lines - previous_related_lines[-1]
                     previous_base = sum(previous_related_lines.mapped('base'))
-                    if l10n_ec_type == 'withhold_vat_sale':
+                    if l10n_ec_type in ('withhold_vat_sale', 'withhold_vat_purchase'):
                         base = amount_vat - previous_base
                     else:
                         base = amount_base - previous_base
