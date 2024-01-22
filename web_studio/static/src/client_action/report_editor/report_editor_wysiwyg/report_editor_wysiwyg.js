@@ -32,6 +32,30 @@ import { useEditorMenuItem } from "@web_studio/client_action/editor/edition_flow
 import { memoizeOnce } from "@web_studio/client_action/utils";
 import { ReportEditorIframe } from "../report_editor_iframe";
 
+function extendWysiwyg(Wysiwyg) {
+    return class CustomWysiwyg extends Wysiwyg {
+        setup() {
+            super.setup();
+            this.overlay = useService("overlay");
+        }
+        _showImageCrop() {
+            const lastMedia = this.lastMediaClicked;
+            const props = { ...this.imageCropProps };
+            props.media = lastMedia;
+            props.activeOnStart = true;
+            const removeOverlay = this.overlay.add(this.constructor.components.ImageCrop, props);
+            const onDestroyed = async () => {
+                removeOverlay();
+                $(lastMedia).off("image_cropper_destroyed", onDestroyed);
+                await Promise.resolve();
+                this.focus();
+                this.odooEditor.toolbarShow();
+            };
+            $(lastMedia).on("image_cropper_destroyed", onDestroyed);
+        }
+    };
+}
+
 class __Record extends _Record.components._Record {
     setup() {
         super.setup();
@@ -277,9 +301,10 @@ export class ReportEditorWysiwyg extends Component {
                 loadBundle("web_editor.backend_assets_wysiwyg"),
                 this.reportEditorModel.loadReportQweb(),
             ]);
-            this.Wysiwyg = (
+            const Wysiwyg = (
                 await odoo.loader.modules.get("@web_editor/js/wysiwyg/wysiwyg")
             ).Wysiwyg;
+            this.Wysiwyg = extendWysiwyg(Wysiwyg);
         });
 
         onWillUnmount(() => {
