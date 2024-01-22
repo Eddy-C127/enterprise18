@@ -1280,3 +1280,19 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_and_in_t_call
         },
     ],
 });
+
+registry.category("web_tour.tours").add("web_studio.test_image_crop", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "body iframe .myimg",
+        },
+        {
+            trigger: "body .oe-toolbar #image-crop",
+        },
+        {
+            trigger: "body .o-overlay-container .o_we_crop_widget",
+            isCheck: true,
+        },
+    ],
+});

@@ -1194,3 +1194,19 @@ class TestReportEditorUIUnit(HttpCase):
            </xpath>
          </data>
         """)
+
+    def test_image_crop(self):
+        attach = self.env["ir.attachment"].create({
+            "name": "test image crop",
+            "datas": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGJxKFrEwMDAxAAGgAAAAP//D+IBWx9K7TUAAAAASUVORK5CYII="
+        })
+        self.main_view_document.arch = f"""
+            <t t-name="test_main_doc">
+                <img class="myimg"
+                    data-original-id="{attach.id}"
+                    data-original-src="/web/image/{attach.id}"
+                    src="data:image/png;base64,{attach.datas.decode("utf-8")}"/>
+            </t>
+        """
+
+        self.start_tour(self.tour_url, "web_studio.test_image_crop", login="admin")
