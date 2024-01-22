@@ -1304,15 +1304,14 @@ class Article(models.Model):
         # Trash management: unarchive removes the article from the trash
         articles_to_restore = (self + writable_descendants).filtered(lambda article: article.to_delete)
         articles_to_restore.write({'to_delete': False})
-        for article in self.filtered(lambda article: article.parent_id.to_delete):
-            write_values = article._desync_access_from_parents_values()
+        for article_sudo in self.sudo().filtered(lambda article: article.parent_id.to_delete):
+            write_values = article_sudo._desync_access_from_parents_values()
             # Make it root
             write_values.update({
                 'parent_id': False,
                 'is_desynchronized': False
             })
-            # sudo to write on members
-            article.sudo().write(write_values)
+            article_sudo.write(write_values)
         return res
 
     def action_join(self):
