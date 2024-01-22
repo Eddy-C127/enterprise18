@@ -7,7 +7,6 @@
         <field name="arch" type="xml">
             <xpath expr="//button[@name='%(hr_contract_salary.generate_simulation_link_action)d']" position="attributes">
                 <attribute name="invisible">not employee_id or country_code == 'BE' and time_credit and work_time_rate == 0</attribute>
-                <attribute name="groups">hr.group_hr_manager</attribute>
             </xpath>
             <field name="image_1920" position="replace">
                 <field name="work_time_rate" invisible="1"/>
