@@ -78,7 +78,13 @@
                     class="oe_stat_button"
                     icon="fa-line-chart"
                     type="object">
-                    <field name="recurring_monthly" widget="statinfo" string="MRR"/>
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value d-flex">
+                            <field name="currency_id" invisible="True"/>
+                            <field name="recurring_monthly" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </span>
+                        <span class="o_stat_text">MRR</span>
+                    </div>
                  </button>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="after">
@@ -104,10 +110,10 @@
                     />
                 </button>
                 <field name="subscription_state" class="float-end fs-6"
-                       invisible="subscription_state not in ['3_progress', '4_paused', '6_churn'] or state == 'cancel'"
+                       invisible="subscription_state not in ['3_progress', '4_paused', '5_renewed', '6_churn'] or state == 'cancel'"
                        widget="badge"
                        decoration-info="subscription_state in ['1_draft']"
-                       decoration-success="subscription_state in ['3_progress']"
+                       decoration-success="subscription_state in ['3_progress', '5_renewed']"
                        decoration-warning="subscription_state in ['4_paused']"
                        decoration-danger="subscription_state in ['6_churn']"/>
                 <div name="subscription_quotation_pill" class="float-end fs-6 badge rounded-pill fw-bold text-bg-info"

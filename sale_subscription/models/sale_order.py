@@ -45,7 +45,7 @@ class SaleOrder(models.Model):
     ###################
     is_subscription = fields.Boolean("Recurring", compute='_compute_is_subscription', store=True, index=True)
     plan_id = fields.Many2one('sale.subscription.plan', compute='_compute_plan_id', string='Recurring Plan',
-                              ondelete='restrict', readonly=False, store=True, index='btree_not_null')
+                              ondelete='restrict', readonly=False, store=True, index='btree_not_null', tracking=True)
     subscription_state = fields.Selection(
         string='Subscription Status',
         selection=SUBSCRIPTION_STATES,
@@ -172,9 +172,9 @@ class SaleOrder(models.Model):
                 # This is the so that created the sale.subscription records.
                 continue
             if so in recurring_product_orders and not so.plan_id:
-                raise UserError(_('You cannot save a sale order with recurring product and no subscription plan.'))
+                raise UserError(_('You cannot save a sale order with recurring product and no recurring plan.'))
             if so.plan_id and so not in recurring_product_orders:
-                raise UserError(_('You cannot save a sale order with a subscription plan and no recurring product.'))
+                raise UserError(_('You cannot save a sale order with a recurring plan and no recurring product.'))
 
     @api.constrains('subscription_state', 'state')
     def _constraint_canceled_subscription(self):

@@ -1919,12 +1919,12 @@ class TestSubscription(TestSubscriptionCommon):
     def test_subscription_constraint(self):
         sub = self.subscription.copy()
         self.subscription.plan_id = False
-        with self.assertRaisesRegex(UserError, 'You cannot save a sale order with recurring product and no subscription plan.'):
+        with self.assertRaisesRegex(UserError, 'You cannot save a sale order with recurring product and no recurring plan.'):
             self.subscription.action_confirm()
         self.subscription.plan_id = self.plan_month
         self.product.recurring_invoice = False
         self.product2.recurring_invoice = False
-        with self.assertRaisesRegex(UserError, 'You cannot save a sale order with a subscription plan and no recurring product.'):
+        with self.assertRaisesRegex(UserError, 'You cannot save a sale order with a recurring plan and no recurring product.'):
             sub2 = self.subscription.copy()
             sub2.action_confirm()
         # order linked to subscription with recurring product and no recurrence: it was created before the upgrade

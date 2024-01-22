@@ -130,16 +130,12 @@
         <field name="search_view_id" eval='sale_subscription_view_search'/>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
-            Define a new subscription
+            Great, there are no subscriptions to renew!
           </p><p>
-            You will find here the subscriptions to be renewed (end date is close or passed)
+            Here you will find subscriptions overdue for renewal.
           </p><p>
-            Odoo automatically sets subscriptions to be renewed in a pending
-            state. After the negotiation, the salesman should close or renew
-            pending subscriptions.
-          </p><p>
-            Send a renewal quotation to the customer.
-            When it is confirmed, the subscription is running again.
+            It could be due to the fail of the automatic payment
+            or because the new invoice has not yet been issued.
           </p>
         </field>
     </record>
