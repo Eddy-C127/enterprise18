@@ -82,12 +82,18 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     getDisplayIncrementBtn(line) {
+        if (!super.getDisplayIncrementBtn(...arguments)) {
+            return false;
+        }
         if (this.config.restrict_scan_product && line.product_id.barcode && !this.getQtyDone(line) && (
             !this.lastScanned.product || this.lastScanned.product.id != line.product_id.id
         )) {
             return false;
         }
-        return super.getDisplayIncrementBtn(...arguments);
+        const groupLines = this.groupedLines.filter(gl => gl.lines);
+        const parentLine = groupLines.find(gl => gl.virtual_ids.indexOf(line.virtual_id) !== -1);
+        const currentLine = parentLine || line;
+        return (!this.getQtyDemand(currentLine) || this.getQtyDemand(currentLine) > this.getQtyDone(currentLine));
     }
 
     getDisplayIncrementBtnForSerial(line) {

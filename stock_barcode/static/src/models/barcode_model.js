@@ -75,9 +75,8 @@ export default class BarcodeModel extends EventBus {
     getDisplayIncrementBtn(line) {
         if (line.product_id.tracking === "serial") {
             return this.getDisplayIncrementBtnForSerial(line);
-        } else {
-            return (!this.getQtyDemand(line) || this.getQtyDemand(line) > this.getQtyDone(line));
         }
+        return true;
     }
 
     getDisplayIncrementBtnForSerial(line) {

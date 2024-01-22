@@ -337,6 +337,7 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
         run: function() {
             currentViewState.validate.isHighlighted = true;
             currentViewState.scanMessage = 'scan_product_or_dest';
+            currentViewState.validate.isHighlighted = true;
             checkState(currentViewState);
             const lines = helper.getLines({ barcode: "productlot1" });
             helper.assert(lines.length, 2, "Expect 2 lines for productlot1");
