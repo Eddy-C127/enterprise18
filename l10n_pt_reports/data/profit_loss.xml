@@ -50,20 +50,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_ganhos_perdas_imputados_de_subsidiarias_associadas_e_empreend_conjuntos_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">SUBSIDIARIAS.c785_balance - SUBSIDIARIAS.C685_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_ganhos_perdas_imputados_de_subsidiarias_associadas_e_empreend_conjuntos_c785_balance" model="account.report.expression">
-                                <field name="label">c785_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-785</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_ganhos_perdas_imputados_de_subsidiarias_associadas_e_empreend_conjuntos_c685_balance" model="account.report.expression">
-                                <field name="label">C685_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-685</field>
+                                <field name="formula">-685 - 785 - 7922 - 7923</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -132,25 +120,13 @@
                         </field>
                     </record>
                     <record id="account_financial_report_l10n_pt_ddr_reg_ajustamentos_de_inventarios_perdas_reversoes" model="account.report.line">
-                        <field name="name">Ajustamentos de Inventários (perdas/reversões)</field>
+                        <field name="name">Imparidade / ajustamentos de Inventários (perdas/reversões)</field>
                         <field name="code">AJUSTAMENTOS</field>
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_ajustamentos_de_inventarios_perdas_reversoes_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">-AJUSTAMENTOS.c652_balance + AJUSTAMENTOS.c7622_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_ajustamentos_de_inventarios_perdas_reversoes_c652_balance" model="account.report.expression">
-                                <field name="label">c652_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-652</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_ajustamentos_de_inventarios_perdas_reversoes_c7622_balance" model="account.report.expression">
-                                <field name="label">c7622_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-7622</field>
+                                <field name="formula">652 + 7622</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -161,20 +137,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_dividas_a_receber_perdas_reversoes_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">-IMPARIDADE.c651_balance + IMPARIDADE.c7621_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_dividas_a_receber_perdas_reversoes_c651_balance" model="account.report.expression">
-                                <field name="label">c651_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-651</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_dividas_a_receber_perdas_reversoes_c7621_balance" model="account.report.expression">
-                                <field name="label">c7621_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-7621</field>
+                                <field name="formula">651 + 7621</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -185,20 +149,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_provisoes_aumento_reducoes_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">-PROVISOES.c67_balance + PROVISOES.c763_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_provisoes_aumento_reducoes_c67_balance" model="account.report.expression">
-                                <field name="label">c67_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-67</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_provisoes_aumento_reducoes_c763_balance" model="account.report.expression">
-                                <field name="label">c763_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-763</field>
+                                <field name="formula">67 + 763</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -209,32 +161,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_nao_depreciaveis_amortizaveis_perdas_reversoes_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">-IMPARIDADE_NAO_DEPRECIAVEIS.c653_balance - IMPARIDADE_NAO_DEPRECIAVEIS.c657_balance - IMPARIDADE_NAO_DEPRECIAVEIS.c658_balance + IMPARIDADE_NAO_DEPRECIAVEIS.sum_c7623_c7627_c7628_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_nao_depreciaveis_amortizaveis_perdas_reversoes_c653_balance" model="account.report.expression">
-                                <field name="label">c653_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-653</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_nao_depreciaveis_amortizaveis_perdas_reversoes_c657_balance" model="account.report.expression">
-                                <field name="label">c657_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-657</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_nao_depreciaveis_amortizaveis_perdas_reversoes_c658_balance" model="account.report.expression">
-                                <field name="label">c658_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-658</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_nao_depreciaveis_amortizaveis_perdas_reversoes_sum_c7623_c7627_c7628_balance" model="account.report.expression">
-                                <field name="label">sum_c7623_c7627_c7628_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-7628 - C7623 - C7627</field>
+                                <field name="formula">653 + 657 + 658 + 7623 + 7627 + 7628</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -245,20 +173,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_aumentos_reducoes_de_justo_valor_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">AUMENTOS.c77_balance - AUMENTOS.c66_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_aumentos_reducoes_de_justo_valor_c77_balance" model="account.report.expression">
-                                <field name="label">c77_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-77</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_aumentos_reducoes_de_justo_valor_c66_balance" model="account.report.expression">
-                                <field name="label">c66_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-66</field>
+                                <field name="formula">-66 - 77</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -269,21 +185,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_outros_rendimentos_e_ganhos_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">OUTROS_RENDIMENTOS.c78_e785_balance + OUTROS_RENDIMENTOS.sum_c7918_c7928_c7988_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_outros_rendimentos_e_ganhos_c78_e785_balance" model="account.report.expression">
-                                <field name="label">c78_e785_balance</field>
-                                <field name="engine">domain</field>
-                                <field name="formula" eval="[('account_id.code', '=like', '78%'),('account_id.code', 'not like', '785')]"/>
-                                <field name="date_scope">normal</field>
-                                <field name="subformula">-sum</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_outros_rendimentos_e_ganhos_sum_c7918_c7928_c7988_balance" model="account.report.expression">
-                                <field name="label">sum_c7918_c7928_c7988_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-7918 - 7928 - 7988</field>
+                                <field name="formula">-78\(785) - 79\(7915,7922,7923,793)</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -294,33 +197,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_outros_gastos_e_perdas_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">OUTROS_GASTOS.c68_e685_balance - OUTROS_GASTOS.c6918_balance - OUTROS_GASTOS.c6928_balance - OUTROS_GASTOS.c6988_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_outros_gastos_e_perdas_c68_e685_balance" model="account.report.expression">
-                                <field name="label">c68_e685_balance</field>
-                                <field name="engine">domain</field>
-                                <field name="formula" eval="[('account_id.code', '=like', '68%'),('account_id.code', 'not like', '685')]"/>
-                                <field name="date_scope">normal</field>
-                                <field name="subformula">-sum</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_outros_gastos_e_perdas_c6918_balance" model="account.report.expression">
-                                <field name="label">c6918_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-6918</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_outros_gastos_e_perdas_c6928_balance" model="account.report.expression">
-                                <field name="label">c6928_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-6928</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_outros_gastos_e_perdas_c6988_balance" model="account.report.expression">
-                                <field name="label">c6988_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-6988</field>
+                                <field name="formula">68\(685)</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -332,7 +210,7 @@
                             <record id="account_financial_report_l10n_pt_ddr_reg_resultado_antes_de_depreciacoes_gastos_de_financiamento_e_impostos_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">VENDAS.balance + EXPLORACAO.balance + SUBSIDIARIAS.balance + VARIACAO.balance + TRABALHOS.balance - CUSTO_MERCADORIAS.balance - FORNECIMENTOS.balance - GASTOS_PESSOAL.balance - AJUSTAMENTOS.balance + IMPARIDADE.balance - PROVISOES.balance - IMPARIDADE_NAO_DEPRECIAVEIS.balance + AUMENTOS.balance + OUTROS_RENDIMENTOS.balance - OUTROS_GASTOS.balance</field>
+                                <field name="formula">VENDAS.balance + EXPLORACAO.balance + SUBSIDIARIAS.balance + VARIACAO.balance + TRABALHOS.balance - CUSTO_MERCADORIAS.balance - FORNECIMENTOS.balance - GASTOS_PESSOAL.balance - AJUSTAMENTOS.balance - IMPARIDADE.balance - PROVISOES.balance - IMPARIDADE_NAO_DEPRECIAVEIS.balance + AUMENTOS.balance + OUTROS_RENDIMENTOS.balance - OUTROS_GASTOS.balance</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -343,20 +221,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_gastos_reversoes_de_depreciacao_e_de_amortizacao_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">-GASTOS_DEPRECIACAO.c64_balance + GASTOS_DEPRECIACAO.c761_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_gastos_reversoes_de_depreciacao_e_de_amortizacao_c64_balance" model="account.report.expression">
-                                <field name="label">c64_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-64</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_gastos_reversoes_de_depreciacao_e_de_amortizacao_c761_balance" model="account.report.expression">
-                                <field name="label">c761_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-761</field>
+                                <field name="formula">64 + 761</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -367,32 +233,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_depreciaveis_amortizaveis_perdas_reversoes_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">-IMPARIDADE_DEPRECIAVEIS.c654_balance - IMPARIDADE_DEPRECIAVEIS.c655_balance - IMPARIDADE_DEPRECIAVEIS.c656_balance + IMPARIDADE_DEPRECIAVEIS.sum_c7624_c7825_c7826_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_depreciaveis_amortizaveis_perdas_reversoes_c654_balance" model="account.report.expression">
-                                <field name="label">c654_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-654</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_depreciaveis_amortizaveis_perdas_reversoes_c655_balance" model="account.report.expression">
-                                <field name="label">c655_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-655</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_depreciaveis_amortizaveis_perdas_reversoes_c656_balance" model="account.report.expression">
-                                <field name="label">c656_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-656</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_imparidade_de_activos_depreciaveis_amortizaveis_perdas_reversoes_sum_c7624_c7825_c7826_balance" model="account.report.expression">
-                                <field name="label">sum_c7624_c7825_c7826_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-7826 - 7624 - 7825</field>
+                                <field name="formula">654 + 655 + 656 + 7624 + 7625 + 7626</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -416,7 +258,7 @@
                             <record id="account_financial_report_l10n_pt_ddr_reg_juros_e_rendimentos_similares_obtidos_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-7921 - 7981 - 7911</field>
+                                <field name="formula">-7915 - 793</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -427,26 +269,8 @@
                         <field name="expression_ids">
                             <record id="account_financial_report_l10n_pt_ddr_reg_juros_e_gastos_similares_suportados_balance" model="account.report.expression">
                                 <field name="label">balance</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">-JUROS_E_GASTOS.c6911_balance - JUROS_E_GASTOS.c6921_balance - JUROS_E_GASTOS.c6981_balance</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_juros_e_gastos_similares_suportados_c6911_balance" model="account.report.expression">
-                                <field name="label">c6911_balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-6911</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_juros_e_gastos_similares_suportados_c6921_balance" model="account.report.expression">
-                                <field name="label">c6921_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-6921</field>
-                                <field name="date_scope">normal</field>
-                            </record>
-                            <record id="account_financial_report_l10n_pt_ddr_reg_juros_e_gastos_similares_suportados_c6981_balance" model="account.report.expression">
-                                <field name="label">c6981_balance</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">-6981</field>
+                                <field name="formula">69</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -470,7 +294,7 @@
                             <record id="account_financial_report_l10n_pt_ddr_reg_imposto_sobre_o_rendimento_do_periodos_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
-                                <field name="formula">-812</field>
+                                <field name="formula">812</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -479,16 +303,10 @@
                         <field name="name">Resultado líquido do período</field>
                         <field name="code">REG_RESULTADO_LIQUIDO_DO_PERIODO</field>
                         <field name="expression_ids">
-                            <record id="account_financial_report_l10n_pt_ddr_reg_resultado_liquido_do_periodo_balance_account_codes" model="account.report.expression">
-                                <field name="label">balance_account_codes</field>
-                                <field name="engine">account_codes</field>
-                                <field name="formula">818</field>
-                                <field name="date_scope">normal</field>
-                            </record>
                             <record id="account_financial_report_l10n_pt_ddr_reg_resultado_liquido_do_periodo_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">REG_RESULTADO_LIQUIDO_DO_PERIODO.balance_account_codes + REG_RESULTADO_ANTES_DE_IMPOSTOS.balance - IMPOSTO_RENDIMENTO_PERIODO.balance</field>
+                                <field name="formula">REG_RESULTADO_ANTES_DE_IMPOSTOS.balance - IMPOSTO_RENDIMENTO_PERIODO.balance</field>
                                 <field name="date_scope">normal</field>
                             </record>
                         </field>
@@ -496,5 +314,10 @@
                 </field>
             </record>
         </field>
+    </record>
+    <record id="action_account_financial_report_pt_pnl" model="ir.actions.client">
+        <field name="name">PT Profit And Loss</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report', 'report_id': ref('account_financial_report_l10n_pt_ddr')}"/>
     </record>
 </odoo>
