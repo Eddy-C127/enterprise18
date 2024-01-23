@@ -12,11 +12,12 @@
                         <t t-if="'tax_report_lines' in props.line">
                             <t t-set="taxesByCountry" t-value="props.line.tax_report_lines"/>
                             <t t-set="hasTaxesSeveralCountries" t-value="Object.keys(taxesByCountry).length > 1"/>
+                            <t t-set="extraColumns" t-value="props.line.extra_columns"/>
 
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th t-att-colspan="taxesByCountry.length > 1 ? 4 : 3">
+                                        <th t-att-colspan="(taxesByCountry.length > 1 ? 4 : 3) + extraColumns">
                                             Taxes Applied
                                             <t t-if="controller.groups.account_user">
                                                 <a
@@ -35,6 +36,9 @@
                                         <th>Name</th>
                                         <th class="text-end">Base Amount</th>
                                         <th class="text-end">Tax Amount</th>
+                                        <th t-if="props.line.tax_non_deductible_column" class="text-end">Non-Deductible</th>
+                                        <th t-if="props.line.tax_deductible_column" class="text-end">Deductible</th>
+                                        <th t-if="props.line.tax_due_column" class="text-end">Due</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,6 +64,9 @@
 
                                                 <td class="text-end" t-out="tax.base_amount"/>
                                                 <td class="text-end" t-out="tax.tax_amount"/>
+                                                <td t-if="props.line.tax_non_deductible_column" class="text-end" t-out="tax.tax_non_deductible"/>
+                                                <td t-if="props.line.tax_deductible_column" class="text-end" t-out="tax.tax_deductible"/>
+                                                <td t-if="props.line.tax_due_column" class="text-end" t-out="tax.tax_due"/>
                                             </tr>
                                         </t>
                                     </t>

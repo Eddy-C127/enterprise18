@@ -46,8 +46,69 @@ class JournalReportCustomHandler(models.AbstractModel):
             if unfolded:
                 unfolded_journals.append(unfolded)
             lines.append(self._get_journal_line(options, journal_key, journal_vals, unfolded, is_first_journal=len(unfolded_journals) == 1))
+        global_tax_summary_lines = self._get_global_tax_summary_lines(options)
+        lines.extend(global_tax_summary_lines)
 
         return [(0, line) for line in lines]
+
+    def _get_global_tax_summary_lines(self, options):
+        # It is faster to first check that we need a tax section; this avoids computing a tax report for nothing.
+        aml_has_tax_domain = [('tax_ids', '!=', False)]
+        if options.get('date', {}).get('date_from'):
+            aml_has_tax_domain.append(('date', '>=', options['date']['date_from']))
+        if options.get('date', {}).get('date_to'):
+            aml_has_tax_domain.append(('date', '<=', options['date']['date_to']))
+        has_tax = bool(self.env['account.move.line'].search_count(aml_has_tax_domain, limit=1))
+        if not has_tax:
+            return []
+
+        report = self.env.ref('account_reports.journal_report')
+        tax_data = {
+            'date_from': options.get('date', {}).get('date_from'),
+            'date_to': options.get('date', {}).get('date_to'),
+        }
+        # This is a special line with a special template to render it.
+        # It will contain two tables, which are the tax report and tax grid summary sections.
+        tax_report_lines = self._get_generic_tax_summary_for_sections(options, tax_data)
+
+        tax_non_deductible_column = any(line.get('tax_non_deductible_no_format') for lines_per_country in tax_report_lines.values() for line in lines_per_country)
+        tax_deductible_column = any(line.get('tax_deductible_no_format') for lines_per_country in tax_report_lines.values() for line in lines_per_country)
+        tax_due_column = any(line.get('tax_due_no_format') for lines_per_country in tax_report_lines.values() for line in lines_per_country)
+        extra_columns = int(tax_non_deductible_column) + int(tax_deductible_column) + int(tax_due_column)
+
+        tax_grid_summary_lines = self._get_tax_grids_summary(options, tax_data)
+
+        if not tax_report_lines and not tax_grid_summary_lines:
+            return []
+
+        return [
+            {
+                'id': report._get_generic_line_id(False, False, markup='tax_report_section_heading'),
+                'name': _('Global Tax Summary'),
+                'level': 0,
+                'columns': [],
+                'unfoldable': False,
+                'page_break': True,
+                'colspan': len(options['columns']) + 1  # We want it to take the whole line. It makes it easier to unfold it.
+            },
+            {
+                'id': report._get_generic_line_id(False, False, markup='tax_report_section'),
+                'name': '',
+                'is_tax_section_line': True,
+                'tax_report_lines': tax_report_lines,
+                'tax_non_deductible_column': tax_non_deductible_column,
+                'tax_deductible_column': tax_deductible_column,
+                'tax_due_column': tax_due_column,
+                'extra_columns': extra_columns,
+                'tax_grid_summary_lines': tax_grid_summary_lines,
+                'date_from': tax_data['date_from'],
+                'date_to': tax_data['date_to'],
+                'columns': [],
+                'colspan': len(options['columns']) + 1,
+                'level': 3,
+                'class': 'o_account_reports_ja_subtable',
+            },
+        ]
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         """ Initialize the options for the journal report. """
@@ -270,7 +331,12 @@ class JournalReportCustomHandler(models.AbstractModel):
         # If we have no offsets, check if we can create a tax line: This line will contain two tables, one for the tax summary and one for the tax grid summary.
         if offset == 0:
             # It is faster to first check that we need a tax section; this avoids computing a tax report for nothing.
-            journal_has_tax = bool(self.env['account.move.line'].search_count([('journal_id', '=', journal.id), ('tax_ids', '!=', False)], limit=1))
+            aml_has_tax_domain = [('journal_id', '=', journal.id), ('tax_ids', '!=', False)]
+            if options.get('date', {}).get('date_from'):
+                aml_has_tax_domain.append(('date', '>=', options['date']['date_from']))
+            if options.get('date', {}).get('date_to'):
+                aml_has_tax_domain.append(('date', '<=', options['date']['date_to']))
+            journal_has_tax = bool(self.env['account.move.line'].search_count(aml_has_tax_domain, limit=1))
             if journal_has_tax:
                 tax_data = {
                     'date_from': options.get('date', {}).get('date_from'),
@@ -281,6 +347,12 @@ class JournalReportCustomHandler(models.AbstractModel):
                 # This is a special line with a special template to render it.
                 # It will contain two tables, which are the tax report and tax grid summary sections.
                 tax_report_lines = self._get_generic_tax_summary_for_sections(options, tax_data)
+
+                tax_non_deductible_column = any(line.get('tax_non_deductible_no_format') for country in tax_report_lines.values() for line in country)
+                tax_deductible_column = any(line.get('tax_deductible_no_format') for country in tax_report_lines.values() for line in country)
+                tax_due_column = any(line.get('tax_due_no_format') for country in tax_report_lines.values() for line in country)
+                extra_columns = int(tax_non_deductible_column) + int(tax_deductible_column) + int(tax_due_column)
+
                 tax_grid_summary_lines = self._get_tax_grids_summary(options, tax_data)
                 if tax_report_lines or tax_grid_summary_lines:
                     after_load_more_lines.append({
@@ -290,6 +362,10 @@ class JournalReportCustomHandler(models.AbstractModel):
                         'journal_id': journal.id,
                         'is_tax_section_line': True,
                         'tax_report_lines': tax_report_lines,
+                        'tax_non_deductible_column': tax_non_deductible_column,
+                        'tax_deductible_column': tax_deductible_column,
+                        'tax_due_column': tax_due_column,
+                        'extra_columns': extra_columns,
                         'tax_grid_summary_lines': tax_grid_summary_lines,
                         'date_from': tax_data['date_from'],
                         'date_to': tax_data['date_to'],
@@ -704,11 +780,14 @@ class JournalReportCustomHandler(models.AbstractModel):
         })
         tax_report_options = generix_tax_report.get_options(previous_option)
         # Even though it doesn't have a journal selector, we can force a journal in the options to only get the lines for a specific journal.
-        tax_report_options['journals'] = [{
-            'id': data.get('journal_id'),
-            'type': data.get('journal_type'),
-            'selected': True,
-        }]
+        if data.get('journal_id') or data.get('journal_type'):
+            tax_report_options['journals'] = [{
+                'id': data.get('journal_id'),
+                'type': data.get('journal_type'),
+                'selected': True,
+            }]
+        else:
+            tax_report_options['journals'] = options.get('journals')
         return tax_report_options
 
     def _group_lines_by_move(self, options, eval_dict, parent_line_id):
@@ -931,15 +1010,15 @@ class JournalReportCustomHandler(models.AbstractModel):
         Returns a dictionary with the following structure:
         {
             Country : [
-                {name, base_amount, tax_amount},
-                {name, base_amount, tax_amount},
-                {name, base_amount, tax_amount},
+                {name, base_amount, tax_amount, tax_non_deductible{_no_format}, tax_deductible{_no_format}, tax_due{_no_format}},
+                {name, base_amount, tax_amount, tax_non_deductible{_no_format}, tax_deductible{_no_format}, tax_due{_no_format}},
+                {name, base_amount, tax_amount, tax_non_deductible{_no_format}, tax_deductible{_no_format}, tax_due{_no_format}},
                 ...
             ],
             Country : [
-                {name, base_amount, tax_amount},
-                {name, base_amount, tax_amount},
-                {name, base_amount, tax_amount},
+                {name, base_amount, tax_amount, tax_non_deductible{_no_format}, tax_deductible{_no_format}, tax_due{_no_format}},
+                {name, base_amount, tax_amount, tax_non_deductible{_no_format}, tax_deductible{_no_format}, tax_due{_no_format}},
+                {name, base_amount, tax_amount, tax_non_deductible{_no_format}, tax_deductible{_no_format}, tax_due{_no_format}},
                 ...
             ],
             ...
@@ -947,6 +1026,7 @@ class JournalReportCustomHandler(models.AbstractModel):
         """
         report = self.env['account.report'].browse(options['report_id'])
         tax_report_options = self._get_generic_tax_report_options(options, data)
+        tax_report_options['account_journal_report_tax_deductibility_columns'] = True
         tax_report = self.env.ref('account.generic_tax_report')
         tax_report_lines = tax_report._get_lines(tax_report_options)
 
@@ -957,6 +1037,9 @@ class JournalReportCustomHandler(models.AbstractModel):
                 tax_values[line_id] = {
                     'base_amount': tax_report_line['columns'][0]['no_format'],
                     'tax_amount': tax_report_line['columns'][1]['no_format'],
+                    'tax_non_deductible': tax_report_line['columns'][2]['no_format'],
+                    'tax_deductible': tax_report_line['columns'][3]['no_format'],
+                    'tax_due': tax_report_line['columns'][4]['no_format'],
                 }
 
         # Make the final data dict that will be used by the template, using the taxes information.
@@ -966,6 +1049,12 @@ class JournalReportCustomHandler(models.AbstractModel):
             res[tax.country_id.name].append({
                 'base_amount': report._format_value(options, tax_values[tax.id]['base_amount'], blank_if_zero=False, figure_type='monetary'),
                 'tax_amount': report._format_value(options, tax_values[tax.id]['tax_amount'], blank_if_zero=False, figure_type='monetary'),
+                'tax_non_deductible': report._format_value(options, tax_values[tax.id]['tax_non_deductible'], blank_if_zero=False, figure_type='monetary'),
+                'tax_non_deductible_no_format': tax_values[tax.id]['tax_non_deductible'],
+                'tax_deductible': report._format_value(options, tax_values[tax.id]['tax_deductible'], blank_if_zero=False, figure_type='monetary'),
+                'tax_deductible_no_format': tax_values[tax.id]['tax_deductible'],
+                'tax_due': report._format_value(options, tax_values[tax.id]['tax_due'], blank_if_zero=False, figure_type='monetary'),
+                'tax_due_no_format': tax_values[tax.id]['tax_due'],
                 'name': tax.name,
                 'line_id': report._get_generic_line_id('account.tax', tax.id)
             })
