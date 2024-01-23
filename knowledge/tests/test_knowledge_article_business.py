@@ -1398,6 +1398,68 @@ class TestKnowledgeArticleRemoval(KnowledgeCommonBusinessCase):
             article_workspace.unlink()
 
 
+    @users('employee')
+    def test_unarchive_article_having_inaccessible_parent(self):
+        """ Check that the user can restore an article whose parent is inaccessible. """
+
+        parent_article = self.env['knowledge.article'].sudo().create({
+            'active': False,
+            'to_delete': True,
+            'name': 'Parent article',
+            'internal_permission': 'write',
+            'article_member_ids': [
+                (0, 0, {
+                    'partner_id': self.env.user.partner_id.id,
+                    'permission': 'none'
+                }),
+                (0, 0, {
+                    'partner_id': self.customer.id,
+                    'permission': 'read'
+                }),
+            ]
+        }).with_user(self.env.user)
+
+        child_article = self.env['knowledge.article'].sudo().create({
+            'active': False,
+            'to_delete': True,
+            'name': 'Child article',
+            'parent_id': parent_article.id,
+            'article_member_ids': [
+                (0, 0, {
+                    'partner_id': self.env.user.partner_id.id,
+                    'permission': 'write'
+                }),
+            ]
+        }).with_user(self.env.user)
+
+        # Check the access rights:
+        with self.assertRaises(exceptions.AccessError):
+            parent_article.check_access_rule('read')
+        child_article.check_access_rule('write')
+
+        # Unarchive the child article:
+        child_article.action_unarchive()
+
+        # When the parent article is in the trash, the child article should be
+        # detached from its parent so that it will not be deleted when the parent
+        # article is deleted.
+
+        self.assertTrue(child_article.active)
+        self.assertFalse(child_article.to_delete)
+        self.assertFalse(child_article.parent_id)
+        self.assertFalse(child_article.is_desynchronized)
+        self.assertMembers(child_article, 'write', {
+            self.env.user.partner_id: 'write',
+            self.customer: 'read'
+        })
+
+        self.assertFalse(parent_article.active)
+        self.assertTrue(parent_article.to_delete)
+        self.assertMembers(parent_article, 'write', {
+            self.env.user.partner_id: 'none',
+            self.customer: 'read'
+        })
+
 @tagged('post_install', '-at_install', 'knowledge_internals', 'knowledge_management')
 class TestKnowledgeShare(KnowledgeCommonWData):
     """ Test share feature. """
