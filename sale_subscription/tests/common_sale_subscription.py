@@ -274,7 +274,7 @@ class TestSubscriptionCommon(TestSaleCommon):
              'state': 'test',
              'redirect_form_view_id': cls.env['ir.ui.view'].search([('type', '=', 'qweb')], limit=1).id})
         cls.payment_method_id = cls.env.ref('payment.payment_method_unknown').id
-        cls.payment_method = cls.env['payment.token'].create(
+        cls.payment_token = cls.env['payment.token'].create(
             {'payment_details': 'Jimmy McNulty',
              'partner_id': cls.partner.id,
              'provider_id': cls.provider.id,
@@ -293,7 +293,7 @@ class TestSubscriptionCommon(TestSaleCommon):
 
     # Mocking for 'test_auto_payment_with_token'
     # Necessary to have a valid and done transaction when the cron on subscription passes through
-    def _mock_subscription_do_payment(self, payment_method, invoice, auto_commit=False):
+    def _mock_subscription_do_payment(self, payment_token, invoice, auto_commit=False):
         tx_obj = self.env['payment.transaction']
         refs = invoice.invoice_line_ids.sale_line_ids.order_id.mapped('client_order_ref')
         ref_vals = [r for r in refs if r]
@@ -308,7 +308,7 @@ class TestSubscriptionCommon(TestSaleCommon):
             'operation': 'offline',
             'currency_id': invoice.currency_id.id,
             'reference': reference,
-            'token_id': payment_method.id,
+            'token_id': payment_token.id,
             'partner_id': invoice.partner_id.id,
             'partner_country_id': invoice.partner_id.country_id.id,
             'sale_order_ids': [(6, 0, invoice.invoice_line_ids.sale_line_ids.order_id.ids)],
