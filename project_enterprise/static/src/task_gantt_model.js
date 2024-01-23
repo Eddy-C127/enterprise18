@@ -80,16 +80,16 @@ export class TaskGanttModel extends GanttModel {
      * Retrieve the milestone data based on the task domain and the project deadline if applicable.
      * @override
      */
-    async _fetchData(metaData) {
+    async _fetchData(metaData, additionalContext) {
         const startDate = metaData.startDate.toISODate();
         const stopDate = metaData.stopDate.toISODate();
         const scale = metaData.scale.id;
-        this.searchParams.context = {
-            ...this.searchParams.context,
+        additionalContext = {
+            ...(additionalContext || {}),
             gantt_start_date: startDate,
             gantt_scale: scale,
         };
-        const proms = [super._fetchData(...arguments)];
+        const proms = [super._fetchData(metaData, additionalContext)];
         let milestones = [];
         const projectDeadlines = [];
         const projectStartDates = [];
