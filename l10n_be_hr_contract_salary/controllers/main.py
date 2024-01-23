@@ -197,6 +197,7 @@ class HrContractSalary(main.HrContractSalary):
             available_cars |= force_car
             available_cars |= force_additional_car
             contract.car_id = force_car
+        available_bikes |= contract.bike_id
 
         def generate_dropdown_group_data(available, can_be_requested, only_new, allow_new_cars, vehicle_type='Car'):
             # Creates the necessary data for the dropdown group, looks like this
