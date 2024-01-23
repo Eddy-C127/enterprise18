@@ -84,7 +84,7 @@
                     </group>
                     <notebook>
                         <page id="body" name="Body">
-                            <field name="body"
+                            <field name="body" widget="whatsapp_text_variables"
                                 placeholder="Your whatsapp message, use {{1}}, {{2}} as placeholders for dynamic variable"
                                 readonly="status != 'draft'" required="1"/>
                         </page>
