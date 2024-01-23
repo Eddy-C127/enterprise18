@@ -14,6 +14,8 @@ const interestingSelector = [
     ".o_kanban_record_bottom",
 ].join(", ");
 
+const hookBaseClass = "o_web_studio_kanban_hook cursor-pointer text-primary fw-bolder ";
+
 export class KanbanEditorCompiler extends KanbanCompiler {
     constructor() {
         super(...arguments);
@@ -184,7 +186,7 @@ export class KanbanEditorCompiler extends KanbanCompiler {
         const parentElement =
             compiled.querySelector(".o_kanban_record_body") || compiled.querySelector("div");
         const tagsHook = createElement("span", {
-            class: "o_web_studio_add_kanban_tags",
+            class: hookBaseClass + "o_web_studio_add_kanban_tags",
             "t-on-click": `() => __comp__.onAddTagsWidget({
                 xpath: "${parentElement.getAttribute("studioXpath")}"
             })`,
@@ -204,11 +206,13 @@ export class KanbanEditorCompiler extends KanbanCompiler {
             "div",
             [
                 createElement("a", {
-                    class: "btn fa fa-ellipsis-v",
+                    class: "btn text-primary fa fa-ellipsis-v",
                 }),
             ],
             {
-                class: "o_web_studio_add_dropdown o_dropdown_kanban dropdown position-absolute end-0",
+                class:
+                    hookBaseClass +
+                    "o_web_studio_add_dropdown o_dropdown_kanban dropdown position-absolute end-0",
                 style: "z-index: 1;",
                 "t-on-click": "() => __comp__.onAddDropdown()",
             }
@@ -219,7 +223,9 @@ export class KanbanEditorCompiler extends KanbanCompiler {
     addPriorityHook(compiled) {
         const parentElement = compiled.querySelector("div");
         const priorityHook = createElement("div", {
-            class: "o_web_studio_add_priority oe_kanban_bottom_left align-self-start flex-grow-0",
+            class:
+                hookBaseClass +
+                "o_web_studio_add_priority oe_kanban_bottom_left align-self-start flex-grow-0",
             style: "z-index: 1;",
             "t-on-click": "() => __comp__.onAddPriority()",
         });
@@ -231,7 +237,7 @@ export class KanbanEditorCompiler extends KanbanCompiler {
         const parentElement =
             compiled.querySelector(".o_kanban_record_bottom") || compiled.querySelector("div");
         const avatarHook = createElement("div", {
-            class: "o_web_studio_add_kanban_image oe_kanban_bottom_right pe-auto",
+            class: hookBaseClass + "o_web_studio_add_kanban_image oe_kanban_bottom_right pe-auto",
             style: "z-index: 1;",
             "t-on-click": "() => __comp__.onAddAvatar()",
         });

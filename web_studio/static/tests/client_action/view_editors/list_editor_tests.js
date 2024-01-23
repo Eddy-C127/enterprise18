@@ -1604,6 +1604,7 @@ QUnit.module(
             });
 
             await showViewTab();
+            await nextTick();
             assert.notOk(
                 document.querySelector("input#show_invisible").checked,
                 "show invisible checkbox is not checked"

@@ -19,18 +19,9 @@
                 visibility: visible;
             }
 
-            .o_dropdown_kanban.o_web_studio_add_dropdown, .o_web_studio_add_priority, .o_web_studio_add_kanban_image, .o_web_studio_add_kanban_tags {
-                cursor: pointer;
-                color: $o-brand-primary;
-                font-weight: bold;
-                opacity: 0.1;
-
-                &:hover {
-                    opacity: 1;
-                }
-
-                > a {
-                    color: $o-brand-primary;
+            .o_web_studio_kanban_hook {
+                &:not(:hover) {
+                    opacity: .2;
                 }
             }
 
@@ -74,11 +65,5 @@
                 background-color: darken($o-webclient-background-color, 3%);
             }
         }
-    }
-}
-
-.o_web_studio_kanban_helper {
-    option.o_new {
-        font-style: italic;
     }
 }

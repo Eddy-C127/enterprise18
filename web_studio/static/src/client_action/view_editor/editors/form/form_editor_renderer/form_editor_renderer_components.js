@@ -123,7 +123,7 @@ export class StatusBarFieldHook extends Component {
         this.addDialog = useOwnedDialogs();
     }
     get classNames() {
-        return "o_web_studio_statusbar_hook bg-secondary";
+        return "o_web_studio_statusbar_hook";
     }
     get title() {
         return _t("Add a pipeline status bar");
@@ -181,7 +181,7 @@ export class AvatarHook extends Component {
         this.addDialog = useOwnedDialogs();
     }
     get classNames() {
-        return "oe_avatar ms-3 o_web_studio_avatar bg-secondary";
+        return "oe_avatar ms-3 o_web_studio_avatar";
     }
     get title() {
         return _t("Add Picture");
@@ -216,7 +216,7 @@ export class ButtonHook extends Component {
         this.addDialog = useOwnedDialogs();
     }
     get classNames() {
-        return "oe_stat_button o_web_studio_button_hook btn-outline-secondary flex-grow-1 flex-lg-grow-0 fa fa-plus-square";
+        return "oe_stat_button o_web_studio_button_hook flex-grow-1 flex-lg-grow-0 fa fa-plus-square";
     }
     get tooltip() {
         return _t("Add a button");

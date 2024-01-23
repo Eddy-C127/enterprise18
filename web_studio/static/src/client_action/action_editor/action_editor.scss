@@ -1,5 +1,5 @@
 .o_web_studio_action_editor {
-    background-color: $o-web-studio-bg-light;
+    background-color: $o-web-studio-bg-action;
 
     .o_web_studio_views {
         flex: 1 1 auto;
@@ -13,15 +13,12 @@
         }
 
         .o_web_studio_thumbnail_item.disabled {
-            filter: grayscale(100%);
-
             .o_web_studio_view_label {
                 transition: all 0.2s ease 0.1s;
             }
 
             &:hover {
                 opacity: 1;
-                filter: grayscale(0%);
 
                 .o_web_studio_view_label {
                     transform: translateX(-100%);

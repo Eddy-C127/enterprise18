@@ -42,8 +42,8 @@ export function viewTypeToString(vType) {
 }
 
 export const studioService = {
-    dependencies: ["action", "color_scheme", "home_menu", "menu", "notification"],
-    async start(env, { color_scheme, menu, notification }) {
+    dependencies: ["action", "home_menu", "menu", "notification"],
+    async start(env, { menu, notification }) {
         const supportedViewTypes = Object.keys(SUPPORTED_VIEW_TYPES);
 
         function _getCurrentAction() {
@@ -210,12 +210,6 @@ export const studioService = {
                 Object.assign(state, previousState);
                 throw e;
             }
-            // force color_scheme light
-            if (color_scheme.activeColorScheme === "dark") {
-                // ensure studio is fully loaded
-                await new Promise((resolve) => setTimeout(resolve));
-                color_scheme.applyColorScheme();
-            }
             return res;
         }
 
@@ -258,12 +252,6 @@ export const studioService = {
             await env.services.action.doAction(actionId, options);
             // force rendering of the main navbar to allow adaptation of the size
             env.bus.trigger("MENUS:APP-CHANGED");
-            // reset color_scheme
-            if (color_scheme.activeColorScheme === "dark") {
-                // ensure studio is fully unloaded
-                await new Promise((resolve) => setTimeout(resolve));
-                color_scheme.applyColorScheme();
-            }
             state.studioMode = null;
         }
 

@@ -48,7 +48,6 @@ Note: Only the admin user is allowed to make those customizations.
     'license': 'OEEL-1',
     'assets': {
         'web.assets_backend': [
-            'web_studio/static/src/color_scheme_service_patch.js',
             'web_studio/static/src/systray_item/**/*.js',
             'web_studio/static/src/studio_service.js',
             'web_studio/static/src/utils.js',
@@ -79,6 +78,10 @@ Note: Only the admin user is allowed to make those customizations.
             'web_studio/static/src/client_action/**/*.scss',
             ("remove", "web_studio/static/src/client_action/report_editor/report_iframe.scss"),
             'web_studio/static/src/views/kanban_report/**/*.scss',
+        ],
+        "web_studio.studio_assets_dark": [
+            'web_studio/static/src/client_action/variables.dark.scss',
+            ('include', 'web_studio.studio_assets'),
         ],
         'web.assets_tests': [
             'web_studio/static/tests/tours/**/*',

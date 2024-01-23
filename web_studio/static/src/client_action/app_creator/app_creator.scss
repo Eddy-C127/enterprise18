@@ -4,7 +4,6 @@
 
   .o_web_studio_app_creator_box {
     box-shadow: 0 16px 13px -8px rgba(#000, 0.5);
-    color: $o-web-studio-bg-dark;
     width: 700px;
 
     .o_web_studio_app_creator_left,
@@ -13,6 +12,8 @@
     }
 
     .o_web_studio_app_creator_left {
+      background-color: $o-web-studio-bg-light;
+
       h1 {
         font-size: 3.5em;
         letter-spacing: -1px;

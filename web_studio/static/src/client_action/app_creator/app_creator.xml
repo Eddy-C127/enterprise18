@@ -4,7 +4,7 @@
 <t t-name="web_studio.AppCreator">
     <div class="o_web_studio_app_creator h-100 overflow-auto pt-5">
         <div t-if="state.step !== 'model_configuration'" class="o_web_studio_app_creator_box d-flex m-auto mt-5">
-            <div class="o_web_studio_app_creator_left bg-white h-100 w-50 d-flex flex-column flex-nowrap rounded-start p-3">
+            <div class="o_web_studio_app_creator_left h-100 w-50 d-flex flex-column flex-nowrap rounded-start p-3">
                 <div class="o_web_studio_app_creator_left_content flex-grow-1 pt-3">
                     <t t-if="state.step === 'welcome'">
                         <h2 class="mb0 o_web_studio_welcome fw-light mt-5">Welcome to</h2>
@@ -39,7 +39,7 @@
                     </button>
                     <t t-set="nextStep" t-value="state.nextStep" />
                     <button type="button"
-                        t-attf-class="o_web_studio_app_creator_next btn text-uppercase px-3 py-1 float-end {{ nextStep === false ? 'opacity-25' : 'is_ready btn-primary text-white' }}"
+                        t-attf-class="o_web_studio_app_creator_next btn text-uppercase px-3 py-1 float-end {{ nextStep === false ? 'opacity-25' : 'is_ready btn-primary' }}"
                         aria-label="Next"
                         title="Next"
                         t-on-click="() => this.state.next()"

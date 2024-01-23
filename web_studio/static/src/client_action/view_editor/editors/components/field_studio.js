@@ -36,6 +36,7 @@ export class FieldStudio extends Field {
         if (this.studioIsEmpty()) {
             delete classNames["o_field_empty"];
             classNames["o_web_studio_widget_empty"] = true;
+            classNames["text-muted"] = true;
         }
         return classNames;
     }
