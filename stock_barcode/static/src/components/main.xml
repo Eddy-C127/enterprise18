@@ -8,6 +8,7 @@
     </t>
 
     <div t-name="stock_barcode.MainComponent" class="o_content o_barcode_client_action h-100 flex-column">
+        <ImportBlockUI t-if="state.uiBlocked" message="blockUIMessage"/>
         <div class="o_barcode_header">
             <div class="navbar navbar-expand navbar-dark">
                 <nav class="navbar-nav me-auto">

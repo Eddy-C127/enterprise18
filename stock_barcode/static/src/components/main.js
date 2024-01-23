@@ -17,6 +17,7 @@ import { ManualBarcodeScanner } from './manual_barcode';
 import { url } from '@web/core/utils/urls';
 import { utils as uiUtils } from "@web/core/ui/ui_service";
 import { Component, EventBus, onPatched, onWillStart, useState, useSubEnv } from "@odoo/owl";
+import { ImportBlockUI } from "@base_import/import_block_ui";
 import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
@@ -52,6 +53,7 @@ class MainComponent extends Component {
     static props = { ...standardActionServiceProps };
     static template = "stock_barcode.MainComponent";
     static components = {
+        ImportBlockUI,
         Chatter,
         View,
         GroupedLineComponent,
@@ -78,12 +80,15 @@ class MainComponent extends Component {
         this.state = useState({
             view: "barcodeLines", // Could be also 'printMenu' or 'editFormView'.
             displayNote: false,
+            uiBlocked: false,
         });
         this.barcodeService = useService('barcode');
         useBus(this.barcodeService.bus, "barcode_scanned", (ev) => this.onBarcodeScanned(ev.detail.barcode));
 
         useBus(this.env.model, 'flash', this.flashScreen.bind(this));
         useBus(this.env.model, "playSound", this.playSound.bind(this));
+        useBus(this.env.model, "blockUI", this.blockUI.bind(this));
+        useBus(this.env.model, "unblockUI", this.unblockUI.bind(this));
         useBus(bus, "refresh", (ev) => this._onRefreshState(ev.detail));
 
         onWillStart(async () => {
@@ -92,7 +97,7 @@ class MainComponent extends Component {
                 { model: this.resModel, res_id: this.resId }
             );
             barcodeData.actionId = this.props.actionId;
-            this.config = { play_sound: true, ...barcodeData.config };
+            this.config = { play_sound: true, ...barcodeData.data.config };
             if (this.config.play_sound) {
                 const fileExtension = new Audio().canPlayType("audio/ogg") ? "ogg" : "mp3";
                 this.sounds = {
@@ -107,7 +112,11 @@ class MainComponent extends Component {
             this.state.displayNote = Boolean(this.env.model.record.note);
             this.env.model.addEventListener('process-action', this._onDoAction.bind(this));
             this.env.model.addEventListener('refresh', (ev) => this._onRefreshState(ev.detail));
-            this.env.model.addEventListener('update', () => this.render(true));
+            this.env.model.addEventListener('update', () => {
+                if (!this.state.uiBlocked) {
+                    this.render(true);
+                }
+            });
             this.env.model.addEventListener('history-back', () => this._exit());
         });
 
@@ -116,7 +125,20 @@ class MainComponent extends Component {
         });
     }
 
+    blockUI(ev) {
+        this.blockUIMessage = ev.detail;
+        this.state.uiBlocked = true;
+    }
+
+    unblockUI() {
+        this.state.uiBlocked = false;
+        this.render(true);
+    }
+
     playSound(ev) {
+        if (this.state.uiBlocked) {
+            return;
+        }
         const type = ev.detail || "notify";
         if (this.config.play_sound) {
             this.sounds[type].currentTime = 0;
@@ -254,6 +276,9 @@ class MainComponent extends Component {
     }
 
     flashScreen() {
+        if (this.state.uiBlocked) {
+            return;
+        }
         const clientAction = document.querySelector('.o_barcode_client_action');
         // Resets the animation (in case it still going).
         clientAction.style.animation = 'none';

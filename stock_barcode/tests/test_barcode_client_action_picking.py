@@ -2217,6 +2217,29 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_receipt_delete_button', login='admin', timeout=180)
         self.assertEqual(len(receipt_picking.move_line_ids), 2, "2 lines expected: product1 + product2")
 
+    def test_scan_aggregate_barcode(self):
+        """ Checks the config parameter `stock_barcode.barcode_separator_regex`
+        works as expected and it's possible to scan aggregate barcodes if its
+        individual barcode encodings are separated by the separator."""
+        self.clean_access_rights()
+        self.env['ir.config_parameter'].set_param('stock_barcode.barcode_separator_regex', '[,|]')
+        action_main_menu = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action_main_menu.id}"
+        self.start_tour(url, "test_scan_aggregate_barcode", login="admin", timeout=180)
+        # Check the receipt values.
+        domain = [('picking_type_id', '=', self.picking_type_in.id), ('state', '=', 'done')]
+        receipt = self.env['stock.picking'].search(domain, limit=1, order="id DESC")
+        self.assertRecordValues(receipt.move_ids.sorted(lambda mv: mv.product_id), [
+            {'product_id': self.product1.id, 'quantity': 4},
+            {'product_id': self.product2.id, 'quantity': 2},
+            {'product_id': self.productserial1.id, 'quantity': 10},
+        ])
+        tracked_move = receipt.move_ids.filtered(lambda mv: mv.product_id == self.productserial1)
+        self.assertEqual(
+            tracked_move.lot_ids.sorted(lambda sn: sn.name).mapped('name'),
+            ['sn01', 'sn02', 'sn03', 'sn04', 'sn05', 'sn06', 'sn07', 'sn08', 'sn09', 'sn10']
+        )
+
     def test_scrap(self):
         """ Checks the scrap button is displayed for when it's possible to scrap
         and the corresponding barcode command follows the same rules."""

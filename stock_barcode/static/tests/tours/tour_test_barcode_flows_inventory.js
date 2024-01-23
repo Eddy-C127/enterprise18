@@ -331,7 +331,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
             line = helper.getLine({ barcode: 'productlot1' });
             helper.assertLineQty(line, "2");
             helper.assert(line.querySelector('.o_line_lot_name').innerText.trim(), 'lot1');
-            helper.assertErrorMessage('The scanned serial number is already used.');
+            helper.assertErrorMessage('The scanned serial number serial1 is already used.');
         },
     },
 

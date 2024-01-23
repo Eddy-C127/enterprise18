@@ -42,6 +42,7 @@ export default class BarcodeModel extends EventBus {
         this.scannedLinesVirtualId = [];
 
         this.actionMutex = new Mutex();
+        this.config = data.data.config || {};
         this.groups = data.groups;
 
         this.packageTypes = [];
@@ -516,7 +517,29 @@ export default class BarcodeModel extends EventBus {
     }
 
     async processBarcode(barcode) {
-        this.actionMutex.exec(() => this._processBarcode(barcode));
+        const barcodes = barcode.split(RegExp(this.config.barcode_separator_regex)).filter(bc => bc);
+        if (barcodes.length > 1) {
+            if (barcode === this._currentBarcode) {
+                // Scanning multiple barcodes at once can take some time and the user may be
+                // tempted to scan again, thinking that the barcodes didn't scan.
+                // To avoid processing the same group of barcodes multiple times, we keep the
+                // last scanned group of barcodes in memory and nothing will be done if the barcode
+                // is scanned again while previous one is still in process.
+                return;
+            }
+            this._currentBarcode = barcode;
+            this.actionMutex.exec(async () => {
+                const message = _t("Processing %(number)s barcodes", { number: barcodes.length });
+                this.trigger("blockUI", message);
+                for (const barcodePart of barcodes) {
+                    await this._processBarcode(barcodePart);
+                }
+                this.trigger("unblockUI");
+                delete this._currentBarcode;
+            });
+        } else {
+            this.actionMutex.exec(() => this._processBarcode(barcode));
+        }
     }
 
     // --------------------------------------------------------------------------
@@ -1092,7 +1115,7 @@ export default class BarcodeModel extends EventBus {
                 if (line.product_id.tracking === 'serial' && this.getQtyDone(line) !== 0 &&
                     ((line.lot_id && line.lot_id.name) || line.lot_name) === lotName) {
                     return this.notification(
-                        _t("The scanned serial number is already used."),
+                        _t("The scanned serial number %s is already used.", lotName),
                         { type: 'danger' }
                     );
                 }

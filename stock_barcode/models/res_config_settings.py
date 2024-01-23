@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from odoo import api, fields, models
 
 
@@ -11,6 +9,11 @@ class ResConfigSettings(models.TransientModel):
     show_barcode_nomenclature = fields.Boolean(compute='_compute_show_barcode_nomenclature')
     group_barcode_show_quantity_count = fields.Boolean('Show Quantity to Count', implied_group='stock_barcode.group_barcode_show_quantity_count')
     group_barcode_count_entire_location = fields.Boolean('Count Entire Locations', implied_group='stock_barcode.group_barcode_count_entire_location')
+    barcode_separator_regex = fields.Char(
+        "Multiscan Separator", default="[,;]",
+        config_parameter="stock_barcode.barcode_separator_regex",
+        help="This regex is used in the Barcode application to separate individual barcodes when "
+        "an aggregate barcode (i.e. single barcode consisting of multiple barcode encodings) is scanned.")
 
     @api.depends('company_id')
     def _compute_show_barcode_nomenclature(self):

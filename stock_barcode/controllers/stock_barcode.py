@@ -90,11 +90,12 @@ class StockBarcodeController(http.Controller):
         data['records'].update(self._get_barcode_nomenclature())
         data['precision'] = request.env['decimal.precision'].precision_get('Product Unit of Measure')
         mute_sound = request.env['ir.config_parameter'].sudo().get_param('stock_barcode.mute_sound_notifications')
-        config = {'play_sound': bool(not mute_sound or mute_sound == "False")}
+        data['config'] = data.get('config', {})
+        data['config']['play_sound'] = bool(not mute_sound or mute_sound == "False")
+        data['config']['barcode_separator_regex'] = request.env['ir.config_parameter'].sudo().get_param('stock_barcode.barcode_separator_regex', '.^')
         return {
             'data': data,
             'groups': self._get_groups_data(),
-            'config': config,
         }
 
     @http.route('/stock_barcode/get_specific_barcode_data', type='json', auth='user')

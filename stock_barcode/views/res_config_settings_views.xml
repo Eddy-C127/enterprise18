@@ -11,6 +11,11 @@
                     <label for="barcode_nomenclature_id" string="Barcode Nomenclature" class="col-lg-3 o_light_label"/>
                     <field name="barcode_nomenclature_id" required="module_stock_barcode" options="{'no_open': 1}"/>
                 </div>
+                <div class="content-group row mt16" invisible="not module_stock_barcode" groups="base.group_no_one">
+                    <label for="barcode_separator_regex" class="col-lg-3 o_light_label"/>
+                    <field name="barcode_separator_regex" required="module_stock_barcode"/>
+                    <p class="text-muted">This regex is used in the Barcode application to separate individual barcodes when an aggregate barcode (i.e. single barcode consisting of multiple barcode encodings) is scanned.</p>
+                </div>
                 <div class="content-group">
                     <div class="mt8" invisible="not module_stock_barcode">
                         <button class="btn-link" type="action" string="Configure Product Barcodes" name="%(stock_barcode.product_action_barcodes)d" icon="oi-arrow-right"/>

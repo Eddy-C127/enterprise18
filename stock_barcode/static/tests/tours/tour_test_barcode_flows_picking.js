@@ -1573,13 +1573,9 @@ registry.category("web_tour.tours").add('test_delivery_from_scratch_with_sn_1', 
     },
 
     {
-        trigger: '.o_notification_bar.bg-danger'
-    },
-
-    {
-        trigger: '.o_barcode_client_action',
+        trigger: '.o_notification_bar.bg-danger',
         run: function () {
-            helper.assertErrorMessage('The scanned serial number is already used.');
+            helper.assertErrorMessage('The scanned serial number sn1 is already used.');
         },
     },
 
@@ -1701,13 +1697,9 @@ registry.category("web_tour.tours").add('test_delivery_reserved_with_sn_1', {tes
     },
 
     {
-        trigger: '.o_notification_bar.bg-danger'
-    },
-
-    {
-        trigger: '.o_barcode_client_action',
+        trigger: '.o_notification_bar.bg-danger',
         run: function () {
-            helper.assertErrorMessage('The scanned serial number is already used.');
+            helper.assertErrorMessage('The scanned serial number sn3 is already used.');
         },
     },
 
@@ -1857,7 +1849,7 @@ registry.category("web_tour.tours").add('test_receipt_duplicate_serial_number', 
     {
         trigger: '.o_notification_bar.bg-danger',
         run: function () {
-            helper.assertErrorMessage('The scanned serial number is already used.');
+            helper.assertErrorMessage('The scanned serial number sn1 is already used.');
         },
     },
 
@@ -1924,7 +1916,7 @@ registry.category("web_tour.tours").add('test_delivery_duplicate_serial_number',
     {
         trigger: '.o_notification_bar.bg-danger',
         run: function () {
-            helper.assertErrorMessage('The scanned serial number is already used.');
+            helper.assertErrorMessage('The scanned serial number sn1 is already used.');
         },
     },
 
@@ -3558,6 +3550,45 @@ registry.category("web_tour.tours").add('test_receipt_delete_button', {test: tru
         trigger: '.o_notification_bar.bg-success',
         isCheck: true,
     },
+]});
+
+registry.category("web_tour.tours").add("test_scan_aggregate_barcode", {test: true, steps: () => [
+    { trigger: '.o_stock_barcode_main_menu', run: 'scan WHIN' },
+    // Scan 3x product1 (using ',' as separator).
+    { trigger: '.o_barcode_client_action', run: 'scan product1,product1,product1' },
+    {
+        trigger: '.o_barcode_line.o_selected .qty-done:contains(3)',
+        run: function () {
+            helper.assertLinesCount(1);
+            const line = helper.getLine({ barcode: 'product1' });
+            helper.assertLineQty(line, "3");
+        }
+    },
+    // Scan 1x product1 and 2x product2 (using '|' as separator).
+    { trigger: '.o_barcode_client_action', run: 'scan product1|product2|product2' },
+    {
+        trigger: '.o_barcode_line.o_selected .qty-done:contains(2)',
+        run: function () {
+            helper.assertLinesCount(2);
+            const notSelectedLine = helper.getLine({ selected: false });
+            const selectedLine = helper.getLine({ selected: true });
+            helper.assertLineProduct(notSelectedLine, "product1");
+            helper.assertLineQty(notSelectedLine, "4");
+            helper.assertLineProduct(selectedLine, "product2");
+            helper.assertLineQty(selectedLine, "2");
+        }
+    },
+    {
+        content: "Scan a tracked product and all of its SNs",
+        trigger: '.o_barcode_client_action',
+        run: 'scan productserial1|sn01,sn02,sn05,sn04,sn03,sn06,sn10,sn07,sn08,sn09',
+    },
+    {
+        content: "Unfold grouped lines (productserial1)",
+        extra_trigger: '.o_barcode_line.o_selected .qty-done:contains(10)',
+        trigger: '.o_line_button.o_toggle_sublines'
+    },
+    ...stepUtils.validateBarcodeOperation(),
 ]});
 
 registry.category("web_tour.tours").add("test_scrap", {test: true, steps: () => [
