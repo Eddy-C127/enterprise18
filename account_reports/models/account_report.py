@@ -4892,7 +4892,6 @@ class AccountReport(models.Model):
             pass
 
         # Start by computing the width of the cell if we are not using colspans.
-        row_increase = 0
         if not has_colspan:
             # Ensure to take indents into account when computing the width.
             formatted_value = f"{'  ' * style.indent}{value}"
@@ -4902,17 +4901,7 @@ class AccountReport(models.Model):
             )
             # We set the width if it is bigger than the current one, with a limit at 75 (max to avoid taking excessive space).
             if width > col_width:
-                # if the computed width is > 75, we need to increase the row height to avoid having the text cut.
-                if width > 75:
-                    # For every 75 width, we need to increase the row height by 1.
-                    row_increase = int(width / 75)
                 sheet.set_column(col, col, min(width, 75))
-
-        # We then also compute the height of the row. This is needed when having values in multiple lines.
-        # 15.75 is the default height of a row in Excel. We simply multiply that by the amount of lines.
-        height = 15.75 + (15.75 * (value.count('\n') + row_increase))
-        if height > row_height:
-            sheet.set_row(row, height)
 
     def _inject_report_into_xlsx_sheet(self, options, workbook, sheet):
 
@@ -4936,19 +4925,19 @@ class AccountReport(models.Model):
             else:
                 sheet.merge_range(y, x, y, x + colspan - 1, value, style)
 
-        date_default_col1_style = workbook.add_format({'font_name': 'Lato', 'align': 'left', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'num_format': 'yyyy-mm-dd', 'text_wrap': True})
+        date_default_col1_style = workbook.add_format({'font_name': 'Lato', 'align': 'left', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'num_format': 'yyyy-mm-dd'})
         date_default_style = workbook.add_format({'font_name': 'Lato', 'align': 'left', 'font_size': 12, 'font_color': '#666666', 'num_format': 'yyyy-mm-dd'})
-        default_col1_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'text_wrap': True})
+        default_col1_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'indent': 2})
         default_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666'})
         title_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'bold': True, 'bottom': 2})
-        level_0_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 13, 'bottom': 6, 'font_color': '#666666', 'text_wrap': True})
-        level_1_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666', 'text_wrap': True})
-        level_2_col1_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 1, 'text_wrap': True})
+        level_0_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 13, 'bottom': 6, 'font_color': '#666666'})
+        level_1_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666'})
+        level_2_col1_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 1})
         level_2_col1_total_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666'})
-        level_2_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'text_wrap': True})
-        level_3_col1_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'text_wrap': True})
+        level_2_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666'})
+        level_3_col1_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'indent': 2})
         level_3_col1_total_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 1})
-        level_3_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'text_wrap': True})
+        level_3_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666'})
 
         print_mode_self = self.with_context(no_format=True)
         lines = self._filter_out_folded_children(print_mode_self._get_lines(options))
