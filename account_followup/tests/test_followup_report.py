@@ -291,6 +291,80 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
         self.assertEqual(self.partner_a.total_due, -200)
         self.assertEqual(self.partner_a.followup_status, 'no_action_needed')
 
+    def test_followup_report_style(self):
+        """
+            This report is often broken in terms of styling, this test will check the styling of the lines.
+            (This test will not work if we modify the template it self)
+        """
+        report = self.env['account.followup.report']
+        options = {
+            'partner_id': self.partner_a.id,
+            'multi_currency': True,
+        }
+
+        # 2016-01-01: First invoice, partially paid.
+
+        invoice_1 = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'invoice_date': '2016-01-01',
+            'partner_id': self.partner_a.id,
+            'invoice_line_ids': [Command.create({
+                'quantity': 1,
+                'price_unit': 500,
+                'tax_ids': [],
+            })]
+        })
+        invoice_1.action_post()
+
+        payment_1 = self.env['account.move'].create({
+            'move_type': 'entry',
+            'date': '2016-01-01',
+            'journal_id': self.company_data['default_journal_misc'].id,
+            'line_ids': [
+                Command.create({
+                    'debit': 0.0,
+                    'credit': 200.0,
+                    'account_id': self.company_data['default_account_receivable'].id
+                }),
+                Command.create({
+                    'debit': 200.0,
+                    'credit': 0.0,
+                    'account_id': self.company_data['default_journal_bank'].default_account_id.id
+                }),
+            ],
+        })
+        payment_1.action_post()
+
+        (payment_1 + invoice_1).line_ids \
+            .filtered(lambda line: line.account_id == self.company_data['default_account_receivable']) \
+            .reconcile()
+
+        lines = report._get_followup_report_lines(options)
+        # The variable lines is composed of 3 lines, the line of the move and two lines of total (due and overdue)
+        # First line
+        line_0_style = [
+            'white-space:nowrap;text-align:left;',
+            'white-space:nowrap;text-align:left;color: red;',
+            'text-align:center; white-space:normal;',
+            'text-align:left; white-space:normal;',
+            'text-align:right; white-space:normal;',
+        ]
+        for expected_style, column in zip(line_0_style, lines[0]['columns']):
+            self.assertEqual(expected_style, column['style'])
+
+        # Second line
+        self.assertEqual(lines[1]['columns'][3].get('style'), 'text-align:right; white-space:normal; font-weight: bold;') # Total due title
+        self.assertEqual(lines[1]['columns'][4].get('style'), 'text-align:right; white-space:normal; font-weight: bold;') # Total due value
+
+        # Third line
+        self.assertEqual(lines[2]['columns'][3].get('style'), 'text-align:right; white-space:normal; font-weight: bold;')  # Total overdue title
+        self.assertEqual(lines[2]['columns'][4].get('style'), 'text-align:right; white-space:normal; font-weight: bold;')  # Total overdue value
+
+        # Check template used
+        for line in lines:
+            for column in line['columns']:
+                self.assertEqual(column['template'], 'account_followup.line_template')
+
     def test_followup_send_email(self):
         """ Tests that the email address in the mail.template is used to send the followup email."""
         self.env['account.move'].create({
