@@ -575,9 +575,15 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
         results = defaultdict(lambda: {  # key: type_tax_use
             'base_amount': {column_group_key: 0.0 for column_group_key in options['column_groups']},
             'tax_amount': {column_group_key: 0.0 for column_group_key in options['column_groups']},
+            'tax_non_deductible': {column_group_key: 0.0 for column_group_key in options['column_groups']},
+            'tax_deductible': {column_group_key: 0.0 for column_group_key in options['column_groups']},
+            'tax_due': {column_group_key: 0.0 for column_group_key in options['column_groups']},
             'children': defaultdict(lambda: {  # key: tax_id
                 'base_amount': {column_group_key: 0.0 for column_group_key in options['column_groups']},
                 'tax_amount': {column_group_key: 0.0 for column_group_key in options['column_groups']},
+                'tax_non_deductible': {column_group_key: 0.0 for column_group_key in options['column_groups']},
+                'tax_deductible': {column_group_key: 0.0 for column_group_key in options['column_groups']},
+                'tax_due': {column_group_key: 0.0 for column_group_key in options['column_groups']},
             }),
         })
 
@@ -663,6 +669,14 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                         results[row['tax_type_tax_use']]['children'][row['tax_id']]['base_amount'][column_group_key] += row['base_amount']
 
             # Fetch the tax amounts.
+
+            select_deductible = join_deductible = group_by_deductible = ''
+            if options.get('account_journal_report_tax_deductibility_columns'):
+                select_deductible = """, repartition.use_in_tax_closing AS trl_tax_closing
+                                       , repartition.factor_percent / ABS(repartition.factor_percent) AS trl_factor"""
+                join_deductible = 'JOIN account_tax_repartition_line repartition ON account_move_line.tax_repartition_line_id = repartition.id'
+                group_by_deductible = ', repartition.use_in_tax_closing, repartition.factor_percent / ABS(repartition.factor_percent)'
+
             self._cr.execute(f'''
                 SELECT
                     tax.id AS tax_id,
@@ -670,8 +684,10 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                     group_tax.id AS group_tax_id,
                     group_tax.type_tax_use AS group_tax_type_tax_use,
                     SUM(account_move_line.balance) AS tax_amount
+                    {select_deductible}
                 FROM {tables}
                 JOIN account_tax tax ON tax.id = account_move_line.tax_line_id
+                {join_deductible}
                 LEFT JOIN account_tax group_tax ON group_tax.id = account_move_line.group_tax_id
                 WHERE {where_clause}
                     AND (
@@ -685,7 +701,7 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                         OR
                         (group_tax.id IS NOT NULL AND group_tax.type_tax_use IN ('sale', 'purchase'))
                     )
-                GROUP BY tax.id, group_tax.id
+                GROUP BY tax.id, group_tax.id {group_by_deductible}
             ''', where_params)
 
             for row in self._cr.dictfetchall():
@@ -702,6 +718,17 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
 
                 results[tax_type_tax_use]['tax_amount'][column_group_key] += row['tax_amount']
                 results[tax_type_tax_use]['children'][tax_id]['tax_amount'][column_group_key] += row['tax_amount']
+
+                if options.get('account_journal_report_tax_deductibility_columns'):
+                    tax_detail_label = False
+                    if row['trl_factor'] > 0 and tax_type_tax_use == 'purchase':
+                        tax_detail_label = 'tax_deductible' if row['trl_tax_closing'] else 'tax_non_deductible'
+                    elif row['trl_tax_closing'] and (row['trl_factor'] > 0, tax_type_tax_use) in ((False, 'purchase'), (True, 'sale')):
+                        tax_detail_label = 'tax_due'
+
+                    if tax_detail_label:
+                        results[tax_type_tax_use][tax_detail_label][column_group_key] += row['tax_amount'] * row['trl_factor']
+                        results[tax_type_tax_use]['children'][tax_id][tax_detail_label][column_group_key] += row['tax_amount'] * row['trl_factor']
 
         return results
 
@@ -861,6 +888,19 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                     col_value = sign * tax_amount
 
                 columns.append(report._build_column_dict(col_value, column, options=options))
+
+                # Add the non-deductible, deductible and due tax amounts.
+                if expr_label == 'tax' and options.get('account_journal_report_tax_deductibility_columns'):
+                    for deduct_type in ('tax_non_deductible', 'tax_deductible', 'tax_due'):
+                        columns.append(report._build_column_dict(
+                            col_value=sign * tax_amount_dict[deduct_type][column['column_group_key']],
+                            col_data={
+                                'figure_type': 'monetary',
+                                'column_group_key': column['column_group_key'],
+                                'expression_label': deduct_type,
+                            },
+                            options=options,
+                        ))
 
             # Prepare line.
             default_vals = {

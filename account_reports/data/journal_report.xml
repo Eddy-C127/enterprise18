@@ -75,16 +75,20 @@
                 <!-- Taxes applied -->
                 <td colspan="2" t-att-class="o_journal_report_td">
                     <t t-set="taxes" t-value="line.get('tax_report_lines')"/>
+                    <t t-set="extra_columns" t-value="line.get('extra_columns')"/>
                     <table t-if="taxes" class="table">
                         <thead>
                             <tr>
-                                <th t-att-colspan="4 if len(taxes) > 1 else 3">Taxes Applied</th>
+                                <th t-att-colspan="(4 if len(taxes) > 1 else 3) + extra_columns">Taxes Applied</th>
                             </tr>
                             <tr>
                                 <th t-if="len(taxes) > 1">Country</th>
                                 <th>Name</th>
                                 <th class="o_text_end">Base Amount</th>
                                 <th class="o_text_end">Tax Amount</th>
+                                <th t-if="line.get('tax_non_deductible_column')" class="o_text_end">Non-Deductible</th>
+                                <th t-if="line.get('tax_deductible_column')" class="o_text_end">Deductible</th>
+                                <th t-if="line.get('tax_due_column')" class="o_text_end">Due</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,10 +99,12 @@
                                             <t t-if="tax_index == 0" t-out="country_name"/>
                                         </td>
                                     </t>
-
                                     <td t-out="tax['name']"/>
                                     <td class="o_text_end" t-out="tax['base_amount']"/>
                                     <td class="o_text_end" t-out="tax['tax_amount']"/>
+                                    <td t-if="line.get('tax_non_deductible_column')" class="o_text_end" t-out="tax['tax_non_deductible']"/>
+                                    <td t-if="line.get('tax_deductible_column')" class="o_text_end" t-out="tax['tax_deductible']"/>
+                                    <td t-if="line.get('tax_due_column')" class="o_text_end" t-out="tax['tax_due']"/>
                                 </tr>
                             </t>
                         </tbody>

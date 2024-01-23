@@ -185,6 +185,8 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 # This is the tax summary line, it's rendered in a custom way and don't have values in the name/columns
                 ('',                                                                                                                                                    ),
                 ('Bank (BNK1)',                                                                                                                                         ),
+                ('Global Tax Summary',                                                                                                                                  ),
+                ('',                                                                                                                                                    ),
             ],
             options,
         )
@@ -216,6 +218,8 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 # This is the tax summary line, it's rendered in a custom way and don't have values in the name/columns
                 ('',                                                                                                                                                    ),
                 ('Bank (BNK1)',                                                                                                                                         ),
+                ('Global Tax Summary',                                                                                                                                  ),
+                ('',                                                                                                                                                    ),
             ],
             options,
         )
@@ -237,6 +241,8 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 ('',                                    '',                       '',                       '',             'Starting Balance:',  '$\xa0100.00',      ''),
                 ('BNK1/2017/00001',                     '',                       '400000 Product Sales',   0.0,            200.00,               '$\xa0300.00',      ''),
                 ('',                                    '',                       '',                       '',             'Ending Balance:',    '$\xa0300.00',      ''),
+                ('Global Tax Summary',                                                                                                                                  ),
+                ('',                                                                                                                                                    ),
             ],
             options,
         )
@@ -282,6 +288,8 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 ('BNK1/2017/00001',                     '',                       '400000 Product Sales',   0.0,            200.00,               '$\xa0300.00',      ''),
                 ('BNK1/2017/00002',                     '',                       '400000 Product Sales',   0.0,            175.00,               '$\xa0475.00',      '150.000\xa0🍫'),
                 ('',                                    '',                       '',                       '',             'Ending Balance:',    '$\xa0475.00',      ''),
+                ('Global Tax Summary',                                                                                                                                  ),
+                ('',                                                                                                                                                    ),
             ],
             options,
         )
@@ -320,6 +328,8 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 ('BNK1/2017/00001',                     '',                       '400000 Product Sales',   0.0,            200.00,               '$\xa0300.00',      ''),
                 ('BNK1/2017/00002',                     '',                       '400000 Product Sales',   0.0,            175.00,               '$\xa0475.00',      ''),
                 ('',                                    '',                       '',                       '',             'Ending Balance:',    '$\xa0475.00',      ''),
+                ('Global Tax Summary',                                                                                                                                  ),
+                ('',                                                                                                                                                    ),
             ],
             options,
         )
@@ -379,6 +389,8 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 ('INV/2017/00005',                      '2017-02-02',             '121000 partner_a',       3000.0,         0.0,           '',                        ''),
                 ('ref123',                              '',                       '400000 Product Sales',   0.0,            3000.0,        '',                        ''),
                 ('Bank (BNK1)',                                                                                                                                         ),
+                ('Global Tax Summary',                                                                                                                                  ),
+                ('',                                                                                                                                                    ),
             ],
             options,
         )
@@ -447,6 +459,8 @@ class TestJournalAuditReport(TestAccountReportsCommon):
                 # This is the tax summary line, it's rendered in a custom way and don't have values in the name/columns
                 ('',                                                                                                                                                    ),
                 ('Bank (BNK1)',                                                                                                                                         ),
+                ('Global Tax Summary',                                                                                                                                  ),
+                ('',                                                                                                                                                    ),
             ],
             options,
         )
