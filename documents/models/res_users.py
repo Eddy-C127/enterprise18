@@ -7,7 +7,10 @@ class Users(models.Model):
     _name = 'res.users'
     _inherit = ['res.users']
 
-    def _init_messaging(self):
-        res = super()._init_messaging()
-        res["Store"]["hasDocumentsUserGroup"] = self.env.user.has_group("documents.group_documents_user")
-        return res
+    def _init_messaging(self, store):
+        super()._init_messaging(store)
+        store.add({
+            "Store": {
+                "hasDocumentsUserGroup": self.env.user.has_group("documents.group_documents_user")
+            },
+        })

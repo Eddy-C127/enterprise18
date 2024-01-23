@@ -72,18 +72,21 @@ class ResUsers(models.Model):
         last_call = self.env["voip.call"].search(domain, order="id desc", limit=1)
         self.env.user.last_seen_phone_call = last_call.id
 
-    def _init_messaging(self):
-        res = super()._init_messaging()
+    def _init_messaging(self, store):
+        super()._init_messaging(store)
         if not self.env.user._is_internal():
-            return res
+            return
         get_param = self.env["ir.config_parameter"].sudo().get_param
-        res["Store"]["voipConfig"] = {
-            "mode": get_param("voip.mode", default="demo"),
-            "missedCalls": self.env["voip.call"]._get_number_of_missed_calls(),
-            "pbxAddress": get_param("voip.pbx_ip", default="localhost"),
-            "webSocketUrl": get_param("voip.wsServer", default="ws://localhost"),
-        }
-        return res
+        store.add({
+            "Store": {
+                "voipConfig": {
+                    "mode": get_param("voip.mode", default="demo"),
+                    "missedCalls": self.env["voip.call"]._get_number_of_missed_calls(),
+                    "pbxAddress": get_param("voip.pbx_ip", default="localhost"),
+                    "webSocketUrl": get_param("voip.wsServer", default="ws://localhost"),
+                },
+            },
+        })
 
     def _reflect_change_in_res_users_settings(self):
         """
