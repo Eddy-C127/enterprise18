@@ -239,7 +239,7 @@ class PosOrder(models.Model):
             ))
 
         # == Check the order ==
-        base_lines = self._prepare_tax_base_line_values()
+        base_lines = self._l10n_mx_edi_cfdi_line_ids()._prepare_tax_base_line_values()
         negative_lines = [
             x
             for x in base_lines
@@ -260,7 +260,7 @@ class PosOrder(models.Model):
     def _l10n_mx_edi_add_cfdi_values(self, cfdi_values, is_refund_gi=False):
         self.ensure_one()
 
-        base_lines = self._prepare_tax_base_line_values()
+        base_lines = self._l10n_mx_edi_cfdi_line_ids()._prepare_tax_base_line_values()
 
         # When creating a global invoice for both orders and refunds, add the refund to the corresponding order in order to deal with
         # negative lines.
@@ -655,3 +655,10 @@ class PosOrder(models.Model):
             'target': 'new',
             'context': {'default_pos_order_ids': [Command.set(self.ids)]},
         }
+
+    def _l10n_mx_edi_cfdi_line_ids(self):
+        """ Filter the order lines to be considered when creating the CFDI.
+
+        :return: A recordset of order lines.
+        """
+        return self.lines.filtered(lambda line: not line.order_id.currency_id.is_zero(line.price_unit * line.qty))

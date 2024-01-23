@@ -148,10 +148,11 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
 
     @freeze_time('2017-01-01')
     def test_global_invoiced_order_then_refund_then_invoiced(self):
+        self.product_0 = self._create_product(lst_price=0.0)
         with self.with_pos_session() as _session:
             # Create an order, then make a global invoice and sign it.
             order = self._create_order({
-                'pos_order_lines_ui_args': [(self.product, 10)],
+                'pos_order_lines_ui_args': [(self.product, 10), (self.product_0, 10)],
                 'payments': [(self.bank_pm1, 11600.0)],
                 'customer': self.partner_mx,
                 'uid': '0001',
