@@ -27,7 +27,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.subscription.write({
                 'partner_id': self.partner.id,
                 'company_id': self.company.id,
-                'payment_token_id': self.payment_method.id,
+                'payment_token_id': self.payment_token.id,
                 'sale_order_template_id': self.subscription_tmpl.id,
             })
             self.subscription._onchange_sale_order_template_id()
@@ -74,7 +74,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.assertTrue(all(failing_result), "The subscription are not flagged anymore")
             failing_result = [not res for res in failing_subs.mapped('is_batch')]
             self.assertTrue(all(failing_result), "The subscription are not flagged anymore")
-            failing_subs.payment_token_id = self.payment_method.id
+            failing_subs.payment_token_id = self.payment_token.id
             # Trigger the invoicing manually after fixing it
             failing_subs._create_recurring_invoice()
             vals = [sub.payment_exception for sub in failing_subs if sub.payment_exception]
@@ -99,7 +99,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.subscription.write({
                 'partner_id': self.partner.id,
                 'company_id': self.company.id,
-                'payment_token_id': self.payment_method.id,
+                'payment_token_id': self.payment_token.id,
                 'sale_order_template_id': subscription_tmpl.id,
             })
             self.subscription._onchange_sale_order_template_id()
@@ -221,7 +221,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
     @mute_logger('odoo.addons.sale_subscription.models.sale_order')
     def test_exception_mail(self):
-        self.subscription.write({'payment_token_id': self.payment_method.id,
+        self.subscription.write({'payment_token_id': self.payment_token.id,
                                  'client_order_ref': 'Customer REF XXXXXXX'
         })
         self.subscription.action_confirm()
@@ -233,7 +233,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
     @mute_logger('odoo.addons.sale_subscription.models.sale_order')
     def test_bad_payment_exception(self):
-        self.subscription.write({'payment_token_id': self.payment_method.id,
+        self.subscription.write({'payment_token_id': self.payment_token.id,
                                  'client_order_ref': 'Customer REF XXXXXXX'
         })
         self.subscription.action_confirm()
@@ -251,7 +251,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
     @mute_logger('odoo.addons.sale_subscription.models.sale_order')
     def test_bad_payment_exception_post_success(self):
-        self.subscription.write({'payment_token_id': self.payment_method.id,
+        self.subscription.write({'payment_token_id': self.payment_token.id,
                                  'client_order_ref': 'Customer REF XXXXXXX'
         })
         self.subscription.action_confirm()
@@ -283,7 +283,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
     @mute_logger('odoo.addons.sale_subscription.models.sale_order')
     def test_bad_payment_rejected(self):
-        self.subscription.write({'payment_token_id': self.payment_method.id,
+        self.subscription.write({'payment_token_id': self.payment_token.id,
                                  'client_order_ref': 'Customer REF XXXXXXX'
         })
         self.subscription.action_confirm()
@@ -301,7 +301,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         )
 
     def test_manual_invoice_with_token(self):
-        self.subscription.write({'payment_token_id': self.payment_method.id,
+        self.subscription.write({'payment_token_id': self.payment_token.id,
                                  'client_order_ref': 'Customer REF XXXXXXX'
         })
         with freeze_time("2021-01-03"):

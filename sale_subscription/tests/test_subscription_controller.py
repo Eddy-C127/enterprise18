@@ -166,7 +166,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         subscription = self.subscription.create({
             'partner_id': self.partner.id,
             'company_id': self.company.id,
-            'payment_token_id': self.payment_method.id,
+            'payment_token_id': self.payment_token.id,
             'sale_order_template_id': self.subscription_tmpl.id,
 
         })
@@ -194,7 +194,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         subscription.transaction_ids.provider_id.support_manual_capture = 'full_only'
         subscription.transaction_ids._set_authorized()
         subscription.invoice_ids.filtered(lambda am: am.state == 'draft')._post()
-        subscription.transaction_ids.token_id = self.payment_method.id
+        subscription.transaction_ids.token_id = self.payment_token.id
         self.assertEqual(subscription.next_invoice_date, datetime.date.today())
         self.assertEqual(subscription.state, 'sale')
         subscription.transaction_ids._reconcile_after_done()  # Create the payment
@@ -258,7 +258,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         subscription = self.subscription.create({
             'partner_id': self.partner.id,
             'company_id': self.company.id,
-            'payment_token_id': self.payment_method.id,
+            'payment_token_id': self.payment_token.id,
             'sale_order_template_id': self.subscription_tmpl.id,
 
         })
@@ -337,7 +337,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
                 )
             tx_sudo = self._get_tx(processing_values['reference'])
             # make sure to have a token on the transaction. it is needed to test the confirmation flow
-            tx_sudo.token_id = self.payment_method.id
+            tx_sudo.token_id = self.payment_token.id
             self.assertEqual(tx_sudo.sale_order_ids, subscription)
             # self.assertEqual(tx_sudo.amount, amount)
             self.assertEqual(tx_sudo.sale_order_ids.transaction_ids, tx_sudo)
@@ -382,7 +382,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
 
             # Make sure to have a token on the transaction, it is needed to test the confirmation flow.
             tx_sudo = self._get_tx(processing_values['reference'])
-            tx_sudo.token_id = self.payment_method.id
+            tx_sudo.token_id = self.payment_token.id
             self.assertEqual(tx_sudo.sale_order_ids, renewal_so)
             self.assertEqual(tx_sudo.sale_order_ids.transaction_ids, tx_sudo)
             tx_sudo._set_done()

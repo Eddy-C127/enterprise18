@@ -599,7 +599,7 @@ class TestSubscription(TestSubscriptionCommon):
             'next_invoice_date': False,
             'partner_id': self.partner.id,
             'company_id': self.company.id,
-            'payment_token_id': self.payment_method.id,
+            'payment_token_id': self.payment_token.id,
         })
         self.subscription.order_line[0].write({'price_unit': 1200})
         self.subscription.order_line[1].write({'price_unit': 200})
@@ -2794,7 +2794,7 @@ class TestSubscription(TestSubscriptionCommon):
         sub.plan_id.auto_close_limit = 1
         start_date = datetime.date(2022, 6, 20)
         sub.start_date = start_date
-        sub.payment_token_id = self.payment_method.id
+        sub.payment_token_id = self.payment_token.id
         sub.action_confirm()
 
         with freeze_time(start_date + relativedelta(days=sub.plan_id.auto_close_limit)):
