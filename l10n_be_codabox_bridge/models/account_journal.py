@@ -129,7 +129,7 @@ class AccountJournal(models.Model):
             ("journal_id", "=", self.company_id.l10n_be_codabox_soda_journal.id),
         ], order="date DESC", limit=1).date
         if not last_soda_date:
-            last_soda_date = fields.Date.today() - relativedelta(year=2)  # API goes back 2 years max
+            last_soda_date = fields.Date.today() - relativedelta(years=2)  # API goes back 2 years max
         sodas = self._l10n_be_codabox_fetch_transactions_from_iap(session, self.company_id, "sodas", last_soda_date)
         moves = self.env["account.move"]
         for soda in sodas:
