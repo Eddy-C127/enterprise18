@@ -52,6 +52,12 @@ export class RoomBookingView extends Component {
             scheduleBooking: false,
             scheduleBookingQuickCreate: false,
         });
+        // If there are several rooms opened at the same time using the same
+        // browser profile, they will all receive every room notification
+        // leading to incorrect states. We advise the user to close the other
+        // tabs.
+        this.multiTab = useService("multi_tab");
+        this.showMultiTabWarning = !this.multiTab.isOnMainTab();
         // Show bookings updates in live
         this.busService = this.env.services.bus_service;
         this.busService.addChannel("room_booking#" + this.props.accessToken);

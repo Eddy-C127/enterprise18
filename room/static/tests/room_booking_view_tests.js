@@ -540,4 +540,18 @@ QUnit.module("Room Booking View", (hooks) => {
         // It shouldn't be in the sidebar anymore
         assertRoomStatus(assert, target, false, 0);
     });
+
+    // If multiple tabs are opened, some undesired behaviors may happen. Therefore, we
+    // check that a warning message is shown when it is the case.
+    QUnit.test("Room Booking View - Warn if multiple tabs", async (assert) => {
+        const mockRPC = (route, args) => {
+            if (route === "/room/room_test/get_existing_bookings") {
+                return [];
+            }
+        };
+        let { target } = await mountRoomBookingView(mockRPC);
+        assert.containsNone(target, ".alert-warning:contains('multiple tabs opened')");
+        ({ target } = await mountRoomBookingView(mockRPC));
+        assert.containsOnce(target, ".alert-warning:contains('multiple tabs opened')");
+    });
 });
