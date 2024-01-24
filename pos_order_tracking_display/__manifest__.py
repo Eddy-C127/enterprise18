@@ -34,6 +34,7 @@
             'bus/static/src/multi_tab_service.js',
             'bus/static/src/workers/*',
             'point_of_sale/static/src/utils.js',
+            'point_of_sale/static/src/startOwl.js',
             "point_of_sale/static/src/app/generic_components/odoo_logo/*",
             'pos_order_tracking_display/static/src/**/*',
         ],

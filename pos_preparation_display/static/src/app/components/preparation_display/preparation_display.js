@@ -4,6 +4,7 @@ import { Stages } from "@pos_preparation_display/app/components/stages/stages";
 import { Order } from "@pos_preparation_display/app/components/order/order";
 import { usePreparationDisplay } from "@pos_preparation_display/app/preparation_display_service";
 import { Component, onPatched, useState } from "@odoo/owl";
+import { startOwl } from "@point_of_sale/startOwl";
 
 export class PreparationDisplay extends Component {
     static components = { Category, Stages, Order };
@@ -17,7 +18,7 @@ export class PreparationDisplay extends Component {
         this.onNextPatch = new Set();
         this.state = useState({
             isMenuOpened: false,
-        })
+        });
 
         onPatched(() => {
             for (const cb of this.onNextPatch) {
@@ -87,3 +88,4 @@ export class PreparationDisplay extends Component {
         this.state.isMenuOpened = true;
     }
 }
+startOwl(PreparationDisplay);

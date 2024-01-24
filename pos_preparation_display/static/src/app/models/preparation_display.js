@@ -8,6 +8,7 @@ import { Category } from "@pos_preparation_display/app/models/category";
 import { deserializeDateTime } from "@web/core/l10n/dates";
 import { Product } from "@pos_preparation_display/app/models/product";
 import { ConnectionLostError } from "@web/core/network/rpc";
+import { session } from "@web/session";
 
 // in the furur, maybe just set "filterOrders" as a getter and directly call the function.
 export class PreparationDisplay extends Reactive {
@@ -285,7 +286,7 @@ export class PreparationDisplay extends Reactive {
     }
 
     saveFilterToLocalStorage() {
-        const localStorageName = `preparation_display_${this.id}.db_${odoo.info.db}.user_${user.userId}`;
+        const localStorageName = `preparation_display_${this.id}.db_${session.db}.user_${user.userId}`;
 
         localStorage.setItem(
             localStorageName,
@@ -297,7 +298,7 @@ export class PreparationDisplay extends Reactive {
     }
 
     restoreFilterFromLocalStorage() {
-        const localStorageName = `preparation_display_${this.id}.db_${odoo.info.db}.user_${user.userId}`;
+        const localStorageName = `preparation_display_${this.id}.db_${session.db}.user_${user.userId}`;
         const localStorageData = JSON.parse(localStorage.getItem(localStorageName));
 
         if (localStorageData) {
