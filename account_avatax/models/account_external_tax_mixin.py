@@ -81,12 +81,15 @@ class AccountExternalTaxMixin(models.AbstractModel):
             raise UserError('\n\n'.join(errors))
 
         for document, query_result in query_results.items():
+            is_return = document._get_avatax_document_type() == 'ReturnInvoice'
+            line_amounts_sign = -1 if is_return else 1
+
             for line_result in query_result['lines']:
                 record_id = line_result['lineNumber'].split(',')
                 record = self.env[record_id[0]].browse(int(record_id[1]))
                 details.setdefault(record, {})
-                details[record]['total'] = line_result['lineAmount']
-                details[record]['tax_amount'] = line_result['tax']
+                details[record]['total'] = line_amounts_sign * line_result['lineAmount']
+                details[record]['tax_amount'] = line_amounts_sign * line_result['tax']
                 for detail in line_result['details']:
                     tax = find_or_create_tax(document, detail)
                     details[record].setdefault('tax_ids', self.env['account.tax'])
