@@ -49,4 +49,9 @@ export class RainbowEffect extends Component {
         }
         this.props.onChange(effect, "effect");
     }
+    toggleRainbowMan() {
+        const effect = this.rainbowEffect;
+        const newValue = effect ? "False" : "{}";
+        this.props.onChange(newValue, "effect");
+    }
 }

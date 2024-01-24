@@ -1536,3 +1536,18 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 </xpath>
              </data>
             """)
+
+    def test_button_rainbow_effect(self):
+        self.testView.arch = """<form><button type="object" name="open_commercial_entity">Button</button></form>"""
+        self.start_tour("/web", "web_studio.test_button_rainbow_effect", login="admin")
+
+        studioView = _get_studio_view(self.testView)
+        attachment = self.env["ir.attachment"].search([("name", "=", "my_studio_image.png")])
+
+        self.assertXMLEqual(studioView.arch, """
+        <data>
+          <xpath expr="//button[@name='open_commercial_entity']" position="attributes">
+            <attribute name="effect">{'img_url': '/web/content/%s'}</attribute>
+          </xpath>
+        </data>
+        """ % attachment.id)
