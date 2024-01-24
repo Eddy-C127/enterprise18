@@ -260,19 +260,23 @@ class AccountJournal(models.Model):
     def _get_PmtTpInf(self, sct_generic=False):
         PmtTpInf = etree.Element("PmtTpInf")
 
-        if not sct_generic and self.sepa_pain_version != 'pain.001.001.03.ch.02':
-            SvcLvl = etree.SubElement(PmtTpInf, "SvcLvl")
-            Cd = etree.SubElement(SvcLvl, "Cd")
-            Cd.text = 'SEPA'
+        is_salary = self.env.context.get('sepa_payroll_sala')
 
-        # 1/ the SALA purpose code is standard for all SEPA, and guarantees a series
-        #    of things in instant payment: https://www.sepaforcorporates.com/sepa-payments/sala-sepa-salary-payments.
-        # 2/ the "High" priority level is also an attribute of the payment
-        #    that we should specify as well for salary payments
-        #    See https://www.febelfin.be/sites/default/files/2019-04/standard-credit_transfer-xml-v32-en_0.pdf section 2.6
-        if self.env.context.get('sepa_payroll_sala'):
+        if is_salary:
+            # The "High" priority level is also an attribute of the payment
+            # that we should specify as well for salary payments
+            # See https://www.febelfin.be/sites/default/files/2019-04/standard-credit_transfer-xml-v32-en_0.pdf section 2.6
             InstrPrty = etree.SubElement(PmtTpInf, "InstrPrty")
             InstrPrty.text = 'HIGH'
+
+        if sct_generic or self.sepa_pain_version != 'pain.001.001.03.ch.02':
+            SvcLvl = etree.SubElement(PmtTpInf, "SvcLvl")
+            Cd = etree.SubElement(SvcLvl, "Cd")
+            Cd.text = 'NURG' if sct_generic else 'SEPA'
+
+        if is_salary:
+            # The SALA purpose code is standard for all SEPA, and guarantees a series
+            # of things in instant payment: https://www.sepaforcorporates.com/sepa-payments/sala-sepa-salary-payments.
             CtgyPurp = etree.SubElement(PmtTpInf, "CtgyPurp")
             Cd = etree.SubElement(CtgyPurp, "Cd")
             Cd.text = 'SALA'
