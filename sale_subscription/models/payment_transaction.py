@@ -55,6 +55,7 @@ class PaymentTransaction(models.Model):
         mandate_values.update({
             # The maximum amount that can be charged with the mandated.
             'amount': self.sale_order_ids.amount_total,
+            'MRR': self.sale_order_ids.recurring_monthly,
             'start_datetime': start_datetime,
             'end_datetime': end_datetime,
             'recurrence_unit': self.sale_order_ids.plan_id.billing_period_unit,
