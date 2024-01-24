@@ -478,7 +478,7 @@ Chester Reed</p>
     <record id="helpdesk_activity_1" model="mail.activity">
         <field name="res_id" ref="helpdesk.helpdesk_ticket_3"/>
         <field name="res_model_id" ref="helpdesk.model_helpdesk_ticket"/>
-        <field name="activity_type_id" ref="helpdesk.mail_act_helpdesk_handle"/>
+        <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
         <field name="date_deadline" eval="DateTime.today()"/>
         <field name="summary">Provide warranty details</field>
         <field name="create_uid" ref="base.user_admin"/>
@@ -487,7 +487,7 @@ Chester Reed</p>
     <record id="helpdesk_activity_2" model="mail.activity">
         <field name="res_id" ref="helpdesk.helpdesk_ticket_12"/>
         <field name="res_model_id" ref="helpdesk.model_helpdesk_ticket"/>
-        <field name="activity_type_id" ref="helpdesk.mail_act_helpdesk_handle"/>
+        <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
         <field name="date_deadline" eval="(DateTime.today() + relativedelta(days=2))"/>
         <field name="summary">Provide the details about the spare part of chair</field>
         <field name="create_uid" ref="base.user_admin"/>

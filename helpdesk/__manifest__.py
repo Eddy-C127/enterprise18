@@ -41,7 +41,6 @@ Features:
         'security/helpdesk_security.xml',
         'security/ir.model.access.csv',
         'data/digest_data.xml',
-        'data/mail_activity_type_data.xml',
         'data/mail_message_subtype_data.xml',
         'data/mail_template_data.xml',
         'data/helpdesk_data.xml',

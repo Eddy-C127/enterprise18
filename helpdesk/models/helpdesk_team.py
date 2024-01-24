@@ -612,11 +612,11 @@ class HelpdeskTeam(models.Model):
                 'my_all': {'count': 10, 'hours': 30, 'failed': 4},
                 'my_high': {'count': 3, 'hours': 10, 'failed': 2},
                 'my_urgent': {'count': 2, 'hours': 15, 'failed': 1},
-                'today': {'count': 1, 'rating': 50, 'success': 50},
-                '7days': {'count': 15, 'rating': 70, 'success': 80},
+                'today': {'sla_ticket_count': 1, 'count': 1, 'rating': 50, 'success': 50},
+                '7days': {'sla_ticket_count': 1, 'count': 15, 'rating': 70, 'success': 80},
                 'helpdesk_target_rating': 80,
                 'helpdesk_target_success': 85,
-                'helpdesk_target_closed': 85,
+                'helpdesk_target_closed': 12,
             })
             return result
 
