@@ -426,7 +426,7 @@ class Planning(models.Model):
         templates = self.env['planning.slot.template'].search(domain, order='start_time', limit=10)
         self.template_autocomplete_ids = templates + self.template_id
 
-    @api.depends('employee_id', 'role_id', 'start_datetime', 'end_datetime', 'allocated_hours')
+    @api.depends('employee_id', 'role_id', 'start_datetime', 'end_datetime')
     def _compute_template_id(self):
         for slot in self.filtered(lambda s: s.template_id):
             slot.previous_template_id = slot.template_id
