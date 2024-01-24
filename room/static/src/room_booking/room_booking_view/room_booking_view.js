@@ -56,16 +56,16 @@ export class RoomBookingView extends Component {
         // Show bookings updates in live
         this.busService = this.env.services.bus_service;
         this.busService.addChannel("room_booking#" + this.props.accessToken);
-        this.busService.subscribe("booking/create", (bookings) => {
-            bookings.forEach((booking) => this.addBooking(booking));
-        });
-        this.busService.subscribe("booking/delete", (bookings) => {
-            bookings.forEach((booking) => this.removeBooking(booking.id));
-        });
-        this.busService.subscribe("booking/update", (bookings) => {
-            bookings.forEach((booking) => this.udpateBooking(booking));
-        });
-        this.busService.subscribe("reload", (url) => redirect(url));
+        this.busService.subscribe(`room#${this.props.id}/booking/create`, (bookings) =>
+            bookings.forEach((booking) => this.addBooking(booking)),
+        );
+        this.busService.subscribe(`room#${this.props.id}/booking/delete`, (bookings) =>
+            bookings.forEach((booking) => this.removeBooking(booking.id)),
+        );
+        this.busService.subscribe(`room#${this.props.id}/booking/update`, (bookings) =>
+            bookings.forEach((booking) => this.udpateBooking(booking)),
+        );
+        this.busService.subscribe(`room#${this.props.id}/reload`, (url) => redirect(url));
         this.notificationService = useService("notification");
         this.dialogService = useService("dialog");
         onWillStart(this.loadBookings);

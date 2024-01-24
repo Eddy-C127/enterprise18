@@ -123,12 +123,11 @@ class Room(models.Model):
         """
         self.ensure_one()
         if method == "reload":
-            self.env["bus.bus"]._sendone(f"room_booking#{self.access_token}", "reload", self.room_booking_url)
+            self.env["bus.bus"]._sendone(f"room_booking#{self.access_token}", f"room#{self.id}/reload", self.room_booking_url)
         elif method in ["create", "delete", "update"]:
             self.env["bus.bus"]._sendone(
                 f"room_booking#{self.access_token}",
-                f"booking/{method}",
-                [{
+                f"room#{self.id}/booking/{method}", [{
                     "id": booking.id,
                     "name": booking.name,
                     "start_datetime": booking.start_datetime,

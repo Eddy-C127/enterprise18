@@ -56,6 +56,7 @@ export const mountRoomBookingView = async (mockRPC, useBus) => {
          * @params {Array} bookings
          */
         notifyView = async (notificationType, bookings) => {
+            notificationType = "room#1/" + notificationType;
             await busSubscriptionPromise;
             pyEnv["bus.bus"]._sendone("room_booking#room_test", notificationType, bookings);
             await waitNotifications([env, notificationType, bookings]);
