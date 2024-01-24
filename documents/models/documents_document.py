@@ -369,7 +369,7 @@ class Document(models.Model):
                 'attachment_id': attachment.id,
                 'folder_id': share.folder_id.id,
                 'owner_id': share.owner_id.user_ids[0].id if share.owner_id.user_ids else share.create_uid.id,
-                'partner_id': share.partner_id.id or msg_vals.get('author_id'),
+                'partner_id': share.partner_id.id or False,
                 'tag_ids': [(6, 0, share.tag_ids.ids or [])],
             } for attachment in attachments])
             for (attachment, document) in zip(attachments, documents):
