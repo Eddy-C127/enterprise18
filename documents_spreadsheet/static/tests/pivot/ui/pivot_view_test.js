@@ -649,7 +649,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         });
         const target = getFixture();
         await click(target.querySelector(".o_pivot_add_spreadsheet"));
-        await triggerEvent(target, ".o-sp-dialog-item div[data-id='1']", "focus");
+        await triggerEvent(target, ".o-spreadsheet-grid div[data-id='1']", "focus");
         await nextTick();
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
         await doAction(webClient, 1); // leave the spreadsheet action
@@ -683,7 +683,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         });
         const fixture = getFixture();
         await click(fixture.querySelector(".o_pivot_add_spreadsheet"));
-        await triggerEvent(fixture, ".o-sp-dialog-item div[data-id='456']", "focus");
+        await triggerEvent(fixture, ".o-spreadsheet-grid div[data-id='456']", "focus");
         await nextTick();
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
         await nextTick();

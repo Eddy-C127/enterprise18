@@ -7,9 +7,9 @@ import {
     click,
     getFixture,
     mount,
-    nextTick,
     patchWithCleanup,
     triggerEvent,
+    nextTick,
 } from "@web/../tests/helpers/utils";
 import { getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import { prepareWebClientForSpreadsheet } from "@spreadsheet_edition/../tests/utils/webclient_helpers";
@@ -96,7 +96,8 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
     QUnit.test("Display only spreadsheet and a blank spreadsheet", async (assert) => {
         const { target } = await mountSpreadsheetSelectorDialog();
         assert.strictEqual(
-            target.querySelectorAll(".o-sp-dialog-item:not(.o-sp-dialog-ghost-item)").length,
+            target.querySelectorAll(".o-spreadsheet-grid:not(.o-spreadsheet-grid-ghost-item)")
+                .length,
             3
         );
     });
@@ -297,7 +298,7 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
             },
         });
         mockActionService(env, (action) => assert.deepEqual(action.params.spreadsheet_id, 789));
-        const blank = target.querySelector(".o-sp-dialog-item-blank img");
+        const blank = target.querySelector(".o-blank-spreadsheet-grid img");
         await triggerEvent(blank, null, "focus");
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
         assert.verifySteps(["action_open_new_spreadsheet"]);
@@ -307,7 +308,7 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
         assert.expect(1);
         const { target, env } = await mountSpreadsheetSelectorDialog();
         mockActionService(env, (action) => assert.deepEqual(action.params.spreadsheet_id, 1));
-        const blank = target.querySelector('.o-sp-dialog-item div[data-id="1"]');
+        const blank = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
         await triggerEvent(blank, null, "focus");
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
     });
@@ -315,13 +316,19 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
     QUnit.test("Selected spreadsheet is identifiable", async (assert) => {
         const { target } = await mountSpreadsheetSelectorDialog();
         assert.hasClass(
-            target.querySelector(".o-sp-dialog-item-blank img"),
-            "selected",
+            target.querySelector(
+                ".o-spreadsheet-grid.o-blank-spreadsheet-grid .o-spreadsheet-grid-image"
+            ),
+            "o-spreadsheet-grid-selected",
             "Blank spreadsheet should be selected by default"
         );
-        const sp = target.querySelector('.o-sp-dialog-item div[data-id="1"]');
+        const sp = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
         await triggerEvent(sp, null, "focus");
-        assert.hasClass(sp, "selected", "Selected spreadsheet should be identifiable");
+        assert.hasClass(
+            sp,
+            "o-spreadsheet-grid-selected",
+            "Selected spreadsheet should be identifiable"
+        );
     });
 
     QUnit.test("Can double click an existing spreadsheet", async (assert) => {
@@ -330,7 +337,7 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
             assert.step(action.tag);
             assert.deepEqual(action.params.spreadsheet_id, 1);
         });
-        const spreadsheetItem = target.querySelector('.o-sp-dialog-item div[data-id="1"]');
+        const spreadsheetItem = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
         // In practice, the double click will also focus the item
         await triggerEvent(spreadsheetItem, null, "focus");
         await triggerEvent(spreadsheetItem, null, "dblclick");
@@ -340,7 +347,7 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
     QUnit.test("Can double click the empty spreadsheet", async (assert) => {
         const { target, env } = await mountSpreadsheetSelectorDialog();
         mockActionService(env, (action) => assert.step(action.tag));
-        const blank = target.querySelector(".o-sp-dialog-item-blank img");
+        const blank = target.querySelector(".o-blank-spreadsheet-grid img");
         // In practice, the double click will also focus the item
         await triggerEvent(blank, null, "focus");
         await triggerEvent(blank, null, "dblclick");
@@ -361,7 +368,7 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
         serviceRegistry.add("action", fakeActionService, { force: true });
 
         const { target } = await mountSpreadsheetSelectorDialog();
-        const blank = target.querySelector(".o-sp-dialog-item-blank img");
+        const blank = target.querySelector(".o-blank-spreadsheet-grid img");
         await triggerEvent(blank, null, "keydown", { key: "Enter" });
 
         assert.verifySteps(["action_open_spreadsheet"]);
@@ -381,7 +388,7 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
         serviceRegistry.add("action", fakeActionService, { force: true });
 
         const { target } = await mountSpreadsheetSelectorDialog();
-        const spreadsheetItem = target.querySelector('.o-sp-dialog-item div[data-id="1"]');
+        const spreadsheetItem = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
         await triggerEvent(spreadsheetItem, null, "keydown", { key: "Enter" });
 
         assert.verifySteps(["action_open_spreadsheet"]);
@@ -446,4 +453,33 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
             );
         }
     );
+
+    QUnit.test("Can navigate through spreadsheets with arrow keys", async (assert) => {
+        const { target } = await mountSpreadsheetSelectorDialog();
+        const defaultSelected = target.querySelector(
+            ".o-spreadsheet-grid.o-blank-spreadsheet-grid .o-spreadsheet-grid-image"
+        );
+        assert.hasClass(
+            defaultSelected,
+            "o-spreadsheet-grid-selected",
+            "Blank spreadsheet should be selected by default"
+        );
+
+        // Navigate to the first spreadsheet
+        const firstSpreadsheet = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
+        await triggerEvent(firstSpreadsheet, null, "keydown", { key: "ArrowRight" });
+        assert.hasClass(
+            firstSpreadsheet,
+            "o-spreadsheet-grid-selected",
+            "First spreadsheet should be selected"
+        );
+
+        // Navigate back to the blank spreadsheet
+        await triggerEvent(firstSpreadsheet, null, "keydown", { key: "ArrowLeft" });
+        assert.hasClass(
+            defaultSelected,
+            "o-spreadsheet-grid-selected",
+            "Blank spreadsheet should be selected"
+        );
+    });
 });

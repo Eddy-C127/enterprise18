@@ -70,7 +70,7 @@ QUnit.module(
             await toggleActionMenu(target);
             await toggleCogMenuSpreadsheet(target);
             await click(target.querySelector(".o_insert_list_spreadsheet_menu"));
-            await triggerEvent(target, ".o-sp-dialog-item div[data-id='1']", "focus");
+            await triggerEvent(target, ".o-spreadsheet-grid div[data-id='1']", "focus");
             await click(target, ".modal button.btn-primary");
             await nextTick();
 

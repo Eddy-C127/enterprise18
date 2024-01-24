@@ -23,7 +23,7 @@ const PAGE_LABELS = {
  * @property {Object} spreadsheets
  * @property {string} panel
  * @property {string} name
- * @property {number|false} selectedSpreadsheetId
+ * @property {number|null} selectedSpreadsheetId
  * @property {string} [threshold]
  * @property {Object} pagerProps
  * @property {number} pagerProps.offset
@@ -74,7 +74,7 @@ export class SpreadsheetSelectorDialog extends Component {
     }
 
     /**
-     * @param {number|false} id
+     * @param {number|null} id
      */
     onSpreadsheetSelected({ getOpenSpreadsheetAction, notificationMessage }) {
         this.actionState = {

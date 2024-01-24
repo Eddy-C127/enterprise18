@@ -6,6 +6,7 @@ import { KeepLast } from "@web/core/utils/concurrency";
 import { useService } from "@web/core/utils/hooks";
 import { Pager } from "@web/core/pager/pager";
 import { useHotkey } from "@web/core/hotkeys/hotkey_hook";
+import { SpreadsheetSelectorGrid } from "../spreadsheet_selector_grid/spreadsheet_selector_grid";
 
 import { Component, onWillStart, useState, onWillUnmount } from "@odoo/owl";
 
@@ -16,7 +17,7 @@ const DEFAULT_LIMIT = 9;
  * @property {Object} spreadsheets
  * @property {string} panel
  * @property {string} name
- * @property {number|false} selectedSpreadsheetId
+ * @property {number|null} selectedSpreadsheetId
  * @property {string} [threshold]
  * @property {Object} pagerProps
  * @property {number} pagerProps.offset
@@ -26,7 +27,7 @@ const DEFAULT_LIMIT = 9;
 
 export class SpreadsheetSelectorPanel extends Component {
     static template = "spreadsheet_edition.SpreadsheetSelectorPanel";
-    static components = { Pager };
+    static components = { Pager, SpreadsheetSelectorGrid };
     static defaultProps = {
         displayBlank: true,
     };
@@ -43,7 +44,7 @@ export class SpreadsheetSelectorPanel extends Component {
         /** @type {State} */
         this.state = useState({
             spreadsheets: {},
-            selectedSpreadsheetId: false,
+            selectedSpreadsheetId: null,
             pagerProps: {
                 offset: 0,
                 limit: this.props.displayBlank ? DEFAULT_LIMIT : DEFAULT_LIMIT + 1,
@@ -63,7 +64,7 @@ export class SpreadsheetSelectorPanel extends Component {
         onWillUnmount(() => {
             browser.clearTimeout(this.debounce);
         });
-        this._selectItem(false);
+        this._selectItem(null);
 
         useHotkey("Enter", () => {
             this.props.onSpreadsheetDblClicked();
@@ -121,15 +122,7 @@ export class SpreadsheetSelectorPanel extends Component {
     }
 
     /**
-     * @param {string} [base64]
-     * @returns {string}
-     */
-    getUrl(base64) {
-        return base64 ? `data:image/jpeg;charset=utf-8;base64,${base64}` : "";
-    }
-
-    /**
-     * @param {number|false} id
+     * @param {number|null} id
      */
     _selectItem(id) {
         this.state.selectedSpreadsheetId = id;
@@ -146,5 +139,17 @@ export class SpreadsheetSelectorPanel extends Component {
                 ? this._getOpenSpreadsheetAction.bind(this)
                 : this._getCreateAndOpenSpreadsheetAction.bind(this),
         });
+    }
+
+    /**
+     * @param {Object} spreadsheet
+     * @returns {string} - URL for the spreadsheet thumbnail
+     */
+    getThumbnailURL(spreadsheet) {
+        if (!spreadsheet.thumbnail) {
+            return false;
+        }
+
+        return `data:image/jpeg;charset=utf-8;base64,${spreadsheet.thumbnail}`;
     }
 }

@@ -181,7 +181,7 @@ QUnit.module(
             await loadJS("/web/static/lib/Chart/Chart.js");
             await toggleSearchBarMenu(target);
             await click(target, ".o_insert_action_spreadsheet_menu");
-            await triggerEvent(target, ".o-sp-dialog-item div[data-id='1']", "focus");
+            await triggerEvent(target, ".o-spreadsheet-grid div[data-id='1']", "focus");
             await click(target, ".modal-footer button.btn-primary");
             await nextTick();
             assert.verifySteps(["spreadsheet-joined"]);

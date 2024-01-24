@@ -202,19 +202,27 @@ QUnit.module(
             await click(menu, ".o_documents_kanban_spreadsheet");
             const dialog = target.querySelector(".o-spreadsheet-templates-dialog");
             assert.equal(
-                dialog.querySelectorAll(".o-template:not(.o-template-ghost-item)").length,
+                dialog.querySelectorAll(".o-spreadsheet-grid:not(.o-spreadsheet-grid-ghost-item)")
+                    .length,
                 3
             );
-            assert.equal(dialog.querySelector(".o-template").textContent, "Blank spreadsheet");
+            assert.equal(
+                dialog.querySelector(".o-spreadsheet-grid").textContent,
+                "Blank spreadsheet"
+            );
 
             const searchInput = dialog.querySelector(".o_searchview_input");
             await editInput(searchInput, null, "Template 1");
             await triggerEvent(searchInput, null, "keydown", { key: "Enter" });
             assert.equal(
-                dialog.querySelectorAll(".o-template:not(.o-template-ghost-item)").length,
+                dialog.querySelectorAll(".o-spreadsheet-grid:not(.o-spreadsheet-grid-ghost-item)")
+                    .length,
                 2
             );
-            assert.equal(dialog.querySelector(".o-template").textContent, "Blank spreadsheet");
+            assert.equal(
+                dialog.querySelector(".o-spreadsheet-grid").textContent,
+                "Blank spreadsheet"
+            );
         });
 
         QUnit.test("Can fetch next templates", async function (assert) {
@@ -242,7 +250,8 @@ QUnit.module(
             const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
 
             assert.equal(
-                dialog.querySelectorAll(".o-template:not(.o-template-ghost-item)").length,
+                dialog.querySelectorAll(".o-spreadsheet-grid:not(.o-spreadsheet-grid-ghost-item)")
+                    .length,
                 10
             );
             await click(dialog.querySelector(".o_pager_next"));
@@ -259,11 +268,15 @@ QUnit.module(
             const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
 
             // select template
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "focus");
+            await triggerEvent(
+                dialog.querySelectorAll(".o-spreadsheet-grid-image")[1],
+                null,
+                "focus"
+            );
 
             // change page; no template should be selected
             await click(dialog.querySelector(".o_pager_next"));
-            assert.containsNone(dialog, ".o-template-selected");
+            assert.containsNone(dialog, ".o-spreadsheet-grid-selected");
             const createButton = dialog.querySelector(".o-spreadsheet-create");
             assert.ok(createButton.attributes.disabled);
         });
@@ -292,7 +305,11 @@ QUnit.module(
             await click(menu, ".o_documents_kanban_spreadsheet");
             let dialog = document.querySelector(".o-spreadsheet-templates-dialog");
             // select blank spreadsheet
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "focus");
+            await triggerEvent(
+                dialog.querySelectorAll(".o-spreadsheet-grid-image")[0],
+                null,
+                "focus"
+            );
             await click(dialog.querySelector(".o-spreadsheet-create"));
             assert.verifySteps(["action_open_new_spreadsheet", "redirect"]);
 
@@ -300,17 +317,16 @@ QUnit.module(
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             dialog = document.querySelector(".o-spreadsheet-templates-dialog");
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "focus");
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "dblclick");
-            assert.verifySteps(["action_open_new_spreadsheet", "redirect"]);
-
-            // ### With enter key
-            await click(menu, ".o_documents_kanban_spreadsheet");
-            dialog = document.querySelector(".o-spreadsheet-templates-dialog");
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "focus");
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "keydown", {
-                key: "Enter",
-            });
+            await triggerEvent(
+                dialog.querySelectorAll(".o-spreadsheet-grid-image")[0],
+                null,
+                "focus"
+            );
+            await triggerEvent(
+                dialog.querySelectorAll(".o-spreadsheet-grid-image")[0],
+                null,
+                "dblclick"
+            );
             assert.verifySteps(["action_open_new_spreadsheet", "redirect"]);
         });
         QUnit.test("Context is transmitted when creating spreadsheet", async function (assert) {
@@ -347,7 +363,11 @@ QUnit.module(
             await click(menu, ".o_documents_kanban_spreadsheet");
             const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
             // select blank spreadsheet
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "focus");
+            await triggerEvent(
+                dialog.querySelectorAll(".o-spreadsheet-grid-image")[0],
+                null,
+                "focus"
+            );
             await click(dialog, ".o-spreadsheet-create");
             assert.verifySteps(["action_open_new_spreadsheet"]);
         });
@@ -382,7 +402,11 @@ QUnit.module(
             await click(menu, ".o_documents_kanban_spreadsheet");
             let dialog = document.querySelector(".o-spreadsheet-templates-dialog");
             // select blank spreadsheet
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "focus");
+            await triggerEvent(
+                dialog.querySelectorAll(".o-spreadsheet-grid-image")[1],
+                null,
+                "focus"
+            );
             await click(dialog.querySelector(".o-spreadsheet-create"));
             assert.verifySteps(["action_create_spreadsheet", "redirect"]);
 
@@ -390,17 +414,16 @@ QUnit.module(
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             dialog = document.querySelector(".o-spreadsheet-templates-dialog");
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "focus");
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "dblclick");
-            assert.verifySteps(["action_create_spreadsheet", "redirect"]);
-
-            // ### With enter key
-            await click(menu, ".o_documents_kanban_spreadsheet");
-            dialog = document.querySelector(".o-spreadsheet-templates-dialog");
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "focus");
-            await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "keydown", {
-                key: "Enter",
-            });
+            await triggerEvent(
+                dialog.querySelectorAll(".o-spreadsheet-grid-image")[1],
+                null,
+                "focus"
+            );
+            await triggerEvent(
+                dialog.querySelectorAll(".o-spreadsheet-grid-image")[1],
+                null,
+                "dblclick"
+            );
             assert.verifySteps(["action_create_spreadsheet", "redirect"]);
         });
 
@@ -447,7 +470,9 @@ QUnit.module(
                 const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
 
                 assert.equal(
-                    dialog.querySelectorAll(".o-template:not(.o-template-ghost-item)").length,
+                    dialog.querySelectorAll(
+                        ".o-spreadsheet-grid:not(.o-spreadsheet-grid-ghost-item)"
+                    ).length,
                     10
                 );
                 await click(dialog.querySelector(".o_pager_next"));
@@ -462,7 +487,9 @@ QUnit.module(
                 await nextTick();
 
                 assert.equal(
-                    dialog.querySelectorAll(".o-template:not(.o-template-ghost-item)").length,
+                    dialog.querySelectorAll(
+                        ".o-spreadsheet-grid:not(.o-spreadsheet-grid-ghost-item)"
+                    ).length,
                     5
                 ); // Blank template, Template 1, Template 10, Template 11, Template 12
                 assert.verifySteps([JSON.stringify({ offset: 0, limit: 9 })]);
@@ -473,5 +500,32 @@ QUnit.module(
                 );
             }
         );
+
+        QUnit.test("Can navigate through templates with keyboard", async function (assert) {
+            await initTestEnvWithKanban({ additionalTemplates: TEST_TEMPLATES });
+
+            // Open template dialog
+            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            await click(menu, ".dropdown-toggle");
+            await click(menu, ".o_documents_kanban_spreadsheet");
+            const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
+
+            const defaultTemplate = dialog.querySelector(
+                ".o-spreadsheet-grid.o-blank-spreadsheet-grid .o-spreadsheet-grid-image"
+            );
+            assert.ok(defaultTemplate.classList.contains("o-spreadsheet-grid-selected"));
+
+            // Navigate to the next template
+            await triggerEvent(defaultTemplate, null, "keydown", { key: "ArrowRight" });
+            assert.notOk(defaultTemplate.classList.contains("o-spreadsheet-grid-selected"));
+
+            const firstTemplate = dialog.querySelector(".o-spreadsheet-grid-image[data-id='1']");
+            assert.ok(firstTemplate.classList.contains("o-spreadsheet-grid-selected"));
+
+            // Navigate back to the previous template
+            await triggerEvent(firstTemplate, null, "keydown", { key: "ArrowLeft" });
+            assert.notOk(firstTemplate.classList.contains("o-spreadsheet-grid-selected"));
+            assert.ok(defaultTemplate.classList.contains("o-spreadsheet-grid-selected"));
+        });
     }
 );

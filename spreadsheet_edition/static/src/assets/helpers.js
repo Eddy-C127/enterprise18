@@ -9,3 +9,9 @@ export const PERIODS = {
     quarter: _t("Quarter"),
     year: _t("Year"),
 };
+
+export const BLANK_SPREADSHEET_TEMPLATE = {
+    id: null,
+    name: _t("Blank spreadsheet"),
+    thumbnail: "/spreadsheet/static/img/spreadsheet.svg",
+};

@@ -101,7 +101,7 @@ export async function createSpreadsheetFromGraphView(params = {}) {
     if (params.documentId) {
         await triggerEvent(
             target,
-            `.o-sp-dialog-item div[data-id='${params.documentId}']`,
+            `.o-spreadsheet-grid div[data-id='${params.documentId}']`,
             "focus"
         );
     }

@@ -3,6 +3,7 @@
 import { Dialog } from "@web/core/dialog/dialog";
 import { SearchBar } from "@web/search/search_bar/search_bar";
 import { Pager } from "@web/core/pager/pager";
+import { SpreadsheetSelectorGrid } from "@spreadsheet_edition/assets/components/spreadsheet_selector_grid/spreadsheet_selector_grid";
 
 import { KeepLast } from "@web/core/utils/concurrency";
 import { SearchModel } from "@web/search/search_model";
@@ -14,7 +15,7 @@ import { _t } from "@web/core/l10n/translation";
 import { Component, useState, useSubEnv, useChildSubEnv, onWillStart, useEffect } from "@odoo/owl";
 
 export class TemplateDialog extends Component {
-    static components = { Dialog, SearchBar, Pager };
+    static components = { Dialog, SearchBar, Pager, SpreadsheetSelectorGrid };
     static template = "documents_spreadsheet.TemplateDialog";
     static props = {
         context: Object,
@@ -48,6 +49,7 @@ export class TemplateDialog extends Component {
         useSubEnv({
             config: {
                 ...getDefaultConfig(),
+                disableSearchBarAutofocus: true,
             },
         });
         this.model = new SearchModel(this.env, {
@@ -84,9 +86,12 @@ export class TemplateDialog extends Component {
             await this._fetchTemplates();
         });
 
-        useEffect(() => {
-            this.state.offset = 0;
-        }, () => [this.model.searchDomain]);
+        useEffect(
+            () => {
+                this.state.offset = 0;
+            },
+            () => [this.model.searchDomain]
+        );
     }
 
     /**
@@ -209,5 +214,14 @@ export class TemplateDialog extends Component {
      */
     _buttonDisabled() {
         return this.state.isCreating || !this._hasSelection();
+    }
+
+    /**
+     * Get the URL of the template's thumbnail.
+     * @param {Object} template
+     * @returns {string} - URL for the template thumbnail
+     */
+    getThumbnailURL(template) {
+        return `/web/image?model=spreadsheet.template&id=${template.id}&field=thumbnail`;
     }
 }
