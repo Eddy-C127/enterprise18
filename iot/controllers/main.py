@@ -2,21 +2,30 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import io
+import itertools
 import json
+import logging
 import pathlib
+import textwrap
 import zipfile
 
 from odoo import http
-from odoo.http import request
+from odoo.http import request, Response
 from odoo.modules import get_module_path
+from odoo.tools.misc import str2bool
 
+_iot_logger = logging.getLogger(__name__ + '.iot_log')
+# We want to catch any log level that the IoT send
+_iot_logger.setLevel(logging.DEBUG)
 
 class IoTController(http.Controller):
+    def _search_box(self, mac_address):
+        return request.env['iot.box'].sudo().search([('identifier', '=', mac_address)], limit=1)
 
     @http.route('/iot/get_handlers', type='http', auth='public', csrf=False)
     def download_iot_handlers(self, mac, auto):
         # Check mac is of one of the IoT Boxes
-        box = request.env['iot.box'].sudo().search([('identifier', '=', mac)], limit=1)
+        box = self._search_box(mac)
         if not box or (auto == 'True' and not box.drivers_auto_update):
             return ''
 
@@ -43,7 +52,7 @@ class IoTController(http.Controller):
     @http.route('/iot/box/<string:identifier>/display_url', type='http', auth='public')
     def get_url(self, identifier):
         urls = {}
-        iotbox = request.env['iot.box'].sudo().search([('identifier', '=', identifier)], limit=1)
+        iotbox = self._search_box(identifier)
         if iotbox:
             iot_devices = iotbox.device_ids.filtered(lambda device: device.type == 'display')
             for device in iot_devices:
@@ -78,7 +87,7 @@ class IoTController(http.Controller):
             devices = data['devices']
 
          # Update or create box
-        box = request.env['iot.box'].sudo().search([('identifier', '=', iot_box['identifier'])], limit=1)
+        box = self._search_box(iot_box['identifier'])
         if box:
             box = box[0]
             box.ip = iot_box['ip']
@@ -136,3 +145,56 @@ class IoTController(http.Controller):
             (previously_connected_iot_devices - connected_iot_devices).write({'connected': False})
             iot_channel = request.env['iot.channel'].sudo().get_iot_channel()
             return iot_channel
+
+    def _is_iot_log_enabled(self):
+        return str2bool(request.env['ir.config_parameter'].sudo().get_param('iot.should_log_iot_logs', True))
+
+    @http.route('/iot/log', type='http', auth='public', csrf=False)
+    def receive_iot_log(self):
+        IOT_ELEMENT_SEPARATOR = b'<log/>\n'
+        IOT_LOG_LINE_SEPARATOR = b','
+        IOT_MAC_PREFIX = b'mac '
+
+        def log_line_transformation(log_line):
+            split = log_line.split(IOT_LOG_LINE_SEPARATOR, 1)
+            return {'levelno': int(split[0]), 'line_formatted': split[1].decode('ascii')}
+
+        def log_current_level():
+            _iot_logger.log(
+                log_level,
+                "%s%s",
+                init_log_message,
+                textwrap.indent("\n".join(['', *log_lines]), ' | ')
+            )
+
+        def finish_request():
+            return Response(status=200)
+
+        if not self._is_iot_log_enabled():
+            return finish_request()
+
+        request_data = request.httprequest.get_data()
+        if request_data.endswith(IOT_ELEMENT_SEPARATOR):
+            # Do not use rstrip as some characters of the separator might be at the end of the log line
+            request_data = request_data[:-len(IOT_ELEMENT_SEPARATOR)]
+        request_data_split = request_data.split(IOT_ELEMENT_SEPARATOR)
+        if len(request_data_split) < 2:
+            return finish_request()
+
+        mac_details = request_data_split.pop(0)
+        if not mac_details.startswith(IOT_MAC_PREFIX):
+            return finish_request()
+
+        mac_address = mac_details[len(IOT_MAC_PREFIX):]
+        iot_box = self._search_box(mac_address)
+        if not iot_box:
+            return finish_request()
+
+        log_details = map(log_line_transformation, request_data_split)
+        init_log_message = "IoT box log '%s' #%d received:" % (iot_box.name, iot_box.id)
+
+        for log_level, log_group in itertools.groupby(log_details, key=lambda log: log['levelno']):
+            log_lines = [log_line['line_formatted'] for log_line in log_group]
+            log_current_level()
+
+        return finish_request()
