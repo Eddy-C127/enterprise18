@@ -12,10 +12,10 @@ class SocialPostTemplate(models.Model):
     facebook_preview = fields.Html('Facebook Preview', compute='_compute_facebook_preview')
     display_facebook_preview = fields.Boolean('Display Facebook Preview', compute='_compute_display_facebook_preview')
 
-    @api.depends('message', 'account_ids.media_id.media_type')
+    @api.depends('message', 'account_ids.media_id.media_type', 'image_ids')
     def _compute_display_facebook_preview(self):
         for post in self:
-            post.display_facebook_preview = post.message and ('facebook' in post.account_ids.media_id.mapped('media_type'))
+            post.display_facebook_preview = (post.message or post.image_ids) and ('facebook' in post.account_ids.media_id.mapped('media_type'))
 
     @api.depends(lambda self: ['message', 'image_ids', 'display_facebook_preview'] + self._get_post_message_modifying_fields())
     def _compute_facebook_preview(self):

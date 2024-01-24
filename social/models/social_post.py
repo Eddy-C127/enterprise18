@@ -238,6 +238,10 @@ class SocialPost(models.Model):
                 vals['calendar_date'] = False
             elif 'scheduled_date' in vals:
                 vals['calendar_date'] = vals['scheduled_date']
+            # The name of UTM sources can be generated from images if the message is not given
+            if vals.get('image_ids') and not vals.get('message') and not vals.get('name'):
+                create_date = fields.Date.to_string(fields.Date.context_today(self))
+                vals['name'] = _('Social Post created on %(create_date)s', create_date=create_date)
 
         res = super(SocialPost, self).create(vals_list)
 
@@ -263,6 +267,10 @@ class SocialPost(models.Model):
             cron = self.env.ref('social.ir_cron_post_scheduled')
             cron._trigger(at=fields.Datetime.from_string(vals.get('scheduled_date')))
 
+        # Updating UTM source if 'message' field is empty
+        if 'message' in vals and not vals.get('message') and not vals.get('name'):
+            create_date = fields.Date.to_string(self.create_date)
+            vals['name'] = _('Social Post created on %(create_date)s', create_date=create_date)
         return super(SocialPost, self).write(vals)
 
     def social_stream_post_action_my(self):

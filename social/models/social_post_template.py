@@ -52,11 +52,11 @@ class SocialPostTemplate(models.Model):
     has_active_accounts = fields.Boolean('Are Accounts Available?', compute='_compute_has_active_accounts')
     message_length = fields.Integer(compute='_compute_message_length')
 
-    @api.constrains('message')
-    def _check_message_not_empty(self):
+    @api.constrains('message', 'image_ids')
+    def _check_has_message_or_image(self):
         for post in self:
-            if not post.message:
-                raise UserError(_("The 'message' field is required for post ID %s", post.id))
+            if not post.message and not post.image_ids:
+                raise UserError(_("Either 'message' field or 'image_ids' field is required for post ID %s", post.id))
 
     @api.constrains('image_ids')
     def _check_image_ids_mimetype(self):

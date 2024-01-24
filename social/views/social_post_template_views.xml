@@ -34,14 +34,13 @@
                             </div>
                             <field name="message" widget="text_emojis" class="o_social_post_message_wrapper"
                                 onchange_on_keydown="True" force_save="1" default_focus="1"
-                                   readonly="not has_active_accounts"
-                                   required="True">
+                                   readonly="not has_active_accounts" placeholder="Write a message or upload an image">
                             </field>
                             <field name="image_ids" widget="many2many_binary" class="o_social_post_form_attachments"/>
                         </group>
                         <group name="previews_placeholder" class="o_social_post_preview_group m-0">
                             <div class="o_social_post_empty_preview overflow-hidden o_view_nocontent bg-100 rounded-end"
-                                invisible="account_ids and message and message != ''">
+                                invisible="account_ids and (message or image_ids)">
                                 <div class="o_nocontent_help">
                                     <p class="o_view_nocontent_smiling_face">
                                         Preview your post

@@ -12,11 +12,11 @@ class SocialPostTemplate(models.Model):
     display_linkedin_preview = fields.Boolean('Display LinkedIn Preview', compute='_compute_display_linkedin_preview')
     linkedin_preview = fields.Html('LinkedIn Preview', compute='_compute_linkedin_preview')
 
-    @api.depends('message', 'account_ids.media_id.media_type')
+    @api.depends('message', 'account_ids.media_id.media_type', 'image_ids')
     def _compute_display_linkedin_preview(self):
         for post in self:
             post.display_linkedin_preview = (
-                post.message and
+                (post.message or post.image_ids) and
                 'linkedin' in post.account_ids.media_id.mapped('media_type'))
 
     @api.depends(lambda self: ['message', 'image_ids', 'display_linkedin_preview'] + self._get_post_message_modifying_fields())

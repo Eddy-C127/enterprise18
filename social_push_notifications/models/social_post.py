@@ -2,13 +2,25 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 
-from odoo import fields, models, api
+from odoo import fields, models, api, _
+from odoo.exceptions import UserError
 
 
 class SocialPostPushNotifications(models.Model):
     _inherit = 'social.post'
 
     use_visitor_timezone = fields.Boolean(compute='_compute_use_visitor_timezone', readonly=False, store=True)
+
+    @api.constrains('message', 'image_ids')
+    def _check_has_message_or_image(self):
+        """ When posting on Push Notification, the 'message' field should not be empty. """
+        push_notification_posts = self.filtered(
+            lambda post: 'push_notifications' in post.media_ids.mapped('media_type'))
+        super(SocialPostPushNotifications, self -
+              push_notification_posts)._check_has_message_or_image()
+        for social_post in push_notification_posts:
+            if not social_post.message:
+                raise UserError(_("The 'message' field is required for post ID %s", social_post.id))
 
     @api.depends('post_method')
     def _compute_use_visitor_timezone(self):

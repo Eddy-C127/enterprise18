@@ -132,6 +132,26 @@ class TestSocialBasics(common.SocialCase, CronMixinCase):
         self.assertEqual(post_7.name, 'Long message xxxxxxx... (Social Post created on 2022-01-02) [2]',
             msg='Should have truncated the message and added a counter at the end')
 
+    @freeze_time('2022-01-02')
+    @patch.object(Cursor, 'now', lambda *args, **kwargs: datetime(2022, 1, 2))
+    @users('social_user')
+    def test_social_post_image_utm(self):
+        attachments = self.env['ir.attachment'].create([{
+            'name': 'first.png',
+            'datas': 'ABCDEFG='
+        }, {
+            'name': 'second.png',
+            'datas': 'GFEDCBA='
+        }]).ids
+        image_post = self.env['social.post'].create({
+            'account_ids': [(4, self.social_account.id)],
+            'image_ids': [(4, aid) for aid in attachments]})
+        self.assertEqual(image_post.name, 'Social Post created on 2022-01-02',
+            msg='Should have generated custom message for image post')
+        image_post.message = 'Message image'
+        self.assertEqual(image_post.name, 'Message image (Social Post created on 2022-01-02)',
+            msg='Should have generated the name from the post message')
+
     def test_social_post_create_with_default_calendar_date(self):
         """ Make sure that when a default_calendar_date is passed and the scheduled_date is changed,
         We take into account the new scheduled_date as calendar_date.

@@ -18,10 +18,10 @@ class SocialPostTemplate(models.Model):
     display_instagram_preview = fields.Boolean('Display Instagram Preview', compute='_compute_display_instagram_preview')
     instagram_preview = fields.Html('Instagram Preview', compute='_compute_instagram_preview')
 
-    @api.depends('message', 'account_ids.media_id.media_type')
+    @api.depends('message', 'account_ids.media_id.media_type', 'image_ids')
     def _compute_display_instagram_preview(self):
         for post in self:
-            post.display_instagram_preview = post.message and ('instagram' in post.account_ids.media_id.mapped('media_type'))
+            post.display_instagram_preview = (post.message or post.image_ids) and ('instagram' in post.account_ids.media_id.mapped('media_type'))
 
     @api.depends('image_ids')
     def _compute_instagram_image_id(self):

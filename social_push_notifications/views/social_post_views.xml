@@ -11,6 +11,9 @@
                         string="Local Time"
                         invisible="not display_push_notification_attributes or post_method == 'now'"/>
                 </xpath>
+                <xpath expr="//field[@name='message']" position="attributes">
+                    <attribute name="required">display_push_notification_attributes or not image_ids</attribute>
+                </xpath>
             </field>
         </record>
     </data>

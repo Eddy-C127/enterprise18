@@ -217,11 +217,14 @@
 
             <xpath expr="//field[@name='message']" position="attributes">
                 <attribute name="readonly">not has_active_accounts or state in ['posting', 'posted']</attribute>
-                <attribute name="required">True</attribute>
+                <attribute name="required">not image_ids</attribute>
+                <attribute name="invisible">not message and state in ['posting', 'posted']</attribute>
             </xpath>
 
             <xpath expr="//field[@name='image_ids']" position="attributes">
                 <attribute name="readonly">state in ['posting', 'posted']</attribute>
+                <attribute name="required">not message</attribute>
+                <attribute name="invisible">not image_ids and state in ['posting', 'posted']</attribute>
             </xpath>
 
             <xpath expr="//field[@name='account_ids']" position="before">
@@ -234,7 +237,8 @@
             <xpath expr="//field[@name='image_ids']" position="after">
                 <field string="Campaign" name="utm_campaign_id"
                     readonly="state in ['posting', 'posted']"
-                    context="{'form_view_ref': 'social.utm_campaign_view_form_quick_create_social'}"/>
+                    context="{'form_view_ref': 'social.utm_campaign_view_form_quick_create_social'}"
+                    invisible="not utm_campaign_id and state in ['posting', 'posted']"/>
                 <field name="post_method" widget="radio" invisible="state != 'draft'"/>
                 <field name="scheduled_date" invisible="post_method == 'now' or state in ['posting', 'posted']" required="post_method != 'now'" />
             </xpath>

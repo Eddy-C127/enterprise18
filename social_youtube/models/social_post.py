@@ -30,14 +30,14 @@ class SocialPostYoutube(models.Model):
     youtube_video_url = fields.Char('YouTube Video Url', compute="_compute_youtube_video_url")
     youtube_thumbnail_url = fields.Char('YouTube Thumbnail Url', compute="_compute_youtube_thumbnail_url")
 
-    @api.constrains('message')
-    def _check_message_not_empty(self):
-        """ When posting only on YouTube, the 'message' field can (and should) be empty. """
-        for social_post in self:
-            if 'youtube' not in social_post.media_ids.mapped('media_type'):
-                super(SocialPostYoutube, self)._check_message_not_empty()
-            elif not social_post.message and ['youtube'] != social_post.media_ids.mapped('media_type'):
-                raise UserError(_("The 'message' field is required for post ID %s", social_post.id))
+    @api.constrains('message', 'image_ids')
+    def _check_has_message_or_image(self):
+        """ When posting only on YouTube, the 'message' and 'image_ids' field can (and should) be empty. """
+        youtube_posts_only = self.filtered(
+            lambda post: all(media.media_type == 'youtube' for media in post.media_ids))
+        super(SocialPostYoutube, self -
+              youtube_posts_only)._check_has_message_or_image()
+
 
     @api.depends('youtube_video_id')
     def _compute_stream_posts_count(self):
