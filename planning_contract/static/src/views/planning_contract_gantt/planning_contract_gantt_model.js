@@ -55,7 +55,7 @@ patch(PlanningGanttModel.prototype, {
                     enrichedI.working_periods.map((period) => {
                         // These are new data from the server, they haven't been parsed yet
                         period.start = deserializeDateTime(period.start);
-                        period.end &= deserializeDateTime(period.end);
+                        period.end = period.end && deserializeDateTime(period.end);
                         return period;
                     }) || [];
             }
