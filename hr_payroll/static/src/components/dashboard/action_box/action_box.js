@@ -16,7 +16,7 @@ export class PayrollDashboardActionBox extends Component {
             warnings: {},
         })
         onWillStart(() => {
-          rpc('get_payroll_warnings').then(data => {
+          rpc('/get_payroll_warnings').then(data => {
               this.state.warnings = data;
               this.state.loading = false;
             }

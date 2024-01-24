@@ -367,6 +367,7 @@
 
     <record model="ir.actions.act_window" id="open_view_hr_appraisal_tree">
         <field name="name">Appraisals</field>
+        <field name="path">appraisals</field>
         <field name="res_model">hr.appraisal</field>
         <field name="view_mode">kanban,tree,gantt,calendar,form,activity</field>
         <field name="context">{}</field>

@@ -299,6 +299,7 @@
     <!-- My Tasks: kanban action -->
     <record id="project_task_action_fsm" model="ir.actions.act_window">
         <field name="name">My Tasks</field>
+        <field name="path">field-service</field>
         <field name="res_model">project.task</field>
         <field name="view_mode">kanban,tree,map,calendar,gantt,form,graph,pivot,activity</field>
         <field name="search_view_id" ref="project_task_view_search_fsm"/>

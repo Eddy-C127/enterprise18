@@ -351,6 +351,7 @@
 
     <record id="marketing_campaign_action" model="ir.actions.act_window">
         <field name="name">Campaigns</field>
+        <field name="path">marketing-automation</field>
         <field name="res_model">marketing.campaign</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">

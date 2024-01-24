@@ -653,6 +653,7 @@
 
     <record id="quality_alert_team_action" model="ir.actions.act_window">
         <field name="name">Quality Overview</field>
+        <field name="path">quality</field>
         <field name="res_model">quality.alert.team</field>
         <field name="view_mode">kanban,form</field>
         <field name="view_id" ref="quality_alert_team_dashboard_view_kanban" />

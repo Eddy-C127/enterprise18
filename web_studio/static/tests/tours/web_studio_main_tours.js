@@ -744,7 +744,7 @@ registry.category("web_tour.tours").add("web_studio_new_submenu_tour", {
         {
             // open studio again to check the new menu can be edited
             trigger: ".o_main_navbar .o_web_studio_navbar_item",
-            extra_trigger: ".breadcrumb-item:contains(second menu)",
+            extra_trigger: ".o_web_client:not(.o_in_studio)",
         },
         {
             // check we are back in studio
@@ -1037,13 +1037,18 @@ registry.category("web_tour.tours").add("web_studio_approval_tour", {
             extra_trigger: ".o_web_studio_snackbar .fa-check",
         },
         {
+            // switch to kanban view editor
+            trigger: '.o_web_studio_views_icons > a[title="Kanban"]',
+        },
+        {
             // leave studio
             trigger: ".o_web_studio_leave > a.btn",
             extra_trigger: ".o_web_studio_snackbar .fa-check",
         },
         {
-            // go back to kanban
-            trigger: ".o_breadcrumb .o_back_button",
+            // TODO: add breacrumb to access multi-record view when closing studio and close studio from form instead of from kanban
+            // trigger: ".o_breadcrumb .o_back_button",
+            trigger: "body",
             extra_trigger: ".o_web_client:not(.o_in_studio)",
         },
         {

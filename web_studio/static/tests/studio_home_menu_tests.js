@@ -23,6 +23,7 @@ const genericHomeMenuProps = {
     apps: [
         {
             actionID: 121,
+            href: "/odoo/act-121",
             id: 1,
             appID: 1,
             label: "Discuss",
@@ -33,6 +34,7 @@ const genericHomeMenuProps = {
         },
         {
             actionID: 122,
+            href: "/odoo/act-122",
             id: 2,
             appID: 2,
             label: "Calendar",
@@ -46,6 +48,7 @@ const genericHomeMenuProps = {
         },
         {
             actionID: 123,
+            href: "/odoo/contacts",
             id: 3,
             appID: 3,
             label: "Contacts",

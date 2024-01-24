@@ -28,6 +28,7 @@ import { UserMenu } from "@web/webclient/user_menu/user_menu";
 import { router } from "@web/core/browser/router";
 
 import { Component, onMounted, xml } from "@odoo/owl";
+import { redirect } from "@web/core/utils/urls";
 
 let serverData;
 let fixture;
@@ -399,32 +400,112 @@ QUnit.module("WebClient Enterprise", (hooks) => {
     QUnit.test(
         "url state is well handled when going in and out of the HomeMenu",
         async function (assert) {
+            patchWithCleanup(browser.location, {
+                origin: "http://example.com",
+            });
+            redirect("/odoo");
             await createEnterpriseWebClient({ fixture, serverData });
             await nextTick();
-            assert.deepEqual(router.current, { action: "menu" });
+            assert.deepEqual(router.current, {});
+            assert.strictEqual(browser.history.length, 1);
 
             await click(fixture.querySelector(".o_apps > .o_draggable:nth-child(2) > .o_app"));
             await nextTick();
             assert.deepEqual(router.current, {
                 action: 1002,
-                menu_id: 2,
+                actionStack: [
+                    {
+                        action: 1002,
+                        displayName: "Client action 1002",
+                    },
+                ],
             });
+            assert.strictEqual(browser.history.length, 2);
+            assert.strictEqual(browser.location.href, "http://example.com/odoo/act-1002");
 
             await click(fixture.querySelector(".o_menu_toggle"));
             await nextTick();
-            assert.deepEqual(router.current, {
-                action: "menu",
-                menu_id: 2,
-            });
+            assert.deepEqual(
+                router.current,
+                {
+                    action: "menu",
+                    actionStack: [
+                        {
+                            action: 1002,
+                            displayName: "Client action 1002",
+                        },
+                        {
+                            action: "menu",
+                            displayName: "",
+                        },
+                    ],
+                },
+                "the actionStack is required to be able to restore the menu toggle back button and the underlying breadcrumbs"
+            );
+            assert.strictEqual(browser.history.length, 3);
+            assert.strictEqual(
+                browser.location.href,
+                "http://example.com/odoo",
+                "despite the actionStack being in the router state, the url shouldn't have any path"
+            );
+
+            await click(fixture.querySelector(".o_apps > .o_draggable:nth-child(1) > .o_app"));
+            await nextTick();
+            assert.deepEqual(
+                router.current,
+                {
+                    action: 1001,
+                    actionStack: [
+                        {
+                            action: 1001,
+                            displayName: "Client action 1001",
+                        },
+                    ],
+                },
+                "clicking another app creates a new action stack (ie empties the breadcrumb)"
+            );
+            assert.strictEqual(browser.history.length, 4);
+            assert.strictEqual(browser.location.href, "http://example.com/odoo/act-1001");
+
+            browser.history.back();
+            await nextTick();
+            assert.deepEqual(
+                router.current,
+                {
+                    action: "menu",
+                    actionStack: [
+                        {
+                            action: 1002,
+                            displayName: "Client action 1002",
+                        },
+                        {
+                            action: "menu",
+                            displayName: "",
+                        },
+                    ],
+                },
+                "actionStack was restored"
+            );
+            assert.strictEqual(
+                browser.history.length,
+                4,
+                "the previous history entry still exists (available with forward button)"
+            );
+            assert.strictEqual(browser.location.href, "http://example.com/odoo");
 
             await click(fixture.querySelector(".o_menu_toggle"));
             await nextTick();
-            // if we reload on going back to underlying action
-            // end if
             assert.deepEqual(router.current, {
                 action: 1002,
-                menu_id: 2,
+                actionStack: [
+                    {
+                        action: 1002,
+                        displayName: "Client action 1002",
+                    },
+                ],
             });
+            assert.strictEqual(browser.history.length, 4);
+            assert.strictEqual(browser.location.href, "http://example.com/odoo/act-1002");
         }
     );
 
@@ -480,7 +561,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
 
     QUnit.test("initial action crashes", async (assert) => {
         assert.expectErrors();
-        Object.assign(browser.location, { hash: "#action=__test__client__action__&menu_id=1" });
+        redirect("/web#action=__test__client__action__&menu_id=1");
         const ClientAction = registry.category("actions").get("__test__client__action__");
         class Override extends ClientAction {
             setup() {
@@ -501,6 +582,11 @@ QUnit.module("WebClient Enterprise", (hooks) => {
         assert.deepEqual(router.current, {
             action: "__test__client__action__",
             menu_id: 1,
+            actionStack: [
+                {
+                    action: "__test__client__action__",
+                },
+            ],
         });
         await nextTick();
         assert.verifyErrors(["my error"]);
@@ -602,7 +688,8 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                 history: Object.assign({}, browser.history, {
                     pushState(state, title, url) {
                         pushState(...arguments);
-                        assert.step(url.split("?")[1]);
+                        const parsedUrl = new URL(url);
+                        assert.step(parsedUrl.pathname + parsedUrl.search);
                     },
                 }),
             });
@@ -631,11 +718,11 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             await nextTick();
             assert.containsOnce(fixture, ".o_home_menu");
             assert.verifySteps([
-                "action=menu",
-                "action=1002&menu_id=2",
-                "action=menu&menu_id=2",
-                "action=1001&menu_id=1",
-                "action=menu&menu_id=1",
+                // "/odoo", // All tests starts with "/odoo" so it doesn't push it again.
+                "/odoo/act-1002",
+                "/odoo",
+                "/odoo/act-1001",
+                "/odoo",
             ]);
         }
     );

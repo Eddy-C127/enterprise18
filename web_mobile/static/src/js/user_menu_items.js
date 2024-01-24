@@ -2,7 +2,6 @@
 
 import { _t } from "@web/core/l10n/translation";
 import mobile from "@web_mobile/js/services/core";
-import { router } from "@web/core/browser/router";
 
 export function shortcutItem(env) {
     return {
@@ -10,14 +9,13 @@ export function shortcutItem(env) {
         id: "web_mobile.shortcut",
         description: _t("Add to Home Screen"),
         callback: () => {
-            const { menu_id } = router.current;
-            if (menu_id) {
-                const menu = env.services.menu.getMenu(menu_id);
-                const base64Icon = menu && menu.webIconData;
+            const menu = env.services.menu.getCurrentApp();
+            if (menu) {
+                const base64Icon = menu.webIconData;
                 mobile.methods.addHomeShortcut({
                     title: document.title,
                     shortcut_url: document.URL,
-                    web_icon: base64Icon.substring(base64Icon.indexOf(',') + 1),
+                    web_icon: base64Icon.substring(base64Icon.indexOf(",") + 1),
                 });
             } else {
                 env.services.notification.add(_t("No shortcut for Home Menu"));

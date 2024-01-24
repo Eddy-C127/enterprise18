@@ -640,7 +640,8 @@ registry.category("web_tour.tours").add("web_studio_test_create_model_with_click
             trigger: ".o_form_button_save",
         },
         {
-            trigger: ".o_back_button",
+            // trigger: ".o_back_button", TODO: add breacrumb to access multi-record view when closing studio
+            trigger: ".o_nav_entry:contains(new model)",
         },
         {
             trigger:

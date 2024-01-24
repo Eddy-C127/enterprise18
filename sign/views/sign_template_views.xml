@@ -214,6 +214,7 @@
 
     <record id="sign_template_action" model="ir.actions.act_window">
         <field name="name">Templates</field>
+        <field name="path">sign</field>
         <field name="res_model">sign.template</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="search_view_id" ref="sign_template_view_search"/>

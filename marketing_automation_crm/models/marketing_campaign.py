@@ -71,7 +71,7 @@ class MarketingCampaign(models.Model):
             'scheduled_calls': {
                 'title': _('Schedule Calls'),
                 'description': _('If lead is created for existing contact, schedule a call with their salesperson.'),
-                'icon': 'marketing_automation_crm/static/img/phone.svg',
+                'icon': '/marketing_automation_crm/static/img/phone.svg',
                 'function': '_get_marketing_template_scheduled_calls_values'
 
             },

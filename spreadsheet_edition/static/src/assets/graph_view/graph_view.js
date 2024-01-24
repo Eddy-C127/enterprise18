@@ -9,7 +9,6 @@ import { SpreadsheetSelectorDialog } from "@spreadsheet_edition/assets/component
 import { omit } from "@web/core/utils/objects";
 
 import { onWillStart } from "@odoo/owl";
-import { router } from "@web/core/browser/router";
 
 export const patchGraphSpreadsheet = () => ({
     setup() {
@@ -27,12 +26,6 @@ export const patchGraphSpreadsheet = () => ({
     },
 
     async onInsertInSpreadsheet() {
-        let menuXMLId = undefined;
-        const menuId = router.current.menu_id;
-        if (menuId) {
-            const menu = this.menu.getMenu(menuId);
-            menuXMLId = menu ? menu.xmlid || menu.id : undefined;
-        }
         const actionOptions = {
             preProcessingAsyncAction: "insertChart",
             preProcessingAsyncActionData: {
@@ -47,7 +40,7 @@ export const patchGraphSpreadsheet = () => ({
                         "graph_order"
                     ),
                 },
-                menuXMLId,
+                menuXMLId: this.menu.getCurrentApp()?.xmlid || this.menu.getCurrentApp()?.id,
             },
         };
         const params = {

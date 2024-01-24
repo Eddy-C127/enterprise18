@@ -149,6 +149,7 @@
 
     <record id="room_booking_action" model="ir.actions.act_window">
         <field name="name">Bookings</field>
+        <field name="path">rooms</field>
         <field name="res_model">room.booking</field>
         <field name="view_mode">gantt,calendar,list,kanban,form</field>
     </record>

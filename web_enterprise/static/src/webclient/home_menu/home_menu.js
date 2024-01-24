@@ -46,6 +46,7 @@ export class HomeMenu extends Component {
                 type: Object,
                 shape: {
                     actionID: Number,
+                    href: String,
                     appID: Number,
                     id: Number,
                     label: String,

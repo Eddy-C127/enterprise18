@@ -283,6 +283,7 @@
 
         <record id="consolidation_period_action" model="ir.actions.act_window">
             <field name="name">Dashboard</field>
+            <field name="path">consolidation</field>
             <field name="res_model">consolidation.period</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="search_view_id" ref="consolidation_period_search"/>

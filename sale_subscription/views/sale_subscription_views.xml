@@ -79,6 +79,7 @@
 
     <record id="sale_subscription_action" model="ir.actions.act_window">
         <field name="name">Subscriptions</field>
+        <field name="path">subscriptions</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,kanban,form,pivot,graph,cohort,activity</field>
         <field name="context">{

@@ -211,6 +211,7 @@
 
     <record id="mrp_eco_type_action_dashboard" model="ir.actions.act_window">
         <field name="name">PLM Overview</field>
+        <field name="path">plm</field>
         <field name="res_model">mrp.eco.type</field>
         <field name="view_mode">kanban,form</field>
         <field name="view_id" ref="mrp_eco_type_dashboard_view_kanban" />

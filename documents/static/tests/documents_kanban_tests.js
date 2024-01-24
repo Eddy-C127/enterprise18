@@ -4307,7 +4307,7 @@ QUnit.module("documents", {}, function () {
                 assert.strictEqual(router.current.folder_id, 2);
 
                 await legacyClick(target, ".o_search_panel_category_value:nth-of-type(1) header");
-                assert.strictEqual(router.current.folder_id, "");
+                assert.strictEqual(router.current.folder_id, false);
             });
 
             QUnit.module("Upload");
@@ -5312,7 +5312,10 @@ QUnit.module("documents", {}, function () {
                             </t></templates></kanban>`,
                     });
                     await legacyClick(target, ".o_search_panel_label_title[data-tooltip='Trash']");
-                    await legacyClick(target, ".o_kanban_record:nth-of-type(2) [name='document_preview']");
+                    await legacyClick(
+                        target,
+                        ".o_kanban_record:nth-of-type(2) [name='document_preview']"
+                    );
                     assert.containsOnce(target, ".o-FileViewer-view");
                     await legacyClick(target, ".o_archived");
                     assert.containsNone(target, ".o-FileViewer-view");

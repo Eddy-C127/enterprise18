@@ -265,6 +265,7 @@
 
     <record id="rental_order_action" model="ir.actions.act_window">
         <field name="name">Rental Orders</field>
+        <field name="path">rental</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
         <field name="search_view_id" ref="rental_order_view_search"/>

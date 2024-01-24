@@ -295,6 +295,7 @@
 
     <record id="document_action" model="ir.actions.act_window">
         <field name="name">Documents</field>
+        <field name="path">documents</field>
         <field name="res_model">documents.document</field>
         <field name="view_mode">kanban,tree,activity</field>
         <field name="domain">[]</field>

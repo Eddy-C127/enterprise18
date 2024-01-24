@@ -1,12 +1,12 @@
 /** @odoo-module **/
 
-import { browser } from "@web/core/browser/browser";
 import {
     createWebClient,
     doAction,
     getActionManagerServerData,
 } from "@web/../tests/webclient/helpers";
 import { click, getFixture } from "@web/../tests/helpers/utils";
+import { redirect } from "@web/core/utils/urls";
 
 let serverData;
 let target;
@@ -91,7 +91,34 @@ QUnit.test("lazy load mobile-friendly view", async function (assert) {
         assert.step(args.method || route);
     };
 
-    Object.assign(browser.location, { search: "action=1&view_type=form" });
+    redirect("/odoo/act-1/new");
+    await createWebClient({ serverData, mockRPC });
+
+    assert.containsNone(target, ".o_list_view");
+    assert.containsNone(target, ".o_kanban_view");
+    assert.containsOnce(target, ".o_form_view");
+
+    // go back to lazy loaded view
+    await click(target, ".o_control_panel .o_breadcrumb .o_back_button");
+    assert.containsNone(target, ".o_form_view");
+    assert.containsNone(target, ".o_list_view");
+    assert.containsOnce(target, ".o_kanban_view");
+
+    assert.verifySteps([
+        "/web/action/load",
+        "/web/webclient/load_menus",
+        "get_views",
+        "onchange", // default_get/onchange to open form view
+        "web_search_read", // web search read when coming back to Kanban
+    ]);
+});
+
+QUnit.test("lazy load mobile-friendly view; legacy url", async function (assert) {
+    const mockRPC = (route, args) => {
+        assert.step(args.method || route);
+    };
+
+    redirect("/web#action=1&view_type=form");
     await createWebClient({ serverData, mockRPC });
 
     assert.containsNone(target, ".o_list_view");

@@ -2,6 +2,7 @@
 <odoo>
     <record id="approval_category_action_new_request" model="ir.actions.act_window">
         <field name="name">Dashboard</field>
+        <field name="path">approvals</field>
         <field name="res_model">approval.category</field>
         <field name="view_mode">kanban</field>
     </record>

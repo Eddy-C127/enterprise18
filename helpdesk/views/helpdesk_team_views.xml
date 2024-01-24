@@ -458,6 +458,7 @@
 
     <record id="helpdesk_team_dashboard_action_main" model="ir.actions.act_window">
         <field name="name">Helpdesk Overview</field>
+        <field name="path">helpdesk</field>
         <field name="res_model">helpdesk.team</field>
         <field name="view_mode">kanban,form</field>
         <field name="context">{}</field>

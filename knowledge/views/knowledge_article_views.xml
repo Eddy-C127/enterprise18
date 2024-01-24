@@ -485,6 +485,7 @@
 
     <record id="knowledge_article_action_form" model="ir.actions.act_window">
         <field name="name">Articles</field>
+        <field name="path">knowledge</field>
         <field name="res_model">knowledge.article</field>
         <field name="view_mode">form</field>
         <field name="domain">[('is_template', '=', False)]</field>

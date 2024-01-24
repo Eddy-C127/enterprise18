@@ -14,7 +14,7 @@
             </xpath>
             <xpath expr="//div[hasclass('o_kanban_image')]" position="replace">
                 <div class="o_kanban_image">
-                    <img t-att-src="kanban_image('product.product', 'image_128', record.id.raw_value, 'product/static/img/placeholder_thumbnail.png')"
+                    <img t-att-src="kanban_image('product.product', 'image_128', record.id.raw_value, '/product/static/img/placeholder_thumbnail.png')"
                         alt="Product"/>
                 </div>
             </xpath>
