@@ -1136,3 +1136,49 @@ registry
             }
         ],
     });
+
+registry.category("web_tour.tours").add("web_studio.test_button_rainbow_effect", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+        },
+        {
+            trigger: ".o_form_view .o_form_editable",
+        },
+        {
+            trigger: ".o_web_studio_navbar_item button",
+        },
+        {
+            trigger: `.o_web_studio_view_renderer button[name="open_commercial_entity"]`,
+        },
+        {
+            trigger: ".o_web_studio_sidebar #effect",
+        },
+        {
+            extra_trigger: ".o_web_studio_sidebar #rainbow_message",
+            trigger: ".o_web_studio_sidebar",
+            run() {
+                const blob = new Blob(
+                    [
+                        "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGJxKFrEwMDAxAAGgAAAAP//D+IBWx9K7TUAAAAASUVORK5CYII=",
+                    ],
+                    { type: "image/png" }
+                );
+                const file = new File([blob], "my_studio_image.png");
+
+                const fileInput = document.querySelector(
+                    ".o_web_studio_sidebar .o_file_input input"
+                );
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+                fileInput.dispatchEvent(new Event("change"));
+            },
+        },
+        {
+            trigger: ".o_web_studio_sidebar img[src^='/web/content']",
+            isCheck: true,
+        },
+    ],
+});

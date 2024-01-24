@@ -1,5 +1,14 @@
 <templates>
     <t t-name="web_studio.ViewEditorSidebar.RainbowEffect">
+        <h3>Rainbow Man</h3>
+        <Property
+            name="'effect'"
+            type="'boolean'"
+            value="this.props.effect and this.props.effect !== 'False'"
+            onChange.bind="toggleRainbowMan"
+        >
+            Rainbow Effect
+        </Property>
         <t t-if="rainbowEffect">
             <div class="o_web_studio_sidebar_text">
                 <label for="rainbow_message">Message</label>
