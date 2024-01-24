@@ -16,11 +16,9 @@ export class SoftphoneContainer extends Component {
 
     setup() {
         this.voip = useState(useService("voip"));
-        this.voip.isReady.then(() => {
-            if (this.voip.missedCalls !== 0) {
-                this.voip.softphone.show();
-                this.voip.softphone.fold();
-            }
-        });
+        if (this.voip.missedCalls !== 0) {
+            this.voip.softphone.show();
+            this.voip.softphone.fold();
+        }
     }
 }

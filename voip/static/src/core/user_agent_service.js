@@ -52,7 +52,7 @@ export class UserAgent {
         this.ringtoneService = services["voip.ringtone"];
         this.voip = services.voip;
         this.softphone = this.voip.softphone;
-        this.voip.isReady.then(() => this.init());
+        this.init();
         return reactive(this);
     }
 

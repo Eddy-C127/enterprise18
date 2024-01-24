@@ -1,28 +1,17 @@
 /* @odoo-module */
 
+import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+
 import { start } from "@mail/../tests/helpers/test_utils";
 
 import { translatedTerms } from "@web/core/l10n/translation";
 import { patchWithCleanup } from "@web/../tests/helpers/utils";
 import { click, contains } from "@web/../tests/utils";
 
-/**
- * @param {number} numberOfMissedCalls
- * @returns {function}
- */
-const mockMissedCalls = (numberOfMissedCalls) =>
-    async function (route, args, originalRpc) {
-        if (route === "/mail/action" && args.init_messaging) {
-            const res = await originalRpc(...arguments);
-            res.Store.voipConfig.missedCalls = numberOfMissedCalls;
-            return res;
-        }
-    };
-
 QUnit.module("softphone");
 
 QUnit.test("Clicking on top bar when softphone is unfolded folds the softphone.", async () => {
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await contains(".o-voip-Softphone-content");
     await click(".o-voip-Softphone-topbar");
@@ -30,7 +19,7 @@ QUnit.test("Clicking on top bar when softphone is unfolded folds the softphone."
 });
 
 QUnit.test("Clicking on top bar when softphone is folded unfolds the softphone.", async () => {
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click(".o-voip-Softphone-topbar"); // fold
     await click(".o-voip-Softphone-topbar");
@@ -38,7 +27,7 @@ QUnit.test("Clicking on top bar when softphone is folded unfolds the softphone."
 });
 
 QUnit.test("Clicking on close button closes the softphone.", async () => {
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await contains(".o-voip-Softphone");
     await click(".o-voip-Softphone button[title='Close']");
@@ -46,13 +35,13 @@ QUnit.test("Clicking on close button closes the softphone.", async () => {
 });
 
 QUnit.test("Search bar is focused after opening the softphone.", async () => {
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await contains("input[placeholder='Search']:focus");
 });
 
 QUnit.test("Search bar is focused after unfolding the softphone.", async () => {
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click(".o-voip-Softphone-topbar"); // fold
     await click(".o-voip-Softphone-topbar"); // unfold
@@ -60,13 +49,13 @@ QUnit.test("Search bar is focused after unfolding the softphone.", async () => {
 });
 
 QUnit.test("“Next activities” is the active tab by default.", async () => {
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await contains(".nav-link.active", { text: "Next Activities" });
 });
 
 QUnit.test("Clicking on a tab makes it the active tab.", async () => {
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click(".nav-link", { text: "Contacts" });
     await contains(".nav-link.active", { text: "Contacts" });
@@ -74,7 +63,7 @@ QUnit.test("Clicking on a tab makes it the active tab.", async () => {
 });
 
 QUnit.test("Click on the “Numpad button” to open and close the numpad.", async () => {
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click("button[title='Open Numpad']");
     await contains(".o-voip-Numpad");
@@ -85,7 +74,7 @@ QUnit.test("Click on the “Numpad button” to open and close the numpad.", asy
 QUnit.test(
     "The softphone top bar text is “VoIP” as long as there is no missed calls.",
     async () => {
-        start({ mockRPC: mockMissedCalls(0) });
+        await start();
         await click(".o_menu_systray button[title='Open Softphone']");
         await contains(".o-voip-Softphone-topbar", { text: "VoIP" });
     }
@@ -94,7 +83,9 @@ QUnit.test(
 QUnit.test(
     "The softphone automatically opens folded when there is at least 1 missed call.",
     async () => {
-        start({ mockRPC: mockMissedCalls(1) });
+        const pyEnv = await startServer();
+        pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
+        await start();
         await contains(".o-voip-Softphone"); // it's displayed…
         await contains(".o-voip-Softphone-content", { count: 0 }); // but it's folded
     }
@@ -103,7 +94,9 @@ QUnit.test(
 QUnit.test(
     "The softphone top bar text is “1 missed call” when there is 1 missed call.",
     async () => {
-        start({ mockRPC: mockMissedCalls(1) });
+        const pyEnv = await startServer();
+        pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
+        await start();
         await contains(".o-voip-Softphone-topbar", { text: "1 missed call" });
     }
 );
@@ -111,8 +104,11 @@ QUnit.test(
 QUnit.test(
     "The softphone top bar text allows a specific translation for the dual grammatical number.",
     async () => {
+        const pyEnv = await startServer();
         patchWithCleanup(translatedTerms, { "2 missed calls": "2 مكالمة فائتة" });
-        start({ mockRPC: mockMissedCalls(2) });
+        pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
+        pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
+        await start();
         await contains(".o-voip-Softphone-topbar", { text: "2 مكالمة فائتة" });
     }
 );
@@ -120,13 +116,17 @@ QUnit.test(
 QUnit.test(
     "The softphone top bar text is “513 missed calls” when there is 513 missed calls",
     async () => {
-        start({ mockRPC: mockMissedCalls(513) });
+        const pyEnv = await startServer();
+        for (let i = 0; i < 513; i++) {
+            pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
+        }
+        await start();
         await contains(".o-voip-Softphone-topbar", { text: "513 missed calls" });
     }
 );
 
 QUnit.test("The cursor when hovering over the top bar has “pointer” style", async (assert) => {
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await contains(".o-voip-Softphone-topbar");
     assert.strictEqual(getComputedStyle($(".o-voip-Softphone-topbar")[0]).cursor, "pointer");

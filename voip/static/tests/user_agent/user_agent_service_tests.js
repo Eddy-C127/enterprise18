@@ -5,7 +5,6 @@ import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { start } from "@mail/../tests/helpers/test_utils";
 
 import { patchWithCleanup } from "@web/../tests/helpers/utils";
-import { assertSteps, step } from "@web/../tests/utils";
 
 QUnit.module("user_agent_service");
 
@@ -40,25 +39,7 @@ QUnit.test("SIP.js user agent configuration is set correctly.", async (assert) =
         ...settingsData,
         user_id: pyEnv.currentUserId,
     });
-    const { env } = await start({
-        async mockRPC(route, args, originalRpc) {
-            if (route === "/mail/action" && args.init_messaging) {
-                const res = await originalRpc(...arguments);
-                step(`/mail/action - ${JSON.stringify(args)}`);
-                return res;
-            }
-        },
-    });
-    await assertSteps([
-        `/mail/action - ${JSON.stringify({
-            init_messaging: true,
-            failures: true,
-            systray_get_activities: true,
-            context: { lang: "en", tz: "taht", uid: pyEnv.currentUserId },
-        })}`,
-    ]);
-    await new Promise(setTimeout);
-    // check after init messaging to wait for data to be received
+    const { env } = await start();
     const config = env.services["voip.user_agent"].sipJsUserAgentConfig;
     assert.equal(config.authorizationPassword, "super secret password");
     assert.equal(config.authorizationUsername, expectedValues.authorizationUsername);

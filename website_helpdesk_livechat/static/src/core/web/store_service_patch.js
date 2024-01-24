@@ -1,15 +1,16 @@
 /* @odoo-module */
 
-import { Messaging } from "@mail/core/common/messaging_service";
+import { Store } from "@mail/core/common/store_service";
 
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { patch } from "@web/core/utils/patch";
 
-patch(Messaging.prototype, {
-    initMessagingCallback() {
-        super.initMessagingCallback();
-        if (this.store.helpdesk_livechat_active) {
+/** @type {import("models").Store} */
+const StorePatch = {
+    onStarted() {
+        super.onStarted();
+        if (this.helpdesk_livechat_active) {
             registry
                 .category("discuss.channel_commands")
                 .add(
@@ -34,4 +35,5 @@ patch(Messaging.prototype, {
             registry.category("discuss.channel_commands").remove("search_tickets");
         }
     },
-});
+};
+patch(Store.prototype, StorePatch);

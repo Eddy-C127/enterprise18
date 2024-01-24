@@ -70,6 +70,16 @@ patch(MockServer.prototype, {
         }
         return this._mockVoipCall_FormatCalls(ids);
     },
+    _mockVoipCall__get_number_of_missed_calls() {
+        const domain = [
+            ["user_id", "=", this.pyEnv.currentUser.id],
+            ["state", "=", "missed"],
+        ];
+        if (this.pyEnv.currentUser.last_seen_phone_call) {
+            domain.push([("id", ">", this.pyEnv.currentUser.last_seen_phone_call)]);
+        }
+        return this.pyEnv["voip.call"].search(domain).length;
+    },
     _mockVoipCallGetRecentPhoneCalls(_args, { search_terms, offset = 0, limit } = {}) {
         const domain = [["user_id", "=", this.pyEnv.currentUserId]];
         if (search_terms) {
@@ -77,7 +87,11 @@ patch(MockServer.prototype, {
                 domain.push("|", [field, "ilike", search_terms]);
             }
         }
-        const recordIds = this.pyEnv["voip.call"].search(domain, { offset, limit, order: "create_date DESC" });
+        const recordIds = this.pyEnv["voip.call"].search(domain, {
+            offset,
+            limit,
+            order: "create_date DESC",
+        });
         return this._mockVoipCall_FormatCalls(recordIds);
     },
     /**

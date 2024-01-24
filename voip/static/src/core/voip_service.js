@@ -19,7 +19,6 @@ import { escape } from "@web/core/utils/strings";
 export class Voip {
     bus = new EventBus();
     error;
-    isReady = new Deferred();
     /**
      * Either “demo” or “prod”. In demo mode, phone calls are simulated in the
      * interface but no RTC sessions are actually established.
@@ -56,16 +55,10 @@ export class Voip {
         this.orm = services.orm;
         this.busService = services.bus_service;
         this.softphone = new Softphone(this.store, this);
-        // VoIP config is retrieved by init_messaging RPC to minimize the number
-        // of requests at start-up. This is why we need to wait until
-        // mail.messaging is ready to update the VoIP config.
-        this.messaging.isReady.then(() => {
-            this.callService.missedCalls = this.store.voipConfig?.missedCalls ?? 0;
-            delete this.store.voipConfig?.missedCalls;
-            Object.assign(this, this.store.voipConfig);
-            delete this.store.voipConfig;
-            this.isReady.resolve();
-        });
+        this.callService.missedCalls = this.store.voipConfig?.missedCalls ?? 0;
+        delete this.store.voipConfig?.missedCalls;
+        Object.assign(this, this.store.voipConfig);
+        delete this.store.voipConfig;
         this.busService.subscribe("delete_call_activity", (payload) => {
             const activity = this.store.Activity.insert(payload);
             this.activityService.delete(activity);
@@ -287,13 +280,11 @@ export const voipService = {
     async start() {
         const isEmployee = await user.hasGroup("base.group_user");
         if (!isEmployee) {
-            const isReady = new Deferred();
             return {
                 bus: new EventBus(),
                 get canCall() {
                     return false;
                 },
-                isReady,
             };
         }
         registry.category("main_components").add("voip.SoftphoneContainer", {

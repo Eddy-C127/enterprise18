@@ -6,11 +6,9 @@ import { patch } from "@web/core/utils/patch";
 import { MockServer } from "@web/../tests/helpers/mock_server";
 
 patch(MockServer.prototype, {
-    /**
-     * @override
-     */
-    _mockResUsers_InitMessaging(ids) {
-        const res = super._mockResUsers_InitMessaging(...arguments);
+    /** @override */
+    _mockResUsers__init_store_data() {
+        const res = super._mockResUsers__init_store_data(...arguments);
         res.Store.helpdesk_livechat_active = true;
         return res;
     },
