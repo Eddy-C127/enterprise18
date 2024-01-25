@@ -50,6 +50,19 @@ class Task(models.Model):
         for task in self:
             task.display_timesheet_timer = task.allow_timesheets and task.analytic_account_active
 
+    @api.onchange('project_id')
+    def _onchange_project_id(self):
+        # If task has non-validated timesheets AND new project has not the timesheets feature enabled, raise a warning notification
+        if not all(t.validated for t in self.timesheet_ids) and not self.project_id.allow_timesheets:
+            return {
+                'warning': {
+                    'title': _("Warning"),
+                    'message': _("Moving this task to a project without timesheet support will retain timesheet drafts in the original project. "
+                                 "Although they won't be visible here, you can still edit them using the Timesheets app."),
+                    'type': "notification",
+                },
+            }
+
     def _set_allocated_hours_for_tasks(self):
         super(Task, self.filtered(lambda task: not task.allow_timesheets))
 

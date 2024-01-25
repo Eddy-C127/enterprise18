@@ -106,6 +106,11 @@ class AnalyticLine(models.Model):
             unavailability_intervals_per_employee_id[False] = get_company_unavailable_dates()
         return unavailability_intervals_per_employee_id
 
+    def _compute_project_id(self):
+        # override hr_timesheet to allow the check on field validated to only update the project_id on non validated timesheets.
+        non_validated_timesheets = self.filtered(lambda t: not t.validated and t.task_id.project_id.allow_timesheets)
+        super(AnalyticLine, non_validated_timesheets)._compute_project_id()
+
     @api.depends('project_id')
     def _compute_is_timesheet(self):
         for line in self:

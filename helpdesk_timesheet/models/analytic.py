@@ -14,6 +14,7 @@ class AccountAnalyticLine(models.Model):
         'helpdesk.ticket', 'Helpdesk Ticket', index='btree_not_null',
         compute='_compute_helpdesk_ticket_id', store=True, readonly=False,
         domain="[('company_id', '=', company_id), ('project_id', '=?', project_id)]")
+    project_id = fields.Many2one(inverse="_inverse_project_id")
     has_helpdesk_team = fields.Boolean(related='project_id.has_helpdesk_team')
     display_task = fields.Boolean(compute="_compute_display_task")
 
@@ -22,20 +23,38 @@ class AccountAnalyticLine(models.Model):
         for line in self:
             line.display_task = line.task_id or not line.has_helpdesk_team
 
-    @api.depends('project_id')
-    def _compute_helpdesk_ticket_id(self):
-        for line in self:
-            if not line.project_id or line.project_id != line.helpdesk_ticket_id.project_id:
-                line.helpdesk_ticket_id = False
-
-    @api.depends('helpdesk_ticket_id')
+    @api.depends('helpdesk_ticket_id.project_id')
     def _compute_project_id(self):
         timesheets_with_ticket = self.filtered('helpdesk_ticket_id')
         for timesheet in timesheets_with_ticket:
-            if not timesheet.helpdesk_ticket_id.project_id or timesheet.helpdesk_ticket_id.project_id == timesheet.project_id:
+            if timesheet.validated or not timesheet.helpdesk_ticket_id.project_id or timesheet.helpdesk_ticket_id.project_id == timesheet.project_id:
                 continue
             timesheet.project_id = timesheet.helpdesk_ticket_id.project_id
         super(AccountAnalyticLine, self - timesheets_with_ticket)._compute_project_id()
+
+    def _inverse_project_id(self):
+        self.filtered(
+            lambda line:
+                (
+                    line.helpdesk_ticket_id and
+                    not line.validated and
+                    not line.project_id
+                ) or (
+                    line.project_id != line.helpdesk_ticket_id.project_id
+                )
+        ).helpdesk_ticket_id = False
+
+    @api.depends('helpdesk_ticket_id')
+    def _compute_task_id(self):
+        # Override to set task_id to false when a helpdesk_ticket_id has been assigned
+        task_and_ticket_lines = self.filtered(lambda line: line.task_id and line.helpdesk_ticket_id)
+        task_and_ticket_lines.task_id = False
+        super(AccountAnalyticLine, self - task_and_ticket_lines)._compute_task_id()
+
+    @api.depends('task_id')
+    def _compute_helpdesk_ticket_id(self):
+        # set helpdesk_ticket_id to false when a task_id has been assigned
+        self.filtered(lambda line: line.task_id and line.helpdesk_ticket_id).helpdesk_ticket_id = False
 
     @api.constrains('task_id', 'helpdesk_ticket_id')
     def _check_no_link_task_and_ticket(self):

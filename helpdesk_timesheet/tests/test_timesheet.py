@@ -164,3 +164,105 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
         self.assertTrue(timesheet_2, "Bulk creation of timesheets should work for separate ticket ids")
         self.assertEqual(timesheet_1.helpdesk_ticket_id, helpdesk_ticket_1)
         self.assertEqual(timesheet_2.helpdesk_ticket_id, helpdesk_ticket_2)
+
+    def test_timesheet_ticket_consistency_when_helpdesk_team_change(self):
+        """
+            Test that the change of `helpdesk_team` of a helpdesk_ticket results in:
+            - non-validated timesheets have the new project associated.
+            - validated timesheets does not get change and keep the initial project.
+        """
+
+        # Create ticket and store initial project (helpdesk_team)
+        helpdesk_ticket = self.env['helpdesk.ticket'].create({
+            'name': 'Test Ticket',
+            'team_id': self.helpdesk_team.id,
+            'partner_id': self.partner.id,
+        })
+        initial_project = helpdesk_ticket.project_id
+
+        # create a valid timesheet and non-validated timesheet under the same helpdesk_ticket/project
+        timesheet_valid, timesheet_non_valid = self.env['account.analytic.line'].create([{
+            'name': 'valid timesheet test',
+            'project_id': initial_project.id,
+            'helpdesk_ticket_id': helpdesk_ticket.id,
+            'employee_id': self.empl_employee.id,
+        }, {
+            'name': 'non valid timesheet test',
+            'project_id': initial_project.id,
+            'helpdesk_ticket_id': helpdesk_ticket.id,
+            'employee_id': self.empl_employee.id,
+        }])
+        timesheet_valid.with_user(self.user_manager).action_validate_timesheet()
+
+        # create a new project and helpdesk_team with timesheet feature
+        new_project = self.env['project.project'].create({
+            'name': 'Project 2',
+            'allow_timesheets': True,
+            'partner_id': self.partner.id,
+        })
+        new_helpdesk_team = self.env['helpdesk.team'].create({
+            'name': 'Test Team 2',
+            'use_helpdesk_timesheet': True,
+            'project_id': new_project.id,
+        })
+
+        # change the helpdesk_team of the helpdesk_ticket
+        form = Form(helpdesk_ticket.with_user(self.env.user))
+        form.team_id = new_helpdesk_team
+        form.save()
+        self.assertEqual(timesheet_valid.project_id, initial_project,
+                         "Validated timesheet should keep the same project when the helpdesk_ticket's helpdesk_team is changed.")
+        self.assertEqual(timesheet_non_valid.project_id, new_project,
+                         "Non-validated timesheet should have the new project set when the helpdesk_ticket's helpdesk_team is changed.")
+
+    def test_timesheet_check_warning_when_helpdesk_team_change(self):
+        """
+            1)  Test that when a ticket changes its project (helpdesk_team), if the ticket contains at least one non-validated timesheet AND
+                the new project has no timesheet feature available, a warning notification should be raised.
+            2)  The tickets's helpdesk_team and non-validated timesheets should be changed despite the warning raised.
+            3)  Checks that no warning is raised when the timesheets are validated.
+        """
+
+        # (1) create tickets and timesheets
+        helpdesk_ticket_non_valid, helpdesk_ticket_valid = self.env['helpdesk.ticket'].create([{
+            'name': 'Test Ticket non valid',
+            'team_id': self.helpdesk_team.id,
+            'partner_id': self.partner.id,
+        }, {
+              'name': 'Test Ticket only valid',
+            'team_id': self.helpdesk_team.id,
+            'partner_id': self.partner.id,
+        }])
+
+        dummy, timesheet_validated = self.env['account.analytic.line'].create([{
+            'name': 'non valid timesheet test',
+            'helpdesk_ticket_id': helpdesk_ticket_non_valid.id,
+            'employee_id': self.empl_employee.id,
+        }, {
+            'name': 'validated timesheet test',
+            'helpdesk_ticket_id': helpdesk_ticket_valid.id,
+            'employee_id': self.empl_employee.id,
+        }])
+
+        # create helpdesk_team without timesheet feature
+        no_timesheet_helpdesk_team = self.env['helpdesk.team'].create({
+            'name': 'Test Team with no timesheet',
+            'use_helpdesk_timesheet': False,
+        })
+
+        # change the helpdesk_team of the ticket containing non-validated timesheet, to the helpdesk_team without timesheet feature
+        helpdesk_ticket_non_valid.with_user(self.env.user).write({'team_id': no_timesheet_helpdesk_team.id})
+        warning = helpdesk_ticket_non_valid._onchange_team_id()
+        self.assertTrue(warning, "A warning should be raised when the ticket's timesheets are not all validated and the newly assigned helpdesk_team has no timesheet feature.")
+
+        # (2) verify that after the warning, the helpdesk_team is changed
+        self.assertEqual(helpdesk_ticket_non_valid.team_id, no_timesheet_helpdesk_team,
+                         "The ticket's helpdesk_team should be changed despite the warning raised.")
+
+        # (3) Create ticket including only validated timesheet
+        timesheet_validated.with_user(self.user_manager).action_validate_timesheet()
+
+        # change the helpdesk_team of the ticket only containing validated timesheet, to the helpdesk_team without timesheet feature
+        helpdesk_ticket_valid.with_user(self.env.user).write({'project_id': no_timesheet_helpdesk_team.id})
+        warning = helpdesk_ticket_valid._onchange_team_id()
+        self.assertFalse(warning, "No warning should be raised when the ticket's timesheets are validated.")

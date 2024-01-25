@@ -12,6 +12,7 @@ from odoo.tools.float_utils import float_compare
 from odoo.addons.mail.tests.common import MockEmail
 from odoo.addons.hr_timesheet.tests.test_timesheet import TestCommonTimesheet
 from odoo.exceptions import AccessError, UserError
+from odoo.tests import Form
 
 try:
     from unittest.mock import patch
@@ -613,3 +614,70 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
         # Raise user error if timesheet is disabled in both projects
         with self.assertRaises(UserError):
             Timesheet.grid_update_cell([('employee_id', '=', self.empl_employee.id), ('date', '=', '2024-01-02')], 'unit_amount', 5.0)
+
+    def test_timesheet_task_consistency_when_project_change(self):
+        """
+            Test that the change of `project` of a task results in:
+            - non-validated timesheets have the new project associated.
+            - validated timesheets do not get change and keep the initial project.
+        """
+        task = self.timesheet1.task_id
+        initial_project = self.timesheet1.project_id
+
+        # create a valid timesheet and non-validated timesheet under the same task
+        self.timesheet1.with_user(self.user_manager).action_validate_timesheet()
+        timesheet_valid = self.timesheet1
+        timesheet_non_valid = self.env['account.analytic.line'].with_user(self.user_manager).create({
+            'name': "non valid timesheet",
+            'project_id': initial_project.id,
+            'task_id': task.id,
+            'unit_amount': 2.0,
+        })
+
+        # create a new project with timesheet feature
+        new_project = self.env['project.project'].create([{'name': 'Project 2', 'allow_timesheets': True}])
+
+        # change the project of the task
+        form = Form(task.with_user(self.env.user))
+        form.project_id = new_project
+        form.save()
+        self.assertEqual(timesheet_valid.project_id, initial_project,
+                         "Validated timesheet should keep the same project when the task's project is changed.")
+        self.assertEqual(timesheet_non_valid.project_id, new_project,
+                         "Non-validated timesheet should have the new project set when the task's project is changed.")
+
+    def test_timesheet_check_warning_when_project_change(self):
+        """
+            1)  Test that when a task changes its project, if the task contains at least one non-validated timesheet AND
+                the new project has no timesheet feature available, a warning notification should be raised.
+            2)  The project of the task should be changed even if a warning is raised.
+            3)  Second part checks that no warning is raised when the timesheets are validated.
+        """
+
+        # (1) create project without timesheet feature
+        non_tracked_project = self.env['project.project'].create({
+            'name': 'Project without timesheet',
+            'allow_timesheets': False,
+            'partner_id': self.partner.id,
+        })
+
+        # first task including non-validated timesheet
+        task_1 = self.timesheet1.task_id
+
+        # change the project of the task containing non-validated timesheet, to the project without timesheet feature
+        task_1.with_user(self.env.user).write({'project_id': non_tracked_project.id})
+        warning = task_1._onchange_project_id()
+        self.assertTrue(warning, "Warning message should be returned")
+
+        # (2) verify that after the warning, the project_id is changed and its non-validated timesheets gets the new project
+        self.assertEqual(task_1.project_id, non_tracked_project,
+                         "The task's project should be changed even if the warning is raised.")
+
+        # (3) second task including only validated timesheet
+        task_2 = self.timesheet2.task_id
+        self.timesheet2.with_user(self.user_manager).action_validate_timesheet()
+
+        # change the project of the task only containing validated timesheet, to the project without timesheet feature
+        task_2.with_user(self.env.user).write({'project_id': non_tracked_project.id})
+        warning = task_2._onchange_project_id()
+        self.assertFalse(warning, "No warning should be raised when the task's timesheets are validated.")

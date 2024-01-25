@@ -76,6 +76,23 @@ class HelpdeskTicket(models.Model):
         for ticket in self:
             ticket.total_hours_spent = round(timesheets_per_ticket.get(ticket.id, 0.0), 2)
 
+    @api.onchange('team_id')
+    def _onchange_team_id(self):
+        # If the new helpdesk team has no timesheet feature AND ticket has non-validated timesheets, show a warning message
+        if (
+            self.timesheet_ids and
+            not self.team_id.use_helpdesk_timesheet and
+            not all(t.validated for t in self.timesheet_ids)
+        ):
+            return {
+                'warning': {
+                    'title': _("Warning"),
+                    'message': _("Moving this task to a helpdesk team without timesheet support will retain timesheet drafts in the original helpdesk team. "
+                                 "Although they won't be visible here, you can still edit them using the Timesheets app."),
+                    'type': "notification",
+                },
+            }
+
     @api.depends('project_id')
     def _compute_analytic_account_id(self):
         for ticket in self:
