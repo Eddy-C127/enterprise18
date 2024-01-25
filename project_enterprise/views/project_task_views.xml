@@ -315,4 +315,39 @@
         <field name="view_mode">tree,kanban,form,calendar,gantt,map,pivot,graph,activity</field>
     </record>
 
+    <!-- Views for 'Tasks' stat button via Contact form -->
+    <record id="project.project_task_action_from_partner" model="ir.actions.act_window">
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,gantt,calendar,map,pivot,graph,activity</field>
+    </record>
+
+    <record id="project_task_view_form_in_gantt_res_partner" model="ir.ui.view">
+        <field name="name">project.task.view.form.gantt.res.partner</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_task_view_form_in_gantt"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group//field[@name='project_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_task_view_gantt_res_partner" model="ir.ui.view">
+        <field name="name">project.task.view.gantt.res.partner</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="view_task_gantt_inherit_all_task"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//gantt" position="attributes">
+                <attribute name="form_view_id">%(project_enterprise.project_task_view_form_in_gantt_res_partner)d</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_task_action_from_partner_gantt_view" model="ir.actions.act_window.view">
+        <field name="view_mode">gantt</field>
+        <field name="act_window_id" ref="project.project_task_action_from_partner"/>
+        <field name="view_id" ref="project_task_view_gantt_res_partner"/>
+    </record>
 </odoo>

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
+from odoo import fields, models, _
 
 
 class ResPartner(models.Model):
@@ -29,8 +28,23 @@ class ResPartner(models.Model):
                 partner = partner.with_context(prefetch_fields=False).parent_id
 
     def action_open_helpdesk_ticket(self):
-        action = self.env["ir.actions.actions"]._for_xml_id("helpdesk.helpdesk_ticket_action_main_tree")
-        action['context'] = {}
+        self.ensure_one()
+        action = {
+            **self.env["ir.actions.actions"]._for_xml_id("helpdesk.helpdesk_ticket_action_main_tree"),
+            'display_name': _("%(partner_name)s's Tickets", partner_name=self.name),
+            'context': {},
+        }
         all_child = self.with_context(active_test=False).search([('id', 'child_of', self.ids)])
-        action['domain'] = ['|', ('partner_id', 'in', self.ids), ('partner_id', 'in', all_child.ids)]
+        search_domain = [('partner_id', 'in', (self | all_child).ids)]
+        if self.ticket_count <= 1:
+            ticket_id = self.env['helpdesk.ticket'].search(search_domain, limit=1)
+            action['res_id'] = ticket_id.id
+            action['views'] = [(view_id, view_type) for view_id, view_type in action['views'] if view_type == "form"]
+        else:
+            action['domain'] = search_domain
+            action['views'] = [
+                (self.env['ir.model.data']._xmlid_to_res_id('helpdesk.helpdesk_tickets_view_tree_res_partner'), view_type) if view_type == 'tree' else
+                (view_id, view_type)
+                for view_id, view_type in action['views']
+            ]
         return action

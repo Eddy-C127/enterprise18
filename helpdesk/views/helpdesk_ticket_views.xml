@@ -1075,4 +1075,15 @@
         <field name="act_window_id" ref="helpdesk_ticket_action_7days_success"/>
     </record>
 
+    <record id="helpdesk_tickets_view_tree_res_partner" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.tree</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_tickets_view_tree"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">ticket_ref desc</attribute>
+            </xpath>
+        </field>
+    </record>
 </odoo>
