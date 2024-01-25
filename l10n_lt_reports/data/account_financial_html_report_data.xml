@@ -25,7 +25,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_1_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">-50</field>
+                        <field name="formula">-tag(l10n_lt.account_account_tag_1_net_turnover)</field>
                         <field name="date_scope">normal</field>
                     </record>
                 </field>
@@ -40,7 +40,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_2_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">60</field>
+                        <field name="formula">tag(l10n_lt.account_account_tag_2_cost_of_sales)</field>
                         <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
@@ -54,10 +54,10 @@
                 <field name="expression_ids">
                     <record id="account_financial_html_report_line_pnl_lt_3_balance" model="account.report.expression">
                         <field name="label">balance</field>
-                        <field name="engine">domain</field>
-                        <field name="formula" eval="[('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_3_adjustments_of_biological_assets'))]"/>
+                        <field name="engine">account_codes</field>
+                        <field name="formula">-tag(l10n_lt.account_account_tag_3_adjustments_of_biological_assets)</field>
                         <field name="date_scope">normal</field>
-                        <field name="subformula">-sum</field>
+                        <field name="subformula" eval="False"/>
                     </record>
                 </field>
             </record>
@@ -82,7 +82,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_5_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">62</field>
+                        <field name="formula">tag(l10n_lt.account_account_tag_4_selling_expenses)</field>
                         <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
@@ -97,7 +97,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_6_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">63</field>
+                        <field name="formula">tag(l10n_lt.account_account_tag_5_general_administrative_expenses)</field>
                         <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
@@ -112,7 +112,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_7_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">-64 - 54</field>
+                        <field name="formula">-tag(l10n_lt.account_account_tag_6_other_operating_results)</field>
                         <field name="date_scope">normal</field>
                     </record>
                 </field>
@@ -125,10 +125,10 @@
                 <field name="expression_ids">
                     <record id="account_financial_html_report_line_pnl_lt_8_balance" model="account.report.expression">
                         <field name="label">balance</field>
-                        <field name="engine">domain</field>
-                        <field name="formula" eval="[('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_7_income_investments_parent'))]"/>
+                        <field name="engine">account_codes</field>
+                        <field name="formula">-tag(l10n_lt.account_account_tag_7_income_investments_parent)</field>
                         <field name="date_scope">normal</field>
-                        <field name="subformula">-sum</field>
+                        <field name="subformula" eval="False"/>
                     </record>
                 </field>
             </record>
@@ -141,7 +141,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_9_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">-56</field>
+                        <field name="formula">-tag(l10n_lt.account_account_tag_8_income_other_longterm_investments_loans)</field>
                         <field name="date_scope">normal</field>
                     </record>
                 </field>
@@ -155,7 +155,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_10_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">-58</field>
+                        <field name="formula">-tag(l10n_lt.account_account_tag_9_other_interest_similar_income)</field>
                         <field name="date_scope">normal</field>
                     </record>
                 </field>
@@ -169,7 +169,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_11_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">67</field>
+                        <field name="formula">tag(l10n_lt.account_account_tag_10_impaired_fin_assets_short_investments)</field>
                         <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
@@ -184,7 +184,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_12_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">68</field>
+                        <field name="formula">tag(l10n_lt.account_account_tag_11_interest_other_similar_expenses)</field>
                         <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
@@ -211,7 +211,7 @@
                     <record id="account_financial_html_report_line_pnl_lt_14_balance" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
-                        <field name="formula">69</field>
+                        <field name="formula">tag(l10n_lt.account_account_tag_12_tax_on_profit)</field>
                         <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
@@ -288,7 +288,7 @@
                                         <field name="code">BS_A_1_3_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">11</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_1_3'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_a_1_4" model="account.report.line">
                                         <field name="name">Concessions, patents, licences, trade marks and similar rights</field>
@@ -323,35 +323,35 @@
                                         <field name="code">BS_A_2_1_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">120</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_2_1'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_a_2_2" model="account.report.line">
                                         <field name="name">Buildings and structures</field>
                                         <field name="code">BS_A_2_2_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">121</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_2_2'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_a_2_3" model="account.report.line">
                                         <field name="name">Machinery and plant</field>
                                         <field name="code">BS_A_2_3_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">122</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_2_3'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_a_2_4" model="account.report.line">
                                         <field name="name">Vehicles</field>
                                         <field name="code">BS_A_2_4_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">123</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_2_4'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_a_2_5" model="account.report.line">
                                         <field name="name">Other equipment, fittings and tools</field>
                                         <field name="code">BS_A_2_5_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">124</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_2_5'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_a_2_6" model="account.report.line">
                                         <field name="name">Investment property</field>
@@ -363,14 +363,14 @@
                                                 <field name="code">BS_A_2_6_1_</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
-                                                <field name="account_codes_formula">1250</field>
+                                                <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_2_6_1'))])</field>
                                             </record>
                                             <record id="account_financial_html_report_line_bs_lt_a_2_6_2" model="account.report.line">
                                                 <field name="name">Buildings</field>
                                                 <field name="code">BS_A_2_6_2_</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
-                                                <field name="account_codes_formula">1251</field>
+                                                <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_2_6_2'))])</field>
                                             </record>
                                         </field>
                                     </record>
@@ -379,7 +379,7 @@
                                         <field name="code">BS_A_2_7_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">126</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_2_7'))])</field>
                                     </record>
                                 </field>
                             </record>
@@ -435,21 +435,21 @@
                                         <field name="code">BS_A_3_7_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">166</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_3_7'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_a_3_8" model="account.report.line">
                                         <field name="name">Amounts receivable after one year</field>
                                         <field name="code">BS_A_3_8_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">167</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_3_8'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_a_3_9" model="account.report.line">
                                         <field name="name">Other financial assets</field>
                                         <field name="code">BS_A_3_9_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">168</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_3_9'))])</field>
                                     </record>
                                 </field>
                             </record>
@@ -463,7 +463,7 @@
                                         <field name="code">BS_A_4_1_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">17</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_a_4_1'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_a_4_2" model="account.report.line">
                                         <field name="name">Biological assets</field>
@@ -499,28 +499,28 @@
                                         <field name="code">BS_B_1_1_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">201</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_1_1'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_b_1_2" model="account.report.line">
                                         <field name="name">Production and work in progress</field>
                                         <field name="code">BS_B_1_2_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">202</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_1_2'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_b_1_3" model="account.report.line">
                                         <field name="name">Finished goods</field>
                                         <field name="code">BS_B_1_3_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">203</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_1_3'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_b_1_4" model="account.report.line">
                                         <field name="name">Goods for resale</field>
                                         <field name="code">BS_B_1_4_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">204</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_1_4'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_b_1_5" model="account.report.line">
                                         <field name="name">Biological assets</field>
@@ -534,14 +534,14 @@
                                         <field name="code">BS_B_1_6_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">206</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_1_6'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_b_1_7" model="account.report.line">
                                         <field name="name">Advance payments</field>
                                         <field name="code">BS_B_1_7_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">208</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_1_7'))])</field>
                                     </record>
                                 </field>
                             </record>
@@ -555,7 +555,7 @@
                                         <field name="code">BS_B_2_1_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">241</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_2_1'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_b_2_2" model="account.report.line">
                                         <field name="name">Amounts owed by entities of the entities group</field>
@@ -576,7 +576,7 @@
                                         <field name="code">BS_B_2_4_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">244</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_2_4'))])</field>
                                     </record>
                                 </field>
                             </record>
@@ -597,7 +597,7 @@
                                         <field name="code">BS_B_3_2_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">26</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_3_2'))])</field>
                                     </record>
                                 </field>
                             </record>
@@ -606,7 +606,7 @@
                                 <field name="code">BS_B_4_</field>
                                 <field name="groupby">account_id</field>
                                 <field name="foldable" eval="True"/>
-                                <field name="account_codes_formula">27 + 999</field>
+                                <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_b_4'))])</field>
                             </record>
                         </field>
                     </record>
@@ -615,7 +615,7 @@
                         <field name="code">BS_C_</field>
                         <field name="groupby">account_id</field>
                         <field name="foldable" eval="True"/>
-                        <field name="account_codes_formula">29</field>
+                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_c_prepayments_accrued_income'))])</field>
                     </record>
                 </field>
             </record>
@@ -642,21 +642,21 @@
                                         <field name="code">BS_D_1_1_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-301</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_1_1'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_d_1_2" model="account.report.line">
                                         <field name="name">Subscribed capital unpaid (–)</field>
                                         <field name="code">BS_D_1_2_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">302</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_1_2'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_d_1_3" model="account.report.line">
                                         <field name="name">Own shares (–)</field>
                                         <field name="code">BS_D_1_3_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">305 + 308 + 303</field>
+                                        <field name="domain_formula">sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_1_3'))])</field>
                                     </record>
                                 </field>
                             </record>
@@ -684,7 +684,7 @@
                                         <field name="code">BS_D_4_1_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-33</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_d_4_1'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_d_4_2" model="account.report.line">
                                         <field name="name">Reserve for acquiring own shares</field>
@@ -712,25 +712,11 @@
                                         <field name="code">BS_D_5_1_</field>
                                         <field name="action_id" ref="account_financial_report_l10n_lt_pl_action"/>
                                         <field name="expression_ids">
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_balance_account_codes" model="account.report.expression">
-                                                <field name="label">balance_account_codes</field>
-                                                <field name="engine">account_codes</field>
-                                                <field name="formula">-341</field>
-                                            </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_balance_aggregate" model="account.report.expression">
-                                                <field name="label">balance_aggregate</field>
-                                                <field name="engine">aggregation</field>
-                                                <field name="formula">BS_D_5_1_.bs_pl_balance</field>
-                                            </record>
                                             <record id="account_financial_html_report_line_bs_lt_d_5_1_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">aggregation</field>
-                                                <field name="formula">BS_D_5_1_.balance_account_codes + BS_D_5_1_.balance_aggregate</field>
-                                            </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_1_bs_pl_balance" model="account.report.expression">
-                                                <field name="label">bs_pl_balance</field>
-                                                <field name="engine">account_codes</field>
-                                                <field name="formula">-6 - 5</field>
+                                                <field name="formula">PNL_15_.balance</field>
+                                                <field name="subformula">cross_report</field>
                                                 <field name="date_scope">from_fiscalyear</field>
                                             </record>
                                         </field>
@@ -742,23 +728,19 @@
                                             <record id="account_financial_html_report_line_bs_lt_d_5_2_balance_account_codes" model="account.report.expression">
                                                 <field name="label">balance_account_codes</field>
                                                 <field name="engine">account_codes</field>
-                                                <field name="formula">-342</field>
+                                                <field name="formula">-tag(l10n_lt.account_account_tag_d_5_1) - tag(l10n_lt.account_account_tag_d_5_2)</field>
                                             </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_balance_aggregate" model="account.report.expression">
-                                                <field name="label">balance_aggregate</field>
+                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_bs_ppl_balance" model="account.report.expression">
+                                                <field name="label">bs_pl_balance</field>
                                                 <field name="engine">aggregation</field>
-                                                <field name="formula">BS_D_5_2_.bs_ppl_balance</field>
+                                                <field name="formula">PNL_15_.balance</field>
+                                                <field name="subformula">cross_report</field>
+                                                <field name="date_scope">to_beginning_of_fiscalyear</field>
                                             </record>
                                             <record id="account_financial_html_report_line_bs_lt_d_5_2_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">aggregation</field>
-                                                <field name="formula">BS_D_5_2_.balance_account_codes + BS_D_5_2_.balance_aggregate</field>
-                                            </record>
-                                            <record id="account_financial_html_report_line_bs_lt_d_5_2_bs_ppl_balance" model="account.report.expression">
-                                                <field name="label">bs_ppl_balance</field>
-                                                <field name="engine">account_codes</field>
-                                                <field name="formula">-6 - 5</field>
-                                                <field name="date_scope">to_beginning_of_fiscalyear</field>
+                                                <field name="formula">BS_D_5_2_.balance_account_codes + BS_D_5_2_.bs_pl_balance</field>
                                             </record>
                                         </field>
                                     </record>
@@ -767,7 +749,7 @@
                             <record id="account_financial_html_report_line_bs_lt_d_6" model="account.report.line">
                                 <field name="name">COMMON SUMMARY OF ACCOUNTS</field>
                                 <field name="code">BS_D_6_</field>
-                                <field name="account_codes_formula">-390</field>
+                                <field name="account_codes_formula">-tag(l10n_lt.account_account_tag_d_6)</field>
                             </record>
                         </field>
                     </record>
@@ -788,21 +770,21 @@
                                 <field name="code">BS_F_1_</field>
                                 <field name="groupby">account_id</field>
                                 <field name="foldable" eval="True"/>
-                                <field name="account_codes_formula">-411</field>
+                                <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_f_1'))])</field>
                             </record>
                             <record id="account_financial_html_report_line_bs_lt_f_2" model="account.report.line">
                                 <field name="name">Provisions for taxation</field>
                                 <field name="code">BS_F_2_</field>
                                 <field name="groupby">account_id</field>
                                 <field name="foldable" eval="True"/>
-                                <field name="account_codes_formula">-412</field>
+                                <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_f_2'))])</field>
                             </record>
                             <record id="account_financial_html_report_line_bs_lt_f_3" model="account.report.line">
                                 <field name="name">Other provisions</field>
                                 <field name="code">BS_F_3_</field>
                                 <field name="groupby">account_id</field>
                                 <field name="foldable" eval="True"/>
-                                <field name="account_codes_formula">-413</field>
+                                <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_f_3'))])</field>
                             </record>
                         </field>
                     </record>
@@ -821,28 +803,28 @@
                                         <field name="code">BS_G_1_1_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-421</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_1'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_1_2" model="account.report.line">
                                         <field name="name">Amounts owed to credit institutions</field>
                                         <field name="code">BS_G_1_2_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-422</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_2'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_1_3" model="account.report.line">
                                         <field name="name">Payments received on account</field>
                                         <field name="code">BS_G_1_3_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-423</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_3'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_1_4" model="account.report.line">
                                         <field name="name">Trade creditors</field>
                                         <field name="code">BS_G_1_4_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-424</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_4'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_1_5" model="account.report.line">
                                         <field name="name">Amounts payable under the bills and checks </field>
@@ -870,7 +852,7 @@
                                         <field name="code">BS_G_1_8_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-428</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_1_8'))])</field>
                                     </record>
                                 </field>
                             </record>
@@ -884,28 +866,28 @@
                                         <field name="code">BS_G_2_1_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-440</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_1'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_2_2" model="account.report.line">
                                         <field name="name">Amounts owed to credit institutions</field>
                                         <field name="code">BS_G_2_2_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-441</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_2'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_2_3" model="account.report.line">
                                         <field name="name">Payments received on account</field>
                                         <field name="code">BS_G_2_3_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-442</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_3'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_2_4" model="account.report.line">
                                         <field name="name">Trade creditors</field>
                                         <field name="code">BS_G_2_4_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-443</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_4'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_2_5" model="account.report.line">
                                         <field name="name">Amounts payable under the bills and checks </field>
@@ -933,21 +915,21 @@
                                         <field name="code">BS_G_2_8_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-447</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_8'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_2_9" model="account.report.line">
                                         <field name="name">Liabilities related to employment relations</field>
                                         <field name="code">BS_G_2_9_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-448</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_9'))])</field>
                                     </record>
                                     <record id="account_financial_html_report_line_bs_lt_g_2_10" model="account.report.line">
                                         <field name="name">Other amounts payable and short-term liabilities</field>
                                         <field name="code">BS_G_2_10_</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
-                                        <field name="account_codes_formula">-449</field>
+                                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_g_2_10'))])</field>
                                     </record>
                                 </field>
                             </record>
@@ -958,7 +940,7 @@
                         <field name="code">BS_H_</field>
                         <field name="groupby">account_id</field>
                         <field name="foldable" eval="True"/>
-                        <field name="account_codes_formula">-49</field>
+                        <field name="domain_formula">-sum([('account_id.tag_ids', '=', ref('l10n_lt.account_account_tag_h_accruals_deferred_income'))])</field>
                     </record>
                 </field>
             </record>
