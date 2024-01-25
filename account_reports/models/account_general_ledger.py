@@ -639,10 +639,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 else:
                     caret_type = 'account.move.line'
                 move_name = column_group_dict['move_name']
+                date = str(column_group_dict.get('date', ''))
                 break
 
         return {
-            'id': report._get_generic_line_id('account.move.line', aml_id, parent_line_id=parent_line_id),
+            'id': report._get_generic_line_id('account.move.line', aml_id, parent_line_id=parent_line_id, markup=date),
             'caret_options': caret_type,
             'parent_id': parent_line_id,
             'name': move_name,
