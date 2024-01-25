@@ -10,18 +10,6 @@
             overflow: unset;
         }
 
-        .o_web_studio_show_invisible, & + .o-web-studio-element-ghost {
-            outline: 1px solid $o-web-studio-bg-lighter;
-            background: repeating-linear-gradient(
-                45deg,
-                white,
-                white 5px,
-                $o-web-studio-bg-lighter 5px,
-                $o-web-studio-bg-lighter 10px
-            );
-            background-attachment: fixed;
-        }
-
         .o-web-studio-editor--element-clickable {
             // HOVER HANDLING
             // native selector: the main sibling is hovered

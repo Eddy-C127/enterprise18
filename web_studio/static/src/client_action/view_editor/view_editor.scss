@@ -32,6 +32,17 @@
                 background-color: $o-web-studio-bg-lighter;
                 color: $o-web-studio-text-inactive;
             }
+            .o_web_studio_show_invisible, .o_web_studio_show_invisible + .o-web-studio-element-ghost {
+                outline: 1px solid #00000010;
+                background-image: repeating-linear-gradient(
+                    45deg,
+                    #FFFFFF60,
+                    #FFFFFF60 5px,
+                    #00000010 5px,
+                    #00000010 10px
+                );
+                background-attachment: fixed;
+            }
             .o_web_studio_list_view_editor, > div.table-responsive {
                 padding: 0 12px;
             }
