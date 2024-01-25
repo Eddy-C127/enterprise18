@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from collections import defaultdict
 from datetime import timedelta
-from odoo import api, fields, models, _
+
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.misc import groupby as tools_groupby
 
@@ -341,3 +343,37 @@ class RentalOrderLine(models.Model):
             padding_timedelta_before = timedelta(hours=line.product_id.preparation_time)
             line.reservation_begin = line.start_date and line.start_date - padding_timedelta_before
         (self - lines).reservation_begin = None
+
+    def _get_rented_quantities(self, mandatory_dates):
+        """ Return the quantities that are picked up (positive value) or returned (negative value),
+        keyed by their pickup/return dates.
+
+        This method also returns a sorted list of dates of interest, which is the union of the
+        pickup/return dates and mandatory_dates.
+
+        :param list(datetime) mandatory_dates: typically a "from" and a "to" date defining an
+            interval of interest to the caller.
+        """
+        if not self:
+            return defaultdict(float), sorted(set(mandatory_dates))
+        self.product_id.ensure_one()
+        rented_quantities = defaultdict(float)
+        now = fields.Datetime.now()
+        for so_line in self:
+            rented_quantities[so_line.reservation_begin] += so_line.product_uom_qty
+            rented_quantities[so_line.return_date] -= so_line.product_uom_qty
+            # Adjust the rented quantities for early pickups.
+            # We don't know when the order was picked up, so we apply the adjustment from the
+            # current date to the expected pickup date.
+            if so_line.reservation_begin > now and so_line.qty_delivered > 0:
+                rented_quantities[now] += so_line.qty_delivered
+                rented_quantities[so_line.reservation_begin] -= so_line.qty_delivered
+            # Adjust the rented quantities for early returns.
+            # We don't know when the order was returned, so we apply the adjustment from the current
+            # date to the expected return date.
+            if so_line.return_date > now and so_line.qty_returned > 0:
+                rented_quantities[now] -= so_line.qty_returned
+                rented_quantities[so_line.return_date] += so_line.qty_returned
+
+        key_dates = sorted(set(rented_quantities.keys()) | set(mandatory_dates))
+        return rented_quantities, key_dates

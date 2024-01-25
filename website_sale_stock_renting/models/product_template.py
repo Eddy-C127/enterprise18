@@ -49,9 +49,10 @@ class ProductTemplate(models.Model):
                 [
                     ('is_rental', '=', True),
                     ('product_id', 'in', variants_to_check.ids),
-                    ('state', 'in', ('sent', 'sale', 'done')),
+                    ('state', 'in', ('sent', 'sale')),
                     ('return_date', '>', from_date),
-                    ('reservation_begin', '<', to_date),
+                    '|', ('reservation_begin', '<', to_date),
+                         ('qty_delivered', '>', 0),
                     # We're in sudo, need to restrict the search to the SOL of the website company
                     ('company_id', '=', self.env.company.id),
                     # Only load SOLs targeting the same warehouse whose stock we're considering
@@ -67,7 +68,7 @@ class ProductTemplate(models.Model):
             def has_any_available_qty(variant, sols):
                 # Returns False if the rented quantity was higher or equal to the available qty at any point in time.
                 rented_quantities, key_dates = sols._get_rented_quantities([from_date, to_date])
-                max_rentable = variant.qty_available
+                max_rentable = variant.qty_available + variant.qty_in_rent
                 for date in key_dates:
                     max_rentable -= rented_quantities[date]
                     if max_rentable <= 0:

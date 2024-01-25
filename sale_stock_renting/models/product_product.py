@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
+from odoo import _, api, models
 
 
 class ProductProduct(models.Model):
@@ -59,81 +58,66 @@ class ProductProduct(models.Model):
         else:
             return super()._get_qty_in_rent_domain()
 
-    def _get_unavailable_qty(self, fro, to=None, **kwargs):
-        """Return max qty of self (unique) unavailable between fro and to.
+    def _get_unavailable_qty(self, from_date, to_date=None, **kwargs):
+        """ Return the max quantity of self (unique) unavailable between from_date and to_date.
 
-        Doesn't count already returned quantities.
-        :param datetime fro:
-        :param datetime to:
+        Early pickups and returns are taken into account.
+        :param datetime from_date:
+        :param datetime to_date:
         :param dict kwargs: search domain restrictions (ignored_soline_id, warehouse_id)
         """
-        def unavailable_qty(so_line):
-            return so_line.product_uom_qty - so_line.qty_returned
+        # If to_date isn't provided, the interval should be a single instant (i.e. from_date).
+        to_date = to_date or from_date
+        rented_quantities, key_dates = self._get_active_rental_lines(
+            from_date, to_date, **kwargs
+        )._get_rented_quantities([from_date, to_date])
 
-        begins_during_period, ends_during_period, covers_period = self._get_active_rental_lines(fro, to, **kwargs)
-        active_lines_in_period = begins_during_period + ends_during_period
-        max_qty_rented = 0
+        unavailable_quantity = 0
+        max_unavailable_qty = 0
+        for key_date in key_dates:
+            if key_date > to_date:
+                break
+            unavailable_quantity += rented_quantities[key_date]
+            if key_date >= from_date:
+                max_unavailable_qty = max(unavailable_quantity, max_unavailable_qty)
 
-        # TODO is it more efficient to filter the records active in period
-        # or to make another search on all the sale order lines???
-        if active_lines_in_period:
-            for date in (begins_during_period.mapped('reservation_begin') + [fro]):
-                # If no soline in begins_during_period, we need to check at period beginning
-                # how much products are rented.
-                active_lines_at_date = active_lines_in_period.filtered(
-                    lambda line: line.reservation_begin and line.reservation_begin <= date and line.return_date and line.return_date >= date)
-                qty_rented_at_date = sum(active_lines_at_date.mapped(unavailable_qty))
-                if qty_rented_at_date > max_qty_rented:
-                    max_qty_rented = qty_rented_at_date
+        return max_unavailable_qty
 
-        qty_always_in_rent_during_period = sum(covers_period.mapped(unavailable_qty)) if covers_period else 0
-
-        return max_qty_rented + qty_always_in_rent_during_period
-
-    def _get_active_rental_lines(self, fro, to, **kwargs):
+    def _get_active_rental_lines(
+        self, from_date, to_date, ignored_soline_id=False, warehouse_id=False, **kwargs
+    ):
         self.ensure_one()
 
-        Reservation = self.env['sale.order.line']
         domain = [
             ('is_rental', '=', True),
             ('product_id', '=', self.id),
             ('state', '=', 'sale'),
         ]
 
-        ignored_soline_id = kwargs.get('ignored_soline_id', False)
         if ignored_soline_id:
             domain += [('id', '!=', ignored_soline_id)]
 
-        warehouse_id = kwargs.get('warehouse_id', False)
         if warehouse_id:
             domain += [('order_id.warehouse_id', '=', warehouse_id)]
 
-        if not to or fro == to:
-            active_lines_at_time_fro = Reservation.search(domain + [
-                ('reservation_begin', '<=', fro),
-                ('return_date', '>=', fro)
-            ])
-            return Reservation, Reservation, active_lines_at_time_fro
-        else:
-            begins_during_period = Reservation.search(domain + [
-                ('reservation_begin', '>', fro),
-                ('reservation_begin', '<', to)])
-            ends_during_period = Reservation.search(domain + [
-                ('return_date', '>', fro),
-                ('return_date', '<', to),
-                ('id', 'not in', begins_during_period.ids)])
-            covers_period = Reservation.search(domain + [
-                ('reservation_begin', '<=', fro),
-                ('return_date', '>=', to)])
-            return begins_during_period, ends_during_period, covers_period
+        include_bounds = to_date == from_date
+        domain += [
+            ('return_date', '>=' if include_bounds else '>', from_date),
+            '|', ('reservation_begin', '<=' if include_bounds else '<', to_date),
+                 ('qty_delivered', '>', 0),
+        ]
+
+        return self.env['sale.order.line'].search(domain)
 
     """
         Products with tracking (by serial number)
     """
 
-    def _get_unavailable_lots(self, fro=fields.Datetime.now(), to=None, **kwargs):
-        begins_during_period, ends_during_period, covers_period = self._get_active_rental_lines(fro, to, **kwargs)
-        return (begins_during_period + ends_during_period + covers_period).mapped('unavailable_lot_ids')
+    def _get_unavailable_lots(self, from_date, to_date=None, **kwargs):
+        to_date = to_date or from_date
+        return self._get_active_rental_lines(
+            from_date, to_date, **kwargs
+        ).mapped('unavailable_lot_ids')
 
     def action_view_rentals(self):
         result = super().action_view_rentals()

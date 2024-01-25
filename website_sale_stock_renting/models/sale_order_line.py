@@ -1,7 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from collections import defaultdict
-
 from odoo import _, models
 
 
@@ -25,27 +23,6 @@ class SaleOrderLine(models.Model):
             rental_period=self._get_rental_order_line_description()
         )
         return self.shop_warning
-
-    def _get_rented_quantities(self, mandatory_dates):
-        """ Get rented quantities dict and ordered dict keys for the given period
-
-        The values of the dict represents the amount of product that are picked-up at `key`
-        datetime. The key dates are returned sorted to be used in other algorithms.
-
-        :param list(datetime) mandatory_dates: dates that should be added to the dict
-        """
-        if len(self.product_id) > 1:
-            raise ValueError("Expected singleton or no record: %s" % self.product_id)
-        rented_quantities = defaultdict(float)
-        for so_line in self:
-            rented_quantities[so_line.reservation_begin] += so_line.product_uom_qty
-            rented_quantities[so_line.return_date] -= so_line.product_uom_qty
-
-        # Key dates means either the dates of the keys, either the fact that those dates are key
-        # dates, where there is a quantity modification.
-        key_dates = list(set(rented_quantities.keys()) | set(mandatory_dates))
-        key_dates.sort()
-        return rented_quantities, key_dates
 
     def _get_max_available_qty(self):
         if self.is_rental:

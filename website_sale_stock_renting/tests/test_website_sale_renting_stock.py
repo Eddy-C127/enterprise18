@@ -1,13 +1,15 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
 from odoo import fields
+from odoo.fields import Command
 from odoo.tests import Form, tagged
+
 from odoo.addons.website.tools import MockRequest
 from odoo.addons.website_sale_renting.tests.common import TestWebsiteSaleRentingCommon
+
 
 @tagged('post_install', '-at_install')
 class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
@@ -49,263 +51,251 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
             'product_uom_qty': 3,
         })
         cls.sol.write({'is_rental': True})
-        cls.env['product.pricelist'].create({
-            'name': 'Default website sale renting pricelist',
-            'sequence': 4,
-            'currency_id': cls.current_website.currency_id.id,
-            'website_id': cls.current_website.id,
-            'company_id': cls.company.id,
-        })
 
-    def test_sol_draft(self):
+    def test_available_and_rented_quantities_for_draft_so(self):
         from_date = self.now
         to_date = self.now + relativedelta(days=4)
-        rented_quantities, key_dates = self.computer._get_rented_quantities(from_date, to_date)
-        expected_rented_quantities = {}
-        expected_key_dates = [from_date, to_date]
-        self.assertDictEqual(rented_quantities, expected_rented_quantities, "Rented quantities should contain the expected values (no rental)")
-        self.assertListEqual(key_dates, expected_key_dates, "Key dates should contain the expected dates sorted.")
-        availabilities = self.computer._get_availabilities(from_date, to_date, self.wh.id)
-        self.assertEqual(len(availabilities), 1, "Availabilities should only have one entry")
-        expected_availability = {'start': from_date, 'end': to_date, 'quantity_available': 5}
-        self.assertDictEqual(availabilities[0], expected_availability, "Availabilities should be equal to the expected dict (all quantity available)")
 
-        self.so.update({
-            'rental_start_date': from_date,
-            'rental_return_date': to_date,
-        })
-        cart_qty, free_qty = self.so._get_cart_and_free_qty(product=self.computer)
-        self.assertEqual(cart_qty, 3, "Cart quantity should be equal to sol2 product qty")
-        self.assertEqual(free_qty, 5, "Free quantity should be equal to 5 (all products)")
+        self._assert_rented_quantities(
+            from_date,
+            to_date,
+            expected_rented_quantities={},
+            expected_key_dates=[from_date, to_date],
+        )
+        self._assert_availabilities(
+            from_date,
+            to_date,
+            expected_availabilities=[
+                {'start': from_date, 'end': to_date, 'quantity_available': 5},
+            ],
+        )
+        self.so.update({'rental_start_date': from_date, 'rental_return_date': to_date})
+        self._assert_cart_and_free_qty(self.so, expected_cart_qty=3, expected_free_qty=5)
 
-    def test_sol_sent(self):
+    def test_available_and_rented_quantities_for_sent_so(self):
         self.so.action_quotation_sent()
         from_date = self.now
         to_date = self.now + relativedelta(days=4)
-        rented_quantities, key_dates = self.computer._get_rented_quantities(from_date, to_date)
-        expected_rented_quantities = {self.sol.start_date: 3, self.sol.return_date: -3}
-        expected_key_dates = [from_date, self.sol.start_date, self.sol.return_date, to_date]
-        self.assertDictEqual(rented_quantities, expected_rented_quantities, "Rented quantities should contain the expected values (a rental)")
-        self.assertListEqual(key_dates, expected_key_dates, "Key dates should contain the expected dates sorted.")
-        availabilities = self.computer._get_availabilities(from_date, to_date, self.wh.id)
-        self.assertEqual(len(availabilities), 3, "Availabilities should only have three entries")
-        expected_availability = {'start': self.sol.start_date, 'end': self.sol.return_date, 'quantity_available': 2}
-        self.assertDictEqual(availabilities[1], expected_availability, "Availabilities should be equal to the expected dict (only 2 available)")
+        start_date = self.sol.start_date
+        return_date = self.sol.return_date
 
-        self.so.update({
-            'rental_start_date': from_date,
-            'rental_return_date': to_date,
-        })
-        cart_qty, free_qty = self.so._get_cart_and_free_qty(product=self.computer)
-        self.assertEqual(cart_qty, 3, "Cart quantity should be equal to sol2 product qty")
-        self.assertEqual(free_qty, 5, "Free quantity should be equal to 5 (all products)")
+        self._assert_rented_quantities(
+            from_date,
+            to_date,
+            expected_rented_quantities={start_date: 3, return_date: -3},
+            expected_key_dates=[from_date, start_date, return_date, to_date],
+        )
+        self._assert_availabilities(
+            from_date,
+            to_date,
+            expected_availabilities=[
+                {'start': from_date, 'end': start_date, 'quantity_available': 5},
+                {'start': start_date, 'end': return_date, 'quantity_available': 2},
+                {'start': return_date, 'end': to_date, 'quantity_available': 5},
+            ],
+        )
+        self.so.update({'rental_start_date': from_date, 'rental_return_date': to_date})
+        self._assert_cart_and_free_qty(self.so, expected_cart_qty=3, expected_free_qty=5)
 
-    def test_sol_confirmed(self):
+    def test_available_and_rented_quantities_for_confirmed_so(self):
         self.so.action_confirm()
         from_date = self.now
         to_date = self.now + relativedelta(days=4)
-        rented_quantities, key_dates = self.computer._get_rented_quantities(from_date, to_date)
-        expected_rented_quantities = {self.sol.start_date: 3, self.sol.return_date: -3}
-        expected_key_dates = [from_date, self.sol.start_date, self.sol.return_date, to_date]
-        self.assertDictEqual(rented_quantities, expected_rented_quantities, "Rented quantities should contain the expected values (3 products rented)")
-        self.assertListEqual(key_dates, expected_key_dates, "Key dates should contain the expected dates sorted.")
-        availabilities = self.computer._get_availabilities(from_date, to_date, self.wh.id)
-        self.assertEqual(len(availabilities), 3, "Availabilities should only have three entries")
-        expected_availability = {'start': self.sol.start_date, 'end': self.sol.return_date, 'quantity_available': 2}
-        self.assertDictEqual(availabilities[1], expected_availability, "Availabilities should be equal to the expected dict (only 2 available)")
+        start_date = self.sol.start_date
+        return_date = self.sol.return_date
 
-        self.so.update({
-            'rental_start_date': from_date,
-            'rental_return_date': to_date,
-        })
-        cart_qty, free_qty = self.so._get_cart_and_free_qty(product=self.computer)
-        self.assertEqual(cart_qty, 3, "Cart quantity should be equal to sol2 product qty")
-        self.assertEqual(free_qty, 5, "Free quantity should be equal to 5 (all products)")
+        self._assert_rented_quantities(
+            from_date,
+            to_date,
+            expected_rented_quantities={start_date: 3, return_date: -3},
+            expected_key_dates=[from_date, start_date, return_date, to_date],
+        )
+        self._assert_availabilities(
+            from_date,
+            to_date,
+            expected_availabilities=[
+                {'start': from_date, 'end': start_date, 'quantity_available': 5},
+                {'start': start_date, 'end': return_date, 'quantity_available': 2},
+                {'start': return_date, 'end': to_date, 'quantity_available': 5},
+            ],
+        )
+        self.so.update({'rental_start_date': from_date, 'rental_return_date': to_date})
+        self._assert_cart_and_free_qty(self.so, expected_cart_qty=3, expected_free_qty=5)
 
-    def test_sol_pickup(self):
+    def test_available_and_rented_quantities_for_picked_up_so(self):
         self.so.action_confirm()
-        pickup_action = self.so.action_open_pickup()
-        wizard = Form(self.env['rental.order.wizard'].with_context(pickup_action['context'])).save()
-        with freeze_time(self.sol.start_date):
-            wizard.apply()
+        self._pickup_so(self.so)
         from_date = self.now
         to_date = self.now + relativedelta(days=4)
-        rented_quantities, key_dates = self.computer._get_rented_quantities(from_date, to_date)
-        expected_rented_quantities = {self.sol.start_date: 3, self.sol.return_date: -3}
-        expected_key_dates = [from_date, self.sol.start_date, self.sol.return_date, to_date]
-        self.assertDictEqual(rented_quantities, expected_rented_quantities, "Rented quantities should contain the expected values (3 products rented)")
-        self.assertListEqual(key_dates, expected_key_dates, "Key dates should contain the expected dates sorted.")
-        availabilities = self.computer._get_availabilities(from_date, to_date, self.wh.id)
-        self.assertEqual(len(availabilities), 3, "Availabilities should only have three entries")
-        expected_availability = {'start': self.sol.start_date, 'end': self.sol.return_date, 'quantity_available': 2}
-        self.assertDictEqual(availabilities[1], expected_availability, "Availabilities should be equal to the expected dict (only 2 available)")
+        start_date = self.sol.start_date
+        return_date = self.sol.return_date
 
-        self.so.update({
-            'rental_start_date': from_date,
-            'rental_return_date': to_date,
-        })
-        cart_qty, free_qty = self.so._get_cart_and_free_qty(product=self.computer)
-        self.assertEqual(cart_qty, 3, "Cart quantity should be equal to sol2 product qty")
-        self.assertEqual(free_qty, 5, "Free quantity should be equal to 5 (all products)")
+        self._assert_rented_quantities(
+            from_date,
+            to_date,
+            expected_rented_quantities={from_date: 3, start_date: 0, return_date: -3},
+            expected_key_dates=[from_date, start_date, return_date, to_date],
+        )
+        self._assert_availabilities(
+            from_date,
+            to_date,
+            expected_availabilities=[
+                {'start': from_date, 'end': start_date, 'quantity_available': 2},
+                {'start': start_date, 'end': return_date, 'quantity_available': 2},
+                {'start': return_date, 'end': to_date, 'quantity_available': 5},
+            ],
+        )
+        self.so.update({'rental_start_date': from_date, 'rental_return_date': to_date})
+        self._assert_cart_and_free_qty(self.so, expected_cart_qty=3, expected_free_qty=5)
 
-    def test_sol_return(self):
+    def test_available_and_rented_quantities_for_returned_so(self):
         self.so.action_confirm()
-        pickup_action = self.so.action_open_pickup()
-        wizard = Form(self.env['rental.order.wizard'].with_context(pickup_action['context'])).save()
-        with freeze_time(self.sol.start_date):
-            wizard.apply()
-        return_action = self.so.action_open_return()
-        wizard = Form(self.env['rental.order.wizard'].with_context(return_action['context'])).save()
-        with freeze_time(self.sol.return_date):
-            wizard.apply()
+        self._pickup_so(self.so)
+        self._return_so(self.so)
         from_date = self.now
         to_date = self.now + relativedelta(days=4)
-        rented_quantities, key_dates = self.computer._get_rented_quantities(from_date, to_date)
-        expected_rented_quantities = {self.sol.start_date: 3, self.sol.return_date: -3,}
-        expected_key_dates = [from_date, self.sol.start_date, self.sol.return_date, to_date]
-        self.assertDictEqual(rented_quantities, expected_rented_quantities, "Rented quantities should contain the expected values (3 products rented)")
-        self.assertListEqual(key_dates, expected_key_dates, "Key dates should contain the expected dates sorted.")
-        availabilities = self.computer._get_availabilities(from_date, to_date, self.wh.id)
-        self.assertEqual(len(availabilities), 3, "Availabilities should only have three entries")
-        expected_availability = {'start': self.sol.start_date, 'end': self.sol.return_date, 'quantity_available': 2}
-        self.assertDictEqual(availabilities[1], expected_availability, "Availabilities should be equal to the expected dict (only 2 available)")
+        start_date = self.sol.start_date
+        return_date = self.sol.return_date
 
-        self.so.update({
-            'rental_start_date': from_date,
-            'rental_return_date': to_date,
-        })
-        cart_qty, free_qty = self.so._get_cart_and_free_qty(product=self.computer)
-        self.assertEqual(cart_qty, 3, "Cart quantity should be equal to sol2 product qty")
-        self.assertEqual(free_qty, 5, "Free quantity should be equal to 5 (all products)")
+        self._assert_rented_quantities(
+            from_date,
+            to_date,
+            expected_rented_quantities={from_date: 0, start_date: 0, return_date: 0},
+            expected_key_dates=[from_date, start_date, return_date, to_date],
+        )
+        self._assert_availabilities(
+            from_date,
+            to_date,
+            expected_availabilities=[
+                {'start': from_date, 'end': start_date, 'quantity_available': 5},
+                {'start': start_date, 'end': return_date, 'quantity_available': 5},
+                {'start': return_date, 'end': to_date, 'quantity_available': 5},
+            ],
+        )
+        self.so.update({'rental_start_date': from_date, 'rental_return_date': to_date})
+        self._assert_cart_and_free_qty(self.so, expected_cart_qty=0, expected_free_qty=5)
 
-    def test_multiple_sol(self):
+    def test_available_and_rented_quantities_for_multiple_sos(self):
         self.so.action_confirm()
-        so2 = self.env['sale.order'].create({
-            'partner_id': self.partner.id,
-            'company_id': self.company.id,
-            'warehouse_id': self.wh.id,
-            'rental_start_date': self.now + relativedelta(days=1),
-            'rental_return_date': self.now + relativedelta(days=2),
-        })
-        sol2 = self.env['sale.order.line'].create({
-            'order_id': so2.id,
-            'product_id': self.computer.id,
-            'product_uom_qty': 2,
-        })
-        sol2.write({'is_rental': True})
+        so2 = self._create_so_with_sol(
+            rental_start_date=self.now + relativedelta(days=1),
+            rental_return_date=self.now + relativedelta(days=2),
+            product_uom_qty=2,
+        )
         so2.action_confirm()
         from_date = self.now
         to_date = self.now + relativedelta(days=4)
-        rented_quantities, key_dates = self.computer._get_rented_quantities(from_date, to_date)
-        expected_rented_quantities = {self.sol.start_date: 5, sol2.return_date: -2, self.sol.return_date: -3}
-        expected_key_dates = [from_date, self.sol.start_date, sol2.return_date, self.sol.return_date, to_date]
-        self.assertDictEqual(rented_quantities, expected_rented_quantities, "Rented quantities should contain the expected values (3 products rented)")
-        self.assertListEqual(key_dates, expected_key_dates, "Key dates should contain the expected dates sorted.")
-        availabilities = self.computer._get_availabilities(from_date, to_date, self.wh.id)
-        self.assertEqual(len(availabilities), 4, "Availabilities should only have four entries")
-        expected_availability = {'start': self.sol.start_date, 'end': sol2.return_date, 'quantity_available': 0}
-        self.assertDictEqual(availabilities[1], expected_availability, "Availabilities should be equal to the expected dict (out of stock)")
-        expected_availability = {'start': sol2.return_date, 'end': self.sol.return_date, 'quantity_available': 2}
-        self.assertDictEqual(availabilities[2], expected_availability, "Availabilities should be equal to the expected dict (only 2 available)")
+        start_date = self.sol.start_date
+        return_date = self.sol.return_date
+        return_date2 = so2.rental_return_date
 
-        self.so.update({
-            'rental_start_date': from_date,
-            'rental_return_date': to_date,
-        })
-        cart_qty, free_qty = so2._get_cart_and_free_qty(product=self.computer)
-        self.assertEqual(cart_qty, 2, "Cart quantity should be equal to sol2 product qty")
-        self.assertEqual(free_qty, 2, "Free quantity should be equal to 5 minus sol product qty (3)")
+        self._assert_rented_quantities(
+            from_date,
+            to_date,
+            expected_rented_quantities={start_date: 5, return_date2: -2, return_date: -3},
+            expected_key_dates=[from_date, start_date, return_date2, return_date, to_date],
+        )
+        self._assert_availabilities(
+            from_date,
+            to_date,
+            expected_availabilities=[
+                {'start': from_date, 'end': start_date, 'quantity_available': 5},
+                {'start': start_date, 'end': return_date2, 'quantity_available': 0},
+                {'start': return_date2, 'end': return_date, 'quantity_available': 2},
+                {'start': return_date, 'end': to_date, 'quantity_available': 5},
+            ],
+        )
+        self.so.update({'rental_start_date': from_date, 'rental_return_date': to_date})
+        self._assert_cart_and_free_qty(so2, expected_cart_qty=2, expected_free_qty=2)
 
-    def test_multiple_sol_with_first_one_picked_up(self):
+    def test_available_and_rented_quantities_for_multiple_sos_with_one_picked_up(self):
         self.so.action_confirm()
-        pickup_action = self.so.action_open_pickup()
-        wizard = Form(self.env['rental.order.wizard'].with_context(pickup_action['context'])).save()
-        with freeze_time(self.sol.start_date):
-            wizard.apply()
-        so2 = self.env['sale.order'].create({
-            'partner_id': self.partner.id,
-            'company_id': self.company.id,
-            'warehouse_id': self.wh.id,
-            'rental_start_date': self.now + relativedelta(days=1),
-            'rental_return_date': self.now + relativedelta(days=2),
-        })
-        sol2 = self.env['sale.order.line'].create({
-            'order_id': so2.id,
-            'product_id': self.computer.id,
-            'product_uom_qty': 2,
-        })
-        sol2.write({'is_rental': True})
+        self._pickup_so(self.so)
+        so2 = self._create_so_with_sol(
+            rental_start_date=self.now + relativedelta(days=1),
+            rental_return_date=self.now + relativedelta(days=2),
+            product_uom_qty=2,
+        )
         so2.action_confirm()
         from_date = self.now
         to_date = self.now + relativedelta(days=4)
-        rented_quantities, key_dates = self.computer._get_rented_quantities(from_date, to_date)
-        expected_rented_quantities = {self.sol.start_date: 5, sol2.return_date: -2, self.sol.return_date: -3}
-        expected_key_dates = [from_date, self.sol.start_date, sol2.return_date, self.sol.return_date, to_date]
-        self.assertDictEqual(rented_quantities, expected_rented_quantities, "Rented quantities should contain the expected values (3 products rented)")
-        self.assertListEqual(key_dates, expected_key_dates, "Key dates should contain the expected dates sorted.")
-        availabilities = self.computer._get_availabilities(from_date, to_date, self.wh.id)
-        self.assertEqual(len(availabilities), 4, "Availabilities should only have four entries")
-        expected_availability = {'start': self.sol.start_date, 'end': sol2.return_date, 'quantity_available': 0}
-        self.assertDictEqual(availabilities[1], expected_availability, "Availabilities should be equal to the expected dict (out of stock)")
-        expected_availability = {'start': sol2.return_date, 'end': self.sol.return_date, 'quantity_available': 2}
-        self.assertDictEqual(availabilities[2], expected_availability, "Availabilities should be equal to the expected dict (only 2 available)")
+        return_date = self.sol.return_date
+        start_date2 = so2.rental_start_date
+        return_date2 = so2.rental_return_date
 
-        so2.update({
-            'rental_start_date': from_date,
-            'rental_return_date': to_date,
-        })
-        cart_qty, free_qty = so2._get_cart_and_free_qty(product=self.computer)
-        self.assertEqual(cart_qty, 2, "Cart quantity should be equal to sol2 product qty")
-        self.assertEqual(free_qty, 2, "Free quantity should be equal to 5 minus picked up product qty (3)")
+        self._assert_rented_quantities(
+            from_date,
+            to_date,
+            expected_rented_quantities={
+                from_date: 3, start_date2: 2, return_date2: -2, return_date: -3,
+            },
+            expected_key_dates=[from_date, start_date2, return_date2, return_date, to_date],
+        )
+        self._assert_availabilities(
+            from_date,
+            to_date,
+            expected_availabilities=[
+                {'start': from_date, 'end': start_date2, 'quantity_available': 2},
+                {'start': start_date2, 'end': return_date2, 'quantity_available': 0},
+                {'start': return_date2, 'end': return_date, 'quantity_available': 2},
+                {'start': return_date, 'end': to_date, 'quantity_available': 5},
+            ],
+        )
+        self.so.update({'rental_start_date': from_date, 'rental_return_date': to_date})
+        self._assert_cart_and_free_qty(so2, expected_cart_qty=2, expected_free_qty=2)
 
-    def test_cart_update_max_quantity(self):
+    def test_add_max_quantity_to_cart(self):
         with MockRequest(self.env, website=self.current_website, sale_order_id=self.so.id):
             website_so = self.current_website.sale_get_order()
             values = website_so._cart_update(
-                product_id=self.computer.id, line_id=self.sol.id, add_qty=3
+                product_id=self.computer.id, line_id=self.sol.id, add_qty=3,
             )
-            self.assertTrue(values.get('warning', False))
-            self.assertEqual(values.get('quantity'), 5)
+            self.assertEqual(values['quantity'], 5)
+            self.assertTrue(values['warning'])
 
-    def test_stock_availability_for_pickedup_products_not_yet_returned(self):
+    def test_add_picked_up_products_not_yet_returned_to_cart_before_return_date(self):
         self.so.action_confirm()
-        pickup_action = self.so.action_open_pickup()
-        wizard = Form(self.env['rental.order.wizard'].with_context(pickup_action['context'])).save()
-        with freeze_time(self.sol.start_date):
-            wizard.apply()
-        so = self.env['sale.order'].create({
+        self._pickup_so(self.so)
+        so2 = self.env['sale.order'].create({
             'partner_id': self.partner.id,
             'company_id': self.company.id,
             'warehouse_id': self.wh.id,
         })
 
-        vals = [
-            {'days': -1, 'qty': 2, 'warning': True},
-            {'days': 1, 'qty': 5, 'warning': False},
-        ]
-
-        with MockRequest(self.env, website=self.current_website, sale_order_id=so.id):
+        with MockRequest(self.env, website=self.current_website, sale_order_id=so2.id):
             website_so = self.current_website.sale_get_order()
-            for val in vals:
-                from_date = self.sol.return_date + relativedelta(days=val['days'])
-                to_date = self.sol.return_date + relativedelta(days=2)
-                website_so.update({
-                    'rental_start_date': from_date,
-                    'rental_return_date': to_date,
-                })
-                cart_qty, free_qty = website_so._get_cart_and_free_qty(product=self.computer)
-                self.assertEqual(cart_qty, 0, "Cart is empty")
-                self.assertEqual(free_qty, val['qty'])
-                values = website_so._cart_update(
-                    product_id=self.computer.id, add_qty=5, start_date=from_date, end_date=to_date
-                )
-                self.assertEqual(values.get('quantity'), val['qty'])
-                if val['warning']:
-                    self.assertTrue(values.get('warning', False))
-                else:
-                    self.assertFalse(values.get('warning', False))
-                # empty cart
-                values = website_so._cart_update(product_id=self.computer.id, add_qty=-10)
+            from_date = self.sol.return_date + relativedelta(days=-1)
+            to_date = self.sol.return_date + relativedelta(days=2)
+
+            website_so.update({'rental_start_date': from_date, 'rental_return_date': to_date})
+            self._assert_cart_and_free_qty(website_so, expected_cart_qty=0, expected_free_qty=2)
+            values = website_so._cart_update(
+                product_id=self.computer.id, add_qty=5, start_date=from_date, end_date=to_date,
+            )
+            self.assertEqual(values['quantity'], 2)
+            self.assertTrue(values['warning'])
+
+    def test_add_picked_up_products_not_yet_returned_to_cart_after_return_date(self):
+        self.so.action_confirm()
+        self._pickup_so(self.so)
+        so2 = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'company_id': self.company.id,
+            'warehouse_id': self.wh.id,
+        })
+
+        with MockRequest(self.env, website=self.current_website, sale_order_id=so2.id):
+            website_so = self.current_website.sale_get_order()
+            from_date = self.sol.return_date + relativedelta(days=1)
+            to_date = self.sol.return_date + relativedelta(days=2)
+
+            website_so.update({'rental_start_date': from_date, 'rental_return_date': to_date})
+            self._assert_cart_and_free_qty(website_so, expected_cart_qty=0, expected_free_qty=5)
+            values = website_so._cart_update(
+                product_id=self.computer.id, add_qty=5, start_date=from_date, end_date=to_date,
+            )
+            self.assertEqual(values['quantity'], 5)
+            self.assertFalse(values['warning'])
 
     def test_show_rental_product_that_will_be_available_in_future(self):
         """
@@ -315,23 +305,69 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
         """
         self.sol.product_uom_qty = 5
         self.so.action_confirm()
-        pickup_action = self.so.action_open_pickup()
-        wizard = Form(self.env['rental.order.wizard'].with_context(pickup_action['context'])).save()
-        with freeze_time(self.sol.start_date):
-            wizard.apply()
-        self.assertTrue(self.sol.product_template_id.qty_in_rent > 0, "We are renting the product")
-        self.assertEqual(
-            self.sol.product_template_id.qty_available,
-            0,
-            "We don't have any on hand quantity of the product, because it is rented"
-        )
-        # we are looking for a product in a period after it should be returned
+        self._pickup_so(self.so)
         from_date = self.sol.return_date + relativedelta(days=1)
         to_date = self.sol.return_date + relativedelta(days=2)
-        filtered_products = self.sol.product_template_id.sudo()._filter_on_available_rental_products(
-            from_date, to_date, self.wh.id
+
+        product_template = self.sol.product_template_id.with_company(self.company).sudo()
+        filtered_products_during_rental = (
+            product_template._filter_on_available_rental_products(
+                self.sol.start_date, self.sol.return_date, self.wh.id,
+            )
         )
-        self.assertTrue(
-            len(filtered_products) > 0,
-            "We expected some quantity on hand in the future, when the rented product is returned"
+        self.assertFalse(filtered_products_during_rental)
+        filtered_products_after_rental = (
+            product_template._filter_on_available_rental_products(from_date, to_date, self.wh.id)
         )
+        self.assertTrue(filtered_products_after_rental)
+
+    def test_cart_and_free_qty_with_line(self):
+        with freeze_time(self.now):
+            cart_qty, free_qty = self.so._get_cart_and_free_qty(
+                product=self.env['product.product'], line=self.sol
+            )
+
+        self.assertEqual(cart_qty, 3)
+        self.assertEqual(free_qty, 5)
+
+    def _assert_rented_quantities(
+        self, from_date, to_date, expected_rented_quantities, expected_key_dates
+    ):
+        with freeze_time(self.now):
+            rented_quantities, key_dates = self.computer._get_rented_quantities(from_date, to_date)
+        self.assertDictEqual(rented_quantities, expected_rented_quantities)
+        self.assertListEqual(key_dates, expected_key_dates)
+
+    def _assert_availabilities(self, from_date, to_date, expected_availabilities):
+        with freeze_time(self.now):
+            availabilities = self.computer._get_availabilities(from_date, to_date, self.wh.id)
+        self.assertListEqual(availabilities, expected_availabilities)
+
+    def _assert_cart_and_free_qty(self, so, expected_cart_qty, expected_free_qty):
+        with freeze_time(self.now):
+            cart_qty, free_qty = so._get_cart_and_free_qty(product=self.computer)
+        self.assertEqual(cart_qty, expected_cart_qty)
+        self.assertEqual(free_qty, expected_free_qty)
+
+    def _create_so_with_sol(self, rental_start_date, rental_return_date, **sol_values):
+        return self.env['sale.order'].with_context(in_rental_app=True).create({
+            'partner_id': self.partner.id,
+            'company_id': self.company.id,
+            'warehouse_id': self.wh.id,
+            'rental_start_date': rental_start_date,
+            'rental_return_date': rental_return_date,
+            'order_line': [
+                Command.create({
+                    'product_id': self.computer.id,
+                    **sol_values,
+                })
+            ]
+        })
+
+    def _pickup_so(self, so):
+        pickup_action = so.action_open_pickup()
+        Form(self.env['rental.order.wizard'].with_context(pickup_action['context'])).save().apply()
+
+    def _return_so(self, so):
+        return_action = so.action_open_return()
+        Form(self.env['rental.order.wizard'].with_context(return_action['context'])).save().apply()

@@ -1,17 +1,142 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
-from odoo.fields import Datetime
-from odoo.tests import Form
+
+from dateutil.relativedelta import relativedelta
+
+from odoo.fields import Command, Datetime
+from odoo.tests import Form, tagged
+
 from odoo.addons.sale_stock_renting.tests.test_rental_common import TestRentalCommon
 
 
+@tagged('post_install', '-at_install')
 class TestRentalWizard(TestRentalCommon):
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def test_unavailable_qty_only_considers_active_rentals(self):
+        self._set_product_quantity(10)
+        from_date = Datetime.now() + relativedelta(days=1)
+        to_date = Datetime.now() + relativedelta(days=5)
+        # Ends before interval
+        self._create_so_with_sol(
+            rental_start_date=from_date - relativedelta(days=2),
+            rental_return_date=from_date - relativedelta(days=1),
+            product_uom_qty=1,
+        )
+        # Starts after interval
+        self._create_so_with_sol(
+            rental_start_date=to_date + relativedelta(days=1),
+            rental_return_date=to_date + relativedelta(days=2),
+            product_uom_qty=1,
+        )
+        # Ends during interval
+        self._create_so_with_sol(
+            rental_start_date=from_date - relativedelta(days=1),
+            rental_return_date=to_date - relativedelta(days=1),
+            product_uom_qty=1,
+        )
+        # Starts during interval
+        self._create_so_with_sol(
+            rental_start_date=from_date + relativedelta(days=1),
+            rental_return_date=to_date + relativedelta(days=1),
+            product_uom_qty=1,
+        )
+        # Covers interval
+        self._create_so_with_sol(
+            rental_start_date=from_date - relativedelta(days=1),
+            rental_return_date=to_date + relativedelta(days=1),
+            product_uom_qty=1,
+        )
+        # Doesn't increase unavailable.
+        self._create_so_with_sol(
+            rental_start_date=to_date - relativedelta(days=1),
+            rental_return_date=to_date,
+            product_uom_qty=1,
+        )
+
+        self.assertEqual(self.product_id._get_unavailable_qty(from_date, to_date), 3)
+
+    def test_unavailable_qty_with_to_date_exclude_pickup_at_to_date(self):
+        self._set_product_quantity(10)
+        from_date = Datetime.now() + relativedelta(days=1)
+        to_date = Datetime.now() + relativedelta(days=5)
+        # Starts at to_date
+        self._create_so_with_sol(
+            rental_start_date=to_date,
+            rental_return_date=to_date + relativedelta(days=1),
+            product_uom_qty=1,
+        )
+
+        self.assertEqual(self.product_id._get_unavailable_qty(from_date, to_date), 0)
+
+    def test_unavailable_qty_without_to_date_include_pickup_at_from_date(self):
+        self._set_product_quantity(10)
+        from_date = Datetime.now() + relativedelta(days=1)
+        # Starts at from_date == to_date
+        self._create_so_with_sol(
+            rental_start_date=from_date,
+            rental_return_date=from_date + relativedelta(days=1),
+            product_uom_qty=1,
+        )
+
+        self.assertEqual(self.product_id._get_unavailable_qty(from_date), 1)
+
+    def test_unavailable_qty_early_pickup(self):
+        self._set_product_quantity(10)
+        from_date = Datetime.now() + relativedelta(days=1)
+        to_date = Datetime.now() + relativedelta(days=5)
+        # Starts after interval
+        so = self._create_so_with_sol(
+            rental_start_date=to_date + relativedelta(days=1),
+            rental_return_date=to_date + relativedelta(days=2),
+            product_uom_qty=1,
+        )
+        self._pickup_so(so)
+
+        self.assertEqual(self.product_id._get_unavailable_qty(from_date, to_date), 1)
+
+    def test_unavailable_qty_early_return(self):
+        self._set_product_quantity(10)
+        from_date = Datetime.now() + relativedelta(days=1)
+        to_date = Datetime.now() + relativedelta(days=5)
+        # Ends during interval
+        so = self._create_so_with_sol(
+            rental_start_date=from_date - relativedelta(days=1),
+            rental_return_date=to_date - relativedelta(days=1),
+            product_uom_qty=1,
+        )
+        self._pickup_so(so)
+        self._return_so(so)
+
+        self.assertEqual(self.product_id._get_unavailable_qty(from_date, to_date), 0)
+
+    def test_unavailable_lots_only_considers_active_rentals(self):
+        self._set_product_quantity(10)
+        from_date = Datetime.now() + relativedelta(days=1)
+        to_date = Datetime.now() + relativedelta(days=5)
+        lot1, lot2, lot3, lot4 = self.env['stock.lot'].create([{
+            'product_id': self.tracked_product_id.id,
+            'company_id': self.env.company.id,
+        } for _i in range(4)])
+
+        # Active
+        self._create_so_with_sol(
+            rental_start_date=from_date,
+            rental_return_date=to_date,
+            product_uom_qty=1,
+            pickedup_lot_ids=[Command.set([lot1.id, lot2.id])],
+            returned_lot_ids=[Command.set([lot2.id])],
+            reserved_lot_ids=[Command.set([lot3.id])],
+        )
+        # Inactive
+        self._create_so_with_sol(
+            rental_start_date=to_date + relativedelta(days=1),
+            rental_return_date=to_date + relativedelta(days=2),
+            product_uom_qty=1,
+            pickedup_lot_ids=[Command.set([lot4.id])],
+        )
+
+        self.assertEqual(self.product_id._get_unavailable_lots(from_date, to_date), lot1 + lot3)
 
     def test_rental_product_flow(self):
 
@@ -23,70 +148,6 @@ class TestRentalWizard(TestRentalCommon):
         self.order_line_id1.write({
             'product_uom_qty': 3
         })
-
-        self.assertEqual(
-            self.product_id._get_unavailable_qty(
-                self.order_line_id1.reservation_begin,
-                self.order_line_id1.return_date,
-                # self.order_line_id1.id,
-            ), 3
-        )
-
-        self.assertEqual(
-            self.product_id._get_unavailable_qty(
-                self.order_line_id1.reservation_begin - timedelta(days=1),
-                self.order_line_id1.return_date,
-            ), 3
-        )
-
-        self.assertEqual(
-            self.product_id._get_unavailable_qty(
-                self.order_line_id1.reservation_begin,
-                self.order_line_id1.return_date - timedelta(days=1),
-            ), 3
-        )
-
-        self.assertEqual(
-            self.product_id._get_unavailable_qty(
-                self.order_line_id1.reservation_begin - timedelta(days=1),
-                self.order_line_id1.return_date - timedelta(days=1),
-            ), 3
-        )
-
-        self.assertEqual(
-            self.product_id._get_unavailable_qty(
-                self.order_line_id1.reservation_begin + timedelta(days=1),
-                self.order_line_id1.return_date + timedelta(days=1),
-            ), 3
-        )
-
-        self.assertEqual(
-            self.product_id._get_unavailable_qty(
-                self.order_line_id1.reservation_begin,
-                self.order_line_id1.return_date + timedelta(days=1),
-            ), 3
-        )
-
-        self.assertEqual(
-            self.product_id._get_unavailable_qty(
-                self.order_line_id1.reservation_begin + timedelta(days=1),
-                self.order_line_id1.return_date,
-            ), 3
-        )
-
-        self.assertEqual(
-            self.product_id._get_unavailable_qty(
-                self.order_line_id1.reservation_begin - timedelta(days=1),
-                self.order_line_id1.return_date + timedelta(days=1),
-            ), 3
-        )
-
-        self.assertEqual(
-            self.product_id._get_unavailable_qty(
-                self.order_line_id1.reservation_begin + timedelta(days=1),
-                self.order_line_id1.return_date - timedelta(days=1),
-            ), 3
-        )
 
         """
             Total Pickup
@@ -204,8 +265,6 @@ class TestRentalWizard(TestRentalCommon):
         # and qty pickedup = product_uom_qty (qty reserved)
         self.assertEqual(self.order_line_id2.reserved_lot_ids, self.order_line_id2.pickedup_lot_ids)
 
-        return
-
     def test_rental_lot_concurrent(self):
         """The purpose of this test is to mimmic a concurrent picking of a rental product.
         As the same lot is applied to the sol twice, its qty_delivered should be 1.
@@ -225,7 +284,7 @@ class TestRentalWizard(TestRentalCommon):
                         'order_line_id': sol.id,
                         'product_id': sol.product_id.id,
                         'qty_delivered': 1.0,
-                        'pickedup_lot_ids':[[6, False, [lot.id]]],
+                        'pickedup_lot_ids':[Command.set([lot.id])],
                     })
                 ]
             })
@@ -240,7 +299,7 @@ class TestRentalWizard(TestRentalCommon):
                         'order_line_id': sol.id,
                         'product_id': sol.product_id.id,
                         'qty_returned': 1.0,
-                        'returned_lot_ids':[[6, False, [lot.id]]],
+                        'returned_lot_ids':[Command.set([lot.id])],
                     })
                 ]
             })
@@ -300,6 +359,37 @@ class TestRentalWizard(TestRentalCommon):
             scheduling_recs.mapped('report_line_status'),
             ["pickedup", "returned"],
         )
+
+    def _set_product_quantity(self, quantity):
+        quant = self.env['stock.quant'].create({
+            'product_id': self.product_id.id,
+            'inventory_quantity': quantity,
+            'location_id': self.env.user._get_default_warehouse_id().lot_stock_id.id
+        })
+        quant.action_apply_inventory()
+
+    def _create_so_with_sol(self, rental_start_date, rental_return_date, **sol_values):
+        so = self.env['sale.order'].with_context(in_rental_app=True).create({
+            'partner_id': self.cust1.id,
+            'rental_start_date': rental_start_date,
+            'rental_return_date': rental_return_date,
+            'order_line': [
+                Command.create({
+                    'product_id': self.product_id.id,
+                    **sol_values,
+                })
+            ]
+        })
+        so.action_confirm()
+        return so
+
+    def _pickup_so(self, so):
+        pickup_action = so.action_open_pickup()
+        Form(self.env['rental.order.wizard'].with_context(pickup_action['context'])).save().apply()
+
+    def _return_so(self, so):
+        return_action = so.action_open_return()
+        Form(self.env['rental.order.wizard'].with_context(return_action['context'])).save().apply()
 
 class TestRentalPicking(TestRentalCommon):
 
@@ -432,7 +522,11 @@ class TestRentalPicking(TestRentalCommon):
 
     def test_flow_serial(self):
         rental_order_1 = self.sale_order_id.copy()
-        rental_order_1.order_line.write({'product_id': self.tracked_product_id.id, 'reserved_lot_ids': self.lot_id3, 'product_uom_qty': 2})
+        rental_order_1.order_line.write({
+            'product_id': self.tracked_product_id.id,
+            'reserved_lot_ids': [Command.set(self.lot_id3.ids)],
+            'product_uom_qty': 2,
+        })
         rental_order_1.order_line.is_rental = True
         rental_order_1.rental_start_date = self.rental_start_date
         rental_order_1.rental_return_date = self.rental_return_date

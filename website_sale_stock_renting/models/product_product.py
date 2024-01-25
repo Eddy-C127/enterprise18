@@ -30,7 +30,8 @@ class ProductProduct(models.Model):
                     ('product_id', '=', self.id),
                     ('state', 'in', ['sent', 'sale', 'done']),  # FIXME TLE: sent ?
                     ('return_date', '>', from_date),
-                    ('reservation_begin', '<', to_date),
+                    '|', ('reservation_begin', '<', to_date),
+                         ('qty_delivered', '>', 0),
                 ],
             ]),
             order="reservation_begin asc"
@@ -44,7 +45,7 @@ class ProductProduct(models.Model):
             - end: The date where the available_quantity becomes invalid.
             - available_quantity: The quantity of products available between the two dates.
 
-        Doesn't count already returned quantities.
+        Early pickups and returns are taken into account.
 
         Note: self.ensure_one()
 
