@@ -76,8 +76,8 @@ class CalendarEvent(models.Model):
 
             # calendar leaves
             unavailabilities = event_unavailabilities.get(attendee.id, Intervals([]))
-            for user in attendee_users.filtered('resource_calendar_id').filtered('employee_id'):
-                calendar_leaves = unavailabilities_by_calendar[user.resource_calendar_id]
+            for user in attendee_users.filtered('employee_resource_calendar_id'):
+                calendar_leaves = unavailabilities_by_calendar[user.employee_resource_calendar_id]
                 unavailabilities |= Intervals([
                     (start, end, attendee)
                     for start, end in calendar_leaves.get(user.employee_id.resource_id.id, [])])
