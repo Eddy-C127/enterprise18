@@ -35,7 +35,7 @@ patch(TimesheetTimerRendererHook.prototype, {
             [periodStart, periodEnd, today, false],
             { context: user.context }
         );
-
+        this.leaderboard.show_leaderboard = data.show_leaderboard;
         this.leaderboard.total_time_target = data.total_time_target;
         this.leaderboard.billing_rate_target = data.billing_rate_target;
         this.leaderboard.stored_leaderboard = data.leaderboard;

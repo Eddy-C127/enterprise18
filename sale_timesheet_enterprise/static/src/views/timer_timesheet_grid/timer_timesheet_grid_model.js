@@ -31,6 +31,7 @@ patch(TimerTimesheetGridDataPoint.prototype, {
                     { context: user.context }
                 );
             }
+            this.data.leaderboard.show_leaderboard = data.show_leaderboard;
             this.data.leaderboard.stored_leaderboard = data.leaderboard;
             this.data.leaderboard.total_time_target = data.total_time_target;
             this.data.leaderboard.billing_rate_target = data.billing_rate_target;

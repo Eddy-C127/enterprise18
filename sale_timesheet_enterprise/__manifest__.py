@@ -16,7 +16,6 @@ linked to an SO, or only the validated timesheets
     'depends': ['sale_timesheet', 'timesheet_grid'],
     'data': [
         'data/sale_timesheet_enterprise_data.xml',
-        'security/sale_timesheet_enterprise_security.xml',
         'security/ir.model.access.csv',
         'views/account_invoice_views.xml',
         'views/hr_timesheet_tip_views.xml',

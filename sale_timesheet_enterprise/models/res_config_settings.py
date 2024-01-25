@@ -9,20 +9,22 @@ from odoo.addons.sale_timesheet_enterprise.models.sale import DEFAULT_INVOICED_T
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    group_timesheet_leaderboard_show_rates = fields.Boolean(
-        string="Billing Rate Target",
-        implied_group="sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates",
-        help="Display the Billing Rate on My Timesheets view",
-    )
     billing_rate_target = fields.Integer(
         string="Target",
         related="company_id.billing_rate_target",
         readonly=False,
         help="Billing rate target for the employees",
     )
-    group_use_timesheet_leaderboard = fields.Boolean(
+    timesheet_show_rates = fields.Boolean(
+        string="Billing Rate Target",
+        related="company_id.timesheet_show_rates",
+        readonly=False,
+        help="Display the Billing Rate on My Timesheets view"
+    )
+    timesheet_show_leaderboard = fields.Boolean(
         string="Billing Rate Leaderboard",
-        implied_group="sale_timesheet_enterprise.group_use_timesheet_leaderboard",
+        related="company_id.timesheet_show_leaderboard",
+        readonly=False,
         help="Show the leaderboard on My Timesheets view",
     )
     invoiced_timesheet = fields.Selection([
@@ -62,7 +64,7 @@ class ResConfigSettings(models.TransientModel):
                 sale_order_lines._compute_invoice_status()
         return super().set_values()
 
-    @api.onchange('group_timesheet_leaderboard_show_rates')
-    def _onchange_group_timesheet_leaderboard_show_rates(self):
-        if not self.group_timesheet_leaderboard_show_rates:
-            self.group_use_timesheet_leaderboard = False
+    @api.onchange('timesheet_show_rates')
+    def _onchange_timesheet_show_rates(self):
+        if not self.timesheet_show_rates:
+            self.timesheet_show_leaderboard = False

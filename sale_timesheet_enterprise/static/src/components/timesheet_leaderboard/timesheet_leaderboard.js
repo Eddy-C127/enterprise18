@@ -1,10 +1,9 @@
 /** @odoo-module **/
 
 import { Many2OneAvatarRankField } from "@sale_timesheet_enterprise/components/many2one_avatar_rank_field/many2one_avatar_rank_field";
-import { Component, onWillStart } from "@odoo/owl";
+import { Component } from "@odoo/owl";
 import { TimesheetLeaderboardDialog } from "@sale_timesheet_enterprise/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog";
 
-import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 
@@ -30,14 +29,6 @@ export class TimesheetLeaderboard extends Component {
         this.orm = useService("orm");
         this.dialog = useService("dialog");
         this.timesheetUOMService = useService("timesheet_uom");
-
-        onWillStart(this.onWillStart);
-    }
-
-    async onWillStart() {
-        this.hasLeaderboardGroup = await user.hasGroup(
-            "sale_timesheet_enterprise.group_use_timesheet_leaderboard"
-        )
     }
 
     openLeaderboardPopup() {

@@ -7,6 +7,8 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     billing_rate_target = fields.Integer(default=80)
+    timesheet_show_rates = fields.Boolean(export_string_translation=False)
+    timesheet_show_leaderboard = fields.Boolean(export_string_translation=False)
 
     _sql_constraints = [
         (
@@ -56,6 +58,7 @@ class ResCompany(models.Model):
         period_start, period_end, today = (fields.Date.from_string(d) for d in [period_start, period_end, today])
 
         data = {
+            "show_leaderboard": self.env.company.timesheet_show_leaderboard,
             "leaderboard": self.env.company._get_leaderboard_data(period_start, period_end, today),
             "employee_id": self.env.user.employee_id.id,
             "billing_rate_target": self.env.company.billing_rate_target,

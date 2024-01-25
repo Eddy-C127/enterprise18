@@ -3,9 +3,9 @@
 import { TimesheetTimerKanbanRenderer } from "@timesheet_grid/views/timesheet_kanban/timesheet_timer_kanban_renderer";
 import { TimesheetLeaderboard } from "@sale_timesheet_enterprise/components/timesheet_leaderboard/timesheet_leaderboard";
 
-import { user } from "@web/core/user";
-import { patch } from "@web/core/utils/patch";
 import { onWillStart } from "@odoo/owl";
+import { patch } from "@web/core/utils/patch";
+import { useService } from "@web/core/utils/hooks";
 
 patch(TimesheetTimerKanbanRenderer, {
     components: {
@@ -16,10 +16,19 @@ patch(TimesheetTimerKanbanRenderer, {
 
 patch(TimesheetTimerKanbanRenderer.prototype, {
     setup() {
-        super.setup()
-        onWillStart(async () => {
-            this.userHasBillingRateGroup = await user.hasGroup("sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates");
-        });
+        super.setup();
+        this.orm = useService("orm");
+        this.companyService = useService("company");
+        onWillStart(this.onWillStart);
+    },
+
+    async onWillStart() {
+        const read = await this.orm.read(
+            "res.company",
+            [this.companyService.currentCompany.id],
+            ["timesheet_show_rates"],
+        );
+        this.showRates = read[0].timesheet_show_rates;
     },
 
     get isMobile() {
