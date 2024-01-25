@@ -94,16 +94,42 @@ export class KnowledgeSidebar extends Component {
         // Resequencing of the favorite articles
         useNestedSortable({
             ref: this.favoriteTree,
-            elements: ".o_tree > li",
             edgeScrolling: {
                 speed: 10,
                 threshold: 15,
             },
+            preventDrag: (el) => {
+                // Prevent the reordering of child articles that are readonly within the favorite
+                // section.
+                return (
+                    !el.parentElement.classList.contains("o_tree") &&
+                    el.classList.contains("readonly")
+                );
+            },
             tolerance: SORTABLE_TOLERANCE,
-            onDrop: ({element, next}) => {
-                const articleId = parseInt(element.dataset.articleId);
-                const beforeId = next ? parseInt(next.dataset.articleId) : false;
-                this.resequenceFavorites(articleId, beforeId);
+            onDrop: ({ element, next, parent }) => {
+                if (!parent) {
+                    // Favorite resequence
+                    const articleId = parseInt(element.dataset.articleId);
+                    const beforeId = next ? parseInt(next.dataset.articleId) : false;
+                    this.resequenceFavorites(articleId, beforeId);
+                } else {
+                    // Child of favorite resequence
+                    const article = this.getArticle(parseInt(element.dataset.articleId));
+                    const parentId = parseInt(parent.dataset.articleId);
+                    const currentPosition = {
+                        category: article.category,
+                        parentId: article.parent_id,
+                        beforeArticleId:
+                            parseInt(element.nextElementSibling?.dataset.articleId) || false,
+                    };
+                    const newPosition = {
+                        category: article.category,
+                        parentId: parentId,
+                        beforeArticleId: parseInt(next?.dataset.articleId) || false,
+                    };
+                    this.moveArticle(article, currentPosition, newPosition);
+                }
             },
         });
 
