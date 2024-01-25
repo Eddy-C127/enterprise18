@@ -83,6 +83,12 @@ class AppointmentType(models.Model):
         ('time_auto_assign', 'Select Time then auto-assign')],
         string="Assignment Method", default="resource_time", required=True,
         help="How users and resources will be assigned to meetings customers book on your website.")
+    # Technical field to hide "time_resource" when "users" are selected as this option is currently not supported
+    user_assign_method = fields.Selection([
+        ('resource_time', 'Pick User/Resource then Time'),
+        ('time_auto_assign', 'Select Time then auto-assign')],
+        compute="_compute_user_assign_method", inverse='_inverse_user_assign_method',
+        help="How users and resources will be assigned to meetings customers book on your website.")
     avatars_display = fields.Selection(
         [('hide', 'No Picture'), ('show', 'Show Pictures')],
         string='Front-End Display', compute='_compute_avatars_display', readonly=False, store=True,
@@ -287,6 +293,19 @@ class AppointmentType(models.Model):
     def _compute_staff_user_count(self):
         for record in self:
             record.staff_user_count = len(record.staff_user_ids)
+
+    @api.depends('assign_method', 'schedule_based_on')
+    def _compute_user_assign_method(self):
+        for appointment_type in self:
+            if appointment_type.assign_method != 'time_resource':
+                appointment_type.user_assign_method = appointment_type.assign_method
+            elif appointment_type.schedule_based_on == 'users':
+                appointment_type.user_assign_method = 'resource_time'
+
+    def _inverse_user_assign_method(self):
+        for appointment_type in self:
+            if appointment_type.user_assign_method:
+                appointment_type.assign_method = appointment_type.user_assign_method
 
     @api.constrains('category', 'start_datetime', 'end_datetime')
     def _check_appointment_category_time_boundaries(self):
