@@ -14,15 +14,15 @@
         <Dialog title="'Worldline - Last Transaction Status'">
             <t t-if="props.error" t-esc="props.error"/>
             <table t-else="" style="width: 100%">
-                <tr>
+                <tr t-if="props.action_identifier">
                     <td style="text-align: right; padding: 0.3em;">Action identifier:</td>
                     <td style="text-align: left" t-esc="props.action_identifier" />
                 </tr>
-                <tr>
+                <tr t-if="props.time">
                     <td style="text-align: right; padding: 0.3em;">Time:</td>
                     <td style="text-align: left" t-esc="props.time" />
                 </tr>
-                <tr>
+                <tr t-if="props.amount">
                     <td style="text-align: right; padding: 0.3em;">Amount:</td>
                     <td style="text-align: left" t-esc="props.amount" />
                 </tr>

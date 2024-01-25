@@ -29,14 +29,17 @@ export class LastTransactionStatusButton extends Component {
         this.worldline_payment_method_terminals = [];
         const worldlineTerminalIoT = new Set();
 
-        this.pos.models["pos.payment.method"].filter(pm => pm.use_payment_terminal === 'worldline').forEach(worldline_pm => {
-            const terminal = worldline_pm.payment_terminal && worldline_pm.payment_terminal.get_terminal();
-            const terminalIoTIP = terminal && terminal.iotIp;
-            if (terminal && terminalIoTIP && !worldlineTerminalIoT.has(terminalIoTIP)) {
-                this.worldline_payment_method_terminals.push(terminal);
-                worldlineTerminalIoT.add(terminalIoTIP);
-            }
-        });
+        this.pos.models["pos.payment.method"]
+            .filter((pm) => pm.use_payment_terminal === "worldline")
+            .forEach((worldline_pm) => {
+                const terminal =
+                    worldline_pm.payment_terminal && worldline_pm.payment_terminal.get_terminal();
+                const terminalIoTIP = terminal && terminal.iotIp;
+                if (terminal && terminalIoTIP && !worldlineTerminalIoT.has(terminalIoTIP)) {
+                    this.worldline_payment_method_terminals.push(terminal);
+                    worldlineTerminalIoT.add(terminalIoTIP);
+                }
+            });
     }
 
     sendLastTransactionStatus() {
@@ -59,13 +62,14 @@ export class LastTransactionStatusButton extends Component {
         if (this.worldline_payment_method_terminals.length === 0) {
             this.state.pending = false;
             this.dialog.add(AlertDialog, {
-                'title': _t('No worldline terminal configured'),
-                'body': _t('No worldline terminal device configured for any payment methods. ' +
-                    'Double check if your configured payment method define the field Payment Terminal Device')
+                title: _t("No worldline terminal configured"),
+                body: _t(
+                    "No worldline terminal device configured for any payment methods. " +
+                        "Double check if your configured payment method define the field Payment Terminal Device"
+                ),
             });
-        }
-        else {
-            this.worldline_payment_method_terminals.forEach(worldline_terminal => {
+        } else {
+            this.worldline_payment_method_terminals.forEach((worldline_terminal) => {
                 worldline_terminal.addListener(this._onLastTransactionStatus.bind(this));
                 worldline_terminal.action({ messageType: "LastTransactionStatus" }).catch(() => {
                     this.state.pending = false;
@@ -77,18 +81,18 @@ export class LastTransactionStatusButton extends Component {
     _onLastTransactionStatus(data) {
         // If the response data has a cid,
         // it's not a response to a Last Transaction Status request
-        if (data.cid)
+        if (data.cid) {
             return;
+        }
 
         this.state.pending = false;
 
         if (data.Error) {
             this.dialog.add(AlertDialog, {
-                title: _t('Failed to request last transaction status'),
+                title: _t("Failed to request last transaction status"),
                 body: data.Error,
             });
-        }
-        else {
+        } else {
             this.dialog.add(LastTransactionPopup, data.value);
         }
     }
@@ -103,5 +107,5 @@ export class LastTransactionStatusButton extends Component {
 export class LastTransactionPopup extends Component {
     static template = "pos_iot.LastTransactionPopup";
     static components = { Dialog };
-    static props = ["error", "action_identifier", "time", "amount"];
+    static props = ["error?", "action_identifier?", "time?", "amount?"];
 }
