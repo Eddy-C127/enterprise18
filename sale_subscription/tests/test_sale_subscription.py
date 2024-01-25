@@ -317,6 +317,7 @@ class TestSubscription(TestSubscriptionCommon):
                 'next_invoice_date': False,
                 'partner_invoice_id': self.partner_a_invoice.id,
                 'partner_shipping_id': self.partner_a_shipping.id,
+                'internal_note': 'internal note',
             })            # add an so line with a different uom
             uom_dozen = self.env.ref('uom.product_uom_dozen').id
             self.subscription_tmpl.duration_value = 2 # end after 2 months to adapt to the following line
@@ -359,6 +360,7 @@ class TestSubscription(TestSubscriptionCommon):
             renewal_so.start_date = renewal_start_date
             renewal_so.action_confirm()
 
+            self.assertEqual(renewal_so.internal_note_display, Markup('<p>internal note</p>'), 'Internal Note should redirect to the parent')
             self.assertEqual(self.subscription.recurring_monthly, 189, 'Should be closed but with an MRR')
             self.assertEqual(renewal_so.subscription_state, '3_progress', 'so should now be in progress')
             self.assertEqual(self.subscription.subscription_state, '5_renewed')
@@ -374,6 +376,9 @@ class TestSubscription(TestSubscriptionCommon):
         with freeze_time("2024-11-17"):
             invoice = self.subscription._create_recurring_invoice()
             self.assertFalse(invoice, "Locked contract should not generate invoices")
+            renewal_so.internal_note_display = 'new internal note'
+            self.assertEqual(renewal_so.internal_note_display, Markup('<p>new internal note</p>'), 'Internal Note should be updated')
+            self.assertEqual(self.subscription.internal_note_display, Markup('<p>new internal note</p>'), 'Internal Note should be updated')
         with freeze_time("2024-11-19"):
             self.subscription._create_recurring_invoice() # it will close self.subscription
             renew_close_reason_id = self.env.ref('sale_subscription.close_reason_renew').id

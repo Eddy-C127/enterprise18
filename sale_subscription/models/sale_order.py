@@ -527,7 +527,7 @@ class SaleOrder(models.Model):
     def _search_note_order(self, operator, value):
         if operator not in ['in', '=']:
             return NotImplemented
-        ooids = self.search_read([('id', operator, value)], ['origin_order_id', 'id'])
+        ooids = self.search_read([('id', operator, value)], ['origin_order_id', 'id'], load=None)
         ooids = [v['origin_order_id'] or v['id'] for v in ooids]
         return [('origin_order_id', 'in', ooids), ('internal_note', '=', False)]
 
