@@ -58,10 +58,23 @@ class TestTaskFlow(common.TransactionCase):
 
     @freeze_time('2023-01-02')
     def test_default_allocated_hours_when_creating_tasks(self):
+        # Add allocated_hours to the task form view so that we can read its value
+        form_view = self.env["ir.ui.view"].create({
+            "name": "Test Form",
+            "model": "project.task",
+            "type": "form",
+            "inherit_id": self.env.ref("project.view_task_form2").id,
+            "arch": """
+                <form position="inside">
+                    <field name="allocated_hours"/>
+                </form>
+            """,
+        })
+
         with Form(self.env["project.task"].with_context({
             'planned_date_begin': datetime.now(),
             'date_deadline': datetime.now() + relativedelta(days=7),
-        })) as task:
+        }), form_view) as task:
             task.name = "Test"
             task.user_ids = self.project_user
             task.project_id = self.project_test
