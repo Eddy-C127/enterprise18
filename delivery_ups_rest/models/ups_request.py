@@ -242,7 +242,7 @@ class UPSRequest:
             'EMailAddress': partner.email or '',
             'ShipperNumber': shipper_no or '',
             'Phone': {
-                'Number': partner.phone or partner.mobile or '',
+                'Number': (partner.phone or partner.mobile or '').replace(' ', ''),
             },
             'Address': {
                 'AddressLine': partner.street or '' + partner.street2 or '',
@@ -270,7 +270,7 @@ class UPSRequest:
                     'Service': {
                         'Code': service_type,
                     },
-                    'NumOfPieces': str(total_qty) if service_type == '96' else None,
+                    'NumOfPieces': str(int(total_qty)) if service_type == '96' else None,
                     'ShipmentServiceOptions': {'SaturdayDeliveryIndicator': saturday_delivery} if saturday_delivery else None,
                     'ShipmentRatingOptions': {
                         'NegotiatedRatesIndicator': "1",

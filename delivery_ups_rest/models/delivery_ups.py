@@ -59,6 +59,12 @@ class ProviderUPS(models.Model):
         for carrier in self.filtered(lambda c: c.delivery_type == 'ups_rest'):
             carrier.can_generate_return = True
 
+    def _compute_supports_shipping_insurance(self):
+        super(ProviderUPS, self)._compute_supports_shipping_insurance()
+        for carrier in self:
+            if carrier.delivery_type == 'ups_rest':
+                carrier.supports_shipping_insurance = True
+
     @api.onchange('ups_default_service_type')
     def on_change_service_type(self):
         self.ups_cod = False
