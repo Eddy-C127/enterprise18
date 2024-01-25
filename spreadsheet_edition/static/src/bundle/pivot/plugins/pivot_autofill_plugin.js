@@ -7,6 +7,8 @@ import { pivotTimeAdapter } from "@spreadsheet/pivot/pivot_time_adapters";
 
 /**
  * @typedef {import("@spreadsheet/pivot/pivot_table").SpreadsheetPivotTable} SpreadsheetPivotTable
+ * @typedef {import("@spreadsheet").PivotDefinition} PivotDefinition
+ * @typedef {import("@spreadsheet/pivot/pivot_data_source").PivotDataSource} PivotDataSource
  */
 
 /**
@@ -48,12 +50,13 @@ export class PivotAutofillPlugin extends UIPlugin {
             return formula;
         }
         const dataSource = this.getters.getPivotDataSource(pivotId);
+        const definition = this.getters.getPivotDefinition(pivotId);
         for (let i = evaluatedArgs.length - 1; i > 0; i--) {
             const fieldName = evaluatedArgs[i];
             if (
                 fieldName.startsWith("#") &&
-                ((isColumn && dataSource.isColumnGroupBy(fieldName)) ||
-                    (!isColumn && dataSource.isRowGroupBy(fieldName)))
+                ((isColumn && this._isColumnGroupBy(dataSource, definition, fieldName)) ||
+                    (!isColumn && this._isRowGroupBy(dataSource, definition, fieldName)))
             ) {
                 evaluatedArgs[i + 1] = parseInt(evaluatedArgs[i + 1], 10) + increment;
                 if (evaluatedArgs[i + 1] < 0) {
@@ -162,9 +165,14 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _autofillPivotValue(pivotId, args, isColumn, increment) {
         const currentElement = this._getCurrentValueElement(pivotId, args);
+        const definition = this.getters.getPivotDefinition(pivotId);
         const dataSource = this.getters.getPivotDataSource(pivotId);
         const table = dataSource.getTableStructure();
-        const isDate = dataSource.isGroupedOnlyByOneDate(isColumn ? "COLUMN" : "ROW");
+        const isDate = this._isGroupedOnlyByOneDate(
+            dataSource,
+            definition,
+            isColumn ? "COLUMN" : "ROW"
+        );
         let cols = [];
         let rows = [];
         let measure;
@@ -173,7 +181,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             rows = currentElement.rows;
             if (isDate) {
                 // Date
-                const group = dataSource.getGroupOfFirstDate("COLUMN");
+                const group = this._getGroupOfFirstDate(dataSource, definition, "COLUMN");
                 cols = currentElement.cols;
                 cols[0] = this._incrementDate(cols[0], group, increment);
                 measure = cols.pop();
@@ -204,7 +212,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 if (currentElement.rows.length === 0) {
                     return "";
                 }
-                const group = dataSource.getGroupOfFirstDate("ROW");
+                const group = this._getGroupOfFirstDate(dataSource, definition, "ROW");
                 rows = currentElement.rows;
                 rows[0] = this._incrementDate(rows[0], group, increment);
             } else {
@@ -263,18 +271,19 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @returns {string}
      */
     _autofillPivotColHeader(pivotId, args, isColumn, increment) {
+        const definition = this.getters.getPivotDefinition(pivotId);
         const dataSource = this.getters.getPivotDataSource(pivotId);
         /** @type {SpreadsheetPivotTable} */
         const table = dataSource.getTableStructure();
         const currentElement = this._getCurrentHeaderElement(pivotId, args);
         const currentColIndex = table.getColMeasureIndex(currentElement.cols);
-        const isDate = dataSource.isGroupedOnlyByOneDate("COLUMN");
+        const isDate = this._isGroupedOnlyByOneDate(dataSource, definition, "COLUMN");
         if (isColumn) {
             // LEFT-RIGHT
             let groupValues;
             if (isDate) {
                 // Date
-                const group = dataSource.getGroupOfFirstDate("COLUMN");
+                const group = this._getGroupOfFirstDate(dataSource, definition, "COLUMN");
                 groupValues = currentElement.cols;
                 groupValues[0] = this._incrementDate(groupValues[0], group, increment);
             } else {
@@ -304,7 +313,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                     ? table.getNumberOfHeaderRows() - 2 + currentElement.cols.length
                     : currentElement.cols.length - 1;
             const nextRowIndex = rowIndex + increment;
-            const groupLevels = dataSource.getNumberOfColGroupBys();
+            const groupLevels = this._getNumberOfColGroupBys(definition);
             if (nextRowIndex < 0 || nextRowIndex >= groupLevels + 1 + table.getNumberOfDataRows()) {
                 // Outside the pivot
                 return "";
@@ -361,10 +370,11 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _autofillPivotRowHeader(pivotId, args, isColumn, increment) {
         const dataSource = this.getters.getPivotDataSource(pivotId);
+        const definition = this.getters.getPivotDefinition(pivotId);
         const table = dataSource.getTableStructure();
         const currentElement = this._getCurrentHeaderElement(pivotId, args);
         const currentIndex = table.getRowIndex(currentElement.rows);
-        const isDate = dataSource.isGroupedOnlyByOneDate("ROW");
+        const isDate = this._isGroupedOnlyByOneDate(dataSource, definition, "ROW");
         if (isColumn) {
             const colIndex = increment - 1;
             // LEFT-RIGHT
@@ -384,7 +394,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             let rows;
             if (isDate) {
                 // Date
-                const group = dataSource.getGroupOfFirstDate("ROW");
+                const group = this._getGroupOfFirstDate(dataSource, definition, "ROW");
                 rows = currentElement.rows;
                 rows[0] = this._incrementDate(rows[0], group, increment);
             } else {
@@ -420,19 +430,23 @@ export class PivotAutofillPlugin extends UIPlugin {
             return "";
         }
         const dataSource = this.getters.getPivotDataSource(pivotId);
+        const definition = this.getters.getPivotDefinition(pivotId);
         const table = dataSource.getTableStructure();
         const groupIndex = table.getColMeasureIndex(currentElement.cols);
         if (groupIndex < 0) {
             return "";
         }
         const isTotalCol = currentElement.cols.length === 1;
-        const headerLevels = isTotalCol ? 2 // measure and 'Total'
-            : dataSource.getNumberOfColGroupBys() + 1; // Groupby levels + measure
+        const headerLevels = isTotalCol
+            ? 2 // measure and 'Total'
+            : this._getNumberOfColGroupBys(definition) + 1; // Groupby levels + measure
         const index = headerLevels + nextIndex;
         if (index < 0) {
             return "";
         }
-        const cols = isTotalCol ? currentElement.cols.slice(0, index) : currentElement.cols.slice(0, index + 1);
+        const cols = isTotalCol
+            ? currentElement.cols.slice(0, index)
+            : currentElement.cols.slice(0, index + 1);
         return makePivotFormula("ODOO.PIVOT.HEADER", this._buildArgs(pivotId, undefined, [], cols));
     }
     /**
@@ -561,8 +575,8 @@ export class PivotAutofillPlugin extends UIPlugin {
         for (let i = 2; i <= domain.length; i += 2) {
             const fieldName = domain[i - 2];
             if (
-                (isColumn && dataSource.isColumnGroupBy(fieldName)) ||
-                (!isColumn && dataSource.isRowGroupBy(fieldName))
+                (isColumn && this._isColumnGroupBy(dataSource, definition, fieldName)) ||
+                (!isColumn && this._isRowGroupBy(dataSource, definition, fieldName))
             ) {
                 tooltips.push({
                     value: dataSource.getDisplayedPivotHeaderValue(domain.slice(0, i)),
@@ -626,26 +640,93 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @returns {Array<string>}
      */
     _buildArgs(pivotId, measure, rows, cols) {
-        const { rowGroupBys, measures } = this.getters.getPivotDefinition(pivotId);
+        const definition = this.getters.getPivotDefinition(pivotId);
         const args = [pivotId];
         if (measure) {
             args.push(measure);
         }
         for (const index in rows) {
-            args.push(rowGroupBys[index]);
+            args.push(definition.rowGroupBys[index]);
             args.push(rows[index]);
         }
-        if (cols.length === 1 && measures.includes(cols[0])) {
+        if (cols.length === 1 && definition.measures.includes(cols[0])) {
             args.push("measure");
             args.push(cols[0]);
         } else {
-            const dataSource = this.getters.getPivotDataSource(pivotId);
             for (const index in cols) {
-                args.push(dataSource.getGroupByAtIndex("COLUMN", index) || "measure");
+                args.push(this._getGroupByAtIndex(definition, "COLUMN", index) || "measure");
                 args.push(cols[index]);
             }
         }
         return args;
+    }
+
+    /**
+     * @param {PivotDataSource} dataSource
+     * @param {PivotDefinition} definition
+     * @param {string} dimension COLUMN | ROW
+     */
+    _isGroupedOnlyByOneDate(dataSource, definition, dimension) {
+        const groupBys = dimension === "COLUMN" ? definition.colGroupBys : definition.rowGroupBys;
+        const field = dataSource.parseGroupField(groupBys[0]).field;
+        return groupBys.length === 1 && ["date", "datetime"].includes(field.type);
+    }
+    /**
+     * @param {PivotDataSource} dataSource
+     * @param {PivotDefinition} definition
+     * @param {string} dimension COLUMN | ROW
+     */
+    _getGroupOfFirstDate(dataSource, definition, dimension) {
+        if (!this._isGroupedOnlyByOneDate(dataSource, definition, dimension)) {
+            return undefined;
+        }
+        const groupBys = dimension === "COLUMN" ? definition.colGroupBys : definition.rowGroupBys;
+        return dataSource.parseGroupField(groupBys[0]).aggregateOperator;
+    }
+
+    /**
+     * @param {PivotDefinition} definition
+     * @param {string} dimension COLUMN | ROW
+     * @param {number} index
+     */
+    _getGroupByAtIndex(definition, dimension, index) {
+        const groupBys = dimension === "COLUMN" ? definition.colGroupBys : definition.rowGroupBys;
+        return groupBys[index];
+    }
+    /**
+     * @param {PivotDefinition} definition
+     * @returns {number}
+     */
+    _getNumberOfColGroupBys(definition) {
+        return definition.colGroupBys.length;
+    }
+
+    /**
+     * @param {PivotDataSource} dataSource
+     * @param {PivotDefinition} definition
+     * @param {string} fieldName
+     * @returns {boolean}
+     */
+    _isColumnGroupBy(dataSource, definition, fieldName) {
+        const name = dataSource.parseGroupField(fieldName).field.name;
+        return definition.colGroupBys
+            .map((fieldName) => dataSource.parseGroupField(fieldName))
+            .map((group) => group.field.name)
+            .includes(name);
+    }
+
+    /**
+     * @param {PivotDataSource} dataSource
+     * @param {PivotDefinition} definition
+     * @param {string} fieldName
+     * @returns {boolean}
+     */
+    _isRowGroupBy(dataSource, definition, fieldName) {
+        const name = dataSource.parseGroupField(fieldName).field.name;
+        return definition.rowGroupBys
+            .map((fieldName) => dataSource.parseGroupField(fieldName))
+            .map((group) => group.field.name)
+            .includes(name);
     }
 }
 
