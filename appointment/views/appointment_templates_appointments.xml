@@ -288,7 +288,7 @@
     <template id="appointment_details_column" name="Details column">
         <aside t-attf-class="o_appointment_details_column o_not_editable col-12 col-md-4 col-lg-3 offset-lg-1 position-relative #{'p-4 bg-light' if not website else 'mb-4 mb-lg-0'}">
             <h4 class="my-4 d-md-none">Your Appointment</h4>
-            <div t-if="appointment_type.category in ['punctual', 'recurring']" class="position-relative">
+            <div class="position-relative">
                 <t t-call="appointment.appointment_meeting_details"/>
                 <t t-if="staff_user or resource" t-call="appointment.appointment_meeting_user"/>
                 <t t-if="date_locale and time_locale" t-call="appointment.appointment_meeting_date"/>
@@ -322,9 +322,10 @@
                 <i class="fa fa-video-camera fa-fw me-2 mt-1 text-muted"/>
                 <span class="o_not_editable">Online</span>
             </div>
-            <div class="d-flex py-1 px-0 bg-transparent o-cc1-text border-0">
+            <div t-if="appointment_type.category != 'custom' or isDetails" class="d-flex py-1 px-0 bg-transparent o-cc1-text border-0">
                 <i class="fa fa-clock-o fa-fw me-2 mt-1 text-muted"/>
-                <span t-out="appointment_type.appointment_duration" t-options="{'widget': 'duration', 'unit': 'hour'}"/>
+                <span t-out="appointment_type.appointment_duration if appointment_type.category != 'custom' else duration"
+                    t-options="{'widget': 'duration', 'unit': 'hour'}"/>
             </div>
             <div class="d-flex py-1 px-0 bg-transparent o-cc1-text border-0" t-if="appointment_type.resource_manage_capacity and isDetails">
                 <i class="fa fa-users fa-fw me-2 mt-1 text-muted"/>
