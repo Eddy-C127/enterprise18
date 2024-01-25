@@ -95,7 +95,6 @@ class Planning(models.Model):
     allocated_percentage = fields.Float("Allocated Time %", default=100,
         compute='_compute_allocated_percentage', store=True, readonly=False,
         aggregator="avg")
-    working_days_count = fields.Float("Working Days", compute='_compute_working_days_count', store=True)
     duration = fields.Float("Duration", compute="_compute_slot_duration")
 
     # publication and sending
@@ -298,41 +297,6 @@ class Planning(models.Model):
                     pytz.utc.localize(slot.start_datetime), pytz.utc.localize(slot.end_datetime),
                     resource_work_intervals, calendar_work_intervals, has_allocated_hours=False
                 )
-
-    @api.depends('start_datetime', 'end_datetime', 'resource_id')
-    def _compute_working_days_count(self):
-        slots_per_calendar = defaultdict(set)
-        planned_dates_per_calendar_id = defaultdict(lambda: (datetime.max, datetime.min))
-        for slot in self:
-            if not slot.employee_id:
-                slot.working_days_count = 0
-                continue
-            calendar = slot.resource_id.calendar_id or slot.resource_id.company_id.resource_calendar_id
-            slots_per_calendar[calendar].add(slot.id)
-            datetime_begin, datetime_end = planned_dates_per_calendar_id[calendar.id]
-            datetime_begin = min(datetime_begin, slot.start_datetime)
-            datetime_end = max(datetime_end, slot.end_datetime)
-            planned_dates_per_calendar_id[calendar.id] = datetime_begin, datetime_end
-        for calendar, slot_ids in slots_per_calendar.items():
-            slots = self.env['planning.slot'].browse(list(slot_ids))
-            if not calendar:
-                slots.working_days_count = 0
-                continue
-            datetime_begin, datetime_end = planned_dates_per_calendar_id[calendar.id]
-            datetime_begin = timezone_datetime(datetime_begin)
-            datetime_end = timezone_datetime(datetime_end)
-            resources = slots.resource_id
-            day_total = calendar._get_resources_day_total(datetime_begin, datetime_end, resources)
-            intervals = calendar._work_intervals_batch(datetime_begin, datetime_end, resources)
-            for slot in slots:
-                slot.working_days_count = calendar._get_days_data(
-                    intervals[slot.resource_id.id] & Intervals([(
-                        timezone_datetime(slot.start_datetime),
-                        timezone_datetime(slot.end_datetime),
-                        self.env['resource.calendar.attendance']
-                    )]),
-                    day_total[slot.resource_id.id]
-                )['days']
 
     @api.depends('start_datetime', 'end_datetime', 'resource_id')
     def _compute_overlap_slot_count(self):
@@ -700,7 +664,7 @@ class Planning(models.Model):
 
     @api.model
     def _read_group_fields_nullify(self):
-        return ['working_days_count']
+        return []
 
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
@@ -895,7 +859,6 @@ class Planning(models.Model):
         # force recompute of stored computed fields depending on start_datetime
         if default and "start_datetime" in default:
             result._compute_allocated_hours()
-            result._compute_working_days_count()
         return result
 
     # ----------------------------------------------------

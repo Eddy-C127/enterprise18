@@ -62,7 +62,6 @@ class ResourceCalendarLeaves(models.Model):
             domain = self._process_shifts_domain()
         shifts = self.env['planning.slot'].search(domain)
         shifts._compute_allocated_hours()
-        shifts._compute_working_days_count()
 
     @api.model_create_multi
     def create(self, vals_list):

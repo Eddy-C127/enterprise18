@@ -113,7 +113,6 @@ class TestPlanningLeaves(TestCommon):
             })
 
             initial_slot = {
-                'working_day': slot.working_days_count,
                 'allocated_hours': slot.allocated_hours,
             }
 
@@ -125,12 +124,10 @@ class TestPlanningLeaves(TestCommon):
                 'date_to': datetime.datetime(2020, 4, 21, 17, 0),
             })
 
-            self.assertNotEqual(slot.working_days_count, initial_slot.get('working_day'), 'Working days should be updated')
             self.assertNotEqual(slot.allocated_hours, initial_slot.get('allocated_hours'), 'Allocated hours should be updated')
 
             # Unlink the public holiday
             public_holiday.unlink()
             self.assertDictEqual(initial_slot, {
-                'working_day': slot.working_days_count,
                 'allocated_hours': slot.allocated_hours
                 }, "The Working days and Allocated hours should be updated")

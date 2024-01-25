@@ -36,7 +36,6 @@ class PlanningAnalysisReport(models.Model):
         ("published", "Published"),
     ], string="Status", readonly=True)
     user_id = fields.Many2one("res.users", string="User", readonly=True)
-    working_days_count = fields.Float("Working Days", readonly=True)
     slot_id = fields.Many2one("planning.slot", string="Planning Slot", readonly=True)
     request_to_switch = fields.Boolean('Has there been a request to switch on this shift slot?', readonly=True)
 
@@ -67,8 +66,7 @@ class PlanningAnalysisReport(models.Model):
                 S.recurrency_id AS recurrency_id,
                 S.start_datetime AS start_datetime,
                 S.state AS state,
-                S.user_id AS user_id,
-                S.working_days_count AS working_days_count
+                S.user_id AS user_id
         """
 
     @api.model
@@ -104,8 +102,7 @@ class PlanningAnalysisReport(models.Model):
                      S.recurrency_id,
                      S.start_datetime,
                      S.state,
-                     S.user_id,
-                     S.working_days_count
+                     S.user_id
         """
 
     def init(self):

@@ -8,7 +8,6 @@
             <pivot string="Planning Analysis" sample="1" disable_linking="True" js_class="planning_pivot">
                 <field name="start_datetime" interval="month" type="row"/>
                 <field name="allocated_hours" type="measure" widget="float_time"/>
-                <field name="working_days_count" type="measure"/>
             </pivot>
         </field>
     </record>
@@ -21,7 +20,6 @@
                 <field name="start_datetime" interval="month"/>
                 <field name="resource_id"/>
                 <field name="allocated_hours" type="measure" widget="float_time"/>
-                <field name="working_days_count" type="measure"/>
             </graph>
         </field>
     </record>

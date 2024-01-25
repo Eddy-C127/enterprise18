@@ -84,12 +84,6 @@ class PlanningSlot(models.Model):
         super(PlanningSlot, planned_slots)._compute_is_unassign_deadline_passed()
 
     @api.depends('start_datetime')
-    def _compute_working_days_count(self):
-        planned_slots = self.filtered('start_datetime')
-        (self - planned_slots).working_days_count = 0
-        super(PlanningSlot, planned_slots)._compute_working_days_count()
-
-    @api.depends('start_datetime')
     def _compute_template_autocomplete_ids(self):
         planned_slots = self.filtered('start_datetime')
         (self - planned_slots).template_autocomplete_ids = self.template_id

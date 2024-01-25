@@ -26,8 +26,16 @@ class TimesheetForecastReport(models.Model):
     effective_costs = fields.Float('Effective Costs', readonly=True)
     planned_costs = fields.Float('Planned Costs', readonly=True)
 
+    def _number_of_days_without_weekend(self):
+        return """
+            (SELECT COUNT(*)
+            FROM generate_series(F.start_datetime, F.end_datetime, '1 day') AS g(day)
+            WHERE EXTRACT(ISODOW FROM g.day) < 6)
+        """
+
     @api.model
     def _select(self):
+        nb_days = self._number_of_days_without_weekend()
         select_str = """
             SELECT
                 d::date AS entry_date,
@@ -37,13 +45,13 @@ class TimesheetForecastReport(models.Model):
                 F.user_id AS user_id,
                 0.0 AS effective_hours,
                 0.0 As effective_costs,
-                F.allocated_hours / GREATEST(F.working_days_count, 1) AS planned_hours,
-                (F.allocated_hours / GREATEST(F.working_days_count, 1) * E.hourly_cost) AS planned_costs,
-                F.allocated_hours / GREATEST(F.working_days_count, 1) AS difference,
+                F.allocated_hours / GREATEST( %s, 1) AS planned_hours,
+                (F.allocated_hours / GREATEST( %s, 1)) * E.hourly_cost AS planned_costs,
+                F.allocated_hours / GREATEST( %s, 1) AS difference,
                 'forecast' AS line_type,
                 F.id AS id,
                 CASE WHEN F.state = 'published' THEN TRUE ELSE FALSE END AS is_published
-        """
+        """ % (nb_days, nb_days, nb_days)
         return select_str
 
     @api.model

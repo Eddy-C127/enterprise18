@@ -17,16 +17,22 @@ class TimesheetForecastReport(models.Model):
 
     @api.model
     def _select(self):
+        nb_days = self._number_of_days_without_weekend()
         return super()._select() + """,
-            (F.allocated_hours / GREATEST(F.working_days_count, 1)) * SOL.price_unit AS planned_revenues,
-            (F.allocated_hours / GREATEST(F.working_days_count, 1)) * (SOL.price_unit - E.hourly_cost) AS planned_margin,
-            CASE WHEN F.sale_line_id IS NOT NULL THEN (F.allocated_hours / GREATEST(F.working_days_count, 1)) ELSE 0 END AS planned_billable_hours,
-            CASE WHEN F.sale_line_id IS NULL THEN (F.allocated_hours / GREATEST(F.working_days_count, 1)) ELSE 0 END AS planned_non_billable_hours,
+            (F.allocated_hours / GREATEST( %s, 1)) * SOL.price_unit AS planned_revenues,
+            (F.allocated_hours / GREATEST( %s, 1)) * (SOL.price_unit - E.hourly_cost) AS planned_margin,
+            CASE WHEN F.sale_line_id IS NOT NULL THEN
+                (F.allocated_hours / GREATEST( %s, 1))
+            ELSE 0 END AS planned_billable_hours,
+            CASE WHEN F.sale_line_id IS NULL THEN
+                (F.allocated_hours / GREATEST( %s, 1))
+            ELSE 0 END AS planned_non_billable_hours,
             0.0 AS effective_revenues,
             0.0 AS effective_margin,
             0.0 AS effective_billable_hours,
             0.0 AS effective_non_billable_hours
-        """
+        """ % (nb_days, nb_days, nb_days, nb_days)
+
     @api.model
     def _from(self):
         return super()._from() + "LEFT JOIN sale_order_line SOL ON SOL.id = F.sale_line_id"
