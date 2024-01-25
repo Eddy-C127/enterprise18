@@ -179,7 +179,7 @@ class AccountReport(models.Model):
 
         report_companies = self.env['res.company'].browse(self.get_report_company_ids(options))
         per_company_map = {}
-        for company in report_companies.parent_ids:
+        for company in report_companies.sudo().parent_ids:
             per_company_map[company.id] = ({
                 'available_journals': self.env['account.journal'],
                 'available_journal_groups': self.env['account.journal.group'],

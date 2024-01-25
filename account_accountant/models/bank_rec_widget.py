@@ -1518,9 +1518,9 @@ class BankRecWidget(models.Model):
     @api.model
     def collect_global_info_data(self, journal_id):
         journal = self.env['account.journal'].browse(journal_id)
-        balance = formatLang(self.env,
-                             journal.current_statement_balance,
-                             currency_obj=journal.currency_id or journal.company_id.currency_id)
-        return {
-            'balance_amount': balance,
-        }
+        balance = False
+        if self.env.company in journal.company_id.parent_ids:
+            balance = formatLang(self.env,
+                                 journal.current_statement_balance,
+                                 currency_obj=journal.currency_id or journal.company_id.sudo().currency_id)
+        return {'balance_amount': balance}
