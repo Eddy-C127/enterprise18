@@ -269,7 +269,10 @@
                                 </span>
                             </div>
                             <field name="avatars_display" widget="radio" options="{'horizontal': true}" required="1"/>
-                            <field name="assign_method" widget="radio" required="1"/>
+                            <field name="assign_method" widget="radio"
+                                invisible="schedule_based_on == 'users'" required="schedule_based_on == 'resources'"/>
+                            <field name="user_assign_method" widget="radio"
+                                invisible="schedule_based_on == 'resources'" required="schedule_based_on == 'users'"/>
                         </group>
                     </group>
                     <notebook>
