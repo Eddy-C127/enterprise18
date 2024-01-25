@@ -404,12 +404,14 @@
                         <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0"
                              style="width: 100%; margin-bottom: 5px">
                             <div class="o_field_widget o_field_analytic_distribution">
+                                <!-- t-key is needed to force component rerender and avoid synchronization issue on record change -->
                                 <AnalyticDistribution
                                     name="'analytic_distribution'"
                                     record="line"
                                     account_field="'account_id'"
                                     business_domain="'general'"
                                     allow_save="true"
+                                    t-key="line.data.index"
                                 />
                             </div>
                         </div>
