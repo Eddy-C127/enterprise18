@@ -34,7 +34,7 @@ class EventMailScheduler(models.Model):
         super().set_template_ref_model()
         mail_model = self.env['whatsapp.template']
         if self.notification_type == 'whatsapp':
-            record = mail_model.search([('model_id', '=', 'event.registration')], limit=1)
+            record = mail_model.search([('model_id', '=', 'event.registration'), ('status', '=', 'approved')], limit=1)
             self.template_ref = "{},{}".format('whatsapp.template', record.id) if record.id else False
 
     def execute(self):
