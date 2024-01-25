@@ -45,11 +45,11 @@ class SaleOrder(models.Model):
     ###################
     is_subscription = fields.Boolean("Recurring", compute='_compute_is_subscription', store=True, index=True)
     plan_id = fields.Many2one('sale.subscription.plan', compute='_compute_plan_id', string='Recurring Plan',
-                              ondelete='restrict', readonly=False, store=True)
+                              ondelete='restrict', readonly=False, store=True, index='btree_not_null')
     subscription_state = fields.Selection(
         string='Subscription Status',
         selection=SUBSCRIPTION_STATES,
-        compute='_compute_subscription_state', store=True, tracking=True, group_expand='_group_expand_states',
+        compute='_compute_subscription_state', store=True, index='btree_not_null', tracking=True, group_expand='_group_expand_states',
     )
 
     subscription_id = fields.Many2one('sale.order', string='Parent Contract', ondelete='restrict', copy=False)
