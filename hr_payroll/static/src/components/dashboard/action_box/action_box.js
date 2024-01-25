@@ -7,7 +7,7 @@ import { rpc } from "@web/core/network/rpc";
 
 export class PayrollDashboardActionBox extends Component {
     static template = "hr_payroll.ActionBox";
-    static props = ["actions"];
+    static props = ["*"];
 
     setup() {
         this.actionService = useService("action");

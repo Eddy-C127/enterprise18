@@ -11,9 +11,9 @@ export class PlanningEmployeeAvatar extends Avatar {
 
     static props = {
         ...Avatar.props,
-        isResourceMaterial: { type: Boolean },
-        showPopover: { type: Boolean },
-        resourceColor: { type: Number },
+        isResourceMaterial: { type: Boolean, optional: true },
+        showPopover: { type: Boolean, optional: true },
+        resourceColor: { type: Number, optional: true },
     };
 
     setup() {
