@@ -44,7 +44,7 @@ class AppointmentCalendarView(http.Controller):
         if not slots:
             raise ValidationError(_("A list of slots information is needed to create a custom appointment type"))
         # Check if the user is a member of group_user to avoid portal user and the like to create appointment types
-        if not request.env.user.user_has_groups('base.group_user'):
+        if not request.env.user._is_internal():
             raise Forbidden()
         if context:
             request.update_context(**context)
@@ -94,7 +94,7 @@ class AppointmentCalendarView(http.Controller):
         In case it doesn't exist yet, it creates an anytime appointment type.
         """
         # Check if the user is a member of group_user to avoid portal user and the like to create appointment types
-        if not request.env.user.user_has_groups('base.group_user'):
+        if not request.env.user._is_internal():
             raise Forbidden()
         AppointmentType = request.env['appointment.type']
         appointment_type = AppointmentType.search([

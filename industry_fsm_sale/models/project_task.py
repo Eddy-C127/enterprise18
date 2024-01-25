@@ -47,7 +47,7 @@ class Task(models.Model):
 
     @api.depends('sale_order_id.pricelist_id', 'partner_id.property_product_pricelist')
     def _compute_pricelist_id(self):
-        pricelist_active = self.user_has_groups('product.group_product_pricelist')
+        pricelist_active = self.env.user.has_group('product.group_product_pricelist')
         for task in self:
             task.pricelist_id = pricelist_active and \
                                 (task.sale_order_id.pricelist_id or task.partner_id.property_product_pricelist)
@@ -78,7 +78,7 @@ class Task(models.Model):
 
     def _compute_portal_quotation_count(self):
         domain = [('task_id', 'in', self.ids)]
-        if self.user_has_groups('base.group_portal'):
+        if self.env.user._is_portal():
             domain = expression.AND([domain, [('state', '!=', 'draft')]])
         quotation_data = self.env['sale.order']._read_group(domain, ['task_id'], ['__count'])
         mapped_data = {task.id: count for task, count in quotation_data}
@@ -153,7 +153,7 @@ class Task(models.Model):
     @api.depends('sale_order_id.invoice_ids')
     def _compute_portal_invoice_count(self):
         """ The goal of portal_invoice_count field is to show the Invoices stat button in Project sharing feature. """
-        is_portal_user = self.user_has_groups('base.group_portal')
+        is_portal_user = self.env.user._is_portal()
         invoices_by_so = {}
         available_invoices = False
         if is_portal_user:
@@ -183,7 +183,7 @@ class Task(models.Model):
 
     @api.depends('sale_order_id.partner_shipping_id')
     def _compute_partner_id(self):
-        if self.user_has_groups('account.group_delivery_invoice_address'):
+        if self.env.user.has_group('account.group_delivery_invoice_address'):
             for task in self:
                 if task.is_fsm and task.sale_order_id:
                     task.partner_id = task.sale_order_id.partner_shipping_id
@@ -396,7 +396,7 @@ class Task(models.Model):
             raise UserError(_('A customer should be set on the task to generate a worksheet.'))
 
         SaleOrder = self.env['sale.order']
-        if self.user_has_groups('project.group_project_user'):
+        if self.env.user.has_group('project.group_project_user'):
             SaleOrder = SaleOrder.sudo()
 
         user_id = self.user_ids[0] if self.user_ids else self.env['res.users']

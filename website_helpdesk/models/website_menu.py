@@ -9,7 +9,7 @@ class WebsiteMenu(models.Model):
     def _compute_visible(self):
         """ Display helpdesk team menus even if they are unpublished """
         helpdesk_menus = self.filtered(lambda menu: menu.url and menu.url[:9] == "/helpdesk")
-        if helpdesk_menus.user_has_groups('base.group_user'): # avoid extra query if not needed
+        if self.env.user._is_internal(): # avoid extra query if not needed
             helpdesk_menus.is_visible = True
             return super(WebsiteMenu, self - helpdesk_menus)._compute_visible()
         published_menus, = self.env['helpdesk.team']._read_group(

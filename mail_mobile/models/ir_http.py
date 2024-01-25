@@ -8,7 +8,7 @@ class IrHttp(models.AbstractModel):
 
     def session_info(self):
         result = super(IrHttp, self).session_info()
-        if self.env.user.has_group('base.group_user'):
+        if self.env.user._is_internal():
             result.update(
                 ocn_token_key=self.env.user.partner_id.ocn_token,
                 fcm_project_id=self.env['ir.config_parameter'].sudo().get_param('odoo_ocn.project_id', False),

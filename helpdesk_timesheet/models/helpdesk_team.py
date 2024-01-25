@@ -73,7 +73,7 @@ class HelpdeskTeam(models.Model):
 
     def _check_timesheet_group(self):
         timesheet_teams = self.filtered('use_helpdesk_timesheet')
-        use_helpdesk_timesheet_group = self.user_has_groups('helpdesk_timesheet.group_use_helpdesk_timesheet')
+        use_helpdesk_timesheet_group = self.env.user.has_group('helpdesk_timesheet.group_use_helpdesk_timesheet')
         helpdesk_timesheet_group = self.env.ref('helpdesk_timesheet.group_use_helpdesk_timesheet')
         enabled_timesheet_team = lambda: self.env['helpdesk.team'].search([('use_helpdesk_timesheet', '=', True)], limit=1)
         if timesheet_teams and not use_helpdesk_timesheet_group:

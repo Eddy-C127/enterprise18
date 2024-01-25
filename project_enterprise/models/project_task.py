@@ -1339,7 +1339,7 @@ class Task(models.Model):
 
     @api.model
     def gantt_progress_bar(self, fields, res_ids, date_start_str, date_stop_str):
-        if not self.user_has_groups("project.group_project_user"):
+        if not self.env.user.has_group("project.group_project_user"):
             return {field: {} for field in fields}
         start_utc, stop_utc = string_to_datetime(date_start_str), string_to_datetime(date_stop_str)
 

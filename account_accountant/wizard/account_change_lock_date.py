@@ -48,7 +48,7 @@ class AccountChangeLockDate(models.TransientModel):
         pass
 
     def change_lock_date(self):
-        if self.user_has_groups('account.group_account_manager'):
+        if self.env.user.has_group('account.group_account_manager'):
             if any(
                     lock_date > fields.Date.context_today(self)
                     for lock_date in (

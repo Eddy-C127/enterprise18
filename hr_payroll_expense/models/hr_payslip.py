@@ -74,7 +74,7 @@ class HrPayslip(models.Model):
         """
         Link expenses to a payslip if the payslip is in draft state and the expense is not already linked to a payslip.
         """
-        if not (self.env.is_superuser() or self.user_has_groups('hr_payroll.group_hr_payroll_user')):
+        if not (self.env.is_superuser() or self.env.user.has_group('hr_payroll.group_hr_payroll_user')):
             raise AccessError(_(
                 "You don't have the access rights to link an expense report to a payslip. You need to be a payroll officer to do that.")
             )

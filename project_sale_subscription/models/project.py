@@ -133,7 +133,7 @@ class Project(models.Model):
             'to_invoice': amount_to_invoice,
         }
 
-        if with_action and all_subscription_ids and self.user_has_groups('sales_team.group_sale_salesman'):
+        if with_action and all_subscription_ids and self.env.user.has_group('sales_team.group_sale_salesman'):
             args = [section_id, [('id', 'in', all_subscription_ids)]]
             if len(all_subscription_ids) == 1:
                 args.append(all_subscription_ids[0])

@@ -100,7 +100,7 @@ class View(models.Model):
             for node in tree.xpath('//*[@groups]'):
                 node_groups[node] = node.get('groups')
 
-                if not self.user_has_groups(node.get('groups')):
+                if not self.env.user.has_groups(node.get('groups')):
                     # Make invisible nodes for which the user is not part of the group,
                     # and remove the `groups` from the node before calling super so the nodes are not deleted.
                     if node.tag == 't' and node.get('postprocess_added'):
@@ -134,7 +134,7 @@ class View(models.Model):
                     # so use `_fields.get(...)` instead of `_fields[...]`
                     # e.g. `in_group_12`
                     field = self.env[model]._fields.get(node.get('name'))
-                    if field and field.groups and not self.user_has_groups(field.groups):
+                    if field and not field.is_accessible(self.env):
                         node.set('studio_no_fetch', '1')
 
             def is_in_tree(node):

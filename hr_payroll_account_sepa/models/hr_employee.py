@@ -60,7 +60,7 @@ class HrEmployee(models.Model):
         return [employee['id'] for employee in employees_data if not employee['allow_out_payment']]
 
     def _action_trust_bank_accounts(self):
-        if not self.user_has_groups('hr_payroll.group_hr_payroll_user'):
+        if not self.env.user.has_group('hr_payroll.group_hr_payroll_user'):
             raise ValidationError(_('You do not have the right to trust or un-trust a bank account.'))
         self.sudo().bank_account_id.filtered(lambda b: valid_iban(b.acc_number)).allow_out_payment = True
         remain_untrusted = self.filtered(lambda b: not b.bank_account_id.allow_out_payment)

@@ -50,7 +50,7 @@ class MarketingActivity(models.Model):
         res_ids = [r for r in set(traces.mapped('res_id'))]
 
         # we only allow to continue if the user has sufficient rights, as a sudo() follows
-        if not self.env.is_superuser() and not self.user_has_groups('marketing_automation.group_marketing_automation_user'):
+        if not self.env.is_superuser() and not self.env.user.has_group('marketing_automation.group_marketing_automation_user'):
             raise AccessError(_('To use this feature you should be an administrator or belong to the marketing automation group.'))
 
         mailing = self.mass_mailing_id.sudo().with_context(default_marketing_activity_id=self.ids[0])

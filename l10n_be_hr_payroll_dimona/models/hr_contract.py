@@ -452,7 +452,7 @@ class HrContract(models.Model):
 
     def action_check_dimona(self):
         self.ensure_one()
-        if not self.user_has_groups('hr_payroll.group_hr_payroll_user'):
+        if not self.env.user.has_group('hr_payroll.group_hr_payroll_user'):
             raise UserError(_("You don't have the right to call this action"))
 
         if not self.l10n_be_dimona_last_declaration_number:

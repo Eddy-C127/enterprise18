@@ -136,7 +136,7 @@ class WhatsAppTemplate(models.Model):
 
     @api.constrains('phone_field', 'model')
     def _check_phone_field(self):
-        is_system = self.user_has_groups('base.group_system')
+        is_system = self.env.user.has_group('base.group_system')
         for tmpl in self.filtered('phone_field'):
             model = self.env[tmpl.model]
             if not is_system:

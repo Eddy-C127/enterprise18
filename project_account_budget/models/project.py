@@ -74,7 +74,7 @@ class Project(models.Model):
 
     def get_budget_items(self):
         self.ensure_one()
-        if self.analytic_account_id and self.user_has_groups('project.group_project_user'):
+        if self.analytic_account_id and self.env.user.has_group('project.group_project_user'):
             return self._get_budget_items(True)
         return {}
 
@@ -97,7 +97,10 @@ class Project(models.Model):
                 has_company_access = True
                 break
         total_allocated = total_spent = 0.0
-        can_see_budget_items = with_action and has_company_access and self.user_has_groups('account.group_account_readonly,analytic.group_analytic_accounting')
+        can_see_budget_items = with_action and has_company_access and (
+            self.env.user.has_group('account.group_account_readonly')
+            or self.env.user.has_group('analytic.group_analytic_accounting')
+        )
         budget_data_per_budget = defaultdict(
             lambda: {
                 'allocated': 0,
@@ -143,7 +146,7 @@ class Project(models.Model):
                     'domain': json.dumps([('id', 'in', budget_data.pop('ids'))]),
                 }
 
-        can_add_budget = with_action and self.user_has_groups('account.group_account_user')
+        can_add_budget = with_action and self.env.user.has_group('account.group_account_user')
         budget_items = {
             'data': budget_data_per_budget,
             'total': {

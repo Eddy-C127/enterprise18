@@ -30,7 +30,7 @@ class ProjectTask(models.Model):
 
     @api.depends('allocated_hours')
     def _compute_project_sharing_timesheets(self):
-        is_portal_user = self.user_has_groups('base.group_portal')
+        is_portal_user = self.env.user._is_portal()
         timesheets_per_task = None
         if is_portal_user:
             subtask_ids_per_task_id = self.sudo().with_context(active_test=False)._get_subtask_ids_per_task_id()
@@ -76,7 +76,7 @@ class ProjectTask(models.Model):
             Then we need to give the id of timesheets which is validated.
         """
         result = super().read(fields=fields, load=load)
-        if fields and 'timesheet_ids' in fields and self.env.user.has_group('base.group_portal'):
+        if fields and 'timesheet_ids' in fields and self.env.user._is_portal():
             # We need to check if configuration
             param_invoiced_timesheet = self.env['ir.config_parameter'].sudo().get_param('sale.invoiced_timesheet', DEFAULT_INVOICED_TIMESHEET)
             if param_invoiced_timesheet == 'approved':

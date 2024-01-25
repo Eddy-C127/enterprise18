@@ -243,7 +243,7 @@ Source: Opinion on the indexation of the amounts set in Article 1, paragraph 4, 
         try:
             self.check_access_rights('read')
             # niss field is for this group only
-            if not self.user_has_groups('hr.group_hr_user'):
+            if not self.env.user.has_group('hr.group_hr_user'):
                 raise AccessError()
         except AccessError:
             return []

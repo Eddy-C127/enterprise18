@@ -24,7 +24,7 @@ class AccountReport(models.AbstractModel):
     def _init_options_analytic_groupby(self, options, previous_options=None):
         if not self.filter_analytic_groupby:
             return
-        enable_analytic_accounts = self.user_has_groups('analytic.group_analytic_accounting')
+        enable_analytic_accounts = self.env.user.has_group('analytic.group_analytic_accounting')
         if not enable_analytic_accounts:
             return
 

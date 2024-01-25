@@ -19,7 +19,7 @@ class Task(models.Model):
     @api.depends_context('uid')
     @api.depends('helpdesk_ticket_id')
     def _compute_display_helpdesk_ticket_button(self):
-        is_portal = self.user_has_groups('base.group_portal')
+        is_portal = self.env.user._is_portal()
         if is_portal:
             tickets = self.env['helpdesk.ticket'].search([('id', 'in', self.helpdesk_ticket_id.ids)])
         for task in self:

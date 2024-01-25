@@ -156,8 +156,10 @@ class AmazonAccount(models.Model):
     def _compute_is_follow_up_displayed(self):
         """ Return True if the page Order Follow-up should be displayed in the view form. """
         for account in self:
-            account.is_follow_up_displayed = account._origin.id or self.user_has_groups(
-                'base.group_multi_company,base.group_no_one'
+            account.is_follow_up_displayed = (
+                account._origin.id
+                or self.env.user.has_group('base.group_multi_company')
+                or self.env.user.has_group('base.group_no_one')
             )
 
     #=== ONCHANGE METHODS ===#

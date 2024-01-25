@@ -103,7 +103,7 @@ class AppointmentType(models.Model):
 
     def action_share_invite(self):
         action = super().action_share_invite()
-        if self.env.user.user_has_groups('website.group_multi_website'):
+        if self.env.user.has_group('website.group_multi_website'):
             website_id = self.website_id
         else:
             website_id = self.env['website']

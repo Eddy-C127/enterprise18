@@ -9,7 +9,7 @@ class Planning(models.Model):
 
     @api.model
     def gantt_resource_employees_working_periods(self, rows):
-        if not self.user_has_groups('planning.group_planning_manager'):
+        if not self.env.user.has_group('planning.group_planning_manager'):
             return rows
         start_time = fields.Datetime.to_datetime(self._context.get('default_start_datetime'))
         end_time = fields.Datetime.to_datetime(self._context.get('default_end_datetime'))

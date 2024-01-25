@@ -8,7 +8,7 @@ class ProjectUpdate(models.Model):
     @api.model
     def _get_template_values(self, project):
         vals = super()._get_template_values(project)
-        if project.analytic_account_id and self.user_has_groups('account.group_account_readonly'):
+        if project.analytic_account_id and self.env.user.has_group('account.group_account_readonly'):
             budget_items = project._get_budget_items(with_action=False)
             budgets = {
                 'data': [],

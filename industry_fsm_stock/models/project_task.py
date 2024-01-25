@@ -140,7 +140,7 @@ class Task(models.Model):
            to do so as there would be a risk that all the existing SOL (possibly added in a (pre)sale phase)
            would get that user's default warehouse when the SO gets confirmed and the picking generated."""
         sale_order = super()._fsm_ensure_sale_order()
-        if self.user_has_groups('project.group_project_user'):
+        if self.env.user.has_group('project.group_project_user'):
             sale_order = self.sale_order_id.sudo()
         if sale_order.state == 'draft':
             sale_order.action_confirm()
@@ -154,7 +154,7 @@ class Task(models.Model):
            would get that user's default warehouse when the SO gets confirmed and the picking generated."""
         super()._fsm_create_sale_order()
         sale_order = self.sale_order_id
-        if self.user_has_groups('project.group_project_user'):
+        if self.env.user.has_group('project.group_project_user'):
             sale_order = self.sale_order_id.sudo()
         sale_order.action_confirm()
 

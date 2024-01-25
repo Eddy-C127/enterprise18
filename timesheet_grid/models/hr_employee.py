@@ -175,10 +175,10 @@ class Employee(models.Model):
         return action
 
     def get_last_validated_timesheet_date(self):
-        if self.user_has_groups('hr_timesheet.group_timesheet_manager'):
+        if self.env.user.has_group('hr_timesheet.group_timesheet_manager'):
             return {}
 
-        if not self.user_has_groups('hr_timesheet.group_hr_timesheet_user'):
+        if not self.env.user.has_group('hr_timesheet.group_hr_timesheet_user'):
             raise UserError(_('You are not allowed to see timesheets.'))
 
         return {

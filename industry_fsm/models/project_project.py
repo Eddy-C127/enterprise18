@@ -29,7 +29,7 @@ class Project(models.Model):
 
     @api.depends('is_fsm')
     def _compute_allow_task_dependencies(self):
-        has_group = self.user_has_groups('project.group_project_task_dependencies')
+        has_group = self.env.user.has_group('project.group_project_task_dependencies')
         for project in self:
             project.allow_task_dependencies = has_group and not project.is_fsm
 
@@ -42,7 +42,7 @@ class Project(models.Model):
 
     @api.depends('is_fsm')
     def _compute_allow_milestones(self):
-        has_group = self.user_has_groups('project.group_project_milestone')
+        has_group = self.env.user.has_group('project.group_project_milestone')
         for project in self:
             project.allow_milestones = has_group and not project.is_fsm
 

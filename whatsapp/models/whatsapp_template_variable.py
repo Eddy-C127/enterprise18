@@ -51,7 +51,7 @@ class WhatsAppTemplateVariable(models.Model):
 
     @api.constrains('field_name')
     def _check_field_name(self):
-        is_system = self.user_has_groups('base.group_system')
+        is_system = self.env.user.has_group('base.group_system')
         for variable in self.filtered('field_name'):
             model = self.env[variable.model]
             if not is_system:

@@ -481,16 +481,23 @@ class TestEditView(TestStudioController):
         self.assertViewArchEqual(base_view.get_combined_arch(), expected_arch)
 
     def test_edit_attribute_studio_groups_tree_column_invisible(self):
+        test_group = self.env['res.groups'].create({'name': 'test_group'})
+        self.env['ir.model.data'].create({
+            'module': 'base',
+            'name': 'test_group',
+            'model': 'res.groups',
+            'res_id': test_group.id,
+        })
         for view_type, arch, expected_modifiers in [
             ('tree', """
                 <tree>
-                    <field name="name" groups="base.group_no_one"/>
+                    <field name="name" groups="base.test_group"/>
                 </tree>
             """, {'column_invisible': 'True', 'invisible': None}),
             ('tree', """
                 <tree>
                     <header>
-                        <button name="name" groups="base.group_no_one"/>
+                        <button name="name" groups="base.test_group"/>
                     </header>
                 </tree>
             """, {'invisible': 'True', 'column_invisible': None}),
@@ -498,7 +505,7 @@ class TestEditView(TestStudioController):
                 <form>
                     <field name="child_ids">
                         <tree>
-                            <field name="name" groups="base.group_no_one"/>
+                            <field name="name" groups="base.test_group"/>
                         </tree>
                     </field>
                 </form>
@@ -507,7 +514,7 @@ class TestEditView(TestStudioController):
                 <tree>
                     <field name="child_ids">
                         <form>
-                            <field name="name" groups="base.group_no_one"/>
+                            <field name="name" groups="base.test_group"/>
                         </form>
                     </field>
                 </tree>
@@ -527,6 +534,13 @@ class TestEditView(TestStudioController):
 
     def test_get_view_t_groups(self):
         """Tests the behavior of <t groups="..."></t> blocks with Studio."""
+        test_group = self.env['res.groups'].create({'name': 'test_group'})
+        self.env['ir.model.data'].create({
+            'module': 'base',
+            'name': 'test_group',
+            'model': 'res.groups',
+            'res_id': test_group.id,
+        })
         for view_type, arch, expected_modifiers in [
             # The user has the group of the `<t>` node, the `<t>` node **must remain**, and be visible.
             ('form', """
@@ -539,7 +553,7 @@ class TestEditView(TestStudioController):
             # The user doesn't have the group of the `<t>` node, the `<t>` node **must remain**, and be invisible.
             ('form', """
                 <form>
-                    <t groups="base.group_no_one">
+                    <t groups="base.test_group">
                         <field name="name"/>
                     </t>
                 </form>

@@ -28,7 +28,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
-        if report.user_has_groups('base.group_multi_currency'):
+        if report.env.user.has_group('base.group_multi_currency'):
             options['multi_currency'] = True
         else:
             options['columns'] = [

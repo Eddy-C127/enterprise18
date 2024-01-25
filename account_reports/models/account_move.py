@@ -85,7 +85,7 @@ class AccountMove(models.Model):
         move exists for that company (whatever their foreign VAT fiscal position) before or at that date, meaning that
         all the tax closings have been performed so far.
         """
-        if not self.user_has_groups('account.group_account_manager'):
+        if not self.env.user.has_group('account.group_account_manager'):
             raise UserError(_('Only Billing Administrators are allowed to change lock dates!'))
 
         tax_closing_activity_type = self.env.ref('account_reports.tax_closing_activity_type')

@@ -115,7 +115,7 @@ class IotChannel(models.Model):
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company) #One2one
 
     def get_iot_channel(self):
-        if self.env.is_system() or self.env.user.has_group('base.group_user'):
+        if self.env.is_system() or self.env.user._is_internal():
             iot_channel = self.env['iot.channel'].search([('company_id', "=", self.env.company.id)], limit=1)
             if not iot_channel.ids:
                 iot_channel = self.env['iot.channel'].sudo().create({})

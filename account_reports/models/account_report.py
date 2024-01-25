@@ -718,7 +718,7 @@ class AccountReport(models.Model):
             return
 
 
-        if self.user_has_groups('analytic.group_analytic_accounting'):
+        if self.env.user.has_group('analytic.group_analytic_accounting'):
             previous_analytic_accounts = (previous_options or {}).get('analytic_accounts', [])
             analytic_account_ids = [int(x) for x in previous_analytic_accounts]
             selected_analytic_accounts = self.env['account.analytic.account'].with_context(active_test=False).search([('id', 'in', analytic_account_ids)])
@@ -1355,7 +1355,7 @@ class AccountReport(models.Model):
         options['column_groups'] = column_groups
         # Debug column is only shown when there is a single column group, so that we can display all the subtotals of the line in a clear way
         options['show_debug_column'] = options['export_mode'] != 'print' \
-                                       and self.user_has_groups('base.group_no_one') \
+                                       and self.env.user.has_group('base.group_no_one') \
                                        and len(options['column_groups']) == 1 \
                                        and len(self.line_ids) > 0 # No debug column on fully dynamic reports by default (they can customize this)
 
@@ -2376,7 +2376,7 @@ class AccountReport(models.Model):
             applied_carryover_value = target_line_res_dict.get('_applied_carryover_%s' % column_expr_label, {}).get('value', 0)
             if self.env.company.currency_id.compare_amounts(0, applied_carryover_value) != 0:
                 info_popup_data['applied_carryover'] = self._format_value(options, applied_carryover_value, 'monetary')
-                info_popup_data['allow_carryover_audit'] = self.user_has_groups('base.group_no_one')
+                info_popup_data['allow_carryover_audit'] = self.env.user.has_group('base.group_no_one')
                 info_popup_data['expression_id'] = line_expressions_map['_applied_carryover_%s' % column_expr_label]['id']
                 info_popup_data['column_group_key'] = column_data['column_group_key']
 
@@ -4353,9 +4353,9 @@ class AccountReport(models.Model):
             },
             'footnotes': self.get_footnotes(options),
             'groups': {
-                'analytic_accounting': self.user_has_groups('analytic.group_analytic_accounting'),
-                'account_readonly': self.user_has_groups('account.group_account_readonly'),
-                'account_user': self.user_has_groups('account.group_account_user'),
+                'analytic_accounting': self.env.user.has_group('analytic.group_analytic_accounting'),
+                'account_readonly': self.env.user.has_group('account.group_account_readonly'),
+                'account_user': self.env.user.has_group('account.group_account_user'),
             },
             'lines': self._get_lines(options, all_column_groups_expression_totals=all_column_groups_expression_totals, warnings=warnings),
             'warnings': warnings,

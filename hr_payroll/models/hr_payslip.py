@@ -364,7 +364,7 @@ class HrPayslip(models.Model):
             payslip.sum_worked_hours = sum([line.number_of_hours for line in payslip.worked_days_line_ids if not line.is_credit_time])
 
     def _compute_is_superuser(self):
-        self.update({'is_superuser': self.env.user._is_superuser() and self.user_has_groups("base.group_no_one")})
+        self.is_superuser = self.env.user._is_superuser() and self.env.user.has_group('base.group_no_one')
 
     def _compute_has_refund_slip(self):
         # This field is only used to know whether we need a confirm on refund or not
@@ -1216,7 +1216,7 @@ class HrPayslip(models.Model):
 
     def action_edit_payslip_lines(self):
         self.ensure_one()
-        if not self.user_has_groups('hr_payroll.group_hr_payroll_manager'):
+        if not self.env.user.has_group('hr_payroll.group_hr_payroll_manager'):
             raise UserError(_('This action is restricted to payroll managers only.'))
         if self.state == 'done':
             raise UserError(_('This action is forbidden on validated payslips.'))

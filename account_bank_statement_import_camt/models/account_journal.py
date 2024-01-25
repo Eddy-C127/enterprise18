@@ -45,7 +45,7 @@ class AccountJournal(models.Model):
         currency_per_iban = {}
         unique_import_set = set([])
         currency = account_no = False
-        has_multi_currency = self.env.user.user_has_groups('base.group_multi_currency')
+        has_multi_currency = self.env.user.has_group('base.group_multi_currency')
         journal_currency = self.currency_id or self.company_id.currency_id
         for statement in root[0].findall('ns:Stmt', ns):
             statement_vals = {}

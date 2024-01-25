@@ -74,8 +74,8 @@ class Forecast(models.Model):
         # A timesheet approver will be able to open any slot's timesheets, however
         # a regular employee will need to be a timesheet user AND be assigned to this slot
         # to be able to open them.
-        is_approver = self.user_has_groups('hr_timesheet.group_hr_timesheet_approver')
-        is_user = is_approver or self.user_has_groups('hr_timesheet.group_hr_timesheet_user')
+        is_approver = self.env.user.has_group('hr_timesheet.group_hr_timesheet_approver')
+        is_user = is_approver or self.env.user.has_group('hr_timesheet.group_hr_timesheet_user')
         if not is_user:
             self.can_open_timesheets = False
         else:

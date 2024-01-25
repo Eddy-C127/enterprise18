@@ -156,7 +156,7 @@ class JournalReportCustomHandler(models.AbstractModel):
             if line_id not in unfolded_lines:
                 unfolded_lines.append(line_id)
 
-        if self.user_has_groups('base.group_multi_currency'):
+        if self.env.user.has_group('base.group_multi_currency'):
             options['multi_currency'] = True
 
     def _custom_line_postprocessor(self, report, options, lines, warnings=None):
@@ -306,7 +306,7 @@ class JournalReportCustomHandler(models.AbstractModel):
                 # This can happen if we have two lines only and a ref: the ref take the name of the second line and we need a new one for the currency.
                 if general_line_vals['is_multicurrency'] \
                         and len(move_line_vals_list) == 2 \
-                        and self.user_has_groups('base.group_multi_currency') \
+                        and self.env.user.has_group('base.group_multi_currency') \
                         and lines[-1]['name'] != multicurrency_name \
                         and journal.type != 'bank':
                     lines.append({
@@ -379,7 +379,7 @@ class JournalReportCustomHandler(models.AbstractModel):
         :param journal_type: the journal type
         """
         columns = []
-        has_multicurrency = self.user_has_groups('base.group_multi_currency')
+        has_multicurrency = self.env.user.has_group('base.group_multi_currency')
         report = self.env['account.report'].browse(options['report_id'])
         for column in options['columns']:
             if column['expression_label'] == 'additional_col_1':
@@ -683,7 +683,7 @@ class JournalReportCustomHandler(models.AbstractModel):
         """
         # Returns the first occurrence. There is only one column group anyway.
         for column_group_key in options['column_groups']:
-            if journal.type == 'bank' or not (self.user_has_groups('base.group_multi_currency') and values[column_group_key]['is_multicurrency']):
+            if journal.type == 'bank' or not (self.env.user.has_group('base.group_multi_currency') and values[column_group_key]['is_multicurrency']):
                 amount_currency_name = ''
             else:
                 amount_currency_name = _(
@@ -738,7 +738,7 @@ class JournalReportCustomHandler(models.AbstractModel):
                     report._build_column_dict(current_balance, {'figure_type': 'monetary', 'expression_label': 'additional_col_1'}, options=options),
                     report._build_column_dict('', {'figure_type': 'string', 'expression_label': 'additional_col_2'}, options=options),
                 ]
-            if self.user_has_groups('base.group_multi_currency') and values['move_line_currency'] != values['company_currency']:
+            if self.env.user.has_group('base.group_multi_currency') and values['move_line_currency'] != values['company_currency']:
                 amount = -values['amount_currency'] if not is_unreconciled_payment else values['amount_currency']
                 additional_col[-1] = report._build_column_dict(
                     amount,

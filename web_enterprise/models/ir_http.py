@@ -22,11 +22,10 @@ class Http(models.AbstractModel):
 
     def session_info(self):
         ICP = self.env['ir.config_parameter'].sudo()
-        User = self.env['res.users']
 
-        if User.has_group('base.group_system'):
+        if self.env.user.has_group('base.group_system'):
             warn_enterprise = 'admin'
-        elif User.has_group('base.group_user'):
+        elif self.env.user._is_internal():
             warn_enterprise = 'user'
         else:
             warn_enterprise = False

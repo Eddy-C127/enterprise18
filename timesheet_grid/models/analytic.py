@@ -131,8 +131,8 @@ class AnalyticLine(models.Model):
 
     @api.depends_context('uid')
     def _compute_can_validate(self):
-        is_manager = self.user_has_groups('hr_timesheet.group_timesheet_manager')
-        is_approver = self.user_has_groups('hr_timesheet.group_hr_timesheet_approver')
+        is_manager = self.env.user.has_group('hr_timesheet.group_timesheet_manager')
+        is_approver = self.env.user.has_group('hr_timesheet.group_hr_timesheet_approver')
         for line in self:
             if is_manager or (is_approver and (
                 line.employee_id.timesheet_manager_id.id == self.env.user.id or
@@ -188,7 +188,7 @@ class AnalyticLine(models.Model):
                 'sticky': False,  #True/False will display for few seconds if false
             },
         }
-        if not self.user_has_groups('hr_timesheet.group_hr_timesheet_approver'):
+        if not self.env.user.has_group('hr_timesheet.group_hr_timesheet_approver'):
             notification['params'].update({
                 'message': _("You can only validate the timesheets of employees of whom you are the manager or the timesheet approver."),
                 'type': 'danger'
@@ -234,7 +234,7 @@ class AnalyticLine(models.Model):
                 'sticky': False,
             },
         }
-        if not self.user_has_groups('hr_timesheet.group_hr_timesheet_approver'):
+        if not self.env.user.has_group('hr_timesheet.group_hr_timesheet_approver'):
             raise AccessError(_("You can only reset to draft the timesheets of employees of whom you are the manager or the timesheet approver."))
         #Use the same domain for validation but change validated = False to validated = True
         domain = self._get_domain_for_validation_timesheets(validated=True)
@@ -258,8 +258,8 @@ class AnalyticLine(models.Model):
         return True
 
     def check_if_allowed(self, vals=None, delete=False,):
-        if not self.user_has_groups('hr_timesheet.group_timesheet_manager'):
-            is_timesheet_approver = self.user_has_groups('hr_timesheet.group_hr_timesheet_approver')
+        if not self.env.user.has_group('hr_timesheet.group_timesheet_manager'):
+            is_timesheet_approver = self.env.user.has_group('hr_timesheet.group_hr_timesheet_approver')
             employees = self.env['hr.employee'].with_context(active_test=False).search([
                 ('id', 'in', self.employee_id.ids),
                 ('user_id', '!=', self._uid),
@@ -296,14 +296,17 @@ class AnalyticLine(models.Model):
     def _check_can_create(self):
 
         # Check if the user has the correct access to create timesheets
-        if not (self.user_has_groups('hr_timesheet.group_hr_timesheet_approver') or self.env.su) and any(line.is_timesheet and line.user_id.id != self.env.user.id for line in self):
+        if (
+            not (self.env.user.has_group('hr_timesheet.group_hr_timesheet_approver') or self.env.su)
+            and any(line.is_timesheet and line.user_id != self.env.user for line in self)
+        ):
             raise AccessError(_("You cannot access timesheets that are not yours."))
         self.check_if_allowed()
 
         return super()._check_can_create()
 
     def _check_can_write(self, vals):
-        if not self.user_has_groups('hr_timesheet.group_hr_timesheet_approver'):
+        if not self.env.user.has_group('hr_timesheet.group_hr_timesheet_approver'):
             if 'validated' in vals:
                 raise AccessError(_('You can only validate the timesheets of employees of whom you are the manager or the timesheet approver.'))
             elif self.filtered(lambda r: r.is_timesheet and r.validated):
@@ -371,7 +374,7 @@ class AnalyticLine(models.Model):
 
     @api.ondelete(at_uninstall=False)
     def _unlink_if_manager(self):
-        if not self.user_has_groups('hr_timesheet.group_hr_timesheet_approver') and self.filtered(
+        if not self.env.user.has_group('hr_timesheet.group_hr_timesheet_approver') and self.filtered(
                 lambda r: r.is_timesheet and r.validated):
             raise AccessError(_('You cannot delete a validated entry. Please contact your manager or your timesheet approver.'))
 
@@ -752,7 +755,7 @@ class AnalyticLine(models.Model):
                 [("date", "<=", fields.Date.today())],
             ])
 
-        if not self.user_has_groups('hr_timesheet.group_timesheet_manager'):
+        if not self.env.user.has_group('hr_timesheet.group_timesheet_manager'):
             return expression.AND([
                 domain,
                 [

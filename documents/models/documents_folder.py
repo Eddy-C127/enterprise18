@@ -122,7 +122,7 @@ class DocumentFolder(models.Model):
     @api.depends_context('uid')
     def _compute_has_write_access(self):
         current_user_groups_ids = self.env.user.groups_id
-        has_write_access = self.user_has_groups('documents.group_documents_manager')
+        has_write_access = self.env.user.has_group('documents.group_documents_manager')
         if has_write_access:
             self.has_write_access = True
             return

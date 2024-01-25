@@ -127,7 +127,7 @@ class HrAppraisal(models.Model):
             'can_see_manager_publish': False,
         })
         user_employees = self.env.user.employee_ids
-        is_manager = self.env.user.user_has_groups('hr_appraisal.group_hr_appraisal_user')
+        is_manager = self.env.user.has_group('hr_appraisal.group_hr_appraisal_user')
         for appraisal in self:
             # Appraisal manager can edit feedback in draft state
             appraisal.can_see_employee_publish = appraisal.employee_id in user_employees or \
@@ -144,7 +144,7 @@ class HrAppraisal(models.Model):
         for appraisal in self:
             appraisal.manager_user_ids = appraisal.manager_ids.user_id
             appraisal.is_manager =\
-                self.user_has_groups('hr_appraisal.group_hr_appraisal_user')\
+                self.env.user.has_group('hr_appraisal.group_hr_appraisal_user')\
                 or self.env.user.employee_ids in (appraisal.manager_ids | appraisal.employee_id.parent_id)
 
     @api.depends_context('uid')

@@ -113,7 +113,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
 
         options['forced_domain'] = options.get('forced_domain', []) + domain
 
-        if self.user_has_groups('base.group_multi_currency'):
+        if self.env.user.has_group('base.group_multi_currency'):
             options['multi_currency'] = True
 
     def _custom_unfold_all_batch_data_generator(self, report, options, lines_to_expand_by_function):

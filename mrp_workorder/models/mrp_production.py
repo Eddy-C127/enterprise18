@@ -167,7 +167,7 @@ class MrpProduction(models.Model):
         self.env['procurement.group'].run_scheduler()
         MO.action_confirm()
 
-        if self.user_has_groups('mrp.group_mrp_routings'):
+        if self.env.user.has_group('mrp.group_mrp_routings'):
             WC = self.env['mrp.workcenter']._load_records([{'xml_id': 'mrp.mrp_workcenter_3', 'noupdate': True, 'values': {
                 'name': 'Assembly line 1',
                 'resource_calendar_id': self.env.ref('resource.resource_calendar_std').id,

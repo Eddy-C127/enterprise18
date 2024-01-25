@@ -15,7 +15,7 @@ class User(models.Model):
     def get_employee_autocomplete_ids(self):
         self.ensure_one()
         Employee = self.env['hr.employee']
-        if self.user_has_groups('hr_appraisal.group_hr_appraisal_user'):
+        if self.env.user.has_group('hr_appraisal.group_hr_appraisal_user'):
             return Employee.search([('company_id', 'in', self.env.companies.ids)])
         user_employees = Employee.search([('user_id', '=', self.env.user.id)])
         children = Employee

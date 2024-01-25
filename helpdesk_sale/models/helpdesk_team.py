@@ -31,7 +31,7 @@ class HelpdeskTeam(models.Model):
     def _check_helpdesk_sale_timesheet_group(self):
         use_sale_timesheet_group = self.env.ref('helpdesk_sale.group_use_helpdesk_sale_timesheet')
         sale_teams = self.filtered('use_helpdesk_sale_timesheet')
-        user_has_use_sale_timesheet_group = self.user_has_groups('helpdesk_sale.group_use_helpdesk_sale_timesheet')
+        user_has_use_sale_timesheet_group = self.env.user.has_group('helpdesk_sale.group_use_helpdesk_sale_timesheet')
 
         if sale_teams and not user_has_use_sale_timesheet_group:
             self._get_helpdesk_user_group()\

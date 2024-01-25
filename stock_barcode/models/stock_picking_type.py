@@ -55,9 +55,9 @@ class StockPickingType(models.Model):
         for picking_type in self:
             # reflect all fields invisible conditions
             hide_full = picking_type.restrict_scan_product
-            hide_all_product_packed = not self.user_has_groups('stock.group_tracking_lot') or\
+            hide_all_product_packed = not self.env.user.has_group('stock.group_tracking_lot') or\
                                       picking_type.restrict_put_in_pack != 'optional'
-            hide_dest_location = not self.user_has_groups('stock.group_stock_multi_locations') or\
+            hide_dest_location = not self.env.user.has_group('stock.group_stock_multi_locations') or\
                                  (picking_type.code == 'outgoing' or picking_type.restrict_scan_dest_location != 'optional')
             # show if not all hidden
             picking_type.show_barcode_validation = not (hide_full and hide_all_product_packed and hide_dest_location)

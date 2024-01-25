@@ -415,7 +415,7 @@ class HelpdeskTeam(models.Model):
             :param check_user_has_group: If True, then check if the user has the `group_use_sla`
             :return True if the feature is enabled otherwise False.
         """
-        user_has_group = self.user_has_groups('helpdesk.group_use_sla') if check_user_has_group else True
+        user_has_group = self.env.user.has_group('helpdesk.group_use_sla') if check_user_has_group else True
         return user_has_group and self.env['helpdesk.team'].search([('use_sla', '=', True)], limit=1)
 
     def _check_rating_feature_enabled(self, check_user_has_group=False):
@@ -427,14 +427,14 @@ class HelpdeskTeam(models.Model):
             :param check_user_has_group: If True, then check if the user has the `group_use_rating`
             :return True if the feature is enabled otherwise False.
         """
-        user_has_group = self.user_has_groups('helpdesk.group_use_rating') if check_user_has_group else True
+        user_has_group = self.env.user.has_group('helpdesk.group_use_rating') if check_user_has_group else True
         return user_has_group and self.env['helpdesk.team'].search([('use_rating', '=', True)], limit=1)
 
     def _check_sla_group(self):
         sla_teams = self.filtered('use_sla')
         non_sla_teams = self - sla_teams
         use_sla_group = helpdesk_user_group = None
-        user_has_use_sla_group = self.user_has_groups('helpdesk.group_use_sla')
+        user_has_use_sla_group = self.env.user.has_group('helpdesk.group_use_sla')
 
         if sla_teams:
             if not user_has_use_sla_group:
@@ -455,7 +455,7 @@ class HelpdeskTeam(models.Model):
 
     def _check_rating_group(self):
         rating_teams = self.filtered('use_rating')
-        user_has_use_rating_group = self.user_has_groups('helpdesk.group_use_rating')
+        user_has_use_rating_group = self.env.user.has_group('helpdesk.group_use_rating')
         rating_helpdesk_email_template = self.env.ref('helpdesk.rating_ticket_request_email_template')
 
         if rating_teams and not user_has_use_rating_group:
@@ -473,7 +473,7 @@ class HelpdeskTeam(models.Model):
             self.env['helpdesk.stage'].search([('template_id', '=', self.env.ref('helpdesk.rating_ticket_request_email_template').id)]).template_id = False
 
     def _check_auto_assignment_group(self):
-        has_auto_assignment_group = self.user_has_groups('helpdesk.group_auto_assignment')
+        has_auto_assignment_group = self.env.user.has_group('helpdesk.group_auto_assignment')
         has_auto_assignment = self.env['helpdesk.team'].search_count([('auto_assignment', '=', True)], limit=1)
         group_auto_assignment = self.env.ref('helpdesk.group_auto_assignment')
         if has_auto_assignment and not has_auto_assignment_group:
@@ -509,7 +509,7 @@ class HelpdeskTeam(models.Model):
 
     @api.model
     def check_features_enabled(self, updated_features=None):
-        if not self.user_has_groups("helpdesk.group_helpdesk_user"):
+        if not self.env.user.has_group("helpdesk.group_helpdesk_user"):
             return {}
         if updated_features is None:
             return {key: bool(check_method()) for key, check_method in self._get_field_check_method().items()}

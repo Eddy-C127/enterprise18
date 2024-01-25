@@ -20,7 +20,7 @@ class EventSocial(models.Model):
     def action_send_push(self):
         self.ensure_one()
 
-        if not self.user_has_groups('social.group_social_user'):
+        if not self.env.user.has_group('social.group_social_user'):
             raise AccessError(_('You do not have access to this action.'))
 
         action = self.env['ir.actions.act_window']._for_xml_id('social.action_social_post')
@@ -42,5 +42,5 @@ class EventSocial(models.Model):
 
     def action_send_push_reminders(self):
         # TODO awa: remove me in master and keep implementation in website_event_track_social module
-        if not self.user_has_groups('social.group_social_user'):
+        if not self.env.user.has_group('social.group_social_user'):
             raise AccessError(_('You do not have access to this action.'))

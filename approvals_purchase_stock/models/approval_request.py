@@ -12,7 +12,7 @@ class ApprovalRequest(models.Model):
 
     @api.depends('approval_type', 'has_location')
     def _compute_hide_location(self):
-        multi_warehouse = self.user_has_groups('stock.group_stock_multi_warehouses')
+        multi_warehouse = self.env.user.has_group('stock.group_stock_multi_warehouses')
         for request in self:
             request.hide_location = (
                 request.has_location == 'no' or (multi_warehouse and request.approval_type == 'purchase')

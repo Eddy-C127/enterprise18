@@ -21,7 +21,7 @@ class HrAttendance(models.Model):
 
     @api.model
     def gantt_progress_bar(self, fields, res_ids, date_start_str, date_stop_str):
-        if not self.user_has_groups("base.group_user"):
+        if not self.env.user._is_internal():
             return {field: {} for field in fields}
 
         start_utc, stop_utc = string_to_datetime(date_start_str), string_to_datetime(date_stop_str)
