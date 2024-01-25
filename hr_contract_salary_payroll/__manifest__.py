@@ -14,6 +14,7 @@
         'views/menuitems.xml',
         'views/hr_contract_views.xml',
         'views/hr_contract_salary_template.xml',
+        'views/hr_payroll_headcount.xml',
     ],
     'license': 'OEEL-1',
     'auto_install': True,

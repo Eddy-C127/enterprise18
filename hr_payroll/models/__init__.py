@@ -27,3 +27,4 @@ from . import hr_salary_attachment_type
 from . import note
 from . import hr_payroll_employee_declaration
 from . import hr_payroll_declaration_mixin
+from . import hr_payroll_headcount
