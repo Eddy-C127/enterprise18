@@ -953,8 +953,7 @@ class SaleOrder(models.Model):
         action.update({
             'name': _('MRR changes'),
             'domain': [('order_id', 'in', genealogy_orders_ids.ids)],
-            'context': {'search_default_group_by_event_date': 1,
-                        'mrr_order_currency': self.currency_id.id},
+            'context': {'search_default_group_by_event_date': 1},
         })
         return action
 
