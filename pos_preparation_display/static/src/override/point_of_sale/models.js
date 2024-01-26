@@ -8,18 +8,11 @@ patch(Order.prototype, {
     async sendChanges(cancelled) {
         await this.pos.sendDraftToServer();
 
-        const lastOrderPreparationChange = await this.pos.data.call(
+        await this.pos.data.call(
             "pos_preparation_display.order",
             "process_order",
             [this.server_id, cancelled]
         );
-        if (lastOrderPreparationChange) {
-            try {
-                this.lastOrderPrepaChange = JSON.parse(lastOrderPreparationChange);
-            } catch {
-                this.lastOrderPrepaChange = {};
-            }
-        }
 
         return true;
     },

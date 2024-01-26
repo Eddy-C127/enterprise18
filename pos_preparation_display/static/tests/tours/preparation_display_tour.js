@@ -45,3 +45,17 @@ registry.category("web_tour.tours").add("PreparationDisplayTour", {
             ReceiptScreen.clickNextOrder(),
         ].flat(),
 });
+
+registry.category("web_tour.tours").add("PreparationDisplayPrinterTour", {
+    test: true,
+    steps: () =>
+        [
+            Dialog.confirm("Open session"),
+            ProductScreen.addOrderline("Letter Tray"),
+            ProductScreen.clickPayButton(),
+            PaymentScreen.clickPaymentMethod("Bank"),
+            PaymentScreen.clickValidate(),
+            //This steps is making sure that we atleast tried to call the printer
+            Dialog.is({title:"Printing failed"}),
+        ].flat(),
+});
