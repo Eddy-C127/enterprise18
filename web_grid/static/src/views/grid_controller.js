@@ -105,6 +105,10 @@ export class GridController extends Component {
         );
     }
 
+    get displayAddALine() {
+        return this.props.archInfo.activeActions.create;
+    }
+
     get hasDisplayableData() {
         return true;
     }

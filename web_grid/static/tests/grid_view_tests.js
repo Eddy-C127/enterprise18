@@ -1581,7 +1581,7 @@ QUnit.module("Views", (hooks) => {
         }
     );
 
-    QUnit.test("create_inline: test add a line in the grid view", async function (assert) {
+    QUnit.test("Test add a line in the grid view", async function (assert) {
         await makeView({
             type: "grid",
             resModel: "analytic.line",
@@ -1602,10 +1602,10 @@ QUnit.module("Views", (hooks) => {
             },
         });
 
-        assert.containsNone(
+        assert.containsOnce(
             target,
             ".o_grid_button_add:visible",
-            "'Add a line' control panel button should not be visible"
+            "'Add a line' control panel button should be visible"
         );
         assert.deepEqual(
             getNodesTextContent(target.querySelectorAll(".o_grid_renderer .o_grid_add_line a")),
@@ -1616,71 +1616,12 @@ QUnit.module("Views", (hooks) => {
         assert.containsOnce(target, ".modal");
         await click(target, ".modal .modal-footer button.o_form_button_cancel");
         await click(target, ".o_grid_navigation_buttons button span.oi-arrow-right");
-        assert.containsNone(
-            target,
-            ".o_grid_add_line a",
-            "No Add a line button should be displayed when no data is found"
-        );
         assert.containsOnce(
             target,
             ".o_grid_button_add:visible",
             "'Add a line' control panel button should be visible"
         );
     });
-
-    QUnit.test(
-        "create_inline=true and display_empty=true: test add a line in the grid view",
-        async function (assert) {
-            await makeView({
-                type: "grid",
-                resModel: "analytic.line",
-                serverData,
-                arch: `<grid create_inline="1" display_empty="1">
-                    <field name="project_id" type="row"/>
-                    <field name="task_id" type="row"/>
-                    <field name="date" type="col">
-                        <range name="week" string="Week" span="week" step="day"/>
-                        <range name="month" string="Month" span="month" step="day"/>
-                    </field>
-                    <field name="unit_amount" type="measure" widget="float_time"/>
-                </grid>`,
-                async mockRPC(route, args) {
-                    if (args.method === "grid_unavailability") {
-                        return {};
-                    }
-                },
-                domain: Domain.FALSE.toList({}),
-            });
-            assert.containsOnce(
-                target,
-                ".o_grid_add_line a",
-                "The Add a line button should be displayed even if there is no data"
-            );
-            assert.containsNone(
-                target,
-                ".o_grid_button_add:visible",
-                "The 'Add a line' button in the control panel should not be visible."
-            );
-            assert.deepEqual(
-                getNodesTextContent(target.querySelectorAll(".o_grid_renderer .o_grid_add_line a")),
-                ["Add a line "],
-                "A button `Add a line` should be displayed in the grid view"
-            );
-            await click(target, ".o_grid_add_line a");
-            assert.containsOnce(target, ".modal");
-            await click(target, ".modal .modal-footer button.o_form_button_cancel");
-            assert.containsOnce(
-                target,
-                ".o_grid_add_line a",
-                "No Add a line button should be displayed when no data is found"
-            );
-            assert.containsNone(
-                target,
-                ".o_grid_button_add:visible",
-                "'Add a line' control panel button should be visible"
-            );
-        }
-    );
 
     QUnit.test("create/edit disabled for readonly grid view", async function (assert) {
         serverData.models["analytic.line"].fields.validated = {
@@ -1935,10 +1876,10 @@ QUnit.module("Views", (hooks) => {
                 ".o_view_nocontent",
                 "The no content helper should no longer be displayed since display_empty is true in the grid view."
             );
-            assert.containsNone(
+            assert.containsOnce(
                 target,
                 ".o_grid_buttons .o_grid_button_add:visible",
-                "The `Add a Line` button should no longer be displayed near the `Today` one since the no content helper is not displayed."
+                "The `Add a Line` button should be displayed near the `Today` one"
             );
             assert.containsOnce(
                 target,

@@ -102,7 +102,80 @@ QUnit.module("Views", (hooks) => {
             ".o_grid_view",
             "The view should be correctly rendered with the sample data enabled when no data is found"
         );
+
+        assert.containsNone(
+            target,
+            ".o_grid_add_line a",
+            "The 'Add a line' button should not be visible inside the row added via the sample data"
+        );
+        assert.containsOnce(
+            target,
+            ".o_grid_button_add:visible",
+            "The 'Add a line' button should be visible"
+        );
     });
+
+    QUnit.test(
+        "create_inline=true and display_empty=true: test add a line in the grid view",
+        async (assert) => {
+            serverData.views["analytic.line,false,grid"] = serverData.views[
+                "analytic.line,false,grid"
+            ].replace('js_class="timer_timesheet_grid"', 'js_class="timer_timesheet_grid" display_empty="1"');
+            const { openView } = await start({
+                serverData,
+                async mockRPC(route, args) {
+                    if (args.method === "get_running_timer") {
+                        return {
+                            step_timer: 30,
+                        };
+                    } else if (args.method === "action_start_new_timesheet_timer") {
+                        return false;
+                    } else if (args.method === "get_daily_working_hours") {
+                        assert.strictEqual(args.model, "res.users");
+                        return {};
+                    } else if (args.method === "get_server_time") {
+                        assert.strictEqual(args.model, "timer.timer");
+                        return serializeDateTime(DateTime.now());
+                    } else if (args.method === "get_last_validated_timesheet_date") {
+                        return false;
+                    }
+                    return timesheetGridSetup.mockTimesheetGridRPC(route, args);
+                },
+            });
+            await openView({
+                res_model: "analytic.line",
+                views: [[false, "grid"]],
+            });
+            assert.containsOnce(
+                target,
+                ".o_grid_add_line a",
+                "The Add a line button should be displayed even if there is no data"
+            );
+            assert.containsNone(
+                target,
+                ".o_grid_button_add:visible",
+                "The 'Add a line' button in the control panel should not be visible."
+            );
+            assert.deepEqual(
+                getNodesTextContent(target.querySelectorAll(".o_grid_renderer .o_grid_add_line a")),
+                ["Add a line "],
+                "A button `Add a line` should be displayed in the grid view"
+            );
+            await click(target, ".o_grid_add_line a");
+            assert.containsOnce(target, ".modal");
+            await click(target, ".modal .modal-footer button.o_form_button_cancel");
+            assert.containsOnce(
+                target,
+                ".o_grid_add_line a",
+                "No Add a line button should be displayed when no data is found"
+            );
+            assert.containsNone(
+                target,
+                ".o_grid_button_add:visible",
+                "'Add a line' control panel button should be visible"
+            );
+        }
+    );
 
     QUnit.test("basic timesheet timer grid view", async function (assert) {
         const { openView } = await start({
