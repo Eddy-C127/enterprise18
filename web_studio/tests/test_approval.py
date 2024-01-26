@@ -242,13 +242,16 @@ class TestStudioApproval(TransactionCase):
             method=self.METHOD,
             action_id=False)
         self.assertFalse(approval_result.get('approved'), "Manager shouldn't be able to proceed")
-        approval_info = self.env['studio.approval.rule'].with_user(self.manager).get_approval_spec(
-            model=self.MODEL,
-            res_id=self.record.id,
-            method=self.METHOD,
-            action_id=False
-        )
-        manager_entry = list(filter(lambda e: e['user_id'][0] == self.manager.id, approval_info['entries']))
+        approval_info = dict(self.env['studio.approval.rule'].with_user(self.manager).get_approval_spec(
+            [{
+                'model': self.MODEL,
+                'res_id': self.record.id,
+                'method': self.METHOD,
+                'action_id': False
+            }]
+        )[self.MODEL])
+        manager_entry = [e for e in approval_info[(self.record.id, self.METHOD, False)]["entries"]
+                         if e["user_id"][0] == self.manager.id]
         self.assertEqual(len(manager_entry), 1, "Only one rule should have been validated by the manager")
         approval_result = self.env['studio.approval.rule'].with_user(self.user).check_approval(
             model=self.MODEL,
@@ -293,19 +296,19 @@ class TestStudioApproval(TransactionCase):
             'model_id': self.env.ref('base.model_res_company').id,
         })
         # I don't need to assert anything: raise = failure
-        self.env['studio.approval.rule'].with_user(self.manager).get_approval_spec(
-            model=MODEL,
-            res_id=main_company.id,
-            method=METHOD,
-            action_id=False
-        )
+        self.env['studio.approval.rule'].with_user(self.manager).get_approval_spec([{
+            'model': MODEL,
+            'res_id': main_company.id,
+            'method': METHOD,
+            'action_id': False
+        }])
         with self.assertRaises(AccessError, msg="Shouldn't be able to get approval spec on record I can't read"):
-            self.env['studio.approval.rule'].with_user(self.manager).get_approval_spec(
-                model=MODEL,
-                res_id=alternate_company.id,
-                method=METHOD,
-                action_id=False
-            )
+            self.env['studio.approval.rule'].with_user(self.manager).get_approval_spec([{
+                'model': MODEL,
+                'res_id': alternate_company.id,
+                'method': METHOD,
+                'action_id': False
+            }])
         with self.assertRaises(AccessError, msg="Shouldn't be able to set approval on record I can't write on"):
             self.rule.with_user(self.manager).set_approval(res_id=main_company.id, approved=True)
 
@@ -496,6 +499,44 @@ class TestStudioApproval(TransactionCase):
         request_level_1 = lower_level_rule._create_request(self.record.id)
         request_level_2 = self.rule._create_request(self.record.id)
         self.assertFalse(request_level_2, "No approval request can be created for the level 2 rule")
+
+    def test_16_batched_approval_spec(self):
+        """ Test that get_approval_spec accepts multiple requests at once """
+
+        partner_model = self.env.ref('base.model_res_partner')
+        self.rule.active = True
+        self.env['studio.approval.rule'].create({
+            'active': True,
+            'model_id': partner_model.id,
+            'method': 'view_header_get',
+            'message': "You didn't say the magic word 2!",
+            'group_id': self.group_manager.id,
+        })
+
+        all_approvals = self.env['studio.approval.rule'].with_user(self.user).get_approval_spec(
+            [{
+                'model': self.MODEL,
+                'res_id': self.record.id,
+                'method': self.METHOD,
+                'action_id': False
+            }, {
+                'model': self.MODEL,
+                'res_id': self.record.id,
+                'method': "view_header_get",
+                'action_id': False
+            }]
+        )
+
+        approval_info = dict(all_approvals[self.MODEL])
+        self.assertEqual(len(approval_info), 2, "Should have received 2 approval specs")
+
+        approval_method = approval_info[(self.record.id, self.METHOD, False)]
+        rule = all_approvals["all_rules"][approval_method["rules"][0]]
+        self.assertEqual(rule["message"], "You didn't say the magic word!")
+
+        approval_header_get = approval_info[(self.record.id, "view_header_get", False)]
+        rule = all_approvals["all_rules"][approval_header_get["rules"][0]]
+        self.assertEqual(rule["message"], "You didn't say the magic word 2!")
 
 @tagged('post_install', '-at_install')
 class TestStudioApprovalPost(TransactionCase):

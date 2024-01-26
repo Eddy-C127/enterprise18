@@ -446,8 +446,129 @@ class StudioApprovalRule(models.Model):
         return self
 
     @api.model
-    def get_approval_spec(self, model, method, action_id, res_id=False):
-        """Get the approval spec for a specific button and a specific record.
+    def _get_approval_spec(self, model, spec):
+        """
+        Gets the approval specification for a given model according
+        to specifications. Those are a directory of what approvals and
+        entries we should fetch, based on method, action_id and res_id
+
+        Arguments:
+            :param model: string
+                the name of the model of which we want the approvals
+            :param spec: dict
+                An object containing the specifications of the approvals we want.
+                {
+                    (method, action_id): set<int>,
+                    ...
+                }
+                Note that method and action_id are mutually exclusive. The tuple allows to both be used as
+                a dict key and to know where to find the relevant information.
+
+        Returns:
+            :returns  tuple: (model, map_rules, results)
+                model: the model's name
+                map_rules: dict: {
+                    int: { **record.read() },
+                    ...
+                }
+                results: dict: {
+                    (res_id, method, action_id): { "rules": int[], "entries": dict[] },
+                    ...
+                }
+        """
+        records = self.env[model]
+        records.check_access_rights('read')
+
+        # Harvest all res_ids, method names, and action_ids
+        # to be able to pass one batching search query
+        all_res_ids = set()
+        all_methods = set()
+        all_action_ids = set()
+        for (method, action_id), ids in spec.items():
+            all_res_ids |= ids
+            if method:
+                all_methods.add(method)
+            if action_id:
+                all_action_ids.add(action_id)
+        res_ids = [_id for _id in all_res_ids if _id]
+        if res_ids:
+            records = records.browse(res_ids).exists()
+            # we check that the user has read access on the underlying record before returning anything
+            records.check_access_rule('read')
+
+        # Search every rule matching all methods and actions: we'll map those results afterwards
+        rules_domain = [('model_name', '=', model)]
+        rules_domain = expression.AND([rules_domain, [
+            "|", ("method", "in", list(all_methods)),
+            ("action_id", "in", list(all_action_ids))
+        ]])
+        rules_data = self.sudo().search_read(
+            domain=rules_domain,
+            fields=['group_id', 'message', 'exclusive_user', 'domain', 'can_validate', 'responsible_id', 'users_to_notify', 'notification_order', 'action_id', 'method'],
+            order='notification_order asc, exclusive_user desc, id asc')
+
+        # Process rules by remapping to the specs
+        # Harvest data to be able to search for entries afterwards
+        # Start building the result: each res_id in the spec matches
+        # a key (res_id, method, action_id)
+        results = defaultdict(dict)
+        res_ids_for_entries = set()
+        rule_ids_for_entries = set()
+        map_rules = {}
+        for rule in rules_data:
+            map_rules[rule["id"]] = rule
+
+            res_ids_for_rule = spec[(rule["method"], rule["action_id"])]
+            records_for_rule = records.browse([_id for _id in res_ids_for_rule if _id]).with_prefetch(records.ids or None)
+            # in JS, an empty array will be truthy and I don't want to start using JSON parsing
+            # instead, empty domains are replace by False here
+            # done for stupid UI reasons that would take much more code to be fixed client-side
+            rule_domain = rule.get('domain') and literal_eval(rule['domain'])
+            rule['domain'] = rule_domain or False
+
+            record_ids_for_result = list()
+            if records_for_rule:
+                if not rule_domain:
+                    record_ids_for_result = records_for_rule.ids
+                else:
+                    impacted_records = records_for_rule.filtered_domain(rule_domain)
+                    record_ids_for_result = impacted_records.ids
+
+            # Push rule here to search for entries
+            # we won't fetch entries for the False res_id
+            if record_ids_for_result:
+                rule_ids_for_entries.add(rule["id"])
+
+            if False in res_ids_for_rule:
+                record_ids_for_result.append(False)
+
+            for res_id in record_ids_for_result:
+                if res_id:  # Don't push "False": we don't want to pass a useless search query
+                    res_ids_for_entries.add(res_id)
+                res_key = (res_id, rule["method"], rule["action_id"])
+                results[res_key] = results.get(res_key, {"rules": [], "entries": []})
+                results[res_key]["rules"].append(rule["id"])
+
+        if rule_ids_for_entries:
+            # Search for entries according to res_ids and rule_ids: we'll re-group them after
+            # done in sudo as users can only see their own entries through ir.rules
+            entries_data = self.env['studio.approval.entry'].sudo().search_read(
+                domain=[('model', '=', model), ('res_id', 'in', list(res_ids_for_entries)), ('rule_id', 'in', list(rule_ids_for_entries))],
+                fields=['approved', 'user_id', 'write_date', 'rule_id', 'model', 'res_id'])
+
+            # Process entries
+            # fillup each returned approval_spec according to the key
+            # (res_id, method, action_id) with the matching entries.
+            for entry in entries_data:
+                rule = map_rules[entry["rule_id"][0]]
+                key = (entry["res_id"], rule["method"], rule["action_id"])
+                results[key]["entries"].append(entry)
+
+        return model, map_rules, results
+
+    @api.model
+    def get_approval_spec(self, args_list):
+        """Get the approval spec for a list of buttons and records.
 
         An approval spec is a dict containing information regarding approval rules
         and approval entries for the action described with the model/method/action_id
@@ -473,13 +594,19 @@ class StudioApprovalRule(models.Model):
         through Studio as you always want a full description of the rules regardless of the record
         visible in the view while you edit them.
 
-        :param str model: technical name of the model for the requested spec
-        :param str method: method for the spec
-        :param int action_id: database ID of the ir.actions.action record for the spec
-        :param int res_id: database ID of the record for which the spec must be checked
-            Defaults to False
-        :return: a dict describing the rules for the specified action and existing entries for the
-                 current record and applicable rules found
+        :param list args_list: A list of dictionaries containing the following keys:
+            - model (str): Technical name of the model for the requested spec.
+            - method (str): Method for the spec.
+            - action_id (int): Database ID of the ir.actions.action record for the spec.
+            - res_id (int): Database ID of the record for which the spec must be checked.
+                Defaults to False.
+        :return: a dict containing all rules that are used by by records.
+                records are contained under their model's key, under the form of a list of tuples
+                So doing dict(get_approval_spec[model_name]) gives all the records keyed by (res_id, method, action_id)
+                {
+                    "all_rules": { [id]: rule },
+                    [model_name]: [((res_id, method, action_id), { rules: [], entries: [] }), ... ]
+                }
         :rtype dict:
         :raise: UserError if action_id and method are both truthy (rules can only apply to a method
                 or an action, not both)
@@ -487,39 +614,39 @@ class StudioApprovalRule(models.Model):
                 if res_id is specified)
         """
         self = self._clean_context()
-        if method and action_id:
-            raise UserError(_('Approvals can only be done on a method or an action, not both.'))
-        Model = self.env[model]
-        Model.check_access_rights('read')
-        if res_id:
-            record = Model.browse(res_id).exists()
-            # we check that the user has read access on the underlying record before returning anything
-            record.check_access_rule('read')
-        domain = self._get_rule_domain(model, method, action_id)
-        rules_data = self.sudo().search_read(
-            domain=domain,
-            fields=['group_id', 'message', 'exclusive_user', 'domain', 'can_validate', 'responsible_id', 'users_to_notify', 'notification_order'],
-            order='notification_order asc, exclusive_user desc, id asc')
-        applicable_rule_ids = list()
-        for rule in rules_data:
-            # in JS, an empty array will be truthy and I don't want to start using JSON parsing
-            # instead, empty domains are replace by False here
-            # done for stupid UI reasons that would take much more code to be fixed client-side
-            rule_domain = rule.get('domain') and literal_eval(rule['domain'])
-            rule['domain'] = rule_domain or False
+        # First, group all arguments to get a dictionary of the form
+        # {
+        #   [model_name]: {
+        #      (method, action_id): set<int>, ...
+        #   },
+        #   ...
+        # }
+        grouped_model = dict()
+        for args in args_list:
+            method = args.get("method") or False
+            action_id = args.get("action_id") or False
+            action_id = action_id and int(action_id)
+            model = args["model"]
+            model_group = grouped_model[model] = grouped_model.get(model, defaultdict(set))
+            if method and action_id:
+                raise UserError(_('Approvals can only be done on a method or an action, not both.'))
+            res_id = args.get("res_id") or False
             if res_id:
-                if not rule_domain or record.filtered_domain(rule_domain):
-                    # the record matches the domain of the rule
-                    # or the rule has no domain set on it
-                    applicable_rule_ids.append(rule['id'])
-            else:
-                applicable_rule_ids = list(map(lambda r: r['id'], rules_data))
-        rules_data = list(filter(lambda r: r['id'] in applicable_rule_ids, rules_data))
-        # done in sudo as users can only see their own entries through ir.rules
-        entries_data = self.env['studio.approval.entry'].sudo().search_read(
-            domain=[('model', '=', model), ('res_id', '=', res_id), ('rule_id', 'in', applicable_rule_ids)],
-            fields=['approved', 'user_id', 'write_date', 'rule_id', 'model', 'res_id'])
-        return {'rules': rules_data, 'entries': entries_data}
+                res_id = int(res_id)
+            model_group[(method, action_id)].add(res_id)
+
+        # Actually get approval specs for each model
+        # Then, return a dict containing all_rules used by approval specs
+        # and the specs themselves.
+        # we return a list of tuples for each model to be compatible with
+        # a JSON serialization.
+        result = {"all_rules": {}}
+        for model, spec in grouped_model.items():
+            model, rules, results = self._get_approval_spec(model, spec)
+            result["all_rules"].update(rules)
+            result[model] = list(results.items())
+
+        return result
 
     @api.model
     def check_approval(self, model, res_id, method, action_id):

@@ -14,6 +14,7 @@ import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
 import { session } from "@web/session";
 import { registry } from "@web/core/registry";
 import { actionService } from "@web/webclient/actions/action_service";
+import { getApprovalSpecBatchedService } from "@web_studio/approval/approval_hook";
 
 const fakeStudioService = {
     start() {
@@ -26,9 +27,20 @@ const fakeStudioService = {
 QUnit.module("Studio Approval", (hooks) => {
     let target;
     let serverData;
+    let defaultRules;
 
     hooks.beforeEach(() => {
         target = getFixture();
+        defaultRules = {
+            1: {
+                id: 1,
+                group_id: [1, "Internal User"],
+                domain: false,
+                can_validate: true,
+                message: false,
+                exclusive_user: false,
+            },
+        };
 
         serverData = {
             models: {
@@ -64,6 +76,9 @@ QUnit.module("Studio Approval", (hooks) => {
 
         setupViewRegistries();
         registry.category("services").add("studio", fakeStudioService);
+        registry
+            .category("services")
+            .add(getApprovalSpecBatchedService.name, getApprovalSpecBatchedService);
     });
 
     QUnit.test("approval components are synchronous", async (assert) => {
@@ -78,18 +93,8 @@ QUnit.module("Studio Approval", (hooks) => {
                     assert.step(args.method);
                     await prom;
                     return {
-                        rules: [
-                            {
-                                id: 1,
-                                group_id: [1, "Internal User"],
-                                domain: false,
-                                can_validate: true,
-                                message: false,
-                                exclusive_user: false,
-                            },
-                        ],
-                        entries: [],
-                        groups: [[1, "Internal User"]],
+                        all_rules: defaultRules,
+                        partner: [[[false, "myMethod", false], { rules: [1], entries: [] }]],
                     };
                 }
             },
@@ -103,7 +108,7 @@ QUnit.module("Studio Approval", (hooks) => {
     });
 
     QUnit.test("approval widget basic rendering", async function (assert) {
-        assert.expect(14);
+        assert.expect(12);
 
         patchWithCleanup(session, {
             uid: 42,
@@ -142,20 +147,13 @@ QUnit.module("Studio Approval", (hooks) => {
             mockRPC: function (route, args) {
                 if (args.method === "get_approval_spec") {
                     assert.step("fetch_approval_spec");
-                    return Promise.resolve({
-                        rules: [
-                            {
-                                id: 1,
-                                group_id: [1, "Internal User"],
-                                domain: false,
-                                can_validate: true,
-                                message: false,
-                                exclusive_user: false,
-                            },
+                    return {
+                        all_rules: defaultRules,
+                        partner: [
+                            [[2, "someMethod", false], { rules: [1], entries: [] }],
+                            [[2, "anotherMethod", false], { rules: [1], entries: [] }],
                         ],
-                        entries: [],
-                        groups: [[1, "Internal User"]],
-                    });
+                    };
                 }
             },
         });
@@ -167,7 +165,7 @@ QUnit.module("Studio Approval", (hooks) => {
         assert.containsOnce(target, 'button[name="anotherMethod"] .o_web_studio_approval');
         assert.containsNone(target, ".o_group .o_web_studio_approval");
         // should have fetched spec for exactly 3 buttons
-        assert.verifySteps(["fetch_approval_spec", "fetch_approval_spec", "fetch_approval_spec"]);
+        assert.verifySteps(["fetch_approval_spec"]);
         // display popover
         await click(target, 'button[name="someMethod"] .o_web_studio_approval');
         assert.containsOnce(target, ".o-approval-popover");
@@ -202,21 +200,12 @@ QUnit.module("Studio Approval", (hooks) => {
                 </form>`,
             resId: 2,
             mockRPC: function (route, args) {
-                const rule = {
-                    id: 1,
-                    group_id: [1, "Internal User"],
-                    domain: false,
-                    can_validate: true,
-                    message: false,
-                    exclusive_user: false,
-                };
                 if (args.method === "get_approval_spec") {
                     assert.step("fetch_approval_spec");
-                    return Promise.resolve({
-                        rules: [rule],
-                        entries: [],
-                        groups: [[1, "Internal User"]],
-                    });
+                    return {
+                        all_rules: defaultRules,
+                        partner: [[[2, "someMethod", false], { rules: [1], entries: [] }]],
+                    };
                 } else if (args.method === "check_approval") {
                     /* the check_approval should not be
                     called for method buttons, as the validation
@@ -276,26 +265,17 @@ QUnit.module("Studio Approval", (hooks) => {
                 </form>`,
             resId: 2,
             mockRPC: function (route, args) {
-                const rule = {
-                    id: 1,
-                    group_id: [1, "Internal User"],
-                    domain: false,
-                    can_validate: true,
-                    message: false,
-                    exclusive_user: false,
-                };
                 if (args.method === "get_approval_spec") {
                     assert.step("fetch_approval_spec");
-                    return Promise.resolve({
-                        rules: [rule],
-                        entries: [],
-                        groups: [[1, "Internal User"]],
-                    });
+                    return {
+                        all_rules: defaultRules,
+                        partner: [[[2, false, "someaction"], { rules: [1], entries: [] }]],
+                    };
                 } else if (args.method === "check_approval") {
                     assert.step("attempt_action");
                     return Promise.resolve({
                         approved: false,
-                        rules: [rule],
+                        rules: [defaultRules[1]],
                         entries: [],
                     });
                 }
@@ -305,6 +285,45 @@ QUnit.module("Studio Approval", (hooks) => {
         await click(target, "#mainButton");
         // first render, handle click, rerender after click
         assert.verifySteps(["fetch_approval_spec", "attempt_action", "fetch_approval_spec"]);
+    });
+
+    QUnit.test("approval check: rpc is batched", async function (assert) {
+        await makeView({
+            type: "form",
+            resModel: "partner",
+            serverData,
+            arch: `<form string="Partners">
+                    <sheet>
+                        <header>
+                            <button type="object" id="mainButton" name="someMethod"
+                                     string="Apply Method" studio_approval="True"/>
+                            <button type="object" id="mainButton" name="someMethod2"
+                                     string="Apply Method 2" studio_approval="True"/>
+                        </header>
+                        <group>
+                            <group style="background-color: red">
+                                <field name="display_name"/>
+                                <field name="bar"/>
+                                <field name="int_field"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>`,
+            resId: 2,
+            mockRPC: function (route, args) {
+                if (args.method === "get_approval_spec") {
+                    assert.step("fetch_approval_spec");
+                    return {
+                        all_rules: defaultRules,
+                        partner: [
+                            [[2, "someMethod", false], { rules: [1], entries: [] }],
+                            [[2, "someMethod2", false], { rules: [1], entries: [] }],
+                        ],
+                    };
+                }
+            },
+        });
+        assert.verifySteps(["fetch_approval_spec"]);
     });
 
     QUnit.test("approval widget basic flow", async function (assert) {
@@ -335,34 +354,22 @@ QUnit.module("Studio Approval", (hooks) => {
             resId: 2,
             mockRPC: function (route, args) {
                 if (args.method === "get_approval_spec") {
-                    const spec = {
-                        rules: [
-                            {
-                                id: 1,
-                                group_id: [1, "Internal User"],
-                                domain: false,
-                                can_validate: true,
-                                message: false,
-                                exclusive_user: false,
-                            },
-                        ],
-                        entries: [],
-                        groups: [[1, "Internal User"]],
-                    };
+                    const entries = [];
                     if (hasValidatedRule !== undefined) {
-                        spec.entries = [
-                            {
-                                id: 1,
-                                approved: hasValidatedRule,
-                                user_id: [42, "Some rando"],
-                                write_date: "2020-04-07 12:43:48",
-                                rule_id: [1, "someMethod/partner (Internal User)"],
-                                model: "partner",
-                                res_id: 2,
-                            },
-                        ];
+                        entries.push({
+                            id: 1,
+                            approved: hasValidatedRule,
+                            user_id: [42, "Some rando"],
+                            write_date: "2020-04-07 12:43:48",
+                            rule_id: [1, "someMethod/partner (Internal User)"],
+                            model: "partner",
+                            res_id: 2,
+                        });
                     }
-                    return Promise.resolve(spec);
+                    return {
+                        all_rules: defaultRules,
+                        partner: [[[2, "someMethod", false], { rules: [1], entries }]],
+                    };
                 } else if (args.method === "set_approval") {
                     hasValidatedRule = args.kwargs.approved;
                     assert.step(hasValidatedRule ? "approve_rule" : "reject_rule");
@@ -412,22 +419,19 @@ QUnit.module("Studio Approval", (hooks) => {
         let index = 0;
         const recordIds = [1, 2, 3];
         const mockRPC = (route, args) => {
-            const rule = {
-                id: index,
-                group_id: [1, "Internal User"],
-                domain: false,
-                can_validate: true,
-                message: false,
-                exclusive_user: false,
-            };
             if (args.method === "get_approval_spec") {
-                assert.strictEqual(recordIds[index++], args.kwargs.res_id);
-                const spec = {
-                    rules: [rule],
-                    entries: [],
-                    groups: [[1, "Internal User"]],
+                const currentIndex = index++;
+                defaultRules[currentIndex] = { ...defaultRules[1], id: currentIndex };
+                assert.strictEqual(recordIds[currentIndex], args.args[0][0].res_id);
+                return {
+                    all_rules: defaultRules,
+                    partner: [
+                        [
+                            [args.args[0][0].res_id, "someMethod", false],
+                            { rules: [currentIndex], entries: [] },
+                        ],
+                    ],
                 };
-                return Promise.resolve(spec);
             }
         };
         const webClient = await createWebClient({ serverData, mockRPC });
@@ -472,15 +476,16 @@ QUnit.module("Studio Approval", (hooks) => {
                 });
             }
             if (args.method === "get_approval_spec") {
-                assert.step(
-                    `get_approval_spec: resId: ${args.kwargs.res_id} ; ${JSON.stringify(args.args)}`
-                );
-                const spec = {
-                    rules: [rule],
-                    entries: [],
-                    groups: [[1, "Internal User"]],
+                assert.step(`get_approval_spec: ${JSON.stringify(args.args)}`);
+                return {
+                    all_rules: defaultRules,
+                    partner: [
+                        [
+                            [args.args[0][0].res_id, false, "someMethod"],
+                            { rules: [1], entries: [] },
+                        ],
+                    ],
                 };
-                return Promise.resolve(spec);
             }
 
             if (args.method === "someMethod") {
@@ -498,12 +503,14 @@ QUnit.module("Studio Approval", (hooks) => {
             </form>`,
         });
 
-        assert.verifySteps(['get_approval_spec: resId: false ; ["partner",false,"someMethod"]']);
+        assert.verifySteps([
+            'get_approval_spec: [[{"model":"partner","method":false,"action_id":"someMethod","res_id":false}]]',
+        ]);
         await click(target, 'button[name="someMethod"]');
         assert.verifySteps([
             "web_save",
             'check_approval: ["partner",4,false,"someMethod"]',
-            'get_approval_spec: resId: 4 ; ["partner",false,"someMethod"]',
+            'get_approval_spec: [[{"model":"partner","method":false,"action_id":"someMethod","res_id":4}]]',
         ]);
     });
 
@@ -540,15 +547,16 @@ QUnit.module("Studio Approval", (hooks) => {
                 });
             }
             if (args.method === "get_approval_spec") {
-                assert.step(
-                    `get_approval_spec: resId: ${args.kwargs.res_id} ; ${JSON.stringify(args.args)}`
-                );
-                const spec = {
-                    rules: [rule],
-                    entries: [],
-                    groups: [[1, "Internal User"]],
+                assert.step(`get_approval_spec: ${JSON.stringify(args.args)}`);
+                return {
+                    all_rules: defaultRules,
+                    partner: [
+                        [
+                            [args.args[0][0].res_id, false, "someaction"],
+                            { rules: [1], entries: [] },
+                        ],
+                    ],
                 };
-                return Promise.resolve(spec);
             }
 
             if (args.method === "someMethod") {
@@ -570,12 +578,14 @@ QUnit.module("Studio Approval", (hooks) => {
 
         await editInput(target, ".o_field_widget[name=int_field] input", "10");
 
-        assert.verifySteps(['get_approval_spec: resId: 1 ; ["partner",false,"someaction"]']);
+        assert.verifySteps([
+            'get_approval_spec: [[{"model":"partner","method":false,"action_id":"someaction","res_id":1}]]',
+        ]);
         await click(target, 'button[name="someaction"]');
         assert.verifySteps([
             "web_save",
             'check_approval: ["partner",1,false,"someaction"]',
-            'get_approval_spec: resId: 1 ; ["partner",false,"someaction"]',
+            'get_approval_spec: [[{"model":"partner","method":false,"action_id":"someaction","res_id":1}]]',
         ]);
     });
 
@@ -586,28 +596,29 @@ QUnit.module("Studio Approval", (hooks) => {
         When clicking on the first button, this changes the int_field value which
         then hides the first button and display the second one */
             const mockRPC = (route, args) => {
-                const rule = {
-                    id: 1,
-                    group_id: [1, "Internal User"],
-                    domain: false,
-                    can_validate: true,
-                    message: false,
-                    exclusive_user: false,
-                };
                 if (args.method === "check_approval") {
+                    assert.step("check_approval");
                     return Promise.resolve({
                         approved: true,
-                        rules: [rule],
+                        rules: Object.values(defaultRules),
                         entries: [],
                     });
                 }
                 if (args.method === "get_approval_spec") {
-                    const spec = {
-                        rules: [rule],
-                        entries: [],
-                        groups: [[1, "Internal User"]],
+                    assert.step(`get_approval_spec: ${JSON.stringify(args.args)}`);
+                    return {
+                        all_rules: defaultRules,
+                        partner: [
+                            [
+                                [
+                                    args.args[0][0].res_id,
+                                    args.args[0][0].method,
+                                    args.args[0][0].action_id,
+                                ],
+                                { rules: [1], entries: [] },
+                            ],
+                        ],
                     };
-                    return Promise.resolve(spec);
                 }
 
                 if (args.method === "someMethod") {
@@ -633,7 +644,13 @@ QUnit.module("Studio Approval", (hooks) => {
                 resId: 1,
             });
 
+            assert.verifySteps([
+                `get_approval_spec: [[{"model":"partner","method":"someMethod","action_id":false,"res_id":1}]]`,
+            ]);
             await click(target, 'button[name="someMethod"]');
+            assert.verifySteps([
+                `get_approval_spec: [[{"model":"partner","method":"otherMethod","action_id":false,"res_id":1}]]`,
+            ]);
             assert.containsNone(
                 target,
                 'button[name="otherMethod"] .o_web_studio_approval .fa-circle-o-notch.fa-spin'
@@ -648,26 +665,24 @@ QUnit.module("Studio Approval", (hooks) => {
     QUnit.test("approval with domain: pager", async (assert) => {
         const mockRPC = (route, args) => {
             if (args.method === "get_approval_spec") {
-                assert.step(`get_approval_spec: ${args.kwargs.res_id}`);
-                let rules = [];
-                if (args.kwargs.res_id === 1) {
-                    const rule = {
-                        id: 1,
-                        group_id: [1, "Internal User"],
-                        domain: false,
-                        can_validate: true,
-                        message: false,
-                        exclusive_user: false,
-                    };
-                    rules = [rule];
+                assert.step(`get_approval_spec: ${args.args[0][0].res_id}`);
+                const rules = [];
+                if (args.args[0][0].res_id === 1) {
+                    rules.push(1);
                 }
-
-                const spec = {
-                    rules,
-                    entries: [],
-                    groups: [[1, "Internal User"]],
+                return {
+                    all_rules: defaultRules,
+                    partner: [
+                        [
+                            [
+                                args.args[0][0].res_id,
+                                args.args[0][0].method,
+                                args.args[0][0].action_id,
+                            ],
+                            { rules, entries: [] },
+                        ],
+                    ],
                 };
-                return Promise.resolve(spec);
             }
         };
 
@@ -702,26 +717,24 @@ QUnit.module("Studio Approval", (hooks) => {
                 assert.step(args.method, args.args);
             }
             if (args.method === "get_approval_spec") {
-                assert.step(`get_approval_spec: ${args.kwargs.res_id}`);
-                let rules = [];
-                if (args.kwargs.res_id === 1 && hasRules) {
-                    const rule = {
-                        id: 1,
-                        group_id: [1, "Internal User"],
-                        domain: false,
-                        can_validate: true,
-                        message: false,
-                        exclusive_user: false,
-                    };
-                    rules = [rule];
+                assert.step(`get_approval_spec: ${args.args[0][0].res_id}`);
+                const rules = [];
+                if (args.args[0][0].res_id === 1 && hasRules) {
+                    rules.push(1);
                 }
-
-                const spec = {
-                    rules,
-                    entries: [],
-                    groups: [[1, "Internal User"]],
+                return {
+                    all_rules: defaultRules,
+                    partner: [
+                        [
+                            [
+                                args.args[0][0].res_id,
+                                args.args[0][0].method,
+                                args.args[0][0].action_id,
+                            ],
+                            { rules, entries: [] },
+                        ],
+                    ],
                 };
-                return Promise.resolve(spec);
             }
         };
 

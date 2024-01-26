@@ -14,7 +14,8 @@
             Set approval rules
         </Property>
         <t t-if="isApprovalEnabled and state.approvalSpec">
-            <t t-foreach="state.approvalSpec.rules" t-as="rule" t-key="rule.id">
+            <t t-foreach="state.approvalSpec.rules" t-as="ruleId" t-key="ruleId">
+                <t t-set="rule" t-value="state.allRules[ruleId]" />
                 <t t-call="web_studio.ViewEditorSidebar.ApprovalRule"/>
             </t>
             <div>

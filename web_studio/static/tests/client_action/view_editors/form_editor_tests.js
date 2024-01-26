@@ -35,6 +35,7 @@ import { setupManager } from "@mail/../tests/helpers/webclient_setup";
 import { Component, EventBus, onMounted, xml } from "@odoo/owl";
 import { fieldService } from "@web/core/field_service";
 import { Setting } from "@web/views/form/setting/setting";
+import { getApprovalSpecBatchedService } from "@web_studio/approval/approval_hook";
 
 /** @type {Node} */
 let target;
@@ -3033,6 +3034,9 @@ QUnit.module("View Editors", (hooks) => {
     QUnit.test("approval one rule by default", async function (assert) {
         assert.expect(8);
         const changeArch = makeArchChanger();
+        registry
+            .category("services")
+            .add(getApprovalSpecBatchedService.name, getApprovalSpecBatchedService);
 
         let rules = [1];
         await createViewEditor({
@@ -3081,19 +3085,25 @@ QUnit.module("View Editors", (hooks) => {
                     return {};
                 }
                 if (route === "/web/dataset/call_kw/studio.approval.rule/get_approval_spec") {
+                    const allRules = Object.fromEntries(
+                        rules.map((id) => {
+                            const rule = {
+                                can_validate: true,
+                                domain: false,
+                                exclusive_user: false,
+                                message: false,
+                                responsible_id: false,
+                                group_id: [1, "User types / Internal User"],
+                                id,
+                                users_to_notify: [],
+                                notification_order: false,
+                            };
+                            return [id, rule];
+                        })
+                    );
                     return {
-                        entries: [],
-                        rules: rules.map((id) => ({
-                            can_validate: true,
-                            domain: false,
-                            exclusive_user: false,
-                            message: false,
-                            responsible_id: false,
-                            group_id: [1, "User types / Internal User"],
-                            id,
-                            users_to_notify: [],
-                            notification_order: false,
-                        })),
+                        all_rules: allRules,
+                        coucou: [[[false, false, "0"], { rules, entries: [] }]],
                     };
                 }
             },

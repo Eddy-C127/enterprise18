@@ -10,7 +10,8 @@
         <t t-else="state.rules.length">
              <!-- data fetched; display avatar for rules and entries -->
             <t t-set="num_rules" t-value="state.rules.length"/>
-            <t t-foreach="state.rules" t-as="rule" t-key="rule.id">
+            <t t-foreach="state.rules" t-as="ruleId" t-key="ruleId">
+                <t t-set="rule" t-value="this.props.approval.rules[ruleId]" />
                 <t t-if="num_rules lte 3 || (num_rules gt 3 and rule_index lt 2)">
                     <img
                         t-if="getEntry(rule.id)"

@@ -208,6 +208,7 @@ export async function createViewEditor({ arch, serverData = {}, mockRPC, resMode
         controllerState: {
             resId,
         },
+        mode: "editor",
     });
 
     return await mount(ViewEditorParent, mountTarget, { env });

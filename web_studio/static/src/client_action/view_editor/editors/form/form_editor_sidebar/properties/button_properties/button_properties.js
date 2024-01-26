@@ -17,6 +17,7 @@ import { SidebarPropertiesToolbox } from "@web_studio/client_action/view_editor/
 import { useEditNodeAttributes } from "@web_studio/client_action/view_editor/view_editor_model";
 import { useSnackbarWrapper } from "@web_studio/client_action/view_editor/view_editor_hook";
 import { ModifiersProperties } from "@web_studio/client_action/view_editor/interactive_editor/properties/modifiers/modifiers_properties";
+import { buildApprovalKey } from "@web_studio/approval/approval_hook";
 
 export class ButtonProperties extends Component {
     static template = "web_studio.ViewEditor.InteractiveEditorProperties.Button";
@@ -141,7 +142,15 @@ export class ButtonProperties extends Component {
     }
 
     async getApprovalSpec(approvalParams) {
-        return await this.orm.call("studio.approval.rule", "get_approval_spec", approvalParams);
+        const approvalParamsObject = {
+            model: approvalParams[0],
+            method: approvalParams[1],
+            action_id: approvalParams[2],
+        };
+        const approvals = await this.env.services["web_studio.get_approval_spec_batched"](
+            approvalParamsObject
+        );
+        return approvals;
     }
 
     async onApprovalArchive(id) {
@@ -163,7 +172,8 @@ export class ButtonProperties extends Component {
     }
 
     onApprovalSelectDomain(id) {
-        const domain = this.state.approvalSpec.rules.find((r) => r.id === id).domain;
+        const rule = this.state.allRules[id];
+        const domain = rule.domain;
         this.dialog.add(DomainSelectorDialog, {
             resModel: this.env.viewEditorModel.resModel,
             domain: JSON.stringify(domain || []),
@@ -185,7 +195,13 @@ export class ButtonProperties extends Component {
     }
 
     async updateApprovalSpec(params = this.getApprovalParams()) {
-        this.state.approvalSpec = await this.getApprovalSpec(params);
         this.env.viewEditorModel.env.bus.trigger("approval-update");
+        const approvalSpec = await this.getApprovalSpec(params);
+        this.state.allRules = approvalSpec.all_rules;
+        const approvalKey = buildApprovalKey(false, params[1] || false, params[2] || false);
+        this.state.approvalSpec = approvalSpec[params[0]][approvalKey] || {
+            rules: [],
+            entries: [],
+        };
     }
 }

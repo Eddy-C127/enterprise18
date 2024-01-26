@@ -5,6 +5,73 @@ import { renderToMarkup } from "@web/core/utils/render";
 
 import { xml, reactive, useComponent, useEnv, toRaw, onMounted, onWillDestroy } from "@odoo/owl";
 import { useRecordObserver } from "@web/model/relational_model/utils";
+import { Deferred } from "@web/core/utils/concurrency";
+import { registry } from "@web/core/registry";
+
+/**
+ * An customization of @web/core/timing/batched that allows two things:
+ * - store call arguments as long as we have not passed the synchronize timing
+ * - returns the same promise to each caller that will be resolved when callback has finished
+ * @param {Function} callback
+ * @param {Function} synchronize
+ * @returns Function
+ */
+function batched(callback, synchronize = () => Promise.resolve()) {
+    const map = new Map();
+    let callId = 0;
+    return (...args) => {
+        if (!map.has(callId)) {
+            const argsList = [args];
+            const prom = new Deferred();
+            map.set(callId, { argsList, prom });
+            synchronize().then(() => {
+                const currentCallId = callId++;
+                Promise.resolve(callback(...argsList))
+                    .then(prom.resolve)
+                    .catch(prom.reject)
+                    .finally(() => map.delete(currentCallId));
+            });
+            return prom;
+        } else {
+            const { prom, argsList } = map.get(callId);
+            argsList.push(args);
+            return prom;
+        }
+    };
+}
+
+export function buildApprovalKey(...args) {
+    return args.join("-");
+}
+
+export const getApprovalSpecBatchedService = {
+    name: "web_studio.get_approval_spec_batched",
+    dependencies: ["orm"],
+    start(env, { orm }) {
+        return batched(async (...argsLists) => {
+            const approvals = await orm.silent.call("studio.approval.rule", "get_approval_spec", [
+                argsLists.flat(),
+            ]);
+
+            for (const [key, tupleList] of Object.entries(approvals)) {
+                if (key === "all_rules") {
+                    continue;
+                }
+                approvals[key] = Object.fromEntries(
+                    tupleList.map(([tuple, value]) => {
+                        return [buildApprovalKey(...tuple), value];
+                    })
+                );
+            }
+
+            return approvals;
+        });
+    },
+};
+
+registry
+    .category("services")
+    .add(getApprovalSpecBatchedService.name, getApprovalSpecBatchedService);
 
 const missingApprovalsTemplate = xml`
     <ul>
@@ -27,8 +94,21 @@ function getMissingApprovals(entries, rules) {
 }
 
 class StudioApproval {
-    constructor() {
+    constructor({ getApprovalSpecBatched }) {
         this._data = reactive({});
+        this.rules = {};
+
+        const promSet = new WeakSet();
+        this.getApprovalSpecBatched = (...args) => {
+            const prom = getApprovalSpecBatched(...args);
+            if (!promSet.has(prom)) {
+                promSet.add(prom);
+                prom.then((approvals) => {
+                    Object.assign(this.rules, approvals.all_rules);
+                });
+            }
+            return prom;
+        };
 
         // Lazy properties to be set by specialization.
         this.orm = null;
@@ -41,7 +121,7 @@ class StudioApproval {
     }
 
     get dataKey() {
-        return `${this.resModel}-${this.resId}-${this.method}-${this.action}`;
+        return buildApprovalKey(this.resModel, this.resId || false, this.method, this.action);
     }
 
     /**
@@ -58,7 +138,7 @@ class StudioApproval {
     }
 
     get inStudio() {
-        return !!this.studio.mode;
+        return this.studio;
     }
 
     displayNotification(data) {
@@ -84,21 +164,24 @@ class StudioApproval {
     }
 
     async fetchApprovals() {
-        const args = [this.resModel, this.method, this.action];
-        const kwargs = {
-            res_id: !this.studio.mode && this.resId,
-        };
-
         const state = this._getState();
         state.syncing = true;
+        // In studio we fetch every rule, even if they do not apply
+        // to the current record if present
+        const resId = !this.inStudio && this.resId;
         try {
-            const spec = await this.orm.silent.call(
-                "studio.approval.rule",
-                "get_approval_spec",
-                args,
-                kwargs
-            );
-            Object.assign(state, spec);
+            const allApprovals = await this.getApprovalSpecBatched({
+                model: this.resModel,
+                method: this.method,
+                action_id: this.action,
+                res_id: resId,
+            });
+            const myApproval = allApprovals[this.resModel][
+                buildApprovalKey(resId, this.method || false, this.action || false)
+            ] || { rules: [], entries: [] };
+            Object.assign(state, myApproval);
+        } catch {
+            Object.assign(state, { rules: [], entries: [] });
         } finally {
             state.syncing = false;
         }
@@ -153,14 +236,14 @@ export function useApproval({ getRecord, method, action }) {
     the component has been mounted, we can switch the orm to the one from useService. */
     const protectedOrm = useService("orm");
     const unprotectedOrm = useEnv().services.orm;
-    const studio = useService("studio");
     const notification = useService("notification");
     const record = getRecord(useComponent().props);
     const model = toRaw(record.model);
+    const getApprovalSpecBatched = useEnv().services["web_studio.get_approval_spec_batched"];
     let approvalModelCache = approvalMap.get(model);
     if (!approvalModelCache) {
         approvalModelCache = {
-            approval: new StudioApproval(),
+            approval: new StudioApproval({ getApprovalSpecBatched }),
             onRecordSaved: new Map(),
         };
         approvalMap.set(model, approvalModelCache);
@@ -177,7 +260,7 @@ export function useApproval({ getRecord, method, action }) {
         method,
         action,
         orm: unprotectedOrm,
-        studio,
+        studio: !!record.context.studio,
         notification,
     };
 
