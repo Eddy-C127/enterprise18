@@ -375,7 +375,7 @@ class Task(models.Model):
                 ('project_id', '!=', False),
             ], domain_expand])
         domain_expand = expression.AND([domain_expand, domain])
-        search_on_comodel = self._search_on_comodel(domain, "user_ids", "res.users", order)
+        search_on_comodel = self._search_on_comodel(domain, "user_ids", "res.users", order, [("share", '=', False)])
         if search_on_comodel:
             return search_on_comodel | self.env.user
         return self.search(domain_expand).user_ids | self.env.user
