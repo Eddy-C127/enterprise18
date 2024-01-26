@@ -35,7 +35,7 @@ const dialogService = {
             const props = { env, Component, componentProps: _props };
             return dialog.add(DialogWithEnv, props, options);
         }
-        return { add: addDialog };
+        return { ...dialog, add: addDialog };
     },
 };
 
