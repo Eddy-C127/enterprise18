@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
@@ -16,7 +15,7 @@ class purchase_order(models.Model):
         for order in self:
             # get the company from partner then trigger action of intercompany relation
             company_rec = self.env['res.company']._find_company_from_partner(order.partner_id.id)
-            if company_rec and company_rec.rule_type in ('purchase', 'sale_purchase') and (not order.auto_generated):
+            if company_rec and company_rec.intercompany_generate_sales_orders and not order.auto_generated:
                 order.with_user(company_rec.intercompany_user_id).with_context(default_company_id=company_rec.id).with_company(company_rec).inter_company_create_sale_order(company_rec)
         return res
 
@@ -59,10 +58,8 @@ class purchase_order(models.Model):
 
             # create the SO and generate its lines from the PO lines
             # read it as sudo, because inter-compagny user can not have the access right on PO
-            direct_delivery_address = rec.picking_type_id.warehouse_id.partner_id.id or rec.dest_address_id.id
-            sale_order_data = rec.sudo()._prepare_sale_order_data(
-                rec.name, company_partner, company,
-                direct_delivery_address or False)
+            sale_order_data = rec.sudo()._prepare_sale_order_data(rec.name, company_partner, company, rec.dest_address_id.id or False)
+
             inter_user = self.env['res.users'].sudo().browse(intercompany_uid)
             # lines are browse as sudo to access all data required to be copied on SO line (mainly for company dependent field like taxes)
             for line in rec.order_line.sudo():
@@ -76,7 +73,7 @@ class purchase_order(models.Model):
                 rec.partner_ref = sale_order.name
 
             #Validation of sales order
-            if company.auto_validation:
+            if company.intercompany_document_state == 'posted':
                 sale_order.with_user(intercompany_uid).action_confirm()
 
     def _prepare_sale_order_data(self, name, partner, company, direct_delivery_address):
@@ -92,14 +89,11 @@ class purchase_order(models.Model):
         """
         self.ensure_one()
         partner_addr = partner.sudo().address_get(['invoice', 'delivery', 'contact'])
-        warehouse = company.warehouse_id and company.warehouse_id.company_id.id == company.id and company.warehouse_id or False
-        if not warehouse:
-            raise UserError(_('Configure correct warehouse for company(%s) from Menu: Settings/Users/Companies', company.name))
+
         return {
             'name': self.env['ir.sequence'].sudo().next_by_code('sale.order') or '/',
             'company_id': company.id,
             'team_id': self.env['crm.team'].with_context(allowed_company_ids=company.ids)._get_default_team_id(domain=[('company_id', '=', company.id)]).id,
-            'warehouse_id': warehouse.id,
             'client_order_ref': name,
             'partner_id': partner.id,
             'pricelist_id': partner.property_product_pricelist.id,
@@ -132,7 +126,6 @@ class purchase_order(models.Model):
             'product_id': line.product_id and line.product_id.id or False,
             'product_uom': line.product_id and line.product_id.uom_id.id or line.product_uom.id,
             'price_unit': price,
-            'customer_lead': line.product_id and line.product_id.sale_delay or 0.0,
             'company_id': company.id,
             'display_type': line.display_type,
         }

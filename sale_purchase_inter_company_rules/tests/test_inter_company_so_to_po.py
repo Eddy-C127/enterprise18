@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from .common import TestInterCompanyRulesCommonSOPO
@@ -13,7 +12,6 @@ class TestInterCompanySaleToPurchase(TestInterCompanyRulesCommonSOPO):
         """ Generate sale order and confirm its state """
         sale_order = Form(self.env['sale.order'])
         sale_order.company_id = company
-        sale_order.warehouse_id = company.warehouse_id
         sale_order.partner_id = partner
         sale_order.user_id = user
         with sale_order.order_line.new() as line:
@@ -53,26 +51,30 @@ class TestInterCompanySaleToPurchase(TestInterCompanyRulesCommonSOPO):
 
         # Generate sale order in company A for company B
         self.company_b.update({
-            'rule_type': 'sale_purchase',
+            'intercompany_generate_sales_orders': True,
+            'intercompany_generate_purchase_orders': True,
         })
         self.generate_sale_order(self.company_a, self.company_b.partner_id, self.res_users_company_a)
         # Check purchase order is created in company B ( for company A )
         self.validate_generated_purchase_order(self.company_a, self.company_b)
         # reset configuration of company B
         self.company_b.update({
-            'rule_type': False,
+            'intercompany_generate_sales_orders': False,
+            'intercompany_generate_purchase_orders': False,
         })
 
         # Generate sale order in company B for company A
         self.company_a.update({
-            'rule_type': 'sale_purchase',
+            'intercompany_generate_sales_orders': True,
+            'intercompany_generate_purchase_orders': True,
         })
         self.generate_sale_order(self.company_b, self.company_a.partner_id, self.res_users_company_b)
         # Check purchase order is created in company A ( for company B )
         self.validate_generated_purchase_order(self.company_b, self.company_a)
         # reset configuration of company A
         self.company_a.update({
-            'rule_type': False,
+            'intercompany_generate_sales_orders': False,
+            'intercompany_generate_purchase_orders': False,
         })
 
     def test_01_inter_company_sale_order_with_configuration(self):
@@ -82,26 +84,26 @@ class TestInterCompanySaleToPurchase(TestInterCompanyRulesCommonSOPO):
 
         # Generate sale order in company A for company B
         self.company_b.update({
-            'rule_type': 'sale',
+            'intercompany_generate_purchase_orders': True,
         })
         self.generate_sale_order(self.company_a, self.company_b.partner_id, self.res_users_company_a)
         # Check purchase order is created in company B ( for company A )
         self.validate_generated_purchase_order(self.company_a, self.company_b)
         # reset configuration of company B
         self.company_b.update({
-            'rule_type': False,
+            'intercompany_generate_purchase_orders': False,
         })
 
         # Generate sale order in company B for company A
         self.company_a.update({
-            'rule_type': 'sale',
+            'intercompany_generate_purchase_orders': True,
         })
         self.generate_sale_order(self.company_b, self.company_a.partner_id, self.res_users_company_b)
         # Check purchase order is created in company A ( for company B )
         self.validate_generated_purchase_order(self.company_b, self.company_a)
         # reset configuration of company A
         self.company_a.update({
-            'rule_type': False,
+            'intercompany_generate_purchase_orders': False,
         })
 
     def test_02_sale_to_purchase_without_configuration(self):
@@ -129,7 +131,8 @@ class TestInterCompanySaleToPurchase(TestInterCompanyRulesCommonSOPO):
 
         # Generate sale order in company A for company B
         self.company_b.update({
-            'rule_type': 'sale_purchase',
+            'intercompany_generate_sales_orders': True,
+            'intercompany_generate_purchase_orders': True,
         })
         so = self._generate_draft_sale_order(self.company_a, self.company_b.partner_id, self.res_users_company_a)
         so.write({
@@ -154,8 +157,9 @@ class TestInterCompanySaleToPurchase(TestInterCompanyRulesCommonSOPO):
         })
 
         self.company_b.update({
-            'rule_type': 'sale_purchase',
-            'auto_validation': True,
+            'intercompany_generate_sales_orders': True,
+            'intercompany_generate_purchase_orders': True,
+            'intercompany_document_state': 'posted',
         })
         # Generate sale order in company A for company B
         partner_a = self.env['res.partner'].create({
@@ -176,7 +180,10 @@ class TestInterCompanySaleToPurchase(TestInterCompanyRulesCommonSOPO):
         Classic intercompany SO-PO on company C2. C1 sells to a child of C2. It
         should still create a PO on C2 side.
         """
-        self.company_b.rule_type = 'sale_purchase'
+        self.company_b.update({
+            'intercompany_generate_sales_orders': True,
+            'intercompany_generate_purchase_orders': True,
+        })
         partner_b = self.env['res.partner'].create({
             'name': 'SuperPartner',
             'parent_id': self.company_b.partner_id.id,
@@ -201,8 +208,9 @@ class TestInterCompanySaleToPurchase(TestInterCompanyRulesCommonSOPO):
         }])
 
         (self.company_a | self.company_b).update({
-            'rule_type': 'sale_purchase',
-            'auto_validation': True,
+            'intercompany_generate_sales_orders': True,
+            'intercompany_generate_purchase_orders': True,
+            'intercompany_document_state': 'posted',
         })
 
         service_purchase = self.env['product.product'].create({

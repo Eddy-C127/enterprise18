@@ -12,9 +12,9 @@ class AccountMove(models.Model):
         # OVERRIDE to generate cross invoice based on company rules.
         invoices_map = {}
         posted = super()._post(soft)
-        for invoice in posted.filtered(lambda move: move.is_invoice()):
+        for invoice in posted.filtered(lambda move: move.is_sale_document()):
             company_sudo = self.env['res.company'].sudo()._find_company_from_partner(invoice.partner_id.id)
-            if company_sudo and company_sudo.rule_type == 'invoice_and_refund' and not invoice.auto_generated:
+            if company_sudo and company_sudo.intercompany_generate_bills_refund and not invoice.auto_generated:
                 invoices_map.setdefault(company_sudo, self.env['account.move'])
                 invoices_map[company_sudo] += invoice
         for company_sudo, invoices in invoices_map.items():
@@ -31,8 +31,6 @@ class AccountMove(models.Model):
         # Prepare invoice values.
         invoices_vals_per_type = {}
         inverse_types = {
-            'in_invoice': 'out_invoice',
-            'in_refund': 'out_refund',
             'out_invoice': 'in_invoice',
             'out_refund': 'in_refund',
         }
@@ -66,6 +64,8 @@ class AccountMove(models.Model):
                 msg = _("Automatically generated from %(origin)s of company %(company)s.", origin=origin_invoice.name, company=origin_invoice.company_id.name)
                 am = self.with_context(default_type=invoice_type).create(invoice)
                 am.message_post(body=msg)
+                if self.env.company.intercompany_document_state == "posted":
+                    am._post(soft=True)
                 moves += am
         return moves
 
@@ -82,9 +82,9 @@ class AccountMove(models.Model):
         fiscal_position_id = self.env['account.fiscal.position']._get_fiscal_position(
             self.company_id.partner_id, delivery=delivery_partner
         )
-        return {
+        invoice_vals = {
             'move_type': invoice_type,
-            'ref': self.ref,
+            'ref': self.name,
             'partner_id': self.company_id.partner_id.id,
             'currency_id': self.currency_id.id,
             'auto_generated': True,
@@ -95,7 +95,11 @@ class AccountMove(models.Model):
             'payment_reference': self.payment_reference,
             'invoice_origin': _('%s Invoice: %s', self.company_id.name, self.name),
             'fiscal_position_id': fiscal_position_id,
+            'journal_id': self.env.company.intercompany_purchase_journal_id.id,
+            'invoice_payment_term_id': self.invoice_payment_term_id.id if self.invoice_payment_term_id and not self.invoice_payment_term_id.company_id else False,
         }
+
+        return invoice_vals
 
 
 class AccountMoveLine(models.Model):

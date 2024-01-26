@@ -11,12 +11,11 @@
 ''',
     'depends': [
         'sale_management',
-        'purchase_stock',
-        'sale_stock',
+        'purchase',
         'account_inter_company_rules',
     ],
     'data': [
-        'views/inter_company_so_po_view.xml',
+        'views/res_company_views.xml',
         'views/res_config_settings_views.xml',
     ],
     'installable': True,

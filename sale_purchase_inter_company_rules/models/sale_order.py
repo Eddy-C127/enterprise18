@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
@@ -18,7 +17,7 @@ class sale_order(models.Model):
                 continue
             # if company allow to create a Purchase Order from Sales Order, then do it!
             company = self.env['res.company']._find_company_from_partner(order.partner_id.id)
-            if company and company.rule_type in ('sale', 'sale_purchase') and (not order.auto_generated):
+            if company and company.intercompany_generate_purchase_orders and not order.auto_generated:
                 order.with_user(company.intercompany_user_id).with_context(default_company_id=company.id).with_company(company).inter_company_create_purchase_order(company)
         return res
 
@@ -56,7 +55,7 @@ class sale_order(models.Model):
                 rec.client_order_ref = purchase_order.name
 
             # auto-validate the purchase order if needed
-            if company.auto_validation:
+            if company.intercompany_document_state == 'posted':
                 purchase_order.with_user(intercompany_uid).button_confirm()
 
     def _prepare_purchase_order_data(self, company, company_partner):
@@ -67,23 +66,11 @@ class sale_order(models.Model):
             :rtype company : res.company record
         """
         self.ensure_one()
-        # find location and warehouse, pick warehouse from company object
-        warehouse = company.warehouse_id if company.warehouse_id.company_id.id == company.id else False
-        if not warehouse:
-            raise UserError(_('Configure correct warehouse for company(%s) from Menu: Settings/Users/Companies', company.name))
-        picking_type_id = company.intercompany_receipt_type_id
-        if not picking_type_id:
-            picking_type_id = self.env['stock.picking.type'].search([
-                ('code', '=', 'incoming'), ('warehouse_id', '=', warehouse.id)
-            ], limit=1)
-        if not picking_type_id:
-            intercompany_uid = company.intercompany_user_id.id
-            picking_type_id = self.env['purchase.order'].with_user(intercompany_uid)._default_picking_type()
+
         return {
             'name': self.env['ir.sequence'].sudo().next_by_code('purchase.order'),
             'origin': self.name,
             'partner_id': company_partner.id,
-            'picking_type_id': picking_type_id.id,
             'date_order': self.date_order,
             'company_id': company.id,
             'fiscal_position_id': company_partner.property_account_position_id.id,

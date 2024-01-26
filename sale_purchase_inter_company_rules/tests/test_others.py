@@ -34,6 +34,5 @@ class TestInterCompanyOthers(TestInterCompanyRulesCommonSOPO):
         # confirming the SO from an email link
         so.action_confirm()
 
-        po = self.env['purchase.order'].search([('partner_id', '=', self.company_a.partner_id.id)], order='id desc',
-                                               limit=1)
+        po = self.env['purchase.order'].search([('partner_id', '=', self.company_a.partner_id.id)], order='id desc', limit=1)
         self.assertEqual(po.order_line.name, "[C01] Name01")

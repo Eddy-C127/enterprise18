@@ -13,7 +13,7 @@
         'account',
     ],
     'data': [
-        'views/inter_company_so_po_view.xml',
+        'views/res_company_views.xml',
         'views/res_config_settings_views.xml',
     ],
     'installable': True,

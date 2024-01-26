@@ -1,27 +1,31 @@
-# -*- coding: utf-8 -*-
-from odoo import api, fields, models, _, SUPERUSER_ID
+from odoo import api, fields, models, SUPERUSER_ID
 
 
 class res_company(models.Model):
     _inherit = 'res.company'
 
-    rule_type = fields.Selection([('not_synchronize', 'Do not synchronize'),
-        ('invoice_and_refund', 'Synchronize invoices/bills')], string="Rule",
-        help='Select the type to setup inter company rules in selected company.', default='not_synchronize')
-    intercompany_user_id = fields.Many2one("res.users", string="Create as", default=SUPERUSER_ID, domain=["|", ["active", "=", True], ["id", "=", SUPERUSER_ID]],
-        help="Responsible user for creation of documents triggered by intercompany rules.")
-    intercompany_transaction_message = fields.Char(compute='_compute_intercompany_transaction_message')
-
-    @api.depends('rule_type', 'name')
-    def _compute_intercompany_transaction_message(self):
-        for record in self:
-            if record.rule_type == 'invoice_and_refund':
-                record.intercompany_transaction_message = _(
-                    "Generate a bill/invoice when a company confirms an invoice/bill for %s. "
-                    "The new bill/invoice will be created in the first Purchase/Sales Journal of the Journals list view.",
-                    record.name)
-            else:
-                record.intercompany_transaction_message = ''
+    intercompany_generate_bills_refund = fields.Boolean(string="Generate Bills and Refunds")
+    intercompany_document_state = fields.Selection(
+        selection=[
+            ('draft', "Create in draft"),
+            ('posted', "Create and validate"),
+        ],
+        string="Automation",
+        default='draft',
+    )
+    intercompany_purchase_journal_id = fields.Many2one(
+        comodel_name='account.journal',
+        string="Purchase Journal",
+        domain='[("type", "=", "purchase")]',
+        compute='_compute_intercompany_purchase_journal_id', store=True, readonly=False,
+    )
+    intercompany_user_id = fields.Many2one(
+        comodel_name='res.users',
+        string="Create as",
+        default=SUPERUSER_ID,
+        domain=['|', ['active', '=', True], ['id', '=', SUPERUSER_ID]],
+        help="Responsible user for creation of documents triggered by intercompany rules.",
+    )
 
     @api.model
     def _find_company_from_partner(self, partner_id):
@@ -29,3 +33,11 @@ class res_company(models.Model):
             return False
         company = self.sudo().search([('partner_id', 'parent_of', partner_id)], limit=1)
         return company or False
+
+    @api.depends('chart_template')
+    def _compute_intercompany_purchase_journal_id(self):
+        journals_by_company = dict(self.env['account.journal']._read_group(domain=[('type', '=', 'purchase')], groupby=['company_id'], aggregates=['id:recordset']))
+
+        for company in self:
+            if not company.intercompany_purchase_journal_id:
+                company.intercompany_purchase_journal_id = journals_by_company.get(company, [False])[0]

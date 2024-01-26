@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import Command, tests
 from .common import TestInterCompanyRulesCommon
@@ -12,7 +11,7 @@ class TestInterCompanyInvoice(TestInterCompanyRulesCommon):
         super(TestInterCompanyInvoice, cls).setUpClass()
         # Enable auto generate invoice in company.
         (cls.company_a + cls.company_b).write({
-            'rule_type': 'invoice_and_refund'
+            'intercompany_generate_bills_refund': True,
         })
         # Configure Chart of Account for company_b.
         cls.env.user.company_id = cls.company_b
@@ -171,8 +170,17 @@ class TestInterCompanyInvoice(TestInterCompanyRulesCommon):
 
         branch_1, branch_2 = self.company_a.child_ids
         (branch_1 + branch_2).write({
-            'rule_type': 'invoice_and_refund'
+            'intercompany_generate_bills_refund': True,
         })
+
+        # It's required to have an intercompany_journal_id set to be able to do the generation
+        for branch in [branch_1, branch_2]:
+            branch.intercompany_purchase_journal_id = self.env['account.journal'].create({
+                'name': 'Vendor Bills - Test',
+                'code': 'TEXJ',
+                'type': 'purchase',
+                'company_id': branch.id,
+            })
 
         # Select the two branches
         self.env.user.write({
