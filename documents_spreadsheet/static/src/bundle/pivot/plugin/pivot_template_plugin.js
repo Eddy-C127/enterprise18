@@ -36,15 +36,13 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
             case "CONVERT_PIVOT_TO_TEMPLATE":
                 this._convertFormulas(
                     this._getCells(pivotFormulaRegex),
-                    this._absoluteToRelative.bind(this),
-                    this.getters.getPivotIds().map(this.getters.getPivotDefinition)
+                    this._absoluteToRelative.bind(this)
                 );
                 break;
             case "CONVERT_PIVOT_FROM_TEMPLATE":
                 this._convertFormulas(
                     this._getCells(pivotFormulaRegex),
-                    this._relativeToAbsolute.bind(this),
-                    this.getters.getPivotIds().map(this.getters.getPivotDefinition)
+                    this._relativeToAbsolute.bind(this)
                 );
                 this._removeInvalidPivotRows();
                 break;
@@ -59,13 +57,12 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
      *
      * @param {Array<Object>} cells
      * @param {Function} convertFunction
-     * @param {...any} args
      */
-    _convertFormulas(cells, convertFunction, ...args) {
+    _convertFormulas(cells, convertFunction) {
         cells.forEach((cell) => {
             if (cell.isFormula) {
                 const { col, row, sheetId } = this.getters.getCellPosition(cell.id);
-                const ast = convertFunction(parse(cell.content), ...args);
+                const ast = convertFunction(parse(cell.content));
                 if (ast) {
                     const content = `=${astToFormula(ast)}`;
                     this.dispatch("UPDATE_CELL", {
