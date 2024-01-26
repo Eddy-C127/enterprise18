@@ -1785,7 +1785,7 @@ class HrPayslip(models.Model):
 
     @api.model
     def _get_dashboard_default_sections(self):
-        return ['actions', 'batches', 'stats']
+        return ['batches', 'stats']
 
     @api.model
     def _get_dashboard_batch_fields(self):
@@ -1798,16 +1798,6 @@ class HrPayslip(models.Model):
         if sections is None:
             sections = self._get_dashboard_default_sections()
         result = {}
-        if 'actions' in sections:
-            # 'actions': -> Array of the different actions and their properties [
-            #     {
-            #         'string' -> Title for the line
-            #         'count' -> Amount to display after the line
-            #         'action' -> What to execute upon clicking the line
-            #     }
-            # ]
-            # All actions can be either a xml_id or a dictionnary
-            result['actions'] = self._get_dashboard_warnings()
         if 'batches' in sections:
             # Batches are loaded for the last 3 months with batches, for example if there are no batches for
             # the summer and september is loaded, we want to get september, june, may.
