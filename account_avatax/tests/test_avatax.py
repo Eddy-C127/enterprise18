@@ -154,6 +154,25 @@ class TestAccountAvalaraInternal(TestAccountAvalaraInternalCommon):
 
         self.assertIsNone(capture.val, "Journal entries should not be sent to Avatax.")
 
+    def test_vendor_bill(self):
+        """We shouldn't send any requests to Avatax for vendor bills."""
+        vendor_bill = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'invoice_date': '2017-01-01',
+            'partner_id': self.partner.id,
+            'invoice_line_ids': [(0, 0, {'product_id': self.product_user.id, 'price_unit': 123.0, 'tax_ids': []})],
+        })
+
+        with self._capture_request(return_value={'lines': [], 'summary': []}) as capture:
+            vendor_bill.action_post()
+            self.assertIsNone(capture.val, "Posting a vendor bill should not send anything to Avatax.")
+
+            vendor_bill.button_draft()
+            self.assertIsNone(capture.val, "Resetting a vendor bill to draft should not send anything to Avatax.")
+
+            vendor_bill.unlink()
+            self.assertIsNone(capture.val, "Deleting a vendor bill should not send anything to Avatax.")
+
     def test_invoice_multi_company(self):
         invoice, response = self._create_invoice_01_and_expected_response()
 
