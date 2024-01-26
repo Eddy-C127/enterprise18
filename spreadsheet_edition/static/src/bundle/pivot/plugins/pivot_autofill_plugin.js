@@ -50,7 +50,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             return formula;
         }
         const dataSource = this.getters.getPivotDataSource(pivotId);
-        const definition = this.getters.getPivotDefinition(pivotId);
+        const definition = this.getters.getPivotRuntime(pivotId);
         for (let i = evaluatedArgs.length - 1; i > 0; i--) {
             const fieldName = evaluatedArgs[i];
             if (
@@ -83,7 +83,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                     // UP-DOWN
                     builder = this._autofillPivotColHeader.bind(this);
                 }
-            } else if (definition.rowGroupBys.includes(evaluatedArgs[1])) {
+            } else if (definition.rows.map((row) => row.name).includes(evaluatedArgs[1])) {
                 builder = this._autofillPivotRowHeader.bind(this);
             } else {
                 builder = this._autofillPivotColHeader.bind(this);
@@ -114,12 +114,12 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (!this.getters.isExistingPivot(pivotId)) {
             return [{ title: _t("Missing pivot"), value: _t("Missing pivot #%s", pivotId) }];
         }
-        const dataSource = this.getters.getPivotDataSource(pivotId);
         if (functionName === "ODOO.PIVOT") {
-            const definition = this.getters.getPivotDefinition(pivotId);
+            const dataSource = this.getters.getPivotDataSource(pivotId);
+            const definition = this.getters.getPivotRuntime(pivotId);
             return this._tooltipFormatPivot(pivotId, args, isColumn, dataSource, definition);
         } else if (functionName === "ODOO.PIVOT.HEADER") {
-            return this._tooltipFormatPivotHeader(pivotId, args, dataSource);
+            return this._tooltipFormatPivotHeader(pivotId, args);
         }
         return [];
     }
@@ -168,11 +168,7 @@ export class PivotAutofillPlugin extends UIPlugin {
     _autofillPivotValue(pivotId, args, isColumn, increment, dataSource, definition) {
         const currentElement = this._getCurrentValueElement(args, definition);
         const table = dataSource.getTableStructure();
-        const isDate = this._isGroupedOnlyByOneDate(
-            dataSource,
-            definition,
-            isColumn ? "COLUMN" : "ROW"
-        );
+        const isDate = this._isGroupedOnlyByOneDate(definition, isColumn ? "COLUMN" : "ROW");
         let cols = [];
         let rows = [];
         let measure;
@@ -181,7 +177,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             rows = currentElement.rows;
             if (isDate) {
                 // Date
-                const group = this._getGroupOfFirstDate(dataSource, definition, "COLUMN");
+                const group = this._getGroupOfFirstDate(definition, "COLUMN");
                 cols = currentElement.cols;
                 cols[0] = this._incrementDate(cols[0], group, increment);
                 measure = cols.pop();
@@ -212,7 +208,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 if (currentElement.rows.length === 0) {
                     return "";
                 }
-                const group = this._getGroupOfFirstDate(dataSource, definition, "ROW");
+                const group = this._getGroupOfFirstDate(definition, "ROW");
                 rows = currentElement.rows;
                 rows[0] = this._incrementDate(rows[0], group, increment);
             } else {
@@ -286,13 +282,13 @@ export class PivotAutofillPlugin extends UIPlugin {
         const table = dataSource.getTableStructure();
         const currentElement = this._getCurrentHeaderElement(args, definition);
         const currentColIndex = table.getColMeasureIndex(currentElement.cols);
-        const isDate = this._isGroupedOnlyByOneDate(dataSource, definition, "COLUMN");
+        const isDate = this._isGroupedOnlyByOneDate(definition, "COLUMN");
         if (isColumn) {
             // LEFT-RIGHT
             let groupValues;
             if (isDate) {
                 // Date
-                const group = this._getGroupOfFirstDate(dataSource, definition, "COLUMN");
+                const group = this._getGroupOfFirstDate(definition, "COLUMN");
                 groupValues = currentElement.cols;
                 groupValues[0] = this._incrementDate(groupValues[0], group, increment);
             } else {
@@ -383,7 +379,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         const table = dataSource.getTableStructure();
         const currentElement = this._getCurrentHeaderElement(args, definition);
         const currentIndex = table.getRowIndex(currentElement.rows);
-        const isDate = this._isGroupedOnlyByOneDate(dataSource, definition, "ROW");
+        const isDate = this._isGroupedOnlyByOneDate(definition, "ROW");
         if (isColumn) {
             const colIndex = increment - 1;
             // LEFT-RIGHT
@@ -403,7 +399,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             let rows;
             if (isDate) {
                 // Date
-                const group = this._getGroupOfFirstDate(dataSource, definition, "ROW");
+                const group = this._getGroupOfFirstDate(definition, "ROW");
                 rows = currentElement.rows;
                 rows[0] = this._incrementDate(rows[0], group, increment);
             } else {
@@ -495,8 +491,14 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _getCurrentHeaderElement(args, definition) {
         const values = this._parseArgs(args.slice(1));
-        const cols = this._getFieldValues([...definition.colGroupBys, "measure"], values);
-        const rows = this._getFieldValues(definition.rowGroupBys, values);
+        const cols = this._getFieldValues(
+            [...definition.columns.map((col) => col.name), "measure"],
+            values
+        );
+        const rows = this._getFieldValues(
+            definition.rows.map((row) => row.name),
+            values
+        );
         return { cols, rows };
     }
     /**
@@ -512,9 +514,15 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _getCurrentValueElement(args, definition) {
         const values = this._parseArgs(args.slice(2));
-        const cols = this._getFieldValues(definition.colGroupBys, values);
+        const cols = this._getFieldValues(
+            definition.columns.map((col) => col.name),
+            values
+        );
         cols.push(args[1]); // measure
-        const rows = this._getFieldValues(definition.rowGroupBys, values);
+        const rows = this._getFieldValues(
+            definition.rows.map((row) => row.name),
+            values
+        );
         return { cols, rows };
     }
     /**
@@ -624,7 +632,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      *
      * @returns {Array<TooltipFormula>}
      */
-    _tooltipFormatPivotHeader(pivotId, args, dataSource) {
+    _tooltipFormatPivotHeader(pivotId, args) {
         const tooltips = [];
         const domain = args.slice(1); // e.g. ["create_date:month", "04/2022", "user_id", 3]
         if (domain.length === 0) {
@@ -663,15 +671,16 @@ export class PivotAutofillPlugin extends UIPlugin {
             args.push(measure);
         }
         for (const index in rows) {
-            args.push(definition.rowGroupBys[index]);
+            args.push(definition.rows[index].name);
             args.push(rows[index]);
         }
-        if (cols.length === 1 && definition.measures.includes(cols[0])) {
+        if (cols.length === 1 && definition.measures.map((m) => m.name).includes(cols[0])) {
             args.push("measure");
             args.push(cols[0]);
         } else {
             for (const index in cols) {
-                args.push(this._getGroupByAtIndex(definition, "COLUMN", index) || "measure");
+                const column = definition.columns[index];
+                args.push(column ? column.name : "measure");
                 args.push(cols[index]);
             }
         }
@@ -679,43 +688,31 @@ export class PivotAutofillPlugin extends UIPlugin {
     }
 
     /**
-     * @param {PivotDataSource} dataSource
      * @param {PivotDefinition} definition
      * @param {string} dimension COLUMN | ROW
      */
-    _isGroupedOnlyByOneDate(dataSource, definition, dimension) {
-        const groupBys = dimension === "COLUMN" ? definition.colGroupBys : definition.rowGroupBys;
-        const field = dataSource.parseGroupField(groupBys[0]).field;
-        return groupBys.length === 1 && ["date", "datetime"].includes(field.type);
+    _isGroupedOnlyByOneDate(definition, dimension) {
+        const groupBys = dimension === "COLUMN" ? definition.columns : definition.rows;
+        return groupBys.length === 1 && ["date", "datetime"].includes(groupBys[0].type);
     }
     /**
-     * @param {PivotDataSource} dataSource
      * @param {PivotDefinition} definition
      * @param {string} dimension COLUMN | ROW
      */
-    _getGroupOfFirstDate(dataSource, definition, dimension) {
-        if (!this._isGroupedOnlyByOneDate(dataSource, definition, dimension)) {
+    _getGroupOfFirstDate(definition, dimension) {
+        if (!this._isGroupedOnlyByOneDate(definition, dimension)) {
             return undefined;
         }
-        const groupBys = dimension === "COLUMN" ? definition.colGroupBys : definition.rowGroupBys;
-        return dataSource.parseGroupField(groupBys[0]).aggregateOperator;
+        const groupBys = dimension === "COLUMN" ? definition.columns : definition.rows;
+        return groupBys[0].aggregateOperator;
     }
 
-    /**
-     * @param {PivotDefinition} definition
-     * @param {string} dimension COLUMN | ROW
-     * @param {number} index
-     */
-    _getGroupByAtIndex(definition, dimension, index) {
-        const groupBys = dimension === "COLUMN" ? definition.colGroupBys : definition.rowGroupBys;
-        return groupBys[index];
-    }
     /**
      * @param {PivotDefinition} definition
      * @returns {number}
      */
     _getNumberOfColGroupBys(definition) {
-        return definition.colGroupBys.length;
+        return definition.columns.length;
     }
 
     /**
@@ -726,10 +723,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _isColumnGroupBy(dataSource, definition, fieldName) {
         const name = dataSource.parseGroupField(fieldName).field.name;
-        return definition.colGroupBys
-            .map((fieldName) => dataSource.parseGroupField(fieldName))
-            .map((group) => group.field.name)
-            .includes(name);
+        return definition.columns.map((col) => col.fieldName).includes(name);
     }
 
     /**
@@ -740,10 +734,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _isRowGroupBy(dataSource, definition, fieldName) {
         const name = dataSource.parseGroupField(fieldName).field.name;
-        return definition.rowGroupBys
-            .map((fieldName) => dataSource.parseGroupField(fieldName))
-            .map((group) => group.field.name)
-            .includes(name);
+        return definition.rows.map((row) => row.fieldName).includes(name);
     }
 }
 

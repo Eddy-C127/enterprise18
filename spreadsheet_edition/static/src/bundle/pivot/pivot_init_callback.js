@@ -1,18 +1,18 @@
 /** @odoo-module **/
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { PivotDataSource } from "@spreadsheet/pivot/pivot_data_source";
+import { convertRuntimeDefinition } from "@spreadsheet/pivot/pivot_helpers";
 import { Domain } from "@web/core/domain";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
 export function insertPivot(pivotData) {
-    const definition = {
+    const runtimeDefinition = {
         metaData: {
             colGroupBys: [...pivotData.metaData.fullColGroupBys],
             rowGroupBys: [...pivotData.metaData.fullRowGroupBys],
             activeMeasures: [...pivotData.metaData.activeMeasures],
             resModel: pivotData.metaData.resModel,
-            fields: pivotData.metaData.fields,
             sortedColumn: pivotData.metaData.sortedColumn,
         },
         searchParams: {
@@ -27,7 +27,9 @@ export function insertPivot(pivotData) {
     return async (model) => {
         const pivotId = model.getters.getNextPivotId();
         const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
-        model.config.custom.dataSources.add(dataSourceId, PivotDataSource, definition);
+        const def = convertRuntimeDefinition(runtimeDefinition);
+        def.fields = pivotData.metaData.fields;
+        model.config.custom.dataSources.add(dataSourceId, PivotDataSource, def);
         await model.config.custom.dataSources.load(dataSourceId);
         const pivotDataSource = model.config.custom.dataSources.get(dataSourceId);
         // Add an empty sheet in the case of an existing spreadsheet.
@@ -44,15 +46,13 @@ export function insertPivot(pivotData) {
         const table = structure.export();
         const sheetId = model.getters.getActiveSheetId();
 
-        const defWithoutFields = JSON.parse(JSON.stringify(definition));
-        defWithoutFields.metaData.fields = undefined;
         const result = model.dispatch("INSERT_PIVOT", {
             sheetId,
             col: 0,
             row: 0,
             table,
             id: pivotId,
-            definition: defWithoutFields,
+            definition: runtimeDefinition,
         });
         if (!result.isSuccessful) {
             throw new Error(`Couldn't insert pivot in spreadsheet. Reasons : ${result.reasons}`);

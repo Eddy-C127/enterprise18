@@ -32,28 +32,21 @@ export class PivotDetailsSidePanel extends Component {
         onWillUpdateProps(async (nextProps) => {
             if (!this.env.model.getters.isExistingPivot(nextProps.pivotId)) {
                 this.props.onCloseSidePanel();
-            }
-            else {
+            } else {
                 await loadData(nextProps.pivotId);
             }
         });
     }
 
     get pivotDefinition() {
-        const definition = this.env.model.getters.getPivotDefinition(this.props.pivotId);
+        const definition = this.env.model.getters.getPivotRuntime(this.props.pivotId);
         return {
             model: definition.model,
             modelDisplayName: this.modelDisplayName,
             domain: new Domain(definition.domain).toString(),
-            colGroupBys: definition.colGroupBys.map((fieldName) =>
-                this.dataSource.getFormattedGroupBy(fieldName)
-            ),
-            rowGroupBys: definition.rowGroupBys.map((fieldName) =>
-                this.dataSource.getFormattedGroupBy(fieldName)
-            ),
-            measures: definition.measures.map((measure) =>
-                this.dataSource.getMeasureDisplayName(measure)
-            ),
+            colGroupBys: definition.columns.map((col) => col.displayName),
+            rowGroupBys: definition.rows.map((row) => row.displayName),
+            measures: definition.measures.map((measure) => measure.displayName),
             sortedColumn: definition.sortedColumn,
         };
     }
@@ -94,10 +87,10 @@ export class PivotDetailsSidePanel extends Component {
     }
 
     openDomainEdition() {
-        const definition = this.env.model.getters.getPivotDefinition(this.props.pivotId);
+        const { model, domain } = this.env.model.getters.getPivotRuntime(this.props.pivotId);
         this.dialog.add(DomainSelectorDialog, {
-            resModel: definition.model,
-            domain: new Domain(definition.domain).toString(),
+            resModel: model,
+            domain: new Domain(domain).toString(),
             isDebugMode: !!this.env.debug,
             onConfirm: (domain) =>
                 this.env.model.dispatch("UPDATE_ODOO_PIVOT_DOMAIN", {

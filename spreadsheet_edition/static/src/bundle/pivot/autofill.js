@@ -109,20 +109,17 @@ autofillModifiersRegistry
             if (!getters.isExistingPivot(pivotId)) {
                 return { cellData: { ...data.cell, content: formulaString } };
             }
-            const pivotDefinition = getters.getPivotDefinition(pivotId);
-            const fields = ["up", "down"].includes(direction)
-                ? pivotDefinition.rowGroupBys
-                : pivotDefinition.colGroupBys;
+            const { rows, columns } = getters.getPivotRuntime(pivotId);
+            const fields = ["up", "down"].includes(direction) ? rows : columns;
             const step = ["right", "down"].includes(direction) ? 1 : -1;
 
-            const field = fields
-                .reverse()
-                .find((field) =>
-                    new RegExp(`ODOO\\.PIVOT\\.POSITION.*${field}.*\\)`).test(formulaString)
-                );
+            const field = [...fields].reverse().find((field) => {
+                const name = field.name;
+                return new RegExp(`ODOO\\.PIVOT\\.POSITION.*${name}.*\\)`).test(formulaString);
+            });
             const content = formulaString.replace(
                 new RegExp(
-                    `(.*ODOO\\.PIVOT\\.POSITION\\(\\s*"\\w"\\s*,\\s*"${field}"\\s*,\\s*"?)(\\d+)(.*)`
+                    `(.*ODOO\\.PIVOT\\.POSITION\\(\\s*"\\w"\\s*,\\s*"${field.name}"\\s*,\\s*"?)(\\d+)(.*)`
                 ),
                 (match, before, position, after) => {
                     rule.current += step;
