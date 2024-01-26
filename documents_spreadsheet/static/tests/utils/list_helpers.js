@@ -8,8 +8,9 @@ import {
     makeDeferred,
     triggerEvent,
     mouseEnter,
+    nextTick,
 } from "@web/../tests/helpers/utils";
-import { toggleActionMenu, findItem } from "@web/../tests/search/helpers";
+import { findItem } from "@web/../tests/search/helpers";
 import { getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import {
     getSpreadsheetActionEnv,
@@ -110,9 +111,7 @@ export async function createSpreadsheetFromListView(params = {}) {
         await params.actions(fixture);
     }
     /** Put the current list in a new spreadsheet */
-    await toggleActionMenu(fixture);
-    await toggleCogMenuSpreadsheet(fixture);
-    await click(fixture.querySelector(".o_insert_list_spreadsheet_menu"));
+    await invokeInsertListInSpreadsheetDialog(webClient.env);
     /** @type {HTMLInputElement} */
     const input = fixture.querySelector(`.o-sp-dialog-meta-threshold-input`);
     input.value = params.linesNumber ? params.linesNumber.toString() : "10";
@@ -139,4 +138,13 @@ export async function toggleCogMenuSpreadsheet(el) {
     await contains(".o_cp_action_menus .dropdown-toggle", { text: "Spreadsheet" });
     await mouseEnter(findItem(el, ".o_cp_action_menus .dropdown-toggle", "Spreadsheet"));
     await contains(".o-dropdown .show", { text: "Spreadsheet" });
+}
+
+/** While the actual flow requires to toggle the list view action menu
+ * The current helper uses `contains` which slowsdown drastically the tests
+ * This helper takes a shortcut by relying on the implementation
+ */
+export async function invokeInsertListInSpreadsheetDialog(env) {
+    env.bus.trigger("insert-list-spreadsheet");
+    await nextTick();
 }

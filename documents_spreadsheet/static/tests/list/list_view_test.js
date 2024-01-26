@@ -13,7 +13,7 @@ import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { ListController } from "@web/views/list/list_controller";
-import { createSpreadsheetFromListView, spawnListViewForSpreadsheet, toggleCogMenuSpreadsheet } from "../utils/list_helpers";
+import { createSpreadsheetFromListView, spawnListViewForSpreadsheet, invokeInsertListInSpreadsheetDialog } from "../utils/list_helpers";
 import { createSpreadsheet } from "../spreadsheet_test_utils.js";
 import { doMenuAction } from "@spreadsheet/../tests/utils/ui";
 import { user } from "@web/core/user";
@@ -294,7 +294,6 @@ QUnit.module("document_spreadsheet > list view", {
     });
 
     QUnit.test("user related context is not saved in the spreadsheet", async function (assert) {
-        assert.expect(3);
         setupViewRegistries();
 
         registry.category("favoriteMenu").add(
@@ -341,7 +340,7 @@ QUnit.module("document_spreadsheet > list view", {
             default_stage_id: 5,
         };
         const serverData = { models: getBasicData() };
-        await makeView({
+        const { env } = await makeView({
             serverData,
             type: "list",
             resModel: "partner",
@@ -359,9 +358,7 @@ QUnit.module("document_spreadsheet > list view", {
             },
         });
         const target = getFixture();
-        await toggleActionMenu(target);
-        await toggleCogMenuSpreadsheet(target);
-        await click(target, ".o_insert_list_spreadsheet_menu");
+        await invokeInsertListInSpreadsheetDialog(env);
         await click(target, ".modal button.btn-primary");
     });
 
