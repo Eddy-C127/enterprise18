@@ -2615,6 +2615,15 @@ class AccountReport(models.Model):
                     }
 
                     if expression.report_line_id.report_id == self:
+                        if expression in column_group_expression_totals:
+                            # This can happen because of a cross report aggregation referencing an expression of its own report,
+                            # but forcing a different date_scope onto it. This case is not supported for now ; splitting the aggregation can be
+                            # used as a workaround.
+                            raise UserError(_(
+                                "Expression labelled '%s' of line '%s' is being overwritten when computing the current report. "
+                                "Make sure the cross-report aggregations of this report only reference terms belonging to other reports.",
+                                expression.label, expression.report_line_id.name
+                            ))
                         column_group_expression_totals[expression] = expression_result
                     elif cross_report_expression_totals is not None:
                         # Entering this else means this expression needs to be evaluated because of a cross_report aggregation
