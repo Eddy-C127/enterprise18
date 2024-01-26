@@ -280,7 +280,7 @@ class WorksheetTemplate(models.Model):
             'model': model.model,
             'arch': tree_arch_func and tree_arch_func() or """
                 <tree>
-                    <field name="create_date" widget="date"/>
+                    <field name="create_date"/>
                     <field name="x_name"/>
                 </tree>
             """

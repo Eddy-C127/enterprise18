@@ -180,7 +180,7 @@
                                 <div class="o_kanban_record_bottom" t-if="!selection_mode">
                                     <div class="oe_kanban_bottom_left">
                                         <field name="quality" widget="priority" readonly="1"/>
-                                        <field name="create_date" widget="date"/>
+                                        <field name="create_date"/>
                                         <div>
                                             <i class="fa fa-whatsapp me-1" title="Messages Count" aria-label="Messages Count"/>
                                             <field name="messages_count"/>

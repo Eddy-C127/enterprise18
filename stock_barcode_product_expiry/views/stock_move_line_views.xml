@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-6 my-2 d-flex align-items-baseline"
                     invisible="not use_expiration_date">
                     <i class="fa fa-fw fa-lg fa-calendar me-3" title="Expiration Date"/>
-                    <field name="expiration_date" force_save="1" widget="date"
+                    <field name="expiration_date" force_save="1"
                     readonly="picking_type_use_existing_lots"/>
                     <span class="fa fa-exclamation-triangle text-danger ms-4"
                         invisible="not is_expired or not picking_type_use_existing_lots">

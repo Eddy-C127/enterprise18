@@ -65,7 +65,7 @@
                                 <field name="move_name" string="Reference" widget="open_move_widget"/>
                                 <field name="date_maturity" widget="remaining_days"/>
                                 <field name="invoice_origin" optional="show"/>
-                                <field name="expected_pay_date" widget="date" optional="show"/>
+                                <field name="expected_pay_date" optional="show"/>
                                 <field name="blocked" string="Exclude from Follow-ups" optional="show" widget="boolean_toggle"/>
                                 <field name="amount_residual_currency" string="Residual Amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                 <field name="amount_currency" string="Total Amount" widget="monetary" options="{'currency_field': 'currency_id'}" optional="hide"/>

@@ -15,7 +15,7 @@
                     readonly="l10n_pe_edi_status == 'sent'"/>
                 <field name="l10n_pe_edi_departure_start_date"
                     invisible="not l10n_pe_edi_transport_type"
-                    readonly="l10n_pe_edi_status == 'sent'" widget="date"/>
+                    readonly="l10n_pe_edi_status == 'sent'"/>
             </xpath>
             <xpath expr="//header" position="after">
                 <div class="alert alert-warning" role="alert" style="margin-bottom:0px;"
