@@ -334,12 +334,6 @@ class TestMrpPlm(TestPlmCommon):
         eco2.action_new_revision()
         self.assertEqual(eco2.stage_id, self.eco_stage, "Wrong stage.")
 
-        # only ECOs in unfolded stages are counted
-        self.assertEqual(eco1.new_bom_id.eco_count, 1)
-
-        # unfold the stage to check if all ECOs are counted
-        self.eco_stage_folded.folded = False
-        eco1.new_bom_id.invalidate_recordset()
         self.assertEqual(eco1.new_bom_id.eco_count, 2)
 
     def test_do_not_merge_bom_lines(self):
@@ -462,3 +456,61 @@ class TestMrpPlm(TestPlmCommon):
 
         # MRP manager should still be able to edit the original object
         bom.bom_line_ids[0].product_qty = 2
+
+    def create_eco(self, eco_type):
+        eco_form = Form(self.env['mrp.eco'])
+        eco_form.type = eco_type
+        eco_form.type_id = self.eco_type
+        eco_form.name = 'test_plm_bom_document'
+        eco_form.product_tmpl_id = self.table_bolt.product_tmpl_id
+        eco = eco_form.save()
+        eco.action_new_revision()
+        return eco
+
+    def test_plm_bom_document(self):
+
+        doc_product = self.env['product.document'].create({
+            'name': 'doc_product_mo',
+            'attached_on_mrp': 'hidden',
+            'res_id': self.table_bolt.id,
+            'res_model': 'product.product',
+        })
+        doc_template = self.env['product.document'].create({
+            'name': 'doc_product_mo',
+            'attached_on_mrp': 'hidden',
+            'res_id': self.table_bolt.product_tmpl_id.id,
+            'res_model': 'product.template',
+        })
+        self.env['mrp.bom'].create({
+            'product_tmpl_id': self.table_bolt.product_tmpl_id.id,
+            'product_uom_id': self.table_bolt.uom_id.id,
+            'product_qty': 1.0,
+            'type': 'normal',
+            })
+
+        eco = self.create_eco('bom')
+        self.assertEqual(eco.document_count, 0, 'Document count should be 0, no docs are visible on bom')
+
+        doc_template.attached_on_mrp = 'bom'
+        doc_product.attached_on_mrp = 'bom'
+        eco = self.create_eco('bom')
+        self.assertEqual(eco.document_count, 2, 'Document count should be 2, docs related to the template and the product have to be copied.')
+        docs = self.env['product.document'].search([('id', 'in', [doc_product.id, doc_template.id])])
+        self.assertNotEqual(eco.document_ids, docs, 'The documents have to be differents')
+
+    def test_plm_product_document(self):
+
+        self.env['product.document'].create({
+            'name': 'doc_product_mo',
+            'attached_on_mrp': 'hidden',
+            'res_id': self.table_bolt.id,
+            'res_model': 'product.product',
+        })
+        self.env['product.document'].create({
+            'name': 'doc_product_mo',
+            'attached_on_mrp': 'hidden',
+            'res_id': self.table_bolt.product_tmpl_id.id,
+            'res_model': 'product.template',
+        })
+        eco = self.create_eco('product')
+        self.assertEqual(eco.document_count, 2, 'Document count should be 2, all docs have to be copied.')

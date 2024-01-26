@@ -405,7 +405,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
             'datas': 'TXkgYXR0YWNobWVudA==',
             'res_model': 'product.product',
             'res_id': self.sub_product_tmpl.product_variant_ids.id,
-            'attached_on': 'sale_order',
+            'attached_on_sale': 'sale_order',
         })
         self.subscription.action_confirm()
         response = self.url_open(

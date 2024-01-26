@@ -22,8 +22,7 @@ class MrpBom(models.Model):
         previous_boms_mapping = self._get_previous_boms()
         previous_boms_list = list(previous_boms_mapping.keys())
         eco_data = self.env['mrp.eco']._read_group([
-            ('bom_id', 'in', previous_boms_list),
-            ('stage_id.folded', '=', False)],
+            ('bom_id', 'in', previous_boms_list)],
             ['bom_id'], ['__count'])
         eco_count = defaultdict(lambda: 0)
         for previous_bom, count in eco_data:
@@ -59,11 +58,10 @@ class MrpBom(models.Model):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("mrp_plm.mrp_eco_action_main")
         previous_boms = self._get_previous_boms()
-        action['domain'] = [('bom_id', 'in', list(previous_boms.keys()))]
+        action['domain'] = ['&', ('bom_id', 'in', list(previous_boms.keys())), ('type', '=', 'bom')]
         action['context'] = {
             'default_bom_id': self.id,
             'default_product_tmpl_id': self.product_tmpl_id.id,
-            'default_type': 'bom'
         }
         return action
 

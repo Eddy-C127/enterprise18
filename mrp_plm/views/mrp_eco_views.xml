@@ -413,7 +413,7 @@
                             name="action_open_production" type="object"
                             invisible="not production_id"/>
                         <button class="oe_stat_button" name="action_see_attachments" type="object" icon="fa-file-text-o" invisible="state == 'confirmed' or type == 'routing'">
-                            <field string="Documents" name="mrp_document_count" widget="statinfo"/>
+                            <field string="Documents" name="document_count" widget="statinfo"/>
                         </button>
                         <button name="open_new_bom" icon="fa-flask" type="object" invisible="not new_bom_id" class="oe_stat_button">
                         <div class="o_stat_info">

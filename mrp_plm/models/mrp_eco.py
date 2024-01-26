@@ -7,6 +7,7 @@ from random import randint
 import ast
 
 from odoo import api, fields, models, tools, Command, SUPERUSER_ID, _
+from odoo.osv import expression
 from odoo.exceptions import UserError
 
 
@@ -273,12 +274,12 @@ class MrpEco(models.Model):
     routing_change_ids = fields.One2many(
         'mrp.eco.routing.change', 'eco_id', string="ECO Routing Changes",
         compute='_compute_routing_change_ids', help='Difference between old operation and new operation revision', store=True)
-    mrp_document_count = fields.Integer('# Attachments', compute='_compute_attachments')
-    mrp_document_ids = fields.One2many(
-        'mrp.document', 'res_id', string='Attachments',
+    document_count = fields.Integer('# Attachments', compute='_compute_attachments')
+    document_ids = fields.One2many(
+        'product.document', 'res_id', string='Attachments',
         auto_join=True, domain=lambda self: [('res_model', '=', self._name)])
     displayed_image_id = fields.Many2one(
-        'mrp.document', 'Displayed Image',
+        'product.document', 'Displayed Image',
         domain="[('res_model', '=', 'mrp.eco'), ('res_id', '=', id), ('mimetype', 'ilike', 'image')]")
     displayed_image_attachment_id = fields.Many2one('ir.attachment', related='displayed_image_id.ir_attachment_id', readonly=False)
     color = fields.Integer('Color')
@@ -288,7 +289,7 @@ class MrpEco(models.Model):
 
     def _compute_attachments(self):
         for p in self:
-            p.mrp_document_count = len(p.mrp_document_ids)
+            p.document_count = len(p.document_ids)
 
     @api.depends('effectivity_date')
     def _compute_effectivity(self):
@@ -609,9 +610,9 @@ class MrpEco(models.Model):
         if 'displayed_image_attachment_id' in vals:
             doc = False
             if vals['displayed_image_attachment_id']:
-                doc = self.env['mrp.document'].search([('ir_attachment_id', '=', vals['displayed_image_attachment_id'])])
+                doc = self.env['product.document'].search([('ir_attachment_id', '=', vals['displayed_image_attachment_id'])])
                 if not doc:
-                    doc = self.env['mrp.document'].create([{'ir_attachment_id': vals['displayed_image_attachment_id']}])
+                    doc = self.env['product.document'].create([{'ir_attachment_id': vals['displayed_image_attachment_id']}])
             vals.pop('displayed_image_attachment_id')
             vals['displayed_image_id'] = doc
         res = super(MrpEco, self).write(vals)
@@ -712,8 +713,8 @@ class MrpEco(models.Model):
         return True
 
     def action_new_revision(self):
-        IrAttachment = self.env['ir.attachment']
         for eco in self:
+            domain = [('res_model', '=', 'product.template'), ('res_id', '=', eco.product_tmpl_id.id)]
             if eco.type == 'bom':
                 if eco.production_id:
                     # This ECO was generated from a MO. Uses it MO as base for the revision.
@@ -724,14 +725,16 @@ class MrpEco(models.Model):
                         'active': False,
                         'previous_bom_id': eco.bom_id.id,
                     })
-                attachments = IrAttachment.search([('res_model', '=', 'mrp.bom'),
-                                                   ('res_id', '=', eco.bom_id.id)])
+                if eco.bom_id.product_id:
+                    domain = expression.OR([domain, ['&', ('res_model', '=', 'product.product'), ('res_id', 'in', eco.bom_id.product_id.ids)]])
+                else:
+                    domain = expression.OR([domain, ['&', ('res_model', '=', 'product.product'), ('res_id', 'in', self.env["product.product"].search([('product_tmpl_id', 'in', eco.product_tmpl_id.ids)]).ids)]])
+                domain = expression.AND([domain, [('attached_on_mrp', '=', 'bom')]])
             else:
-                attachments = IrAttachment.search([('res_model', '=', 'product.template'),
-                                                   ('res_id', '=', eco.product_tmpl_id.id)])
-            for attach in attachments:
-                new_attach = attach.copy({'res_model': 'mrp.eco', 'res_id': eco.id})
-                self.env['mrp.document'].create({'ir_attachment_id': new_attach.id, 'origin_attachment_id': attach.id})
+                domain = expression.OR([domain, ['&', ('res_model', '=', 'product.product'), ('res_id', 'in', self.env["product.product"].search([('product_tmpl_id', 'in', eco.product_tmpl_id.ids)]).ids)]])
+            docs = self.env['product.document'].search(domain)
+            for doc in docs:
+                doc.copy({'res_model': 'mrp.eco', 'res_id': eco.id, 'origin_attachment_id': doc.ir_attachment_id.id})
         self.write({'state': 'progress'})
 
     def action_apply(self):
@@ -744,29 +747,27 @@ class MrpEco(models.Model):
                 eco.apply_rebase()
             if eco.allow_apply_change:
                 if eco.type == 'product':
-                    for attach in eco.with_context(active_test=False).mrp_document_ids:
-                        origin = attach.origin_attachment_id
-                        if not attach.active:
-                            origin.unlink()
-                            continue
-                        if origin._compute_checksum(origin.raw) == origin._compute_checksum(attach.raw):
-                            if attach.origin_attachment_id.name != attach.name:
-                                attach.origin_attachment_id.name = attach.name
-                            if attach.origin_attachment_id.company_id != attach.company_id:
-                                attach.origin_attachment_id.company_id = attach.company_id
-                            continue
-                        attach.ir_attachment_id.copy({
-                            'res_model': 'product.template',
-                            'res_id': eco.product_tmpl_id.id,
-                        })
                     eco.product_tmpl_id.version = eco.product_tmpl_id.version + 1
                 else:
                     eco.mapped('new_bom_id').apply_new_version()
-                    for attach in eco.mrp_document_ids:
-                        attach.ir_attachment_id.copy({
-                            'res_model': 'mrp.bom',
-                            'res_id': eco.new_bom_id.id,
-                        })
+
+                for attach in eco.with_context(active_test=False).document_ids:
+                    origin = attach.origin_attachment_id
+                    if not attach.active:
+                        origin.unlink()
+                        continue
+                    if origin._compute_checksum(origin.raw) == origin._compute_checksum(attach.raw):
+                        if attach.origin_attachment_id.name != attach.name:
+                            attach.origin_attachment_id.name = attach.name
+                        if attach.origin_attachment_id.company_id != attach.company_id:
+                            attach.origin_attachment_id.company_id = attach.company_id
+                        continue
+                    new_doc = attach.copy({
+                        'res_model': 'product.template',
+                        'res_id': eco.product_tmpl_id.id,
+                    })
+                    attach.origin_attachment_id = new_doc.id
+
                 vals = {'state': 'done'}
                 stage_id = eco.env['mrp.eco.stage'].search([
                     ('final_stage', '=', True),
@@ -790,7 +791,6 @@ class MrpEco(models.Model):
 
     def action_see_attachments(self):
         self.ensure_one()
-        domain = ['&', ('res_model', '=', self._name), ('res_id', '=', self.id)]
         attachment_view = self.env.ref('mrp_plm.view_document_file_kanban_mrp_plm')
         context = {
             'default_res_model': self._name,
@@ -801,10 +801,14 @@ class MrpEco(models.Model):
             'edit': self.state != 'done',
             'delete': self.state != 'done',
         }
+
+        if self.type == 'bom':
+            context['eco_bom'] = True
+
         return {
             'name': _('Attachments'),
-            'domain': domain,
-            'res_model': 'mrp.document',
+            'domain': ['&', ('res_model', '=', self._name), ('res_id', '=', self.id)],
+            'res_model': 'product.document',
             'type': 'ir.actions.act_window',
             'view_id': attachment_view.id,
             'views': [(attachment_view.id, 'kanban'), (False, 'form')],
