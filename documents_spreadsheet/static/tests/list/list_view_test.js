@@ -14,11 +14,10 @@ import {
     patchDate,
     editInput,
 } from "@web/../tests/helpers/utils";
-import { toggleActionMenu } from "@web/../tests/search/helpers";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
 import { ListRenderer } from "@web/views/list/list_renderer";
-import { createSpreadsheetFromListView, toggleCogMenuSpreadsheet } from "../utils/list_helpers";
+import { createSpreadsheetFromListView, invokeInsertListInSpreadsheetDialog } from "../utils/list_helpers";
 import { createSpreadsheet } from "../spreadsheet_test_utils.js";
 import { doMenuAction } from "@spreadsheet/../tests/utils/ui";
 import { session } from "@web/session";
@@ -245,7 +244,6 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
     });
 
     QUnit.test("user related context is not saved in the spreadsheet", async function (assert) {
-        assert.expect(3);
         setupViewRegistries();
 
         registry.category("favoriteMenu").add(
@@ -293,7 +291,7 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
             default_stage_id: 5,
         };
         const serverData = { models: getBasicData() };
-        await makeView({
+        const { env } = await makeView({
             serverData,
             type: "list",
             resModel: "partner",
@@ -311,9 +309,7 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
             },
         });
         const target = getFixture();
-        await toggleActionMenu(target);
-        await toggleCogMenuSpreadsheet(target);
-        await click(target, ".o_insert_list_spreadsheet_menu");
+        await invokeInsertListInSpreadsheetDialog(env);
         await click(target, ".modal button.btn-primary");
     });
 
@@ -412,8 +408,6 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
     });
 
     QUnit.test("Update the list title from the side panel", async function (assert) {
-        assert.expect(3);
-
         const { model, env } = await createSpreadsheetFromListView();
         // opening from a pivot cell
         const sheetId = model.getters.getActiveSheetId();
