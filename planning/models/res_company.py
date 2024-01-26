@@ -9,7 +9,15 @@ class Company(models.Model):
 
     planning_generation_interval = fields.Integer("Rate Of Shift Generation", required=True, readonly=False, default=6)
 
-    planning_allow_self_unassign = fields.Boolean("Can Employee Un-Assign Themselves?", default=False)
+    planning_employee_unavailabilities = fields.Selection(
+        selection=[
+            ('switch', 'Switch shifts with other employees'),
+            ('unassign', 'Unassign themselves from shifts'),
+        ],
+        string="Employee Unavailabilities",
+        default='switch',
+        required=True,
+    )
 
     planning_self_unassign_days_before = fields.Integer("Days before shift for unassignment", help="Deadline in days for shift unassignment")
 

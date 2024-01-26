@@ -3,7 +3,7 @@
 
 from odoo.tests import new_test_user, tagged, HttpCase
 #from odoo.tests.common import TransactionCase
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, UserError
 from odoo.fields import Command
 
 from datetime import datetime
@@ -265,7 +265,7 @@ class TestUserAccess(HttpCase):
     def test_planning_user_can_unassign_slots(self):
         """ Planning user can unassign their own slots. """
         self.env['res.config.settings'].create({
-            'planning_allow_self_unassign': True,
+            'planning_employee_unavailabilities': 'unassign',
             'planning_self_unassign_days_before': 1,
         }).execute()
 
@@ -279,6 +279,23 @@ class TestUserAccess(HttpCase):
         })
         test_slot.with_user(self.planning_user).action_self_unassign()
         self.assertFalse(test_slot.resource_id, "Planning user can unassign their slot")
+
+    def test_planning_user_cannot_unassign_slots(self):
+        """ Test unassignment when the planning user cannot unassign their own slots. """
+        self.env['res.config.settings'].create({
+            'planning_employee_unavailabilities': 'switch',
+        }).execute()
+
+        test_slot = self.env['planning.slot'].create({
+            'start_datetime': datetime.now() + relativedelta(days=2),
+            'end_datetime': datetime.now() + relativedelta(days=3),
+            'state': 'published',
+            'employee_id': self.planning_user.employee_id.id,
+            'resource_id': self.res_planning_user.id,
+            'unassign_deadline': datetime.now() + relativedelta(days=1),
+        })
+        with self.assertRaises(UserError):
+            test_slot.with_user(self.planning_user).action_self_unassign()
 
     def test_planning_user_cannot_copy_previous(self):
         """

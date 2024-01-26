@@ -70,7 +70,7 @@ class Planning(models.Model):
         "End Date", compute='_compute_datetime', store=True, readonly=False, required=True,
         copy=True)
     # UI fields and warnings
-    allow_self_unassign = fields.Boolean('Let Employee Unassign Themselves', related='company_id.planning_allow_self_unassign')
+    allow_self_unassign = fields.Boolean('Let Employee Unassign Themselves', compute='_compute_allow_self_unassign')
     self_unassign_days_before = fields.Integer(
         "Days before shift for unassignment",
         related="company_id.planning_self_unassign_days_before"
@@ -662,6 +662,9 @@ class Planning(models.Model):
             end_datetime = intervals[-1][1]
 
         return (start_datetime, end_datetime)
+
+    def _compute_allow_self_unassign(self):
+        self.allow_self_unassign = self.company_id.planning_employee_unavailabilities == "unassign"
 
     @api.depends('self_unassign_days_before', 'start_datetime')
     def _compute_unassign_deadline(self):
@@ -2209,7 +2212,7 @@ class PlanningPlanning(models.Model):
         help="Company linked to the material resource. Leave empty for the resource to be available in every company.")
     date_start = fields.Date('Date Start', compute='_compute_dates')
     date_end = fields.Date('Date End', compute='_compute_dates')
-    allow_self_unassign = fields.Boolean('Let Employee Unassign Themselves', related='company_id.planning_allow_self_unassign')
+    allow_self_unassign = fields.Boolean('Let Employee Unassign Themselves', compute='_compute_allow_self_unassign')
     self_unassign_days_before = fields.Integer("Days before shift for unassignment", related="company_id.planning_self_unassign_days_before", help="Deadline in days for shift unassignment")
 
     @api.depends('start_datetime', 'end_datetime')
@@ -2223,6 +2226,9 @@ class PlanningPlanning(models.Model):
     def _compute_display_name(self):
         """ This override is need to have a human readable string in the email light layout header (`message.record_name`) """
         self.display_name = _('Planning')
+
+    def _compute_allow_self_unassign(self):
+        self.allow_self_unassign = self.company_id.planning_employee_unavailabilities == "unassign"
 
     # ----------------------------------------------------
     # Business Methods
