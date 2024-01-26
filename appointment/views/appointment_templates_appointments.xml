@@ -194,7 +194,8 @@
                                     </div>
                                     <div class="o_appointment_no_slot_overall_helper col-12"/>
                                 </div>
-                                <div class="oe_structure oe_empty" data-editor-message="DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL APPOINTMENTS"/>
+                                <t t-set="editor_message">DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL APPOINTMENTS</t>
+                                <div class="oe_structure oe_empty" t-att-data-editor-message="editor_message"/>
                             </div>
                             <div t-attf-class="o_appointment_intro border-top #{'d-none' if not appointment_type.active else ''} #{'pt-4 mt-4' if not is_html_empty(appointment_type.message_intro) else 'd-none'}">
                                 <h5 class="mb-3">Description</h5>

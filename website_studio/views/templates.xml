@@ -4,7 +4,8 @@
     <template id="default_record_page">
         <t t-call="website.layout">
             <div id="o_website_record_page wrap">
-                <div class="oe_structure oe_new" data-editor-message="Drag building blocks to customize the header of single record pages."></div>
+                <t t-set="editor_message">Drag building blocks to customize the header of single record pages.</t>
+                <div class="oe_structure oe_new" t-att-data-editor-message="editor_message"/>
                 <div class="container">
                     <ol t-if="listing" class="breadcrumb p-0 my-2">
                         <li class="breadcrumb-item o_not_editable">
@@ -28,7 +29,8 @@
                     </div>
                     <studio_placeholder for="html"/>
                 </div>
-                <div class="oe_structure oe_new" data-editor-message="Drag building blocks to customize the footer of single record pages."></div>
+                <t t-set="editor_message">Drag building blocks to customize the footer of single record pages.</t>
+                <div class="oe_structure oe_new" t-att-data-editor-message="editor_message"></div>
             </div>
         </t>
     </template>
