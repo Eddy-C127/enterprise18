@@ -3429,13 +3429,12 @@ registry.category("web_tour.tours").add('test_receipt_delete_button', {test: tru
         trigger: '.o_delete',
     },
     {
-        trigger: '.o_barcode_client_action',
+        trigger: '.o_validate_page',
         run: 'scan O-BTN.validate',
     }, {
-        content: "wait to be back on the barcode lines",
-        trigger: '.o_picking_already_done',
-        auto: true,
-        run() {},
+        content: "check the picking is validated",
+        trigger: '.o_notification_bar.bg-success',
+        isCheck: true,
     },
 ]});
 
