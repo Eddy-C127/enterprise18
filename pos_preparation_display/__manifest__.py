@@ -18,34 +18,13 @@
     'auto_install': True,
     'assets': {
         'pos_preparation_display.assets': [
-
             # 'preparation_display' bootstrap customization layer
             'web/static/src/scss/functions.scss',
             'pos_preparation_display/static/src/scss/primary_variables.scss',
-
-            # 'webclient' bootstrap customization layer
-            ('include', 'web._assets_helpers'),
-            ('include', 'web._assets_backend_helpers'),
-
-            'web/static/src/scss/pre_variables.scss',
-            'web/static/lib/bootstrap/scss/_variables.scss',
+            ("include", "point_of_sale.base_app"),
             'web/static/src/webclient/webclient.scss',
-
-            # Import Bootstrap
-            ('include', 'web._assets_bootstrap_backend'),
-
-            # Icons
-            'web/static/src/libs/fontawesome/css/font-awesome.css',
-            'web/static/lib/odoo_ui_icons/*',
             'web/static/src/webclient/icons.scss',
-
-            ('include', 'web._assets_core'),
-
             'point_of_sale/static/src/utils.js',
-            'bus/static/src/services/bus_service.js',
-            'bus/static/src/bus_parameters_service.js',
-            'bus/static/src/multi_tab_service.js',
-            'bus/static/src/workers/*',
 
             'point_of_sale/static/src/sounds/notification.wav',
             'point_of_sale/static/src/app/sound/sound_service.js',
@@ -53,11 +32,7 @@
             'pos_preparation_display/static/src/app/**/*',
         ],
         'pos_preparation_display.assets_tour_tests': [
-            'web/static/lib/jquery/jquery.js',
-            'web_tour/static/src/tour_pointer/**/*.xml',
-            'web_tour/static/src/tour_pointer/**/*.js',
-            'web_tour/static/src/tour_service/**/*',
-
+            ("include", "point_of_sale.base_tests"),
             'point_of_sale/static/tests/tours/**/*',
             'pos_preparation_display/static/tests/tours/**/*',
         ],
