@@ -7,6 +7,7 @@
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
 # Milan Bojovic <mbojovic@outlook.com>, 2023
 # コフスタジオ, 2024
+# Jelena Stamatović, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: コフスタジオ, 2024\n"
+"Last-Translator: Jelena Stamatović, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +26,7 @@ msgstr ""
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_walls
 msgid "<b>Hey! No wall found</b>"
-msgstr "<b>Hey! No wall found</b>"
+msgstr "<b>Hej! Nije pronađen zid</b>"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_walls
@@ -44,7 +45,7 @@ msgid ""
 "                                <span class=\"o_stat_text\">is <strong class=\"text-danger\"> Off </strong></span>"
 msgstr ""
 "<span class=\"o_stat_text\">Live Mode</span>\n"
-"                                <span class=\"o_stat_text\">is <strong class=\"text-danger\"> Off </strong></span>"
+"                              <span class=\"o_stat_text\">  je<strong class=\"text-danger\"> Off </strong></span>"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_form
@@ -53,7 +54,7 @@ msgid ""
 "                                <span class=\"o_stat_text\">is <strong class=\"text-success\"> On </strong></span>"
 msgstr ""
 "<span class=\"o_stat_text\">Live Mode</span>\n"
-"                                <span class=\"o_stat_text\">is <strong class=\"text-success\"> On </strong></span>"
+"                                <span class=\"o_stat_text\">u <strong class=\"text-success\"> na</strong></span>"
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__access_token
@@ -89,7 +90,7 @@ msgstr "Kreirano"
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
 msgid "Decrease zoom level"
-msgstr "Decrease zoom level"
+msgstr "Smanjiti nivo zumiranja"
 
 #. module: website_twitter_wall
 #. odoo-javascript
@@ -97,7 +98,7 @@ msgstr "Decrease zoom level"
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
 #, python-format
 msgid "Delete this tweet"
-msgstr "Delete this tweet"
+msgstr "Izbrisati ovaj tvit"
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__description
@@ -117,7 +118,7 @@ msgstr "Exit full screen"
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
 msgid "Hey! No tweet found"
-msgstr "Hey! No tweet found"
+msgstr "Hej! Nijedan tvit nije pronađen."
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__id
@@ -147,7 +148,7 @@ msgstr "Je objavljeno"
 #. module: website_twitter_wall
 #: model:ir.model.fields,help:website_twitter_wall.field_website_twitter_wall__is_live
 msgid "Is live mode on/off"
-msgstr "Is live mode on/off"
+msgstr "Da li je režim uključen/isključen"
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__last_search
@@ -232,7 +233,7 @@ msgstr "Share #{wall.name} on google+"
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_share
 msgid "Share #{wall.name} on linkedin"
-msgstr "Share #{wall.name} on linkedin"
+msgstr "Podeli #{wall.name} na LinkedIn-u"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_share
@@ -261,7 +262,7 @@ msgstr "Single view"
 msgid ""
 "The Twitter authentication failed. Please check your API key and secret."
 msgstr ""
-"The Twitter authentication failed. Please check your API key and secret."
+"Twitter autentifikacija nije uspela. Molimo proverite vaš API ključ i tajnu."
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,help:website_twitter_wall.field_website_twitter_wall__website_url
@@ -274,15 +275,16 @@ msgid ""
 "The search criteria to get the tweets you want. You can use the Twitter query operators.\n"
 "You can also use the special \"favorites:screen_name\" operator to get the favorited tweets of \"screen_name\"."
 msgstr ""
-"The search criteria to get the tweets you want. You can use the Twitter query operators.\n"
-"You can also use the special \"favorites:screen_name\" operator to get the favorited tweets of \"screen_name\"."
+"Kriterijumi pretrage za dobijanje željenih tvitova. Možete koristiti operatore za pretragu na Twitteru.\n"
+"Takođe možete koristiti poseban operator \"favorites:screen_name\" da biste dobili omiljene tvitove korisnika \"screen_name\"."
 
 #. module: website_twitter_wall
 #. odoo-python
 #: code:addons/website_twitter_wall/models/website_twitter_wall.py:0
 #, python-format
 msgid "The tweets search failed. Check your credentials and access token"
-msgstr "The tweets search failed. Check your credentials and access token"
+msgstr ""
+"Pretraga tvitova nije uspela. Proverite svoje akreditive i pristupni token."
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view

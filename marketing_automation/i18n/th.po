@@ -95,22 +95,22 @@ msgstr ""
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Bounced after"
-msgstr ""
+msgstr "<i class=\"fa fa-exclamation-circle\"/> เด้งออกหลังจาก"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<i class=\"fa fa-hand-pointer-o\"/> Clicked after"
-msgstr ""
+msgstr "<i class=\"fa fa-hand-pointer-o\"/> คลิกหลังจาก"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<i class=\"fa fa-hand-pointer-o\"/> Not clicked within"
-msgstr ""
+msgstr "<i class=\"fa fa-hand-pointer-o\"/> ไม่ได้คลิกภายใน"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<i class=\"fa fa-pie-chart\"/> Details"
-msgstr ""
+msgstr "<i class=\"fa fa-pie-chart\"/> รายละเอียด"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -135,6 +135,9 @@ msgid ""
 "title=\"Add Another Activity\" role=\"img\" aria-label=\"Add Another "
 "Activity\"/>"
 msgstr ""
+"<i data-trigger-type=\"กิจกรรม\" class=\"fa fa-code-fork fa-rotate-180 fa-"
+"flip-vertical o_ma_text_processed o_add_child_activity text-success\" "
+"title=\"เพิ่มกิจกรรมอื่น\" role=\"รูปภาพ\" aria-label=\"เพิ่มกิจกรรมอื่น\"/>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
@@ -156,6 +159,12 @@ msgid ""
 "                                                            <i class=\"fa fa-filter\"/>\n"
 "                                                        </span>"
 msgstr ""
+"<span role=\"รูปภาพ\" title=\"แผนภูมิ\" aria-label=\"แผนภูมิ\" class=\"o_ma_activity_tab active\" data-tab-type=\"แผนภูมิ\">\n"
+"                                                            <i class=\"fa fa-pie-chart\"/>\n"
+"                                                        </span>\n"
+"                                                        <span title=\"ตัวกรอง\" role=\"รูปภาพ\" aria-label=\"ตัวกรอง\" class=\"o_ma_activity_tab\" data-tab-type=\"ตัวกรอง\">\n"
+"                                                            <i class=\"fa fa-filter\"/>\n"
+"                                                        </span>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_kanban
@@ -170,7 +179,7 @@ msgstr ""
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_kanban
 msgid "<span>Total</span>"
-msgstr ""
+msgstr "<span>ทั้งหมด</span>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -224,7 +233,7 @@ msgstr ""
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Activity Name"
-msgstr ""
+msgstr "ชื่อกิจกรรม"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__activity_type
@@ -238,6 +247,8 @@ msgid ""
 "Activity will only be performed if record satisfies this domain, obtained "
 "from the combination of the activity filter and its inherited filter"
 msgstr ""
+"กิจกรรมจะดำเนินการก็ต่อเมื่อบันทึกเป็นไปตามโดเมนนี้ "
+"ซึ่งได้มาจากการรวมกันของตัวกรองกิจกรรมและตัวกรองที่สืบทอดมา"
 
 #. module: marketing_automation
 #. odoo-python
@@ -287,7 +298,7 @@ msgstr ""
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__allowed_parent_ids
 msgid "All activities which can be the parent of this one"
-msgstr ""
+msgstr "กิจกรรมทั้งหมดที่สามารถเป็นพาเรนต์ของสิ่งนี้ได้"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__social_post_ids
@@ -321,6 +332,7 @@ msgid ""
 "Are you sure you want to create a new participant for each matching record "
 "that has not been used yet?"
 msgstr ""
+"คุณแน่ใจหรือไม่ว่าต้องการสร้างผู้เข้าร่วมใหม่สำหรับบันทึกที่ตรงกันแต่ละรายการที่ยังไม่ได้ใช้"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
@@ -338,6 +350,8 @@ msgid ""
 "Be aware that participants that had no more activities could be reintroduced"
 " into the campaign and new traces could be created for them."
 msgstr ""
+"โปรดทราบว่าผู้เข้าร่วมที่ไม่มีกิจกรรมอีกต่อไปแล้วสามารถแนะนำกลับเข้าสู่แคมเปญได้"
+" และสามารถสร้างการย้อนกลับใหม่ให้พวกเขาได้"
 
 #. module: marketing_automation
 #. odoo-python
@@ -462,6 +476,7 @@ msgid ""
 "Come back later once your campaigns are running to overview your "
 "participants."
 msgstr ""
+"กลับมาอีกครั้งในภายหลังเมื่อแคมเปญของคุณกำลังทำงานเพื่อดูภาพรวมผู้เข้าร่วมของคุณ"
 
 #. module: marketing_automation
 #. odoo-python
@@ -511,7 +526,7 @@ msgstr "สร้างแคมเปญ"
 #: code:addons/marketing_automation/static/src/xml/marketing_automation_templates.xml:0
 #, python-format
 msgid "Create one or load a template prepared by our experts."
-msgstr ""
+msgstr "สร้างเทมเพลตหรือโหลดเทมเพลตที่ผู้เชี่ยวชาญของเราเตรียมไว้"
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_campaign_action
@@ -572,7 +587,7 @@ msgstr "ลบ"
 msgid ""
 "Deleting this activity will delete ALL its children activities. Are you "
 "sure?"
-msgstr ""
+msgstr "การลบกิจกรรมนี้จะลบกิจกรรมย่อยทั้งหมด คุณต้องการดำเนินการต่อหรือไม่?"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__child_ids
@@ -601,7 +616,7 @@ msgstr "โดเมน"
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__activity_domain
 msgid "Domain that applies to this activity and its child activities"
-msgstr ""
+msgstr "โดเมนที่ใช้กับกิจกรรมนี้และกิจกรรมย่อย"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -728,6 +743,7 @@ msgid ""
 "Here you will be able to check the results of your mailings from all "
 "Marketing Automation Campaigns."
 msgstr ""
+"ที่นี่คุณจะสามารถตรวจสอบผลลัพธ์ของการส่งจดหมายของคุณจากแคมเปญระบบอัตโนมัติทางการตลาดทั้งหมดได้ที่นี่"
 
 #. module: marketing_automation
 #. odoo-python
@@ -759,7 +775,7 @@ msgstr "เปิดใช้งานแคมเปญการส่งจด
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "It will be generated automatically once you save this record."
-msgstr ""
+msgstr "มันจะถูกสร้างขึ้นโดยอัตโนมัติเมื่อคุณทำการบันทึกของบันทึกนี้"
 
 #. module: marketing_automation
 #. odoo-python
@@ -831,6 +847,7 @@ msgid ""
 "Link Trackers are created when mailings with links are sent to track how "
 "many clicks they get."
 msgstr ""
+"ตัวติดตามลิงก์ถูกสร้างขึ้นเมื่อมีการส่งอีเมลพร้อมลิงก์เพื่อติดตามจำนวนคลิกที่พวกเขาได้รับ"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_category__email
@@ -932,7 +949,7 @@ msgstr ""
 #: model:ir.model,name:marketing_automation.model_marketing_activity
 #: model:ir.model.fields,field_description:marketing_automation.field_mail_compose_message__marketing_activity_id
 msgid "Marketing Activity"
-msgstr ""
+msgstr "กิจกรรมทางการตลาด"
 
 #. module: marketing_automation
 #: model:ir.module.category,name:marketing_automation.module_marketing_automation_category
@@ -979,7 +996,7 @@ msgstr ""
 #: model:ir.model,name:marketing_automation.model_marketing_trace
 #: model:ir.model.fields,field_description:marketing_automation.field_mailing_trace__marketing_trace_id
 msgid "Marketing Trace"
-msgstr ""
+msgstr "การติดตามทางการตลาด"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_mailing_mailing__use_in_marketing_automation
@@ -987,6 +1004,8 @@ msgid ""
 "Marketing campaigns use mass mailings with some specific behavior; this "
 "field is used to indicate its statistics may be suspicious."
 msgstr ""
+"แคมเปญการตลาดใช้การส่งจดหมายจำนวนมากโดยมีพฤติกรรมเฉพาะบางอย่าง "
+"ช่องนี้ใช้เพื่อระบุสถิติที่อาจน่าสงสัย"
 
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_mailing_mailing
@@ -1372,6 +1391,7 @@ msgstr "เริ่มทำงาน"
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Run the next scheduled activity for each participant of this campaign?"
 msgstr ""
+"ดำเนินกิจกรรมตามกำหนดการครั้งถัดไปสำหรับผู้เข้าร่วมแคมเปญนี้แต่ละคนหรือไม่"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_campaign__state__running
@@ -1448,7 +1468,7 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send a welcome email to contacts and tag them if they click in it."
-msgstr ""
+msgstr "ส่งอีเมลต้อนรับไปยังผู้ติดต่อและแท็กพวกเขาหากพวกเขาคลิกเข้าไป"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1456,12 +1476,12 @@ msgstr ""
 #, python-format
 msgid ""
 "Send a welcome email to new subscribers, remove the address that bounced."
-msgstr ""
+msgstr "ส่งอีเมลต้อนรับไปยังสมาชิกใหม่ ลบที่อยู่ที่ตีกลับ"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__interval_number
 msgid "Send after"
-msgstr ""
+msgstr "ส่งหลังจาก"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__interval_standardized
@@ -1473,7 +1493,7 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send an email to new recipients to confirm their consent."
-msgstr ""
+msgstr "ส่งอีเมลไปยังผู้รับใหม่เพื่อยืนยันความยินยอม"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1497,6 +1517,8 @@ msgid ""
 "Some participants are already running on this campaign. Click on 'Update' to"
 " apply the modifications you've just made."
 msgstr ""
+"ผู้เข้าร่วมบางคนกำลังใช้งานแคมเปญนี้อยู่แล้ว คลิกที่ 'อัปเดต' "
+"เพื่อใช้การแก้ไขที่คุณเพิ่งสร้าง"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__source_id
@@ -1579,6 +1601,8 @@ msgid ""
 "Switching Target Model invalidates the existing activities. Either update "
 "your activity actions to match the new Target Model or delete them."
 msgstr ""
+"การสลับโมเดลเป้าหมายทำให้กิจกรรมที่มีอยู่เป็นโมฆะ "
+"อัปเดตการดำเนินการกิจกรรมของคุณให้ตรงกับโมเดลเป้าหมายใหม่หรือลบออก"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__require_sync
@@ -1643,6 +1667,7 @@ msgid ""
 "The saved filter targets different model and is incompatible with this "
 "campaign."
 msgstr ""
+"ตัวกรองที่บันทึกไว้กำหนดเป้าหมายไปที่โมเดลอื่นและเข้ากันไม่ได้กับแคมเปญนี้"
 
 #. module: marketing_automation
 #. odoo-javascript
@@ -1659,6 +1684,7 @@ msgid ""
 "To use this feature you should be an administrator or belong to the "
 "marketing automation group."
 msgstr ""
+"หากต้องการใช้ฟีเจอร์นี้ คุณควรเป็นผู้ดูแลระบบหรืออยู่ในกลุ่มการตลาดอัตโนมัติ"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__total_bounce
@@ -1701,7 +1727,7 @@ msgstr "เปิดใช้งาน"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__trigger_category
 msgid "Trigger Category"
-msgstr ""
+msgstr "หมวดหมู่ทริกเกอร์"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__trigger_type
@@ -1838,6 +1864,8 @@ msgid ""
 "You cannot delete these UTM Campaigns as they are linked to the following marketing campaigns in Marketing Automation:\n"
 "%(campaign_names)s"
 msgstr ""
+"คุณไม่สามารถลบแคมเปญ UTM เหล่านี้ได้ เนื่องจากเชื่อมโยงกับแคมเปญการตลาดต่อไปนี้ในระบบอัตโนมัติทางการตลาด:\n"
+"%(campaign_names)s"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1847,13 +1875,15 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to the following marketing activities in Marketing Automation:\n"
 "%(activities_names)s"
 msgstr ""
+"คุณไม่สามารถลบแหล่งที่มา UTM เหล่านี้ได้ เนื่องจากเชื่อมโยงกับกิจกรรมทางการตลาดต่อไปนี้ในระบบอัตโนมัติทางการตลาด:\n"
+"%(activities_names)s"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "You must set up at least one activity to start this campaign."
-msgstr ""
+msgstr "คุณต้องตั้งค่ากิจกรรมอย่างน้อยหนึ่งกิจกรรมเพื่อเริ่มแคมเปญนี้"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_type__activity

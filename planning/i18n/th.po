@@ -392,6 +392,8 @@ msgid ""
 "<i class=\"fa fa-check-circle text-success\"/>\n"
 "                        You have successfully requested to switch your shift. You will be notified when another employee takes over your shift."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/>\n"
+"                        คุณได้ขอเปลี่ยนกะงานของคุณเรียบร้อยแล้ว คุณจะได้รับแจ้งเมื่อมีพนักงานคนอื่นเข้ารับตำแหน่งกะงานของคุณแทน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -399,6 +401,8 @@ msgid ""
 "<i class=\"fa fa-check-circle text-success\"/> Request to switch shift "
 "cancelled successfully."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> "
+"ยกเลิกการขอเปลี่ยนกะงานเรียบร้อยแล้ว"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -406,6 +410,8 @@ msgid ""
 "<i class=\"fa fa-check-circle text-success\"/> This shift is no longer "
 "assigned to you."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> "
+"กะงานนี้ไม่ได้ถูกกำหนดให้กับคุณอีกต่อไป"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -413,6 +419,8 @@ msgid ""
 "<i class=\"fa fa-check-circle text-success\"/> You were successfully "
 "assigned this open shift."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> "
+"คุณได้รับมอบหมายกะงานที่เปิดนี้สำเร็จแล้ว"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
@@ -432,6 +440,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already "
 "assigned to another employee."
 msgstr ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> "
+"กะงานนี้ถูกกำหนดให้กับพนักงานคนอื่นแล้ว"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -439,6 +449,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer "
 "unassign yourself from this shift."
 msgstr ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> "
+"คุณจะยกเลิกการมอบหมายตัวเองจากกะงานนี้ไม่ได้อีกต่อไป"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -488,6 +500,8 @@ msgid ""
 "<span class=\"align-middle\" invisible=\"overlap_slot_count == 0\">Prepare "
 "for the ultimate multi-tasking challenge:</span>"
 msgstr ""
+"<span class=\"align-middle\" invisible=\"overlap_slot_count == "
+"0\">เตรียมพร้อมสำหรับความท้าทายแบบมัลติทาสก์ขั้นสุดยอด:</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -554,6 +568,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM (4h)"
 " - Jeffrey Kelly</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">13.00 - 17.00 น. (4 "
+"ชม.) - Jeffrey Kelly</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -568,6 +584,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM "
 "(4h) - Doris Cole</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">8.00 - 12.00 น. (4 "
+"ชม.) - Doris Cole</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -575,6 +593,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM "
 "(4h) - Eli Lambert</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">8.00 - 12.00 น. (4 "
+"ชม.) - Eli Lambert</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -590,6 +610,9 @@ msgid ""
 "                                    <i class=\"mx-1 fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>\n"
 "                                    <span class=\"o_end_date\"/>"
 msgstr ""
+"<span class=\"o_start_date\"/>\n"
+"                                    <i class=\"mx-1 fa fa-long-arrow-right\" aria-label=\"ไอคอนลูกศร\" title=\"ลูกศร\"/>\n"
+"                                    <span class=\"o_end_date\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
@@ -617,7 +640,7 @@ msgstr ""
 msgid ""
 "<span>The employee assigned would like to switch shifts with someone "
 "else.</span>"
-msgstr ""
+msgstr "<span>พนักงานที่ได้รับมอบหมายต้องการเปลี่ยนกะงานกับบุคคลอื่น</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -633,7 +656,7 @@ msgstr ""
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
 msgid ""
 "A recurrence repeating itself until a certain date must have its limit set"
-msgstr ""
+msgstr "การเกิดซ้ำจนถึงวันที่กำหนดจะต้องมีการกำหนดขีดจำกัดไว้"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__active
@@ -676,6 +699,8 @@ msgid ""
 "All open shifts have already been assigned, or there are no resources "
 "available to take them at this time."
 msgstr ""
+"กะงานที่เปิดอยู่ทั้งหมดได้รับมอบหมายแล้ว "
+"หรือไม่มีทรัพยากรที่พร้อมรับงานในขณะนี้"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__all
@@ -686,7 +711,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid ""
 "All subsequent shifts will be deleted. Are you sure you want to continue?"
-msgstr ""
+msgstr "กะที่ตามมาทั้งหมดจะถูกลบออก คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__allocated_hours
@@ -740,7 +765,7 @@ msgstr ""
 #: code:addons/planning/models/planning_recurrency.py:0
 #, python-format
 msgid "An shift must be in the same company as its recurrency."
-msgstr ""
+msgstr "กะงานจะต้องอยู่ในบริษัทเดียวกันกับการเกิดซ้ำ"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
@@ -748,6 +773,8 @@ msgid ""
 "Analyze the allocation of your resources across roles, projects, and sales "
 "orders, and estimate future needs."
 msgstr ""
+"วิเคราะห์การจัดสรรทรัพยากรของคุณตามบทบาท โปรเจ็กต์ และใบสั่งขาย "
+"และประเมินความต้องการในอนาคต"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_form
@@ -766,6 +793,8 @@ msgid ""
 "Archiving this resource will transform all of its future shifts into open "
 "shifts. Are you sure you want to continue?"
 msgstr ""
+"การเก็บถาวรทรัพยากรนี้จะเปลี่ยนการเปลี่ยนแปลงในอนาคตทั้งหมดให้เป็นกะงานเปิด "
+"คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?"
 
 #. module: planning
 #. odoo-javascript
@@ -782,6 +811,8 @@ msgid ""
 "As there is no running contract during this period, this resource is not "
 "expected to work a shift. Planned hours:"
 msgstr ""
+"เนื่องจากไม่มีสัญญาที่ดำเนินการอยู่ในช่วงเวลานี้ "
+"ทรัพยากรนี้ไม่คาดว่าจะทำงานเป็นกะงาน ชั่วโมงที่วางแผนไว้:"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -916,6 +947,8 @@ msgid ""
 "Company linked to the material resource. Leave empty for the resource to be "
 "available in every company."
 msgstr ""
+"บริษัทเชื่อมโยงกับทรัพยากรที่เป็นวัตถุ "
+"เว้นว่างไว้เพื่อให้ทรัพยากรพร้อมใช้งานในทุกบริษัท"
 
 #. module: planning
 #: model:ir.model,name:planning.model_res_config_settings
@@ -1044,6 +1077,7 @@ msgid ""
 "Define a work email address for the following employees so they will receive"
 " the planning."
 msgstr ""
+"กำหนดที่อยู่อีเมลที่ทำงานสำหรับพนักงานต่อไปนี้ เพื่อให้พวกเขาได้รับการวางแผน"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__role_id
@@ -1176,6 +1210,7 @@ msgid ""
 "Email sent automatically when employee self assigns to an unwanted shift of "
 "another employee"
 msgstr ""
+"ส่งอีเมลโดยอัตโนมัติเมื่อพนักงานมอบหมายกะงานที่ไม่ต้องการของพนักงานคนอื่นด้วยตนเอง"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_slot_single
@@ -1186,7 +1221,7 @@ msgstr ""
 #: model:mail.template,description:planning.email_template_planning_planning
 msgid ""
 "Email sent automatically when publishing the schedule of your employees"
-msgstr ""
+msgstr "ส่งอีเมลโดยอัตโนมัติเมื่อมีการเผยแพร่กำหนดการของพนักงานของคุณ"
 
 #. module: planning
 #: model:ir.model,name:planning.model_hr_employee
@@ -1211,7 +1246,7 @@ msgstr "พนักงาน"
 #: model:ir.model.fields,help:planning.field_planning_send__employee_ids
 msgid ""
 "Employees who will receive planning by email if you click on publish & send."
-msgstr ""
+msgstr "พนักงานที่จะได้รับการวางแผนทางอีเมล หากคุณคลิกเผยแพร่และส่ง"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
@@ -1268,6 +1303,8 @@ msgid ""
 "Find here your planning. Assign yourself open shifts that match your roles, "
 "or indicate your unavailability."
 msgstr ""
+"ค้นหาการวางแผนของคุณที่นี่ มอบหมายกะงานเปิดที่ตรงกับบทบาทของคุณ "
+"หรือระบุถึงความไม่ว่างของคุณ"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
@@ -1325,7 +1362,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__request_to_switch
 #: model:ir.model.fields,field_description:planning.field_planning_slot__request_to_switch
 msgid "Has there been a request to switch on this shift slot?"
-msgstr ""
+msgstr "มีการร้องขอให้เปิดช่องกะงานนี้หรือไม่?"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__name
@@ -1376,6 +1413,8 @@ msgid ""
 "If checked, it means that the shift contains has changed since its last "
 "publish."
 msgstr ""
+"หากทำเครื่องหมาย "
+"แสดงว่ากะงานที่ประกอบมีการเปลี่ยนแปลงนับตั้งแต่การเผยแพร่ครั้งล่าสุด"
 
 #. module: planning
 #. odoo-javascript
@@ -1384,7 +1423,7 @@ msgstr ""
 msgid ""
 "If you are happy with your planning, you can now <b>send</b> it to your "
 "employees."
-msgstr ""
+msgstr "หากคุณพอใจกับการวางแผน คุณสามารถ<b>ส่ง</b>แผนให้กับพนักงานของคุณได้"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__include_unassigned
@@ -1414,7 +1453,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_users_role
 msgid "Is the shifts role one of the current user roles"
-msgstr ""
+msgstr "บทบาทกะงานเป็นหนึ่งในบทบาทผู้ใช้ปัจจุบันหรือไม่"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_unassign_deadline_passed
@@ -1484,6 +1523,8 @@ msgid ""
 "Let's create your first <b>shift</b>. <i>Tip: use the (+) shortcut available"
 " on each cell of the Gantt view to save time.</i>"
 msgstr ""
+"มาสร้าง<b>กะงาน</b>แรกของคุณกันดีกว่า <i>เคล็ดลับ: ใช้ทางลัด (+) "
+"ที่มีอยู่ในแต่ละเซลล์ของมุมมองแกนต์เพื่อประหยัดเวลา</i>"
 
 #. module: planning
 #. odoo-javascript
@@ -1661,6 +1702,7 @@ msgid ""
 "Now that this week is ready, let's get started on <b>next week's "
 "schedule</b>."
 msgstr ""
+"เมื่อสัปดาห์นี้พร้อมแล้ว เรามาเริ่ม<b>ตารางงานสัปดาห์หน้า</b>กันดีกว่า"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_type__x_times
@@ -1702,6 +1744,8 @@ msgid ""
 "Operation not supported, you should always compare overlap_slot_count to 0 "
 "value with = or > operator."
 msgstr ""
+"ไม่รองรับการดำเนินการ คุณควรเปรียบเทียบ overlap_slot_count กับค่า 0 "
+"ด้วยตัวดำเนินการ = หรือ > เสมอ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__overlap_slot_count
@@ -1722,6 +1766,7 @@ msgid ""
 "Plan all of your shifts in one click by <b>copying the previous week's "
 "schedule</b>."
 msgstr ""
+"วางแผนกะงานทั้งหมดได้ในคลิกเดียว<b>โดยคัดลอกกำหนดการของสัปดาห์ก่อน</b>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1729,6 +1774,7 @@ msgid ""
 "Plan resource allocation across projects and estimate deadlines more "
 "accurately"
 msgstr ""
+"วางแผนการจัดสรรทรัพยากรข้ามโปรเจ็กต์และประมาณการกำหนดเวลาได้แม่นยำยิ่งขึ้น"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__start_time
@@ -2054,7 +2100,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Roles"
-msgstr ""
+msgstr "บทบาท"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_hr_employee__planning_role_ids
@@ -2281,7 +2327,7 @@ msgstr ""
 #: model:ir.model.constraint,message:planning.constraint_res_company_planning_self_unassign_days_before_positive
 msgid ""
 "The amount of days before unassignment must be positive or equal to zero."
-msgstr ""
+msgstr "จำนวนวันก่อนยกเลิกการมอบหมายจะต้องเป็นบวกหรือเท่ากับศูนย์"
 
 #. module: planning
 #. odoo-python
@@ -2312,7 +2358,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_start_date_lower_end_date
 msgid "The end date of a shift should be after its start date."
-msgstr ""
+msgstr "วันที่สิ้นสุดของกะงานควรอยู่หลังวันที่เริ่มต้น"
 
 #. module: planning
 #. odoo-python
@@ -2338,7 +2384,7 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The recurrence's end date should fall after the shift's start date."
-msgstr ""
+msgstr "วันที่สิ้นสุดของการเกิดซ้ำควรอยู่หลังวันที่เริ่มต้นของกะงาน"
 
 #. module: planning
 #. odoo-javascript
@@ -2359,7 +2405,7 @@ msgstr ""
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The selected duration creates a date too far into the future."
-msgstr ""
+msgstr "ระยะเวลาที่เลือกสร้างวันที่ไกลเกินไปในอนาคต"
 
 #. module: planning
 #. odoo-python
@@ -2377,6 +2423,7 @@ msgstr ""
 msgid ""
 "The shifts have already been published, or there are no shifts to publish."
 msgstr ""
+"การเปลี่ยนแปลงได้รับการเผยแพร่แล้ว หรือไม่มีการเปลี่ยนแปลงที่จะเผยแพร่"
 
 #. module: planning
 #. odoo-python
@@ -2407,7 +2454,7 @@ msgstr ""
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The start hour must be greater or equal to 0 and lower than 24."
-msgstr ""
+msgstr "ชั่วโมงเริ่มต้นต้องมากกว่าหรือเท่ากับ 0 และน้อยกว่า 24"
 
 #. module: planning
 #. odoo-python
@@ -2423,7 +2470,7 @@ msgstr ""
 msgid ""
 "There are no shifts planned for the previous week, or they have already been"
 " copied."
-msgstr ""
+msgstr "ไม่มีกะงานที่วางแผนไว้สำหรับสัปดาห์ก่อน หรือได้ถูกคัดลอกไปแล้ว"
 
 #. module: planning
 #. odoo-python
@@ -2462,6 +2509,8 @@ msgid ""
 "This open shift is no longer available, or the planning has been updated in "
 "the meantime. Please contact your manager for further information."
 msgstr ""
+"กะงานที่เปิดนี้ไม่พร้อมใช้งานอีกต่อไป หรือมีการอัปเดตการวางแผนในระหว่างนี้ "
+"โปรดติดต่อผู้จัดการของคุณสำหรับข้อมูลเพิ่มเติม"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__this
@@ -2638,14 +2687,14 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You can not assign yourself to an already assigned shift."
-msgstr ""
+msgstr "คุณไม่สามารถมอบหมายตัวเองให้กับกะงานที่ได้รับมอบหมายไปแล้วได้"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You can not cancel a request to switch made by another user."
-msgstr ""
+msgstr "คุณไม่สามารถยกเลิกการร้องขอให้เปลี่ยนโดยผู้ใช้รายอื่นได้"
 
 #. module: planning
 #. odoo-python
@@ -2653,7 +2702,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You can not request to switch a shift that is assigned to another user."
-msgstr ""
+msgstr "คุณไม่สามารถขอเปลี่ยนกะงานที่กำหนดให้ผู้ใช้รายอื่นได้"
 
 #. module: planning
 #. odoo-python
@@ -2667,21 +2716,21 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You cannot cancel a request to switch that is in the past."
-msgstr ""
+msgstr "คุณไม่สามารถยกเลิกคำขอเปลี่ยนที่อยู่ในอดีตได้"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You cannot switch a shift that is in the past."
-msgstr ""
+msgstr "คุณไม่สามารถเปลี่ยนกะงานที่ผ่านไปแล้วได้"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You don't have the right to cancel a request to switch."
-msgstr ""
+msgstr "คุณไม่มีสิทธิ์ยกเลิกคำขอในการเปลี่ยน"
 
 #. module: planning
 #. odoo-python
@@ -2713,6 +2762,8 @@ msgid ""
 "Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ "
 "format_date(ctx.get('end_datetime')) }}"
 msgstr ""
+"การวางแผนของคุณจาก {{ format_date(ctx.get('start_datetime')) }} ถึง {{ "
+"format_date(ctx.get('end_datetime')) }}"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_shift_switch_email
@@ -2720,6 +2771,8 @@ msgid ""
 "Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ "
 "ctx.get('new_assignee_name', 'Marc Demo') }}"
 msgstr ""
+"กะงานของคุณในวันที่ {{ ctx.get('start_datetime') }} ถูกกำหนดใหม่ให้กับ {{ "
+"ctx.get('new_assignee_name', 'Marc Demo') }}"
 
 #. module: planning
 #. odoo-javascript

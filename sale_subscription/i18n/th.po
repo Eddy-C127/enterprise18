@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Wichanon Jamwutthipreecha, 2023
-# Wil Odoo, 2024
 # Rasareeyar Lappiam, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-01-15 10:59+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1820,6 +1820,11 @@ msgid "Date of Next Invoice"
 msgstr "วันที่ของใบแจ้งหนี้ถัดไป"
 
 #. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
+msgid "Date:"
+msgstr "วันที่:"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
 msgid "Days"
 msgstr "วัน"
@@ -2014,6 +2019,11 @@ msgstr "ประเภทอีเวนต์"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_log_report_search
 msgid "Expansion"
 msgstr "การขยาย"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
+msgid "Expiration Date:"
+msgstr "วันหมดอายุ:"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -2655,6 +2665,8 @@ msgid ""
 "Model adding the necessary fields to products to use with Pricer electronic "
 "tags"
 msgstr ""
+"แบบจำลองการเพิ่มฟิลด์ที่จำเป็นให้กับผลิตภัณฑ์เพื่อใช้กับแท็กอิเล็กทรอนิกส์ "
+"Pricer"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__model_id
@@ -3379,6 +3391,8 @@ msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
 "valid positive numeric value."
 msgstr ""
+"ระยะเวลาที่เกิดซ้ำต้องเป็นจำนวนบวก "
+"โปรดตรวจสอบให้แน่ใจว่าป้อนข้อมูลเป็นค่าตัวเลขบวกที่ถูกต้อง"
 
 #. module: sale_subscription
 #. odoo-python
@@ -3892,7 +3906,7 @@ msgstr ""
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Subscription %s has been reopened. The end date has been removed"
-msgstr ""
+msgstr "เปิดการสมัครสมาชิก %s อีกครั้งแล้ว วันที่สิ้นสุดถูกลบออกแล้ว"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_payment_transaction__subscription_action
@@ -4215,6 +4229,8 @@ msgid ""
 "The deferred settings are not properly set. Please complete them to generate"
 " subscription deferred revenues"
 msgstr ""
+"การตั้งค่าที่เลื่อนออกไปไม่ได้กำหนดไว้อย่างถูกต้อง "
+"โปรดกรอกให้ครบถ้วนเพื่อสร้างรายได้รอการตัดบัญชีการสมัครสมาชิก"
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
@@ -4349,7 +4365,7 @@ msgstr "การขายต่อยอด %s ถูกยืนยันแ�
 #: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
 #, python-format
 msgid "There are multiple pricings for an unique product, plan and pricelist."
-msgstr ""
+msgstr "มีหลายราคาสำหรับผลิตภัณฑ์ แผนการใช้งาน และรายการราคาที่ไม่ซ้ำกัน"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template

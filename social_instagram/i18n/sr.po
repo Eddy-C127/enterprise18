@@ -53,9 +53,6 @@ msgid ""
 "                <span>We don't automatically resize your image to avoid undesired result.</span><br/>\n"
 "                <span>More information on:</span>"
 msgstr ""
-"<span>Your image has to be within the 4:5 and the 1.91:1 aspect ratio as required by Instagram.</span><br/>\n"
-"                <span>We don't automatically resize your image to avoid undesired result.</span><br/>\n"
-"                <span>More information on:</span>"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_access_token
@@ -69,7 +66,7 @@ msgstr "Token za pristup"
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 #, python-format
 msgid "An image is required when posting on Instagram."
-msgstr "An image is required when posting on Instagram."
+msgstr ""
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.res_config_settings_view_form
@@ -95,8 +92,6 @@ msgid ""
 "Check this if you want to use your personal Instagram Developer Account "
 "instead of the provided one."
 msgstr ""
-"Check this if you want to use your personal Instagram Developer Account "
-"instead of the provided one."
 
 #. module: social_instagram
 #: model:ir.model,name:social_instagram.model_res_config_settings
@@ -108,13 +103,13 @@ msgstr "Podešavanje konfiguracije"
 #: code:addons/social_instagram/controllers/main.py:0
 #, python-format
 msgid "Could not find any account to add."
-msgstr "Could not find any account to add."
+msgstr ""
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__display_instagram_preview
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__display_instagram_preview
 msgid "Display Instagram Preview"
-msgstr "Display Instagram Preview"
+msgstr ""
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_social_account__instagram_facebook_account_id
@@ -122,8 +117,6 @@ msgid ""
 "Facebook Account ID provided by the Facebook API, this should never be set manually.\n"
 "        The Instagram (\"Professional\") account is always linked to a Facebook account."
 msgstr ""
-"Facebook Account ID provided by the Facebook API, this should never be set manually.\n"
-"        The Instagram (\"Professional\") account is always linked to a Facebook account."
 
 #. module: social_instagram
 #: model:ir.model.fields.selection,name:social_instagram.selection__social_media__media_type__instagram
@@ -142,13 +135,11 @@ msgid ""
 "Instagram Access Token provided by the Facebook API, this should never be set manually.\n"
 "        It's used to authenticate requests when posting to or reading information from this account."
 msgstr ""
-"Instagram Access Token provided by the Facebook API, this should never be set manually.\n"
-"        It's used to authenticate requests when posting to or reading information from this account."
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_account__instagram_account_id
 msgid "Instagram Account ID"
-msgstr "Instagram Account ID"
+msgstr ""
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_social_account__instagram_account_id
@@ -156,8 +147,6 @@ msgid ""
 "Instagram Account ID provided by the Facebook API, this should never be set "
 "manually."
 msgstr ""
-"Instagram Account ID provided by the Facebook API, this should never be set "
-"manually."
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_res_config_settings__instagram_app_id
@@ -180,12 +169,12 @@ msgstr "Instagram komentari"
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.res_config_settings_view_form
 msgid "Instagram Developer Account"
-msgstr "Instagram Developer Account"
+msgstr ""
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_account__instagram_facebook_account_id
 msgid "Instagram Facebook Account ID"
-msgstr "Instagram Facebook Account ID"
+msgstr ""
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_stream_post__instagram_facebook_author_id
@@ -230,7 +219,7 @@ msgstr "Instagram Preview"
 #: code:addons/social_instagram/controllers/main.py:0
 #, python-format
 msgid "Instagram did not provide a valid access token."
-msgstr "Instagram did not provide a valid access token."
+msgstr ""
 
 #. module: social_instagram
 #. odoo-javascript
@@ -250,12 +239,12 @@ msgstr "Tip medija"
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 #, python-format
 msgid "Only .jpg/.jpeg images can be posted on Instagram."
-msgstr "Only .jpg/.jpeg images can be posted on Instagram."
+msgstr ""
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 msgid "Only the first attached image will be posted on Instagram."
-msgstr "Only the first attached image will be posted on Instagram."
+msgstr ""
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -310,22 +299,20 @@ msgid ""
 "The Facebook ID of this Instagram post author, used to fetch the profile "
 "picture."
 msgstr ""
-"The Facebook ID of this Instagram post author, used to fetch the profile "
-"picture."
 
 #. module: social_instagram
 #. odoo-python
 #: code:addons/social_instagram/controllers/main.py:0
 #, python-format
 msgid "There was a authentication issue during your request."
-msgstr "There was a authentication issue during your request."
+msgstr ""
 
 #. module: social_instagram
 #. odoo-python
 #: code:addons/social_instagram/controllers/main.py:0
 #, python-format
 msgid "Unauthorized. Please contact your administrator."
-msgstr "Unauthorized. Please contact your administrator."
+msgstr ""
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_res_config_settings__instagram_use_own_account
@@ -336,7 +323,7 @@ msgstr "Use your own Instagram Account"
 #: model:ir.model.fields,help:social_instagram.field_social_post__instagram_access_token
 #: model:ir.model.fields,help:social_instagram.field_social_post_template__instagram_access_token
 msgid "Used to allow access to Instagram to retrieve the post image"
-msgstr "Used to allow access to Instagram to retrieve the post image"
+msgstr ""
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_social_media__media_type
@@ -344,15 +331,13 @@ msgid ""
 "Used to make comparisons when we need to restrict some features to a "
 "specific media ('facebook', 'twitter', ...)."
 msgstr ""
-"Used to make comparisons when we need to restrict some features to a "
-"specific media ('facebook', 'twitter', ...)."
 
 #. module: social_instagram
 #. odoo-python
 #: code:addons/social_instagram/models/social_media.py:0
 #, python-format
 msgid "You don't have an active subscription. Please buy one here: %s"
-msgstr "You don't have an active subscription. Please buy one here: %s"
+msgstr ""
 
 #. module: social_instagram
 #. odoo-python
@@ -369,7 +354,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 #, python-format
 msgid "Your image appears to be corrupted, please try loading it again."
-msgstr "Your image appears to be corrupted, please try loading it again."
+msgstr ""
 
 #. module: social_instagram
 #. odoo-python
@@ -379,8 +364,6 @@ msgid ""
 "Your image has to be within the 4:5 and the 1.91:1 aspect ratio as required "
 "by Instagram."
 msgstr ""
-"Your image has to be within the 4:5 and the 1.91:1 aspect ratio as required "
-"by Instagram."
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview

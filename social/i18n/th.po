@@ -72,6 +72,7 @@ msgid ""
 "<strong>Congrats! Come back in a few minutes to check your "
 "statistics.</strong>"
 msgstr ""
+"<strong>ยินดีด้วย! กลับมาตรวจสอบสถิติของคุณอีกครั้งในไม่กี่นาที</strong>"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_needaction
@@ -461,6 +462,8 @@ msgid ""
 "Due to length restrictions, the following posts cannot be posted:\n"
 " %s"
 msgstr ""
+"เนื่องจากข้อจำกัดด้านความยาว จึงไม่สามารถโพสต์โพสต์ต่อไปนี้ได้:\n"
+" %s"
 
 #. module: social
 #. odoo-javascript
@@ -480,6 +483,8 @@ msgid ""
 "Enable this option and load demo data to test the social module. This must "
 "never be used on a production database!"
 msgstr ""
+"เปิดใช้งานตัวเลือกนี้และโหลดข้อมูลสาธิตเพื่อทดสอบโมดูลโซเชียล "
+"สิ่งนี้จะต้องไม่ถูกนำไปใช้กับฐานข้อมูลการผลิต!"
 
 #. module: social
 #. odoo-javascript
@@ -916,7 +921,7 @@ msgstr "โพสต์ข้อความ"
 #, python-format
 msgid ""
 "Message posted partially. These are the ones that couldn't be posted:%s"
-msgstr ""
+msgstr "ข้อความถูกโพสต์บางส่วน นี่คือรายการที่ไม่สามารถโพสต์ได้: %s"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_ids
@@ -1361,6 +1366,8 @@ msgstr "ลำดับที่ใช้ในคำสั่งสตรีม
 msgid ""
 "Set a maximum number of characters can be posted in post. 0 for no limit."
 msgstr ""
+"กำหนดจำนวนตัวอักษรสูงสุดที่สามารถโพสต์ได้ในโพสต์ หากกำหนดเป็น 0 "
+"จะถือว่าไม่จำกัด"
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_global_settings
@@ -1725,6 +1732,8 @@ msgid ""
 "Use your own Developer Accounts on our Social app. Those credentials are "
 "provided in the developer section of your professional social media account."
 msgstr ""
+"ใช้บัญชีนักพัฒนาของคุณเองในแอปโซเชียลของเรา "
+"ข้อมูลประจำตัวเหล่านั้นมีให้ไว้ในส่วนนักพัฒนาของบัญชีโซเชียลมีเดียมืออาชีพของคุณ"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__media_type
@@ -1814,6 +1823,8 @@ msgid ""
 "You cannot delete these UTM Mediums as they are linked to the following social accounts in Social:\n"
 "%(social_accounts)s"
 msgstr ""
+"คุณไม่สามารถลบวิธีที่เข้ามา UTM เหล่านี้ได้เนื่องจากเชื่อมโยงกับบัญชีโซเชียลต่อไปนี้ในโซเชียล:\n"
+"%(social_accounts)s"
 
 #. module: social
 #. odoo-python
@@ -1823,13 +1834,15 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to social posts in Social:\n"
 "%(utm_sources)s"
 msgstr ""
+"คุณไม่สามารถลบแหล่งที่มา UTM เหล่านี้ได้ เนื่องจากลิงก์ไปยังโพสต์โซเชียลในโซเชียล:\n"
+"%(utm_sources)s"
 
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 #, python-format
 msgid "You cannot reschedule a post that has already been posted."
-msgstr ""
+msgstr "คุณไม่สามารถกำหนดเวลาโพสต์ที่โพสต์ไปแล้วได้"
 
 #. module: social
 #. odoo-python

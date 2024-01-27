@@ -43,7 +43,7 @@ msgstr ""
 #: code:addons/sign/controllers/main.py:0
 #, python-format
 msgid "%s couldn't sign the document due to an insufficient credit error."
-msgstr ""
+msgstr "ไม่สามารถลงนามในเอกสาร %s ได้ เนื่องจากเครดิตไม่เพียงพอ"
 
 #. module: sign
 #. odoo-python
@@ -64,7 +64,7 @@ msgstr ""
 #: code:addons/sign/controllers/main.py:0
 #, python-format
 msgid "%s validated the signature by SMS with the phone number %s."
-msgstr ""
+msgstr "%s ตรวจสอบลายเซ็นทาง SMS ด้วยหมายเลขโทรศัพท์ %s"
 
 #. module: sign
 #. odoo-python
@@ -163,12 +163,12 @@ msgstr ""
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #, python-format
 msgid "<b>Drag & drop “Signature”</b> into the bottom of the document."
-msgstr ""
+msgstr "<b>ลาก & วาง “ลายเซ็น”</b> ที่ด้านล่างของเอกสาร"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "<b>Gas:</b> 18,700 Pounds of CO² = 18,700*0.4536 = 8482.32 kg"
-msgstr ""
+msgstr "<b>แก๊ส:</b> 18,700 ปอนด์ของ CO² = 18,700*0.4536 = 8482.32 กิโลกรัม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -189,6 +189,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "<b>Total Energy:</b> 27 Millions BTU = 27,000,000*0.0002931 = 7.91 kWh"
 msgstr ""
+"<b>พลังงานทั้งหมด:</b> 27 ล้าน BTU = 27,000,000*0.0002931 = 7.91 "
+"กิโลวัตต์ชั่วโมง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -198,7 +200,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "<b>Wood Use:</b> 4 US Short Tons = 4*907.18474 = 3628.73 kg"
-msgstr ""
+msgstr "<b>การใช้ไม้:</b> 4 ตันสั้น US = 4*907.18474 = 3628.73 กก."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
@@ -208,7 +210,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
 msgid "<i class=\"fa fa-check\"/> A fresh link has just been sent to your inbox!"
-msgstr ""
+msgstr "<i class=\"fa fa-check\"/> ลิงก์ใหม่ถูกส่งไปยังกล่องจดหมายของคุณแล้ว!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -221,6 +223,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-circle\"/> The document's integrity could not "
 "be verified."
 msgstr ""
+"<i class=\"fa fa-exclamation-circle\"/> "
+"ไม่สามารถตรวจสอบความสมบูรณ์ของเอกสารได้"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -233,6 +237,8 @@ msgid ""
 "<i class=\"fa fa-info-circle\"/> Links sent via email expire after a set "
 "delay to increase security."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/> "
+"ลิงก์ที่ส่งทางอีเมลจะหมดอายุหลังจากเกิดความล่าช้าตามที่กำหนดไว้เพื่อเพิ่มความปลอดภัย"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
@@ -262,6 +268,8 @@ msgid ""
 "<small>Email Verification: The signatory has confirmed control of their "
 "email inbox by clicking on a unique link</small>"
 msgstr ""
+"<small>การยืนยันอีเมล: "
+"ผู้ลงนามได้ยืนยันการควบคุมกล่องจดหมายอีเมลของพวกเขาโดยคลิกที่ลิงก์เฉพาะ</small>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -269,6 +277,9 @@ msgid ""
 "<small>SMS: The signatory has confirmed their control of the phone number "
 "using a unique code sent by SMS</small>"
 msgstr ""
+"<small>SMS: "
+"ผู้ลงนามได้ยืนยันการควบคุมหมายเลขโทรศัพท์โดยใช้รหัสเฉพาะที่ส่งทาง "
+"SMS</small>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
@@ -354,7 +365,7 @@ msgstr ""
 msgid ""
 "A SMS will be sent to the following phone number. Please update it if it's "
 "not relevant."
-msgstr ""
+msgstr "SMS จะถูกส่งไปยังหมายเลขโทรศัพท์ต่อไปนี้ โปรดอัปเดตหากไม่เกี่ยวข้อง"
 
 #. module: sign
 #. odoo-python
@@ -362,7 +373,7 @@ msgstr ""
 #, python-format
 msgid ""
 "A non-shared sign request's should not have any signer with an empty partner"
-msgstr ""
+msgstr "คำขอลงนามที่ไม่ได้ใช้ร่วมกันไม่ควรมีผู้ลงนามกับพาร์ทเนอร์ที่ว่างเปล่า"
 
 #. module: sign
 #. odoo-python
@@ -371,6 +382,7 @@ msgstr ""
 msgid ""
 "A shared sign request should only have one signer with an empty partner"
 msgstr ""
+"คำขอลงนามที่ใช้ร่วมกันควรมีผู้ลงนามเพียงคนเดียวกับพาร์ทเนอร์ที่ว่างเปล่า"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -382,7 +394,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "A valid sign request needs at least one sign request item"
-msgstr ""
+msgstr "คำขอลงนามที่ถูกต้องต้องมีรายการคำขอลงนามอย่างน้อยหนึ่งรายการ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -555,12 +567,14 @@ msgid ""
 "Allow signatories to provide their identity using itsme® (available in "
 "Belgium and the Netherlands)."
 msgstr ""
+"อนุญาตให้ผู้ลงนามระบุตัวตนของตนโดยใช้ itsme® "
+"(มีให้บริการในประเทศเบลเยียมและเนเธอร์แลนด์)"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid ""
 "Allow users to define the users or groups which have access to the template."
-msgstr ""
+msgstr "อนุญาตให้ผู้ใช้กำหนดผู้ใช้หรือกลุ่มที่มีสิทธิ์เข้าถึงเทมเพลต"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -743,7 +757,7 @@ msgstr "กล่องกาเครื่องหมาย"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_template__is_sharing
 msgid "Checked if this template has created a shared document for you"
-msgstr ""
+msgstr "ตรวจสอบว่าเทมเพลตนี้ได้สร้างเอกสารที่ใช้ร่วมกันสำหรับคุณหรือไม่"
 
 #. module: sign
 #. odoo-javascript
@@ -752,7 +766,7 @@ msgstr ""
 msgid ""
 "Click on the field to specify who should fill it in, or if it's mandatory or"
 " not."
-msgstr ""
+msgstr "คลิกที่ฟิลด์เพื่อระบุว่าใครควรกรอกข้อมูล หรือจำเป็นต้องกรอกหรือไม่"
 
 #. module: sign
 #. odoo-javascript
@@ -853,6 +867,9 @@ msgid ""
 "auto-completion, ...), as well as the values for selection fields in "
 "signable documents."
 msgstr ""
+"กำหนดค่าประเภทฟิลด์ที่สามารถใช้เพื่อลงนามในเอกสาร (ตัวยึดตำแหน่ง "
+"การเติมข้อมูลอัตโนมัติ ...) "
+"รวมถึงค่าสำหรับฟิลด์การเลือกในเอกสารที่สามารถลงนามได้"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_duplicate_template_with_pdf_view_form
@@ -899,6 +916,7 @@ msgid ""
 "Contacts in copy will be notified by email once the document is either fully"
 " signed or refused."
 msgstr ""
+"ผู้ติดต่อที่เป็นสำเนาจะได้รับแจ้งทางอีเมลเมื่อเอกสารได้รับการลงนามอย่างสมบูรณ์หรือถูกปฏิเสธ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__cc_partner_ids
@@ -1033,7 +1051,7 @@ msgstr ""
 msgid ""
 "Deliver one-time codes by SMS to identify signatories when signing a "
 "document."
-msgstr ""
+msgstr "ส่งรหัสแบบครั้งเดียวทาง SMS เพื่อระบุผู้ลงนามเมื่อลงนามในเอกสาร"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -1205,6 +1223,8 @@ msgid ""
 "Draw your most beautiful signature!<br>You can also create one automatically"
 " or load a signature from your computer."
 msgstr ""
+"วาดลายเซ็นที่สวยที่สุดของคุณ! "
+"<br>คุณสามารถสร้างลายเซ็นได้โดยอัตโนมัติหรือโหลดลายเซ็นจากคอมพิวเตอร์ของคุณ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
@@ -1290,7 +1310,7 @@ msgstr "พนักงาน"
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 #, python-format
 msgid "Enter the code received through SMS to complete your signature"
-msgstr ""
+msgstr "กรอกรหัสที่ได้รับทาง SMS เพื่อกรอกลายเซ็นให้สมบูรณ์"
 
 #. module: sign
 #. odoo-javascript
@@ -1327,7 +1347,7 @@ msgstr "กำลังจะหมดอายุเร็วๆ นี้"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__auth_method
 msgid "Extra Authentication Step"
-msgstr ""
+msgstr "ขั้นตอนการรับรองความถูกต้องเพิ่มเติม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__favorited_ids
@@ -1379,7 +1399,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__new_pdf
 msgid "File name"
-msgstr ""
+msgstr "ชื่อไฟล์"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__filename
@@ -1429,11 +1449,13 @@ msgid ""
 "For 1000kg of paper usage, with 10% of recycled paper, environmental savings"
 " are based on"
 msgstr ""
+"สำหรับการใช้งานกระดาษ 1,000 กิโลกรัม ด้วยใช้กระดาษรีไซเคิลเพียง 10% "
+"จะเป็นการยึดตามการประหยัดสิ่งแวดล้อม"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_item_role__auth_method
 msgid "Force the signatory to identify using a second authentication method"
-msgstr ""
+msgstr "บังคับให้ผู้ลงนามระบุตัวตนโดยใช้วิธีการรับรองความถูกต้องครั้งที่สอง"
 
 #. module: sign
 #. odoo-javascript
@@ -1467,7 +1489,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 #, python-format
 msgid "Fully Signed"
-msgstr ""
+msgstr "ลงนามครบถ้วน"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -1662,7 +1684,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "If you do not wish to receive future reminders about this document,"
-msgstr ""
+msgstr "หากคุณไม่ต้องการรับการแจ้งเตือนเกี่ยวกับเอกสารนี้ในอนาคต"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_not_enough_credits
@@ -1670,6 +1692,8 @@ msgid ""
 "If you wish, you can request the document again after buying more credits "
 "for the operation."
 msgstr ""
+"หากต้องการ "
+"คุณสามารถขอเอกสารอีกครั้งได้หลังจากซื้อเครดิตเพิ่มเติมสำหรับการดำเนินการแล้ว"
 
 #. module: sign
 #. odoo-javascript
@@ -1930,12 +1954,12 @@ msgstr "เกิดข้อผิดพลาดในการส่งข้
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_send_request__message_cc
 msgid "Message to be sent to contacts in copy of the signed document"
-msgstr ""
+msgstr "ข้อความที่จะส่งถึงผู้ติดต่อในสำเนาเอกสารที่ลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_send_request__message
 msgid "Message to be sent to signers of the specified document"
-msgstr ""
+msgstr "ข้อความที่จะส่งถึงผู้ลงนามในเอกสารที่ระบุ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_ids
@@ -2200,7 +2224,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "One liter of gas fuel will produce 8.9 kg of CO²"
-msgstr ""
+msgstr "เชื้อเพลิงก๊าซหนึ่งลิตรจะผลิต CO² ได้ 8.9 กิโลกรัม"
 
 #. module: sign
 #. odoo-python
@@ -2215,6 +2239,7 @@ msgstr ""
 #, python-format
 msgid "One uploaded file cannot be read. Is it a valid PDF?"
 msgstr ""
+"ไม่สามารถอ่านไฟล์ที่อัปโหลดหนึ่งไฟล์ได้ มันเป็น PDF ที่ถูกต้องหรือไม่?"
 
 #. module: sign
 #. odoo-python
@@ -2457,7 +2482,7 @@ msgstr ""
 #: model:mail.activity.type,name:sign.mail_activity_data_signature_request
 #, python-format
 msgid "Request Signature"
-msgstr ""
+msgstr "คำขอลายเซ็น"
 
 #. module: sign
 #. odoo-python
@@ -2511,7 +2536,7 @@ msgstr "รับผิดชอบ"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__responsible_count
 msgid "Responsible Count"
-msgstr ""
+msgstr "จำนวนผู้รับผิดชอบ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__activity_user_id
@@ -2545,7 +2570,7 @@ msgstr "ชื่อบทบาท"
 #. module: sign
 #: model:ir.ui.menu,name:sign.sign_item_role_menu
 msgid "Roles"
-msgstr ""
+msgstr "บทบาท"
 
 #. module: sign
 #. odoo-javascript
@@ -2564,7 +2589,7 @@ msgstr "ข้อผิดพลาดในการส่ง SMS"
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 #, python-format
 msgid "SMS Sent"
-msgstr ""
+msgstr "ส่ง SMS แล้ว"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__sms_token
@@ -2618,6 +2643,8 @@ msgid ""
 "Select the contact who should sign, according to their role.<br>In this "
 "example, select your own contact to sign the document yourself."
 msgstr ""
+"เลือกผู้ติดต่อที่ควรลงนามตามบทบาทของพวกเขา <br>ในตัวอย่างนี้ "
+"เลือกผู้ติดต่อของคุณเองเพื่อลงนามในเอกสารด้วยตนเอง"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__selection
@@ -2954,7 +2981,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_role
 msgid "Signature Item Party"
-msgstr ""
+msgstr "รายการลายเซ็นของบุคคล"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_item_role_action
@@ -3005,7 +3032,7 @@ msgstr "คำขอลงนาม - %s"
 #. module: sign
 #: model:ir.model,name:sign.model_sign_request_item
 msgid "Signature Request Item"
-msgstr ""
+msgstr "รายการคำขอลายเซ็น"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_request_item_action
@@ -3175,14 +3202,14 @@ msgstr ""
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
 #, python-format
 msgid "Somebody is already filling a document which uses this template"
-msgstr ""
+msgstr "มีคนกรอกเอกสารที่ใช้เทมเพลตนี้อยู่แล้ว"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/components/sign_request/signable_PDF_iframe.js:0
 #, python-format
 msgid "Sorry, an error occurred, please try to fill the document again."
-msgstr ""
+msgstr "ขออภัย มีข้อผิดพลาดเกิดขึ้น โปรดลองกรอกเอกสารอีกครั้ง"
 
 #. module: sign
 #. odoo-javascript
@@ -3296,6 +3323,7 @@ msgid ""
 "Technical name of the field on the partner model to auto-complete this "
 "signature field at the time of signature."
 msgstr ""
+"ชื่อทางเทคนิคของฟิลด์ในรูปแบบของพาร์ทเนอร์เพื่อเติมฟิลด์ลายเซ็นนี้โดยอัตโนมัติในเวลาที่ลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__template_id
@@ -3397,6 +3425,9 @@ msgid ""
 "That's it, all done!<br>The document is signed, and a copy has been sent by "
 "email to all participants, along with a traceability report."
 msgstr ""
+"เสร็จแล้ว! <br> เอกสารได้รับการลงนามแล้ว "
+"และสำเนาได้ถูกส่งไปยังผู้เข้าร่วมทุกคนทางอีเมล "
+"พร้อมด้วยรายงานการตรวจสอบย้อนกลับ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.deleted_sign_request
@@ -3409,7 +3440,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.encrypted_ask_password
 msgid "The PDF's password is required to generate the final document."
-msgstr ""
+msgstr "ต้องใช้รหัสผ่านของ PDF เพื่อสร้างเอกสารขั้นสุดท้าย"
 
 #. module: sign
 #. odoo-python
@@ -3419,6 +3450,7 @@ msgid ""
 "The completed document cannot be created because the sign request is not "
 "fully signed"
 msgstr ""
+"ไม่สามารถสร้างเอกสารที่เสร็จสมบูรณ์ได้ เนื่องจากคำขอลงนามยังลงนามไม่ครบถ้วน"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -3433,6 +3465,7 @@ msgid ""
 "The contact of %(role)s has been changed from %(old_partner)s to "
 "%(new_partner)s."
 msgstr ""
+"ผู้ติดต่อของ %(role)s ถูกเปลี่ยนจาก %(old_partner)s เป็น %(new_partner)s"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_completed
@@ -3445,7 +3478,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "The document (%s) has been rejected by one of the signers"
-msgstr ""
+msgstr "เอกสาร (%s) ถูกปฏิเสธโดยหนึ่งในผู้ลงนาม"
 
 #. module: sign
 #. odoo-javascript
@@ -3459,7 +3492,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "The document has been signed by a signer and cannot be edited"
-msgstr ""
+msgstr "เอกสารได้รับการลงนามโดยผู้ลงนามและไม่สามารถแก้ไขได้"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -3467,6 +3500,7 @@ msgid ""
 "The final document and this completion history have been sent by email "
 "on&amp;nbsp;"
 msgstr ""
+"เอกสารขั้นสุดท้ายและประวัติการดำเนินการนี้ถูกส่งไปทางอีเมลที่ &amp;nbsp;"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -3487,6 +3521,8 @@ msgid ""
 "The mail address of %(partner)s has been updated. The request will be "
 "automatically resent."
 msgstr ""
+"ที่อยู่อีเมลของ %(partner)s ได้รับการอัปเดตแล้ว "
+"คำขอจะถูกส่งอีกครั้งโดยอัตโนมัติ"
 
 #. module: sign
 #. odoo-python
@@ -3507,7 +3543,7 @@ msgstr "หน้าที่ส่งคำขอไม่ถูกต้อง
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "The role %s is required by the Sign application and cannot be deleted."
-msgstr ""
+msgstr "แอปการเซ็นต้องการบทบาท %s และไม่สามารถลบได้"
 
 #. module: sign
 #. odoo-python
@@ -3560,7 +3596,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The template has more pages than the current file, it can't be applied."
-msgstr ""
+msgstr "เทมเพลตมีจำนวนหน้ามากกว่าไฟล์ปัจจุบัน จึงไม่สามารถนำมาใช้ได้"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -3580,7 +3616,7 @@ msgstr ""
 #: code:addons/sign/wizard/sign_duplicate_template_with_pdf.py:0
 #, python-format
 msgid "The uploaded file is not a valid PDF. Please upload a valid PDF file."
-msgstr ""
+msgstr "ไฟล์ที่อัปโหลดไม่ใช่ PDF ที่ถูกต้อง โปรดอัปโหลดไฟล์ PDF ที่ถูกต้อง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
@@ -3603,7 +3639,7 @@ msgstr ""
 msgid ""
 "There was an issue downloading your document. Please contact an "
 "administrator."
-msgstr ""
+msgstr "เกิดปัญหาในการดาวน์โหลดเอกสารของคุณ โปรดติดต่อผู้ดูแลระบบ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -3611,13 +3647,15 @@ msgid ""
 "There's no reason to panic, <br/>\n"
 "                        you can still sign your document in a few clicks!"
 msgstr ""
+"ไม่ต้องกังวลไป <br/>\n"
+"                        คุณยังสามารถลงนามในเอกสารของคุณได้ในไม่กี่คลิก!"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/template_alert_dialog/template_alert_dialog.xml:0
 #, python-format
 msgid "These files cannot be read, they may be corrupted or encrypted."
-msgstr ""
+msgstr "ไฟล์เหล่านี้ไม่สามารถอ่านได้ เนื่องจากอาจเสียหายหรือถูกเข้ารหัส"
 
 #. module: sign
 #. odoo-javascript
@@ -3640,7 +3678,7 @@ msgstr ""
 #: model:ir.model.fields,help:sign.field_sign_request__reference
 #: model:ir.model.fields,help:sign.field_sign_request_item__reference
 msgid "This is how the document will be named in the mail"
-msgstr ""
+msgstr "นี่คือวิธีการตั้งชื่อเอกสารทางไปรษณีย์"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -3697,6 +3735,8 @@ msgid ""
 "This will keep all the already completed signature of this request and "
 "disable every sent access, are you sure?"
 msgstr ""
+"การดำเนินการนี้จะเก็บลายเซ็นที่กรอกไว้แล้วทั้งหมดของคำขอนี้ "
+"และปิดใช้การเข้าถึงที่ส่งทุกรายการ คุณแน่ใจหรือไม่"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__tip
@@ -3711,7 +3751,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "To produce 1000 kg of wood, we have to cut 12 trees"
-msgstr ""
+msgstr "เพื่อผลิตไม้ได้ 1,000 กิโลกรัม เราต้องตัดต้นไม้ 12 ต้น"
 
 #. module: sign
 #. odoo-python
@@ -3781,7 +3821,7 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.js:0
 #, python-format
 msgid "Unable to send the SMS, please contact the sender of the document."
-msgstr ""
+msgstr "ไม่สามารถส่ง SMS ได้ โปรดติดต่อผู้ส่งเอกสาร"
 
 #. module: sign
 #. odoo-python
@@ -3791,6 +3831,8 @@ msgid ""
 "Unable to sign the document due to missing required data. Please contact an "
 "administrator."
 msgstr ""
+"ไม่สามารถลงนามในเอกสารได้ เนื่องจากข้อมูลที่จำเป็นขาดหายไป "
+"โปรดติดต่อผู้ดูแลระบบ"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_role__auth_method__sms
@@ -3820,7 +3862,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
 msgid "Upload a PDF file or use an existing template to begin."
-msgstr ""
+msgstr "อัปโหลดไฟล์ PDF หรือใช้เทมเพลตที่มีอยู่เพื่อเริ่มต้น"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
@@ -3857,7 +3899,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_tag_action
 msgid "Use Tags to manage your Sign Templates and Sign Requests"
-msgstr ""
+msgstr "ใช้แท็กเพื่อจัดการเทมเพลตการเซ็นและคำขอการเซ็น"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_duplicate_template_with_pdf
@@ -3994,13 +4036,15 @@ msgid ""
 "We display to you a ratio based on the saved weight versus 1000 kg of paper "
 "usage."
 msgstr ""
+"เราแสดงอัตราส่วนให้คุณเห็นตามน้ำหนักที่ประหยัดได้เทียบกับการใช้กระดาษ 1,000 "
+"กิโลกรัม"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/next_direct_sign_dialog.xml:0
 #, python-format
 msgid "We will send you this document by email once everyone has signed."
-msgstr ""
+msgstr "เราจะส่งเอกสารนี้ให้คุณทางอีเมลเมื่อทุกคนได้ลงนามแล้ว"
 
 #. module: sign
 #. odoo-javascript
@@ -4010,6 +4054,8 @@ msgid ""
 "We'll send an email to warn other contacts in copy & signers with the reason"
 " you provided."
 msgstr ""
+"เราจะส่งอีเมลเพื่อเตือนผู้ติดต่อรายอื่นในการคัดลอก & "
+"ผู้ลงนามพร้อมเหตุผลที่คุณระบุ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__website_message_ids
@@ -4029,6 +4075,8 @@ msgid ""
 "Well done, your document is ready!<br>Let's send it to get our first "
 "signature."
 msgstr ""
+"เยี่ยมมาก เอกสารของคุณพร้อมแล้ว! "
+"<br>มาเริ่มส่งเพื่อรับลายเซ็นแรกของเรากันเถอะ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -4075,13 +4123,14 @@ msgid ""
 "You can contact the person who invited you to sign the document by email for"
 " help."
 msgstr ""
+"คุณสามารถติดต่อบุคคลที่เชิญคุณให้ลงนามในเอกสารทางอีเมลเพื่อขอความช่วยเหลือได้"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "You can only add new items for the current role"
-msgstr ""
+msgstr "คุณสามารถเพิ่มได้เฉพาะรายการใหม่สำหรับบทบาทปัจจุบันเท่านั้น"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -4089,6 +4138,8 @@ msgid ""
 "You can request a new link to access your document and sign it, it will  be "
 "delivered in your inbox right away."
 msgstr ""
+"คุณสามารถขอลิงก์ใหม่เพื่อเข้าถึงเอกสารของคุณและลงนามได้ "
+"โดยระบบจะจัดส่งไปที่กล่องจดหมายของคุณทันที"
 
 #. module: sign
 #. odoo-python
@@ -4098,6 +4149,7 @@ msgid ""
 "You can't delete a template for which signature requests exist but you can "
 "archive it instead."
 msgstr ""
+"คุณไม่สามารถลบเทมเพลตที่มีการร้องขอลายเซ็นได้ แต่คุณสามารถเก็บถาวรแทนได้"
 
 #. module: sign
 #. odoo-python
@@ -4114,6 +4166,8 @@ msgid ""
 "You cannot share this document by link, because it has fields to be filled "
 "by different roles. Use Send button instead."
 msgstr ""
+"คุณไม่สามารถแชร์เอกสารนี้ด้วยลิงก์ได้ "
+"เนื่องจากมีฟิลด์ที่ต้องกรอกตามบทบาทที่แตกต่างกัน ใช้ปุ่มส่งแทน"
 
 #. module: sign
 #. odoo-python
@@ -4122,7 +4176,7 @@ msgstr ""
 msgid ""
 "You do not have access to these documents, please contact a Sign "
 "Administrator."
-msgstr ""
+msgstr "คุณไม่สามารถเข้าถึงเอกสารเหล่านี้ได้ โปรดติดต่อผู้ดูแลเอกสารการเซ็น"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
@@ -4153,7 +4207,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "You must specify one signer for each role of your sign template"
-msgstr ""
+msgstr "คุณต้องระบุผู้ลงนามหนึ่งคนสำหรับแต่ละบทบาทของเทมเพลตการลงนามของคุณ"
 
 #. module: sign
 #. odoo-python
@@ -4175,6 +4229,8 @@ msgid ""
 "You will find all documents that you participate in here, either as a "
 "signatory or as the person who requested the signature."
 msgstr ""
+"คุณจะพบเอกสารทั้งหมดที่คุณเข้าร่วมที่นี่ "
+"ไม่ว่าจะเป็นในฐานะผู้ลงนามหรือบุคคลที่ขอลายเซ็น"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_waiting_for_me_action
@@ -4191,7 +4247,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "You won't receive any notification for this signature request anymore."
-msgstr ""
+msgstr "คุณจะไม่ได้รับการแจ้งเตือนสำหรับคำขอลายเซ็นนี้อีกต่อไป"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
@@ -4227,6 +4283,8 @@ msgid ""
 "Your file is encrypted, PDF's password is required to generate final "
 "document. The final document will be encrypted with the same password."
 msgstr ""
+"ไฟล์ของคุณถูกเข้ารหัส ต้องใช้รหัสผ่าน PDF เพื่อสร้างเอกสารขั้นสุดท้าย "
+"เอกสารขั้นสุดท้ายจะถูกเข้ารหัสด้วยรหัสผ่านเดียวกัน"
 
 #. module: sign
 #. odoo-javascript
@@ -4249,7 +4307,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Your signature was not submitted. Ensure the SMS validation code is correct."
-msgstr ""
+msgstr "ลายเซ็นของคุณไม่ได้ถูกส่ง ตรวจสอบให้แน่ใจว่ารหัสยืนยัน SMS ถูกต้อง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_completed
@@ -4271,7 +4329,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
 msgid "authentication step will be skipped if you are out of credits."
-msgstr ""
+msgstr "ขั้นตอนการรับรองความถูกต้องจะถูกข้ามหากคุณเครดิตหมด"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
@@ -4284,6 +4342,8 @@ msgid ""
 "because you don't have enough credits for this operation. \n"
 "                    The signatory was able to finish signing, but was not asked to authenticate fully."
 msgstr ""
+"เนื่องจากคุณมีเครดิตไม่เพียงพอสำหรับการดำเนินการนี้\n"
+"                    ผู้ลงนามสามารถลงนามให้เสร็จสิ้นได้ แต่ไม่ได้ขอให้รับรองความถูกต้องโดยสมบูรณ์"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
@@ -4370,7 +4430,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el_pdf
 msgid "like"
-msgstr ""
+msgstr "ถูกใจ"
 
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_initial
@@ -4396,7 +4456,7 @@ msgstr "เมื่อ"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "sign"
-msgstr ""
+msgstr "ลงนาม"
 
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_signature
@@ -4416,7 +4476,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "tags"
-msgstr ""
+msgstr "แท็ก"
 
 #. module: sign
 #. odoo-javascript
@@ -4438,7 +4498,7 @@ msgstr "ถึง:"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "we've got a list of consumption for 1000 kg of paper usage."
-msgstr ""
+msgstr "เรามีรายการปริมาณการใช้กระดาษ 1,000 กิโลกรัม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_not_enough_credits

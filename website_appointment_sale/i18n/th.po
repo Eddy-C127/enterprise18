@@ -58,7 +58,7 @@ msgstr "การประชุม"
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.website_sale_confirmation_appointment
 msgid "Oops, it looks like the following Meeting(s) were not booked smoothly:"
-msgstr ""
+msgstr "อ๊ะ ดูเหมือนว่าการประชุมต่อไปนี้จะไม่ได้ถูกจองอย่างราบรื่น:"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
@@ -88,6 +88,8 @@ msgid ""
 "The following bookings are not available anymore during the selected period "
 "and your cart must be updated. We are sorry for the inconvenience."
 msgstr ""
+"การจองต่อไปนี้ไม่พร้อมให้บริการอีกต่อไปในช่วงเวลาที่เลือก "
+"และรถเข็นของคุณจะต้องได้รับการอัปเดต ขออภัยในความไม่สะดวก"
 
 #. module: website_appointment_sale
 #. odoo-python
@@ -97,6 +99,8 @@ msgid ""
 "The following bookings were not confirmed due to insufficient availability "
 "or configuration changes: %s"
 msgstr ""
+"การจองต่อไปนี้ไม่ได้รับการยืนยัน "
+"เนื่องจากมีห้องว่างไม่เพียงพอหรือมีการเปลี่ยนแปลงการกำหนดค่า: %s"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
@@ -106,7 +110,7 @@ msgstr "ดูรายละเอียด"
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.website_sale_confirmation_appointment
 msgid "We are looking forward to seeing you at the following Meeting(s):"
-msgstr ""
+msgstr "เรารอคอยที่จะพบคุณในการประชุมต่อไปนี้:"
 
 #. module: website_appointment_sale
 #: model:ir.model,name:website_appointment_sale.model_website
@@ -118,4 +122,4 @@ msgstr "เว็บไซต์"
 #: code:addons/website_appointment_sale/models/sale_order.py:0
 #, python-format
 msgid "You cannot manually change the quantity of a Booking Fees product."
-msgstr ""
+msgstr "คุณไม่สามารถเปลี่ยนปริมาณของผลิตภัณฑ์ค่าธรรมเนียมการจองได้ด้วยตนเอง"

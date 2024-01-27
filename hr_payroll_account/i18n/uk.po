@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,14 +67,14 @@ msgstr "Ви впевнені, що бажаєте продовжити?"
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.res_config_settings_view_form
 msgid "Batch Account Move Lines"
-msgstr ""
+msgstr "Рядки групового проведення"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__batch_payroll_move_lines
 #: model:ir.model.fields,field_description:hr_payroll_account.field_res_company__batch_payroll_move_lines
 #: model:ir.model.fields,field_description:hr_payroll_account.field_res_config_settings__batch_payroll_move_lines
 msgid "Batch Payroll Move Lines"
-msgstr ""
+msgstr "Рядки проведення групової зарплати"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_res_company
@@ -125,6 +125,9 @@ msgid ""
 "into a single account move line. This will anonymize the accounting entries "
 "but also disable single payment generations."
 msgstr ""
+"Увімкніть цей параметр, щоб об’єднати всі бухгалтерські записи за той самий "
+"період в один рядок переміщення облікового запису. Це призведе до "
+"анонімізації облікових записів, але також вимкне генерацію єдиного платежу."
 
 #. module: hr_payroll_account
 #. odoo-python
@@ -181,7 +184,7 @@ msgstr "Розрахунковий лист"
 #: code:addons/hr_payroll_account/wizard/account_payment_register.py:0
 #, python-format
 msgid "Payment done at %s"
-msgstr ""
+msgstr "Платіж виконано в %s"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_account_payment
@@ -237,14 +240,14 @@ msgstr "Журнал витрат \"%s\" має неправильно нала�
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 #, python-format
 msgid "The credit account on the NET salary rule is not reconciliable"
-msgstr ""
+msgstr "Кредитовий рахунок за правилом чистої зарплати не підлягає звірці"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 #, python-format
 msgid "The employee bank account is untrusted"
-msgstr ""
+msgstr "Банківський рахунок працівника є ненадійним"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,help:hr_payroll_account.field_hr_salary_rule__not_computed_in_net

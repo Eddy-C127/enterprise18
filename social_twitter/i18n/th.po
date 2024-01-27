@@ -40,12 +40,12 @@ msgstr ""
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
 msgid "<i class=\"fa fa-comments me-1\" title=\"Comments\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-comments me-1\" title=\"ความคิดเห็น\"/>"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
 msgid "<i class=\"fa fa-heart me-1\" title=\"Likes\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-heart me-1\" title=\"ถูกใจ\"/>"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
@@ -159,7 +159,7 @@ msgstr "แสดงตัวอย่าง Twitter"
 #, python-format
 msgid ""
 "Easy, tiger! No spamming allowed. Let's stick to three replies per Tweet."
-msgstr ""
+msgstr "ไม่อนุญาตให้มีการส่งสแปม เรามาตอบสามคำตอบต่อทวีตกันดีกว่า"
 
 #. module: social_twitter
 #. odoo-javascript
@@ -197,7 +197,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Failed to fetch the tweets in the same thread: '%s' using the account %s."
-msgstr ""
+msgstr "ไม่สามารถเรียกทวีตในชุดข้อความเดียวกัน: '%s' โดยใช้บัญชี %s ได้"
 
 #. module: social_twitter
 #. odoo-python
@@ -341,7 +341,7 @@ msgstr ""
 #: code:addons/social_twitter/models/social_stream_post.py:0
 #, python-format
 msgid "Replies from Tweets older than 7 days must be accessed on Twitter.com"
-msgstr ""
+msgstr "ต้องเข้าถึงการตอบกลับจากทวีตที่เก่ากว่า 7 วันบน Twitter.com"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
@@ -447,7 +447,7 @@ msgstr ""
 #: code:addons/social_twitter/models/social_stream_post.py:0
 #, python-format
 msgid "This tweet is outdated, please refresh the stream and try again."
-msgstr ""
+msgstr "ทวีตนี้ล้าสมัยแล้ว โปรดรีเฟรชสตรีมแล้วลองอีกครั้ง"
 
 #. module: social_twitter
 #: model:social.stream.type,name:social_twitter.stream_type_twitter_follow
@@ -645,6 +645,8 @@ msgid ""
 "We could not upload your image, it may be corrupted, it may exceed size "
 "limit or API may have send improper response (error: %s)."
 msgstr ""
+"เราไม่สามารถอัปโหลดภาพของคุณได้ ภาพอาจเสียหาย อาจมีขนาดเกินขีดจำกัด หรือ API"
+" อาจส่งการตอบสนองที่ไม่เหมาะสม (ข้อผิดพลาด: %s)"
 
 #. module: social_twitter
 #. odoo-python
@@ -657,7 +659,7 @@ msgstr ""
 #. module: social_twitter
 #: model:ir.model.constraint,message:social_twitter.constraint_social_stream_post_tweet_uniq
 msgid "You can not store two times the same tweet on the same stream!"
-msgstr ""
+msgstr "คุณไม่สามารถจัดเก็บทวีตเดียวกันสองครั้งในสตรีมเดียวกันได้!"
 
 #. module: social_twitter
 #. odoo-python

@@ -26,7 +26,7 @@
 # Svante Suominen <svante.suominen@web-veistamo.fi>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
 # Martin Trigaux, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -34,7 +34,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,21 +47,21 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "\" (Selection)"
-msgstr ""
+msgstr "\" (Valinta)"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "\" (date and time)"
-msgstr ""
+msgstr "\" (päivämäärä ja kellonaika)"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "\" (date)"
-msgstr ""
+msgstr "\" (päivämäärä)"
 
 #. module: knowledge
 #. odoo-python
@@ -71,6 +71,8 @@ msgid ""
 "\"%(article_name)s\" is a template and can not be a child of an article "
 "(\"%(parent_article_name)s\")."
 msgstr ""
+"\"%(article_name)s\" on malli, eikä se voi olla artikkelin "
+"(\"%(parent_article_name)s\") lapsi."
 
 #. module: knowledge
 #. odoo-python
@@ -80,16 +82,18 @@ msgid ""
 "\"%(article_name)s\" is an article and can not be a child of a template "
 "(\"%(parent_article_name)s\").\""
 msgstr ""
+"\"%(article_name)s\" on artikkeli, eikä se voi olla mallin "
+"(\"%(parent_article_name)s\") lapsi.\".\""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "\"About Us\" Template"
-msgstr ""
+msgstr "\"Meistä\" malli"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "# Employees:"
-msgstr ""
+msgstr "# Työntekijät:"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__favorite_count
@@ -103,7 +107,7 @@ msgstr "#On suosikki"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "%(article_name)s (copy)"
-msgstr ""
+msgstr "%(article_name)s (kopio)"
 
 #. module: knowledge
 #. odoo-python
@@ -128,11 +132,18 @@ msgid ""
 "                        <br>\n"
 "                        info@yourcompany.com"
 msgstr ""
+"250 Executive Park Blvd, Suite 3400 94134 94134\n"
+"                       <br>\n"
+"                        San Francisco Kalifornia (US)\n"
+"                       <br>\n"
+"                        Yhdysvallat\n"
+"                       <br>\n"
+"                        info@yourcompany.com"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "85x200 or 100x200, depending on the content"
-msgstr ""
+msgstr "85x200 tai 100x200, sisällöstä riippuen"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -140,6 +151,8 @@ msgid ""
 "<br>\n"
 "                            Subscribe here to make sure you will not miss an episode!"
 msgstr ""
+"<br>\n"
+"                            Tilaa tästä varmistaaksesi, ettet jätä välistä epähuomiossa yhtään jaksoa!"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -150,6 +163,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        Kuvaile kampanjaasi muutamalla sanalla.\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -160,6 +178,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        Miten mittaat edistymistä?\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -170,6 +193,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        Mitä yrität saavuttaa tällä kampanjalla?\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -180,6 +208,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        Mistä yrität vakuuttaa heidät?\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -190,6 +223,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        Kenet yrität tavoittaa?\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -198,6 +236,9 @@ msgid ""
 "                    <font class=\"text-600\">Ask a Senior Engineer to fill this part before launching the task.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Pyydä kokenutta insinööriä täyttämään tämä osa ennen tehtävän käynnistämistä.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -206,6 +247,9 @@ msgid ""
 "                    <font class=\"text-600\">Ask the developer to go through this checklist before asking for a review.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Pyydä kehittäjää käymään läpi tämä tarkistuslista ennen kuin pyydät tarkistusta.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -214,6 +258,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain in a few words the problem that this change is going to solve.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Selitä muutamalla sanalla ongelma, joka tällä muutoksella aiotaan ratkaista.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -222,6 +269,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain in a single sentence what has been changed.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Selitä yhdellä lauseella, mitä on muutettu.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -230,6 +280,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain the consequences of this issue.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Selitä tämän seuraukset.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -238,6 +291,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain what went wrong in just a few words.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Selitä muutamalla sanalla, mikä meni pieleen.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -246,6 +302,9 @@ msgid ""
 "                    <font class=\"text-600\">How did it get to happen?</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Miten se tapahtui?</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -254,6 +313,9 @@ msgid ""
 "                    <font class=\"text-600\">How was it solved?</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Miten se ratkaistiin?</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -262,6 +324,9 @@ msgid ""
 "                    <font class=\"text-600\">Lay here any remaining question or doubt.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Aseta tähän kaikki jäljellä olevat kysymykset tai epäilyt.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -270,6 +335,9 @@ msgid ""
 "                    <font class=\"text-600\">List here all the changes to implement.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Luettele tässä kaikki toteutettavat muutokset.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -278,6 +346,9 @@ msgid ""
 "                    <font class=\"text-600\">List here all the material and documentation related to the task.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Luettele tässä kaikki tehtävään liittyvä materiaali ja asiakirjat.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -286,6 +357,9 @@ msgid ""
 "                    <font class=\"text-600\">List here all the text you could not do this week. These shall be postponed in the next weekly schedule.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Luettele tässä kaikki ne tekstit, joita et pystynyt tekemään tällä viikolla. Nämä siirretään seuraavaan viikko-ohjelmaan.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -294,6 +368,9 @@ msgid ""
 "                            <em>How to best reach this customer type.</em>\n"
 "                        </font>"
 msgstr ""
+"<font class=\"text-400\">\n"
+"                            <em>Miten parhaiten tavoitat tämän asiakastyypin.</em>\n"
+"                        </font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
@@ -303,6 +380,10 @@ msgid ""
 "                </font>\n"
 "                Abigail works a lot and never watches TV. Better reach her on her phone or on her to work."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>Miten parhaiten tavoitat tämän asiakastyypin.<br></em>\n"
+"                </font>\n"
+"                Abigail tekee paljon töitä eikä koskaan katso televisiota. Parhaiten hänet tavoittaa puhelimella tai töistä."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -312,6 +393,10 @@ msgid ""
 "                </font>\n"
 "                As a classic Gen Z member, Vittorio never watches TV and never listens to the radio. For him to see our message, we need to get to his Instagram feed."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>Miten parhaiten tavoitat tämän asiakastyypin.<br></em>\n"
+"                </font>\n"
+"                Vittorio on klassinen Z-sukupolven jäsen, joka ei koskaan katso televisiota eikä kuuntele radiota. Jotta hän näkisi viestimme, meidän on päästävä hänen Instagram-syötteeseensä."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -321,6 +406,10 @@ msgid ""
 "                </font>\n"
 "                As an avid music listener, the best way to reach Sonya is through the radio since hers is always on."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>Miten parhaiten tavoitat tämän asiakastyypin.<br></em>\n"
+"                </font>\n"
+"                Koska Sonya on innokas musiikin kuuntelija, hänet tavoittaa parhaiten radion kautta, sillä hänen radionsa on aina päällä."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
@@ -330,86 +419,90 @@ msgid ""
 "                </font>\n"
 "                Julius follows politics very tightly, and can best be reached with TV ads."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>Miten parhaiten tavoitat tämän asiakastyypin.<br></em>\n"
+"                </font>\n"
+"                Julius seuraa politiikkaa hyvin tarkasti. Hänet voidaan parhaiten tavoittaa televisiomainoksilla."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "<font class=\"text-400\">To Read 1</font>"
-msgstr ""
+msgstr "<font class=\"text-400\">Lue 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "<font class=\"text-400\">To Read 2</font>"
-msgstr ""
+msgstr "<font class=\"text-400\">Lue 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<font class=\"text-600\">Action A</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Toimenpide A</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<font class=\"text-600\">Action B</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Toiminta B</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<font class=\"text-600\">Action C</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Toimenpide C</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Backlog 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Jäljellä oleva 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Backlog 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Jäljellä oleva 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Backlog 3</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Jäljellä oleva 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Blue/Green/Red/Yellow</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Sininen/vihreä/punainen/keltainen</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "<font class=\"text-600\">Change 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Muutos 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "<font class=\"text-600\">Change 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Muutos 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "<font class=\"text-600\">Change 3</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Muutos 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Color</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Väri</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Competitor 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Kilpailija 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Competitor 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Kilpailija 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Competitor 3</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Kilpailija 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
@@ -417,21 +510,23 @@ msgid ""
 "<font class=\"text-600\">Detailed Explanation of the feature, with "
 "screenshots or a GIF</font>"
 msgstr ""
+"<font class=\"text-600\">Yksityiskohtainen selitys ominaisuudesta "
+"kuvakaappauksin tai GIF-kuvana</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Email</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Sähköposti</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "<font class=\"text-600\">Fixed a bug where...</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Korjattu virhe, jossa...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "<font class=\"text-600\">From now on, ...</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Tästä lähtien ...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -439,17 +534,23 @@ msgid ""
 "<font class=\"text-600\">How do stakeholders interact regarding "
 "offers?</font>"
 msgstr ""
+"<font class=\"text-600\">Miten sidosryhmät ovat vuorovaikutuksessa "
+"tarjousten suhteen?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">How do they compare and evaluate offers?</font>"
 msgstr ""
+"<font class=\"text-600\">Miten he vertailevat ja arvioivat "
+"tarjouksia?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid ""
 "<font class=\"text-600\">I made sure any visual change is responsive</font>"
 msgstr ""
+"<font class=\"text-600\">Varmistin, että visuaaliset muutokset ovat "
+"responsiivisia</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -457,6 +558,8 @@ msgid ""
 "<font class=\"text-600\">I made sure it did not introduce any obvious "
 "regression</font>"
 msgstr ""
+"<font class=\"text-600\">Varmistin, että se ei aiheuta ilmeistä regressio-"
+"virhettä..</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -464,121 +567,125 @@ msgid ""
 "<font class=\"text-600\">I made sure it did not introduce any security "
 "flaw</font>"
 msgstr ""
+"<font class=\"text-600\">Varmistin, että se ei aiheuta tietoturva-"
+"aukkoja</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Job Title 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Tehtävänimike 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Job Title 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Tehtävänimike 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Job Title</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Tehtävänimike</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<font class=\"text-600\">Lesson A</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Oppitunti A</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<font class=\"text-600\">Lesson B</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Oppitunti B</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<font class=\"text-600\">Lesson C</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Oppitunti C</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Name 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Nimi 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Name 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Nimi 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Name</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Nimi</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "<font class=\"text-600\">New Feature 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Uusi ominaisuus 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Phone</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Puhelin</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Priority A</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Prioriteetti A</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Priority B</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Prioriteetti B</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Priority C</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Prioriteetti C</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Reminder 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Muistutus 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Reminder 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Muistutus 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Reminder 3</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Muistutus 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Task A</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Tehtävä A</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Task B</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Tehtävä B</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Task C</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Tehtävä C</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Task D</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Tehtävä D</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">What is their buyer's journey?</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Mikä on heidän ostopolkunsa?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">What is their key decision criteria?</font>"
 msgstr ""
+"<font class=\"text-600\">Mitkä ovat heidän tärkeimmät "
+"päätöksentekoperusteensa?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -586,6 +693,8 @@ msgid ""
 "<font class=\"text-600\">What is your action plan to move forward with this account?</font><br>\n"
 "                <font class=\"text-600\">Which KPI will be used to measure this progress?</font>"
 msgstr ""
+"<font class=\"text-600\">Mikä on toimintasuunnitelmasi tämän tilin edistämiseksi?</font><br>\n"
+"                <font class=\"text-600\">Millä KPI:llä edistymistä mitataan?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -596,6 +705,11 @@ msgid ""
 "                <br>\n"
 "                <br>"
 msgstr ""
+"<font class=\"text-o-color-2\">\n"
+"                    <strong>Suunniteltu seuraava vaihe:</strong>\n"
+"                </font>\n"
+"                <br>\n"
+"                <br>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
@@ -612,6 +726,8 @@ msgid ""
 "<i invisible=\"not is_user_favorite\" class=\"fa fa-star\" title=\"Remove from favorites\"/>\n"
 "                                        <i invisible=\"is_user_favorite\" class=\"fa fa-star-o\" title=\"Add to favorites\"/>"
 msgstr ""
+"<i invisible=\"not is_user_favorite\" class=\"fa fa-star\" title=\"Poista suosikeista\"/>\n"
+"                                        <i invisible=\"is_user_favorite\" class=\"fa fa-star-o\" title=\"Lisää suosikkeihin\"/>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_kanban_items
@@ -619,6 +735,8 @@ msgid ""
 "<i invisible=\"not is_user_favorite\" class=\"fa fa-star\" title=\"Remove from favorites\"/>\n"
 "                                    <i invisible=\"is_user_favorite\" class=\"fa fa-star-o\" title=\"Add to favorites\"/>"
 msgstr ""
+"<i invisible=\"not is_user_favorite\" class=\"fa fa-star\" title=\"Poista suosikeista\"/>\n"
+"                                    <i invisible=\"is_user_favorite\" class=\"fa fa-star-o\" title=\"Lisää suosikkeihin\"/>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -633,6 +751,15 @@ msgid ""
 "                        </strong>\n"
 "                    </i>"
 msgstr ""
+"<i>\n"
+"                        <font style=\"color: rgb(0, 255, 0);\"><strong>Vihreä: Arvostaa luottamusta ennen kaikkea</strong></font><br>\n"
+"                        <font style=\"color: rgb(255, 0, 0);\"><strong>Punainen: Arvostaa tuloksia yli kaiken</strong></font><br>\n"
+"                        <strong>\n"
+"                            <font style=\"color: rgb(239, 198, 49);\">\n"
+"                                Keltainen: Luovuus ja innostus ovat tärkeämpiä kuin tulokset\n"
+"                            </font>\n"
+"                        </strong>\n"
+"                    </i>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -643,11 +770,16 @@ msgid ""
 "                    </font>\n"
 "                </i>"
 msgstr ""
+"<i>\n"
+"                    <font style=\"color: rgb(8, 82, 148);\">\n"
+"                        <strong>Sininen: Odottaa tarkkoja ja täsmällisiä tuloksia</strong>\n"
+"                    </font>\n"
+"                </i>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "<span class=\"text-600\">New Feature 1</span>"
-msgstr ""
+msgstr "<span class=\"text-600\">Uusi ominaisuus 1</span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
@@ -656,6 +788,9 @@ msgid ""
 "                                        5125C\n"
 "                                    </span>"
 msgstr ""
+"<span style=\"color: rgb(255, 255, 255);font-size: 16px;font-style: normal;font-weight: 400;background-color: rgb(113, 75, 103)\">\n"
+"                                        5125C\n"
+"                                    </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -664,6 +799,9 @@ msgid ""
 "                    <font class=\"text-600\">*💡 tick the box when the task is scheduled in the agenda</font>\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 12px;\">\n"
+"                    <font class=\"text-600\">*💡 rasti ruutuun, kun tehtävä on ajoitettu esityslistalle</font>\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -672,6 +810,9 @@ msgid ""
 "                                    <font class=\"text-600\">Task A</font>\n"
 "                                </span>"
 msgstr ""
+"<span style=\"font-size: 14px\">\n"
+"                                    <font class=\"text-600\">Tehtävä A</font>\n"
+"                                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -680,6 +821,9 @@ msgid ""
 "                                    <font class=\"text-600\">Task B</font>\n"
 "                                </span>"
 msgstr ""
+"<span style=\"font-size: 14px\">\n"
+"                                    <font class=\"text-600\">Tehtävä B</font>\n"
+"                                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -688,6 +832,9 @@ msgid ""
 "                                    <font class=\"text-600\">Task C</font>\n"
 "                                </span>"
 msgstr ""
+"<span style=\"font-size: 14px\">\n"
+"                                    <font class=\"text-600\">Tehtävä C</font>\n"
+"                                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -696,6 +843,9 @@ msgid ""
 "                                    <font class=\"text-600\">Task A</font>\n"
 "                                </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"                                    <font class=\"text-600\">Tehtävä A</font>\n"
+"                                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -704,6 +854,9 @@ msgid ""
 "                                    <font class=\"text-600\">Task B</font>\n"
 "                                </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"                                    <font class=\"text-600\">Tehtävä B</font>\n"
+"                                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -712,6 +865,9 @@ msgid ""
 "                                    <font class=\"text-600\">Task C</font>\n"
 "                                </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"                                    <font class=\"text-600\">Tehtävä C</font>\n"
+"                                </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -769,6 +925,17 @@ msgid ""
 "            Unstar ⭐ this page at the top to remove it from your favorites.\n"
 "        </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"            <span style=\"font-weight: bolder;\">\n"
+"                <font class=\"text-o-color-2\">Suosikit</font>\n"
+"            </span>\n"
+"            - Ne ovat\n"
+"            <span style=\"font-weight: bolder;\">\n"
+"                <font class=\"text-o-color-2\">pikanäppäimet</font>\n"
+"            </span>\n"
+"            joita luot itse.\n"
+"            Poista tähti ⭐ tämän sivun yläreunasta poistaaksesi sen suosikeistasi.\n"
+"        </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -952,6 +1119,15 @@ msgid ""
 "            box. Need to re-use its content?\n"
 "        </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"            Käytä\n"
+"            /<span style=\"font-weight: bolder;\"><font class=\"text-o-color-2\">leikepöytää</font></span>\n"
+"            lisätäksesi\n"
+"            <span style=\"font-weight: bolder;\">\n"
+"                <font class=\"text-o-color-2\">leikepöytä</font>\n"
+"            </span>\n"
+"            laatikkoon. Haluatko käyttää sen sisältöä uudelleen?\n"
+"        </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1066,6 +1242,11 @@ msgid ""
 "        and best practices! 🚀\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        Täällä sinä ja tiimisi voitte keskitetysti koota\n"
+"       <font class=\"text-o-color-2\" style=\"font-weight: bolder;\">Tietoa</font>\n"
+"        ja parhaat käytännöt! 🚀\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1129,6 +1310,24 @@ msgid ""
 "        \"<span style=\"font-weight: bolder;\">?</span>\".\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        Haluatko kulkea\n"
+"       <span style=\"font-style: italic;\">jopa</span>\n"
+"        nopeammin? ⚡️\n"
+"    </span>\n"
+"    <br/>\n"
+"    <span style=\"font-size: 14px;\">\n"
+"        Pääsy\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">Artikkelit</font>\n"
+"        </span>\n"
+"        avaamalla\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">Komentopaletin</font>\n"
+"        </span>\n"
+"        (Ctrl + k/⌘ + k) ja etsi sitten artikkeleita aloittamalla haku komennolla\n"
+"        \"<span style=\"font-weight: bolder;\">?</span>\".\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1141,6 +1340,13 @@ msgid ""
 "        there, on the left?\n"
 "    </span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">\n"
+"        👈 Näetkö\n"
+"        <span style=\"font-weight: bolder;\">\n"
+"            <font class=\"text-o-color-2\">Menun</font>\n"
+"        </span>\n"
+"        vasemmalla?\n"
+"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1178,6 +1384,8 @@ msgid ""
 "<span style=\"font-size: 14px;\">From any Odoo document, find this article "
 "by clicking on the 📗 icon in the chatter.</span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">Löydät tämän artikkelin mistä tahansa Odoo-"
+"dokumentista klikkaamalla 📗-kuvaketta chatterissa.</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1185,6 +1393,8 @@ msgid ""
 "<span style=\"font-size: 14px;\">From this box, files can be previewed, "
 "forwarded and downloaded. 📁</span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">Tässä laatikossa tiedostoja voidaan "
+"esikatsella, lähettää eteenpäin ja ladata. 📁</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1192,6 +1402,8 @@ msgid ""
 "<span style=\"font-size: 14px;\">Got it? Now let's try advanced features "
 "🧠</span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">Menikö perille? Nyt kokeillaan "
+"lisäominaisuuksia 🧠</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1199,6 +1411,8 @@ msgid ""
 "<span style=\"font-size: 14px;\">Need this document somewhere? Come back "
 "here by clicking on the 📗 icon in the chatter.</span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">Tarvitsetko tätä asiakirjaa jonnekin? Palaa"
+" tänne klikkaamalla 📗-kuvaketta keskustelussa.</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1206,6 +1420,8 @@ msgid ""
 "<span style=\"font-size: 14px;\">Not sure how to do it? Check the video "
 "below 👇</span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">Etkö ole varma, miten se tehdään? Katso "
+"alla oleva video 👇</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1227,7 +1443,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "<span style=\"font-size: 14px;\">Try the following 👇</span>"
-msgstr ""
+msgstr "<span style=\"font-size: 14px;\">Kokeile seuraavaa 👇</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1235,6 +1451,8 @@ msgid ""
 "<span style=\"font-size: 14px;\">You can use the clipboard as a description,"
 " a message or simply copy it to your clipboard! 👌</span>"
 msgstr ""
+"<span style=\"font-size: 14px;\">Voit käyttää leikepöytää kuvauksena, "
+"viestinä tai yksinkertaisesti kopioida sen leikepöydälle! 👌</span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -1243,6 +1461,9 @@ msgid ""
 "                                <strong>Color</strong>\n"
 "                            </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                                <strong>Väri</strong>\n"
+"                            </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -1251,6 +1472,9 @@ msgid ""
 "                                <strong>Name</strong>\n"
 "                            </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                                <strong>Nimi</strong>\n"
+"                            </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -1259,6 +1483,9 @@ msgid ""
 "                                <strong>Role</strong>\n"
 "                            </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                                <strong>Rooli</strong>\n"
+"                            </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -1267,6 +1494,9 @@ msgid ""
 "                    1. How many people will live in this house?\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                    1. Kuinka monta ihmistä tässä talossa asuu?\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -1275,6 +1505,9 @@ msgid ""
 "                    2. What is your budget?\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                    2. Mikä on budjettisi?\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -1283,6 +1516,9 @@ msgid ""
 "                    3. Which style do you prefer: Natural or Industrial?\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                    3. Kumpaa tyyliä pidät parempana: Luonnollinen vai teollinen?\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -1291,6 +1527,9 @@ msgid ""
 "                    4. What can I do if I haven't found exactly what I wanted?\"\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                    4. Mitä voin tehdä, jos en ole löytänyt juuri sitä, mitä halusin?\"\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1300,6 +1539,10 @@ msgid ""
 "                </span>​\n"
 "                - Paul J. Meyer"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                    Tuottavuus ei ole koskaan sattumaa. Se on aina seurausta sitoutumisesta huippuosaamiseen, älykkäästä suunnittelusta ja keskittyneestä työstä. </span>\n"
+"                \n"
+"                - Paul J. Meyer"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -1308,6 +1551,9 @@ msgid ""
 "                    To add more, use the clipboard below 👇🏼\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 18px;\">\n"
+"                    Jos haluat lisätä lisää, käytä alla olevaa leikepöytää 👇🏼\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -1318,6 +1564,11 @@ msgid ""
 "                            <br>\n"
 "                            <span style=\"font-size: 24px;\">If in doubt, get in touch with us.</span>"
 msgstr ""
+"<span style=\"font-size: 24px;\">\n"
+"                                Varmista, että noudatat sääntöjä, sillä <strong>edustat <u>brändiämme</u></strong>\n"
+"                            </span>\n"
+"                            <br>\n"
+"                            <span style=\"font-size: 24px;\">Jos olet epävarma, ota meihin yhteyttä.</span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -1326,11 +1577,14 @@ msgid ""
 "                    Thanks for reading, see you soon.👋\n"
 "                </span>"
 msgstr ""
+"<span style=\"font-size: 36px;\">Siinä kaikki tältä kuulta, ihmiset!<br>\n"
+"                    Kiitos lukemisesta, nähdään pian.👋\n"
+"                </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "<span style=\"font-size: 48px;\">🚀</span>"
-msgstr ""
+msgstr "<span style=\"font-size: 48px;\">🚀</span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -1339,6 +1593,9 @@ msgid ""
 "                    Company Newsletter\n"
 "                </span>: <font class=\"text-400\">Month</font>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                    Yrityksen uutiskirje </span>\n"
+"                : <font class=\"text-400\">Kuukausi</font>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1375,16 +1632,18 @@ msgid ""
 "<strong style=\"font-weight: 500\"><span style=\"font-size: 14px\">\n"
 "                            Early bird alert</span></strong>"
 msgstr ""
+"<strong style=\"font-weight: 500\"><span style=\"font-size: 14px\">\n"
+"                            Aikaisen linnun hälytys</span></strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<strong style=\"font-weight: 500\">Optional Tasks</strong>"
-msgstr ""
+msgstr "<strong style=\"font-weight: 500\">Valinnaiset tehtävät</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<strong style=\"font-weight: 500\">⚡ TOP 3 PRIORITIES</strong>"
-msgstr ""
+msgstr "<strong style=\"font-weight: 500\">⚡ 3 TÄRKEINTÄ PRIORITEETTIA</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -1393,6 +1652,9 @@ msgid ""
 "                                    <font style=\"color: rgb(148, 189, 123);\">Do</font>\n"
 "                                </strong>"
 msgstr ""
+"<strong>\n"
+"                                    <font style=\"color: rgb(148, 189, 123);\">Tee</font>\n"
+"                                </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1403,6 +1665,11 @@ msgid ""
 "                                </span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">\n"
+"                                    <font class=\"text-o-color-1\">PERJANTAI 🏠 @home</font>\n"
+"                                </span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1413,6 +1680,11 @@ msgid ""
 "                                </span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">\n"
+"                                    <font class=\"text-o-color-1\">MONDAY 🏢 @office</font>\n"
+"                                </span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1423,6 +1695,11 @@ msgid ""
 "                                </span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">\n"
+"                                    <font class=\"text-o-color-1\">Muistutukset</font>\n"
+"                                </span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1433,6 +1710,11 @@ msgid ""
 "                                </span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">\n"
+"                                    <font class=\"text-o-color-1\">LAUANTAI 🏠 @home</font>\n"
+"                                </span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1443,6 +1725,11 @@ msgid ""
 "                                </span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">\n"
+"                                    <font class=\"text-o-color-1\">SUNNUNTAI 🏠 @home</font>\n"
+"                                </span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1453,6 +1740,11 @@ msgid ""
 "                                </span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">\n"
+"                                    <font class=\"text-o-color-1\">TORSTAI 🏢 @office</font>\n"
+"                                </span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1463,6 +1755,11 @@ msgid ""
 "                                </span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">\n"
+"                                    <font class=\"text-o-color-1\">TIISTAI 🏢 @office</font>\n"
+"                                </span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -1473,6 +1770,11 @@ msgid ""
 "                                </span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">\n"
+"                                    <font class=\"text-o-color-1\">KESKIVIIKKO 🏠 @home</font>\n"
+"                                </span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -1481,6 +1783,9 @@ msgid ""
 "                                <span style=\"font-size: 18px;\">Name</span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">Nimi</span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -1489,6 +1794,9 @@ msgid ""
 "                                <span style=\"font-size: 18px;\">Strengths</span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">Vahvuudet</span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -1497,6 +1805,9 @@ msgid ""
 "                                <span style=\"font-size: 18px;\">Weaknesses</span>\n"
 "                            </strong>"
 msgstr ""
+"<strong>\n"
+"                                <span style=\"font-size: 18px;\">Heikkoudet</span>\n"
+"                            </strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -1505,6 +1816,9 @@ msgid ""
 " use the book button in the chatter to find this article and autocomplete "
 "your description with this qualification template."
 msgstr ""
+"<strong><font class=\"text-o-color-2\">PRO-VINKKI</font></strong>: Käytä "
+"chatterissa kirjapainiketta löytääksesi tämän artikkelin ja täydennä kuvaus "
+"automaattisesti tällä kelpoisuusmallilla."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -1513,56 +1827,59 @@ msgid ""
 " use the book button in the chatter to find this article and autocomplete "
 "your email with this template."
 msgstr ""
+"<strong><font class=\"text-o-color-2\">PRO-VINKKI</font></strong>: Käytä "
+"chatterissa kirjapainiketta löytääksesi tämän artikkelin ja täydennä "
+"sähköpostiviesti automaattisesti tällä mallilla."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "<strong><font style=\"color: rgb(231, 99, 99);\">Do Not</font></strong>"
-msgstr ""
+msgstr "<strong><font style=\"color: rgb(231, 99, 99);\">Älä</font></strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "<strong><span style=\"font-size: 18px;\">Change</span></strong>"
-msgstr ""
+msgstr "<strong><span style=\"font-size: 18px;\">Muuta</span></strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "<strong><span style=\"font-size: 18px;\">Complexity</span></strong>"
-msgstr ""
+msgstr "<strong><span style=\"font-size: 18px;\">Monimutkaisuus</span></strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<strong>Actions Taken:</strong>"
-msgstr ""
+msgstr "<strong>Tehdyt toimenpiteet:</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "<strong>Company</strong>"
-msgstr ""
+msgstr "<strong>Yritys</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "<strong>Contact</strong>"
-msgstr ""
+msgstr "<strong>Ota yhteyttä</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "<strong>Do not recreate the Logo from scratch, use these ones</strong>"
-msgstr ""
+msgstr "<strong>Älä luo logoa tyhjästä, vaan käytä näitä</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<strong>Extra Notes:</strong>"
-msgstr ""
+msgstr "<strong>Lisämerkintöjä:</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<strong>Fast Facts</strong>"
-msgstr ""
+msgstr "<strong>Nopeat faktat</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<strong>Lessons Learnt:</strong>"
-msgstr ""
+msgstr "<strong>Opitut asiat:</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -1572,16 +1889,20 @@ msgid ""
 "                            <strong>R</strong>evenues\n"
 "                            (<em>subscriptions, ...</em>)"
 msgstr ""
+"<strong>K</strong>uukausittain\n"
+"                           <strong>T</strong>oistuvat\n"
+"                           <strong>T</strong>ulot\n"
+"                           <em>(tilaukset, ...</em>)"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "<strong>MRR</strong>"
-msgstr ""
+msgstr "<strong>KTT (MRR)</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<strong>Main Point of Contact:</strong>"
-msgstr ""
+msgstr "<strong>Ensisijainen yhteyshenkilö:</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -1589,21 +1910,23 @@ msgid ""
 "<strong>N</strong>on-<strong>R</strong>ecurring <strong>R</strong>evenues\n"
 "                            (<em>consultancy services, ...</em>)"
 msgstr ""
+"<strong>Kertaluonteiset</strong> tulot (NRR)\n"
+"                           <em>(konsulttipalvelut, ...</em>)"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "<strong>NRR</strong>"
-msgstr ""
+msgstr "<strong>NRR</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<strong>Optional Tasks</strong>"
-msgstr ""
+msgstr "<strong>Valinnaiset tehtävät</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "<strong>Q1,2,3,4</strong>"
-msgstr ""
+msgstr "<strong>Q1,2,3,4</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
@@ -1611,6 +1934,8 @@ msgid ""
 "<strong>Summary</strong>: <font class=\"text-600\">What an exciting release!"
 " This time the focus was on...</font>"
 msgstr ""
+"<strong>Yhteenveto</strong>: <font class=\"text-600\">Mikä jännittävä "
+"julkaisu! Tällä kertaa keskityttiin...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -1618,16 +1943,18 @@ msgid ""
 "<strong>U</strong>nique <strong>S</strong>elling <strong>P</strong>roposition:\n"
 "                            Advantage that makes you stand out from the competition."
 msgstr ""
+"<strong>Ainutlaatuinen</strong> <strong>myyntivaltti</strong>:\n"
+"                            Etu, joka erottaa sinut kilpailijoista."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "<strong>USP</strong>"
-msgstr ""
+msgstr "<strong>USP</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<strong>⚡ TOP 3 PRIORITIES</strong>"
-msgstr ""
+msgstr "<strong>⚡ 3 TÄRKEINTÄ PRIORITEETTIA</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -1636,7 +1963,7 @@ msgstr ""
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "<u>Demographics</u>"
-msgstr ""
+msgstr "<u>Väestötiedot</u>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -1645,7 +1972,7 @@ msgstr ""
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "<u>Key Decision Factors</u>"
-msgstr ""
+msgstr "<u>Keskeiset päätöstekijät</u>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -1654,12 +1981,12 @@ msgstr ""
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "<u>Strategy</u>"
-msgstr ""
+msgstr "<u>Strategia</u>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "A day or less"
-msgstr ""
+msgstr "Päivä tai vähemmän"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -1667,11 +1994,13 @@ msgid ""
 "A must listen for all developers out there and anyone interested in "
 "Javascript!"
 msgstr ""
+"Vahvasti suositeltava kuunneltava kaikille kehittäjille ja kaikille "
+"JavaScriptistä kiinnostuneille!"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Abigail"
-msgstr ""
+msgstr "Abigail"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -1682,11 +2011,16 @@ msgid ""
 "                        <br>\n"
 "                        Our products are designed for small to medium size companies willing to optimize their performance."
 msgstr ""
+"Tietoa yrityksestäsi: YourCompany on intohimoisten ihmisten tiimi, jonka tavoitteena on parantaa kaikkien elämää\n"
+"                        mullistavien tuotteiden avulla.\n"
+"                        Rakennamme loistavia tuotteita liiketoimintasi ongelmien ratkaisemiseksi.\n"
+"                       <br>\n"
+"                        Tuotteemme on suunniteltu pienille ja keskisuurille yrityksille, jotka haluavat optimoida suorituskykynsä."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Absent for more than a day"
-msgstr ""
+msgstr "Poissa yli päivän"
 
 #. module: knowledge
 #. odoo-javascript
@@ -1703,7 +2037,7 @@ msgstr "Tilin hallinta"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Account Management Cheat Sheet"
-msgstr ""
+msgstr "Tilinhallinnan vihjelappu"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_needaction
@@ -1714,7 +2048,7 @@ msgstr "Vaatii toimenpiteitä"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Action Plan"
-msgstr ""
+msgstr "Toimintasuunnitelma"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__active
@@ -1755,35 +2089,35 @@ msgstr "Lisää ominaisuuksia"
 #: code:addons/knowledge/static/src/components/properties_panel/properties_panel.xml:0
 #, python-format
 msgid "Add Property Fields"
-msgstr ""
+msgstr "Lisää ominaisuuskenttiä"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/comment/comment.js:0
 #, python-format
 msgid "Add a Comment..."
-msgstr ""
+msgstr "Lisää kommentti..."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Add a clipboard section"
-msgstr ""
+msgstr "Lisää leikepöytäosio"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/xml/knowledge_wysiwyg.xml:0
 #, python-format
 msgid "Add a comment to selection"
-msgstr ""
+msgstr "Lisää kommentti valintaan"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_icon/knowledge_icon.xml:0
 #, python-format
 msgid "Add a random icon"
-msgstr ""
+msgstr "Lisää satunnainen kuvake"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_stage_action
@@ -1791,6 +2125,8 @@ msgid ""
 "Add an embed kanban view of article items in the body of an article by using"
 " '/kanban' command."
 msgstr ""
+"Lisää upotettu kanban-näkymä artikkelin kohteita varten artikkelin runkoon "
+"komennolla '/kanban'."
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_favorite_action
@@ -1807,7 +2143,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Add cover"
-msgstr ""
+msgstr "Lisää kansilehti"
 
 #. module: knowledge
 #. odoo-javascript
@@ -1822,7 +2158,7 @@ msgstr "Lisää otsikoita tähän artikkeliin sisällysluettelon luomiseksi"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Add icon"
-msgstr ""
+msgstr "Lisää ikoni"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
@@ -1841,7 +2177,7 @@ msgstr "Lisää ihmisiä tai sähköpostiosoitteita..."
 #: code:addons/knowledge/static/src/components/topbar/topbar.js:0
 #, python-format
 msgid "Add to favorites"
-msgstr ""
+msgstr "Lisää suosikkeihin"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_member_action
@@ -1876,7 +2212,7 @@ msgstr "Tarkennettu haku"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Advertising that would appear online or on TV"
-msgstr ""
+msgstr "Mainonta, joka näkyy verkossa tai televisiossa"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -1885,6 +2221,10 @@ msgid ""
 " class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
 "star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
 msgstr ""
+"Myynnin jälkeinen palvelu <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -1894,6 +2234,10 @@ msgid ""
 "star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Myynnin jälkeinen palvelu <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
@@ -1903,6 +2247,10 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Myynnin jälkeinen palvelu <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
@@ -1912,6 +2260,10 @@ msgid ""
 "class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Myynnin jälkeinen palvelu <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -1921,39 +2273,43 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
 "class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"Myynnin jälkeinen palvelu <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Age:"
-msgstr ""
+msgstr "Ikä:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Age: 24"
-msgstr ""
+msgstr "Ikä: 24"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Age: 29"
-msgstr ""
+msgstr "Ikä: 29"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Age: 42"
-msgstr ""
+msgstr "Ikä: 42"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "All Comments"
-msgstr ""
+msgstr "Näytä kaikki kommentit"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "All Models 📖"
-msgstr ""
+msgstr "Kaikki mallit 📖"
 
 #. module: knowledge
 #. odoo-javascript
@@ -1965,12 +2321,12 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "All my activities will always be encoded in our CRM"
-msgstr ""
+msgstr "Kaikki toimintani koodataan aina CRM-järjestelmään"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Always include sufficient clear space around the logo"
-msgstr ""
+msgstr "Logon ympärillä on aina riittävästi vapaata tilaa"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -1978,11 +2334,13 @@ msgid ""
 "Always type <strong>YourCompany</strong> in the same font size and style as "
 "the content of the text"
 msgstr ""
+"Kirjoita <strong>YourCompany</strong> aina samalla fonttikoolla ja -tyylillä"
+" kuin tekstin sisältö"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "An hour or two (medical appointment, ...)"
-msgstr ""
+msgstr "Tunti tai kaksi (lääkäriaika, ...)"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_post_mortem
@@ -1990,11 +2348,14 @@ msgid ""
 "Analyze what went wrong and the underlying causes. Extract insights to avoid"
 " making similar mistakes in the future."
 msgstr ""
+"Analysoi, mikä meni pieleen ja mitkä ovat sen taustalla olevat syyt. Poimi "
+"oivalluksia, jotta voit välttää samanlaisten virheiden tekemisen "
+"tulevaisuudessa."
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_hr_faq
 msgid "Answer questions frequently asked by your employees"
-msgstr ""
+msgstr "Vastaa työntekijöiden usein esittämiin kysymyksiin"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search_items
@@ -2009,6 +2370,8 @@ msgid ""
 "Are you sure you want to delete this cover? It will be removed from every "
 "article it is used in."
 msgstr ""
+"Haluatko varmasti poistaa tämän kannen? Se poistetaan jokaisesta "
+"artikkelista, jossa sitä käytetään."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2018,6 +2381,8 @@ msgid ""
 "Are you sure you want to leave your private Article? As you are its last "
 "member, it will be moved to the Trash."
 msgstr ""
+"Oletko varma, että haluat jättää yksityisen artikkelisi? Koska olet sen "
+"viimeinen jäsen, se siirretään roskakoriin."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2068,7 +2433,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Are you sure you want to remove your own \"Write\" access?"
-msgstr ""
+msgstr "Oletko varma, että haluat poistaa oman \"Kirjoita\"-oikeutesi?"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2090,13 +2455,15 @@ msgid ""
 "Are you sure you want to restrict access to this article? This means it will"
 " no longer inherit access rights from its parents."
 msgstr ""
+"Haluatko varmasti rajoittaa pääsyä tähän artikkeliin? Tämä tarkoittaa, että "
+"se ei enää peri käyttöoikeuksia vanhemmiltaan."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_view.js:0
 #, python-format
 msgid "Are you sure you want to send this article to the trash?"
-msgstr ""
+msgstr "Oletko varma, että haluat lähettää tämän artikkelin roskiin?"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2106,6 +2473,8 @@ msgid ""
 "Are you sure you want to set the internal permission to \"none\"? If you do,"
 " you will no longer have access to the article."
 msgstr ""
+"Oletko varma, että haluat asettaa sisäisen käyttöoikeuden arvoksi \"ei "
+"mitään\"? Jos teet näin, sinulla ei ole enää pääsyä artikkeliin."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2146,7 +2515,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_thread
 msgid "Article Discussion Thread"
-msgstr ""
+msgstr "Artikkelin keskusteluketju"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__article_properties_definition
@@ -2173,12 +2542,12 @@ msgstr "Artikkelin jäsen"
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_template_category
 msgid "Article Template Category"
-msgstr ""
+msgstr "Artikkelimallin luokka"
 
 #. module: knowledge
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_template_action
 msgid "Article Templates"
-msgstr ""
+msgstr "Artikkelimallit"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__article_url
@@ -2198,6 +2567,8 @@ msgid ""
 "Article items are not showed in the left-side menu\n"
 "but are shown in inserted kanban/list views"
 msgstr ""
+"Artikkelit eivät näy vasemmanpuoleisessa valikossa\n"
+"mutta ne näkyvät kanban- tai listanäkymissä"
 
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_article_item_parent
@@ -2209,7 +2580,7 @@ msgstr "Artikla-artikkeleilla on oltava ylemmän tason kohde."
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Article shared with you: %s"
-msgstr ""
+msgstr "Artikkeli jaettu kanssasi: %s"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2263,17 +2634,17 @@ msgstr "Liitteiden määrä"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "Available Models ✅"
-msgstr ""
+msgstr "Saatavilla olevat mallit ✅"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "BOOK NOW"
-msgstr ""
+msgstr "VARAA NYT"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Background:"
-msgstr ""
+msgstr "Tausta:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -2285,7 +2656,7 @@ msgstr "Kehitysjono"
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Base Color On"
-msgstr ""
+msgstr "Perusväri päällä"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2298,12 +2669,12 @@ msgstr "Perustuen"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Be assertive but listen to what is being said"
-msgstr ""
+msgstr "Ole itsevarma mutta kuuntele, mitä sanotaan"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action
 msgid "Be the first one to unleash the power of Knowledge!"
-msgstr ""
+msgstr "Ole ensimmäinen, joka vapauttaa tiedon voiman!"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__body
@@ -2313,13 +2684,13 @@ msgstr "Viesti"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Booklets for a total price &gt; $1000"
-msgstr ""
+msgstr "Vihkot kokonaishintaan &gt; 1000 dollaria"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_brand_assets
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Brand Assets"
-msgstr ""
+msgstr "Tuotemerkin omaisuuserät"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -2329,6 +2700,10 @@ msgid ""
 "class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
 "star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"Tuotemerkin houkuttelevuus <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -2338,6 +2713,10 @@ msgid ""
 "star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Tuotemerkin houkuttelevuus <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
@@ -2347,6 +2726,10 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Tuotemerkin houkuttelevuus <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -2356,44 +2739,48 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Tuotemerkin houkuttelevuus <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-3\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Brand Name Rules"
-msgstr ""
+msgstr "Tuotemerkin nimen säännöt"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "Browse Templates"
-msgstr ""
+msgstr "Selaa malleja"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "Bug Fixes 🔨"
-msgstr ""
+msgstr "Vikakorjaukset 🔨"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
 #, python-format
 msgid "Build an Item Calendar"
-msgstr ""
+msgstr "Rakenna kohteen kalenteri"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
 #, python-format
 msgid "Build an Item Kanban"
-msgstr ""
+msgstr "Rakenna kohteen Kanban"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
 #, python-format
 msgid "Build an Item List"
-msgstr ""
+msgstr "Rakenna kohdeluettelo"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_marketing_customer_personas
@@ -2401,30 +2788,32 @@ msgid ""
 "Build fictional representation of your customers to better tailor your "
 "advertising messages for them. "
 msgstr ""
+"Rakenna kuvitteellinen kuva asiakkaistasi, jotta voit räätälöidä "
+"mainosviestit paremmin heille. "
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "But Also..."
-msgstr ""
+msgstr "Mutta myös..."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Buying Process"
-msgstr ""
+msgstr "Ostoprosessi"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "Calendar of %s"
-msgstr ""
+msgstr "Kalenteri %s"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "Calendar of Article Items"
-msgstr ""
+msgstr "Kalenteri artiklan kohteita"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__user_can_write
@@ -2442,12 +2831,12 @@ msgstr "Voi lukea"
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article_member__permission__write
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_invite__permission__write
 msgid "Can edit"
-msgstr ""
+msgstr "Voi muokata"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_article_visible_by_everyone
 msgid "Can everyone see the Article?"
-msgstr ""
+msgstr "Voivatko kaikki nähdä artikkelin?"
 
 #. module: knowledge
 #. odoo-python
@@ -2474,12 +2863,12 @@ msgstr "Voi lukea"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__user_has_access_parent_path
 msgid "Can the user join?"
-msgstr ""
+msgstr "Voiko käyttäjä liittyä?"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_article_visible
 msgid "Can the user see the article?"
-msgstr ""
+msgstr "Voiko käyttäjä nähdä artikkelin?"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2520,16 +2909,18 @@ msgid ""
 "Capitalize the word <strong>YourCompany</strong>, except if it's part of an "
 "URL e.g. website/company"
 msgstr ""
+"Kirjoita sana <strong>YourCompany</strong> isolla alkukirjaimella, paitsi "
+"jos se on osa URL-osoitetta, esim. website/company"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Car Policy"
-msgstr ""
+msgstr "Autopolitiikka"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Car_Catalog.png"
-msgstr ""
+msgstr "Car_Catalog.png"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2546,7 +2937,7 @@ msgstr "Kategorian järjestys"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "Causes"
-msgstr ""
+msgstr "Syyt"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_account_management
@@ -2554,6 +2945,8 @@ msgid ""
 "Centralize account insights in one document for comprehensive monitoring and"
 " follow-up."
 msgstr ""
+"Keskitä tilitiedot yhteen asiakirjaan kattavaa seurantaa ja seurantaa "
+"varten."
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_meeting_minutes
@@ -2561,26 +2954,28 @@ msgid ""
 "Centralize team meetings in a single article, while making sure notes are "
 "handled efficiently."
 msgstr ""
+"Keskitä tiimikokoukset yhteen artikkeliin ja varmista samalla, että "
+"muistiinpanoja käsitellään tehokkaasti."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Challenges &amp; Competitive Landscape<br>"
-msgstr ""
+msgstr "Haasteet ja kilpailutilanne<br>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Change 1"
-msgstr ""
+msgstr "Muutos 1"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Change 2"
-msgstr ""
+msgstr "Muutos 2"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Change 3"
-msgstr ""
+msgstr "Muutos 3"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2594,7 +2989,7 @@ msgstr "Muuta lupaa"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Change cover"
-msgstr ""
+msgstr "Vaihda kansi"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__child_ids
@@ -2606,7 +3001,7 @@ msgstr "Aliartikkelit ja -esineet"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.js:0
 #, python-format
 msgid "Choose a nice cover"
-msgstr ""
+msgstr "Valitse mukava kansilehti"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2614,14 +3009,14 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
 #, python-format
 msgid "Choose an Article..."
-msgstr ""
+msgstr "Valitse artikkeli..."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Click and hold to reposition"
-msgstr ""
+msgstr "Siirrä paikkaa napsauttamalla ja pitämällä painettuna"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2632,7 +3027,7 @@ msgstr ""
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 #, python-format
 msgid "Clipboard"
-msgstr ""
+msgstr "Leikepöytä"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2653,7 +3048,7 @@ msgstr "Kommentti"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Company Abbreviations"
-msgstr ""
+msgstr "Yrityksen lyhenteet"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -2663,7 +3058,7 @@ msgstr "Yrityksen tiedot"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Company Location:"
-msgstr ""
+msgstr "Yrityksen sijainti:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -2673,17 +3068,17 @@ msgstr "Yrityksen Nimi:"
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_company_newsletter
 msgid "Company Newsletter"
-msgstr ""
+msgstr "Yrityksen uutiskirje"
 
 #. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_company_organization
 msgid "Company Organization"
-msgstr ""
+msgstr "Yrityksen organisaatio"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Company Structure:"
-msgstr ""
+msgstr "Yrityksen rakenne:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2691,11 +3086,14 @@ msgid ""
 "Compiled below are tips &amp; tricks collected among our veterans to help "
 "newcomers get started. We hope it will help you sign deals."
 msgstr ""
+"Alla on koottuna vinkkejä &amp; temppuja, jotka on kerätty veteraaniemme "
+"joukosta ja jotka auttavat uusia tulokkaita pääsemään alkuun. Toivomme, että"
+" ne auttavat sinua tekemään sopimuksia."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Complicated buying process"
-msgstr ""
+msgstr "Monimutkainen ostoprosessi"
 
 #. module: knowledge
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_configuration
@@ -2724,33 +3122,33 @@ msgstr "Ota yhteyttä"
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos_contact_our_lawyer
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos_contact_our_lawyer
 msgid "Contact our Lawyer"
-msgstr ""
+msgstr "Ota yhteyttä lakimieheen"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
 #, python-format
 msgid "Content copied to clipboard."
-msgstr ""
+msgstr "Sisältö kopioitu leikepöydälle."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Contract Due Date:"
-msgstr ""
+msgstr "Sopimuksen eräpäivä:"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Convert into Article"
-msgstr ""
+msgstr "Muunna artikkeliksi"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Convert into Article Item"
-msgstr ""
+msgstr "Muunna artikkelin nimikkeeksi"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2769,7 +3167,7 @@ msgstr "Kopioi leikepöydälle"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Costing too much money"
-msgstr ""
+msgstr "Liian suuret kustannukset"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2779,6 +3177,8 @@ msgid ""
 "Could not move \"%s%s\" in the shared section. Only shared articles can be "
 "moved in this section."
 msgstr ""
+"Ei voitu siirtää \"%s%s\" jaetussa osiossa. Vain jaettuja artikkeleita voi "
+"siirtää tässä osiossa."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2788,6 +3188,8 @@ msgid ""
 "Could not move \"%s%s\" under \"%s%s\", because you do not have write "
 "permission on the latter."
 msgstr ""
+"Ei voitu siirtää \"%s%s\" alle \"%s%s\", koska sinulla ei ole "
+"kirjoitusoikeutta jälkimmäiseen."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2795,6 +3197,8 @@ msgid ""
 "Could you please let me know on which number I could reach you so that we could get in touch?<br>\n"
 "                        It should not take longer than 15 minutes."
 msgstr ""
+"Voisitteko kertoa, mistä numerosta voin tavoittaa teidät, jotta voisimme ottaa yhteyttä?<br>\n"
+"                        Sen ei pitäisi kestää kauempaa kuin 15 minuuttia."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2821,7 +3225,7 @@ msgstr "Kannen URL"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__cover_image_position
 msgid "Cover vertical offset"
-msgstr ""
+msgstr "Kannen pystysuora siirtymä"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2846,21 +3250,21 @@ msgstr "Luo \"%s\""
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Create a Copy"
-msgstr ""
+msgstr "Luo kopio"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
 #, python-format
 msgid "Create a nested article"
-msgstr ""
+msgstr "Luo sisäkkäinen artikkeli"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
 #, python-format
 msgid "Create a new article in workspace"
-msgstr ""
+msgstr "Luo uusi artikkeli työtilaan"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action_item_calendar
@@ -2873,7 +3277,7 @@ msgstr "Luo uusi artikkelikohde"
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_product_catalog
 msgid ""
 "Create a simple catalog to provide technical details about your products."
-msgstr ""
+msgstr "Luo yksinkertainen luettelo, jossa on teknisiä tietoja tuotteistasi."
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action
@@ -2919,23 +3323,23 @@ msgstr "Luotu"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Current Contract:"
-msgstr ""
+msgstr "Nykyinen sopimus:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Current Satisfaction:"
-msgstr ""
+msgstr "Nykyinen tyytyväisyys:"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_marketing_customer_personas
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Customer Personas"
-msgstr ""
+msgstr "Asiakaspersoonat"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "DESIGN PROTOTYPE"
-msgstr ""
+msgstr "DESIGN PROTOTYYPPI"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2944,7 +3348,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Date Properties"
-msgstr ""
+msgstr "Päivämäärän ominaisuudet"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2952,7 +3356,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.js:0
 #, python-format
 msgid "Date and Time Properties"
-msgstr ""
+msgstr "Päivämäärän ja kellonajan ominaisuudet"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
@@ -2962,22 +3366,22 @@ msgstr "Hyvä"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Decision 1"
-msgstr ""
+msgstr "Päätös 1"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Decision 2"
-msgstr ""
+msgstr "Päätös 2"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Decision 3"
-msgstr ""
+msgstr "Päätös 3"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Decision 4"
-msgstr ""
+msgstr "Päätös 4"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3011,6 +3415,8 @@ msgid ""
 "Deleted articles are stored in Trash an extra <b>%(threshold)s</b> days\n"
 "                 before being permanently removed for your database"
 msgstr ""
+"Poistetut artikkelit tallennetaan Roskakoriin <b>%(threshold)s</b> päivän ajaksi\n"
+"                 ennen kuin ne poistetaan pysyvästi tietokannasta"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__deletion_date
@@ -3055,6 +3461,8 @@ msgid ""
 "Distribute brand digital assets while ensuring compliance with company "
 "policies and guidelines."
 msgstr ""
+"Jaa tuotemerkin digitaalisia resursseja varmistaen samalla, että yrityksen "
+"politiikkoja ja ohjeita noudatetaan."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -3066,6 +3474,8 @@ msgstr "Sukellus"
 msgid ""
 "Document your Marketing Campaigns to prioritize key objectives and outcomes."
 msgstr ""
+"Dokumentoi markkinointikampanjasi tärkeimpien tavoitteiden ja tulosten "
+"priorisoimiseksi."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -3073,6 +3483,8 @@ msgid ""
 "Don't forget to spread the word, we're <em>so</em> looking forward to "
 "unveiling this new Odoo version! 🥳"
 msgstr ""
+"Älä unohda levittää sanaa, odotamme <em>innolla</em> tämän uuden Odoo-"
+"version julkistamista! 🥳"
 
 #. module: knowledge
 #. odoo-python
@@ -3095,7 +3507,7 @@ msgstr "Lataa"
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "Drop here to delete this article"
-msgstr ""
+msgstr "Pudota tänne poistaaksesi tämän artikkelin"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3107,7 +3519,7 @@ msgstr "Kopioi"
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_mail_invite
 msgid "EDIT"
-msgstr ""
+msgstr "MUOKKAA"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3119,32 +3531,32 @@ msgstr "Muokkaa"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Education:"
-msgstr ""
+msgstr "Koulutus:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Education: Bachelor's degree in Marketing"
-msgstr ""
+msgstr "Koulutus: Markkinoinnin kandidaatin tutkinto"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 msgid "Education: High school diploma"
-msgstr ""
+msgstr "Koulutus: Lukion päättötodistus"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Education: PhD."
-msgstr ""
+msgstr "Koulutus: Tohtori."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Education: Student"
-msgstr ""
+msgstr "Koulutus: Opiskelija"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "Egg'cellent run"
-msgstr ""
+msgstr "Egg'cellent run"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3163,7 +3575,7 @@ msgstr "Upota näkymä"
 #: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.js:0
 #, python-format
 msgid "Embed a video"
-msgstr ""
+msgstr "Upota video"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__icon
@@ -3175,7 +3587,7 @@ msgstr "Hymiö"
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.js:0
 #, python-format
 msgid "End Date Time"
-msgstr ""
+msgstr "Loppupäivä ja aika"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_software_specification
@@ -3183,6 +3595,8 @@ msgid ""
 "Ensure all stakeholders of a product change are aligned by clearly "
 "communicating the requirements."
 msgstr ""
+"Varmista, että kaikki tuotemuutoksen sidosryhmät ovat linjassa keskenään "
+"ilmoittamalla vaatimukset selkeästi."
 
 #. module: knowledge
 #. odoo-javascript
@@ -3197,12 +3611,12 @@ msgstr "Virhe"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Estimated Revenues:"
-msgstr ""
+msgstr "Arvioidut tulot:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "Events 🌍"
-msgstr ""
+msgstr "Tapahtumat 🌍"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3214,7 +3628,7 @@ msgstr "Näytä kaikille"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Expense Policy"
-msgstr ""
+msgstr "Kulupolitiikka"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3231,7 +3645,7 @@ msgstr "Lisäkommentti"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Extra Technical Instructions:"
-msgstr ""
+msgstr "Tekniset lisäohjeet:"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_form
@@ -3269,7 +3683,7 @@ msgstr "Tiedosto"
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
 msgid "Find all articles shared with you"
-msgstr ""
+msgstr "Etsi kaikki kanssasi jaetut artikkelit"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_stage__fold
@@ -3299,6 +3713,8 @@ msgid ""
 "For all other categories, we simply require you to follow the rules listed "
 "below."
 msgstr ""
+"Kaikkien muiden luokkien osalta edellytämme vain, että noudatat alla "
+"lueteltuja sääntöjä."
 
 #. module: knowledge
 #. odoo-javascript
@@ -3315,26 +3731,26 @@ msgstr "Täysi leveys"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Gender(s):"
-msgstr ""
+msgstr "Sukupuolet:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Gender(s): M"
-msgstr ""
+msgstr "Sukupuoli: M"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Gender(s): W"
-msgstr ""
+msgstr "Sukupuoli: N"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
 #, python-format
 msgid "Generate an Article with AI"
-msgstr ""
+msgstr "Luo artikkeli tekoälyn avulla"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_search
@@ -3357,7 +3773,7 @@ msgstr "Vieras"
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_hr_faq
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "HR FAQ"
-msgstr ""
+msgstr "HR FAQ"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__user_has_access
@@ -3390,6 +3806,8 @@ msgstr "Onko tavanomaisia aliartikkeleita?"
 msgid ""
 "Has the user access to each parent from current article until its root?"
 msgstr ""
+"Onko käyttäjällä pääsy kaikkiin vanhempiinsa nykyisestä artikkelista sen "
+"juureen asti?"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__have_share_partners
@@ -3410,6 +3828,11 @@ msgid ""
 "            <br/>\n"
 "            No more time wasted! 🔥"
 msgstr ""
+"Hei, olen malli 👋\n"
+"           <br/>\n"
+"            Käytä tämän laatikon oikeassa yläkulmassa olevia painikkeita käyttääksesi sisältöäni uudelleen.\n"
+"           <br/>\n"
+"            Ei enää turhaa ajanhukkaa! 🔥"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -3418,17 +3841,22 @@ msgid ""
 "                <br>\n"
 "                They can also be shared with customers, journalists and resellers."
 msgstr ""
+"Tässä on logoja, joita voit käyttää oman mielesi mukaan.\n"
+"               <br>\n"
+"                Niitä voi myös jakaa asiakkaille, toimittajille ja jälleenmyyjille."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid ""
 "Here is a short guide that will help you pick the right tiny house for you."
 msgstr ""
+"Tässä on lyhyt opas, joka auttaa sinua valitsemaan sinulle sopivan "
+"pientalon."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Hey ProspectName,"
-msgstr ""
+msgstr "Hei Tuleva asiakas,"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3442,24 +3870,24 @@ msgstr "Piilotettu"
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "Highlight content and use the"
-msgstr ""
+msgstr "Korosta sisältö ja käytä"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Highlight the structure of this article"
-msgstr ""
+msgstr "Korosta tämän artikkelin rakennetta"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__html_field_history
 msgid "History data"
-msgstr ""
+msgstr "Historiatiedot"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__html_field_history_metadata
 msgid "History metadata"
-msgstr ""
+msgstr "Historian metatiedot"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3472,57 +3900,57 @@ msgstr "Etusivu"
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_product_catalog_house_cielo
 msgid "House Model \"Cielo\""
-msgstr ""
+msgstr "Talomalli \"Cielo\""
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_product_catalog_house_dolcezza
 msgid "House Model \"Dolcezza\""
-msgstr ""
+msgstr "Talon malli \"Dolcezza\""
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_product_catalog_house_incanto
 msgid "House Model \"Incanto\""
-msgstr ""
+msgstr "Talomalli \"Incanto\""
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_product_catalog_house_serenita
 msgid "House Model \"Serenità\""
-msgstr ""
+msgstr "Talo malli \"Serenità\""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog_house_cielo
 msgid "House Model - Cielo"
-msgstr ""
+msgstr "Talomalli - Cielo"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog_house_dolcezza
 msgid "House Model - Dolcezza"
-msgstr ""
+msgstr "Talon malli - Dolcezza"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog_house_incanto
 msgid "House Model - Incanto"
-msgstr ""
+msgstr "Talomalli - Incanto"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog_house_serenita
 msgid "House Model - Serenità"
-msgstr ""
+msgstr "Talomalli - Serenità"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "How do I know which model I can order or not?"
-msgstr ""
+msgstr "Mistä tiedän, minkä mallin voin tilata vai en?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "How they measure success:"
-msgstr ""
+msgstr "Miten he mittaavat menestystä:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "How to find the perfect model for your needs 😍"
-msgstr ""
+msgstr "Miten löydät täydellisen mallin tarpeisiisi 😍"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3530,21 +3958,25 @@ msgid ""
 "I was doing some research online and found your company.<br>\n"
 "                        Considering we just launched ProductName, I was thinking you would be interested."
 msgstr ""
+"Tein tutkimusta verkossa ja löysin yrityksenne.<br>\n"
+"                        Ottaen huomioon, että lanseerasimme juuri TuoteNimen, ajattelin, että olisit kiinnostunut."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "I will not steal prospects from colleagues"
-msgstr ""
+msgstr "En varasta myyntimahdollisuuksia kollegoilta"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "I will not waste time and energy bad-mouthing competitors"
-msgstr ""
+msgstr "En tuhlaa aikaa ja energiaa kilpailijoiden haukkumiseen"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "I will only sell a project if I am convinced it can be a success"
 msgstr ""
+"Myyn projektin vain, jos olen vakuuttunut siitä, että siitä voi tulla "
+"menestys"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__id
@@ -3574,7 +4006,7 @@ msgstr "Kuvake joka kertoo poikkeustoiminnosta."
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Identify the pain points and offer clear solutions"
-msgstr ""
+msgstr "Tunnista kipupisteet ja tarjoa selkeitä ratkaisuja"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__message_needaction
@@ -3597,6 +4029,9 @@ msgid ""
 "team.<br>At MyCompany, your happiness is our utmost priority, and we'll go "
 "the extra mile to make sure you find what you're looking for!"
 msgstr ""
+"Jos mikään näistä tarjouksista ei vakuuttanut sinua, ota yhteyttä "
+"tiimiimme.<br>OmaFirmassa onnellisuutesi on meille ensisijainen tavoite, ja "
+"teemme kaikkemme varmistaaksemme, että löydät etsimäsi!"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__is_desynchronized
@@ -3608,42 +4043,42 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "Impact"
-msgstr ""
+msgstr "Vaikutus"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "Improvements 🔬"
-msgstr ""
+msgstr "Parannukset 🔬"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Income:"
-msgstr ""
+msgstr "Tulot:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 msgid "Income: $109,160"
-msgstr ""
+msgstr "Tulot: 109 160 dollaria"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Income: $142,170"
-msgstr ""
+msgstr "Tulot: 142 170 dollaria"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Income: $293,650"
-msgstr ""
+msgstr "Tulot: 293 650 dollaria"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Income: $68,170"
-msgstr ""
+msgstr "Tulot: 68 170 dollaria"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Inconsistent customer experience"
-msgstr ""
+msgstr "Epäjohdonmukainen asiakaskokemus"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3655,22 +4090,23 @@ msgstr "Indeksi"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "Industrial ⚙-"
-msgstr ""
+msgstr "Teollisuus ⚙-"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Industry:"
-msgstr ""
+msgstr "Teollisuus:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Inform HR and your Team Leader."
-msgstr ""
+msgstr "Ilmoita asiasta henkilöstöhallinnolle ja ryhmänjohtajallesi."
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_release_note
 msgid "Inform users about your latest software updates and improvements."
 msgstr ""
+"Tiedota käyttäjille uusimmista ohjelmistopäivityksistä ja parannuksista."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__inherited_permission
@@ -3703,28 +4139,28 @@ msgstr "Lisää linkki"
 #: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
 #, python-format
 msgid "Insert Video"
-msgstr ""
+msgstr "Lisää video"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Insert a Calendar View"
-msgstr ""
+msgstr "Kalenterinäkymän lisääminen"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert a Calendar view of article items"
-msgstr ""
+msgstr "Kalenterinäkymän lisääminen artikkelin kohteiden kalenterinäkymään"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert a Card view of article items"
-msgstr ""
+msgstr "Aseta korttinäkymä artikkelin nimikkeistä"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3759,7 +4195,7 @@ msgstr "Lisää artikkelien luettelonäkymä"
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert a Video"
-msgstr ""
+msgstr "Videon lisääminen"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3782,31 +4218,34 @@ msgid ""
 "employees buy whatever they need</strong>. Just fill in an expense and we "
 "will reimburse you."
 msgstr ""
+"Sen sijaan, että perustaisimme monimutkaisia prosesseja, <strong>annamme "
+"mieluummin työntekijöidemme ostaa kaiken tarvitsemansa</strong>. Täytä vain "
+"kululomake, niin me korvaamme sen."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
 msgid "Interests:"
-msgstr ""
+msgstr "Kiinnostuksen kohteet:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Interests: Cooking"
-msgstr ""
+msgstr "Kiinnostuksen kohteet: Ruoanlaitto"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Interests: Music"
-msgstr ""
+msgstr "Kiinnostuksen kohteet: Musiikki"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 msgid "Interests: Politics"
-msgstr ""
+msgstr "Kiinnostuksen kohteet: Politiikka"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Interests: Science"
-msgstr ""
+msgstr "Kiinnostuksen kohteet: Tiede"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3821,7 +4260,7 @@ msgstr "Sisäinen lupa"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Invitation to access an article"
-msgstr ""
+msgstr "Kutsu artikkeliin tutustumiseen"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3867,33 +4306,33 @@ msgstr "Onko kohde?"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_template
 msgid "Is Template"
-msgstr ""
+msgstr "WA-malli"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_item_parent
 msgid "Is the parent an Item?"
-msgstr ""
+msgstr "Onko ylempi taso kohde?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "Issue Summary"
-msgstr ""
+msgstr "Yhteenveto asiasta"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Issues they are trying to solve:"
-msgstr ""
+msgstr "Ongelmat, joita he yrittävät ratkaista:"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__template_category_sequence
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_template_category__sequence
 msgid "It determines the display order of the category"
-msgstr ""
+msgstr "Se määrittää luokan näyttöjärjestyksen"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__template_sequence
 msgid "It determines the display order of the template within its category"
-msgstr ""
+msgstr "Se määrittää mallin näyttöjärjestyksen luokassaan"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
@@ -3908,26 +4347,26 @@ msgstr "Elementti 2"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Item 3"
-msgstr ""
+msgstr "Elementti 3"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Item 4"
-msgstr ""
+msgstr "Elementti 4"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Item Calendar"
-msgstr ""
+msgstr "Kohteen kalenteri"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Item Cards"
-msgstr ""
+msgstr "Kohdekortit"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3946,7 +4385,7 @@ msgstr "Kohdeluettelo"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__stage_id
 msgid "Item Stage"
-msgstr ""
+msgstr "Kohteen vaihe"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_calendar_items
@@ -3956,7 +4395,7 @@ msgstr "Viennit"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "JPG"
-msgstr ""
+msgstr "JPG"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3973,31 +4412,31 @@ msgstr "Liity"
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
 #, python-format
 msgid "Join a hidden article"
-msgstr ""
+msgstr "Liity piilotettuun artikkeliin"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
 msgid "Julius"
-msgstr ""
+msgstr "Julius"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "Kanban of %s"
-msgstr ""
+msgstr "Kanban %s"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "Kanban of Article Items"
-msgstr ""
+msgstr "Artikkelin kohteiden kanban"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_shared_todos
 msgid "Keep track of your company to-dos and share them with your colleagues."
-msgstr ""
+msgstr "Seuraa yrityksesi tehtäviä ja jaa ne kollegojesi kanssa."
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_company_newsletter
@@ -4005,6 +4444,8 @@ msgid ""
 "Keep your colleagues informed about the company's latest developments and "
 "activities through periodic updates."
 msgstr ""
+"Pidä kollegasi ajan tasalla yrityksen viimeisimmästä kehityksestä ja "
+"toiminnasta säännöllisillä päivityksillä."
 
 #. module: knowledge
 #. odoo-javascript
@@ -4040,7 +4481,7 @@ msgstr "Tietämyskansi"
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Knowledge Databases"
-msgstr ""
+msgstr "Tietämystietokannat"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_invite
@@ -4050,7 +4491,7 @@ msgstr "Tietämyksen kutsun ohjattu toiminto"
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_stage
 msgid "Knowledge Stage"
-msgstr ""
+msgstr "Tietämyksen vaihe"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_tree
@@ -4064,7 +4505,7 @@ msgstr "Viimeisin muokkauspäivämäärä"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Last Edited"
-msgstr ""
+msgstr "Viimeksi muokattu"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__last_edition_uid
@@ -4121,17 +4562,17 @@ msgstr "Jätä artikkeli"
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Leave Private Article"
-msgstr ""
+msgstr "Jätä yksityinen artikkeli"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Leaves &amp; Time Off"
-msgstr ""
+msgstr "Lomat ja vapaa-aika"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Let your Team Leader know in advance."
-msgstr ""
+msgstr "Ilmoita ryhmänjohtajallesi etukäteen."
 
 #. module: knowledge
 #. odoo-javascript
@@ -4145,42 +4586,42 @@ msgstr "Linkitä artikkeli"
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Link an article"
-msgstr ""
+msgstr "Linkitä artikkeli"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "List of %s"
-msgstr ""
+msgstr "List - %s"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #, python-format
 msgid "List of Article Items"
-msgstr ""
+msgstr "Luettelo artikkelin kohdista"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.xml:0
 #, python-format
 msgid "Load Template"
-msgstr ""
+msgstr "Lataa mallipohja"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
 #, python-format
 msgid "Load a Template"
-msgstr ""
+msgstr "Lataa malli"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Lock Content"
-msgstr ""
+msgstr "Lukitse sisältö"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_locked
@@ -4206,7 +4647,7 @@ msgstr "Logo"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Logos should only be used in the colors provided"
-msgstr ""
+msgstr "Logoja saa käyttää vain annetuissa väreissä"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4214,7 +4655,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Lose Access"
-msgstr ""
+msgstr "Menettää pääsyn"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_personal_organizer
@@ -4222,18 +4663,20 @@ msgid ""
 "Make every week a success by proactively organizing your priority and "
 "optional tasks."
 msgstr ""
+"Tee jokaisesta viikosta menestys järjestämällä ennakoivasti ensisijaiset ja "
+"vapaaehtoiset tehtävät."
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_sprint_calendar
 msgid "Manage your team schedule for the upcoming sprint."
-msgstr ""
+msgstr "Hallitse tiimisi aikataulua tulevaa sprinttiä varten."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article_thread.py:0
 #, python-format
 msgid "Mark Comment as Closed"
-msgstr ""
+msgstr "Merkitse kommentti suljetuksi"
 
 #. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_marketing
@@ -4244,7 +4687,7 @@ msgstr "Markkinointi"
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_marketing_campaign_brief
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "Marketing Campaign Brief"
-msgstr ""
+msgstr "Markkinointikampanjan lyhyt kuvaus"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4264,7 +4707,7 @@ msgstr "Tapaaminen"
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Meeting Example"
-msgstr ""
+msgstr "Kokousesimerkki"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_meeting_minutes
@@ -4277,7 +4720,7 @@ msgstr "Kokouspöytäkirjat"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Meeting Minutes Template"
-msgstr ""
+msgstr "Kokouspöytäkirjan malli"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_member_view_form
@@ -4327,7 +4770,7 @@ msgstr "Viestit"
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_views.xml:0
 #, python-format
 msgid "Missing Calendar configuration."
-msgstr ""
+msgstr "Kalenterin kokoonpano puuttuu."
 
 #. module: knowledge
 #. odoo-javascript
@@ -4341,7 +4784,7 @@ msgstr "Puuttuva tiedosto"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "More actions"
-msgstr ""
+msgstr "Lisää toimia"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -4350,13 +4793,16 @@ msgid ""
 "                            kilometers.<br>Starting from the office, they enjoyed a great tour in the countryside before\n"
 "                            coming back to Grand-Rosière, where they were welcomed with a drink and a burger."
 msgstr ""
+"Yli 150 odooilaista osallistui tämänvuotiseen 5 tai 11 kilometrin juoksuun\n"
+"                            <br>Toimistosta alkaen he nauttivat upeasta kiertomatkasta maaseudulla ennen kuin\n"
+"                            grand-Rosièreen, jossa heidät toivotettiin tervetulleeksi juomalla ja hampurilaisella."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
 #, python-format
 msgid "Move \"%s\" under:"
-msgstr ""
+msgstr "Siirrä \"%s\" alle:"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4370,7 +4816,7 @@ msgstr "Siirrä artikkeli"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Move To"
-msgstr ""
+msgstr "Siirry kohteeseen"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4384,28 +4830,28 @@ msgstr "Siirrä artikkeli"
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
 #, python-format
 msgid "Move cancelled"
-msgstr ""
+msgstr "Siirto peruutettu"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.xml:0
 #, python-format
 msgid "Move the untitled article under:"
-msgstr ""
+msgstr "Siirrä otsikoimaton artikkeli otsikon alle:"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
 #, python-format
 msgid "Move to Private"
-msgstr ""
+msgstr "Siirry yksityiseksi"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Move to Trash"
-msgstr ""
+msgstr "Siirrä roskakoriin"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4427,17 +4873,17 @@ msgstr "Omat suosikkini"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "My Forecast will always be accurate and up-to-date"
-msgstr ""
+msgstr "Ennusteeni on aina tarkka ja ajantasainen"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search_items
 msgid "My Items"
-msgstr ""
+msgstr "Omat kohteet"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form_item_quick_create
 msgid "My New Item"
-msgstr ""
+msgstr "Oma uusi kohde"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_stage__name
@@ -4451,12 +4897,12 @@ msgstr "Nimi"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "Natural Style ☘ -"
-msgstr ""
+msgstr "Luonnollinen tyyli ☘ -"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Navigation Basics 🐣"
-msgstr ""
+msgstr "Navigoinnin perusteet 🐣"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4480,21 +4926,21 @@ msgstr "Uusi"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "New Features 🎉"
-msgstr ""
+msgstr "Uudet ominaisuudet 🎉"
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article_thread.py:0
 #, python-format
 msgid "New Mention in %s"
-msgstr ""
+msgstr "Uusi maininta %s"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.js:0
 #, python-format
 msgid "New property could not be created."
-msgstr ""
+msgstr "Uutta ominaisuutta ei voitu luoda."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_calendar_event_id
@@ -4519,12 +4965,12 @@ msgstr "Seuraavan toimenpiteen tyyppi"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "Next Meeting: <font class=\"text-400\">@Date</font>"
-msgstr ""
+msgstr "Seuraava kokous: <font class=\"text-400\">@Päiväys</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Next Meeting: <u>6th May, @John's Office</u>"
-msgstr ""
+msgstr "Seuraava kokous: <u>toukokuun 6. päivä, @John :in toimisto</u>"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4580,31 +5026,31 @@ msgstr "Ei vielä artikkelia."
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #, python-format
 msgid "No hidden articles found"
-msgstr ""
+msgstr "Piilotettuja artikkeleita ei löytynyt"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_stage_action
 msgid "No stage yet!"
-msgstr ""
+msgstr "Tiloja ei ole vielä!"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.xml:0
 #, python-format
 msgid "No template yet."
-msgstr ""
+msgstr "Ei vielä mallia."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Not sure how to do it?"
-msgstr ""
+msgstr "Etkö ole varma, miten se tehdään?"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "Nothing going on!"
-msgstr ""
+msgstr "Mitään ei tapahdu!"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -4612,6 +5058,8 @@ msgid ""
 "Nth <strong>Q</strong>uarter of the fiscal year.<br>\n"
 "                            <em>E.g. Q4 starts on Oct. 1 and ends on Dec. 31.</em>"
 msgstr ""
+"Verovuoden n:o <strong>neljännes</strong>.<br>\n"
+"                           <em>Esim. Q4 alkaa 1. lokakuuta ja päättyy 31. joulukuuta.</em>"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_needaction_counter
@@ -4640,17 +5088,17 @@ msgstr "Toimitusvirheellisten viestien määrä"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Objectives with our Collaboration"
-msgstr ""
+msgstr "Yhteistyömme tavoitteet"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Odoo Brand Assets"
-msgstr ""
+msgstr "Odoo Brand Assets"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "Odoo Experience 🎉"
-msgstr ""
+msgstr "Odoo Experience 🎉"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -4665,7 +5113,7 @@ msgstr "Odoo selviytymisopas"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Odoo: Manage your SME online"
-msgstr ""
+msgstr "Odoo: Hallinnoi pk-yrityksiäsi verkossa"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4693,28 +5141,28 @@ msgstr "Jatkuva"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Only internal users are allowed to alter memberships."
-msgstr ""
+msgstr "Vain sisäiset käyttäjät voivat muuttaa jäsenyyksiä."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Only internal users are allowed to create workspace root articles."
-msgstr ""
+msgstr "Vain sisäiset käyttäjät saavat luoda työtilan pääartikkeleita."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Only internal users are allowed to modify this information."
-msgstr ""
+msgstr "Vain sisäiset käyttäjät saavat muuttaa näitä tietoja."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Only internal users are allowed to remove memberships."
-msgstr ""
+msgstr "Vain sisäiset käyttäjät voivat poistaa jäsenyyksiä."
 
 #. module: knowledge
 #. odoo-python
@@ -4724,6 +5172,8 @@ msgid ""
 "Only internal users are allowed to restore the original article access "
 "information."
 msgstr ""
+"Vain sisäiset käyttäjät voivat palauttaa alkuperäiset artikkelin "
+"käyttöoikeustiedot."
 
 #. module: knowledge
 #. odoo-javascript
@@ -4750,33 +5200,33 @@ msgstr "Avoin"
 #: code:addons/knowledge/static/src/js/knowledge_plugin.js:0
 #, python-format
 msgid "Open Video"
-msgstr ""
+msgstr "Avaa video"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Open comments panel"
-msgstr ""
+msgstr "Avaa kommenttipaneeli"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Open history"
-msgstr ""
+msgstr "Avaa historia"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "Open the Trash"
-msgstr ""
+msgstr "Avaa roskakori"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "OpenERP becomes Odoo"
-msgstr ""
+msgstr "OpenERP:stä tulee Odoo"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4786,11 +5236,13 @@ msgid ""
 "Organize your database with custom fields\n"
 "                        (Text, Selection, ...)."
 msgstr ""
+"Järjestä tietokantaasi mukautetuilla kentillä\n"
+"                        (teksti, valinta, ...)."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos
 msgid "Otherwise, feel free to handle others listed below:"
-msgstr ""
+msgstr "Muussa tapauksessa voit vapaasti käsitellä muita alla lueteltuja:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -4798,26 +5250,28 @@ msgid ""
 "Our catalog can be found here and is updated every 2 years. If you do not "
 "manage to find the specific model you are looking for,"
 msgstr ""
+"Luettelomme löytyy täältä, ja se päivitetään joka toinen vuosi. Jos et löydä"
+" etsimääsi mallia,"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "Outcome"
-msgstr ""
+msgstr "Tulos"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_stage__parent_id
 msgid "Owner Article"
-msgstr ""
+msgstr "Artikkelin omistaja"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "PLANET ODOO"
-msgstr ""
+msgstr "PLANET ODOO"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Pain Points (<em>tick the relevant ones</em>)"
-msgstr ""
+msgstr "Kipupisteet<em>(rastita asiaankuuluvat</em>)"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__parent_id
@@ -4832,7 +5286,7 @@ msgstr "Ylempi polku"
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_form
 msgid "Parent Template"
-msgstr ""
+msgstr "Vanhempien malli"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__partner_id
@@ -4844,7 +5298,7 @@ msgstr "Kumppani"
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos_pay_the_electricity_bill
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos_pay_the_electricity_bill
 msgid "Pay the Electricity Bill"
-msgstr ""
+msgstr "Maksa sähkölasku"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__permission
@@ -4855,28 +5309,28 @@ msgstr "Lupa"
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Persona 1"
-msgstr ""
+msgstr "Henkilö 1"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_marketing_customer_persona_2
 msgid "Persona 2"
-msgstr ""
+msgstr "Henkilö 2"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Persona 3"
-msgstr ""
+msgstr "Henkilö 3"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Persona 4"
-msgstr ""
+msgstr "Henkilö 4"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_personal_organizer
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "Personal Organizer"
-msgstr ""
+msgstr "Henkilökohtainen organisoija"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -4886,12 +5340,12 @@ msgstr "Phone:"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos
 msgid "Please pick the following tasks first:"
-msgstr ""
+msgstr "Valitse ensin seuraavat tehtävät:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Please refer to the chart below."
-msgstr ""
+msgstr "Katso alla olevaa taulukkoa."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -4899,37 +5353,40 @@ msgid ""
 "Please submit a request for assistance to the Marketing Team if you fall "
 "into one of the following:"
 msgstr ""
+"Lähetä tukipyyntö markkinointitiimille, jos kuulut johonkin seuraavista:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Pluralize the trademark (e.g.<em>YourCompanies</em>)"
-msgstr ""
+msgstr "Tavaramerkki monikossa (esim.<em>YourCompanies</em>)"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "Podcast updates 📻"
-msgstr ""
+msgstr "Podcast-päivitykset 📻"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "Post-Mortem Analysis"
-msgstr ""
+msgstr "Post mortem -analyysi"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_post_mortem
 msgid "Post-mortem"
-msgstr ""
+msgstr "Post mortem"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Potential Risks:"
-msgstr ""
+msgstr "Mahdolliset riskit:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid ""
 "Prepare your demos in advance and integrate the prospect's use case into it"
 msgstr ""
+"Valmistele demosi etukäteen ja integroi siihen potentiaalisen asiakkaan "
+"käyttötapaus"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
@@ -4938,6 +5395,9 @@ msgid ""
 "fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
 "class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
 msgstr ""
+"Hinta <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -4946,6 +5406,9 @@ msgid ""
 "fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
 "class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"Hinta <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -4954,6 +5417,9 @@ msgid ""
 "fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
 "class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"Hinta <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
@@ -4962,6 +5428,9 @@ msgid ""
 "fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i"
 " class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"Hinta <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i"
+" class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -4971,6 +5440,10 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>​"
 msgstr ""
+"Hinta <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4985,7 +5458,7 @@ msgstr "Yksityinen"
 #. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_product_management
 msgid "Product Management"
-msgstr ""
+msgstr "Tuotehallinta"
 
 #. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_productivity
@@ -5008,23 +5481,25 @@ msgstr "Ominaisuudet"
 msgid ""
 "Properties are fields that can only be added on articles that have a parent."
 msgstr ""
+"Ominaisuudet ovat kenttiä, jotka voidaan lisätä vain artikkeleihin, joilla "
+"on vanhempi."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Property Field"
-msgstr ""
+msgstr "Ominaisuuskenttä"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Prospect Qualification"
-msgstr ""
+msgstr "Myyntimahdollisuuden esikarsinta"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Prospection Templates"
-msgstr ""
+msgstr "Myyntiliidien etsimisen mallit"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_sales_playbook
@@ -5032,6 +5507,8 @@ msgid ""
 "Provide salespeople with tips, lexicon and templates to help them sell "
 "faster."
 msgstr ""
+"Anna myyjille vinkkejä, sanastoa ja malleja, jotka auttavat heitä myymään "
+"nopeammin."
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_sprint_calendar_public_holiday
@@ -5042,17 +5519,17 @@ msgstr "Yleiset vapaapäivät"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Q1: <font class=\"text-600\">Would it be possible to...</font>"
-msgstr ""
+msgstr "Q1: Olisiko <font class=\"text-600\">mahdollista, että...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Q2: <font class=\"text-600\">Would there be an issue if...</font>"
-msgstr ""
+msgstr "Kysymys 2: <font class=\"text-600\">Olisiko ongelma, jos...</font>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_mail_invite
 msgid "READ"
-msgstr ""
+msgstr "LUKU"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__rating_ids
@@ -5075,7 +5552,7 @@ msgstr "Vastaanottajat"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "Recovery"
-msgstr ""
+msgstr "Elpyminen"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5087,12 +5564,12 @@ msgstr "Päivitä"
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_release_note
 msgid "Release Notes"
-msgstr ""
+msgstr "Julkaisutiedot"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "Release Notes 🎉"
-msgstr ""
+msgstr "Julkaisutiedot 🎉"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5120,14 +5597,14 @@ msgstr "Poista käyttäjä"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Remove cover"
-msgstr ""
+msgstr "Poista kansi"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.js:0
 #, python-format
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Poista suosikeista"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5142,14 +5619,14 @@ msgstr "Uudelleennimeä"
 #: code:addons/knowledge/static/src/discuss/message_actions.js:0
 #, python-format
 msgid "Reopen the Thread"
-msgstr ""
+msgstr "Avaa säie uudelleen"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Replace cover"
-msgstr ""
+msgstr "Vaihda kansi"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5163,28 +5640,28 @@ msgstr "Vastaa"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Reposition"
-msgstr ""
+msgstr "Sijoita uudelleen"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Reposition cover"
-msgstr ""
+msgstr "Aseta kansi uudelleen"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/discuss/message_actions.js:0
 #, python-format
 msgid "Resolve the Thread"
-msgstr ""
+msgstr "Ratkaise säie"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "Resolved Comments"
-msgstr ""
+msgstr "Ratkaisun kommentit"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_user_id
@@ -5213,7 +5690,7 @@ msgstr "Palauta pääsy"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Restore from Trash"
-msgstr ""
+msgstr "Palauta Roskakorista"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5230,13 +5707,13 @@ msgstr "Rajoita pääsyä"
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Restrict own access"
-msgstr ""
+msgstr "Rajoita omaa pääsyä"
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__inherited_permission__none
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__internal_permission__none
 msgid "Restricted"
-msgstr ""
+msgstr "Rajoitettu"
 
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_desync_on_root
@@ -5251,12 +5728,12 @@ msgstr "Juuriartikkeleilla on oltava sisäinen lupa."
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_template_category_on_root
 msgid "Root templates must have a category."
-msgstr ""
+msgstr "Juurimalleilla on oltava luokka."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "SEO &amp; SEA projects (betting on keywords, ...)"
-msgstr ""
+msgstr "SEO &; SEA-hankkeet (panostus avainsanoihin, ...)"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_has_sms_error
@@ -5278,7 +5755,7 @@ msgstr "Myynnin yksityiskohdat"
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_sales_playbook
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Sales Playbook"
-msgstr ""
+msgstr "Myynnin pelikirja"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5292,14 +5769,14 @@ msgstr "Tallenna"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Save Position"
-msgstr ""
+msgstr "Tallenna sijainti"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
 msgid "Save position"
-msgstr ""
+msgstr "Tallenna sijainti"
 
 #. module: knowledge
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_article
@@ -5326,21 +5803,21 @@ msgstr "Etsi jäseniä"
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_stage_view_search
 msgid "Search Stages"
-msgstr ""
+msgstr "Etsi vaiheita"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #, python-format
 msgid "Search a hidden article to join"
-msgstr ""
+msgstr "Etsi piilotettu artikkeli, johon liittyä"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
 #, python-format
 msgid "Search an Article..."
-msgstr ""
+msgstr "Etsi artikkelia..."
 
 #. module: knowledge
 #. odoo-javascript
@@ -5364,19 +5841,19 @@ msgstr "Osa"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "See a doctor and send us the sick note."
-msgstr ""
+msgstr "Käy lääkärissä ja lähetä meille sairauslomatodistus."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "See how it works <i class=\"fa fa-youtube-play\"/>"
-msgstr ""
+msgstr "Katso miten se toimii <i class=\"fa fa-youtube-play\"/>"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.js:0
 #, python-format
 msgid "Select a Template"
-msgstr ""
+msgstr "Valitse malli"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5400,14 +5877,14 @@ msgstr "Lähetä viestinä"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_tree
 #, python-format
 msgid "Send to Trash"
-msgstr ""
+msgstr "Lähetä roskakoriin"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_view.js:0
 #, python-format
 msgid "Send to trash"
-msgstr ""
+msgstr "Siirrä roskakoriin"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__sequence
@@ -5436,7 +5913,7 @@ msgstr "Jaettu"
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos
 msgid "Shared To-Do List"
-msgstr ""
+msgstr "Jaettu tehtävälista"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5450,21 +5927,21 @@ msgstr "Näytä kaikki"
 #: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
 #, python-format
 msgid "Show Less"
-msgstr ""
+msgstr "Näytä vähemmän"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Show Properties"
-msgstr ""
+msgstr "Näytä ominaisuudet"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Show nested articles"
-msgstr ""
+msgstr "Näytä sisäkkäiset artikkelit"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -5478,6 +5955,9 @@ msgid ""
 "fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
 "class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
 msgstr ""
+"Sosiaalinen <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -5486,6 +5966,9 @@ msgid ""
 "class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
 "star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"Sosiaalinen asema <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
@@ -5495,6 +5978,10 @@ msgid ""
 "star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Sosiaalinen asema <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -5504,6 +5991,10 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Sosiaalinen asema <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -5512,12 +6003,15 @@ msgid ""
 "class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
 "star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"Sosiaalinen asema<span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_software_specification
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Software Specification"
-msgstr ""
+msgstr "Ohjelmiston määrittely"
 
 #. module: knowledge
 #. odoo-python
@@ -5536,12 +6030,12 @@ msgstr "Jotakin meni pieleen!"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Sonya"
-msgstr ""
+msgstr "Sonya"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Source Feedback"
-msgstr ""
+msgstr "Lähteenä palaute"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
@@ -5550,6 +6044,9 @@ msgid ""
 "class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
 "star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"Palvelun nopeus <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -5559,6 +6056,10 @@ msgid ""
 "star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Palvelun nopeus <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -5569,6 +6070,10 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Palvelun nopeus <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -5578,12 +6083,16 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
 "star-o\"></i></span>"
 msgstr ""
+"Palvelun nopeus<span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_sprint_calendar
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sprint_calendar
 msgid "Sprint Calendar"
-msgstr ""
+msgstr "Sprintin kalenteri"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_stage_view_form
@@ -5601,12 +6110,12 @@ msgstr "Vaiheet"
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_stage__parent_id
 msgid "Stages are shared among acommon parent and its children articles."
-msgstr ""
+msgstr "Vaiheet jaetaan yhteisen vanhemman ja sen lapsiartikkelien kesken."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "Stakeholders Analysis"
-msgstr ""
+msgstr "Sidosryhmien analyysi"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5620,14 +6129,14 @@ msgstr "Alkupäivä"
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.js:0
 #, python-format
 msgid "Start Date Time"
-msgstr ""
+msgstr "Aloituspäivä ja aika"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "Start typing"
-msgstr ""
+msgstr "Ala kirjoittaa"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5637,6 +6146,8 @@ msgid ""
 "Start typing to continue with an empty page or pick an option below to get "
 "started."
 msgstr ""
+"Aloita kirjoittaminen jatkaaksesi tyhjällä sivulla tai valitse alla oleva "
+"vaihtoehto aloittaaksesi."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__activity_state
@@ -5663,7 +6174,7 @@ msgstr "Lopetuspäivä"
 #: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
 #, python-format
 msgid "Switch Mode"
-msgstr ""
+msgstr "Vaihda tila"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5678,6 +6189,8 @@ msgid ""
 "Talk to you soon,<br>\n"
 "                        YourName"
 msgstr ""
+"Jutellaan pian,<br>\n"
+"                        OmaNimi"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_search
@@ -5687,13 +6200,13 @@ msgstr "Malli"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_body
 msgid "Template Body"
-msgstr ""
+msgstr "Mallin runko"
 
 #. module: knowledge
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_template_category_action
 #: model:ir.ui.menu,name:knowledge.knowledge_article_template_category_menu
 msgid "Template Categories"
-msgstr ""
+msgstr "Malliluokat"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_category_id
@@ -5703,17 +6216,17 @@ msgstr "Mallin kategoria"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_category_sequence
 msgid "Template Category Sequence"
-msgstr ""
+msgstr "Mallin luokkajärjestys"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_description
 msgid "Template Description"
-msgstr ""
+msgstr "Mallin kuvaus"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_search
 msgid "Template Items"
-msgstr ""
+msgstr "Mallin kohteet"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_preview
@@ -5723,18 +6236,18 @@ msgstr "Mallin esikatselu"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_sequence
 msgid "Template Sequence"
-msgstr ""
+msgstr "Mallin sekvenssi"
 
 #. module: knowledge
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_template_stage_action
 #: model:ir.ui.menu,name:knowledge.knowledge_article_template_stage_menu
 msgid "Template Stages"
-msgstr ""
+msgstr "Mallin vaiheet"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__template_name
 msgid "Template Title"
-msgstr ""
+msgstr "Mallin otsikko"
 
 #. module: knowledge
 #: model:ir.ui.menu,name:knowledge.knowledge_article_template_menu
@@ -5744,12 +6257,12 @@ msgstr "Mallit"
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_template_name_required
 msgid "Templates should have a name."
-msgstr ""
+msgstr "Malleilla pitää olla nimi."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Test Environment"
-msgstr ""
+msgstr "Testiympäristö"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -5759,11 +6272,15 @@ msgid ""
 "                                <strong>Odoo Run</strong>\n"
 "                            </font>!"
 msgstr ""
+"Kiitos kaikille, jotka ovat osallistuneet tämän julkaisun järjestämiseen\n"
+"                            <font class=\"text-o-color-2\">\n"
+"                                <strong>Odoo-juoksu</strong>\n"
+"                            </font>!"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "The 5 Commandments"
-msgstr ""
+msgstr "5 käskyä"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -5772,6 +6289,9 @@ msgid ""
 "                <br>\n"
 "                If 2 weeks have passed and you are still waiting to be paid, get in touch with them."
 msgstr ""
+"Kirjanpitoryhmä käsittelee kaikki maksut perjantai-iltapäivisin.\n"
+"               <br>\n"
+"                Jos 2 viikkoa on kulunut ja odotat yhä maksua, ota heihin yhteyttä."
 
 #. module: knowledge
 #. odoo-python
@@ -5783,7 +6303,7 @@ msgstr "Artikkeli, jota yrität käyttää, on poistettu"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "The Future Entrepreneurship Fair"
-msgstr ""
+msgstr "Tulevaisuuden yrittäjyysmessut"
 
 #. module: knowledge
 #. odoo-python
@@ -5801,13 +6321,15 @@ msgid ""
 "The destination placement of %(article_name)s is ambiguous, you should "
 "specify the category."
 msgstr ""
+"Kohteen %(article_name)s sijoitus on epäselvä, sinun pitäisi määrittää "
+"luokka."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 #, python-format
 msgid "The operation could not be completed."
-msgstr ""
+msgstr "Toimenpidettä ei voitu suorittaa loppuun."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -5816,6 +6338,9 @@ msgid ""
 "                            new episode of the series features Géry, the mastermind behind OWL, the world fastest JS\n"
 "                            framework. 🚀"
 msgstr ""
+"Podcast aloittaa uudet tekniset keskustelut, jotka on suunnattu kaikille tekniikkaa osaaville kuuntelijoille! Tämä\n"
+"                            sarjan uudessa jaksossa on mukana Géry, maailman nopeimman JS-ohjelmiston OWL:n takana oleva mestari\n"
+"                            kehys. 🚀"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5823,7 +6348,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 #, python-format
 msgid "The record that this macro is targeting could not be found."
-msgstr ""
+msgstr "Tämän makron kohteena olevaa tietuetta ei löytynyt."
 
 #. module: knowledge
 #. odoo-python
@@ -5845,7 +6370,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.js:0
 #, python-format
 msgid "The start date property is required."
-msgstr ""
+msgstr "Aloituspäivämäärä-ominaisuus vaaditaan."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__root_article_id
@@ -5859,6 +6384,8 @@ msgid ""
 "The tickets to participate to Odoo Experience 23 are now available and they "
 "are cheaper if you book them now!"
 msgstr ""
+"Liput Odoo Experience 23 -tapahtumaan ovat nyt saatavilla, ja ne ovat "
+"halvempia, jos varaat ne nyt!"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5872,12 +6399,12 @@ msgstr "Näkymää ei ole olemassa tai sinulla ei ole oikeutta käyttää sitä.
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
 #, python-format
 msgid "There are no Articles in your Workspace."
-msgstr ""
+msgstr "Työtilassa ei ole artikkeleita."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "Things to handle this week*"
-msgstr ""
+msgstr "Tällä viikolla hoidettavat asiat*"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
@@ -5894,12 +6421,12 @@ msgstr "Tämä artikkeli on arkistoitu."
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "This article is locked"
-msgstr ""
+msgstr "Tämä artikkeli on lukittu"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
 msgid "This article is only displayed to its members."
-msgstr ""
+msgstr "Tämä artikkeli näytetään vain sen jäsenille."
 
 #. module: knowledge
 #. odoo-javascript
@@ -5916,6 +6443,9 @@ msgid ""
 "                            Antwerp, ready to promote our company!<br>Fabien was also there and gave an interview on the main\n"
 "                            stage."
 msgstr ""
+"Odoo oli tänäkin vuonna mukana <em>Tech and Innovation -festivaalilla, joka oli suunnattu opiskelijoille</em> vuonna 2016\n"
+"                            Antwerpenissä, valmiina mainostamaan yritystämme!<br>Fabien oli myös paikalla ja antoi haastattelun pääohjelmassa\n"
+"                            lavalla."
 
 #. module: knowledge
 #. odoo-javascript
@@ -5924,22 +6454,24 @@ msgstr ""
 msgid ""
 "Those fields will be available on all articles that share the same parent."
 msgstr ""
+"Nämä kentät ovat käytettävissä kaikissa artikkeleissa, joilla on sama "
+"vanhempi."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__is_resolved
 msgid "Thread Closed"
-msgstr ""
+msgstr "Säie on suljettu"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_product_catalog
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "Tiny House Catalog"
-msgstr ""
+msgstr "Tiny House -luettelo"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Tips to close more deals"
-msgstr ""
+msgstr "Vinkkejä useampien kauppojen tekemiseen"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__name
@@ -5958,14 +6490,14 @@ msgstr "Jotta pysyt varmasti ajan tasalla, seuraa meitä osoitteessa"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Toggle aside menu"
-msgstr ""
+msgstr "Vaihda sivuvalikko"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Toggle chatter"
-msgstr ""
+msgstr "Vaihda chatter"
 
 #. module: knowledge
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_action_trashed
@@ -6016,14 +6548,14 @@ msgstr "Avaa lukitus"
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "Unresolved Comments"
-msgstr ""
+msgstr "Ratkaisemattomat huomautukset"
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Unsupported search operation"
-msgstr ""
+msgstr "Ei tuettu hakutoiminto"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6065,7 +6597,7 @@ msgstr "Käyttö"
 #: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
 #, python-format
 msgid "Use as %s"
-msgstr ""
+msgstr "Käytä kuten %s"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6078,17 +6610,17 @@ msgstr "Käytä liitteenä"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Use the expression \"YourCompanions\" to refer to our community"
-msgstr ""
+msgstr "Käytä ilmaisua \"YourCompanions\" viittaamaan omaan yhteisöön"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Use the logo instead of the word inside sentences"
-msgstr ""
+msgstr "Käytä logoa sanan sijasta lauseiden sisällä"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Use this template whenever you have an announcement to make."
-msgstr ""
+msgstr "Käytä tätä mallia aina, kun sinulla on ilmoitus."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__category
@@ -6131,7 +6663,7 @@ msgstr "Käyttäjän lupa"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "VersionName - ReleaseDate"
-msgstr ""
+msgstr "Version numero - Julkaisupäivä"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6145,7 +6677,7 @@ msgstr "Video"
 #: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
 #, python-format
 msgid "Video player"
-msgstr ""
+msgstr "Videosoitin"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6158,18 +6690,18 @@ msgstr "Näkyvyys"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
 msgid "Vittorio"
-msgstr ""
+msgstr "Vittorio"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos_water_the_plants
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos_water_the_plants
 msgid "Water the Plants"
-msgstr ""
+msgstr "Kastele kasvit"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "We already cannot wait for the next one🏃"
-msgstr ""
+msgstr "Emme malta odottaa seuraavaa kertaa 🏃"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__website_message_ids
@@ -6196,11 +6728,13 @@ msgid ""
 "Welcome to the last edition of the MyCompany Newsletter!<br>\n"
 "                We are very excited to share with you the hottest updates and news! 🤩"
 msgstr ""
+"Tervetuloa OmaYritys-uutiskirjeen tuoreeseen numeroon!<br>\n"
+"                Olemme innoissamme voidessamme jakaa kanssasi kuumimmat päivitykset ja uutiset! 🤩"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "What do I have to do if I cannot work?"
-msgstr ""
+msgstr "Mitä minun on tehtävä, jos en voi työskennellä?"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6214,7 +6748,7 @@ msgstr "Mitä haluat hallita?"
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.xml:0
 #, python-format
 msgid "What items do you want to manage?"
-msgstr ""
+msgstr "Mitä kohteita haluat hallita?"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__is_locked
@@ -6257,21 +6791,26 @@ msgid ""
 "in touch with our architects and we will make sure to provide any specific "
 "choice you desire."
 msgstr ""
+"Olipa sydämesi sitten puisen mökin maalaismainen viehätys tai viktoriaanisen"
+" terästehtaan monimutkainen kauneus, meiltä löydät kaiken, mitä tarvitset. "
+"Haluatko tietyn vaihtoehdon? Voit olla varma, että olemme täällä täyttämässä"
+" toiveesi! Ota vain yhteyttä arkkitehteihimme, niin varmistamme, että voimme"
+" tarjota minkä tahansa haluamasi erityisvalinnan."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Which color should we pick for the logo?"
-msgstr ""
+msgstr "Minkä värinen logo pitäisi valita?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Which size should the rollups be?"
-msgstr ""
+msgstr "Minkä kokoisia rollup-mainosten pitäisi olla?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Which text should we print on the billboards?"
-msgstr ""
+msgstr "Mikä teksti meidän pitäisi painaa mainostauluihin?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -6282,6 +6821,11 @@ msgid ""
 "multiple roommates, our Serenità model is highly recommended, providing "
 "ample space for each individual to enjoy<br>"
 msgstr ""
+"Vaikka pientalot ovat luonnostaan pieniä, on tärkeää asettaa mukavuus "
+"etusijalle, kun jaetaan näin rajallista tilaa. Jotta kaikki viihtyisivät, "
+"suosittelemme, että tilaa on vähintään 9 m² henkilöä kohden. Jos aiot asua "
+"useamman kämppäkaverin kanssa, Serenità-malliamme suositellaan lämpimästi, "
+"sillä se tarjoaa runsaasti tilaa jokaiselle yksilölle<br>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -6292,26 +6836,32 @@ msgid ""
 "Cielo model.<br>It provides everything you need while allowing you to "
 "save.<br>"
 msgstr ""
+"Vaikka pientalot tarjoavat kustannustehokkaamman vaihtoehdon perinteisiin "
+"taloihin verrattuna, me OmaYrityksellä asetamme etusijalle kestävyyden, "
+"jolla on hintansa. Jos budjettisi on kuitenkin tiukka, meillä on täydellinen"
+" ratkaisu: Cielo-mallimme.<br>Se tarjoaa kaiken tarvitsemasi ja antaa "
+"sinulle mahdollisuuden säästää.<br>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Who can drive my car?"
-msgstr ""
+msgstr "Kuka voi ajaa autoani?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Who do I need to address if I need office supplies?"
 msgstr ""
+"Kenen puoleen minun on käännyttävä, jos tarvitsen toimistotarvikkeita?"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Who has access to what? 🕵️"
-msgstr ""
+msgstr "Kenellä on pääsy ja mihin? 🕵️"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Why has my expense not been reimbursed? It has been accepted."
-msgstr ""
+msgstr "Miksi kulujani ei ole korvattu? Se on hyväksytty."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6335,7 +6885,7 @@ msgstr "Kirjoita"
 #: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
 #, python-format
 msgid "Write an article about"
-msgstr ""
+msgstr "Kirjoita artikkeli aiheesta"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6343,12 +6893,14 @@ msgid ""
 "Write it without any article(<em><s>the</s> YourCompany, <s>a</s> "
 "YourCompany, ...</em>)"
 msgstr ""
+"Kirjoita nimi ilman täsmentävää artikkelia<em><s>(</s> OmaYritys, <s>a</s> "
+"OmaYritys, ...</em>)"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos_write_the_next_newsletter
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos_write_the_next_newsletter
 msgid "Write the next Newsletter"
-msgstr ""
+msgstr "Kirjoita seuraava uutiskirje"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6367,14 +6919,14 @@ msgstr "Olet jo lisännyt tämän kumppanin tähän artikkeliin."
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "You are not allowed to create a new template."
-msgstr ""
+msgstr "Et saa luoda uutta mallia."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "You are not allowed to delete a template."
-msgstr ""
+msgstr "Et saa poistaa mallia."
 
 #. module: knowledge
 #. odoo-python
@@ -6396,28 +6948,28 @@ msgstr "Et saa siirtää '%(article_name)s':aa '%(parent_name)s':n alle."
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "You are not allowed to update a template."
-msgstr ""
+msgstr "Et saa päivittää mallia."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "You are not allowed to update the type of a article or a template."
-msgstr ""
+msgstr "Et saa päivittää artikkelin tai mallin tyyppiä."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
 #, python-format
 msgid "You can not delete favorite from this article"
-msgstr ""
+msgstr "Et voi poistaa suosikkia tästä artikkelista"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
 #, python-format
 msgid "You can not save favorite on this article"
-msgstr ""
+msgstr "Et voi tallentaa suosikkia tässä artikkelissa"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6434,6 +6986,8 @@ msgid ""
 "You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
 "Article Item. Convert %(item_name)s into an Article first."
 msgstr ""
+"Et voi siirtää %(article_name)s-kohtaa %(item_name)s-kohteen alle, koska "
+"%(item_name)s on artiklan kohde. Muunna ensin %(item_name)s artikkeliksi."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6492,7 +7046,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
 #, python-format
 msgid "You do not have any private Article."
-msgstr ""
+msgstr "Sinulla ei ole yhtään yksityistä artikkelia."
 
 #. module: knowledge
 #. odoo-python
@@ -6548,6 +7102,8 @@ msgid ""
 "You may have heard those a million times and yet you are not entirely sure of what it means.<br>\n"
 "                Here is a quick recap for you to shine during the next meeting."
 msgstr ""
+"Olet ehkä kuullut ne miljoona kertaa, mutta et ole täysin varma, mitä ne tarkoittavat.<br>\n"
+"                Tässä on nopea kertaus, jotta voit loistaa seuraavassa kokouksessa."
 
 #. module: knowledge
 #. odoo-python
@@ -6555,6 +7111,7 @@ msgstr ""
 #, python-format
 msgid "You need to have access to this article in order to join its members."
 msgstr ""
+"Sinulla on oltava pääsy tähän artikkeliin, jotta voit liittyä sen jäseneksi."
 
 #. module: knowledge
 #. odoo-python
@@ -6563,20 +7120,22 @@ msgstr ""
 msgid ""
 "You need to have access to this article's root in order to join its members."
 msgstr ""
+"Sinulla on oltava pääsy tämän artikkelin pääkäyttäjään, jotta voit liittyä "
+"sen jäseniksi."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Your Access: %s"
-msgstr ""
+msgstr "Pääsysi: %s"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
 #, python-format
 msgid "Your browser does not support iframe."
-msgstr ""
+msgstr "Selaimesi ei tue iframea."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -6584,11 +7143,13 @@ msgid ""
 "Your car can be driven by <strong>you, your spouse and by any person living "
 "under the same roof</strong> as long as they have a valid permit."
 msgstr ""
+"Autoa voivat ajaa <strong>sinä, puolisosi ja muut saman katon alla "
+"asuvat</strong> henkilöt, kunhan heillä on voimassa oleva ajokortti."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "YourCompany is proud to announce that..."
-msgstr ""
+msgstr "OmaYritys on ylpeä voidessaan ilmoittaa, että..."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6597,6 +7158,9 @@ msgid ""
 "                <br>\n"
 "                When representing the brand, we thus ask you to be very cautious in how you refer to the company."
 msgstr ""
+"OmaYritys on hyvin ylpeä brändi-imagostaan.\n"
+"               <br>\n"
+"                Kun edustat brändiä, pyydämme sinua olemaan hyvin varovainen siinä, miten viittaat yritykseen."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
@@ -6620,12 +7184,12 @@ msgstr "lähetetty roskakoriin.<br/><br/>"
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
 msgid "button to add comments"
-msgstr ""
+msgstr "painike kommenttien lisäämiseksi"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "contact our FleetOfficer"
-msgstr ""
+msgstr "ota yhteyttä Ajoneuvopäällikköön"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6646,12 +7210,12 @@ msgstr "esim. rakennukset"
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #, python-format
 msgid "e.g. Meetings"
-msgstr ""
+msgstr "esim. kokoukset"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_stage_view_form
 msgid "e.g. Ongoing"
-msgstr ""
+msgstr "esim. Jatkuva"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6673,12 +7237,12 @@ msgstr "on"
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_mail_invite
 msgid "invited you to"
-msgstr ""
+msgstr "kutsui sinut"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_mail_invite
 msgid "invited you to access an article.<br/>"
-msgstr ""
+msgstr "kutsui sinua tutustumaan artikkeliin.<br/>"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6693,12 +7257,12 @@ msgstr "lataaja"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "logo.jpg"
-msgstr ""
+msgstr "logo.jpg"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_mail_notification_layout
 msgid "mentioned you in a comment:"
-msgstr ""
+msgstr "mainitsi sinut kommentissa:"
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__none
@@ -6718,7 +7282,7 @@ msgstr "pdf"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "png"
-msgstr ""
+msgstr "png"
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__read
@@ -6735,7 +7299,7 @@ msgstr "haku"
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_mail_invite
 msgid "the article"
-msgstr ""
+msgstr "artikkeli"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
@@ -6747,7 +7311,7 @@ msgstr "vapauttamaan tiedon voiman !"
 #: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
 #, python-format
 msgid "untitled"
-msgstr ""
+msgstr "nimetön"
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__write
@@ -6761,6 +7325,9 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
 "class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"<span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -6769,6 +7336,9 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
 "class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"<span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -6777,86 +7347,89 @@ msgid ""
 "star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
 "class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 msgstr ""
+"<span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "⌚ Elevator Pitch"
-msgstr ""
+msgstr "⌚ Hissipuhe"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "☝🏼 Please prepare the following before the meeting:"
-msgstr ""
+msgstr "☝🏼 Valmistelkaa seuraavat asiat ennen kokousta:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "⚙ Technical Specifications"
-msgstr ""
+msgstr "⚙ Tekniset tiedot"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "❓ Open Questions"
-msgstr ""
+msgstr "❓ Avoimet kysymykset"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "⭐ Release Notes"
-msgstr ""
+msgstr "⭐ Julkaisutiedot"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "🎯 Target Audience"
-msgstr ""
+msgstr "🎯 Kohderyhmä"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "📊 KPIs"
-msgstr ""
+msgstr "📊 Tulosindikaattorit"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "📝 Purpose"
-msgstr ""
+msgstr "📝 Tarkoitus"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "📣 Message"
-msgstr ""
+msgstr "📣 Viesti"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "🔍 Review Checklist"
-msgstr ""
+msgstr "🔍 Tarkistusluettelo"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "🔗 Links"
-msgstr ""
+msgstr "🔗 Linkit"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "🗓 WEEKLY AGENDA"
-msgstr ""
+msgstr "🗓 VIIKOTTAINEN ESITYSLISTA"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "🗣 Meeting Agenda"
-msgstr ""
+msgstr "🗣 Kokouksen esityslista"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "🙌🏼 Decisions Taken"
-msgstr ""
+msgstr "🙌🏼 Tehdyt päätökset"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "🚀 Objective"
-msgstr ""
+msgstr "🚀 Tavoite"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "🧠 Functional Specifications"
-msgstr ""
+msgstr "🧠 Toiminnalliset määritykset"

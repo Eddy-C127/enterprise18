@@ -419,6 +419,8 @@ msgid ""
 "All changes done to the report's structure will be discarded and the report "
 "will be reset to its factory settings."
 msgstr ""
+"การเปลี่ยนแปลงทั้งหมดที่ทำกับโครงสร้างของรายงานจะถูกยกเลิก "
+"และรายงานจะถูกรีเซ็ตเป็นการตั้งค่าจากโรงงาน"
 
 #. module: web_studio
 #. odoo-javascript
@@ -432,7 +434,7 @@ msgstr ""
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__responsible_id
 msgid ""
 "An activity will be assigned to this user when an approval is requested"
-msgstr ""
+msgstr "กิจกรรมจะถูกกำหนดให้กับผู้ใช้รายนี้เมื่อมีการร้องขอการอนุมัติ"
 
 #. module: web_studio
 #. odoo-python
@@ -1710,6 +1712,8 @@ msgid ""
 "For compatibility purpose with base_automation,approvals on 'create', "
 "'write' and 'unlink' methods are forbidden."
 msgstr ""
+"เพื่อวัตถุประสงค์ด้านความเข้ากันได้กับ base_automation การอนุมัติวิธี "
+"'สร้าง', 'เขียน' และ 'ยกเลิกการเชื่อมโยง' เป็นสิ่งต้องห้าม"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1820,7 +1824,7 @@ msgstr "จัดกลุ่มโดย"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "Grouping is not applied while in Studio to allow editing."
-msgstr ""
+msgstr "การจัดกลุ่มจะไม่ใช้ขณะอยู่ในสตูดิโอเพื่อให้แก้ไขได้"
 
 #. module: web_studio
 #. odoo-python
@@ -3087,7 +3091,7 @@ msgstr "บันทึก"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 #, python-format
 msgid "Saving both some report's parts and full xml is not permitted."
-msgstr ""
+msgstr "ไม่อนุญาตให้บันทึกทั้งบางส่วนของรายงานและ xml แบบเต็ม"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3274,6 +3278,8 @@ msgid ""
 "Some records were skipped because approvals were missing to"
 "                                    proceed with your request: "
 msgstr ""
+"บันทึกบางรายการถูกข้ามเนื่องจากการอนุมัติที่ขาดหายไปเพื่อ"
+"                                    ดำเนินการตามคำขอของคุณ:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3526,7 +3532,7 @@ msgstr "ไอคอนไม่ได้เชื่อมโยงกับไ
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The method %s does not exist on the model %s."
-msgstr ""
+msgstr "วิธี %s ไม่มีอยู่ในโมเดล %s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3578,7 +3584,7 @@ msgstr "ฟิลด์ที่เกี่ยวข้องของปุ่
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 #, python-format
 msgid "The report is in error. Only editing the XML sources is permitted"
-msgstr ""
+msgstr "รายงานมีข้อผิดพลาด อนุญาตให้แก้ไขเฉพาะแหล่งที่มา XML เท่านั้น"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3617,6 +3623,8 @@ msgid ""
 "There is no record on which this report can be previewed. Create at least "
 "one record to preview the report."
 msgstr ""
+"ไม่มีบันทึกที่สามารถดูตัวอย่างรายงานนี้ได้ "
+"สร้างอย่างน้อยหนึ่งบันทึกเพื่อดูตัวอย่างรายงาน"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3631,6 +3639,7 @@ msgid ""
 "These users will receive a notification via internal note when an approval "
 "is requested"
 msgstr ""
+"ผู้ใช้เหล่านี้จะได้รับการแจ้งเตือนผ่านบันทึกภายในเมื่อมีการร้องขอการอนุมัติ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3666,14 +3675,14 @@ msgstr ""
 msgid ""
 "This could also be due to the absence of a real record to render the report "
 "with."
-msgstr ""
+msgstr "อาจเกิดจากการไม่มีบันทึกจริงในการแสดงรายงานด้วย"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "This may be due to an incorrect syntax in the edited parts."
-msgstr ""
+msgstr "นี่อาจเป็นเพราะไวยากรณ์ไม่ถูกต้องในส่วนที่แก้ไข"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__message
@@ -3681,6 +3690,7 @@ msgid ""
 "This message will be displayed to users that cannot proceed without this "
 "approval"
 msgstr ""
+"ข้อความนี้จะแสดงต่อผู้ใช้ที่ไม่สามารถดำเนินการต่อได้หากไม่ได้รับอนุมัตินี้"
 
 #. module: web_studio
 #. odoo-javascript

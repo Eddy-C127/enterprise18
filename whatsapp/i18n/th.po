@@ -29,6 +29,8 @@ msgid ""
 "\"Template variable should be in format {{number}}. Cannot parse "
 "\"%(placeholder)s\""
 msgstr ""
+"\"ตัวแปรเทมเพลตควรอยู่ในรูปแบบ {{number}} ไม่สามารถแยกวิเคราะห์ "
+"\"%(placeholder)s\""
 
 #. module: whatsapp
 #. odoo-python
@@ -50,14 +52,14 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path"
-msgstr ""
+msgstr "'%(field)s' ดูเหมือนจะไม่ใช่เส้นทางฟิลด์ที่ถูกต้อง"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path on %(model)s"
-msgstr ""
+msgstr "'%(field)s' ดูเหมือนจะไม่ใช่เส้นทางฟิลด์ที่ถูกต้องใน %(model)s"
 
 #. module: whatsapp
 #. odoo-python
@@ -73,6 +75,9 @@ msgid ""
 "                Or create templates here and send them for approval.\n"
 "                Please refer the"
 msgstr ""
+".\n"
+"                หรือสร้างเทมเพลตที่นี่แล้วส่งเพื่อขออนุมัติ\n"
+"                โปรดดูที่"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_kanban
@@ -95,6 +100,9 @@ msgid ""
 "                        06:00\n"
 "                    </span>"
 msgstr ""
+"<span class=\"position-absolute bottom-0 end-0 o-whatsapp-font-11 py-1 px-2 text-black-50\" area-hidden=\"true\">\n"
+"                        06:00\n"
+"                    </span>"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_composer_view_form
@@ -102,6 +110,8 @@ msgid ""
 "<strong>Invalid number: </strong>\n"
 "                            <span>make sure to set a country on the Contact or to specify the country code.</span>"
 msgstr ""
+"<strong>หมายเลขไม่ถูกต้อง:</strong>\n"
+"                            <span>ตรวจสอบให้แน่ใจว่าได้ตั้งค่าประเทศในผู้ติดต่อหรือระบุรหัสประเทศ</span>"
 
 #. module: whatsapp
 #. odoo-python
@@ -274,7 +284,7 @@ msgstr "เนื้อความ"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Body variables should start at 1 and not skip any number, missing %d"
-msgstr ""
+msgstr "ตัวแปรเนื้อหาควรเริ่มต้นที่ 1 และไม่ข้ามตัวเลขใดโดยไม่มี %d"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__bg
@@ -345,6 +355,8 @@ msgid ""
 "Can't send message as it has been 24 hours since the last message of the "
 "User."
 msgstr ""
+"ไม่สามารถส่งข้อความได้ เนื่องจากเป็นเวลา 24 "
+"ชั่วโมงแล้วนับตั้งแต่ข้อความสุดท้ายของผู้ใช้"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_form
@@ -609,7 +621,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_message_unique_msg_uid
 msgid "Each whatsapp message should correspond to a single message uuid."
-msgstr ""
+msgstr "ข้อความ Whatsapp แต่ละข้อความควรสอดคล้องกับข้อความเดียว uuid"
 
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_mail_thread
@@ -835,6 +847,8 @@ msgid ""
 "Group authorization and group auto-subscription are only supported on "
 "channels and whatsapp."
 msgstr ""
+"การอนุญาตกลุ่มและการสมัครสมาชิกกลุ่มอัตโนมัติรองรับเฉพาะช่องทางและ Whatsapp "
+"เท่านั้น"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__gu
@@ -936,7 +950,7 @@ msgstr "ถ้าเลือก ข้อความบางข้อคว�
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_res_users_settings__is_discuss_sidebar_category_whatsapp_open
 msgid "If checked, the WhatsApp category is open in the discuss sidebar"
-msgstr ""
+msgstr "หากทำเครื่องหมายไว้ หมวดหมู่ WhatsApp จะเปิดขึ้นในแถบสนทนาด้านข้าง"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_account_action
@@ -944,6 +958,8 @@ msgid ""
 "If you have credentials for cloud api then setup here and start using WhatsApp.\n"
 "                You can register a WhatsApp Business Account through"
 msgstr ""
+"หากคุณมีข้อมูลรับรองสำหรับ Cloud API ให้ตั้งค่าที่นี่และเริ่มใช้ WhatsApp\n"
+"                คุณสามารถลงทะเบียนบัญชี WhatsApp Business ได้ผ่านทาง"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__image
@@ -1120,6 +1136,8 @@ msgid ""
 "Location Latitude and Longitude %(latitude)s / %(longitude)s is not in "
 "proper format."
 msgstr ""
+"ตำแหน่งละติจูดและลองจิจูด %(latitude)s / %(longitude)s "
+"อยู่ในรูปแบบที่ไม่ถูกต้อง"
 
 #. module: whatsapp
 #. odoo-python
@@ -1129,6 +1147,8 @@ msgid ""
 "Location variable should be 'name', 'address', 'latitude' or 'longitude'. "
 "Cannot parse '%(placeholder)s'"
 msgstr ""
+"ตัวแปรตำแหน่งควรเป็น 'ชื่อ' 'ที่อยู่' 'ละติจูด' หรือ 'ลองจิจูด' "
+"ไม่สามารถแยกวิเคราะห์ '%(placeholder)s'"
 
 #. module: whatsapp
 #. odoo-python
@@ -1320,7 +1340,7 @@ msgstr ""
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "Notify users and company where this account can be used"
-msgstr ""
+msgstr "แจ้งเตือนผู้ใช้และบริษัทที่สามารถใช้บัญชีนี้ได้"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__message_needaction_counter
@@ -1361,7 +1381,7 @@ msgstr "จํานวนข้อความที่มีข้อผิด
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Only 10 free text is allowed in body of template"
-msgstr ""
+msgstr "อนุญาตให้ใช้ข้อความอิสระเพียง 10 ข้อความในเนื้อหาของเทมเพลต"
 
 #. module: whatsapp
 #. odoo-python
@@ -1692,6 +1712,7 @@ msgstr ""
 #, python-format
 msgid "Sent messages or messages with unfixable failures cannot be resent."
 msgstr ""
+"ข้อความที่ส่งแล้วหรือข้อความที่มีข้อผิดพลาดที่แก้ไขไม่ได้จะไม่สามารถส่งซ้ำได้"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_tree
@@ -1734,6 +1755,8 @@ msgid ""
 "Something went wrong when contacting WhatsApp, please try again later. If "
 "this happens frequently, contact support."
 msgstr ""
+"เกิดข้อผิดพลาดขณะติดต่อ WhatsApp โปรดลองอีกครั้งในภายหลัง "
+"หากสิ่งนี้เกิดขึ้นบ่อยครั้ง โปรดติดต่อฝ่ายช่วยเหลือ"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__es
@@ -1821,6 +1844,8 @@ msgid ""
 "Template %(template_name)s holds a wrong configuration for 'phone field'\n"
 "%(error_msg)s"
 msgstr ""
+"เทมเพลต %(template_name)s มีการกำหนดค่าที่ไม่ถูกต้องสำหรับ 'ฟิลด์โทรศัพท์'\n"
+"%(error_msg)s"
 
 #. module: whatsapp
 #. odoo-python
@@ -1899,6 +1924,10 @@ msgid ""
 "                    Template Updated count %d\n"
 "                    "
 msgstr ""
+"การซิงโครไนซ์เทมเพลตเสร็จสมบูรณ์\n"
+"                    จำนวนการสร้างเทมเพลต %d\n"
+"                    จำนวนการอัปเดตเทมเพลต %d\n"
+"                    "
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_preview__wa_template_id
@@ -1959,12 +1988,12 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "There is no record for preparing demo pdf in model %(model)s"
-msgstr ""
+msgstr "ไม่มีบันทึกสำหรับการเตรียมไฟล์ PDF สาธิตในโมเดล %(model)s"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "There might be other templates that still need the Multi"
-msgstr ""
+msgstr "อาจมีเทมเพลตอื่นที่ยังต้องใช้ Multi"
 
 #. module: whatsapp
 #. odoo-python
@@ -2103,6 +2132,7 @@ msgstr ""
 msgid ""
 "User mobile number required in template but no value set on user profile."
 msgstr ""
+"ต้องมีหมายเลขโทรศัพท์มือถือของผู้ใช้ในเทมเพลตแต่ไม่ได้ตั้งค่าไว้ในโปรไฟล์ผู้ใช้"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__allowed_user_ids
@@ -2122,6 +2152,8 @@ msgid ""
 "Users to notify when a message is received and there is no template send in "
 "last 15 days"
 msgstr ""
+"ผู้ใช้จะถูกแจ้งเตือนเมื่อได้รับข้อความและไม่มีการส่งเทมเพลตในช่วง 15 "
+"วันที่ผ่านมา"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
@@ -2185,7 +2217,7 @@ msgstr ""
 #: code:addons/whatsapp/models/models.py:0
 #, python-format
 msgid "We were not able to fetch value of field '%(field)s'"
-msgstr ""
+msgstr "เราไม่สามารถดึงค่าของฟิลด์ '%(field)s'"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__webhook_verify_token
@@ -2295,7 +2327,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_tree
 msgid "WhatsApp Template"
-msgstr ""
+msgstr "เทมเพลต WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_whatsapp_template_button
@@ -2310,7 +2342,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_whatsapp_template_variable
 msgid "WhatsApp Template Variable"
-msgstr ""
+msgstr "ตัวแปรเทมเพลต WhatsApp"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_account_action
@@ -2329,7 +2361,7 @@ msgstr ""
 #: code:addons/whatsapp/tools/whatsapp_exception.py:0
 #, python-format
 msgid "Whatsapp could not be reached or the query was malformed."
-msgstr ""
+msgstr "ไม่สามารถเข้าถึง Whatsapp หรือข้อความค้นหามีรูปแบบไม่ถูกต้อง"
 
 #. module: whatsapp
 #. odoo-python
@@ -2353,6 +2385,8 @@ msgid ""
 "You are not allowed to use %(field)s in phone field, contact your "
 "administrator to configure it."
 msgstr ""
+"คุณไม่ได้รับอนุญาตให้ใช้ %(field)s ในช่องโทรศัพท์ "
+"โปรดติดต่อผู้ดูแลระบบเพื่อกำหนดค่า"
 
 #. module: whatsapp
 #. odoo-python
@@ -2360,7 +2394,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You are not allowed to use field %(field)s, contact your administrator."
-msgstr ""
+msgstr "คุณไม่ได้รับอนุญาตให้ใช้ฟิลด์ %(field)s โปรดติดต่อผู้ดูแลระบบของคุณ"
 
 #. module: whatsapp
 #. odoo-python
@@ -2374,7 +2408,7 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "You can not resend message which is not in failed state."
-msgstr ""
+msgstr "คุณไม่สามารถส่งข้อความที่ไม่อยู่ในสถานะล้มเหลวได้"
 
 #. module: whatsapp
 #. odoo-python
@@ -2390,6 +2424,7 @@ msgid ""
 "You can retrieve templates from Facebook by clicking <strong>Sync "
 "Templates</strong> on the"
 msgstr ""
+"คุณสามารถดึงเทมเพลตจาก Facebook ได้โดยคลิก <strong>ซิงค์เทมเพลต</strong> บน"
 
 #. module: whatsapp
 #. odoo-python
@@ -2399,6 +2434,8 @@ msgid ""
 "You can't leave this channel. As you are the owner of this WhatsApp channel,"
 " you can only delete it."
 msgstr ""
+"คุณไม่สามารถออกจากช่องนี้ได้ เนื่องจากคุณเป็นเจ้าของช่อง WhatsApp นี้ "
+"คุณสามารถลบได้เท่านั้น"
 
 #. module: whatsapp
 #. odoo-python
@@ -2419,6 +2456,8 @@ msgstr ""
 msgid ""
 "Your whatsapp message, use {{1}}, {{2}} as placeholders for dynamic variable"
 msgstr ""
+"ข้อความ WhatsApp ของคุณ ใช้ {{1}}, {{2}} "
+"เป็นตัวยึดตำแหน่งสำหรับตัวแปรไดนามิก"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__zu
@@ -2458,4 +2497,4 @@ msgstr "placeholder=\"e.g. https://www.example.com\"/&gt;"
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_composer_view_form
 msgid "recipients have an invalid phone number and will be skipped."
-msgstr ""
+msgstr "ผู้รับที่มีหมายเลขโทรศัพท์ไม่ถูกต้องและจะถูกข้ามไป"

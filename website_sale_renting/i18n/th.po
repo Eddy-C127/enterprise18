@@ -30,6 +30,10 @@ msgid ""
 "                Your changes on the rental period are not taken into account.\n"
 "            "
 msgstr ""
+"\n"
+"                ระยะเวลาใหม่ไม่ถูกต้องสำหรับผลิตภัณฑ์บางรายการในรถเข็นของคุณ\n"
+"                การเปลี่ยนแปลงระยะเวลาการเช่าจะไม่ถูกนำมาพิจารณา\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -41,6 +45,10 @@ msgid ""
 "                rentals that last less than %(duration)s %(unit)s.\n"
 "            "
 msgstr ""
+"\n"
+"                ระยะเวลาการเช่าของคุณสั้นเกินไป ขออภัย เราไม่สามารถดำเนิน\n"
+"                การเช่าที่มีอายุการใช้งานน้อยกว่า %(duration)s %(unit)sได้\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -52,6 +60,10 @@ msgid ""
 "                Unfortunately, we do not process pickups on that weekday.\n"
 "            "
 msgstr ""
+"\n"
+"                ผลิตภัณฑ์เช่าของคุณมีวันที่รับสินค้าไม่ถูกต้อง (%(start_date)s)\n"
+"                ขออภัย เราไม่สามารถดำเนินการรับสินค้าในวันทำการนั้นได้\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -63,6 +75,10 @@ msgid ""
 "                Unfortunately, we do not process returns on that weekday.\n"
 "            "
 msgstr ""
+"\n"
+"                ผลิตภัณฑ์เช่าของคุณมีวันที่คืนสินค้าไม่ถูกต้อง (%(end_date)s)\n"
+"                ขออภัย เราไม่สามารถดำเนินการคืนสินค้าในวันทำการนั้นได้\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -75,6 +91,11 @@ msgid ""
 "                returns on those weekdays.\n"
 "            "
 msgstr ""
+"\n"
+"                ผลิตภัณฑ์เช่าของคุณมีวันที่รับสินค้า (%(start_date)s) และ\n"
+"                คืนสินค้า (%(end_date)s) ไม่ถูกต้อง ขออภัย เราไม่ดำเนินการรับหรือคืนสินค้า\n"
+"                ในวันทำการเหล่านั้น\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -87,6 +108,11 @@ msgid ""
 "            inconvenience.\n"
 "        "
 msgstr ""
+"\n"
+"            ผลิตภัณฑ์เช่าบางรายการของคุณ (%(product)s) ไม่สามารถเช่าได้ในช่วง\n"
+"            เวลาที่เลือก และตะกร้าสินค้าของคุณจะต้องได้รับการอัปเดต ขออภัยใน\n"
+"            ในความไม่สะดวก\n"
+"        "
 
 #. module: website_sale_renting
 #. odoo-javascript
@@ -135,7 +161,7 @@ msgstr ""
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.rental_search_result_price
 msgid "<small>per</small>"
-msgstr ""
+msgstr "<small>ต่อ</small>"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.price_dynamic_filter_template_product_product
@@ -255,6 +281,8 @@ msgid ""
 "Model adding the necessary fields to products to use with Pricer electronic "
 "tags"
 msgstr ""
+"แบบจำลองการเพิ่มฟิลด์ที่จำเป็นให้กับผลิตภัณฑ์เพื่อใช้กับแท็กอิเล็กทรอนิกส์ "
+"Pricer"
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_mon
@@ -335,6 +363,8 @@ msgid ""
 "Some of your rental products cannot be rented during the selected period and"
 " your cart must be updated. We're sorry for the inconvenience."
 msgstr ""
+"สินค้าให้เช่าบางรายการของคุณไม่สามารถเช่าได้ในช่วงเวลาที่เลือก "
+"และตะกร้าสินค้าของคุณจะต้องได้รับการอัปเดต ขออภัยในความไม่สะดวก"
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_sun
@@ -364,7 +394,7 @@ msgstr ""
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The rental lasts less than the minimal rental duration %s"
-msgstr ""
+msgstr "การเช่ามีระยะเวลาน้อยกว่าระยะเวลาการเช่าขั้นต่ำ %s"
 
 #. module: website_sale_renting
 #. odoo-javascript
@@ -421,14 +451,14 @@ msgstr "สัปดาห์"
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "You cannot pick up your rental on that day of the week."
-msgstr ""
+msgstr "คุณไม่สามารถรับค่าเช่าของคุณได้ในวันนั้นของสัปดาห์"
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "You cannot return your rental on that day of the week."
-msgstr ""
+msgstr "คุณไม่สามารถคืนค่าเช่าของคุณได้ในวันนั้นของสัปดาห์"
 
 #. module: website_sale_renting
 #. odoo-python

@@ -30,6 +30,10 @@ msgid ""
 "            %(rental_period)s.\n"
 "            "
 msgstr ""
+"\n"
+"            คุณร้องขอสินค้า %(desired_qty)s แต่มีเพียง %(new_qty)s เท่านั้นที่พร้อมจำหน่ายตั้งแต่\n"
+"            %(rental_period)s\n"
+"            "
 
 #. module: website_sale_stock_renting
 #. odoo-javascript
@@ -44,6 +48,8 @@ msgid ""
 "Model adding the necessary fields to products to use with Pricer electronic "
 "tags"
 msgstr ""
+"แบบจำลองการเพิ่มฟิลด์ที่จำเป็นให้กับผลิตภัณฑ์เพื่อใช้กับแท็กอิเล็กทรอนิกส์ "
+"Pricer"
 
 #. module: website_sale_stock_renting
 #. odoo-javascript
@@ -72,7 +78,7 @@ msgstr "รายการคำสั่งขาย"
 #: code:addons/website_sale_stock_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The product is not available for the following time period(s):\n"
-msgstr ""
+msgstr "สินค้าไม่พร้อมจำหน่ายในช่วงเวลาต่อไปนี้:\n"
 
 #. module: website_sale_stock_renting
 #: model:ir.model,name:website_sale_stock_renting.model_website
@@ -94,6 +100,7 @@ msgid ""
 "You already added all the available product in your cart during the selected"
 " period."
 msgstr ""
+"คุณได้เพิ่มผลิตภัณฑ์ที่มีอยู่ทั้งหมดลงในรถเข็นของคุณแล้วในช่วงเวลาที่เลือก"
 
 #. module: website_sale_stock_renting
 #. odoo-javascript
@@ -101,13 +108,14 @@ msgstr ""
 #, python-format
 msgid "Your rental product cannot be prepared as fast, please rent later."
 msgstr ""
+"สินค้าให้เช่าของคุณไม่สามารถจัดเตรียมได้รวดเร็วเพียงพอ กรุณาเช่าในภายหลัง"
 
 #. module: website_sale_stock_renting
 #. odoo-python
 #: code:addons/website_sale_stock_renting/models/sale_order.py:0
 #, python-format
 msgid "Your rental product cannot be prepared on time, please rent later."
-msgstr ""
+msgstr "สินค้าให้เช่าของคุณไม่สามารถจัดเตรียมได้ตรงเวลา โปรดเช่าในภายหลัง"
 
 #. module: website_sale_stock_renting
 #. odoo-javascript

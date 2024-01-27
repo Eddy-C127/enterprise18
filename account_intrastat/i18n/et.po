@@ -13,6 +13,7 @@
 # Piia Paurson <piia@avalah.ee>, 2023
 # Leaanika Randmets, 2023
 # Anna, 2023
+# Kärt Villako, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2023\n"
+"Last-Translator: Kärt Villako, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -277,6 +278,11 @@ msgid ""
 msgstr ""
 
 #. module: account_intrastat
+#: model:res.country,name:account_intrastat.xi
+msgid "Northern Ireland"
+msgstr "Põhja-Iirimaa"
+
+#. module: account_intrastat
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/filters/filter_intrastat_partner.xml:0
 #, python-format
@@ -354,7 +360,7 @@ msgstr ""
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "Some lines have undefined"
-msgstr ""
+msgstr "Mõned read on määratlemata"
 
 #. module: account_intrastat
 #. odoo-javascript
@@ -363,14 +369,14 @@ msgstr ""
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "Some products have undefined"
-msgstr ""
+msgstr "Mõned tooted on määratlemata"
 
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_product_product__intrastat_supplementary_unit
 #: model:ir.model.fields,field_description:account_intrastat.field_product_template__intrastat_supplementary_unit
 #: model_terms:ir.ui.view,arch_db:account_intrastat.view_intrastat_code_search
 msgid "Supplementary Unit"
-msgstr ""
+msgstr "Lisamoodul"
 
 #. module: account_intrastat
 #: model:account.report.column,name:account_intrastat.intrastat_report_column_supplementary_units
@@ -452,7 +458,7 @@ msgstr ""
 #: code:addons/account_intrastat/models/account_intrastat_report.py:0
 #, python-format
 msgid "Undefined weight products."
-msgstr ""
+msgstr "Määramata kaaluga tooted."
 
 #. module: account_intrastat
 #: model:account.report.column,name:account_intrastat.intrastat_report_column_value
@@ -486,7 +492,7 @@ msgstr "ce/el"
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "commodity codes"
-msgstr ""
+msgstr "kaubakoodid"
 
 #. module: account_intrastat
 #: model:ir.model.fields.selection,name:account_intrastat.selection__account_intrastat_code__supplementary_unit__ct/l

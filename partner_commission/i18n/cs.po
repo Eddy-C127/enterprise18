@@ -188,11 +188,14 @@ msgid ""
 "The product must belong to the selected category.\n"
 "Use several rules if you need to match multiple products within a category."
 msgstr ""
+"Pokud je nastaveno, pravidlo se nevztahuje na celou kategorii, ale pouze na daný produkt.\n"
+"Produkt musí patřit do vybrané kategorie.\n"
+"Pokud potřebujete přiřadit více produktů v rámci kategorie, použijte několik pravidel."
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_purchase_order__invoice_commission_count
 msgid "Invoices that have generated commissions included in this order"
-msgstr ""
+msgstr "Faktury, které generovaly provize, jsou součástí této objednávky"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_account_move
@@ -229,12 +232,12 @@ msgstr "Ručně"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__max_commission
 msgid "Max Commission"
-msgstr ""
+msgstr "Maximální komise"
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_commission_rule__max_commission
 msgid "Maximum amount, specified in the currency of the pricelist, if given."
-msgstr ""
+msgstr "Maximální částka specifikovaná v měně ceníku, pokud je uvedena."
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
@@ -245,7 +248,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:partner_commission.field_res_company__commission_po_minimum
 #: model:ir.model.fields,field_description:partner_commission.field_res_config_settings__commission_po_minimum
 msgid "Minimum Total Amount for PO commission"
-msgstr ""
+msgstr "Minimální celková částka za provizi PO"
 
 #. module: partner_commission
 #: model:ir.model.fields.selection,name:partner_commission.selection__res_company__commission_automatic_po_frequency__monthly
@@ -272,7 +275,7 @@ msgstr "Pouze vlastní dokumenty"
 #. module: partner_commission
 #: model:ir.actions.server,name:partner_commission.cron_confirm_purchase_orders_ir_actions_server
 msgid "Partner Commission: confirm purchase orders"
-msgstr ""
+msgstr "Partnerská provize: potvrzení nákupních objednávek"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_res_partner_grade
@@ -304,7 +307,7 @@ msgstr "Produkt"
 #: code:addons/partner_commission/models/commission_plan.py:0
 #, python-format
 msgid "Product %s does not belong to category %s"
-msgstr ""
+msgstr "Produkt %s nepatří do kategorie %s"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__category_id
@@ -314,7 +317,7 @@ msgstr "Produktová kategorie"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__product_id
 msgid "Purchase Default Product"
-msgstr ""
+msgstr "Nákup výchozího produktu"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_purchase_order
@@ -354,19 +357,19 @@ msgstr "Hodnocení by mělo být mezi 0 a 100."
 #: model_terms:ir.ui.view,arch_db:partner_commission.sale_order_view_search_inherit_partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.sale_subscription_report_search
 msgid "Referrer"
-msgstr ""
+msgstr "Doporučitel"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_sale_order__commission
 msgid "Referrer Commission"
-msgstr ""
+msgstr "Provize doporučitele"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_account_bank_statement_line__commission_po_line_id
 #: model:ir.model.fields,field_description:partner_commission.field_account_move__commission_po_line_id
 #: model:ir.model.fields,field_description:partner_commission.field_account_payment__commission_po_line_id
 msgid "Referrer Purchase Order line"
-msgstr ""
+msgstr "Referer řádku nákupní objednávky"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__commission_rule_ids
@@ -377,7 +380,7 @@ msgstr "Pravidla"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__template_id
 msgid "Sale Order Template"
-msgstr ""
+msgstr "Šablona prodejní objednávky"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_sale_order_log_report

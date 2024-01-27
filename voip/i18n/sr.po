@@ -7,6 +7,7 @@
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
 # Milan Bojovic <mbojovic@outlook.com>, 2023
 # コフスタジオ, 2024
+# Jelena Stamatović, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: コフスタジオ, 2024\n"
+"Last-Translator: Jelena Stamatović, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,7 +63,7 @@ msgstr ""
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "1 missed call"
-msgstr "1 missed call"
+msgstr "1 propušten poziv"
 
 #. module: voip
 #. odoo-javascript
@@ -83,7 +84,7 @@ msgstr ""
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "2 missed calls"
-msgstr "2 missed calls"
+msgstr "2 propuštena poziva"
 
 #. module: voip
 #. odoo-javascript
@@ -136,7 +137,7 @@ msgstr "Naziv aktivnosti"
 #: code:addons/voip/static/src/web/call_queue_switch.js:0
 #, python-format
 msgid "Add to Call Queue"
-msgstr "Add to Call Queue"
+msgstr ""
 
 #. module: voip
 #. odoo-javascript
@@ -155,6 +156,16 @@ msgid ""
 "An error occurred during the instantiation of the User Agent:\n"
 "\n"
 "%(error)s"
+msgstr ""
+
+#. module: voip
+#. odoo-javascript
+#: code:addons/voip/static/src/core/user_agent_service.js:0
+#, python-format
+msgid ""
+"An error occurred trying to invite the following number: %(phoneNumber)s\n"
+"\n"
+"Error: %(error)s"
 msgstr ""
 
 #. module: voip
@@ -206,7 +217,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_call_from_another_device
 msgid "Call from another device"
-msgstr "Call from another device"
+msgstr "Poziv sa drugog uređaja"
 
 #. module: voip
 #. odoo-javascript
@@ -297,11 +308,6 @@ msgid ""
 "            • Ask: Always ask whether the softphone or the device's phone must be used\n"
 "        "
 msgstr ""
-"Choose the method to be used to place a call when using the mobile application:\n"
-"            • VoIP: Always use the Odoo softphone\n"
-"            • Device's phone: Always use the device's phone\n"
-"            • Ask: Always ask whether the softphone or the device's phone must be used\n"
-"        "
 
 #. module: voip
 #. odoo-javascript
@@ -396,7 +402,7 @@ msgstr "Demo"
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__phone
 msgid "Device's phone"
-msgstr "Device's phone"
+msgstr ""
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__direction
@@ -427,7 +433,7 @@ msgstr "Uredi"
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "End Call"
-msgstr "End Call"
+msgstr "Zavši poziv"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__end_date
@@ -452,7 +458,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:voip.field_res_users__external_device_number
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__external_device_number
 msgid "External device number"
-msgstr "External device number"
+msgstr "Broj spoljnog uređaja"
 
 #. module: voip
 #. odoo-javascript
@@ -493,7 +499,7 @@ msgstr "ID"
 #: model:ir.model.fields,help:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "If enabled, incoming calls will be automatically declined in Odoo."
-msgstr "If enabled, incoming calls will be automatically declined in Odoo."
+msgstr ""
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__should_call_from_another_device
@@ -503,9 +509,6 @@ msgid ""
 "device number\". Use this option to place the call in Odoo but handle it "
 "from another device - e.g. your desk phone."
 msgstr ""
-"If enabled, placing a call in Odoo will transfer the call to the \"External "
-"device number\". Use this option to place the call in Odoo but handle it "
-"from another device - e.g. your desk phone."
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__external_device_number
@@ -514,8 +517,8 @@ msgid ""
 "If the \"Call from another device\" option is enabled, calls placed in Odoo "
 "will be transfered to this phone number."
 msgstr ""
-"If the \"Call from another device\" option is enabled, calls placed in Odoo "
-"will be transfered to this phone number."
+"Ako je omogućena opcija \"Poziv sa drugog uređaja\", pozivi koji se obave u "
+"Odoo-u će biti preusmereni na ovaj broj telefona."
 
 #. module: voip
 #. odoo-javascript
@@ -582,7 +585,7 @@ msgstr ""
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__missed
 msgid "Missed"
-msgstr "Missed"
+msgstr "Propustio"
 
 #. module: voip
 #. odoo-python
@@ -625,8 +628,6 @@ msgid ""
 "No audio recording device available. The application requires a microphone "
 "in order to be used."
 msgstr ""
-"No audio recording device available. The application requires a microphone "
-"in order to be used."
 
 #. module: voip
 #. odoo-javascript
@@ -678,7 +679,7 @@ msgstr "PBX Server IP"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "PBX or Websocket address is missing. Please check your settings."
-msgstr "PBX or Websocket address is missing. Please check your settings."
+msgstr ""
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_mail_activity__phone
@@ -712,8 +713,8 @@ msgid ""
 "Please try again later. If the problem persists, you may want to ask an "
 "administrator to check the configuration."
 msgstr ""
-"Please try again later. If the problem persists, you may want to ask an "
-"administrator to check the configuration."
+"Molimo pokušajte ponovo kasnije. Ako problem i dalje postoji, možda biste "
+"želeli da zatražite od administratora da proveri konfiguraciju."
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_config_settings__mode__prod
@@ -732,7 +733,7 @@ msgstr "Nedavno"
 #: code:addons/voip/static/src/core/registerer.js:0
 #, python-format
 msgid "Registration rejected: %(statusCode)s %(reasonPhrase)s."
-msgstr "Registration rejected: %(statusCode)s %(reasonPhrase)s."
+msgstr "Registracija odbijena: %(statusCode)s %(reasonPhrase)s."
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
@@ -826,8 +827,8 @@ msgid ""
 "Some documents cannot be added to the call queue as they do not have a phone"
 " number set: %(record_names)s"
 msgstr ""
-"Some documents cannot be added to the call queue as they do not have a phone"
-" number set: %(record_names)s"
+"Neki dokumenti ne mogu biti dodati u red čekanja poziva jer nemaju "
+"postavljen broj telefona: %(record_names)s"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__start_date
@@ -854,7 +855,7 @@ msgstr ""
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_config_settings__pbx_ip
 msgid "The IP address of your PBX Server"
-msgstr "The IP address of your PBX Server"
+msgstr "IP adresa vašeg PBX servera"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_config_settings__wsServer
@@ -870,9 +871,6 @@ msgid ""
 "verify the websocket server URL in the General Settings. If the problem "
 "persists, this is probably an issue with the server."
 msgstr ""
-"The error may come from the transport layer. Please have an administrator "
-"verify the websocket server URL in the General Settings. If the problem "
-"persists, this is probably an issue with the server."
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_voip_call__activity_name
@@ -892,7 +890,7 @@ msgstr ""
 #: model:ir.model.fields,help:voip.field_res_users__voip_secret
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_secret
 msgid "The password that will be used to register with the PBX server."
-msgstr "The password that will be used to register with the PBX server."
+msgstr "Lozinka koja će se koristiti prilikom registracije na PBX serveru."
 
 #. module: voip
 #. odoo-javascript
@@ -910,9 +908,6 @@ msgid ""
 "that you are reaching the right server (PBX server IP in the General "
 "Settings) and that the credentials in your user preferences are correct."
 msgstr ""
-"The server failed to authenticate you. Please have an administrator verify "
-"that you are reaching the right server (PBX server IP in the General "
-"Settings) and that the credentials in your user preferences are correct."
 
 #. module: voip
 #. odoo-javascript
@@ -931,8 +926,6 @@ msgid ""
 "The username (typically the extension number) that will be used to register "
 "with the PBX server."
 msgstr ""
-"The username (typically the extension number) that will be used to register "
-"with the PBX server."
 
 #. module: voip
 #. odoo-javascript

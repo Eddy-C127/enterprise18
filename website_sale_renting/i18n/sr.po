@@ -7,6 +7,7 @@
 # Martin Trigaux, 2023
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
 # コフスタジオ, 2024
+# Jelena Stamatović, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: コフスタジオ, 2024\n"
+"Last-Translator: Jelena Stamatović, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,10 +44,6 @@ msgid ""
 "                rentals that last less than %(duration)s %(unit)s.\n"
 "            "
 msgstr ""
-"\n"
-"                Your rental duration was too short. Unfortunately, we do not process\n"
-"                rentals that last less than %(duration)s %(unit)s.\n"
-"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -58,10 +55,6 @@ msgid ""
 "                Unfortunately, we do not process pickups on that weekday.\n"
 "            "
 msgstr ""
-"\n"
-"                Your rental product had invalid date of pickup (%(start_date)s).\n"
-"                Unfortunately, we do not process pickups on that weekday.\n"
-"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -73,10 +66,6 @@ msgid ""
 "                Unfortunately, we do not process returns on that weekday.\n"
 "            "
 msgstr ""
-"\n"
-"                Your rental product had invalid date of return (%(end_date)s).\n"
-"                Unfortunately, we do not process returns on that weekday.\n"
-"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -89,11 +78,6 @@ msgid ""
 "                returns on those weekdays.\n"
 "            "
 msgstr ""
-"\n"
-"                Your rental product had invalid dates of pickup (%(start_date)s) and\n"
-"                return (%(end_date)s). Unfortunately, we do not process pickups nor\n"
-"                returns on those weekdays.\n"
-"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -149,7 +133,7 @@ msgstr ", .s_rental_pretraga"
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.o_wsale_offcanvas
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.products
 msgid "<b>Rental Period</b>"
-msgstr "<b>Rental Period</b>"
+msgstr " <b>Period iznajmljivanja</b>"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.rental_search_result_price
@@ -213,7 +197,7 @@ msgstr "Podešavanje konfiguracije"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.snippet_options
 msgid "Datepicker"
-msgstr "Datepicker"
+msgstr "Odabir datuma"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.s_rental_search_options
@@ -228,7 +212,7 @@ msgstr "Dani"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Days during which pickup and return are not possible."
-msgstr "Days during which pickup and return are not possible."
+msgstr "Dani tokom kojih preuzimanje i vraćanje nisu mogući."
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_fri
@@ -255,18 +239,18 @@ msgstr "Sati"
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_minimal_time_duration
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_config_settings__renting_minimal_time_duration
 msgid "Minimal Rental Duration"
-msgstr "Minimal Rental Duration"
+msgstr ""
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_minimal_time_unit
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_config_settings__renting_minimal_time_unit
 msgid "Minimal Rental Duration Unit"
-msgstr "Minimal Rental Duration Unit"
+msgstr ""
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Minimal duration between pickup and return."
-msgstr "Minimal duration between pickup and return."
+msgstr "Minimalno trajanje između preuzimanja i vraćanja."
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
@@ -296,14 +280,14 @@ msgstr "Meseci"
 #: code:addons/website_sale_renting/models/product_template.py:0
 #, python-format
 msgid "Please choose a return date that is after the pickup date."
-msgstr "Please choose a return date that is after the pickup date."
+msgstr "Molimo izaberite datum povratka koji je posle datuma preuzimanja."
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "Please select a rental period."
-msgstr "Please select a rental period."
+msgstr "Molimo odaberite period iznajmljivanja."
 
 #. module: website_sale_renting
 #: model:ir.model,name:website_sale_renting.model_product_pricelist
@@ -379,21 +363,21 @@ msgstr ""
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The pickup date cannot be in the past."
-msgstr "The pickup date cannot be in the past."
+msgstr "Datum preuzimanja ne može biti u prošlosti."
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The rental lasts less than the minimal rental duration %s"
-msgstr "The rental lasts less than the minimal rental duration %s"
+msgstr ""
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The return date should be after the pickup date."
-msgstr "The return date should be after the pickup date."
+msgstr "Datum povratka treba da bude posle datuma preuzimanja."
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_thu
@@ -443,21 +427,21 @@ msgstr "Nedelje"
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "You cannot pick up your rental on that day of the week."
-msgstr "You cannot pick up your rental on that day of the week."
+msgstr "Ne možete preuzeti svoj iznajmljeni automobil tog dana u nedelji."
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "You cannot return your rental on that day of the week."
-msgstr "You cannot return your rental on that day of the week."
+msgstr "Ne možete vratiti iznajmljeni predmet tog dana u nedelji."
 
 #. module: website_sale_renting
 #. odoo-python
 #: code:addons/website_sale_renting/models/sale_order.py:0
 #, python-format
 msgid "Your rental product cannot be pickedup in the past."
-msgstr "Your rental product cannot be pickedup in the past."
+msgstr "Vaš proizvod za iznajmljivanje ne može biti preuzet u prošlosti."
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.products_item

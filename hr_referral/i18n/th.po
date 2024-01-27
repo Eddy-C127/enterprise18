@@ -28,6 +28,9 @@ msgid ""
 " You've gained {gained} points with this progress.{new_line}It makes you a "
 "new total of {total} points. Visit {link1}this link{link2} to pick a gift!"
 msgstr ""
+"คุณได้รับ {gained} คะแนนจากความคืบหน้านี้ {new_line} "
+"ซึ่งจะทำให้คุณมีคะแนนรวมใหม่เป็น {total} คะแนน ไปที่ {link1} ลิงก์นี้ "
+"{link2} เพื่อเลือกของขวัญ!"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_recruitment_report__referral_hired
@@ -94,6 +97,8 @@ msgid ""
 "<span title=\"My Link to Share\"><i class=\"fa fa-lg fa-link\" role=\"img\" "
 "aria-label=\"My Link to Share\"/></span>"
 msgstr ""
+"<span title=\"ลิงก์ของฉันที่จะแชร์\"><i class=\"fa fa-lg fa-link\" "
+"role=\"รูปภาพ\" aria-label=\"ลิงก์ของฉันที่จะแชร์\"/></span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -164,6 +169,7 @@ msgid ""
 "Alerts will be displayed on the first screen to give information or "
 "redirects the employees"
 msgstr ""
+"การแจ้งเตือนจะแสดงบนหน้าจอแรกเพื่อให้ข้อมูลหรือเปลี่ยนเส้นทางของพนักงาน"
 
 #. module: hr_referral
 #: model:ir.model.fields,help:hr_referral.field_hr_recruitment_stage__points
@@ -1325,7 +1331,7 @@ msgstr "ข้ามและเริ่ม"
 #: code:addons/hr_referral/models/hr_applicant.py:0
 #, python-format
 msgid "Sorry, your referral %s has been refused in the recruitment process."
-msgstr ""
+msgstr "ขออภัย บุคคลที่คุณแนะนำ %s ถูกปฏิเสธในกระบวนการสรรหาบุคลากร"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_users__utm_source_id
@@ -1441,7 +1447,7 @@ msgstr ""
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.employee_referral_report_action
 msgid "This reports allow you to follow the referrals and their evolution."
-msgstr ""
+msgstr "รายงานนี้ช่วยให้คุณติดตามการอ้างอิงและวิวัฒนาการของพวกเขา"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_onboarding_tree
@@ -1449,6 +1455,8 @@ msgid ""
 "This will make the onboarding visible to all employees who have already seen"
 " it. Do you want to continue?"
 msgstr ""
+"ซึ่งจะทำให้พนักงานทุกคนที่ได้เห็นการเริ่มต้นใช้งานแล้วสามารถมองเห็นได้ "
+"คุณต้องการดำเนินการต่อหรือไม่?"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1502,6 +1510,8 @@ msgid ""
 "Unsupported search on field is_accessible_to_current_user: %s operator & %s "
 "value. Only = and != operator and boolean values are supported."
 msgstr ""
+"ไม่รองรับการค้นหาในช่อง is_accessible_to_current_user: ตัวดำเนินการ %s "
+"และค่า %s รองรับเฉพาะตัวดำเนินการ = และ != และค่าบูลีนเท่านั้น"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__url
@@ -1584,6 +1594,8 @@ msgid ""
 "You cannot delete these UTM Campaigns as they are linked to the following jobs in Referral:\n"
 "%(job_names)s"
 msgstr ""
+"คุณไม่สามารถลบแคมเปญ UTM เหล่านี้ได้ เนื่องจากเชื่อมโยงกับงานต่อไปนี้ในการอ้างอิง:\n"
+"%(job_names)s"
 
 #. module: hr_referral
 #. odoo-python
@@ -1593,6 +1605,8 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to the following users in Referral:\n"
 "%(employee_names)s"
 msgstr ""
+"คุณไม่สามารถลบแหล่งที่มา UTM เหล่านี้ได้ เนื่องจากเชื่อมโยงกับผู้ใช้ต่อไปนี้ในการอ้างอิง:\n"
+"%(employee_names)s"
 
 #. module: hr_referral
 #. odoo-python

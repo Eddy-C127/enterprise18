@@ -7,8 +7,8 @@
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
 # Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,6 +34,10 @@ msgid ""
 "                Your changes on the rental period are not taken into account.\n"
 "            "
 msgstr ""
+"\n"
+"                Uusi ajanjakso ei ole voimassa joillekin ostoskorisi tuotteille.\n"
+"                Vuokra-aikaa koskevia muutoksiasi ei oteta huomioon.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -195,7 +199,7 @@ msgstr "Kaikki"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.cart
 msgid "Applies to all rented items"
-msgstr ""
+msgstr "Koskee kaikkia vuokrattuja kohteita"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.s_rental_search_options
@@ -273,7 +277,7 @@ msgstr "Noutamisen ja palauttamisen välinen vähimmäisaika."
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Minimal time of rental"
-msgstr ""
+msgstr "Vähimmäisvuokrausaika"
 
 #. module: website_sale_renting
 #: model:ir.model,name:website_sale_renting.model_product_template
@@ -281,6 +285,8 @@ msgid ""
 "Model adding the necessary fields to products to use with Pricer electronic "
 "tags"
 msgstr ""
+"Malli tarvittavien kenttien lisäämisestä tuotteisiin Pricer-elektronisten "
+"tunnisteiden käyttöä varten"
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_mon
@@ -325,7 +331,7 @@ msgstr "Vuokraa verkossa"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.cart_summary
 msgid "Rental Period"
-msgstr ""
+msgstr "Vuokra-aika"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.snippets
@@ -335,7 +341,7 @@ msgstr "Vuokraushaku"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.cart
 msgid "Rental period"
-msgstr ""
+msgstr "Vuokra-aika"
 
 #. module: website_sale_renting
 #: model:ir.model,name:website_sale_renting.model_sale_order
@@ -361,6 +367,9 @@ msgid ""
 "Some of your rental products cannot be rented during the selected period and"
 " your cart must be updated. We're sorry for the inconvenience."
 msgstr ""
+"Joitakin vuokratuotteitasi ei voi vuokrata valitun ajanjakson aikana, ja "
+"ostoskorisi on päivitettävä. Olemme pahoillamme tästä aiheutuneesta "
+"haitasta."
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_sun
@@ -375,6 +384,8 @@ msgid ""
 "The period must be the same for all products of your cart.\n"
 "You must change the period on your cart or create different orders if you want different periods."
 msgstr ""
+"Määräajan on oltava sama kaikille ostoskorisi tuotteille.\n"
+"Sinun on muutettava ostoskorisi ajanjaksoa tai luotava eri tilauksia, jos haluat eri ajanjaksoja."
 
 #. module: website_sale_renting
 #. odoo-javascript
@@ -422,7 +433,7 @@ msgstr "Tiistai"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Unavailability days"
-msgstr ""
+msgstr "Ei-saatavilla olevat päivät"
 
 #. module: website_sale_renting
 #: model:ir.model,name:website_sale_renting.model_website

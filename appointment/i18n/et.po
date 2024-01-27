@@ -91,14 +91,14 @@ msgstr "#{day['today_cls'] and 'Today' or ''}"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "%(appointment_name)s with %(partner_name)s"
-msgstr ""
+msgstr "%(appointment_name)s koos %(partner_name)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "%(attendee_name)s - %(appointment_name)s Booking"
-msgstr ""
+msgstr "%(attendee_name)s - %(appointment_name)s Broneering"
 
 #. module: appointment
 #. odoo-python
@@ -156,6 +156,11 @@ msgstr ""
 msgid ""
 "<br/>\n"
 "                                <strong>Booking Details</strong>"
+msgstr ""
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
+msgid "Booking Details"
 msgstr ""
 
 #. module: appointment
@@ -1221,7 +1226,7 @@ msgstr ""
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Booking for %(resource_name)s"
-msgstr ""
+msgstr "Broneering %(resource_name)s jaoks"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -1687,6 +1692,11 @@ msgstr "Lõputund"
 #: model:ir.model,name:appointment.model_calendar_alarm
 msgid "Event Alarm"
 msgstr "Sündmuse teade"
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
+msgid "Event Details"
+msgstr ""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

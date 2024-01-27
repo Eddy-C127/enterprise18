@@ -18,6 +18,7 @@
 # Mihkel avalah, 2023
 # Leaanika Randmets, 2023
 # Anna, 2023
+# Kärt Villako, 2024
 # 
 msgid ""
 msgstr ""
@@ -25,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Anna, 2023\n"
+"Last-Translator: Kärt Villako, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +42,7 @@ msgstr ""
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span class=\"float-end font-small postcode\">Postcode</span>"
-msgstr ""
+msgstr "<span class=\"float-end font-small postcode\">Postikood</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -69,7 +70,7 @@ msgstr "<span class=\"font-small\">allkirjad</span>"
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid ""
 "<span>If an error is made in the payment of your Direct Debit, by</span>"
-msgstr ""
+msgstr "<span>Kui teie otsekorralduse maksega tehakse viga, siis</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -103,7 +104,7 @@ msgstr ""
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span>asks you to</span>"
-msgstr ""
+msgstr "<span>palub teil</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -244,7 +245,7 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_expiry_date
 msgid "BACS Expiry Date"
-msgstr ""
+msgstr "BACS Aegumiskuupäev"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_multi_mode
@@ -255,12 +256,12 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_payment_type
 msgid "BACS Payment Type"
-msgstr ""
+msgstr "BACS Maksetüüp"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_processing_date
 msgid "BACS Processing Date"
-msgstr ""
+msgstr "BACS Töötlemise Kuupäev"
 
 #. module: account_bacs
 #. odoo-python
@@ -578,7 +579,7 @@ msgstr "Mandaati kasutades makstud arved."
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Invoices paid with this DDI."
-msgstr ""
+msgstr "Selle DDI-ga tasutud arved."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_is_follower
@@ -621,7 +622,7 @@ msgstr "Viimati uuendatud"
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Maximum amount is %.2f."
-msgstr ""
+msgstr "Maksimaalne summa on %.2f."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_has_error
@@ -842,12 +843,12 @@ msgstr "Sõnumi kohaletoimetamise viga"
 #: model:ir.model.fields,field_description:account_bacs.field_res_company__bacs_sun
 #: model:ir.model.fields,field_description:account_bacs.field_res_config_settings__bacs_sun
 msgid "Service User Number"
-msgstr ""
+msgstr "Teenuse Kasutaja Number"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Service user number"
-msgstr ""
+msgstr "Teenuse kasutaja number"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
@@ -871,7 +872,7 @@ msgstr "Mõned maksed ületavad maksimaalset lubatud summat."
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments are not in GBP."
-msgstr ""
+msgstr "Mõned maksed ei ole GBP-s."
 
 #. module: account_bacs
 #. odoo-python
@@ -933,7 +934,7 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_expiry_date
 msgid "The date on which the file will expire."
-msgstr ""
+msgstr "Kuupäev, millal fail aegub."
 
 #. module: account_bacs
 #. odoo-python

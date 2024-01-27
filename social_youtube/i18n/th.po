@@ -195,6 +195,7 @@ msgid ""
 "Expiration date of the Access Token provided by the YouTube API, this should"
 " never be set manually."
 msgstr ""
+"วันหมดอายุของโทเค็นการเข้าถึงที่ได้รับจาก YouTube API ไม่ควรตั้งค่าด้วยตนเอง"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_access_token
@@ -275,6 +276,8 @@ msgid ""
 "Our YouTube Social application uses YouTube API Services.\n"
 "                        By using it, you implicitly agree to the:"
 msgstr ""
+"แอปพลิเคชัน YouTube Social ของเราใช้บริการ YouTube API\n"
+"                        ในการใช้งาน แสดงว่าคุณยอมรับโดยปริยายต่อ:"
 
 #. module: social_youtube
 #. odoo-python
@@ -351,7 +354,7 @@ msgstr ""
 #: code:addons/social_youtube/models/social_account.py:0
 #, python-format
 msgid "Revoking access tokens is currently limited to YouTube accounts only."
-msgstr ""
+msgstr "ขณะนี้การเพิกถอนโทเค็นการเข้าถึงจำกัดเฉพาะบัญชี YouTube เท่านั้น"
 
 #. module: social_youtube
 #. odoo-javascript
@@ -481,7 +484,7 @@ msgstr "ไม่ทราบ"
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_post__youtube_video_privacy__unlisted
 msgid "Unlisted"
-msgstr ""
+msgstr "ไม่อยู่ในรายการ"
 
 #. module: social_youtube
 #. odoo-javascript
@@ -765,7 +768,7 @@ msgstr "วิดีโอของคุณไม่มีชื่อหรื
 msgid ""
 "Your videos metadata including title and view counts (but never the video "
 "itself)"
-msgstr ""
+msgstr "ข้อมูลเมตาของวิดีโอของคุณ รวมถึงชื่อและยอดวิว (แต่ไม่ใช่วิดีโอ)"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form

@@ -150,6 +150,11 @@ msgstr ""
 "                                <strong>รายละเอียดการจอง</strong>"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
+msgid "Booking Details"
+msgstr ""
+
+#. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
 msgid ""
 "<div>\n"
@@ -719,6 +724,8 @@ msgid ""
 "<i class=\"fa fa-pencil me-2\" role=\"img\" aria-label=\"Edit\" "
 "title=\"Create custom questions in backend\"/>Add Custom Questions"
 msgstr ""
+"<i class=\"fa fa-pencil me-2\" role=\"img\" aria-label=\"Edit\" "
+"title=\"Create custom questions in backend\"/>เพิ่มคำถามที่กำหนดเอง"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -736,6 +743,8 @@ msgid ""
 "<i class=\"fa fa-video-camera fa-fw me-2 mt-1 text-muted\"/>\n"
 "                <span class=\"o_not_editable\">Online</span>"
 msgstr ""
+"<i class=\"fa fa-video-camera fa-fw me-2 mt-1 text-muted\"/>\n"
+"                <span class=\"o_not_editable\">ออนไลน์</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -821,7 +830,7 @@ msgstr "<span>ออนไลน์</span>"
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid ""
 "<span>You are scheduling a booking outside the available hours of</span>"
-msgstr ""
+msgstr "<span>คุณกำลังกำหนดเวลาการจองนอกเวลาทำการของ</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -834,6 +843,8 @@ msgid ""
 "<strong>Appointment canceled!</strong>\n"
 "                                            You can schedule another appointment from here."
 msgstr ""
+"<strong>ยกเลิกการนัดหมายแล้ว!</strong>\n"
+"                                            คุณสามารถกำหนดเวลาการนัดหมายอื่นได้จากที่นี่"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -843,6 +854,10 @@ msgid ""
 "                                            Someone has booked the same time slot a few\n"
 "                                            seconds before you."
 msgstr ""
+"<strong>การนัดหมายล้มเหลว!</strong>\n"
+"                                            ช่วงเวลาที่เลือกไม่สามารถใช้ได้อีกต่อไป\n"
+"                                            มีคนจองช่วงเวลาเดียวกันก่อนหน้าคุณ\n"
+"                                            ไม่กี่วินาที"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -851,6 +866,9 @@ msgid ""
 "                                            The selected timeslot is not available.\n"
 "                                            It appears you already have another meeting with us at that date."
 msgstr ""
+"<strong>การนัดหมายล้มเหลว!</strong>\n"
+"                                            ช่วงเวลาที่เลือกไม่พร้อมใช้งาน\n"
+"                                            ดูเหมือนว่าคุณมีการประชุมกับเราอีกครั้งในวันนั้น"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -897,7 +915,7 @@ msgstr "<strong>ประเภท</strong>"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "A %s appointment type shouldn't be limited by datetimes."
-msgstr ""
+msgstr "ประเภทการนัดหมาย %s ไม่ควรจำกัดด้วยวันที่และเวลา"
 
 #. module: appointment
 #. odoo-python
@@ -915,6 +933,7 @@ msgid ""
 "A punctual appointment type should be limited between a start and end "
 "datetime."
 msgstr ""
+"ประเภทการนัดหมายที่ตรงต่อเวลาควรถูกจำกัดระหว่างวันที่เวลาเริ่มต้นและวันที่สิ้นสุด"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__access_token
@@ -1118,7 +1137,7 @@ msgstr "ผู้ใช้/ทรัพยากร ใดๆ"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "Anytime appointment types should only have one user but got %s users"
-msgstr ""
+msgstr "ประเภทการนัดหมายทุกเวลาควรมีผู้ใช้เพียงคนเดียว แต่มีผู้ใช้ %s คน"
 
 #. module: appointment
 #. odoo-javascript
@@ -1495,7 +1514,7 @@ msgstr "จองสำหรับ %(resource_name)s"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Booking Name"
-msgstr ""
+msgstr "ชื่อการจอง"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -1585,7 +1604,7 @@ msgstr "ช่องทำเครื่องหมาย (หลายคำ�
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Choose your appointment"
-msgstr ""
+msgstr "เลือกการนัดหมายของคุณ"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__company_id
@@ -1726,6 +1745,7 @@ msgid ""
 "Create invites on the fly from your calendar and share them with anyone by "
 "using the Share Availabilities button."
 msgstr ""
+"สร้างคำเชิญได้ทันทีจากปฏิทินของคุณ และแบ่งปันกับใครก็ได้โดยใช้ปุ่มแชร์สถานะ"
 
 #. module: appointment
 #. odoo-python
@@ -1784,7 +1804,7 @@ msgstr "ลูกค้า"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid ""
 "DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL APPOINTMENTS"
-msgstr ""
+msgstr "วางบล็อกสำเร็จรูปที่นี่เพื่อให้สามารถใช้ได้กับการนัดหมายทั้งหมด"
 
 #. module: appointment
 #. odoo-python
@@ -1799,7 +1819,7 @@ msgstr "วันที่"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Date &amp; time"
-msgstr ""
+msgstr "วันที่ &amp; เวลา"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
@@ -1837,6 +1857,8 @@ msgid ""
 "Defines the type of video call link that will be used for the generated "
 "events. Keep it empty to prevent generating meeting url."
 msgstr ""
+"กำหนดประเภทของลิงก์แฮงเอาท์วิดีโอที่จะใช้สำหรับกิจกรรมที่สร้างขึ้น "
+"เว้นว่างไว้เพื่อป้องกันการสร้าง URL การประชุม"
 
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_dental_care
@@ -1918,7 +1940,7 @@ msgstr "ระยะเวลา"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Email*"
-msgstr ""
+msgstr "อีเมล*"
 
 #. module: appointment
 #. odoo-python
@@ -1942,7 +1964,7 @@ msgstr "วันที่สิ้นสุด"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__end_datetime
 msgid "End Datetime"
-msgstr ""
+msgstr "วันที่และเวลาสิ้นสุด"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__end_datetime
@@ -1958,6 +1980,11 @@ msgstr "ชั่วโมงสิ้นสุด"
 #: model:ir.model,name:appointment.model_calendar_alarm
 msgid "Event Alarm"
 msgstr "เตือนอีเวนต์"
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
+msgid "Event Details"
+msgstr ""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -2068,7 +2095,7 @@ msgstr "กลุ่มโดย"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Guest usage is limited to 10 customers for performance reason."
-msgstr ""
+msgstr "การใช้งานของแขกจำกัดอยู่ที่ลูกค้า 10 รายด้วยเหตุผลด้านประสิทธิภาพ"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -2144,21 +2171,21 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, the meeting is considered as taking place online"
-msgstr ""
+msgstr "หากว่างเปล่าจะถือว่าการประชุมเกิดขึ้นทางออนไลน์"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
 msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "canceled."
-msgstr ""
+msgstr "หากตั้งค่าไว้อีเมลจะถูกส่งไปยังลูกค้าเมื่อการนัดหมายถูกยกเลิก"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
 msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "confirmed."
-msgstr ""
+msgstr "หากตั้งค่าไว้ อีเมลจะถูกส่งไปยังลูกค้าเมื่อการนัดหมายได้รับการยืนยัน"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__active
@@ -2227,7 +2254,7 @@ msgstr "ข้อความแนะนำ"
 #: code:addons/appointment/static/src/js/appointment_validation.js:0
 #, python-format
 msgid "Invalid Email"
-msgstr ""
+msgstr "อีเมลไม่ถูกต้อง"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_invite_ids
@@ -2509,7 +2536,7 @@ msgstr "การนัดหมายใหม่เป็นค่าเริ
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_answer_input_action_from_question
 msgid "No Answers yet!"
-msgstr ""
+msgstr "ยังไม่มีคำตอบ!"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action
@@ -2733,7 +2760,7 @@ msgstr "เลือกตารางงาน..."
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Pick a work schedule to further restrict opening hours."
-msgstr ""
+msgstr "เลือกตารางการทำงานเพื่อจำกัดเวลาเปิดทำการเพิ่มเติม"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
@@ -2780,7 +2807,7 @@ msgstr "ตัวอย่าง"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Punctual"
-msgstr ""
+msgstr "ตรงต่อเวลา"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__question_id
@@ -3239,7 +3266,7 @@ msgstr "วันที่เริ่ม"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__start_datetime
 msgid "Start Datetime"
-msgstr ""
+msgstr "วันที่และเวลาเริ่ม"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__event_start
@@ -3395,7 +3422,7 @@ msgstr "ความพร้อมใช้งานครั้งแรกข
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "There is currently no appointment available"
-msgstr ""
+msgstr "ขณะนี้ไม่มีการนัดหมาย"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
@@ -3621,7 +3648,7 @@ msgstr "ผู้ใช้"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__event_videocall_source
 msgid "Videoconference Link"
-msgstr ""
+msgstr "ลิงค์การประชุมทางวิดีโอ"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__website_message_ids
@@ -3649,6 +3676,8 @@ msgid ""
 "When set, only the time slots that match both the appointment type configuration and the work schedule\n"
 "        will appear as available"
 msgstr ""
+"เมื่อตั้งค่าแล้ว เฉพาะช่วงเวลาที่ตรงกับทั้งการกำหนดค่าประเภทการนัดหมายและกำหนดการทำงานเท่านั้นที่จะ\n"
+"      ปรากฏเป็นว่าง"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select

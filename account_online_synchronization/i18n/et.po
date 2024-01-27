@@ -20,6 +20,7 @@
 # Mihkel avalah, 2023
 # Anna, 2023
 # Piia Paurson <piia@avalah.ee>, 2024
+# Kärt Villako, 2024
 # 
 msgid ""
 msgstr ""
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Piia Paurson <piia@avalah.ee>, 2024\n"
+"Last-Translator: Kärt Villako, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,18 +51,20 @@ msgid ""
 ").\n"
 "                    This might cause duplicate entries."
 msgstr ""
+").\n"
+"                   See võib tekitada topeltkirjeid."
 
 #. module: account_online_synchronization
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "0 transaction fetched"
-msgstr ""
+msgstr "0 tehingut toodud"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_form
 msgid "<i class=\"oi oi-arrow-right me-2\"/> Send Now"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right me-2\"/> Saada kohe"
 
 #. module: account_online_synchronization
 #: model:mail.template,body_html:account_online_synchronization.email_template_sync_reminder
@@ -180,11 +183,12 @@ msgstr "Konto: Online andmiku sünkroniseerimine"
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_unused_connection_cron_ir_actions_server
 msgid "Account: Journal online sync cleanup unused connections"
 msgstr ""
+"Konto: Online andmiku sünkroniseerimine puhastab kasutamata ühendused."
 
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_mail_cron_ir_actions_server
 msgid "Account: Journal online sync reminder"
-msgstr ""
+msgstr "Konto: Online andmiku sünkroniseerimise meeldetuletus"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_needaction
@@ -273,7 +277,7 @@ msgstr "Panga sünkroniseerimine: värskendage enda nõusolekut"
 #. module: account_online_synchronization
 #: model:mail.template,name:account_online_synchronization.email_template_sync_reminder
 msgid "Bank connection expiration reminder"
-msgstr ""
+msgstr "Panga ühenduse aegumise meeldetuletus"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_bank_rec_widget
@@ -289,7 +293,7 @@ msgstr "Tühista"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Choose a date and a journal from which you want to fetch transactions"
-msgstr ""
+msgstr "Valige kuupäev ja andmik, millest soovite tehinguid tuua."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__client_id
@@ -338,7 +342,7 @@ msgstr "Ühenda minu pank"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Connect your bank account to Odoo"
-msgstr ""
+msgstr "Ühendage oma pangakonto Odoo-ga"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__connected
@@ -619,7 +623,7 @@ msgstr "Sisemine viga"
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Invalid URL"
-msgstr ""
+msgstr "Vigane URL"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -694,14 +698,14 @@ msgstr "Viimane saldo"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_bank_selection
 msgid "Link a bank account to the selected journal"
-msgstr ""
+msgstr "Ühendage pangakonto valitud andmikuga"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Manual Bank Statement Lines"
-msgstr ""
+msgstr "Manuaalsed pangaväljavõtte read"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -725,7 +729,7 @@ msgstr "Sõnum"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Missing and Pending Transactions"
-msgstr ""
+msgstr "Puuduvad ja ootel tehingud"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__my_activity_date_deadline
@@ -865,7 +869,7 @@ msgstr "Planeeritud"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Please enter a valid Starting Date to continue."
-msgstr ""
+msgstr "Palun sisesta kehtiv alguskuupäev jätkamiseks."
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -879,7 +883,7 @@ msgstr "Ühendu palun uuesti oma võrgukontoga"
 #: code:addons/account_online_synchronization/wizard/account_bank_statement_line.py:0
 #, python-format
 msgid "Please select first the transactions you wish to import."
-msgstr ""
+msgstr "Palun valige esmalt tehingud, mida soovite importida."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_bank_statement_line_transient__state__posted
@@ -978,6 +982,8 @@ msgid ""
 "Security Tip: always check the domain name of this page, before clicking on "
 "the button."
 msgstr ""
+"Turvanõuanne: enne nupule klõpsamist kontrollige alati selle lehe "
+"domeeninime."
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -992,7 +998,7 @@ msgstr "Vaata veateadet"
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
 #, python-format
 msgid "Select a Bank Account"
-msgstr ""
+msgstr "Valige pangakonto"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
@@ -1098,7 +1104,7 @@ msgstr "Tehingu üksikasjad"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_bank_statement_line_transient
 msgid "Transient model for bank statement line"
-msgstr ""
+msgstr "Panga väljavõtte rea ajutine mudel"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__has_unlinked_accounts
@@ -1106,6 +1112,8 @@ msgid ""
 "True if that connection still has accounts that are not linked to an Odoo "
 "journal"
 msgstr ""
+"Tõene, kui sellel ühendusel on endiselt kontosid, mis pole seotud Odoo "
+"andmikuga"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__activity_exception_decoration
@@ -1135,7 +1143,7 @@ msgstr "Veebilehe suhtluse ajalugu"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_missing_transaction_wizard
 msgid "Wizard for missing transactions"
-msgstr ""
+msgstr "Kadunud tehingute viisard"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1168,6 +1176,7 @@ msgstr ""
 msgid ""
 "You can't find missing transactions for a journal that isn't connected."
 msgstr ""
+"Te ei saa leida puuduvaid tehinguid andmike jaoks, mis pole ühendatud."
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1196,12 +1205,12 @@ msgstr "Teil on"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "You have to select one journal to continue."
-msgstr ""
+msgstr "Te peate valima ühe andmiku jätkamiseks."
 
 #. module: account_online_synchronization
 #: model:mail.template,subject:account_online_synchronization.email_template_sync_reminder
 msgid "Your bank connection is expiring soon"
-msgstr ""
+msgstr "Teie panga ühendus aegub peagi"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
@@ -1230,7 +1239,7 @@ msgstr "Võrgu pangakonto ühendus"
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "transactions fetched"
-msgstr ""
+msgstr "tehingud toodud"
 
 #. module: account_online_synchronization
 #. odoo-javascript

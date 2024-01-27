@@ -1661,7 +1661,7 @@ msgstr "Підрахунок співробітників"
 #: code:addons/hr_payroll/models/hr_payroll_declaration_mixin.py:0
 #, python-format
 msgid "Employee Declarations"
-msgstr ""
+msgstr "Декларації співробітника"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_employee_grade_form
@@ -1781,6 +1781,8 @@ msgid ""
 "Enable this option if you don't want to display the Basic Salary on the "
 "printed pdf."
 msgstr ""
+"Увімкніть цю опцію, якщо ви не хочете відображати основну зарплату на "
+"друкованому pdf."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__date_to
@@ -1842,7 +1844,7 @@ msgstr "Фіксована сума"
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__wage_type__monthly
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__wage_type__monthly
 msgid "Fixed Wage"
-msgstr ""
+msgstr "Фіксований оклад"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_follower_ids
@@ -1908,7 +1910,7 @@ msgstr "Згенерувати"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_employee_declaration_view_tree
 msgid "Generate PDFs"
-msgstr ""
+msgstr "Створити PDF"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -1934,7 +1936,7 @@ msgstr "Створити розрахункові листи для всіх о�
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_employee_declaration__state__pdf_generated
 msgid "Generated PDF"
-msgstr ""
+msgstr "Створений PDF"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -2029,7 +2031,7 @@ msgstr "Має загальну суму"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__hide_basic_on_pdf
 msgid "Hide Basic On Pdf"
-msgstr ""
+msgstr "Приховати базу на Pdf"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__hourly_wage
@@ -2218,6 +2220,10 @@ msgid ""
 "Meal Voucher having fixed amount of 1€ per worked day can have its quantity "
 "defined in expression like worked_days['WORK100'].number_of_days."
 msgstr ""
+"Використовується в обчисленнях для відсотка та фіксованої суми. наприклад "
+"правило для ваучера на харчування з фіксованою сумою 1 євро за робочий день "
+"може мати його кількість, визначену у виразі, як "
+"worked_days['WORK100'].number_of_days."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_input__amount
@@ -2226,6 +2232,9 @@ msgid ""
 " basic salary per product can defined in expression like: result = "
 "inputs['SALEURO'].amount * contract.wage * 0.01."
 msgstr ""
+"Використовується в обчисленнях. наприклад правило для продавців, які мають "
+"1%% комісії від основної зарплати за товар, можна визначити у виразі як: "
+"result = inputs['SALEURO'].amount * contract.wage * 0.01."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__job_id
@@ -2243,7 +2252,7 @@ msgstr "John Smith"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "John123"
-msgstr ""
+msgstr "John123"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_report_view_search
@@ -2323,7 +2332,7 @@ msgstr "Назва рядка"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__lines_count
 msgid "Lines Count"
-msgstr ""
+msgstr "Підрахунок рядків"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule_category__parent_id
@@ -2596,7 +2605,7 @@ msgstr "Не допускається дублювання реєстрацій�
 #: code:addons/hr_payroll/models/hr_rule_parameter.py:0
 #, python-format
 msgid "No rule parameter with code %r was found for %s "
-msgstr ""
+msgstr "Не знайдено жодного параметра правила з кодом %s "
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__is_non_resident
@@ -2794,7 +2803,7 @@ msgstr "Без контракту"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__pdf_error
 msgid "PDF Error Message"
-msgstr ""
+msgstr "Повідомлення помилки PDF"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__pdf_file
@@ -2806,7 +2815,7 @@ msgstr "PDF-файл "
 #: code:addons/hr_payroll/models/hr_payroll_employee_declaration.py:0
 #, python-format
 msgid "PDF generation started. It will be available shortly."
-msgstr ""
+msgstr "Почалося створення PDF. Скоро буде доступно."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__paid
@@ -2848,7 +2857,7 @@ msgstr "Тип запису неповного робочого дня"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
 msgid "Part time"
-msgstr ""
+msgstr "Неповний робочий день"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__partner_id
@@ -3156,12 +3165,12 @@ msgstr "Розрахункові листи з мінусовою чистою �
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__pdf_filename
 msgid "Pdf Filename"
-msgstr ""
+msgstr "Назва файлу Pdf"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__pdf_to_generate
 msgid "Pdf To Generate"
-msgstr ""
+msgstr "Pdf для створення"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__percentage
@@ -3206,7 +3215,7 @@ msgstr "Планування"
 #: code:addons/hr_payroll/models/hr_payroll_employee_declaration.py:0
 #, python-format
 msgid "Please select the declarations for which you want to generate a PDF."
-msgstr ""
+msgstr "Будь ласка, виберіть декларації, для яких ви хочете створити PDF."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -3297,7 +3306,7 @@ msgstr "У черзі для PDF"
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_employee_declaration__state__pdf_to_generate
 msgid "Queued PDF generation"
-msgstr ""
+msgstr "Створення Queued PDF"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_rule__condition_select__range
@@ -3366,7 +3375,7 @@ msgstr "Реєстраційний номер співробітника"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Regular Hours"
-msgstr ""
+msgstr "Регулярні години"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure_type__default_struct_id
@@ -3441,7 +3450,7 @@ msgstr "Округлення"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Rue du Paradis"
-msgstr ""
+msgstr "Rue du Paradis"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__salary_rule_id
@@ -3662,12 +3671,12 @@ msgstr "Структури зарплати"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__schedule_pay
 msgid "Schedule Pay"
-msgstr ""
+msgstr "Запланувати платіж"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_employee_declaration_view_search
 msgid "Search Declarations"
-msgstr ""
+msgstr "Пошук декларацій"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
@@ -3717,7 +3726,7 @@ msgstr "Раз на півроку"
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__semi-monthly
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__semi-monthly
 msgid "Semi-monthly"
-msgstr ""
+msgstr "Раз на півмісяця"
 
 #. module: hr_payroll
 #: model:mail.template,description:hr_payroll.mail_template_new_payslip
@@ -3785,7 +3794,7 @@ msgstr "Листки для підтвердження"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Software Engineer"
-msgstr ""
+msgstr "Інженер-програміст"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3959,7 +3968,7 @@ msgstr "До договору слід застосовувати ці відп�
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip__paid_date
 msgid "The date on which the payment is made to the employee."
-msgstr ""
+msgstr "Дата виплати працівнику."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4052,7 +4061,7 @@ msgstr ""
 #: code:addons/hr_payroll/models/hr_payroll_declaration_mixin.py:0
 #, python-format
 msgid "There is no declaration to generate for the given period"
-msgstr ""
+msgstr "Немає декларації для створення за вказаний період"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4104,7 +4113,7 @@ msgstr "Це контракт на кредитний термін."
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_work_entry__is_credit_time
 msgid "This is a credit time work entry."
-msgstr ""
+msgstr "Це запис про роботу в кредит."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4437,6 +4446,11 @@ msgid ""
 "\n"
 "Missing work entries are like the Bermuda Triangle for paychecks. Let's keep your colleague's earnings from vanishing into thin air!"
 msgstr ""
+"Слідкуйте за проміжками календаря%(employee_name)s\n"
+"\n"
+"Будь ласка, заповніть відсутні робочі записи %(employee_name)s:%(time_intervals_str)s \n"
+"\n"
+"Відсутні робочі записи схожі на Бермудський трикутник для зарплати. Нехай заробіток вашого колеги не зникне в повітрі!"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_work_entry_type__round_days_type
@@ -4803,6 +4817,7 @@ msgstr ""
 #, python-format
 msgid "You must be logged in a %s company to use this feature"
 msgstr ""
+"Ви повинні бути залогінені в компанії %s для використання цієї функції"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4829,7 +4844,7 @@ msgstr ""
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "demo@email.com"
-msgstr ""
+msgstr "demo@email.com"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
