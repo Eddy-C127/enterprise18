@@ -119,7 +119,7 @@ QUnit.module("Views", {}, function () {
                     },
                     groupby: ["move_id"],
                     domain: [],
-                    fields: ["id", "name", "move_id", "move_attachment_ids"],
+                    fields: [],
                 },
             })}`,
         ]);
@@ -218,7 +218,7 @@ QUnit.module("Views", {}, function () {
                     },
                     groupby: ["move_id"],
                     domain: [],
-                    fields: ["id", "name", "move_id", "move_attachment_ids"],
+                    fields: [],
                 },
             })}`,
         ]);
