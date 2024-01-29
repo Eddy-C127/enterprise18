@@ -73,8 +73,8 @@ class AccountEdiXmlUBLPE(models.AbstractModel):
         if spot:
             vals.append({
                 'id': spot['id'],
-                'currency_name': invoice.currency_id.name,
-                'currency_dp': invoice.currency_id.decimal_places,
+                'currency_name': 'PEN',
+                'currency_dp': 2,
                 'payment_means_id': spot['payment_means_id'],
                 'payment_percent': spot['payment_percent'],
                 'amount': spot['amount'],
