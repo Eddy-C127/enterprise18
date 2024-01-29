@@ -1031,6 +1031,9 @@ class HrPayslip(models.Model):
             ('date_start', '>=', generate_from),
             ('contract_id', 'in', self.contract_id.ids),
         ])
+        work_entries_by_contract = defaultdict(lambda: self.env['hr.work.entry'])
+        for work_entry in work_entries:
+            work_entries_by_contract[work_entry.contract_id.id] += work_entry
 
         for slip in valid_slips:
             if not slip.struct_id.use_worked_day_lines:
@@ -1041,8 +1044,7 @@ class HrPayslip(models.Model):
             utc = pytz.timezone('UTC')
             date_from = slip_tz.localize(datetime.combine(slip.date_from, time.min)).astimezone(utc).replace(tzinfo=None)
             date_to = slip_tz.localize(datetime.combine(slip.date_to, time.max)).astimezone(utc).replace(tzinfo=None)
-            payslip_work_entries = work_entries.filtered_domain([
-                ('contract_id', '=', slip.contract_id.id),
+            payslip_work_entries = work_entries_by_contract[slip.contract_id].filtered_domain([
                 ('date_stop', '<=', date_to),
                 ('date_start', '>=', date_from),
             ])
