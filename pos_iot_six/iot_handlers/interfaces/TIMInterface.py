@@ -11,18 +11,16 @@ from platform import system
 from odoo.addons.hw_drivers.interface import Interface
 from odoo.addons.hw_drivers.tools import helpers
 from odoo.tools.misc import file_path
+from odoo.addons.hw_drivers.iot_handlers.lib.ctypes_terminal_driver import import_ctypes_library
+
 
 _logger = logging.getLogger(__name__)
 
 if system() == 'Windows':
     LIB_PATH = Path('odoo/addons/hw_drivers/iot_handlers/lib')
-    LIB_EXTENSION = '_w.dll'
-    IMPORT_LIBRARY = ctypes.WinDLL
     DOWNLOAD_URL = 'https://nightly.odoo.com/master/posbox/iotbox/six-timapiv23_09_w.zip'
 else:
     LIB_PATH = file_path('hw_drivers/iot_handlers/lib')
-    LIB_EXTENSION = '_l.so'
-    IMPORT_LIBRARY = ctypes.CDLL
     DOWNLOAD_URL = 'https://nightly.odoo.com/master/posbox/iotbox/six-timapiv23_09_l.zip'
 
 # Download and unzip timapi library, overwriting the existing one
@@ -47,13 +45,8 @@ else:
         _logger.error("Failed to link the TIM SDK dependent library: %s", e.output)
 
 # Import Odoo Timapi Library
-TIMAPI_LIB_PATH = f'{LIB_PATH}/tim/libsix_odoo{LIB_EXTENSION}'
-try:
-    TIMAPI = IMPORT_LIBRARY(TIMAPI_LIB_PATH)
-except IOError as e:
-    # IOError is a parent of OSError and WindowsError thrown by ctypes CDLL/WinDLL
-    _logger.error('Failed to import Six Tim library from %s: %s', TIMAPI_LIB_PATH, e)
-
+LIB_NAME = 'libsix_odoo_w.dll' if system() == 'Windows' else 'libsix_odoo_l.so'
+TIMAPI = import_ctypes_library('tim', LIB_NAME)
 
 # --- Setup library prototypes ---
 # void *six_initialize_manager(void);

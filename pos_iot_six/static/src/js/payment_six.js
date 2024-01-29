@@ -12,7 +12,7 @@ export class PaymentSix extends PaymentWorldline {
             currency: pos.currency.name,
             cid: uuid,
             posId: pos.session.name,
-            userId: pos.session.user_id[0],
+            userId: pos.session.user_id.id,
         };
     }
 

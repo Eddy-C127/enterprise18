@@ -7,6 +7,7 @@ import os
 
 from odoo.addons.hw_drivers.interface import Interface
 from odoo.addons.hw_drivers.tools.helpers import download_from_url, unzip_file
+from odoo.addons.hw_drivers.iot_handlers.lib.ctypes_terminal_driver import import_ctypes_library, create_ctypes_string_buffer
 
 libPath = Path('odoo/addons/hw_drivers/iot_handlers/lib')
 easyCTEPPath = libPath / 'ctep_w/libeasyctep.dll'
@@ -18,7 +19,7 @@ if not easyCTEPPath.exists():
 
 # Add Worldline dll path so that the linker can find the required dll files
 os.environ['PATH'] = str(libPath / 'ctep_w') + os.pathsep + os.environ['PATH']
-easyCTEP = ctypes.WinDLL(str(easyCTEPPath))
+easyCTEP = import_ctypes_library("ctep_w", "libeasyctep.dll")
 
 easyCTEP.createCTEPManager.restype = ctypes.c_void_p
 easyCTEP.connectedTerminal.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
@@ -34,7 +35,7 @@ class CTEPInterface(Interface):
 
     def get_devices(self):
         devices = {}
-        terminal_id = ctypes.create_string_buffer(1000)
+        terminal_id = create_ctypes_string_buffer()
         if easyCTEP.connectedTerminal(self.manager, terminal_id):
             devices[terminal_id.value.decode('utf-8')] = self.manager
         return devices
