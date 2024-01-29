@@ -4,13 +4,14 @@
 #
 # Translators:
 # Martin Trigaux, 2023
+# Gunther Clauwaert <gclauwae@hotmail.com>, 2023
 # Jolien De Paepe, 2023
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-04 07:54+0000\n"
+"POT-Creation-Date: 2024-01-29 14:41+0000\n"
 "PO-Revision-Date: 2023-02-03 07:08+0000\n"
 "Last-Translator: Jolien De Paepe, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -21,14 +22,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_be_hr_payroll_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.hr_contract_view_form
+msgid "(Fuel Type:"
+msgstr ""
+
+#. module: l10n_be_hr_payroll_fleet
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.dmfa_xml_report
 msgid "862"
 msgstr "862"
-
-#. module: l10n_be_hr_payroll_fleet
-#: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.res_config_settings_view_form
-msgid "<span class=\"o_form_label\">New Vehicle Request</span>"
-msgstr "<span class=\"o_form_label\">Aanvraag nieuw voertuig</span>"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.fleet_vehicle_model_view_form
@@ -48,8 +49,11 @@ msgstr "<span>/ maand</span>"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.res_config_settings_view_form
-msgid "<span>An employee cannot request a new car if there are more than </span>"
-msgstr "<span>Een werknemer kan geen nieuwe auto aanvragen als er meer zijn dan </span>"
+msgid ""
+"<span>An employee cannot request a new car if there are more than </span>"
+msgstr ""
+"<span>Een werknemer kan geen nieuwe auto aanvragen als er meer zijn dan </"
+"span>"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.report_belgium_payslip
@@ -59,7 +63,7 @@ msgstr "<strong>Bedrijfswagen</strong>"
 #. module: l10n_be_hr_payroll_fleet
 #: model:hr.salary.rule,name:l10n_be_hr_payroll_fleet.cp200_employees_salary_co2_fee
 msgid "Accounting: CO2 Fee (Employer)"
-msgstr ""
+msgstr "Boekhouding: Kosten CO2 (Werkgever)"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_fleet_vehicle__atn
@@ -143,7 +147,7 @@ msgstr "Cataloguswaarde (Incl. BTW)"
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__bike_id
 msgid "Company Bike"
-msgstr ""
+msgstr "Bedrijfsfiets"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__company_bike_depreciated_cost
@@ -194,13 +198,17 @@ msgstr "DMFA xml report"
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,help:l10n_be_hr_payroll_fleet.field_fleet_vehicle__acquisition_date
 #: model:ir.model.fields,help:l10n_be_hr_payroll_fleet.field_hr_contract__acquisition_date
-msgid "Date when the vehicle has been immatriculated"
-msgstr "Datum waarop het voertuig is geregistreerd"
+msgid "Date of vehicle registration"
+msgstr ""
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,help:l10n_be_hr_payroll_fleet.field_fleet_vehicle_model__default_recurring_cost_amount_depreciated
-msgid "Default recurring cost amount that should be applied to a new vehicle from this model"
-msgstr "Standaard terugkerende kostenbedrag dat moet worden toegapast op een nieuw voertuig van dit model"
+msgid ""
+"Default recurring cost amount that should be applied to a new vehicle from "
+"this model"
+msgstr ""
+"Standaard terugkerende kostenbedrag dat moet worden toegapast op een nieuw "
+"voertuig van dit model"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_fleet_vehicle_log_contract__recurring_cost_amount_depreciated
@@ -229,12 +237,6 @@ msgid "Fuel Type"
 msgstr "Brandstof type"
 
 #. module: l10n_be_hr_payroll_fleet
-#: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_fleet_vehicle__acquisition_date
-#: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__acquisition_date
-msgid "Immatriculation Date"
-msgstr "Registratiedatum"
-
-#. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__max_unused_cars
 msgid "Max Unused Cars"
 msgstr "Maximum ongebruikte auto's"
@@ -250,6 +252,11 @@ msgid "Model of a vehicle"
 msgstr "Model van een voertuig"
 
 #. module: l10n_be_hr_payroll_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.report_belgium_payslip
+msgid "Neno"
+msgstr ""
+
+#. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__new_bike_model_id
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.hr_contract_view_form
 msgid "New Company Bike"
@@ -262,6 +269,11 @@ msgid "New Company Car"
 msgstr "Nieuwe bedrijfswagen"
 
 #. module: l10n_be_hr_payroll_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.res_config_settings_view_form
+msgid "New Vehicle Request"
+msgstr ""
+
+#. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__available_cars_amount
 msgid "Number of available cars"
 msgstr "Aantal beschikbare auto's"
@@ -272,9 +284,22 @@ msgid "Pay Slip"
 msgstr "Loonstrook"
 
 #. module: l10n_be_hr_payroll_fleet
+#. odoo-python
+#: code:addons/l10n_be_hr_payroll_fleet/models/hr_payslip.py:0
+#, python-format
+msgid "Payslips with car different than on employee's contract"
+msgstr ""
+
+#. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__recurring_cost_amount_depreciated
 msgid "Recurring Cost Amount Depreciated"
 msgstr "Afgeschreven bedrag terugkerende kosten"
+
+#. module: l10n_be_hr_payroll_fleet
+#: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_fleet_vehicle__acquisition_date
+#: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__acquisition_date
+msgid "Registration Date"
+msgstr ""
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__new_bike
@@ -354,3 +379,8 @@ msgstr "Voertuigcontract"
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__wishlist_car_total_depreciated_cost
 msgid "Wishlist Car Total Depreciated Cost"
 msgstr "Totaal afgeschreven kosten auto op verlanglijst"
+
+#. module: l10n_be_hr_payroll_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.report_belgium_payslip
+msgid "YMM-XXX"
+msgstr ""
