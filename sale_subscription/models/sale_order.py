@@ -484,8 +484,6 @@ class SaleOrder(models.Model):
         for order in self:
             if order.sale_order_template_id and order.sale_order_template_id.plan_id:
                 order.plan_id = order.sale_order_template_id.plan_id
-            else:
-                order.plan_id = order.company_id.subscription_default_plan_id
 
     def _compute_is_renewing(self):
         self.is_renewing = False

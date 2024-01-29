@@ -10,7 +10,6 @@ from . import product
 from . import product_pricelist
 from . import product_product
 from . import res_partner
-from . import res_company
 from . import sale_order_alert
 from . import sale_order_close_reason
 from . import sale_order_line

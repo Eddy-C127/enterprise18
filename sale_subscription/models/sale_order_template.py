@@ -9,8 +9,7 @@ class SaleOrderTemplate(models.Model):
     _inherit = 'sale.order.template'
 
     is_subscription = fields.Boolean(compute='_compute_is_subscription', search='_search_is_subscription')
-    plan_id = fields.Many2one('sale.subscription.plan', string='Recurring Plan',
-                              default=lambda self: self.env.company.subscription_default_plan_id)
+    plan_id = fields.Many2one('sale.subscription.plan', string='Recurring Plan')
 
     # Duration, user duration property for access to the timedelta
     is_unlimited = fields.Boolean('Last Forever', default=True) # old recurring_rule_boundary
