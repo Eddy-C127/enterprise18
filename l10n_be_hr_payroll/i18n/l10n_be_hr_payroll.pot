@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * l10n_be_hr_payroll
+# 	* l10n_be_hr_payroll
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 12:56+0000\n"
-"PO-Revision-Date: 2024-01-22 12:56+0000\n"
+"POT-Creation-Date: 2024-01-29 14:41+0000\n"
+"PO-Revision-Date: 2024-01-29 14:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2168,6 +2168,13 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "<strong>Working Schedule</strong>"
+msgstr ""
+
+#. module: l10n_be_hr_payroll
+#: model:ir.model.constraint,message:l10n_be_hr_payroll.constraint_l10n_be_dmfa_location_unit__unique
+msgid ""
+"A DMFA location cannot be set more than once for the same company and "
+"partner."
 msgstr ""
 
 #. module: l10n_be_hr_payroll
@@ -6052,6 +6059,13 @@ msgid ""
 msgstr ""
 
 #. module: l10n_be_hr_payroll
+#: model:ir.model.constraint,message:l10n_be_hr_payroll.constraint_l10n_be_dmfa__unique
+msgid ""
+"Only one DMFA per year and per quarter is allowed. Another one already "
+"exists."
+msgstr ""
+
+#. module: l10n_be_hr_payroll
 #. odoo-python
 #: code:addons/l10n_be_hr_payroll/models/hr_contract.py:0
 #: code:addons/l10n_be_hr_payroll/models/hr_payslip.py:0
@@ -7323,6 +7337,16 @@ msgid "The DMFA Code will identify the work entry in DMFA report."
 msgstr ""
 
 #. module: l10n_be_hr_payroll
+#: model:ir.model.constraint,message:l10n_be_hr_payroll.constraint_hr_contract_check_percentage_fiscal_voluntary_rate
+msgid "The Fiscal Voluntary rate on wage should be between 0 and 100."
+msgstr ""
+
+#. module: l10n_be_hr_payroll
+#: model:ir.model.constraint,message:l10n_be_hr_payroll.constraint_hr_contract_check_percentage_ip_rate
+msgid "The IP rate on wage should be between 0 and 100."
+msgstr ""
+
+#. module: l10n_be_hr_payroll
 #. odoo-python
 #: code:addons/l10n_be_hr_payroll/models/l10n_be_281_10.py:0
 #: code:addons/l10n_be_hr_payroll/models/l10n_be_281_45.py:0
@@ -7494,6 +7518,13 @@ msgstr ""
 msgid ""
 "The following work entry types do not have any DMFA code set:\n"
 " %s"
+msgstr ""
+
+#. module: l10n_be_hr_payroll
+#: model:ir.model.constraint,message:l10n_be_hr_payroll.constraint_hr_contract_check_percentage_group_insurance_rate
+msgid ""
+"The group insurance salary sacrifice rate on wage should be between 0 and "
+"100."
 msgstr ""
 
 #. module: l10n_be_hr_payroll

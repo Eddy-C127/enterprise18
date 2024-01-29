@@ -1,6 +1,69 @@
 [main]
 host = https://www.transifex.com
 
+[o:odoo:p:odoo-17-l10n:r:documents_l10n_be_hr_payroll]
+file_filter            = documents_l10n_be_hr_payroll/i18n/<lang>.po
+source_file            = documents_l10n_be_hr_payroll/i18n/documents_l10n_be_hr_payroll.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = documents_l10n_be_hr_payroll
+replace_edited_strings = false
+keep_translations      = false
+
+[o:odoo:p:odoo-17-l10n:r:l10n_be_hr_contract_salary]
+file_filter            = l10n_be_hr_contract_salary/i18n/<lang>.po
+source_file            = l10n_be_hr_contract_salary/i18n/l10n_be_hr_contract_salary.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = l10n_be_hr_contract_salary
+replace_edited_strings = false
+keep_translations      = false
+
+[o:odoo:p:odoo-17-l10n:r:l10n_be_hr_payroll]
+file_filter            = l10n_be_hr_payroll/i18n/<lang>.po
+source_file            = l10n_be_hr_payroll/i18n/l10n_be_hr_payroll.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = l10n_be_hr_payroll
+replace_edited_strings = false
+keep_translations      = false
+
+[o:odoo:p:odoo-17-l10n:r:l10n_be_hr_payroll_account]
+file_filter            = l10n_be_hr_payroll_account/i18n/<lang>.po
+source_file            = l10n_be_hr_payroll_account/i18n/l10n_be_hr_payroll_account.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = l10n_be_hr_payroll_account
+replace_edited_strings = false
+keep_translations      = false
+
+[o:odoo:p:odoo-17-l10n:r:l10n_be_hr_payroll_dimona]
+file_filter            = l10n_be_hr_payroll_dimona/i18n/<lang>.po
+source_file            = l10n_be_hr_payroll_dimona/i18n/l10n_be_hr_payroll_dimona.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = l10n_be_hr_payroll_dimona
+replace_edited_strings = false
+keep_translations      = false
+
+[o:odoo:p:odoo-17-l10n:r:l10n_be_hr_payroll_fleet]
+file_filter            = l10n_be_hr_payroll_fleet/i18n/<lang>.po
+source_file            = l10n_be_hr_payroll_fleet/i18n/l10n_be_hr_payroll_fleet.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = l10n_be_hr_payroll_fleet
+replace_edited_strings = false
+keep_translations      = false
+
+[o:odoo:p:odoo-17-l10n:r:l10n_be_hr_payroll_sd_worx]
+file_filter            = l10n_be_hr_payroll_sd_worx/i18n/<lang>.po
+source_file            = l10n_be_hr_payroll_sd_worx/i18n/l10n_be_hr_payroll_sd_worx.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = l10n_be_hr_payroll_sd_worx
+replace_edited_strings = false
+keep_translations      = false
+
 [o:odoo:p:odoo-17:r:account_3way_match]
 file_filter            = account_3way_match/i18n/<lang>.po
 source_file            = account_3way_match/i18n/account_3way_match.pot
@@ -2475,3 +2538,4 @@ minimum_perc           = 0
 resource_name          = worksheet
 replace_edited_strings = false
 keep_translations      = false
+
