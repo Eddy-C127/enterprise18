@@ -66,13 +66,6 @@ class Project(models.Model):
         ]
         return action
 
-    def action_project_sharing(self):
-        action = super().action_project_sharing()
-        action['context'].update({
-            'fsm_mode': self.is_fsm,
-        })
-        return action
-
     def _get_projects_to_make_billable_domain(self):
         return expression.AND([
             super()._get_projects_to_make_billable_domain(),
