@@ -197,8 +197,8 @@ class L10nInGSTReturnPeriod(models.Model):
             domain = [
                 ('company_id', 'in', (record.company_ids or record.company_id).ids),
                 ('move_type', 'in', AccountMove.get_sale_types(True)),
-                ("invoice_date", ">=", record.start_date),
-                ("invoice_date", "<=", record.end_date),
+                ("date", ">=", record.start_date),
+                ("date", "<=", record.end_date),
                 ("state", "=", "posted"),
             ]
             total_by_companies = AccountMove._read_group(domain, [], ['amount_total_signed:sum'])
@@ -235,8 +235,8 @@ class L10nInGSTReturnPeriod(models.Model):
             domain = [
                 ('company_id', 'in', (record.company_ids + record.company_id).ids),
                 ('move_type', 'in', AccountMove.get_purchase_types(True)),
-                ("invoice_date", ">=", record.start_date),
-                ("invoice_date", "<=", record.end_date),
+                ("date", ">=", record.start_date),
+                ("date", "<=", record.end_date),
                 ("state", "=", "posted")
             ]
             total_by_companies = AccountMove._read_group(domain, ['company_id'], ['amount_total_signed:sum'])
@@ -310,8 +310,8 @@ class L10nInGSTReturnPeriod(models.Model):
         domain = [
             ('company_id', 'in', (self.company_ids + self.company_id).ids),
             ('move_type', 'in', self.env['account.move'].get_sale_types(True)),
-            ("invoice_date", ">=", self.start_date),
-            ("invoice_date", "<=", self.end_date),
+            ("date", ">=", self.start_date),
+            ("date", "<=", self.end_date),
             ("state", "=", "posted"),
         ]
         action = self.env['ir.actions.act_window']._for_xml_id('account.action_move_journal_line')
@@ -322,8 +322,8 @@ class L10nInGSTReturnPeriod(models.Model):
         domain = [
             ('company_id', 'in', (self.company_ids + self.company_id).ids),
             ('move_type', 'in', self.env['account.move'].get_purchase_types(True)),
-            ("invoice_date", ">=", self.start_date),
-            ("invoice_date", "<=", self.end_date),
+            ("date", ">=", self.start_date),
+            ("date", "<=", self.end_date),
             ("state", "=", "posted")
         ]
         action = self.env['ir.actions.act_window']._for_xml_id('account.action_move_journal_line')

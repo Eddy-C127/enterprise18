@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models
+from odoo import api, models
 
 
 class L10nInReportAccount(models.Model):
@@ -155,3 +155,32 @@ class L10nInReportAccount(models.Model):
                 ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
             ]
         return domain
+
+    def open_invoice_action(self):
+        action = super().open_invoice_action()
+        domain = action['domain']
+        domain.remove(('move_type', 'in', self.env['account.move'].get_sale_types(True)))
+        domain += [
+            '|',
+                '&',
+                ('move_type', '=', 'entry'),
+                ('l10n_in_pos_session_ids', '!=', False),
+            ('move_type', 'in', self.env['account.move'].get_sale_types(True)),
+        ]
+        return action
+
+    @api.depends("company_ids", "company_id")
+    def _compute_invoice_total_amount(self):
+        super()._compute_invoice_total_amount()
+        AccountMove = self.env['account.move']
+        for record in self:
+            domain = [
+                ('company_id', 'in', (record.company_ids + record.company_id).ids),
+                ("date", ">=", record.start_date),
+                ("date", "<=", record.end_date),
+                ("state", "=", "posted"),
+                ('move_type', '=', 'entry'),
+                ('l10n_in_pos_session_ids', '!=', False),
+            ]
+            total_by_companies = AccountMove._read_group(domain, [], ['amount_total_signed:sum'])
+            record.invoice_amount += total_by_companies[0][0]
