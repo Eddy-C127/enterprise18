@@ -381,10 +381,13 @@ Best Regards,
                 body_html = self.with_context(mail=True).get_followup_report_html(options)
 
                 attachment_ids = options.get('attachment_ids', partner._get_invoices_to_print(options).message_main_attachment_id.ids)
+                # If the follow-up was executed manually, the author_id will be set to the ID of the current logged-in user.
+                # Otherwise, if the follow-up is automatic, the author_id will default to OdooBot.
+                author_id = options.get('author_id', self.env.ref('base.partner_root').id)
 
                 partner.with_context(mail_post_autofollow=True, mail_notify_author=True, lang=partner.lang or self.env.user.lang).message_post(
                     partner_ids=[to_send_partner.id],
-                    author_id=partner._get_followup_responsible().partner_id.id,
+                    author_id=author_id,
                     email_from=self._get_email_from(options),
                     body=body_html,
                     subject=self._get_email_subject(options),
