@@ -201,7 +201,7 @@ class ProviderUPS(models.Model):
     def ups_rest_get_return_label(self, picking, tracking_number=None, origin_date=None):
         res = []
         ups = UPSRequest(self)
-        packages, package_names, shipment_info, ups_service_type, ups_carrier_account, cod_info = self._prepare_shipping_data(picking)
+        packages, shipment_info, ups_service_type, ups_carrier_account, cod_info = self._prepare_shipping_data(picking)
 
         check_value = ups._check_required_value(picking=picking, is_return=True)
         if check_value:
@@ -226,13 +226,13 @@ class ProviderUPS(models.Model):
                 float(result['price']), currency_order, company, order.date_order or fields.Date.today())
 
         package_labels = []
-        for track_number, label_binary_data in result.get('label_binary_data').items():
+        for track_number, label_binary_data in result.get('label_binary_data'):
             package_labels = package_labels + [(track_number, label_binary_data)]
 
         carrier_tracking_ref = "+".join([pl[0] for pl in package_labels])
         logmessage = _("Return label generated<br/>"
-                       "<b>Tracking Numbers:</b> %s<br/>"
-                       "<b>Packages:</b> %s") % (carrier_tracking_ref, ','.join(package_names))
+                        "<b>Tracking Numbers:</b> %s<br/>"
+                        "<b>Packages:</b> %s") % (carrier_tracking_ref, ','.join([p.name for p in packages if p.name]))
         if self.ups_label_file_type != 'GIF':
             attachments = [('%s-%s-%s.%s' % (self.get_return_label_prefix(), pl[0], index, self.ups_label_file_type), pl[1]) for index, pl in enumerate(package_labels)]
         else:
