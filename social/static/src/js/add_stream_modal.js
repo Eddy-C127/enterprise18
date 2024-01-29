@@ -15,6 +15,8 @@ export class AddSocialStreamDialog extends Component {
         isSocialManager: Boolean,
         onSaved: Function,
         close: Function,
+        socialMedia: Object,
+        companies: Array,
     };
 
     setup() {
