@@ -93,6 +93,7 @@ class HrContractSalary(main.HrContractSalary):
 
         payslip = payslip.with_context(
             salary_simulation=True,
+            salary_simulation_full_time=working_schedule == '100',
             origin_contract_id=new_contract.env.context['origin_contract_id'],
             lang=None
         )
