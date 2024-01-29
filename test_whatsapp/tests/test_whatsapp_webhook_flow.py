@@ -1,7 +1,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from odoo.addons.mail.controllers.thread import ThreadController
 from odoo.addons.mail.tests.common import mail_new_test_user
 from odoo.addons.test_whatsapp.tests.common import WhatsAppFullCase
+from odoo.addons.website.tools import MockRequest
 from odoo.addons.whatsapp.tests.common import MockIncomingWhatsApp
 from odoo.tests import tagged, users
 
@@ -34,6 +36,7 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
     @users('user_wa_admin')
     def test_blocklist_message(self):
         """ Test the automatic blocklist mechanism when receiving 'stop'. """
+        MailThreadController = ThreadController()
         test_record = self.test_base_record_nopartner.with_env(self.env)
         whatsapp_template = self.whatsapp_template.with_env(self.env)
 
@@ -56,6 +59,14 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
                 message_type="whatsapp_message",
             )
 
+        discuss_channel = self.assertWhatsAppDiscussChannel(
+            "32499123456", wa_account=self.whatsapp_account,
+            wa_msg_count=2, msg_count=2,
+            wa_message_fields_values={
+                'state': 'sent',
+            },
+        )
+
         with self.mockWhatsappGateway():
             self._receive_whatsapp_message(self.whatsapp_account, "Stop", "32499123456")
         # at this point, we should have 3 mail.messages and whatsapp.messages
@@ -68,15 +79,22 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
         )
 
         # make sure we have a matching entry in the blacklist table
-        blacklist_record = self.env["phone.blacklist"].sudo().search([("number", "=", "+32499123456")])
+        blacklist_record = self.env["phone.blacklist"].sudo().with_context(active_test=False).search([
+            ("number", "=", "+32499123456"),
+            ("active", "=", True),
+        ])
         self.assertTrue(bool(blacklist_record))
 
         # post a regular message: should not send through WhatsApp
-        with self.mockWhatsappGateway():
-            not_sent_message = discuss_channel.message_post(
-                body="Hello, Did it work?",
-                message_type="whatsapp_message",
+        with self.mockWhatsappGateway(), MockRequest(self.env):
+            not_sent_message_data = MailThreadController.mail_message_post(
+                'discuss.channel', discuss_channel.id,
+                {
+                    'body': 'Hello, Did it work?',
+                    'message_type': 'whatsapp_message'
+                }
             )
+            not_sent_message = self.env['mail.message'].browse(not_sent_message_data['id'])
         self.assertWAMessage("error", fields_values={
             "failure_type": "blacklisted",
             "mail_message_id": not_sent_message,
@@ -98,12 +116,22 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
             "Hello, I would like to receive messages again.",
             "32499123456",
         )
-        self.assertFalse(self.env["phone.blacklist"].sudo().search([("number", "=", "+32499123456")]))
-        with self.mockWhatsappGateway():
-            sent_message = discuss_channel.message_post(
-                body="Welcome back!",
-                message_type="whatsapp_message",
+        # should be unblacklisted
+        blacklist_record = self.env["phone.blacklist"].sudo().with_context(active_test=False).search([
+            ("number", "=", "+32499123456")
+        ])
+        self.assertEqual(len(blacklist_record), 1)
+        self.assertEqual(blacklist_record.active, False)
+
+        with self.mockWhatsappGateway(), MockRequest(self.env):
+            sent_message_data = MailThreadController.mail_message_post(
+                'discuss.channel', discuss_channel.id,
+                {
+                    'body': 'Welcome back!',
+                    'message_type': 'whatsapp_message',
+                },
             )
+            sent_message = self.env['mail.message'].browse(sent_message_data['id'])
         self.assertWAMessage("sent", fields_values={
             "failure_type": False,
             "mail_message_id": sent_message,
