@@ -1207,7 +1207,9 @@ class Payslip(models.Model):
                 work_time_rate = contract.resource_calendar_id.work_time_rate
 
             threshold = 0 if ('OUT' in worked_days and worked_days['OUT'].number_of_hours) else self._get_representation_fees_threshold(localdict)
-            if days_per_week and contract.representation_fees > threshold:
+            if days_per_week and self.env.context.get('salary_simulation_full_time'):
+                result = contract.representation_fees
+            elif days_per_week and contract.representation_fees > threshold:
                 # Only part of the representation costs are pro-rated because certain costs are fully
                 # covered for the company (teleworking costs, mobile phone, internet, etc., namely (for 2021):
                 # - 144.31 € (Tax, since 2021 - coronavirus)
