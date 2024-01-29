@@ -2,8 +2,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import uuid
+from werkzeug.urls import url_join
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class HrReferralLinkToShare(models.TransientModel):
@@ -33,8 +34,10 @@ class HrReferralLinkToShare(models.TransientModel):
         if self.job_id and not self.job_id.utm_campaign_id:
             self.job_id.utm_campaign_id = self.env['utm.campaign'].create({'name': self.job_id.name}).id
 
+        job_url = url_join(self.get_base_url(), (self.job_id.website_url or '/jobs'))
         link_tracker_values = {
-            'url': self.get_base_url() + (self.job_id.website_url or '/jobs'),
+            'title': _('Referral: %(job_url)s', job_url=job_url),
+            'url': job_url,
             'campaign_id': self.job_id.utm_campaign_id.id,
             'source_id': self.env.user.utm_source_id.id,
         }
