@@ -105,7 +105,9 @@ class FollowupManualReminder(models.TransientModel):
         Send email/sms and print the followup letter (pdf) depending on which is activated.
         Once the followup has been processed, we simply close the wizard.
         """
-        action = self.partner_id.execute_followup(self._get_wizard_options())
+        options = self._get_wizard_options()
+        options['author_id'] = self.env.user.partner_id.id
+        action = self.partner_id.execute_followup(options)
         return action or {
             'type': 'ir.actions.act_window_close',
         }

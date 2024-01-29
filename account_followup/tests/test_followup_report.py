@@ -449,7 +449,7 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
             self.partner_a._execute_followup_partner(options={'snailmail': False})
             yield
             self.assertEqual(len(message), 1)
-            self.assertEqual(message.author_id, self.env.user.partner_id)
+            self.assertEqual(message.author_id, self.env.ref('base.partner_root'), "Automatic followups should have OdooBot as the author.")
 
         # case 1: the email_from is dynamically set
         with create_and_send_email(
