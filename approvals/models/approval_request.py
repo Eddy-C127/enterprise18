@@ -110,8 +110,7 @@ class ApprovalRequest(models.Model):
             attachment_ids.unlink()
 
     def unlink(self):
-        if self.has_product:
-            self.product_line_ids.unlink()
+        self.filtered(lambda a: a.has_product).product_line_ids.unlink()
         return super().unlink()
 
     def action_get_attachment_view(self):
