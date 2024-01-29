@@ -5,36 +5,22 @@ from platform import system
 import ctypes
 from time import sleep
 from logging import getLogger
-from threading import Thread
 
-from odoo.addons.hw_drivers.driver import Driver
-from odoo.addons.hw_drivers.event_manager import event_manager
-from odoo.tools.misc import file_path
+from odoo.addons.hw_drivers.iot_handlers.lib.ctypes_terminal_driver import CtypesTerminalDriver, import_ctypes_library, CTYPES_BUFFER_SIZE, create_ctypes_string_buffer
 
 
 _logger = getLogger(__name__)
 CANCELLED_BY_POS = 2 # Error code returned when you press "cancel" in PoS
 
-if system() == 'Windows':
-    lib_extension = '_w.dll'
-    import_library = ctypes.WinDLL
-else:
-    lib_extension = '_l.so'
-    import_library = ctypes.CDLL
-
-timApi_lib_path = file_path(f"hw_drivers/iot_handlers/lib/tim/libsix_odoo{lib_extension}")
-
-try:
-    # Load library
-    timApi = import_library(timApi_lib_path)
-except IOError as e:
-    _logger.error('Failed to import Six Tim library from %s: %s', timApi_lib_path, e)
+# Load library
+LIB_NAME = 'libsix_odoo_w.dll' if system() == 'Windows' else 'libsix_odoo_l.so'
+TIMAPI = import_ctypes_library('tim', LIB_NAME)
 
 # int six_cancel_transaction(t_terminal_manager *terminal_manager)
-timApi.six_cancel_transaction.argtypes = [ctypes.c_void_p]
+TIMAPI.six_cancel_transaction.argtypes = [ctypes.c_void_p]
 
 # int six_perform_transaction
-timApi.six_perform_transaction.argtypes = [
+TIMAPI.six_perform_transaction.argtypes = [
     ctypes.c_void_p,                # t_terminal_manager *terminal_manager
     ctypes.c_char_p,                # char *pos_id
     ctypes.c_int,                   # int user_id
@@ -55,57 +41,32 @@ timApi.six_perform_transaction.argtypes = [
     ctypes.c_int,                   # int error_size
 ]
 
-class SixDriver(Driver):
+class SixDriver(CtypesTerminalDriver):
     connection_type = 'tim'
 
     def __init__(self, identifier, device):
         super(SixDriver, self).__init__(identifier, device)
         self.device_name = 'Six terminal %s' % self.device_identifier
         self.device_manufacturer = 'Six'
-        self.device_type = 'payment'
-        self.device_connection = 'network'
-        self.cid = None
-        self.owner = None
 
-        self._actions.update({
-            '': self._action_default,
-        })
-
-    @classmethod
-    def supported(cls, device):
-        # All devices with connection_type 'tim' are supported
-        return True
-
-    def _action_default(self, data):
-        if data['messageType'] == 'Transaction':
-            Thread(target=self.processTransaction, args=(data.copy(), self.data['owner'])).start()
-        elif data['messageType'] == 'Cancel':
-            Thread(target=self.cancelTransaction).start()
-
-    def processTransaction(self, transaction, owner):
-        self.cid = transaction['cid']
-        self.owner = owner
-
+    def processTransaction(self, transaction):
         if transaction['amount'] <= 0:
-            return self.send_status(error='The terminal cannot process null transactions.')
+            return self.send_status(error='The terminal cannot process null transactions.', request_data=transaction)
 
         # Notify PoS about the transaction start
-        self.send_status(stage='WaitingForCard')
+        self.send_status(stage='WaitingForCard', request_data=transaction)
 
         # Transaction buffers
-        transaction_id_size = ctypes.c_int(50)
-        transaction_id = ctypes.create_string_buffer(transaction_id_size.value)
-        receipt_size = ctypes.c_int(1000)
-        merchant_receipt = ctypes.create_string_buffer(receipt_size.value)
-        customer_receipt = ctypes.create_string_buffer(receipt_size.value)
-        card_size = ctypes.c_int(50)
-        card = ctypes.create_string_buffer(card_size.value)
-        error_code = ctypes.c_int(0)
-        error_size = ctypes.c_int(100)
-        error = ctypes.create_string_buffer(error_size.value)
+        ctypes_int_buffer_size = ctypes.c_int(CTYPES_BUFFER_SIZE)
+        transaction_id = create_ctypes_string_buffer()
+        merchant_receipt = create_ctypes_string_buffer()
+        customer_receipt = create_ctypes_string_buffer()
+        card = create_ctypes_string_buffer()
+        error_code = ctypes.c_int(CTYPES_BUFFER_SIZE)
+        error = create_ctypes_string_buffer()
 
         # Transaction
-        result = timApi.six_perform_transaction(
+        result = TIMAPI.six_perform_transaction(
             ctypes.cast(self.dev, ctypes.c_void_p), # t_terminal_manager *terminal_manager
             transaction['posId'].encode(), # char *pos_id
             ctypes.c_int(transaction['userId']), # int user_id
@@ -113,15 +74,15 @@ class SixDriver(Driver):
             ctypes.c_int(transaction['amount']), # int amount
             transaction['currency'].encode(), # char *currency_str
             transaction_id, # char *transaction_id
-            transaction_id_size, # int transaction_id_size
+            ctypes_int_buffer_size,  # int transaction_id_size
             merchant_receipt, # char *merchant_receipt
             customer_receipt, # char *customer_receipt
-            receipt_size, #int receipt_size
+            ctypes_int_buffer_size,  # int receipt_size
             card, # char *card
-            card_size, #int card_size
+            ctypes_int_buffer_size,  # int card_size
             ctypes.byref(error_code), # int *error_code
             error, # char *error
-            error_size #int error_size
+            ctypes_int_buffer_size  # int error_size
         )
 
         # Transaction successful
@@ -132,38 +93,23 @@ class SixDriver(Driver):
                 ticket_merchant=merchant_receipt.value,
                 card=card.value,
                 transaction_id=transaction_id.value,
+                request_data=transaction,
             )
         # Transaction failed
         elif result == 0:
             # If cancelled by Odoo Pos
             if error_code.value == CANCELLED_BY_POS:
                 sleep(3) # Wait a couple of seconds between cancel requests as per documentation
-                self.send_status(stage='Cancel')
+                self.send_status(stage='Cancel', request_data=transaction)
             # If an error was encountered
             else:
                 error_message = f"{error_code.value}: {error.value.decode()}"
-                self.send_status(error=error_message)
+                self.send_status(error=error_message, request_data=transaction)
         # Terminal disconnected
         elif result == -1:
             self.send_status(disconnected=True)
 
-    def cancelTransaction(self):
-        self.send_status(stage='waitingCancel')
-        if not timApi.six_cancel_transaction(ctypes.cast(self.dev, ctypes.c_void_p)):
-            self.send_status(stage='Cancel', error='Transaction could not be cancelled')
-
-    def send_status(self, value='', response=False, stage=False, ticket=False, ticket_merchant=False, card=False, transaction_id=False, error=False, disconnected=False):
-        self.data = {
-            'value': value,
-            'Stage': stage,
-            'Response': response,
-            'Ticket': ticket,
-            'TicketMerchant': ticket_merchant,
-            'Card': card,
-            'PaymentTransactionID': transaction_id,
-            'Error': error,
-            'Disconnected': disconnected,
-            'owner': self.owner or self.data['owner'],
-            'cid': self.cid,
-        }
-        event_manager.device_changed(self)
+    def cancelTransaction(self, transaction):
+        self.send_status(stage='waitingCancel', request_data=transaction)
+        if not TIMAPI.six_cancel_transaction(ctypes.cast(self.dev, ctypes.c_void_p)):
+            self.send_status(stage='Cancel', error='Transaction could not be cancelled', request_data=transaction)

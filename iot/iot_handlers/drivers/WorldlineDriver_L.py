@@ -4,20 +4,10 @@
 import ctypes
 import datetime
 import logging
-from pathlib import Path
-from time import sleep
-from queue import Queue
 
-from odoo.addons.hw_drivers.driver import Driver
-from odoo.addons.hw_drivers.event_manager import event_manager
+from odoo.addons.hw_drivers.iot_handlers.lib.ctypes_terminal_driver import CtypesTerminalDriver, ulong_pointer, double_pointer, import_ctypes_library, create_ctypes_string_buffer
 
 _logger = logging.getLogger(__name__)
-
-easyCTEPPath = Path(__file__).parent.parent / 'lib/ctep/libeasyctep.so'
-
-if easyCTEPPath.exists():
-    # Load library
-    easyCTEP = ctypes.CDLL(easyCTEPPath)
 
 # All the terminal errors can be found in the section "Codes d'erreur" here:
 # https://help.winbooks.be/pages/viewpage.action?pageId=64455643#LiaisonversleterminaldepaiementBanksysenTCP/IP-Codesd'erreur
@@ -25,6 +15,7 @@ TERMINAL_ERRORS = {
     '1802': 'Terminal is busy',
     '1803': 'Timeout expired',
     '2629': 'User cancellation',
+    '2631': 'Host cancellation',
 }
 
 # Manually cancelled by cashier, do not show these errors
@@ -33,11 +24,7 @@ IGNORE_ERRORS = [
     '2630', # Device Cancellation
 ]
 
-BUFFER_SIZE = 1000
-
-# Define pointers and argument types for ctypes function calls
-ulong_pointer = ctypes.POINTER(ctypes.c_ulong)
-double_pointer = ctypes.POINTER(ctypes.c_double)
+easyCTEP = import_ctypes_library('ctep', 'libeasyctep.so')
 
 # int startTransaction(
 easyCTEP.startTransaction.argtypes = [
@@ -63,68 +50,13 @@ easyCTEP.lastTransactionStatus.argtypes = [
     ctypes.c_char_p     # char* error
 ]
 
-class WorldlineDriver(Driver):
+class WorldlineDriver(CtypesTerminalDriver):
     connection_type = 'ctep'
-
-    DELAY_TIME_BETWEEN_TRANSACTIONS = 5  # seconds
 
     def __init__(self, identifier, device):
         super(WorldlineDriver, self).__init__(identifier, device)
-        self.device_type = 'payment'
-        self.device_connection = 'network'
         self.device_name = 'Worldline terminal %s' % self.device_identifier
         self.device_manufacturer = 'Worldline'
-        self.cid = None
-        self.owner = None
-        self.queue_actions = Queue()
-        self.terminal_busy = False
-
-        self._actions.update({
-            '': self._action_default,
-        })
-        self.next_transaction_min_dt = datetime.datetime.min
-
-    @classmethod
-    def supported(cls, device):
-        # All devices with connection_type CTEP are supported
-        return True
-
-    def _action_default(self, data):
-        data_message_type = data.get('messageType')
-        data['owner'] = self.data.get('owner')
-        _logger.debug('_action_default %s %s', data_message_type, data)
-        if data_message_type in ['Transaction', 'LastTransactionStatus']:
-            if self.terminal_busy:
-                self.send_status(error="The terminal is currently busy. Try again later.", request_data=data)
-            else:
-                self.terminal_busy = True
-                self.queue_actions.put(data)
-        elif data['messageType'] == 'Cancel':
-            self.cancelTransaction(data)
-
-    def run(self):
-        while True:
-            # If the queue is empty, the call of "get" will block and wait for it to get an item
-            action = self.queue_actions.get()
-            action_type = action.get('messageType')
-            _logger.debug("Starting next action in queue: %s", action_type)
-            if action_type == 'Transaction':
-                self.processTransaction(action)
-            elif action_type == 'LastTransactionStatus':
-                self.lastTransactionStatus(action)
-            self.terminal_busy = False
-
-    def _check_transaction_delay(self):
-        # After a payment has been processed, the display on the terminal still shows some
-        # information for about 4-5 seconds. No request can be processed during this period.
-        delay_diff = (self.next_transaction_min_dt - datetime.datetime.now()).total_seconds()
-        if delay_diff > 0:
-            if delay_diff > self.DELAY_TIME_BETWEEN_TRANSACTIONS:
-                # Theoretically not possible, but to avoid sleeping for ages, we cap the value
-                _logger.warning('Transaction delay difference is too high %.2f force set as default', delay_diff)
-                delay_diff = self.DELAY_TIME_BETWEEN_TRANSACTIONS
-            _logger.info('Previous transaction is too recent, will sleep for %.2f seconds', delay_diff)
-            sleep(delay_diff)
 
     def processTransaction(self, transaction):
         if transaction['amount'] <= 0:
@@ -136,10 +68,10 @@ class WorldlineDriver(Driver):
         self.send_status(stage='WaitingForCard', request_data=transaction)
 
         # Transaction
-        merchant_receipt = ctypes.create_string_buffer(BUFFER_SIZE)
-        customer_receipt = ctypes.create_string_buffer(BUFFER_SIZE)
-        card = ctypes.create_string_buffer(BUFFER_SIZE)
-        error_code = ctypes.create_string_buffer(BUFFER_SIZE)
+        merchant_receipt = create_ctypes_string_buffer()
+        customer_receipt = create_ctypes_string_buffer()
+        card = create_ctypes_string_buffer()
+        error_code = create_ctypes_string_buffer()
         transaction_id = transaction['TransactionID']
         transaction_amount = transaction['amount'] / 100
         transaction_action_identifier = transaction['actionIdentifier']
@@ -187,7 +119,7 @@ class WorldlineDriver(Driver):
         self._check_transaction_delay()
         self.send_status(stage='waitingCancel', request_data=transaction)
 
-        error_code = ctypes.create_string_buffer(BUFFER_SIZE)
+        error_code = create_ctypes_string_buffer()
         _logger.info("cancel transaction request")
         result = easyCTEP.abortTransaction(ctypes.byref(self.dev), error_code) # std::shared_ptr<ect::CTEPTerminal> trm
         _logger.debug("end cancel transaction request")
@@ -201,8 +133,8 @@ class WorldlineDriver(Driver):
     def lastTransactionStatus(self, request_data):
         action_identifier = ctypes.c_ulong()
         amount = ctypes.c_double()
-        time = ctypes.create_string_buffer(BUFFER_SIZE)
-        error_code = ctypes.create_string_buffer(BUFFER_SIZE)
+        time = create_ctypes_string_buffer()
+        error_code = create_ctypes_string_buffer()
         _logger.info("last transaction status request")
         result = easyCTEP.lastTransactionStatus(ctypes.byref(self.dev), ctypes.byref(action_identifier), ctypes.byref(amount), time, error_code)
         _logger.debug("end last transaction status request")
@@ -218,23 +150,10 @@ class WorldlineDriver(Driver):
             )
         else:
             error_code = error_code.value.decode('utf-8')
-            error_msg = '%s (Error code: %s)' % (TERMINAL_ERRORS.get(error_code, 'Last Transaction Status request failed'), error_code)
-            self.send_status(error=error_msg, request_data=request_data)
-
-    def send_status(self, value='', response=False, stage=False, ticket=False, ticket_merchant=False, card=False, transaction_id=False, error=False, disconnected=False, request_data=False):
-        self.data = {
-            'value': value,
-            'Stage': stage,
-            'Response': response,
-            'Ticket': ticket,
-            'TicketMerchant': ticket_merchant,
-            'Card': card,
-            'PaymentTransactionID': transaction_id,
-            'Error': error,
-            'Disconnected': disconnected,
-            'owner': request_data.get('owner'),
-            'cid': request_data.get('cid'),
-        }
-        # TODO: add `stacklevel=2` in image with python version > 3.8
-        _logger.debug('send_status data: %s', self.data, stack_info=True)
-        event_manager.device_changed(self)
+            error_msg = '%s (Error code: %s)' % (TERMINAL_ERRORS.get(error_code, 'Last Transaction was not processed correctly'), error_code)
+            self.send_status(
+                value={
+                    'error' : error_msg,
+                },
+                request_data=request_data,
+            )

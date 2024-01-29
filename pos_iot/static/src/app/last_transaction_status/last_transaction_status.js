@@ -79,16 +79,7 @@ export class LastTransactionStatusButton extends Component {
             return;
 
         this.state.pending = false;
-
-        if (data.Error) {
-            this.popup.add(ErrorPopup, {
-                title: _t('Failed to request last transaction status'),
-                body: data.Error,
-            });
-        }
-        else {
-            this.popup.add(LastTransactionPopup, data.value);
-        }
+        this.popup.add(LastTransactionPopup, data.value);
     }
 }
 
