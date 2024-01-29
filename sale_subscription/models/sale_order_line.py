@@ -28,8 +28,10 @@ class SaleOrderLine(models.Model):
         for line in self:
             if line.order_id.subscription_state != '7_upsell':
                 return 0
-            else:
-                return (line.parent_line_id.product_uom_qty if line.parent_line_id else 0) + line.product_uom_qty
+            if line.parent_line_id:
+                additional_qty = line.product_uom_qty if line.state in ('draft', 'sent') else 0
+                return line.parent_line_id.product_uom_qty + additional_qty
+            return line.product_uom_qty
 
     def _check_line_unlink(self):
         """ Override. Check whether a line can be deleted or not."""

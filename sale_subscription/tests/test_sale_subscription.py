@@ -3535,3 +3535,13 @@ class TestSubscription(TestSubscriptionCommon):
             ('2_churn', datetime.date(2024, 1, 22), '6_churn', -21.0, 0.0),
             ('0_creation', datetime.date(2024, 1, 27), '3_progress', 21.0, 21.0),
         ], "The last churn is removed")
+
+    def test_upsell_total_qty(self):
+        self.subscription.action_confirm()
+        self.subscription._create_recurring_invoice()
+        action = self.subscription.prepare_upsell_order()
+        upsell_so = self.env['sale.order'].browse(action['res_id'])
+        upsell_so.order_line.filtered(lambda l: not l.display_type).product_uom_qty = 2
+        upsell_so.action_confirm()
+        for line in upsell_so.order_line.filtered(lambda l: not l.display_type):
+            self.assertEqual(line.upsell_total, 3)
