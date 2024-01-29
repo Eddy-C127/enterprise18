@@ -59,7 +59,7 @@ QUnit.test("[technical] /ticket command gets a body as kwarg", async (assert) =>
 
 QUnit.test("canned response should work in helpdesk ticket", async () => {
     const pyEnv = await startServer();
-    pyEnv["mail.shortcode"].create({
+    pyEnv["mail.canned.response"].create({
         source: "hello",
         substitution: "Hello! How are you?",
     });
