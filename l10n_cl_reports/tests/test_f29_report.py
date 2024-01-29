@@ -59,10 +59,10 @@ class TestF29Reports(TestAccountReportsCommon):
         invoice.action_post()
         vendor_bill.action_post()
 
-    @freeze_time('2022-12-31')
+    @freeze_time('2022-01-31')
     def test_whole_report(self):
         report = self.env.ref('l10n_cl_reports.account_financial_report_f29')
-        options = self._generate_options(report, date_from=fields.Date.from_string('2022-01-01'), date_to=fields.Date.from_string('2022-12-31'))
+        options = self._generate_options(report, date_from=fields.Date.from_string('2022-01-01'), date_to=fields.Date.from_string('2022-01-31'))
         # pylint: disable=bad-whitespace
         self.assertLinesValues(
             report._get_lines(options),
@@ -73,6 +73,7 @@ class TestF29Reports(TestAccountReportsCommon):
                 ('Taxable Sales Base',                                                        ''),
                 ('Net Sales Taxed VAT',                                                   1000.0),
                 ('Exempt Sales',                                                             0.0),
+                ('Exports',                                                                  0.0),  # exports sales
                 ('Proposed Ratio Factor (%)',                                             '0.0%'),
                 ('Total Sales',                                                           1000.0),
                 ('Taxes Paid on Sale',                                                        ''),
@@ -112,22 +113,22 @@ class TestF29Reports(TestAccountReportsCommon):
             options,
         )
 
-    @freeze_time('2022-12-31')
+    @freeze_time('2022-01-31')
     def test_report_external_values(self):
         report = self.env.ref('l10n_cl_reports.account_financial_report_f29')
-        options = self._generate_options(report, date_from=fields.Date.from_string('2022-01-01'), date_to=fields.Date.from_string('2022-12-31'))
+        options = self._generate_options(report, date_from=fields.Date.from_string('2022-01-01'), date_to=fields.Date.from_string('2022-01-31'))
         fpp_rate = self.env['account.report.external.value'].create({
             'company_id': self.env.company.id,
-            'target_report_expression_id': self.env.ref('l10n_cl_reports.account_financial_report_f29_line_0103_balance').id,
+            'target_report_expression_id': self.env.ref('l10n_cl_reports.account_financial_report_f29_line_0104_balance').id,
             'name': 'Manual value',
-            'date': fields.Date.from_string('2022-12-31'),
+            'date': fields.Date.from_string('2022-01-31'),
             'value': 10,
         })
         ppm_rate = self.env['account.report.external.value'].create({
             'company_id': self.env.company.id,
             'target_report_expression_id': self.env.ref('l10n_cl_reports.account_financial_report_f29_line_0606_balance').id,
             'name': 'Manual value',
-            'date': fields.Date.from_string('2022-12-31'),
+            'date': fields.Date.from_string('2022-01-31'),
             'value': 25,
         })
         # pylint: disable=bad-whitespace
@@ -140,6 +141,7 @@ class TestF29Reports(TestAccountReportsCommon):
                 ('Taxable Sales Base',                                                           ''),
                 ('Net Sales Taxed VAT',                                                      1000.0),
                 ('Exempt Sales',                                                                0.0),
+                ('Exports',                                                                     0.0),  # exports sales
                 ('Proposed Ratio Factor (%)',                                               '10.0%'),  # FPP rate
                 ('Total Sales',                                                              1000.0),
                 ('Taxes Paid on Sale',                                                           ''),
@@ -189,6 +191,7 @@ class TestF29Reports(TestAccountReportsCommon):
                 ('Taxable Sales Base',                                                              ''),
                 ('Net Sales Taxed VAT',                                                         1000.0),
                 ('Exempt Sales',                                                                   0.0),
+                ('Exports',                                                                        0.0),  # exports sales
                 ('Proposed Ratio Factor (%)',                                                  '20.0%'),  # FPP rate
                 ('Total Sales',                                                                 1000.0),
                 ('Taxes Paid on Sale',                                                              ''),

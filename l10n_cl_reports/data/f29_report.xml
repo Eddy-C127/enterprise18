@@ -23,7 +23,7 @@
                             <record id="account_financial_report_f29_line_0101_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('account_id.code', '=', '310115'), ('tax_line_id', '=', False)]"/>
+                                <field name="formula" eval="[('account_id.code', 'in', ['310115', '310120']), ('tax_line_id', '=', False)]"/>
                                 <field name="subformula">-sum</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
@@ -31,22 +31,35 @@
                     </record>
                     <record id="account_financial_report_f29_line_0102" model="account.report.line">
                         <field name="name">Exempt Sales</field>
-                        <field name="code">CL_VEX</field>
+                        <field name="code">CL_VEXEN</field>
                         <field name="expression_ids">
                             <record id="account_financial_report_f29_line_0102_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('account_id.code', '=', '310120'), ('tax_line_id', '=', False)]"/>
+                                <field name="formula" eval="[('account_id.code', '=', '310122'), ('tax_line_id', '=', False)]"/>
                                 <field name="subformula">-sum</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
                     </record>
                     <record id="account_financial_report_f29_line_0103" model="account.report.line">
+                        <field name="name">Exports</field>
+                        <field name="code">CL_VEXPO</field>
+                        <field name="expression_ids">
+                            <record id="account_financial_report_f29_line_0103_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.code', '=', '310125'), ('tax_line_id', '=', False)]"/>
+                                <field name="subformula">-sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="account_financial_report_f29_line_0104" model="account.report.line">
                         <field name="name">Proposed Ratio Factor (%)</field>
                         <field name="code">CL_FPP_RATE</field>
                         <field name="expression_ids">
-                            <record id="account_financial_report_f29_line_0103_balance" model="account.report.expression">
+                            <record id="account_financial_report_f29_line_0104_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">external</field>
                                 <field name="formula">most_recent</field>
@@ -56,14 +69,14 @@
                             </record>
                         </field>
                     </record>
-                    <record id="account_financial_report_f29_line_0104" model="account.report.line">
+                    <record id="account_financial_report_f29_line_0105" model="account.report.line">
                         <field name="name">Total Sales</field>
-                        <field name="code">CL_TOTVEN</field>
+                        <field name="code">CL_TOTVENT</field>
                         <field name="expression_ids">
-                            <record id="account_financial_report_f29_line_0104_balance" model="account.report.expression">
+                            <record id="account_financial_report_f29_line_0105_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">CL_VNGI.balance + CL_VEX.balance</field>
+                                <field name="formula">CL_VNGI.balance + CL_VEXEN.balance + CL_VEXPO.balance</field>
                                 <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
@@ -427,7 +440,7 @@
                             <record id="account_financial_report_f29_line_0607_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">CL_TOTVEN.balance * CL_PPM_RATE.balance / 100</field>
+                                <field name="formula">CL_TOTVENT.balance * CL_PPM_RATE.balance / 100</field>
                                 <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
