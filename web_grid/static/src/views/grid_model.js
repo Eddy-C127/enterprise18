@@ -10,10 +10,6 @@ import { Model } from "@web/model/model";
 
 const { DateTime, Interval } = luxon;
 
-let sectionId = 0;
-let rowId = 0;
-let columnId = 0;
-
 export class GridCell {
     /**
      * Constructor
@@ -110,7 +106,7 @@ export class GridRow {
         this._dataPoint = dataPoint;
         this.cells = {};
         this.valuePerFieldName = valuePerFieldName;
-        this.id = rowId++;
+        this.id = dataPoint.rowId++;
         this.model = dataPoint.model;
         this.section = section;
         if (section) {
@@ -227,7 +223,7 @@ export class GridRow {
 export class GridSection extends GridRow {
     constructor() {
         super(...arguments);
-        this.sectionId = sectionId++;
+        this.sectionId = this._dataPoint.sectionId++;
         this.rows = {};
         this.isSection = true;
         this.lastRow = null;
@@ -317,7 +313,7 @@ export class GridColumn {
         this.title = title;
         this.value = value;
         this.cells = [];
-        this.id = columnId++;
+        this.id = dataPoint.columnId++;
         this.grandTotal = 0;
         this.readonly = readonly;
     }
@@ -376,6 +372,9 @@ export class GridDataPoint {
         this.rowFields = rowFields;
         this.sectionField = sectionField;
         this.searchParams = searchParams;
+        this.sectionId = 0;
+        this.rowId = 0;
+        this.columnId = 0;
     }
 
     get orm() {
@@ -1104,7 +1103,6 @@ export class GridModel extends Model {
      * @return {Promise<void>}
      */
     async load(params = {}) {
-        sectionId = rowId = columnId = 0;
         const searchParams = {
             ...this.searchParams,
             ...params,
