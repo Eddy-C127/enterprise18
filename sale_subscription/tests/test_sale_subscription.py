@@ -1816,11 +1816,19 @@ class TestSubscription(TestSubscriptionCommon):
                 'product_template_id': product2.id,
                 'product_variant_ids': [],
             })
+
+        with self.assertRaises(UserError):
+            Pricing.create({
+                'plan_id': self.plan_month.id,
+                'price': 32,
+                'product_template_id': product2.id,
+                'product_variant_ids': [],
+            })
             Pricing.create({
                 'plan_id': self.plan_month.id,
                 'price': 88,
                 'product_template_id': product2.id,
-                'product_variant_ids': [],
+                'product_variant_ids': [Command.set([product2_product_1.id])],
             })
 
     def test_upsell_parent_line_id(self):

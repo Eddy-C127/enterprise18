@@ -27,15 +27,25 @@ class SaleSubscriptionPricing(models.Model):
 
     @api.constrains('plan_id', 'pricelist_id', 'product_template_id', 'product_variant_ids')
     def _unique_pricing_constraint(self):
-        pricings_per_group = self.read_group(
-            ['|', ('product_template_id', 'in', self.product_template_id.ids), ('product_variant_ids', 'in', self.product_variant_ids.ids)],
-            ['product_variant_ids:array_agg'],
-            ['product_template_id', 'plan_id', 'pricelist_id'], lazy=False)
-        for pricings in pricings_per_group:
-            if pricings['__count'] < 2:
-                continue
-            if len(set(pricings['product_variant_ids'])) != len(pricings['product_variant_ids']):
-                raise UserError(_("There are multiple pricings for an unique product, plan and pricelist."))
+        pricings_per_group = self._read_group(
+            domain=[
+                ('product_template_id', 'in', self.product_template_id.ids),
+                ('plan_id', 'in', self.plan_id.ids),
+                ('pricelist_id', 'in', self.pricelist_id.ids + ([False] if not self.filtered('pricelist_id') else [])),
+            ],
+            groupby=['product_template_id', 'plan_id', 'pricelist_id'],
+            aggregates=['id:recordset'],
+            having=[('__count', '>', 1)],
+        )
+        for product_template, __, __, pricings in pricings_per_group:
+            already_covered = set()
+            for pricing in pricings:
+                pricing_covered = pricing.product_variant_ids.ids
+                if not pricing_covered:
+                    pricing_covered = product_template.product_variant_ids.ids
+                if not already_covered.isdisjoint(pricing_covered):
+                    raise UserError(_("There are multiple pricings for an unique product, plan and pricelist."))
+                already_covered.update(pricing_covered)
 
     @api.constrains('pricelist_id')
     def _unique_company_contraint(self):
