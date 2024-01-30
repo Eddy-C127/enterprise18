@@ -151,6 +151,30 @@ class TestKnowledgeArticleBusiness(KnowledgeCommonBusinessCase):
         with self.assertRaises(exceptions.AccessError):
             Article.article_create(title=_title, parent_id=private_nonmember.id, is_private=False)
 
+    @users('employee')
+    def test_article_get_sidebar_articles(self):
+        """ Testing the main access point for the sidebar. """
+        playground_root = self.article_workspace.with_env(self.env)
+        playground_children = self.workspace_children.with_env(self.env)
+        shared_root = self.article_shared.with_env(self.env)
+        # all articles are folded, expect only roots and no favorite
+        sidebar_articles = self.env['knowledge.article'].get_sidebar_articles()
+        self.assertListEqual(sidebar_articles['favorite_ids'], [])
+        self.assertListEqual([article['id'] for article in sidebar_articles['articles']], (shared_root + playground_root).ids)
+        # add both articles as favorite, favorite_ids should be populated
+        (playground_root + shared_root).action_toggle_favorite()
+        sidebar_articles = self.env['knowledge.article'].get_sidebar_articles()
+        self.assertListEqual(sidebar_articles['favorite_ids'], (playground_root + shared_root).ids)
+        # remove access to shared article, favorite_ids should have one element and only playground should be kept
+        shared_root.sudo()._add_members(self.partner_employee, 'none', True)
+        sidebar_articles = self.env['knowledge.article'].get_sidebar_articles()
+        self.assertListEqual(sidebar_articles['favorite_ids'], playground_root.ids)
+        self.assertListEqual([article['id'] for article in sidebar_articles['articles']], playground_root.ids)
+        # unfold playground, should contain its children
+        sidebar_articles = self.env['knowledge.article'].get_sidebar_articles(playground_root.ids)
+        self.assertListEqual(sidebar_articles['favorite_ids'], [playground_root.id])
+        self.assertListEqual([article['id'] for article in sidebar_articles['articles']], (playground_children + playground_root).ids)
+
     @mute_logger('odoo.addons.base.models.ir_rule', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
     @users('employee')
     def test_article_invite_members(self):

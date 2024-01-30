@@ -2914,7 +2914,7 @@ class Article(models.Model):
 
         favorite_articles_ids = self.env['knowledge.article.favorite'].sudo().search(
             [("user_id", "=", self.env.user.id), ('is_article_active', '=', True)]
-        ).article_id.ids
+        ).article_id.filtered(lambda article: article.user_has_access).ids
 
         # Add favorite articles and items (they are root articles in the
         # favorite tree)
