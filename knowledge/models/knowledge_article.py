@@ -1299,6 +1299,14 @@ class Article(models.Model):
           * To avoid 'restoring' an article that will not appear anywhere on
             the knowledge home page, make the article a root article.
         """
+        for article_item in self.filtered(lambda article: article.is_article_item \
+                                        and article.parent_id not in self \
+                                        and article.parent_id.sudo().to_delete):
+            raise UserError(
+                _('"%(article_item_name)s" is an Article Item from "%(article_name)s" and cannot be restored on its own. Contact the owner of "%(article_name)s" to have it restored instead.',
+                    article_item_name=article_item.display_name,
+                    article_name=article_item.parent_id.display_name))
+
         writable_descendants = self.with_context(active_test=False)._detach_unwritable_descendants().with_env(self.env)
         res = super(Article, self + writable_descendants).action_unarchive()
         # Trash management: unarchive removes the article from the trash
