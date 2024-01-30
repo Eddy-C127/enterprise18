@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields
+from odoo import models, fields, _
 
 
 class HrEmployee(models.Model):
@@ -55,4 +55,13 @@ class HrEmployee(models.Model):
             'res_model': 'sign.request',
             'view_ids': [(view_id, 'kanban'), (False, 'tree')],
             'domain': [('id', 'in', sign_request_ids.ids)]
+        }
+
+    def _open_sign_document_wizard(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Signature Request'),
+            'res_model': 'hr.contract.sign.document.wizard',
+            'view_mode': 'form',
+            'target': 'new',
         }

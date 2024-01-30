@@ -33,12 +33,11 @@ class HrContractSignDocumentWizard(models.TransientModel):
             defaults['responsible_id'] = contract.hr_responsible_id
         else:
             defaults['responsible_id'] = self.env.user
-        active_id = self.env.context.get('active_id')
         active_model = self.env.context.get('active_model', '')
         if active_model == 'hr.contract':
-            defaults['contract_id'] = active_id
+            defaults['contract_id'] = self.env.context.get('active_id')
         elif active_model == 'hr.employee':
-            defaults['employee_ids'] = [(4, active_id)]
+            defaults['employee_ids'] = [Command.set(self.env.context.get('active_ids'))]
         return defaults
 
     contract_id = fields.Many2one(
