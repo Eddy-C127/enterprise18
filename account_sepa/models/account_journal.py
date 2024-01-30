@@ -332,8 +332,7 @@ class AccountJournal(models.Model):
 
     def _skip_CdtrAgt(self, partner_bank, pain_version):
         return (
-            self.env.context.get('skip_bic', False)
-            or not partner_bank.bank_id.bic
+            not partner_bank.bank_id.bic
             or (
                 # Creditor Agent can be omitted with IBAN and QR-IBAN accounts
                 pain_version == 'pain.001.001.03.ch.02'
