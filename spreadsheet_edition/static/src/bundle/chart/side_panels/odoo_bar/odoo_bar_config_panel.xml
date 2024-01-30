@@ -3,21 +3,15 @@
         t-inherit="spreadsheet_edition.CommonOdooChartConfigPanel"
         t-inherit-mode="primary"
     >
-        <xpath expr="//div[hasclass('o-section')][1]" position="before">
-            <div class="o-section pt-0">
-                <label>
-                    <div class="o_checkbox">
-                        <input
-                            type="checkbox"
-                            name="stackedBar"
-                            t-att-checked="props.definition.stacked"
-                            t-on-change="onUpdateStacked"
-                            class="align-middle"
-                        />
-                        Stacked barchart
-                    </div>
-                </label>
-            </div>
+        <xpath expr="//Section[1]" position="before">
+            <Section class="'pt-0'">
+                <Checkbox
+                    name="'stackedBar'"
+                    label="stackedLabel"
+                    value="props.definition.stacked"
+                    onChange.bind="onUpdateStacked"
+                />
+            </Section>
         </xpath>
     </t>
 </odoo>

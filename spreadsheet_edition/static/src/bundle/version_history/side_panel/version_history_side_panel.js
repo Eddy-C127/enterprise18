@@ -2,12 +2,16 @@
 
 import { Component, onMounted, useRef, useState } from "@odoo/owl";
 import { VersionHistoryItem } from "./version_history_item";
+import { components } from "@odoo/o-spreadsheet";
+
+const { Section } = components;
 
 export class VersionHistorySidePanel extends Component {
     static template = "spreadsheet_edition.VersionHistory";
     static props = { onCloseSidePanel: Function };
     static components = {
         VersionHistoryItem,
+        Section,
     };
 
     revNbr = 50;

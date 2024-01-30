@@ -27,7 +27,9 @@
       </div>
 
       <t t-if="!revisions.length">
-        <div class="o-section">There are no prior revisions for this spreadsheet.</div>
+        <Section>
+          There are no prior revisions for this spreadsheet.
+        </Section>
         <div class="o-sidePanelButtons">
           <button t-on-click="props.onCloseSidePanel" class="o-sidePanelButton">Back</button>
         </div>

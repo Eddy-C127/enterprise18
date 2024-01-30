@@ -94,21 +94,21 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
 
         // checked by default
         assert.strictEqual(model.getters.getChart(chartId).stacked, true);
-        assert.containsOnce(target, ".o_checkbox input:checked", "checkbox should be checked");
+        assert.containsOnce(target, ".o-checkbox input:checked", "checkbox should be checked");
 
         // uncheck
-        await click(target, ".o_checkbox input:checked");
+        await click(target, ".o-checkbox input:checked");
         assert.strictEqual(model.getters.getChart(chartId).stacked, false);
         assert.containsNone(
             target,
-            ".o_checkbox input:checked",
+            ".o-checkbox input:checked",
             "checkbox should no longer be checked"
         );
 
         // check
-        await click(target, ".o_checkbox input[name='stackedBar']");
+        await click(target, ".o-checkbox input[name='stackedBar']");
         assert.strictEqual(model.getters.getChart(chartId).stacked, true);
-        assert.containsOnce(target, ".o_checkbox input:checked", "checkbox should be checked");
+        assert.containsOnce(target, ".o-checkbox input:checked", "checkbox should be checked");
     });
 
     QUnit.test("Change the title of a chart", async (assert) => {
@@ -184,18 +184,18 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
         const select = target.querySelector(".o-type-selector");
         select.value = "odoo_line";
         await triggerEvent(select, null, "change");
-        await click(target, ".o_checkbox input[name='stackedBar']");
-        await click(target, ".o_checkbox input[name='cumulative']");
+        await click(target, ".o-checkbox input[name='stackedBar']");
+        await click(target, ".o-checkbox input[name='cumulative']");
         // check
         assert.strictEqual(model.getters.getChart(chartId).cumulative, true);
-        assert.containsOnce(target, ".o_checkbox input:checked", "checkbox should be checked");
+        assert.containsOnce(target, ".o-checkbox input:checked", "checkbox should be checked");
 
         // uncheck
-        await click(target, ".o_checkbox input[name='cumulative']");
+        await click(target, ".o-checkbox input[name='cumulative']");
         assert.strictEqual(model.getters.getChart(chartId).cumulative, false);
         assert.containsNone(
             target,
-            ".o_checkbox input:checked",
+            ".o-checkbox input:checked",
             "checkbox should no longer be checked"
         );
     });

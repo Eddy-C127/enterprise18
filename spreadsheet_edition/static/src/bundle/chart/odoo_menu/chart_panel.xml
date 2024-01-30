@@ -1,12 +1,12 @@
 <odoo>
 
     <t t-name="spreadsheet_edition.OdooMenuChartPanelSection">
-        <div class="o-section">
-            <div class="o-section-title">Link to Odoo menu</div>
+        <Section>
+            <t t-set-slot="title">Link to Odoo menu</t>
             <IrMenuSelector
                 menuId="odooMenuId"
                 onValueChanged.bind="updateOdooLink"/>
-        </div>
+        </Section>
     </t>
 
     <t t-name="spreadsheet_edition.LineBarPieConfigPanel"

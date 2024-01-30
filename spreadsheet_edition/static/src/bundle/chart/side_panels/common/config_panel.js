@@ -6,12 +6,14 @@ import { DomainSelector } from "@web/core/domain_selector/domain_selector";
 import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_selector_dialog";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
+import { components } from "@odoo/o-spreadsheet";
 
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
+const { Section } = components;
 
 export class CommonOdooChartConfigPanel extends Component {
     static template = "spreadsheet_edition.CommonOdooChartConfigPanel";
-    static components = { IrMenuSelector, DomainSelector };
+    static components = { IrMenuSelector, DomainSelector, Section };
     static props = {
         figureId: String,
         definition: Object,
