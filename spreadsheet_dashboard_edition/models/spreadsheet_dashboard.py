@@ -30,6 +30,7 @@ class SpreadsheetDashboard(models.Model):
         return {
             "snapshot": snapshot,
             "revisions": revisions,
+            "default_currency": data["default_currency"],
         }
 
     @api.depends("name")
