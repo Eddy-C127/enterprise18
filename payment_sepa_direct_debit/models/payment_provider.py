@@ -5,6 +5,8 @@ from datetime import datetime
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, ValidationError
 
+from odoo.addons.payment import utils as payment_utils
+from odoo.addons.payment.const import REPORT_REASONS_MAPPING
 from odoo.addons.payment_sepa_direct_debit import const
 
 
@@ -74,17 +76,26 @@ class PaymentProvider(models.Model):
     #=== BUSINESS METHODS ===#
 
     @api.model
-    def _get_compatible_providers(self, *args, is_validation=False, **kwargs):
+    def _get_compatible_providers(self, *args, is_validation=False, report=None, **kwargs):
         """ Override of `payment` to unlist SDD providers for validation flows.
 
         Tokens are created automatically once the direct transaction is confirmed, but cannot be
         created through validation flows.
         """
-        providers = super()._get_compatible_providers(*args, is_validation=is_validation, **kwargs)
+        providers = super()._get_compatible_providers(
+            *args, is_validation=is_validation, report=report, **kwargs
+        )
 
         if is_validation:
+            unfiltered_providers = providers
             providers = providers.filtered(
                 lambda p: p.code != 'custom' or p.custom_mode != 'sepa_direct_debit'
+            )
+            payment_utils.add_to_report(
+                report,
+                unfiltered_providers - providers,
+                available=False,
+                reason=REPORT_REASONS_MAPPING['validation_not_supported'],
             )
 
         return providers
