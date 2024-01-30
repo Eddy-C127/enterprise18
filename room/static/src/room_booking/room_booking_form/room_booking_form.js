@@ -33,18 +33,13 @@ export class RoomBookingForm extends Component {
             bookingEnd: this.props.bookingToEdit?.interval.end,
             bookingName: this.props.bookingToEdit?.name || this.props.bookingName,
         });
-        this.bookingsByDate = this.computeBookingsByDate(
-            this.props.bookings,
-            this.props.bookingToEdit?.id,
-        );
         this.weekInterval = luxon.Interval.fromDateTimes(
             this.state.selectedDay.startOf("week"),
             this.state.selectedDay.endOf("week"),
         );
 
         /**
-         * View the selected booking to edit or recompute the bookingsByDate
-         * if the list of bookings changed
+         * View the selected booking to edit
          */
         onWillUpdateProps((nextProps) => {
             if (nextProps.bookingToEdit !== this.props.bookingToEdit) {
@@ -62,10 +57,6 @@ export class RoomBookingForm extends Component {
                 this.state.bookingEnd = nextProps.bookingToEdit.interval.end;
                 this.state.bookingName = nextProps.bookingToEdit.name;
             }
-            this.bookingsByDate = this.computeBookingsByDate(
-                nextProps.bookings,
-                nextProps.bookingToEdit?.id,
-            );
         });
 
         /**
@@ -111,6 +102,15 @@ export class RoomBookingForm extends Component {
     //----------------------------------------------------------------------
     // Getters
     //----------------------------------------------------------------------
+
+    /**
+     * Return the bookings grouped by date.
+     * This getter is a fix allowing the view to be reactive to booking updates received through
+     * the bus.
+     */
+    get bookingsByDate() {
+        return this.computeBookingsByDate(this.props.bookings, this.props.bookingToEdit?.id);
+    }
 
     /**
      * Return the formatted month of the selected week.
