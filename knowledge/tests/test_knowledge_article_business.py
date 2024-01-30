@@ -10,6 +10,7 @@ from urllib import parse
 
 from odoo import exceptions
 from odoo.addons.knowledge.tests.common import KnowledgeCommonWData
+from odoo.exceptions import UserError
 from odoo.tests.common import tagged, users
 from odoo.tools import mute_logger
 
@@ -1396,6 +1397,31 @@ class TestKnowledgeArticleRemoval(KnowledgeCommonBusinessCase):
         with self.assertRaises(exceptions.AccessError,
                                msg="ACLs: unlink is not accessible to employees"):
             article_workspace.unlink()
+
+    def test_unarchive_article_items_having_archived_parent(self):
+        """ Check that the user can not unarchive an article item whose parent is archived. """
+        parent_article = self.env['knowledge.article'].create({
+            'active': False,
+            'to_delete': True,
+            'name': 'Parent article',
+        })
+        article_item = self.env['knowledge.article'].create({
+            'active': False,
+            'to_delete': True,
+            'name': 'Article item',
+            'parent_id': parent_article.id,
+            'is_article_item': True,
+        })
+
+        with self.assertRaises(UserError):
+            article_item.action_unarchive()
+
+        (parent_article + article_item).action_unarchive()
+        self.assertTrue(parent_article.active)
+        self.assertFalse(parent_article.to_delete)
+        self.assertTrue(article_item.active)
+        self.assertFalse(article_item.to_delete)
+        self.assertEqual(article_item.parent_id, parent_article)
 
 
     @users('employee')
