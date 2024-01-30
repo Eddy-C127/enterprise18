@@ -122,6 +122,7 @@ class RequestAppraisal(models.TransientModel):
         }
         context_self = self.with_context(ctx)
         subject = context_self._render_field('subject', appraisal.ids)[appraisal.id]
+        context_self.body = context_self.body.replace('href', 't-att-href')
         body = context_self._render_field('body', appraisal.ids)[appraisal.id]
 
         appraisal.with_context(mail_post_autofollow=True).message_post(
