@@ -15,34 +15,25 @@
                     <p style="margin: 0px; padding: 0px;">
                         <t t-if="object.id != object.commercial_partner_id.id">Dear <t t-out="object.name or ''"/> (<t t-out="object.commercial_partner_id.name or ''"/>),</t>
                         <t t-else="">Dear <t t-out="object.name or ''"/>,</t>
-                        <br />
-                    </p>
-                    <p>
+                        <br/>
                         It has come to our attention that you have an outstanding balance of <t t-out="format_amount(object.total_overdue, object.currency_id) or ''"/>
-                        <br />
-                    </p>
-                    <p>
+                        <br/>
                         We kindly request that you take necessary action to settle this amount within the next 8 days.
-                    </p>
-                    <p>
+                        <br/>
                         If you have already made the payment after receiving this message, please disregard it.
                         Our accounting department is available if you require any assistance or have any questions.
-                        <br />
-                    </p>
-                    <p>
+                        <br/>
                         Thank you for your cooperation.
-                        <br />
-                    </p>
-                    <p>
+                        <br/>
                         Sincerely,
                         <t t-if="not is_html_empty(object._get_followup_responsible().signature)">
-                            <br />
+                            <br/>
                             <t t-out="object._get_followup_responsible().signature"/>
                         </t>
                         <t t-else="">
-                            <br />
+                            <br/>
                             --
-                            <br />
+                            <br/>
                             <t t-out="object._get_followup_responsible().name"/>
                         </t>
                     </p>
