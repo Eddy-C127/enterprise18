@@ -1,8 +1,8 @@
 /** @odoo-module **/
 
-import { getFixture, nextTick } from "@web/../tests/helpers/utils";
+import { getFixture, nextTick, click } from "@web/../tests/helpers/utils";
 import { doAction } from "@web/../tests/webclient/helpers";
-import { createDocumentWebClient, actionId } from "./action_utils";
+import { createDocumentWebClient, actionId, defaultMockRPC } from "./action_utils";
 import { signInfoService } from "@sign/services/sign_info_service";
 import { registry } from "@web/core/registry";
 
@@ -51,7 +51,7 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
     });
 
     QUnit.test("simple rendering", async function (assert) {
-        assert.expect(7);
+        assert.expect(9);
 
         const getDataFromHTML = () => {
             assert.step("getDataFromHTML");
@@ -63,6 +63,14 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
             actionContext: {
                 need_to_sign: true,
             },
+            mockRPC: (route) => {
+                if (route === "/web/dataset/call_kw/sign.request.item/send_signature_accesses") {
+                    assert.step("send_messages");
+                    return true;
+                } else {
+                    return defaultMockRPC(route);
+                }
+            }
         };
 
         const webClient = await createDocumentWebClient(config, serverData);
@@ -87,6 +95,11 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
             "Send"
         );
         assert.containsOnce(target, ".d-xl-inline-flex .o_sign_sign_directly");
+
+        // click on resend
+        await click(target.querySelectorAll(".o_sign_resend_access_button")[0]);
+        assert.verifySteps(["send_messages"]);
+
     });
 
     QUnit.test("do not crash when leaving the action", async function (assert) {

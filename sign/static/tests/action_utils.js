@@ -5,7 +5,7 @@ import { createWebClient } from "@web/../tests/webclient/helpers";
 import { Document } from "@sign/components/sign_request/document_signable";
 
 export const actionId = 9;
-const defaultMockRPC = (route) => {
+export const defaultMockRPC = (route) => {
     if (route === "/sign/get_document/5/abc") {
         return Promise.resolve({
             html: `

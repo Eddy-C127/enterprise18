@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { user } from "@web/core/user";
 import { _t } from "@web/core/l10n/translation";
 import { Component, useEffect, useComponent, markup } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
@@ -15,7 +16,7 @@ function useResendButtons() {
             "sign.request.item",
             "send_signature_accesses",
             [signRequestItemId],
-            { context: component.user.context }
+            { context: user.context }
         );
         e.target.innerText = _t("Resent!");
     };
