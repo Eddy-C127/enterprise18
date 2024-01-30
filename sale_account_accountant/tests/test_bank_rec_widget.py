@@ -48,3 +48,31 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             rule._apply_rules(st_line, st_line._retrieve_partner()),
             {'amls': invoice_line, 'model': rule},
         )
+
+    def test_matching_sale_orders_with_legend(self):
+        sequence = self.env['ir.sequence'].sudo().search(
+            [('code', '=', 'sale.order'), ('company_id', 'in', (self.env.company.id, False))],
+            order='company_id',
+            limit=1,
+        )
+        sequence.prefix = 'SO/%(year)s/'
+
+        so = self.env['sale.order'].create({
+            'partner_id': self.partner_a.id,
+            'partner_invoice_id': self.partner_a.id,
+            'partner_shipping_id': self.partner_a.id,
+            'order_line': [Command.create({
+                'product_id': self.product_a.id,
+                'product_uom_qty': 2,
+            })],
+        })
+        so.action_quotation_sent()
+
+        st_line = self._create_st_line(amount=2300.0, payment_ref=so.name)
+        rule = self._create_reconcile_model()
+
+        # Match directly the sale orders.
+        self.assertDictEqual(
+            rule._apply_rules(st_line, st_line._retrieve_partner()),
+            {'sale_orders': so, 'model': rule},
+        )

@@ -22,23 +22,8 @@ class AccountReconcileModel(models.Model):
         for model in ('sale.order', 'sale.order.line', 'account.move', 'account.move.line'):
             self.env[model].flush_model()
 
-        _numerical_tokens, _exact_tokens, text_tokens = self._get_invoice_matching_st_line_tokens(st_line)
-        if not text_tokens:
-            return
-
-        sequence_prefix = self.env['ir.sequence'].sudo()\
-            .search(
-                [('code', '=', 'sale.order'), ('company_id', 'in', (st_line.company_id.id, False))],
-                order='company_id',
-                limit=1,
-            )\
-            .prefix
-        if not sequence_prefix:
-            return
-
-        sequence_prefix = sequence_prefix.lower()
-        text_tokens = [x.lower() for x in text_tokens if x.lower().startswith(sequence_prefix)]
-        if not text_tokens:
+        _numerical_tokens, exact_tokens, text_tokens = self._get_invoice_matching_st_line_tokens(st_line)
+        if not (exact_tokens or text_tokens):
             return
 
         # Find the sale orders that are not yet invoiced or already invoices.
@@ -47,38 +32,12 @@ class AccountReconcileModel(models.Model):
             '|',
             ('invoice_status', 'in', ('to invoice', 'invoiced')),
             ('state', '=', 'sent'),
+            '|',
+            ('name', 'in', exact_tokens),
+            ('name', 'in', text_tokens),
         ]
-        if self.past_months_limit:
-            date_limit = fields.Date.context_today(self) - relativedelta(months=self.past_months_limit)
-            domain.append(('date_order', '>=', fields.Date.to_string(date_limit)))
-
-        query = self.env['sale.order']._where_calc(domain)
-        tables, where_clause, where_params = query.get_sql()
-
-        additional_conditions = []
-        for token in text_tokens:
-            additional_conditions.append(r"%s ~ sub.name")
-            where_params.append(token)
-
-        self._cr.execute(
-            f'''
-                WITH sale_order_name AS (
-                    SELECT
-                        sale_order.id,
-                        SUBSTRING(REGEXP_REPLACE(LOWER(sale_order.name), '[^0-9a-z\s]', '', 'g'), '\S(?:.*\S)*') AS name
-                    FROM {tables}
-                    WHERE {where_clause}
-                )
-                SELECT sub.id
-                FROM sale_order_name sub
-                WHERE {' OR '.join(additional_conditions)}
-            ''',
-            where_params,
-        )
-
-        candidate_ids = [r[0] for r in self._cr.fetchall()]
-        if candidate_ids:
-            sale_orders = self.env['sale.order'].browse(candidate_ids)
+        sale_orders = self.env['sale.order'].search(domain)
+        if sale_orders:
             results = {'sale_orders': sale_orders}
 
             # Find some related invoices.
