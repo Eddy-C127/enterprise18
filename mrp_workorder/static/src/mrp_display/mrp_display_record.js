@@ -303,7 +303,7 @@ export class MrpDisplayRecord extends Component {
     }
 
     async displayInstruction(record) {
-        if (!record) {
+        if (!record && this.lastOpenedQualityCheck) {
             // Searches the next Quality Check.
             let lastQC = this.lastOpenedQualityCheck.data;
             const checks = this.props.record.data.check_ids.records;
