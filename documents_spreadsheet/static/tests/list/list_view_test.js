@@ -29,7 +29,7 @@ import { onMounted } from "@odoo/owl";
 const { topbarMenuRegistry, cellMenuRegistry } = spreadsheet.registries;
 const { toZone } = spreadsheet.helpers;
 
-QUnit.module("document_spreadsheet > list view", {
+QUnit.module("documents_spreadsheet > list view", {
     beforeEach: ()=> {
         patchWithCleanup(ListController.prototype, patchListControllerExportSelection);
     }}, () => {
@@ -267,6 +267,15 @@ QUnit.module("document_spreadsheet > list view", {
         const { model, env } = await createSpreadsheetFromListView();
         selectCell(model, "Z26");
         const root = cellMenuRegistry.getAll().find((item) => item.id === "listing_properties");
+        assert.notOk(root.isVisible(env));
+    });
+
+    QUnit.test("Verify absence of list properties on formula with invalid list Id", async function (assert) {
+        const { model, env } = await createSpreadsheetFromListView();
+        setCellContent(model, "A1", `=ODOO.LIST.HEADER("fakeId", "foo")`);
+        const root = cellMenuRegistry.getAll().find((item) => item.id === "listing_properties");
+        assert.notOk(root.isVisible(env));
+        setCellContent(model, "A1", `=ODOO.LIST("fakeId", "2", "bar")`);
         assert.notOk(root.isVisible(env));
     });
 

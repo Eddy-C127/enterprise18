@@ -37,7 +37,7 @@ cellMenuRegistry.add("pivot_properties", {
     },
     isVisible: (env) => {
         const position = env.model.getters.getActivePosition();
-        return env.model.getters.getPivotIdFromPosition(position) !== undefined;
+        return env.model.getters.isExistingPivot(env.model.getters.getPivotIdFromPosition(position));
     },
     icon: "o-spreadsheet-Icon.PIVOT",
 });
