@@ -203,6 +203,7 @@ export class SignableDocument extends Document {
                                     );
                                 }
                             }
+                        , () => {}, {enableHighAccuracy: true}
                         );
                     }
                 }
