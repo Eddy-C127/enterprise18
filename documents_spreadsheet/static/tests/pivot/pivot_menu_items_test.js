@@ -288,6 +288,15 @@ QUnit.module(
             assert.notOk(root.isVisible(env));
         });
 
+        QUnit.test("Verify absence of pivot properties on formula with invalid pivot Id", async function (assert) {
+            const { model, env } = await createSpreadsheetWithPivot();
+            setCellContent(model, "A1", `=ODOO.PIVOT.HEADER("fakeId")`);
+            const root = cellMenuRegistry.getAll().find((item) => item.id === "pivot_properties");
+            assert.notOk(root.isVisible(env));
+            setCellContent(model, "A1", `=ODOO.PIVOT("fakeId", "probability", "foo", 2)`);
+            assert.notOk(root.isVisible(env));
+        });
+
         QUnit.test(
             "verify absence of pivots in top menu bar in a spreadsheet without a pivot",
             async function (assert) {

@@ -27,7 +27,7 @@ import { insertListInSpreadsheet } from "@spreadsheet/../tests/utils/list";
 const { topbarMenuRegistry, cellMenuRegistry } = spreadsheet.registries;
 const { toZone } = spreadsheet.helpers;
 
-QUnit.module("document_spreadsheet > list view", {}, () => {
+QUnit.module("documents_spreadsheet > list view", {}, () => {
     QUnit.test("List export with a invisible field", async (assert) => {
         const { model } = await createSpreadsheetFromListView({
             serverData: {
@@ -213,10 +213,19 @@ QUnit.module("document_spreadsheet > list view", {}, () => {
         assert.deepEqual(model.getters.getSheetIds()[1], "42");
     });
 
-    QUnit.test("Verify absence of pivot properties on non-pivot cell", async function (assert) {
+    QUnit.test("Verify absence of list properties on non-list cell", async function (assert) {
         const { model, env } = await createSpreadsheetFromListView();
         selectCell(model, "Z26");
         const root = cellMenuRegistry.getAll().find((item) => item.id === "listing_properties");
+        assert.notOk(root.isVisible(env));
+    });
+
+    QUnit.test("Verify absence of list properties on formula with invalid list Id", async function (assert) {
+        const { model, env } = await createSpreadsheetFromListView();
+        setCellContent(model, "A1", `=ODOO.LIST.HEADER("fakeId", "foo")`);
+        const root = cellMenuRegistry.getAll().find((item) => item.id === "listing_properties");
+        assert.notOk(root.isVisible(env));
+        setCellContent(model, "A1", `=ODOO.LIST("fakeId", "2", "bar")`);
         assert.notOk(root.isVisible(env));
     });
 
