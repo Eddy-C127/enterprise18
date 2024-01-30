@@ -9,7 +9,7 @@ from odoo.addons.test_discuss_full.tests.test_performance import TestDiscussFull
 #    3: ir.config_parameter (1 for each)
 #    5: missedCalls
 TestDiscussFullPerformance._query_count_init_store += 10
-TestDiscussFullPerformance._query_count += 1
+TestDiscussFullPerformance._query_count += 0
 
 old_get_init_store_data_result = TestDiscussFullPerformance._get_init_store_data_result
 
