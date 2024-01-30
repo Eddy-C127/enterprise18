@@ -1,10 +1,11 @@
 /** @odoo-module **/
 
-import { getFixture, nextTick, click } from "@web/../tests/helpers/utils";
+import { getFixture, nextTick, patchWithCleanup, click } from "@web/../tests/helpers/utils";
 import { doAction } from "@web/../tests/webclient/helpers";
 import { createDocumentWebClient, actionId, defaultMockRPC } from "./action_utils";
 import { signInfoService } from "@sign/services/sign_info_service";
 import { registry } from "@web/core/registry";
+import { session } from "@web/session";
 
 let serverData;
 let config;
@@ -52,6 +53,7 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
 
     QUnit.test("simple rendering", async function (assert) {
         assert.expect(9);
+        patchWithCleanup(session, { uid: 1 });
 
         const getDataFromHTML = () => {
             assert.step("getDataFromHTML");
@@ -100,6 +102,30 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
         await click(target.querySelectorAll(".o_sign_resend_access_button")[0]);
         assert.verifySteps(["send_messages"]);
 
+    });
+
+    QUnit.test("render shared document", async function (assert) {
+        assert.expect(3);
+
+        config = {
+            ...config,
+            actionContext: {
+                need_to_sign: true,
+                state: "shared",
+            },
+        };
+
+        const webClient = await createDocumentWebClient(config, serverData);
+        await doAction(webClient, actionId);
+
+        assert.strictEqual(
+            target.querySelector(".o_sign_document").innerText.trim(),
+            "def",
+            "should display text from server"
+        );
+
+        assert.containsN(target, ".o_sign_resend_access_button", 0);
+        assert.containsOnce(target, ".d-xl-inline-flex .o_sign_sign_directly");
     });
 
     QUnit.test("do not crash when leaving the action", async function (assert) {

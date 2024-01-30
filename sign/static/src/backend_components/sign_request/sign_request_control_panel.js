@@ -6,6 +6,7 @@ import { Component, useEffect, useComponent, markup } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { ControlPanel } from "@web/search/control_panel/control_panel";
 import multiFileUpload from "@sign/backend_components/multi_file_upload";
+import { session } from "@web/session";
 
 function useResendButtons() {
     const component = useComponent();
@@ -22,6 +23,9 @@ function useResendButtons() {
     };
     return useEffect(
         () => {
+            if (!component.showResendButtons) {
+                return;
+            }
             const status = document.querySelector("div.signer-status");
             const signerNames = status.querySelectorAll(
                 ".o_sign_signer_status.o_sign_signer_waiting"
@@ -67,6 +71,12 @@ export class SignRequestControlPanel extends Component {
 
     get markupSignerStatus() {
         return markup(this.props.signerStatus.innerHTML);
+    }
+
+    get showResendButtons() {
+        const documentSent = this.signInfo.get("signRequestState") === "sent";
+        const isAuthor = this.signInfo.get("createUid") === session.uid;
+        return isAuthor && documentSent;
     }
 
     async signDocument() {
