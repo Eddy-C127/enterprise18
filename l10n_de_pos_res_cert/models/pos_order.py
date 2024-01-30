@@ -107,17 +107,6 @@ class PosOrder(models.Model):
         return line_dict
 
     @api.model
-    def export_for_ui_table_draft(self, table_ids):
-        table_orders = super().export_for_ui_table_draft(table_ids)
-        if self.env.company.l10n_de_is_germany_and_fiskaly():
-            for order in table_orders:
-                order['tss_info'] = {}
-                order['tss_info']['time_start'] = order['l10n_de_fiskaly_time_start']
-                del order['l10n_de_fiskaly_time_start']
-
-        return table_orders
-
-    @api.model
     def retrieve_line_difference(self, ui_orders):
         res = {}
         for order in ui_orders:
