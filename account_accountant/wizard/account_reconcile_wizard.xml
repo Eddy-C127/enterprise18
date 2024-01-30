@@ -13,6 +13,7 @@
                 <field name="is_transfer_required" invisible="1"/>
                 <field name="display_allow_partials" invisible="1"/>
                 <field name="force_partials" invisible="1"/>
+                <field name="is_rec_pay_account" invisible="1"/>
 
                 <div class="alert alert-warning" role="alert" invisible="not is_transfer_required">
                     <field name="transfer_warning_message"/>
@@ -46,6 +47,7 @@
                 <group invisible="allow_partials">
                     <group>
                         <field name="account_id" required="not allow_partials"/>
+                        <field name="to_partner_id" invisible="not is_rec_pay_account"/>
                         <field name="tax_id" context="{'append_type_to_tax_name': True}"/>
                         <field name="journal_id" required="not allow_partials"/>
                         <field name="label" required="not allow_partials"/>

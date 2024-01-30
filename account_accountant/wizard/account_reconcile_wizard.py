@@ -79,6 +79,15 @@ class AccountReconcileWizard(models.TransientModel):
         string='Account',
         check_company=True,
         domain="[('deprecated', '=', False), ('internal_group', '!=', 'off_balance')]")
+    is_rec_pay_account = fields.Boolean(compute='_compute_is_rec_pay_account')
+    to_partner_id = fields.Many2one(
+        comodel_name='res.partner',
+        string='Partner',
+        check_company=True,
+        compute='_compute_to_partner_id',
+        store=True,
+        readonly=False,
+    )
     label = fields.Char(string='Label', default='Write-Off')
     tax_id = fields.Many2one(
         comodel_name='account.tax',
@@ -158,6 +167,20 @@ class AccountReconcileWizard(models.TransientModel):
                 *self.env['account.journal']._check_company_domain(wizard.company_id),
                 ('type', '=', 'general')
             ], limit=1)
+
+    @api.depends('account_id')
+    def _compute_is_rec_pay_account(self):
+        for wizard in self:
+            wizard.is_rec_pay_account = wizard.account_id.account_type in ('asset_receivable', 'liability_payable')
+
+    @api.depends('is_rec_pay_account')
+    def _compute_to_partner_id(self):
+        for wizard in self:
+            if wizard.is_rec_pay_account:
+                partners = wizard.move_line_ids.partner_id
+                wizard.to_partner_id = partners if len(partners) == 1 else None
+            else:
+                wizard.to_partner_id = None
 
     @api.depends('amount', 'amount_currency')
     def _compute_is_write_off_required(self):
@@ -377,7 +400,7 @@ class AccountReconcileWizard(models.TransientModel):
         if lock_dates:
             return lock_dates[-1][0] + timedelta(days=1)
 
-    def _compute_write_off_taxes_data(self, partner_id):
+    def _compute_write_off_taxes_data(self, partner):
         """ Computes the data needed to fill the write-off lines related to taxes.
         :return: a dict of the form {
             'base_amount': 100.0,
@@ -395,7 +418,7 @@ class AccountReconcileWizard(models.TransientModel):
         is_refund = (tax_type == 'sale' and self.amount_currency > 0.0) or (tax_type == 'purchase' and self.amount_currency < 0.0)
         tax_data = self.env['account.tax']._convert_to_tax_base_line_dict(
             self,
-            partner=partner_id,
+            partner=partner,
             currency=self.reco_currency_id,
             taxes=self.tax_id,
             price_unit=self.amount_currency,
@@ -432,13 +455,15 @@ class AccountReconcileWizard(models.TransientModel):
         }
 
     def _create_write_off_lines(self, partner=None):
-        tax_data = self._compute_write_off_taxes_data(partner) if self.tax_id else None
-        partner_id = partner.id if partner else None
+        if not partner:
+            partner = self.env['res.partner']
+        to_partner = self.to_partner_id if self.is_rec_pay_account else partner
+        tax_data = self._compute_write_off_taxes_data(to_partner) if self.tax_id else None
         line_ids_commands = [
             Command.create({
                 'name': _('Write-Off'),
                 'account_id': self.reco_account_id.id,
-                'partner_id': partner_id,
+                'partner_id': partner.id,
                 'currency_id': self.reco_currency_id.id,
                 'amount_currency': -self.amount_currency,
                 'balance': -self.amount,
@@ -446,7 +471,7 @@ class AccountReconcileWizard(models.TransientModel):
             Command.create({
                 'name': self.label,
                 'account_id': self.account_id.id,
-                'partner_id': partner_id,
+                'partner_id': to_partner.id,
                 'currency_id': self.reco_currency_id.id,
                 'tax_tag_ids': None if not tax_data else tax_data['base_tax_tag_ids'],
                 'amount_currency': self.amount_currency if not tax_data else tax_data['base_amount_currency'],
@@ -459,7 +484,7 @@ class AccountReconcileWizard(models.TransientModel):
                 line_ids_commands.append(Command.create({
                     'name': self.tax_id.name,
                     'account_id': tax_datum['tax_account_id'],
-                    'partner_id': partner_id,
+                    'partner_id': to_partner.id,
                     'currency_id': self.reco_currency_id.id,
                     'tax_tag_ids': tax_datum['tax_tag_ids'],
                     'amount_currency': tax_datum['tax_amount_currency'],

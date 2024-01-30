@@ -543,3 +543,49 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             active_ids=(debit_1 + debit_2 + credit_1).ids,
         ).new()
         self.assertRecordValues(wizard, [{'force_partials': True, 'allow_partials': True}])
+
+    def test_reconcile_with_partner_change(self):
+        partner_1 = self.env['res.partner'].create({'name': 'Test Partner 1'})
+        partner_2 = self.env['res.partner'].create({'name': 'Test Partner 2'})
+        line_1 = self.create_line_for_reconciliation(-1000.0, -1000.0, self.company_currency, '2016-01-01', partner=partner_1)
+        line_2 = self.create_line_for_reconciliation(2000.0, 2000.0, self.company_currency, '2016-01-01')
+        wizard_input_values = {
+            'journal_id': self.misc_journal.id,
+            'account_id': self.receivable_account.id,
+            'to_partner_id': partner_2.id,
+            'label': 'Write-Off Test Label',
+            'allow_partials': False,
+            'date': self.test_date,
+            'tax_id': self.tax_sale_a.id,
+        }
+        write_off_expected_values = [
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off', 'balance': -1000.0, 'partner_id': partner_1.id},
+            {'account_id': self.company_data['default_account_tax_sale'].id, 'name': '15%', 'balance': 130.43, 'partner_id': partner_2.id},
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': 869.57, 'partner_id': partner_2.id},
+        ]
+        self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, write_off_expected_values)
+
+    def test_reconcile_with_partner_change_and_transfer(self):
+        partner_1 = self.env['res.partner'].create({'name': 'Test Partner 1'})
+        partner_2 = self.env['res.partner'].create({'name': 'Test Partner 2'})
+        line_1 = self.create_line_for_reconciliation(-1000.0, -1000.0, self.company_currency, '2016-01-01', account_1=self.payable_account)
+        line_2 = self.create_line_for_reconciliation(2000.0, 2000.0, self.company_currency, '2016-01-01', partner=partner_1)
+        wizard_input_values = {
+            'journal_id': self.misc_journal.id,
+            'account_id': self.receivable_account.id,
+            'to_partner_id': partner_2.id,
+            'label': 'Write-Off Test Label',
+            'allow_partials': False,
+            'date': self.test_date,
+        }
+        expected_transfer_values = [
+            {'account_id': self.receivable_account.id, 'name': f'Transfer from {self.payable_account.display_name}',
+             'balance': -1000.0, 'amount_currency': -1000.0, 'currency_id': self.company_currency.id},
+            {'account_id': self.payable_account.id, 'name': f'Transfer to {self.receivable_account.display_name}',
+             'balance': 1000.0, 'amount_currency': 1000.0, 'currency_id': self.company_currency.id},
+        ]
+        write_off_expected_values = [
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off', 'balance': -1000.0, 'partner_id': partner_1.id},
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': 1000.0, 'partner_id': partner_2.id},
+        ]
+        self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, write_off_expected_values, expected_transfer_values)
