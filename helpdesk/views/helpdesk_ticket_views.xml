@@ -135,7 +135,7 @@
             <field name="description" position="after">
                 <field name="properties"/>
             </field>
-            <filter name="created_by" position="after">
+            <filter name="sla_deadline" position="after">
                 <separator/>
                 <filter string="Properties" name="group_by_properties" context="{'group_by': 'properties'}"/>
             </filter>
