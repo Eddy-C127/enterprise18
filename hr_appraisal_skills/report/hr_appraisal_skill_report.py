@@ -18,9 +18,9 @@ class HrAppraisalSkillReport(models.BaseModel):
     skill_id = fields.Many2one('hr.skill', readonly=True)
     skill_type_id = fields.Many2one('hr.skill.type', readonly=True)
     previous_skill_level_id = fields.Many2one('hr.skill.level', string="Previous Level", readonly=True)
-    previous_level_progress = fields.Float(string="Previous Progress", readonly=True, group_operator='avg')
+    previous_level_progress = fields.Float(string="Previous Progress", readonly=True, aggregator='avg')
     current_skill_level_id = fields.Many2one('hr.skill.level', string="Current Level", readonly=True)
-    current_level_progress = fields.Float(string="Current Progress", readonly=True, group_operator='avg')
+    current_level_progress = fields.Float(string="Current Progress", readonly=True, aggregator='avg')
     justification = fields.Char(readonly=True)
     evolution_sequence = fields.Integer()
     evolution = fields.Selection([
@@ -29,7 +29,7 @@ class HrAppraisalSkillReport(models.BaseModel):
         ('just_added', 'Just added'),
         ('decline', 'Decline'),
     ], 'Evolution')
-    progress_evolution = fields.Float("Progress Evolution", readonly=True, group_operator='avg')
+    progress_evolution = fields.Float("Progress Evolution", readonly=True, aggregator='avg')
 
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)

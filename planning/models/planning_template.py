@@ -39,9 +39,9 @@ class PlanningTemplate(models.Model):
     name = fields.Char('Hours', compute="_compute_name")
     sequence = fields.Integer('Sequence', index=True)
     role_id = fields.Many2one('planning.role', string="Role")
-    start_time = fields.Float('Planned Hours', default=_default_start_time, group_operator=None, default_export_compatible=True)
-    duration = fields.Float('Duration', default=_default_duration, group_operator=None, default_export_compatible=True)
-    end_time = fields.Float('End Hour', compute='_compute_name', group_operator=None)
+    start_time = fields.Float('Planned Hours', default=_default_start_time, aggregator=None, default_export_compatible=True)
+    duration = fields.Float('Duration', default=_default_duration, aggregator=None, default_export_compatible=True)
+    end_time = fields.Float('End Hour', compute='_compute_name', aggregator=None)
     duration_days = fields.Integer('Duration Days', compute='_compute_name')
 
     _sql_constraints = [

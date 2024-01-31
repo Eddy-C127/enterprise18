@@ -19,15 +19,15 @@ class HrContractEmployeeReport(models.Model):
     employee_count = fields.Integer('# Employees')
     count_employee_exit = fields.Integer('# Departure Employee', readonly=True)
     count_new_employee = fields.Integer('# New Employees', readonly=True)
-    age_sum = fields.Float('Duration Contract', group_operator="sum", readonly=True)
+    age_sum = fields.Float('Duration Contract', aggregator="sum", readonly=True)
 
-    wage = fields.Float('Wage', group_operator="avg", readonly=True)
+    wage = fields.Float('Wage', aggregator="avg", readonly=True)
 
     date = fields.Date('Date', readonly=True)
     start_date_months = fields.Integer("Months of first date of this month since 01/01/1970", readonly=True)
     end_date_months = fields.Integer("Months of last date of this month since 01/01/1970", readonly=True)
-    date_end_contract = fields.Date('Date Last Contract Ended', group_operator="max", readonly=True)
-    contract_start = fields.Date('Date First Contract Started', group_operator="min", readonly=True)
+    date_end_contract = fields.Date('Date Last Contract Ended', aggregator="max", readonly=True)
+    contract_start = fields.Date('Date First Contract Started', aggregator="min", readonly=True)
 
     departure_reason_id = fields.Many2one("hr.departure.reason", string="Departure Reason", readonly=True)
 

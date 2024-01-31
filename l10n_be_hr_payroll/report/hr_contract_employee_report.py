@@ -7,7 +7,7 @@ from odoo import fields, models
 class HrContractEmployeeReport(models.Model):
     _inherit = "hr.contract.employee.report"
 
-    fuel_card = fields.Float('Fuel Card', group_operator="avg", readonly=True)
+    fuel_card = fields.Float('Fuel Card', aggregator="avg", readonly=True)
     fte = fields.Float('Full Time Equivalent (Today)', readonly=True)
 
     def _query(self, fields='', from_clause='', outer=''):

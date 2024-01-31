@@ -52,7 +52,7 @@ QUnit.module("consolidation_grid", (hooks) => {
                             type: "many2one",
                             relation: "consolidation.account",
                         },
-                        amount: { string: "Amount", type: "float", group_operator: "sum" },
+                        amount: { string: "Amount", type: "float", aggregator: "sum" },
                     },
                     records: [
                         { id: 1, journal_id: 1, account_id: 1, amount: 2500 },

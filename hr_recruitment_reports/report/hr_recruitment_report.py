@@ -15,11 +15,11 @@ class HrRecruitmentReport(models.Model):
     _rec_name = 'create_date'
     _order = 'create_date desc'
 
-    count = fields.Integer('# Applicant', group_operator="sum", readonly=True)
-    refused = fields.Integer('# Refused', group_operator="sum", readonly=True)
-    hired = fields.Integer('# Hired', group_operator="sum", readonly=True)
-    hiring_ratio = fields.Integer('# Hired Ratio', group_operator="avg", readonly=True)
-    meetings_amount = fields.Integer('# Meetings', group_operator="sum", readonly=True)
+    count = fields.Integer('# Applicant', aggregator="sum", readonly=True)
+    refused = fields.Integer('# Refused', aggregator="sum", readonly=True)
+    hired = fields.Integer('# Hired', aggregator="sum", readonly=True)
+    hiring_ratio = fields.Integer('# Hired Ratio', aggregator="avg", readonly=True)
+    meetings_amount = fields.Integer('# Meetings', aggregator="sum", readonly=True)
 
     state = fields.Selection([
         ('in_progress', 'In Progress'),
@@ -38,7 +38,7 @@ class HrRecruitmentReport(models.Model):
     job_id = fields.Many2one('hr.job', readonly=True)
     medium_id = fields.Many2one('utm.medium', readonly=True)
     source_id = fields.Many2one('utm.source', readonly=True)
-    process_duration = fields.Integer('Process Duration', group_operator="avg", readonly=True)
+    process_duration = fields.Integer('Process Duration', aggregator="avg", readonly=True)
     refuse_reason_id = fields.Many2one('hr.applicant.refuse.reason', string='Refuse Reason', readonly=True)
     company_id = fields.Many2one('res.company', 'Company', readonly=True)
 

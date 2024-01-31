@@ -36,7 +36,7 @@ class DataMergeRecord(models.Model):
 
     # Original Record
     name = fields.Char(compute='_compute_fields')
-    res_id = fields.Integer(string='Record ID', readonly=False, group_operator=None, index=True)
+    res_id = fields.Integer(string='Record ID', readonly=False, aggregator=None, index=True)
     record_create_date = fields.Datetime(string='Created On', compute='_compute_fields')
     record_create_uid = fields.Char(string='Created By', compute='_compute_fields')
     record_write_date = fields.Datetime(string='Updated On', compute='_compute_fields')

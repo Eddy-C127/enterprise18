@@ -21,7 +21,7 @@ export class GridArchParser {
             columnFieldName: "",
             measureField: {
                 name: "__count",
-                group_operator: "sum",
+                aggregator: "sum",
                 readonly: true,
                 string: _t("Count"),
             },
@@ -104,19 +104,19 @@ export class GridArchParser {
                         }
                         archInfo.measureField = {
                             name: fieldName,
-                            group_operator: node.getAttribute("operator") || fieldInfo.group_operator,
+                            aggregator: node.getAttribute("operator") || fieldInfo.aggregator,
                             string,
                             readonly: archParseBoolean(node.getAttribute("readonly")) || fieldInfo.readonly,
                         };
                         break;
                     case "readonly":
-                        let groupOperator = fieldInfo.group_operator;
+                        let groupOperator = fieldInfo.aggregator;
                         if (node.hasAttribute("operator")) {
                             groupOperator = node.getAttribute("operator");
                         }
                         archInfo.readonlyField = {
                             name: fieldName,
-                            group_operator: groupOperator,
+                            aggregator: groupOperator,
                             string,
                         };
                         break;
@@ -133,7 +133,7 @@ export class GridArchParser {
             archInfo.editable &&
             archInfo.measureField &&
             !archInfo.measureField.readonly &&
-            archInfo.measureField.group_operator === "sum";
+            archInfo.measureField.aggregator === "sum";
         return archInfo;
     }
 

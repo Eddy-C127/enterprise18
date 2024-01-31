@@ -92,7 +92,7 @@ class Planning(models.Model):
     allocated_hours = fields.Float("Allocated Time", compute='_compute_allocated_hours', store=True, readonly=False)
     allocated_percentage = fields.Float("Allocated Time %", default=100,
         compute='_compute_allocated_percentage', store=True, readonly=False,
-        group_operator="avg")
+        aggregator="avg")
     working_days_count = fields.Float("Working Days", compute='_compute_working_days_count', store=True)
     duration = fields.Float("Duration", compute="_compute_slot_duration")
 

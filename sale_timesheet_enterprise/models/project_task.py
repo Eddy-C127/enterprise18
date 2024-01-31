@@ -22,7 +22,7 @@ class ProjectTask(models.Model):
     portal_effective_hours = fields.Float(compute='_compute_project_sharing_timesheets', help="Time spent on this task, excluding its sub-tasks.")
     portal_total_hours_spent = fields.Float(compute='_compute_project_sharing_timesheets', help="Time spent on this task, including its sub-tasks.")
     portal_subtask_effective_hours = fields.Float(compute='_compute_project_sharing_timesheets', help="Time spent on the sub-tasks (and their own sub-tasks) of this task.")
-    portal_progress = fields.Float(compute='_compute_project_sharing_timesheets', group_operator="avg", help="Display progress of current task.")
+    portal_progress = fields.Float(compute='_compute_project_sharing_timesheets', aggregator="avg", help="Display progress of current task.")
 
     @property
     def SELF_READABLE_FIELDS(self):

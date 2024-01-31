@@ -224,7 +224,7 @@ QUnit.module(
             serverData.models.coucou.fields["foo"] = {
                 string: "Foo",
                 type: "integer",
-                group_operator: "sum",
+                aggregator: "sum",
             };
             serverData.models.coucou.records[0].foo = 42;
             serverData.models.coucou.records[0].foo = 24;

@@ -6,7 +6,7 @@ from odoo import fields, models, api
 class PlanningAnalysisReport(models.Model):
     _inherit = "planning.analysis.report"
 
-    percentage_hours = fields.Float("Progress (%)", readonly=True, group_operator="avg")
+    percentage_hours = fields.Float("Progress (%)", readonly=True, aggregator="avg")
     effective_hours = fields.Float("Effective Time", readonly=True, help="Number of hours on the employee's Timesheets for this task (and its sub-tasks) during the timeframe of the shift.")
     remaining_hours = fields.Float("Remaining Time", readonly=True, help="Allocated time minus the effective time.")
     allocated_hours_cost = fields.Float("Allocated Hours Cost", readonly=True)

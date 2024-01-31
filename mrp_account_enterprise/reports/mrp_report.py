@@ -43,17 +43,17 @@ class MrpReport(models.Model):
 
     # note that unit costs take include subtraction of byproduct cost share
     unit_cost = fields.Monetary(
-        "Cost / Unit", readonly=True, group_operator="avg",
+        "Cost / Unit", readonly=True, aggregator="avg",
         help="Cost per unit produced (in product UoM) of manufacturing order")
     unit_component_cost = fields.Monetary(
-        "Component Cost / Unit", readonly=True, group_operator="avg",
+        "Component Cost / Unit", readonly=True, aggregator="avg",
         help="Component cost per unit produced (in product UoM) of manufacturing order")
     unit_operation_cost = fields.Monetary(
-        "Total Operation Cost / Unit", readonly=True, group_operator="avg",
+        "Total Operation Cost / Unit", readonly=True, aggregator="avg",
         groups="mrp.group_mrp_routings",
         help="Operation cost per unit produced (in product UoM) of manufacturing order")
     unit_duration = fields.Float(
-        "Duration of Operations / Unit", readonly=True, group_operator="avg",
+        "Duration of Operations / Unit", readonly=True, aggregator="avg",
         groups="mrp.group_mrp_routings",
         help="Operation duration (minutes) per unit produced of manufacturing order")
 

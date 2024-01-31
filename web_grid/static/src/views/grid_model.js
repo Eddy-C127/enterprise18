@@ -470,7 +470,7 @@ export class GridDataPoint {
                 "ids:array_agg(id)"
             );
             if (this.readonlyField) {
-                const aggReadonlyField = `${this.readonlyField.name}:${this.readonlyField.group_operator}`;
+                const aggReadonlyField = `${this.readonlyField.name}:${this.readonlyField.aggregator}`;
                 fields.push(aggReadonlyField);
             }
         } else {
@@ -1016,8 +1016,8 @@ export class GridModel extends Model {
     }
 
     get measureGroupByFieldName() {
-        if (this.measureField.group_operator) {
-            return `${this.measureFieldName}:${this.measureField.group_operator}`;
+        if (this.measureField.aggregator) {
+            return `${this.measureFieldName}:${this.measureField.aggregator}`;
         }
         return this.measureFieldName;
     }

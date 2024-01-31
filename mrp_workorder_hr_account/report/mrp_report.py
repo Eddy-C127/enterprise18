@@ -11,7 +11,7 @@ class MrpReport(models.Model):
         "Total Employee Cost", readonly=True,
         help="Total cost of employees for manufacturing order")
     unit_employee_cost = fields.Monetary(
-        "Average Employee Cost / Unit", readonly=True, group_operator="avg",
+        "Average Employee Cost / Unit", readonly=True, aggregator="avg",
         help="Employee Cost per unit produced (in product UoM) of manufacturing order")
 
     def _select_total_cost(self):

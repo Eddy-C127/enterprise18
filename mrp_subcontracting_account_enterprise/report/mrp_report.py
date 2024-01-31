@@ -12,7 +12,7 @@ class MrpReport(models.Model):
         "Total Subcontracting Cost", readonly=True,
         help="Total cost of subcontracting for manufacturing order")
     unit_subcontracting_cost = fields.Monetary(
-        "Total Subcontracting Cost / Unit", readonly=True, group_operator="avg",
+        "Total Subcontracting Cost / Unit", readonly=True, aggregator="avg",
         help="Subcontracting cost per unit produced (in product UoM) of manufacturing order")
 
     def _select_total_cost(self):

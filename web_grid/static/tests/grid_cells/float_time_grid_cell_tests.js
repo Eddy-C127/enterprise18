@@ -26,7 +26,7 @@ QUnit.module("Grid Cells", (hook) => {
                             string: "Float time field",
                             type: "float",
                             digits: [2, 1],
-                            group_operator: "sum",
+                            aggregator: "sum",
                         },
                     },
                     records: [{ id: 1, date: "2023-03-20", foo_id: 1, time: 9.1 }],

@@ -12,7 +12,7 @@ class PlanningAnalysisReport(models.Model):
     _auto = False
 
     allocated_hours = fields.Float("Allocated Hours", readonly=True)
-    allocated_percentage = fields.Float("Allocated Time (%)", readonly=True, group_operator="avg")
+    allocated_percentage = fields.Float("Allocated Time (%)", readonly=True, aggregator="avg")
     company_id = fields.Many2one("res.company", string="Company", readonly=True)
     department_id = fields.Many2one("hr.department", readonly=True)
     employee_id = fields.Many2one("hr.employee", string="Employee", readonly=True)

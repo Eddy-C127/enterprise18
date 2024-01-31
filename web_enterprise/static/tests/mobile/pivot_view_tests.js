@@ -27,7 +27,7 @@ QUnit.module("Views", (hooks) => {
                             string: "Foo",
                             type: "integer",
                             searchable: true,
-                            group_operator: "sum",
+                            aggregator: "sum",
                         },
                         bar: { string: "bar", type: "boolean", store: true, sortable: true },
                         date: { string: "Date", type: "date", store: true, sortable: true },
@@ -61,7 +61,7 @@ QUnit.module("Views", (hooks) => {
                             string: "Computed and not stored",
                             type: "integer",
                             compute: true,
-                            group_operator: "sum",
+                            aggregator: "sum",
                         },
                         company_type: {
                             string: "Company Type",

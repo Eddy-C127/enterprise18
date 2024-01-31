@@ -49,7 +49,7 @@ class Base(models.AbstractModel):
             if field.type == 'many2one':
                 measure = f'{measure}:count_distinct'
             else:
-                measure = f'{measure}:{field.group_operator}'
+                measure = f'{measure}:{field.aggregator}'
             measures.append(measure)
         else:
             measures = ['__count', '__count']

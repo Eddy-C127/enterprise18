@@ -30,7 +30,7 @@ QUnit.module("Views", (hooks) => {
                         unit_amount: {
                             string: "Unit Amount",
                             type: "float",
-                            group_operator: "sum",
+                            aggregator: "sum",
                         },
                     },
                     records: [

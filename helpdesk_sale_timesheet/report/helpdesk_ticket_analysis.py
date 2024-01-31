@@ -7,7 +7,7 @@ from odoo import fields, models
 class HelpdeskTicketReport(models.Model):
     _inherit = 'helpdesk.ticket.report.analysis'
 
-    remaining_hours_so = fields.Float('Remaining Hours on SO', readonly=True, group_operator="avg")
+    remaining_hours_so = fields.Float('Remaining Hours on SO', readonly=True, aggregator="avg")
     sale_line_id = fields.Many2one('sale.order.line', string="Sales Order Item", readonly=True)
 
     def _select(self):

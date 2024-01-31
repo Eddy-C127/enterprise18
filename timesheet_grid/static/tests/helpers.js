@@ -178,7 +178,7 @@ export class TimesheetGridSetupHelper {
                     relation: "hr.employee.public",
                 },
                 date: { string: "Date", type: "date" },
-                unit_amount: { string: "Unit Amount", type: "float", group_operator: "sum" },
+                unit_amount: { string: "Unit Amount", type: "float", aggregator: "sum" },
                 selection_field: {
                     string: "Selection Field",
                     type: "selection",

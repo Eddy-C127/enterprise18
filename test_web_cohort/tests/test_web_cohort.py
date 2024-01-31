@@ -168,13 +168,13 @@ class TestCohortForward(TestCohortCommon):
             'Empty data should not be displayed',
         )
 
-    def test_group_operator_avg(self):
+    def test_aggregator_avg(self):
         """ In some reports, some columns can be empty.
             Say a model "event", with a field "rating_ids" (relation) and a field "avg_rating" (float related).
             If an event has no rating, it would make sense that its "avg_rating" is False rather than 0.
             In this case, the event shouldn't be taken into account in the cohort average.
         """
-        self.WebCohortSimpleModel._fields['revenue'].group_operator = 'avg'
+        self.WebCohortSimpleModel._fields['revenue'].aggregator = 'avg'
         result = self.WebCohortSimpleModel.get_cohort_data(
             'date_start', 'date_stop', 'revenue', 'week', [], 'retention', 'forward'
         )

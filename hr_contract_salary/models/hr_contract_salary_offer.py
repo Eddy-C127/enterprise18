@@ -29,7 +29,7 @@ class HrContractSalaryOffer(models.Model):
     employee_id = fields.Many2one(related="employee_contract_id.employee_id", store=True, tracking=True)
     applicant_id = fields.Many2one('hr.applicant', tracking=True)
     applicant_name = fields.Char(related='applicant_id.partner_name')
-    final_yearly_costs = fields.Monetary("Employer Budget", group_operator="avg", tracking=True)
+    final_yearly_costs = fields.Monetary("Employer Budget", aggregator="avg", tracking=True)
     job_title = fields.Char(tracking=True)
     employee_job_id = fields.Many2one('hr.job', tracking=True)
     department_id = fields.Many2one('hr.department', tracking=True)

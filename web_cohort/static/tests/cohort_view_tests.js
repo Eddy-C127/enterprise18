@@ -47,7 +47,7 @@ QUnit.module("Views", (hooks) => {
                             string: "Recurring Price",
                             type: "integer",
                             store: true,
-                            group_operator: "sum",
+                            aggregator: "sum",
                         },
                     },
                     records: [
@@ -243,19 +243,19 @@ QUnit.module("Views", (hooks) => {
             string: "Abc",
             type: "integer",
             store: true,
-            group_operator: "sum",
+            aggregator: "sum",
         };
         serverData.models.subscription.fields.add = {
             string: "add",
             type: "integer",
             store: true,
-            group_operator: "sum",
+            aggregator: "sum",
         };
         serverData.models.subscription.fields.zoo = {
             string: "Zoo",
             type: "integer",
             store: true,
-            group_operator: "sum",
+            aggregator: "sum",
         };
 
         await makeView({

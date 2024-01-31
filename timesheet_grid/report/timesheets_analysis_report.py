@@ -7,7 +7,7 @@ from odoo import api, fields, models
 class TimesheetsAnalysisReport(models.Model):
     _inherit = "timesheets.analysis.report"
 
-    validated = fields.Boolean("Validated line", group_operator="bool_and", readonly=True)
+    validated = fields.Boolean("Validated line", aggregator="bool_and", readonly=True)
     is_timesheet = fields.Boolean(string="Timesheet Line", readonly=True)
     is_timer_running = fields.Boolean(compute='_compute_is_timer_running', search='_search_is_timer_running')
 

@@ -7,8 +7,8 @@ from odoo import fields, models
 class HrRecruitmentReport(models.Model):
     _inherit = "hr.recruitment.report"
 
-    has_referrer = fields.Integer(group_operator="sum", readonly=True)
-    referral_hired = fields.Integer('# Hired by Referral', group_operator="sum", readonly=True)
+    has_referrer = fields.Integer(aggregator="sum", readonly=True)
+    referral_hired = fields.Integer('# Hired by Referral', aggregator="sum", readonly=True)
 
     def _query(self, fields='', from_clause=''):
         fields += """

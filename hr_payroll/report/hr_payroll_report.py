@@ -15,12 +15,12 @@ class HrPayrollReport(models.Model):
     _order = 'date_from desc'
 
 
-    count = fields.Integer('# Payslip', group_operator="sum", readonly=True)
-    count_work = fields.Integer('Work Days', group_operator="sum", readonly=True)
-    count_work_hours = fields.Integer('Work Hours', group_operator="sum", readonly=True)
-    count_leave = fields.Integer('Days of Paid Time Off', group_operator="sum", readonly=True)
-    count_leave_unpaid = fields.Integer('Days of Unpaid Time Off', group_operator="sum", readonly=True)
-    count_unforeseen_absence = fields.Integer('Days of Unforeseen Absence', group_operator="sum", readonly=True)
+    count = fields.Integer('# Payslip', aggregator="sum", readonly=True)
+    count_work = fields.Integer('Work Days', aggregator="sum", readonly=True)
+    count_work_hours = fields.Integer('Work Hours', aggregator="sum", readonly=True)
+    count_leave = fields.Integer('Days of Paid Time Off', aggregator="sum", readonly=True)
+    count_leave_unpaid = fields.Integer('Days of Unpaid Time Off', aggregator="sum", readonly=True)
+    count_unforeseen_absence = fields.Integer('Days of Unforeseen Absence', aggregator="sum", readonly=True)
 
     name = fields.Char('Payslip Name', readonly=True)
     type = fields.Char('Type', readonly=True)

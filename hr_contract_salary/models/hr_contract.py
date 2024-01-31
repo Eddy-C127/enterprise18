@@ -43,7 +43,7 @@ class HrContract(models.Model):
         help="Number of days of paid leaves the employee gets per year.")
     wage_with_holidays = fields.Monetary(compute='_compute_wage_with_holidays', inverse='_inverse_wage_with_holidays',
         tracking=True, string="Wage with Holidays")
-    wage_on_signature = fields.Monetary(string="Wage on Payroll", help="Wage on contract signature", tracking=True, group_operator="avg")
+    wage_on_signature = fields.Monetary(string="Wage on Payroll", help="Wage on contract signature", tracking=True, aggregator="avg")
     salary_offer_ids = fields.One2many('hr.contract.salary.offer', 'employee_contract_id')
     salary_offers_count = fields.Integer(compute='_compute_salary_offers_count', compute_sudo=True)
 
@@ -54,7 +54,7 @@ class HrContract(models.Model):
         string="Yearly Cost (Real)",
         tracking=True,
         help="Total real yearly cost of the employee for the employer.",
-        group_operator="avg")
+        aggregator="avg")
     monthly_yearly_costs = fields.Monetary(
         compute='_compute_monthly_yearly_costs', string='Monthly Cost (Real)', readonly=True,
         help="Total real monthly cost of the employee for the employer.")
