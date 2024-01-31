@@ -107,7 +107,7 @@ class AccountAsset(models.Model):
         string='Journal',
         check_company=True,
         domain="[('type', '=', 'general')]",
-        compute='_compute_journal_id', store=True,
+        compute='_compute_journal_id', store=True, readonly=False,
     )
 
     # Values
