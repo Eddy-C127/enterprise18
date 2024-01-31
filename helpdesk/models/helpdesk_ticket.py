@@ -105,9 +105,9 @@ class HelpdeskTicket(models.Model):
     ticket_ref = fields.Char(string='Ticket IDs Sequence', copy=False, readonly=True, index=True)
     # next 4 fields are computed in write (or create)
     assign_date = fields.Datetime("First assignment date")
-    assign_hours = fields.Integer("Time to first assignment (hours)", compute='_compute_assign_hours', store=True)
+    assign_hours = fields.Float("Time to first assignment (hours)", compute='_compute_assign_hours', store=True)
     close_date = fields.Datetime("Close date", copy=False)
-    close_hours = fields.Integer("Time to close (hours)", compute='_compute_close_hours', store=True)
+    close_hours = fields.Float("Time to close (hours)", compute='_compute_close_hours', store=True)
     open_hours = fields.Integer("Open Time (hours)", compute='_compute_open_hours', search='_search_open_hours')
     # SLA relative
     sla_ids = fields.Many2many('helpdesk.sla', 'helpdesk_sla_status', 'ticket_id', 'sla_id', string="SLAs", copy=False)
