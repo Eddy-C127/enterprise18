@@ -392,8 +392,7 @@ class AccountTaxReportHandler(models.AbstractModel):
             'res_model': 'account.tax.group',
             'view_mode': 'tree',
             'views': [[False, 'list']],
-            'context': len(countries) == 1 and {'search_default_country_id': countries.ids or {}},
-            # More than 1 id into search_default isn't supported
+            'domain': ['|', ('country_id', 'in', countries.ids), ('country_id', '=', False)]
         }
 
         raise RedirectWarning(
