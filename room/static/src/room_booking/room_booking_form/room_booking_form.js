@@ -109,17 +109,9 @@ export class RoomBookingForm extends Component {
 
     /**
      * Return the formatted month of the selected week.
-     * If a week spans 2 different months, show them both.
-     * (eg. if the week starts the 30 September, show "September - October")
-     * Interval.toLocaleString only works since luxon 3.2.0, so we format it manually for now
      */
     get formattedMonth() {
-        if (this.weekInterval.start.month === this.weekInterval.end.month) {
-            return this.weekInterval.start.toLocaleString(this.monthFormat);
-        } else {
-            return `${this.weekInterval.start.toLocaleString(this.monthFormat)}
-                - ${this.weekInterval.end.toLocaleString(this.monthFormat)}`;
-        }
+        return this.weekInterval.toLocaleString(this.monthFormat);
     }
 
     /**
