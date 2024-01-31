@@ -22,6 +22,16 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             content: markup(_t('Open your <b>worksheet</b> in order to fill it in with the details of your intervention.')),
             position: 'bottom',
         }, {
+            trigger: 'nav.o_main_navbar, button[name="action_generate_new_template"]',
+            run: async function () {
+                await new Promise((r) => setTimeout(r, 300));
+                const createTemplateBtn = document.querySelector('button[name="action_generate_new_template"]');
+                if (createTemplateBtn) {
+                    createTemplateBtn.click();
+                }
+            },
+            auto: true,
+        }, {
             trigger: '.o_form_sheet div[name]',
             extra_trigger: '.o_control_panel:not(:has(button[name="action_fsm_worksheet"]))',
             content: markup(_t('Fill in your <b>worksheet</b> with the details of your intervention.')),

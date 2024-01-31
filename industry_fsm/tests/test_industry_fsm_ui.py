@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo.tests import tagged, HttpCase, loaded_demo_data
+from odoo.tests import tagged, HttpCase
 
 _logger = logging.getLogger(__name__)
 
@@ -11,9 +11,6 @@ _logger = logging.getLogger(__name__)
 @tagged('post_install', '-at_install')
 class TestIndustryFsmUi(HttpCase):
     def test_ui(self):
-        if not loaded_demo_data(self.env):
-            _logger.warning("This test relies on demo data. To be rewritten independently of demo data for accurate and reliable results.")
-            return
         self.env['res.partner'].create([
             {'name': 'Leroy Philippe', 'email': 'leroy.philou@example.com'},
             {'name': 'Brandon Freeman', 'email': 'brandon.freeman55@example.com'},
