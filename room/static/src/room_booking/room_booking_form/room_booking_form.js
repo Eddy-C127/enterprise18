@@ -1,6 +1,5 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
 import { scrollTo } from "@web/core/utils/scrolling";
 
 import { Component, onWillUpdateProps, useEffect, useRef, useState } from "@odoo/owl";
@@ -222,7 +221,7 @@ export class RoomBookingForm extends Component {
                 canBeEndDate,
                 isInSelectedInterval: isEnd,
                 description: isEnd
-                    ? _t("Stop")
+                    ? false
                     : midnight.diff(this.state.bookingStart).toFormat(this.durationFormat),
             });
         }
