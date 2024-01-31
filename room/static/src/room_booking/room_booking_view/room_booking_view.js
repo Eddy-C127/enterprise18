@@ -30,14 +30,22 @@ export class RoomBookingView extends Component {
         RoomBookingRemainingTime,
         RoomDisplayTime,
     };
+    static props = {
+        accessToken: String,
+        bookableBgColor: String,
+        bookedBgColor: String,
+        description: String,
+        id: Number,
+        name: String,
+    };
     static template = "room.RoomBookingView";
 
     setup() {
         this.manageRoomUrl = `/room/${this.props.accessToken}`;
         this.state = useState({
             bookings: [],
-            bookingName: null,
-            bookingToEdit: null,
+            bookingName: undefined,
+            bookingToEdit: undefined,
             currentBooking: null,
             currentDate: this.now.startOf("day"),
             scheduleBooking: false,
@@ -206,8 +214,8 @@ export class RoomBookingView extends Component {
     resetBookingForm() {
         this.state.scheduleBooking = false;
         this.state.scheduleBookingQuickCreate = false;
-        this.state.bookingToEdit = null;
-        this.state.bookingName = null;
+        this.state.bookingToEdit = undefined;
+        this.state.bookingName = undefined;
     }
 
     /**
