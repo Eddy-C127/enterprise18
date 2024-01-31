@@ -254,7 +254,7 @@ class WhatsAppMessage(models.Model):
                 number = whatsapp_message.mobile_number_formatted
                 if not number:
                     raise WhatsAppError(failure_type='phone_invalid')
-                if self.env['phone.blacklist'].sudo().search([('number', 'ilike', number)]):
+                if self.env['phone.blacklist'].sudo().search([('number', 'ilike', number), ('active', '=', True)]):
                     raise WhatsAppError(failure_type='blacklisted')
                 if whatsapp_message.wa_template_id:
                     message_type = 'template'
