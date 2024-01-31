@@ -7,7 +7,7 @@
         <xpath expr="//span[hasclass('oe_price')]" position="after">
             <t t-if="combination_info.get('is_rental')">
                 <input type="hidden" name="is_rental" t-att-value="combination_info['is_rental']"/>
-                <span class="oe_price o_renting_price" style="white-space: nowrap;"
+                <span class="oe_price o_renting_price text-nowrap"
                       t-esc="combination_info['current_rental_price_per_unit']"
                       t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
             </t>
@@ -29,6 +29,28 @@
         <xpath expr="//h3[hasclass('css_non_editable_mode_hidden')]" position="attributes">
             <attribute name="t-if">not combination_info.get('is_rental')</attribute>
         </xpath>
+        <xpath expr="//div[@itemprop='offers']" position="after">
+            <div t-if="combination_info.get('is_rental')" class="d-inline-block mt-2 mb-3">
+                <h3>
+                    <span
+                        class="oe_price o_renting_total_price text-nowrap"
+                        t-out="combination_info['current_rental_price']"
+                        t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                    />
+                    <span class="o_renting_details d-inline-block fs-5 text-muted">
+                        <span>/</span>
+                        <span
+                            class="o_renting_duration"
+                            t-out="combination_info['current_rental_duration']"
+                        />
+                        <span
+                            class="o_renting_unit"
+                            t-out="combination_info['current_rental_unit']"
+                        />
+                    </span>
+                </h3>
+            </div>
+            </xpath>
     </template>
 
     <template id="rental_product" inherit_id="website_sale.product" name="Select pickup Date and Return Date">
@@ -88,37 +110,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="h4 o_renting_details my-2 col-md-8 ps-0 d-flex justify-content-between">
-                    <div>
-                        <strong>
-                            <span class="o_renting_duration" t-esc="combination_info['current_rental_duration']"/>
-                            <span class="o_renting_unit" t-esc="combination_info['current_rental_unit']"/>
-                        </strong>
-                    </div>
-                    <div>
-                        Total
-                        <strong>
-                            <span class="oe_price o_renting_total_price" style="white-space: nowrap;"
-                                  t-esc="combination_info['current_rental_price']"
-                                  t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-                        </strong>
-                    </div>
-                </div>
             </div>
         </xpath>
         <div id="product_documents" position="before">
             <t t-if="combination_info.get('is_rental') and (not website.prevent_zero_price_sale or combination_info['current_rental_price'])">
-                <u class="h5">Pricing</u>
-                <table class="o_not_editable table w-50 {{'' if combination_info['pricing_table'] else 'd-none'}}" id="oe_wsale_rental_pricing_table">
-                    <tbody>
-                        <t t-foreach="combination_info['pricing_table']" t-as="pricing_info">
-                            <tr>
-                                <td class="w-50" t-esc="pricing_info[0]"/>
-                                <td class="w-50 text-muted" t-esc="pricing_info[1]"/>
-                            </tr>
-                        </t>
-                    </tbody>
-                </table>
+                <div class="variant_attribute">
+                    <strong class="attribute_name">Pricing</strong>
+                    <table class="o_not_editable" id="oe_wsale_rental_pricing_table">
+                        <tbody>
+                            <t t-foreach="combination_info['pricing_table']" t-as="pricing_info">
+                                <tr>
+                                    <td t-out="pricing_info[0]"/>
+                                    <td class="py-1 ps-4 text-muted" t-esc="pricing_info[1]"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
             </t>
         </div>
     </template>
