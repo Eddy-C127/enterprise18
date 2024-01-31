@@ -6,7 +6,7 @@ import { patch } from "@web/core/utils/patch";
 patch(Message.prototype, {
     /** @override */
     get canReplyTo() {
-        return super.canReplyTo && !this.message.originThread?.composer?.threadExpired;
+        return super.canReplyTo && !this.message.thread?.composer?.threadExpired;
     },
     /**
      * @param {MouseEvent} ev

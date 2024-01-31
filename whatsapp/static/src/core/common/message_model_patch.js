@@ -5,7 +5,7 @@ import { patch } from "@web/core/utils/patch";
 
 patch(Message.prototype, {
     get editable() {
-        if (this.originThread?.type === "whatsapp") {
+        if (this.thread?.channel_type === "whatsapp") {
             return false;
         }
         return super.editable;

@@ -17,7 +17,7 @@ patch(Message.prototype, {
         if (this.message.model === 'knowledge.article.thread') {
             const [articleThread] = await this.threadService.orm.searchRead(
                 'knowledge.article.thread',
-                [['id', '=', this.message.originThread.id]],
+                [['id', '=', this.message.thread.id]],
                 ['article_id']
             );
             this.action.doAction({
