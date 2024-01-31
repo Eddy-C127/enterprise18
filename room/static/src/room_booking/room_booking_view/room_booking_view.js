@@ -262,6 +262,10 @@ export class RoomBookingView extends Component {
         } else {
             this.state.bookings.splice(newBookingInsertIdx, 0, newBooking);
         }
+        // If the new booking has already started (eg. book now), refresh the view
+        if (newBooking.interval.start < this.now) {
+            this.refreshBookingView();
+        }
     }
 
     /**
@@ -272,6 +276,10 @@ export class RoomBookingView extends Component {
         const bookingIdx = this.state.bookings.findIndex((booking) => booking.id === bookingId);
         if (bookingIdx !== -1) {
             this.state.bookings.splice(bookingIdx, 1);
+            // Refresh view if the booking deleted was the current one
+            if (this.state.currentBooking?.id === bookingId) {
+                this.refreshBookingView();
+            }
         }
         // Leave form view if booking being edited has been deleted
         if (this.state.bookingToEdit?.id === bookingId) {
