@@ -34,18 +34,26 @@ class Company(models.Model):
     def create(self, vals_list):
         companies = super().create(vals_list)
         for company, values in zip(companies, vals_list):
-            company._timesheet_postprocess(values)
+            company.with_context(force_nextdates_calculation=True)._timesheet_postprocess(values)
         return companies
 
     def write(self, values):
         result = super(Company, self).write(values)
-        self._timesheet_postprocess(values)
+        self.with_context(force_nextdates_calculation=False)._timesheet_postprocess(values)
         return result
 
     def _timesheet_postprocess(self, values):
-        if any(field_name in values for field_name in ['timesheet_mail_employee_delay', 'timesheet_mail_employee_interval']) or values.get('timesheet_mail_employee_allow'):
+        if (
+            values.get('timesheet_mail_employee_allow') or
+            self.env.context.get('force_nextdates_calculation') or
+            any(field_name in values for field_name in ['timesheet_mail_employee_delay', 'timesheet_mail_employee_interval'])
+        ):
             self._calculate_timesheet_mail_employee_nextdate()
-        if any(field_name in values for field_name in ['timesheet_mail_delay', 'timesheet_mail_interval']) or values.get('timesheet_mail_allow'):
+        if (
+            values.get('timesheet_mail_allow') or
+            self.env.context.get('force_nextdates_calculation') or
+            any(field_name in values for field_name in ['timesheet_mail_delay', 'timesheet_mail_interval'])
+        ):
             self._calculate_timesheet_mail_nextdate()
 
     def _calculate_next_week_date(self, delay):
