@@ -8,6 +8,7 @@ import csv
 import datetime
 import io
 import logging
+import copy
 
 from odoo import _, fields, models
 from odoo.exceptions import UserError, RedirectWarning
@@ -735,7 +736,9 @@ class FecImportWizard(models.TransientModel):
 
             data[model] = dict(records)
 
-        created_vals = self.env['account.chart.template']._load_data(data)
+        AccountChartTemplate = self.env['account.chart.template']
+        created_vals = AccountChartTemplate._load_data(copy.deepcopy(data))
+        AccountChartTemplate._load_translations(companies=self.company_id, template_data=data)
 
         moves = created_vals.get("account.move", [])
         for move in moves:

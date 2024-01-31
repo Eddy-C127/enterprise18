@@ -452,3 +452,18 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
         self._attach_file_to_wizard(test_content, self.wizard)
         with self.assertRaisesRegex(UserError, "journal not found"):
             self.wizard._import_files(['account.account', 'account.journal', 'res.partner', 'account.move'])
+
+    def test_created_account_translation(self):
+        test_content = """
+            JournalCode|JournalLib|EcritureNum|EcritureDate|CompteNum|CompteLib|CompAuxNum|CompAuxLib|PieceRef|PieceDate|EcritureLib|Debit|Credit|EcritureLet|DateLet|ValidDate|Montantdevise|Idevise
+            J|anouveaux|REC|20220101|10100000|Capital|||CEX0122|20220101|S.A.N.|10000|0|||20230629||
+            J|anouveaux|REC|20220101|10120000|"Cap.souscrit appelé| non versé"|||CEX0122|20220101|S.A.N.|0|10000|||20230629||
+        """
+
+        self.env['res.lang']._activate_lang('fr_FR')
+        self.env['account.account'].search([('name', '=', 'Subscribed capital - uncalled')]).unlink()
+        self._attach_file_to_wizard(test_content, self.wizard)
+        self.wizard._import_files(['account.account', 'account.journal', 'res.partner', 'account.move'])
+        account = self.env['account.account'].search([('name', '=', 'Subscribed capital - uncalled')]).with_context(lang="fr_FR")
+
+        self.assertEqual(account.name, 'Capital souscrit - non appelé')
