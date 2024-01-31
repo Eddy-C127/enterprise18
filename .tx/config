@@ -1477,6 +1477,15 @@ resource_name          = pos_preparation_display
 replace_edited_strings = false
 keep_translations      = false
 
+[o:odoo:p:odoo-17:r:pos_pricer]
+file_filter            = pos_pricer/i18n/<lang>.po
+source_file            = pos_pricer/i18n/pos_pricer.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = pos_pricer
+replace_edited_strings = false
+keep_translations      = false
+
 [o:odoo:p:odoo-17:r:pos_restaurant_appointment]
 file_filter            = pos_restaurant_appointment/i18n/<lang>.po
 source_file            = pos_restaurant_appointment/i18n/pos_restaurant_appointment.pot
@@ -1492,6 +1501,15 @@ source_file            = pos_restaurant_preparation_display/i18n/pos_restaurant_
 type                   = PO
 minimum_perc           = 0
 resource_name          = pos_restaurant_preparation_display
+replace_edited_strings = false
+keep_translations      = false
+
+[o:odoo:p:odoo-17:r:pos_self_order_iot]
+file_filter            = pos_self_order_iot/i18n/<lang>.po
+source_file            = pos_self_order_iot/i18n/pos_self_order_iot.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = pos_self_order_iot
 replace_edited_strings = false
 keep_translations      = false
 
@@ -2356,6 +2374,15 @@ source_file            = website_event_twitter_wall/i18n/website_event_twitter_w
 type                   = PO
 minimum_perc           = 0
 resource_name          = website_event_twitter_wall
+replace_edited_strings = false
+keep_translations      = false
+
+[o:odoo:p:odoo-17:r:website_generator]
+file_filter            = website_generator/i18n/<lang>.po
+source_file            = website_generator/i18n/website_generator.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = website_generator
 replace_edited_strings = false
 keep_translations      = false
 
