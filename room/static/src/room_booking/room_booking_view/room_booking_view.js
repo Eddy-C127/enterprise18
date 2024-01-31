@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { browser } from "@web/core/browser/browser";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
 import { redirect } from "@web/core/utils/urls";
@@ -54,15 +55,15 @@ export class RoomBookingView extends Component {
         // Show bookings updates in live
         this.busService = this.env.services.bus_service;
         this.busService.addChannel("room_booking#" + this.props.accessToken);
-        this.busService.subscribe("booking/create", (bookings) =>
-            bookings.forEach((booking) => this.addBooking(booking)),
-        );
-        this.busService.subscribe("booking/delete", (bookings) =>
-            bookings.forEach((booking) => this.removeBooking(booking.id)),
-        );
-        this.busService.subscribe("booking/update", (bookings) =>
-            bookings.forEach((booking) => this.udpateBooking(booking)),
-        );
+        this.busService.subscribe("booking/create", (bookings) => {
+            bookings.forEach((booking) => this.addBooking(booking));
+        });
+        this.busService.subscribe("booking/delete", (bookings) => {
+            bookings.forEach((booking) => this.removeBooking(booking.id));
+        });
+        this.busService.subscribe("booking/update", (bookings) => {
+            bookings.forEach((booking) => this.udpateBooking(booking));
+        });
         this.busService.subscribe("reload", (url) => redirect(url));
         this.rpc = useService("rpc");
         this.notificationService = useService("notification");
@@ -75,13 +76,13 @@ export class RoomBookingView extends Component {
         // If the user is inactive for more than the  INACTIVITY_TIMEOUT, reset the view
         ["pointerdown", "keydown"].forEach((event) =>
             useExternalListener(window, event, () => {
-                clearTimeout(this.inactivityTimer);
-                this.inactivityTimer = setTimeout(() => {
+                browser.clearTimeout(this.inactivityTimer);
+                this.inactivityTimer = browser.setTimeout(() => {
                     this.resetBookingForm();
                 }, INACTIVITY_TIMEOUT);
             }),
         );
-        onWillUnmount(() => clearTimeout(this.inactivityTimer));
+        onWillUnmount(() => browser.clearTimeout(this.inactivityTimer));
     }
 
     //----------------------------------------------------------------------
@@ -246,10 +247,14 @@ export class RoomBookingView extends Component {
      * @param {String} newBooking.name
      */
     addBooking(newBooking) {
-        newBooking.interval = luxon.Interval.fromDateTimes(
-            deserializeDateTime(newBooking.start_datetime),
-            deserializeDateTime(newBooking.stop_datetime),
-        );
+        newBooking = {
+            id: newBooking.id,
+            name: newBooking.name,
+            interval: luxon.Interval.fromDateTimes(
+                deserializeDateTime(newBooking.start_datetime),
+                deserializeDateTime(newBooking.stop_datetime),
+            ),
+        };
         // Do not add bookings that are already finished
         if (newBooking.interval.end < this.now) {
             return;
