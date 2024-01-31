@@ -44,6 +44,8 @@
             "web/static/lib/odoo_ui_icons/*",
             'web/static/src/legacy/scss/ui.scss',
             'web/static/src/scss/base_frontend.scss',
+            'web/static/src/core/utils/transitions.scss',
+            'web/static/src/core/notifications/notification.scss',
 
             # Room's specific assets
             'room/static/src/room_booking/**/*',
