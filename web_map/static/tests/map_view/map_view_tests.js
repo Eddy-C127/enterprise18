@@ -112,6 +112,11 @@ QUnit.module("Views", (hooks) => {
                         partner_ids: [1],
                     },
                 ],
+                threeRecordsOneWithoutPartner: [
+                        { id: 3, display_name: "FooProject", sequence: 1, partner_id: [1] },
+                        { id: 2, display_name: "BarProject", sequence: 2, partner_id: [2] },
+                        { id: 1, display_name: "FooBarProject", sequence: 3, partner_id: [] }
+                ],
                 twoRecordOnePartner: [
                     { id: 1, display_name: "FooProject", partner_id: 1 },
                     { id: 2, display_name: "BarProject", partner_id: 1 },
@@ -303,8 +308,11 @@ QUnit.module("Views", (hooks) => {
                 if (metaData.mapBoxToken !== MAP_BOX_TOKEN) {
                     return Promise.reject({ status: 401 });
                 }
+                //filter out the records that doesn't have partner linked 
+                const coordinatesParam = data.records
+                    .filter(record => record.partner);
                 const legs = [];
-                for (let i = 1; i < data.records.length; i++) {
+                for (let i = 1; i < coordinatesParam.length; i++) {
                     const coordinates = [];
                     coordinates[0] = [10, 10.5];
                     coordinates[1] = [10, 10.6];
@@ -913,6 +921,38 @@ QUnit.module("Views", (hooks) => {
         assert.strictEqual(map.model.data.records[0].partner.id, 1, "The partner's id should be 1");
         assert.strictEqual(map.model.data.records[1].partner.id, 2, "The partner's id should be 2");
         assert.strictEqual(map.model.data.records[2].partner.id, 1, "The partner's id should be 1");
+    });
+
+    /**
+     * data: three Records where one of the records doesn't have partner linked to it
+     * should have two marker
+     * Should have one route
+    */
+    QUnit.test('Create a view with three records where one of the records has no partner', async function (assert) {
+        assert.expect(5);
+        patchWithCleanup(session, { map_box_token: MAP_BOX_TOKEN });
+        const models = serverData.models;
+        models["project.task"].records = models["project.task"].threeRecordsOneWithoutPartner;
+        models["res.partner"].records = models["res.partner"].twoRecordsAddressNoCoordinates;
+        const map = await makeView({
+            serverData,
+            type: "map",
+            resModel: "project.task",
+            arch: '<map res_partner="partner_id" routing="true"></map>',
+            async mockRPC(route, { model, kwargs }) {
+                if (route === "/web/dataset/call_kw/project.task/web_search_read") {
+                    assert.strictEqual(model, "project.task", "The model should be project.task");
+                } else if (route === "/web/dataset/call_kw/res.partner/search_read") {
+                    assert.strictEqual(model, "res.partner", "The model should be res.partner");
+                }
+            },
+        });
+        assert.strictEqual(map.model.data.records.length, 3,
+            "There should be three records");
+        assert.strictEqual(target.querySelector("div.leaflet-marker-icon .o-map-renderer--marker-badge").textContent, "2",
+            "There should be a marker for two records");
+        assert.containsOnce(target.querySelector(".leaflet-overlay-pane"), "path",
+            "There should be one route showing");
     });
 
     QUnit.test("Change load limit", async function (assert) {

@@ -307,7 +307,7 @@ export class MapModel extends Model {
      */
     _fetchRoute(metaData, data) {
         const coordinatesParam = data.records
-            .filter((record) => record.partner.partner_latitude && record.partner.partner_longitude)
+            .filter((record) => record.partner && record.partner.partner_latitude && record.partner.partner_longitude)
             .map(({ partner }) => `${partner.partner_longitude},${partner.partner_latitude}`);
         const address = encodeURIComponent(coordinatesParam.join(";"));
         const token = metaData.mapBoxToken;
