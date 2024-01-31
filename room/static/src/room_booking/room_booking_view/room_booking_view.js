@@ -250,6 +250,10 @@ export class RoomBookingView extends Component {
             deserializeDateTime(newBooking.start_datetime),
             deserializeDateTime(newBooking.stop_datetime),
         );
+        // Do not add bookings that are already finished
+        if (newBooking.interval.end < this.now) {
+            return;
+        }
         const newBookingInsertIdx = this.state.bookings.findIndex(
             (booking) => booking.interval.start > newBooking.interval.start,
         );
