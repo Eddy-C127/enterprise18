@@ -10,9 +10,15 @@ patch(cartHandlerMixin, {
      */
     async _addToCartInPage(params) {
         const data = await super._addToCartInPage(...arguments);
+        const datepickerElements = document.querySelectorAll('.o_website_sale_daterange_picker_input');
+        const clearBtnElements = document.querySelectorAll('.clear-daterange');
         if (data.line_id && params.start_date) {
-            document.querySelector("input[name=renting_start_date]").disabled = true;
-            document.querySelector("input[name=renting_end_date]").disabled = true;
+            datepickerElements.forEach((elements) => {
+                elements.disabled=true;
+            });
+            clearBtnElements.forEach((elements) => {
+                elements.classList.add('d-none');
+            });
         }
         return data;
     },
