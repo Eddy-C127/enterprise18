@@ -411,8 +411,16 @@
                 t-att-name="personal_info.field"
                 t-att-applies-on="personal_info.applies_on"
                 t-att-class="'form-control document personal_info' + (' benefit_input' if personal_info.impacts_net_salary else '')"
-                t-att-required="personal_info.is_required and not hidden_children"
+                t-att-required="personal_info.is_required and not initial_values[personal_info.field]"
                 t-att-accept="document_accept"/>
+            <t t-if="initial_values[personal_info.field]">
+                <span class="py-10 px-10">
+                    Existing file:
+                    <a t-att-href="initial_values[personal_info.field]" download="">
+                        <i class="fa fa-download"/>
+                    </a>
+                </span>
+            </t>
         </t>
         <t t-if="personal_info.display_type == 'checkbox'">
             <label class="hr_cs_control hr_cs_control_checkbox"><t t-esc="personal_info.name"/>
