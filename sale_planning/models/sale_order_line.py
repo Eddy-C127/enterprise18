@@ -47,10 +47,13 @@ class SaleOrderLine(models.Model):
         for line in self:
             line.planning_hours_planned = mapped_data.get(line.id, 0.0)
 
-        self.env.add_to_compute(PlanningSlot._fields['allocated_hours'], PlanningSlot.search([
+        slots = PlanningSlot.search([
             ('start_datetime', '=', False),
             ('sale_line_id', 'in', self.ids),
-        ]))
+        ])
+        self.env.add_to_compute(PlanningSlot._fields['allocated_hours'], slots)
+        slots._recompute_recordset(['allocated_hours'])
+
 
     # -----------------------------------------------------------------
     # ORM Override

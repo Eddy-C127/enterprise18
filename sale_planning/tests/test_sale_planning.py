@@ -338,3 +338,29 @@ class TestSalePlanning(TestCommonSalePlanning):
         )
         shifts = PlanningSlot.auto_plan_ids([('start_datetime', '=', '2019-07-01 00:00:00'), ('end_datetime', '=', '2019-07-07 23:59:59')])
         self.assertEqual(len(shifts), 0)
+
+    def test_add_to_compute_then_create_field(self):
+        so = self.env['sale.order'].create({
+            "partner_id": self.planning_partner.id,
+        })
+        sol = self.env['sale.order.line'].create({
+            "product_id": self.plannable_product.id,
+            "product_uom_qty": 10,
+            "order_id": so.id,
+        })
+        so.action_confirm()
+
+        self.env['planning.slot'].create({
+            'sale_line_id': sol.id,
+        })
+
+        sol.env.flush_all()
+
+        # call Model._setup_base => no error because of add_to_compute in compute should happen
+        field = self.env['ir.model.fields'].create({
+            'name': 'x_this_is_a_test',
+            'model_id': self.env['ir.model'].search([('model', '=', 'planning.slot')]).id,
+            'field_description': 'foo',
+            'ttype': 'integer',
+        })
+        field.unlink()
