@@ -3,6 +3,7 @@
 import { CashierName } from "@point_of_sale/app/navbar/cashier_name/cashier_name";
 import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";
+import { _t } from "@web/core/l10n/translation";
 
 patch(CashierName.prototype, {
     setup() {
@@ -22,6 +23,6 @@ patch(CashierName.prototype, {
         return result;
     },
     get userStatus() {
-        return this.pos.userSessionStatus ? "Clocked in" : "Clocked out";
+        return this.pos.userSessionStatus ? _t("Clocked in") : _t("Clocked out");
     },
 });

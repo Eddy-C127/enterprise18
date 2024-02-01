@@ -5,7 +5,7 @@ from odoo import models, fields, api
 from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
 from odoo.tools.translate import _
-from odoo.osv.expression import OR, AND
+from odoo.osv.expression import OR
 from odoo.service.common import exp_version
 
 
@@ -173,15 +173,6 @@ class PosConfig(models.Model):
             for floor in self.floor_ids:
                 if len(floor.pos_config_ids) > 1:
                     raise ValidationError("Floor plans cannot be shared in different POS configurations when using the Blackbox module.")
-
-    def _employee_domain(self, user_id):
-        domain = self._check_company_domain(self.company_id)
-        if len(self.basic_employee_ids) > 0:
-            domain = AND([
-                domain,
-                ['|', ('user_id', '=', user_id), ('id', 'in', self.basic_employee_ids.ids + self.advanced_employee_ids.ids)]
-            ])
-        return domain
 
     def _check_employee_insz_or_bis_number(self):
         for config in self:

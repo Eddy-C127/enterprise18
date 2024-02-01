@@ -181,6 +181,13 @@ class BlackBoxDriver(SerialDriver):
             self.data['value'] = self._parse_blackbox_response(blackbox_response)
         event_manager.device_changed(self)
 
+    def _request_registerPIN(self, data):
+        packet = self._wrap_low_level_message_around("P040%s" % data['high_level_message'])
+        blackbox_response = self._send_to_blackbox(packet, 35, self._connection)
+        if blackbox_response:
+            self.data['value'] = self._parse_blackbox_response(blackbox_response)
+        event_manager.device_changed(self)
+
     def _send_to_blackbox(self, packet, response_size, connection):
         """Sends a message to and wait for a response from the blackbox.
         :param packet: the message to be sent to the blackbox

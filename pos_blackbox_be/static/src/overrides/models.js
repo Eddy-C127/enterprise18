@@ -15,14 +15,17 @@ patch(PosStore.prototype, {
         this.multiple_discount = false;
     },
     async getUserSessionStatus() {
-        return await this.orm.call(
-            "pos.session",
-            "get_user_session_work_status",
-            [this.pos_session.id],
-            {
-                user_id: this.get_cashier().id,
-            }
-        );
+        if (this.useBlackBoxBe()) {
+            return await this.orm.call(
+                "pos.session",
+                "get_user_session_work_status",
+                [this.pos_session.id],
+                {
+                    user_id: this.get_cashier().id,
+                }
+            );
+        }
+        return true;
     },
     async setUserSessionStatus(status) {
         const users = await this.orm.call(
