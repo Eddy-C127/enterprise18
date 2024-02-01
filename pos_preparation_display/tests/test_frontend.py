@@ -27,7 +27,7 @@ class TestUi(TestPointOfSaleHttpCommon):
 
         # open a session, the /pos/ui controller will redirect to it
         self.main_pos_config.with_user(self.pos_user).open_ui()
-        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'PreparationDisplayTour', login="pos_user")
+        self.start_pos_tour('PreparationDisplayTour')
 
         order = self.env['pos.order'].search([('amount_paid', '=', 65.89)], limit=1)
         preparation_order = self.env['pos_preparation_display.order'].search([('pos_order_id', '=', order.id)], limit=1)

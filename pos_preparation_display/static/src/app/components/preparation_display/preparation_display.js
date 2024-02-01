@@ -4,8 +4,8 @@ import { Stages } from "@pos_preparation_display/app/components/stages/stages";
 import { Order } from "@pos_preparation_display/app/components/order/order";
 import { MainComponentsContainer } from "@web/core/main_components_container";
 import { usePreparationDisplay } from "@pos_preparation_display/app/preparation_display_service";
-import { Component, onPatched, useState } from "@odoo/owl";
-import { startOwl } from "@point_of_sale/startOwl";
+import { Component, onPatched, useState, whenReady } from "@odoo/owl";
+import { mountComponent } from "@web/env";
 
 export class PreparationDisplay extends Component {
     static components = { Category, Stages, Order, MainComponentsContainer };
@@ -89,4 +89,4 @@ export class PreparationDisplay extends Component {
         this.state.isMenuOpened = true;
     }
 }
-startOwl(PreparationDisplay);
+whenReady(() => mountComponent(PreparationDisplay, document.body));

@@ -17,7 +17,7 @@ class TestUi(TestFrontend):
         # open a session, the /pos/ui controller will redirect to it
         self.pos_config.printer_ids.unlink()
         self.pos_config.with_user(self.user_demo).open_ui()
-        self.start_tour("/pos/ui?config_id=%d" % self.pos_config.id, 'PreparationDisplayTourResto', login="demo")
+        self.start_pos_tour('PreparationDisplayTourResto', login="demo")
 
         # Order 1 should have 2 preparation orderlines (Coca-Cola and Water)
         order1 = self.env['pos.order'].search([('pos_reference', 'ilike', '%-0001')], limit=1)

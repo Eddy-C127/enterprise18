@@ -65,10 +65,6 @@ class TestPoSRental(TestPointOfSaleHttpCommon):
             ]
         })
         self.main_pos_config.with_user(self.pos_user).open_ui()
-        self.start_tour(
-            "/pos/ui?config_id=%d" % self.main_pos_config.id,
-            "OrderLotsRentalTour",
-            login="pos_user",
-        )
+        self.start_pos_tour("OrderLotsRentalTour")
         self.main_pos_config.current_session_id.action_pos_session_closing_control()
         self.assertEqual(self.sale_order_id.order_line.pickedup_lot_ids.name, '123456789')
