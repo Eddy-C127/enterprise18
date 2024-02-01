@@ -60,7 +60,11 @@ class HrAttendance(models.Model):
                 ])
             )
             expected_attendances -= leave_intervals[False] | leave_intervals[emp.resource_id.id]
-            expected_worked_hours[emp.id] = sum([(att[2].hour_to - att[2].hour_from) for att in expected_attendances])
+            expected_worked_hours[emp.id] = sum(
+                att.hour_to - att.hour_from
+                for interval in expected_attendances
+                for att in interval[2]
+            )
         for employee_id in res_ids:
             values[employee_id] = {
                 'value': employee_data.get(employee_id, 0),
