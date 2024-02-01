@@ -1,42 +1,36 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* sale_planning
-# 
+#
 # Translators:
-# valmasone, 2023
-# Константин Коровин <korovin74@gmail.com>, 2023
-# Martin Trigaux, 2023
-# Сергей Шебанин <sergey@shebanin.ru>, 2023
-# alenafairy, 2023
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:47+0000\n"
-"PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: alenafairy, 2023\n"
+"POT-Creation-Date: 2024-01-26 16:12+0000\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.view_order_form_inherit_sale_planning
 msgid "<span class=\"o_stat_text\">Planned</span>"
-msgstr "<span class=\"o_stat_text\">Запланировано</span>"
+msgstr "<span class=\"o_stat_text\">Планируется</span>"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_form_inherit_sale_planning
 msgid "<span class=\"o_stat_text\">Sales Order</span>"
-msgstr "Заказ на продажу"
+msgstr "<span class=\"o_stat_text\">Заказ на продажу</span>"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.view_order_form_inherit_sale_planning
 msgid "<span class=\"o_stat_text\">To Plan</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Планировать</span>"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.product_template_form_view_invoice_policy_inherit_sale_planning
@@ -45,30 +39,31 @@ msgid ""
 "                        as\n"
 "                    </span>"
 msgstr ""
+"<span invisible=\"not planning_enabled\" class=\"oe_inline me-2\">\n"
+"                        в роли\n"
+"                    </span>"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_gantt_inherit_sale_planning
 msgid "<strong>Sales Order Item  — </strong>"
-msgstr "<strong>Позиция в заказе  — </strong>"
+msgstr "<strong>Пункт заказа на продажу - </strong>"
 
 #. module: sale_planning
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 #, python-format
-msgid ""
-"All open shifts and sales orders have already been assigned, or there are no"
-" resources available to take them at this time."
-msgstr ""
+msgid "All open shifts and sales orders have already been assigned, or there are no resources available to take them at this time."
+msgstr "Все открытые смены и заказы на продажу уже распределены, или в данный момент нет ресурсов для их выполнения."
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_slot__allocated_hours
 msgid "Allocated Time"
-msgstr "Выделенное время"
+msgstr "Распределенное время"
 
 #. module: sale_planning
 #: model:ir.ui.menu,name:sale_planning.sale_planning_menu_schedule_by_sale_order
 msgid "By Sales Order"
-msgstr "По заказу"
+msgstr "По заказам на продажу"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_slot__partner_id
@@ -78,7 +73,7 @@ msgstr "Клиент"
 #. module: sale_planning
 #: model:product.template,name:sale_planning.developer_product_product_template
 msgid "Developer (Plan services)"
-msgstr "Разработчик (услуги по планированию)"
+msgstr "Разработчик (плановые услуги)"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_slot__end_datetime
@@ -88,43 +83,29 @@ msgstr "Дата окончания"
 #. module: sale_planning
 #: model:planning.role,name:sale_planning.planning_role_tester
 msgid "Functional Tester"
-msgstr "Функциональный тестировщик"
+msgstr "Функциональный тестер"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.view_order_form_inherit_sale_planning
 msgid "Hours"
-msgstr "Часы"
+msgstr "Часов"
 
 #. module: sale_planning
 #: model:product.template,name:sale_planning.technical_maintainance_product_product_template
 msgid "IT Technical Maintenance (Plan services)"
-msgstr "Техническая поддержка ИТ (плановые услуги)"
+msgstr "Техническое обслуживание ИТ (плановые услуги)"
 
 #. module: sale_planning
 #: model:planning.role,name:sale_planning.planning_role_technician
 msgid "IT Technician"
-msgstr "Специалист по ИТ"
+msgstr "ИТ-техник"
 
 #. module: sale_planning
 #: model:ir.model.fields,help:sale_planning.field_planning_slot__sale_line_plannable
 #: model:ir.model.fields,help:sale_planning.field_product_product__planning_enabled
 #: model:ir.model.fields,help:sale_planning.field_product_template__planning_enabled
-msgid ""
-"If enabled, a shift will automatically be generated for the selected role "
-"when confirming the Sales Order. Only employees with this role will "
-"automatically be assigned shifts for Sales Orders containing this service."
-msgstr ""
-"Если эта функция включена, то при подтверждении заказа на продажу для "
-"выбранной должности будет автоматически создана смена. Только сотрудникам с "
-"этой должностью будут автоматически назначаться смены для Заказов на "
-"продажу, содержащих эту услугу."
-
-#. module: sale_planning
-#: model:ir.model,name:sale_planning.model_product_template
-msgid ""
-"Model adding the necessary fields to products to use with Pricer electronic "
-"tags"
-msgstr ""
+msgid "If enabled, a shift will automatically be generated for the selected role when confirming the Sales Order. Only employees with this role will automatically be assigned shifts for Sales Orders containing this service."
+msgstr "Если эта функция включена, то при подтверждении заказа на продажу для выбранной роли будет автоматически создана смена. Только сотрудникам с этой ролью будут автоматически назначаться смены для заказов на продажу, содержащих эту услугу."
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
@@ -134,35 +115,29 @@ msgstr "Мои заказы на продажу"
 #. module: sale_planning
 #: model_terms:ir.actions.act_window,help:sale_planning.sale_planning_action_schedule_by_sale_order
 msgid "No shifts found. Let's create one!"
-msgstr "Смены не найдены. Давайте создадим первую!"
+msgstr "Не найдено ни одной смены. Давайте создадим одну!"
 
 #. module: sale_planning
 #: model:ir.model.constraint,message:sale_planning.constraint_planning_slot_check_datetimes_set_or_plannable_slot
-msgid ""
-"Only slots linked to a sale order with a plannable service can be "
-"unscheduled."
-msgstr ""
-"Только слоты, связанные с заказом на продажу с плановым сервисом могут быть "
-"отменены."
+msgid "Only slots linked to a sale order with a plannable service can be unscheduled."
+msgstr "Внеплановыми могут быть только слоты, связанные с заказом на продажу с планируемой услугой."
 
 #. module: sale_planning
 #: model_terms:product.template,description:sale_planning.developer_product_product_template
 msgid "Our developer will help you to add new features to your Software."
-msgstr ""
-"Наш разработчик поможет вам добавить новые функции в программное "
-"обеспечение."
+msgstr "Наш разработчик поможет вам добавить новые функции в ваше программное обеспечение."
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_slot__sale_line_plannable
 #: model:ir.model.fields,field_description:sale_planning.field_product_product__planning_enabled
 #: model:ir.model.fields,field_description:sale_planning.field_product_template__planning_enabled
 msgid "Plan Services"
-msgstr "Запланировать услуги"
+msgstr "Плановые услуги"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.product_template_form_view_invoice_policy_inherit_sale_planning
 msgid "Plan shifts for your orders for employees who have this role."
-msgstr ""
+msgstr "Планируйте смены для сотрудников, выполняющих эту роль."
 
 #. module: sale_planning
 #. odoo-python
@@ -172,7 +147,7 @@ msgid ""
 "Plannable services should be a service product, product\n"
 "%s."
 msgstr ""
-"Планируемые услуги должны быть продуктом сервиса, продукт\n"
+"Планируемые услуги должны быть сервисным продуктом, продуктом\n"
 "%s."
 
 #. module: sale_planning
@@ -185,7 +160,7 @@ msgstr "Планируемые услуги должны использоват�
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_planning_analysis_report
 msgid "Planning Analysis Report"
-msgstr "Отчет по анализу планирования"
+msgstr "Отчет об анализе планирования"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_sale_order__planning_first_sale_line_id
@@ -196,25 +171,25 @@ msgstr "Планирование первой линии продаж"
 #: model:ir.model.fields,field_description:sale_planning.field_sale_order__planning_hours_planned
 #: model:ir.model.fields,field_description:sale_planning.field_sale_order_line__planning_hours_planned
 msgid "Planning Hours Planned"
-msgstr "Запланированные часы"
+msgstr "Планирование Часы Планирование"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_sale_order__planning_hours_to_plan
 #: model:ir.model.fields,field_description:sale_planning.field_sale_order_line__planning_hours_to_plan
 msgid "Planning Hours To Plan"
-msgstr "Запланированные часы"
+msgstr "Планирование часов для планирования"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_sale_order__planning_initial_date
 msgid "Planning Initial Date"
-msgstr "Запланированная начальная дата"
+msgstr "Планирование Начальная дата"
 
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_planning_role
 #: model:ir.model.fields,field_description:sale_planning.field_product_product__planning_role_id
 #: model:ir.model.fields,field_description:sale_planning.field_product_template__planning_role_id
 msgid "Planning Role"
-msgstr "Роль планирования"
+msgstr "Роль в планировании"
 
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_planning_slot
@@ -224,12 +199,17 @@ msgstr "Планирование смены"
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_sale_order_line__planning_slot_ids
 msgid "Planning Slot"
-msgstr "Слот планирования"
+msgstr "Слот для планирования"
+
+#. module: sale_planning
+#: model:ir.model,name:sale_planning.model_product_template
+msgid "Product"
+msgstr "Товар"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_analysis_report__role_product_ids
 msgid "Role Product"
-msgstr "Продукт "
+msgstr "Ролевой продукт"
 
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_sale_order
@@ -247,7 +227,7 @@ msgstr "Заказ на продажу"
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.resource_sale_planning
 msgid "Sales Order Item"
-msgstr "Элемент заказа на продажу"
+msgstr "Пункт заказа клиента"
 
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_sale_order_line
@@ -256,28 +236,18 @@ msgstr "Позиция заказа на продажу"
 
 #. module: sale_planning
 #: model:ir.model.fields,help:sale_planning.field_planning_slot__sale_line_id
-msgid ""
-"Sales order item for which this shift will be performed. When sales orders "
-"are automatically planned, the remaining hours of the sales order item, as "
-"well as the role defined on the service, are taken into account."
-msgstr ""
-"Позиция в заказе на продажу, для которого будет выполнена эта смена. При "
-"автоматическом планировании заказов на продажу учитываются оставшиеся часы "
-"элемента заказа на продажу, а также роль, определенная в услуге."
+msgid "Sales order item for which this shift will be performed. When sales orders are automatically planned, the remaining hours of the sales order item, as well as the role defined on the service, are taken into account."
+msgstr "Элемент заказа на продажу, для которого будет выполнена смена. При автоматическом планировании заказов на продажу учитываются оставшиеся часы работы элемента заказа на продажу, а также роль, определенная в сервисе."
 
 #. module: sale_planning
 #: model:ir.actions.act_window,name:sale_planning.sale_planning_action_schedule_by_sale_order
 msgid "Schedule by Sales Order"
-msgstr "Запланировать по заказу на продажу"
+msgstr "Расписание по заказам на продажу"
 
 #. module: sale_planning
 #: model_terms:ir.actions.act_window,help:sale_planning.sale_planning_action_schedule_by_sale_order
-msgid ""
-"Schedule your human and material resources across roles, projects and sales "
-"orders."
-msgstr ""
-"Планируйте человеческие и материальные ресурсы по должностям, проектам и "
-"заказам на продажу."
+msgid "Schedule your human and material resources across roles, projects and sales orders."
+msgstr "Планируйте человеческие и материальные ресурсы по ролям, проектам и заказам на продажу."
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_role__product_ids
@@ -307,38 +277,33 @@ msgstr "Отдохните. Мы сделаем все, что в наших с�
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 #, python-format
 msgid "The open shifts and sales orders have been successfully assigned."
-msgstr ""
+msgstr "Открытые смены и заказы на продажу были успешно назначены."
 
 #. module: sale_planning
 #. odoo-python
 #: code:addons/sale_planning/models/planning_slot.py:0
 #, python-format
-msgid ""
-"This Sale Order Item doesn't have a target value of planned hours. Planned "
-"hours :"
-msgstr ""
-"Эта позиция в заказе на продажу не имеет целевого значения запланированных "
-"часов. Запланированные часы:"
+msgid "This Sale Order Item doesn't have a target value of planned hours. Planned hours :"
+msgstr "У этого элемента заказа на продажу нет целевого значения запланированных часов. Запланированные часы :"
 
 #. module: sale_planning
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/sale_planning_gantt/sale_planning_gantt_renderer.js:0
 #, python-format
-msgid ""
-"This resource is not available for this shift during the selected period."
-msgstr "Данный ресурс недоступен для этой смены в течение выбранного периода."
+msgid "This resource is not available for this shift during the selected period."
+msgstr "Этот ресурс недоступен для данной смены в выбранный период."
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_view_form_in_gantt_inherit_sale_planning
 msgid "Unschedule"
-msgstr "Отменить расписание"
+msgstr "Rimuovere dal scadenzario"
 
 #. module: sale_planning
 #. odoo-python
 #: code:addons/sale_planning/models/sale_order.py:0
 #, python-format
 msgid "View Planning"
-msgstr "Просмотр планирования"
+msgstr "Планирование вида"
 
 #. module: sale_planning
 #: model:planning.role,name:sale_planning.planning_role_planner
@@ -348,7 +313,7 @@ msgstr "Планировщик работ"
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_role_view_tree_inherit_sale_planning
 msgid "e.g. Cleaning Services"
-msgstr ""
+msgstr "например, клининговые услуги"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.product_template_form_view_invoice_policy_inherit_sale_planning

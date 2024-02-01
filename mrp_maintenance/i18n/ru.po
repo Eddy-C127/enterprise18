@@ -1,51 +1,41 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* mrp_maintenance
-# 
+#
 # Translators:
-# Андрей Гусев <gaussgss@gmail.com>, 2023
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
-# Ekaterina <nawsikaya@bk.ru>, 2023
-# alenafairy, 2023
-# Максим Дронь <dronmax@gmail.com>, 2023
-# ILMIR <karamov@it-projects.info>, 2023
-# Alena Vlasova, 2023
-# Сергей Шебанин <sergey@shebanin.ru>, 2023
-# Martin Trigaux, 2023
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_production_view_form_inherit_maintenance
 msgid "<span class=\"o_stat_text\">Maintenance</span>"
-msgstr "<span class=\"o_stat_text\">Обслуживание</span>"
+msgstr "<span class=\"o_stat_text\">Техническое обслуживание</span>"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_equipment_view_form_inherit_mrp
 msgid "<span class=\"o_stat_text\">Work Center</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Рабочий центр</span>"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_needaction
 msgid "Action Needed"
-msgstr "Требует внимания"
+msgstr "Требуются действия"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_ids
 msgid "Activities"
-msgstr "Деятельность"
+msgstr "Активность"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_exception_decoration
@@ -55,12 +45,12 @@ msgstr "Оформление исключения активности"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_state
 msgid "Activity State"
-msgstr "Статус активности"
+msgstr "Состояние активности"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_type_icon
 msgid "Activity Type Icon"
-msgstr "Иконка типа действия"
+msgstr "Значок типа активности"
 
 #. module: mrp_maintenance
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.mrp_workcenter_request_action_from_workcenter
@@ -70,7 +60,7 @@ msgstr "Добавить новый запрос на обслуживание"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__recurring_leaves_count
 msgid "Additional Leaves to Plan Ahead"
-msgstr ""
+msgstr "Дополнительные листья для планирования наперед"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_attachment_count
@@ -84,9 +74,8 @@ msgstr "Блокировать рабочий центр"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_maintenance_request__recurring_leaves_count
-msgid ""
-"Block the workcenter for this many time slots in the future in advance."
-msgstr ""
+msgid "Block the workcenter for this many time slots in the future in advance."
+msgstr "Заранее заблокируйте рабочий центр на такое количество временных интервалов в будущем."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__company_id
@@ -97,22 +86,22 @@ msgstr "Компания"
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__estimated_next_failure
 msgid "Computed as Latest Failure Date + MTBF"
-msgstr "Дата последнего отказа + ожидаемое время наработки на отказ"
+msgstr "Рассчитывается как последняя дата отказа + MTBF"
 
 #. module: mrp_maintenance
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.maintenance_workcenter_action
 msgid "Create a new work center"
-msgstr "Создайте новый рабочий центр"
+msgstr "Создать новый рабочий центр"
 
 #. module: mrp_maintenance
 #: model:maintenance.equipment,name:mrp_maintenance.equipment_furniture1
 msgid "Crosscut Saw: 8 ppi."
-msgstr "Поперечная пила"
+msgstr "Поперечная пила: 8 ppi."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__maintenance_open_count
 msgid "Current Maintenance"
-msgstr "Текущий ремонт"
+msgstr "Текущее обслуживание"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_request_view_form_inherit_mrp
@@ -127,7 +116,7 @@ msgstr "Сверлильный станок"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__effective_date
 msgid "Effective Date"
-msgstr "Срок эффективности"
+msgstr "Срок действия"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__equipment_id
@@ -139,22 +128,22 @@ msgstr "Оборудование"
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Est. Next Failure"
-msgstr "До отказа"
+msgstr "Эст. Следующая неудача"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Estimated Next Failure"
-msgstr "Время до отказа"
+msgstr "Предполагаемый следующий отказ"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__estimated_next_failure
 msgid "Estimated time before next failure (in days)"
-msgstr "Расчётное время до отказа (в днях)"
+msgstr "Расчетное время до следующего отказа (в днях)"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__expected_mtbf
 msgid "Expected MTBF"
-msgstr "Время отказа"
+msgstr "Ожидаемое время наработки на отказ"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__expected_mtbf
@@ -164,8 +153,7 @@ msgstr "Ожидаемое среднее время наработки на о�
 
 #. module: mrp_maintenance
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.mrp_workcenter_request_action_from_workcenter
-msgid ""
-"Follow the process of the request and communicate with the collaborator."
+msgid "Follow the process of the request and communicate with the collaborator."
 msgstr "Следите за процессом запроса и общайтесь с соавтором."
 
 #. module: mrp_maintenance
@@ -176,22 +164,22 @@ msgstr "Подписчики"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Подписчики (Партнеры)"
+msgstr "Подписчики"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Иконка со шрифтом Font awesome, например, fa-tasks"
+msgstr "Шрифт, отличный значок, например. к.-а.-задачи"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__maintenance_for
 msgid "For"
-msgstr ""
+msgstr "Для"
 
 #. module: mrp_maintenance
 #: model:maintenance.equipment.category,name:mrp_maintenance.equipment_furniture_tools
 msgid "Furniture Tools"
-msgstr "Ручной инструмент"
+msgstr "Мебельные инструменты"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__has_message
@@ -206,56 +194,53 @@ msgstr "Иконка"
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "Значок, обозначающий действие исключения."
+msgstr "Значок, обозначающий исключение Дела."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
-"Если флажок установлен, новые сообщения будут требовать вашего внимания."
+msgstr "Если флажок установлен, значит, новые сообщения требуют вашего внимания."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_has_error
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Если флажок установлен, некоторые сообщения имеют ошибку доставки."
+msgstr "Если отмечено, некоторые сообщения имеют ошибку доставки."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_is_follower
 msgid "Is Follower"
-msgstr "Подписчик"
+msgstr "Является подписчиком"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_maintenance_request__block_workcenter
-msgid ""
-"It won't be possible to plan work orders or other maintenances on this "
-"workcenter during this time."
-msgstr ""
+msgid "It won't be possible to plan work orders or other maintenances on this workcenter during this time."
+msgstr "В это время нельзя будет планировать заказы на работы или другие виды технического обслуживания на этом рабочем центре."
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Latest Failure"
-msgstr "Последний отказ"
+msgstr "Последняя неудача"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__latest_failure_date
 msgid "Latest Failure Date"
-msgstr "Дата последнего отказа"
+msgstr "Последняя дата отказа"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__leave_ids
 msgid "Leaves"
-msgstr ""
+msgstr "Отпуска"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__mtbf
 msgid "MTBF"
-msgstr "Наработка на отказ"
+msgstr "ВРЕМЯ НАРАБОТКИ НА ОТКАЗ"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__mttr
 msgid "MTTR"
-msgstr "Время ремонта"
+msgstr "MTTR"
 
 #. module: mrp_maintenance
 #: model:ir.ui.menu,name:mrp_maintenance.menu_equipment_dashboard
@@ -272,19 +257,19 @@ msgstr "Обслуживание"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__maintenance_count
 msgid "Maintenance Count"
-msgstr "подсчет обслуживание"
+msgstr "Счетчик обслуживания"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_maintenance_equipment
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__equipment_ids
 msgid "Maintenance Equipment"
-msgstr "Обслуживаемое оборудование"
+msgstr "Оборудование для технического обслуживания"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_maintenance_request
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_production_view_form_inherit_maintenance
 msgid "Maintenance Request"
-msgstr "Запрос обслуживания"
+msgstr "Запрос на обслуживание"
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -292,12 +277,12 @@ msgstr "Запрос обслуживания"
 #: model:ir.actions.act_window,name:mrp_maintenance.mrp_workcenter_request_action_from_workcenter
 #, python-format
 msgid "Maintenance Requests"
-msgstr "Запросы обслуживания"
+msgstr "Заявки на техническое обслуживание"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_maintenance_stage
 msgid "Maintenance Stage"
-msgstr "Этап обслуживания"
+msgstr "Стадия технического обслуживания"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__maintenance_team_id
@@ -307,7 +292,7 @@ msgstr "Команда обслуживания"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__production_id
 msgid "Manufacturing Order"
-msgstr "Заявка на производство"
+msgstr "Заказ на производство"
 
 #. module: mrp_maintenance
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.maintenance_workcenter_action
@@ -315,25 +300,24 @@ msgid ""
 "Manufacturing operations are processed at Work Centers. A Work Center can be composed of\n"
 "            workers and/or machines, they are used for costing, scheduling, capacity planning, etc."
 msgstr ""
+"Производственные операции выполняются в рабочих центрах. Рабочий центр может состоять из\n"
+"            рабочих и/или машин, они используются для расчета затрат, составления расписания, планирования мощностей и т. д."
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Mean Time Between Failure"
-msgstr "Среднее время между отказами, наработка на отказ"
+msgstr "Среднее время между отказами"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__mtbf
-msgid ""
-"Mean Time Between Failure, computed based on done corrective maintenances."
-msgstr ""
-"Среднее время между отказами рассчитывается исходя из регулярного "
-"обслуживания."
+msgid "Mean Time Between Failure, computed based on done corrective maintenances."
+msgstr "Среднее время наработки на отказ, рассчитанное на основе проведенных профилактических ремонтов."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__mttr
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Mean Time To Repair"
-msgstr "Среднее время до восстановления работоспособности"
+msgstr "Среднее время ремонта"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_has_error
@@ -348,60 +332,59 @@ msgstr "Сообщения"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr "Крайний срок моего действия"
+msgstr "Крайний срок моей активности"
 
 #. module: mrp_maintenance
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
-#: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "New Maintenance Request"
-msgstr "Новый запрос обслуживания"
+msgstr "Новый запрос на техническое обслуживание"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr "Событие в календаре для следующего действия"
+msgstr "Следующее событие календаря активности"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Крайний срок следующего действия"
+msgstr "Следующий срок мероприятия"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_summary
 msgid "Next Activity Summary"
-msgstr "Краткое описание следующего действия"
+msgstr "Резюме следующего действия"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_type_id
 msgid "Next Activity Type"
-msgstr "Тип следующего действия"
+msgstr "Следующий Тип Мероприятия"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Кол-во действий"
+msgstr "Число действий"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_has_error_counter
 msgid "Number of errors"
-msgstr "Количество ошибок"
+msgstr "Число ошибок"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_production__maintenance_count
 msgid "Number of maintenance requests"
-msgstr "Количество запросов обслуживания"
+msgstr "Количество заявок на техническое обслуживание"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr "Количество сообщений, требующих действия"
+msgstr "Количество сообщений, требующих принятия мер"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Количество сообщений с ошибкой доставки"
+msgstr "Количество недоставленных сообщений"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_request_view_search_inherit_mrp
@@ -411,12 +394,12 @@ msgstr "Операция"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__production_company_id
 msgid "Production Company"
-msgstr ""
+msgstr "Производственная компания"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_mrp_production
 msgid "Production Order"
-msgstr "Производственный заказ"
+msgstr "Заказ на производство"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__rating_ids
@@ -427,26 +410,26 @@ msgstr "Рейтинги"
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_production__request_ids
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_workcenter_view_kanban_inherit_mrp
 msgid "Request"
-msgstr "Запросить"
+msgstr "Запрос"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_stage__create_leaves
 msgid "Request Confirmed"
-msgstr ""
+msgstr "Запрос подтвержден"
 
 #. module: mrp_maintenance
 #. odoo-javascript
 #: code:addons/mrp_maintenance/static/src/components/menuPopup.xml:0
 #, python-format
 msgid "Request Maintenance"
-msgstr ""
+msgstr "Запрос на обслуживание"
 
 #. module: mrp_maintenance
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "Request planned for %s"
-msgstr ""
+msgstr "Запрос запланирован для %s"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_user_id
@@ -466,7 +449,7 @@ msgstr "Сохранить"
 #. module: mrp_maintenance
 #: model:maintenance.equipment,name:mrp_maintenance.equipment_furniture2
 msgid "Scrub Plane"
-msgstr "Шерхебель"
+msgstr "Скраб-самолет"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__activity_state
@@ -476,10 +459,10 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-"Статус основан на плановых действиях\n"
-"Просрочено: срок исполнения истек\n"
-"Сегодня: выполнить сегодня\n"
-"Запланировано: срок в будущем."
+"Статус, основанный на мероприятии\n"
+"Просроченная: Дата, уже прошла\n"
+"Сегодня: Дата мероприятия сегодня\n"
+"Запланировано: будущая деятельность."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__technician_user_id
@@ -491,43 +474,41 @@ msgstr "Техник"
 #: code:addons/mrp_maintenance/static/src/components/maintenance_request_form_view.js:0
 #, python-format
 msgid "The maintenance request has successfully been created."
-msgstr ""
+msgstr "Запрос на обслуживание успешно создан."
 
 #. module: mrp_maintenance
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
-msgid ""
-"The schedule has changed from %(desired_date)s to %(effective_date)s due to "
-"planned manufacturing orders."
-msgstr ""
+msgid "The schedule has changed from %(desired_date)s to %(effective_date)s due to planned manufacturing orders."
+msgstr "Расписание изменилось с %(desired_date)s на %(effective_date)s из-за запланированных производственных заказов."
 
 #. module: mrp_maintenance
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "The workcenter is missing for %s."
-msgstr ""
+msgstr "Рабочий центр отсутствует для %s."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__effective_date
 msgid "This date will be used to compute the Mean Time Between Failure."
-msgstr ""
+msgstr "Эта дата будет использоваться для расчета среднего времени между отказами."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Тип активности исключения в записи."
+msgstr "Тип Дела для исключения в записи."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__website_message_ids
 msgid "Website Messages"
-msgstr "Сообщения на сайте"
+msgstr "Веб-сайт сообщения"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__website_message_ids
 msgid "Website communication history"
-msgstr "История общения на сайте"
+msgstr "История общений с сайта"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_maintenance_stage__create_leaves
@@ -535,6 +516,8 @@ msgid ""
 "When this box is unticked, and the maintenance is of the type 'Work Center', no leave is created on the respective work center when a maintenance request is created.\n"
 "If the box is ticked, the work center is automatically blocked for the listed duration, either at the specified date, or as soon as possible, if the work center is unavailable then."
 msgstr ""
+"Если этот флажок не установлен, а обслуживание имеет тип \"Рабочий центр\", то при создании запроса на обслуживание для соответствующего рабочего центра не создается отпуск.\n"
+"Если флажок установлен, рабочий центр автоматически блокируется на указанный срок, либо на указанную дату, либо как можно скорее, если рабочий центр в это время недоступен."
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_mrp_workcenter
@@ -554,7 +537,7 @@ msgstr "Рабочие центры"
 #: model:ir.model,name:mrp_maintenance.model_mrp_workorder
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__workorder_id
 msgid "Work Order"
-msgstr "Производственное задание"
+msgstr "Заказ-наряд"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_request_view_search_inherit_mrp
@@ -571,4 +554,4 @@ msgstr "дней"
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "work centers"
-msgstr "производственные участки"
+msgstr "рабочие центры"

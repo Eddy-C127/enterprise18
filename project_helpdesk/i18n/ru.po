@@ -1,44 +1,37 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* project_helpdesk
-# 
+#
 # Translators:
-# Alena Vlasova, 2023
-# alenafairy, 2023
-# ILMIR <karamov@it-projects.info>, 2023
-# Сергей Шебанин <sergey@shebanin.ru>, 2023
-# Martin Trigaux, 2023
-# valmasone, 2023
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: valmasone, 2023\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: project_helpdesk
 #: model_terms:ir.ui.view,arch_db:project_helpdesk.helpdesk_ticket_convert_to_task_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:project_helpdesk.project_task_convert_to_ticket_wizard_view_form
 msgid "Convert"
-msgstr "Преобразовать"
+msgstr "Конвертировать"
 
 #. module: project_helpdesk
 #: model:ir.model,name:project_helpdesk.model_helpdesk_ticket_convert_wizard
 msgid "Convert Helpdesk Tickets to Tasks"
-msgstr "Преобразовать заявки Службы Поддержки в задачи"
+msgstr "Преобразование билетов службы поддержки в задачи"
 
 #. module: project_helpdesk
 #: model:ir.model,name:project_helpdesk.model_project_task_convert_wizard
 msgid "Convert Project Tasks to Tickets"
-msgstr "Преобразовать задачи проекта в заявки"
+msgstr "Преобразование задач проекта в билеты"
 
 #. module: project_helpdesk
 #. odoo-python
@@ -47,7 +40,7 @@ msgstr "Преобразовать задачи проекта в заявки"
 #: model_terms:ir.ui.view,arch_db:project_helpdesk.helpdesk_ticket_convert_to_task_wizard_view_form
 #, python-format
 msgid "Convert to Task"
-msgstr ""
+msgstr "Перевести в Задачу"
 
 #. module: project_helpdesk
 #. odoo-python
@@ -56,21 +49,21 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:project_helpdesk.project_task_convert_to_ticket_wizard_view_form
 #, python-format
 msgid "Convert to Ticket"
-msgstr "Преобразовать в заявку"
+msgstr "Конвертировать в билет"
 
 #. module: project_helpdesk
 #. odoo-python
 #: code:addons/project_helpdesk/wizard/helpdesk_ticket_convert_wizard.py:0
 #, python-format
 msgid "Converted Tasks"
-msgstr ""
+msgstr "Преобразованные задачи"
 
 #. module: project_helpdesk
 #. odoo-python
 #: code:addons/project_helpdesk/wizard/project_task_convert_wizard.py:0
 #, python-format
 msgid "Converted Tickets"
-msgstr ""
+msgstr "Конвертированные билеты"
 
 #. module: project_helpdesk
 #: model:ir.model.fields,field_description:project_helpdesk.field_helpdesk_ticket_convert_wizard__create_uid
@@ -82,7 +75,7 @@ msgstr "Создано"
 #: model:ir.model.fields,field_description:project_helpdesk.field_helpdesk_ticket_convert_wizard__create_date
 #: model:ir.model.fields,field_description:project_helpdesk.field_project_task_convert_wizard__create_date
 msgid "Created on"
-msgstr "Дата создания"
+msgstr "Создано"
 
 #. module: project_helpdesk
 #: model_terms:ir.ui.view,arch_db:project_helpdesk.helpdesk_ticket_convert_to_task_wizard_view_form
@@ -94,24 +87,24 @@ msgstr "Отменить"
 #: model:ir.model.fields,field_description:project_helpdesk.field_helpdesk_ticket_convert_wizard__display_name
 #: model:ir.model.fields,field_description:project_helpdesk.field_project_task_convert_wizard__display_name
 msgid "Display Name"
-msgstr "Показывать название"
+msgstr "Отображаемое имя"
 
 #. module: project_helpdesk
 #: model:ir.model,name:project_helpdesk.model_helpdesk_ticket
 msgid "Helpdesk Ticket"
-msgstr "Заявка службы поддержки"
+msgstr "Заявка техподдержки"
 
 #. module: project_helpdesk
 #: model:ir.model.fields,field_description:project_helpdesk.field_helpdesk_ticket_convert_wizard__id
 #: model:ir.model.fields,field_description:project_helpdesk.field_project_task_convert_wizard__id
 msgid "ID"
-msgstr "Идентификатор"
+msgstr "ID"
 
 #. module: project_helpdesk
 #: model:ir.model.fields,field_description:project_helpdesk.field_helpdesk_ticket_convert_wizard__write_uid
 #: model:ir.model.fields,field_description:project_helpdesk.field_project_task_convert_wizard__write_uid
 msgid "Last Updated by"
-msgstr "Последний раз обновил"
+msgstr "Последнее обновление"
 
 #. module: project_helpdesk
 #: model:ir.model.fields,field_description:project_helpdesk.field_helpdesk_ticket_convert_wizard__write_date
@@ -129,7 +122,7 @@ msgstr "Проект"
 #: code:addons/project_helpdesk/models/project.py:0
 #, python-format
 msgid "Recurring tasks cannot be converted into tickets."
-msgstr "Повторяющиеся задачи не могут быть преобразованы в заявки."
+msgstr "Повторяющиеся задачи нельзя преобразовать в билеты."
 
 #. module: project_helpdesk
 #: model:ir.model.fields,field_description:project_helpdesk.field_helpdesk_ticket_convert_wizard__stage_id
@@ -147,7 +140,7 @@ msgstr "Задача"
 #: code:addons/project_helpdesk/wizard/project_task_convert_wizard.py:0
 #, python-format
 msgid "Task converted into ticket %s"
-msgstr "Задача преобразована в заявку %s"
+msgstr "Задание преобразовано в билет %s"
 
 #. module: project_helpdesk
 #: model:ir.model.fields,field_description:project_helpdesk.field_project_task_convert_wizard__team_id
@@ -159,4 +152,4 @@ msgstr "Команда"
 #: code:addons/project_helpdesk/wizard/helpdesk_ticket_convert_wizard.py:0
 #, python-format
 msgid "Ticket converted into task %s"
-msgstr "Заявка преобразована в задачу %s"
+msgstr "Билет преобразован в задание %s"

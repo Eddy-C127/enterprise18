@@ -1,24 +1,20 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_gantt
-# 
+#
 # Translators:
-# alenafairy, 2023
-# Сергей Шебанин <sergey@shebanin.ru>, 2023
-# Martin Trigaux, 2023
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
-"PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: web_gantt
@@ -26,19 +22,19 @@ msgstr ""
 #: code:addons/web_gantt/static/src/gantt_controller.js:0
 #, python-format
 msgid "Are you sure to delete this record?"
-msgstr ""
+msgstr "Вы уверены, что хотите удалить эту запись?"
 
 #. module: web_gantt
 #: model:ir.model,name:web_gantt.model_base
 msgid "Base"
-msgstr "Базовый"
+msgstr "База"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer.xml:0
 #, python-format
 msgid "Collapse rows"
-msgstr ""
+msgstr "Свернуть ряды"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -66,79 +62,77 @@ msgstr "Редактировать"
 #: code:addons/web_gantt/static/src/gantt_renderer.xml:0
 #, python-format
 msgid "Expand rows"
-msgstr ""
+msgstr "Расширить ряды"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_view.js:0
 #, python-format
 msgid "Gantt"
-msgstr "Диаграмма Ганта"
+msgstr "Гантт"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 #, python-format
 msgid "Gantt View"
-msgstr "Диаграмма Ганта"
+msgstr "Вид  Гантт"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 #, python-format
 msgid "Gantt child can only be field or template, got %s"
-msgstr ""
+msgstr "Дочерний элемент Ганта может быть только полем или шаблоном, получено %s"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 #, python-format
 msgid "Gantt must have a 'date_start' attribute"
-msgstr ""
+msgstr "Гант должен иметь атрибут 'date_start'"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 #, python-format
 msgid "Gantt must have a 'date_stop' attribute"
-msgstr ""
+msgstr "Гант должен иметь атрибут 'date_stop'"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 #, python-format
-msgid ""
-"Gantt must have a 'dependency_inverted_field' attribute once the "
-"'dependency_field' is specified"
-msgstr ""
+msgid "Gantt must have a 'dependency_inverted_field' attribute once the 'dependency_field' is specified"
+msgstr "Gantt должен иметь атрибут 'dependency_inverted_field' после указания 'dependency_field'"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 #, python-format
 msgid "Gantt view can contain only one templates tag"
-msgstr ""
+msgstr "Представление Ганта может содержать только один тег шаблона"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 #, python-format
 msgid "Insufficient fields for Gantt View!"
-msgstr ""
+msgstr "Недостаточно полей для представления Ганта!"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 #, python-format
 msgid "Invalid attributes (%s) in gantt view. Attributes must be in (%s)"
-msgstr ""
+msgstr "Недопустимые атрибуты (%s) в представлении Ганта. Атрибуты должны быть в (%s)"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 #, python-format
 msgid "Invalid default_scale '%s' in gantt"
-msgstr ""
+msgstr "Недопустимая шкала по умолчанию '%s' в гигантской схеме"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -152,7 +146,7 @@ msgstr "Месяц"
 #: code:addons/web_gantt/static/src/gantt_popover.xml:0
 #, python-format
 msgid "Name"
-msgstr "Название"
+msgstr "Имя"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -166,21 +160,21 @@ msgstr "Новый"
 #: code:addons/web_gantt/static/src/gantt_renderer.xml:0
 #, python-format
 msgid "Next"
-msgstr "Далее"
+msgstr "Следующий"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_controller.js:0
 #, python-format
 msgid "Open"
-msgstr "Открытые"
+msgstr "Открыть"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 #, python-format
 msgid "Plan"
-msgstr "Раздел"
+msgstr "План"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -193,30 +187,25 @@ msgstr "Предыдущий"
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 #, python-format
-msgid ""
-"Records that are in the past cannot be automatically rescheduled. They "
-"should be manually rescheduled instead."
-msgstr ""
+msgid "Records that are in the past cannot be automatically rescheduled. They should be manually rescheduled instead."
+msgstr "Записи, которые находятся в прошлом, не могут быть автоматически перенесены. Их следует переносить вручную."
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_popover.xml:0
 #, python-format
 msgid "Start"
-msgstr "Начать"
+msgstr "Начало"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_popover.xml:0
 #, python-format
 msgid "Stop"
-msgstr "Завершить"
+msgstr "Стоп"
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
 #: code:addons/web_gantt/static/src/gantt_renderer.xml:0
 #, python-format
 msgid "Today"
@@ -234,7 +223,7 @@ msgstr "Всего"
 #: code:addons/web_gantt/static/src/gantt_model.js:0
 #, python-format
 msgid "Undefined %s"
-msgstr ""
+msgstr "Неопределено %s"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -242,7 +231,7 @@ msgstr ""
 #: model:ir.model,name:web_gantt.model_ir_ui_view
 #, python-format
 msgid "View"
-msgstr "Смотреть"
+msgstr "Просмотр"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -263,24 +252,21 @@ msgstr "Год"
 #: code:addons/web_gantt/models/models.py:0
 #, python-format
 msgid "You cannot reschedule %s towards %s."
-msgstr ""
+msgstr "Вы не можете перенести %s на %s."
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 #, python-format
-msgid ""
-"You cannot reschedule tasks that do not follow a direct dependency path. "
-"Only the first task has been automatically rescheduled."
-msgstr ""
+msgid "You cannot reschedule tasks that do not follow a direct dependency path. Only the first task has been automatically rescheduled."
+msgstr "Вы не можете перенести в график задачи, которые не следуют прямому пути зависимости. Автоматически переносится только первая задача."
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
-#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 #, python-format
 msgid "hours"
-msgstr "часы"
+msgstr "часов"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -294,4 +280,4 @@ msgstr "минут"
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 #, python-format
 msgid "months"
-msgstr "месяцы"
+msgstr "месяцев"

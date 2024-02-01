@@ -1,29 +1,20 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* iap_extract
-# 
+#
 # Translators:
-# Андрей Гусев <gaussgss@gmail.com>, 2023
-# ILMIR <karamov@it-projects.info>, 2023
-# Сергей Шебанин <sergey@shebanin.ru>, 2023
-# Martin Trigaux, 2023
-# alenafairy, 2023
-# Alena Vlasova, 2023
-# Ekaterina <nawsikaya@bk.ru>, 2023
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:46+0000\n"
-"PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ivan Kropotkin <yelizariev@itpp.dev>, 2023\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: iap_extract
@@ -37,11 +28,18 @@ msgid ""
 "    <p>Odoo S.A.</p>\n"
 "</div>"
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p>Уважаемый,<br></p>\n"
+"    <p>На вашем счету IAP OCR больше нет кредитов.<br>\n"
+"    Вы можете пополнить счет IAP OCR на странице настроек.</p>\n"
+"    <p>С наилучшими пожеланиями,<br></p>\n"
+"    <p>Odoo S.A.</p>\n"
+"</div>"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_needaction
 msgid "Action Needed"
-msgstr "Требует внимания"
+msgstr "Требуются действия"
 
 #. module: iap_extract
 #. odoo-python
@@ -69,12 +67,12 @@ msgstr "Количество вложений"
 #. module: iap_extract
 #: model:ir.model,name:iap_extract.model_extract_mixin
 msgid "Base class to extract data from documents"
-msgstr ""
+msgstr "Базовый класс для извлечения данных из документов"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_can_show_send_button
 msgid "Can show the ocr send button"
-msgstr "Может показывать присланную кнопку ocr"
+msgstr "Можно показать кнопку отправки ocr"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__done
@@ -82,28 +80,28 @@ msgstr "Может показывать присланную кнопку ocr"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__done
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__done
 msgid "Completed flow"
-msgstr "Завершен процесс"
+msgstr "Завершенный поток"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Document is being digitized"
-msgstr ""
+msgstr "Документ переводится в цифровой формат"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Document sent for digitization"
-msgstr ""
+msgstr "Документ отправлен на оцифровку"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Documents sent for digitization"
-msgstr ""
+msgstr "Документы, отправленные на оцифровку"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_error_message
@@ -113,17 +111,17 @@ msgstr "Сообщение об ошибке"
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_state_processed
 msgid "Extract State Processed"
-msgstr ""
+msgstr "Состояние извлечения Обработано"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_state
 msgid "Extract state"
-msgstr "состояние извлечения"
+msgstr "Состояние экстракта"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_status
 msgid "Extract status"
-msgstr ""
+msgstr "Состояние экстракта"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_follower_ids
@@ -133,7 +131,7 @@ msgstr "Подписчики"
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Подписчики (Партнеры)"
+msgstr "Подписчики"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__has_message
@@ -144,47 +142,46 @@ msgstr "Есть сообщение"
 #: model:mail.template,name:iap_extract.iap_extract_no_credit
 #: model:mail.template,subject:iap_extract.iap_extract_no_credit
 msgid "IAP Extract Notification"
-msgstr ""
+msgstr "Уведомление об извлечении IAP"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "Идентификатор запроса к IAP-OCR"
 
 #. module: iap_extract
 #: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
-"Если флажок установлен, новые сообщения будут требовать вашего внимания."
+msgstr "Если флажок установлен, значит, новые сообщения требуют вашего внимания."
 
 #. module: iap_extract
 #: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Если флажок установлен, некоторые сообщения имеют ошибку доставки."
+msgstr "Если отмечено, некоторые сообщения имеют ошибку доставки."
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Invalid PDF (Conversion error)"
-msgstr ""
+msgstr "Недействительный PDF (ошибка преобразования)"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Invalid PDF (Unable to get page count)"
-msgstr ""
+msgstr "Недействительный PDF (Невозможно получить количество страниц)"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_is_follower
 msgid "Is Follower"
-msgstr "Подписчик"
+msgstr "Является подписчиком"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "Находится в извлекаемом состоянии"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_main_attachment_id
@@ -207,7 +204,7 @@ msgstr "Сообщения"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__no_extract_requested
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__no_extract_requested
 msgid "No extract requested"
-msgstr "Нет запроса на извлечение"
+msgstr "Выписка не запрашивается"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__not_enough_credit
@@ -215,34 +212,34 @@ msgstr "Нет запроса на извлечение"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__not_enough_credit
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__not_enough_credit
 msgid "Not enough credits"
-msgstr ""
+msgstr "Недостаточно кредитов"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Not enough credits for data extraction"
-msgstr ""
+msgstr "Недостаточно кредитов для извлечения данных"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Кол-во действий"
+msgstr "Число действий"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_has_error_counter
 msgid "Number of errors"
-msgstr "Количество ошибок"
+msgstr "Число ошибок"
 
 #. module: iap_extract
 #: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr "Количество сообщений, требующих действия"
+msgstr "Количество сообщений, требующих принятия мер"
 
 #. module: iap_extract
 #: model:ir.model.fields,help:iap_extract.field_extract_mixin__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Количество сообщений с ошибкой доставки"
+msgstr "Количество недоставленных сообщений"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__rating_ids
@@ -254,9 +251,7 @@ msgstr "Рейтинги"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Server is currently under maintenance. Please retry later"
-msgstr ""
-"Сервер в настоящее время находится на техническом обслуживании. Пожалуйста, "
-"повторите попытку позже"
+msgstr "Сервер в настоящее время находится на техническом обслуживании. Пожалуйста, повторите попытку позже"
 
 #. module: iap_extract
 #. odoo-python
@@ -270,37 +265,35 @@ msgstr "Сервер недоступен. Пожалуйста, повтори�
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Some documents were skipped as they were already digitized"
-msgstr ""
+msgstr "Некоторые документы были пропущены, так как они уже были оцифрованы"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
-msgid ""
-"The 'invoice_ocr' IAP account token is invalid. Please delete it to let Odoo"
-" generate a new one or fill it with a valid token."
-msgstr ""
+msgid "The 'invoice_ocr' IAP account token is invalid. Please delete it to let Odoo generate a new one or fill it with a valid token."
+msgstr "Токен учетной записи IAP 'invoice_ocr' недействителен. Пожалуйста, удалите его, чтобы Odoo сгенерировал новый, или заполните его действительным токеном."
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The document could not be found"
-msgstr "Документ не найден"
+msgstr "Документ не удалось найти"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The document has been rejected because it is too small"
-msgstr ""
+msgstr "Документ был отклонен из-за слишком маленького размера"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The selected documents are already digitized"
-msgstr ""
+msgstr "Отобранные документы уже оцифрованы"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__to_validate
@@ -308,7 +301,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__to_validate
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__to_validate
 msgid "To validate"
-msgstr "Проверить"
+msgstr "Чтобы подтвердить"
 
 #. module: iap_extract
 #. odoo-python
@@ -323,7 +316,7 @@ msgstr "Неподдерживаемый формат изображения"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__waiting_extraction
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__waiting_extraction
 msgid "Waiting extraction"
-msgstr "Ожидания извлечения"
+msgstr "Добыча в ожидании"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__waiting_validation
@@ -337,8 +330,7 @@ msgstr "Ожидание подтверждения"
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
-msgid ""
-"Your PDF file is protected by a password. The OCR can't extract data from it"
+msgid "Your PDF file is protected by a password. The OCR can't extract data from it"
 msgstr "Ваш PDF-файл защищен паролем. OCR не может извлечь из него данные"
 
 #. module: iap_extract
@@ -346,7 +338,7 @@ msgstr "Ваш PDF-файл защищен паролем. OCR не может �
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Your document contains too many pages"
-msgstr ""
+msgstr "Ваш документ содержит слишком много страниц"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__extract_not_ready
@@ -354,4 +346,4 @@ msgstr ""
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__extract_not_ready
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__extract_not_ready
 msgid "waiting extraction, but it is not ready"
-msgstr "ожидания изъятия, но оно еще не готово"
+msgstr "ожидание добычи, но она еще не готова"

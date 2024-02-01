@@ -1,26 +1,20 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* documents_hr_payroll
-# 
+#
 # Translators:
-# Alena Vlasova, 2023
-# Сергей Шебанин <sergey@shebanin.ru>, 2023
-# alenafairy, 2023
-# Martin Trigaux, 2023
-# ILMIR <karamov@it-projects.info>, 2023
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: ILMIR <karamov@it-projects.info>, 2023\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: documents_hr_payroll
@@ -36,6 +30,15 @@ msgid ""
 "    </tbody></table>\n"
 "                "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
+"        <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
+"            Уважаемый <t t-esc=\"object.name\"></t>, для вас подготовлен новый файл декларации.<br><br>\n"
+"            Пожалуйста, найдите PDF-файл на портале для сотрудников.<br><br>\n"
+"            Хорошего дня,<br>\n"
+"            Команда HR\n"
+"        </td></tr>\n"
+"    </tbody></table>\n"
+"                "
 
 #. module: documents_hr_payroll
 #: model:ir.model,name:documents_hr_payroll.model_res_company
@@ -45,7 +48,7 @@ msgstr "Компании"
 #. module: documents_hr_payroll
 #: model:ir.model,name:documents_hr_payroll.model_res_config_settings
 msgid "Config Settings"
-msgstr "Конфигурационные настройки"
+msgstr "Параметры конфигурации"
 
 #. module: documents_hr_payroll
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_hr_payroll_employee_declaration__document_id
@@ -57,7 +60,7 @@ msgstr "Документ"
 #: code:addons/documents_hr_payroll/models/hr_payroll_employee_declaration.py:0
 #, python-format
 msgid "Document posting is not properly set in configuration"
-msgstr ""
+msgstr "В конфигурации неправильно настроена проводка документов"
 
 #. module: documents_hr_payroll
 #. odoo-python
@@ -69,28 +72,28 @@ msgstr "Документы"
 #. module: documents_hr_payroll
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_hr_payroll_declaration_mixin__documents_count
 msgid "Documents Count"
-msgstr ""
+msgstr "Подсчет документов"
 
 #. module: documents_hr_payroll
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_hr_payroll_declaration_mixin__documents_enabled
 msgid "Documents Enabled"
-msgstr ""
+msgstr "Документы Включено"
 
 #. module: documents_hr_payroll
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_res_company__documents_hr_payslips_tags
 msgid "Documents Hr Payslips Tags"
-msgstr "Теги на платежные ведомости HR в модуле Документы"
+msgstr "Документы Hr Payslips Теги"
 
 #. module: documents_hr_payroll
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_res_company__documents_payroll_folder_id
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_res_config_settings__documents_payroll_folder_id
 msgid "Documents Payroll Folder"
-msgstr "Папка для документов по начислению зарплаты"
+msgstr "Документы Папка с платежными ведомостями"
 
 #. module: documents_hr_payroll
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_hr_employee__documents_share_id
 msgid "Documents Share"
-msgstr "Общий доступ к документам"
+msgstr "Документы Поделиться"
 
 #. module: documents_hr_payroll
 #: model:ir.model,name:documents_hr_payroll.model_hr_employee
@@ -100,51 +103,51 @@ msgstr "Сотрудник"
 #. module: documents_hr_payroll
 #: model:ir.model,name:documents_hr_payroll.model_hr_contract
 msgid "Employee Contract"
-msgstr "Договор с сотрудником"
+msgstr "Договор с Сотрудником"
 
 #. module: documents_hr_payroll
 #. odoo-python
 #: code:addons/documents_hr_payroll/models/hr_payroll_employee_declaration.py:0
 #, python-format
 msgid "PDFs are gonna be posted in Documents shortly"
-msgstr ""
+msgstr "PDF-файлы будут размещены в разделе \"Документы\" в ближайшее время"
 
 #. module: documents_hr_payroll
 #: model:ir.model,name:documents_hr_payroll.model_hr_payslip
 msgid "Pay Slip"
-msgstr "Расчетный листок"
+msgstr "Платежная ведомость"
 
 #. module: documents_hr_payroll
 #. odoo-python
 #: code:addons/documents_hr_payroll/models/res_company.py:0
 #, python-format
 msgid "Payroll"
-msgstr "Расчет зарплаты"
+msgstr "Оплаты"
 
 #. module: documents_hr_payroll
 #: model:ir.model,name:documents_hr_payroll.model_hr_payroll_declaration_mixin
 msgid "Payroll Declaration Mixin"
-msgstr ""
+msgstr "Миксин декларации о заработной плате"
 
 #. module: documents_hr_payroll
 #: model:ir.model,name:documents_hr_payroll.model_hr_payroll_employee_declaration
 msgid "Payroll Employee Declaration"
-msgstr ""
+msgstr "Декларация сотрудника о заработной плате"
 
 #. module: documents_hr_payroll
 #: model_terms:ir.ui.view,arch_db:documents_hr_payroll.res_config_settings_view_form
 msgid "Payroll Workspace"
-msgstr "Каталог по расчету зарплаты"
+msgstr "Рабочее пространство для расчета заработной платы"
 
 #. module: documents_hr_payroll
 #: model:mail.template,name:documents_hr_payroll.mail_template_new_declaration
 msgid "Payroll: New Declaration"
-msgstr ""
+msgstr "Расчет заработной платы: Новая декларация"
 
 #. module: documents_hr_payroll
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_res_config_settings__documents_hr_payslips_tags
 msgid "Payslip"
-msgstr "Расчетный листок"
+msgstr "Расчётный листок"
 
 #. module: documents_hr_payroll
 #: model:documents.tag,name:documents_hr_payroll.documents_hr_documents_payslips
@@ -154,29 +157,29 @@ msgstr "Расчетные листки"
 #. module: documents_hr_payroll
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_hr_payroll_employee_declaration__pdf_to_post
 msgid "Pdf To Post"
-msgstr ""
+msgstr "Pdf для публикации"
 
 #. module: documents_hr_payroll
 #: model_terms:ir.ui.view,arch_db:documents_hr_payroll.hr_payroll_employee_declaration_view_tree
 msgid "Post PDFs"
-msgstr ""
+msgstr "Разместить PDF-файлы"
 
 #. module: documents_hr_payroll
 #: model:ir.model.fields.selection,name:documents_hr_payroll.selection__hr_payroll_employee_declaration__state__pdf_posted
 msgid "Posted PDF"
-msgstr ""
+msgstr "Опубликовано PDF"
 
 #. module: documents_hr_payroll
 #: model:ir.model.fields.selection,name:documents_hr_payroll.selection__hr_payroll_employee_declaration__state__pdf_to_post
 msgid "Queued PDF posting"
-msgstr ""
+msgstr "Отправка PDF-файлов в очередь"
 
 #. module: documents_hr_payroll
 #: model:ir.model.fields,field_description:documents_hr_payroll.field_hr_payroll_employee_declaration__state
 msgid "State"
-msgstr "Статус"
+msgstr "Область"
 
 #. module: documents_hr_payroll
 #: model:mail.template,subject:documents_hr_payroll.mail_template_new_declaration
 msgid "{{ object.name }}, a new declaration file is available for you"
-msgstr ""
+msgstr "{{ имя объекта }}, вам доступен новый файл декларации"
