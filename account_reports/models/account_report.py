@@ -3075,7 +3075,7 @@ class AccountReport(models.Model):
         groupby_sql = SQL.identifier('account_move_line', current_groupby) if current_groupby else None
         table_references, search_condition = self._get_table_expression(options, date_scope)
         tail_query = self._get_engine_query_tail(offset, limit)
-        lang = self.env.user.lang or get_lang(self.env).code
+        lang = get_lang(self.env, self.env.user.lang).code
         acc_tag_name = self.with_context(lang=lang).env['account.account.tag']._field_to_sql('acc_tag', 'name')
         sql = SQL(
             """
@@ -5290,7 +5290,7 @@ class AccountReport(models.Model):
             return ('date', cell['name'])
         try:
             # the date is parsable to a xlsx compatible date
-            lg = self.env['res.lang']._lang_get(self.env.user.lang) or get_lang(self.env)
+            lg = get_lang(self.env, self.env.user.lang)
             return ('date', datetime.datetime.strptime(cell['name'], lg.date_format))
         except:
             # the date is not parsable thus is returned as text

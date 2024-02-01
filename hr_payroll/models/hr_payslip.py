@@ -143,7 +143,7 @@ class HrPayslip(models.Model):
     def _get_schedule_period_start(self):
         schedule = self.contract_id.schedule_pay or self.contract_id.structure_type_id.default_schedule_pay
         today = date.today()
-        week_start = self.env["res.lang"]._lang_get(self.env.user.lang).week_start
+        week_start = self.env["res.lang"]._get_data(code=self.env.user.lang).week_start
         date_from = today
 
         if schedule == 'quarterly':
@@ -934,7 +934,7 @@ class HrPayslip(models.Model):
         start_date = self.date_from
         end_date = self.date_to
         lang = self.employee_id.lang or self.env.user.lang
-        week_start = self.env["res.lang"]._lang_get(lang).week_start
+        week_start = self.env["res.lang"]._get_data(code=lang).week_start
         schedule = self.contract_id.schedule_pay or self.contract_id.structure_type_id.default_schedule_pay
         if schedule == 'monthly':
             period_name = self._format_date_cached(cache, start_date, "MMMM Y")

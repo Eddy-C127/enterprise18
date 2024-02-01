@@ -270,7 +270,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def _l10n_ro_saft_fill_tax_values(self, values):
         """ Fill in the Romanian tax type, tax type description (in Romanian, if available), and tax code. """
         encountered_tax_ids = [tax_vals['id'] for tax_vals in values['tax_vals_list']]
-        lang = self.env['res.lang']._get_active('ro_RO')
+        lang = self.env['res.lang']._get_code('ro_RO')
         encountered_taxes = self.env['account.tax'].with_context({'lang': lang}).browse(encountered_tax_ids)
         tax_fields_by_id = {
             tax.id: {
