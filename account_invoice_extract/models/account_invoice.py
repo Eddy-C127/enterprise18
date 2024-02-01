@@ -156,23 +156,6 @@ class AccountMove(models.Model):
         but if he entered the text of the field manually, we return only the text, as we
         don't know which box is the right one (if it exists)
         """
-        selected = self.env["account.invoice_extract.words"].search([
-            ("invoice_id", "=", self.id),
-            ("field", "=", field),
-            ("user_selected", "=", True),
-        ], limit=1)
-        if not selected:
-            selected = self.env["account.invoice_extract.words"].search([
-                ("invoice_id", "=", self.id),
-                ("field", "=", field),
-                ("ocr_selected", "=", True),
-            ], limit=1)
-        return_box = {}
-        if selected:
-            return_box["box"] = [selected.word_text, selected.word_page, selected.word_box_midX,
-                                 selected.word_box_midY, selected.word_box_width, selected.word_box_height, selected.word_box_angle]
-        # now we have the user or ocr selection, check if there was manual changes
-
         text_to_send = {}
         if field == "total":
             text_to_send["content"] = self.amount_total
@@ -238,8 +221,23 @@ class AccountMove(models.Model):
         else:
             return None
 
-        return_box.update(text_to_send)
-        return return_box
+        user_selected_box = self.env['account.invoice_extract.words'].search([
+            ('invoice_id', '=', self.id),
+            ('field', '=', field),
+            ('user_selected', '=', True),
+            ('ocr_selected', '=', False),
+        ])
+        if user_selected_box and user_selected_box.word_text == text_to_send['content']:
+            text_to_send['box'] = [
+                user_selected_box.word_text,
+                user_selected_box.word_page,
+                user_selected_box.word_box_midX,
+                user_selected_box.word_box_midY,
+                user_selected_box.word_box_width,
+                user_selected_box.word_box_height,
+                user_selected_box.word_box_angle,
+            ]
+        return text_to_send
 
     @api.model
     def _cron_validate(self):
