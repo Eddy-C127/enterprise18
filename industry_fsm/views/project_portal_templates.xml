@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="portal_task_sign_button" name="Sign Button With Dialog">
+    <template id="portal_task_sign_button" name="Sign Button">
         <a t-if="task.has_to_be_signed()" role="button" class="btn btn-primary align-self-start" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#">
             <i class="fa fa-check me-1"/>Sign
         </a>
+    </template>
+
+    <template id="portal_task_sign_modal" name="Sign Modal">
         <!-- modal relative to the sign action -->
-        <div role="dialog" class="modal fade mt-5 pt-5" id="modalaccept">
+        <div role="dialog" class="modal fade" id="modalaccept">
             <div class="modal-dialog" t-if="task.has_to_be_signed()">
                 <form id="accept" method="POST" t-att-data-task-id="task.id" t-att-data-token="task.access_token" class="js_accept_json modal-content js_website_submit_form">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>

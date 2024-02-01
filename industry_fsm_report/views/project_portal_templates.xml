@@ -30,6 +30,9 @@
                 <t t-call="industry_fsm.portal_task_sign_button"/>
             </div>
         </xpath>
+        <xpath expr="//div[@id='task_content']" position="inside">
+            <t t-call="industry_fsm.portal_task_sign_modal"/>
+        </xpath>
     </template>
 
 </odoo>
