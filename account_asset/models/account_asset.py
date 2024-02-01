@@ -148,7 +148,7 @@ class AccountAsset(models.Model):
              "depreciation table report. This is the value that was already depreciated with entries not computed from this model",
     )
 
-    asset_lifetime_days = fields.Integer(compute="_compute_lifetime_days")  # total number of days to consider for the computation of an asset depreciation board
+    asset_lifetime_days = fields.Float(compute="_compute_lifetime_days")  # total number of days to consider for the computation of an asset depreciation board
     asset_paused_days = fields.Float(copy=False)
 
     # -------------------------------------------------------------------------
@@ -227,16 +227,21 @@ class AccountAsset(models.Model):
     @api.depends('method_number', 'method_period', 'prorata_computation_type')
     def _compute_lifetime_days(self):
         for asset in self:
-            if asset.prorata_computation_type == 'daily_computation':
-                asset.asset_lifetime_days = (asset.prorata_date + relativedelta(months=int(asset.method_period) * asset.method_number) - asset.prorata_date).days
+            if not asset.parent_id:
+                if asset.prorata_computation_type == 'daily_computation':
+                    asset.asset_lifetime_days = (asset.prorata_date + relativedelta(months=int(asset.method_period) * asset.method_number) - asset.prorata_date).days
+                else:
+                    asset.asset_lifetime_days = int(asset.method_period) * asset.method_number * DAYS_PER_MONTH
             else:
-                asset.asset_lifetime_days = int(asset.method_period) * asset.method_number * DAYS_PER_MONTH
-            if asset.parent_id:
                 # if it has a parent, we want the asset to only depreciate on the remaining days left of the parent
-                posted = asset.parent_id.depreciation_move_ids.filtered(
-                    lambda mv: mv.state == 'posted' and not mv.asset_value_change and mv.date <= asset.prorata_date
-                )
-                asset.asset_lifetime_days -= sum(posted.mapped('asset_number_days'))
+                if asset.prorata_computation_type == 'daily_computation':
+                    parent_end_date = asset.parent_id.paused_prorata_date + relativedelta(days=int(asset.parent_id.asset_lifetime_days - 1))
+                else:
+                    parent_end_date = asset.parent_id.paused_prorata_date + relativedelta(
+                        months=int(asset.parent_id.asset_lifetime_days / DAYS_PER_MONTH),
+                        days=int(asset.parent_id.asset_lifetime_days % DAYS_PER_MONTH) - 1
+                    )
+                asset.asset_lifetime_days = self._get_delta_days(asset.prorata_date, parent_end_date)
 
     @api.depends('acquisition_date', 'company_id', 'prorata_computation_type')
     def _compute_prorata_date(self):
