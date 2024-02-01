@@ -9,35 +9,35 @@ import { toRaw } from "@odoo/owl";
 
 patch(Thread.prototype, {
     _computeDiscussAppCategory() {
-        return this.type === "whatsapp"
+        return this.channel_type === "whatsapp"
             ? this._store.discuss.whatsapp
             : super._computeDiscussAppCategory();
     },
     get importantCounter() {
-        if (this.type === "whatsapp") {
+        if (this.channel_type === "whatsapp") {
             return this.message_unread_counter || this.message_needaction_counter;
         }
         return super.importantCounter;
     },
     get canLeave() {
-        return this.type !== "whatsapp" && super.canLeave;
+        return this.channel_type !== "whatsapp" && super.canLeave;
     },
     get canUnpin() {
-        if (this.type === "whatsapp") {
+        if (this.channel_type === "whatsapp") {
             return this.importantCounter === 0;
         }
         return super.canUnpin;
     },
 
     get avatarUrl() {
-        if (this.type !== "whatsapp") {
+        if (this.channel_type !== "whatsapp") {
             return super.avatarUrl;
         }
         return DEFAULT_AVATAR;
     },
 
     get isChatChannel() {
-        return this.type === "whatsapp" || super.isChatChannel;
+        return this.channel_type === "whatsapp" || super.isChatChannel;
     },
 
     get whatsappChannelValidUntilDatetime() {

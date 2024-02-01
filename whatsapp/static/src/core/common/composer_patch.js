@@ -23,7 +23,7 @@ patch(Composer.prototype, {
     get placeholder() {
         if (
             this.thread &&
-            this.thread.type === "whatsapp" &&
+            this.thread.channel_type === "whatsapp" &&
             !this.state.active &&
             this.props.composer.threadExpired
         ) {
@@ -35,7 +35,7 @@ patch(Composer.prototype, {
     },
 
     checkComposerDisabled() {
-        if (this.thread && this.thread.type === "whatsapp") {
+        if (this.thread && this.thread.channel_type === "whatsapp") {
             const datetime = this.thread.whatsappChannelValidUntilDatetime;
             if (!datetime) {
                 return;
@@ -56,7 +56,8 @@ patch(Composer.prototype, {
 
     /** @override */
     get isSendButtonDisabled() {
-        const whatsappInactive = (this.thread && this.thread.type == 'whatsapp' && !this.state.active)
+        const whatsappInactive =
+            this.thread && this.thread.channel_type === "whatsapp" && !this.state.active;
         return super.isSendButtonDisabled || whatsappInactive;
     },
 
