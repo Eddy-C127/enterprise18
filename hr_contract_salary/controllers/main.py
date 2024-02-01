@@ -310,6 +310,7 @@ class HrContractSalary(http.Controller):
                 else:
                     content = False
                 initial_values[personal_info.field] = content
+                initial_values[personal_info.field + '_filename'] = contract[personal_info.field + '_filename'] or personal_info.field
             else:
                 initial_values[personal_info.field] = target[personal_info.field] if personal_info.field in target else ''
 
@@ -521,17 +522,7 @@ class HrContractSalary(http.Controller):
                 continue
 
             if field_name in employee_infos and personal_info.applies_on == 'employee':
-                special_document_fields = ('id_card', 'driving_license', 'mobile_invoice', 'sim_card', 'internet_invoice')
-                if employee._origin and field_name in special_document_fields:
-                    attachment_create_vals.append({
-                        'name': field_name,
-                        'res_model': 'hr.employee',
-                        'res_id': employee.id,
-                        'type': 'binary',
-                        'datas': employee_infos.get(field_name),
-                    })
-                else:
-                    employee_vals[field_name] = resolve_value(field_name, employee_infos)
+                employee_vals[field_name] = resolve_value(field_name, employee_infos)
             elif field_name in bank_account_infos and personal_info.applies_on == 'bank_account':
                 bank_account_vals[field_name] = resolve_value(field_name, bank_account_infos)
 
