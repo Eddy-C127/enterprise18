@@ -183,6 +183,16 @@ class SocialStreamTwitter(models.Model):
                 if quote_author.get('username'):
                     values['twitter_quoted_tweet_author_link'] = 'https://twitter.com/%s' % quote_author['username']
 
+            retweets = list(filter(lambda ref: ref.get('type') == 'retweeted', referenced_tweets))
+            if retweets:
+                origin_tweet_msg = quote_and_retweet_per_ids.get(retweets[0].get('id'), {}).get('text')
+                if origin_tweet_msg:
+                    username = users_per_id[quote_and_retweet_per_ids.get(retweets[0].get('id'), {}).get('author_id')].get('username', _('Unknown'))
+                    values['message'] = unescape(
+                        f"RT @{username}: "
+                        f"{origin_tweet_msg}"
+                    )
+
             existing_tweet = existing_tweets_by_tweet_id.get(tweet.get('id'))
             if existing_tweet:
                 existing_tweet.sudo().write(values)
