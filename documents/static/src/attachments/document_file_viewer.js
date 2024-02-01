@@ -12,8 +12,12 @@ export class FileViewer extends WebFileViewer {
         this.documentService = useService("document.document");
         this.onSelectDocument = this.documentService.documentList?.onSelectDocument;
         onWillUpdateProps((nextProps) => {
-            if (nextProps.startIndex !== this.state.index) {
-                this.activateFile(nextProps.startIndex);
+            const indexOfFileToPreview = nextProps.startIndex;
+            if (
+                indexOfFileToPreview !== this.state.index &&
+                indexOfFileToPreview !== this.props.startIndex
+            ) {
+                this.activateFile(indexOfFileToPreview);
             }
         });
     }
