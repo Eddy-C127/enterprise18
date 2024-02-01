@@ -1726,8 +1726,8 @@ result_rate = - contract.l10n_ch_compensation_fund_id._get_caf_rates(payslip.dat
         <field name="condition_python">result = 'COMPCAR' in inputs</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = -inputs.COMPCAR.amount
-result_name = inputs.COMPCAR.name
+result = -inputs['COMPCAR'].amount
+result_name = inputs['COMPCAR'].name
         </field>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_ac_included" eval="False"/>
