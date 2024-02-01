@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import _, api, fields, models, Command
 from odoo.osv import expression
-from odoo.tools.misc import formatLang
+from odoo.tools.misc import formatLang, frozendict
 
 import markupsafe
 import uuid
@@ -261,19 +261,22 @@ class BankRecWidgetLine(models.Model):
 
     @api.depends('source_aml_id', 'account_id', 'partner_id')
     def _compute_analytic_distribution(self):
+        cache = {}
         for line in self:
             if line.flag in ('liquidity', 'aml'):
                 line.analytic_distribution = line.source_aml_id.analytic_distribution
             elif line.flag in ('tax_line', 'early_payment'):
                 line.analytic_distribution = line.analytic_distribution
             else:
-                model_distribution = self.env['account.analytic.distribution.model']._get_distribution({
+                arguments = frozendict({
                     "partner_id": line.partner_id.id,
                     "partner_category_id": line.partner_id.category_id.ids,
                     "account_prefix": line.account_id.code,
                     "company_id": line.company_id.id,
                 })
-                line.analytic_distribution = model_distribution or line.analytic_distribution
+                if arguments not in cache:
+                    cache[arguments] = self.env['account.analytic.distribution.model']._get_distribution(arguments)
+                line.analytic_distribution = cache[arguments] or line.analytic_distribution
 
     @api.depends('source_aml_id')
     def _compute_tax_repartition_line_id(self):

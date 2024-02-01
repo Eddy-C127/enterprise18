@@ -794,7 +794,6 @@ class BankRecWidget(models.Model):
             line_ids_commands.append(Command.create({
                 'flag': 'exchange_diff',
                 'source_aml_id': new_aml.source_aml_id.id,
-
                 'account_id': account.id,
                 'date': new_aml.date,
                 'name': _("Exchange Difference: %s", new_aml.name),
@@ -808,17 +807,18 @@ class BankRecWidget(models.Model):
             self.line_ids = line_ids_commands
 
             # Reorder to put each exchange line right after the corresponding new_aml.
-            new_lines = self.env['bank.rec.widget.line']
+            new_lines_ids = []
+            source2exchange = self.line_ids.filtered(lambda x: x.flag == 'exchange_diff').grouped('source_aml_id')
             for line in self.line_ids:
                 if line.flag == 'exchange_diff':
                     continue
 
-                new_lines |= line
+                new_lines_ids.append(line.id)
                 if line.flag == 'new_aml':
-                    exchange_diff = self.line_ids\
-                        .filtered(lambda x: x.flag == 'exchange_diff' and x.source_aml_id == line.source_aml_id)
-                    new_lines |= exchange_diff
-            self.line_ids = new_lines
+                    exchange_diff = source2exchange.get(line.source_aml_id)
+                    if exchange_diff:
+                        new_lines_ids.append(source2exchange.get(line.source_aml_id).id)
+            self.line_ids = self.env['bank.rec.widget.line'].browse(new_lines_ids)
 
     def _lines_prepare_reco_model_write_off_vals(self, reco_model, write_off_vals):
         self.ensure_one()
@@ -1206,6 +1206,7 @@ class BankRecWidget(models.Model):
         line_ids_create_command_list = []
         aml_to_exchange_diff_vals = {}
 
+        source2exchange = self.line_ids.filtered(lambda l: l.flag == 'exchange_diff').grouped('source_aml_id')
         for i, line in enumerate(self.line_ids):
             if line.flag == 'exchange_diff':
                 continue
@@ -1213,9 +1214,8 @@ class BankRecWidget(models.Model):
             amount_currency = line.amount_currency
             balance = line.balance
             if line.flag == 'new_aml':
-                to_reconcile.append((i, line.source_aml_id.id))
-                exchange_diff = self.line_ids \
-                    .filtered(lambda x: x.flag == 'exchange_diff' and x.source_aml_id == line.source_aml_id)
+                to_reconcile.append((i, line.source_aml_id))
+                exchange_diff = source2exchange.get(line.source_aml_id)
                 if exchange_diff:
                     aml_to_exchange_diff_vals[i] = {
                         'amount_residual': exchange_diff.balance,
@@ -1237,9 +1237,6 @@ class BankRecWidget(models.Model):
 
         # Update the move.
         move_ctx = move.with_context(
-            skip_invoice_sync=True,
-            skip_invoice_line_sync=True,
-            skip_account_move_synchronization=True,
             force_delete=True,
         )
         move_ctx.write({'partner_id': partner_to_set.id, 'line_ids': [Command.clear()] + line_ids_create_command_list})
@@ -1247,17 +1244,20 @@ class BankRecWidget(models.Model):
             move_ctx.action_post()
 
         AccountMoveLine = self.env['account.move.line']
+        sequence2lines = move_ctx.line_ids.grouped('sequence')
         lines = [
-            (move_ctx.line_ids.filtered(lambda x: x.sequence == index),
-             self.env['account.move.line'].browse(counterpart_aml_id))
-            for index, counterpart_aml_id in to_reconcile
+            (sequence2lines[index], counterpart_aml)
+            for index, counterpart_aml in to_reconcile
         ]
+        all_line_ids = tuple({_id for line, counterpart in lines for _id in (line + counterpart).ids})
         # Handle exchange diffs
         exchange_diff_moves = None
         lines_with_exch_diff = AccountMoveLine
         if aml_to_exchange_diff_vals:
             exchange_diff_vals_list = []
             for line, counterpart in lines:
+                line = line.with_prefetch(all_line_ids)
+                counterpart = counterpart.with_prefetch(all_line_ids)
                 exchange_diff_amounts = aml_to_exchange_diff_vals.get(line.sequence, {})
                 exchange_analytic_distribution = exchange_diff_amounts.pop('analytic_distribution', False)
                 if exchange_diff_amounts:
@@ -1272,7 +1272,7 @@ class BankRecWidget(models.Model):
 
         # Perform the reconciliation.
         self.env['account.move.line'].with_context(no_exchange_difference=True)._reconcile_plan(
-            [line + counterpart for line, counterpart in lines])
+            [(line + counterpart).with_prefetch(all_line_ids) for line, counterpart in lines])
 
         # Assign exchange move to partials.
         for index, line in enumerate(lines_with_exch_diff):
