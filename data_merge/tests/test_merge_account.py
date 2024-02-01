@@ -71,12 +71,15 @@ class TestMerge(TransactionCase):
         """
         self.env.user.write({'groups_id': [(4, self.env.ref('account.group_account_user').id)]})
         self._enable_merge('res.partner')
-        self.env['account.move'].create({
+        move_1 = self.env['account.move'].create({
             'move_type': 'out_invoice',
             'invoice_date': '2023-07-21',
             'partner_id': self.partner_b.id,
             'invoice_line_ids': [Command.create({'name': 'test line', 'price_unit': 1000})],
-        }).action_post()
+        })
+        move_1.action_post()
+        wizard = self.env['account.move.send'].create({'move_ids': [Command.set(move_1.ids)]})
+        wizard.action_send_and_print()
 
         self.customer_invoice_journal.restrict_mode_hash_table = True
 
@@ -87,6 +90,8 @@ class TestMerge(TransactionCase):
             'invoice_line_ids': [Command.create({'name': 'test line', 'price_unit': 1000})],
         })
         move.action_post()
+        wizard = self.env['account.move.send'].create({'move_ids': [Command.set(move.ids)]})
+        wizard.action_send_and_print()
 
         # The integrity check should work
         integrity_check = [journal for journal in move.company_id._check_hash_integrity()['results'] if journal['journal_name'] == self.customer_invoice_journal.name][0]
