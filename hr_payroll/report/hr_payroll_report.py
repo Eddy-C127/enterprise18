@@ -145,7 +145,7 @@ class HrPayrollReport(models.Model):
         return group_by_str
 
     def init(self):
-        additional_rules = self.env['hr.salary.rule'].search([('appears_on_payroll_report', '=', True)])
+        additional_rules = self.env['hr.salary.rule'].sudo().search([('appears_on_payroll_report', '=', True)])
         query = """
         %s
         %s
