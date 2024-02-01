@@ -7,3 +7,4 @@ class HrWorkEntryType(models.Model):
     _inherit = 'hr.work.entry.type'
 
     l10n_au_penalty_rate = fields.Float("Penalty Rate")
+    l10n_au_is_ote = fields.Boolean(string="Is OTE")

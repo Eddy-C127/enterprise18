@@ -18,6 +18,15 @@ result = -payslip._l10n_au_compute_withholding_amount(categories['GROSS'] * cont
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
     </record>
 
+    <function model="hr.salary.rule" name="write">
+        <value model="hr.salary.rule" search="[
+            ('struct_id', '=', ref('l10n_au_hr_payroll.hr_payroll_structure_au_actor')),
+            ('code', '=', 'GROSS')]"/>
+        <value eval="{
+            'amount_python_compute': &quot;result = categories['BASIC'] + categories['ALW']&quot;
+        }"/>
+    </function>
+
     <record id="l10n_au_allowance_withholding_structure_3" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
         <field name="name">Withholding for allowances</field>
@@ -82,8 +91,23 @@ result = sum(allowances.mapped('amount'))
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 rate = payslip._rule_parameter("l10n_au_withholding_super")
-result = categories['GROSS'] * rate/100 + contract.l10n_au_salary_sacrifice_superannuation
+result = categories['OTE'] * rate/100
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
+    </record>
+
+    <record id="l10n_au_ote_structure_3" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
+        <field name="name">Ordinary Time Earnings</field>
+        <field name="code">OTE</field>
+        <field name="sequence">5</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
+ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
+result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
+        <field name="appears_on_payslip">False</field>
     </record>
 </odoo>

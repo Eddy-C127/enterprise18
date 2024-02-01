@@ -1,10 +1,12 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from itertools import zip_longest as izip_longest
 
+from odoo import Command
 from odoo.tests.common import TransactionCase
+
 
 class TestPayrollCommon(TransactionCase):
 
@@ -22,6 +24,7 @@ class TestPayrollCommon(TransactionCase):
         cls.env.user.company_ids |= cls.australian_company
         cls.env = cls.env(context=dict(cls.env.context, allowed_company_ids=cls.australian_company.ids))
         cls.resource_calendar = cls.env.ref("l10n_au_hr_payroll.resource_calendar_au_38")
+        cls.resource_calendar.company_id = cls.australian_company
 
         cls.employee_id = cls.env["hr.employee"].create({
             "name": "Mel",
@@ -401,3 +404,127 @@ class TestPayrollCommon(TransactionCase):
                 (5000, 100, 199),
             ]
         }
+
+        # Used in a few tests. Can be overriden.
+        cls.default_payroll_structure = cls.env.ref('l10n_au_hr_payroll.hr_payroll_structure_au_regular')
+
+        # Will be useful for easy access to the ID when testing
+        cls.work_entry_types = {
+            entry_type.code: entry_type
+            for entry_type in cls.env['hr.work.entry.type'].search([])
+        }
+
+    def create_employee_and_contract(self, wage, contract_info=False):
+        if not contract_info:
+            contract_info = {}
+
+        employee_id = self.env["hr.employee"].create({
+            "name": contract_info.get('employee', 'Mel'),
+            "resource_calendar_id": self.resource_calendar.id,
+            "company_id": self.australian_company.id,
+            "private_street": "1 Test Street",
+            "private_city": "Sydney",
+            "private_country_id": self.env.ref("base.au").id,
+            "work_phone": "123456789",
+            "birthday": date.today() - relativedelta(years=22),
+            # fields modified in the tests
+            "marital": "single",
+            "l10n_au_tfn_declaration": contract_info.get('tfn_declaration', 'provided'),
+            "l10n_au_tfn": contract_info.get('tfn', '12345678'),
+            "is_non_resident": contract_info.get('non_resident', False),
+            "l10n_au_nat_3093_amount": 0,
+            "l10n_au_child_support_garnishee_amount": 0,
+            "l10n_au_medicare_exemption": "X",
+            "l10n_au_medicare_surcharge": "X",
+            "l10n_au_medicare_reduction": "X",
+            "l10n_au_child_support_deduction": 0,
+            "l10n_au_scale": contract_info.get('scale', '2'),
+            "l10n_au_extra_pay": contract_info.get('extra_pay', False),
+        })
+
+        contract_id = self.env["hr.contract"].create({
+            "name": f"{contract_info.get('employee', 'Mel')}'s contract",
+            "employee_id": employee_id.id,
+            "resource_calendar_id": self.resource_calendar.id,
+            "company_id": self.australian_company.id,
+            "date_start": date(2023, 7, 1),
+            "date_end": False,
+            "wage_type": contract_info.get('wage_type', 'monthly'),
+            "wage": contract_info.get('wage', wage),
+            "l10n_au_casual_loading": contract_info.get('casual_loading', 0),
+            "structure_type_id": self.default_payroll_structure.type_id.id,
+            # fields modified in the tests
+            "schedule_pay": contract_info.get("schedule_pay", "monthly"),
+            "l10n_au_employment_basis_code": contract_info.get('employment_basis_code', 'F'),
+            "l10n_au_income_stream_type": "SAW",
+            "l10n_au_withholding_variation": False,
+            "l10n_au_withholding_variation_amount": 0,
+            "l10n_au_leave_loading": contract_info.get('leave_loading', False),
+            "l10n_au_leave_loading_rate": contract_info.get('leave_loading_rate', 0),
+            "l10n_au_workplace_giving_type": contract_info.get('workplace_giving_type', 'none'),
+            "l10n_au_workplace_giving": contract_info.get('workplace_giving_employee', 0),
+            "l10n_au_workplace_giving_employer": contract_info.get('workplace_giving_employer', 0),
+            "l10n_au_salary_sacrifice_superannuation": contract_info.get('salary_sacrifice_superannuation', 0),
+            "l10n_au_salary_sacrifice_other": contract_info.get('salary_sacrifice_other', 0),
+            "l10n_au_performances_per_week": contract_info.get('performances_per_week', 0),
+        })
+        contract_id.structure_type_id.l10n_au_tax_treatment_category = contract_info.get('tax_treatment_category', 'R')
+        employee_id.contract_id = contract_id
+        return employee_id, contract_id
+
+    def _create_employee(self, contract_info):
+        employee, contract = self.create_employee_and_contract(5000, contract_info)
+        contract._compute_wages()
+        return employee, contract
+
+    def _test_payslip(self, employee, contract, expected_lines, expected_worked_days=False, input_lines=False, payslip_date_from=False, payslip_date_to=False):
+        """ This method is to be called in order to test a payslip.
+        It will be using the default_payroll_structure field and _prepare_payslip method to set things up, so these
+        are expected to be overriden for each class testing a specific structure.
+
+        It will test the workdays and line on their content, but also their order.
+        """
+        # 1) Create the payslip
+        payslip = self.env["hr.payslip"].create({
+            "name": "payslip",
+            "employee_id": employee.id,
+            "contract_id": contract.id,
+            "struct_id": self.default_payroll_structure.id,
+            "date_from": payslip_date_from or date(2023, 7, 1),
+            "date_to": payslip_date_to or date(2023, 7, 31),
+            "input_line_ids": [Command.create(input_line) for input_line in input_lines] if input_lines else [],
+        })
+
+        # 2) Recompute the payslip.
+        payslip.action_refresh_from_work_entries()
+
+        # 2) Verify the workdays
+        if self.default_payroll_structure.use_worked_day_lines:
+            for expected_worked_day, payslip_workday in izip_longest(expected_worked_days, payslip.worked_days_line_ids):
+                assert expected_worked_day and payslip_workday, (
+                        "%s worked day lines expected in the test, but %s were found in the payslip."
+                        % (len(expected_worked_days), len(payslip.worked_days_line_ids)))
+
+                expected_entry_type_id, expected_day, expected_hour, expected_amount = expected_worked_day
+                self.assertEqual(expected_entry_type_id, payslip_workday.work_entry_type_id.id)
+                self.assertAlmostEqual(expected_day, payslip_workday.number_of_days)
+                self.assertAlmostEqual(expected_hour, payslip_workday.number_of_hours)
+                self.assertAlmostEqual(expected_amount, payslip_workday.amount)
+
+        # 3) Verify the lines
+        for expected_line, payslip_line in izip_longest(expected_lines, payslip.line_ids.sorted()):
+            assert expected_line and payslip_line, (
+                    "%s payslip lines expected by the test, but %s were found in the payslip."
+                    % (len(expected_lines), len(payslip.line_ids)))
+
+            expected_code, expected_total = expected_line
+            self.assertEqual(expected_code, payslip_line.code)
+            self.assertAlmostEqual(
+                expected_total,
+                payslip_line.total,
+                msg=f"Unexpected value for code {expected_code}"
+            )
+
+        # 4) Validate the payslip. Mostly useful for testing on a period. Doesn't use action_payslip_done as it would fail
+        # if the account payroll module is there (no journal)
+        payslip.state = 'done'

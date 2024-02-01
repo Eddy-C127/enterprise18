@@ -2,6 +2,7 @@
 <odoo>
     <record id="hr_work_entry.work_entry_type_attendance" model="hr.work.entry.type">
         <field name="sequence">1</field>
+        <field name="l10n_au_is_ote" eval="True"/>
     </record>
 
     <!-- Time Off Entries -->
@@ -9,36 +10,42 @@
         <field name="name">Other Paid Leave</field>
         <field name="color">5</field>
         <field name="code">AU.O</field>
+        <field name="l10n_au_is_ote" eval="True"/>
     </record>
 
     <record id="l10n_au_work_entry_type_parental" model="hr.work.entry.type">
         <field name="name">Paid Parental Leave</field>
         <field name="color">5</field>
         <field name="code">AU.P</field>
+        <field name="l10n_au_is_ote" eval="True"/>
     </record>
 
     <record id="l10n_au_work_entry_type_compensation" model="hr.work.entry.type">
         <field name="name">Workers Compensation</field>
         <field name="color">5</field>
         <field name="code">AU.W</field>
+        <field name="l10n_au_is_ote" eval="True"/>
     </record>
 
     <record id="l10n_au_work_entry_type_defence" model="hr.work.entry.type">
         <field name="name">Ancillary and Defence Leave</field>
         <field name="color">5</field>
         <field name="code">AU.A</field>
+        <field name="l10n_au_is_ote" eval="True"/>
     </record>
 
     <record id="l10n_au_work_entry_type_cash_out" model="hr.work.entry.type">
         <field name="name">Cash Out of Leave in Service</field>
         <field name="color">5</field>
         <field name="code">AU.C</field>
+        <field name="l10n_au_is_ote" eval="True"/>
     </record>
 
     <record id="l10n_au_work_entry_type_termination" model="hr.work.entry.type">
         <field name="name">Unused Leave on Termination</field>
         <field name="color">5</field>
         <field name="code">AU.U</field>
+        <field name="l10n_au_is_ote" eval="True"/>
     </record>
 
     <!-- Overtime Entries -->

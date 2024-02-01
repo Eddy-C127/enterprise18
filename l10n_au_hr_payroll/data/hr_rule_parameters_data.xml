@@ -5,6 +5,7 @@
         <field name="code">l10n_au_withholding_coefficients</field>
         <field name="country_id" ref="base.au"/>
     </record>
+    <!-- (weekly earning, coefficient a, coefficient b) -->
     <record id="rule_parameter_withholding_coefficients_2023" model="hr.rule.parameter.value">
         <field name="rule_parameter_id" ref="rule_parameter_withholding_coefficients"/>
         <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
@@ -166,6 +167,7 @@
         <field name="code">l10n_au_extra_withholding</field>
         <field name="country_id" ref="base.au"/>
     </record>
+    <!-- ( from weekly earning, to weekly earning, additional withholding amount) -->
     <record id="rule_parameter_extra_withholding_2023" model="hr.rule.parameter.value">
         <field name="rule_parameter_id" ref="rule_parameter_extra_withholding"/>
         <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
@@ -321,15 +323,21 @@
         <field name="code">l10n_au_whm</field>
         <field name="country_id" ref="base.au"/>
     </record>
+    <!-- ( from YEARLY earning, to YEARLY earning, maximum value, rate) -->
     <record id="rule_parameter_whm_tax_rate_2023" model="hr.rule.parameter.value">
         <field name="rule_parameter_id" ref="rule_parameter_whm_tax_rate"/>
         <field name="date_from" eval="datetime(2022, 7, 1).date()"/>
-        <field name="parameter_value">[
-            (0,      45000,  6750,  15),
-            (45000,  120000, 24375, 32.5),
-            (120000, 180000, 22200, 37),
-            (180000, 'inf',  None,  45),
-        ]</field>
+        <field name="parameter_value">{
+            "regular": [
+                (0,      45000,  6750,  15),
+                (45000,  120000, 24375, 32.5),
+                (120000, 180000, 22200, 37),
+                (180000, 'inf',  None,  45)
+            ],
+            "no_tfn": [
+                (0, 'inf', None, 45)
+            ],
+        }</field>
     </record>
 
     <!-- Termination payments -->

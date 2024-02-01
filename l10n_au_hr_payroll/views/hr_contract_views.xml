@@ -51,7 +51,9 @@
                                 </tree>
                             </field>
                             <field name="l10n_au_leave_loading_rate" invisible="not l10n_au_leave_loading"/>
-                            <field name="l10n_au_workplace_giving"/>
+                            <field name="l10n_au_workplace_giving_type"/>
+                            <field name="l10n_au_workplace_giving" invisible="l10n_au_workplace_giving_type in ('none', 'employer_deduction')"/>
+                            <field name="l10n_au_workplace_giving_employer" invisible="l10n_au_workplace_giving_type in ('none', 'employee_deduction')"/>
                         </group>
                         <group name="salary_sacrifice" string="Salary Sacrifice" invisible="country_code != 'AU'">
                             <field name="l10n_au_salary_sacrifice_superannuation"/>

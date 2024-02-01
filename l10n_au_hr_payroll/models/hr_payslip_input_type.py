@@ -24,3 +24,4 @@ class HrPayslipInput(models.Model):
             ('non_excluded', 'Non-Excluded')],
         string="ETP Type")
     l10n_au_etp_cap = fields.Boolean(string="ETP Cap")
+    l10n_au_is_ote = fields.Boolean(string="Is OTE")

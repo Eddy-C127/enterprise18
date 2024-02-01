@@ -39,26 +39,29 @@ class HrPayslip(models.Model):
 
     def _get_base_local_dict(self):
         res = super()._get_base_local_dict()
+        slips = self._l10n_au_get_year_to_date_slips()
         res.update({
-            "year_slips": self._l10n_au_get_year_to_date_slips(self.date_from),
-            "ytd_total": self._l10n_au_get_year_to_date_totals(self.date_from),
+            "year_slips": slips,
+            "ytd_total": self._l10n_au_get_year_to_date_totals(),
+            "ytd_gross": slips._get_line_values(['GROSS'], compute_sum=True)['GROSS']['sum']['total'],
         })
         return res
 
     def _get_daily_wage(self):
-        period = self.struct_id.schedule_pay
         wage = self.contract_id.wage
-        if period == "daily":
-            return wage
-        if period == "weekly":
-            return wage / 5
-        if period == "bi-weekly":
-            return wage / 10
-        if period == "monthly":
-            return wage * 3 / 13 / 5
-        if period == "quarterly":
-            return wage / 13 / 5
-        return wage
+        match self.struct_id.schedule_pay:
+            case "daily":
+                return wage
+            case "weekly":
+                return wage / 5
+            case "bi-weekly":
+                return wage / 10
+            case "monthly":
+                return wage * 3 / 13 / 5
+            case "quarterly":
+                return wage / 13 / 5
+            case _:
+                return wage
 
     def _compute_input_line_ids(self):
         for payslip in self:
@@ -85,31 +88,21 @@ class HrPayslip(models.Model):
                 line.name = line.input_type_id.name.split("-")[1].strip()
         return super()._compute_input_line_ids()
 
-    def _l10n_au_get_financial_year_start(self, date):
-        if date.month < 7:
-            return date + relativedelta(years=-1, month=7, day=1)
-        return date + relativedelta(month=7, day=1)
-
-    def _l10n_au_get_financial_year_end(self, date):
-        if date.month < 7:
-            return date + relativedelta(month=6, day=30)
-        return date + relativedelta(years=1, month=6, day=30)
-
-    def _l10n_au_get_year_to_date_slips(self, date_from):
-        start_year = self._l10n_au_get_financial_year_start(date_from)
+    def _l10n_au_get_year_to_date_slips(self):
+        start_year = self.contract_id._l10n_au_get_financial_year_start(self.date_from)
         year_slips = self.env["hr.payslip"].search([
             ("employee_id", "=", self.employee_id.id),
             ("company_id", "=", self.company_id.id),
             ("state", "in", ["paid", "done"]),
             ("date_from", ">=", start_year),
-            ("date_from", "<=", date_from),
+            ("date_from", "<=", self.date_from),
         ], order="date_from")
         if self.env.context.get('l10n_au_include_current_slip'):
             year_slips |= self
         return year_slips
 
-    def _l10n_au_get_year_to_date_totals(self, date_from):
-        year_slips = self._l10n_au_get_year_to_date_slips(date_from)
+    def _l10n_au_get_year_to_date_totals(self):
+        year_slips = self._l10n_au_get_year_to_date_slips()
         totals = {
             "slip_lines": defaultdict(lambda: defaultdict(float)),
             "worked_days": defaultdict(lambda: defaultdict(float)),
@@ -124,6 +117,25 @@ class HrPayslip(models.Model):
 
     @api.model
     def _l10n_au_compute_weekly_earning(self, amount, period):
+        """ Given an amount and a pay schedule, calculate the weekly earning used to calculate withholding amounts.
+        The amount given should already include any allowances that are subject to withholding.
+
+        The calculation, recommended by the legislation, is as follows:
+
+        Example:
+            Weekly income                           $ 467.59
+            Add allowance subject to withholding    $ 9.50
+            Total earnings (ignore cents)           $ 477.00
+            Add 99 cents                            $ 0.99
+          Weekly earnings                           $ 477.99
+
+        If the period is other than weekly, for withholding purposes, we should calculate the equivalent weekly earnings
+        and use it for the computation.
+
+        :param amount: The amount paid in the period.
+        :param period: The pay schedule in use (weekly, fortnightly or monthly)
+        :return: the weekly earnings subject to withholding
+        """
         if period == "monthly" and round(amount % 1, 2) == 0.33:
             amount += 0.01
         weekly_amount = self._l10n_au_convert_amount(amount, period, "weekly")
@@ -135,6 +147,13 @@ class HrPayslip(models.Model):
         return amount * coefficient
 
     def _l10n_au_compute_withholding_amount(self, period_earning, period, coefficients):
+        """
+        Compute the withholding amount for the given period.
+
+        :param period_earning: The gross earning (after allowances subjects to withholding)
+        :param period: The type of pay schedule (weekly, fortnightly, or monthly)
+        :param coefficients: The scale that should be applied to this employee. It will depend on their schedule.
+        """
         self.ensure_one()
         employee_id = self.employee_id
         contract = self.contract_id
@@ -142,16 +161,26 @@ class HrPayslip(models.Model):
         if contract.l10n_au_withholding_variation:
             return period_earning * contract.l10n_au_withholding_variation_amount / 100
 
+        # Compute the weekly earning as per government legislation.
+        # They recommend to calculate the weekly equivalent of the earning, if using another pay schedule.
         weekly_earning = self._l10n_au_compute_weekly_earning(period_earning, period)
         weekly_withhold = 0.0
 
+        # For scale 4 (no tfn provided), cents are ignored when applying the rate.
         if employee_id.l10n_au_scale == "4":
             coefficients = self._rule_parameter("l10n_au_withholding_no_tfn")
-            weekly_withhold = floor(weekly_earning) * coefficients["foreign"] if employee_id.is_non_resident else coefficients["national"]
+            coefficient = coefficients["foreign"] if employee_id.is_non_resident else coefficients["national"]
+            weekly_withhold = floor(weekly_earning) * (coefficient / 100)
             return self._l10n_au_convert_amount(weekly_withhold, "weekly", period)
+
+        # The formula to compute the withholding amount is:
+        #   y = a * x - b, where:
+        #   y is the weekly amount to withhold
+        #   x is the number of whole dollars in the weekly earning + 99 cents
+        #   a and b are the coefficient defined in the data.
         coefficients = coefficients[employee_id.l10n_au_scale]
         for coef in coefficients:
-            if coef[0] == "inf" or weekly_earning < coef[0]:
+            if weekly_earning < float(coef[0]):
                 weekly_withhold = coef[1] * weekly_earning - coef[2]
                 break
 
@@ -292,10 +321,6 @@ class HrPayslip(models.Model):
         period = self.contract_id.schedule_pay
         amount_per_period = leave_amount / PERIODS_PER_YEAR[period]
 
-        last_payslip = year_slips[-2] if len(year_slips) > 1 else False
-        if not last_payslip:
-            last_payslip = self
-
         normal_withhold = self._l10n_au_compute_withholding_amount(self.basic_wage, period, coefficients)
         leave_withhold = self._l10n_au_compute_withholding_amount(self.basic_wage + amount_per_period, period, coefficients)
 
@@ -357,7 +382,6 @@ class HrPayslip(models.Model):
         self.ensure_one()
         pea = self._rule_parameter("l10n_au_pea")
         employee_id = self.employee_id
-        withhold = 0.0
 
         # garnishee child support does not apply the pea, first apply the lumpsum deductions
         # then the regular deductions
@@ -380,6 +404,4 @@ class HrPayslip(models.Model):
 
     def _l10n_au_has_extra_pay(self):
         self.ensure_one()
-        pay_day = int(self.contract_id.l10n_au_pay_day)
-        today = fields.Date.today().replace(month=1, day=1)
-        return today.weekday() == pay_day
+        return self.contract_id._l10n_au_get_weeks_amount() == 53

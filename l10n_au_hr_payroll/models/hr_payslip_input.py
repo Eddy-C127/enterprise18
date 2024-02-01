@@ -18,20 +18,24 @@ class HrPayslipInput(models.Model):
     def create(self, vals_list):
         inputs = super().create(vals_list)
         loading_ref = self.env.ref("l10n_au_hr_payroll.input_leave_loading_lump")
-        for inpt in inputs:
-            if inpt.input_type_id == loading_ref and not inpt.amount:
-                inpt.amount = inpt._l10n_au_get_leave_loading_lump_sum()
+        loading_ref_inputs = inputs.filtered(lambda i: i.input_type_id == loading_ref and not i.amount)
+        leave_loading_lump_sums = self._l10n_au_get_leave_loading_lump_sums(loading_ref_inputs.payslip_id)
+        if loading_ref_inputs:
+            loading_ref_inputs.amount = leave_loading_lump_sums.get(loading_ref_inputs.payslip_id)
         return inputs
 
-    def _l10n_au_get_leave_loading_lump_sum(self):
-        self.ensure_one()
-        start_year = self.payslip_id._l10n_au_get_financial_year_start(fields.Date.today())
-        employee_allocations = self.env["hr.leave.allocation"].search([
-            ("employee_id", "=", self.payslip_id.employee_id.id),
-            ("date_from", ">=", start_year),
-            ("holiday_status_id", "in", self.payslip_id.contract_id.l10n_au_leave_loading_leave_types.ids),
-        ])
-        year_expected_leaves = sum(employee_allocations.mapped("number_of_days_display"))
-        leave_rate = self.payslip_id.contract_id.l10n_au_leave_loading_rate
-        usual_daily_wage = round(self.payslip_id.get_daily_wage(), 2)
-        return year_expected_leaves * (usual_daily_wage * (1 + leave_rate / 100))
+    @api.model
+    def _l10n_au_get_leave_loading_lump_sums(self, payslips):
+        res = {}
+        for payslip in payslips:
+            start_year = payslip.contract_id._l10n_au_get_financial_year_start(fields.Date.today())
+            employee_allocations = self.env["hr.leave.allocation"].search_read([
+                ("employee_id", "=", payslip.employee_id.id),
+                ("date_from", ">=", start_year),
+                ("holiday_status_id", "in", payslip.contract_id.l10n_au_leave_loading_leave_types.ids),
+            ], ["number_of_days_display"])
+            year_expected_leaves = sum(allocation['number_of_days_display'] for allocation in employee_allocations)
+            leave_rate = payslip.contract_id.l10n_au_leave_loading_rate
+            usual_daily_wage = round(payslip._get_daily_wage(), 2)
+            res[payslip.id] = year_expected_leaves * (usual_daily_wage * (1 + leave_rate / 100))
+        return res

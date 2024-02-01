@@ -7,16 +7,42 @@
     <!-- Schedule 2 - Tax table for individuals employed in the horticultural or shearing industry  -->
     <record id="l10n_au_salary_sacrifice_structure_2" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice"/>
-        <field name="name">Salary Sacrifice</field>
-        <field name="code">SALARY.SACRIFICE</field>
-        <field name="sequence">99</field>
+        <field name="name">Concessional Super Contribution</field>
+        <field name="code">SUPER.CONTRIBUTION</field>
+        <field name="sequence">300</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_au_salary_sacrifice_superannuation or contract.l10n_au_salary_sacrifice_other</field>
+        <field name="condition_python">result = contract.l10n_au_salary_sacrifice_superannuation</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-net_salary = categories['BASIC'] + categories['ALW'] + categories['DED']
-sacrifice = contract.l10n_au_salary_sacrifice_superannuation + contract.l10n_au_salary_sacrifice_other
-result = -min(net_salary, sacrifice)
+result = contract.l10n_au_salary_sacrifice_superannuation
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_horticulture"/>
+    </record>
+
+    <record id="l10n_au_salary_sacrifice_other_structure_2" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice"/>
+        <field name="name">Salary Sacrifice Other Benefit</field>
+        <field name="code">SALARY.SACRIFICE.OTHER</field>
+        <field name="sequence">299</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_horticulture"/>
+    </record>
+
+    <record id="l10n_au_salary_sacrifice_total_structure_2" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice_total"/>
+        <field name="name">Salary Sacrifice Total</field>
+        <field name="code">SALARY.SACRIFICE.TOTAL</field>
+        <field name="sequence">99</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer - contract.l10n_au_salary_sacrifice_superannuation</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer - contract.l10n_au_salary_sacrifice_superannuation
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_horticulture"/>
     </record>
@@ -27,7 +53,7 @@ result = -min(net_salary, sacrifice)
             ('struct_id', '=', ref('l10n_au_hr_payroll.hr_payroll_structure_au_horticulture')),
             ('code', '=', 'GROSS')]"/>
         <value eval="{
-            'amount_python_compute': &quot;result = categories['BASIC'] + categories['ALW'] + categories['SALARY.SACRIFICE']&quot;
+            'amount_python_compute': &quot;result = categories['BASIC'] + categories['ALW'] + categories['SALARY.SACRIFICE.TOTAL'] + categories['WORK.GIVING']&quot;
         }"/>
     </function>
     <record id="l10n_au_withholding_structure_2" model="hr.salary.rule">
@@ -108,13 +134,51 @@ result = sum(allowances.mapped('amount'))
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_super_contribution"/>
         <field name="name">Super Guarantee</field>
         <field name="code">SUPER</field>
-        <field name="sequence">300</field>
+        <field name="sequence">301</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 rate = payslip._rule_parameter("l10n_au_withholding_super")
-result = categories['GROSS'] * rate/100 + contract.l10n_au_salary_sacrifice_superannuation
+result = categories['OTE'] * rate/100
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_horticulture"/>
     </record>
 
+    <record id="l10n_au_ote_structure_2" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
+        <field name="name">Ordinary Time Earnings</field>
+        <field name="code">OTE</field>
+        <field name="sequence">5</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
+ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
+result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_horticulture"/>
+        <field name="appears_on_payslip">False</field>
+    </record>
+
+    <record id="l10n_au_workplace_giving_structure_2" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_workplace_giving"/>
+        <field name="name">Workplace Giving</field>
+        <field name="code">WORKPLACE.GIVING</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = contract.l10n_au_workplace_giving</field>
+        <field name="sequence">99</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -contract.l10n_au_workplace_giving
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_horticulture"/>
+    </record>
+
+        <!-- Include Extra Pay in NET -->
+    <function model="hr.salary.rule" name="write">
+        <value model="hr.salary.rule" search="[
+            ('struct_id', '=', ref('l10n_au_hr_payroll.hr_payroll_structure_au_horticulture')),
+            ('code', '=', 'NET')]"/>
+        <value eval="{
+            'amount_python_compute': &quot;result = categories['BASIC'] + categories['ALW'] + categories['DED'] + result_rules['GROSS.COMMISSION']['total']&quot;
+        }"/>
+    </function>
 </odoo>

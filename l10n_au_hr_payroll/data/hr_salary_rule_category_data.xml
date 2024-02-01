@@ -95,6 +95,24 @@
     <record id="rule_category_salary_sacrifice" model="hr.salary.rule.category">
         <field name="name">Salary Sacrifice</field>
         <field name="code">SALARY.SACRIFICE</field>
+    </record>
+
+    <record id="rule_category_salary_sacrifice_total" model="hr.salary.rule.category">
+        <field name="name">Salary Sacrifice Total</field>
+        <field name="code">SALARY.SACRIFICE.TOTAL</field>
+        <field name="parent_id" ref="hr_payroll.DED"/>
+    </record>
+
+    <!-- Ordinary Time Earnings -->
+    <record id="rule_category_ote" model="hr.salary.rule.category">
+        <field name="name">OTE</field>
+        <field name="code">OTE</field>
+    </record>
+
+    <!-- Workplace Giving -->
+    <record id="rule_category_workplace_giving" model="hr.salary.rule.category">
+        <field name="name">Workplace Giving</field>
+        <field name="code">WORK.GIVING</field>
         <field name="parent_id" ref="hr_payroll.DED"/>
     </record>
 </odoo>

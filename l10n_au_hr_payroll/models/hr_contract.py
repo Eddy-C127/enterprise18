@@ -1,7 +1,15 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from math import ceil
+
+from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+
+OVERTIME_CASUAL_LOADING_COEF = 1.25
+SATURDAY_CASUAL_LOADING_COEF = 1.50
+SUNDAY_CASUAL_LOADING_COEF = 1.75
+PUBLIC_HOLIDAY_CASUAL_LOADING_COEF = 2.5
 
 
 class HrContract(models.Model):
@@ -94,9 +102,18 @@ class HrContract(models.Model):
     l10n_au_performances_per_week = fields.Integer(string="Performances per week")
     l10n_au_income_stream_type = fields.Selection(related="structure_type_id.l10n_au_income_stream_type", readonly=False)
     l10n_au_country_code = fields.Many2one("res.country", string="Country", help="Country where the work is performed")
-    l10n_au_workplace_giving = fields.Float(string="Workplace Giving")
+    l10n_au_workplace_giving_type = fields.Selection(
+        selection=[
+            ('none', 'None'),
+            ("employee_deduction", "Employee Deduction"),
+            ("employer_deduction", "Employer Deduction"),
+            ("both", "Employer and Employee Deductions"),
+        ], required=True, default='none', string='Workplace Giving Type'
+    )
+    l10n_au_workplace_giving = fields.Float(string="Workplace Giving Employee", compute="_compute_workplace_giving", readonly=False, store=True)
+    l10n_au_workplace_giving_employer = fields.Float(string="Workplace Giving Employer", compute="_compute_workplace_giving", readonly=False, store=True)
     l10n_au_salary_sacrifice_superannuation = fields.Float(string="Salary Sacrifice Superannuation")
-    l10n_au_salary_sacrifice_other = fields.Float(string="Salary Sacrifice Other")
+    l10n_au_salary_sacrifice_other = fields.Float(string="Salary Sacrifice Other Benefits")
     l10n_au_yearly_wage = fields.Monetary(string="Yearly Wage", compute="_compute_wages", inverse="_inverse_yearly_wages", readonly=False, store=True)
     wage = fields.Monetary(compute="_compute_wages", readonly=False, store=True)
     hourly_wage = fields.Monetary(compute="_compute_wages", readonly=False, store=True)
@@ -122,18 +139,23 @@ class HrContract(models.Model):
     @api.depends("l10n_au_tax_treatment_category", "employee_id", "employee_id.l10n_au_tax_free_threshold", "employee_id.is_non_resident", "employee_id.marital")
     def _compute_l10n_au_tax_treatment_option(self):
         for contract in self:
-            if contract.l10n_au_tax_treatment_category in ("R", "A"):
-                contract.l10n_au_tax_treatment_option = "T" if contract.employee_id.l10n_au_tax_free_threshold else "N"
-            elif contract.l10n_au_tax_treatment_category == "C":
-                contract.l10n_au_tax_treatment_option = "F" if contract.employee_id.is_non_resident else "T"
-            elif contract.l10n_au_tax_treatment_category == "S":
-                contract.l10n_au_tax_treatment_option = "M" if contract.employee_id.marital in ("married", "cohabitant") else "S"
-            elif contract.l10n_au_tax_treatment_category == "H":
-                contract.l10n_au_tax_treatment_option = "F" if contract.employee_id.is_non_resident else "R"
-            elif contract.l10n_au_tax_treatment_category == "N":
-                contract.l10n_au_tax_treatment_option = "F" if contract.employee_id.is_non_resident else "A"
-            elif contract.l10n_au_tax_treatment_category == "D":
-                contract.l10n_au_tax_treatment_option = "V" if contract.l10n_au_withholding_variation else "B"
+            is_non_resident = contract.employee_id.is_non_resident
+            match contract.l10n_au_tax_treatment_category:
+                case "R" | "A":
+                    tax_treatment = "T" if contract.employee_id.l10n_au_tax_free_threshold else "N"
+                case "C":
+                    tax_treatment = "F" if is_non_resident else "T"
+                case "S":
+                    tax_treatment = "M" if contract.employee_id.marital in ("married", "cohabitant") else "S"
+                case "H":
+                    tax_treatment = "F" if is_non_resident else "R"
+                case "N":
+                    tax_treatment = "F" if is_non_resident else "A"
+                case "S":
+                    tax_treatment = "V" if contract.l10n_au_withholding_variation else "B"
+                case _:
+                    tax_treatment = contract.l10n_au_tax_treatment_option
+            contract.l10n_au_tax_treatment_option = tax_treatment
 
     @api.depends(
         "l10n_au_tax_treatment_category", "l10n_au_tax_treatment_option",
@@ -143,12 +165,15 @@ class HrContract(models.Model):
         "employee_id.l10n_au_medicare_reduction")
     def _compute_l10n_au_tax_treatment_code(self):
         for contract in self:
-            contract.l10n_au_tax_treatment_code = (contract.l10n_au_tax_treatment_category or "") \
-                + (contract.l10n_au_tax_treatment_option or "") \
-                + (("S" if contract.employee_id.l10n_au_training_loan else "X")) \
-                + (contract.employee_id.l10n_au_medicare_exemption or "") \
-                + (contract.employee_id.l10n_au_medicare_surcharge or "") \
-                + (contract.employee_id.l10n_au_medicare_reduction or "")
+            tax_treatment_code_values = [
+                contract.l10n_au_tax_treatment_category or "",
+                contract.l10n_au_tax_treatment_option or "",
+                ("S" if contract.employee_id.l10n_au_training_loan else "X"),
+                contract.employee_id.l10n_au_medicare_exemption or "",
+                contract.employee_id.l10n_au_medicare_surcharge or "",
+                contract.employee_id.l10n_au_medicare_reduction or "",
+            ]
+            contract.l10n_au_tax_treatment_code = "".join(tax_treatment_code_values)
 
     @api.depends("wage_type", "wage", "hourly_wage")
     def _compute_wages(self):
@@ -165,6 +190,25 @@ class HrContract(models.Model):
                 contract.hourly_wage = _l10n_au_convert_amount(contract.wage, contract.schedule_pay, "daily") / hours_per_day
                 contract.l10n_au_yearly_wage = _l10n_au_convert_amount(contract.wage, contract.schedule_pay, "yearly")
 
+    @api.depends('l10n_au_workplace_giving_type')
+    def _compute_workplace_giving(self):
+        """ Changing the workplace_giving_type requires resetting the unused value to 0 """
+        for contract in self:
+            workplace_employee_giving = workplace_employer_giving = 0
+            match contract.l10n_au_workplace_giving_type:
+                case "employee_deduction":
+                    workplace_employee_giving = contract.l10n_au_workplace_giving
+                case "employer_deduction":
+                    workplace_employer_giving = contract.l10n_au_workplace_giving_employer
+                case "both":
+                    workplace_employee_giving = contract.l10n_au_workplace_giving
+                    workplace_employer_giving = contract.l10n_au_workplace_giving_employer
+
+            contract.write({
+                'l10n_au_workplace_giving': workplace_employee_giving,
+                'l10n_au_workplace_giving_employer': workplace_employer_giving,
+            })
+
     def _inverse_yearly_wages(self):
         if self.country_code != "AU":
             return
@@ -177,8 +221,30 @@ class HrContract(models.Model):
     def get_hourly_wages(self):
         self.ensure_one()
         return {
-            "overtime": self.hourly_wage * (1.25 + self.l10n_au_casual_loading / 100),
-            "saturday": self.hourly_wage * (1.50 + self.l10n_au_casual_loading / 100),
-            "sunday": self.hourly_wage * (1.75 + self.l10n_au_casual_loading / 100),
-            "public_holiday": self.hourly_wage * (2.5 + self.l10n_au_casual_loading / 100),
+            "overtime": self.hourly_wage * (OVERTIME_CASUAL_LOADING_COEF + self.l10n_au_casual_loading / 100),
+            "saturday": self.hourly_wage * (SATURDAY_CASUAL_LOADING_COEF + self.l10n_au_casual_loading / 100),
+            "sunday": self.hourly_wage * (SUNDAY_CASUAL_LOADING_COEF + self.l10n_au_casual_loading / 100),
+            "public_holiday": self.hourly_wage * (PUBLIC_HOLIDAY_CASUAL_LOADING_COEF + self.l10n_au_casual_loading / 100),
         }
+
+    @api.model
+    def _l10n_au_get_financial_year_start(self, date):
+        if date.month < 7:
+            return date + relativedelta(years=-1, month=7, day=1)
+        return date + relativedelta(month=7, day=1)
+
+    @api.model
+    def _l10n_au_get_financial_year_end(self, date):
+        if date.month < 7:
+            return date + relativedelta(month=6, day=30)
+        return date + relativedelta(years=1, month=6, day=30)
+
+    @api.model
+    def _l10n_au_get_weeks_amount(self, date=False):
+        """ Returns the amount of pay weeks in the current financial year.
+        In leap years, there will be an additional week/fortnight.
+        """
+        target_day = date or fields.Date.context_today(self)
+        start_day = self._l10n_au_get_financial_year_start(target_day)
+        end_day = self._l10n_au_get_financial_year_end(target_day) + relativedelta(day=30)
+        return ceil((end_day - start_day).days / 7)

@@ -111,9 +111,10 @@
     </record>
 
     <record id="input_gross_director_fee" model="hr.payslip.input.type">
-        <field name="name">Gross Director's Fees</field>
-        <field name="code">INPT.DIRFEE</field>
+        <field name="name">Director's Fees</field>
+        <field name="code">EXTRA</field>
         <field name="country_id" ref="base.au"/>
+        <field name="l10n_au_is_ote">True</field>
     </record>
 
     <record id="input_gross_cdep" model="hr.payslip.input.type">
@@ -246,6 +247,7 @@
         <field name="l10n_au_is_etp">True</field>
         <field name="l10n_au_etp_type">non_excluded</field>
         <field name="l10n_au_etp_cap">False</field>
+        <field name="l10n_au_is_ote">True</field>
     </record>
 
     <record id="input_etp_other" model="hr.payslip.input.type">
@@ -262,6 +264,7 @@
         <field name="name">Return To Work payment</field>
         <field name="code">B2WORK</field>
         <field name="country_id" ref="base.au"/>
+        <field name="l10n_au_is_ote">True</field>
     </record>
 
     <!-- For Commissions and Extra Pay -->
@@ -269,5 +272,6 @@
         <field name="name">Extra Pay Item</field>
         <field name="code">EXTRA</field>
         <field name="country_id" ref="base.au"/>
+        <field name="l10n_au_is_ote">True</field>
     </record>
 </odoo>

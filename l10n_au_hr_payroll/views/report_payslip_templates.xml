@@ -64,7 +64,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <t t-set="year_to_date_totals" t-value="o.with_context(l10n_au_include_current_slip=True)._l10n_au_get_year_to_date_totals(o.date_from)"/>
+                        <t t-set="year_to_date_totals" t-value="o.with_context(l10n_au_include_current_slip=True)._l10n_au_get_year_to_date_totals()"/>
                         <t t-set="total_hours" t-value="0.0"/>
                         <!-- show the detail of the worked lines -->
                         <tr t-if="o.use_worked_day_lines">
