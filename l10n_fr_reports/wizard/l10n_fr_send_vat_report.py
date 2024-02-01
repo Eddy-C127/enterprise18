@@ -301,7 +301,7 @@ class L10nFrSendVatReport(models.TransientModel):
             'deposit_uid': deposit_uid,
             'date_from': vals['date_from'],
             'date_to': vals['date_to'],
-            'report_id': self.env.ref('l10n_fr.tax_report').id,
+            'report_id': self.env.ref('l10n_fr_account.tax_report').id,
             'recipient': self.recipient,
             'state': 'sent',
         })

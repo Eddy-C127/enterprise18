@@ -22,7 +22,7 @@ class FECReportCustomHandler(models.AbstractModel):
             'name': 'FEC File Generation',
             'res_model': 'l10n_fr.fec.export.wizard',
             'view_mode': 'form',
-            'views': [[self.env.ref('l10n_fr.fec_export_wizard_view').id, 'form']],
+            'views': [[self.env.ref('l10n_fr_account.fec_export_wizard_view').id, 'form']],
             'target': 'new',
             'context': {**self.env.context.copy(), 'report_dates': options['date']}
         }

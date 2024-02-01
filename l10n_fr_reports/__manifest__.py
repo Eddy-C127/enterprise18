@@ -15,7 +15,7 @@ It adds a new button "EDI VAT" on the French vat report and a new menu item "EDI
 in the "Statement Reports" section).
     """,
     'category': 'Accounting/Localizations/Reporting',
-    'depends': ['l10n_fr', 'account_reports'],
+    'depends': ['l10n_fr_account', 'account_reports'],
     'data': [
         'data/balance_sheet.xml',
         'data/profit_loss.xml',
@@ -30,7 +30,7 @@ in the "Statement Reports" section).
         'wizard/l10n_fr_send_vat_report_wizard.xml',
         'wizard/fec_report.xml',
     ],
-    'auto_install': ['l10n_fr', 'account_reports'],
+    'auto_install': ['l10n_fr_account', 'account_reports'],
     'installable': True,
     'license': 'OEEL-1',
 }

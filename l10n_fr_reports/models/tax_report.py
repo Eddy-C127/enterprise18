@@ -36,9 +36,9 @@ class FrenchReportCustomHandler(models.AbstractModel):
 
         currency = company.currency_id
 
-        total_payable_line_id = self.env.ref('l10n_fr.tax_report_32').id
-        total_deductible_line_id = self.env.ref('l10n_fr.tax_report_27').id
-        total_previous_carry_over_line_id = self.env.ref('l10n_fr.tax_report_22').id
+        total_payable_line_id = self.env.ref('l10n_fr_account.tax_report_32').id
+        total_deductible_line_id = self.env.ref('l10n_fr_account.tax_report_27').id
+        total_previous_carry_over_line_id = self.env.ref('l10n_fr_account.tax_report_22').id
         for line in report._get_lines(options):
             model, record_id = report._get_model_info_from_id(line['id'])
             if model != 'account.report.line':

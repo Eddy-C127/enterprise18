@@ -23,7 +23,7 @@ class TestFrenchFiscalRounding(TestAccountReportsCommon):
         cls.difference_loss_acc = cls.company_data['company'].l10n_fr_rounding_difference_loss_account_id
         cls.difference_profit_acc = cls.company_data['company'].l10n_fr_rounding_difference_profit_account_id
 
-        cls.report = cls.env.ref('l10n_fr.tax_report').with_company(cls.company_data['company'])
+        cls.report = cls.env.ref('l10n_fr_account.tax_report').with_company(cls.company_data['company'])
         cls.handler = cls.env['l10n_fr.report.handler']
 
         cls._standard_line_dict = {
@@ -114,7 +114,7 @@ class TestFrenchFiscalRounding(TestAccountReportsCommon):
         lines, _ = self.handler._compute_vat_closing_entry(self.company_data['company'], options)
         self.assertEqual(lines, expected_closing_entry_lines)
 
-        carryover_line_id = self.env.ref('l10n_fr.tax_report_27').id
+        carryover_line_id = self.env.ref('l10n_fr_account.tax_report_27').id
         options = self._generate_options(self.report, '2021-05-01', '2021-05-31')
         report_lines = self.report._get_lines(options)
         carryover_line, = [line for line in report_lines if line['columns'][0]['report_line_id'] == carryover_line_id]

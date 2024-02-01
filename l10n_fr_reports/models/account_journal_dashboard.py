@@ -12,7 +12,7 @@ class AccountJournal(models.Model):
         for journal in self.filtered(lambda journal: journal.type == 'general'):
             dashboard_data[journal.id]['l10n_fr_has_rejected_tax_report'] = bool(
                 self.env['account.report.async.export'].search([
-                    ('report_id', '=', self.env.ref('l10n_fr.tax_report').id),
+                    ('report_id', '=', self.env.ref('l10n_fr_account.tax_report').id),
                     ('state', '=', 'rejected'),
                 ], limit=1)
             )
