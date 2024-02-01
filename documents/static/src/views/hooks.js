@@ -133,6 +133,7 @@ export function useDocumentView(helpers) {
                     default_tag_ids: [x2ManyCommands.set(env.searchModel.getSelectedTagIds())],
                     default_res_id: props.context.default_res_id || false,
                     default_res_model: props.context.default_res_model || false,
+                    default_requestee_id: props.context.default_partner_id || false,
                 },
                 fullscreen: env.isSmall,
                 onClose: async () => {
