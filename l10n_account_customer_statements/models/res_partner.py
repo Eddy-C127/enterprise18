@@ -67,7 +67,7 @@ class ResPartner(models.Model):
 
     def _prepare_customer_statement_values(self, options=None):
         def format_monetary(value):
-            return self.env['account.report'].format_value(
+            return self.env['account.report']._format_value(
                 options=options,
                 value=value,
                 figure_type='monetary',

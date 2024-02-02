@@ -215,6 +215,13 @@ export class AccountReportFilters extends Component {
     }
 
     //------------------------------------------------------------------------------------------------------------------
+    // Rounding unit
+    //------------------------------------------------------------------------------------------------------------------
+    roundingUnitName(roundingUnit) {
+        return _t("In %s", this.controller.options['rounding_unit_names'][roundingUnit]);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
     // Generic filters
     //------------------------------------------------------------------------------------------------------------------
     async updateFilter(optionKey, optionValue) {
@@ -264,5 +271,20 @@ export class AccountReportFilters extends Component {
     async toggleHorizontalSplit() {
         await this.controller.toggleOption('horizontal_split', false);
         this.controller.saveSessionOptions(this.controller.options);
+    }
+
+    async filterRoundingUnit(rounding) {
+        await this.controller.updateOption('rounding_unit', rounding, false);
+
+        this.controller.saveSessionOptions(this.controller.options);
+
+        this.controller.lines = await this.controller.orm.call(
+            "account.report",
+            "format_column_values",
+            [
+                this.controller.options,
+                this.controller.lines,
+            ],
+        );
     }
 }

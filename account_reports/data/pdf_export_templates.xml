@@ -206,7 +206,15 @@
                 <th/>
 
                 <t t-foreach="options['columns']" t-as="subheader">
-                    <th t-out="subheader.get('name')"/>
+                    <th>
+                        <t t-out="subheader.get('name')"/>
+
+                        <t t-if="subheader.get('figure_type') == 'monetary'">
+                            <t t-set="rounding_unit" t-value="options.get('rounding_unit')"/>
+
+                            <t t-out="'( ' + options['rounding_unit_names'][rounding_unit] + ' )'"/>
+                        </t>
+                    </th>
                 </t>
             </tr>
         </thead>

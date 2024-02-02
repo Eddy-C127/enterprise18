@@ -1215,6 +1215,35 @@ class AccountReport(models.Model):
             or any(expression.figure_type and expression.figure_type != 'monetary' for expression in self.line_ids.expression_ids)
         )
 
+    ####################################################
+    # OPTIONS: ROUNDING UNIT
+    ####################################################
+    def _init_options_rounding_unit(self, options, previous_options=None):
+        default = 'decimals'
+
+        if previous_options:
+            options['rounding_unit'] = previous_options.get('rounding_unit', default)
+        else:
+            options['rounding_unit'] = default
+
+        options['rounding_unit_names'] = self._get_rounding_unit_names()
+
+    def _get_rounding_unit_names(self):
+        currency_symbol = self.env.company.currency_id.symbol
+        rounding_unit_names = [
+            ('decimals', '.%s' % currency_symbol),
+            ('units', '%s' % currency_symbol),
+            ('thousands', 'K%s' % currency_symbol),
+            ('millions', 'M%s' % currency_symbol),
+        ]
+
+        # We want to add 'lakhs' for Indian Rupee
+        if (self.env.company.currency_id == self.env.ref('base.INR')):
+            # We want it between 'thousands' and 'millions'
+            rounding_unit_names.insert(3, ('lakhs', 'L%s' % currency_symbol))
+
+        return dict(rounding_unit_names)
+
     # ####################################################
     # OPTIONS: ALL ENTRIES
     ####################################################
@@ -2174,10 +2203,16 @@ class AccountReport(models.Model):
 
         return lines
 
-    def _format_column_values(self, options, line_dict_list):
+    @api.model
+    def format_column_values(self, options, lines):
+        self._format_column_values(options, lines, force_format=True)
+
+        return lines
+
+    def _format_column_values(self, options, line_dict_list, force_format=False):
         for line_dict in line_dict_list:
             for column_dict in line_dict['columns']:
-                if 'name' in column_dict:
+                if 'name' in column_dict and not force_format:
                     # Columns which have already received a name are assumed to be already formatted; nothing needs to be done for them.
                     # This gives additional flexibility to custom reports, if needed.
                     continue
@@ -2331,7 +2366,7 @@ class AccountReport(models.Model):
             carryover_expr_label = '_carryover_%s' % column_expr_label
             carryover_value = target_line_res_dict.get(carryover_expr_label, {}).get('value', 0)
             if self.env.company.currency_id.compare_amounts(0, carryover_value) != 0:
-                info_popup_data['carryover'] = self.format_value(options, carryover_value, 'monetary')
+                info_popup_data['carryover'] = self._format_value(options, carryover_value, 'monetary')
 
                 carryover_expression = line_expressions_map[carryover_expr_label]
                 if carryover_expression.carryover_target:
@@ -2340,7 +2375,7 @@ class AccountReport(models.Model):
 
             applied_carryover_value = target_line_res_dict.get('_applied_carryover_%s' % column_expr_label, {}).get('value', 0)
             if self.env.company.currency_id.compare_amounts(0, applied_carryover_value) != 0:
-                info_popup_data['applied_carryover'] = self.format_value(options, applied_carryover_value, 'monetary')
+                info_popup_data['applied_carryover'] = self._format_value(options, applied_carryover_value, 'monetary')
                 info_popup_data['allow_carryover_audit'] = self.user_has_groups('base.group_no_one')
                 info_popup_data['expression_id'] = line_expressions_map['_applied_carryover_%s' % column_expr_label]['id']
                 info_popup_data['column_group_key'] = column_data['column_group_key']
@@ -4327,6 +4362,7 @@ class AccountReport(models.Model):
             'report': {
                 'company_name': self.env.company.name,
                 'company_country_code': self.env.company.country_code,
+                'company_currency_symbol': self.env.company.currency_id.symbol,
                 'name': self.name,
                 'root_report_id': self.root_report_id,
             }
@@ -4704,6 +4740,15 @@ class AccountReport(models.Model):
 
     @api.model
     def format_value(self, options, value, figure_type, format_params=None):
+        if format_params is None:
+            format_params = {}
+
+        if 'currency' in format_params:
+            format_params['currency'] = self.env['res.currency'].browse(format_params['currency'].id)
+
+        return self._format_value(options=options, value=value, figure_type=figure_type, format_params=format_params)
+
+    def _format_value(self, options, value, figure_type, format_params=None):
         """ Formats a value for display in a report (not especially numerical). figure_type provides the type of formatting we want.
         """
         if value is None:
@@ -4718,7 +4763,10 @@ class AccountReport(models.Model):
         if format_params is None:
             format_params = {}
 
-        formatLang_params = {}
+        formatLang_params = {
+            'rounding_method': 'HALF-UP',
+            'rounding_unit': options.get('rounding_unit'),
+        }
 
         if figure_type == 'monetary':
             currency = self.env['res.currency'].browse(format_params['currency_id']) if 'currency_id' in format_params else self.env.company.currency_id

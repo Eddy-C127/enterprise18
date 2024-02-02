@@ -96,6 +96,10 @@
             </div>
         </t>
 
+        <div id="filter_rounding_unit">
+            <t t-call="account_reports.AccountReportFilterRoundingUnit"/>
+        </div>
+
         <t t-if="env.debug">
             <div id="filter_configuration" class="o-dropdown dropdown o-dropdown--no-caret">
                 <button
