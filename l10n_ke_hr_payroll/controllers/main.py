@@ -32,32 +32,32 @@ class L10nKeHrPayrollNssfReportController(http.Controller):
         column_width = 25
         horizontal_header_height = 35
         vertical_headers = [
-            'NSSF CONTRIBUTION',
-            'EMPLOYER KRA PIN',
-            'EMPLOYER NSSF NUMBER',
-            'EMPLOYER NAME',
-            'CONTRIBUTIONS PERIOD',
-            'TOTAL INCOME',
-            'TOTAL MEMBER',
-            'TOTAL EMPLOYER',
-            'TOTAL CONTRIBUTIONS',
-            'TOTAL RECORDS',
+            _('NSSF CONTRIBUTION'),
+            _('EMPLOYER KRA PIN'),
+            _('EMPLOYER NSSF NUMBER'),
+            _('EMPLOYER NAME'),
+            _('CONTRIBUTIONS PERIOD'),
+            _('TOTAL INCOME'),
+            _('TOTAL MEMBER'),
+            _('TOTAL EMPLOYER'),
+            _('TOTAL CONTRIBUTIONS'),
+            _('TOTAL RECORDS'),
         ]
 
         in_between_blank_lines = 1
         horizontal_headers = [
-            'PAYROLL NO',
-            'SURNAME',
-            'OTHER NAMES',
-            'ID NO',
-            'KRA PIN',
-            'NSSF NO',
-            'CONTRIBUTIONS \n TYPE',
-            'INCOME',
-            'INCOME \n TYPE',
-            'MEMBER',
-            'EMPLOYER',
-            'TOTAL',
+            _('PAYROLL NO'),
+            _('SURNAME'),
+            _('OTHER NAMES'),
+            _('ID NO'),
+            _('KRA PIN'),
+            _('NSSF NO'),
+            _('CONTRIBUTIONS \n TYPE'),
+            _('INCOME'),
+            _('INCOME \n TYPE'),
+            _('MEMBER'),
+            _('EMPLOYER'),
+            _('TOTAL'),
         ]
 
         total_employer = 0
@@ -150,9 +150,9 @@ class L10nKeHrPayrollNssfReportController(http.Controller):
         style_normal = workbook.add_format({'align': 'center'})
         column_width = 25
         vertical_headers = [
-            'EMPLOYER CODE',
-            'EMPLOYER NAME',
-            'MONTH OF CONTRIBUTION',
+            _('EMPLOYER CODE'),
+            _('EMPLOYER NAME'),
+            _('MONTH OF CONTRIBUTION'),
         ]
 
         vertical_data = [
@@ -162,15 +162,15 @@ class L10nKeHrPayrollNssfReportController(http.Controller):
         ]
         in_between_blank_lines = 1
         horizontal_headers = [
-            'PAYROLL NO',
-            'LAST NAME',
-            'FIRST NAME',
-            'ID NO',
-            'NHIF NO',
-            'AMOUNT',
+            _('PAYROLL NO'),
+            _('LAST NAME'),
+            _('FIRST NAME'),
+            _('ID NO'),
+            _('NHIF NO'),
+            _('AMOUNT'),
         ]
         total_column = len(horizontal_headers) - 2
-        total_str = 'TOTAL'
+        total_str = _('TOTAL')
         total = 0
 
         horizontal_data = []
