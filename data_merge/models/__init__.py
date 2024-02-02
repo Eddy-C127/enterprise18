@@ -7,4 +7,5 @@ from . import data_merge_group
 from . import data_merge_record
 
 from . import ir_model
+from . import ir_rule
 from . import res_partner
