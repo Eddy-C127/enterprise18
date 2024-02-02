@@ -171,9 +171,6 @@ class AccountReport(models.AbstractModel):
             table=sql.SQL(', ').join(selected_fields),
         )
 
-        # TODO gawa need to do the auditing of the lines
-        # TODO gawa try to reduce query on analytic lines
-
         self.env.cr.execute(query)
 
     def _get_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
@@ -268,7 +265,7 @@ class AccountMoveLine(models.Model):
         The following analytic columns and computations will just query the shadowed table instead of the real one.
         """
         query = super()._where_calc(domain, active_test)
-        if self.env.context.get('account_report_analytic_groupby'):
+        if self.env.context.get('account_report_analytic_groupby') and not self.env.context.get('account_report_cash_basis'):
             self.env['account.report']._prepare_lines_for_analytic_groupby()
             query._tables['account_move_line'] = SQL.identifier('analytic_temp_account_move_line')
         return query
