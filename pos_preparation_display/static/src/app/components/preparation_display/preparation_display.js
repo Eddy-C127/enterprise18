@@ -2,12 +2,13 @@
 import { Category } from "@pos_preparation_display/app/components/category/category";
 import { Stages } from "@pos_preparation_display/app/components/stages/stages";
 import { Order } from "@pos_preparation_display/app/components/order/order";
+import { MainComponentsContainer } from "@web/core/main_components_container";
 import { usePreparationDisplay } from "@pos_preparation_display/app/preparation_display_service";
 import { Component, onPatched, useState } from "@odoo/owl";
 import { startOwl } from "@point_of_sale/startOwl";
 
 export class PreparationDisplay extends Component {
-    static components = { Category, Stages, Order };
+    static components = { Category, Stages, Order, MainComponentsContainer };
     static template = `pos_preparation_display.PreparationDisplay`;
     static props = {};
 

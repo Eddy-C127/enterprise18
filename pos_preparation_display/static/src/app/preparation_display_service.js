@@ -6,8 +6,8 @@ import { getOnNotified } from "@point_of_sale/utils";
 import { useService } from "@web/core/utils/hooks";
 
 const preparationDisplayService = {
-    dependencies: ["orm", "bus_service"],
-    async start(env, { orm, bus_service }) {
+    dependencies: ["orm", "bus_service", "sound"],
+    async start(env, { orm, bus_service, sound }) {
         const datas = await orm.call(
             "pos_preparation_display.display",
             "get_preparation_display_data",
@@ -22,6 +22,7 @@ const preparationDisplayService = {
         ).ready;
         const onNotified = getOnNotified(bus_service, odoo.preparation_display.access_token);
         onNotified("LOAD_ORDERS", async () => {
+            sound.play("notification");
             preparationDisplayService.rawData.orders = await preparationDisplayService.orm.call(
                 "pos_preparation_display.order",
                 "get_preparation_display_order",
