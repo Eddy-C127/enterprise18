@@ -9,7 +9,31 @@ const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
 function normalizeXML(str) {
     const doc = parseXML(str);
-    return serializeXML(doc.firstElementChild);
+    /* Recursively trim text nodes conditionally
+     * if they start or end with a newline (\n).
+     * In that case we make the assumption that all whitespaces
+     * are materializing indentation.
+     * If there are only spaces (\s), we make the assumption that they
+     * are actual spaces that are visible to the naked eye of the user.
+     */
+    const nodes = [...doc.childNodes];
+    for (const node of nodes) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            let nodeValue = node.nodeValue;
+            if (nodeValue.startsWith("\n")) {
+                nodeValue = nodeValue.trimStart();
+            }
+            if (nodeValue.endsWith("\n")) {
+                nodeValue = nodeValue.trimEnd();
+            }
+            node.nodeValue = nodeValue;
+        }
+        if (node.nodeType === Node.ELEMENT_NODE) {
+            nodes.push(...node.childNodes);
+        }
+    }
+
+    return serializeXML(doc);
 }
 
 function insertText(element, text, offset = 0) {
