@@ -647,28 +647,32 @@
                         </t>
 
                         <!-- Notebook -->
+                        <t t-set="amls_tab_title">Match Existing Entries</t>
+                        <t t-set="manual_operations_tab_title">Manual Operations</t>
+                        <t t-set="discuss_tab_title">Discuss</t>
+                        <t t-set="transaction_details_tab_title">Transaction Details</t>
                         <Notebook t-key="state.bankRecStLineId" defaultPage="state.bankRecNotebookPage || ''" onPageUpdate.bind="onPageUpdate" >
                             <t t-set-slot="amls_tab"
                                name="'amls_tab'"
-                               title="'Match Existing Entries'"
+                               title="amls_tab_title"
                                isVisible="['valid', 'invalid'].includes(data.state)">
                                 <t t-call="account_accountant.BankRecRecordNotebookAmls"/>
                             </t>
                             <t t-set-slot="manual_operations_tab"
                                name="'manual_operations_tab'"
-                               title="'Manual Operations'"
+                               title="manual_operations_tab_title"
                                isVisible="['valid', 'invalid'].includes(data.state)">
                                 <t t-call="account_accountant.BankRecRecordNotebookManualOperations"/>
                             </t>
                             <t t-set-slot="discuss_tab"
                                name="'discuss_tab'"
-                               title="'Discuss'"
+                               title="discuss_tab_title"
                                isVisible="true">
                                 <t t-call="account_accountant.BankRecRecordNotebookChatter"/>
                             </t>
                             <t t-set-slot="transaction_details_tab"
                                name="'transaction_details_tab'"
-                               title="'Transaction Details'"
+                               title="transaction_details_tab_title"
                                isVisible="data.state == 'reconciled' and data.st_line_narration and data.st_line_narration != ''">
                                 <t t-call="account_accountant.BankRecRecordNotebookTransactionDetails"/>
                             </t>
