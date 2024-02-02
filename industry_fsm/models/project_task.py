@@ -8,7 +8,6 @@ import pytz
 from odoo import Command, fields, models, api, _
 from odoo.osv import expression
 from odoo.tools import get_lang
-from odoo.addons.project.models.project_task import CLOSED_STATES
 from odoo.addons.resource.models.utils import Intervals, sum_intervals
 
 class Task(models.Model):
@@ -197,7 +196,7 @@ class Task(models.Model):
     def _group_expand_user_ids_domain(self, domain_expand):
         if self._context.get('fsm_mode'):
             new_domain_expand = expression.OR([[
-                ('state', 'in', self.OPEN_STATES),
+                ('is_closed', '=', False),
                 ('planned_date_begin', '=', False),
                 ('date_deadline', '=', False),
             ], domain_expand])
@@ -206,7 +205,7 @@ class Task(models.Model):
             return super()._group_expand_user_ids_domain(domain_expand)
 
     def _compute_fsm_done(self):
-        closed_tasks = self.filtered(lambda t: t.state in CLOSED_STATES)
+        closed_tasks = self.filtered(lambda t: t.is_closed)
         closed_tasks.fsm_done = True
 
     def action_timer_start(self):

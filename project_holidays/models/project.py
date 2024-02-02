@@ -2,7 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
-from odoo.addons.project.models.project_task import CLOSED_STATES
 from collections import defaultdict
 
 class Task(models.Model):
@@ -31,13 +30,13 @@ class Task(models.Model):
 
         # Avoid NewIds issue by browsing for self.ids.
         tasks = self.with_context(prefetch_fields=False).browse(self.ids)
-        tasks.fetch(['user_ids', 'project_id', 'planned_date_begin', 'date_deadline', 'state'])
+        tasks.fetch(['user_ids', 'project_id', 'planned_date_begin', 'date_deadline', 'is_closed'])
         assigned_tasks = tasks.filtered(
             lambda t: t.user_ids.employee_id
             and t.project_id
             and t.planned_date_begin
             and t.date_deadline
-            and not t.state in CLOSED_STATES
+            and not t.is_closed
         )
         (self - assigned_tasks).leave_warning = False
         (self - assigned_tasks).is_absent = False
@@ -100,7 +99,7 @@ class Task(models.Model):
             ('project_id', '!=', False),
             ('planned_date_begin', '!=', False),
             ('date_deadline', '!=', False),
-            ('state', 'in', self.OPEN_STATES),
+            ('is_closed', '=', False),
         ])
         if not tasks:
             return []

@@ -45,5 +45,5 @@ class PlanningSlot(models.Model):
         domain = super()._get_shifts_to_plan_domain(view_domain)
         if self.env.context.get('default_project_id'):
             domain = filter_domain_leaf(domain, lambda field: field != "project_id")
-            domain = expression.AND([domain, [('sale_order_id', 'in', self.env['project.project'].browse(self.env.context.get('default_project_id'))._fetch_sale_order_items({'project.task': [('state', 'in', self.env['project.task'].OPEN_STATES)]}).order_id.ids)]])
+            domain = expression.AND([domain, [('sale_order_id', 'in', self.env['project.project'].browse(self.env.context.get('default_project_id'))._fetch_sale_order_items({'project.task': [('is_closed', '=', False)]}).order_id.ids)]])
         return domain

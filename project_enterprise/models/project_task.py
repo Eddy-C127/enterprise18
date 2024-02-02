@@ -17,8 +17,6 @@ from odoo.osv.expression import is_leaf
 
 from odoo.addons.resource.models.utils import Intervals, sum_intervals, string_to_datetime
 
-from odoo.addons.project.models.project_task import CLOSED_STATES
-
 PROJECT_TASK_WRITABLE_FIELDS = {
     'planned_date_begin',
 }
@@ -70,10 +68,10 @@ class Task(models.Model):
             'date_deadline': False
         })
 
-    @api.depends('state')
+    @api.depends('is_closed')
     def _compute_display_warning_dependency_in_gantt(self):
         for task in self:
-            task.display_warning_dependency_in_gantt = task.state not in CLOSED_STATES
+            task.display_warning_dependency_in_gantt = not task.is_closed
 
     @api.onchange('date_deadline', 'planned_date_begin')
     def _onchange_planned_dates(self):
@@ -114,7 +112,7 @@ class Task(models.Model):
     def _fetch_planning_overlap(self, additional_domain=None):
         domain = [
             ('active', '=', True),
-            ('state', 'in', ('01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal')),
+            ('is_closed', '=', False),
             ('planned_date_begin', '!=', False),
             ('date_deadline', '!=', False),
             ('date_deadline', '>', fields.Datetime.now()),
@@ -201,7 +199,7 @@ class Task(models.Model):
     def _get_planning_overlap_per_task(self):
         if not self.ids:
             return {}
-        self.flush_model(['active', 'planned_date_begin', 'date_deadline', 'user_ids', 'project_id', 'state'])
+        self.flush_model(['active', 'planned_date_begin', 'date_deadline', 'user_ids', 'project_id', 'is_closed'])
 
         res = defaultdict(lambda: defaultdict(lambda: {
             'overlapping_tasks_ids': [],
@@ -510,7 +508,7 @@ class Task(models.Model):
         if project_id:
             domain_expand = expression.OR([[
                 ('project_id', '=', project_id),
-                ('state', 'in', self.OPEN_STATES),
+                ('is_closed', '=', False),
                 ('planned_date_begin', '=', False),
                 ('date_deadline', '=', False),
             ], domain_expand])
@@ -1114,7 +1112,7 @@ class Task(models.Model):
             :rtype: bool
         """
         is_record_candidate = super()._web_gantt_reschedule_is_record_candidate(start_date_field_name, stop_date_field_name)
-        return is_record_candidate and self.project_id.allow_task_dependencies and self.state not in CLOSED_STATES
+        return is_record_candidate and self.project_id.allow_task_dependencies and not self.is_closed
 
     def _web_gantt_reschedule_is_relation_candidate(self, master, slave, start_date_field_name, stop_date_field_name):
         """ Get whether the relation between master and slave is a candidate for the rescheduling. This method is meant

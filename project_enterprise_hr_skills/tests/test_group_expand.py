@@ -63,7 +63,7 @@ class TestTaskGanttViewWithSkills(TestTaskGanttView):
         super().test_empty_line_task_last_period()
         domain = [
             ('project_id', '=', self.project_gantt_test_1.id),
-            ('state', 'not in', list(CLOSED_STATES)),
+            ('is_closed', '=', False),
         ]
 
         domain_with_skill = expression.AND([
@@ -112,7 +112,7 @@ class TestTaskGanttViewWithSkills(TestTaskGanttView):
             that task is open.
         """
         super().test_empty_line_task_last_period_all_tasks()
-        domain = [('state', 'not in', list(CLOSED_STATES))]
+        domain = [('is_closed', '=', False)]
         domain_with_skill = expression.AND([
             domain,
             [('user_skill_ids', 'ilike', self.fr_skill.name)],
