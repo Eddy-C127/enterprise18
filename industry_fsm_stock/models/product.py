@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from ast import literal_eval
 from collections import defaultdict
 
 from odoo import api, fields, models, _
@@ -155,5 +156,6 @@ class ProductProduct(models.Model):
         else:
             warehouse_id = self.env['stock.warehouse'].with_company(task.company_id.id).search([], limit=1, order='sequence').id
 
-        action['context'] = action.get('context', {}).update(warehouse=warehouse_id)
+        action['context'] = literal_eval(action.get('context', '{}'))
+        action['context']['warehouse'] = warehouse_id
         return action

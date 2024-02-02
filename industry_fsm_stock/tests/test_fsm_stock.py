@@ -1557,3 +1557,31 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
 
         self.assertTrue(self.project_user.has_group('stock.group_reception_report'))
         self.assertTrue(all(self.task.sale_order_id.picking_ids.mapped(lambda p: p.state == 'done')), "Pickings should be set as done")
+
+    def test_action_product_forecast_report(self):
+        """ Test the warehouse to use is correctly in the context of the action """
+        self.task.partner_id = self.partner_1
+        self.task.with_user(self.project_user)._fsm_ensure_sale_order()
+        self.task.sale_order_id.write({
+            'warehouse_id': self.warehouse_A.id,
+            'order_line': [
+                Command.create({
+                    'product_id': self.product_lot.id,
+                    'product_uom_qty': 1,
+                    'fsm_lot_id': self.lot_id2.id,
+                    'task_id': self.task.id,
+                })
+            ]
+        })
+        self.env.user.property_warehouse_id = self.warehouse_B
+        product_forecast_report_action = self.product_lot.with_context(fsm_task_id=self.task.id).action_product_forecast_report()
+        self.assertEqual(product_forecast_report_action['context']['warehouse'], self.warehouse_A.id, "Should follow the warehouse set in the sale order linked to the fsm task.")
+
+        self.task.sale_order_id = False
+        product_forecast_report_action = self.product_lot.with_context(fsm_task_id=self.task.id).action_product_forecast_report()
+        self.assertEqual(product_forecast_report_action['context']['warehouse'], self.warehouse_B.id, "Should follow the user's warehouse")
+
+        self.env.user.property_warehouse_id = False
+        warehouse = self.env['stock.warehouse'].with_company(self.task.company_id.id).search([], limit=1, order='sequence')
+        product_forecast_report_action = self.product_lot.with_context(fsm_task_id=self.task.id).action_product_forecast_report()
+        self.assertEqual(product_forecast_report_action['context']['warehouse'], warehouse.id, "The warehouse set should be the first one found")
