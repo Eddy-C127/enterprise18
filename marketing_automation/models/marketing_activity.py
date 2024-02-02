@@ -46,7 +46,7 @@ class MarketingActivity(models.Model):
         'utm.campaign', string='UTM Campaign',
         readonly=True, related='campaign_id.utm_campaign_id')  # propagate to mailings
     # interval
-    interval_number = fields.Integer(string='Send after', default=1)
+    interval_number = fields.Integer(string='Send after', default=0)
     interval_type = fields.Selection([
         ('hours', 'Hours'),
         ('days', 'Days'),
