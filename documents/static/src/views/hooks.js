@@ -437,7 +437,7 @@ function useDocumentsViewFileUpload() {
             handleUploadError(result);
         } else {
             env.model.useSampleModel = false;
-            await env.model.load();
+            await env.model.load(component.props);
             if (!result.ids) {
                 return;
             }
