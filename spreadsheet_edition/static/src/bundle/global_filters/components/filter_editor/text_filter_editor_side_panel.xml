@@ -16,7 +16,7 @@
             </label>
             <SelectionInput
                 t-if="textState.restrictValuesToRange"
-                ranges="() => this.rangesForSelectionInput"
+                ranges="this.rangesForSelectionInput"
                 hasSingleRange="true"
                 required="true"
                 onSelectionChanged.bind="this.onRangeChanged"

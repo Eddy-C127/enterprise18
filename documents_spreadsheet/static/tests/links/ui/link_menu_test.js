@@ -54,7 +54,7 @@ function beforeEach() {
     patchWithCleanup(Grid.prototype, {
         setup() {
             super.setup();
-            this.hoveredCell = { col: 0, row: 0 };
+            this.hoveredCell.hover({ col: 0, row: 0 });
         },
     });
 }

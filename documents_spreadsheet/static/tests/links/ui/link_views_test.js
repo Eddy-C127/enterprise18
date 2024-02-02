@@ -54,7 +54,7 @@ async function insertInSpreadsheetAndClickLink(target) {
     patchWithCleanup(Grid.prototype, {
         setup() {
             super.setup();
-            this.hoveredCell = { col: 0, row: 0 };
+            this.hoveredCell.hover({ col: 0, row: 0 });
         },
     });
     // Open search bar menu if it is not already

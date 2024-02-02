@@ -2,9 +2,10 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
-import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
 import { DEFAULT_LINES_NUMBER } from "@spreadsheet/helpers/constants";
+import { useSpreadsheetNotificationStore } from "@spreadsheet/hooks";
+
 import { InputDialog } from "@spreadsheet_edition/bundle/actions/input_dialog/input_dialog";
 
 import { Spreadsheet, Model } from "@odoo/o-spreadsheet";
@@ -25,7 +26,6 @@ import { useSubEnv, Component } from "@odoo/owl";
 export class SpreadsheetComponent extends Component {
     static template = "spreadsheet_edition.SpreadsheetComponent";
     static components = { Spreadsheet };
-    static _t = _t;
     static props = {
         model: Model,
     };
@@ -34,32 +34,11 @@ export class SpreadsheetComponent extends Component {
         return this.props.model;
     }
     setup() {
-        this.orm = useService("orm");
-        this.action = useService("action");
-        this.notifications = useService("notification");
+        useSpreadsheetNotificationStore();
         this.dialog = useService("dialog");
 
         useSubEnv({
             getLinesNumber: this._getLinesNumber.bind(this),
-            notifyUser: this.notifyUser.bind(this),
-            raiseError: this.raiseError.bind(this),
-            askConfirmation: this.askConfirmation.bind(this),
-        });
-    }
-
-    /**
-     * Open a dialog to ask a confirmation to the user.
-     *
-     * @param {string} body body content to display
-     * @param {Function} confirm Callback if the user press 'Confirm'
-     */
-    askConfirmation(body, confirm) {
-        this.dialog.add(ConfirmationDialog, {
-            title: _t("Odoo Spreadsheet"),
-            body,
-            confirm,
-            cancel: () => {}, // Must be defined to display the Cancel button
-            confirmLabel: _t("Confirm"),
         });
     }
 
@@ -71,35 +50,5 @@ export class SpreadsheetComponent extends Component {
             inputValue: DEFAULT_LINES_NUMBER,
             inputType: "number",
         });
-    }
-
-    /**
-     * Adds a notification to display to the user
-     * @param {{text: string, type: string, sticky: boolean }} notification
-     */
-    notifyUser(notification) {
-        this.notifications.add(notification.text, {
-            type: notification.type,
-            sticky: notification.sticky,
-        });
-    }
-
-    /**
-     * Open a dialog to display an error message to the user.
-     *
-     * @param {string} body Content to display
-     * @param {function} callBack Callback function to be executed when the dialog is closed
-     */
-    raiseError(body, callBack) {
-        this.dialog.add(
-            ConfirmationDialog,
-            {
-                title: _t("Odoo Spreadsheet"),
-                body,
-            },
-            {
-                onClose: callBack,
-            }
-        );
     }
 }
