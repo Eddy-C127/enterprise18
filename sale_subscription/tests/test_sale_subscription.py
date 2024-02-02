@@ -2206,6 +2206,18 @@ class TestSubscription(TestSubscriptionCommon):
             })]
         self.assertEqual(sub_2.subscription_state, '1_draft')
 
+        sub_2.write({
+            'order_line': False,
+            'plan_id': False,
+        })
+        self.assertFalse(sub_2.is_subscription,
+            "Subscription quotation without plan_id isn't a subscription")
+        self.assertEqual(sub_2.subscription_state, '1_draft',
+            "Draft subscription quotation without plan_id should retain subscription_state")
+        sub_2.action_confirm()
+        self.assertFalse(sub_2.subscription_state,
+            "SO without subscription plan should lose subscription_state on confirmation")
+
     def test_free_subscription(self):
         with freeze_time("2023-01-01"):
             pricelist = self.env['product.pricelist'].create({
