@@ -13,7 +13,7 @@ class ResPartner(models.Model):
         It is commonly sent each month to every customer with purchases during the month.
         """
         def format_monetary(value):
-            return self.env['account.report'].format_value(
+            return self.env['account.report']._format_value(
                 options=options,
                 value=value,
                 currency=self.env.company.currency_id,
