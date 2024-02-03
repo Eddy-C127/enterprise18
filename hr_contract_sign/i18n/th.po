@@ -39,14 +39,14 @@ msgstr "%s และ %s เป็นผู้ลงนาม"
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 #, python-format
 msgid "%s does not have a private email set."
-msgstr ""
+msgstr "%s ไม่มีชุดอีเมลส่วนตัว"
 
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 #, python-format
 msgid "%s does not have a work email set."
-msgstr ""
+msgstr "%s ไม่มีชุดอีเมลที่ทำงาน"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_contract_sign_view_form
@@ -118,7 +118,7 @@ msgstr "ลายเซ็นเอกสาร"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_mail_activity_plan_template__sign_template_id
 msgid "Document to sign"
-msgstr ""
+msgstr "เอกสารที่จะลงนาม"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__sign_template_ids
@@ -201,7 +201,7 @@ msgstr "ไอดี"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_mail_activity_plan_template__is_signature_request
 msgid "Is Signature Request"
-msgstr ""
+msgstr "เป็นการขอลายเซ็น"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__write_uid
@@ -216,7 +216,7 @@ msgstr "อัปเดตครั้งล่าสุดเมื่อ"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__mail_displayed
 msgid "Mail Displayed"
-msgstr ""
+msgstr "จดหมายที่แสดง"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
@@ -327,7 +327,7 @@ msgstr "คำร้องขอรายเซ็น"
 #. module: hr_contract_sign
 #: model:ir.actions.server,name:hr_contract_sign.action_signature_request_wizard
 msgid "Signature request"
-msgstr ""
+msgstr "ขอลายเซ็น"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__subject

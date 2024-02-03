@@ -1,28 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* l10n_be_hr_payroll
-#
+# 
 # Translators:
-# Eloïse Stilmant <est@odoo.com>, 2023
-# Cécile Collart <cco@odoo.com>, 2023
-# Martin Trigaux, 2023
-# Tivisse <yti@odoo.com>, 2023
-# Jolien De Paepe, 2023
-#
+# Wil Odoo, 2024
+# Tivisse <yti@odoo.com>, 2024
+# Jolien De Paepe, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-29 14:41+0000\n"
-"PO-Revision-Date: 2023-02-03 07:08+0000\n"
-"Last-Translator: Jolien De Paepe, 2023\n"
+"PO-Revision-Date: 2024-01-30 08:20+0000\n"
+"Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
@@ -37,7 +34,7 @@ msgstr "# Heures"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "# Hours:"
-msgstr ""
+msgstr "# Heures :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_contract__insured_relative_children
@@ -60,7 +57,7 @@ msgstr "# Mois"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__l10n_be_dependent_children_attachment
 msgid "# dependent children for salary attachement"
-msgstr "# enfants à charge pour les saisies sur salaire"
+msgstr "# enfants à charge pour les ajustements salariaux"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__other_disabled_juniors_dependent
@@ -72,7 +69,7 @@ msgstr "# personnes handicapées (<65)"
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__other_disabled_senior_dependent
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_res_users__other_disabled_senior_dependent
 msgid "# disabled seniors (>=65)"
-msgstr "# seniors handicapés (>=65)"
+msgstr "# séniors handicapés (>=65)"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__other_juniors_dependent
@@ -89,17 +86,17 @@ msgstr "# seniors (>=65)"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_double_pay_recovery_line_view_form
 msgid "#Months"
-msgstr ""
+msgstr "#Mois"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "$1000.0"
-msgstr ""
+msgstr "$1000.0"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "$4500"
-msgstr ""
+msgstr "$4500"
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
@@ -127,14 +124,14 @@ msgstr "%s est en %s. Remplissez la déclaration eDRS appropriée ici : %s"
 #: code:addons/l10n_be_hr_payroll/models/l10n_be_281_10.py:0
 #, python-format
 msgid "%s-%s-281_10"
-msgstr ""
+msgstr "%s-%s-281_10"
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
 #: code:addons/l10n_be_hr_payroll/models/l10n_be_281_45.py:0
 #, python-format
 msgid "%s-%s-281_45"
-msgstr ""
+msgstr "%s-%s-281_45"
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
@@ -147,7 +144,7 @@ msgstr "%s-compte-individuel-%s"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 msgid "&gt;"
-msgstr ""
+msgstr "&gt;"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.actions.report,print_report_name:l10n_be_hr_payroll.action_report_termination_holidays_n
@@ -157,7 +154,8 @@ msgstr "'Attestation de vacances (Année N) - %s' % (object.employee_id.name)"
 #. module: l10n_be_hr_payroll
 #: model:ir.actions.report,print_report_name:l10n_be_hr_payroll.action_report_termination_holidays_n1
 msgid "'Holiday Attest (Year N-1) - %s' % (object.employee_id.name)"
-msgstr "'Attestation de vacances (Année N-1) - %s' % (object.employee_id.name)"
+msgstr ""
+"'Attestation de vacances (Année N-1) - %s' % (object.employee_id.name)"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.actions.report,print_report_name:l10n_be_hr_payroll.action_report_double_holiday_13th_month
@@ -205,7 +203,8 @@ msgstr "* Mention : BUDGET MOBILITÉ"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid ""
-"* Options granted by a foreign company not having an establishment in Belgium"
+"* Options granted by a foreign company not having an establishment in "
+"Belgium"
 msgstr ""
 "* Options consenties par une société étrangère n'ayant pas d'établissement "
 "en Belgique"
@@ -251,6 +250,8 @@ msgid ""
 "* specific remuneration paid in 2023 for specific services performed in "
 "2023, 2022, 2021 and/or 2020"
 msgstr ""
+"* rémunération spécifique versée en 2023 pour des prestations spécifiques "
+"réalisées en 2023, 2022, 2021 et/ou 2020"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -274,54 +275,37 @@ msgstr ", compte bancaire de"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_employee_form__l10n_be_view_for
 msgid "- Previous occupation for Double Holiday Pay Recovery in"
 msgstr ""
+"- Occupation antérieure pour la récupération du double pécule de vacances en"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_employee_form__l10n_be_view_for
 msgid "- Simple Holiday Pay from previous employer to recover in"
-msgstr ""
+msgstr "- Simple pécule de vacances de l'ancien employeur à récupérer en"
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
 #: code:addons/l10n_be_hr_payroll/models/hr_employee.py:0
 #, python-format
 msgid ""
-"- Without Income: The spouse of the income recipient has no professional "
-"income.\n"
+"- Without Income: The spouse of the income recipient has no professional income.\n"
 "\n"
-"- High income: The spouse of the recipient of the income has professional "
-"income, other than pensions, annuities or similar income, which exceeds %s€ "
-"net per month.\n"
+"- High income: The spouse of the recipient of the income has professional income, other than pensions, annuities or similar income, which exceeds %s€ net per month.\n"
 "\n"
-"- Low Income: The spouse of the recipient of the income has professional "
-"income, other than pensions, annuities or similar income, which does not "
-"exceed %s€ net per month.\n"
+"- Low Income: The spouse of the recipient of the income has professional income, other than pensions, annuities or similar income, which does not exceed %s€ net per month.\n"
 "\n"
-"- Low Pensions: The spouse of the beneficiary of the income has professional "
-"income which consists exclusively of pensions, annuities or similar income "
-"and which does not exceed %s€ net per month.\n"
+"- Low Pensions: The spouse of the beneficiary of the income has professional income which consists exclusively of pensions, annuities or similar income and which does not exceed %s€ net per month.\n"
 "\n"
-"- High Pensions: The spouse of the beneficiary of the income has "
-"professional income which consists exclusively of pensions, annuities or "
-"similar income and which exceeds %s€ net per month."
+"- High Pensions: The spouse of the beneficiary of the income has professional income which consists exclusively of pensions, annuities or similar income and which exceeds %s€ net per month."
 msgstr ""
-"- Sans revenus : Le conjoint du bénéficiaire n'a pas de revenus "
-"professionnels propres.\n"
+"- Sans revenus : Le conjoint du bénéficiaire n'a pas de revenus professionnels propres.\n"
 "\n"
-"- Revenus élevés : Le conjoint du bénéficiaire des revenus a des revenus "
-"professionnels propres, autres que des pensions, des rentes ou des revenus "
-"similaires, qui dépassent %s€ net par mois.\n"
+"- Revenus élevés : Le conjoint du bénéficiaire des revenus a des revenus professionnels propres, autres que des pensions, des rentes ou des revenus similaires, qui dépassent %s€ nets par mois.\n"
 "\n"
-"- Revenus faibles : Le conjoint du bénéficiaire a des revenus professionnels "
-"propres, autres que des pensions, des rentes ou des revenus similaires, qui "
-"ne dépassent pas %s€ net par mois.\n"
+"- Revenus faibles : Le conjoint du bénéficiaire a des revenus professionnels propres, autres que des pensions, des rentes ou des revenus similaires, qui ne dépassent pas %s€ nets par mois.\n"
 "\n"
-"- Pensions faibles : Le conjoint du bénéficiaire a des revenus "
-"professionnels propres constitués exclusivement de pensions, de rentes ou de "
-"revenus similaires qui ne dépassent pas %s€ net par mois.\n"
+"- Pensions faibles : Le conjoint du bénéficiaire a des revenus professionnels propres constitués exclusivement de pensions, de rentes ou de revenus similaires qui ne dépassent pas %s€ nets par mois.\n"
 "\n"
-"- Pensions élevées : Le conjoint du bénéficiaire a des revenus "
-"professionnels propres constitués exclusivement de pensions, de rentes ou de "
-"revenus similaires qui dépassent %s€ net par mois."
+"- Pensions élevées : Le conjoint du bénéficiaire a des revenus professionnels propres constitués exclusivement de pensions, de rentes ou de revenus similaires qui dépassent %s€ nets par mois."
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -329,6 +313,9 @@ msgid ""
 "- for overtime worked between 01.01.2021 and 30.06.2021 included with "
 "employers belonging to crucial sectors or in the public sector"
 msgstr ""
+"- pour les heures supplémentaires effectuées entre le 01.01.2021 et le "
+"30.06.2021 incluses auprès d'employeurs appartenant à des secteurs cruciaux "
+"ou au secteur public"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -342,7 +329,7 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "- in the construction sector with registration system"
-msgstr ""
+msgstr "- dans le secteur de la construction avec système d'enregistrement"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -365,6 +352,8 @@ msgid ""
 "- provided from 01.01.2021 to 30.06.2021 inclusive with employers belonging "
 "to crucial sectors or in the public sector and paid in 2023"
 msgstr ""
+"- assuré du 01.01.2021 au 30.06.2021 inclus auprès des employeurs "
+"appartenant à des secteurs cruciaux ou au secteur public et payé en 2023"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -372,6 +361,8 @@ msgid ""
 "- provided from 01.07.2021 to 31.12.2021 included as part of the recovery "
 "plan and paid in 2023"
 msgstr ""
+"- servi du 01.07.2021 au 31.12.2021 inclus dans le cadre du plan de "
+"redressement et versé en 2023"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -383,14 +374,11 @@ msgstr "- indemnités sur base de justificatifs"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid ""
 ".\n"
-"                            <span>Your next employer or payment agency will "
-"not pay for these days off. So you are advised to keep this amount\n"
+"                            <span>Your next employer or payment agency will not pay for these days off. So you are advised to keep this amount\n"
 "                            until you take these days off.</span>"
 msgstr ""
 ".\n"
-"                            <span>Votre prochain employeur ou organisme de "
-"paiement ne paiera pas ces congés ou absences. Il vous est donc conseillé de "
-"conserver ce montant\n"
+"                            <span>Votre prochain employeur ou organisme de paiement ne paiera pas ces congés ou absences. Il vous est donc conseillé de conserver ce montant\n"
 "                            jusqu'à ce que vous preniez ces congés.</span>"
 
 #. module: l10n_be_hr_payroll
@@ -403,13 +391,13 @@ msgstr "0,87% de la rémunération brute de référence"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_belgium_payslip
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "0.00"
-msgstr ""
+msgstr "0.00"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "0987"
-msgstr ""
+msgstr "0987"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_payroll_alloc_employee__paid_time_off
@@ -426,9 +414,10 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid ""
-"1) Amount which does not exceed the thresholds set in art. 269, § 1, 4°, CIR "
-"92:"
+"1) Amount which does not exceed the thresholds set in art. 269, § 1, 4°, CIR"
+" 92:"
 msgstr ""
+"1) Montant qui n'excède pas les seuils fixés à l'art. 269, § 1, 4°, CIR 92 :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -444,18 +433,18 @@ msgstr "Code à 10 chiffres fourni par l'ONSS"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "1000"
-msgstr ""
+msgstr "1000"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "100000"
-msgstr ""
+msgstr "100000"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "10001"
-msgstr ""
+msgstr "10001"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -490,12 +479,12 @@ msgstr "1013"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
 msgid "102: Staff Costs:"
-msgstr ""
+msgstr "102 : Frais de personnel :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
 msgid "103: Benefits Above Salary:"
-msgstr ""
+msgstr "103 : Avantages supérieurs au salaire :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -581,7 +570,7 @@ msgstr "1213"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "123456789"
-msgstr ""
+msgstr "123456789"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -612,18 +601,18 @@ msgstr "Fiche de 13ème mois"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "15"
-msgstr ""
+msgstr "15"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "1500.00"
-msgstr ""
+msgstr "1500.00"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "1999"
-msgstr ""
+msgstr "1999"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_dmfa__quarter__1
@@ -633,12 +622,12 @@ msgstr "1er"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "1° - which count for the limit up to 180 hours"
-msgstr ""
+msgstr "1° - qui comptent pour la limite jusqu'à 180 heures"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "1° Awarded in 2023"
-msgstr ""
+msgstr "1° Attribué en 2023"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -652,8 +641,10 @@ msgstr "1° Rémunérations ordinaires"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
-msgid "2) Amount that exceeds the thresholds set in art. 269, § 1, 4°, CIR 92:"
+msgid ""
+"2) Amount that exceeds the thresholds set in art. 269, § 1, 4°, CIR 92:"
 msgstr ""
+"2) Montant qui excède les seuils fixés à l'art. 269, § 1, 4°, CIR 92 :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -664,71 +655,72 @@ msgstr "2) Heures supplémentaires"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "2) Overtime hours worked and paid from 01.07.2023"
 msgstr ""
+"2) Heures supplémentaires effectuées et rémunérées à partir du 01.07.2023"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "2) Overtime hours worked in 2022 and paid in 2023"
-msgstr ""
+msgstr "2) Heures supplémentaires effectuées en 2022 et payées en 2023"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "2.00"
-msgstr ""
+msgstr "2.00"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "20"
-msgstr ""
+msgstr "20"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "20-03-2000"
-msgstr ""
+msgstr "20-03-2000"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "20.00"
-msgstr ""
+msgstr "20.00"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "2000"
-msgstr ""
+msgstr "2000"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "2022"
-msgstr ""
+msgstr "2022"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "2023"
-msgstr ""
+msgstr "2023"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "2023-01-01"
-msgstr ""
+msgstr "2023-01-01"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "2023-01-31"
-msgstr ""
+msgstr "2023-01-31"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "2023-02-01"
-msgstr ""
+msgstr "2023-02-01"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "2023-08-14"
-msgstr ""
+msgstr "2023-08-14"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -739,7 +731,7 @@ msgstr "205"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "21-04-2001"
-msgstr ""
+msgstr "21-04-2001"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -770,7 +762,7 @@ msgstr "233"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "2334"
-msgstr ""
+msgstr "2334"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -992,7 +984,7 @@ msgstr "290"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid "2b. Name and address of income debtor:"
-msgstr ""
+msgstr "2b. Identité et adresse complète du débiteur de revenus :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_dmfa__quarter__2
@@ -1012,12 +1004,12 @@ msgstr "2° Arriérés"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "2° Awarded before 2023"
-msgstr ""
+msgstr "2° Attribué avant 2023"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "2° which are taken into account for the limit up to 360 hours"
-msgstr ""
+msgstr "2° qui sont pris en compte pour la limite jusqu'à 360 heures"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_res_company__dmfa_employer_class
@@ -1071,7 +1063,7 @@ msgstr "32"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "32.00"
-msgstr ""
+msgstr "32.00"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_274_10
@@ -1126,48 +1118,48 @@ msgstr "343"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "3456"
-msgstr ""
+msgstr "3456"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "34565"
-msgstr ""
+msgstr "34565"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 msgid "34567"
-msgstr ""
+msgstr "34567"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "34893"
-msgstr ""
+msgstr "34893"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "378"
-msgstr ""
+msgstr "378"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "379"
-msgstr ""
+msgstr "379"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "381"
-msgstr ""
+msgstr "381"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "382"
-msgstr ""
+msgstr "382"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "386"
-msgstr ""
+msgstr "386"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1197,7 +1189,7 @@ msgstr "398"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid "3b. Income recipient"
-msgstr ""
+msgstr "3b. Bénéficiaire des revenus"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_dmfa__quarter__3
@@ -1212,7 +1204,7 @@ msgstr "3° Bonus, primes et options sur actions"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "40"
-msgstr ""
+msgstr "40"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_dmfa__quarter__4
@@ -1228,17 +1220,17 @@ msgstr "4° Avantages de toute nature"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "5 Hours/Week"
-msgstr ""
+msgstr "5 Heures/Semaine"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "5.00"
-msgstr ""
+msgstr "5.00"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "50"
-msgstr ""
+msgstr "50"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__hr_contract__l10n_be_impulsion_plan__55yo
@@ -1249,12 +1241,12 @@ msgstr "55+ ans"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "567877"
-msgstr ""
+msgstr "567877"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "56789"
-msgstr ""
+msgstr "56789"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1395,12 +1387,12 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid "6. Amount of retained withholding tax:"
-msgstr ""
+msgstr "6. Montant du précompte mobilier :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "6000.00"
-msgstr ""
+msgstr "6000.00"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1413,7 +1405,7 @@ msgstr "66,81 %"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "6870"
-msgstr ""
+msgstr "6870"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
@@ -1432,12 +1424,12 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "789"
-msgstr ""
+msgstr "789"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "8.00"
-msgstr ""
+msgstr "8.00"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_xml_report
@@ -1452,7 +1444,7 @@ msgstr "870"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 msgid "87656"
-msgstr ""
+msgstr "87656"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_res_company__onss_registration_number
@@ -1463,25 +1455,25 @@ msgstr "Code à 9 chiffres fourni par l'ONSS"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 msgid "987"
-msgstr ""
+msgstr "987"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "9876"
-msgstr ""
+msgstr "9876"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "987876"
-msgstr ""
+msgstr "987876"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "999.99"
-msgstr ""
+msgstr "999.99"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.finprof_xml_report_single_declaration
@@ -1496,32 +1488,32 @@ msgstr "< 25 ans"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "<b>Contributions Summary:</b>"
-msgstr ""
+msgstr "<b>Résumé des contributions :</b>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "<b>Deductions Summary:</b>"
-msgstr ""
+msgstr "<b>Résumé des déductions :</b>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "<b>Remunerations Summary:</b>"
-msgstr ""
+msgstr "<b>Résumé des rémunérations :</b>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "<b>Services Summary:</b>"
-msgstr ""
+msgstr "<b>Résumé des services :</b>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "<b>Student Contributions Summary:</b>"
-msgstr ""
+msgstr "<b>Résumé des contributions d'étudiants :</b>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid "<span class=\"fw-bold\">2a. Company number: </span>"
-msgstr ""
+msgstr "<span class=\"fw-bold\">2a. Numéro d'entreprise : </span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
@@ -1529,16 +1521,18 @@ msgid ""
 "<span class=\"fw-bold\">3a. Nature of beneficiary: </span>\n"
 "                                    <span>Natural Person</span>"
 msgstr ""
+"<span class=\"fw-bold\">3a. Qualité du bénéficiaire : </span>\n"
+"                                    <span>Personne physique</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid "<span class=\"fw-bold\">3c. NISS: </span>"
-msgstr ""
+msgstr "<span class=\"fw-bold\">3c. NISS : </span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_contract_view_form
 msgid "<span class=\"ms-3\" invisible=\"wage_type == 'hourly'\">%</span>"
-msgstr ""
+msgstr "<span class=\"ms-3\" invisible=\"wage_type == 'hourly'\">%</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_contract_view_form
@@ -1566,6 +1560,8 @@ msgid ""
 "<span class=\"o_form_label\" groups=\"hr.group_hr_user\" invisible=\"not "
 "transport_mode_private_car\">Distance home-work</span>"
 msgstr ""
+"<span class=\"o_form_label\" groups=\"hr.group_hr_user\" invisible=\"not "
+"transport_mode_private_car\">Distance domicile-lieu de travail</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_contract_view_form
@@ -1573,13 +1569,15 @@ msgid ""
 "<span class=\"o_form_label\" invisible=\"not "
 "transport_mode_private_car\">Reimboursed amount</span>"
 msgstr ""
+"<span class=\"o_form_label\" invisible=\"not "
+"transport_mode_private_car\">Montant remboursé</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_281_10_form_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_281_45_form_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_individual_account_view_form
 msgid "<span class=\"o_stat_text\">Eligible Employees</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Employés éligibles</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_group_insurance_wizard_view_form
@@ -1595,22 +1593,30 @@ msgstr "<span class=\"oe_inline\">À</span>"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid ""
 "<span class=\"text-start fw-bold\">4. Gross amount of income referred to in "
-"art. 17, § 1, 3°, CIR 92, with regard to copyright and related rights:</span>"
+"art. 17, § 1, 3°, CIR 92, with regard to copyright and related "
+"rights:</span>"
 msgstr ""
+"<span class=\"text-start fw-bold\">4. Montant brut des revenus visés à "
+"l'art. 17, § 1, 3°, CIR 92, en ce qui concerne les droits d'auteur et droits"
+" voisins:</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid ""
-"<span class=\"text-start fw-bold\">5. Gross amount of revenue from copyright "
-"and related rights referred to in art. 17, § 1, 5°, CIR 92:</span>"
+"<span class=\"text-start fw-bold\">5. Gross amount of revenue from copyright"
+" and related rights referred to in art. 17, § 1, 5°, CIR 92:</span>"
 msgstr ""
+"<span class=\"text-start fw-bold\">5. Montant brut des revenus de droits "
+"d'auteur et droits voisins visés à l'art. 17, § 1, 5°, CIR 92:</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid ""
-"<span class=\"text-start text-uppercase fw-bold\">10. Taxable at the rate of "
-"33%:</span>"
+"<span class=\"text-start text-uppercase fw-bold\">10. Taxable at the rate of"
+" 33%:</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">10. Imposable au taux de "
+"33%:</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1618,6 +1624,8 @@ msgid ""
 "<span class=\"text-start text-uppercase fw-bold\">11. Remuneration obtained "
 "by athletes within the framework of their sporting activity:</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">11. Rémunération obtenue "
+"par les sportifs dans le cadre de leur activité sportive:</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1627,6 +1635,10 @@ msgid ""
 "trainers, coaches and accompanying persons for their activity for the "
 "benefit of sportsmen:</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">12. Rémunération obtenue "
+"par les arbitres de compétitions sportives pour leurs prestations "
+"d'arbitrage, ou par les entraîneurs, entraîneurs et accompagnateurs pour "
+"leur activité au profit des sportifs:</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1636,17 +1648,18 @@ msgstr "<span class=\"text-start text-uppercase fw-bold\">13. PC Privé</span>"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid ""
-"<span class=\"text-start text-uppercase fw-bold\">14. Contribution to travel "
-"costs:</span>"
+"<span class=\"text-start text-uppercase fw-bold\">14. Contribution to travel"
+" costs:</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">14. Contributions aux "
+"frais de déplacements:</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
-msgid ""
-"<span class=\"text-start text-uppercase fw-bold\">15. Impulse Fund</span>"
+msgid "<span class=\"text-start text-uppercase fw-bold\">15. Impulse Fund</span>"
 msgstr ""
-"<span class=\"text-start text-uppercase fw-bold\">15. Fonds d'impulsion</"
-"span>"
+"<span class=\"text-start text-uppercase fw-bold\">15. Fonds "
+"d'impulsion</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1661,7 +1674,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid ""
 "<span class=\"text-start text-uppercase fw-bold\">17. Remuneration for "
-"overtime in the hospitality industry which qualifies for the exemption</span>"
+"overtime in the hospitality industry which qualifies for the "
+"exemption</span>"
 msgstr ""
 "<span class=\"text-start text-uppercase fw-bold\">17. Rémunérations pour "
 "heures supplémentaires dans l'Horeca qui entrent en ligne de compte pour "
@@ -1673,8 +1687,8 @@ msgid ""
 "<span class=\"text-start text-uppercase fw-bold\">18. Overtime which gives "
 "the right to extra pay</span>"
 msgstr ""
-"<span class=\"text-start text-uppercase fw-bold\">18. Heures supplémentaires "
-"qui donnent droit à un sursalaire</span>"
+"<span class=\"text-start text-uppercase fw-bold\">18. Heures supplémentaires"
+" qui donnent droit à un sursalaire</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1683,6 +1697,9 @@ msgid ""
 "taken into account for the exemption for voluntary overtime or net overtime "
 "hours in the public sector</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">19. Rémunération prise en "
+"compte pour l'exonération des heures supplémentaires volontaires ou des "
+"heures supplémentaires nettes dans le secteur public</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1690,13 +1707,17 @@ msgid ""
 "<span class=\"text-start text-uppercase fw-bold\">20. Purchasing power "
 "premium which is taken into account for the exemption</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">20. Prime de pouvoir "
+"d’achat prise en compte pour l’exonération</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid ""
-"<span class=\"text-start text-uppercase fw-bold\">21. Withholding Taxes</"
-"span>"
+"<span class=\"text-start text-uppercase fw-bold\">21. Withholding "
+"Taxes</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">21. Précompte "
+"professionnel</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1704,6 +1725,8 @@ msgid ""
 "<span class=\"text-start text-uppercase fw-bold\">22. Special contributions "
 "for social security</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">22. Contributions "
+"spéciales à la sécurité sociale</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1711,12 +1734,17 @@ msgid ""
 "<span class=\"text-start text-uppercase fw-bold\">23. Public sector staff "
 "without an employment contract</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">23. Personnel du secteur "
+"public sans contrat de travail</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid ""
-"<span class=\"text-start text-uppercase fw-bold\">24. Employment bonus</span>"
+"<span class=\"text-start text-uppercase fw-bold\">24. Employment "
+"bonus</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">24. Bonus à "
+"l'emploi</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1724,13 +1752,17 @@ msgid ""
 "<span class=\"text-start text-uppercase fw-bold\">25. Miscellaneous "
 "information</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">25. Renseignements "
+"divers</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid ""
-"<span class=\"text-start text-uppercase fw-bold\">26. Remuneration and other "
-"benefits received from a related foreign company</span>"
+"<span class=\"text-start text-uppercase fw-bold\">26. Remuneration and other"
+" benefits received from a related foreign company</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">26. Rémunérations et "
+"autres avantages reçus d'une société étrangère liée</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1739,6 +1771,9 @@ msgid ""
 "worker in agriculture and horticulture subject to professional withholding "
 "tax who provided a residence certificate</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">27. Travailleur saisonnier"
+" étranger dans l'agriculture et l'horticulture soumis au précompte "
+"professionnel ayant justifié d'une attestation de séjour</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1746,6 +1781,8 @@ msgid ""
 "<span class=\"text-start text-uppercase fw-bold\">28. Foreign executive or "
 "researcher</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">28. Cadre ou chercheur "
+"étranger</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1753,6 +1790,9 @@ msgid ""
 "<span class=\"text-start text-uppercase fw-bold\">29. Special tax regimes "
 "for inpatriate taxpayers and inpatriate researchers</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">29. Régimes spéciaux "
+"d'imposition pour les contribuables impatriés et les chercheurs "
+"impatriés</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1761,6 +1801,9 @@ msgid ""
 "awarded for services carried out within the framework of association "
 "activities after exceeding an hourly limit</span>"
 msgstr ""
+"<span class=\"text-start text-uppercase fw-bold\">30. Rétributions payées ou"
+" attribuées pour des prestations effectuées dans le cadre des activités "
+"d'associations après le dépassement d'une limite horaire</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1783,11 +1826,11 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid ""
-"<span class=\"text-start text-uppercase fw-bold\">8. Bad weather stamps</"
-"span>"
+"<span class=\"text-start text-uppercase fw-bold\">8. Bad weather "
+"stamps</span>"
 msgstr ""
-"<span class=\"text-start text-uppercase fw-bold\">8. Timbres intempéries</"
-"span>"
+"<span class=\"text-start text-uppercase fw-bold\">8. Timbres "
+"intempéries</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -1842,9 +1885,10 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.view_hr_payroll_employee_departure_notice
 msgid ""
-"<span invisible=\"notice_duration_month_before_2014 == 0\"> months and </"
-"span>"
+"<span invisible=\"notice_duration_month_before_2014 == 0\"> months and "
+"</span>"
 msgstr ""
+"<span invisible=\"notice_duration_month_before_2014 == 0\"> mois et </span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_contract_view_form
@@ -1924,23 +1968,19 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 msgid ""
-"<span>The amount covered by this certificate pre-emptively compensates the "
-"vacation days you will take in the\n"
+"<span>The amount covered by this certificate pre-emptively compensates the vacation days you will take in the\n"
 "                            near future in </span>"
 msgstr ""
-"<span>Le montant couvert par ce certificat compense par anticipation les "
-"jours de vacances que vous prendrez dans le\n"
+"<span>Le montant couvert par ce certificat compense par anticipation les jours de vacances que vous prendrez dans le\n"
 "                            futur proche en </span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid ""
-"<span>The amount covered by this certificate pre-emptively compensates the "
-"vacation days you will take in the near\n"
+"<span>The amount covered by this certificate pre-emptively compensates the vacation days you will take in the near\n"
 "                            future in </span>"
 msgstr ""
-"<span>Le montant couvert par ce certificat compense par anticipation les "
-"jours de vacances que vous prendrez dans le futur\n"
+"<span>Le montant couvert par ce certificat compense par anticipation les jours de vacances que vous prendrez dans le futur\n"
 "                            proche en </span>"
 
 #. module: l10n_be_hr_payroll
@@ -1952,15 +1992,11 @@ msgstr "<span>Oui</span>"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid ""
-"<span>You must return this certificate to your next employer, or failing "
-"that, to your allowance payment agency.\n"
-"                            Social security contributions on holiday pay "
-"have already been retained.</span>"
+"<span>You must return this certificate to your next employer, or failing that, to your allowance payment agency.\n"
+"                            Social security contributions on holiday pay have already been retained.</span>"
 msgstr ""
-"<span>Vous devez retourner cette attestation à votre prochain employeur, ou "
-"à défaut, à votre organisme de versement des allocations.\n"
-"                            Les cotisations sociales sur le pécule de "
-"vacances ont déjà été retenues.</span>"
+"<span>Vous devez retourner cette attestation à votre prochain employeur, ou à défaut, à votre organisme de versement des allocations.\n"
+"                            Les cotisations sociales sur le pécule de vacances ont déjà été retenues.</span>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_employee_form__l10n_be_view_for
@@ -2003,12 +2039,13 @@ msgstr "<span>€</span>"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_hr_payroll_schedule_change_wizard_view_form
 msgid ""
-"<strong class=\"o_group_col_12\" invisible=\"not leave_type_id or "
-"found_leave_allocation\" style=\"color:#ff6600;\">\n"
-"                        No time off allocation has been found for this time "
-"off type, no changes will occur to time off for this employee.\n"
+"<strong class=\"o_group_col_12\" invisible=\"not leave_type_id or found_leave_allocation\" style=\"color:#ff6600;\">\n"
+"                        No time off allocation has been found for this time off type, no changes will occur to time off for this employee.\n"
 "                    </strong>"
 msgstr ""
+"<strong class=\"o_group_col_12\" invisible=\"not leave_type_id or found_leave_allocation\" style=\"color:#ff6600;\">\n"
+"                        Aucune allocation de congé n'a été trouvée pour ce type de congé, aucun changement ne sera apporté aux congés de cet employé.\n"
+"                    </strong>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -2023,7 +2060,7 @@ msgstr "<strong>1. No.</strong>"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid "<strong>1. Nᵒ:</strong>"
-msgstr ""
+msgstr "<strong>1. Nᵒ:</strong>"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -2200,8 +2237,7 @@ msgid ""
 "<strong>Pay holiday double</strong> only if the majority of vacation days\n"
 "                                have not yet been taken"
 msgstr ""
-"<strong>Double pécule de vacances</strong> seulement si la majorité des "
-"jours de vacances\n"
+"<strong>Double pécule de vacances</strong> seulement si la majorité des jours de vacances\n"
 "                                n'ont pas encore été pris"
 
 #. module: l10n_be_hr_payroll
@@ -2272,8 +2308,8 @@ msgid ""
 "A DMFA location cannot be set more than once for the same company and "
 "partner."
 msgstr ""
-"Une unité d'établissement ne peut pas être être définie plus d'une fois pour "
-"la même société et la même adresse."
+"Une unité d'établissement ne peut pas être être définie plus d'une fois pour"
+" la même société et la même adresse."
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_contract__has_laptop
@@ -2285,7 +2321,7 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "A. Total: (6a + 6b + 6c + 6d, 1° + 6d + 6e, 2° + 6e)"
-msgstr ""
+msgstr "A. Total: (6a + 6b + 6c + 6d, 1° + 6d + 6e, 2° + 6e)"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
@@ -2315,7 +2351,7 @@ msgstr "Type de prestation d'absence"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "Account Number"
-msgstr ""
+msgstr "Numéro de compte bancaire"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.salary.rule,name:l10n_be_hr_payroll.cp200_employees_salary_onss_employer
@@ -2410,8 +2446,8 @@ msgid ""
 "(Example: Extra-legal time off, a percentage of the salary invested in a "
 "group insurance, etc...)"
 msgstr ""
-"Salaire adapté, selon les sacrifices définis sur le contrat (Exemple : Congé "
-"extra-légal, pourcentage du salaire investi dans une assurance groupe, "
+"Salaire adapté, selon les sacrifices définis sur le contrat (Exemple : Congé"
+" extra-légal, pourcentage du salaire investi dans une assurance groupe, "
 "etc...)"
 
 #. module: l10n_be_hr_payroll
@@ -2519,12 +2555,12 @@ msgstr "Assurance ambulatoire : Informations additionnelles"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_contract__l10n_be_ambulatory_insured_children
 msgid "Ambulatory: # Insured Children < 19 y/o"
-msgstr ""
+msgstr "Ambulatoire : # Enfants assurés < 19 ans"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_contract__l10n_be_ambulatory_insured_adults
 msgid "Ambulatory: # Insured Children >= 19 y/o"
-msgstr ""
+msgstr "Ambulatoire : # Enfants assurés >= 19 ans"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_contract__l10n_be_ambulatory_amount_per_adult
@@ -2600,7 +2636,7 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_employee_form__l10n_be_view_for
 msgid "Amount to recover"
-msgstr ""
+msgstr "Montant à récupérer"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_double_pay_recovery_wizard_view_form
@@ -2632,7 +2668,7 @@ msgstr "Retenue sur le pécule de vacance anticipé"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "Antwerp"
-msgstr ""
+msgstr "Anvers"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_273s__month__4
@@ -2705,7 +2741,7 @@ msgstr "Bacheliers"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "Bank123"
-msgstr ""
+msgstr "Bank123"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.salary.rule,name:l10n_be_hr_payroll.cp200_employees_termination_n1_pay_double_complementary_basic
@@ -2822,7 +2858,7 @@ msgstr "Déduction de l'avantage de toute nature"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.res_config_settings_view_form
 msgid "Benefits"
-msgstr ""
+msgstr "Avantages"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
@@ -2855,7 +2891,7 @@ msgstr "Se rend au travail en vélo"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "Boulevard de Waterloo"
-msgstr ""
+msgstr "Boulevard de Waterloo"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.work.entry.type,name:l10n_be_hr_payroll.work_entry_type_breast_feeding
@@ -2865,7 +2901,7 @@ msgstr "Congé allaitement"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "Brussels"
-msgstr ""
+msgstr "Bruxelles"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
@@ -2946,10 +2982,10 @@ msgid ""
 "months. When you're done, reimport the file to generate the commission "
 "payslips with the accurate commissions."
 msgstr ""
-"Format CSV : vous pouvez le modifier directement avec votre tableur préféré, "
-"la colonne la plus à droite (valeur) contient la valeur de la commission sur "
-"3 mois. Lorsque vous avez terminé, réimportez le fichier pour générer les "
-"fiches de paie des commissions avec les commissions exactes."
+"Format CSV : vous pouvez le modifier directement avec votre tableur préféré,"
+" la colonne la plus à droite (valeur) contient la valeur de la commission "
+"sur 3 mois. Lorsque vous avez terminé, réimportez le fichier pour générer "
+"les fiches de paie des commissions avec les commissions exactes."
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_273S
@@ -3010,45 +3046,28 @@ msgstr "Catégorie A"
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_job__l10n_be_scale_category
 msgid ""
 "Category A - Executive functions:\n"
-"Included in this class are functions characterized by performing a limited "
-"number of simple and repetitive tasks. For example: the worker exclusively "
-"responsible for typing.\n"
+"Included in this class are functions characterized by performing a limited number of simple and repetitive tasks. For example: the worker exclusively responsible for typing.\n"
 "\n"
 "Category B - Support functions.\n"
-"Included in this class are functions characterized by making a contribution "
-"to the achievement of a larger mission. For example: the administrative "
-"employee or the receptionist.\n"
+"Included in this class are functions characterized by making a contribution to the achievement of a larger mission. For example: the administrative employee or the receptionist.\n"
 "\n"
 "Category C - Management functions.\n"
-"Included in this class are functions characterized by carrying out a "
-"complete set of tasks which, together, constitute one and the same mission. "
-"For example: the personnel administration employee or the PC technician.\n"
+"Included in this class are functions characterized by carrying out a complete set of tasks which, together, constitute one and the same mission. For example: the personnel administration employee or the PC technician.\n"
 "\n"
 "Category D - Advisory functions.\n"
-"Included in this class are functions characterized by monitoring and "
-"developing the same professional process within the framework of a specific "
-"objective. For example: the programmer, accountant or consultant"
+"Included in this class are functions characterized by monitoring and developing the same professional process within the framework of a specific objective. For example: the programmer, accountant or consultant"
 msgstr ""
 "Catégorie A - Fonctions exécutives : \n"
-"Cette classe comprend les fonctions caractérisées par l'exécution d'un "
-"nombre limité de tâches simples et répétitives. Par exemple : le travailleur "
-"exclusivement responsable de la saisie.\n"
+"Cette classe comprend les fonctions caractérisées par l'exécution d'un nombre limité de tâches simples et répétitives. Par exemple : le travailleur exclusivement responsable de la saisie.\n"
 "\n"
 "Catégorie B - Fonctions de support.\n"
-"Cette classe comprend les fonctions caractérisées par la contribution à la "
-"réalisation d'une mission plus vaste. Par exemple : l'employé administratif "
-"ou la réceptionniste. \n"
+"Cette classe comprend les fonctions caractérisées par la contribution à la réalisation d'une mission plus vaste. Par exemple : l'employé administratif ou la réceptionniste. \n"
 "\n"
 "Catégorie C - Fonctions de gestion.\n"
-"Cette classe comprend des fonctions caractérisées par la réalisation d'un "
-"ensemble complet de tâches qui, ensemble, constituent une seule et même "
-"mission. Par exemple : l'employé de l'administration du personnel ou le "
-"technicien PC.\n"
+"Cette classe comprend des fonctions caractérisées par la réalisation d'un ensemble complet de tâches qui, ensemble, constituent une seule et même mission. Par exemple : l'employé de l'administration du personnel ou le technicien PC.\n"
 "\n"
 "Catégorie D - Fonctions consultatives.\n"
-"Sont comprises dans cette classe des fonctions caractérisées par le suivi et "
-"le développement d'un même processus professionnel dans le cadre d'un "
-"objectif précis. Par exemple : le programmeur, le comptable ou le consultant"
+"Sont comprises dans cette classe des fonctions caractérisées par le suivi et le développement d'un même processus professionnel dans le cadre d'un objectif précis. Par exemple : le programmeur, le comptable ou le consultant"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__hr_job__l10n_be_scale_category__b
@@ -3081,8 +3100,8 @@ msgstr "Attestation de vacances"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid ""
-"Certificate Relating To Annual Vacations For The Calendar Year Preceding The "
-"End Of The Contract Of Employment"
+"Certificate Relating To Annual Vacations For The Calendar Year Preceding The"
+" End Of The Contract Of Employment"
 msgstr "Attestation de vacances"
 
 #. module: l10n_be_hr_payroll
@@ -3217,7 +3236,7 @@ msgstr "Coût total d'amortissement de la voiture de société"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.res_config_settings_view_form
 msgid "Company Information"
-msgstr ""
+msgstr "Informations sur la société"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_res_company__l10n_be_company_number
@@ -3250,8 +3269,8 @@ msgstr "Calculer la récupération du double pécule"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.view_hr_payroll_employee_departure_notice
 msgid ""
-"Computed value base on leaving type, arrival of the employee in the "
-"company, ..."
+"Computed value base on leaving type, arrival of the employee in the company,"
+" ..."
 msgstr ""
 "Valeur calculée sur base du type de départ, de la date d'arrivée de "
 "l'employé dans la société, ..."
@@ -3264,7 +3283,7 @@ msgstr "Paramètres de configuration"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.res_config_settings_view_form
 msgid "Configure Default Values for Belgian Benefits"
-msgstr ""
+msgstr "Configurer les valeurs par défaut des avantages belges"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.res_config_settings_view_form
@@ -3330,7 +3349,7 @@ msgstr "Type de contribution"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Contribution:"
-msgstr ""
+msgstr "Contribution :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -3350,8 +3369,8 @@ msgid ""
 "Count of dependent people/children or disabled dependent people/children "
 "must be positive."
 msgstr ""
-"Le nombre de personnes/enfants à charge ou de personnes/enfants handicapés à "
-"charge doit être positif."
+"Le nombre de personnes/enfants à charge ou de personnes/enfants handicapés à"
+" charge doit être positif."
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
@@ -3492,7 +3511,7 @@ msgstr "Devise"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
 msgid "Currency:"
-msgstr ""
+msgstr "Devise :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_double_pay_recovery_wizard__months_count_description
@@ -3594,7 +3613,7 @@ msgstr "Date"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_eco_vouchers_wizard__date_end
 msgid "Date End"
-msgstr ""
+msgstr "Date de fin"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_payroll_generate_warrant_payslips__date_start
@@ -3607,7 +3626,7 @@ msgstr "Date de début"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_eco_vouchers_wizard__date_start
 msgid "Date Start"
-msgstr ""
+msgstr "Date de début"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_payroll_generate_warrant_payslips__date_end
@@ -3640,7 +3659,7 @@ msgstr "Jours sans frais de représentation"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Days Per Week:"
-msgstr ""
+msgstr "Jours par semaine :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_payslip_employee_depature_holiday_attests__unpaid_time_off_n
@@ -3671,7 +3690,8 @@ msgstr "Fiche de décembre"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_payslip_employee_depature_notice__notice_respect
 msgid ""
-"Decides whether the employee will still work during his notice period or not."
+"Decides whether the employee will still work during his notice period or "
+"not."
 msgstr "Décide si l'employé preste son préavis ou non."
 
 #. module: l10n_be_hr_payroll
@@ -3689,7 +3709,7 @@ msgstr "Type de déclaration"
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_281_45__line_ids
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_individual_account__line_ids
 msgid "Declarations"
-msgstr ""
+msgstr "Déclarations"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_274_xx__deducted_amount_32
@@ -3728,12 +3748,12 @@ msgstr "Heures de travail par défaut"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "Demo Name"
-msgstr ""
+msgstr "Demo Name"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "Demon Name"
-msgstr ""
+msgstr "Demon Name"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_payroll_alloc_paid_leave__department_id
@@ -3766,7 +3786,7 @@ msgstr "Départ : Période de préavis"
 #. module: l10n_be_hr_payroll
 #: model:ir.actions.act_window,name:l10n_be_hr_payroll.departure_notice_wizard_action
 msgid "Departure: Notice period and payslip"
-msgstr "Départ: Période de préavis et fiche de paie"
+msgstr "Départ : Période de préavis et fiche de paie"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -3781,7 +3801,7 @@ msgstr "Description"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "Developer"
-msgstr ""
+msgstr "Développeur"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__disabled
@@ -3890,14 +3910,14 @@ msgstr "Docteurs / Ingénieurs Civil"
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_281_45__documents_count
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_individual_account__documents_count
 msgid "Documents Count"
-msgstr ""
+msgstr "Nombre de documents"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_281_10__documents_enabled
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_281_45__documents_enabled
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_individual_account__documents_enabled
 msgid "Documents Enabled"
-msgstr ""
+msgstr "Documents Activés"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_273S
@@ -3967,7 +3987,8 @@ msgstr "Double pécule"
 #: model:hr.salary.rule,name:l10n_be_hr_payroll.cp200_employees_termination_n1_double_pay_december
 msgid "Double Holiday Pay (Lost due to working time reduction)"
 msgstr ""
-"Double pécule de vacances (Perdu à cause d'une réduction du temps de travail)"
+"Double pécule de vacances (Perdu à cause d'une réduction du temps de "
+"travail)"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
@@ -4116,7 +4137,7 @@ msgstr "Date effective"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "Eghezee"
-msgstr ""
+msgstr "Eghezee"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model,name:l10n_be_hr_payroll.model_hr_employee
@@ -4168,7 +4189,7 @@ msgstr "L'employé ne preste pas son préavis"
 #: code:addons/l10n_be_hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Employee on Mutual Health (> 30 days Illness)"
-msgstr ""
+msgstr "Employés sur la mutuelle (> 30 jours de maladie)"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__hr_payslip_employee_depature_notice__notice_respect__with
@@ -4189,7 +4210,7 @@ msgstr "Emploi du temps de l'employé."
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Employee:"
-msgstr ""
+msgstr "Employé :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_payroll_alloc_paid_leave__employee_ids
@@ -4231,7 +4252,7 @@ msgstr "Employeur"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Employer Class:"
-msgstr ""
+msgstr "Classe d'employé :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -4312,7 +4333,7 @@ msgstr "Etabli le"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
 msgid "Established on:"
-msgstr ""
+msgstr "Etabli le :"
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
@@ -4331,12 +4352,12 @@ msgstr "Congé européen"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "Example Day"
-msgstr ""
+msgstr "Jour d'exemple"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "Example Hour"
-msgstr ""
+msgstr "Heure d'exemple"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_274_xx__deducted_amount
@@ -4432,11 +4453,11 @@ msgstr "Fiche 274.10 : Précompte professionnel versé."
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_274_10
 msgid ""
-"Fiche 274.32: Dispense de précompte professionnel pour doctorants/ingénieurs "
-"civils."
+"Fiche 274.32: Dispense de précompte professionnel pour doctorants/ingénieurs"
+" civils."
 msgstr ""
-"Fiche 274.32 : Dispense de précompte professionnel pour doctorants/"
-"ingénieurs civils."
+"Fiche 274.32 : Dispense de précompte professionnel pour "
+"doctorants/ingénieurs civils."
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_274_10
@@ -4453,8 +4474,7 @@ msgstr "Fiche 274.34 : Dispense de précompte professionnel pour bacheliers."
 #: code:addons/l10n_be_hr_payroll/models/hr_dmfa.py:0
 #, python-format
 msgid "Field Year does not seem to be a year. It must be an integer."
-msgstr ""
-"Le champ \"Année\" se semble pas être une année. Ce doit être un entier."
+msgstr "Le champ \"Année\" se semble pas être une année. Ce doit être un entier."
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_dmfa__file_type
@@ -4464,22 +4484,22 @@ msgstr "Type de fichier"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__first_contract_year
 msgid "First Contract Year"
-msgstr ""
+msgstr "Année de premier contrat"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__first_contract_year_n
 msgid "First Contract Year N"
-msgstr ""
+msgstr "Année N de Premier Contrat"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__first_contract_year_n_plus_1
 msgid "First Contract Year N Plus 1"
-msgstr ""
+msgstr "Année N+1 de Premier Contrat"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__first_contract_year_n1
 msgid "First Contract Year N1"
-msgstr ""
+msgstr "Première année de contrat Année N+1"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__first_contract_in_company
@@ -4839,7 +4859,7 @@ msgstr "Bonus à l'emploi"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_employee_form__l10n_be_view_for
 msgid "Holiday Attest"
-msgstr ""
+msgstr "Attestation de vacances"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.payroll.structure,payslip_name:l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_departure_n_holidays
@@ -4955,7 +4975,7 @@ msgstr "ID"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "ID12345"
-msgstr ""
+msgstr "ID12345"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_273S
@@ -5147,7 +5167,7 @@ msgstr "Est en dessous des barême CP200"
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_281_10__is_test
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_281_45__is_test
 msgid "Is it a test?"
-msgstr ""
+msgstr "Est-ce un test ?"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
@@ -5178,12 +5198,12 @@ msgstr "Fonction"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "John Doe"
-msgstr ""
+msgstr "John Doe"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Joint Commission:"
-msgstr ""
+msgstr "Commission paritaire :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_273s__month__7
@@ -5242,7 +5262,7 @@ msgstr "Coût de l'assurance groupe"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_payslip__l10n_be_has_eco_vouchers
 msgid "L10N Be Has Eco Vouchers"
-msgstr ""
+msgstr "A des éco-chèques"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_contract__l10n_be_is_below_scale_warning
@@ -5352,11 +5372,11 @@ msgstr "Dernière mise à jour le"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_273S
 msgid ""
-"Le précompte mobilier est supporté par le débiteur des revenus à la décharge "
-"du bénéficiaire :"
+"Le précompte mobilier est supporté par le débiteur des revenus à la décharge"
+" du bénéficiaire :"
 msgstr ""
-"Le précompte mobilier est supporté par le débiteur des revenus à la décharge "
-"du bénéficiaire :"
+"Le précompte mobilier est supporté par le débiteur des revenus à la décharge"
+" du bénéficiaire :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_hr_payroll_schedule_change_wizard__leave_allocation_id
@@ -5370,7 +5390,7 @@ msgstr "Allocation de congé"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "Limburg"
-msgstr ""
+msgstr "Limbourg"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_payroll_generate_warrant_payslips__line_ids
@@ -5390,7 +5410,7 @@ msgstr "Lignes"
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_281_45__lines_count
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_individual_account__lines_count
 msgid "Lines Count"
-msgstr ""
+msgstr "Nombre de lignes"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.work.entry.type,name:l10n_be_hr_payroll.work_entry_type_long_sick
@@ -5448,17 +5468,17 @@ msgstr "Personnel de direction"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "Marc Demo"
-msgstr ""
+msgstr "Marc Demo"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "Marc Doe"
-msgstr ""
+msgstr "Marc Doe"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "Marc.demo@email.com"
-msgstr ""
+msgstr "Marc.demo@email.com"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_273s__month__3
@@ -5552,7 +5572,7 @@ msgstr "Chèques-repas (Cotisation patronale)"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Mean Working Hours:"
-msgstr ""
+msgstr "Heures de travail en moyenne :"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.work.entry.type,name:l10n_be_hr_payroll.work_entry_type_medical_assistance
@@ -5562,7 +5582,7 @@ msgstr "Assistance médicale"
 #. module: l10n_be_hr_payroll
 #: model:ir.model,name:l10n_be_hr_payroll.model_ir_ui_menu
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.salary.rule.category,name:l10n_be_hr_payroll.hr_payroll_head_div_net
@@ -5640,7 +5660,8 @@ msgstr "Avantages de toute nature mensuels"
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_contract__commission_on_target
 msgid ""
 "Monthly gross amount that the employee receives if the target is reached."
-msgstr "Montant mensuel brut que le salarié perçoit si l'objectif est atteint."
+msgstr ""
+"Montant mensuel brut que le salarié perçoit si l'objectif est atteint."
 
 #. module: l10n_be_hr_payroll
 #: model:hr.salary.rule,name:l10n_be_hr_payroll.cp200_employees_termination_fees_group_insurance
@@ -5663,7 +5684,7 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "Monthly wages"
-msgstr ""
+msgstr "Salaires mensuels"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.finprof_xml_report
@@ -5687,7 +5708,7 @@ msgstr "Année N-1"
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_281_45__xml_validation_state__normal
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_dmfa__validation_state__normal
 msgid "N/A"
-msgstr "N/D"
+msgstr "N/A"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_eco_vouchers_line_wizard__niss
@@ -5703,7 +5724,7 @@ msgstr "Numéro NISS"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "NISS:"
-msgstr ""
+msgstr "NISS :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
@@ -5783,6 +5804,8 @@ msgstr "Nouvel horaire de travail"
 #, python-format
 msgid "New working schedule on %(contract_name)s.<br/>New total: %(days)s"
 msgstr ""
+"Nouvel horaire de travail pour %(contract_name)s.<br/>Nouveau Total: "
+"%(days)s"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
@@ -5908,8 +5931,8 @@ msgstr "Durée du préavis calculée"
 msgid ""
 "Notice period not set for %s. Please, set the departure notice period first."
 msgstr ""
-"La durée du préavis n'est pas spécifiée pour %s. Veuillez d'abord définir la "
-"période de préavis."
+"La durée du préavis n'est pas spécifiée pour %s. Veuillez d'abord définir la"
+" période de préavis."
 
 #. module: l10n_be_hr_payroll
 #: model:hr.salary.rule.category,name:l10n_be_hr_payroll.hr_payroll_termination_salary
@@ -5945,7 +5968,7 @@ msgstr "Nombre d'heures de formation effectuées"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_employee_form__l10n_be_view_for
 msgid "Number of days"
-msgstr ""
+msgstr "Nombre de jours"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_payslip_employee_depature_holiday_attests__unpaid_time_off_n
@@ -6019,7 +6042,7 @@ msgstr "Nombre de travailleurs"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
 msgid "Numbers of joint committees: 20000"
-msgstr ""
+msgstr "Numéros des commissions paritaires : 20000"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_273S
@@ -6086,7 +6109,7 @@ msgstr "ONSS Numéro d'entreprise"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "ONSS Company ID:"
-msgstr ""
+msgstr "ID ONSS de la société"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
@@ -6128,7 +6151,8 @@ msgstr "Numéro d'expéditeur ONSS"
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_res_company__onss_expeditor_number
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_res_config_settings__onss_expeditor_number
 msgid ""
-"ONSS Expeditor Number provided when registering service on the technical user"
+"ONSS Expeditor Number provided when registering service on the technical "
+"user"
 msgstr ""
 "Numéro d'expéditeur ONSS fourni lors de l'enregistrement du service sur "
 "l'utilisateur technique"
@@ -6137,7 +6161,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
 msgid "ONSS Number:"
-msgstr ""
+msgstr "Numéro ONSS :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_contract_view_form
@@ -6153,7 +6177,7 @@ msgstr "ONSS Numéro d'enregistrement"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "ONSS Registration Number:"
-msgstr ""
+msgstr "ONSS Numéro d'enregistrement:"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.salary.rule,name:l10n_be_hr_payroll.cp200_employees_salary_onss_restructuring
@@ -6210,7 +6234,7 @@ msgstr "Octobre"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "Odoo"
-msgstr ""
+msgstr "Odoo"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.res_config_settings_view_form
@@ -6230,9 +6254,9 @@ msgid ""
 "Only employees with a Bachelor/Master/Doctor/Civil Engineer degree can "
 "benefit from the withholding taxes exemption."
 msgstr ""
-"Seuls les employés titulaires d'un diplôme de bachelier/master/docteur/"
-"ingénieur civil peuvent bénéficier de l'exonération du précompte "
-"professionnel."
+"Seuls les employés titulaires d'un diplôme de "
+"bachelier/master/docteur/ingénieur civil peuvent bénéficier de l'exonération"
+" du précompte professionnel."
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.constraint,message:l10n_be_hr_payroll.constraint_l10n_be_dmfa__unique
@@ -6310,7 +6334,7 @@ msgstr "Heures supplémentaires effectuées"
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_281_45__pdf_error
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_individual_account__pdf_error
 msgid "PDF Error Message"
-msgstr ""
+msgstr "Message d'erreur du PDF"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_273s__pdf_file
@@ -6385,7 +6409,7 @@ msgstr "Le temps partiel de %s doit être notifié à %s."
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Part Time:"
-msgstr ""
+msgstr "Temps partiel :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -6400,12 +6424,12 @@ msgstr "Incapacité partielle (pour cause de maladie)"
 #. module: l10n_be_hr_payroll
 #: model:hr.work.entry.type,name:l10n_be_hr_payroll.work_entry_type_paternity_legal
 msgid "Paternity Time Off (Legal)"
-msgstr "Congé paternité (Légal)"
+msgstr "Congé de paternité (Légal)"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.work.entry.type,name:l10n_be_hr_payroll.work_entry_type_paternity_company
 msgid "Paternity Time Off (Paid by Company)"
-msgstr "Congé paternité (Payé par la société)"
+msgstr "Congé de paternité (Payé par la société)"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model,name:l10n_be_hr_payroll.model_hr_payslip
@@ -6490,7 +6514,7 @@ msgstr "Fiches de paie N-1"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.view_hr_payslip_filter
 msgid "Payslips with Eco-Vouchers"
-msgstr ""
+msgstr "Fiches de paie avec éco-chèques"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -6509,7 +6533,7 @@ msgstr "Période"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
 msgid "Period: From"
-msgstr ""
+msgstr "Période : Du"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -6521,13 +6545,11 @@ msgstr "Contrat à durée indéterminée (CDI)"
 #: code:addons/l10n_be_hr_payroll/wizard/l10n_be_social_balance_sheet.py:0
 #, python-format
 msgid ""
-"Please configure a gender (either male or female) for the following "
-"employees:\n"
+"Please configure a gender (either male or female) for the following employees:\n"
 "\n"
 "%s"
 msgstr ""
-"Veuillez configurer un sexe (soit masculin, soit féminin) pour les employés "
-"suivants :\n"
+"Veuillez configurer un sexe (soit masculin, soit féminin) pour les employés suivants :\n"
 "\n"
 "%s"
 
@@ -6539,20 +6561,20 @@ msgid ""
 "Please configure the 'Company Number' and the 'Revenue Code' on the Payroll "
 "Settings."
 msgstr ""
-"Veuillez configurer le 'Numéro d'entreprise' et le 'Code de revenu' dans les "
-"configurations du module de paie."
+"Veuillez configurer le 'Numéro d'entreprise' et le 'Code de revenu' dans les"
+" configurations du module de paie."
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
 msgid ""
 "Please find attached some data that will be useful to you to establish the "
-"Social Report for the accounting year noted below. The Social Report for the "
-"previous year may be useful for you to complete information concerning the "
+"Social Report for the accounting year noted below. The Social Report for the"
+" previous year may be useful for you to complete information concerning the "
 "previous accounting year."
 msgstr ""
 "Veuillez trouver ci-joint quelques données qui vous seront utiles pour "
-"établir le Bilan social de l'exercice comptable indiqué ci-dessous. Le Bilan "
-"social de l'exercice précédent peut vous être utile pour compléter les "
+"établir le Bilan social de l'exercice comptable indiqué ci-dessous. Le Bilan"
+" social de l'exercice précédent peut vous être utile pour compléter les "
 "informations relatives à l'exercice comptable précédent."
 
 #. module: l10n_be_hr_payroll
@@ -6572,8 +6594,8 @@ msgstr ""
 #: code:addons/l10n_be_hr_payroll/models/hr_dmfa.py:0
 #, python-format
 msgid ""
-"Please provide an employer class for company %s. The employer class is given "
-"by the ONSS and should be encoded in the Payroll setting."
+"Please provide an employer class for company %s. The employer class is given"
+" by the ONSS and should be encoded in the Payroll setting."
 msgstr ""
 "Veuillez fournir une catégorie d'employeur pour la société %s. La catégorie "
 "de l'employeur est fournie par l'ONSS et devrait être encodée dans les "
@@ -6584,7 +6606,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_281_45_form_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_individual_account_view_form
 msgid "Populate"
-msgstr ""
+msgstr "Populer"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_hr_payroll_schedule_change_wizard__previous_contract_creation
@@ -6634,12 +6656,12 @@ msgstr "Occupations précédentes"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__double_pay_line_n_ids
 msgid "Previous Occupations (N)"
-msgstr ""
+msgstr "Occupations précédentes (N)"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__double_pay_line_n1_ids
 msgid "Previous Occupations (N-1)"
-msgstr ""
+msgstr "Occupations précédentes (N-1)"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -6745,7 +6767,7 @@ msgstr "Début du trimestre"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Quarter End:"
-msgstr ""
+msgstr "Fin du trimestre :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_dmfa__quarter_start
@@ -6755,17 +6777,17 @@ msgstr "Fin du trimestre"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Quarter Start:"
-msgstr ""
+msgstr "Début du trimestre :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "REF-1234"
-msgstr ""
+msgstr "REF-1234"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "REG-5678"
-msgstr ""
+msgstr "REG-5678"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_273S
@@ -6795,7 +6817,7 @@ msgstr "Code de la raison du départ"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_employee_form__l10n_be_view_for
 msgid "Recovered Amount"
-msgstr ""
+msgstr "Montant récupéré"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_employee__l10n_be_holiday_pay_recovered_n
@@ -6853,7 +6875,7 @@ msgstr "Rembourser les notes de frais"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "Reg. No. 98765"
-msgstr ""
+msgstr "Reg. No. 98765"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -6898,13 +6920,13 @@ msgid ""
 "Remuneration of statutory holidays occurring within 30 days of the end date "
 "of the contract"
 msgstr ""
-"Rémunération des jours fériés survenant dans les 30 jours suivant la date de "
-"fin du contrat"
+"Rémunération des jours fériés survenant dans les 30 jours suivant la date de"
+" fin du contrat"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Reorganization Measures:"
-msgstr ""
+msgstr "Mesures de réorganisation :"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.contract.type,name:l10n_be_hr_payroll.l10n_be_contract_type_replacement
@@ -6969,7 +6991,7 @@ msgstr "Droit aux vacances"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "Rue de la"
-msgstr ""
+msgstr "Rue de la"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
@@ -6977,7 +6999,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "Rue du Paradis"
-msgstr ""
+msgstr "Rue du Paradis"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.salary.rule,name:l10n_be_hr_payroll.cp200_employees_termination_fees_specific_CP
@@ -6999,7 +7021,7 @@ msgstr "Réservé à l'administration"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "SDE"
-msgstr ""
+msgstr "SDE"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
@@ -7142,7 +7164,8 @@ msgstr "Simple pécule de décembre"
 #: model:hr.salary.rule,name:l10n_be_hr_payroll.cp200_employees_termination_n1_simple_pay_december
 msgid "Simple Holiday Pay (Lost due to working time reduction)"
 msgstr ""
-"Simple pécule de vacances (Perdu à cause d'une réduction du temps de travail)"
+"Simple pécule de vacances (Perdu à cause d'une réduction du temps de "
+"travail)"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.work.entry.type,name:l10n_be_hr_payroll.work_entry_type_simple_holiday_pay_variable_salary
@@ -7172,7 +7195,7 @@ msgstr "Simplé pécule à récupérer (N-1)"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "Single"
-msgstr ""
+msgstr "Célibataire"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_hr_payroll_employee_lang_wizard__slip_ids
@@ -7228,7 +7251,7 @@ msgstr "Cotisations sociales"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "Software Developer"
-msgstr ""
+msgstr "Développeur de logiciel"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.work.entry.type,name:l10n_be_hr_payroll.work_entry_type_solicitation_time_off
@@ -7253,6 +7276,8 @@ msgid ""
 "Some employee don't have any contract.:\n"
 "%s"
 msgstr ""
+"Certains employés n'ont pas de contrat :\n"
+"%s"
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
@@ -7262,6 +7287,8 @@ msgid ""
 "Some employee has no contract:\n"
 "%s"
 msgstr ""
+"Un certain employé n'a pas de contrat :\n"
+"%s"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
@@ -7344,6 +7371,8 @@ msgstr "Début de la période de préavis"
 #, python-format
 msgid "Start notice period is defined after end notice period for %s"
 msgstr ""
+"Le début de la période de préavis est défini après la fin de la période pour"
+" %s"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_hr_payroll_generate_warrant_payslips__state
@@ -7412,7 +7441,7 @@ msgstr "Sous-total brut"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "System 5:"
-msgstr ""
+msgstr "Système 5 :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -7563,8 +7592,8 @@ msgstr ""
 #: code:addons/l10n_be_hr_payroll/models/l10n_be_281_45.py:0
 #, python-format
 msgid ""
-"The belgian postcode length shouldn't exceed 4 characters and should contain "
-"only numbers for employee %s"
+"The belgian postcode length shouldn't exceed 4 characters and should contain"
+" only numbers for employee %s"
 msgstr ""
 "La longueur du code postal belge ne doit pas dépasser 4 caractères et ne "
 "doit contenir que des chiffres pour l'employé %s"
@@ -7619,6 +7648,8 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #. odoo-python
 #: code:addons/l10n_be_hr_payroll/wizard/l10n_be_social_balance_sheet.py:0
+#: code:addons/l10n_be_hr_payroll/wizard/l10n_be_social_balance_sheet.py:0
+#: code:addons/l10n_be_hr_payroll/wizard/l10n_be_social_balance_sheet.py:0
 #, python-format
 msgid ""
 "The contract %s for %s is not of one the following types: CDI, CDD. "
@@ -7632,8 +7663,8 @@ msgstr ""
 #: code:addons/l10n_be_hr_payroll/wizard/l10n_be_social_balance_sheet.py:0
 #, python-format
 msgid ""
-"The contract %s for %s is not of one the following types: CP200 Employees or "
-"Student"
+"The contract %s for %s is not of one the following types: CP200 Employees or"
+" Student"
 msgstr ""
 "Le contrat %s pour %s n'est pas l'un des types suivants : Employé CP200 ou "
 "Etudiant"
@@ -7679,6 +7710,8 @@ msgstr ""
 msgid ""
 "The employee start notice period should be set before the end notice period"
 msgstr ""
+"La date de début du préavis de l'employé doit être définie avant la fin de "
+"la période de préavis"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_contract__internet
@@ -7688,7 +7721,8 @@ msgstr "L'abonnement internet de l'employé sera payé à hauteur de ce montant.
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_contract__mobile
 msgid "The employee's mobile subscription will be paid up to this amount."
-msgstr "L'abonnement téléphone de l'employé sera payé à hauteur de ce montant."
+msgstr ""
+"L'abonnement téléphone de l'employé sera payé à hauteur de ce montant."
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_payroll_generate_warrant_payslips_view_form
@@ -7711,10 +7745,11 @@ msgstr ""
 #: code:addons/l10n_be_hr_payroll/models/hr_dmfa.py:0
 #, python-format
 msgid ""
-"The following employees are linked to work addresses without any ONSS "
-"identification code:\n"
+"The following employees are linked to work addresses without any ONSS identification code:\n"
 " %s"
 msgstr ""
+"Les employés suivant sont liés à des adresses de travail sans code d'indentification ONSS:\n"
+" %s"
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
@@ -7722,28 +7757,22 @@ msgstr ""
 #: code:addons/l10n_be_hr_payroll/models/l10n_be_281_45.py:0
 #, python-format
 msgid ""
-"The following employees don't have a valid private address (with a street, a "
-"zip, a city and a country):\n"
+"The following employees don't have a valid private address (with a street, a zip, a city and a country):\n"
 "%s"
 msgstr ""
-"Les employés suivants n'ont pas d'adresse privée valide (avec une rue, un "
-"code postal, une ville et un pays) :\n"
+"Les employés suivants n'ont pas d'adresse privée valide (avec une rue, un code postal, une ville et un pays) :\n"
 "%s"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_hr_payroll_employee_lang_view_form
 msgid ""
-"The following employees have an invalid language for the selected salary "
-"structure.\n"
+"The following employees have an invalid language for the selected salary structure.\n"
 "                        <br/>\n"
-"                        Please assign them a language below before "
-"continuing."
+"                        Please assign them a language below before continuing."
 msgstr ""
-"Les employés suivants ont une langue invalide pour la structure salariale "
-"sélectionnée.\n"
+"Les employés suivants ont une langue invalide pour la structure salariale sélectionnée.\n"
 "                        <br/>\n"
-"                        Veuillez leur assigner une langue ci-dessous avant "
-"de continuer."
+"                        Veuillez leur assigner une langue ci-dessous avant de continuer."
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
@@ -7804,9 +7833,10 @@ msgstr ""
 #: code:addons/l10n_be_hr_payroll/wizard/l10n_be_eco_vouchers_wizard.py:0
 #, python-format
 msgid ""
-"The reference period is from the <b>1st of June %s</b> to the <b>31st of May "
-"%s</b>"
+"The reference period is from the <b>1st of June %s</b> to the <b>31st of May"
+" %s</b>"
 msgstr ""
+"La période de référence s'étend du <b>1er Juin %s</b> au <b>31 Mai %s</b>"
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
@@ -7818,8 +7848,8 @@ msgid ""
 "seizable amount is equal to %s€"
 msgstr ""
 "Le montant saisi (%s€) est supérieur aux barèmes belges. Étant donné un "
-"salaire net global de %s€ pour la période de paie et %s enfants à charge, le "
-"montant maximal saisissable est égal à %s€"
+"salaire net global de %s€ pour la période de paie et %s enfants à charge, le"
+" montant maximal saisissable est égal à %s€"
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
@@ -7832,7 +7862,8 @@ msgstr "Le pourcentage d'occupation en R&D doit être compris entre 0-100"
 #. odoo-python
 #: code:addons/l10n_be_hr_payroll/models/hr_contract.py:0
 #, python-format
-msgid "The wage is under the minimum scale of %s€ for a seniority of %s years."
+msgid ""
+"The wage is under the minimum scale of %s€ for a seniority of %s years."
 msgstr ""
 "Le salaire est inférieur au barème minimum de %s€ pour une ancienneté de %s "
 "ans."
@@ -7848,6 +7879,7 @@ msgstr ""
 
 #. module: l10n_be_hr_payroll
 #. odoo-python
+#: code:addons/l10n_be_hr_payroll/models/hr_dmfa.py:0
 #: code:addons/l10n_be_hr_payroll/models/hr_dmfa.py:0
 #, python-format
 msgid "There is no defined expeditor number for the company."
@@ -7889,15 +7921,19 @@ msgstr "L'employé n'a pas de date de premier contrat"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "This payslip is not validated. This is not a legal document."
-msgstr ""
+msgstr "La fiche de paie n'a pas été validée. Ce n'est pas un document légal."
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_eco_vouchers_wizard_view_form
 msgid ""
 "This will add the eco-vouchers amounts on the open payslips in this batch "
-"associated with the respective employees, and create new payslips where they "
-"don't exist. Are you sure you want to proceed?"
+"associated with the respective employees, and create new payslips where they"
+" don't exist. Are you sure you want to proceed?"
 msgstr ""
+"Cela permettra d'ajouter les montants des éco-chèques sur les fiches de paie"
+" ouvertes de ce lot associées aux salariés respectifs, et de créer de "
+"nouvelles fiches de paie là où elles n'existent pas. Êtes-vous sûr de "
+"vouloir continuer ?"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_double_pay_recovery_wizard__threshold
@@ -7964,33 +8000,17 @@ msgstr "À allouer"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_employee__l10n_be_dependent_children_attachment
 msgid ""
-"To benefit from this increase in the elusive or non-transferable quotas, the "
-"worker whose remuneration is subject to seizure or transfer, must declare it "
-"using a form, the model of which has been published in the Belgian Official "
-"Gazette. of 30 November 2006.\n"
+"To benefit from this increase in the elusive or non-transferable quotas, the worker whose remuneration is subject to seizure or transfer, must declare it using a form, the model of which has been published in the Belgian Official Gazette. of 30 November 2006.\n"
 "\n"
-"He must attach to this form the documents establishing the reality of the "
-"charge invoked.\n"
+"He must attach to this form the documents establishing the reality of the charge invoked.\n"
 "\n"
-"Source: Opinion on the indexation of the amounts set in Article 1, paragraph "
-"4, of the Royal Decree of 27 December 2004 implementing Articles 1409, § 1, "
-"paragraph 4, and 1409, § 1 bis, paragraph 4 , of the Judicial Code relating "
-"to the limitation of seizure when there are dependent children, MB, December "
-"13, 2019."
+"Source: Opinion on the indexation of the amounts set in Article 1, paragraph 4, of the Royal Decree of 27 December 2004 implementing Articles 1409, § 1, paragraph 4, and 1409, § 1 bis, paragraph 4 , of the Judicial Code relating to the limitation of seizure when there are dependent children, MB, December 13, 2019."
 msgstr ""
-"Pour bénéficier de cette augmentation des quotités insaisissables ou "
-"incessibles, le travailleur dont la rémunération fait l'objet d'une saisie "
-"ou d'une cession, doit la déclarer au moyen d'un formulaire dont le modèle a "
-"été publié au Moniteur belge du 30 novembre 2006.\n"
+"Pour bénéficier de cette augmentation des quotités insaisissables ou incessibles, le travailleur dont la rémunération fait l'objet d'une saisie ou d'une cession, doit la déclarer au moyen d'un formulaire dont le modèle a été publié au Moniteur belge du 30 novembre 2006.\n"
 "\n"
-"Il doit joindre à ce formulaire les pièces établissant la réalité de la "
-"charge invoquée.\n"
+"Il doit joindre à ce formulaire les pièces établissant la réalité de la charge invoquée.\n"
 "\n"
-"Source : Avis sur l'indexation des montants fixés à l'article 1er, alinéa 4, "
-"de l'arrêté royal du 27 décembre 2004 portant exécution des articles 1409, § "
-"1er, alinéa 4, et 1409, § 1er bis, alinéa 4, du Code judiciaire relatifs à "
-"la limitation de la saisie lorsqu'il y a des enfants à charge, MB, 13 "
-"décembre 2019."
+"Source : Avis sur l'indexation des montants fixés à l'article 1er, alinéa 4, de l'arrêté royal du 27 décembre 2004 portant exécution des articles 1409, § 1er, alinéa 4, et 1409, § 1er bis, alinéa 4, du Code judiciaire relatifs à la limitation de la saisie lorsqu'il y a des enfants à charge, MB, 13 décembre 2019."
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
@@ -8023,12 +8043,12 @@ msgstr "Total"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "Total (10.a + 10.b)"
-msgstr ""
+msgstr "Total (10.a + 10.b)"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "Total (18.a.1)"
-msgstr ""
+msgstr "Total (18.a.1)"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
@@ -8109,7 +8129,7 @@ msgstr "Coût employeur total"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.view_hr_payroll_employee_departure_holiday_attests
 msgid "Total gross wage"
-msgstr ""
+msgstr "Salaire Brut Total"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.view_hr_payroll_employee_departure_holiday_attests
@@ -8209,7 +8229,8 @@ msgstr "Licenciement abusif"
 #: code:addons/l10n_be_hr_payroll/models/l10n_be_281_45.py:0
 #, python-format
 msgid "Unsupported country code %s. Please contact an administrator."
-msgstr "Code pays %s non pris en charge. Veuillez contacter un administrateur."
+msgstr ""
+"Code pays %s non pris en charge. Veuillez contacter un administrateur."
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model,name:l10n_be_hr_payroll.model_l10n_be_schedule_change_allocation
@@ -8255,7 +8276,7 @@ msgstr "Utilise les transports en commun"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_balance
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
 msgid "VAT Number:"
-msgstr ""
+msgstr "Numéro de TVA :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_be_hr_payroll.selection__l10n_be_273s__xml_validation_state__done
@@ -8350,28 +8371,22 @@ msgstr "Warrants"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.view_hr_payroll_employee_departure_holiday_attests
 msgid ""
-"We draw your attention to the fact that this information is based on the "
-"data in Odoo and / or that you\n"
-"                            have introduced in Odoo and that it is important "
-"that they be accompanied by a verification on your part\n"
-"                            according to the particularities related to "
-"contract of the worker or your company which Odoo would not\n"
+"We draw your attention to the fact that this information is based on the data in Odoo and / or that you\n"
+"                            have introduced in Odoo and that it is important that they be accompanied by a verification on your part\n"
+"                            according to the particularities related to contract of the worker or your company which Odoo would not\n"
 "                            know."
 msgstr ""
-"Attention : ces informations sont basées sur les données dans Odoo et/ou sur "
-"ce que vous\n"
-"                            avez introduit dans Odoo. Il est essentiel de "
-"les vérifier\n"
-"                            selon les particularités liées au contrat du "
-"travailleur ou de votre entreprise qu'Odoo ne peut pas\n"
+"Attention : ces informations sont basées sur les données dans Odoo et/ou sur ce que vous\n"
+"                            avez introduit dans Odoo. Il est essentiel de les vérifier\n"
+"                            selon les particularités liées au contrat du travailleur ou de votre entreprise qu'Odoo ne peut pas\n"
 "                            connaître."
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_payroll_generate_warrant_payslips_view_form
 msgid ""
 "When you're done with the commission edition, click on the 'Generate "
-"Payslip' button to generate a batch of payslips using the commissions you've "
-"provided."
+"Payslip' button to generate a batch of payslips using the commissions you've"
+" provided."
 msgstr ""
 "Lorsque vous avez terminé avec l'édition des commissions, cliquez sur le "
 "bouton 'Générer la fiche de paie' pour générer un lot de fiches de paie en "
@@ -8470,10 +8485,11 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
 msgid ""
-"Withholding Taxes Exemption (Scientific Research) - Doctors / Civil Engineers"
+"Withholding Taxes Exemption (Scientific Research) - Doctors / Civil "
+"Engineers"
 msgstr ""
-"Exonération du précompte professionnel (recherche scientifique) - Docteurs / "
-"Ingénieurs civils"
+"Exonération du précompte professionnel (recherche scientifique) - Docteurs /"
+" Ingénieurs civils"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
@@ -8513,7 +8529,7 @@ msgstr "Congé accident de travail"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Work Address:"
-msgstr ""
+msgstr "Adresse de travail : "
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model,name:l10n_be_hr_payroll.model_l10n_be_work_entry_daily_benefit_report
@@ -8528,7 +8544,7 @@ msgstr "Lieu de travail défini par l'ONSS"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Work Place:"
-msgstr ""
+msgstr "Lieu de travail :"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_hr_payroll_schedule_change_wizard__work_time_rate
@@ -8568,7 +8584,8 @@ msgstr "Compte des prestations pour les frais de représentation"
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_work_entry_type__leave_right
 msgid "Work entries counts for time off right for next year."
-msgstr "Compte des prestations pour le doit aux vacances de l'année prochaine."
+msgstr ""
+"Compte des prestations pour le doit aux vacances de l'année prochaine."
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_l10n_be_hr_payroll_schedule_change_wizard__presence_work_entry_type_id
@@ -8581,8 +8598,8 @@ msgid ""
 "Work time rate versus full time working schedule, should be between 0 and "
 "100 %."
 msgstr ""
-"Le ratio du taux de temps de travail par rapport à l'horaire complet à temps "
-"plein devrait se situer entre 0 et 100 %."
+"Le ratio du taux de temps de travail par rapport à l'horaire complet à temps"
+" plein devrait se situer entre 0 et 100 %."
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_social_security_certificate
@@ -8592,7 +8609,7 @@ msgstr "Travailleur"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.dmfa_pdf_report
 msgid "Worker Code:"
-msgstr ""
+msgstr "Code Travailleur :"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.salary.rule.category,name:l10n_be_hr_payroll.hr_payroll_head_onss
@@ -8670,7 +8687,7 @@ msgstr "Fichier XML"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_fees
 msgid "XXXX-XXXX-XXXX-1234"
-msgstr ""
+msgstr "XXXX-XXXX-XXXX-1234"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll.field_l10n_be_274_xx__xls_filename
@@ -8733,7 +8750,8 @@ msgstr "Montant annuel que le salarié reçoit sous forme d'éco-chèques."
 #. odoo-python
 #: code:addons/l10n_be_hr_payroll/wizard/hr_payroll_allocating_paid_time_off.py:0
 #, python-format
-msgid "You don't have the right to do this. Please contact your administrator!"
+msgid ""
+"You don't have the right to do this. Please contact your administrator!"
 msgstr ""
 "Vous n'avez pas le droit d'effectuer cette action. Veuillez contacter un "
 "administrateur !"
@@ -8791,11 +8809,13 @@ msgid ""
 "a) Amount of income paid or allocated, broken down according to the "
 "applicable withholding tax rate:"
 msgstr ""
+"a) Montant des revenus payés ou attribués, ventilés selon le taux de "
+"précompte mobilier applicable :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid "a) Amount of income paid or attributed:"
-msgstr ""
+msgstr "a) Montant des revenus payés ou attribués :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -8830,7 +8850,7 @@ msgstr "a) Cotisations et primes normales"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "a) Occasional worker in the Horeca sector"
-msgstr ""
+msgstr "a) Travailleur occasionnel dans le secteur Horeca"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -8850,7 +8870,7 @@ msgstr "a) Rémunérations : "
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "a) Repetitive expenses"
-msgstr ""
+msgstr "a) Dépenses répétitives"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -8861,6 +8881,8 @@ msgstr "a) Nombre total d'heures supplémentaires effectivement prestées"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "a) Voluntary overtime worked from 01.07.2023 as part of the relaunch:"
 msgstr ""
+"a) Heures supplémentaires volontaires effectuées à partir du 01.07.2023 dans"
+" le cadre de la relance :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -8871,7 +8893,8 @@ msgstr "a) Calculé sur les revenus reçus de l'employeur"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "a) from employers who do not use the cash register system"
 msgstr ""
-"a) Auprès d'employeurs qui n'utilisent pas le système de caisse enregistreuse"
+"a) Auprès d'employeurs qui n'utilisent pas le système de caisse "
+"enregistreuse"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.l10n_be_dmfa_view_form
@@ -8884,14 +8907,18 @@ msgid ""
 "b) Amount recognized as an expense in 2023 if this amount does not "
 "correspond to the amount indicated in section 4.a:"
 msgstr ""
+"b) Montant comptabilisé en charge en 2023 si ce montant ne correspond pas au"
+" montant indiqué à la rubrique 4.a :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_45
 msgid ""
 "b) Amount recognized as an expense in 2023 if this amount does not "
-"correspond to the total of the amounts indicated in sections 5.a.1) and 5."
-"a.2):"
+"correspond to the total of the amounts indicated in sections 5.a.1) and "
+"5.a.2):"
 msgstr ""
+"b) Montant comptabilisé en charge en 2023 si ce montant ne correspond pas au"
+" total des montants indiqués aux rubriques 5.a.1) et 5.a.2) :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -8909,11 +8936,13 @@ msgid ""
 "b) Basis for the calculation of the additional salary relating to overtime "
 "giving right to a reduction of:"
 msgstr ""
+"b) Base de calcul du complément de salaire relatif aux heures "
+"supplémentaires donnant droit à une réduction de :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "b) Benefits in kind:"
-msgstr ""
+msgstr "b) Avantages de toute nature :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -8943,12 +8972,12 @@ msgstr "b) Autres codes"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "b) Other expenses resulting directly from employment in Belgium"
-msgstr ""
+msgstr "b) Autres dépenses résultant directement de l'emploi en Belgique"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "b) Retired worker in the care sector"
-msgstr ""
+msgstr "b) Travailleur retraité du secteur des soins"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_273S
@@ -8964,6 +8993,8 @@ msgstr "b) Réels"
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "b) Voluntary overtime worked in 2022 as part of the recovery"
 msgstr ""
+"b) Heures supplémentaires volontaires effectuées en 2022 dans le cadre de la"
+" relance"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -8988,7 +9019,7 @@ msgid ""
 "redeployment indemnities:"
 msgstr ""
 "c) Indemnités de dédit (autres que visées sous 11d et 12d) et indemnités de "
-"reclassement:"
+"reclassement :"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_273S
@@ -9007,7 +9038,7 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
 msgid "c) Gross amount of remuneration"
-msgstr ""
+msgstr "c) Montant brut de la rémunération"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -9025,6 +9056,9 @@ msgid ""
 "c) Provided in 2021 as part of the fight against COVID-19 and / or as part "
 "of the recovery plan or net overtime worked in 2021 in the public sector"
 msgstr ""
+"c) Accordées en 2021 dans le cadre de la lutte contre le COVID-19 et/ou dans"
+" le cadre du plan de relance ou heures supplémentaires nettes effectuées en "
+"2021 dans le secteur public"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -9067,6 +9101,8 @@ msgid ""
 "e) Benefit of any kind resulting from temporary unemployment benefits "
 "directly reimbursed to ONEM"
 msgstr ""
+"e) Prestation de toute nature résultant des indemnités de chômage temporaire"
+" directement remboursées à l'ONEM"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -9077,7 +9113,7 @@ msgstr ""
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_double_holiday_13th_month
 msgid "email@example.com"
-msgstr ""
+msgstr "email@example.com"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_281_10
@@ -9138,6 +9174,8 @@ msgid ""
 "i) Volunteer firefighter, volunteer ambulance driver and volunteer Civil "
 "Protection agent: allowances which are taken into account for the exemption"
 msgstr ""
+"i) Pompier volontaire, ambulancier volontaire et agent volontaire de la "
+"Protection Civile : indemnités prises en compte pour l'exonération"
 
 #. module: l10n_be_hr_payroll
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_hr_employee__disabled_children_bool
@@ -9150,7 +9188,8 @@ msgstr "si les enfants du bénéficiaire sont déclarés handicapés par la loi"
 #: model:ir.model.fields,help:l10n_be_hr_payroll.field_res_users__disabled_spouse_bool
 msgid "if recipient spouse is declared disabled by law"
 msgstr ""
-"si le (la) conjoint(e) du bénéficiaire est déclaré(e) handicapé(e) par la loi"
+"si le (la) conjoint(e) du bénéficiaire est déclaré(e) handicapé(e) par la "
+"loi"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.hr_employee_form__l10n_be_view_for
@@ -9166,13 +9205,13 @@ msgstr "j) Job d'étudiant"
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_individual_account
 msgid "marc@Doe.com"
-msgstr ""
+msgstr "marc@Doe.com"
 
 #. module: l10n_be_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll.report_termination_holidays_n1
 msgid "marc@email.com"
-msgstr ""
+msgstr "marc@email.com"
 
 #. module: l10n_be_hr_payroll
 #: model:hr.salary.rule,name:l10n_be_hr_payroll.cp200_employees_termination_fees_notice_duration_month

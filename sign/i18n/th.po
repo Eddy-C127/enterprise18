@@ -25,7 +25,7 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #, python-format
 msgid " You can safely close this window."
-msgstr ""
+msgstr "คุณสามารถปิดหน้าต่างนี้ได้อย่างปลอดภัย"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_partner__signature_count
@@ -50,14 +50,14 @@ msgstr "ไม่สามารถลงนามในเอกสาร %s �
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "%s has been edited and signed"
-msgstr ""
+msgstr "%s ได้รับการแก้ไขและลงนามแล้ว"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "%s has been signed"
-msgstr ""
+msgstr "%s ได้รับการลงนาม"
 
 #. module: sign
 #. odoo-python
@@ -71,18 +71,18 @@ msgstr "%s ตรวจสอบลายเซ็นทาง SMS ด้วย�
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "%s: missing credits for extra-authentication"
-msgstr ""
+msgstr "%s: ไม่มีเครดิตสำหรับการตรวจสอบสิทธิ์เพิ่มเติม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "(Ignored)"
-msgstr ""
+msgstr "(ไม่สนใจ)"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "(UTC)"
-msgstr ""
+msgstr "(UTC)"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_refused
@@ -90,6 +90,8 @@ msgid ""
 ")\n"
 "            has refused the document"
 msgstr ""
+")\n"
+"            ได้ปฏิเสธเอกสาร"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
@@ -97,6 +99,8 @@ msgid ""
 ")\n"
 "        has requested your signature on the document"
 msgstr ""
+")\n"
+"        ได้ขอลายเซ็นของคุณในเอกสาร"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -106,7 +110,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "- <em>Canceled</em>"
-msgstr ""
+msgstr "- <em>ยกเลิก</em>"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
@@ -121,7 +125,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "192.168.1.1"
-msgstr ""
+msgstr "192.168.1.1"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -136,27 +140,27 @@ msgstr "2023-08-18"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "2023-08-18 - 12:30:45"
-msgstr ""
+msgstr "18-08-2566 - 12:30:45 น"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Created by:</b>"
-msgstr ""
+msgstr "<b>สร้างโดย:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Created on:</b>"
-msgstr ""
+msgstr "<b>สร้างเมื่อ:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Creation IP Address:</b>"
-msgstr ""
+msgstr "<b>การสร้างที่อยู่ IP:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Document ID:</b>"
-msgstr ""
+msgstr "<b>รหัสเอกสาร:</b>"
 
 #. module: sign
 #. odoo-javascript
@@ -173,17 +177,17 @@ msgstr "<b>แก๊ส:</b> 18,700 ปอนด์ของ CO² = 18,700*0.453
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Signature:</b>"
-msgstr ""
+msgstr "<b>ลายเซ็น:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Signers:</b>"
-msgstr ""
+msgstr "<b>ผู้ลงนาม:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "<b>Solid Waste:</b> 1290 Pounds = 1290*0.4536 = 585.14 kg"
-msgstr ""
+msgstr "<b>ขยะมูลฝอย:</b> 1290 ปอนด์ = 1290*0.4536 = 585.14 กิโลกรัม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -195,7 +199,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "<b>Water:</b> 23,400 Gallons = 23,400*3.78541 = 88578.59 L"
-msgstr ""
+msgstr "<b>น้ำ:</b> 23,400 แกลลอน = 23,400*3.78541 = 88578.59 ลิตร"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -205,7 +209,7 @@ msgstr "<b>การใช้ไม้:</b> 4 ตันสั้น US = 4*907.1
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<br/>(the email access has not been sent)"
-msgstr ""
+msgstr "<br/>(ยังไม่ได้ส่งการเข้าถึงอีเมล)"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -215,7 +219,7 @@ msgstr "<i class=\"fa fa-check\"/> ลิงก์ใหม่ถูกส่ง
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<i class=\"fa fa-check\"/> The document's integrity is valid."
-msgstr ""
+msgstr "<i class=\"fa fa-check\"/> ความสมบูรณ์ของเอกสารถูกต้อง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -229,7 +233,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<i class=\"fa fa-globe\"/> View"
-msgstr ""
+msgstr "<i class=\"fa fa-globe\"/> ดู"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -251,16 +255,18 @@ msgid ""
 "<i class=\"oi oi-arrow-right\"/>\n"
 "                                            Preview"
 msgstr ""
+"<i class=\"oi oi-arrow-right\"/>\n"
+"                                            ดูตัวอย่าง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
 msgid "<i class=\"oi oi-arrow-right\"/> Buy credits"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right\"/> ซื้อเครดิต"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "<small><i> Canceled </i></small>"
-msgstr ""
+msgstr "<small><i> ยกเลิกแล้ว </i></small>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -289,12 +295,12 @@ msgstr "<span class=\"badge rounded-pill text-bg-light\">ไม่สนใจ</
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_partner_view_form
 msgid "<span class=\"o_stat_text\">Signature Requested</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">ขอลายเซ็นแล้ว</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "<span class=\"o_stat_text\">Signed Document</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">เอกสารลงนาม</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_share_view_form
@@ -314,22 +320,22 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<span class=\"text-muted\">Not available</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">ไม่สามารถใช้ได้</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "<span> days</span>."
-msgstr ""
+msgstr "<span> วัน</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_type_view_form
 msgid "<span>(1.0 = full page size)</span>"
-msgstr ""
+msgstr "<span>(1.0 = ขนาดเต็มหน้า)</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "<span>Send a reminder every </span>"
-msgstr ""
+msgstr "<span>ส่งการแจ้งเตือนทุกๆ </span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
@@ -339,13 +345,13 @@ msgstr "<span>นี่คือการแสดงตัวอย่าง �
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<strong>Creation Date:</strong>"
-msgstr ""
+msgstr "<strong>วันที่สร้าง:</strong>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_refused
 msgid ""
 "<strong>Warning</strong> do not forward this email to other people!<br/>"
-msgstr ""
+msgstr "<strong>คำเตือน</strong> อย่าส่งต่ออีเมลนี้ให้ผู้อื่น!<br/>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
@@ -387,7 +393,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "A shower uses approximately 65 L of water"
-msgstr ""
+msgstr "ฝักบัวใช้น้ำประมาณ 65 ลิตร"
 
 #. module: sign
 #. odoo-python
@@ -404,7 +410,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Access Logs"
-msgstr ""
+msgstr "วันที่สร้าง"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__access_warning
@@ -414,12 +420,12 @@ msgstr "คําเตือนการเข้าถึง"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.portal_my_home_sign
 msgid "Access your signed documents"
-msgstr ""
+msgstr "เข้าถึงเอกสารที่ลงนามของคุณ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__access_via_link
 msgid "Accessed Through Token"
-msgstr ""
+msgstr "เข้าถึงได้ผ่านโทเค็น"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_mail_activity_type__category
@@ -436,7 +442,7 @@ msgstr "จำเป็นต้องดำเนินการ"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__action
 msgid "Action Performed"
-msgstr ""
+msgstr "ดำเนินการแล้ว"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_mail_activity_type__category
@@ -469,7 +475,7 @@ msgstr "การตกแต่งข้อยกเว้นกิจกรร
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #, python-format
 msgid "Activity Logs"
-msgstr ""
+msgstr "บันทึกกิจกรรม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__activity_state
@@ -489,33 +495,33 @@ msgstr "ไอคอนประเภทกิจกรรม"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__sign_log_ids
 msgid "Activity logs linked to this request"
-msgstr ""
+msgstr "บันทึกกิจกรรมที่เชื่อมโยงกับคำขอนี้"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/initials_all_pages_dialog.js:0
 #, python-format
 msgid "Add Initials"
-msgstr ""
+msgstr "เพิ่มชื่อย่อ"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
 #, python-format
 msgid "Add Once"
-msgstr ""
+msgstr "เพิ่มครั้งเดียว"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Add document tags here"
-msgstr ""
+msgstr "เพิ่มแท็กเอกสารที่นี่"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
 #, python-format
 msgid "Add to all pages"
-msgstr ""
+msgstr "เพิ่มทุกหน้า"
 
 #. module: sign
 #: model:res.groups,name:sign.group_sign_manager
@@ -532,7 +538,7 @@ msgstr "ใช้ลายเซ็นของคุณ"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__request_state__signed
 msgid "After Signature"
-msgstr ""
+msgstr "หลังลงนาม"
 
 #. module: sign
 #. odoo-javascript
@@ -552,14 +558,14 @@ msgstr "ทั้งหมด"
 #. module: sign
 #: model:ir.ui.menu,name:sign.sign_request_documents
 msgid "All documents"
-msgstr ""
+msgstr "เอกสารทั้งหมด"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "All signers must have valid email addresses"
-msgstr ""
+msgstr "ผู้ลงนามทุกคนต้องมีที่อยู่อีเมลที่ถูกต้อง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
@@ -579,7 +585,7 @@ msgstr "อนุญาตให้ผู้ใช้กำหนดผู้ใ
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "An average computer will consume 750 Wh"
-msgstr ""
+msgstr "คอมพิวเตอร์โดยเฉลี่ยจะกินไฟ 750 Wh"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -602,7 +608,7 @@ msgstr "เก็บถาวรแล้ว"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__start_sign
 msgid "At least one signer has signed the document."
-msgstr ""
+msgstr "ผู้ลงนามอย่างน้อยหนึ่งคนได้ลงนามในเอกสารแล้ว"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
@@ -628,7 +634,7 @@ msgstr "แนบ"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Authenticate by SMS"
-msgstr ""
+msgstr "รับรองความถูกต้องทาง SMS"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__group_ids
@@ -640,7 +646,7 @@ msgstr "กลุ่มที่ได้รับอนุญาต"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
 #, python-format
 msgid "Authorized Groups:"
-msgstr ""
+msgstr "กลุ่มที่ได้รับอนุญาต:"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__authorized_ids
@@ -652,17 +658,17 @@ msgstr "ผู้ใช้ที่ได้รับอนุญาต"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
 #, python-format
 msgid "Authorized Users:"
-msgstr ""
+msgstr "ผู้ใช้ที่ได้รับอนุญาต:"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__auto_field
 msgid "Auto-fill Partner Field"
-msgstr ""
+msgstr "กรอกช่องพาร์ทเนอร์อัตโนมัติ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_option__available
 msgid "Available in new templates"
-msgstr ""
+msgstr "พร้อมใช้งานในเทมเพลตใหม่"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -672,12 +678,12 @@ msgstr "อิงตาม"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "Based on various websites, here are our comparisons:"
-msgstr ""
+msgstr "จากเว็บไซต์ต่างๆ นี่คือการเปรียบเทียบของเรา:"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__request_state__sent
 msgid "Before Signature"
-msgstr ""
+msgstr "ก่อนลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -701,7 +707,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__message_cc
 msgid "CC Message"
-msgstr ""
+msgstr "ข้อความ CC"
 
 #. module: sign
 #. odoo-javascript
@@ -735,18 +741,18 @@ msgstr "กลาง"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
 msgid "Certificate <i class=\"fa fa-download\"/>"
-msgstr ""
+msgstr "ใบรับรอง <i class=\"fa fa-download\"/>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Certificate of Completion<br/>"
-msgstr ""
+msgstr "ใบรับรองการจบหลักสูตร<br/>"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__change_authorized
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__change_authorized
 msgid "Change Authorized"
-msgstr ""
+msgstr "เปลี่ยนแปลงการอนุญาต"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__checkbox
@@ -773,7 +779,7 @@ msgstr "คลิกที่ฟิลด์เพื่อระบุว่า
 #: code:addons/sign/static/src/components/sign_request/sign_item_navigator.js:0
 #, python-format
 msgid "Click to start"
-msgstr ""
+msgstr "คลิกเพื่อเริ่มต้น"
 
 #. module: sign
 #. odoo-javascript
@@ -820,7 +826,7 @@ msgstr "บริษัท"
 #: model:ir.model.fields,field_description:sign.field_sign_request__communication_company_id
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__communication_company_id
 msgid "Company used for communication"
-msgstr ""
+msgstr "บริษัทที่ใช้ในการสื่อสาร"
 
 #. module: sign
 #. odoo-python
@@ -833,17 +839,17 @@ msgstr "เสร็จสิ้น"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__completed_document
 msgid "Completed Document"
-msgstr ""
+msgstr "เอกสารที่เสร็จสมบูรณ์"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__completed_document_attachment_ids
 msgid "Completed Documents"
-msgstr ""
+msgstr "เอกสารที่เสร็จสมบูรณ์"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_closed
 msgid "Completed Signatures"
-msgstr ""
+msgstr "ลงนามเสร็จแล้ว"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__completion_date
@@ -881,14 +887,14 @@ msgstr "ยืนยัน"
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #, python-format
 msgid "Congrats, your signature is ready to be submitted!"
-msgstr ""
+msgstr "ยินดีด้วย ลายเซ็นของคุณพร้อมที่จะส่งแล้ว!"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #, python-format
 msgid "Congratulations, you signed your first document!"
-msgstr ""
+msgstr "ขอแสดงความยินดี คุณลงนามในเอกสารฉบับแรกของคุณแล้ว!"
 
 #. module: sign
 #: model:ir.model,name:sign.model_res_partner
@@ -908,7 +914,7 @@ msgstr "การติดต่อ"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Contacts in copy"
-msgstr ""
+msgstr "ผู้ติดต่อในการคัดลอก"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_send_request__cc_partner_ids
@@ -927,12 +933,12 @@ msgstr "สำเนาถึง"
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_tag_action
 msgid "Create Sign Tags"
-msgstr ""
+msgstr "สร้างแท็กการลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Create date"
-msgstr ""
+msgstr "วันที่สร้าง"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__create_uid
@@ -976,7 +982,7 @@ msgstr "การสร้าง"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "Current status of the signature request"
-msgstr ""
+msgstr "สถานะปัจจุบันของการขอลายเซ็น"
 
 #. module: sign
 #: model:sign.item.role,name:sign.sign_item_role_customer
@@ -1005,7 +1011,7 @@ msgstr "วันที่"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Date (UTC)"
-msgstr ""
+msgstr "วันที่ (UTC)"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__default
@@ -1015,17 +1021,17 @@ msgstr "เริ่มต้น"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__default_height
 msgid "Default Height"
-msgstr ""
+msgstr "ความสูงเริ่มต้น"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__default_width
 msgid "Default Width"
-msgstr ""
+msgstr "ความกว้างเริ่มต้น"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__sequence
 msgid "Default order"
-msgstr ""
+msgstr "คำสั่งซื้อเริ่มต้น"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
@@ -1037,14 +1043,14 @@ msgstr "ลบ"
 #: code:addons/sign/static/src/components/sign_request/sign_items.xml:0
 #, python-format
 msgid "Delete sign"
-msgstr ""
+msgstr "ลบลายเซ็น"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/components/sign_request/sign_items.xml:0
 #, python-format
 msgid "Delete sign item"
-msgstr ""
+msgstr "ลบรายการการลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
@@ -1087,27 +1093,27 @@ msgstr "รายละเอียด"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_users__sign_initials
 msgid "Digital Initials"
-msgstr ""
+msgstr "ชื่อย่อดิจิทัล"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_users__sign_initials_frame
 msgid "Digital Initials Frame"
-msgstr ""
+msgstr "เฟรมอักษรย่อดิจิทัล"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_users__sign_signature
 msgid "Digital Signature"
-msgstr ""
+msgstr "ลายเซ็นดิจิทัล"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_users__sign_signature_frame
 msgid "Digital Signature Frame"
-msgstr ""
+msgstr "กรอบลายเซ็นดิจิทัล"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_users_view_form
 msgid "Digital Signatures"
-msgstr ""
+msgstr "ลายเซ็นดิจิทัล"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_view_form
@@ -1134,7 +1140,7 @@ msgstr "แสดงชื่อ"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__sign_preview_ready
 msgid "Display sign preview button"
-msgstr ""
+msgstr "แสดงปุ่มแสดงตัวอย่างสัญลักษณ์"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
@@ -1145,12 +1151,12 @@ msgstr "เอกสาร"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
 msgid "Document <i class=\"fa fa-download\"/>"
-msgstr ""
+msgstr "เอกสาร <i class=\"fa fa-download\"/>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Document Details"
-msgstr ""
+msgstr "รายละเอียดเอกสาร"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__reference
@@ -1163,7 +1169,7 @@ msgstr "ชื่อเอกสาร"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__page
 msgid "Document Page"
-msgstr ""
+msgstr "หน้าเอกสาร"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__template_id
@@ -1173,12 +1179,12 @@ msgstr "เทมเพลตเอกสาร"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.portal_my_home_sign
 msgid "Document(s) to sign"
-msgstr ""
+msgstr "เอกสารที่จะลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Document/Signer"
-msgstr ""
+msgstr "เอกสาร/ผู้ลงนาม"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_request_action
@@ -1197,7 +1203,7 @@ msgstr "ดาวน์โหลด"
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.xml:0
 #, python-format
 msgid "Download Certificate"
-msgstr ""
+msgstr "ดาวน์โหลดใบรับรอง"
 
 #. module: sign
 #. odoo-javascript
@@ -1206,14 +1212,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #, python-format
 msgid "Download Document"
-msgstr ""
+msgstr "ดาวน์โหลดเอกสาร"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_type_buttons.xml:0
 #, python-format
 msgid "Drag & Drop a field in the PDF"
-msgstr ""
+msgstr "ลากและวางฟิลด์ใน PDF"
 
 #. module: sign
 #. odoo-javascript
@@ -1243,19 +1249,19 @@ msgstr "ทำซ้ำ"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.js:0
 #, python-format
 msgid "Duplicated Template"
-msgstr ""
+msgstr "เทมเพลตที่ซ้ำกัน"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "ERROR: Invalid PDF file!"
-msgstr ""
+msgstr "ข้อผิดพลาด: ไฟล์ PDF ไม่ถูกต้อง!"
 
 #. module: sign
 #: model:ir.actions.report,name:sign.sign_report_green_savings_action
 msgid "Ecological Savings by using Electronic Signatures"
-msgstr ""
+msgstr "การประหยัดเชิงนิเวศน์โดยใช้ลายเซ็นอิเล็กทรอนิกส์"
 
 #. module: sign
 #. odoo-javascript
@@ -1267,12 +1273,12 @@ msgstr "แก้ไข"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Edit field types"
-msgstr ""
+msgstr "แก้ไขประเภทฟิลด์"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Edit selection values"
-msgstr ""
+msgstr "แก้ไขค่าที่เลือก"
 
 #. module: sign
 #. odoo-javascript
@@ -1298,7 +1304,7 @@ msgstr "หัวเรื่องอีเมล"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Email Verification"
-msgstr ""
+msgstr "การยืนยันอีเมล"
 
 #. module: sign
 #: model:sign.item.role,name:sign.sign_item_role_employee
@@ -1331,7 +1337,7 @@ msgstr "Error 404"
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "Existing sign items are not allowed to be changed"
-msgstr ""
+msgstr "รายการลายเซ็นที่มีอยู่ไม่ได้รับอนุญาตให้เปลี่ยนแปลง"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__request_state__expired
@@ -1357,7 +1363,7 @@ msgstr "รายการโปรดของ"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__favorited_ids
 msgid "Favorited Users"
-msgstr ""
+msgstr "ผู้ใช้ที่ชื่นชอบ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__name
@@ -1369,7 +1375,7 @@ msgstr "ชื่อฟิลด์"
 #: model:ir.ui.menu,name:sign.sign_item_type_menu
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Field Types"
-msgstr ""
+msgstr "ประเภทฟิลด์"
 
 #. module: sign
 #. odoo-javascript
@@ -1382,7 +1388,7 @@ msgstr "ฟิลด์"
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item
 msgid "Fields to be sign on Document"
-msgstr ""
+msgstr "ฟิลด์ที่จะลงนามในเอกสาร"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__datas
@@ -1394,7 +1400,7 @@ msgstr "เนื้อหาไฟล์ (base64)"
 #: code:addons/sign/static/src/views/hooks.js:0
 #, python-format
 msgid "File Error"
-msgstr ""
+msgstr "ข้อผิดพลาดของไฟล์"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__new_pdf
@@ -1411,7 +1417,7 @@ msgstr "ชื่อไฟล์"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #, python-format
 msgid "Filled by"
-msgstr ""
+msgstr "เติมโดย"
 
 #. module: sign
 #. odoo-javascript
@@ -1426,7 +1432,7 @@ msgstr "การตรวจสอบความถูกต้องครั
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #, python-format
 msgid "Follow the guide to sign the document."
-msgstr ""
+msgstr "ทำตามคำแนะนำเพื่อลงนามในเอกสาร"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_follower_ids
@@ -1464,22 +1470,22 @@ msgstr "บังคับให้ผู้ลงนามระบุตัว
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 #, python-format
 msgid "Frame"
-msgstr ""
+msgstr "กรอบ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__frame_has_hash
 msgid "Frame Has Hash"
-msgstr ""
+msgstr "เฟรมมีแฮช"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__frame_hash
 msgid "Frame Hash"
-msgstr ""
+msgstr "เฟรมแฮช"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__frame_value
 msgid "Frame Value"
-msgstr ""
+msgstr "ค่าเฟรม"
 
 #. module: sign
 #. odoo-python
@@ -1501,7 +1507,7 @@ msgstr "กิจกรรมในอนาคต"
 #: code:addons/sign/static/src/dialogs/encrypted_dialog.xml:0
 #, python-format
 msgid "Generate PDF"
-msgstr ""
+msgstr "สร้าง PDF"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -1511,22 +1517,22 @@ msgstr "ตำแหน่งทางภูมิศาสตร์"
 #. module: sign
 #: model:ir.ui.menu,name:sign.sign_report_green_savings
 msgid "Green Savings"
-msgstr ""
+msgstr "บัญชีเงินฝากออมทรัพย์"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "Green Savings Report"
-msgstr ""
+msgstr "รายงานบัญชีเงินฝากออมทรัพย์"
 
 #. module: sign
 #: model:ir.model,name:sign.model_report_sign_green_savings_report
 msgid "Green Savings Report model"
-msgstr ""
+msgstr "รูปแบบรายงานบัญชีเงินฝากออมทรัพย์"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 msgid "Green Savings Summary"
-msgstr ""
+msgstr "สรุปรายงานบัญชีเงินฝากออมทรัพย์"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -1546,7 +1552,7 @@ msgstr "การกำหนด HTTP"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__has_default_template
 msgid "Has Default Template"
-msgstr ""
+msgstr "มีเทมเพลตเริ่มต้น"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__has_message
@@ -1556,7 +1562,7 @@ msgstr "มีข้อความ"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__has_sign_requests
 msgid "Has Sign Requests"
-msgstr ""
+msgstr "มีคำขอลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__height
@@ -1574,7 +1580,7 @@ msgstr "สวัสดี"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_item_type__tip
 msgid "Hint displayed in the signing hint"
-msgstr ""
+msgstr "คำแนะนำที่แสดงในคำใบ้การลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
@@ -1584,17 +1590,17 @@ msgstr "โฮม"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 msgid "How are these results calculated?"
-msgstr ""
+msgstr "ผลลัพธ์เหล่านี้ถูกคำนวณอย่างไร?"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "How do we calculate?"
-msgstr ""
+msgstr "เราจะคำนวณอย่างไร?"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "I've got a total weight, and now?"
-msgstr ""
+msgstr "ฉันมีน้ำหนักรวมแล้ว แล้วตอนนี้ล่ะ?"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__id
@@ -1616,7 +1622,7 @@ msgstr "ไอดี"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -1626,7 +1632,7 @@ msgstr "ที่อยู่ IP"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__ip
 msgid "IP address of the visitor"
-msgstr ""
+msgstr "ที่อยู่ IP ของผู้เยี่ยมชม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__activity_exception_icon
@@ -1641,7 +1647,7 @@ msgstr "ไอคอนเพื่อระบุการยกเว้นก
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__module_sign_itsme
 msgid "Identify with itsme®"
-msgstr ""
+msgstr "ระบุตัวตนด้วย itsme®"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__message_needaction
@@ -1700,7 +1706,7 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #, python-format
 msgid "Ignore"
-msgstr ""
+msgstr "ไม่สนใจ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__ignored
@@ -1710,13 +1716,13 @@ msgstr "ละเว้น"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__in_progress_count
 msgid "In Progress Count"
-msgstr ""
+msgstr "จำนวนอยู่ระหว่างดำเนินการ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "In favorites, remove it"
-msgstr ""
+msgstr "ในรายการโปรด ลบออก"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__log_hash
@@ -1737,7 +1743,7 @@ msgstr "อักษรย่อ"
 #: model:sign.item.type,name:sign.sign_item_type_initial
 #: model:sign.item.type,placeholder:sign.sign_item_type_initial
 msgid "Initials"
-msgstr ""
+msgstr "อักษรย่อ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
@@ -1747,7 +1753,7 @@ msgstr "ระบุข้อกําหนดและเงื่อนไข
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__integrity
 msgid "Integrity of the Sign request"
-msgstr ""
+msgstr "ความสมบูรณ์ของคำขอลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_is_follower
@@ -1757,22 +1763,22 @@ msgstr "เป็นผู้ติดตาม"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__is_mail_sent
 msgid "Is Mail Sent"
-msgstr ""
+msgstr "เป็นจดหมายที่ส่งแล้ว"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__is_sharing
 msgid "Is Sharing"
-msgstr ""
+msgstr "คือการแชร์"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "Is Signing"
-msgstr ""
+msgstr "กำลังลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__is_user_signer
 msgid "Is User Signer"
-msgstr ""
+msgstr "เป็นผู้ลงนามของผู้ใช้"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -1787,7 +1793,7 @@ msgstr "John Smith"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__last_action_date
 msgid "Last Action Date"
-msgstr ""
+msgstr "วันที่ดำเนินการล่าสุด"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__write_uid
@@ -1826,7 +1832,7 @@ msgstr "อัปเดตครั้งล่าสุดเมื่อ"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__last_reminder
 msgid "Last reminder"
-msgstr ""
+msgstr "การแจ้งเตือนครั้งสุดท้าย"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -1851,14 +1857,14 @@ msgstr "ซ้าย"
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #, python-format
 msgid "Let's <b>prepare & sign</b> our first document."
-msgstr ""
+msgstr "มา<b>เตรียมและลงนาม</b>ในเอกสารฉบับแรกของเรากัน"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #, python-format
 msgid "Let's send the request by email."
-msgstr ""
+msgstr "ลองส่งคำขอทางอีเมล"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__redirect_url_text
@@ -1873,21 +1879,21 @@ msgstr "กิจกรรมที่เชื่อมโยง"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__log_date
 msgid "Log Date"
-msgstr ""
+msgstr "วันที่เข้าสู่ระบบ"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_log.py:0
 #, python-format
 msgid "Log history of sign requests cannot be deleted!"
-msgstr ""
+msgstr "ประวัติบันทึกของคำขอลงนามไม่สามารถลบได้!"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_log.py:0
 #, python-format
 msgid "Log history of sign requests cannot be modified!"
-msgstr ""
+msgstr "ประวัติบันทึกของคำขอลงนามไม่สามารถแก้ไขได้!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
@@ -1909,32 +1915,32 @@ msgstr "ลองจิจูด"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__mail_sent_order
 msgid "Mail Sent Order"
-msgstr ""
+msgstr "คำสั่งที่ส่งทางไปรษณีย์"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__update_mail
 msgid "Mail Update"
-msgstr ""
+msgstr "อัปเดตเมล"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "Malformed expression: %(exp)s"
-msgstr ""
+msgstr "ตัวสั่งงานที่มีรูปแบบไม่ถูกต้อง: %(exp)s"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__group_manage_template_access
 #: model:res.groups,name:sign.manage_template_access
 msgid "Manage template access"
-msgstr ""
+msgstr "จัดการการเข้าถึงเทมเพลต"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #, python-format
 msgid "Mandatory field"
-msgstr ""
+msgstr "ฟิลด์บังคับ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -1969,7 +1975,7 @@ msgstr "ข้อความ"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.encrypted_ask_password
 msgid "Missing Password"
-msgstr ""
+msgstr "รหัสผ่านหายไป"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__sms_number
@@ -1979,7 +1985,7 @@ msgstr "มือถือ"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Modify Template"
-msgstr ""
+msgstr "แก้ไขเทมเพลต"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__textarea
@@ -1991,7 +1997,7 @@ msgstr "ข้อความหลายบรรทัด"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_share_view_form
 msgid "Multiple Signature Requests"
-msgstr ""
+msgstr "คำขอลายเซ็นหลายรายการ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__my_activity_date_deadline
@@ -2023,12 +2029,12 @@ msgstr "เทมเพลตของฉัน"
 #: model:ir.actions.act_window,name:sign.sign_request_my_requests_action
 #: model:ir.ui.menu,name:sign.sign_request_my_requests
 msgid "My requests"
-msgstr ""
+msgstr "คำขอของฉัน"
 
 #. module: sign
 #: model:sign.template.tag,name:sign.sign_template_tag_2
 msgid "NDA"
-msgstr ""
+msgstr "NDA"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__name
@@ -2046,41 +2052,41 @@ msgstr "มีชื่ออยู่แล้ว!"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Name for the file"
-msgstr ""
+msgstr "ชื่อของไฟล์"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "Name of the file"
-msgstr ""
+msgstr "ชื่อของไฟล์"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #, python-format
 msgid "Nearly there, keep going!"
-msgstr ""
+msgstr "ใกล้แล้ว ลุยต่อ!"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__need_my_signature
 msgid "Need My Signature"
-msgstr ""
+msgstr "ต้องการลายเซ็นของฉัน"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/components/sign_request/PDF_iframe.js:0
 #, python-format
 msgid "Need a valid PDF to add signature fields!"
-msgstr ""
+msgstr "ต้องการ PDF ที่ถูกต้องเพื่อเพิ่มช่องลายเซ็น!"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
-msgstr ""
+msgstr "คำขอลายเซ็นใหม่"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__new_template
 msgid "New Template Name"
-msgstr ""
+msgstr "ชื่อเทมเพลตใหม่"
 
 #. module: sign
 #. odoo-python
@@ -2115,14 +2121,14 @@ msgstr "ประเภทกิจกรรมถัดไป"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
 #, python-format
 msgid "Next Document"
-msgstr ""
+msgstr "เอกสารถัดไป"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/next_direct_sign_dialog.xml:0
 #, python-format
 msgid "Next signatory ("
-msgstr ""
+msgstr "ผู้ลงนามคนต่อไป ("
 
 #. module: sign
 #. odoo-python
@@ -2134,19 +2140,19 @@ msgstr "ไม่มีไฟล์แนบมา"
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
 msgid "No document yet"
-msgstr ""
+msgstr "ยังไม่มีเอกสาร"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "No specified reason"
-msgstr ""
+msgstr "ไม่ระบุเหตุผล"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
 msgid "No template yet"
-msgstr ""
+msgstr "ยังไม่มีแบบ"
 
 #. module: sign
 #. odoo-python
@@ -2159,22 +2165,22 @@ msgstr "ไม่มี"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Not in favorites, add it"
-msgstr ""
+msgstr "ไม่อยู่ในรายการโปรด เพิ่มเลย"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Not in favorites, set it"
-msgstr ""
+msgstr "ไม่อยู่ในรายการโปรด กำหนดเลย"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_waiting_for_me_action
 msgid "Nothing to sign at the moment!"
-msgstr ""
+msgstr "ไม่มีอะไรจะเซ็นตอนนี้!"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_my_requests_action
 msgid "Nothing yet!"
-msgstr ""
+msgstr "ยังไม่มีอะไร!"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_needaction_counter
@@ -2184,17 +2190,17 @@ msgstr "จํานวนการดําเนินการ"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_send_request__reminder
 msgid "Number of day between two reminder"
-msgstr ""
+msgstr "จำนวนวันระหว่างการเตือนความจำสองครั้ง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Number of documents in progress for this template."
-msgstr ""
+msgstr "จำนวนเอกสารที่กำลังดำเนินการสำหรับเทมเพลตนี้"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Number of documents signed for this template."
-msgstr ""
+msgstr "จำนวนเอกสารที่ลงนามสำหรับเทมเพลตนี้"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_has_error_counter
@@ -2214,12 +2220,12 @@ msgstr "จํานวนข้อความที่มีข้อผิด
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
-msgstr ""
+msgstr "เลขหน้า"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "One can weighs 15 g"
-msgstr ""
+msgstr "หนึ่งกระป๋องมีน้ำหนัก 15 กรัม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2231,7 +2237,7 @@ msgstr "เชื้อเพลิงก๊าซหนึ่งลิตรจ
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "One or more selection items have no associated options"
-msgstr ""
+msgstr "รายการเลือกตั้งแต่หนึ่งรายการขึ้นไปไม่มีตัวเลือกที่เกี่ยวข้อง"
 
 #. module: sign
 #. odoo-python
@@ -2262,7 +2268,7 @@ msgstr "ลิงก์ที่เปิด"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "Operation successful"
-msgstr ""
+msgstr "การดำเนินงานประสบความสำเร็จ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_option__value
@@ -2272,7 +2278,7 @@ msgstr "ตัวเลือก"
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_option
 msgid "Option of a selection Field"
-msgstr ""
+msgstr "ตัวเลือกของฟิลด์การเลือก"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
@@ -2282,12 +2288,12 @@ msgstr "ตัวเลือกข้อความ..."
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_template__redirect_url
 msgid "Optional link for redirection after signature"
-msgstr ""
+msgstr "ลิงก์เสริมสำหรับการเปลี่ยนเส้นทางหลังจากลายเซ็น"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_template__redirect_url_text
 msgid "Optional text to display on the button link"
-msgstr ""
+msgstr "ข้อความเสริมที่จะแสดงบนลิงก์ของปุ่ม"
 
 #. module: sign
 #. odoo-javascript
@@ -2300,7 +2306,7 @@ msgstr "ตัวเลือก"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__original_template_id
 msgid "Original File"
-msgstr ""
+msgstr "ไฟล์ต้นฉบับ"
 
 #. module: sign
 #. odoo-javascript
@@ -2308,7 +2314,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.encrypted_ask_password
 #, python-format
 msgid "PDF is encrypted"
-msgstr ""
+msgstr "PDF ถูกเข้ารหัส"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -2325,7 +2331,7 @@ msgstr "พาร์ทเนอร์"
 #: code:addons/sign/static/src/dialogs/encrypted_dialog.js:0
 #, python-format
 msgid "Password is incorrect."
-msgstr ""
+msgstr "รหัสผ่านไม่ถูกต้อง"
 
 #. module: sign
 #: model:sign.item.type,name:sign.sign_item_type_phone
@@ -2354,14 +2360,14 @@ msgstr "ตัวอย่างข้อความ"
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "Please configure senders'(%s) email addresses"
-msgstr ""
+msgstr "โปรดกำหนดค่าที่อยู่อีเมลของผู้ส่ง (%s)"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 #, python-format
 msgid "Please select recipients for the following roles: %(roles)s"
-msgstr ""
+msgstr "โปรดเลือกผู้รับสำหรับบทบาทต่อไปนี้: %(roles)s"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__access_url
@@ -2371,12 +2377,12 @@ msgstr "พอทัลสำหรับเข้าถึง URL"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__posX
 msgid "Position X"
-msgstr ""
+msgstr "ตำแหน่ง X"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__posY
 msgid "Position Y"
-msgstr ""
+msgstr "ตำแหน่ง Y"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -2386,7 +2392,7 @@ msgstr "ตัวอย่าง"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Printed on"
-msgstr ""
+msgstr "พิมพ์บน"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__progress
@@ -2410,7 +2416,7 @@ msgstr "การให้คะแนน"
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 #, python-format
 msgid "Re-send SMS"
-msgstr ""
+msgstr "ส่ง SMS อีกครั้ง"
 
 #. module: sign
 #. odoo-javascript
@@ -2439,7 +2445,7 @@ msgstr "ปฏิเสธ"
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
 #, python-format
 msgid "Refuse Document"
-msgstr ""
+msgstr "เอกสารที่ปฏิเสธ"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_request__state__refused
@@ -2451,13 +2457,13 @@ msgstr "ปฏิเสธ"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__request_state__refused
 msgid "Refused Signature"
-msgstr ""
+msgstr "ลายเซ็นที่ถูกปฏิเสธ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "Refused on"
-msgstr ""
+msgstr "ปฏิเสธเมื่อ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__reminder
@@ -2473,7 +2479,7 @@ msgstr "รายงาน"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__request_item_infos
 msgid "Request Item Infos"
-msgstr ""
+msgstr "ขอข้อมูลรายการสินค้า"
 
 #. module: sign
 #. odoo-javascript
@@ -2489,7 +2495,7 @@ msgstr "คำขอลายเซ็น"
 #: code:addons/sign/wizard/sign_send_request.py:0
 #, python-format
 msgid "Request expiration date must be set in the future."
-msgstr ""
+msgstr "วันหมดอายุของคำขอจะต้องกำหนดไว้ในอนาคต"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_total
@@ -2515,14 +2521,14 @@ msgstr "ส่งซ้ำ"
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.js:0
 #, python-format
 msgid "Resend the invitation"
-msgstr ""
+msgstr "ส่งคำเชิญอีกครั้ง"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.js:0
 #, python-format
 msgid "Resent!"
-msgstr ""
+msgstr "ส่งอีกครั้งแล้ว!"
 
 #. module: sign
 #. odoo-javascript
@@ -2577,7 +2583,7 @@ msgstr "บทบาท"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_iframe.js:0
 #, python-format
 msgid "Rotate Clockwise"
-msgstr ""
+msgstr "หมุนตามเข็มนาฬิกา"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_has_sms_error
@@ -2594,7 +2600,7 @@ msgstr "ส่ง SMS แล้ว"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__sms_token
 msgid "SMS Token"
-msgstr ""
+msgstr "โทเค็น SMS"
 
 #. module: sign
 #: model:sign.template.tag,name:sign.sign_template_tag_3
@@ -2622,7 +2628,7 @@ msgstr "บันทึกแล้ว"
 #: code:addons/sign/controllers/portal.py:0
 #, python-format
 msgid "Search <span class=\"nolabel\"> (in Document)</span>"
-msgstr ""
+msgstr "ค้นหา <span class=\"nolabel\">(ในเอกสาร)</span>"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__access_token
@@ -2633,7 +2639,7 @@ msgstr "โทเค็นความปลอดภัย"
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_selection
 msgid "Select an option"
-msgstr ""
+msgstr "เลือกตัวเลือก"
 
 #. module: sign
 #. odoo-javascript
@@ -2656,7 +2662,7 @@ msgstr "การเลือก"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__option_ids
 msgid "Selection options"
-msgstr ""
+msgstr "ตัวเลือกการคัดเลือก"
 
 #. module: sign
 #. odoo-javascript
@@ -2680,24 +2686,24 @@ msgstr "ส่ง SMS"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__signer_id
 msgid "Send To"
-msgstr ""
+msgstr "ส่งไปที่"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
 msgid "Send a new link"
-msgstr ""
+msgstr "ส่งลิงก์ใหม่"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Send a reminder every"
-msgstr ""
+msgstr "ส่งการแจ้งเตือนทุกๆ"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.js:0
 #, python-format
 msgid "Send the invitation"
-msgstr ""
+msgstr "ส่งคำเชิญ"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_request__state__sent
@@ -2708,7 +2714,7 @@ msgstr "ส่งแล้ว"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_wait
 msgid "Sent Requests"
-msgstr ""
+msgstr "ส่งคำขอแล้ว"
 
 #. module: sign
 #. odoo-javascript
@@ -2735,14 +2741,14 @@ msgstr "แชร์"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_share_view_form
 msgid "Share & Close"
-msgstr ""
+msgstr "แชร์และปิด"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "Share Document by Link"
-msgstr ""
+msgstr "แชร์เอกสารตามลิงก์"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__share_link
@@ -2767,7 +2773,7 @@ msgstr "แสดงระเบียนทั้งหมดที่มีว
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Show standard terms & conditions on signature requests"
-msgstr ""
+msgstr "แสดงข้อกำหนดและเงื่อนไขมาตรฐานในการร้องขอลายเซ็น"
 
 #. module: sign
 #. odoo-javascript
@@ -2785,17 +2791,17 @@ msgstr "เพิ่ม"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__use_sign_terms
 msgid "Sign Default Terms & Conditions"
-msgstr ""
+msgstr "ลงนามในข้อกำหนดและเงื่อนไขเริ่มต้น"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_company__sign_terms
 msgid "Sign Default Terms and Conditions"
-msgstr ""
+msgstr "ลงนามในข้อกำหนดและเงื่อนไขเริ่มต้น"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_company__sign_terms_html
 msgid "Sign Default Terms and Conditions as a Web page"
-msgstr ""
+msgstr "ลงนามข้อกำหนดและเงื่อนไขเริ่มต้นเป็นเว็บเพจ"
 
 #. module: sign
 #. odoo-javascript
@@ -2807,7 +2813,7 @@ msgstr "เซ็นเอกสาร"
 #. module: sign
 #: model:ir.model,name:sign.model_sign_duplicate_template_pdf
 msgid "Sign Duplicate Template with new PDF"
-msgstr ""
+msgstr "ลงนามเทมเพลตที่ซ้ำกันด้วย PDF ใหม่"
 
 #. module: sign
 #. odoo-javascript
@@ -2815,7 +2821,7 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #, python-format
 msgid "Sign Next Document"
-msgstr ""
+msgstr "ลงนามในเอกสารถัดไป"
 
 #. module: sign
 #. odoo-javascript
@@ -2826,84 +2832,84 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
 #, python-format
 msgid "Sign Now"
-msgstr ""
+msgstr "เข้าสู่ระบบ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request_signer__mail_sent_order
 msgid "Sign Order"
-msgstr ""
+msgstr "สั่งลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__sign_request_id
 msgid "Sign Request"
-msgstr ""
+msgstr "คำขอการลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__sign_request_item_id
 msgid "Sign Request Item"
-msgstr ""
+msgstr "คำขอลายเซ็นสำหรับรายการ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request_signer__sign_send_request_id
 msgid "Sign Send Request"
-msgstr ""
+msgstr "ลงนามเพื่อส่งคำร้องขอ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Sign Settings"
-msgstr ""
+msgstr "การตั้งค่าลายเซ็น"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_template_tag
 msgid "Sign Template Tag"
-msgstr ""
+msgstr "แท็กเทมเพลตการลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__sign_terms
 msgid "Sign Terms & Conditions"
-msgstr ""
+msgstr "ลงนามในข้อกำหนดและเงื่อนไข"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__sign_terms_html
 msgid "Sign Terms & Conditions as a Web page"
-msgstr ""
+msgstr "ลงนามข้อกำหนดและเงื่อนไขเป็นเว็บเพจ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_company__sign_terms_type
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__sign_terms_type
 msgid "Sign Terms & Conditions format"
-msgstr ""
+msgstr "ลงนามในรูปแบบข้อกำหนดและเงื่อนไข"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #, python-format
 msgid "Sign Up for free"
-msgstr ""
+msgstr "ลงทะเบียนฟรี"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 #, python-format
 msgid "Sign all"
-msgstr ""
+msgstr "ลงนามทั้งหมด"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "Sign document"
-msgstr ""
+msgstr "ลงนามเอกสาร"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "Sign requests"
-msgstr ""
+msgstr "คำขอลงนาม"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_log
 msgid "Sign requests access history"
-msgstr ""
+msgstr "ลงนามขอประวัติการเข้าถึง"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_send_request
@@ -2913,7 +2919,7 @@ msgstr "เซ็นและร้องขอ"
 #. module: sign
 #: model:ir.model,name:sign.model_sign_send_request_signer
 msgid "Sign send request signer"
-msgstr ""
+msgstr "ลงนามส่งคำขอลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.deleted_sign_request
@@ -2933,17 +2939,17 @@ msgstr "ลงทะเบียน Odoo Sign เพื่อจัดการ�
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
 msgid "Sign: Send mail reminder"
-msgstr ""
+msgstr "ลงนาม: ส่งจดหมายเตือนความจำ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Signatory"
-msgstr ""
+msgstr "ผู้ลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Signatory's hash:"
-msgstr ""
+msgstr "แฮชของผู้ลงนาม:"
 
 #. module: sign
 #. odoo-javascript
@@ -2966,17 +2972,17 @@ msgstr "ลายเซ็น"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
 msgid "Signature Date"
-msgstr ""
+msgstr "วันที่ลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__sign_item_id
 msgid "Signature Item"
-msgstr ""
+msgstr "รายการลงนาม"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_item_option_action
 msgid "Signature Item Options"
-msgstr ""
+msgstr "ตัวเลือกรายการลายเซ็น"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_role
@@ -2986,23 +2992,23 @@ msgstr "รายการลายเซ็นของบุคคล"
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_item_role_action
 msgid "Signature Item Role"
-msgstr ""
+msgstr "หน้าที่รายการลายเซ็น"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_item_type_action
 #: model:ir.model,name:sign.model_sign_item_type
 msgid "Signature Item Type"
-msgstr ""
+msgstr "ประเภทรายการลายเซ็น"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_request_item_value
 msgid "Signature Item Value"
-msgstr ""
+msgstr "ค่ารายการลายเซ็น"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__sign_item_ids
 msgid "Signature Items"
-msgstr ""
+msgstr "รายการลงนาม"
 
 #. module: sign
 #. odoo-javascript
@@ -3020,7 +3026,7 @@ msgstr "คำร้องขอรายเซ็น"
 #: code:addons/sign/wizard/sign_send_request.py:0
 #, python-format
 msgid "Signature Request - %(file_name)s"
-msgstr ""
+msgstr "ขอลายเซ็น - %(file_name)s"
 
 #. module: sign
 #. odoo-python
@@ -3037,12 +3043,12 @@ msgstr "รายการคำขอลายเซ็น"
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_request_item_action
 msgid "Signature Request Items"
-msgstr ""
+msgstr "รายการคำขอลายเซ็น"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__sign_request_item_id
 msgid "Signature Request item"
-msgstr ""
+msgstr "รายการคำขอลายเซ็น"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__sign_request_ids
@@ -3052,7 +3058,7 @@ msgstr "คำร้องขอรายเซ็น"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__start_sign
 msgid "Signature Started"
-msgstr ""
+msgstr "เริ่มการลงนาม"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_template
@@ -3065,7 +3071,7 @@ msgstr "เทมเพลตลายเซ็น"
 #: code:addons/sign/static/src/components/sign_request/sign_items.xml:0
 #, python-format
 msgid "Signature configuration"
-msgstr ""
+msgstr "กำหนดค่าการลงนาม"
 
 #. module: sign
 #. odoo-python
@@ -3075,24 +3081,26 @@ msgid ""
 "Signature requested for template: %s\n"
 "Signatories: %s"
 msgstr ""
+"ขอลายเซ็นสำหรับเทมเพลต: %s\n"
+"ผู้ลงนาม: %s"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/res_partner.py:0
 #, python-format
 msgid "Signature(s)"
-msgstr ""
+msgstr "ลายเซ็น"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Signature:"
-msgstr ""
+msgstr "ลายเซ็น:"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.portal_my_home_menu_sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
 msgid "Signatures"
-msgstr ""
+msgstr "ลายเซ็น"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
@@ -3102,41 +3110,41 @@ msgstr "ลงชื่อแล้ว"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__signed_count
 msgid "Signed Count"
-msgstr ""
+msgstr "จำนวนที่ลงนามแล้ว"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Signed Documents"
-msgstr ""
+msgstr "เอกสารที่ลงนามแล้ว"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__signed_without_extra_auth
 msgid "Signed Without Extra Authentication"
-msgstr ""
+msgstr "ลงนามโดยไม่มีการรับรองความถูกต้องเพิ่มเติม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_completed
 msgid "Signed document"
-msgstr ""
+msgstr "เอกสารที่ลงนามแล้ว"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__signing_date
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "Signed on"
-msgstr ""
+msgstr "ลงนามแล้ว"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__partner_id
 msgid "Signer"
-msgstr ""
+msgstr "ผู้ลงนาม"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/fields/signer_x2many.js:0
 #, python-format
 msgid "Signer One 2 Many"
-msgstr ""
+msgstr "ผู้ลงนาม One 2 Many"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__request_item_ids
@@ -3144,24 +3152,24 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Signers"
-msgstr ""
+msgstr "ผู้ลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__signers_count
 msgid "Signers Count"
-msgstr ""
+msgstr "จำนวนผู้ลงนาม"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/portal.py:0
 #, python-format
 msgid "Signing Date"
-msgstr ""
+msgstr "วันที่ลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Signing Events"
-msgstr ""
+msgstr "การลงนามกิจกรรม"
 
 #. module: sign
 #. odoo-javascript
@@ -3179,21 +3187,21 @@ msgstr ""
 #: code:addons/sign/static/src/components/sign_request/signable_PDF_iframe.js:0
 #, python-format
 msgid "Some fields have still to be completed"
-msgstr ""
+msgstr "บางช่องยังต้องทำให้เสร็จ"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "Some required items are not filled"
-msgstr ""
+msgstr "ยังไม่ได้กรอกข้อมูลที่จำเป็นบางรายการ"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "Some unauthorised items are filled"
-msgstr ""
+msgstr "มีการกรอกรายการที่ไม่ได้รับอนุญาตบางรายการ"
 
 #. module: sign
 #. odoo-javascript
@@ -3216,12 +3224,12 @@ msgstr "ขออภัย มีข้อผิดพลาดเกิดข�
 #: code:addons/sign/static/src/dialogs/sign_refusal_dialog.js:0
 #, python-format
 msgid "Sorry, you cannot refuse this document"
-msgstr ""
+msgstr "ขออภัย คุณไม่สามารถปฏิเสธเอกสารนี้ได้"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__set_sign_order
 msgid "Specify Signing Order"
-msgstr ""
+msgstr "ระบุคำสั่งลงนาม"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_send_request__set_sign_order
@@ -3248,7 +3256,7 @@ msgstr "รัฐ"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__request_state
 msgid "State of the request on action log"
-msgstr ""
+msgstr "สถานะของคำขอในบันทึกการดำเนินการ"
 
 #. module: sign
 #. odoo-python
@@ -3276,7 +3284,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Stop Sharing"
-msgstr ""
+msgstr "หยุดการแชร์"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__subject
@@ -3340,24 +3348,24 @@ msgstr "เทมเพลต"
 #: code:addons/sign/static/src/views/hooks.js:0
 #, python-format
 msgid "Template %s"
-msgstr ""
+msgstr "เทมเพลต %s"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
 #, python-format
 msgid "Template Properties"
-msgstr ""
+msgstr "คุณสมบัติเทมเพลต"
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_template_tour_trigger_action
 msgid "Template Sample Contract.pdf trigger"
-msgstr ""
+msgstr "ทริกเกอร์ Template Sample Contract.pdf"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Template or Tag"
-msgstr ""
+msgstr "เทมเพลตหรือแท็ก"
 
 #. module: sign
 #. odoo-python
@@ -3375,12 +3383,12 @@ msgstr "เงื่อนไขและข้อกำหนด"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__res_company__sign_terms_type__html
 msgid "Terms as Web Page"
-msgstr ""
+msgstr "ข้อกำหนดเป็นหน้าเว็บ"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__res_company__sign_terms_type__plain
 msgid "Terms in Email"
-msgstr ""
+msgstr "ข้อกำหนดในอีเมล"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_res_company__sign_terms_type
@@ -3415,7 +3423,7 @@ msgstr "ขอบคุณ!"
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #, python-format
 msgid "Thank you! Your signature has been submitted."
-msgstr ""
+msgstr "ขอบคุณ! ลายเซ็นของคุณถูกส่งแล้ว"
 
 #. module: sign
 #. odoo-javascript
@@ -3455,7 +3463,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "The computation is based on the website"
-msgstr ""
+msgstr "การคำนวณจะขึ้นอยู่กับเว็บไซต์"
 
 #. module: sign
 #. odoo-python
@@ -3471,7 +3479,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_completed
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_not_enough_credits
 msgid "The document"
-msgstr ""
+msgstr "เอกสาร"
 
 #. module: sign
 #. odoo-python
@@ -3485,7 +3493,7 @@ msgstr "เอกสาร (%s) ถูกปฏิเสธโดยหนึ่
 #: code:addons/sign/static/src/dialogs/sign_refusal_dialog.js:0
 #, python-format
 msgid "The document has been refused"
-msgstr ""
+msgstr "เอกสารถูกปฏิเสธ"
 
 #. module: sign
 #. odoo-python
@@ -3529,7 +3537,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "The mail has been sent to contacts in copy: "
-msgstr ""
+msgstr "จดหมายถูกส่งไปยังผู้ติดต่อในรูปแบบสำเนา:"
 
 #. module: sign
 #. odoo-python
@@ -3550,45 +3558,45 @@ msgstr "แอปการเซ็นต้องการบทบาท %s �
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "The sign request has not been fully signed"
-msgstr ""
+msgstr "คำขอลงนามยังไม่ได้ลงนามโดยสมบูรณ์"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "The signature has been refused by %s(%s)"
-msgstr ""
+msgstr "ลายเซ็นถูกปฏิเสธโดย %s(%s)"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "The signature mail has been sent to: "
-msgstr ""
+msgstr "จดหมายสำหรับการลงนามได้ถูกส่งไปยัง:"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request_item__is_mail_sent
 msgid "The signature mail has been sent."
-msgstr ""
+msgstr "จดหมายลงนามถูกส่งไปแล้ว"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "The signature request has been edited by: %s."
-msgstr ""
+msgstr "คำขอลายเซ็นได้รับการแก้ไขโดย: %s"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "The signature request has been ignored"
-msgstr ""
+msgstr "คำขอลายเซ็นถูกละเว้น"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_action.js:0
 #, python-format
 msgid "The template doesn't exist anymore."
-msgstr ""
+msgstr "ไม่มีเทมเพลตนี้อีกต่อไป"
 
 #. module: sign
 #. odoo-python
@@ -3621,14 +3629,14 @@ msgstr "ไฟล์ที่อัปโหลดไม่ใช่ PDF ที�
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
 msgid "There are no signatures request."
-msgstr ""
+msgstr "ไม่มีการขอลายเซ็น"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #, python-format
 msgid "There are other documents waiting for your signature:"
-msgstr ""
+msgstr "มีเอกสารอื่นที่กำลังรอลายเซ็นของคุณ:"
 
 #. module: sign
 #. odoo-python
@@ -3662,7 +3670,7 @@ msgstr "ไฟล์เหล่านี้ไม่สามารถอ่า
 #: code:addons/sign/static/src/backend_components/template_alert_dialog/template_alert_dialog.xml:0
 #, python-format
 msgid "They will be removed from the uploaded files"
-msgstr ""
+msgstr "พวกเขาจะถูกลบออกจากไฟล์ที่อัปโหลด"
 
 #. module: sign
 #. odoo-python
@@ -3672,7 +3680,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "This function can only be called with sudo."
-msgstr ""
+msgstr "ฟังก์ชั่นนี้สามารถเรียกใช้ด้วย sudo เท่านั้น"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__reference
@@ -3683,21 +3691,21 @@ msgstr "นี่คือวิธีการตั้งชื่อเอก
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
 msgid "This link has expired."
-msgstr ""
+msgstr "ลิงค์นี้หมดอายุแล้ว"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "This sign request cannot be refused"
-msgstr ""
+msgstr "คำขอลงนามนี้ไม่สามารถปฏิเสธได้"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "This sign request cannot be signed"
-msgstr ""
+msgstr "คำขอลงนามนี้ไม่สามารถลงนามได้"
 
 #. module: sign
 #. odoo-python
@@ -3705,21 +3713,21 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "This sign request is not valid anymore"
-msgstr ""
+msgstr "คำขอลงนามนี้ไม่ถูกต้องอีกต่อไป"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "This sign request item cannot be filled"
-msgstr ""
+msgstr "รายการคำขอเข้าสู่ระบบนี้ไม่สามารถกรอกได้"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "This sign request item cannot be refused"
-msgstr ""
+msgstr "รายการคำขอเข้าสู่ระบบนี้ไม่สามารถปฏิเสธได้"
 
 #. module: sign
 #. odoo-python
@@ -3727,7 +3735,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "This sign request item cannot be signed"
-msgstr ""
+msgstr "รายการคำขอลงนามนี้ไม่สามารถลงนามได้"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -3746,7 +3754,7 @@ msgstr "ทิป"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_request_item__state__sent
 msgid "To Sign"
-msgstr ""
+msgstr "เพื่อลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -3758,7 +3766,7 @@ msgstr "เพื่อผลิตไม้ได้ 1,000 กิโลกร�
 #: code:addons/sign/controllers/portal.py:0
 #, python-format
 msgid "To sign"
-msgstr ""
+msgstr "เพื่อลงนาม"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -3779,14 +3787,14 @@ msgstr "ลองใช้งาน Odoo Sign"
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
 msgid "Try our sample document"
-msgstr ""
+msgstr "ลองใช้เอกสารตัวอย่างของเรา"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #, python-format
 msgid "Try out this sample contract."
-msgstr ""
+msgstr "ลองใช้สัญญาตัวอย่างนี้"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__type_id
@@ -3799,7 +3807,7 @@ msgstr "ประเภท"
 #: code:addons/sign/static/src/fields/signer_x2many.js:0
 #, python-format
 msgid "Type a name or email..."
-msgstr ""
+msgstr "พิมพ์ชื่อหรืออีเมล..."
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__activity_exception_decoration
@@ -3809,12 +3817,12 @@ msgstr "ประเภทกิจกรรมข้อยกเว้นบน
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_tag_view_form
 msgid "Type tag name here"
-msgstr ""
+msgstr "พิมพ์ชื่อแท็กที่นี่"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "UTC"
-msgstr ""
+msgstr "UTC"
 
 #. module: sign
 #. odoo-javascript
@@ -3837,7 +3845,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_role__auth_method__sms
 msgid "Unique Code via SMS"
-msgstr ""
+msgstr "รหัสเฉพาะผ่าน SMS"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__update
@@ -3849,7 +3857,7 @@ msgstr "อัปเดต"
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "Upload a PDF"
-msgstr ""
+msgstr "อัปโหลด PDF"
 
 #. module: sign
 #. odoo-javascript
@@ -3857,7 +3865,7 @@ msgstr ""
 #: code:addons/sign/static/src/views/common.xml:0
 #, python-format
 msgid "Upload a PDF & Sign"
-msgstr ""
+msgstr "อัปโหลด PDF และลงนาม"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
@@ -3867,21 +3875,21 @@ msgstr "อัปโหลดไฟล์ PDF หรือใช้เทมเ�
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
 msgid "Upload a PDF file to create your first template"
-msgstr ""
+msgstr "อัปโหลดไฟล์ PDF เพื่อสร้างเทมเพลตแรกของคุณ"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
 #, python-format
 msgid "Upload a PDF file to use as a template."
-msgstr ""
+msgstr "อัปโหลดไฟล์ PDF เพื่อใช้เป็นเทมเพลต"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/views/common.xml:0
 #, python-format
 msgid "Upload a PDF template"
-msgstr ""
+msgstr "อัปโหลดเทมเพลต PDF"
 
 #. module: sign
 #. odoo-javascript
@@ -3889,12 +3897,12 @@ msgstr ""
 #: code:addons/sign/static/src/views/common.xml:0
 #, python-format
 msgid "Upload a pdf that you want to sign directly"
-msgstr ""
+msgstr "อัปโหลดไฟล์ PDF ที่คุณต้องการลงนามโดยตรง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Use Layout"
-msgstr ""
+msgstr "ใช้เค้าโครง"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_tag_action
@@ -3904,7 +3912,7 @@ msgstr "ใช้แท็กเพื่อจัดการเทมเพล
 #. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_duplicate_template_with_pdf
 msgid "Use the layout of fields on a new PDF"
-msgstr ""
+msgstr "ใช้เค้าโครงของฟิลด์ใน PDF ใหม่"
 
 #. module: sign
 #: model:ir.model,name:sign.model_res_users
@@ -3920,7 +3928,7 @@ msgstr "โทเค็นผู้ใช้"
 #. module: sign
 #: model:res.groups,name:sign.group_sign_user
 msgid "User: Own Templates"
-msgstr ""
+msgstr "ผู้ใช้: เทมเพลตของตัวเอง"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__validity
@@ -3947,19 +3955,19 @@ msgstr "ตรวจสอบและส่ง"
 #: code:addons/sign/static/src/backend_components/sign_request/edit_while_signing_signable_pdf_iframe.js:0
 #, python-format
 msgid "Validate & the next signatory is “%s”"
-msgstr ""
+msgstr "ตรวจสอบและผู้ลงนามคนถัดไปคือ “%s”"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign._doc_sign
 msgid "Validate &amp; Send Completed Document"
-msgstr ""
+msgstr "ตรวจสอบ &amp; ส่งเอกสารที่เสร็จสมบูรณ์"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 #, python-format
 msgid "Validation Code"
-msgstr ""
+msgstr "รหัสตรวจสอบ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__sign_item_value_ids
@@ -3970,7 +3978,7 @@ msgstr "ค่า"
 #. module: sign
 #: model:ir.model.constraint,message:sign.constraint_sign_item_option_value_uniq
 msgid "Value already exists!"
-msgstr ""
+msgstr "มีค่าอยู่แล้ว!"
 
 #. module: sign
 #. odoo-javascript
@@ -3982,40 +3990,40 @@ msgstr "ตรวจสอบ"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "View Document"
-msgstr ""
+msgstr "ดูเอกสาร"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_refused
 msgid "View document"
-msgstr ""
+msgstr "ดูเอกสาร"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__open
 msgid "View/Download"
-msgstr ""
+msgstr "ดู/ดาวน์โหลด"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Viewed/downloaded by"
-msgstr ""
+msgstr "ดู/ดาวน์โหลดโดย"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "Waiting Signature"
-msgstr ""
+msgstr "กำลังรอการลงนาม"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_request_waiting_for_me_action
 #: model:ir.ui.menu,name:sign.sign_request_waiting_for_me
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Waiting for me"
-msgstr ""
+msgstr "กำลังรอฉันอยู่"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Waiting for others"
-msgstr ""
+msgstr "กำลังรอคนอื่นๆ"
 
 #. module: sign
 #. odoo-javascript
@@ -4028,7 +4036,7 @@ msgstr "คำเตือน"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.deleted_sign_request
 msgid "We couldn't find the signature request you're looking for!"
-msgstr ""
+msgstr "เราไม่พบคำขอลายเซ็นที่คุณกำลังมองหา!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -4081,19 +4089,19 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "What about those conversions I see?"
-msgstr ""
+msgstr "แล้ว Conversion เหล่านั้นที่ฉันเห็นล่ะ?"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
 msgid "Why am I seeing this?"
-msgstr ""
+msgstr "ทำไมฉันถึงเห็นสิ่งนี้?"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_refusal_dialog.xml:0
 #, python-format
 msgid "Why do you refuse to sign this document?"
-msgstr ""
+msgstr "ทำไมคุณถึงปฏิเสธที่จะลงนามในเอกสารนี้?"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__width
@@ -4110,7 +4118,7 @@ msgstr "เขียนอีเมลหรือค้นหาผู้ติ
 #: code:addons/sign/controllers/main.py:0
 #, python-format
 msgid "Wrong password"
-msgstr ""
+msgstr "รหัสผ่านไม่ถูกต้อง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -4156,7 +4164,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "You cannot reassign this signatory"
-msgstr ""
+msgstr "คุณไม่สามารถมอบหมายผู้ลงนามรายนี้ต่อได้"
 
 #. module: sign
 #. odoo-python
@@ -4181,12 +4189,12 @@ msgstr "คุณไม่สามารถเข้าถึงเอกสา
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
 msgid "You have less than 20 credits remaining for"
-msgstr ""
+msgstr "คุณมีเครดิตเหลือน้อยกว่า 20 เครดิตสำหรับ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_refused
 msgid "You have refused the document"
-msgstr ""
+msgstr "คุณได้ปฏิเสธเอกสาร"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
@@ -4200,7 +4208,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "You have until"
-msgstr ""
+msgstr "คุณมีเวลาจนถึง"
 
 #. module: sign
 #. odoo-python
@@ -4214,14 +4222,14 @@ msgstr "คุณต้องระบุผู้ลงนามหนึ่ง
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "You need to define a signatory"
-msgstr ""
+msgstr "คุณต้องกำหนดผู้ลงนาม"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "You should select at least one document to download."
-msgstr ""
+msgstr "คุณควรเลือกเอกสารที่จะดาวน์โหลดอย่างน้อยหนึ่งรายการ"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_my_requests_action
@@ -4235,14 +4243,14 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_waiting_for_me_action
 msgid "You will find documents waiting for your signature here."
-msgstr ""
+msgstr "คุณจะพบเอกสารที่รอลายเซ็นของคุณที่นี่"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #, python-format
 msgid "You will receive the final signed document by email."
-msgstr ""
+msgstr "คุณจะได้รับเอกสารลงนามขั้นสุดท้ายทางอีเมล"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
@@ -4253,19 +4261,19 @@ msgstr "คุณจะไม่ได้รับการแจ้งเตื
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
 msgid "You're one click away from automating your signature process!"
-msgstr ""
+msgstr "เพียงคลิกเดียวคุณก็จะทำให้ขั้นตอนการลงนามของคุณเป็นแบบอัตโนมัติ!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "Your Information"
-msgstr ""
+msgstr "ข้อมูลของคุณ"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "Your confirmation code is %s"
-msgstr ""
+msgstr "รหัสยืนยันของคุณคือ %s"
 
 #. module: sign
 #. odoo-javascript
@@ -4273,7 +4281,7 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/public_signer_dialog.xml:0
 #, python-format
 msgid "Your email"
-msgstr ""
+msgstr "อีเมลของคุณ"
 
 #. module: sign
 #. odoo-javascript
@@ -4299,7 +4307,7 @@ msgstr "ชื่อของคุณ"
 #: code:addons/sign/static/src/dialogs/next_direct_sign_dialog.xml:0
 #, python-format
 msgid "Your signature has been saved. Next signatory is"
-msgstr ""
+msgstr "บันทึกลายเซ็นของคุณแล้ว ผู้ลงนามรายต่อไปคือ"
 
 #. module: sign
 #. odoo-javascript
@@ -4319,12 +4327,12 @@ msgstr "และ"
 #: code:addons/sign/static/src/backend_components/template_alert_dialog/template_alert_dialog.xml:0
 #, python-format
 msgid "and the process will continue"
-msgstr ""
+msgstr "และขั้นตอนจะดำเนินต่อไป"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "and:"
-msgstr ""
+msgstr "และ:"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
@@ -4334,7 +4342,7 @@ msgstr "ขั้นตอนการรับรองความถูกต
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
 msgid "authentication. The"
-msgstr ""
+msgstr "การรับรองความถูกต้อง"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_not_enough_credits
@@ -4348,7 +4356,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "click here."
-msgstr ""
+msgstr "คลิกที่นี่"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
@@ -4394,37 +4402,37 @@ msgstr "เช่น ข้อตกลงที่ไม่เปิดเผ�
 #: model:sign.item.type,tip:sign.sign_item_type_phone
 #: model:sign.item.type,tip:sign.sign_item_type_text
 msgid "fill in"
-msgstr ""
+msgstr "กรอก"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_completed
 msgid "has been completed and signed by"
-msgstr ""
+msgstr "เสร็จสมบูรณ์และลงนามโดย"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_completed
 msgid "has been edited, completed and signed by"
-msgstr ""
+msgstr "ได้รับการแก้ไข เสร็จสมบูรณ์ และลงนามโดย"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_not_enough_credits
 msgid "has been signed by"
-msgstr ""
+msgstr "ได้รับการลงนามโดย"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "https://c.environmentalpaper.org/"
-msgstr ""
+msgstr "https://c.environmentalpaper.org/"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ip"
-msgstr ""
+msgstr "ip"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "john@example.com"
-msgstr ""
+msgstr "john@example.com"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el
@@ -4435,7 +4443,7 @@ msgstr "ถูกใจ"
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_initial
 msgid "mark it"
-msgstr ""
+msgstr "ทำเครื่องหมายไว้"
 
 #. module: sign
 #. odoo-javascript
@@ -4461,17 +4469,17 @@ msgstr "ลงนาม"
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_signature
 msgid "sign it"
-msgstr ""
+msgstr "ลงชื่อ"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message
 msgid "sign.message"
-msgstr ""
+msgstr "sign.message"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_cc
 msgid "sign.message_cc"
-msgstr ""
+msgstr "sign.message_cc"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -4483,12 +4491,12 @@ msgstr "แท็ก"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.xml:0
 #, python-format
 msgid "this template to modify it."
-msgstr ""
+msgstr "เทมเพลตนี้เพื่อแก้ไข"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "to sign the document."
-msgstr ""
+msgstr "เพื่อลงนามในเอกสาร"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -4503,21 +4511,21 @@ msgstr "เรามีรายการปริมาณการใช้ก
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_not_enough_credits
 msgid "without the requested extra-authentification step ("
-msgstr ""
+msgstr "โดยไม่มีขั้นตอนการยืนยันตัวตนเพิ่มเติมตามที่ร้องขอ ("
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_completed
 msgid "you"
-msgstr ""
+msgstr "คุณ"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el_pdf
 msgid "{{green_report_el_title}}"
-msgstr ""
+msgstr "{{green_report_el_title}}"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el_pdf
 msgid "{{green_report_el_title}} Summary"
-msgstr ""
+msgstr "{{green_report_el_title}} สรุป"

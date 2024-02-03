@@ -3,17 +3,17 @@
 # 	* stock_barcode_mrp
 # 
 # Translators:
-# Jolien De Paepe, 2023
 # Wil Odoo, 2023
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
+# Jolien De Paepe, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-23 16:33+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2023\n"
+"Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -121,6 +121,13 @@ msgstr "Barcode PO klant actie"
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "Barcode Nomenclature"
 msgstr "Barcode nomenclatuur"
+
+#. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "Cancel Manufacturing Order"
+msgstr "Annuleer productieorder"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -277,6 +284,14 @@ msgid "Product Variant"
 msgstr "Productvariant"
 
 #. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "Product not Allowed"
+msgstr "Niet toegestaan product"
+
+#. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_mrp_production
 msgid "Production Order"
 msgstr "Productieorder"
@@ -339,6 +354,13 @@ msgstr "Bronlocatie"
 #: model:ir.model,name:stock_barcode_mrp.model_stock_move
 msgid "Stock Move"
 msgstr "Voorraadverplaatsing"
+
+#. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "The Manufacturing Order has been cancelled"
+msgstr "De productieorder is geannuleerd"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -405,3 +427,12 @@ msgid ""
 msgstr ""
 "Indien geactiveerd, wordt de registratie van het verbruik voor dat onderdeel uitsluitend handmatig geregistreerd.\n"
 "Indien niet geactiveerd en een van de onderdelenverbruik wordt handmatig op de fabricageorder bewerkt, neemt Odoo ook handmatig verbruik aan."
+
+#. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "You can't add the final product of a MO as a byproduct."
+msgstr ""
+"Je kan het eindproduct van een productieorder niet als bijproduct toevoegen."

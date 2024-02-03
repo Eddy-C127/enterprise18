@@ -30,34 +30,34 @@ msgstr "%s (สำเนา)"
 #. module: planning
 #: model:ir.actions.report,print_report_name:planning.report_planning_slot
 msgid "'Planning'"
-msgstr ""
+msgstr "'การวางแผน'"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "(%s days span)"
-msgstr ""
+msgstr "(%s ช่วงวัน)"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid ".&amp;nbsp;"
-msgstr ""
+msgstr ".&amp;nbsp;"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "01/01/2023 5:00 PM"
-msgstr ""
+msgstr "01/01/2023 17:00 น"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "01/01/2023 9:00 AM"
-msgstr ""
+msgstr "01/01/2023 09:00 น"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "04:00"
-msgstr ""
+msgstr "04:00"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -77,7 +77,7 @@ msgstr "12:00"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "16:00"
-msgstr ""
+msgstr "16:00"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
@@ -105,7 +105,7 @@ msgstr ""
 #. module: planning
 #: model_terms:digest.tip,tip_description:planning.digest_tip_planning_0
 msgid "<b class=\"tip_title\">Tip: Record your planning faster</b>"
-msgstr ""
+msgstr "<b class=\"tip_title\">เคล็ดลับ: บันทึกการวางแผนของคุณได้เร็วขึ้น</b>"
 
 #. module: planning
 #. odoo-javascript
@@ -113,6 +113,7 @@ msgstr ""
 #, python-format
 msgid "<b>Congratulations!</b></br> You are now a master of planning."
 msgstr ""
+"<b>ขอแสดงความยินดี!</b></br> ตอนนี้คุณเป็นผู้เชี่ยวชาญด้านการวางแผนแล้ว"
 
 #. module: planning
 #. odoo-javascript
@@ -131,7 +132,7 @@ msgstr ""
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
 msgid "<b>Publish & send</b> your employee's planning."
-msgstr ""
+msgstr "<b>เผยแพร่และส่ง</b>การวางแผนของพนักงานของคุณ"
 
 #. module: planning
 #: model:mail.template,body_html:planning.email_template_shift_switch_email
@@ -425,7 +426,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
 msgid "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Hours\" title=\"Hours\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o\" role=\"รูปภาพ\" aria-label=\"ชั่วโมง\" title=\"ชั่วโมง\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
@@ -433,6 +434,8 @@ msgid ""
 "<i class=\"fa fa-envelope-o\" title=\"Mail\" role=\"img\" style=\"padding-"
 "right: 2px\"/>"
 msgstr ""
+"<i class=\"fa fa-envelope-o\" title=\"จดหมาย\" role=\"รูปภาพ\" "
+"style=\"padding-right: 2px\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -458,11 +461,13 @@ msgid ""
 "<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" "
 "title=\"Arrow\"/>"
 msgstr ""
+"<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"ไอคอนลูกศร\" "
+"title=\"ลูกศร\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid "<i class=\"fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-long-arrow-right\" aria-label=\"ไอคอนลูกศร\" title=\"ลูกศร\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
@@ -473,21 +478,25 @@ msgstr "<i class=\"fa fa-long-arrow-right\" title=\"ลูกศร\"/>"
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
 msgid "<i class=\"fa fa-phone\" title=\"Phone\" role=\"img\" style=\"padding-right: 2px\"/>"
 msgstr ""
+"<i class=\"fa fa-phone\" title=\"โทรศัพท์\" role=\"รูปภาพ\" style=\"padding-"
+"right: 2px\"/>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "<i class=\"fa small fa-minus me-1\"></i>Bartender"
-msgstr ""
+msgstr "<i class=\"fa small fa-minus me-1\"></i>บาร์เทนเดอร์"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "<i class=\"fa small fa-minus me-1\"></i>Waiter"
-msgstr ""
+msgstr "<i class=\"fa small fa-minus me-1\"></i>พนักงานเสิร์ฟ"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
 msgid "<i class=\"me-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
 msgstr ""
+"<i class=\"me-1 fa fa-clock-o\" role=\"รูปภาพ\" aria-label=\"วันที่\" "
+"title=\"วันที่\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -509,16 +518,18 @@ msgid ""
 "<span class=\"align-middle\" invisible=\"overlap_slot_count == "
 "0\">conflict.</span>"
 msgstr ""
+"<span class=\"align-middle\" invisible=\"overlap_slot_count == "
+"0\">ขัดแย้ง</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "<span class=\"ms-0 me-4\">Edit</span>"
-msgstr ""
+msgstr "<span class=\"ms-0 me-4\">แก้ไข</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
-msgstr ""
+msgstr "<span class=\"ms-2 flex-shrink-1\"> ชั่วโมงทำงาน</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -526,6 +537,8 @@ msgid ""
 "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
 "mb-1\">04:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">04:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -533,6 +546,8 @@ msgid ""
 "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
 "mb-1\">12:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">12:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -540,6 +555,8 @@ msgid ""
 "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
 "mb-1\">16:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">16:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -547,6 +564,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
 "z-index-1\">04:00</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-index-1\">04:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -554,6 +573,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
 "z-index-1\">08:00</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-index-1\">08:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -561,6 +582,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
 "z-index-1\">12:00</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-index-1\">12:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -577,6 +600,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM "
 "(4h)</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">13.00 - 17.00 น. (4 "
+"ชม)</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -602,6 +627,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM "
 "(4h)</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">8.00 - 12.00 น. (4 "
+"ชม.)</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -622,17 +649,19 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "<span>Doris Cole <span class=\"text-muted\">(Bartender)</span></span>"
-msgstr ""
+msgstr "<span>Doris Cole <span class=\"text-muted\">(บาร์เทนเดอร์)</span></span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "<span>Eli Lambert <span class=\"text-muted\">(Waiter)</span></span>"
 msgstr ""
+"<span>Eli Lambert <span class=\"text-muted\">(พนักงานเสิร์ฟ)</span></span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "<span>Jeffrey Kelly <span class=\"text-muted\">(Bartender)</span></span>"
 msgstr ""
+"<span>Jeffrey Kelly <span class=\"text-muted\">(บาร์เทนเดอร์)</span></span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -645,12 +674,12 @@ msgstr "<span>พนักงานที่ได้รับมอบหมา
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "<span>months ahead</span>"
-msgstr ""
+msgstr "<span> เดือนข้างหน้า</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 msgid "<strong>Allocated Time — </strong>"
-msgstr ""
+msgstr "<strong>เวลาที่จัดสรร — </strong>"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
@@ -669,22 +698,22 @@ msgstr "เปิดใช้งาน"
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.js:0
 #, python-format
 msgid "Add Shift"
-msgstr ""
+msgstr "เพิ่มกะงาน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
 msgid "Additional message"
-msgstr ""
+msgstr "ข้อความเพิ่มเติม"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__note
 msgid "Additional message displayed in the email sent to employees"
-msgstr ""
+msgstr "ข้อความเพิ่มเติมที่แสดงในอีเมลที่ส่งถึงพนักงาน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "Additional note sent to the employee"
-msgstr ""
+msgstr "บันทึกเพิ่มเติมส่งถึงพนักงาน"
 
 #. module: planning
 #: model:res.groups,name:planning.group_planning_manager
@@ -705,7 +734,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__all
 msgid "All shifts"
-msgstr ""
+msgstr "กะงานทั้งหมด"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
@@ -722,7 +751,7 @@ msgstr "จัดสรรชั่วโมง"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Allocated Percentage"
-msgstr ""
+msgstr "เปอร์เซ็นต์ที่จัดสรร"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_hours
@@ -733,17 +762,17 @@ msgstr "เวลาที่ถูกจัดสรร"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_percentage
 msgid "Allocated Time %"
-msgstr ""
+msgstr "เวลาที่จัดสรร %"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__allocated_percentage
 msgid "Allocated Time (%)"
-msgstr ""
+msgstr "เวลาที่จัดสรร (%)"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_allocated_hours_positive
 msgid "Allocated hours and allocated time percentage cannot be negative."
-msgstr ""
+msgstr "ชั่วโมงที่จัดสรรและเปอร์เซ็นต์เวลาที่ปันส่วนไม่สามารถเป็นค่าลบได้"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocation_type
@@ -753,12 +782,12 @@ msgstr "ประเภทการจัดสรร"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allow_template_creation
 msgid "Allow Template Creation"
-msgstr ""
+msgstr "อนุญาตให้สร้างเทมเพลต"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_allow_self_unassign
 msgid "Allow Unassignment"
-msgstr ""
+msgstr "อนุญาตให้ยกเลิกการมอบหมาย"
 
 #. module: planning
 #. odoo-python
@@ -801,7 +830,7 @@ msgstr ""
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 #, python-format
 msgid "Are you sure you want to delete this shift?"
-msgstr ""
+msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบกะงานนี้"
 
 #. module: planning
 #. odoo-python
@@ -818,12 +847,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "Ask To Switch"
-msgstr ""
+msgstr "ขอให้เปลี่ยน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Ask to Switch"
-msgstr ""
+msgstr "ขอให้เปลี่ยน"
 
 #. module: planning
 #. odoo-javascript
@@ -851,7 +880,7 @@ msgstr "ผู้ได้รับมอบหมาย"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #, python-format
 msgid "Auto Plan"
-msgstr ""
+msgstr "แผนอัตโนมัติ"
 
 #. module: planning
 #. odoo-javascript
@@ -859,7 +888,7 @@ msgstr ""
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
 #, python-format
 msgid "Automatically plan open shifts and sales orders"
-msgstr ""
+msgstr "วางแผนกะงานที่เปิดและใบสั่งขายโดยอัตโนมัติ"
 
 #. module: planning
 #. odoo-javascript
@@ -876,7 +905,7 @@ msgstr "อวตาร 128"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Bartender"
-msgstr ""
+msgstr "บาร์เทนเดอร์"
 
 #. module: planning
 #: model:ir.model,name:planning.model_hr_employee_base
@@ -886,29 +915,29 @@ msgstr "พนักงานทั่วไป"
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_schedule_by_resource
 msgid "By Resource"
-msgstr ""
+msgstr "ตามทรัพยากร"
 
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_schedule_by_role
 msgid "By Role"
-msgstr ""
+msgstr "ตามหน้าที่"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "CANCEL SWITCH"
-msgstr ""
+msgstr "ยกเลิกการสลับ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_allow_self_unassign
 msgid "Can Employee Un-Assign Themselves?"
-msgstr ""
+msgstr "พนักงานสามารถยกเลิกการมอบหมายด้วยตนเองได้หรือไม่?"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "Cancel Switch"
-msgstr ""
+msgstr "ยกเลิกการสลับ"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
@@ -925,7 +954,7 @@ msgstr "สี"
 #. module: planning
 #: model:planning.role,name:planning.planning_role_cm
 msgid "Community Manager"
-msgstr ""
+msgstr "ผู้จัดการคอมมูนิตี้"
 
 #. module: planning
 #: model:ir.model,name:planning.model_res_company
@@ -963,19 +992,19 @@ msgstr "การกำหนดค่า"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__confirm_delete
 msgid "Confirm Slots Deletion"
-msgstr ""
+msgstr "ยืนยันการลบสล็อต"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__conflicting_slot_ids
 msgid "Conflicting Slot"
-msgstr ""
+msgstr "สล็อตที่ขัดแย้งกัน"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #, python-format
 msgid "Copy previous"
-msgstr ""
+msgstr "คัดลอกก่อนหน้า"
 
 #. module: planning
 #. odoo-javascript
@@ -984,12 +1013,12 @@ msgstr ""
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
 #, python-format
 msgid "Copy previous week"
-msgstr ""
+msgstr "คัดลอกเมื่อสัปดาห์ก่อน"
 
 #. module: planning
 #: model:planning.role,name:planning.planning_role_crane
 msgid "Crane"
-msgstr ""
+msgstr "เครน"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
@@ -1040,7 +1069,7 @@ msgstr "วัน"
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Days before shift for unassignment"
-msgstr ""
+msgstr "วันก่อนกะงานเพื่อยกเลิกการมอบหมายงาน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1050,7 +1079,7 @@ msgstr "วันครบกำหนด"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__unassign_deadline
 msgid "Deadline for unassignment"
-msgstr ""
+msgstr "กำหนดเวลาสำหรับการยกเลิกการมอบหมาย"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_planning__self_unassign_days_before
@@ -1058,18 +1087,18 @@ msgstr ""
 #: model:ir.model.fields,help:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,help:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Deadline in days for shift unassignment"
-msgstr ""
+msgstr "กำหนดเวลาในหน่วยวันสำหรับการยกเลิกการกำหนดกะงาน"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_hr_employee__default_planning_role_id
 #: model:ir.model.fields,field_description:planning.field_resource_resource__default_role_id
 msgid "Default Role"
-msgstr ""
+msgstr "หน้าที่เริ่มต้น"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
 msgid "Default Roles"
-msgstr ""
+msgstr "หน้าที่เริ่มต้น"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
@@ -1115,7 +1144,7 @@ msgstr "ลบ"
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.js:0
 #, python-format
 msgid "Delete Recurring Shift"
-msgstr ""
+msgstr "ลบกะงานที่เกิดซ้ำ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__department_id
@@ -1132,7 +1161,7 @@ msgstr "ตัวช่วยการออกกงาน"
 #. module: planning
 #: model:planning.role,name:planning.planning_role_developer
 msgid "Developer"
-msgstr ""
+msgstr "นักพัฒนา"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
@@ -1155,12 +1184,12 @@ msgstr "แสดงชื่อ"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "Distribute your material resources across projects and sales orders."
-msgstr ""
+msgstr "กระจายทรัพยากรวัสดุของคุณไปยังโปรเจ็กต์และใบสั่งขาย"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Doris Cole (Bartender)"
-msgstr ""
+msgstr "Doris Cole (บาร์เทนเดอร์)"
 
 #. module: planning
 #. odoo-javascript
@@ -1191,7 +1220,7 @@ msgstr "ระยะเวลา"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration_days
 msgid "Duration Days"
-msgstr ""
+msgstr "ระยะเวลาของวัน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
@@ -1202,7 +1231,7 @@ msgstr "แก้ไข"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Eli Lambert (Waiter)"
-msgstr ""
+msgstr "Eli Lambert (พนักงานเสิร์ฟ)"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_shift_switch_email
@@ -1215,7 +1244,7 @@ msgstr ""
 #. module: planning
 #: model:mail.template,description:planning.email_template_slot_single
 msgid "Email sent automatically when publishing a shift"
-msgstr ""
+msgstr "ส่งอีเมลโดยอัตโนมัติเมื่อมีการเผยแพร่กะงาน"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_planning_planning
@@ -1251,12 +1280,12 @@ msgstr "พนักงานที่จะได้รับการวาง
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
 msgid "Employees with no Work Email"
-msgstr ""
+msgstr "พนักงานที่ไม่มีอีเมลที่ทำงาน"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__employees_no_email
 msgid "Employees without email"
-msgstr ""
+msgstr "พนักงานที่ไม่มีอีเมล"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
@@ -1273,12 +1302,12 @@ msgstr "วันที่สิ้นสุด"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__end_time
 msgid "End Hour"
-msgstr ""
+msgstr "ชั่วโมงสิ้นสุด"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_hr_employee_employee_token_unique
 msgid "Error: each employee token must be unique"
-msgstr ""
+msgstr "ข้อผิดพลาด: โทเค็นของพนักงานแต่ละคนต้องไม่ซ้ำกัน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -1290,12 +1319,12 @@ msgstr "ทุก"
 #: code:addons/planning/models/planning_recurrency.py:0
 #, python-format
 msgid "Every %s week(s) until %s"
-msgstr ""
+msgstr "ทุก %s สัปดาห์ จนถึง %s"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__note
 msgid "Extra Message"
-msgstr ""
+msgstr "ข้อความเสริม"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_my_calendar
@@ -1309,12 +1338,12 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Fixed Hours"
-msgstr ""
+msgstr "ชั่วโมงคงที่"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Flexible Hours"
-msgstr ""
+msgstr "ชั่วโมงที่ยืดหยุ่น"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__allocation_type__forecast
@@ -1332,17 +1361,17 @@ msgstr "ตลอดไป"
 #: code:addons/planning/models/planning_recurrency.py:0
 #, python-format
 msgid "Forever, every %s week(s)"
-msgstr ""
+msgstr "ตลอดไป ทุก %s สัปดาห์"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Generate shifts"
-msgstr ""
+msgstr "สร้างกะงาน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.brand_promotion
 msgid "Give depth to your"
-msgstr ""
+msgstr "มอบข้อมูลเชิงลึกให้กับ"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
@@ -1356,7 +1385,7 @@ msgstr "กลุ่มโดย"
 #: model:ir.model.fields,field_description:planning.field_hr_employee_base__has_slots
 #: model:ir.model.fields,field_description:planning.field_hr_employee_public__has_slots
 msgid "Has Slots"
-msgstr ""
+msgstr "มีสล็อต"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__request_to_switch
@@ -1381,19 +1410,19 @@ msgstr "มนุษย์"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "I Am Unavailable"
-msgstr ""
+msgstr "ฉันไม่ว่าง"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "I Take It"
-msgstr ""
+msgstr "ฉันรับมัน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "I am unavailable"
-msgstr ""
+msgstr "ฉันไม่ว่าง"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__id
@@ -1428,27 +1457,27 @@ msgstr "หากคุณพอใจกับการวางแผน ค�
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__include_unassigned
 msgid "Include Open Shifts"
-msgstr ""
+msgstr "รวมกะงานที่เปิด"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__include_unassigned
 msgid "Includes Open Shifts"
-msgstr ""
+msgstr "รวมกะงานที่เปิด"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_hatched
 msgid "Is Hatched"
-msgstr ""
+msgstr "กำลังแยกออกมา"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_assigned_to_me
 msgid "Is This Shift Assigned To The Current User"
-msgstr ""
+msgstr "การเปลี่ยนแปลงนี้ถูกกำหนดให้กับผู้ใช้ปัจจุบันหรือไม่"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_past
 msgid "Is This Shift In The Past?"
-msgstr ""
+msgstr "การเปลี่ยนแปลงกะงานนี้เกิดขึ้นในอดีตหรือไม่?"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_users_role
@@ -1458,12 +1487,12 @@ msgstr "บทบาทกะงานเป็นหนึ่งในบทบ
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_unassign_deadline_passed
 msgid "Is unassignement deadline not past"
-msgstr ""
+msgstr "ไม่ผ่านกำหนดเวลาการมอบหมายงาน"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Jeffrey Kelly (Bartender)"
-msgstr ""
+msgstr "Jeffrey Kelly (บาร์เทนเดอร์)"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__job_title
@@ -1475,7 +1504,7 @@ msgstr "ชื่อตำแหน่งงาน"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__last_generated_end_datetime
 msgid "Last Generated End Date"
-msgstr ""
+msgstr "วันสิ้นสุดที่สร้างล่าสุด"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__write_uid
@@ -1508,12 +1537,12 @@ msgstr "Legend"
 #: model:ir.model.fields,field_description:planning.field_planning_planning__allow_self_unassign
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allow_self_unassign
 msgid "Let Employee Unassign Themselves"
-msgstr ""
+msgstr "ให้พนักงานยกเลิกการมอบหมายด้วยตนเอง"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Let employees unassign themselves from shifts"
-msgstr ""
+msgstr "ให้พนักงานยกเลิกการมอบหมายตนเองจากกะงาน"
 
 #. module: planning
 #. odoo-javascript
@@ -1531,7 +1560,7 @@ msgstr ""
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
 msgid "Let's start managing your employees' schedule!"
-msgstr ""
+msgstr "มาเริ่มจัดการตารางงานของพนักงานกันเถอะ!"
 
 #. module: planning
 #. odoo-javascript
@@ -1543,7 +1572,7 @@ msgstr "รายการ"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_shift_template
 msgid "Make encoding shifts easy with templates."
-msgstr ""
+msgstr "ทำให้การเปลี่ยนแปลงการเข้ารหัสเป็นเรื่องง่ายด้วยเทมเพลต"
 
 #. module: planning
 #: model:planning.role,name:planning.planning_role_management
@@ -1583,12 +1612,12 @@ msgstr "วัสดุ"
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__publication_warning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__publication_warning
 msgid "Modified Since Last Publication"
-msgstr ""
+msgstr "แก้ไขตั้งแต่การตีพิมพ์ครั้งล่าสุด"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Monday, 13"
-msgstr ""
+msgstr "วันจันทร์ที่ 13"
 
 #. module: planning
 #. odoo-javascript
@@ -1614,19 +1643,19 @@ msgstr "แผนกของฉัน"
 #: model:ir.actions.act_window,name:planning.planning_action_open_shift
 #: model:ir.ui.menu,name:planning.planning_menu_my_planning
 msgid "My Planning"
-msgstr ""
+msgstr "การวางแผนของฉัน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Roles"
-msgstr ""
+msgstr "หน้าที่ของฉัน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Shifts"
-msgstr ""
+msgstr "กะงานของฉัน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
@@ -1644,19 +1673,19 @@ msgstr "ชื่อ"
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
 #, python-format
 msgid "New Shift"
-msgstr ""
+msgstr "กะงานใหม่"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 #, python-format
 msgid "No Email Address For Some Employees"
-msgstr ""
+msgstr "ไม่มีที่อยู่อีเมลสำหรับพนักงานบางคน"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_number
 msgid "No Of Repetitions of the plannings"
-msgstr ""
+msgstr "ไม่มีการทำซ้ำของการวางแผน"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
@@ -1666,17 +1695,17 @@ msgstr "ยังไม่มีข้อมูล!"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "No material resources found. Let's create one!"
-msgstr ""
+msgstr "ไม่พบทรัพยากรวัสดุ มาสร้างกันเถอะ!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "No roles found. Let's create one!"
-msgstr ""
+msgstr "ไม่พบบทบาท มาสร้างกันเถอะ!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_shift_template
 msgid "No shift templates found. Let's create one!"
-msgstr ""
+msgstr "ไม่พบเทมเพลตกะงาน มาสร้างกันเถอะ!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_my_calendar
@@ -1707,7 +1736,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_type__x_times
 msgid "Number of Occurrences"
-msgstr ""
+msgstr "จำนวนครั้ง"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_type__x_times
@@ -1718,7 +1747,7 @@ msgstr "จำนวนการทำซ้ำ"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Open Shift"
-msgstr ""
+msgstr "เปิดกะงาน"
 
 #. module: planning
 #. odoo-javascript
@@ -1729,12 +1758,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.slot_report
 #, python-format
 msgid "Open Shifts"
-msgstr ""
+msgstr "เปิดกะงาน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid "Open Shifts Available"
-msgstr ""
+msgstr "กะงานเปิดที่มีอยู่"
 
 #. module: planning
 #. odoo-python
@@ -1750,7 +1779,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__overlap_slot_count
 msgid "Overlapping Slots"
-msgstr ""
+msgstr "สล็อตที่ซ้อนทับกัน"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
@@ -1804,7 +1833,7 @@ msgstr "การวางแผน"
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_graph
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_pivot
 msgid "Planning Analysis"
-msgstr ""
+msgstr "การวิเคราะห์การวางแผน"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_analysis_report
@@ -1819,7 +1848,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model,name:planning.model_planning_recurrency
 msgid "Planning Recurrence"
-msgstr ""
+msgstr "การวางแผนการเกิดซ้ำ"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_role
@@ -1830,7 +1859,7 @@ msgstr "บทบาทการวางแผน"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
 msgid "Planning Role List"
-msgstr ""
+msgstr "รายชื่อบทบาทการวางแผน"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_slot
@@ -1845,46 +1874,46 @@ msgstr "สล็อตวางแผน"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__slot_properties_definition
 msgid "Planning Slot Properties"
-msgstr ""
+msgstr "การวางแผนคุณสมบัติของสล็อต"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Planning:"
-msgstr ""
+msgstr "การวางแผน;"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_planning_planning
 msgid "Planning: New Schedule"
-msgstr ""
+msgstr "การวางแผน: กำหนดการใหม่"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_slot_single
 msgid "Planning: New Shift"
-msgstr ""
+msgstr "การวางแผน: กะงานใหม่"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_shift_switch_email
 msgid "Planning: Shift Re-assigned"
-msgstr ""
+msgstr "การวางแผน: มอบหมายกะงานใหม่"
 
 #. module: planning
 #: model:ir.actions.server,name:planning.ir_cron_forecast_schedule_ir_actions_server
 msgid "Planning: generate next recurring shifts"
-msgstr ""
+msgstr "การวางแผน: สร้างกะงานที่เกิดซ้ำครั้งถัดไป"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "Planning: new open shift available on"
-msgstr ""
+msgstr "การวางแผน: กะงานเปิดใหม่พร้อมใช้งานบน"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "Planning: new shift on"
-msgstr ""
+msgstr "การวางแผน: กะงานใหม่บน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.brand_promotion
@@ -1894,7 +1923,7 @@ msgstr "แผน"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__previous_template_id
 msgid "Previous Template"
-msgstr ""
+msgstr "เทมเพลตก่อนหน้า"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__module_project_forecast
@@ -1926,7 +1955,7 @@ msgstr "เผยแพร่"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Publish & Send"
-msgstr ""
+msgstr "เผยแพร่และส่ง"
 
 #. module: planning
 #. odoo-javascript
@@ -1942,7 +1971,7 @@ msgstr "เผยแพร่แล้ว"
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_generation_interval
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_generation_interval
 msgid "Rate Of Shift Generation"
-msgstr ""
+msgstr "อัตราการสร้างกะงาน"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__recurrence_update
@@ -1958,7 +1987,7 @@ msgstr "การเกิดซ้ำ"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Recurring Shifts"
-msgstr ""
+msgstr "การเปลี่ยนแปลงที่เกิดซ้ำ"
 
 #. module: planning
 #. odoo-python
@@ -1975,7 +2004,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__slot_ids
 msgid "Related Planning Entries"
-msgstr ""
+msgstr "รายการการวางแผนที่เกี่ยวข้อง"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__user_id
@@ -2000,7 +2029,7 @@ msgstr "ทําซ้ำทุก"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_type
 msgid "Repeat Type"
-msgstr ""
+msgstr "ประเภทการทำซ้ำ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_unit
@@ -2023,7 +2052,7 @@ msgstr "ทำซ้ำทุก ๆ"
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_number
 #: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_number
 msgid "Repetitions"
-msgstr ""
+msgstr "การทำซ้ำ"
 
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_reporting
@@ -2033,7 +2062,7 @@ msgstr "การรายงาน"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Requests to Switch"
-msgstr ""
+msgstr "ร้องขอให้เปลี่ยน"
 
 #. module: planning
 #: model:ir.actions.server,name:planning.model_planning_slot_action_reset_to_draft
@@ -2052,7 +2081,7 @@ msgstr "แหล่งข้อมูล"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_color
 msgid "Resource color"
-msgstr ""
+msgstr "สีของทรัพยากร"
 
 #. module: planning
 #: model:ir.model,name:planning.model_resource_resource
@@ -2123,19 +2152,19 @@ msgstr "บันทึก"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
 msgid "Save & Send Schedule"
-msgstr ""
+msgstr "บันทึกและส่งกำหนดการ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_creation
 msgid "Save as Template"
-msgstr ""
+msgstr "บันทึกเป็นเทมเพลต"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 #, python-format
 msgid "Save this shift once it is ready."
-msgstr ""
+msgstr "บันทึกกะงานนี้เมื่อพร้อม"
 
 #. module: planning
 #: model:planning.role,name:planning.planning_role_scanner
@@ -2183,12 +2212,12 @@ msgstr "ส่ง"
 #. module: planning
 #: model:ir.model,name:planning.model_planning_send
 msgid "Send Planning"
-msgstr ""
+msgstr "ส่งการวางแผน"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_send_action
 msgid "Send Planning By Email"
-msgstr ""
+msgstr "ส่งการวางแผนทางอีเมล"
 
 #. module: planning
 #. odoo-javascript
@@ -2196,7 +2225,7 @@ msgstr ""
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
 #, python-format
 msgid "Send schedule"
-msgstr ""
+msgstr "ส่งกำหนดการ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__sequence
@@ -2221,7 +2250,7 @@ msgstr "กะ"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Shift List"
-msgstr ""
+msgstr "รายการกะงาน"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_slot_template
@@ -2231,29 +2260,29 @@ msgstr "เทมเพลตกะงาน"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Shift Template Form"
-msgstr ""
+msgstr "แบบฟอร์มเทมเพลตกะงาน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_tree
 msgid "Shift Template List"
-msgstr ""
+msgstr "รายการเทมเพลตกะงาน"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_shift_template
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_id
 #: model:ir.ui.menu,name:planning.planning_menu_settings_shift_template
 msgid "Shift Templates"
-msgstr ""
+msgstr "เทมเพลตกะงาน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts Planned"
-msgstr ""
+msgstr "กะงานที่วางแผนแล้ว"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Shifts from"
-msgstr ""
+msgstr "กะงานจาก"
 
 #. module: planning
 #. odoo-python
@@ -2261,27 +2290,27 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #, python-format
 msgid "Shifts in Conflict"
-msgstr ""
+msgstr "กะงานในความขัดแย้ง"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts of Your Department Member"
-msgstr ""
+msgstr "กะงานของพนักงานแผนกของคุณ"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts of Your Team Member"
-msgstr ""
+msgstr "การเปลี่ยนแปลงของสมาชิกในทีมของคุณ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__slot_ids
 msgid "Slot"
-msgstr ""
+msgstr "สล็อต"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 msgid "Some changes were made since this shift was published."
-msgstr ""
+msgstr "มีการเปลี่ยนแปลงบางอย่างตั้งแต่มีการเผยแพร่การเปลี่ยนแปลงนี้"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
@@ -2291,7 +2320,7 @@ msgstr "เริ่ม"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Start & End Hours"
-msgstr ""
+msgstr "เวลาเริ่มต้นและสิ้นสุด"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__start_datetime
@@ -2316,12 +2345,12 @@ msgstr "วันที่หยุด"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_autocomplete_ids
 msgid "Template Autocomplete"
-msgstr ""
+msgstr "เทมเพลตเติมข้อความอัตโนมัติ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_reset
 msgid "Template Reset"
-msgstr ""
+msgstr "รีเซ็ตเทมเพลต"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_res_company_planning_self_unassign_days_before_positive
@@ -2334,26 +2363,26 @@ msgstr "จำนวนวันก่อนยกเลิกการมอบ
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The company does not allow you to self unassign."
-msgstr ""
+msgstr "บริษัทไม่อนุญาตให้คุณยกเลิกการมอบหมายด้วยตนเอง"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The deadline for unassignment has passed."
-msgstr ""
+msgstr "พ้นกำหนดเส้นตายในการยกเลิกมอบหมายแล้ว"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_positive
 msgid "The duration cannot be negative."
-msgstr ""
+msgstr "ระยะเวลาต้องไม่เป็นลบ"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The duration is too long."
-msgstr ""
+msgstr "ระยะเวลานานเกินไป"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_start_date_lower_end_date
@@ -2372,12 +2401,12 @@ msgstr "จำนวนการซ้ำต้องไม่เป็นค่
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 #, python-format
 msgid "The open shifts have been successfully assigned."
-msgstr ""
+msgstr "กะงานที่เปิดอยู่ได้รับมอบหมายเรียบร้อยแล้ว"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_repeat_interval_positive
 msgid "The recurrence should be greater than 0."
-msgstr ""
+msgstr "การเกิดซ้ำควรมากกว่า 0"
 
 #. module: planning
 #. odoo-python
@@ -2391,14 +2420,14 @@ msgstr "วันที่สิ้นสุดของการเกิดซ
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 #, python-format
 msgid "The recurring shifts have successfully been created."
-msgstr ""
+msgstr "สร้างกะงานที่เกิดซ้ำสำเร็จแล้ว"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 #, python-format
 msgid "The schedule was successfully sent to your employees."
-msgstr ""
+msgstr "ส่งกำหนดการให้กับพนักงานของคุณเรียบร้อยแล้ว"
 
 #. module: planning
 #. odoo-python
@@ -2412,7 +2441,7 @@ msgstr "ระยะเวลาที่เลือกสร้างวัน
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The shift has successfully been sent."
-msgstr ""
+msgstr "ส่งกะงานเรียบร้อยแล้ว"
 
 #. module: planning
 #. odoo-javascript
@@ -2430,24 +2459,24 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The shifts have been successfully reset to draft."
-msgstr ""
+msgstr "รีเซ็ตกะงานเป็นฉบับร่างเรียบร้อยแล้ว"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The shifts have successfully been published and sent."
-msgstr ""
+msgstr "การเปลี่ยนแปลงได้รับการเผยแพร่และส่งเรียบร้อยแล้ว"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_lower_than_24
 msgid "The start hour cannot be greater than 24."
-msgstr ""
+msgstr "ชั่วโมงเริ่มต้นต้องไม่มากกว่า 24"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_positive
 msgid "The start hour cannot be negative."
-msgstr ""
+msgstr "ชั่วโมงเริ่มต้นต้องไม่เป็นค่าลบ"
 
 #. module: planning
 #. odoo-python
@@ -2461,7 +2490,7 @@ msgstr "ชั่วโมงเริ่มต้นต้องมากกว
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "There are no resources available for this open shift."
-msgstr ""
+msgstr "ไม่มีทรัพยากรสำหรับกะงานเปิดนี้"
 
 #. module: planning
 #. odoo-javascript
@@ -2477,14 +2506,14 @@ msgstr "ไม่มีกะงานที่วางแผนไว้สำ
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "There are no shifts to publish and send."
-msgstr ""
+msgstr "ไม่มีการเปลี่ยนแปลงในการเผยแพร่และส่ง"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "There are no shifts to reset to draft."
-msgstr ""
+msgstr "ไม่มีกะงานที่จะรีเซ็ตเป็นฉบับร่าง"
 
 #. module: planning
 #. odoo-python
@@ -2496,12 +2525,12 @@ msgstr "แถบความคืบหน้านี้ไม่ได้ถ
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__was_copied
 msgid "This Shift Was Copied From Previous Week"
-msgstr ""
+msgstr "การเปลี่ยนแปลงนี้ถูกคัดลอกมาจากสัปดาห์ก่อน"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__subsequent
 msgid "This and following shifts"
-msgstr ""
+msgstr "กะงานนี้และกะงานต่อไปนี้"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -2515,21 +2544,21 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__this
 msgid "This shift"
-msgstr ""
+msgstr "กะงานนี้"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 #, python-format
 msgid "This shift is recurrent. Delete:"
-msgstr ""
+msgstr "การเปลี่ยนแปลงนี้เกิดขึ้นอีก ลบ:"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 #, python-format
 msgid "This shift was successfully saved as a template."
-msgstr ""
+msgstr "บันทึกการเปลี่ยนแปลงนี้เป็นเทมเพลตสำเร็จแล้ว"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_kanban_view
@@ -2539,7 +2568,7 @@ msgstr "เขตเวลา:"
 #. module: planning
 #: model:digest.tip,name:planning.digest_tip_planning_0
 msgid "Tip: Record your planning faster"
-msgstr ""
+msgstr "เคล็ดลับ: บันทึกการวางแผนของคุณเร็วขึ้น"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__repeat
@@ -2569,7 +2598,7 @@ msgstr "รวม"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Tuesday, 14"
-msgstr ""
+msgstr "วันอังคารที่ 14"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__resource_type
@@ -2586,12 +2615,12 @@ msgstr "ถึง"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "Unwanted Shifts Available"
-msgstr ""
+msgstr "มีกะงานที่ไม่ต้องการ"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_until
 msgid "Up to which date should the plannings be repeated"
-msgstr ""
+msgstr "ควรวางแผนซ้ำถึงวันไหน"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__user_id
@@ -2612,12 +2641,12 @@ msgstr "ดูการวางแผน"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Waiter"
-msgstr ""
+msgstr "พนักงานเสิร์ฟ"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Wednesday, 15"
-msgstr ""
+msgstr "วันพุธที่ 15"
 
 #. module: planning
 #. odoo-javascript
@@ -2652,7 +2681,7 @@ msgstr "ที่อยู่ที่ทำงาน"
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__working_days_count
 #: model:ir.model.fields,field_description:planning.field_planning_slot__working_days_count
 msgid "Working Days"
-msgstr ""
+msgstr "วันทำงาน"
 
 #. module: planning
 #. odoo-javascript
@@ -2680,7 +2709,7 @@ msgstr "ปี"
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You are not allowed to reset to draft shifts."
-msgstr ""
+msgstr "คุณไม่ได้รับอนุญาตให้รีเซ็ตเป็นกะงานฉบับร่าง"
 
 #. module: planning
 #. odoo-python
@@ -2709,7 +2738,7 @@ msgstr "คุณไม่สามารถขอเปลี่ยนกะง
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You can not unassign another employee than yourself."
-msgstr ""
+msgstr "คุณไม่สามารถยกเลิกการมอบหมายพนักงานคนอื่นที่ไม่ใช่ตัวคุณเองได้"
 
 #. module: planning
 #. odoo-python
@@ -2737,24 +2766,24 @@ msgstr "คุณไม่มีสิทธิ์ยกเลิกคำขอ
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You don't have the right to self assign."
-msgstr ""
+msgstr "คุณไม่มีสิทธิ์มอบหมายด้วยตนเอง"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You don't have the right to switch shifts."
-msgstr ""
+msgstr "คุณไม่มีสิทธิ์เปลี่ยนกะงาน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign
 msgid "You have been successfully unassigned from this shift"
-msgstr ""
+msgstr "คุณยกเลิกการมอบหมายจากกะงานนี้สำเร็จแล้ว"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign
 msgid "Your Planning"
-msgstr ""
+msgstr "การวางแผนของคุณ"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_planning_planning
@@ -2779,17 +2808,17 @@ msgstr ""
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 #, python-format
 msgid "all shifts"
-msgstr ""
+msgstr "กะงานทั้งหมด"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "days before the beginning of the shift"
-msgstr ""
+msgstr "วันก่อนเริ่มกะงาน"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "days span)"
-msgstr ""
+msgstr "ช่วงวัน)"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -2817,26 +2846,26 @@ msgstr "เช่น John Doe"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "other shift(s)"
-msgstr ""
+msgstr "กะงานอื่น"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 msgid "other shift(s) in conflict."
-msgstr ""
+msgstr "กะงานอื่นๆ ที่มีความขัดแย้ง"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 #, python-format
 msgid "this and following shifts"
-msgstr ""
+msgstr "กะงานนี้และกะงานต่อไปนี้"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 #, python-format
 msgid "this shift"
-msgstr ""
+msgstr "กะงานนี้"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -2847,3 +2876,4 @@ msgstr "ถึง"
 #: model:mail.template,subject:planning.email_template_slot_single
 msgid "{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"
 msgstr ""
+"{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"

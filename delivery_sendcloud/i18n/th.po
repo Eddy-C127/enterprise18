@@ -25,14 +25,14 @@ msgstr ""
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "%(partner_name)s email required"
-msgstr ""
+msgstr "จำเป็นต้องใช้อีเมลของ %(partner_name)s "
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "%(partner_name)s phone required"
-msgstr ""
+msgstr "จำเป็นต้องใช้โทรศัพท์ของ %(partner_name)s"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -97,18 +97,18 @@ msgstr ""
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__sendcloud_products_code
 msgid "Active Products Code"
-msgstr ""
+msgstr "รหัสผลิตภัณฑ์ที่ใช้งานอยู่"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__functionalities
 msgid "Available Functionalities"
-msgstr ""
+msgstr "ฟังก์ชันที่มีอยู่"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_has_custom_functionalities
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__can_customize_functionalities
 msgid "Can Customize Functionalities"
-msgstr ""
+msgstr "สามารถปรับแต่งฟังก์ชันการใช้งานได้"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -128,17 +128,17 @@ msgstr "ผู้ให้บริการ"
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Choose Sendcloud Shipping Products"
-msgstr ""
+msgstr "เลือกผลิตภัณฑ์การจัดส่ง Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_sendcloud_shipping_wizard
 msgid "Choose from the available sendcloud shipping methods"
-msgstr ""
+msgstr "เลือกจากวิธีการจัดส่ง sendcloud ที่มีให้"
 
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_sendcloud_shipping_product
 msgid "Choose from the available sendcloud shipping products"
-msgstr ""
+msgstr "เลือกจากผลิตภัณฑ์การจัดส่ง sendcloud ที่มีจำหน่าย"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -150,14 +150,14 @@ msgstr "ยืนยัน"
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "Could not find currency %s"
-msgstr ""
+msgstr "ไม่พบสกุลเงิน %s"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "Could not get document!"
-msgstr ""
+msgstr "ไม่สามารถรับเอกสารได้!"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__create_uid
@@ -179,7 +179,7 @@ msgstr "ประเภทของบรรจุภัณฑ์เริ่ม
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_default_package_type_id
 msgid "Default Package Type for Sendcloud"
-msgstr ""
+msgstr "ประเภทแพ็คเกจเริ่มต้นสำหรับ Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__carrier_id
@@ -233,14 +233,14 @@ msgstr ""
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Failed to create the return label!"
-msgstr ""
+msgstr "ไม่สามารถสร้างป้ายกำกับการคืนสินค้าได้!"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Failed to get the actual price!"
-msgstr ""
+msgstr "ไม่สามารถรับราคาจริงได้!"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_product_functionalities
@@ -250,20 +250,20 @@ msgstr "ฟังก์ชั่น"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "Functionality Filters"
-msgstr ""
+msgstr "ตัวกรองฟังก์ชันการทำงาน"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Go to the shipping product"
-msgstr ""
+msgstr "ไปที่การจัดส่งสินค้า"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_can_batch_shipping
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__has_multicollo
 msgid "Has Multicollo"
-msgstr ""
+msgstr "มี Multicollo"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__id
@@ -291,7 +291,7 @@ msgstr "อัปเดตครั้งล่าสุดเมื่อ"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "Load your products"
-msgstr ""
+msgstr "โหลดผลิตภัณฑ์ของคุณ"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -314,31 +314,31 @@ msgstr "ความสูงที่สูงสุด"
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 #, python-format
 msgid "Max length"
-msgstr ""
+msgstr "ความยาวสูงสุด"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 #, python-format
 msgid "Max width"
-msgstr ""
+msgstr "ความกว้างสูงสุด"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__max_weight
 msgid "Maximum Weight"
-msgstr ""
+msgstr "น้ำหนักสูงสุด"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__min_weight
 msgid "Minimum Weight"
-msgstr ""
+msgstr "น้ำหนักขั้นต่ำ"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Must be a Sendcloud carrier!"
-msgstr ""
+msgstr "ต้องเป็นผู้ให้บริการ Sendcloud!"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -352,7 +352,7 @@ msgstr "ไม่พบที่อยู่ที่มีชื่อผู้
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "No picking or order provided"
-msgstr ""
+msgstr "ไม่มีการหยิบหรือสั่งซื้อ"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -386,14 +386,14 @@ msgstr "ตัวเลือก"
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "Order below minimum weight of carrier"
-msgstr ""
+msgstr "คำสั่งซื้อต่ำกว่าน้ำหนักขั้นต่ำของผู้ให้บริการขนส่ง"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 #, python-format
 msgid "Other Functionalities"
-msgstr ""
+msgstr "ฟังก์ชันอื่นๆ"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__delivery_type
@@ -403,7 +403,7 @@ msgstr "ผู้ให้บริการ"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
 msgid "Return Product"
-msgstr ""
+msgstr "การคืนสินค้า"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__return_products
@@ -413,12 +413,12 @@ msgstr "คืนสินค้า"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "SendCloud Configuration"
-msgstr ""
+msgstr "การกำหนดค่า SendCloud"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.res_config_settings_view_form_sale
 msgid "SendCloud Shipping Methods"
-msgstr ""
+msgstr "วิธีการจัดส่ง SendCloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields.selection,name:delivery_sendcloud.selection__delivery_carrier__delivery_type__sendcloud
@@ -429,47 +429,47 @@ msgstr "Sendcloud"
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_public_key
 msgid "Sendcloud API Integration Public key"
-msgstr ""
+msgstr "คีย์สาธารณะการรวม API ของ Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_secret_key
 msgid "Sendcloud API Integration Secret key"
-msgstr ""
+msgstr "คีย์ลับการรวม Sendcloud API"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_stock_picking__sendcloud_parcel_ref
 msgid "Sendcloud Parcel Reference"
-msgstr ""
+msgstr "การอ้างอิงพัสดุ Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__sendcloud_code
 msgid "Sendcloud Product Identifier"
-msgstr ""
+msgstr "ตัวระบุผลิตภัณฑ์ Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_public_key
 msgid "Sendcloud Public Key"
-msgstr ""
+msgstr "รหัสสาธารณะ Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_return_id
 msgid "Sendcloud Return"
-msgstr ""
+msgstr "การส่งคืน Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_stock_picking__sendcloud_return_parcel_ref
 msgid "Sendcloud Return Parcel Ref"
-msgstr ""
+msgstr "Sendcloud การส่งคืนพัสดุอ้างอิง"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_return_name
 msgid "Sendcloud Return Shipping Product"
-msgstr ""
+msgstr "สินค้าส่งคืน Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_secret_key
 msgid "Sendcloud Secret Key"
-msgstr ""
+msgstr "รหัสลับ Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_id
@@ -479,29 +479,29 @@ msgstr "การจัดส่ง Sendcloud"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.res_config_settings_view_form_stock
 msgid "Sendcloud Shipping Methods"
-msgstr ""
+msgstr "วิธีการจัดส่ง Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_name
 msgid "Sendcloud Shipping Product"
-msgstr ""
+msgstr "สินค้าจัดส่ง Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__country_id
 msgid "Ship From"
-msgstr ""
+msgstr "จัดส่งจาก"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "Shipment %s cancelled"
-msgstr ""
+msgstr "การจัดส่ง %s ถูกยกเลิก"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__carrier
 msgid "Shipping Carrier"
-msgstr ""
+msgstr "ผู้ขนส่งสินค้า"
 
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_delivery_carrier
@@ -512,12 +512,12 @@ msgstr "วิธีการการจัดส่ง"
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__name
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
 msgid "Shipping Product"
-msgstr ""
+msgstr "สินค้าจัดส่ง"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__shipping_products
 msgid "Shipping Products"
-msgstr ""
+msgstr "สินค้าจัดส่ง"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_default_package_type_id
@@ -533,7 +533,7 @@ msgstr ""
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "Some packages in"
-msgstr ""
+msgstr "แพ็คเกจบางส่วนใน"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -552,7 +552,7 @@ msgstr ""
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "Something went wrong, please try again later!!"
-msgstr ""
+msgstr "มีข้อผิดพลาดเกิดขึ้น โปรดลองอีกครั้งในภายหลัง!!"
 
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_stock_package_type
@@ -589,7 +589,7 @@ msgstr "สินค้าจัดส่งที่กำหนดค่าไ
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "The total weight of"
-msgstr ""
+msgstr "น้ำหนักรวมของ"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -666,19 +666,19 @@ msgstr "โอน"
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_use_batch_shipping
 msgid "Use Batch Shipping"
-msgstr ""
+msgstr "ใช้การจัดส่งแบบชุด"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_rules
 msgid "Use Sendcloud shipping rules"
-msgstr ""
+msgstr "ใช้กฎการจัดส่งของ Sendcloud"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 #, python-format
 msgid "Weight range"
-msgstr ""
+msgstr "ช่วงน้ำหนัก"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_use_batch_shipping
@@ -711,7 +711,7 @@ msgstr ""
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "You must have a shipping product configured!"
-msgstr ""
+msgstr "คุณต้องมีการกำหนดค่าผลิตภัณฑ์จัดส่ง!"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
@@ -728,3 +728,5 @@ msgid ""
 "created in Sendcloud. <br/>\n"
 "            <b>Tracking Numbers:</b>"
 msgstr ""
+"สร้างขึ้นใน Sendcloud <br/>\n"
+"            <b>หมายเลขติดตาม:</b>"

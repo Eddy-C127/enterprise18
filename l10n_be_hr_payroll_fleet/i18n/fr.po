@@ -1,31 +1,30 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* l10n_be_hr_payroll_fleet
-#
+# 
 # Translators:
-# Martin Trigaux, 2023
-# Tivisse <yti@odoo.com>, 2023
-# Jolien De Paepe, 2023
-#
+# Wil Odoo, 2024
+# Tivisse <yti@odoo.com>, 2024
+# Jolien De Paepe, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-29 14:41+0000\n"
-"PO-Revision-Date: 2023-02-03 07:08+0000\n"
-"Last-Translator: Jolien De Paepe, 2023\n"
+"PO-Revision-Date: 2024-01-30 08:20+0000\n"
+"Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.hr_contract_view_form
 msgid "(Fuel Type:"
-msgstr ""
+msgstr "(Type de carburant:"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.dmfa_xml_report
@@ -75,7 +74,7 @@ msgstr "ATN"
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,help:l10n_be_hr_payroll_fleet.field_hr_contract__car_atn
 msgid "Benefit in Kind (Company Car)"
-msgstr "Avantage en nature (Voiture de société)"
+msgstr "Avantage de toute nature (Voiture de société)"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_fleet_vehicle_model__default_co2
@@ -159,7 +158,7 @@ msgstr "Coût d'amortissement du vélo de société"
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__car_id
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_payslip__vehicle_id
 msgid "Company Car"
-msgstr "Véhicule de société"
+msgstr "Voiture de société"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__company_car_total_depreciated_cost
@@ -200,7 +199,7 @@ msgstr "Rapport DMFA XML"
 #: model:ir.model.fields,help:l10n_be_hr_payroll_fleet.field_fleet_vehicle__acquisition_date
 #: model:ir.model.fields,help:l10n_be_hr_payroll_fleet.field_hr_contract__acquisition_date
 msgid "Date of vehicle registration"
-msgstr ""
+msgstr "Date d'enregistrement du véhicule"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,help:l10n_be_hr_payroll_fleet.field_fleet_vehicle_model__default_recurring_cost_amount_depreciated
@@ -255,7 +254,7 @@ msgstr "Modèle d'un véhicule"
 #. module: l10n_be_hr_payroll_fleet
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.report_belgium_payslip
 msgid "Neno"
-msgstr ""
+msgstr "Neno"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__new_bike_model_id
@@ -272,7 +271,7 @@ msgstr "Nouvelle voiture de société"
 #. module: l10n_be_hr_payroll_fleet
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.res_config_settings_view_form
 msgid "New Vehicle Request"
-msgstr ""
+msgstr "Demande de nouveau véhicule"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__available_cars_amount
@@ -290,6 +289,7 @@ msgstr "Fiche de paie"
 #, python-format
 msgid "Payslips with car different than on employee's contract"
 msgstr ""
+"Fiches de paie avec une voiture différente que sur le contrat de l'employé"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__recurring_cost_amount_depreciated
@@ -300,7 +300,7 @@ msgstr "Montant du coût récurrent amorti"
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_fleet_vehicle__acquisition_date
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__acquisition_date
 msgid "Registration Date"
-msgstr ""
+msgstr "Date d'enregistrement"
 
 #. module: l10n_be_hr_payroll_fleet
 #: model:ir.model.fields,field_description:l10n_be_hr_payroll_fleet.field_hr_contract__new_bike
@@ -384,4 +384,4 @@ msgstr "Coût total amorti de la voiture souhaitée"
 #. module: l10n_be_hr_payroll_fleet
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_payroll_fleet.report_belgium_payslip
 msgid "YMM-XXX"
-msgstr ""
+msgstr "YMM-XXX"

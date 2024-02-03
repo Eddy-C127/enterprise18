@@ -638,7 +638,7 @@ msgid ""
 " will be pre-filled in the shop floor."
 msgstr ""
 "หากทำเครื่องหมายในช่องนี้ "
-"รายการหมายเลขซีเรียลสำหรับประเภทการดำเนินการนี้จะถูกกรอกไว้ล่วงหน้าที่ฝ่ายผลิต"
+"รายการหมายเลขซีเรียลสำหรับประเภทการดำเนินการนี้จะถูกกรอกไว้ล่วงหน้าในพื้นที่ผลิต"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__worksheet_document
@@ -771,17 +771,17 @@ msgstr "รายงานภาพรวม MO"
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_tablet_timer
 msgid "Manage Work Order timer on Shop Floor"
-msgstr "จัดการตัวจับเวลาการสั่งงานบนพื้นที่ร้านค้า"
+msgstr "จัดการตัวจับเวลาการสั่งงานบนพื้นที่ผลิต"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Manage your manufacturing orders from the shop floor app"
-msgstr "จัดการใบสั่งผลิตของคุณจากแอปการขายหน้าร้าน"
+msgstr "จัดการใบสั่งผลิตของคุณจากแอปพื้นที่ผลิต"
 
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_shop_floor
 msgid "Manage your manufacturing orders from the shop floor display app"
-msgstr "จัดการคำสั่งซื้อการผลิตของคุณจากแอปแสดงพื้นที่ร้านค้า"
+msgstr "จัดการคำสั่งซื้อการผลิตของคุณจากแอปแสดงพื้นที่ผลิต"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_tree_view_planning
@@ -936,7 +936,7 @@ msgstr "ไม่มีคำสั่งงานให้ทำ!"
 msgid ""
 "No workcenters are available, please create one first to add it to the shop "
 "floor view"
-msgstr "ไม่มีศูนย์งาน โปรดสร้างศูนย์งานก่อนเพื่อเพิ่มลงในมุมมองร้านค้า"
+msgstr "ไม่มีศูนย์งาน โปรดสร้างศูนย์งานก่อนเพื่อเพิ่มลงในมุมมองพื้นที่ผลิต"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -953,7 +953,7 @@ msgstr "จำนวนพนักงานที่ต้องใช้ใน
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_inherit_workorder
 msgid "Open Shop Floor"
-msgstr "เปิดพื้นที่ร้าน"
+msgstr "เปิดพื้นที่ผลิต"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1099,7 +1099,7 @@ msgstr "กรุณาอัปโหลดรูปภาพ"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_stock_picking_type__prefill_lot_tablet
 msgid "Pre-fill Lot/Serial Numbers in Shop Floor"
-msgstr "กรอกล็อต/หมายเลขซีเรียลล่วงหน้าในพื้นที่ร้านค้า"
+msgstr "กรอกล็อต/หมายเลขซีเรียลล่วงหน้าในพื้นที่ผลิต"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__previous_check_id
@@ -1399,14 +1399,14 @@ msgstr "ตั้งค่ารูปภาพใหม่"
 #: model:ir.ui.menu,name:mrp_workorder.menu_mrp_workorder_root
 #: model:ir.ui.menu,name:mrp_workorder.menu_shop_floor
 msgid "Shop Floor"
-msgstr "พื้นที่ร้านค้า"
+msgstr "พื้นที่ผลิต"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Shop Floor Control Panel"
-msgstr "แผงควบคุมพื้นที่ร้านค้า"
+msgstr "แผงควบคุมพื้นที่ผลิต"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_routing_workcenter_tree_view_inherited
@@ -1721,7 +1721,7 @@ msgid ""
 "            The tablet provides worksheets for your workers and allow them to scrap products, track time,\n"
 "            launch a maintenance request, perform quality tests, etc."
 msgstr ""
-"ใช้โต๊ะแผงควบคุมศูนย์งานเพื่อลงทะเบียนการปฏิบัติงานในชั้นของร้านค้าโดยตรง\n"
+"ใช้โต๊ะแผงควบคุมศูนย์งานเพื่อลงทะเบียนการปฏิบัติงานในพื้นที่ผลิตโดยตรง\n"
 "            แท็บเล็ตมีแผ่นงานสำหรับพนักงานของคุณ และอนุญาตให้พวกเขาทำเศษสินค้า ติดตามเวลา\n"
 "           เรียกใช้คำขอบำรุงรักษา ทำการทดสอบคุณภาพ และอื่นๆ "
 
@@ -1914,7 +1914,7 @@ msgid ""
 "You need to complete Quality Checks using the Shop Floor before marking Work"
 " Order as Done."
 msgstr ""
-"คุณต้องดำเนินการตรวจสอบคุณภาพให้เสร็จสิ้นโดยใช้พื้นที่ร้านค้าก่อนที่จะทำเครื่องหมายคำสั่งงานว่าเสร็จสิ้น"
+"คุณต้องดำเนินการตรวจสอบคุณภาพให้เสร็จสิ้นโดยใช้พื้นที่ผลิตก่อนที่จะทำเครื่องหมายคำสั่งงานว่าเสร็จสิ้น"
 
 #. module: mrp_workorder
 #. odoo-python

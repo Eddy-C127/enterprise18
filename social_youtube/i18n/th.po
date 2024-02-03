@@ -36,12 +36,12 @@ msgstr "123 วิว •"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_stream_post_view_kanban
 msgid "<i class=\"fa fa-thumbs-o-up me-1\" title=\"Likes\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-thumbs-o-up me-1\" title=\"ถูกใจ\"/>"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.youtube_preview
 msgid "<span class=\"fw-bold\">Your YouTube Channel</span>"
-msgstr ""
+msgstr "<span class=\"fw-bold\">ช่อง YouTube ของคุณ</span>"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -159,6 +159,8 @@ msgid ""
 "Could not revoke your account.\n"
 "Error: %s"
 msgstr ""
+"ไม่สามารถเพิกถอนบัญชีของคุณได้\n"
+"ข้อผิดพลาด: %s"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__create_uid
@@ -268,7 +270,7 @@ msgstr ""
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video_privacy
 msgid "Once posted, set the video as Public/Private/Unlisted"
-msgstr ""
+msgstr "เมื่อโพสต์แล้ว ให้ตั้งค่าวิดีโอเป็นสาธารณะ/ส่วนตัว/ไม่เป็นสาธารณะ"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -309,7 +311,7 @@ msgstr "สาธารณะ"
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "Read More about YouTube Channel"
-msgstr ""
+msgstr "อ่านเพิ่มเติมเกี่ยวกับช่อง YouTube"
 
 #. module: social_youtube
 #. odoo-python
@@ -333,21 +335,21 @@ msgstr "เพิกถอน"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_revoke_youtube_view_form
 msgid "Revoke & Delete"
-msgstr ""
+msgstr "เพิกถอนและลบ"
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_account.py:0
 #, python-format
 msgid "Revoke Account"
-msgstr ""
+msgstr "เพิกถอนบัญชี"
 
 #. module: social_youtube
 #: model:ir.actions.act_window,name:social_youtube.social_account_revoke_youtube_action
 #: model:ir.model,name:social_youtube.model_social_account_revoke_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_revoke_youtube_view_form
 msgid "Revoke YouTube Account"
-msgstr ""
+msgstr "เพิกถอนบัญชี YouTube"
 
 #. module: social_youtube
 #. odoo-python
@@ -451,7 +453,7 @@ msgstr "วิดีโอที่คุณพยายามเผยแพร
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "There is no channel linked with this YouTube account."
-msgstr ""
+msgstr "ไม่มีช่องที่เชื่อมโยงกับบัญชี YouTube นี้"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -505,7 +507,7 @@ msgstr "การอัปโหลดล้มเหลว กรุณาล�
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Uploading... %s%"
-msgstr ""
+msgstr "กำลังอัปโหลด... %s%"
 
 #. module: social_youtube
 #. odoo-javascript
@@ -543,7 +545,7 @@ msgstr "คำอธิบายวิดีโอ"
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_video_privacy
 msgid "Video Privacy"
-msgstr ""
+msgstr "ความเป็นส่วนตัวของวิดีโอ"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
@@ -612,7 +614,7 @@ msgstr "ไอดีหมวดหมู่ YouTube"
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_channel_id
 msgid "YouTube Channel ID"
-msgstr ""
+msgstr "รหัสช่อง YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_channel_id
@@ -636,7 +638,7 @@ msgstr "จำนวนความคิดเห็นของ YouTube"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.res_config_settings_view_form
 msgid "YouTube Developer Account"
-msgstr ""
+msgstr "บัญชีนักพัฒนา YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_dislikes_count
@@ -651,7 +653,7 @@ msgstr "ถูกใจ YouTube"
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_likes_ratio
 msgid "YouTube Likes Ratio"
-msgstr ""
+msgstr "อัตราส่วนการกดไลค์ของ YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_res_config_settings__youtube_oauth_client_id
@@ -671,7 +673,7 @@ msgstr "ตัวเลือกของ YouTube"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.youtube_preview
 msgid "YouTube Placeholder"
-msgstr ""
+msgstr "ตัวยึดตำแหน่ง YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_preview
@@ -693,7 +695,7 @@ msgstr "YouTube รูปภาพภาพตัวอย่าง"
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_thumbnail_url
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_thumbnail_url
 msgid "YouTube Thumbnail Url"
-msgstr ""
+msgstr "URL ภาพขนาดย่อของ YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_upload_playlist_id
@@ -729,7 +731,7 @@ msgstr "ชื่อวิดีโอ YouTube"
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_video_url
 msgid "YouTube Video Url"
-msgstr ""
+msgstr "URL วิดีโอ YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_stream_post__youtube_views_count
@@ -786,4 +788,4 @@ msgstr "เช่น Odoo Social Tutorial"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "the Google Third-party app account access panel"
-msgstr ""
+msgstr "แผงการเข้าถึงบัญชีแอปบุคคลที่สามของ Google"

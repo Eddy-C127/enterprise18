@@ -4,9 +4,10 @@
 # 
 # Translators:
 # Ivana Bartonkova, 2023
-# Jakub Smolka, 2023
 # Wil Odoo, 2023
 # Aleš Fiala <f.ales1@seznam.cz>, 2023
+# Katerina Horylova, 2024
+# Jakub Smolka, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2023\n"
+"Last-Translator: Jakub Smolka, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,6 +55,9 @@ msgid ""
 "title=\"Configure Providers in backend\"/><em>Configure Payment "
 "Providers</em>"
 msgstr ""
+"<em><br/><i class=\"fa fa-cog me-1\" role=\"img\" aria-label=\"Edit\" "
+"title=\"Configure Providers in backend\"/>Konfigurace poskytovatelů "
+"plateb</em>"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
@@ -66,6 +70,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/> Configure Payment "
 "Providers"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>Konfigurace "
+"poskytovatelů plateb"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -180,18 +186,18 @@ msgstr "Účastníci"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view_form
 msgid "Booking"
-msgstr ""
+msgstr "Rezervace"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields.selection,name:appointment_account_payment.selection__product_template__detailed_type__booking_fees
 #: model:product.template,name:appointment_account_payment.default_booking_product_product_template
 msgid "Booking Fees"
-msgstr ""
+msgstr "Rezervační poplatky"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__booking_line_ids
 msgid "Booking Lines"
-msgstr ""
+msgstr "Položky rezervace"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_answer_input__calendar_event_id
@@ -201,12 +207,12 @@ msgstr "Událost kalendáře"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking_line__capacity_reserved
 msgid "Capacity Reserved"
-msgstr ""
+msgstr "Rezervovaná kapacita"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking_line__capacity_used
 msgid "Capacity Used"
-msgstr ""
+msgstr "Využitá kapacita"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_form
@@ -267,7 +273,7 @@ msgstr "Trvání"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "For"
-msgstr ""
+msgstr "Pro"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__guest_ids
@@ -471,7 +477,7 @@ msgstr ""
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "people"
-msgstr ""
+msgstr "lidé"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view

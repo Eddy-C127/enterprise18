@@ -401,7 +401,7 @@ msgstr "Sekvence"
 #: model:ir.model.fields,field_description:partner_commission.field_purchase_order__invoice_commission_count
 #: model_terms:ir.ui.view,arch_db:partner_commission.purchase_order_form_inherit_partner_commission
 msgid "Source Invoices"
-msgstr ""
+msgstr "Zdrojové faktury"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_sale_subscription_report
@@ -411,7 +411,7 @@ msgstr "Analýza předplatných"
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_sale_order__commission_plan_id
 msgid "Takes precedence over the Referrer's commission plan."
-msgstr ""
+msgstr "Má přednost před provizním plánem Doporučujícího."
 
 #. module: partner_commission
 #. odoo-python
@@ -421,6 +421,8 @@ msgid ""
 "The commission partner order %s must be checked manually (especially refund "
 "lines which can be duplicated)."
 msgstr ""
+"Objednávku provizního partnera %s je nutné zkontrolovat ručně (zejména řádky"
+" pro vrácení peněz, které mohou být duplikovány)."
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_res_partner_grade__default_commission_plan_id
@@ -428,6 +430,8 @@ msgid ""
 "The default commission plan used for this grade. Can be overwritten on the "
 "partner form."
 msgstr ""
+"Výchozí plán provizí používaný pro tuto třídu. Lze přepsat na formuláři "
+"partnera."
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
@@ -435,6 +439,8 @@ msgid ""
 "The required minimum amount total needed to automatically confirm purchase "
 "orders"
 msgstr ""
+"Požadovaná minimální celková částka potřebná k automatickému potvrzení "
+"nákupních objednávek"
 
 #. module: partner_commission
 #: model:ir.model.fields.selection,name:partner_commission.selection__res_company__commission_automatic_po_frequency__weekly
@@ -444,7 +450,7 @@ msgstr "Týdně"
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_commission_rule__is_capped
 msgid "Whether the commission is capped."
-msgstr ""
+msgstr "Zda je provize omezena."
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_sale_order__commission_plan_frozen
@@ -452,3 +458,5 @@ msgid ""
 "Whether the commission plan is frozen. When checked, the commission plan "
 "won't automatically be updated according to the partner level."
 msgstr ""
+"Zda je plán provize zmrazen. Po zaškrtnutí nebude plán provizí automaticky "
+"aktualizován podle úrovně partnera."

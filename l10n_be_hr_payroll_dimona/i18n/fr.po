@@ -1,25 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* l10n_be_hr_payroll_dimona
-#
+# 
 # Translators:
-# Martin Trigaux, 2023
-# Jolien De Paepe, 2023
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-29 14:41+0000\n"
-"PO-Revision-Date: 2023-02-03 07:08+0000\n"
-"Last-Translator: Jolien De Paepe, 2023\n"
+"PO-Revision-Date: 2024-01-30 08:20+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: l10n_be_hr_payroll_dimona
 #: model:ir.actions.server,name:l10n_be_hr_payroll_dimona.ir_cron_check_dimona_ir_actions_server
@@ -38,6 +36,11 @@ msgstr "Annuler la déclaration de l'employé"
 
 #. module: l10n_be_hr_payroll_dimona
 #. odoo-python
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #, python-format
 msgid ""
@@ -195,6 +198,10 @@ msgstr "Nom d'affichage"
 #. module: l10n_be_hr_payroll_dimona
 #. odoo-python
 #: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #, python-format
 msgid ""
 "Due to a technical problem at the ONSS side, the Dimona declaration could "
@@ -208,8 +215,8 @@ msgstr ""
 #: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #, python-format
 msgid ""
-"Due to a technical problem at the ONSS side, the authentication could not be "
-"done by the ONSS."
+"Due to a technical problem at the ONSS side, the authentication could not be"
+" done by the ONSS."
 msgstr ""
 "En raison d'un problème technique du côté de l'ONSS, l'authentification n'a "
 "pas pu être effectuée par l'ONSS."
@@ -246,7 +253,8 @@ msgstr "Date de fin du contrat (s'il s'agit d'un contrat à durée déterminée)
 #, python-format
 msgid "Error on authentication. Please contact an administrator. (%s)"
 msgstr ""
-"Erreur lors de l'authentification. Veuillez contacter un administrateur. (%s)"
+"Erreur lors de l'authentification. Veuillez contacter un administrateur. "
+"(%s)"
 
 #. module: l10n_be_hr_payroll_dimona
 #. odoo-python
@@ -261,6 +269,10 @@ msgstr ""
 
 #. module: l10n_be_hr_payroll_dimona
 #. odoo-python
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #, python-format
 msgid ""
@@ -286,8 +298,8 @@ msgstr ""
 #: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #, python-format
 msgid ""
-"Foreigner employees should provide their name, birthdate, birth place, birth "
-"country, nationality and the gender"
+"Foreigner employees should provide their name, birthdate, birth place, birth"
+" country, nationality and the gender"
 msgstr ""
 "Les employés étrangers doivent fournir leur nom, date de naissance, lieu de "
 "naissance, ville de naissance, nationalité et sexe"
@@ -360,14 +372,16 @@ msgstr ""
 #, python-format
 msgid "No PEM Certificate / Passphrase defined on the Payroll Configuration"
 msgstr ""
-"Aucun certificat PEM / phrase de passe défini sur la configuration de la paie"
+"Aucun certificat PEM / phrase de passe défini sur la configuration de la "
+"paie"
 
 #. module: l10n_be_hr_payroll_dimona
 #. odoo-python
 #: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #, python-format
 msgid "No expeditor number defined on the payroll settings."
-msgstr "Aucun numéro d'expéditeur n'est défini dans les paramètres de la paie."
+msgstr ""
+"Aucun numéro d'expéditeur n'est défini dans les paramètres de la paie."
 
 #. module: l10n_be_hr_payroll_dimona
 #. odoo-python
@@ -540,6 +554,9 @@ msgstr ""
 
 #. module: l10n_be_hr_payroll_dimona
 #. odoo-python
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
+#: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #: code:addons/l10n_be_hr_payroll_dimona/models/hr_contract.py:0
 #, python-format
 msgid ""

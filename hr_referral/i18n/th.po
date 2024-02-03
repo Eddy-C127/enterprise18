@@ -45,7 +45,7 @@ msgstr "<b>รับผิดชอบ: </b>"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
 msgid "<i class=\"fa fa-check me-2\" title=\"Hired\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-check me-2\" title=\"จ้างงานแล้ว\"/>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
@@ -85,6 +85,8 @@ msgid ""
 "<span title=\"Buy\"><i class=\"fa fa-shopping-basket me-3\" role=\"img\" "
 "aria-label=\"Buy\"/>Buy</span>"
 msgstr ""
+"<span title=\"ซื้อ\"><i class=\"fa fa-shopping-basket me-3\" role=\"รูปภาพ\""
+" aria-label=\"ซื้อ\"/>ซื้อ</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -312,12 +314,12 @@ msgstr "ต้นทุน"
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_friend_configuration
 msgid "Create a new friend"
-msgstr ""
+msgstr "สร้างเพื่อนใหม่"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_level_configuration
 msgid "Create a new level"
-msgstr ""
+msgstr "สร้างระดับใหม่"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_alert_configuration
@@ -327,7 +329,7 @@ msgstr "สร้างการเตือนใหม่"
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_referral_points
 msgid "Create new reward points"
-msgstr ""
+msgstr "สร้างคะแนนสะสมใหม่"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__create_uid
@@ -552,7 +554,7 @@ msgstr "ไอคอนแบบฟอนต์ที่ยอดเยี่ย
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_onboarding_tree
 msgid "Force Onboarding"
-msgstr ""
+msgstr "บังคับให้เริ่มต้นใช้งาน"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__friend_id
@@ -722,7 +724,7 @@ msgstr "กำลังดำเนินการ"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__is_accessible_to_current_user
 msgid "Is Accessible To Current User"
-msgstr ""
+msgstr "สามารถเข้าถึงได้โดยผู้ใช้ปัจจุบัน"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_is_follower
@@ -1025,7 +1027,7 @@ msgstr "คะแนนที่หายไป"
 #: code:addons/hr_referral/static/src/views/dashboard.xml:0
 #, python-format
 msgid "Points Received"
-msgstr ""
+msgstr "คะแนนที่ได้รับ"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -1047,7 +1049,7 @@ msgstr "คะแนนสำหรับซื้อสิ่งนี้"
 #: code:addons/hr_referral/static/src/views/dashboard.xml:0
 #, python-format
 msgid "Points to spend"
-msgstr ""
+msgstr "คะแนนที่จะใช้"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_friend__position
@@ -1110,7 +1112,7 @@ msgstr "ตัวช่วยเมลการเตือนสำหรับ
 #: model:ir.model.fields,field_description:hr_referral.field_res_company__hr_referral_background
 #: model:ir.model.fields,field_description:hr_referral.field_res_config_settings__hr_referral_background
 msgid "Referral Background"
-msgstr ""
+msgstr "พื้นหลังการแนะนำ"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_link_to_share
@@ -1201,7 +1203,7 @@ msgstr "เริ่มต้นการทำงานใหม่"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.res_config_settings_view__form
 msgid "Restore Default"
-msgstr ""
+msgstr "เรียกคืนค่าเริ่มต้น"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1535,7 +1537,7 @@ msgstr "ผู้ใช้ที่รับผิดชอบของขวั
 #. module: hr_referral
 #: model:res.groups,name:hr_referral.group_hr_recruitment_referral_user
 msgid "User: Referral only"
-msgstr ""
+msgstr "ผู้ใช้: การแนะนำเท่านั้น"
 
 #. module: hr_referral
 #. odoo-javascript

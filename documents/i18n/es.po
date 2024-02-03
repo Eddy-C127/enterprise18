@@ -613,8 +613,8 @@ msgid ""
 "A Python dictionary that will be evaluated to provide default values when "
 "creating new records for this alias."
 msgstr ""
-"Diccionario Python a evaluar para proporcionar valores por defecto cuando un"
-" nuevo registro se cree para este seudónimo."
+"Un diccionario Python que será evaluado para proporcionar valores por "
+"defecto al crear nuevos registros para este alias."
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_workflow_rule
@@ -1182,6 +1182,13 @@ msgid "Close split tools"
 msgstr "Cerrar herramientas de división"
 
 #. module: documents
+#. openerp-web
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "Click the cross to <b>exit preview</b>."
+msgstr ""
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
 #: model:ir.model.fields,field_description:documents.field_documents_folder__company_id
 msgid "Company"
@@ -1313,7 +1320,7 @@ msgstr "Valores por defecto"
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "Default values for uploaded documents"
-msgstr "Valores predeterminados para documentos subidos"
+msgstr "Valores por defecto para documentos subidos"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__deletion_delay
@@ -1645,7 +1652,7 @@ msgstr "Pseudónimo de correo"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__email_cc
 msgid "Email cc"
-msgstr "Correo electrónico cc"
+msgstr "CC del correo electrónico"
 
 #. module: documents
 #. odoo-javascript
@@ -2411,7 +2418,7 @@ msgstr "Tipo de la siguiente actividad"
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
 msgid "No activity types found. Let's create one!"
-msgstr "No se encontraron tipos de actividad, ¡creemos uno!"
+msgstr "No se encontraron tipos de actividad. ¡Creemos uno!"
 
 #. module: documents
 #. odoo-javascript
@@ -3117,9 +3124,9 @@ msgid ""
 "Planned: Future activities."
 msgstr ""
 "Estado basado en actividades\n"
-"Vencida: la fecha tope ya ha pasado\n"
-"Hoy: La fecha tope es hoy\n"
-"Planificada: futuras actividades."
+"Vencida: la fecha límite ya ha pasado\n"
+"Hoy: la fecha límite es hoy\n"
+"Planificada: actividades futuras."
 
 #. module: documents
 #. odoo-javascript

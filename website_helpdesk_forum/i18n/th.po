@@ -29,7 +29,7 @@ msgstr "โดย"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
 msgid "<i class=\"fa fa-fw fa-2x fa-comments\" title=\"Forum Post\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-2x fa-comments\" title=\"โพสต์ฟอรั่ม\"/>"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.question_dropdown
@@ -37,6 +37,8 @@ msgid ""
 "<i class=\"fa fa-life-ring fa-fw\"/>\n"
 "                    View Ticket"
 msgstr ""
+"<i class=\"fa fa-life-ring fa-fw\"/>\n"
+"                    ดูทิกเก็ต"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
@@ -51,17 +53,17 @@ msgstr "ถามคำถามและพูดคุยเกี่ยวก
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.footer
 msgid "Ask the Community"
-msgstr ""
+msgstr "ถามคอมมูนิตี้"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
 msgid "Ask the community"
-msgstr ""
+msgstr "ถามคอมมูนิตี้"
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket__can_share_forum
 msgid "Can Share Forum"
-msgstr ""
+msgstr "สามารถแชร์ฟอรั่ม"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
@@ -71,12 +73,12 @@ msgstr "ชุมชน"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_select_forum_wizard_view_form
 msgid "Create Post"
-msgstr ""
+msgstr "สร้างโพสต์"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_select_forum_wizard_view_form
 msgid "Create and View Post"
-msgstr ""
+msgstr "สร้างและดูโพสต์"
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket_select_forum_wizard__create_uid
@@ -106,7 +108,7 @@ msgstr "แสดงชื่อ"
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_forum_forum__filter_for_helpdesk_wizard
 msgid "Filter For Helpdesk Wizard"
-msgstr ""
+msgstr "ตัวกรองสำหรับโปรแกรม Helpdesk"
 
 #. module: website_helpdesk_forum
 #: model:ir.model,name:website_helpdesk_forum.model_forum_forum
@@ -122,14 +124,14 @@ msgstr "โพสต์ฟอรั่ม"
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket__forum_post_count
 msgid "Forum Post Count"
-msgstr ""
+msgstr "จำนวนโพสต์ในฟอรัม"
 
 #. module: website_helpdesk_forum
 #. odoo-python
 #: code:addons/website_helpdesk_forum/wizards/helpdesk_ticket_select_forum.py:0
 #, python-format
 msgid "Forum Post created"
-msgstr ""
+msgstr "สร้างโพสต์ในฟอรัมแล้ว"
 
 #. module: website_helpdesk_forum
 #. odoo-python
@@ -199,7 +201,7 @@ msgstr "ได้รับการโหวตมากที่สุด"
 #: code:addons/website_helpdesk_forum/models/helpdesk.py:0
 #, python-format
 msgid "No posts associated to this ticket."
-msgstr ""
+msgstr "ไม่มีโพสต์ที่เกี่ยวข้องกับทิกเก็ตนี้"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
@@ -209,24 +211,24 @@ msgstr "ลิงค์ด่วน"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_select_forum_wizard_view_form
 msgid "Select Forum"
-msgstr ""
+msgstr "เลือกฟอรั่ม"
 
 #. module: website_helpdesk_forum
 #: model:ir.actions.act_window,name:website_helpdesk_forum.helpdesk_ticket_select_forum_wizard_action
 #: model:ir.model,name:website_helpdesk_forum.model_helpdesk_ticket_select_forum_wizard
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_view_form_inherit_website_helpdesk_forum
 msgid "Share on Forum"
-msgstr ""
+msgstr "แชร์บนฟอรั่ม"
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_team__show_knowledge_base_forum
 msgid "Show Knowledge Base Forum"
-msgstr ""
+msgstr "แสดงฟอรั่มคลังข้อมูล"
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_forum_post__show_ticket
 msgid "Show Ticket"
-msgstr ""
+msgstr "แสดงทิกเก็ต"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
@@ -258,7 +260,7 @@ msgstr "คำนำหน้าชื่อ"
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_team__top_forum_posts
 msgid "Top Posts"
-msgstr ""
+msgstr "โพสต์ยอดนิยม"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
@@ -270,9 +272,9 @@ msgstr "มุมมอง"
 #: code:addons/website_helpdesk_forum/wizards/helpdesk_ticket_select_forum.py:0
 #, python-format
 msgid "You must select a forum to share the ticket"
-msgstr ""
+msgstr "คุณต้องเลือกฟอรั่มเพื่อแชร์ตั๋ว"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
 msgid "| 0 Answer"
-msgstr ""
+msgstr "| 0 คำตอบ"

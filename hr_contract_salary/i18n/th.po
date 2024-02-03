@@ -39,7 +39,7 @@ msgstr "# ลายเซ็น"
 #: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
 #, python-format
 msgid "%s manually set the Offer to Refused"
-msgstr ""
+msgstr "%s กำหนดข้อเสนอเป็นปฏิเสธด้วยตนเอง"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -47,12 +47,12 @@ msgstr ""
 #: code:addons/hr_contract_salary/wizard/generate_simulation_link.py:0
 #, python-format
 msgid "%s: Job Offer - %s"
-msgstr ""
+msgstr "%s: ข้อเสนองาน - %s"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,helper:hr_contract_salary.hr_contract_salary_personal_info_name
 msgid "(Lastname Firstname)"
-msgstr ""
+msgstr "(นามสกุล ชื่อจริง)"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,placeholder:hr_contract_salary.hr_contract_salary_personal_info_identification_id
@@ -113,12 +113,12 @@ msgstr "<i class=\"fa fa-check-circle-o mr8\"/>ขอแสดงความย
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
 msgid "<span class=\"ms-3\">/ month</span>"
-msgstr ""
+msgstr "<span class=\"ms-3\">/ เดือน</span>"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
 msgid "<span class=\"ms-3\">/ year</span>"
-msgstr ""
+msgstr "<span class=\"ms-3\">/ ปี</span>"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
@@ -134,7 +134,7 @@ msgstr "<span class=\"o_stat_text\">สัญญา</span>"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_applicant_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
 msgid "<span class=\"o_stat_text\">Offers</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">ข้อเสนอ</span>"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
@@ -398,7 +398,7 @@ msgstr "สิทธิประโยชน์"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__res_field_id
 msgid "Benefit Field"
-msgstr ""
+msgstr "ฟิลด์ผลประโยชน์"
 
 #. module: hr_contract_salary
 #: model:ir.actions.act_window,name:hr_contract_salary.hr_contract_benefit_action
@@ -417,7 +417,7 @@ msgstr "ควรแสดงสิทธิประโยชน์ที่ไ
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__res_field_public
 msgid "Benefit Field"
-msgstr ""
+msgstr "ฟิลด์ ผลประโยชน์"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_birthdate
@@ -438,7 +438,7 @@ msgstr "ใบรับรอง"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_diff_email_template
 msgid "Changes summary since previous contract:"
-msgstr ""
+msgstr "สรุปการเปลี่ยนแปลงตั้งแต่สัญญาฉบับที่แล้ว:"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__display_type__checkbox
@@ -491,12 +491,12 @@ msgstr "ตั้งค่าการกำหนดค่า"
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_benefit_type
 msgid "Contract Benefit Type"
-msgstr ""
+msgstr "ประเภทผลประโยชน์ตามสัญญา"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_benefit_value
 msgid "Contract Benefit Value"
-msgstr ""
+msgstr "มูลค่าผลประโยชน์ตามสัญญา"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -552,7 +552,7 @@ msgstr "รายงานการวิเคราะห์สัญญาแ
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__res_field_id
 msgid "Contract field linked to this benefit"
-msgstr ""
+msgstr "ช่องสัญญาที่เชื่อมโยงกับสิทธิประโยชน์นี้"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_id
@@ -566,7 +566,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__fold_res_field_id
 msgid "Contract field used to fold this benefit."
-msgstr ""
+msgstr "ฟิลด์สัญญาที่ใช้ในการพับสิทธิประโยชน์นี้"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__manual_res_field_id
@@ -601,7 +601,7 @@ msgstr "ชื่อฟิลด์ต้นทุน"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_public
 msgid "Cost Field"
-msgstr ""
+msgstr "ฟิลด์ ต้นทุน"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__dropdown_selection__country
@@ -622,7 +622,7 @@ msgstr "ประเทศที่เกิด"
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_generate_simulation_link
 msgid "Create an Offer"
-msgstr ""
+msgstr "สร้างข้อเสนอ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__hash_token
@@ -693,7 +693,7 @@ msgstr "ระยะเวลาที่ถูกต้องของโทเ
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_res_config_settings__employee_salary_simulator_link_validity
 msgid "Default Salary Configurator Link Validity Duration For Employees"
-msgstr ""
+msgstr "ระยะเวลาความถูกต้องของลิงค์ตัวกำหนดค่าเงินเดือนเริ่มต้นสำหรับพนักงาน"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_job__default_contract_id
@@ -800,7 +800,7 @@ msgstr "ประเภทการแสดง"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__display_warning_message
 msgid "Display Warning Message"
-msgstr ""
+msgstr "แสดงข้อความแจ้งเตือน"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info.value,name:hr_contract_salary.hr_contract_salary_personal_info_certificate_doctor
@@ -882,7 +882,7 @@ msgstr "สัญญาของพนักงาน"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__employee_job_id
 msgid "Employee Job"
-msgstr ""
+msgstr "งานพนักงาน"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -904,7 +904,7 @@ msgstr "พนักงานลงนามในสัญญา"
 #. module: hr_contract_salary
 #: model:mail.template,name:hr_contract_salary.mail_template_send_offer
 msgid "Employee: Contract And Salary Package"
-msgstr ""
+msgstr "พนักงาน: แพ็คเกจสัญญาและเงินเดือน"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_search
@@ -914,7 +914,7 @@ msgstr "พนักงาน"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__final_yearly_costs
 msgid "Employer Budget"
-msgstr ""
+msgstr "งบประมาณนายจ้าง"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1046,7 +1046,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__has_admin_access
 msgid "Has Admin Access"
-msgstr ""
+msgstr "มีสิทธิ์การเข้าถึงระดับผู้ดูแลระบบ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__has_message
@@ -1061,7 +1061,7 @@ msgstr "ผู้ช่วย"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_personal_information
 msgid "Hide <i class=\"oi oi-chevron-up\"/>"
-msgstr ""
+msgstr "ซ่อน <i class=\"oi oi-chevron-up\"/>"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_personal_info_value__hide_children
@@ -1137,7 +1137,7 @@ msgstr "รูปภาพ"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__image_1920_filename
 msgid "Image 1920 Filename"
-msgstr ""
+msgstr "รูปภาพ 1920 ชื่อไฟล์"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__impacts_monthly_total
@@ -1204,7 +1204,7 @@ msgstr "จำเป็น"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__is_origin_contract_template
 msgid "Is origin contract a contract template?"
-msgstr ""
+msgstr "สัญญาต้นทางเป็นเทมเพลตสัญญาหรือไม่"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1276,7 +1276,7 @@ msgstr "ลิงก์"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__validity
 msgid "Link Expiration Date"
-msgstr ""
+msgstr "วันหมดอายุของลิงค์"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__position__left
@@ -1291,7 +1291,7 @@ msgstr "ชาย"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__benefit_ids
 msgid "Mandatory Benefits"
-msgstr ""
+msgstr "สิทธิประโยชน์บังคับ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__manual_field
@@ -1510,14 +1510,14 @@ msgstr "ข้อเสนอ"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__offer_end_date
 msgid "Offer Validity Date"
-msgstr ""
+msgstr "วันที่มีผลบังคับใช้ของข้อเสนอ"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
 #, python-format
 msgid "Offer [%s] for %s / Budget: %s"
-msgstr ""
+msgstr "ข้อเสนอ [%s] สำหรับ %s / งบประมาณ: %s"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1577,7 +1577,7 @@ msgstr "หลัก"
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_offer__state__half_signed
 msgid "Partially Signed"
-msgstr ""
+msgstr "ลงนามบางส่วน"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__uom__percent
@@ -1628,7 +1628,7 @@ msgstr "เบอร์โทรศัพท์"
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_resume__category_id
 msgid "Pick a category to display this information"
-msgstr ""
+msgstr "เลือกหมวดหมู่เพื่อแสดงข้อมูลนี้"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_resume__value_type
@@ -1670,7 +1670,7 @@ msgstr "สัญญาก่อนหน้า"
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_private_license_plate
 msgid "Private License Plate"
-msgstr ""
+msgstr "ป้ายทะเบียนส่วนตัว"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1713,7 +1713,7 @@ msgstr "คำนวนใหม่"
 #. module: hr_contract_salary
 #: model:mail.template,name:hr_contract_salary.mail_template_send_offer_applicant
 msgid "Recruitment: Your Salary Package"
-msgstr ""
+msgstr "การสรรหาบุคลากร: แพ็คเกจเงินเดือนของคุณ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit_value__color__red
@@ -1745,7 +1745,7 @@ msgstr "โมเดลที่เกี่ยวข้อง"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__benefit_type_id
 msgid "Related Type"
-msgstr ""
+msgstr "ประเภทที่เกี่ยวข้อง"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__requested_documents_field_ids
@@ -1765,7 +1765,7 @@ msgstr "ร้องขอลายเซ็น"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__requested_documents_fields_string
 msgid "Requested Documents"
-msgstr ""
+msgstr "เอกสาร ที่ร้องขอ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_personal_info__res_model
@@ -1797,7 +1797,7 @@ msgstr "ข้อผิดพลาดในการส่ง SMS"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_payroll_structure_type__salary_benefits_ids
 msgid "Salary Benefits"
-msgstr ""
+msgstr "สวัสดิการเงินเดือน"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
@@ -1808,26 +1808,26 @@ msgstr "ตัวกำหนดเงินเดือน"
 #. module: hr_contract_salary
 #: model:ir.actions.server,name:hr_contract_salary.ir_cron_update_offer_state_ir_actions_server
 msgid "Salary Configurator: Update Offer State"
-msgstr ""
+msgstr "ตัวกำหนดค่าเงินเดือน: อัปเดตสถานะข้อเสนอ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__salary_offer_ids
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__salary_offer_ids
 msgid "Salary Offer"
-msgstr ""
+msgstr "ข้อเสนอเงินเดือน"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__salary_offers_count
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__salary_offers_count
 msgid "Salary Offers Count"
-msgstr ""
+msgstr "จำนวนข้อเสนอเงินเดือน"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_benefit
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_tree
 msgid "Salary Package Benefit"
-msgstr ""
+msgstr "สวัสดิการแพ็คเกจเงินเดือน"
 
 #. module: hr_contract_salary
 #: model:ir.ui.menu,name:hr_contract_salary.salary_package_menu
@@ -1840,12 +1840,12 @@ msgstr "ตัวกำหนดค่าแพ็คเกจเงินเด
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_offer
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
 msgid "Salary Package Offer"
-msgstr ""
+msgstr "ข้อเสนอแพ็คเกจเงินเดือน"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_tree
 msgid "Salary Package Offers"
-msgstr ""
+msgstr "ข้อเสนอแพ็คเกจเงินเดือน"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_personal_info
@@ -1904,7 +1904,7 @@ msgstr "โรงเรียน"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_search
 msgid "Search Offers"
-msgstr ""
+msgstr "ค้นหาข้อเสนอ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit_value__display_type__section
@@ -1916,12 +1916,12 @@ msgstr "ส่วน"
 #: model:hr.contract.salary.personal.info,placeholder:hr_contract_salary.hr_contract_salary_personal_info_country_id
 #: model:hr.contract.salary.personal.info,placeholder:hr_contract_salary.hr_contract_salary_personal_info_country_of_birth
 msgid "Select a Country"
-msgstr ""
+msgstr "เลือกประเทศ"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,placeholder:hr_contract_salary.hr_contract_salary_personal_info_state_id
 msgid "Select a State"
-msgstr ""
+msgstr "เลือกรัฐ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__display_type__dropdown
@@ -1937,7 +1937,7 @@ msgstr "ธรรมชาติการเลือก"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
 msgid "Send By Email"
-msgstr ""
+msgstr "ส่งโดยอีเมล"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__sign_copy_partner_id
@@ -1948,7 +1948,7 @@ msgstr "ส่งสำเนาถึง"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_applicant_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
 msgid "Sent Offers"
-msgstr ""
+msgstr "ส่งข้อเสนอแล้ว"
 
 #. module: hr_contract_salary
 #: model:mail.template,description:hr_contract_salary.mail_template_send_offer_applicant
@@ -1976,12 +1976,12 @@ msgstr "ลำดับ"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_personal_information
 msgid "Show <i class=\"oi oi-chevron-down\"/>"
-msgstr ""
+msgstr "แสดง <i class=\"oi oi-chevron-down\"/>"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__show_name
 msgid "Show Name"
-msgstr ""
+msgstr "แสดงชื่อ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__position__right
@@ -1996,7 +1996,7 @@ msgstr "เพิ่ม"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__sign_frenquency
 msgid "Sign Creation Type"
-msgstr ""
+msgstr "ประเภทการสร้างการลงนาม"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_sign_document_wizard
@@ -2031,7 +2031,7 @@ msgstr "ตัวเลื่อนต่ำสุด"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__slider_step
 msgid "Slider Step"
-msgstr ""
+msgstr "ขั้นเลื่อน"
 
 #. module: hr_contract_salary
 #. odoo-javascript
@@ -2090,7 +2090,7 @@ msgstr "ประเภทโครงสร้าง"
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_resume__value_type__sum
 msgid "Sum of Benefits Values"
-msgstr ""
+msgstr "ผลรวมของมูลค่าผลประโยชน์"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__sign_template_id
@@ -2116,7 +2116,7 @@ msgstr "สัญญาที่สัญญานี้ถูกทำซ้ำ
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "The current requested documents are the followings:"
-msgstr ""
+msgstr "เอกสารที่ขอในปัจจุบันมีดังต่อไปนี้:"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
@@ -2165,7 +2165,7 @@ msgstr "ไม่มีตัวเลือกในการปรับแต
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_diff_email_template
 msgid "There were no changes since previous contract."
-msgstr ""
+msgstr "ไม่มีการเปลี่ยนแปลงใดตั้งแต่สัญญาครั้งก่อน"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
@@ -2243,7 +2243,7 @@ msgstr "หน่วยวัด"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.res_config_settings_view_form_hr
 msgid "Validity duration for salary package requests for employees"
-msgstr ""
+msgstr "ระยะเวลาที่ถูกต้องสำหรับการขอแพ็คเกจเงินเดือนสำหรับพนักงาน"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.res_config_settings_view_form
@@ -2305,13 +2305,13 @@ msgstr "ประวัติการสื่อสารของเว็บ
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__activity_creation_type__onchange
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__sign_frenquency__always
 msgid "When the benefit is modified"
-msgstr ""
+msgstr "เมื่อสิทธิประโยชน์ได้รับการแก้ไข"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__activity_creation_type__always
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__sign_frenquency__onchange
 msgid "When the benefit is set"
-msgstr ""
+msgstr "เมื่อกำหนดสิทธิประโยชน์แล้ว"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__show_name

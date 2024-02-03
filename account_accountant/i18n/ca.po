@@ -8,7 +8,6 @@
 # M Palau <mpalau@tda.ad>, 2023
 # ericrolo, 2023
 # Carles Antoli <carlesantoli@hotmail.com>, 2023
-# AncesLatino2004, 2023
 # RGB Consulting <odoo@rgbconsulting.com>, 2023
 # Eugeni Chafer <eugeni@chafer.cat>, 2023
 # Arnau Ros, 2023
@@ -16,7 +15,6 @@
 # Jonatan Gk, 2023
 # Pere Martínez, 2023
 # Josep Anton Belchi, 2023
-# Martin Trigaux, 2023
 # Harcogourmet, 2023
 # martioodo hola, 2023
 # Ivan Espinola, 2023
@@ -24,7 +22,9 @@
 # Quim - eccit <quim@eccit.com>, 2023
 # marcescu, 2023
 # jabiri7, 2023
-# Óscar Fonseca <tecnico@pyming.com>, 2023
+# Óscar Fonseca <tecnico@pyming.com>, 2024
+# AncesLatino2004, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
@@ -32,7 +32,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Óscar Fonseca <tecnico@pyming.com>, 2023\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,34 +61,6 @@ msgid ""
 msgstr ""
 "%(display_name_html)s amb una import obert de %(open_amount)s es reduirà en "
 "%(amount)s."
-
-#. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
-#, python-format
-msgid "'Discuss'"
-msgstr ""
-
-#. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
-#, python-format
-msgid "'Manual Operations'"
-msgstr ""
-
-#. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
-#, python-format
-msgid "'Match Existing Entries'"
-msgstr ""
-
-#. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
-#, python-format
-msgid "'Transaction Details'"
-msgstr ""
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_form
@@ -753,6 +725,13 @@ msgid "Discount Date"
 msgstr "Data del descompte"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Discuss"
+msgstr "Discussió"
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__display_allow_partials
 msgid "Display Allow Partials"
 msgstr ""
@@ -1233,6 +1212,13 @@ msgid "Management Closing"
 msgstr "Tancament de gestió"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Manual Operations"
+msgstr "Operacions manuals"
+
+#. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__manual
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__manual
 msgid "Manually & Grouped"
@@ -1250,6 +1236,13 @@ msgstr ""
 #, python-format
 msgid "Match"
 msgstr "Conciliar"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Match Existing Entries"
+msgstr "Conciliació d'entrades existents"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_kanban_bank_rec_widget
@@ -2066,6 +2059,7 @@ msgstr "Divisa de la transacció"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Transaction Details"

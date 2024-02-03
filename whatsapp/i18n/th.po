@@ -44,7 +44,7 @@ msgstr "%(original_name)s (สำเนา)"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "%(template_name)s [%(account_name)s]"
-msgstr ""
+msgstr "%(template_name)s [%(account_name)s]"
 
 #. module: whatsapp
 #. odoo-python
@@ -66,7 +66,7 @@ msgstr "'%(field)s' ดูเหมือนจะไม่ใช่เส้น
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
 msgid ", ... (%s Others)"
-msgstr ""
+msgstr ", ... (%s อื่นๆ)"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action
@@ -85,6 +85,8 @@ msgid ""
 "<i class=\"fa fa-whatsapp me-1\" title=\"Messages Count\" aria-"
 "label=\"Messages Count\"/>"
 msgstr ""
+"<i class=\"fa fa-whatsapp me-1\" title=\"จำนวนข้อความ\" aria-"
+"label=\"จำนวนข้อความ\"/>"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.template_message_preview
@@ -92,6 +94,8 @@ msgid ""
 "<span class=\"o-whatsapp-font-11\">{{Location name}}</span><br/>\n"
 "                            <span class=\"text-600 o-whatsapp-font-9\">{{Address}}</span>"
 msgstr ""
+"<span class=\"o-whatsapp-font-11\">{{Location name}}</span><br/>\n"
+"                            <span class=\"text-600 o-whatsapp-font-9\">{{Address}}</span>"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.template_message_preview
@@ -118,14 +122,14 @@ msgstr ""
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
 msgid "A new WhatsApp channel is created for this document"
-msgstr ""
+msgstr "มีการสร้างช่องทาง WhatsApp ใหม่สำหรับเอกสารนี้"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
 msgid "A phone number is required for WhatsApp channels %(channel_names)s"
-msgstr ""
+msgstr "จำเป็นต้องมีหมายเลขโทรศัพท์สำหรับช่อง %(channel_names)s ของ WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__token
@@ -140,7 +144,7 @@ msgstr "บัญชี"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__account_uid
 msgid "Account ID"
-msgstr ""
+msgstr "หมายเลขบัญชี"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__message_needaction
@@ -174,22 +178,22 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_template_button.py:0
 #, python-format
 msgid "All dynamic urls must have a placeholder."
-msgstr ""
+msgstr "URL ไดนามิกทั้งหมดต้องมีตัวยึดตำแหน่ง"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "Allow Multi"
-msgstr ""
+msgstr "อนุญาตให้ใช้หลายรายการ"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__allowed_company_ids
 msgid "Allowed Company"
-msgstr ""
+msgstr "บริษัทที่ได้รับอนุญาต"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "Allowed companies"
-msgstr ""
+msgstr "บริษัทที่ได้รับอนุญาต"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__app_uid
@@ -240,7 +244,7 @@ msgstr "จำนวนสิ่งที่แนบมา"
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "Attachment mimetype is not supported by WhatsApp: %s."
-msgstr ""
+msgstr "WhatsApp ไม่รองรับประเภทไฟล์แนบ mimetype:%s"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__template_type__authentication
@@ -305,24 +309,24 @@ msgstr "ข้อความของปุ่ม"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__button_dynamic_url_1
 msgid "Button Url 1"
-msgstr ""
+msgstr "ปุ่ม Url 1"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__button_dynamic_url_2
 msgid "Button Url 2"
-msgstr ""
+msgstr "ปุ่ม Url 2"
 
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_template_button_unique_name_per_template
 msgid "Button names must be unique in a given template"
-msgstr ""
+msgstr "ชื่อปุ่มต้องไม่ซ้ำกันในเทมเพลตที่กำหนด"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "Button variables must be linked to a button."
-msgstr ""
+msgstr "ตัวแปรปุ่มจะต้องเชื่อมโยงกับปุ่ม"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__button_ids
@@ -334,13 +338,13 @@ msgstr "ปุ่ม"
 #: code:addons/whatsapp/models/whatsapp_template_button.py:0
 #, python-format
 msgid "Buttons may only contain one placeholder."
-msgstr ""
+msgstr "ปุ่มต่างๆ อาจมีตัวยึดตำแหน่งได้เพียงอันเดียวเท่านั้น"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_button__call_number
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_button__button_type__phone_number
 msgid "Call Number"
-msgstr ""
+msgstr "เบอร์โทรศัพท์"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__callback_url
@@ -432,7 +436,7 @@ msgstr "การกำหนดค่า"
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.res_config_settings_view_form
 msgid "Configure Meta Accounts"
-msgstr ""
+msgstr "กำหนดค่าบัญชี Meta"
 
 #. module: whatsapp
 #. odoo-python
@@ -446,7 +450,7 @@ msgstr ""
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "Configure Whatsapp Business Account"
-msgstr ""
+msgstr "กำหนดค่าบัญชี Whatsapp สำหรับธุรกิจ"
 
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_res_partner
@@ -466,7 +470,7 @@ msgstr "วันที่สร้าง"
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action
 msgid "Create or sync WhatsApp Templates."
-msgstr ""
+msgstr "สร้างหรือซิงค์เทมเพลต WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__create_uid
@@ -495,7 +499,7 @@ msgstr "สร้างเมื่อ"
 #: code:addons/whatsapp/models/whatsapp_account.py:0
 #, python-format
 msgid "Credentials are valid."
-msgstr ""
+msgstr "ข้อมูลรับรองถูกต้อง"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__hr
@@ -584,14 +588,14 @@ msgstr "ชื่อโมเดลเอกสาร"
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "Document upload failed, please retry after sometime."
-msgstr ""
+msgstr "การอัปโหลดเอกสารล้มเหลว โปรดลองอีกครั้งในภายหลัง"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "Document upload session open failed, please retry after sometime."
-msgstr ""
+msgstr "การเปิดเซสชันการอัปโหลดเอกสารล้มเหลว โปรดลองอีกครั้งในภายหลัง"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
@@ -606,7 +610,7 @@ msgstr "ร่าง"
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_template_unique_name_account_template
 msgid "Duplicate template is not allowed for one Meta account."
-msgstr ""
+msgstr "ไม่อนุญาตให้มีเทมเพลตที่ซ้ำกันสำหรับบัญชี Meta หนึ่งบัญชี"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__nl
@@ -688,14 +692,14 @@ msgstr "ฟิลด์"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_variable__field_type__field
 msgid "Field of Model"
-msgstr ""
+msgstr "ฟิลด์ของโมเดล"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "Field template variables must be associated with a field."
-msgstr ""
+msgstr "ตัวแปรเทมเพลตฟิลด์ต้องเชื่อมโยงกับฟิลด์"
 
 #. module: whatsapp
 #. odoo-python
@@ -717,7 +721,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__whatsapp_recoverable
 msgid "Fixable Whatsapp error"
-msgstr ""
+msgstr "ข้อผิดพลาด Whatsapp ที่แก้ไขได้"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__message_follower_ids
@@ -744,64 +748,64 @@ msgstr "ข้อความฟรี"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_1
 msgid "Free Text 1"
-msgstr ""
+msgstr "ข้อความอิสระ 1"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_10
 msgid "Free Text 10"
-msgstr ""
+msgstr "ข้อความอิสระ 10"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_2
 msgid "Free Text 2"
-msgstr ""
+msgstr "ข้อความอิสระ 2"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_3
 msgid "Free Text 3"
-msgstr ""
+msgstr "ข้อความอิสระ 3"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_4
 msgid "Free Text 4"
-msgstr ""
+msgstr "ข้อความอิสระ 4"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_5
 msgid "Free Text 5"
-msgstr ""
+msgstr "ข้อความอิสระ 5"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_6
 msgid "Free Text 6"
-msgstr ""
+msgstr "ข้อความอิสระ 6"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_7
 msgid "Free Text 7"
-msgstr ""
+msgstr "ข้อความอิสระ 7"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_8
 msgid "Free Text 8"
-msgstr ""
+msgstr "ข้อความอิสระ 8"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__free_text_9
 msgid "Free Text 9"
-msgstr ""
+msgstr "ข้อความอิสระ 9"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__free_text_json
 msgid "Free Text Template Parameters"
-msgstr ""
+msgstr "พารามิเตอร์เทมเพลตข้อความอิสระ"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "Free Text template variables must have a demo value."
-msgstr ""
+msgstr "ตัวแปรเทมเพลตข้อความอิสระต้องมีค่าสาธิต"
 
 #. module: whatsapp
 #. odoo-python
@@ -989,12 +993,12 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__invalid_phone_number_count
 msgid "Invalid Phone Number Count"
-msgstr ""
+msgstr "จำนวนหมายเลขโทรศัพท์ไม่ถูกต้อง"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__network
 msgid "Invalid query or unreachable endpoint"
-msgstr ""
+msgstr "ข้อความค้นหาไม่ถูกต้องหรือปลายทางไม่สามารถเข้าถึงได้"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ga
@@ -1004,7 +1008,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__is_button_dynamic
 msgid "Is Button Dynamic"
-msgstr ""
+msgstr "เป็นปุ่มไดนามิก"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__message_is_follower
@@ -1020,7 +1024,7 @@ msgstr "เป็นข้อความส่วนหัวอิสระ"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__batch_mode
 msgid "Is Multiple Records"
-msgstr ""
+msgstr "เป็นหลายบันทึก"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__it
@@ -1193,21 +1197,21 @@ msgstr "การตลาด"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Maximum 1 Call Number button allowed."
-msgstr ""
+msgstr "อนุญาตให้ใช้ปุ่มหมายเลขโทรสูงสุด 1 หมายเลข"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Maximum 10 buttons allowed."
-msgstr ""
+msgstr "อนุญาตให้มีปุ่มได้สูงสุด 10 ปุ่ม"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Maximum 2 URL buttons allowed."
-msgstr ""
+msgstr "อนุญาตให้ใช้ปุ่ม URL ได้สูงสุด 2 ปุ่ม"
 
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_mail_message
@@ -1236,7 +1240,7 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Message Statistics Of %(template_name)s"
-msgstr ""
+msgstr "สถิติข้อความของ %(template_name)s"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__message_type
@@ -1259,12 +1263,12 @@ msgstr "จำนวนข้อความ"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__account
 msgid "Misconfigured or shared account"
-msgstr ""
+msgstr "บัญชีที่กำหนดค่าไม่ถูกต้องหรือใช้ร่วมกัน"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__mobile_number_formatted
 msgid "Mobile Number Formatted"
-msgstr ""
+msgstr "หมายเลขโทรศัพท์มือถือที่จัดรูปแบบแล้ว"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
@@ -1292,7 +1296,7 @@ msgstr "ชื่อ"
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_message_action
 msgid "No WhatsApp messages found."
-msgstr ""
+msgstr "ไม่พบข้อความ WhatsApp"
 
 #. module: whatsapp
 #. odoo-python
@@ -1300,7 +1304,7 @@ msgstr ""
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
 msgid "No approved WhatsApp Templates are available for this model."
-msgstr ""
+msgstr "ไม่มีเทมเพลต WhatsApp ที่ได้รับอนุมัติสำหรับรุ่นนี้"
 
 #. module: whatsapp
 #. odoo-javascript
@@ -1357,12 +1361,12 @@ msgstr "จํานวนข้อผิดพลาด"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__number_of_free_text
 msgid "Number of free text"
-msgstr ""
+msgstr "จำนวนข้อความอิสระ"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__number_of_free_text_button
 msgid "Number of free text Buttons"
-msgstr ""
+msgstr "จำนวนปุ่มข้อความอิสระ"
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_account__message_needaction_counter
@@ -1388,14 +1392,14 @@ msgstr "อนุญาตให้ใช้ข้อความอิสระ
 #: code:addons/whatsapp/models/whatsapp_template_button.py:0
 #, python-format
 msgid "Only dynamic urls may have a placeholder."
-msgstr ""
+msgstr "เฉพาะ URL แบบไดนามิกเท่านั้นที่สามารถมีตัวยึดตำแหน่งได้"
 
 #. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/common/composer_patch.js:0
 #, python-format
 msgid "Only one attachment is allowed for each message"
-msgstr ""
+msgstr "อนุญาตให้แนบไฟล์ได้เพียงไฟล์เดียวสำหรับแต่ละข้อความ"
 
 #. module: whatsapp
 #. odoo-python
@@ -1414,7 +1418,7 @@ msgstr "ขาออก"
 #: code:addons/whatsapp/models/res_partner.py:0
 #, python-format
 msgid "Partner created by incoming WhatsApp message."
-msgstr ""
+msgstr "พาร์ทเนอร์ที่สร้างขึ้นโดยข้อความ WhatsApp ที่เข้ามา"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__status__paused
@@ -1454,24 +1458,24 @@ msgstr "หมายเลขโทรศัพท์"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__phone_uid
 msgid "Phone Number ID"
-msgstr ""
+msgstr "รหัสหมายเลขโทรศัพท์"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__blacklisted
 msgid "Phone is blacklisted"
-msgstr ""
+msgstr "โทรศัพท์ที่อยู่ในแบล็คลิสต์"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "Phone number Id is wrong."
-msgstr ""
+msgstr "รหัสหมายเลขโทรศัพท์ไม่ถูกต้อง"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__phone_invalid
 msgid "Phone number in the wrong format"
-msgstr ""
+msgstr "หมายเลขโทรศัพท์อยู่ในรูปแบบที่ไม่ถูกต้อง"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_variable__name
@@ -1564,7 +1568,7 @@ msgstr ""
 #: code:addons/whatsapp/controller/main.py:0
 #, python-format
 msgid "Reason : %s"
-msgstr ""
+msgstr "เหตุผล : %s"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__state__received
@@ -1591,7 +1595,7 @@ msgstr "ปฏิเสธแล้ว"
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
 msgid "Related %(model_name)s: "
-msgstr ""
+msgstr "เกี่ยวข้องกับ %(model_name)s: "
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__model
@@ -1602,7 +1606,7 @@ msgstr "รูปแบบเอกสารที่เกี่ยวข้อ
 #: model:ir.model.fields,field_description:whatsapp.field_mail_mail__wa_message_ids
 #: model:ir.model.fields,field_description:whatsapp.field_mail_message__wa_message_ids
 msgid "Related WhatsApp Messages"
-msgstr ""
+msgstr "ข้อความ WhatsApp ที่เกี่ยวข้อง"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_discuss_channel__whatsapp_mail_message_id
@@ -1650,12 +1654,12 @@ msgstr ""
 #: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
 #, python-format
 msgid "Search WhatsApp Channel"
-msgstr ""
+msgstr "ค้นหาช่อง WhatsApp"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.template_message_preview
 msgid "See all options"
-msgstr ""
+msgstr "ดูตัวเลือกทั้งหมด"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_composer_view_form
@@ -1673,17 +1677,17 @@ msgstr ""
 #: code:addons/whatsapp/static/src/core/web/chatter_patch.js:0
 #, python-format
 msgid "Send WhatsApp Message"
-msgstr ""
+msgstr "ส่งข้อความ WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_whatsapp_composer
 msgid "Send WhatsApp Wizard"
-msgstr ""
+msgstr "ส่งโปรแกรม WhatsApp"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.res_config_settings_view_form
 msgid "Send and receive message through your WhatsApp Business account."
-msgstr ""
+msgstr "ส่งและรับข้อความผ่านบัญชี WhatsApp Business ของคุณ"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
@@ -1745,7 +1749,7 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "Some messages are not retryable."
-msgstr ""
+msgstr "บางข้อความไม่สามารถลองใหม่ได้"
 
 #. module: whatsapp
 #. odoo-python
@@ -1798,7 +1802,7 @@ msgstr "สถานะ"
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "Submit for Approval"
-msgstr ""
+msgstr "ส่งเพื่อขออนุมัติ"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__sw
@@ -1852,14 +1856,14 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "Template %(template_name)s was sent from %(model_name)s"
-msgstr ""
+msgstr "เทมเพลต %(template_name)s ถูกส่งมาจาก %(model_name)s"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "Template %(template_name)s was sent from another model"
-msgstr ""
+msgstr "เทมเพลต %(template_name)s ถูกส่งมาจากโมเดลอื่น"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_button_view_form
@@ -1912,7 +1916,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template
 msgid "Template cannot be used"
-msgstr ""
+msgstr "ไม่สามารถใช้เทมเพลตได้"
 
 #. module: whatsapp
 #. odoo-python
@@ -1942,7 +1946,7 @@ msgstr "เทมเพลต"
 #: code:addons/whatsapp/models/whatsapp_account.py:0
 #, python-format
 msgid "Templates Of %(account_name)s"
-msgstr ""
+msgstr "เทมเพลตของ %(account_name)s"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
@@ -1971,17 +1975,17 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_template_button.py:0
 #, python-format
 msgid "The placeholder for a button can only be {{1}}."
-msgstr ""
+msgstr "ตัวยึดตำแหน่งสำหรับปุ่มต้องเป็น {{1}} เท่านั้น"
 
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_account_phone_uid_unique
 msgid "The same phone number ID already exists"
-msgstr ""
+msgstr "มีรหัสหมายเลขโทรศัพท์เดียวกันนี้อยู่แล้ว"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_account_action
 msgid "There is no WhatsApp Business Account configured."
-msgstr ""
+msgstr "ไม่มีการกำหนดค่าบัญชี WhatsApp Business"
 
 #. module: whatsapp
 #. odoo-python
@@ -2005,26 +2009,26 @@ msgstr "ควรมีตัวแปรไม่เกิน 1 ตัวใน
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "This configuration is for receiving the WhatsApp messages."
-msgstr ""
+msgstr "การกำหนดค่านี้มีไว้สำหรับรับข้อความ WhatsApp"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "This configuration is for sending the WhatsApp"
-msgstr ""
+msgstr "การกำหนดค่านี้ใช้สำหรับส่งข้อความใน WhatsApp"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
 msgid "This join method is not possible for regular channels."
-msgstr ""
+msgstr "วิธีการรวมนี้ไม่สามารถทำได้สำหรับช่องปกติ"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "To use WhatsApp Configure it first"
-msgstr ""
+msgstr "หากต้องการใช้ WhatsApp ให้กำหนดค่าก่อน"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__tr
@@ -2047,7 +2051,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__whatsapp_unrecoverable
 msgid "Unfixable Whatsapp error"
-msgstr ""
+msgstr "ข้อผิดพลาด Whatsapp ที่ไม่สามารถแก้ไขได้"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__unknown
@@ -2059,7 +2063,7 @@ msgstr ""
 #: code:addons/whatsapp/tools/whatsapp_exception.py:0
 #, python-format
 msgid "Unknown error when processing whatsapp request."
-msgstr ""
+msgstr "เกิดข้อผิดพลาดที่ไม่รู้จักเมื่อประมวลผลคำขอ Whatsapp"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__ur
@@ -2109,21 +2113,21 @@ msgstr "การตั้งค่าผู้ใช้"
 #. module: whatsapp
 #: model:ir.module.category,description:whatsapp.module_whatsapp
 msgid "User access levels for WhatsApp module"
-msgstr ""
+msgstr "ระดับการเข้าถึงของผู้ใช้สำหรับโมดูล WhatsApp"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "User has been opt out of receiving WhatsApp messages"
-msgstr ""
+msgstr "ผู้ใช้ได้ยกเลิกการรับข้อความ WhatsApp"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "User has opted in to receiving WhatsApp messages"
-msgstr ""
+msgstr "ผู้ใช้เลือกที่จะรับข้อความ WhatsApp"
 
 #. module: whatsapp
 #. odoo-python
@@ -2144,7 +2148,7 @@ msgstr "ผู้ใช้"
 #: code:addons/whatsapp/models/whatsapp_account.py:0
 #, python-format
 msgid "Users to notify is required"
-msgstr ""
+msgstr "ผู้ใช้ต้องแจ้งให้ทราบ"
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_account__notify_user_ids
@@ -2158,12 +2162,12 @@ msgstr ""
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "Users who can use this template.If empty then public."
-msgstr ""
+msgstr "ผู้ใช้ที่สามารถใช้เทมเพลตนี้ได้ หากว่างเปล่า แสดงเป็นสาธารณะ"
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_message__failure_reason
 msgid "Usually an error message from Whatsapp"
-msgstr ""
+msgstr "โดยปกติแล้วจะเป็นข้อความแสดงข้อผิดพลาดจาก Whatsapp"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__template_type__utility
@@ -2188,7 +2192,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_template_variable_name_type_template_unique
 msgid "Variable names must be unique for a given template"
-msgstr ""
+msgstr "ชื่อตัวแปรต้องไม่ซ้ำกันสำหรับเทมเพลตที่กำหนด"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__video
@@ -2222,7 +2226,7 @@ msgstr "เราไม่สามารถดึงค่าของฟิล
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__webhook_verify_token
 msgid "Webhook Verify Token"
-msgstr ""
+msgstr "โทเค็นการยืนยัน Webhook"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__website_message_ids
@@ -2259,12 +2263,12 @@ msgstr "WhatsApp"
 #. module: whatsapp
 #: model:ir.actions.server,name:whatsapp.ir_actions_server_resend_whatsapp_queue
 msgid "WhatsApp : Resend failed Messages"
-msgstr ""
+msgstr "WhatsApp: ส่งข้อความที่ล้มเหลวอีกครั้ง"
 
 #. module: whatsapp
 #: model:ir.actions.server,name:whatsapp.ir_cron_send_whatsapp_queue_ir_actions_server
 msgid "WhatsApp : Send In Queue Messages"
-msgstr ""
+msgstr "WhatsApp: ส่งข้อความในคิว"
 
 #. module: whatsapp
 #: model:ir.actions.act_window,name:whatsapp.whatsapp_account_action
@@ -2274,17 +2278,17 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "WhatsApp Business Account"
-msgstr ""
+msgstr "บัญชีธุรกิจสำหรับ WhatsApp"
 
 #. module: whatsapp
 #: model:ir.ui.menu,name:whatsapp.whatsapp_account_menu
 msgid "WhatsApp Business Accounts"
-msgstr ""
+msgstr "บัญชีธุรกิจสำหรับ WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_res_users_settings__is_discuss_sidebar_category_whatsapp_open
 msgid "WhatsApp Category Open"
-msgstr ""
+msgstr "เปิดหมวดหมู่ WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__discuss_channel__channel_type__whatsapp
@@ -2301,7 +2305,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__msg_uid
 msgid "WhatsApp Message ID"
-msgstr ""
+msgstr "รหัสข้อความ WhatsApp"
 
 #. module: whatsapp
 #: model:ir.actions.act_window,name:whatsapp.whatsapp_message_action
@@ -2319,7 +2323,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_discuss_channel__whatsapp_channel_valid_until
 msgid "WhatsApp Partner Last Message Datetime"
-msgstr ""
+msgstr "วันที่และเวลาข้อความล่าสุดของพาร์ทเนอร์ WhatsApp"
 
 #. module: whatsapp
 #: model:ir.actions.act_window,name:whatsapp.whatsapp_template_action
@@ -2332,12 +2336,12 @@ msgstr "เทมเพลต WhatsApp"
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_whatsapp_template_button
 msgid "WhatsApp Template Button"
-msgstr ""
+msgstr "ปุ่มเทมเพลต WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__wa_template_uid
 msgid "WhatsApp Template ID"
-msgstr ""
+msgstr "รหัสเทมเพลต WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_whatsapp_template_variable
@@ -2347,14 +2351,14 @@ msgstr "ตัวแปรเทมเพลต WhatsApp"
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_account_action
 msgid "WhatsApp cloud api"
-msgstr ""
+msgstr "WhatsApp คลาวด์ API"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/tools/whatsapp_exception.py:0
 #, python-format
 msgid "Whatsapp account is misconfigured or shared."
-msgstr ""
+msgstr "บัญชี Whatsapp ได้รับการกำหนดค่าไม่ถูกต้องหรือแชร์"
 
 #. module: whatsapp
 #. odoo-python
@@ -2401,7 +2405,7 @@ msgstr "คุณไม่ได้รับอนุญาตให้ใช้
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "You can not cancel message which is in queue."
-msgstr ""
+msgstr "คุณไม่สามารถยกเลิกข้อความที่อยู่ในคิวได้"
 
 #. module: whatsapp
 #. odoo-python
@@ -2416,7 +2420,7 @@ msgstr "คุณไม่สามารถส่งข้อความที
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "You can not select field of %(model)s."
-msgstr ""
+msgstr "คุณไม่สามารถเลือกฟิลด์ %(model)s ได้"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action
@@ -2449,7 +2453,7 @@ msgstr "คุณสามารถใช้ไฟล์แนบส่วนห
 #: code:addons/whatsapp/controller/main.py:0
 #, python-format
 msgid "Your Template has been rejected."
-msgstr ""
+msgstr "เทมเพลตของคุณถูกปฏิเสธ"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form

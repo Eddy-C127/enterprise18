@@ -12,7 +12,7 @@
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
 # Veikko Väätäjä <veikko.vaataja@gmail.com>, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -460,6 +460,28 @@ msgstr "Vuotuiset automaattiset vastuuvelan siirrot"
 #, python-format
 msgid "You cannot set Tax on Automatic Transfer's entries."
 msgstr "Et voi asettaa veroa automaattisen siirron kirjauksille."
+
+#. module: account_auto_transfer
+#. odoo-python
+#: code:addons/account_auto_transfer/models/transfer_model.py:0
+#, python-format
+msgid ""
+"You cannot delete an automatic transfer that has draft moves attached "
+"('%s'); delete them before deleting this transfer."
+msgstr ""
+"Et voi poistaa automaattista siirtoa, johon on liitetty siirtoluonnoksia "
+"(\"%s\"); poista ne ennen tämän siirron poistamista."
+
+#. module: account_auto_transfer
+#. odoo-python
+#: code:addons/account_auto_transfer/models/transfer_model.py:0
+#, python-format
+msgid ""
+"You cannot delete an automatic transfer that has posted moves attached "
+"('%s')."
+msgstr ""
+"Et voi poistaa automaattista siirtoa, johon on liitetty kirjattuja siirtoja "
+"(\"%s\")."
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form

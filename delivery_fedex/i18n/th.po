@@ -35,7 +35,7 @@ msgstr "<br/>ตามความต้องการของคุณ คุ
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "<span class=\"o_form_label\">Package Length Unit</span>"
-msgstr ""
+msgstr "<span class=\"o_form_label\">หน่วยความยาวบรรจุภัณฑ์</span>"
 
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
@@ -43,6 +43,8 @@ msgid ""
 "<span invisible=\"fedex_weight_unit != 'KG'\">CM</span>\n"
 "                                <span invisible=\"fedex_weight_unit != 'LB'\">IN</span>"
 msgstr ""
+"<span invisible=\"fedex_weight_unit != 'KG'\">ซม.</span>\n"
+"                                <span invisible=\"fedex_weight_unit != 'LB'\">นิ้ว</span>"
 
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
@@ -113,22 +115,22 @@ msgstr ""
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "Extra Data"
-msgstr ""
+msgstr "ข้อมูลพิเศษ"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_rate_request
 msgid "Extra data for rate"
-msgstr ""
+msgstr "ข้อมูลเพิ่มเติมสำหรับอัตรา"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_return_request
 msgid "Extra data for return"
-msgstr ""
+msgstr "ข้อมูลเพิ่มเติมสำหรับการส่งคืนสินค้า"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_ship_request
 msgid "Extra data for ship"
-msgstr ""
+msgstr "ข้อมูลเพิ่มเติมสำหรับการจัดส่ง"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_label_file_type
@@ -267,7 +269,7 @@ msgstr "การกำหนดค่า Fedex"
 #: code:addons/delivery_fedex/models/delivery_fedex.py:0
 #, python-format
 msgid "Fedex Documents"
-msgstr ""
+msgstr "เอกสารของ Fedex"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_droppoff_type
@@ -336,7 +338,7 @@ msgstr "INTERNATIONAL_PRIORITY"
 #: code:addons/delivery_fedex/models/delivery_fedex.py:0
 #, python-format
 msgid "Invalid syntax for FedEx extra data."
-msgstr ""
+msgstr "ไวยากรณ์ไม่ถูกต้องสำหรับข้อมูลเพิ่มเติมของ FedEx"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_weight_unit__kg

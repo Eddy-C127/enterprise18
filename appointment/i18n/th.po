@@ -33,6 +33,8 @@ msgstr " (สำเนา)"
 #, python-format
 msgid "\"%(resource_name_list)s\" cannot be used for \"%(appointment_type_name)s\""
 msgstr ""
+"\"%(resource_name_list)s\" ไม่สามารถใช้สำหรับ \"%(appointment_type_name)s\" "
+"ได้"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count
@@ -47,12 +49,12 @@ msgstr "# การนัดหมายในช่วง 30 วันที่
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_count
 msgid "# Bookings"
-msgstr ""
+msgstr "# การจอง"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_invite_count
 msgid "# Invitation Links"
-msgstr ""
+msgstr "# ลิงค์คำเชิญ"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_resource_count
@@ -83,7 +85,7 @@ msgstr "%(appointment_name)s กับ %(partner_name)s"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "%(attendee_name)s - %(appointment_name)s Booking"
-msgstr ""
+msgstr "%(attendee_name)s - %(appointment_name)s การจอง"
 
 #. module: appointment
 #. odoo-python
@@ -730,12 +732,12 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "<i class=\"fa fa-plus me-1\"/> Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/> เพิ่มผู้เข้าร่วม"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-plus me-1\"/>Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/>เพิ่มแขก"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
@@ -771,12 +773,12 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_date
 msgid "<small class=\"text-uppercase text-muted\">Date &amp; time</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">วันที่ &amp; เวลา</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">รายละเอียดการประชุม</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -809,6 +811,8 @@ msgid ""
 "<span class=\"px-2\" invisible=\"start_datetime or category == "
 "'anytime'\">or</span>"
 msgstr ""
+"<span class=\"px-2\" invisible=\"start_datetime or category == "
+"'anytime'\">หรือ</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -883,7 +887,7 @@ msgstr "<strong>ข้อมูลติดต่อ</strong>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Email: </strong>"
-msgstr ""
+msgstr "<strong>อีเมล: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -962,7 +966,7 @@ msgstr "เปิดใช้งาน"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add Guests"
-msgstr ""
+msgstr "เพิ่มผู้เข้าร่วม"
 
 #. module: appointment
 #. odoo-javascript
@@ -982,7 +986,7 @@ msgstr "เพิ่มการลา"
 #: code:addons/appointment/static/src/views/list/list_renderer.xml:0
 #, python-format
 msgid "Add Closing Day(s)"
-msgstr ""
+msgstr "เพิ่มวันปิดทำการ"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -1011,7 +1015,7 @@ msgstr "เพิ่มข้อความแนะนำที่นี่...
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Add more details about you"
-msgstr ""
+msgstr "เพิ่มรายละเอียดเพิ่มเติมเกี่ยวกับคุณ"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_manage_leaves
@@ -1062,7 +1066,7 @@ msgstr "อนุญาตให้ยกเลิก"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__allow_guests
 msgid "Allow Guests"
-msgstr ""
+msgstr "อนุญาตผู้เข้าร่วม"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__country_ids
@@ -1265,7 +1269,7 @@ msgstr "ทรัพยากรของการนัดหมาย"
 #. module: appointment
 #: model:ir.actions.server,name:appointment.resource_calendar_leaves_action_show_appointment_resources
 msgid "Appointment Resource Leaves"
-msgstr ""
+msgstr "การลาของทรัพยากรการนัดหมาย"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_ids
@@ -1341,7 +1345,7 @@ msgstr "การนัดหมาย: การนัดหมายถูก�
 #. module: appointment
 #: model:mail.template,name:appointment.attendee_invitation_mail_template
 msgid "Appointment: Attendee Invitation"
-msgstr ""
+msgstr "การแต่งตั้ง: การเชิญผู้เข้าร่วม"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_slot
@@ -1466,7 +1470,7 @@ msgstr "อวตาร 512"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Back to edit mode"
-msgstr ""
+msgstr "กลับสู่โหมดแก้ไข"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__base_book_url
@@ -1559,7 +1563,7 @@ msgstr "ยกเลิก/กำหนดเวลาใหม่"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__canceled_mail_template_id
 msgid "Cancelation Email"
-msgstr ""
+msgstr "อีเมลแจ้งการยกเลิก"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__capacity
@@ -1614,7 +1618,7 @@ msgstr "บริษัท"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__disable_save_button
 msgid "Computes if alert is present"
-msgstr ""
+msgstr "คำนวณหากมีการแจ้งเตือน"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.appointment_menu_config
@@ -1658,7 +1662,7 @@ msgstr "ยืนยันการเช็คอิน"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
 msgid "Confirmation Email"
-msgstr ""
+msgstr "อีเมลแจ้งการยืนยัน"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_confirmation
@@ -1712,7 +1716,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Continue <span class=\"oi oi-arrow-right\"/>"
-msgstr ""
+msgstr "ดำเนินการต่อ <span class=\"oi oi-arrow-right\"/>"
 
 #. module: appointment
 #. odoo-javascript
@@ -1732,7 +1736,7 @@ msgstr "คัดลอกลิงก์และปิด"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Create Closing Day(s)"
-msgstr ""
+msgstr "สร้างวันปิดทำการ"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
@@ -2009,7 +2013,7 @@ msgstr "ข้อมูลเพิ่มเติมที่ให้ไว้
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_appointment
 msgid "Follow, reschedule or cancel your appointments"
-msgstr ""
+msgstr "ติดตามกำหนดเวลาใหม่หรือยกเลิกการนัดหมายของคุณ"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_follower_ids
@@ -2041,7 +2045,7 @@ msgstr "จอแสดงผลส่วนหน้า"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Full name*"
-msgstr ""
+msgstr "ชื่อเต็ม*"
 
 #. module: appointment
 #. odoo-javascript
@@ -2110,7 +2114,7 @@ msgstr "มีข้อความ"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "How to join"
-msgstr ""
+msgstr "วิธีการเข้าร่วม"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__assign_method
@@ -2265,7 +2269,7 @@ msgstr "ลิงค์คำเชิญ"
 #. module: appointment
 #: model:mail.template,description:appointment.attendee_invitation_mail_template
 msgid "Invitation email to new attendees of an appointment"
-msgstr ""
+msgstr "อีเมลคำเชิญถึงผู้เข้าร่วมการนัดหมายใหม่"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.attendee_invitation_mail_template
@@ -2352,7 +2356,7 @@ msgstr "อัปเดตครั้งล่าสุดเมื่อ"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__allow_guests
 msgid "Let attendees invite guests when registering a meeting."
-msgstr ""
+msgstr "ให้ผู้เข้าร่วมประชุมเชิญผู้เข้าร่วมอื่นเมื่อลงทะเบียนการประชุม"
 
 #. module: appointment
 #. odoo-javascript
@@ -2416,7 +2420,7 @@ msgstr "ดูดีจัง !"
 #: code:addons/appointment/static/src/xml/appointment_resources.xml:0
 #, python-format
 msgid "Make your choice"
-msgstr ""
+msgstr "ตัดสินใจเลือก"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manage_capacity
@@ -2441,7 +2445,7 @@ msgstr "การยืนยันด้วยตนเอง"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Max in"
-msgstr ""
+msgstr "สูงสุดใน"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__capacity
@@ -2465,7 +2469,7 @@ msgstr "พบกับฉัน"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__videocall_redirection
 msgid "Meeting redirection URL"
-msgstr ""
+msgstr "URL การเปลี่ยนเส้นทางการประชุม"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -2480,7 +2484,7 @@ msgstr "เกิดข้อผิดพลาดในการส่งข้
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Message from the Organizer"
-msgstr ""
+msgstr "ข้อความจากผู้จัดงาน"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_ids
@@ -2552,7 +2556,7 @@ msgstr "ไม่พบการนัดหมายหรือทรัพย
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
 msgid "No Custom Availabilities Shared!"
-msgstr ""
+msgstr "ไม่มีการแชร์ความพร้อมใช้งานที่กำหนดเอง!"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -2615,7 +2619,7 @@ msgstr "จํานวนข้อความที่มีข้อผิด
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Number of people"
-msgstr ""
+msgstr "จำนวนคน"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__event_videocall_source__discuss
@@ -2726,12 +2730,12 @@ msgstr "อดีต"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_booker_id
 msgid "Person who is booking the appointment"
-msgstr ""
+msgstr "ผู้ที่จองการนัดหมาย"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Phone number*"
-msgstr ""
+msgstr "หมายเลขโทรศัพท์*"
 
 #. module: appointment
 #. odoo-python
@@ -2745,7 +2749,7 @@ msgstr "โทรศัพท์: %(phone)s"
 #: code:addons/appointment/controllers/appointment.py:0
 #, python-format
 msgid "Phone: %s"
-msgstr ""
+msgstr "โทรศัพท์: %s"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__resource_time
@@ -2765,14 +2769,14 @@ msgstr "เลือกตารางการทำงานเพื่อจ
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Pick a schedule to restrict openings"
-msgstr ""
+msgstr "เลือกตารางเวลาเพื่อจำกัดการเปิด"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Pick your availabilities"
-msgstr ""
+msgstr "เลือกความพร้อมของคุณ"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__placeholder
@@ -2884,7 +2888,7 @@ msgstr "ทรัพยากร"
 #: model:ir.actions.act_window,name:appointment.calendar_event_action_view_bookings_resources
 #: model:ir.actions.server,name:appointment.calendar_event_action_all_resources_bookings
 msgid "Resource Bookings"
-msgstr ""
+msgstr "การจองทรัพยากร"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__calendar_id
@@ -2894,7 +2898,7 @@ msgstr "ปฏิทินทรัพยากร"
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_resource_leaves
 msgid "Resource Leaves"
-msgstr ""
+msgstr "การลาของทรัพยากร"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_resource_action
@@ -2912,12 +2916,12 @@ msgstr "ทรัพยากร"
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_resource_booking
 msgid "Resources Bookings"
-msgstr ""
+msgstr "การจองทรัพยากร"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resources_on_leave
 msgid "Resources intersecting with leave time"
-msgstr ""
+msgstr "ทรัพยากรตัดกันกับการลา"
 
 #. module: appointment
 #. odoo-python
@@ -2929,7 +2933,7 @@ msgstr "รับผิดชอบ"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
 msgid "Restrict to Resource"
-msgstr ""
+msgstr "จำกัดเฉพาะทรัพยากร"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__restrict_to_resource_ids
@@ -2939,7 +2943,7 @@ msgstr "จำกัดทรัพยากร"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
 msgid "Restrict to User"
-msgstr ""
+msgstr "จำกัดเฉพาะผู้ใช้"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__restrict_to_user_ids
@@ -3053,14 +3057,14 @@ msgstr "เลือกเวลา จากนั้นกำหนดอั�
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Select a date &amp; time"
-msgstr ""
+msgstr "เลือกวันที่ &amp; เวลา"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_slots.xml:0
 #, python-format
 msgid "Select a time"
-msgstr ""
+msgstr "เลือกเวลา"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -3162,7 +3166,7 @@ msgstr "แชร์ได้"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Shared Links"
-msgstr ""
+msgstr "ลิงค์ที่แชร์"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__short_code
@@ -3256,7 +3260,7 @@ msgstr "ผู้ใช้/ทรัพยากรเฉพาะ"
 #: model:ir.actions.server,name:appointment.calendar_event_action_all_users_appointments
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_staff_appointment
 msgid "Staff Bookings"
-msgstr ""
+msgstr "การจองพนักงาน"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__leave_start_dt
@@ -3491,7 +3495,7 @@ msgstr "นี่คือตัวอย่างแบบฟอร์มนั
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
 msgid "Display the Users'/Resources' picture on the Website."
-msgstr ""
+msgstr "แสดงรูปภาพผู้ใช้/ทรัพยากรบนเว็บไซต์"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
@@ -3700,12 +3704,12 @@ msgstr "ชั่วโมงทำงาน"
 #: code:addons/appointment/static/src/js/appointment_validation.js:0
 #, python-format
 msgid "You cannot invite more than 10 people"
-msgstr ""
+msgstr "คุณไม่สามารถเชิญคนเกิน 10 คนได้"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_details_column
 msgid "Your Appointment"
-msgstr ""
+msgstr "การนัดหมายของคุณ"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3717,7 +3721,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Your appointment has successfully been booked!"
-msgstr ""
+msgstr "การนัดหมายของคุณได้รับการจองเรียบร้อยแล้ว!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3727,7 +3731,7 @@ msgstr "การนัดหมายของคุณน้อยกว่า
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 msgid "Your choice"
-msgstr ""
+msgstr "ตัวเลือกของคุณ"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3747,7 +3751,7 @@ msgstr "เช่น \"ฉันรู้สึกคลื่นไส้...\""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "e.g. \"John Doe - Tennis Court Booking\""
-msgstr ""
+msgstr "เช่น. \"John Doe - จองสนามเทนนิส\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

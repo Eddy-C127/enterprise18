@@ -6,8 +6,8 @@
 # Martin Trigaux, 2023
 # ТАрас <tratatuta@i.ua>, 2023
 # Bohdan Lisnenko, 2023
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
 # Wil Odoo, 2023
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,6 +52,8 @@ msgid ""
 "\"%(article_name)s\" is a template and can not be a child of an article "
 "(\"%(parent_article_name)s\")."
 msgstr ""
+"\"%(article_name)s\" єшаблоном і не може бути дочірньою статтею "
+"(\"%(parent_article_name)s\")."
 
 #. module: knowledge
 #. odoo-python
@@ -61,16 +63,18 @@ msgid ""
 "\"%(article_name)s\" is an article and can not be a child of a template "
 "(\"%(parent_article_name)s\").\""
 msgstr ""
+"\"%(article_name)s\" є статтею і не може бути дочірнім шаблоном "
+"(\"%(parent_article_name)s\").\""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "\"About Us\" Template"
-msgstr "Щаблон \"Про нас\""
+msgstr "Шаблон \"Про нас\""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "# Employees:"
-msgstr ""
+msgstr "К-сть співробітників:"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__favorite_count
@@ -120,7 +124,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "85x200 or 100x200, depending on the content"
-msgstr ""
+msgstr "85x200 або 100x200, в залежності від контенту"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -128,6 +132,8 @@ msgid ""
 "<br>\n"
 "                            Subscribe here to make sure you will not miss an episode!"
 msgstr ""
+"<br>\n"
+"                            Підпишіться тут, щоби бути впевненим, що ви не пропустите новий епізод!"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -138,6 +144,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        Опишіть вашу компанію у кілька слів.\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -148,6 +159,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        Як ви вимірюєте прогрес?\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -158,6 +174,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        Чого ви намагаєтеся досягти цією кампанією?\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -168,6 +189,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        У чому ти намагаєшся їх переконати?\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -178,6 +204,11 @@ msgid ""
 "                    </font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">\n"
+"                        З ким ви намагаєтеся зв'язатися??\n"
+"                    </font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -186,6 +217,9 @@ msgid ""
 "                    <font class=\"text-600\">Ask a Senior Engineer to fill this part before launching the task.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Попросіть старшого інженера заповнити цю частину перед запуском завдання.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -194,6 +228,9 @@ msgid ""
 "                    <font class=\"text-600\">Ask the developer to go through this checklist before asking for a review.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Попросіть розробника переглянути цей контрольний список, перш ніж подавати запит на перевірку.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -202,6 +239,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain in a few words the problem that this change is going to solve.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Поясніть кількома словами проблему, яку ця зміна збирається вирішити.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -210,6 +250,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain in a single sentence what has been changed.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Поясніть одним реченням, що змінилося.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -218,6 +261,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain the consequences of this issue.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Поясніть наслідки цього питання.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -226,6 +272,9 @@ msgid ""
 "                    <font class=\"text-600\">Explain what went wrong in just a few words.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Поясніть, що пішло не так, кількома словами.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -234,6 +283,9 @@ msgid ""
 "                    <font class=\"text-600\">How did it get to happen?</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Як це могло статися?</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -242,6 +294,9 @@ msgid ""
 "                    <font class=\"text-600\">How was it solved?</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Як це було вирішено?</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -250,6 +305,9 @@ msgid ""
 "                    <font class=\"text-600\">Lay here any remaining question or doubt.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Залиште тут будь-які невирішені запитання чи сумніви.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -258,6 +316,9 @@ msgid ""
 "                    <font class=\"text-600\">List here all the changes to implement.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Перелічіть тут усі зміни, які потрібно впровадити.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -266,6 +327,9 @@ msgid ""
 "                    <font class=\"text-600\">List here all the material and documentation related to the task.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Перелічіть тут усі матеріали та документацію, пов’язану із завданням.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
@@ -274,6 +338,9 @@ msgid ""
 "                    <font class=\"text-600\">List here all the text you could not do this week. These shall be postponed in the next weekly schedule.</font>\n"
 "                </em>"
 msgstr ""
+"<em>\n"
+"                    <font class=\"text-600\">Перелічіть тут усі тексти, які ви не змогли зробити цього тижня. Вони будуть відкладені в наступному тижневому розкладі.</font>\n"
+"                </em>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -282,6 +349,9 @@ msgid ""
 "                            <em>How to best reach this customer type.</em>\n"
 "                        </font>"
 msgstr ""
+"<font class=\"text-400\">\n"
+"                            <em>Як найкраще охопити цей тип клієнтів.</em>\n"
+"                        </font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
@@ -291,6 +361,10 @@ msgid ""
 "                </font>\n"
 "                Abigail works a lot and never watches TV. Better reach her on her phone or on her to work."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>Як найкраще охопити цей тип клієнтів.<br></em>\n"
+"                </font>\n"
+"                Ебігейл багато працює і ніколи не дивиться телевізор. Краще зв’яжіться з нею по телефону або на роботі."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
@@ -300,6 +374,10 @@ msgid ""
 "                </font>\n"
 "                As a classic Gen Z member, Vittorio never watches TV and never listens to the radio. For him to see our message, we need to get to his Instagram feed."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>Як найкраще охопити цей тип клієнтів.<br></em>\n"
+"                </font>\n"
+"                Як класичний член Gen Z, Вітторіо ніколи не дивиться телевізор і ніколи не слухає радіо. Щоб він побачив наше повідомлення, нам потрібно перейти до його стрічки Instagram."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
@@ -309,6 +387,10 @@ msgid ""
 "                </font>\n"
 "                As an avid music listener, the best way to reach Sonya is through the radio since hers is always on."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>Як найкраще охопити цей тип клієнтів.<br></em>\n"
+"                </font>\n"
+"                Як пристрасний слухач музики, найкращий спосіб зв’язатися з Сонею – це радіо, оскільки її завжди ввімкнено."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
@@ -318,86 +400,90 @@ msgid ""
 "                </font>\n"
 "                Julius follows politics very tightly, and can best be reached with TV ads."
 msgstr ""
+"<font class=\"text-400\">\n"
+"                    <em>Як найкраще охопити цей тип клієнтів.<br></em>\n"
+"                </font>\n"
+"                Джуліус дуже пильно стежить за політикою, і його найкраще можна охопити за допомогою телевізійної реклами."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "<font class=\"text-400\">To Read 1</font>"
-msgstr ""
+msgstr "<font class=\"text-400\">Читати 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
 msgid "<font class=\"text-400\">To Read 2</font>"
-msgstr ""
+msgstr "<font class=\"text-400\">Читати 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<font class=\"text-600\">Action A</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Дія A</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<font class=\"text-600\">Action B</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Дія B</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
 msgid "<font class=\"text-600\">Action C</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Дія C</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Backlog 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Беклог 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Backlog 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Беклог 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_personal_organizer
 msgid "<font class=\"text-600\">Backlog 3</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Беклог 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Blue/Green/Red/Yellow</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Синій/Зелений/Червоний/Жовтий</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "<font class=\"text-600\">Change 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Зміна 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "<font class=\"text-600\">Change 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Зміна 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "<font class=\"text-600\">Change 3</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Зміна 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Color</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Колір</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Competitor 1</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Конкурент 1</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Competitor 2</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Конкурент 2</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Competitor 3</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Конкурент 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
@@ -405,21 +491,23 @@ msgid ""
 "<font class=\"text-600\">Detailed Explanation of the feature, with "
 "screenshots or a GIF</font>"
 msgstr ""
+"<font class=\"text-600\">Детальне пояснення функції зі скріншотами або "
+"GIF</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">Email</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Email</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "<font class=\"text-600\">Fixed a bug where...</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Виправлено помилку, де...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "<font class=\"text-600\">From now on, ...</font>"
-msgstr ""
+msgstr "<font class=\"text-600\">Від зараз, ...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -427,6 +515,8 @@ msgid ""
 "<font class=\"text-600\">How do stakeholders interact regarding "
 "offers?</font>"
 msgstr ""
+"<font class=\"text-600\">Як зацікавлені сторони взаємодіють щодо "
+"пропозицій?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management

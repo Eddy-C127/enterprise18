@@ -28,13 +28,15 @@ msgid ""
 "\n"
 "%s: from %s to %s"
 msgstr ""
+"\n"
+"%s: จาก %s ถึง %s"
 
 #. module: partner_commission
 #. odoo-python
 #: code:addons/partner_commission/models/account_move.py:0
 #, python-format
 msgid " (%d month(s))"
-msgstr ""
+msgstr " (%d เดือน)"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__active
@@ -44,7 +46,7 @@ msgstr "เปิดใช้งาน"
 #. module: partner_commission
 #: model:res.groups,name:partner_commission.group_commission_manager
 msgid "All Documents"
-msgstr ""
+msgstr "เอกสารทั้งหมด"
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.commission_plan_search_view
@@ -54,12 +56,12 @@ msgstr "เก็บถาวรแล้ว"
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
 msgid "Automatic PO frequency"
-msgstr ""
+msgstr "ความถี่ PO อัตโนมัติ"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__is_capped
 msgid "Capped"
-msgstr ""
+msgstr "ต่อยอด"
 
 #. module: partner_commission
 #: model:ir.model.fields.selection,name:partner_commission.selection__purchase_order__purchase_type__commission
@@ -71,7 +73,7 @@ msgstr "คอมมิชชั่น"
 #: model:ir.model.fields,field_description:partner_commission.field_res_company__commission_automatic_po_frequency
 #: model:ir.model.fields,field_description:partner_commission.field_res_config_settings__commission_automatic_po_frequency
 msgid "Commission Automatic Po Frequency"
-msgstr ""
+msgstr "ค่าคอมมิชชั่นความถี่ Po อัตโนมัติ"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__plan_id
@@ -81,37 +83,37 @@ msgstr ""
 #: model:ir.model.fields,field_description:partner_commission.field_sale_order_log_report__commission_plan_id
 #: model:ir.model.fields,field_description:partner_commission.field_sale_subscription_report__commission_plan_id
 msgid "Commission Plan"
-msgstr ""
+msgstr "แผนคอมมิชชั่น"
 
 #. module: partner_commission
 #: model:ir.actions.act_window,name:partner_commission.action_commission_plans
 #: model:ir.ui.menu,name:partner_commission.menu_commission_plans
 msgid "Commission Plans"
-msgstr ""
+msgstr "แผนคอมมิชชั่น"
 
 #. module: partner_commission
 #. odoo-python
 #: code:addons/partner_commission/models/account_move.py:0
 #, python-format
 msgid "Commission on %(invoice)s, %(partner)s, %(amount)s"
-msgstr ""
+msgstr "ค่าคอมมิชชั่นบน %(invoice)s, %(partner)s, %(amount)s"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_commission_plan
 msgid "Commission plan"
-msgstr ""
+msgstr "แผนคอมมิชชั่น"
 
 #. module: partner_commission
 #. odoo-python
 #: code:addons/partner_commission/models/account_move.py:0
 #, python-format
 msgid "Commission refunded. Invoice: %s. Amount: %s."
-msgstr ""
+msgstr "คืนค่าคอมมิชชั่นแล้ว ใบแจ้งหนี้: %s จำนวน: %s"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_commission_rule
 msgid "Commission rules management."
-msgstr ""
+msgstr "การจัดการกฎของคอมมิชชั่น"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_res_company
@@ -153,7 +155,7 @@ msgstr "ใบกำกับภาษีของลูกค้า"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_res_partner_grade__default_commission_plan_id
 msgid "Default Commission Plan"
-msgstr ""
+msgstr "แผนค่าคอมมิชชั่นเริ่มต้น"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__display_name
@@ -164,12 +166,12 @@ msgstr "แสดงชื่อ"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_sale_order__commission_plan_frozen
 msgid "Freeze Plan"
-msgstr ""
+msgstr "หยุดแผนการใช้งานชั่วคราว"
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
 msgid "Frequency at which purchase orders will be automatically confirmed"
-msgstr ""
+msgstr "ความถี่ที่คำสั่งซื้อจะได้รับการยืนยันโดยอัตโนมัติ"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__id
@@ -191,7 +193,7 @@ msgstr ""
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_purchase_order__invoice_commission_count
 msgid "Invoices that have generated commissions included in this order"
-msgstr ""
+msgstr "ใบแจ้งหนี้ที่สร้างค่าคอมมิชชั่นรวมอยู่ในคำสั่งซื้อนี้"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_account_move
@@ -228,7 +230,7 @@ msgstr "ด้วยตนเอง"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__max_commission
 msgid "Max Commission"
-msgstr ""
+msgstr "ค่าคอมมิชชันสูงสุด"
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_commission_rule__max_commission
@@ -238,13 +240,13 @@ msgstr "จำนวนเงินสูงสุด ระบุในสก�
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
 msgid "Minimum PO amount total"
-msgstr ""
+msgstr "จำนวน PO ขั้นต่ำทั้งหมด"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_res_company__commission_po_minimum
 #: model:ir.model.fields,field_description:partner_commission.field_res_config_settings__commission_po_minimum
 msgid "Minimum Total Amount for PO commission"
-msgstr ""
+msgstr "จำนวนเงินรวมขั้นต่ำสำหรับค่าคอมมิชชั่น PO"
 
 #. module: partner_commission
 #: model:ir.model.fields.selection,name:partner_commission.selection__res_company__commission_automatic_po_frequency__monthly
@@ -261,7 +263,7 @@ msgstr "ชื่อ"
 #: code:addons/partner_commission/models/account_move.py:0
 #, python-format
 msgid "New commission. Invoice: %s. Amount: %s."
-msgstr ""
+msgstr "ค่าคอมมิชชันใหม่ ใบแจ้งหนี้: %s จำนวน: %s"
 
 #. module: partner_commission
 #: model:res.groups,name:partner_commission.group_commission_user
@@ -271,7 +273,7 @@ msgstr "เอกสารของตัวเองเท่านั้น"
 #. module: partner_commission
 #: model:ir.actions.server,name:partner_commission.cron_confirm_purchase_orders_ir_actions_server
 msgid "Partner Commission: confirm purchase orders"
-msgstr ""
+msgstr "ค่าคอมมิชชั่นพาร์ทเนอร์: ยืนยันคำสั่งซื้อ"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_res_partner_grade
@@ -281,7 +283,7 @@ msgstr "เกรดพาร์ทเนอร์"
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
 msgid "Partners Commissions"
-msgstr ""
+msgstr "ค่าคอมมิชชั่นของพาร์ทเนอร์"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__pricelist_id
@@ -303,7 +305,7 @@ msgstr "สินค้า"
 #: code:addons/partner_commission/models/commission_plan.py:0
 #, python-format
 msgid "Product %s does not belong to category %s"
-msgstr ""
+msgstr "ผลิตภัณฑ์ %s ไม่ได้อยู่ในหมวดหมู่ %s"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__category_id
@@ -313,7 +315,7 @@ msgstr "หมวดหมู่สินค้า"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__product_id
 msgid "Purchase Default Product"
-msgstr ""
+msgstr "ซื้อสินค้าเริ่มต้น"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_purchase_order
@@ -323,7 +325,7 @@ msgstr "คำสั่งซื้อ"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_purchase_order__purchase_type
 msgid "Purchase Type"
-msgstr ""
+msgstr "ประเภทการซื้อ"
 
 #. module: partner_commission
 #: model:ir.model.fields.selection,name:partner_commission.selection__res_company__commission_automatic_po_frequency__quarterly
@@ -338,7 +340,7 @@ msgstr "อัตรา"
 #. module: partner_commission
 #: model:ir.model.constraint,message:partner_commission.constraint_commission_rule_check_rate
 msgid "Rate should be between 0 and 100."
-msgstr ""
+msgstr "อัตราควรอยู่ระหว่าง 0 ถึง 100"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_account_bank_statement_line__referrer_id
@@ -353,19 +355,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:partner_commission.sale_order_view_search_inherit_partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.sale_subscription_report_search
 msgid "Referrer"
-msgstr ""
+msgstr "ผู้แนะนำ"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_sale_order__commission
 msgid "Referrer Commission"
-msgstr ""
+msgstr "ค่าคอมมิชชั่นสำหรับผู้แนะนำ"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_account_bank_statement_line__commission_po_line_id
 #: model:ir.model.fields,field_description:partner_commission.field_account_move__commission_po_line_id
 #: model:ir.model.fields,field_description:partner_commission.field_account_payment__commission_po_line_id
 msgid "Referrer Purchase Order line"
-msgstr ""
+msgstr "รายการใบสั่งซื้อของผู้แนะนำ"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__commission_rule_ids
@@ -376,7 +378,7 @@ msgstr "กฏ"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__template_id
 msgid "Sale Order Template"
-msgstr ""
+msgstr "เทมเพลตคำสั่งขาย"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_sale_order_log_report
@@ -397,7 +399,7 @@ msgstr "ลำดับ"
 #: model:ir.model.fields,field_description:partner_commission.field_purchase_order__invoice_commission_count
 #: model_terms:ir.ui.view,arch_db:partner_commission.purchase_order_form_inherit_partner_commission
 msgid "Source Invoices"
-msgstr ""
+msgstr "แหล่งที่มาของใบแจ้งหนี้"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_sale_subscription_report
@@ -407,7 +409,7 @@ msgstr "วิเคราะห์การสมัครสมาชิก"
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_sale_order__commission_plan_id
 msgid "Takes precedence over the Referrer's commission plan."
-msgstr ""
+msgstr "มีความสำคัญเหนือกว่าแผนค่าคอมมิชชั่นของผู้แนะนำ"
 
 #. module: partner_commission
 #. odoo-python
@@ -445,7 +447,7 @@ msgstr "รายสัปดาห์"
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_commission_rule__is_capped
 msgid "Whether the commission is capped."
-msgstr ""
+msgstr "ไม่ว่าค่าคอมมิชชั่นจะถูกต่อยอดหรือไม่"
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_sale_order__commission_plan_frozen

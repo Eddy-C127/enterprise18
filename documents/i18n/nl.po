@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Jolien De Paepe, 2024
 # 
 msgid ""
@@ -1180,6 +1180,13 @@ msgid "Close split tools"
 msgstr "Sluit splitstools"
 
 #. module: documents
+#. openerp-web
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "Click the cross to <b>exit preview</b>."
+msgstr "Klik op het kruis om <b>de preview te verlaten</b>."
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
 #: model:ir.model.fields,field_description:documents.field_documents_folder__company_id
 msgid "Company"
@@ -2165,7 +2172,7 @@ msgstr "Lokale deelgebaseerde inkomende detectie"
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #, python-format
 msgid "Lock"
-msgstr "Vergrendelen"
+msgstr "Blokkeren"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_locked

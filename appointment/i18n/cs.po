@@ -3,12 +3,12 @@
 # 	* appointment
 # 
 # Translators:
+# Tomáš Píšek, 2023
 # Jiří Podhorecký, 2023
 # Ivana Bartonkova, 2023
-# Jakub Smolka, 2023
 # Wil Odoo, 2023
-# Tomáš Píšek, 2023
 # Aleš Fiala <f.ales1@seznam.cz>, 2024
+# Jakub Smolka, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2024\n"
+"Last-Translator: Jakub Smolka, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,38 +37,40 @@ msgstr "(kopírovat)"
 #, python-format
 msgid "\"%(resource_name_list)s\" cannot be used for \"%(appointment_type_name)s\""
 msgstr ""
+"\"%(resource_name_list)s\" nemůže být využito na "
+"\"%(appointment_type_name)s\""
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count
 msgid "# Appointments"
-msgstr "Počet schůzek"
+msgstr "# Schůzek"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count_report
 msgid "# Appointments in the last 30 days"
-msgstr "# Termíny za posledních 30 dní"
+msgstr "# Schůzek za posledních 30 dní"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_count
 msgid "# Bookings"
-msgstr ""
+msgstr "# Rezervací"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_invite_count
 msgid "# Invitation Links"
-msgstr ""
+msgstr "# pozvánek"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_resource_count
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_count
 msgid "# Resources"
-msgstr ""
+msgstr "# Zdrojů"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_staff_user_count
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__staff_user_count
 msgid "# Staff Users"
-msgstr "# Zaměstnanci"
+msgstr "# Personálu"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_calendar
@@ -80,33 +82,33 @@ msgstr "#{day['today_cls'] and 'Dnes' or ''}"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "%(appointment_name)s with %(partner_name)s"
-msgstr ""
+msgstr "%(appointment_name)s s %(partner_name)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "%(attendee_name)s - %(appointment_name)s Booking"
-msgstr ""
+msgstr "%(attendee_name)s - %(appointment_name)s Rezervace"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_resource.py:0
 #, python-format
 msgid "%(original_name)s (copy)"
-msgstr ""
+msgstr "%(original_name)s (zkopírovat)"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "%s - Let's meet"
-msgstr "%s - Pojďme se setkat"
+msgstr "%s - Pojďme se potkat"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "(Total:"
-msgstr "(Celkový:"
+msgstr "(Celkem:"
 
 #. module: appointment
 #. odoo-python
@@ -132,6 +134,8 @@ msgid ""
 "<br/>\n"
 "                                        <span>Duration</span>"
 msgstr ""
+"<br/>\n"
+"                                        <span>Trvání</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -139,6 +143,8 @@ msgid ""
 "<br/>\n"
 "                                    <span>(Last 30 Days)</span>"
 msgstr ""
+"<br/>\n"
+"                                    <span>(Posledních 30 dní)</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -146,11 +152,13 @@ msgid ""
 "<br/>\n"
 "                                <strong>Booking Details</strong>"
 msgstr ""
+"<br/>\n"
+"                                <strong>Detaily rezervace</strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "Booking Details"
-msgstr ""
+msgstr "Detaily rezervace"
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
@@ -276,6 +284,126 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"colors\" t-value=\"{'needsAction': 'grey', 'accepted': 'green', 'tentative': '#FFFF00', 'declined': 'red'}\"></t>\n"
+"    <t t-set=\"customer\" t-value=\" object.event_id.find_partner_customer()\"></t>\n"
+"    <t t-set=\"target_responsible\" t-value=\"object.partner_id == object.event_id.partner_id\"></t>\n"
+"    <t t-set=\"target_customer\" t-value=\"object.partner_id == customer\"></t>\n"
+"    <t t-set=\"recurrent\" t-value=\"object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')\"></t>\n"
+"\n"
+"    <p>\n"
+"        Dobrý den <t t-out=\"object.common_name or ''\">Wood Corner</t>,<br><br>\n"
+"\n"
+"        <t t-if=\"target_customer\">\n"
+"            Vaše schůzka <strong t-out=\"object.event_id.appointment_type_id.name or ''\">\"Dohodnutí ukázky\"</strong> <t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> s <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> byla rezervována.\n"
+"            <t t-if=\"object.state != 'accepted' and object.event_id.appointment_type_id.schedule_based_on == 'resources' and object.event_id.appointment_type_id.resource_manual_confirmation\">\n"
+"                Ve chvíli, kdy bude vaše schůzka potvrzena, obdržíte email s potvrzením a potřebnými detaily.\n"
+"            </t>\n"
+"        </t>\n"
+"        <t t-elif=\"target_responsible\">\n"
+"            <t t-if=\"customer\">\n"
+"                <t t-out=\"customer.name or ''\"></t> naplánoval následující schůzku<strong t-out=\"object.event_id.appointment_type_id.name or ''\">\"Dohodnutí ukázky\"</strong> s vámi.\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                Vaše schůzka<strong t-out=\"object.event_id.appointment_type_id.name or ''\">\"Dohodnutí ukázky\"</strong> byla rezervována.\n"
+"            </t>\n"
+"        </t>\n"
+"    </p>\n"
+"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
+"        <t t-if=\"object.state != 'accepted'\">\n"
+"            <a t-attf-href=\"/calendar/meeting/accept?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
+"                Potvrdit</a>\n"
+"            <a t-attf-href=\"/calendar/meeting/decline?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
+"                Odmítnout</a>\n"
+"        </t>\n"
+"        <a t-attf-href=\"/calendar/meeting/view?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\"><t t-out=\"'Reschedule' if target_customer else 'View'\">Zobrazit</t></a>\n"
+"    </div>\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n"
+"        <td width=\"130px;\" style=\"min-width: 130px;\">\n"
+"            <div style=\"border-top-start-radius: 3px; border-top-end-radius: 3px; font-size: 12px; border-collapse: separate; text-align: center; font-weight: bold; color: #ffffff; min-height: 18px; background-color: #875A7B; border: 1px solid #875A7B;\">\n"
+"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='EEEE', lang_code=object.env.lang) or ''\">Úterý</t>\n"
+"            </div>\n"
+"            <div style=\"font-size: 48px; min-height: auto; font-weight: bold; text-align: center; color: #5F5F5F; background-color: #F8F8F8; border: 1px solid #875A7B;\">\n"
+"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='d', lang_code=object.env.lang) or ''\">4.</t>\n"
+"            </div>\n"
+"            <div style=\"font-size: 12px; text-align: center; font-weight: bold; color: #ffffff; background-color: #875A7B;\">\n"
+"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='MMMM y', lang_code=object.env.lang) or ''\">Května 2024</t>\n"
+"            </div>\n"
+"            <div style=\"border-collapse: separate; color: #5F5F5F; text-align: center; font-size: 12px; border-bottom-end-radius: 3px; font-weight: bold ; border: 1px solid #875A7B; border-bottom-start-radius: 3px;\">\n"
+"                <t t-if=\"not object.event_id.allday\">\n"
+"                    <div>\n"
+"                        <t t-out=\"format_time(time=object.event_id.start, tz=object.mail_tz, time_format='short', lang_code=object.env.lang) or ''\">11:00</t>\n"
+"                    </div>\n"
+"                    <t t-if=\"object.mail_tz\">\n"
+"                        <div style=\"font-size: 10px; font-weight: normal\">\n"
+"                            (<t t-out=\"object.mail_tz or ''\">Evropa/Česko</t>)\n"
+"                        </div>\n"
+"                    </t>\n"
+"                </t>\n"
+"            </div>\n"
+"        </td>\n"
+"        <td width=\"20px;\"></td>\n"
+"        <td style=\"padding-top: 5px;\">\n"
+"            <p><strong>Detaily schůzky</strong></p>\n"
+"            <ul>\n"
+"                <li>Typ schůzky: <t t-out=\"object.event_id.appointment_type_id.name or ''\">Dohodnutí ukázky</t></li>\n"
+"                <t t-if=\"object.event_id.location\">\n"
+"                    <li>Lokace: <t t-out=\"object.event_id.location or ''\">Praha</t>\n"
+"                        (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{object.event_id.location}}\">Zobrazit mapu</a>)\n"
+"                    </li>\n"
+"                </t>\n"
+"                <t t-if=\"recurrent\">\n"
+"                    <li>Kdy: <t t-out=\"object.recurrence_id.name or ''\">Každý 1 týden na 3 schůzky</t></li>\n"
+"                </t>\n"
+"                <t t-if=\"not object.event_id.allday and object.event_id.duration\">\n"
+"                    <li>Trvání: <t t-out=\"('%dH%02d' % (object.event_id.duration,round(object.event_id.duration*60)%60)) or ''\">0H30</t></li>\n"
+"                </t>\n"
+"                <li>Účastníci\n"
+"                <ul>\n"
+"                    <li t-foreach=\"object.event_id.attendee_ids\" t-as=\"attendee\">\n"
+"                        <div t-attf-style=\"display: inline-block; border-radius: 50%; width: 10px; height: 10px; background:{{ colors.get(attendee.state) or 'white' }};\"> </div>\n"
+"                        <t t-if=\"attendee.common_name != object.common_name\">\n"
+"                            <span style=\"margin-left:5px\" t-out=\"attendee.common_name or ''\">Mitchell Admin</span>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <span style=\"margin-left:5px\">Vy</span>\n"
+"                        </t>\n"
+"                    </li>\n"
+"                </ul></li>\n"
+"                <li t-if=\"object.event_id.appointment_type_id.resource_manage_capacity\">\n"
+"                    Pro: <t t-out=\"object.event_id.resource_total_capacity_reserved\"></t> lidí\n"
+"                </li>\n"
+"                <li t-if=\"object.event_id.appointment_type_id.assign_method != 'time_auto_assign'\">\n"
+"                    Zdroje\n"
+"                    <ul>\n"
+"                        <li t-foreach=\"object.event_id.appointment_resource_ids\" t-as=\"resource\">\n"
+"                            <span style=\"margin-left:5px\" t-out=\"resource.name or ''\">Stůl 1</span>\n"
+"                        </li>\n"
+"                    </ul>\n"
+"                </li>\n"
+"                <t t-if=\"object.event_id.videocall_location\">\n"
+"                    <li>\n"
+"                        Jak se připojit:\n"
+"                        <t t-if=\"object.get_base_url() in object.event_id.videocall_location\"> Připojit pomocí Odoo Diskuzí</t>\n"
+"                        <t t-else=\"\"> Připojte se na</t><br>\n"
+"                        <a t-att-href=\"object.event_id.videocall_location\" target=\"_blank\" t-out=\"object.event_id.videocall_location or ''\">www.mycompany.com/calendar/join_videocall/xyz</a>\n"
+"                    </li>\n"
+"                </t>\n"
+"                <t t-if=\"not is_html_empty(object.event_id.description)\">\n"
+"                    <li>Popis schůzky:\n"
+"                    <t t-out=\"object.event_id.description\">Interní schůzka pro prodiskutování nového ceníku produktů a služeb.</t></li>\n"
+"                </t>\n"
+"            </ul>\n"
+"        </td>\n"
+"    </tr></table>\n"
+"    <br>\n"
+"    Děkuji,\n"
+"    <t t-if=\"object.event_id.user_id.signature\">\n"
+"        <br>\n"
+"        <t t-out=\"object.event_id.user_id.signature or ''\">--<br>Mitchell Admin</t>\n"
+"    </t>\n"
+"</div>\n"
+"            "
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.appointment_booked_mail_template
@@ -366,6 +494,91 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"colors\" t-value=\"{'needsAction': 'grey', 'accepted': 'green', 'tentative': '#FFFF00', 'declined': 'red'}\"></t>\n"
+"    <t t-set=\"recurrent\" t-value=\"object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')\"></t>\n"
+"    <t t-set=\"mail_tz\" t-value=\"object._get_mail_tz() or ctx.get('mail_tz')\"></t>\n"
+"    <p>\n"
+"    Schůzka rezervována pro <t t-out=\"object.appointment_type_id.name or ''\">Technické demo</t>\n"
+"    <t t-if=\"object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'\"> s <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t></t>.\n"
+"    </p>\n"
+"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
+"        <a t-attf-href=\"/calendar/meeting/join?token={{ object.access_token }}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
+"            Připojit se</a>\n"
+"        <a t-attf-href=\"/web?#id={{ object.id }}&amp;view_type=form&amp;model=calendar.event\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
+"            Zobrazit</a>\n"
+"    </div>\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n"
+"            <td width=\"130px;\" style=\"min-width: 130px;\">\n"
+"                <div style=\"border-top-start-radius: 3px; border-top-end-radius: 3px; font-size: 12px; border-collapse: separate; text-align: center; font-weight: bold; color: #ffffff; min-height: 18px; background-color: #875A7B; border: 1px solid #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz if not object.allday else None, dt_format=&quot;EEEE&quot;, lang_code=object.env.lang) or ''\">Středa</t>\n"
+"                </div>\n"
+"                <div style=\"font-size: 48px; min-height: auto; font-weight: bold; text-align: center; color: #5F5F5F; background-color: #F8F8F8; border: 1px solid #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz if not object.allday else None, dt_format=&quot;d&quot;, lang_code=object.env.lang) or ''\">1.</t>\n"
+"                </div>\n"
+"                <div style=\"font-size: 12px; text-align: center; font-weight: bold; color: #ffffff; background-color: #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz if not object.allday else None, dt_format=&quot;MMMM y&quot;, lang_code=object.env.lang) or ''\">Ledna 2024</t>\n"
+"                </div>\n"
+"                <div style=\"border-collapse: separate; color: #5F5F5F; text-align: center; font-size: 12px; border-bottom-end-radius: 3px; font-weight: bold; border: 1px solid #875A7B; border-bottom-start-radius: 3px;\">\n"
+"                    <t t-if=\"not object.allday\">\n"
+"                        <div>\n"
+"                            <t t-out=\"format_time(time=object.start, tz=mail_tz, time_format=&quot;short&quot;, lang_code=object.env.lang) or ''\">8:00</t>\n"
+"                        </div>\n"
+"                        <t t-if=\"mail_tz\">\n"
+"                            <div style=\"font-size: 10px; font-weight: normal;\">\n"
+"                                (<t t-out=\"mail_tz\"></t>)\n"
+"                            </div>\n"
+"                        </t>\n"
+"                    </t>\n"
+"                </div>\n"
+"            </td>\n"
+"            <td width=\"20px;\"></td>\n"
+"            <td style=\"padding-top: 5px;\">\n"
+"                <p><strong>Detaily schůzky</strong></p>\n"
+"                <ul>\n"
+"                    <li t-if=\"object.location\">Lokace: <t t-out=\"object.location or ''\">Praha</t>\n"
+"                        (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{ object.location }}\">Zobrazit mapu</a>)\n"
+"                    </li>\n"
+"                    <li t-if=\"recurrent\">Kdy: <t t-out=\"object.recurrence_id.name or ''\">Každý 1 týden, na 3 schůzky</t></li>\n"
+"                    <li t-if=\"not object.allday and object.duration\">Trvání: <t t-out=\"('%dH%02d' % (object.duration,round(object.duration*60)%60)) or ''\">0H30</t></li>\n"
+"                    <li>Účastníci\n"
+"                    <ul>\n"
+"                        <li t-foreach=\"object.attendee_ids\" t-as=\"attendee\">\n"
+"                            <div t-attf-style=\"display: inline-block; border-radius: 50%; width: 10px; height: 10px; background:{{ colors.get(attendee.state) or 'white' }};\"> </div>\n"
+"                            <t t-if=\"attendee.common_name\">\n"
+"                                <span style=\"margin-left:5px\" t-out=\"attendee.common_name or ''\">Mitchell Admin</span>\n"
+"                            </t>\n"
+"                            <t t-else=\"\">\n"
+"                                <span style=\"margin-left:5px\">Vy</span>\n"
+"                            </t>\n"
+"                        </li>\n"
+"                    </ul></li>\n"
+"                    <li t-if=\"object.appointment_type_id.resource_manage_capacity\">\n"
+"                        Pro: <t t-out=\"object.resource_total_capacity_reserved\"></t> lidí\n"
+"                    </li>\n"
+"                    <li t-if=\"object.appointment_type_id.assign_method != 'time_auto_assign'\">\n"
+"                        Zdroje\n"
+"                        <ul>\n"
+"                            <li t-foreach=\"object.appointment_resource_ids\" t-as=\"resource\">\n"
+"                                <span style=\"margin-left:5px\" t-out=\"resource.name or ''\">Stůl 1</span>\n"
+"                            </li>\n"
+"                        </ul>\n"
+"                    </li>\n"
+"                    <li t-if=\"object.videocall_redirection\">\n"
+"                        Jak se připojit:\n"
+"                        <t t-if=\"object.videocall_source == 'discuss'\"> Připojit pomocí Odoo Diskuzí</t>\n"
+"                        <t t-else=\"\"> Připojte se na</t><br>\n"
+"                        <a t-attf-href=\"{{ object.videocall_redirection }}\" target=\"_blank\" t-out=\"object.videocall_redirection or ''\">www.mycompany.com/calendar/join_videocall/xyz</a>\n"
+"                    </li>\n"
+"                </ul>\n"
+"                <t t-if=\"not is_html_empty(object.description)\">\n"
+"                    <li>Popis schůzky:\n"
+"                    <t t-out=\"object.description\"></t></li>\n"
+"                </t>\n"
+"            </td>\n"
+"    </tr></table>\n"
+"</div>\n"
+"            "
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.appointment_canceled_mail_template
@@ -438,6 +651,73 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"colors\" t-value=\"{'needsAction': 'grey', 'accepted': 'green', 'tentative': '#FFFF00', 'declined': 'red'}\"></t>\n"
+"    <t t-set=\"recurrent\" t-value=\"object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')\"></t>\n"
+"    <t t-set=\"mail_tz\" t-value=\"object._get_mail_tz() or ctx.get('mail_tz')\"></t>\n"
+"    <p>\n"
+"    Schůzka pro <t t-out=\"object.appointment_type_id.name or ''\">Technické demo</t> <t t-if=\"object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'\"> s <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t></t> byla zrušena.\n"
+"    </p>\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n"
+"            <td width=\"130px;\" style=\"min-width: 130px;\">\n"
+"                <div style=\"border-top-start-radius: 3px; border-top-end-radius: 3px; font-size: 12px; border-collapse: separate; text-align: center; font-weight: bold; color: #ffffff; min-height: 18px; background-color: #875A7B; border: 1px solid #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz, dt_format=&quot;EEEE&quot;, lang_code=object.env.lang) or ''\">Středa</t>\n"
+"                </div>\n"
+"                <div style=\"font-size: 48px; min-height: auto; font-weight: bold; text-align: center; color: #5F5F5F; background-color: #F8F8F8; border: 1px solid #875A7B;\">\n"
+"                    <t t-out=\"str(object.start.day) or ''\">1.</t>\n"
+"                </div>\n"
+"                <div style=\"font-size: 12px; text-align: center; font-weight: bold; color: #ffffff; background-color: #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz, dt_format=&quot;MMMM y&quot;, lang_code=object.env.lang) or ''\">Ledna 2024</t>\n"
+"                </div>\n"
+"                <div style=\"border-collapse: separate; color: #5F5F5F; text-align: center; font-size: 12px; border-bottom-end-radius: 3px; font-weight: bold; border: 1px solid #875A7B; border-bottom-start-radius: 3px;\">\n"
+"                    <t t-if=\"not object.allday\">\n"
+"                        <div><t t-out=\"format_time(time=object.start, tz=mail_tz, time_format=&quot;short&quot;, lang_code=object.env.lang) or ''\">8:00</t></div>\n"
+"                        <t t-if=\"mail_tz\">\n"
+"                            <div style=\"font-size: 10px; font-weight: normal;\">\n"
+"                                (<t t-out=\"mail_tz\"></t>)\n"
+"                            </div>\n"
+"                        </t>\n"
+"                    </t>\n"
+"                </div>\n"
+"            </td>\n"
+"            <td width=\"20px;\"></td>\n"
+"            <td style=\"padding-top: 5px;\">\n"
+"                <del>\n"
+"                    <p><strong>Detaily schůzky</strong></p>\n"
+"                    <ul>\n"
+"                            <li t-if=\"object.location\">Lokace: <t t-out=\"object.location or ''\">Praha</t>\n"
+"                                (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{ object.location }}\">Zobrazit mapu</a>)\n"
+"                            </li>\n"
+"                            <li t-if=\"recurrent\">Kdy: <t t-out=\"object.recurrence_id.name or ''\">Každý 1 týden na 3 schůzky</t></li>\n"
+"                            <li t-if=\"not object.allday and object.duration\">Trvání: <t t-out=\"('%dH%02d' % (object.duration,round(object.duration*60)%60)) or ''\">0H30</t></li>\n"
+"                        <li>Účastníci\n"
+"                        <ul t-foreach=\"object.attendee_ids\" t-as=\"attendee\">\n"
+"                            <li>\n"
+"                                <div t-attf-style=\"display: inline-block; border-radius: 50%; width: 10px; height: 10px; background:{{ colors.get(attendee.state) or 'white' }};\"> </div>\n"
+"                                <t t-if=\"attendee.common_name\">\n"
+"                                    <span style=\"margin-left:5px\" t-out=\"attendee.common_name or ''\"></span>\n"
+"                                </t>\n"
+"                                <t t-else=\"\">\n"
+"                                    <span style=\"margin-left:5px\">Vy</span>\n"
+"                                </t>\n"
+"                            </li>\n"
+"                        </ul></li>\n"
+"                        <li t-if=\"object.videocall_location\">\n"
+"                            Jak se připojit:\n"
+"                            <t t-if=\"object.get_base_url() in object.videocall_location\"> Připojit pomocí Odoo Diskuzí</t>\n"
+"                            <t t-else=\"\"> Připojte se na</t><br>\n"
+"                            <a t-attf-href=\"{{ object.videocall_location }}\" target=\"_blank\" t-out=\"object.videocall_location or ''\">www.mycompany.com/calendar/join_videocall/xyz</a>\n"
+"                        </li>\n"
+"                    </ul>\n"
+"                    <t t-if=\"not is_html_empty(object.description)\">\n"
+"                        <li>Popis schůzky:\n"
+"                        <t t-out=\"object.description\"></t></li>\n"
+"                    </t>\n"
+"                </del>\n"
+"            </td>\n"
+"    </tr></table>\n"
+"</div>\n"
+"            "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -450,16 +730,18 @@ msgid ""
 "<i class=\"fa fa-pencil me-2\" role=\"img\" aria-label=\"Edit\" "
 "title=\"Create custom questions in backend\"/>Add Custom Questions"
 msgstr ""
+"<i class=\"fa fa-pencil me-2\" role=\"img\" aria-label=\"Edit\" "
+"title=\"Přidat vlastní otázky z backendu\"/>Přidat vlastní otázky"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "<i class=\"fa fa-plus me-1\"/> Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/> Přidat hosty"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-plus me-1\"/>Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/>Přidat hosty"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
@@ -467,6 +749,8 @@ msgid ""
 "<i class=\"fa fa-video-camera fa-fw me-2 mt-1 text-muted\"/>\n"
 "                <span class=\"o_not_editable\">Online</span>"
 msgstr ""
+"<i class=\"fa fa-video-camera fa-fw me-2 mt-1 text-muted\"/>\n"
+"                <span class=\"o_not_editable\">Online</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -475,6 +759,9 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'users'\">Impossible to share a link for an appointment type that has no user assigned.</span>\n"
 "                    <span invisible=\"schedule_based_on != 'resources'\">Impossible to share a link for an appointment type that has no resource assigned.</span>"
 msgstr ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                    <span invisible=\"schedule_based_on != 'users'\">Není možné sdílet odkaz na schůzku, ke které nebyl přiřazen uživatel.</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">Není možné sdílet odkaz na schůzku, ke které nebyl přiřazen zdroj.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -483,41 +770,44 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'users'\">You need to be part of an appointment type to be able to share a personal link.</span>\n"
 "                    <span invisible=\"schedule_based_on != 'resources'\">You can't create a personal link for an appointment type based on resources.</span>"
 msgstr ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                    <span invisible=\"schedule_based_on != 'users'\">Musíte být součástí schůzky, abyste mohli sdílet osobní odkaz.</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">Nemůžete vytvářet osobní odkaz pro schůzky, využívající zdroje.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_date
 msgid "<small class=\"text-uppercase text-muted\">Date &amp; time</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">Datum &amp; čas</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">Detaily schůzky</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"d-block\">Scheduled</span>"
-msgstr ""
+msgstr "<span class=\"d-block\">Naplánováno</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-globe\"/> Preview"
-msgstr ""
+msgstr "<span class=\"fa fa-globe\"/> Náhled"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-pencil\"/> Edit"
-msgstr ""
+msgstr "<span class=\"fa fa-pencil\"/> Editovat"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-share-alt\"/> Share"
-msgstr ""
+msgstr "<span class=\"fa fa-share-alt\"/> Sdílet"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-trash\"/> Delete"
-msgstr ""
+msgstr "<span class=\"fa fa-trash\"/> Smazat"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -525,11 +815,13 @@ msgid ""
 "<span class=\"px-2\" invisible=\"start_datetime or category == "
 "'anytime'\">or</span>"
 msgstr ""
+"<span class=\"px-2\" invisible=\"start_datetime or category == "
+"'anytime'\">nebo</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"text-bg-danger\">Archived</span>"
-msgstr "<span class=\"text-bg-danger\">Archivováné</span>"
+msgstr "<span class=\"text-bg-danger\">Archivováno</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -546,12 +838,12 @@ msgstr "<span>Online</span>"
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid ""
 "<span>You are scheduling a booking outside the available hours of</span>"
-msgstr ""
+msgstr "<span>Plánujete rezervaci mimo dostupné hodiny od</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "<span>people</span>"
-msgstr ""
+msgstr "<span>Lidé</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -559,6 +851,8 @@ msgid ""
 "<strong>Appointment canceled!</strong>\n"
 "                                            You can schedule another appointment from here."
 msgstr ""
+"<strong>Schůzka byla zrušena!</strong>\n"
+"                                            Další schůzku si můžete naplánovat zde."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -568,6 +862,10 @@ msgid ""
 "                                            Someone has booked the same time slot a few\n"
 "                                            seconds before you."
 msgstr ""
+"<strong>Schůzka selhala!</strong>\n"
+"                                            Vybraný čas již není dostupný.\n"
+"                                            Někdo si zarezervoval vámi vybraný čas\n"
+"                                            prá vteřin před vámi."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -576,41 +874,44 @@ msgid ""
 "                                            The selected timeslot is not available.\n"
 "                                            It appears you already have another meeting with us at that date."
 msgstr ""
+"<strong>Schůzka selhala!</strong>\n"
+"                                            Vybraný čas již není dostupný.\n"
+"                                            Zdá se, že s námi již máte dohodnutou schůzku v tomto datu."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Booked for: </strong>"
-msgstr ""
+msgstr "<strong>Rezervováno pro: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Contact Information</strong>"
-msgstr ""
+msgstr "<strong>Kontaktní informace</strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Email: </strong>"
-msgstr ""
+msgstr "<strong>Email: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Name: </strong>"
-msgstr ""
+msgstr "<strong>Jméno: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Phone: </strong>"
-msgstr ""
+msgstr "<strong>Telefon: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Start Date: </strong>"
-msgstr "<strong>Datum začátku: </strong>"
+msgstr "<strong>Datum od: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Stop Date: </strong>"
-msgstr "<strong>Datum ukončení: </strong>"
+msgstr "<strong>Datum do: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -622,7 +923,7 @@ msgstr "<strong>Typ:</strong>"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "A %s appointment type shouldn't be limited by datetimes."
-msgstr ""
+msgstr "Typ schůzky %s by neměl být limitován datumy."
 
 #. module: appointment
 #. odoo-python
@@ -630,7 +931,8 @@ msgstr ""
 #, python-format
 msgid ""
 "A list of slots information is needed to create a custom appointment type"
-msgstr "Seznam informací o slotech potřebuje vytvořit vlastní typ události"
+msgstr ""
+"Seznam časových dostupností je nezbytný pro vytvoření vlastního typu schůzky"
 
 #. module: appointment
 #. odoo-python
@@ -639,7 +941,7 @@ msgstr "Seznam informací o slotech potřebuje vytvořit vlastní typ události"
 msgid ""
 "A punctual appointment type should be limited between a start and end "
 "datetime."
-msgstr ""
+msgstr "Typ schůzky na čas by měl být vymezen datumem od a do."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__access_token
@@ -668,7 +970,7 @@ msgstr "Aktivní"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add Guests"
-msgstr ""
+msgstr "Přidat hosty"
 
 #. module: appointment
 #. odoo-javascript
@@ -678,7 +980,7 @@ msgstr ""
 #: code:addons/appointment/static/src/views/list/list_renderer.xml:0
 #, python-format
 msgid "Add a Leave"
-msgstr ""
+msgstr "Přidat volno"
 
 #. module: appointment
 #. odoo-javascript
@@ -688,7 +990,7 @@ msgstr ""
 #: code:addons/appointment/static/src/views/list/list_renderer.xml:0
 #, python-format
 msgid "Add Closing Day(s)"
-msgstr ""
+msgstr "Přidat mimořádné uzavření"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -700,14 +1002,14 @@ msgstr "Zde přidejte funkci..."
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated_card
 msgid "Add a resource description here..."
-msgstr ""
+msgstr "Zde přidejte popis zdroje..."
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Add a specific appointment"
-msgstr ""
+msgstr "Přidat konkrétní schůzku"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -717,7 +1019,7 @@ msgstr "Zde přidejte úvodní zprávu..."
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Add more details about you"
-msgstr ""
+msgstr "Přidejte více informací o vás"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_manage_leaves
@@ -727,7 +1029,7 @@ msgstr "Přidat nebo odebrat volna ze schůzek"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add to Google Agenda"
-msgstr "Přidat do agendy Google"
+msgstr "Přidat do Google kalendáře"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -768,7 +1070,7 @@ msgstr "Povolit zrušení"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__allow_guests
 msgid "Allow Guests"
-msgstr ""
+msgstr "Povolit hosty"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__country_ids
@@ -786,25 +1088,25 @@ msgstr ""
 #: code:addons/appointment/controllers/calendar_view.py:0
 #, python-format
 msgid "An appointment type is needed to get the link."
-msgstr "Na získání odkazu je třeba typ schůzky."
+msgstr "Na vygenerování odkazu je třeba zvolit typ schůzky."
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_calendar_event_check_resource_and_appointment_type
 msgid "An event cannot book resources without an appointment type."
-msgstr ""
+msgstr "Událost nemůže rezervovat zdroje bez výběru typu schůzky."
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_slot.py:0
 #, python-format
 msgid "An unique type slot should have a start and end datetime"
-msgstr "Slot jedinečného typu by měl mít počáteční a závěrečné datum"
+msgstr "Unikátní časová dostupnost musí mít čas začátku a konce dostupnosti."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__name
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_view_form
 msgid "Answer"
-msgstr "Odpovědět"
+msgstr "Odpověď"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_answer_input_action_from_question
@@ -813,12 +1115,12 @@ msgstr "Odpovědět"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_tree
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Answer Breakdown"
-msgstr "Serie odpovědí"
+msgstr "Detail odpovědí"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_form
 msgid "Answer Input"
-msgstr "Vstup odpovědi"
+msgstr "Vložení odpovědi"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -837,7 +1139,7 @@ msgstr "Kdykoliv"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__all_assigned_resources
 msgid "Any User/Resource"
-msgstr ""
+msgstr "Jakýkoliv uživatel/zdroj"
 
 #. module: appointment
 #. odoo-python
@@ -845,6 +1147,8 @@ msgstr ""
 #, python-format
 msgid "Anytime appointment types should only have one user but got %s users"
 msgstr ""
+"Schůzky typu \"Kdykoliv\" by měly mít pouze jednoho uživatele, ale nyní mají"
+" %s uživatelů"
 
 #. module: appointment
 #. odoo-javascript
@@ -853,12 +1157,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_type_id
 #, python-format
 msgid "Appointment"
-msgstr "schůzka"
+msgstr "Schůzka"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_answer_input
 msgid "Appointment Answer Inputs"
-msgstr "Odpovědi na schůzku"
+msgstr "Vložení odpovědi na schůzku"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_answer_input_ids
@@ -870,7 +1174,7 @@ msgstr "Odpovědi na schůzku"
 #: model:mail.message.subtype,name:appointment.mt_appointment_type_booked
 #: model:mail.message.subtype,name:appointment.mt_calendar_event_booked
 msgid "Appointment Booked"
-msgstr "Schůzka rezervována"
+msgstr "Schůzka byla rezervována"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.appointment_booked_mail_template
@@ -897,7 +1201,7 @@ msgstr "Schůzka zrušena:  {{ object.appointment_type_id.name }}"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 msgid "Appointment Details"
-msgstr ""
+msgstr "Detaily schůzky"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_duration_formatted
@@ -907,14 +1211,14 @@ msgstr "Formátované trvání schůzky"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__appointment_duration_formatted
 msgid "Appointment Duration formatted in words"
-msgstr "Trvání schůzky ve formátu slov"
+msgstr "Trvání schůzky uvedeno slovy"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "Appointment Duration should be higher than 0.00."
-msgstr "Délka schůzky by měla být vyšší než 0.00."
+msgstr "Trvání schůzky by mělo být vyšší než 0,00."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_invite_id
@@ -939,7 +1243,7 @@ msgstr "Pozvánka na schůzku"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__meeting_ids
 msgid "Appointment Meetings"
-msgstr "Jmenovací schůzky"
+msgstr "Události schůzek"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
@@ -949,17 +1253,17 @@ msgstr "Název schůzky"
 #. module: appointment
 #: model:onboarding.onboarding,name:appointment.onboarding_onboarding_appointment
 msgid "Appointment Onboarding"
-msgstr "Přihlášení do schůzky"
+msgstr "Tutoriál schůzek"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_answer
 msgid "Appointment Question Answers"
-msgstr "Odpovědi na otázku na schůzku"
+msgstr "Odpovědi na otázku schůzek"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_question
 msgid "Appointment Questions"
-msgstr "Otázky na schůzku"
+msgstr "Otázky schůzek"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_resource
@@ -972,14 +1276,14 @@ msgstr "Zdroj schůzky"
 #. module: appointment
 #: model:ir.actions.server,name:appointment.resource_calendar_leaves_action_show_appointment_resources
 msgid "Appointment Resource Leaves"
-msgstr ""
+msgstr "Volno zdroje schůzky"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_ids
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_resource_ids
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_search
 msgid "Appointment Resources"
-msgstr ""
+msgstr "Zdroje schůzek"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
@@ -987,6 +1291,8 @@ msgid ""
 "Appointment Resources are the places or equipment people can book\n"
 "                (e.g. Tables, Tennis Courts, Meeting Rooms, ...)"
 msgstr ""
+"Zdroje schůzek jsou místa nebo vybavení, které si lidé mohou zarezervovat\n"
+"                (Např. Stoly, tenisové kurty, zasedačky, ...)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__name
@@ -1017,26 +1323,26 @@ msgstr "Typy schůzek"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment canceled"
-msgstr ""
+msgstr "Schůzka zrušena"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment canceled by: %(partners)s"
-msgstr "Schůzka zrušena o: %(partners)s"
+msgstr "Schůzku zrušil: %(partners)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment re-booked"
-msgstr ""
+msgstr "Schůzka přerezervována"
 
 #. module: appointment
 #: model:mail.template,name:appointment.appointment_booked_mail_template
 msgid "Appointment: Appointment Booked"
-msgstr "Schůzka: Schůzka zarezervována"
+msgstr "Schůzka: Schůzka rezervována"
 
 #. module: appointment
 #: model:mail.template,name:appointment.appointment_canceled_mail_template
@@ -1046,7 +1352,7 @@ msgstr "Schůzka: Schůzka zrušena"
 #. module: appointment
 #: model:mail.template,name:appointment.attendee_invitation_mail_template
 msgid "Appointment: Attendee Invitation"
-msgstr ""
+msgstr "Schůzka: Pozvánka na schůzku"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_slot
@@ -1073,7 +1379,7 @@ msgstr "Schůzky"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "Appointments by"
-msgstr "Schůzky podle"
+msgstr "Schůzky dle"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
@@ -1099,7 +1405,8 @@ msgstr "Způsob přiřazení"
 #, python-format
 msgid ""
 "At least one slot duration is shorter than the meeting duration (%s hours)"
-msgstr "Aspoň jeden časový úsek je kratší než trvání schůzky (%s hodin)"
+msgstr ""
+"Alespoň jedna časová dostupnost je kratší než trvání schůzky (%s hodin)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_attachment_count
@@ -1114,7 +1421,7 @@ msgstr "Účastníci"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_attended
 msgid "Attendees Arrived"
-msgstr ""
+msgstr "Došlí účastnicí"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__slot_ids
@@ -1126,7 +1433,7 @@ msgstr "Dostupnosti"
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__schedule_based_on
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_type_schedule_based_on
 msgid "Availability on"
-msgstr ""
+msgstr "Dostupnost dle"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__answer_ids
@@ -1136,12 +1443,12 @@ msgstr "Dostupné odpovědi"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_search
 msgid "Available In"
-msgstr ""
+msgstr "Dostupnost za"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__appointment_type_ids
 msgid "Available in"
-msgstr ""
+msgstr "Dostupnost za"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__avatar_1920
@@ -1171,13 +1478,13 @@ msgstr "Avatar 512"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Back to edit mode"
-msgstr ""
+msgstr "Zpět do editačního režimu"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__base_book_url
 #: model:ir.model.fields,field_description:appointment.field_appointment_onboarding_link__base_book_url
 msgid "Base Link URL"
-msgstr "Základnáíadresa URL odkazu"
+msgstr "Výchozí URL"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_ids
@@ -1192,50 +1499,50 @@ msgstr "Rezervováno"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__calendar_event_id
 msgid "Booking"
-msgstr ""
+msgstr "Rezervace"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
 msgid "Booking End"
-msgstr ""
+msgstr "Konec rezervace"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__booking_line_ids
 msgid "Booking Lines"
-msgstr ""
+msgstr "Položky rezervace"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_start
 msgid "Booking Start"
-msgstr ""
+msgstr "Začátek rezervace"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Booking for %(resource_name)s"
-msgstr ""
+msgstr "Rezervace pro %(resource_name)s"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Booking Name"
-msgstr ""
+msgstr "Název rezervace"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Bookings"
-msgstr ""
+msgstr "Rezervace"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_partner_ids
 msgid "CC to"
-msgstr "CC do"
+msgstr "V kopii"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_calendar_attendee
 msgid "Calendar Attendee Information"
-msgstr "Informace o účastníkovi v kalendáři"
+msgstr "Informace účastníka"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_calendar_event
@@ -1264,7 +1571,7 @@ msgstr "Zrušit/přeplánovat"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__canceled_mail_template_id
 msgid "Cancelation Email"
-msgstr ""
+msgstr "Email o zrušení"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__capacity
@@ -1274,27 +1581,27 @@ msgstr "Kapacita"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manual_confirmation_percentage
 msgid "Capacity Percentage"
-msgstr ""
+msgstr "Procento kapacity"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__capacity_reserved
 msgid "Capacity Reserved"
-msgstr ""
+msgstr "Rezervovaná kapacita"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__capacity_used
 msgid "Capacity Used"
-msgstr ""
+msgstr "Využitá kapacita"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__capacity_reserved
 msgid "Capacity reserved by the user"
-msgstr ""
+msgstr "Kapacita rezervována uživateli"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__capacity_used
 msgid "Capacity that will be used based on the capacity and resource selected"
-msgstr ""
+msgstr "Kapacita, která bude využita na základě kapacity a vybraného zdroje"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__category
@@ -1309,7 +1616,7 @@ msgstr "Zaškrtávací políčka (více odpovědí)"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Choose your appointment"
-msgstr ""
+msgstr "Zvolte si svou schůzku"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__company_id
@@ -1319,7 +1626,7 @@ msgstr "Společnost"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__disable_save_button
 msgid "Computes if alert is present"
-msgstr ""
+msgstr "Vypočítá se, pokud existuje upozornění"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.appointment_menu_config
@@ -1338,6 +1645,8 @@ msgid ""
 "Configure links that allow booking appointments with custom settings<br>\n"
 "                (e.g. a specific user only, a list of appointment types, ...)"
 msgstr ""
+"Nastaví odkazy, které umožňují rezervovat schůzku s vlastním nastavením<br>\n"
+"                (např. pouze pro specifickké uživatele nebo dle daného seznamu typů schůzek)"
 
 #. module: appointment
 #. odoo-javascript
@@ -1356,12 +1665,12 @@ msgstr "Potvrdit schůzku"
 #: code:addons/appointment/static/src/views/gantt/gantt_popover.xml:0
 #, python-format
 msgid "Confirm Check-In"
-msgstr ""
+msgstr "Potvrdit příchod"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
 msgid "Confirmation Email"
-msgstr "Potvrzující e-mail"
+msgstr "Potvrzovací email"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_confirmation
@@ -1371,7 +1680,7 @@ msgstr "Potvrzovací zpráva"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Confirmed"
-msgstr "Potvrzený"
+msgstr "Potvrzeno"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,button_text:appointment.appointment_onboarding_configure_calendar_provider_step
@@ -1416,14 +1725,14 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Continue <span class=\"oi oi-arrow-right\"/>"
-msgstr ""
+msgstr "Pokračovat <span class=\"oi oi-arrow-right\"/>"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.js:0
 #, python-format
 msgid "Copied!"
-msgstr ""
+msgstr "Zkopírováno!"
 
 #. module: appointment
 #. odoo-javascript
@@ -1431,17 +1740,17 @@ msgstr ""
 #: code:addons/appointment/static/src/components/appointment_onboarding/appointment_onboarding_invite_buttons.xml:0
 #, python-format
 msgid "Copy Link & Close"
-msgstr ""
+msgstr "Zkopírovat odkaz & zavřít"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Create Closing Day(s)"
-msgstr ""
+msgstr "Vytvořit uzavírací den (dny)"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
 msgid "Create an Appointment Resource"
-msgstr ""
+msgstr "Vytvořit zdroj schůzek"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
@@ -1449,6 +1758,8 @@ msgid ""
 "Create invites on the fly from your calendar and share them with anyone by "
 "using the Share Availabilities button."
 msgstr ""
+"Vytvářejte pozvánky z vašeho kalendáře za pochodu a sdílejte je komukoliv, "
+"pomocí tlačítka \"Sdílet dostupnosti\"."
 
 #. module: appointment
 #. odoo-python
@@ -1495,7 +1806,7 @@ msgstr "Vlastní"
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Custom Link"
-msgstr ""
+msgstr "Vlastní odkaz"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__partner_id
@@ -1507,7 +1818,7 @@ msgstr "Zákazník"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid ""
 "DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL APPOINTMENTS"
-msgstr ""
+msgstr "SEM VLOŽTE STAVEBNÍ BLOKY, ABY BYLY DOSTUPNÉ NAPŘÍČ VŠEMI SCHŮZKAMI"
 
 #. module: appointment
 #. odoo-python
@@ -1522,7 +1833,7 @@ msgstr "Datum"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Date &amp; time"
-msgstr ""
+msgstr "Datum &amp; čas"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
@@ -1539,7 +1850,8 @@ msgstr "Odmítnuto"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "Default slots cannot be applied to the %s appointment type category."
-msgstr "Výchozí časové úseky nelze použít na kategorii %s typu schůzky."
+msgstr ""
+"Výchozí časové dostupnosti nelze použít na  %s kategorii typu schůzky."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__slot_type
@@ -1549,10 +1861,10 @@ msgid ""
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
-"Definuje typ slotu. Opakující se slot je výchozí typ, na který se používá\n"
-"        typ schůzky, který se používá opakovaně v typu jako lékařská schůzka.\n"
-"        Jednorázový typ se používá pouze tehdy, když uživatel vytvoří vlastní typ schůzky pro klienta\n"
-"        definující neopakující se časový úsek (např. 10. dubna 2021 od 10 do 11 hodin) ze svého kalendáře."
+"Definuje typ dostupnosti. Opakující se dostupnost je výchozí typ, který se používá\n"
+"        na typ schůzky, která se pravidelně opakuje, jako třeba lékařská prohlídka.\n"
+"        Jednorázový typ se používá pouze tehdy, když uživatel vytváří vlastní typ schůzky pro klienta\n"
+"        pomocí neopakujících se časových dostupností (např. 10. Dubna 2021 od 10 do 11 hodin) ze svého kalendáře."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -1560,6 +1872,8 @@ msgid ""
 "Defines the type of video call link that will be used for the generated "
 "events. Keep it empty to prevent generating meeting url."
 msgstr ""
+"Určuje typ odkazu na videohovor, který bude použit při generování události. "
+"Pokud není vyplněno, nebude se generovat URL schůzky"
 
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_dental_care
@@ -1576,7 +1890,7 @@ msgstr "Popis"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__destination_resource_ids
 msgid "Destination combination"
-msgstr ""
+msgstr "Cílová kombinace"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -1589,7 +1903,8 @@ msgid ""
 "Determine if the slot englobe the whole day, mainly used for unique slot "
 "type"
 msgstr ""
-"Určete, zda slot zabírá celý den, používá se hlavně pro jedinečný typ slotu"
+"Určuje, zda dostupnost zabírá celý den, používá se hlavně pro unikátní typ "
+"dostupnosti"
 
 #. module: appointment
 #. odoo-javascript
@@ -1621,6 +1936,9 @@ msgid ""
 "            reserved for a slot exceeds the percentage chosen. The appointment is still considered as reserved for\n"
 "            the slots availability."
 msgstr ""
+"Zamezí automatickému příjimání schůzek z dané události v chvíli, kdy celková kapacita\n"
+"            rezervací pro dostupnost překročí zvolené procento. Schůzka je stále považována za zarezervovanou v ráci\n"
+"            časových dostupností."
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__select
@@ -1638,14 +1956,14 @@ msgstr "Trvání"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Email*"
-msgstr ""
+msgstr "Email*"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Email: %(email)s"
-msgstr ""
+msgstr "Email: %(email)s"
 
 #. module: appointment
 #. odoo-python
@@ -1662,12 +1980,12 @@ msgstr "Datum do"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__end_datetime
 msgid "End Datetime"
-msgstr ""
+msgstr "Datum a čas do"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__end_datetime
 msgid "End datetime for unique slot type management"
-msgstr "Závěrečné datum pro správu jedinečného typu slotu"
+msgstr "Závěrečné datum pro správu unikátního typu dostupnosti"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__end_hour
@@ -1682,7 +2000,7 @@ msgstr "Notifikace kalendářové události"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "Event Details"
-msgstr ""
+msgstr "Detaily události"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -1692,7 +2010,7 @@ msgstr "Každý"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Extra Comments..."
-msgstr ""
+msgstr "Dodatečné komentáře..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -1702,12 +2020,12 @@ msgstr "Dodatečná zpráva při potvrzení"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_confirmation
 msgid "Extra information provided once the appointment is booked."
-msgstr "Další informace poskytneme po rezervaci termínu."
+msgstr "Dodatečné informace, poskytnuté po rezervaci schůzky."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_appointment
 msgid "Follow, reschedule or cancel your appointments"
-msgstr ""
+msgstr "Odebírejte, přeplánujte nebo zrušte vaše schůzky"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_follower_ids
@@ -1718,7 +2036,7 @@ msgstr "Odběratelé"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "For"
-msgstr ""
+msgstr "Pro"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__5
@@ -1734,12 +2052,12 @@ msgstr "Od"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__avatars_display
 msgid "Front-End Display"
-msgstr "Přední displej"
+msgstr "Front-endové zobrazení"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Full name*"
-msgstr ""
+msgstr "Celé jméno*"
 
 #. module: appointment
 #. odoo-javascript
@@ -1747,7 +2065,7 @@ msgstr ""
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Get Share Link"
-msgstr "Získejte odkaz ke sdílení"
+msgstr "Získat odkaz pro sdílení"
 
 #. module: appointment
 #. odoo-python
@@ -1755,7 +2073,7 @@ msgstr "Získejte odkaz ke sdílení"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_onboarding_link_view_form
 #, python-format
 msgid "Get Your Link"
-msgstr "Získejte svůj odkaz"
+msgstr "Získejte váš odkaz"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_onboarding_link
@@ -1768,18 +2086,18 @@ msgid ""
 "Get the users linked to the appointment type selected to apply a domain on "
 "the users that can be selected"
 msgstr ""
-"Získejte uživatele propojené s typem schůzky vybraným pro použití domény na "
-"uživatele, které lze vybrat"
+"Získejte uživatele, propojené s typem schůzky vybraným pro použití domény na"
+" uživatele, které lze vybrat"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,title:appointment.appointment_onboarding_preview_invite_step
 msgid "Get your link"
-msgstr "Získejte svůj odkaz"
+msgstr "Získejte váš odkaz"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Google Agenda"
-msgstr "Agenda Google"
+msgstr "Google kalendář"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_search
@@ -1793,7 +2111,7 @@ msgstr "Seskupit podle"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Guest usage is limited to 10 customers for performance reason."
-msgstr ""
+msgstr "Účast hostů je z výkonnostních důvodů omezena na 10 zákazníků."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -1808,7 +2126,7 @@ msgstr "Má zprávu"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "How to join"
-msgstr ""
+msgstr "Jak se připojit"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__assign_method
@@ -1816,6 +2134,8 @@ msgid ""
 "How users and resources will be assigned to meetings customers book on your "
 "website."
 msgstr ""
+"Způsob, jakým budou uživatelé a zdroje přiřazovaný ke schůzkám, které si "
+"zákazníci zarezervují na vašem webu."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__id
@@ -1845,7 +2165,7 @@ msgstr "Pokud zaškrtnuto, některé zprávy mají chybu při doručení."
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, Odoo will not send emails"
-msgstr ""
+msgstr "Pokud není vyplněno, Odoo nebude posílat emaily"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__restrict_to_resource_ids
@@ -1853,6 +2173,8 @@ msgid ""
 "If empty, all resources are considered to be available.\n"
 "If set, only the selected resources will be taken into account for this slot."
 msgstr ""
+"Pokud není vyplněno, všechny zdroje jsou považovány za dostupné.\n"
+"Pokud vyplněno, pouze vybrané zdroje budou zohledněny pro tuto dostupnost."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__restrict_to_user_ids
@@ -1860,27 +2182,27 @@ msgid ""
 "If empty, all users are considered to be available.\n"
 "If set, only the selected users will be taken into account for this slot."
 msgstr ""
-"Pokud je prázdné, považují se všichni uživatelé za dostupné.\n"
-"Pokud je nastaveno, budou pro tento slot zohledněni pouze vybraní uživatelé."
+"Pokud není vyplněno, všichni uživatelé jsou považováni za dostupné.\n"
+"Pokud vyplněno, pouze vybraní uživatelé budou zohledněni pro tuto dostupnost."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, the meeting is considered as taking place online"
-msgstr ""
+msgstr "Pokud není vyplněno, schůzka se považuje za online schůzku"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
 msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "canceled."
-msgstr ""
+msgstr "Pokud vyplněno, bude zákazníkům poslán email při zrušení schůzky."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
 msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "confirmed."
-msgstr ""
+msgstr "Pokud vyplněno, bude zákazníkům poslán email při potvrzení schůzky."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__active
@@ -1888,8 +2210,8 @@ msgid ""
 "If the active field is set to False, it will allow you to hide the resource "
 "record without removing it."
 msgstr ""
-"Pokud je pole aktivní nastaveno na Nepravda, umožní vám to skrýt záznam "
-"zdroje bez jeho odstranění."
+"Pokud pole aktivní není vyplněno, tak tímto skryjete záznam zdroje bez jeho "
+"odstranění."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__active
@@ -1897,8 +2219,8 @@ msgid ""
 "If the active field is set to false, it will allow you to hide the event "
 "alarm information without removing it."
 msgstr ""
-"Pokud je aktivní pole nastaveno na hodnotu false, umožní vám skrýt informace"
-" o alarmu události bez jeho odebrání."
+"Pokud pole aktivní není vyplněno, tak tímto skryjete informace o výstrahách "
+"k události bez jejich odstranění."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__image_1920
@@ -1930,7 +2252,7 @@ msgstr "Obrázek 512"
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert Appointment Link"
-msgstr "Vložit odkaz na schůzku"
+msgstr "Vložte odkaz na schůzku"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form_insert_link
@@ -1949,18 +2271,18 @@ msgstr "Úvodní zpráva"
 #: code:addons/appointment/static/src/js/appointment_validation.js:0
 #, python-format
 msgid "Invalid Email"
-msgstr ""
+msgstr "Neplatný email"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_invite_ids
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
 msgid "Invitation Links"
-msgstr "Odkazy na pozvánky"
+msgstr "Zvací odkazy"
 
 #. module: appointment
 #: model:mail.template,description:appointment.attendee_invitation_mail_template
 msgid "Invitation email to new attendees of an appointment"
-msgstr ""
+msgstr "Zvací email pro nové účastníky schůzky"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.attendee_invitation_mail_template
@@ -2000,7 +2322,7 @@ msgstr "Připojte se na"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Join with Odoo Discuss"
-msgstr "Připojte se k Odoo Discuss"
+msgstr "Připojit se přes Odoo Diskuze"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__country_ids
@@ -2008,13 +2330,13 @@ msgid ""
 "Keep empty to allow visitors from any country, otherwise you only allow "
 "visitors from selected countries"
 msgstr ""
-"Chcete-li návštěvníkům z jakékoli země povolit vstup, ponechte pole prázdné,"
-" jinak povolíte vstup pouze návštěvníkům z vybraných zemí"
+"Ponechte pole prázdné pro povolení přístupu návštěvníků z jakékoliv země, v "
+"opačném případě povolíte pouze návštěvníky z vybraných zemí"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Keep it empty if the meeting takes place online"
-msgstr "Pokud schůzka probíhá online, ponechte to prázdné"
+msgstr "Ponechte prázdné, pokud schůzka probíhá online"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__write_uid
@@ -2047,19 +2369,19 @@ msgstr "Naposledy upraveno dne"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__allow_guests
 msgid "Let attendees invite guests when registering a meeting."
-msgstr ""
+msgstr "Povoluje účastníkům pozvat vlastní hosty během registrace na schůzku."
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Link Copied in your clipboard!"
-msgstr ""
+msgstr "Odkaz zkopírován do vaší schránky!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "Link Generator"
-msgstr "Generátor odkazu"
+msgstr "Generátor odkazů"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__book_url
@@ -2073,33 +2395,33 @@ msgstr "URL odkazu"
 #: code:addons/appointment/static/src/components/appointment_onboarding/appointment_onboarding_invite_buttons.js:0
 #, python-format
 msgid "Link copied to clipboard!"
-msgstr "Odkaz byl zkopírován do schránky!"
+msgstr "Odkaz zkopírován do schránky!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__linked_resource_ids
 msgid "Linked Resource"
-msgstr ""
+msgstr "Související zdroje"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__linked_resource_ids
 msgid "List of resources that can be combined to handle a bigger demand."
-msgstr ""
+msgstr "Seznam zdrojů, které můžete nakombinovat pro pokrytí vyšší poptávky."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__location_id
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Location"
-msgstr "Místo"
+msgstr "Lokace"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__location
 msgid "Location formatted"
-msgstr "Místo je naformátováno"
+msgstr "Formátovaný název lokace"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__location
 msgid "Location formatted for one line uses"
-msgstr "Místo naformátované na jednořádkové použití"
+msgstr "Formátovaný název lokace pro jednořádkové použití"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,done_text:appointment.appointment_onboarding_create_appointment_type_step
@@ -2111,13 +2433,13 @@ msgstr "To vypadá skvěle!"
 #: code:addons/appointment/static/src/xml/appointment_resources.xml:0
 #, python-format
 msgid "Make your choice"
-msgstr ""
+msgstr "Vyberte si"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manage_capacity
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_type_manage_capacity
 msgid "Manage Capacities"
-msgstr ""
+msgstr "Spravovat dostupnosti"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__resource_manage_capacity
@@ -2126,27 +2448,29 @@ msgid ""
 "Manage the maximum amount of people a resource can handle (e.g. Table for 6 "
 "persons, ...)"
 msgstr ""
+"Umožňuje spravovat maximální počet lidí, které můžou zdroje pokrýt (např. "
+"stůl pro 6 lidí,...)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manual_confirmation
 msgid "Manual Confirmation"
-msgstr ""
+msgstr "Manuální potrvzení"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Max in"
-msgstr ""
+msgstr "Maximálně do"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__capacity
 msgid ""
 "Maximum amount of people for this resource (e.g. Table for 6 persons, ...)"
-msgstr ""
+msgstr "Maximální množství lidí pro tento zdroj (např. stůl pro 6 lidí,...)"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__current_user
 msgid "Me (only with Users)"
-msgstr ""
+msgstr "Já (pouze s uživateli)"
 
 #. module: appointment
 #. odoo-python
@@ -2154,17 +2478,17 @@ msgstr ""
 #: code:addons/appointment/models/onboarding_onboarding_step.py:0
 #, python-format
 msgid "Meet With Me"
-msgstr "Seznamte se se mnou"
+msgstr "Potkejte se se mnou"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__videocall_redirection
 msgid "Meeting redirection URL"
-msgstr ""
+msgstr "URL pro přesměrování schůzky"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "Meetings"
-msgstr "Schůzky"
+msgstr "celkem"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_has_error
@@ -2174,7 +2498,7 @@ msgstr "Chyba při doručování zprávy"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Message from the Organizer"
-msgstr ""
+msgstr "Zpráva od organizátora"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_ids
@@ -2185,7 +2509,7 @@ msgstr "Zprávy"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Min"
-msgstr ""
+msgstr "Minimálně"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__1
@@ -2212,7 +2536,7 @@ msgstr "Moje odkazy"
 #: code:addons/appointment/controllers/portal.py:0
 #, python-format
 msgid "Name"
-msgstr "Název"
+msgstr "Jméno"
 
 #. module: appointment
 #. odoo-javascript
@@ -2225,12 +2549,12 @@ msgstr "Navigace"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_alarm__default_for_new_appointment_type
 msgid "New Appointments Default"
-msgstr "Výchozí nové schůzky"
+msgstr "Výchozí pro nové schůzky"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_answer_input_action_from_question
 msgid "No Answers yet!"
-msgstr ""
+msgstr "Zatím bez odpovědí!"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action
@@ -2241,12 +2565,12 @@ msgstr "Není nakonfigurována žádná schůzka"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_resources
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
-msgstr ""
+msgstr "Žádná schůzka nebo zdroje nebyly nalezeny"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
 msgid "No Custom Availabilities Shared!"
-msgstr ""
+msgstr "Nejsou sdílené žádné vlastní dostupnosti!"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -2256,17 +2580,17 @@ msgstr "Žádný obrázek"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_invite_action
 msgid "No Shared Links yet!"
-msgstr ""
+msgstr "Zatím bez sdílených odkazů!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_info_msg
 msgid "No User Assigned Message"
-msgstr "Žádná zpráva přiřazena uživatelem"
+msgstr "Zpráva při nepřiřazení uživatelů"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
 msgid "No custom appointment type has been created!"
-msgstr ""
+msgstr "Žádný vlastní typ schůzky nebyl vytvořen!"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_appointment_reporting
@@ -2284,7 +2608,7 @@ msgstr "Žádné"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_calendar_event__alarm_ids
 msgid "Notifications sent to all attendees to remind of the meeting."
-msgstr "Oznámení odeslané všem účastníkům na připomenutí schůzky."
+msgstr "Notifikace, odeslané všem účastníkům na připomenutí schůzky."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_needaction_counter
@@ -2309,12 +2633,12 @@ msgstr "Počet zpráv s chybou při doručení"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Number of people"
-msgstr ""
+msgstr "Počet lidí"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__event_videocall_source__discuss
 msgid "Odoo Discuss"
-msgstr ""
+msgstr "Odoo Diskuze"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_onboarding_onboarding
@@ -2324,17 +2648,17 @@ msgstr "Tutoriál"
 #. module: appointment
 #: model:onboarding.onboarding.step,step_image_alt:appointment.appointment_onboarding_configure_calendar_provider_step
 msgid "Onboarding Connect your calendar"
-msgstr ""
+msgstr "Tutoriál Napojte váš kalendář"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,step_image_alt:appointment.appointment_onboarding_preview_invite_step
 msgid "Onboarding Get your link"
-msgstr ""
+msgstr "Tutorial získejte váš odkaz"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,step_image_alt:appointment.appointment_onboarding_create_appointment_type_step
 msgid "Onboarding Set Your Availabilities"
-msgstr ""
+msgstr "Tutoriál Nastavte vaše dostupnosti"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_onboarding_onboarding_step
@@ -2361,7 +2685,7 @@ msgid ""
 " need to adapt %s."
 msgstr ""
 "V odkazech jsou povolena pouze písmena, čísla, podtržítka a pomlčky. Musíte "
-"se přizpůsobit %s."
+"upravit %s."
 
 #. module: appointment
 #. odoo-python
@@ -2416,73 +2740,73 @@ msgstr "Outlook"
 #: code:addons/appointment/controllers/portal.py:0
 #, python-format
 msgid "Past"
-msgstr "Minulý"
+msgstr "Uplynulé"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_booker_id
 msgid "Person who is booking the appointment"
-msgstr ""
+msgstr "Osoba, která si rezervuje schůzku"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Phone number*"
-msgstr ""
+msgstr "Telefonní číslo*"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Phone: %(phone)s"
-msgstr ""
+msgstr "Telefon: %(phone)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/appointment.py:0
 #, python-format
 msgid "Phone: %s"
-msgstr ""
+msgstr "Telefon: %s"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__resource_time
 msgid "Pick User/Resource then Time"
-msgstr ""
+msgstr "Zvolte si uživatele/zdroj a poté čas"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Pick a Work Schedule..."
-msgstr ""
+msgstr "Zvolte pracovní rozvrh..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Pick a work schedule to further restrict opening hours."
-msgstr ""
+msgstr "Zvolte pracovní rozvrh pro dodatečné omezení otevíracích hodin"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Pick a schedule to restrict openings"
-msgstr ""
+msgstr "Zvolte si rozvrh pro omezení otevíracích hodin"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Pick your availabilities"
-msgstr ""
+msgstr "Zvolte si své dostupnosti"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__placeholder
 msgid "Placeholder"
-msgstr "Ukázka"
+msgstr "Vzor"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Please, select another date."
-msgstr "Vyberte jiný den."
+msgstr "Zvolte si jiné datum"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_resource_ids
 msgid "Possible resources"
-msgstr ""
+msgstr "Možné zdroje"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_staff_user_ids
@@ -2502,7 +2826,7 @@ msgstr "Náhled"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Punctual"
-msgstr ""
+msgstr "Na čas"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__question_id
@@ -2567,7 +2891,7 @@ msgstr "Výkazy"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__question_required
 msgid "Required Answer"
-msgstr "Požadovaná odpověď"
+msgstr "Povinná odpověď"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__resource_id
@@ -2579,17 +2903,17 @@ msgstr "Zdroj"
 #: model:ir.actions.act_window,name:appointment.calendar_event_action_view_bookings_resources
 #: model:ir.actions.server,name:appointment.calendar_event_action_all_resources_bookings
 msgid "Resource Bookings"
-msgstr ""
+msgstr "Rezervace zdroje"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__calendar_id
 msgid "Resource Calendar"
-msgstr "Kalendář zdrojů"
+msgstr "Kalendář zdroje"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_resource_leaves
 msgid "Resource Leaves"
-msgstr ""
+msgstr "Volna zdroje"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_resource_action
@@ -2607,44 +2931,44 @@ msgstr "Zdroje"
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_resource_booking
 msgid "Resources Bookings"
-msgstr ""
+msgstr "Rezervace zdrojů"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resources_on_leave
 msgid "Resources intersecting with leave time"
-msgstr ""
+msgstr "Zdroje, prolínající se s volnem"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/portal.py:0
 #, python-format
 msgid "Responsible"
-msgstr "Odpovědný"
+msgstr "Odpovědná osoba"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
 msgid "Restrict to Resource"
-msgstr ""
+msgstr "Omezit na zdroj"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__restrict_to_resource_ids
 msgid "Restrict to Resources"
-msgstr ""
+msgstr "Omezit na zdroje"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
 msgid "Restrict to User"
-msgstr ""
+msgstr "Omezit na uživatele"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__restrict_to_user_ids
 msgid "Restrict to Users"
-msgstr "Omezit na uživatele"
+msgstr "Omezit na více uživatelů"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Restrict to specific Resources"
-msgstr ""
+msgstr "Omezit na konkrétní zdroje"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -2665,12 +2989,12 @@ msgstr "Sobota"
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_resources
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Schedule"
-msgstr "Kalendář pronájmů"
+msgstr "Časové dostupnosti"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__schedule_based_on
 msgid "Schedule Based On"
-msgstr ""
+msgstr "Naplánovat na základě"
 
 #. module: appointment
 #. odoo-javascript
@@ -2683,17 +3007,17 @@ msgstr "Naplánovat schůzku"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_appointment_reporting
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_report_all
 msgid "Schedule appointments to get statistics"
-msgstr "Naplánujte si schůzky a získejte statistiky"
+msgstr "Naplánujte si schůzky pro přípravu statistik"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__min_schedule_hours
 msgid "Schedule before (hours)"
-msgstr "Plán před (hodiny)"
+msgstr "Plánovat před (hodiny)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__max_schedule_days
 msgid "Schedule not after (days)"
-msgstr "Plánování ne po... (dnech)"
+msgstr "Plánovat ne později než (dny)"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -2726,7 +3050,7 @@ msgstr "Hledat v názvu"
 #: code:addons/appointment/controllers/portal.py:0
 #, python-format
 msgid "Search in Responsible"
-msgstr "Hledat v odpovědných"
+msgstr "Hledat v odpovědných osobách"
 
 #. module: appointment
 #. odoo-javascript
@@ -2738,24 +3062,24 @@ msgstr "Vyberte datumy"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_resource
 msgid "Select Time then User/Resource"
-msgstr ""
+msgstr "Vybrat čas a poté uživatele/zdroj"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_auto_assign
 msgid "Select Time then auto-assign"
-msgstr ""
+msgstr "Vybrat čas a poté automaticky přiřadit"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Select a date &amp; time"
-msgstr ""
+msgstr "Vyberte datum &amp; čas"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_slots.xml:0
 #, python-format
 msgid "Select a time"
-msgstr ""
+msgstr "Zvolte čas"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -2775,7 +3099,7 @@ msgstr "Počet vybraných schůzek"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_search
 msgid "Selection Questions"
-msgstr "Výběrové otázky"
+msgstr "Selekční otázky"
 
 #. module: appointment
 #: model:mail.template,description:appointment.appointment_canceled_mail_template
@@ -2785,7 +3109,7 @@ msgstr "Odesláno všem účastníkům při zrušení schůzky"
 #. module: appointment
 #: model:mail.template,description:appointment.appointment_booked_mail_template
 msgid "Sent to followers of an appointment type when a meeting is booked"
-msgstr ""
+msgstr "Odesláno odběratelům typu schůzky ve chvíli dokončení rezervace"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__sequence
@@ -2798,7 +3122,7 @@ msgstr "Sekvence"
 #. module: appointment
 #: model:onboarding.onboarding.step,title:appointment.appointment_onboarding_create_appointment_type_step
 msgid "Set your availabilities"
-msgstr "Nastavte si svoje možnosti"
+msgstr "Nastavte si své dostupnosti"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -2837,6 +3161,8 @@ msgid ""
 "Share calendar link allowing people to book meetings with you, your team or "
 "a resource."
 msgstr ""
+"Sdílejte odkaz na kalendář, čímž umožníte lidem si rezervovat schůzky s "
+"vámi, vaším týmem nebo zdroji."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_onboarding_link_view_form
@@ -2844,16 +3170,18 @@ msgid ""
 "Share this link to let people book meetings with you, your team or a "
 "resource."
 msgstr ""
+"Sdílejte tento odkaz, aby si lidé mohli rezervovat schůzky s vámi, vaším "
+"týmem nebo zdroji."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__shareable
 msgid "Shareable"
-msgstr ""
+msgstr "Lze sdílet"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Shared Links"
-msgstr ""
+msgstr "Sdílené odkazy"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__short_code
@@ -2869,12 +3197,12 @@ msgstr "Varování na formát krátkého kódu"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__short_code_unique_warning
 msgid "Short Code Unique Warning"
-msgstr "Jedinečné varování krátkého kódu"
+msgstr "Varování na unikátnost krátkého kódu"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__show
 msgid "Show Pictures"
-msgstr ""
+msgstr "Zobrazit obrázky"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__char
@@ -2884,12 +3212,12 @@ msgstr "Jednořádkový text"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__slot_type
 msgid "Slot type"
-msgstr "Typ slotu"
+msgstr "Typ dostupnosti"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_intro
 msgid "Small description of the appointment type."
-msgstr "Malý popisek typu schůzky."
+msgstr "Krátký popis typu schůzky."
 
 #. module: appointment
 #. odoo-javascript
@@ -2897,21 +3225,21 @@ msgstr "Malý popisek typu schůzky."
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Sorry,"
-msgstr "Promiňte,"
+msgstr "Litujeme,"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Sorry, it is no longer possible to schedule an appointment."
-msgstr ""
+msgstr "Litujeme, již není možné si zarezervovat schůzku."
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Sorry, there is not any more availability for the asked capacity."
-msgstr ""
+msgstr "Litujeme, již není žádná dostupnost pro poptávané kapacity."
 
 #. module: appointment
 #. odoo-javascript
@@ -2925,29 +3253,30 @@ msgstr "Litujeme, ale nemáme volnou schůzku."
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Sorry, we have no more slots available for this month."
-msgstr "Litujeme, ale pro tento měsíc nemáme k dispozici žádné další sloty."
+msgstr ""
+"Litujeme, ale pro tento měsíc nemáme k dispozici žádné další dostupnosti."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__source_resource_ids
 msgid "Source combination"
-msgstr ""
+msgstr "Kombince zdroje"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__appointment_resource_ids
 msgid "Specific Resources"
-msgstr ""
+msgstr "Konkrétní zdroje"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__specific_resources
 msgid "Specific Users/Resources"
-msgstr ""
+msgstr "Konkrétní uživatelé/zdroje"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.calendar_event_action_view_bookings_users
 #: model:ir.actions.server,name:appointment.calendar_event_action_all_users_appointments
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_staff_appointment
 msgid "Staff Bookings"
-msgstr ""
+msgstr "Rezervace personálu"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__leave_start_dt
@@ -2957,7 +3286,7 @@ msgstr "Počáteční datum"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__start_datetime
 msgid "Start Datetime"
-msgstr ""
+msgstr "Počátační datum a čas"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__event_start
@@ -2967,7 +3296,7 @@ msgstr "Datum zahájení události, bez času pro celodenní události"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__start_datetime
 msgid "Start datetime for unique slot type management"
-msgstr "Počáteční čas pro správu jedinečného typu slotu"
+msgstr "Počáteční čas pro správu unikátního typu dostupnosti"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__start_hour
@@ -2998,7 +3327,7 @@ msgstr "Odeslat"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__answer_input_ids
 msgid "Submitted Answers"
-msgstr "Předložené odpovědi"
+msgstr "Odeslané odpovědi"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__7
@@ -3013,7 +3342,7 @@ msgstr "Symptomy"
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_tennis_court
 msgid "Tennis Court"
-msgstr ""
+msgstr "Tenisový kurt"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__value_text_box
@@ -3034,17 +3363,17 @@ msgstr "Adresa URL je již obsazena, vyberte jiný kód."
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_type_check_resource_manual_confirmation_percentage
 msgid "The capacity percentage should be between 0 and 100%"
-msgstr ""
+msgstr "Procento kapacity musí být mezi 0 až 100%"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_booking_line_check_capacity_reserved
 msgid "The capacity reserved should be positive."
-msgstr ""
+msgstr "Rezervovaná kapacita by měla být kladná."
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_booking_line_check_capacity_used
 msgid "The capacity used can not be lesser than the capacity reserved"
-msgstr ""
+msgstr "Využitá kapacita nemůže být menší než rezervovaná kapacita"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_slot_check_start_and_end_hour
@@ -3063,21 +3392,21 @@ msgstr "Pole '%s' v cílovém modelu neexistuje"
 #: code:addons/appointment/models/appointment_invite.py:0
 #, python-format
 msgid "The following appointment type(s) have no resource assigned: %s."
-msgstr ""
+msgstr "Následující typ(y) schůzek nemají přiřazený zdroj: %s."
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_invite.py:0
 #, python-format
 msgid "The following appointment type(s) have no staff assigned: %s."
-msgstr "Následující typ(y) schůzek nemají přidělené zaměstnance: %s."
+msgstr "Následující typ(y) schůzek nemají přiřazený personál: %s."
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_question.py:0
 #, python-format
 msgid "The following question(s) do not have any selectable answers : %s"
-msgstr "Následující otázky nemají žádné odpovědi na výběr: %s"
+msgstr "Následující otázky nemají žádné selekční odpovědi: %s"
 
 #. module: appointment
 #. odoo-python
@@ -3087,13 +3416,13 @@ msgid ""
 "The following users are in restricted slots but they are not part of the "
 "available staff: %s"
 msgstr ""
-"Následující uživatelé jsou v omezených slotech, ale nejsou součástí "
-"dostupného personálu: %s"
+"Následující uživatelé jsou v omezené dostupnosti, ale nejsou mezi dostupným "
+"personálem: %s"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_resource_check_capacity
 msgid "The resource should have at least one capacity."
-msgstr ""
+msgstr "Zdroj musí mít alespoň jednu vymezenou kapacitu."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__sequence
@@ -3101,23 +3430,25 @@ msgid ""
 "The sequence dictates if the resource is going to be picked in higher priority against another resource\n"
 "        (e.g. for 2 tables of 4, the lowest sequence will be picked first)"
 msgstr ""
+"Sekvence určuje pořadí, v jakém budou zdroje vybrány, v případě více možných zdrojů\n"
+"        (např. při 2 stolech po čtyčech, bude první vybrán stůl s nižší sekvencí)"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Their first availability is"
-msgstr "Jejich první dostupnost je"
+msgstr "První dostupnost je"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "There is currently no appointment available"
-msgstr ""
+msgstr "Momentálně není dostupná žádná schůzka"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "There is no appointment linked to your account."
-msgstr "S vaším účtem není spojena žádná schůzka."
+msgstr "K vašemu účtu není přiřazena žádná schůzka"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__shareable
@@ -3125,6 +3456,8 @@ msgid ""
 "This allows to share the resource with multiple attendee for a same time "
 "slot (e.g. a bar counter)"
 msgstr ""
+"Toto umožňuje sdílet zdroj s více účastníky pro tu samou dostupnost (např. "
+"barový pult)"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3132,8 +3465,8 @@ msgid ""
 "This appointment type has no availabilities because it does not have any "
 "opening hours configured"
 msgstr ""
-"Tento typ schůzky nemá žádné dostupné služby, protože nemá nakonfigurovanou "
-"žádnou otevírací dobu"
+"Tento typ schůzky nemá žádnou dostupnost, protože nemá nastavenou otevírací "
+"dobu"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3141,6 +3474,7 @@ msgid ""
 "This appointment type has no availabilities because it has no resource "
 "assigned"
 msgstr ""
+"Tento typ schůzky nemá žádnou dostupnost, protože nemá přiřazen žádný zdroj"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3148,14 +3482,16 @@ msgid ""
 "This appointment type has no availabilities because it has no resource "
 "assigned and does not have any opening hours configured"
 msgstr ""
+"Tento typ schůzky nemá žádnou dostupnost, protože nemá přiřazen žádný zdroj "
+"nebo nemá nastavenou otevírací dobu"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid ""
 "This appointment type has no availabilities because it has no staff assigned"
 msgstr ""
-"Tento typ schůzky nemá žádné dostupné služby, protože nemá přidělené žádné "
-"zaměstnance"
+"Tento typ schůzky nemá žádnou dostupnost, protože nemá přiřazen žádný "
+"personál"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3163,17 +3499,15 @@ msgid ""
 "This appointment type has no availabilities because it has no staff assigned"
 " and does not have any opening hours configured"
 msgstr ""
-"Tento typ schůzky nemá žádné dostupné služby, protože nemá přidělené žádné "
-"zaměstnance a nakonfigurovanou žádnou otevírací dobu"
+"Tento typ schůzky nemá žádnou dostupnost, protože nemá přiřazen žádný "
+"personál nebo nemá nastavenou otevírací dobu"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__tz
 msgid ""
 "This field is used in order to define in which timezone the resources will "
 "work."
-msgstr ""
-"This field is used in order to define in which timezone the resources will "
-"work."
+msgstr "Toto pole se používá pro určení časového pásma ve které zdroj působí."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_edit_in_backend
@@ -3183,7 +3517,7 @@ msgstr "Toto je náhled formuláře na schůzku se zákazníkem."
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
 msgid "Display the Users'/Resources' picture on the Website."
-msgstr ""
+msgstr "Zobrazí obrázek Uživatele/Zdroje na webu."
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
@@ -3201,7 +3535,7 @@ msgstr "Časové pásmo"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__appointment_tz
 msgid "Timezone where appointment take place"
-msgstr "Časové pásmo, kde se uskuteční schůzka"
+msgstr "Časové pásmo, ve kterém se uskuteční schůzka"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3212,7 +3546,7 @@ msgstr "Časové pásmo:"
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__end_datetime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "To"
-msgstr "Na"
+msgstr "Do"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__access_token
@@ -3222,27 +3556,27 @@ msgstr "Token"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "Total"
-msgstr "Celkem"
+msgstr "Schůzky"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_total_capacity
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_tree
 msgid "Total Capacity"
-msgstr ""
+msgstr "Celková kapacita"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resource_total_capacity_reserved
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
 msgid "Total Capacity Reserved"
-msgstr ""
+msgstr "Celková rezervovaná kapacita"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resource_total_capacity_used
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
 msgid "Total Capacity Used"
-msgstr ""
+msgstr "Celková využitá kapacita"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -3274,17 +3608,17 @@ msgstr "Nejistý"
 #: code:addons/appointment/static/src/views/gantt/gantt_popover.xml:0
 #, python-format
 msgid "Unconfirm Check-In"
-msgstr ""
+msgstr "Odebrat příchod"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Until"
-msgstr "Konec"
+msgstr "Až"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Until (max)"
-msgstr "Do (max.)"
+msgstr "Až (max)"
 
 #. module: appointment
 #. odoo-python
@@ -3313,6 +3647,16 @@ msgid ""
 "\n"
 "            - Anytime: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
+"Využívá se pro definici kategorie typu schůzky.\n"
+"\n"
+"        Může být buď:\n"
+"\n"
+"            - Opakující se: výchozí kategorie s pravidelnými týdenními dostupnostmi. Přístupné z webu.\n"
+"            - Na čas: opakující se dostupnosti vymezené 2 datumy. Přístupné z webu.\n"
+"\n"
+"            - Vlastní: uživatel si vytvoří vlastní typ schůzky, s manuálně vyplněnými dostupnostmi, pro nasdílení s jinými uživateli\n"
+"\n"
+"            - Kdykoliv: uživatel si vytvoří vlastní typ schůzky, která bude obsahovat všechny jejich dostupnosti, pro nasdílení s jinými uživateli"
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user
@@ -3329,7 +3673,7 @@ msgstr "Uživatelé"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__event_videocall_source
 msgid "Videoconference Link"
-msgstr ""
+msgstr "Odkaz na videokonferenci"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__website_message_ids
@@ -3357,6 +3701,8 @@ msgid ""
 "When set, only the time slots that match both the appointment type configuration and the work schedule\n"
 "        will appear as available"
 msgstr ""
+"Pokud nastaveno, pouze časová dostupnost, která odpovídá typu schůzky a pracovnímu rozvrhu,\n"
+"        se zde objeví"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select
@@ -3371,7 +3717,7 @@ msgstr "S Outlook nebo Google"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__resource_calendar_id
 msgid "Working Hours"
-msgstr "Pracovní doba"
+msgstr "Pracovní rozvrh"
 
 #. module: appointment
 #. odoo-javascript
@@ -3379,33 +3725,34 @@ msgstr "Pracovní doba"
 #: code:addons/appointment/static/src/js/appointment_validation.js:0
 #, python-format
 msgid "You cannot invite more than 10 people"
-msgstr ""
+msgstr "Nemůžete pozvat více než 10 lidí"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_details_column
 msgid "Your Appointment"
-msgstr ""
+msgstr "Vaše schůzka"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid ""
 "Your appointment has been reserved! We will come back to you to confirm it."
 msgstr ""
+"Vaše schůzka byla rezervována! Více informací dostanete po jejím potvrzení."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Your appointment has successfully been booked!"
-msgstr ""
+msgstr "Vaše schůzka byla úspěšně rezervována!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Your appointment is in less than"
-msgstr "Vaše schůzka je kratší než"
+msgstr "Vaše schůzka nastane za méně než"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 msgid "Your choice"
-msgstr ""
+msgstr "Vaše volba"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3415,7 +3762,7 @@ msgstr "dny"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "e.g. \"During this meeting, we will...\""
-msgstr "Např. \"Během této schůzky budeme...\""
+msgstr "např. \"Během této schůzky budeme...\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3425,37 +3772,37 @@ msgstr "např. \"Je mi nevolno...\""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "e.g. \"John Doe - Tennis Court Booking\""
-msgstr ""
+msgstr "např. \"Jan Novák - Rezervace tenisového kurtu\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "e.g. \"Technical Demo\""
-msgstr "Např. \"Technické demo\""
+msgstr "např. \"Technické demo\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "e.g. \"Thank you for your trust, we look forward to meeting you!\""
-msgstr "např. \"Děkujeme za vaši důvěru, těšíme se na schůzku!\""
+msgstr "např. \"Děkujeme za vaši důvěru, těšíme se na naše setkání!\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "e.g. \"What are your symptoms?\""
-msgstr ""
+msgstr "např. \"Jaké jsou vaše symptomy?\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "e.g. +1(605)691-3277"
-msgstr "např. +1(605)691-3277"
+msgstr "např. +420 605 691 277"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "e.g. Booking for Mark"
-msgstr ""
+msgstr "např. Rezervace pro Marka"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "e.g. Inventory count and valuation"
-msgstr ""
+msgstr "např. Inventura a ocenění zásob"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -3465,7 +3812,7 @@ msgstr "např. Jan Novák"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "e.g. Tennis Court 1"
-msgstr ""
+msgstr "např. Tenisový kurt 1"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3474,6 +3821,10 @@ msgid ""
 "e.g. jane.doe@example.com\r\n"
 "..."
 msgstr ""
+"např. jan.novk@email.cz\r"
+" \n"
+"např. jana.novakova@priklad.cz\r\n"
+"..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -3482,11 +3833,14 @@ msgid ""
 "e.g. jane.doe@example.com\r\n"
 "..."
 msgstr ""
+"např. jan.novak@email.cz \r\n"
+"např. jana.novakova@priklad.cz\r\n"
+"..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "e.g. john.smith@example.com"
-msgstr ""
+msgstr "např. jan.novak@priklad.cz"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3505,55 +3859,55 @@ msgstr "není k dispozici pro schůzku."
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "has no more slots available for this month."
-msgstr "nemá pro tento měsíc k dispozici žádné další sloty."
+msgstr "nemá žádné další dostupnosti pro tento měsíc."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "hours before"
-msgstr "hodiny před"
+msgstr "hodin předem"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "hours from now!"
-msgstr "hodiny od teď!"
+msgstr "hodin od teď!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "people"
-msgstr ""
+msgstr "lidé"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "persons)"
-msgstr ""
+msgstr "osoby)"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "somebody"
-msgstr ""
+msgstr "někdo"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,description:appointment.appointment_onboarding_create_appointment_type_step
 msgid "to automate appointments"
-msgstr "automatizovat schůzky"
+msgstr "pro automatizace schůzek"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,description:appointment.appointment_onboarding_preview_invite_step
 msgid "to schedule appointments"
-msgstr "naplánovat schůzky"
+msgstr "pro naplánování schůzek"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "total capacity"
-msgstr ""
+msgstr "celková kapacita"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "when over"
-msgstr ""
+msgstr "pokud přes"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments

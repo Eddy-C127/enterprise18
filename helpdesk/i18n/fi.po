@@ -34,7 +34,7 @@
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2023
 # Martin Trigaux, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -42,7 +42,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,7 +87,7 @@ msgstr "%s (kopio)"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 msgid "(any of these tags)"
-msgstr ""
+msgstr "(jokin näistä tunnisteista)"
 
 #. module: helpdesk
 #: model:helpdesk.sla,name:helpdesk.helpdesk_sla_1
@@ -127,6 +127,10 @@ msgid ""
 "persons you specifically tag). Use <b>@ mentions</b> to ping a colleague or "
 "<b># mentions</b> to contact a group of people."
 msgstr ""
+"<b>Kirjaa muistiinpanot</b> sisäistä viestintää varten (ilmoitat vain niille"
+" henkilöille, jotka olet nimenomaisesti merkinnyt). Käytä "
+"<b>@-merkintöjä</b> kollegalle lähettämiseen tai <b>#-merkintöjä</b>, kun "
+"haluat ottaa yhteyttä ryhmään henkilöitä."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -154,6 +158,17 @@ msgid ""
 "    </div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"        Hyvä <t t-out=\"object.sudo().partner_id.name or 'Madam/Sir'\">rouva/herra</t>,<br><br>\n"
+"        Haluamme ilmoittaa teille, että olemme sulkeneet tukipyyntönne (viite <t t-out=\"object.id or ''\">15</t>). \n"
+"        Luotamme siihen, että tarjotut palvelut ovat vastanneet odotuksianne ja että olette löytäneet tyydyttävän ratkaisun ongelmaanne.<br><br>\n"
+"        Jos teillä on kuitenkin lisäkysymyksiä tai kommentteja, voitte vastata tähän sähköpostiin ja avata tikettinne uudelleen. \n"
+"        Tiimimme on aina valmiina auttamaan sinua, ja autamme mielellämme sinua mahdollisissa muissa kysymyksissä.<br><br>\n"
+"        Kiitos, että valitsit palvelumme ja yhteistyöstäsi tämän prosessin aikana. Arvostamme todella liiketoimintaasi ja arvostamme tilaisuutta palvella sinua.<br><br>\n"
+"        Ystävällisin terveisin,<br><br>\n"
+"       <t t-out=\"object.team_id.name or 'Helpdesk'\">Helpdesk-tiimi</t>.\n"
+"    </div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.rating_ticket_request_email_template
@@ -216,6 +231,63 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"access_token\" t-value=\"object._rating_get_access_token()\"></t>\n"
+"    <t t-set=\"partner\" t-value=\"object._rating_get_partner()\"></t>\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0;\">\n"
+"    <tbody>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"           <t t-if=\"partner.name\">\n"
+"                Hei <t t-out=\"partner.name or ''\">Brandon Freeman</t>,<br><br>\n"
+"           </t>\n"
+"           <t t-else=\"\">\n"
+"                Hei,<br>\n"
+"           </t>\n"
+"            Ota hetki aikaa ja arvioi palvelumme liittyen tukipyyntöön<strong t-out=\"object.name or ''\">\"Pöydän jalat ovat epätasapainossa</strong>\"\n"
+"           <t t-if=\"object._rating_get_operator().name\">\n"
+"                joka on osoitettu seuraavalle yritykselle: <strong t-out=\"object._rating_get_operator().name or ''\">Mitchell Admin</strong>.<br><br>\n"
+"           </t>\n"
+"           <t t-else=\"\">\n"
+"                .<br><br>\n"
+"           </t>\n"
+"        </td></tr>\n"
+"        <tr><td style=\"text-align: center;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"o_mail_notification\" style=\"width:100%; margin: 32px 0px 32px 0px;\">\n"
+"                <tr><td style=\"font-size: 14px;\">\n"
+"                    <strong>Kerro meille, mitä mieltä olet palveluistamme</strong><br>\n"
+"                    <span style=\"text-color: #888888\">(klikkaa yhtä näistä hymiöistä)</span>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"font-size: 14px;\">\n"
+"                    <table style=\"width:100%;text-align:center;margin-top:2rem;\">\n"
+"                        <tr>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/5\">\n"
+"                                    <img alt=\"Satisfied\" src=\"/rating/static/src/img/rating_5.png\" title=\"Satisfied\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/3\">\n"
+"                                    <img alt=\"Okay\" src=\"/rating/static/src/img/rating_3.png\" title=\"Okay\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/1\">\n"
+"                                    <img alt=\"Dissatisfied\" src=\"/rating/static/src/img/rating_1.png\" title=\"Dissatisfied\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td></tr>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"            Arvostamme palautettasi. Se auttaa meitä parantamaan jatkuvasti.\n"
+"           <br><br><span style=\"margin: 0px 0px 0px 0px; font-size: 12px; opacity: 0.5; color: #454748;\">Tämä asiakaskysely on lähetetty, koska lippusi on siirretty vaiheeseen <b t-out=\"object.stage_id.name or ''\">Käynnissä</b>.</span>\n"
+"        </td></tr>\n"
+"    </tbody>\n"
+"    </table>\n"
+"</div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.new_ticket_request_email_template
@@ -253,6 +325,38 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    Hyvä <t t-out=\"object.sudo().partner_id.name or object.sudo().partner_name or 'Madam/Sir'\">rouva/herra</t>,<br><br>\n"
+"    Pyyntönne\n"
+"    <t t-if=\"object.get_portal_url()\">\n"
+"        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">Pöydän jalat ovat epätasapainossa</a>\n"
+"    </t>\n"
+"    on vastaanotettu, ja <t t-out=\"object.team_id.name or ''\">VIP-tukitiimimme</t> tutkii sitä parhaillaan.<br><br>\n"
+"    Viite tukipyyntöösi on <strong><t t-out=\"object.ticket_ref or ''\">15</t></strong>.<br><br>\n"
+"\n"
+"    Jos haluat antaa lisätietoja, vastaa tähän sähköpostiin.<br><br>\n"
+"   <t t-if=\"object.team_id.show_knowledge_base\">\n"
+"        Älä epäröi vierailla <a t-attf-href=\"{{ object.team_id.get_knowledge_base_url() }}\">Ohjekeskuksessamme</a>. Saatat löytää vastauksen kysymykseesi.\n"
+"       <br><br>\n"
+"   </t>\n"
+"   <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
+"        Sulje tikettisi, jos et enää tarvitse apuamme. Kiitos yhteistyöstäsi.<br><br>\n"
+"   </t>\n"
+"\n"
+"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
+"        <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.get_portal_url()\" target=\"_blank\">Näytä lippu</a>\n"
+"        <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
+"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"'/my/ticket/close/%s/%s' % (object.id, object.access_token)\" target=\"_blank\">Sulje lippu</a>\n"
+"        </t>\n"
+"        <t t-if=\"object.team_id.use_website_helpdesk_forum or object.team_id.use_website_helpdesk_knowledge or object.team_id.use_website_helpdesk_slides\">\n"
+"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.team_id.feature_form_url\" target=\"_blank\">Käy Help Centerissä</a>\n"
+"        </t><br><br>\n"
+"    </div>\n"
+"\n"
+"    Ystävällisin terveisin,<br><br>\n"
+"   <t t-out=\"object.team_id.name or 'Helpdesk'\">Helpdesk-tiimi</t> \n"
+"</div>\n"
+"        "
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -281,6 +385,8 @@ msgid ""
 "<i class=\"fa fa-lg fa-clock-o me-2 mt-1\" aria-label=\"Sla Deadline\" "
 "title=\"Sla Deadline\"/>"
 msgstr ""
+"<i class=\"fa fa-lg fa-clock-o me-2 mt-1\" aria-label=\"SLA määräaika\" "
+"title=\"SLA määräaika\"/>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -290,6 +396,10 @@ msgid ""
 " this by navigating to the General Settings and configuring the "
 "corresponding field.</span>"
 msgstr ""
+"<i class=\"fa fa-lightbulb-o\" role=\"img\"/><span class=\"ms-2\">Jos haluat"
+" käyttää sähköpostialiaksia, ensimmäinen vaihe on määrittää alias-toimialue."
+" Tämä onnistuu siirtymällä Yleisasetuksiin ja määrittämällä vastaava "
+"kenttä.</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -301,6 +411,12 @@ msgid ""
 "                                    Type <b>:shortcut</b> to insert canned responses in your messages\n"
 "                                </span>"
 msgstr ""
+"<i class=\"fa fa-lightbulb-o\"/>\n"
+"                                <span class=\"ms-2\">\n"
+"                                    Kirjoita <b>/ticket</b> luodaksesi tukipyyntöjä<br/>\n"
+"                                    Kirjoita <b>/search_tickets</b> hakeaksesi tukipyyntöjä<br/>\n"
+"                                    Kirjoita <b>:shortcut</b> lisätäksesi valmiita vastauksia viesteihisi\n"
+"                                </span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -320,7 +436,7 @@ msgstr "<small class=\"text-end\">Vaihe:</small>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<small class=\"text-muted\">Assigned to</small>"
-msgstr ""
+msgstr "<small class=\"text-muted\">Vastuutettu</small>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -339,11 +455,14 @@ msgid ""
 "title=\"By saving this change, the customer phone number will also be "
 "updated.\" invisible=\"not is_partner_phone_update\"/>"
 msgstr ""
+"<span class=\"fa fa-exclamation-triangle text-warning oe_edit_only\" "
+"title=\"Tämän muutoksen tallentamalla asiakkaan puhelinnumero päivitetään.\""
+" invisible=\"not is_partner_phone_update\"/>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_activity
 msgid "<span class=\"m-1\"/>#"
-msgstr ""
+msgstr "<span class=\"m-1\"/>#"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -353,12 +472,12 @@ msgstr "<span class=\"o_field_widget o_readonly_modifier\">Työaika</span>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "<span class=\"o_stat_text order-2\">Open</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text order-2\">Avaa</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "<span class=\"o_stat_text order-2\">Tickets</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text order-2\">Tukipyynnöt</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -367,6 +486,9 @@ msgid ""
 "                                    Avg. Rating\n"
 "                                </span>"
 msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                                    Keskim. arvosana\n"
+"                                </span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_partner_form_inherit_helpdesk
@@ -416,7 +538,7 @@ msgstr "<span>Raportointi</span>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span>SLA Success Rate</span>"
-msgstr ""
+msgstr "<span>SLA:n onnistumisaste</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -434,6 +556,7 @@ msgid ""
 "<span>Your ticket has successfully been closed. Thank you for your "
 "collaboration.</span>"
 msgstr ""
+"<span>Tukipyyntösi on onnistuneesti suljettu. Kiitos yhteistyöstäsi.</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -448,7 +571,7 @@ msgstr "<strong class=\"col-lg-2\">Hallinnoija</strong>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<strong class=\"col-lg-3\">Reported on</strong>"
-msgstr ""
+msgstr "<strong class=\"col-lg-3\">Raportoitu</strong>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -659,7 +782,7 @@ msgstr "Kaikki kuitit"
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_team__privacy_visibility__internal
 msgid "All internal users (company)"
-msgstr ""
+msgstr "Kaikki sisäiset käyttäjät (yritys)"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -759,6 +882,9 @@ msgid ""
 "that is not publicly available, or there is no customer associated with the "
 "ticket."
 msgstr ""
+"Tällä hetkellä asiakkaan esikatselu ei ole käytettävissä. Asiakas ei pääse "
+"käsiksi nykyiseen tukipyyntöön, koska se kuuluu helpdesk-tiimiin, joka ei "
+"ole julkisesti saatavilla, tai tikettiin ei ole liitetty asiakasta."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_attachment_count
@@ -769,7 +895,7 @@ msgstr "Liitteiden määrä"
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_auto_assignment
 msgid "Auto Assigment"
-msgstr ""
+msgstr "Automaattinen vastuuttaminen"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -905,6 +1031,8 @@ msgid ""
 "Centralize, manage, share and grow your knowledge library. Allow customers "
 "to search your articles in the help center for answers to their questions."
 msgstr ""
+"Keskitä, hallitse, jaa ja kasvata tietämyskirjastoasi. Anna asiakkaiden "
+"hakea artikkeleitasi help centeristä vastauksia kysymyksiinsä."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1271,7 +1399,7 @@ msgstr "Määräaika"
 #: code:addons/helpdesk/static/src/views/helpdesk_ticket_pivot/helpdesk_ticket_pivot_model.js:0
 #, python-format
 msgid "Deadline reached"
-msgstr ""
+msgstr "Määräaika saavutettu"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_defaults
@@ -1330,7 +1458,7 @@ msgstr "Hylkää"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__display_extra_info
 msgid "Display Extra Info"
-msgstr ""
+msgstr "Näytä lisätiedot"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__display_name
@@ -1511,7 +1639,7 @@ msgstr "Seuraa kaikkia tiimin tukipyyntöjä"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_my_home_helpdesk_ticket
 msgid "Follow all your helpdesk tickets"
-msgstr ""
+msgstr "Seuraa kaikkia helpdesk-tukipyyntöjä"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
@@ -1546,6 +1674,8 @@ msgid ""
 "Get in touch with your website visitors. Create and search tickets from your"
 " conversations. Answer in an instant by using canned responses."
 msgstr ""
+"Ota yhteyttä verkkosivustosi kävijöihin. Luo ja etsi tukipyyntöjä "
+"keskusteluistasi. Vastaa hetkessä käyttämällä esikypsennettyjä vastauksia."
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_analysis_action
@@ -1565,7 +1695,7 @@ msgstr "Hanki tukipyynnöt verkkolomakkeen kautta"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Grant discounts, free products or free shipping"
-msgstr ""
+msgstr "Myönnetään alennuksia, ilmaisia tuotteita tai ilmainen toimitus"
 
 #. module: helpdesk
 #. odoo-python
@@ -1576,6 +1706,9 @@ msgid ""
 "followers. Employees automatically get access to the tickets they are "
 "assigned to."
 msgstr ""
+"Anna työntekijöille pääsy helpdesk-tiimiin tai tukipyyntöihin lisäämällä "
+"heidät seuraajiksi. Työntekijät saavat automaattisesti pääsyn niihin "
+"tukipyyntöihin, joihin heidät on osoitettu."
 
 #. module: helpdesk
 #. odoo-python
@@ -1586,6 +1719,9 @@ msgid ""
 " followers. Customers automatically get access to their tickets in their "
 "portal."
 msgstr ""
+"Anna portaalin käyttäjille pääsy helpdesk-tiimiin tai tukipyyntöihin "
+"lisäämällä heidät seuraajiksi. Asiakkaat saavat automaattisesti pääsyn "
+"tukipyyntöihinsä portaalissaan."
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__kanban_state__done
@@ -1713,7 +1849,7 @@ msgstr "Asiakaspalvelutiimi"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_search
 msgid "Helpdesk Team Search"
-msgstr ""
+msgstr "Helpdesk-tiimin haku"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_team_action
@@ -1758,7 +1894,7 @@ msgstr "Helpdesk: Tukipyynnön arviointipyyntö"
 #. module: helpdesk
 #: model:mail.template,name:helpdesk.new_ticket_request_email_template
 msgid "Helpdesk: Ticket Received"
-msgstr ""
+msgstr "Helpdesk: Vastaanotettu tukipyyntö"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2058,6 +2194,8 @@ msgid ""
 " to search your forum posts in the help center for answers to their "
 "questions."
 msgstr ""
+"Anna asiakkaidesi vastata toistensa kysymyksiin foorumilla. Anna asiakkaiden"
+" etsiä vastauksia kysymyksiinsä foorumin viesteistä help centerissä."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2563,7 +2701,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "People to whom this team and its tickets will be visible"
-msgstr ""
+msgstr "Henkilöt, joille tämä ryhmä ja sen tukipyynnöt ovat näkyvissä"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__rating_percentage_satisfaction
@@ -2586,6 +2724,9 @@ msgid ""
 "Percentage of tickets whose SLAs have successfully been reached on time over"
 " the total number of tickets closed within the past 7 days."
 msgstr ""
+"Niiden tukipyyntöjen prosenttiosuus, joiden SLA:t on saavutettu ajallaan, "
+"suhteessa viimeisten 7 päivän aikana suljettujen tukipyyntöjen "
+"kokonaismäärään."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2816,7 +2957,7 @@ msgstr "Numero"
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_refund_status
 msgid "Refund Status"
-msgstr ""
+msgstr "Hyvityksen tila"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_credit_notes
@@ -2831,7 +2972,7 @@ msgstr "Korjaus"
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_repair_status
 msgid "Repair Status"
-msgstr ""
+msgstr "Korjauksen tila"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_product_repairs
@@ -2861,7 +3002,7 @@ msgstr "Palauta"
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_return_status
 msgid "Return Status"
-msgstr ""
+msgstr "Paluun tila"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2960,7 +3101,7 @@ msgstr "SLA-tila Epäonnistunut"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_success
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__sla_success
 msgid "SLA Status Success"
-msgstr ""
+msgstr "SLA-tila Onnistuminen"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__sla_status__reached
@@ -2974,7 +3115,7 @@ msgstr "SLA onnistunut"
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "SLA Success Rate"
-msgstr ""
+msgstr "SLA:n onnistumisaste"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__sla_status__ongoing
@@ -3098,6 +3239,11 @@ msgid ""
 "team. Automatically send an email to customers when a ticket reaches a "
 "specific stage in a helpdesk team by setting this template on that stage."
 msgstr ""
+"Lähetä asiakkaille vahvistussähköposti, jossa ilmoitetaan, että heidän "
+"helpdesk-tukipyyntönsä on vastaanotettu ja että helpdesk-tiimi tarkastelee "
+"sitä parhaillaan. Lähetä automaattisesti sähköpostiviesti asiakkaille, kun "
+"tukipyyntö saavuttaa tietyn vaiheen helpdesk-tiimissä asettamalla tämän "
+"mallin kyseiseen vaiheeseen."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__sequence
@@ -3114,7 +3260,7 @@ msgstr "Palvelu"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Set an Alias Domain"
-msgstr ""
+msgstr "Alias-toimialueen määrittäminen"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3147,6 +3293,8 @@ msgid ""
 "customers to search your eLearning courses in the help center for answers to"
 " their questions."
 msgstr ""
+"Jaa esityksiä ja videoita ja järjestä ne kursseiksi. Anna asiakkaiden hakea "
+"eLearning-kursseillesi vastauksia kysymyksiinsä help centeristä."
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_rating
@@ -3441,6 +3589,8 @@ msgid ""
 "This SLA Policy will apply to tickets matching ALL of the following "
 "criteria:"
 msgstr ""
+"Tätä SLA-käytäntöä sovelletaan tukipyyntöihin, jotka täyttävät KAIKKI "
+"seuraavista kriteereistä:"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__campaign_id
@@ -3475,6 +3625,7 @@ msgstr "Tämä vaihe on valmis. Napsauta estääksesi tai asettaaksesi käynniss
 #, python-format
 msgid "This ticket was closed %s hours after its SLA deadline."
 msgstr ""
+"Tämä tukipyyntö suljettiin %s tuntia sen SLA-ajan päättymisen jälkeen."
 
 #. module: helpdesk
 #. odoo-python
@@ -3482,6 +3633,8 @@ msgstr ""
 #, python-format
 msgid "This ticket was successfully closed %s hours before its SLA deadline."
 msgstr ""
+"Tämä tukipyyntö suljettiin onnistuneesti %s tuntia ennen sen SLA-ajan "
+"päättymistä."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_confirmation_wizard
@@ -3541,7 +3694,7 @@ msgstr "Tukipyyntö suljettu"
 #. module: helpdesk
 #: model:mail.template,subject:helpdesk.solved_ticket_request_email_template
 msgid "Ticket Closed - Reference {{ object.id if object.id else 15 }}"
-msgstr ""
+msgstr "Tukipyyntö suljettu - Viite {{ object.id if object.id else 15 }}"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__ticket_count
@@ -3591,7 +3744,7 @@ msgstr "Tukipyynnön SLA-tila"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.quick_create_ticket_form
 msgid "Ticket Title"
-msgstr ""
+msgstr "Tukipyynnön otsikko"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
@@ -3845,7 +3998,7 @@ msgstr "Järjestä päivittäinen työsi <b>toimintojen</b> avulla."
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_alias
 msgid "Use Alias"
-msgstr ""
+msgstr "Käytä aliasta"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__use_coupons
@@ -3881,6 +4034,9 @@ msgid ""
 "customers. Add new people to the followers' list to make them aware of the "
 "progress of this ticket."
 msgstr ""
+"Käytä keskustelua <b>sähköpostien lähettämiseen</b> ja tehokkaaseen "
+"viestintään asiakkaidesi kanssa. Lisää uusia henkilöitä seuraajalistalle, "
+"jotta he saavat tietää tämän tukipyynnön edistymisestä."
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_res_users
@@ -3901,7 +4057,7 @@ msgstr "Näkyvyys"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Visibility &amp; Assignment"
-msgstr ""
+msgstr "Näkyvyys ja osoitus"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3920,6 +4076,8 @@ msgid ""
 "We hope to have addressed your request satisfactorily. If you no longer need"
 " our assistance, please close this ticket. Thank you for your collaboration."
 msgstr ""
+"Toivomme, että olemme vastanneet pyyntöösi tyydyttävästi. Jos et enää "
+"tarvitse apuamme, sulje tämä tukipyyntö. Kiitos yhteistyöstäsi."
 
 #. module: helpdesk
 #: model_terms:helpdesk.team,description:helpdesk.helpdesk_team1
@@ -3956,7 +4114,7 @@ msgstr "Verkkosivun viestihistoria"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__time
 msgid "Within"
-msgstr ""
+msgstr "Välillä"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__resource_calendar_id
@@ -4088,7 +4246,7 @@ msgstr "tiimihaku"
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 #, python-format
 msgid "tickets"
-msgstr ""
+msgstr "liput"
 
 #. module: helpdesk
 #: model:mail.template,subject:helpdesk.rating_ticket_request_email_template
