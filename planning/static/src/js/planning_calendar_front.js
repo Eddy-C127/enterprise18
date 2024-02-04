@@ -60,14 +60,12 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
         if (defaultView && (employeeSlotsFcData || openSlotsIds)) {
             this.calendar = new FullCalendar.Calendar($("#calendar_employee")[0], {
                 // Settings
-                plugins: ["luxon", "dayGrid", "timeGrid", "list", "interraction"],
                 locale: locale,
-                defaultView: defaultView,
+                initialView: defaultView,
                 navLinks: true, // can click day/week names to navigate views
-                eventLimit: 3, // allow "more" link when too many events
+                dayMaxEventRows: 3, // allow "more" link when too many events
                 titleFormat: titleFormat,
                 initialDate: defaultStart,
-                timeFormat: 'LT',
                 displayEventEnd: true,
                 height: 'auto',
                 eventDidMount: this.onEventDidMount,
@@ -81,7 +79,7 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
                 },
                 slotMinTime: minTime,
                 slotMaxTime: maxTime,
-                header: calendarHeaders,
+                headerToolbar: calendarHeaders,
                 // Data
                 events: employeeSlotsFcData,
                 // Event Function is called when clicking on the event
@@ -102,7 +100,7 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
         await loadBundle("web.fullcalendar_lib");
     },
     onEventDidMount: function (calRender) {
-        const eventContent = calRender.el.querySelectorAll('.fc-time, .fc-title');
+        const eventContent = calRender.el.querySelectorAll('.fc-event-time, .fc-event-title');
         if (calRender.view.type !== 'listMonth') {
             calRender.el.classList.add('px-2', 'py-1');
         }
@@ -126,7 +124,7 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
             percentSpan.textContent = `(${allocatedPercent}%)`;
             timeElement.appendChild(percentSpan);
         }
-        calRender.el.querySelector('.fc-time').appendChild(timeElement);
+        calRender.el.querySelector('.fc-event-time')?.appendChild(timeElement);
 
         if (calRender.event.extendedProps.request_to_switch && !calRender.event.extendedProps.allow_self_unassign) {
             calRender.el.style.borderColor = 'rgb(255, 172, 0)';

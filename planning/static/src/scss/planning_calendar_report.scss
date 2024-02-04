@@ -1,11 +1,11 @@
 #calendar_employee {
-    .fc-widget-header {
+    .fc-col-header, .fc-cell-shaded {
         @include o-bg-color($o-brand-odoo, $important: false);
-        .fc-list-heading-main, .fc-list-heading-alt {
-            color: white;
+        a {
+            color: inherit;
         }
     }
-    .fc-more-cell {
+    .fc-more-link {
         color: $o-enterprise-action-color;
     }
 }
