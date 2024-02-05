@@ -62,18 +62,17 @@ class WhatsAppTemplateButton(models.Model):
                             continue
             button.has_invalid_number = False
 
-    @api.depends('button_type', 'url_type', 'website_url')
+    @api.depends('button_type', 'url_type', 'website_url', 'name')
     def _compute_variable_ids(self):
         dynamic_urls = self.filtered(lambda button: button.button_type == 'url' and button.url_type == 'dynamic')
         to_clear = self - dynamic_urls
         for button in dynamic_urls:
-            name = '{{1}}'  # for now the var is mandatory and automatically added at the end of the url
             if button.variable_ids:
                 button.variable_ids = [
                     (1, button.variable_ids[0].id, {
                         'demo_value': button.website_url + '???',
                         'line_type': 'button',
-                        'name': name,
+                        'name': button.name,
                         'wa_template_id': button.wa_template_id.id,
                     }),
                 ]
@@ -82,7 +81,7 @@ class WhatsAppTemplateButton(models.Model):
                     (0, 0, {
                         'demo_value': button.website_url + '???',
                         'line_type': 'button',
-                        'name': name,
+                        'name': button.name,
                         'wa_template_id': button.wa_template_id.id,
                     }),
                 ]
